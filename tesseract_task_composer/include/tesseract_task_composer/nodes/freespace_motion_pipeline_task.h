@@ -44,20 +44,8 @@ public:
    * @param name The name give to the task
    */
   FreespaceMotionPipelineTask(std::string name = "FreespaceMotionPipelineTask");
-  FreespaceMotionPipelineTask(bool check_input,
-                              bool run_simple_planner,
-                              bool post_collision_check,
-                              bool post_smoothing,
-                              std::string name = "FreespaceMotionPipelineTask");
   FreespaceMotionPipelineTask(std::string input_key,
                               std::string output_key,
-                              std::string name = "FreespaceMotionPipelineTask");
-  FreespaceMotionPipelineTask(std::string input_key,
-                              std::string output_key,
-                              bool check_input,
-                              bool run_simple_planner,
-                              bool post_collision_check,
-                              bool post_smoothing,
                               std::string name = "FreespaceMotionPipelineTask");
   ~FreespaceMotionPipelineTask() override = default;
   FreespaceMotionPipelineTask(const FreespaceMotionPipelineTask&) = delete;
@@ -78,11 +66,6 @@ protected:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   void ctor(std::string input_key, std::string output_key);
-
-  bool check_input_{ true };
-  bool run_simple_planner_{ true };
-  bool post_collision_check_{ true };
-  bool post_smoothing_{ false };
 };
 }  // namespace tesseract_planning
 

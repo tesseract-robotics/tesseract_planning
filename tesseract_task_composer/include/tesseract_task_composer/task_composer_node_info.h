@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
-#include <tesseract_environment/environment.h>
+#include <tesseract_common/any.h>
 
 namespace tesseract_planning
 {
@@ -56,14 +56,17 @@ public:
   TaskComposerNodeInfo(TaskComposerNodeInfo&&) = default;
   TaskComposerNodeInfo& operator=(TaskComposerNodeInfo&&) = default;
 
-  /** @brief Value returned from the Task on completion */
-  int return_value{ std::numeric_limits<int>::lowest() };
+  /** @brief The name */
+  std::string name;
 
   /** @brief The task uuid */
   boost::uuids::uuid uuid{};
 
-  /** @brief The name */
-  std::string name;
+  /** @brief Store the results of the task */
+  tesseract_common::Any results;
+
+  /** @brief Value returned from the Task on completion */
+  int return_value{ std::numeric_limits<int>::lowest() };
 
   /** @brief Status message */
   std::string message;

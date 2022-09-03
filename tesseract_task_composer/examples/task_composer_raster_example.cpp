@@ -9,7 +9,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_graph.h>
 #include <tesseract_task_composer/task_composer_data_storage.h>
-#include <tesseract_task_composer/nodes/raster_motion_task.h>
+#include <tesseract_task_composer/nodes/raster_ft_motion_task.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 
 #include <tesseract_common/types.h>
@@ -58,7 +58,7 @@ int main()
   auto task_input = std::make_shared<TaskComposerInput>(env, profiles, task_data);
 
   // Create raster task
-  TaskComposerTask::UPtr task = std::make_unique<RasterMotionTask>("input_program", "output_program");
+  TaskComposerTask::UPtr task = std::make_unique<RasterFtMotionTask>("input_program", "output_program");
 
   // Save dot graph
   std::ofstream tc_out_data;

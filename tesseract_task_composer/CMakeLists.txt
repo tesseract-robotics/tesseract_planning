@@ -67,6 +67,7 @@ add_library(
   src/nodes/cartesian_motion_pipeline_task.cpp
   src/nodes/check_input_task.cpp
   src/nodes/continuous_contact_check_task.cpp
+  src/nodes/descartes_global_motion_pipeline_task.cpp
   src/nodes/descartes_motion_pipeline_task.cpp
   src/nodes/discrete_contact_check_task.cpp
   src/nodes/done_task.cpp
@@ -79,12 +80,21 @@ add_library(
   src/nodes/motion_planner_task.cpp
   src/nodes/ompl_motion_pipeline_task.cpp
   src/nodes/profile_switch_task.cpp
-  src/nodes/raster_global_pipeline_task.cpp
-  src/nodes/raster_motion_task.cpp
-  src/nodes/raster_only_global_pipeline_task.cpp
-  src/nodes/raster_only_motion_task.cpp
+  src/nodes/raster_ct_global_pipeline_task.cpp
+  src/nodes/raster_ct_motion_task.cpp
+  src/nodes/raster_ct_only_global_pipeline_task.cpp
+  src/nodes/raster_ct_only_motion_task.cpp
+  src/nodes/raster_ct_only_pipeline_task.cpp
+  src/nodes/raster_ct_pipeline_task.cpp
+  src/nodes/raster_ft_global_pipeline_task.cpp
+  src/nodes/raster_ft_motion_task.cpp
+  src/nodes/raster_ft_only_global_pipeline_task.cpp
+  src/nodes/raster_ft_only_motion_task.cpp
+  src/nodes/raster_ft_only_pipeline_task.cpp
+  src/nodes/raster_ft_pipeline_task.cpp
   src/nodes/ruckig_trajectory_smoothing_task.cpp
   src/nodes/min_length_task.cpp
+  src/nodes/simple_motion_pipeline_task.cpp
   src/nodes/start_task.cpp
   src/nodes/time_optimal_parameterization_task.cpp
   src/nodes/trajopt_motion_pipeline_task.cpp
@@ -156,15 +166,15 @@ install(
   PATTERN "*.h"
   PATTERN ".svn" EXCLUDE)
 
-#if(TESSERACT_ENABLE_EXAMPLES)
-  add_subdirectory(examples)
-#endif()
+# if(TESSERACT_ENABLE_EXAMPLES)
+add_subdirectory(examples)
+# endif()
 
 # if(TESSERACT_ENABLE_TESTING)
 enable_testing()
 add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
 add_subdirectory(test)
-#endif()
+# endif()
 
 if(TESSERACT_PACKAGE)
   tesseract_cpack(

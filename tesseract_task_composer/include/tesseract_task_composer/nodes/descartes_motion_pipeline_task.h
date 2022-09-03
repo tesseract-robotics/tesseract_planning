@@ -44,22 +44,8 @@ public:
    * @param name The name give to the task
    */
   DescartesMotionPipelineTask(std::string name = "DescartesMotionPipelineTask");
-  DescartesMotionPipelineTask(bool check_input,
-                              bool run_simple_planner,
-                              bool post_collision_check,
-                              bool post_time_parameterization,
-                              bool post_smoothing,
-                              std::string name = "DescartesMotionPipelineTask");
   DescartesMotionPipelineTask(std::string input_key,
                               std::string output_key,
-                              std::string name = "DescartesMotionPipelineTask");
-  DescartesMotionPipelineTask(std::string input_key,
-                              std::string output_key,
-                              bool check_input,
-                              bool run_simple_planner,
-                              bool post_collision_check,
-                              bool post_time_parameterization,
-                              bool post_smoothing,
                               std::string name = "DescartesMotionPipelineTask");
   ~DescartesMotionPipelineTask() override = default;
   DescartesMotionPipelineTask(const DescartesMotionPipelineTask&) = delete;
@@ -80,12 +66,6 @@ protected:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   void ctor(std::string input_key, std::string output_key);
-
-  bool check_input_{ true };
-  bool run_simple_planner_{ true };
-  bool post_collision_check_{ true };
-  bool post_time_parameterization_{ true };
-  bool post_smoothing_{ false };
 };
 }  // namespace tesseract_planning
 

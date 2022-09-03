@@ -1,6 +1,6 @@
 /**
- * @file raster_only_motion_task.h
- * @brief Plans raster paths
+ * @file raster_ft_only_motion_task.h
+ * @brief Plans raster paths with freespace transitions
  *
  * @author Matthew Powelson
  * @date July 15, 2020
@@ -23,8 +23,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_RASTER_ONLY_MOTION_TASK_H
-#define TESSERACT_TASK_COMPOSER_RASTER_ONLY_MOTION_TASK_H
+#ifndef TESSERACT_TASK_COMPOSER_RASTER_FT_ONLY_MOTION_TASK_H
+#define TESSERACT_TASK_COMPOSER_RASTER_FT_ONLY_MOTION_TASK_H
 
 #include <tesseract_task_composer/task_composer_task.h>
 #include <tesseract_common/any.h>
@@ -32,7 +32,7 @@
 namespace tesseract_planning
 {
 /**
- * @brief The RasterOnlyMotionTask class
+ * @brief The RasterFtOnlyMotionTask class
  * @details The required format is below.
  *
  * Composite
@@ -44,31 +44,29 @@ namespace tesseract_planning
  *   Composite - Raster segment
  * }
  */
-class RasterOnlyMotionTask : public TaskComposerTask
+class RasterFtOnlyMotionTask : public TaskComposerTask
 {
 public:
-  using Ptr = std::shared_ptr<RasterOnlyMotionTask>;
-  using ConstPtr = std::shared_ptr<const RasterOnlyMotionTask>;
-  using UPtr = std::unique_ptr<RasterOnlyMotionTask>;
-  using ConstUPtr = std::unique_ptr<const RasterOnlyMotionTask>;
+  using Ptr = std::shared_ptr<RasterFtOnlyMotionTask>;
+  using ConstPtr = std::shared_ptr<const RasterFtOnlyMotionTask>;
+  using UPtr = std::unique_ptr<RasterFtOnlyMotionTask>;
+  using ConstUPtr = std::unique_ptr<const RasterFtOnlyMotionTask>;
 
-  RasterOnlyMotionTask() = default;  // Required for serialization
-  RasterOnlyMotionTask(std::string input_key,
-                       std::string output_key,
-                       bool cartesian_transition = false,
-                       bool run_simple_planner = true,
-                       bool is_conditional = true,
-                       std::string name = "RasterOnlyMotionTask");
-  ~RasterOnlyMotionTask() override = default;
-  RasterOnlyMotionTask(const RasterOnlyMotionTask&) = delete;
-  RasterOnlyMotionTask& operator=(const RasterOnlyMotionTask&) = delete;
-  RasterOnlyMotionTask(RasterOnlyMotionTask&&) = delete;
-  RasterOnlyMotionTask& operator=(RasterOnlyMotionTask&&) = delete;
+  RasterFtOnlyMotionTask() = default;  // Required for serialization
+  RasterFtOnlyMotionTask(std::string input_key,
+                         std::string output_key,
+                         bool is_conditional = true,
+                         std::string name = "RasterFtOnlyMotionTask");
+  ~RasterFtOnlyMotionTask() override = default;
+  RasterFtOnlyMotionTask(const RasterFtOnlyMotionTask&) = delete;
+  RasterFtOnlyMotionTask& operator=(const RasterFtOnlyMotionTask&) = delete;
+  RasterFtOnlyMotionTask(RasterFtOnlyMotionTask&&) = delete;
+  RasterFtOnlyMotionTask& operator=(RasterFtOnlyMotionTask&&) = delete;
 
   TaskComposerNode::UPtr clone() const override final;
 
-  bool operator==(const RasterOnlyMotionTask& rhs) const;
-  bool operator!=(const RasterOnlyMotionTask& rhs) const;
+  bool operator==(const RasterFtOnlyMotionTask& rhs) const;
+  bool operator!=(const RasterFtOnlyMotionTask& rhs) const;
 
 protected:
   friend class tesseract_common::Serialization;
@@ -76,9 +74,6 @@ protected:
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
-  bool run_simple_planner_{ true };
-  bool cartesian_transition_{ false };
 
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
                                      OptionalTaskComposerExecutor executor) const override final;
@@ -90,6 +85,6 @@ protected:
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RasterOnlyMotionTask, "RasterOnlyMotionTask")
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RasterFtOnlyMotionTask, "RasterFtOnlyMotionTask")
 
-#endif  // TESSERACT_TASK_COMPOSER_RASTER_ONLY_MOTION_TASK_H
+#endif  // TESSERACT_TASK_COMPOSER_RASTER_FT_ONLY_MOTION_TASK_H

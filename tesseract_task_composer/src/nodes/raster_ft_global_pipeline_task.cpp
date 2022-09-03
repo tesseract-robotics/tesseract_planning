@@ -1,6 +1,6 @@
 /**
- * @file raster_global_pipeline_task.h
- * @brief Raster global motion planning task
+ * @file raster_ft_global_pipeline_task.h
+ * @brief Raster global motion planning task with freespace transitions
  *
  * @author Levi Armstrong
  * @date July 29. 2022
@@ -31,57 +31,59 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
+#include <tesseract_task_composer/nodes/simple_motion_pipeline_task.h>
+#include <tesseract_task_composer/nodes/raster_ft_global_pipeline_task.h>
+#include <tesseract_task_composer/nodes/raster_ft_motion_task.h>
+#include <tesseract_task_composer/nodes/descartes_global_motion_pipeline_task.h>
 #include <tesseract_task_composer/task_composer_future.h>
 #include <tesseract_task_composer/task_composer_executor.h>
-#include <tesseract_task_composer/nodes/raster_global_pipeline_task.h>
-#include <tesseract_task_composer/nodes/descartes_motion_pipeline_task.h>
-#include <tesseract_task_composer/nodes/raster_motion_task.h>
 #include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning
 {
-RasterGlobalPipelineTask::RasterGlobalPipelineTask(std::string input_key,
-                                                   std::string output_key,
-                                                   bool cartesian_transition,
-                                                   std::string name)
-  : TaskComposerGraph(std::move(name)), cartesian_transition_(cartesian_transition)
+RasterFtGlobalPipelineTask::RasterFtGlobalPipelineTask(std::string input_key, std::string output_key, std::string name)
+  : TaskComposerGraph(std::move(name))
 {
   input_keys_.push_back(std::move(input_key));
   output_keys_.push_back(std::move(output_key));
 
-  auto global_task = std::make_unique<DescartesMotionPipelineTask>(
-      input_keys_[0], output_keys_[0], true, true, false, false, false, "GlobalDescartesMotionPipelineTask");
+  // Simple Motion Pipeline
+  auto simple_task = std::make_unique<SimpleMotionPipelineTask>(input_keys_[0], output_keys_[0]);
+  auto simple_uuid = addNode(std::move(simple_task));
+
+  // Descartes global plan
+  auto global_task = std::make_unique<DescartesGlobalMotionPipelineTask>(output_keys_[0], output_keys_[0]);
   auto global_uuid = addNode(std::move(global_task));
 
-  auto raster_task = std::make_unique<RasterMotionTask>(output_keys_[0], output_keys_[0], cartesian_transition, false);
+  // Raster planner
+  auto raster_task = std::make_unique<RasterFtMotionTask>(output_keys_[0], output_keys_[0], false);
   auto raster_uuid = addNode(std::move(raster_task));
 
+  addEdges(simple_uuid, { global_uuid });
   addEdges(global_uuid, { raster_uuid });
 }
 
-TaskComposerNode::UPtr RasterGlobalPipelineTask::clone() const
+TaskComposerNode::UPtr RasterFtGlobalPipelineTask::clone() const
 {
-  return std::make_unique<RasterGlobalPipelineTask>(input_keys_[0], output_keys_[0], cartesian_transition_, name_);
+  return std::make_unique<RasterFtGlobalPipelineTask>(input_keys_[0], output_keys_[0], name_);
 }
 
-bool RasterGlobalPipelineTask::operator==(const RasterGlobalPipelineTask& rhs) const
+bool RasterFtGlobalPipelineTask::operator==(const RasterFtGlobalPipelineTask& rhs) const
 {
   bool equal = true;
-  equal &= (cartesian_transition_ == rhs.cartesian_transition_);
   equal &= TaskComposerGraph::operator==(rhs);
   return equal;
 }
-bool RasterGlobalPipelineTask::operator!=(const RasterGlobalPipelineTask& rhs) const { return !operator==(rhs); }
+bool RasterFtGlobalPipelineTask::operator!=(const RasterFtGlobalPipelineTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
-void RasterGlobalPipelineTask::serialize(Archive& ar, const unsigned int /*version*/)
+void RasterFtGlobalPipelineTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(cartesian_transition_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerGraph);
 }
 
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterGlobalPipelineTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterGlobalPipelineTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterFtGlobalPipelineTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterFtGlobalPipelineTask)

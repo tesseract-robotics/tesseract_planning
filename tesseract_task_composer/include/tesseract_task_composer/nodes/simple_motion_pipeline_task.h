@@ -1,6 +1,6 @@
 /**
- * @file ompl_motion_planner_task.h
- * @brief OMPL motion planning pipeline
+ * @file simple_motion_planner_task.h
+ * @brief simple motion planning pipeline
  *
  * @author Levi Armstrong
  * @date July 29. 2022
@@ -23,38 +23,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_OMPL_MOTION_PIPELINE_TASK_H
-#define TESSERACT_TASK_COMPOSER_OMPL_MOTION_PIPELINE_TASK_H
+#ifndef TESSERACT_TASK_COMPOSER_SIMPLE_MOTION_PIPELINE_TASK_H
+#define TESSERACT_TASK_COMPOSER_SIMPLE_MOTION_PIPELINE_TASK_H
 
 #include <tesseract_task_composer/task_composer_graph.h>
 
 namespace tesseract_planning
 {
-class OMPLMotionPipelineTask : public TaskComposerGraph
+class SimpleMotionPipelineTask : public TaskComposerGraph
 {
 public:
-  using Ptr = std::shared_ptr<OMPLMotionPipelineTask>;
-  using ConstPtr = std::shared_ptr<const OMPLMotionPipelineTask>;
-  using UPtr = std::unique_ptr<OMPLMotionPipelineTask>;
-  using ConstUPtr = std::unique_ptr<const OMPLMotionPipelineTask>;
+  using Ptr = std::shared_ptr<SimpleMotionPipelineTask>;
+  using ConstPtr = std::shared_ptr<const SimpleMotionPipelineTask>;
+  using UPtr = std::unique_ptr<SimpleMotionPipelineTask>;
+  using ConstUPtr = std::unique_ptr<const SimpleMotionPipelineTask>;
 
   /**
-   * @brief OMPLMotionPipelineTask
+   * @brief SimpleMotionPipelineTask
    * @details This will use the uuid as the input and output key
    * @param name The name give to the task
    */
-  OMPLMotionPipelineTask(std::string name = "OMPLMotionPipelineTask");
-  OMPLMotionPipelineTask(std::string input_key, std::string output_key, std::string name = "OMPLMotionPipelineTask");
-  ~OMPLMotionPipelineTask() override = default;
-  OMPLMotionPipelineTask(const OMPLMotionPipelineTask&) = delete;
-  OMPLMotionPipelineTask& operator=(const OMPLMotionPipelineTask&) = delete;
-  OMPLMotionPipelineTask(OMPLMotionPipelineTask&&) = delete;
-  OMPLMotionPipelineTask& operator=(OMPLMotionPipelineTask&&) = delete;
+  SimpleMotionPipelineTask(std::string name = "SimpleMotionPipelineTask");
+  SimpleMotionPipelineTask(std::string input_key,
+                           std::string output_key,
+                           std::string name = "SimpleMotionPipelineTask");
+  ~SimpleMotionPipelineTask() override = default;
+  SimpleMotionPipelineTask(const SimpleMotionPipelineTask&) = delete;
+  SimpleMotionPipelineTask& operator=(const SimpleMotionPipelineTask&) = delete;
+  SimpleMotionPipelineTask(SimpleMotionPipelineTask&&) = delete;
+  SimpleMotionPipelineTask& operator=(SimpleMotionPipelineTask&&) = delete;
 
   TaskComposerNode::UPtr clone() const override final;
 
-  bool operator==(const OMPLMotionPipelineTask& rhs) const;
-  bool operator!=(const OMPLMotionPipelineTask& rhs) const;
+  bool operator==(const SimpleMotionPipelineTask& rhs) const;
+  bool operator!=(const SimpleMotionPipelineTask& rhs) const;
 
 protected:
   friend class tesseract_common::Serialization;
@@ -69,6 +71,6 @@ protected:
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::OMPLMotionPipelineTask, "OMPLMotionPipelineTask")
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::SimpleMotionPipelineTask, "SimpleMotionPipelineTask")
 
-#endif  // TESSERACT_TASK_COMPOSER_OMPL_MOTION_PIPELINE_TASK_H
+#endif  // TESSERACT_TASK_COMPOSER_SIMPLE_MOTION_PIPELINE_TASK_H

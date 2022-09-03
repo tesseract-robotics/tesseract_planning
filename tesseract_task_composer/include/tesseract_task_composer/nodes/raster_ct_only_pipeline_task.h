@@ -1,6 +1,6 @@
 /**
- * @file raster_global_pipeline_task.h
- * @brief Plans raster paths
+ * @file raster_ct_only_motion_task.h
+ * @brief Plans raster paths with cartesian transitions
  *
  * @author Matthew Powelson
  * @date July 15, 2020
@@ -23,51 +23,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_RASTER_GLOBAL_PIPELINE_TASK_H
-#define TESSERACT_TASK_COMPOSER_RASTER_GLOBAL_PIPELINE_TASK_H
+#ifndef TESSERACT_TASK_COMPOSER_RASTER_CT_ONLY_PIPELINE_TASK_H
+#define TESSERACT_TASK_COMPOSER_RASTER_CT_ONLY_PIPELINE_TASK_H
 
 #include <tesseract_task_composer/task_composer_graph.h>
 
 namespace tesseract_planning
 {
 /**
- * @brief The RasterGlobalPipelineTask class
+ * @brief The RasterCtOnlyGlobalPipelineTask class
  * @details The required format is below.
  *
  * Composite
  * {
- *   Composite - from start
  *   Composite - Raster segment
  *   Composite - Transitions
  *   Composite - Raster segment
  *   Composite - Transitions
  *   Composite - Raster segment
- *   Composite - to end
  * }
  */
-class RasterGlobalPipelineTask : public TaskComposerGraph
+class RasterCtOnlyPipelineTask : public TaskComposerGraph
 {
 public:
-  using Ptr = std::shared_ptr<RasterGlobalPipelineTask>;
-  using ConstPtr = std::shared_ptr<const RasterGlobalPipelineTask>;
-  using UPtr = std::unique_ptr<RasterGlobalPipelineTask>;
-  using ConstUPtr = std::unique_ptr<const RasterGlobalPipelineTask>;
+  using Ptr = std::shared_ptr<RasterCtOnlyPipelineTask>;
+  using ConstPtr = std::shared_ptr<const RasterCtOnlyPipelineTask>;
+  using UPtr = std::unique_ptr<RasterCtOnlyPipelineTask>;
+  using ConstUPtr = std::unique_ptr<const RasterCtOnlyPipelineTask>;
 
-  RasterGlobalPipelineTask() = default;  // Required for serialization
-  RasterGlobalPipelineTask(std::string input_key,
+  RasterCtOnlyPipelineTask() = default;  // Required for serialization
+  RasterCtOnlyPipelineTask(std::string input_key,
                            std::string output_key,
-                           bool cartesian_transition = false,
-                           std::string name = "RasterGlobalPipelineTask");
-  ~RasterGlobalPipelineTask() override = default;
-  RasterGlobalPipelineTask(const RasterGlobalPipelineTask&) = delete;
-  RasterGlobalPipelineTask& operator=(const RasterGlobalPipelineTask&) = delete;
-  RasterGlobalPipelineTask(RasterGlobalPipelineTask&&) = delete;
-  RasterGlobalPipelineTask& operator=(RasterGlobalPipelineTask&&) = delete;
+                           std::string name = "RasterCtOnlyPipelineTask");
+  ~RasterCtOnlyPipelineTask() override = default;
+  RasterCtOnlyPipelineTask(const RasterCtOnlyPipelineTask&) = delete;
+  RasterCtOnlyPipelineTask& operator=(const RasterCtOnlyPipelineTask&) = delete;
+  RasterCtOnlyPipelineTask(RasterCtOnlyPipelineTask&&) = delete;
+  RasterCtOnlyPipelineTask& operator=(RasterCtOnlyPipelineTask&&) = delete;
 
   TaskComposerNode::UPtr clone() const override final;
 
-  bool operator==(const RasterGlobalPipelineTask& rhs) const;
-  bool operator!=(const RasterGlobalPipelineTask& rhs) const;
+  bool operator==(const RasterCtOnlyPipelineTask& rhs) const;
+  bool operator!=(const RasterCtOnlyPipelineTask& rhs) const;
 
 protected:
   friend class tesseract_common::Serialization;
@@ -76,8 +73,6 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  bool cartesian_transition_{ false };
-
   static void checkTaskInput(const tesseract_common::Any& input);
 };
 
@@ -85,6 +80,6 @@ protected:
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RasterGlobalPipelineTask, "RasterGlobalPipelineTask")
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RasterCtOnlyPipelineTask, "RasterCtOnlyPipelineTask")
 
-#endif  // TESSERACT_TASK_COMPOSER_RASTER_GLOBAL_PIPELINE_TASK_H
+#endif  // TESSERACT_TASK_COMPOSER_RASTER_CT_ONLY_PIPELINE_TASK_H
