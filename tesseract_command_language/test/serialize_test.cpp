@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/serialization.h>
-#include <tesseract_common/any.h>
+#include <tesseract_common/any_poly.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/state_waypoint.h>
@@ -209,7 +209,7 @@ TEST(TesseractCommandLanguageSerializeUnit, serializationCompositeInstruction)  
 TEST(TesseractCommandLanguageSerializeUnit, TypeErasureInTypeErasure)  // NOLINT
 {
   tesseract_planning::InstructionPoly instruction{ SetToolInstruction(5) };
-  tesseract_common::Any any_type;
+  tesseract_common::AnyPoly any_type;
   any_type = instruction;
   EXPECT_EQ(any_type.getType(), std::type_index(typeid(tesseract_planning::InstructionPoly)));
 }

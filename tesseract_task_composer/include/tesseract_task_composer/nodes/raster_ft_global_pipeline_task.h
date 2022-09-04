@@ -74,8 +74,6 @@ protected:
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
-  static void checkTaskInput(const tesseract_common::Any& input);
 };
 
 }  // namespace tesseract_planning

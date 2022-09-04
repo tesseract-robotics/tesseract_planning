@@ -469,6 +469,8 @@ private:
 
 }  // namespace tesseract_planning
 
+#include <tesseract_common/any_poly.h>
 TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, CompositeInstruction);
+TESSERACT_ANY_EXPORT_KEY(tesseract_planning, CompositeInstruction);
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMPOSITE_INSTRUCTION_H

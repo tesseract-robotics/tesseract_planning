@@ -205,7 +205,7 @@ TaskComposerNodeInfo::UPtr RasterFtOnlyMotionTask::runImpl(TaskComposerInput& in
   return info;
 }
 
-void RasterFtOnlyMotionTask::checkTaskInput(const tesseract_common::Any& input)
+void RasterFtOnlyMotionTask::checkTaskInput(const tesseract_common::AnyPoly& input)
 {
   // -------------
   // Check Input

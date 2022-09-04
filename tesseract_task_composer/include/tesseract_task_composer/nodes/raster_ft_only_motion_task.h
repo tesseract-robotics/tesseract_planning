@@ -27,7 +27,7 @@
 #define TESSERACT_TASK_COMPOSER_RASTER_FT_ONLY_MOTION_TASK_H
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_common/any.h>
+#include <tesseract_common/any_poly.h>
 
 namespace tesseract_planning
 {
@@ -78,7 +78,7 @@ protected:
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
                                      OptionalTaskComposerExecutor executor) const override final;
 
-  static void checkTaskInput(const tesseract_common::Any& input);
+  static void checkTaskInput(const tesseract_common::AnyPoly& input);
 };
 
 }  // namespace tesseract_planning

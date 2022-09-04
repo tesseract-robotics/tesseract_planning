@@ -29,6 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/unique_ptr.hpp>
 #include <boost/serialization/shared_ptr.hpp>
+#include <boost/serialization/string.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -75,8 +76,22 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
 
   ar& boost::serialization::make_nvp("input_keys", input_keys);
   ar& boost::serialization::make_nvp("output_keys", output_keys);
+}
 
-  //  ar& boost::serialization::make_nvp("environment", environment);
+TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(const TaskComposerNodeInfoContainer& other)
+{
+  *this = other;
+}
+TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(const TaskComposerNodeInfoContainer& other)
+{
+  std::shared_lock lhs_lock(mutex_, std::defer_lock);
+  std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
+  std::scoped_lock lock{ lhs_lock, rhs_lock };
+
+  for (const auto& pair : other.info_map_)
+    info_map_[pair.first] = pair.second->clone();
+
+  return *this;
 }
 
 void TaskComposerNodeInfoContainer::addInfo(TaskComposerNodeInfo::UPtr info)

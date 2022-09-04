@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <shared_mutex>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/any.h>
+#include <tesseract_common/any_poly.h>
 
 namespace tesseract_planning
 {
@@ -65,7 +65,7 @@ public:
    * @param key The key to set data for
    * @param data The data to assign to the provided key
    */
-  void setData(const std::string& key, tesseract_common::Any data);
+  void setData(const std::string& key, tesseract_common::AnyPoly data);
 
   /**
    * @brief Get the data for the provided key
@@ -73,7 +73,7 @@ public:
    * @param key The key to retreive the data
    * @return The data associated with the key
    */
-  tesseract_common::Any getData(const std::string& key) const;
+  tesseract_common::AnyPoly getData(const std::string& key) const;
 
   /**
    * @brief Remove data for the provide key
@@ -81,10 +81,24 @@ public:
    */
   void removeData(const std::string& key);
 
+  bool operator==(const TaskComposerDataStorage& rhs) const;
+  bool operator!=(const TaskComposerDataStorage& rhs) const;
+
 protected:
+  friend class tesseract_common::Serialization;
+  friend class boost::serialization::access;
+
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
   mutable std::shared_mutex mutex_;
-  std::unordered_map<std::string, tesseract_common::Any> data_;
+  std::unordered_map<std::string, tesseract_common::AnyPoly> data_;
 };
 
 }  // namespace tesseract_planning
+
+#include <boost/serialization/export.hpp>
+#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerDataStorage, "TaskComposerDataStorage")
+
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_DATA_STORAGE_H

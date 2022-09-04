@@ -77,7 +77,8 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
   }
 
   auto& ci = input_data_poly.as<CompositeInstruction>();
-  const tesseract_common::ManipulatorInfo& manip_info = input.manip_info;
+  ci.setManipulatorInfo(ci.getManipulatorInfo().getCombined(input.manip_info));
+  const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
   auto joint_group = input.env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
 
@@ -90,6 +91,7 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
 
   if (cur_composite_profile->mode == FixStateBoundsProfile::Settings::DISABLED)
   {
+    input.data_storage->setData(output_keys_[0], input_data_poly);
     info->message = "Successful, DISABLED";
     info->return_value = 1;
     info->elapsed_time = timer.elapsedSeconds();
@@ -143,6 +145,7 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
       auto flattened = ci.flatten(moveFilter);
       if (flattened.empty())
       {
+        input.data_storage->setData(output_keys_[0], input_data_poly);
         info->message = "FixStateBoundsTask found no MoveInstructions to process";
         info->return_value = 1;
         info->elapsed_time = timer.elapsedSeconds();
@@ -173,6 +176,7 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
     }
     break;
     case FixStateBoundsProfile::Settings::DISABLED:
+      input.data_storage->setData(output_keys_[0], input_data_poly);
       info->message = "Successful, DISABLED";
       info->return_value = 1;
       info->elapsed_time = timer.elapsedSeconds();

@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
-#include <tesseract_common/any.h>
+#include <tesseract_common/any_poly.h>
 
 namespace tesseract_planning
 {
@@ -63,7 +63,7 @@ public:
   boost::uuids::uuid uuid{};
 
   /** @brief Store the results of the task */
-  tesseract_common::Any results;
+  tesseract_common::AnyPoly results;
 
   /** @brief Value returned from the Task on completion */
   int return_value{ std::numeric_limits<int>::lowest() };
@@ -86,6 +86,7 @@ public:
   virtual TaskComposerNodeInfo::UPtr clone() const;
 
 private:
+  friend class tesseract_common::Serialization;
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
@@ -98,6 +99,13 @@ struct TaskComposerNodeInfoContainer
   using ConstPtr = std::shared_ptr<const TaskComposerNodeInfoContainer>;
   using UPtr = std::unique_ptr<TaskComposerNodeInfoContainer>;
   using ConstUPtr = std::unique_ptr<const TaskComposerNodeInfoContainer>;
+
+  TaskComposerNodeInfoContainer() = default;
+  ~TaskComposerNodeInfoContainer() = default;
+  TaskComposerNodeInfoContainer(const TaskComposerNodeInfoContainer&);
+  TaskComposerNodeInfoContainer& operator=(const TaskComposerNodeInfoContainer&);
+  TaskComposerNodeInfoContainer(TaskComposerNodeInfoContainer&&) = delete;
+  TaskComposerNodeInfoContainer& operator=(TaskComposerNodeInfoContainer&&) = delete;
 
   /**
    * @brief Add info to the container

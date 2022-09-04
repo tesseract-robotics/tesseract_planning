@@ -5,9 +5,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
 #include <tesseract_environment/environment.h>
-#include <tesseract_process_managers/task_profiles/fix_state_bounds_profile.h>
-#include <tesseract_process_managers/task_generators/fix_state_bounds_task_generator.h>
-#include <tesseract_process_managers/core/task_input.h>
+#include <tesseract_task_composer/profiles/fix_state_bounds_profile.h>
+#include <tesseract_task_composer/nodes/fix_state_bounds_task.h>
+#include <tesseract_task_composer/task_composer_input.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -18,7 +18,7 @@ using namespace tesseract_planning;
 using namespace tesseract_environment;
 using tesseract_common::ManipulatorInfo;
 
-class FixStateBoundsTaskGeneratorUnit : public ::testing::Test
+class FixStateBoundsTaskUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
@@ -75,10 +75,14 @@ void checkProgram(const Environment::Ptr& env,
   auto joint_limits = env->getJointGroup(manip.manipulator)->getLimits().joint_limits;
 
   CompositeInstruction program = createProgram(start_state, goal_state, DEFAULT_PROFILE_KEY);
-  const InstructionPoly program_instruction{ program };
-  InstructionPoly seed = generateSkeletonSeed(program);
-  TaskInput input(env, &program_instruction, manip, &seed, false, profiles);
-  FixStateBoundsTaskGenerator generator;
+
+  // Create data storage and input
+  auto task_data = std::make_shared<TaskComposerDataStorage>();
+  task_data->setData("input_program", program);
+  auto task_input = std::make_shared<TaskComposerInput>(env, profiles, task_data);
+
+  // Create task
+  FixStateBoundsTask task("input_program", "output_program");
 
   // Manual Check of program
   auto flattened = program.flatten(moveFilter);
@@ -87,11 +91,11 @@ void checkProgram(const Environment::Ptr& env,
     inside_limits &= isWithinJointLimits(instruction.get().as<MoveInstructionPoly>().getWaypoint(), joint_limits);
   EXPECT_EQ(inside_limits, pre_check_return);
 
-  EXPECT_EQ(generator.conditionalProcess(input, 1), expected_return);
+  EXPECT_EQ(task.run(*task_input), expected_return);
 
   if (expected_return == 1)
   {
-    const auto& task_program = input.getInstruction()->as<CompositeInstruction>();
+    auto task_program = task_input->data_storage->getData("output_program").as<CompositeInstruction>();
     auto task_flattened = task_program.flatten(moveFilter);
 
     switch (setting)
@@ -122,7 +126,7 @@ void checkProgram(const Environment::Ptr& env,
   }
 }
 
-TEST_F(FixStateBoundsTaskGeneratorUnit, stateInBounds)  // NOLINT
+TEST_F(FixStateBoundsTaskUnit, stateInBounds)  // NOLINT
 {
   using Settings = FixStateBoundsProfile::Settings;
   auto joint_limits = env_->getJointGroup(manip_.manipulator)->getLimits().joint_limits;

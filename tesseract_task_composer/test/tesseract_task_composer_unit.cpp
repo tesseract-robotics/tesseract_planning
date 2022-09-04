@@ -45,7 +45,7 @@ using namespace tesseract_scene_graph;
 using namespace tesseract_planning;
 using namespace tesseract_planning::profile_ns;
 
-class TesseractProcessManagerUnit : public ::testing::Test
+class TesseractTaskComposerUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
@@ -67,7 +67,7 @@ protected:
   }
 };
 
-TEST_F(TesseractProcessManagerUnit, MinLengthTaskTest)  // NOLINT
+TEST_F(TesseractTaskComposerUnit, MinLengthTaskTest)  // NOLINT
 {
   tesseract_planning::CompositeInstruction program = freespaceExampleProgramABB();
   EXPECT_FALSE(program.getManipulatorInfo().empty());
@@ -112,7 +112,7 @@ TEST_F(TesseractProcessManagerUnit, MinLengthTaskTest)  // NOLINT
   EXPECT_TRUE(final_length3 >= (3 * current_length));
 }
 
-TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerFixedSizeAssignPlanProfileTest)  // NOLINT
+TEST_F(TesseractTaskComposerUnit, RasterSimpleMotionPlannerFixedSizeAssignPlanProfileTest)  // NOLINT
 {
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
@@ -154,7 +154,7 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerFixedSizeAssignPlan
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
 
-TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerLVSPlanProfileTest)  // NOLINT
+TEST_F(TesseractTaskComposerUnit, RasterSimpleMotionPlannerLVSPlanProfileTest)  // NOLINT
 {
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
   std::string process_profile = "PROCESS";
@@ -194,7 +194,7 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerLVSPlanProfileTest)
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
 
-TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSNoIKPlanProfileTest)  // NOLINT
+TEST_F(TesseractTaskComposerUnit, RasterSimpleMotionPlannerDefaultLVSNoIKPlanProfileTest)  // NOLINT
 {
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
   std::string process_profile = "PROCESS";
@@ -234,7 +234,7 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSNoIKPlanP
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
 
-TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerFixedSizeAssignPlanProfileTest)  // NOLINT
+TEST_F(TesseractTaskComposerUnit, FreespaceSimpleMotionPlannerFixedSizeAssignPlanProfileTest)  // NOLINT
 {
   CompositeInstruction program = freespaceExampleProgramABB();
   EXPECT_FALSE(program.getManipulatorInfo().empty());
@@ -270,7 +270,7 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerFixedSizeAssignP
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
 
-TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerDefaultLVSPlanProfileTest)  // NOLINT
+TEST_F(TesseractTaskComposerUnit, FreespaceSimpleMotionPlannerDefaultLVSPlanProfileTest)  // NOLINT
 {
   CompositeInstruction program = freespaceExampleProgramABB();
   EXPECT_FALSE(program.getManipulatorInfo().empty());
@@ -305,7 +305,7 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerDefaultLVSPlanPr
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
 
-TEST_F(TesseractProcessManagerUnit, RasterProcessManagerDefaultPlanProfileTest)  // NOLINT
+TEST_F(TesseractTaskComposerUnit, RasterProcessManagerDefaultPlanProfileTest)  // NOLINT
 {
   // Create Executor
   auto executor = std::make_unique<TaskflowTaskComposerExecutor>();
@@ -343,7 +343,7 @@ TEST_F(TesseractProcessManagerUnit, RasterProcessManagerDefaultPlanProfileTest) 
   EXPECT_TRUE(task_input->isSuccessful());
 }
 
-TEST_F(TesseractProcessManagerUnit, RasterGlobalProcessManagerDefaultPlanProfileTest)  // NOLINT
+TEST_F(TesseractTaskComposerUnit, RasterGlobalProcessManagerDefaultPlanProfileTest)  // NOLINT
 {
   // Create Executor
   auto executor = std::make_unique<TaskflowTaskComposerExecutor>();
@@ -381,7 +381,7 @@ TEST_F(TesseractProcessManagerUnit, RasterGlobalProcessManagerDefaultPlanProfile
   EXPECT_TRUE(task_input->isSuccessful());
 }
 
-TEST_F(TesseractProcessManagerUnit, RasterGlobalProcessManagerDefaultLVSPlanProfileTest)  // NOLINT
+TEST_F(TesseractTaskComposerUnit, RasterGlobalProcessManagerDefaultLVSPlanProfileTest)  // NOLINT
 {
   // Create Executor
   auto executor = std::make_unique<TaskflowTaskComposerExecutor>();
@@ -419,7 +419,7 @@ TEST_F(TesseractProcessManagerUnit, RasterGlobalProcessManagerDefaultLVSPlanProf
   EXPECT_TRUE(task_input->isSuccessful());
 }
 
-TEST_F(TesseractProcessManagerUnit, RasterOnlyProcessManagerDefaultPlanProfileTest)  // NOLINT
+TEST_F(TesseractTaskComposerUnit, RasterOnlyProcessManagerDefaultPlanProfileTest)  // NOLINT
 {
   // Create Executor
   auto executor = std::make_unique<TaskflowTaskComposerExecutor>();
@@ -457,7 +457,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyProcessManagerDefaultPlanProfileTe
   EXPECT_TRUE(task_input->isSuccessful());
 }
 
-TEST_F(TesseractProcessManagerUnit, RasterOnlyProcessManagerDefaultLVSPlanProfileTest)  // NOLINT
+TEST_F(TesseractTaskComposerUnit, RasterOnlyProcessManagerDefaultLVSPlanProfileTest)  // NOLINT
 {
   // Create Executor
   auto executor = std::make_unique<TaskflowTaskComposerExecutor>();
@@ -495,7 +495,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyProcessManagerDefaultLVSPlanProfil
   EXPECT_TRUE(task_input->isSuccessful());
 }
 
-TEST_F(TesseractProcessManagerUnit, RasterOnlyGlobalProcessManagerDefaultPlanProfileTest)  // NOLINT
+TEST_F(TesseractTaskComposerUnit, RasterOnlyGlobalProcessManagerDefaultPlanProfileTest)  // NOLINT
 {
   // Create Executor
   auto executor = std::make_unique<TaskflowTaskComposerExecutor>();
@@ -533,7 +533,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyGlobalProcessManagerDefaultPlanPro
   EXPECT_TRUE(task_input->isSuccessful());
 }
 
-TEST_F(TesseractProcessManagerUnit, RasterOnlyGlobalProcessManagerDefaultLVSPlanProfileTest)  // NOLINT
+TEST_F(TesseractTaskComposerUnit, RasterOnlyGlobalProcessManagerDefaultLVSPlanProfileTest)  // NOLINT
 {
   // Create Executor
   auto executor = std::make_unique<TaskflowTaskComposerExecutor>();

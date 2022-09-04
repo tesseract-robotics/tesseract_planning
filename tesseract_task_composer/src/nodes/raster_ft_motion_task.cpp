@@ -252,7 +252,7 @@ TaskComposerNodeInfo::UPtr RasterFtMotionTask::runImpl(TaskComposerInput& input,
   return info;
 }
 
-void RasterFtMotionTask::checkTaskInput(const tesseract_common::Any& input)
+void RasterFtMotionTask::checkTaskInput(const tesseract_common::AnyPoly& input)
 {
   // -------------
   // Check Input

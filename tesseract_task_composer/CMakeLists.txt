@@ -58,10 +58,10 @@ add_library(
   src/task_composer_data_storage.cpp
   src/task_composer_executor.cpp
   src/task_composer_future.cpp
+  src/task_composer_graph.cpp
   src/task_composer_input.cpp
   src/task_composer_node.cpp
   src/task_composer_node_info.cpp
-  src/task_composer_graph.cpp
   src/task_composer_plugin_factory.cpp
   src/task_composer_task.cpp
   src/nodes/cartesian_motion_pipeline_task.cpp
@@ -75,7 +75,6 @@ add_library(
   src/nodes/fix_state_bounds_task.cpp
   src/nodes/fix_state_collision_task.cpp
   src/nodes/freespace_motion_pipeline_task.cpp
-  src/nodes/has_seed_task.cpp
   src/nodes/iterative_spline_parameterization_task.cpp
   src/nodes/motion_planner_task.cpp
   src/nodes/ompl_motion_pipeline_task.cpp

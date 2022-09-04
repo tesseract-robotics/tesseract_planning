@@ -111,6 +111,7 @@ private:
  * @return True if in collision
  */
 bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
+                      const tesseract_common::ManipulatorInfo& manip_info,
                       const TaskComposerInput& input,
                       const FixStateCollisionProfile& profile,
                       tesseract_collision::ContactResultMap& contacts);
@@ -122,6 +123,7 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
  * @return True if in collision
  */
 bool waypointInCollision(const WaypointPoly& waypoint,
+                         const tesseract_common::ManipulatorInfo& manip_info,
                          const TaskComposerInput& input,
                          const FixStateCollisionProfile& profile,
                          tesseract_collision::ContactResultMap& contacts);
@@ -134,6 +136,7 @@ bool waypointInCollision(const WaypointPoly& waypoint,
  * @return True if successful
  */
 bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
+                                      const tesseract_common::ManipulatorInfo& manip_info,
                                       const TaskComposerInput& input,
                                       const FixStateCollisionProfile& profile);
 
@@ -145,10 +148,12 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
  * @return True if successful
  */
 bool moveWaypointFromCollisionRandomSampler(WaypointPoly& waypoint,
+                                            const tesseract_common::ManipulatorInfo& manip_info,
                                             const TaskComposerInput& input,
                                             const FixStateCollisionProfile& profile);
 
 bool applyCorrectionWorkflow(WaypointPoly& waypoint,
+                             const tesseract_common::ManipulatorInfo& manip_info,
                              const TaskComposerInput& input,
                              const FixStateCollisionProfile& profile);
 }  // namespace tesseract_planning

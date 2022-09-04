@@ -26,6 +26,11 @@
 #ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_INPUT_H
 #define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_INPUT_H
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <atomic>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_task_composer/task_composer_data_storage.h>
@@ -69,43 +74,31 @@ struct TaskComposerInput
                     TaskComposerDataStorage::Ptr data_storage);
 
   /** @brief Tesseract associated with current state of the system */
-  const tesseract_environment::Environment::ConstPtr env;
+  tesseract_environment::Environment::ConstPtr env;
 
   /** @brief Global Manipulator Information */
-  const tesseract_common::ManipulatorInfo manip_info;
+  tesseract_common::ManipulatorInfo manip_info;
 
   /**
    * @brief This allows the remapping of the Move Profile identified in the command language to a specific profile for a
    * given motion planner.
    */
-  const ProfileRemapping move_profile_remapping;
+  ProfileRemapping move_profile_remapping;
 
   /**
    * @brief This allows the remapping of the Composite Profile identified in the command language to a specific profile
    * for a given motion planner.
    */
-  const ProfileRemapping composite_profile_remapping;
+  ProfileRemapping composite_profile_remapping;
 
   /** @brief The Profiles to use */
-  const ProfileDictionary::ConstPtr profiles;
+  ProfileDictionary::ConstPtr profiles;
 
   /** @brief The location data is stored and retrieved during execution */
   TaskComposerDataStorage::Ptr data_storage;
 
   /** @brief The location where task info is stored during execution */
   TaskComposerNodeInfoContainer task_infos;
-
-  /** @brief This indicates if simple planner should be ran */
-  bool run_simple_planner{ true };
-
-  //  /** @brief If true the task will save the inputs and outputs to the TaskInfo*/
-  //  bool save_io{ false };
-
-  //  /**
-  //   * @brief Gets the task interface for checking success and aborting active process
-  //   * @return The task interface for checking success and aborting active process
-  //   */
-  //  TaskflowInterface::Ptr getTaskInterface();
 
   /**
    * @brief Check if process has been aborted
@@ -129,14 +122,28 @@ struct TaskComposerInput
   /** @brief Reset abort and data storage to constructed state */
   void reset();
 
+  bool operator==(const TaskComposerInput& rhs) const;
+  bool operator!=(const TaskComposerInput& rhs) const;
+
 protected:
+  friend class tesseract_common::Serialization;
+  friend class boost::serialization::access;
+
+  TaskComposerInput() = default;  // Required for serialization
+  TaskComposerInput(const TaskComposerInput&);
+
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
   mutable std::atomic<bool> aborted_{ false };
 
   /** @brief Store a copy of the original data storage for resolving using reset() */
   TaskComposerDataStorage::ConstPtr original_data_storage_;
-
-  //  /** @brief Used to store if process input is aborted which is thread safe */
-  //  TaskflowInterface::Ptr interface_{ std::make_shared<TaskflowInterface>() };
 };
 }  // namespace tesseract_planning
+
+#include <boost/serialization/export.hpp>
+#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerInput, "TaskComposerInput")
+
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_INPUT_H
