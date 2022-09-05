@@ -65,11 +65,6 @@ RasterCtOnlyGlobalPipelineTask::RasterCtOnlyGlobalPipelineTask(std::string input
   addEdges(global_uuid, { raster_uuid });
 }
 
-TaskComposerNode::UPtr RasterCtOnlyGlobalPipelineTask::clone() const
-{
-  return std::make_unique<RasterCtOnlyGlobalPipelineTask>(input_keys_[0], output_keys_[0], name_);
-}
-
 bool RasterCtOnlyGlobalPipelineTask::operator==(const RasterCtOnlyGlobalPipelineTask& rhs) const
 {
   bool equal = true;

@@ -55,8 +55,6 @@ public:
   DiscreteContactCheckTask(DiscreteContactCheckTask&&) = delete;
   DiscreteContactCheckTask& operator=(DiscreteContactCheckTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const DiscreteContactCheckTask& rhs) const;
   bool operator!=(const DiscreteContactCheckTask& rhs) const;
 

@@ -89,11 +89,6 @@ void DescartesMotionPipelineTask::ctor(std::string input_key, std::string output
   addEdges(time_parameterization_task, { error_task, done_task });
 }
 
-TaskComposerNode::UPtr DescartesMotionPipelineTask::clone() const
-{
-  return std::make_unique<DescartesMotionPipelineTask>(input_keys_[0], output_keys_[0], name_);
-}
-
 bool DescartesMotionPipelineTask::operator==(const DescartesMotionPipelineTask& rhs) const
 {
   bool equal = true;

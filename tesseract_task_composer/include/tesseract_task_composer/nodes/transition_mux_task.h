@@ -58,8 +58,6 @@ public:
                     std::string name = "TransitionMuxTask");
   ~TransitionMuxTask() override = default;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const TransitionMuxTask& rhs) const;
   bool operator!=(const TransitionMuxTask& rhs) const;
 

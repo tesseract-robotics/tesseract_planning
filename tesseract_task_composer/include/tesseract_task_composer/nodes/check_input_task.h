@@ -58,8 +58,6 @@ public:
   CheckInputTask(CheckInputTask&&) = delete;
   CheckInputTask& operator=(CheckInputTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const CheckInputTask& rhs) const;
   bool operator!=(const CheckInputTask& rhs) const;
 

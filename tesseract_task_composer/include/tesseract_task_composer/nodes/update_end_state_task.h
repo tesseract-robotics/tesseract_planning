@@ -56,8 +56,6 @@ public:
                      std::string name = "UpdateEndStateTask");
   ~UpdateEndStateTask() override = default;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const UpdateEndStateTask& rhs) const;
   bool operator!=(const UpdateEndStateTask& rhs) const;
 

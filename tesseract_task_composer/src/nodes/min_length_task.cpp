@@ -138,11 +138,6 @@ TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerInput& input,
   return info;
 }
 
-TaskComposerNode::UPtr MinLengthTask::clone() const
-{
-  return std::make_unique<MinLengthTask>(input_keys_[0], output_keys_[0], is_conditional_, name_);
-}
-
 bool MinLengthTask::operator==(const MinLengthTask& rhs) const
 {
   bool equal = true;

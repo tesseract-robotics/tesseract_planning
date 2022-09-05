@@ -53,8 +53,6 @@ public:
   RuckigTrajectorySmoothingTask(RuckigTrajectorySmoothingTask&&) = delete;
   RuckigTrajectorySmoothingTask& operator=(RuckigTrajectorySmoothingTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const RuckigTrajectorySmoothingTask& rhs) const;
   bool operator!=(const RuckigTrajectorySmoothingTask& rhs) const;
 

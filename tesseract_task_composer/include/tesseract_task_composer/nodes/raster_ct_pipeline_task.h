@@ -61,8 +61,6 @@ public:
   RasterCtPipelineTask(RasterCtPipelineTask&&) = delete;
   RasterCtPipelineTask& operator=(RasterCtPipelineTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const RasterCtPipelineTask& rhs) const;
   bool operator!=(const RasterCtPipelineTask& rhs) const;
 

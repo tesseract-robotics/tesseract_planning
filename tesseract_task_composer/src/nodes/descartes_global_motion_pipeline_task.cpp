@@ -73,11 +73,6 @@ void DescartesGlobalMotionPipelineTask::ctor(std::string input_key, std::string 
   addEdges(motion_planner_task, { error_task, done_task });
 }
 
-TaskComposerNode::UPtr DescartesGlobalMotionPipelineTask::clone() const
-{
-  return std::make_unique<DescartesGlobalMotionPipelineTask>(input_keys_[0], output_keys_[0], name_);
-}
-
 bool DescartesGlobalMotionPipelineTask::operator==(const DescartesGlobalMotionPipelineTask& rhs) const
 {
   bool equal = true;

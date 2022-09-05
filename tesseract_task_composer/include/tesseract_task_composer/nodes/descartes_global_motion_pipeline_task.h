@@ -53,8 +53,6 @@ public:
   DescartesGlobalMotionPipelineTask(DescartesGlobalMotionPipelineTask&&) = delete;
   DescartesGlobalMotionPipelineTask& operator=(DescartesGlobalMotionPipelineTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const DescartesGlobalMotionPipelineTask& rhs) const;
   bool operator!=(const DescartesGlobalMotionPipelineTask& rhs) const;
 

@@ -45,8 +45,6 @@ public:
   ErrorTask(bool is_conditional = false, std::string name = "ErrorTask");
   ~ErrorTask() override = default;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const ErrorTask& rhs) const;
   bool operator!=(const ErrorTask& rhs) const;
 

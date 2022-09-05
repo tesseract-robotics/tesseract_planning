@@ -231,11 +231,6 @@ void RasterFtOnlyMotionTask::checkTaskInput(const tesseract_common::AnyPoly& inp
   }
 }
 
-TaskComposerNode::UPtr RasterFtOnlyMotionTask::clone() const
-{
-  return std::make_unique<RasterFtOnlyMotionTask>(input_keys_[0], output_keys_[0], is_conditional_, name_);
-}
-
 bool RasterFtOnlyMotionTask::operator==(const RasterFtOnlyMotionTask& rhs) const
 {
   bool equal = true;

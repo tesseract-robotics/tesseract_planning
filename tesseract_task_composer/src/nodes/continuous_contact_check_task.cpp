@@ -116,11 +116,6 @@ TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput
   return info;
 }
 
-TaskComposerNode::UPtr ContinuousContactCheckTask::clone() const
-{
-  return std::make_unique<ContinuousContactCheckTask>(input_keys_[0], is_conditional_, name_);
-}
-
 bool ContinuousContactCheckTask::operator==(const ContinuousContactCheckTask& rhs) const
 {
   bool equal = true;

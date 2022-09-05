@@ -45,8 +45,6 @@ public:
   DoneTask(bool is_conditional = false, std::string name = "DoneTask");
   ~DoneTask() override = default;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const DoneTask& rhs) const;
   bool operator!=(const DoneTask& rhs) const;
 

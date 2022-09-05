@@ -137,12 +137,6 @@ TaskComposerNodeInfo::UPtr TransitionMuxTask::runImpl(TaskComposerInput& input,
   return info;
 }
 
-TaskComposerNode::UPtr TransitionMuxTask::clone() const
-{
-  return std::make_unique<TransitionMuxTask>(
-      input_keys_[0], input_keys_[1], input_keys_[2], output_keys_[0], is_conditional_, name_);
-}
-
 bool TransitionMuxTask::operator==(const TransitionMuxTask& rhs) const
 {
   bool equal = true;

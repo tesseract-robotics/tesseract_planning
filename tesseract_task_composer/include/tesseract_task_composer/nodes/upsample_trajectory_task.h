@@ -61,8 +61,6 @@ public:
   UpsampleTrajectoryTask(UpsampleTrajectoryTask&&) = delete;
   UpsampleTrajectoryTask& operator=(UpsampleTrajectoryTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const UpsampleTrajectoryTask& rhs) const;
   bool operator!=(const UpsampleTrajectoryTask& rhs) const;
 

@@ -96,11 +96,6 @@ void CartesianMotionPipelineTask::ctor(std::string input_key, std::string output
   addEdges(time_parameterization_task, { error_task, done_task });
 }
 
-TaskComposerNode::UPtr CartesianMotionPipelineTask::clone() const
-{
-  return std::make_unique<CartesianMotionPipelineTask>(input_keys_[0], output_keys_[0], name_);
-}
-
 bool CartesianMotionPipelineTask::operator==(const CartesianMotionPipelineTask& rhs) const
 {
   bool equal = true;

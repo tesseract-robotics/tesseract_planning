@@ -61,8 +61,6 @@ public:
   RasterFtOnlyPipelineTask(RasterFtOnlyPipelineTask&&) = delete;
   RasterFtOnlyPipelineTask& operator=(RasterFtOnlyPipelineTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const RasterFtOnlyPipelineTask& rhs) const;
   bool operator!=(const RasterFtOnlyPipelineTask& rhs) const;
 

@@ -86,11 +86,6 @@ void TrajOptMotionPipelineTask::ctor(std::string input_key, std::string output_k
   addEdges(time_parameterization_task, { error_task, done_task });
 }
 
-TaskComposerNode::UPtr TrajOptMotionPipelineTask::clone() const
-{
-  return std::make_unique<TrajOptMotionPipelineTask>(input_keys_[0], output_keys_[0], name_);
-}
-
 bool TrajOptMotionPipelineTask::operator==(const TrajOptMotionPipelineTask& rhs) const
 {
   bool equal = true;

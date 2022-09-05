@@ -586,11 +586,6 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
   return info;
 }
 
-TaskComposerNode::UPtr FixStateCollisionTask::clone() const
-{
-  return std::make_unique<FixStateCollisionTask>(input_keys_[0], output_keys_[0], is_conditional_, name_);
-}
-
 bool FixStateCollisionTask::operator==(const FixStateCollisionTask& rhs) const
 {
   bool equal = true;
@@ -608,11 +603,6 @@ void FixStateCollisionTask::serialize(Archive& ar, const unsigned int /*version*
 FixStateCollisionTaskInfo::FixStateCollisionTaskInfo(boost::uuids::uuid uuid, std::string name)
   : TaskComposerNodeInfo(uuid, std::move(name))
 {
-}
-
-TaskComposerNodeInfo::UPtr FixStateCollisionTaskInfo::clone() const
-{
-  return std::make_unique<FixStateCollisionTaskInfo>(*this);
 }
 
 bool FixStateCollisionTaskInfo::operator==(const FixStateCollisionTaskInfo& rhs) const

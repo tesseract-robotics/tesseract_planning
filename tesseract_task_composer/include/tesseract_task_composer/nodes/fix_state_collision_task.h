@@ -64,8 +64,6 @@ public:
   FixStateCollisionTask(FixStateCollisionTask&&) = delete;
   FixStateCollisionTask& operator=(FixStateCollisionTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const FixStateCollisionTask& rhs) const;
   bool operator!=(const FixStateCollisionTask& rhs) const;
 
@@ -92,8 +90,6 @@ public:
                             std::string name = profile_ns::FIX_STATE_COLLISION_DEFAULT_NAMESPACE);
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;
-
-  TaskComposerNodeInfo::UPtr clone() const override;
 
   bool operator==(const FixStateCollisionTaskInfo& rhs) const;
   bool operator!=(const FixStateCollisionTaskInfo& rhs) const;

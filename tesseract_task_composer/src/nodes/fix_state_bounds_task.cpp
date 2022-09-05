@@ -191,11 +191,6 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
   return info;
 }
 
-TaskComposerNode::UPtr FixStateBoundsTask::clone() const
-{
-  return std::make_unique<FixStateBoundsTask>(input_keys_[0], output_keys_[0], is_conditional_, name_);
-}
-
 bool FixStateBoundsTask::operator==(const FixStateBoundsTask& rhs) const
 {
   bool equal = true;

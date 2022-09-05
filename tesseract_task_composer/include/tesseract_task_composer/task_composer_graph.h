@@ -80,8 +80,6 @@ public:
 
   void dump(std::ostream& os) const override;
 
-  TaskComposerNode::UPtr clone() const override;
-
   bool operator==(const TaskComposerGraph& rhs) const;
   bool operator!=(const TaskComposerGraph& rhs) const;
 

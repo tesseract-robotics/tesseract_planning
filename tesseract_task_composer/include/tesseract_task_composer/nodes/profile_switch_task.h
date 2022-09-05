@@ -56,8 +56,6 @@ public:
   ProfileSwitchTask(ProfileSwitchTask&&) = delete;
   ProfileSwitchTask& operator=(ProfileSwitchTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const ProfileSwitchTask& rhs) const;
   bool operator!=(const ProfileSwitchTask& rhs) const;
 

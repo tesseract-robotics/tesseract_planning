@@ -65,8 +65,6 @@ public:
   RasterCtMotionTask(RasterCtMotionTask&&) = delete;
   RasterCtMotionTask& operator=(RasterCtMotionTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const RasterCtMotionTask& rhs) const;
   bool operator!=(const RasterCtMotionTask& rhs) const;
 

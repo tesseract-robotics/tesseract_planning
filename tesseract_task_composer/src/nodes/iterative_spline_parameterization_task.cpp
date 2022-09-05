@@ -150,12 +150,6 @@ TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComp
   return info;
 }
 
-TaskComposerNode::UPtr IterativeSplineParameterizationTask::clone() const
-{
-  return std::make_unique<IterativeSplineParameterizationTask>(
-      input_keys_[0], output_keys_[0], add_points_, is_conditional_, name_);
-}
-
 bool IterativeSplineParameterizationTask::operator==(const IterativeSplineParameterizationTask& rhs) const
 {
   bool equal = true;

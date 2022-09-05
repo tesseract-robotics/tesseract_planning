@@ -29,11 +29,6 @@ public:
     return info;
   }
 
-  TaskComposerNode::UPtr clone() const override final
-  {
-    return std::make_unique<AddTaskComposerNode>(left_key_, right_key_, output_key_);
-  }
-
 protected:
   std::string left_key_;
   std::string right_key_;
@@ -61,11 +56,6 @@ public:
         input.data_storage->getData(left_key_).as<double>() * input.data_storage->getData(right_key_).as<double>();
     input.data_storage->setData(output_key_, result);
     return info;
-  }
-
-  TaskComposerNode::UPtr clone() const override final
-  {
-    return std::make_unique<MultiplyTaskComposerNode>(left_key_, right_key_, output_key_);
   }
 
 protected:

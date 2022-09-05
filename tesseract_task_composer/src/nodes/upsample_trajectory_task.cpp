@@ -98,11 +98,6 @@ TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& in
   return info;
 }
 
-TaskComposerNode::UPtr UpsampleTrajectoryTask::clone() const
-{
-  return std::make_unique<UpsampleTrajectoryTask>(input_keys_[0], output_keys_[0], is_conditional_, name_);
-}
-
 void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
                                       const CompositeInstruction& current_composite,
                                       InstructionPoly& start_instruction,

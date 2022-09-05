@@ -51,8 +51,6 @@ public:
   OMPLMotionPipelineTask(OMPLMotionPipelineTask&&) = delete;
   OMPLMotionPipelineTask& operator=(OMPLMotionPipelineTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const OMPLMotionPipelineTask& rhs) const;
   bool operator!=(const OMPLMotionPipelineTask& rhs) const;
 

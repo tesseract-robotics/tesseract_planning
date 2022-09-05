@@ -113,11 +113,6 @@ TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& 
   return info;
 }
 
-TaskComposerNode::UPtr DiscreteContactCheckTask::clone() const
-{
-  return std::make_unique<DiscreteContactCheckTask>(input_keys_[0], is_conditional_, name_);
-}
-
 bool DiscreteContactCheckTask::operator==(const DiscreteContactCheckTask& rhs) const
 {
   bool equal = true;

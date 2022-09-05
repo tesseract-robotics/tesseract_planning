@@ -57,8 +57,6 @@ public:
   MinLengthTask(MinLengthTask&&) = delete;
   MinLengthTask& operator=(MinLengthTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const MinLengthTask& rhs) const;
   bool operator!=(const MinLengthTask& rhs) const;
 

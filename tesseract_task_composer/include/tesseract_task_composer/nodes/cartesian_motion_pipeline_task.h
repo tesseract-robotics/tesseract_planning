@@ -53,8 +53,6 @@ public:
   CartesianMotionPipelineTask(CartesianMotionPipelineTask&&) = delete;
   CartesianMotionPipelineTask& operator=(CartesianMotionPipelineTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const CartesianMotionPipelineTask& rhs) const;
   bool operator!=(const CartesianMotionPipelineTask& rhs) const;
 

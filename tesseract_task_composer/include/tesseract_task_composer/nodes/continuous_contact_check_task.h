@@ -55,8 +55,6 @@ public:
   ContinuousContactCheckTask(ContinuousContactCheckTask&&) = delete;
   ContinuousContactCheckTask& operator=(ContinuousContactCheckTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const ContinuousContactCheckTask& rhs) const;
   bool operator!=(const ContinuousContactCheckTask& rhs) const;
 

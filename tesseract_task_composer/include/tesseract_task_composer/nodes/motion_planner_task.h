@@ -52,8 +52,6 @@ public:
                     bool is_conditional = true);
   ~MotionPlannerTask() override = default;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const MotionPlannerTask& rhs) const;
   bool operator!=(const MotionPlannerTask& rhs) const;
 

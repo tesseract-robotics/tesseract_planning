@@ -96,11 +96,6 @@ void FreespaceMotionPipelineTask::ctor(std::string input_key, std::string output
   addEdges(time_parameterization_task, { error_task, done_task });
 }
 
-TaskComposerNode::UPtr FreespaceMotionPipelineTask::clone() const
-{
-  return std::make_unique<FreespaceMotionPipelineTask>(input_keys_[0], output_keys_[0], name_);
-}
-
 bool FreespaceMotionPipelineTask::operator==(const FreespaceMotionPipelineTask& rhs) const
 {
   bool equal = true;

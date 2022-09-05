@@ -59,8 +59,6 @@ public:
   IterativeSplineParameterizationTask(IterativeSplineParameterizationTask&&) = delete;
   IterativeSplineParameterizationTask& operator=(IterativeSplineParameterizationTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const IterativeSplineParameterizationTask& rhs) const;
   bool operator!=(const IterativeSplineParameterizationTask& rhs) const;
 

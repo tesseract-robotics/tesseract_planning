@@ -45,8 +45,6 @@ public:
   StartTask(std::string name = "StartTask");
   ~StartTask() override = default;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const StartTask& rhs) const;
   bool operator!=(const StartTask& rhs) const;
 

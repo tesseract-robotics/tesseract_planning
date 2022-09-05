@@ -56,8 +56,6 @@ public:
   TimeOptimalParameterizationTask(TimeOptimalParameterizationTask&&) = delete;
   TimeOptimalParameterizationTask& operator=(TimeOptimalParameterizationTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const TimeOptimalParameterizationTask& rhs) const;
   bool operator!=(const TimeOptimalParameterizationTask& rhs) const;
 

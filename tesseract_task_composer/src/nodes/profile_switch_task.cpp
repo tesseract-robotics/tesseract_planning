@@ -87,11 +87,6 @@ TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,
   return info;
 }
 
-TaskComposerNode::UPtr ProfileSwitchTask::clone() const
-{
-  return std::make_unique<ProfileSwitchTask>(input_keys_[0], is_conditional_, name_);
-}
-
 bool ProfileSwitchTask::operator==(const ProfileSwitchTask& rhs) const
 {
   bool equal = true;

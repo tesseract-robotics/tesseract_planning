@@ -59,8 +59,6 @@ public:
   FixStateBoundsTask(FixStateBoundsTask&&) = delete;
   FixStateBoundsTask& operator=(FixStateBoundsTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const FixStateBoundsTask& rhs) const;
   bool operator!=(const FixStateBoundsTask& rhs) const;
 

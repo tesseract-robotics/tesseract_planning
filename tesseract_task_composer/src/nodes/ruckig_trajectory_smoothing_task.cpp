@@ -154,11 +154,6 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
   return info;
 }
 
-TaskComposerNode::UPtr RuckigTrajectorySmoothingTask::clone() const
-{
-  return std::make_unique<RuckigTrajectorySmoothingTask>(input_keys_[0], output_keys_[0], is_conditional_, name_);
-}
-
 bool RuckigTrajectorySmoothingTask::operator==(const RuckigTrajectorySmoothingTask& rhs) const
 {
   bool equal = true;

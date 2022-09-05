@@ -53,8 +53,6 @@ public:
   FreespaceMotionPipelineTask(FreespaceMotionPipelineTask&&) = delete;
   FreespaceMotionPipelineTask& operator=(FreespaceMotionPipelineTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const FreespaceMotionPipelineTask& rhs) const;
   bool operator!=(const FreespaceMotionPipelineTask& rhs) const;
 

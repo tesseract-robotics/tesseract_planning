@@ -53,8 +53,6 @@ public:
   SimpleMotionPipelineTask(SimpleMotionPipelineTask&&) = delete;
   SimpleMotionPipelineTask& operator=(SimpleMotionPipelineTask&&) = delete;
 
-  TaskComposerNode::UPtr clone() const override final;
-
   bool operator==(const SimpleMotionPipelineTask& rhs) const;
   bool operator!=(const SimpleMotionPipelineTask& rhs) const;
 

@@ -126,12 +126,6 @@ TaskComposerNodeInfo::UPtr MotionPlannerTask::runImpl(TaskComposerInput& input,
   return info;
 }
 
-TaskComposerNode::UPtr MotionPlannerTask::clone() const
-{
-  return std::make_unique<MotionPlannerTask>(
-      planner_, input_keys_[0], output_keys_[0], format_result_as_input_, is_conditional_);
-}
-
 bool MotionPlannerTask::operator==(const MotionPlannerTask& rhs) const
 {
   bool equal = true;

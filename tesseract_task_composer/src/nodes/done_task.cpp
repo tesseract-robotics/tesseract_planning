@@ -53,8 +53,6 @@ TaskComposerNodeInfo::UPtr DoneTask::runImpl(TaskComposerInput& input, OptionalT
   return info;
 }
 
-TaskComposerNode::UPtr DoneTask::clone() const { return std::make_unique<DoneTask>(is_conditional_, name_); }
-
 bool DoneTask::operator==(const DoneTask& rhs) const
 {
   bool equal = true;

@@ -57,11 +57,6 @@ RasterFtPipelineTask::RasterFtPipelineTask(std::string input_key, std::string ou
   addEdges(simple_uuid, { raster_uuid });
 }
 
-TaskComposerNode::UPtr RasterFtPipelineTask::clone() const
-{
-  return std::make_unique<RasterFtPipelineTask>(input_keys_[0], output_keys_[0], name_);
-}
-
 bool RasterFtPipelineTask::operator==(const RasterFtPipelineTask& rhs) const
 {
   bool equal = true;

@@ -72,11 +72,6 @@ void SimpleMotionPipelineTask::ctor(std::string input_key, std::string output_ke
   addEdges(motion_planner_task, { error_task, done_task });
 }
 
-TaskComposerNode::UPtr SimpleMotionPipelineTask::clone() const
-{
-  return std::make_unique<SimpleMotionPipelineTask>(input_keys_[0], output_keys_[0], name_);
-}
-
 bool SimpleMotionPipelineTask::operator==(const SimpleMotionPipelineTask& rhs) const
 {
   bool equal = true;
