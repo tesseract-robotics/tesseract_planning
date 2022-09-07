@@ -65,7 +65,7 @@ TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
+  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input seed to ContinuousContactCheckTask must be a composite instruction";
@@ -78,17 +78,17 @@ TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput
   // Get Composite Profile
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.composite_profile_remapping);
+  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
   auto cur_composite_profile =
       getProfile<ContactCheckProfile>(name_, profile, *input.profiles, std::make_shared<ContactCheckProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   // Get state solver
-  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(input.manip_info);
-  tesseract_kinematics::JointGroup::UPtr manip = input.env->getJointGroup(manip_info.manipulator);
-  tesseract_scene_graph::StateSolver::UPtr state_solver = input.env->getStateSolver();
+  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(input.problem.manip_info);
+  tesseract_kinematics::JointGroup::UPtr manip = input.problem.env->getJointGroup(manip_info.manipulator);
+  tesseract_scene_graph::StateSolver::UPtr state_solver = input.problem.env->getStateSolver();
 
-  tesseract_collision::ContinuousContactManager::Ptr manager = input.env->getContinuousContactManager();
+  tesseract_collision::ContinuousContactManager::Ptr manager = input.problem.env->getContinuousContactManager();
   manager->setActiveCollisionObjects(manip->getActiveLinkNames());
   manager->applyContactManagerConfig(cur_composite_profile->config.contact_manager_config);
 

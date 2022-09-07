@@ -31,10 +31,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <atomic>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_environment/environment.h>
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_task_composer/task_composer_data_storage.h>
 #include <tesseract_task_composer/task_composer_node_info.h>
+#include <tesseract_task_composer/task_composer_problem.h>
 
 namespace tesseract_planning
 {
@@ -49,53 +49,16 @@ struct TaskComposerInput
   using Ptr = std::shared_ptr<TaskComposerInput>;
   using ConstPtr = std::shared_ptr<const TaskComposerInput>;
 
-  TaskComposerInput(TaskComposerDataStorage::Ptr data_storage);
+  TaskComposerInput(TaskComposerProblem problem, ProfileDictionary::ConstPtr profiles = nullptr);
 
-  TaskComposerInput(tesseract_environment::Environment::ConstPtr env,
-                    tesseract_common::ManipulatorInfo manip_info,
-                    ProfileDictionary::ConstPtr profiles,
-                    TaskComposerDataStorage::Ptr data_storage);
-
-  TaskComposerInput(tesseract_environment::Environment::ConstPtr env,
-                    tesseract_common::ManipulatorInfo manip_info,
-                    ProfileRemapping move_profile_remapping,
-                    ProfileRemapping composite_profile_remapping,
-                    ProfileDictionary::ConstPtr profiles,
-                    TaskComposerDataStorage::Ptr data_storage);
-
-  TaskComposerInput(tesseract_environment::Environment::ConstPtr env,
-                    ProfileRemapping move_profile_remapping,
-                    ProfileRemapping composite_profile_remapping,
-                    ProfileDictionary::ConstPtr profiles,
-                    TaskComposerDataStorage::Ptr data_storage);
-
-  TaskComposerInput(tesseract_environment::Environment::ConstPtr env,
-                    ProfileDictionary::ConstPtr profiles,
-                    TaskComposerDataStorage::Ptr data_storage);
-
-  /** @brief Tesseract associated with current state of the system */
-  tesseract_environment::Environment::ConstPtr env;
-
-  /** @brief Global Manipulator Information */
-  tesseract_common::ManipulatorInfo manip_info;
-
-  /**
-   * @brief This allows the remapping of the Move Profile identified in the command language to a specific profile for a
-   * given motion planner.
-   */
-  ProfileRemapping move_profile_remapping;
-
-  /**
-   * @brief This allows the remapping of the Composite Profile identified in the command language to a specific profile
-   * for a given motion planner.
-   */
-  ProfileRemapping composite_profile_remapping;
+  /** @brief The problem */
+  TaskComposerProblem problem;
 
   /** @brief The Profiles to use */
   ProfileDictionary::ConstPtr profiles;
 
   /** @brief The location data is stored and retrieved during execution */
-  TaskComposerDataStorage::Ptr data_storage;
+  TaskComposerDataStorage data_storage;
 
   /** @brief The location where task info is stored during execution */
   TaskComposerNodeInfoContainer task_infos;
@@ -136,9 +99,6 @@ protected:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   mutable std::atomic<bool> aborted_{ false };
-
-  /** @brief Store a copy of the original data storage for resolving using reset() */
-  TaskComposerDataStorage::ConstPtr original_data_storage_;
 };
 }  // namespace tesseract_planning
 

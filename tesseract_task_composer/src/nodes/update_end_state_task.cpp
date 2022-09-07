@@ -73,8 +73,8 @@ TaskComposerNodeInfo::UPtr UpdateEndStateTask::runImpl(TaskComposerInput& input,
   tesseract_common::Timer timer;
   timer.start();
 
-  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
-  auto input_next_data_poly = input.data_storage->getData(input_keys_[1]);
+  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
+  auto input_next_data_poly = input.data_storage.getData(input_keys_[1]);
 
   // --------------------
   // Check that inputs are valid
@@ -111,7 +111,7 @@ TaskComposerNodeInfo::UPtr UpdateEndStateTask::runImpl(TaskComposerInput& input,
     throw std::runtime_error("Invalid waypoint type");
 
   // Store results
-  input.data_storage->setData(output_keys_[0], input_data_poly);
+  input.data_storage.setData(output_keys_[0], input_data_poly);
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();

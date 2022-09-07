@@ -51,7 +51,7 @@ struct CheckInputProfile
   virtual bool isValid(const TaskComposerInput& input) const
   {
     // Check Input
-    if (!input.env)
+    if (!input.problem.env)
     {
       CONSOLE_BRIDGE_logError("Input env is a nullptr");
       return false;

@@ -43,10 +43,15 @@ TEST_F(FixStateCollisionTaskUnit, StateInCollisionTest)  // NOLINT
 {
   CompositeInstruction program = freespaceExampleProgramABB();
 
-  // Create data storage and input
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", program);
-  auto task_input = std::make_shared<TaskComposerInput>(env_, nullptr, task_data);
+  // Create data storage
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", program);
+
+  // Create problem
+  TaskComposerProblem task_problem(env_, task_data);
+
+  // Create input
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem);
 
   FixStateCollisionProfile profile;
 
@@ -84,10 +89,15 @@ TEST_F(FixStateCollisionTaskUnit, WaypointInCollisionTest)  // NOLINT
 {
   CompositeInstruction program = freespaceExampleProgramABB();
 
-  // Create data storage and input
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", program);
-  auto task_input = std::make_shared<TaskComposerInput>(env_, nullptr, task_data);
+  // Create data storage
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", program);
+
+  // Create problem
+  TaskComposerProblem task_problem(env_, task_data);
+
+  // Create input
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, nullptr);
 
   FixStateCollisionProfile profile;
 
@@ -133,10 +143,15 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionRandomSamplerTest)  /
 {
   CompositeInstruction program = freespaceExampleProgramABB();
 
-  // Create data storage and input
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", program);
-  auto task_input = std::make_shared<TaskComposerInput>(env_, nullptr, task_data);
+  // Create data storage
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", program);
+
+  // Create problem
+  TaskComposerProblem task_problem(env_, task_data);
+
+  // Create input
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, nullptr);
 
   FixStateCollisionProfile profile;
 
@@ -167,10 +182,15 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionTrajoptTest)  // NOLI
 {
   CompositeInstruction program = freespaceExampleProgramABB();
 
-  // Create data storage and input
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", program);
-  auto task_input = std::make_shared<TaskComposerInput>(env_, nullptr, task_data);
+  // Create data storage
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", program);
+
+  // Create problem
+  TaskComposerProblem task_problem(env_, task_data);
+
+  // Create input
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, nullptr);
 
   FixStateCollisionProfile profile;
 

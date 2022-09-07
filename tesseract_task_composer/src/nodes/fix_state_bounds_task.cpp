@@ -67,7 +67,7 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
+  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input instruction to FixStateBounds must be a composite instruction";
@@ -77,21 +77,21 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
   }
 
   auto& ci = input_data_poly.as<CompositeInstruction>();
-  ci.setManipulatorInfo(ci.getManipulatorInfo().getCombined(input.manip_info));
+  ci.setManipulatorInfo(ci.getManipulatorInfo().getCombined(input.problem.manip_info));
   const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
-  auto joint_group = input.env->getJointGroup(manip_info.manipulator);
+  auto joint_group = input.problem.env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.composite_profile_remapping);
+  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
   auto cur_composite_profile =
       getProfile<FixStateBoundsProfile>(name_, profile, *input.profiles, std::make_shared<FixStateBoundsProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   if (cur_composite_profile->mode == FixStateBoundsProfile::Settings::DISABLED)
   {
-    input.data_storage->setData(output_keys_[0], input_data_poly);
+    input.data_storage.setData(output_keys_[0], input_data_poly);
     info->message = "Successful, DISABLED";
     info->return_value = 1;
     info->elapsed_time = timer.elapsedSeconds();
@@ -145,7 +145,7 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
       auto flattened = ci.flatten(moveFilter);
       if (flattened.empty())
       {
-        input.data_storage->setData(output_keys_[0], input_data_poly);
+        input.data_storage.setData(output_keys_[0], input_data_poly);
         info->message = "FixStateBoundsTask found no MoveInstructions to process";
         info->return_value = 1;
         info->elapsed_time = timer.elapsedSeconds();
@@ -176,14 +176,14 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
     }
     break;
     case FixStateBoundsProfile::Settings::DISABLED:
-      input.data_storage->setData(output_keys_[0], input_data_poly);
+      input.data_storage.setData(output_keys_[0], input_data_poly);
       info->message = "Successful, DISABLED";
       info->return_value = 1;
       info->elapsed_time = timer.elapsedSeconds();
       return info;
   }
 
-  input.data_storage->setData(output_keys_[0], input_data_poly);
+  input.data_storage.setData(output_keys_[0], input_data_poly);
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();

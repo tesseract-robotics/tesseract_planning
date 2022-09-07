@@ -76,10 +76,15 @@ void checkProgram(const Environment::Ptr& env,
 
   CompositeInstruction program = createProgram(start_state, goal_state, DEFAULT_PROFILE_KEY);
 
-  // Create data storage and input
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", program);
-  auto task_input = std::make_shared<TaskComposerInput>(env, profiles, task_data);
+  // Create data storage
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", program);
+
+  // Create problem
+  TaskComposerProblem task_problem(env, task_data);
+
+  // Create input
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
 
   // Create task
   FixStateBoundsTask task("input_program", "output_program");
@@ -95,7 +100,7 @@ void checkProgram(const Environment::Ptr& env,
 
   if (expected_return == 1)
   {
-    auto task_program = task_input->data_storage->getData("output_program").as<CompositeInstruction>();
+    auto task_program = task_input->data_storage.getData("output_program").as<CompositeInstruction>();
     auto task_flattened = task_program.flatten(moveFilter);
 
     switch (setting)

@@ -50,10 +50,10 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   using namespace tesseract_collision;
   using namespace tesseract_environment;
 
-  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(input.manip_info);
-  auto joint_group = input.env->getJointGroup(mi.manipulator);
+  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(input.problem.manip_info);
+  auto joint_group = input.problem.env->getJointGroup(mi.manipulator);
 
-  DiscreteContactManager::Ptr manager = input.env->getDiscreteContactManager();
+  DiscreteContactManager::Ptr manager = input.problem.env->getDiscreteContactManager();
   manager->setActiveCollisionObjects(joint_group->getActiveLinkNames());
   manager->applyContactManagerConfig(profile.collision_check_config.contact_manager_config);
 
@@ -133,9 +133,9 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
   auto num_jnts = static_cast<std::size_t>(start_pos.size());
 
   // Setup trajopt problem with basic info
-  ProblemConstructionInfo pci(input.env);
+  ProblemConstructionInfo pci(input.problem.env);
   pci.basic_info.n_steps = 1;
-  pci.basic_info.manip = manip_info.getCombined(input.manip_info).manipulator;
+  pci.basic_info.manip = manip_info.getCombined(input.problem.manip_info).manipulator;
   pci.basic_info.use_time = false;
 
   // Create Kinematic Object
@@ -252,8 +252,8 @@ bool moveWaypointFromCollisionRandomSampler(WaypointPoly& waypoint,
     return false;
   }
 
-  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(input.manip_info);
-  tesseract_kinematics::JointGroup::UPtr kin = input.env->getJointGroup(mi.manipulator);
+  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(input.problem.manip_info);
+  tesseract_kinematics::JointGroup::UPtr kin = input.problem.env->getJointGroup(mi.manipulator);
   Eigen::MatrixXd limits = kin->getLimits().joint_limits;
   Eigen::VectorXd range = limits.col(1).array() - limits.col(0).array();
 
@@ -333,7 +333,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
+  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input to FixStateCollision must be a composite instruction";
@@ -346,7 +346,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.composite_profile_remapping);
+  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
   auto cur_composite_profile = getProfile<FixStateCollisionProfile>(
       name_, profile, *input.profiles, std::make_shared<FixStateCollisionProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
@@ -578,7 +578,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
       return info;
   }
 
-  input.data_storage->setData(output_keys_[0], input_data_poly);
+  input.data_storage.setData(output_keys_[0], input_data_poly);
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();

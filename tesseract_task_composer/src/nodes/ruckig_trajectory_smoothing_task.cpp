@@ -67,7 +67,7 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
+  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input results to ruckig trajectory smoothing must be a composite instruction";
@@ -78,12 +78,12 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
 
   auto& ci = input_data_poly.as<CompositeInstruction>();
   const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
-  auto joint_group = input.env->getJointGroup(manip_info.manipulator);
+  auto joint_group = input.problem.env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.composite_profile_remapping);
+  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
   auto cur_composite_profile = getProfile<RuckigTrajectorySmoothingCompositeProfile>(
       name_, profile, *input.profiles, std::make_shared<RuckigTrajectorySmoothingCompositeProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
@@ -116,7 +116,7 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
     std::string move_profile = mi.getProfile();
 
     // Check for remapping of the plan profile
-    move_profile = getProfileString(name_, profile, input.move_profile_remapping);
+    move_profile = getProfileString(name_, profile, input.problem.move_profile_remapping);
     auto cur_move_profile = getProfile<RuckigTrajectorySmoothingMoveProfile>(
         name_, move_profile, *input.profiles, std::make_shared<RuckigTrajectorySmoothingMoveProfile>());
     //    cur_move_profile = applyProfileOverrides(name_, profile, cur_move_profile, mi.profile_overrides);
@@ -146,7 +146,7 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
     return info;
   }
 
-  input.data_storage->setData(output_keys_[0], input_data_poly);
+  input.data_storage.setData(output_keys_[0], input_data_poly);
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();

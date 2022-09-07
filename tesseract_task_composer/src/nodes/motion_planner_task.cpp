@@ -66,7 +66,7 @@ TaskComposerNodeInfo::UPtr MotionPlannerTask::runImpl(TaskComposerInput& input,
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
+  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input instructions to MotionPlannerTask: " + name_ + " must be a composite instruction";
@@ -77,8 +77,8 @@ TaskComposerNodeInfo::UPtr MotionPlannerTask::runImpl(TaskComposerInput& input,
 
   // Make a non-const copy of the input instructions to update the start/end
   auto& instructions = input_data_poly.as<CompositeInstruction>();
-  assert(!(input.manip_info.empty() && instructions.getManipulatorInfo().empty()));
-  instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input.manip_info));
+  assert(!(input.problem.manip_info.empty() && instructions.getManipulatorInfo().empty()));
+  instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input.problem.manip_info));
 
   // It should always have a start instruction which required by the motion planners
   assert(instructions.hasStartInstruction());
@@ -87,12 +87,12 @@ TaskComposerNodeInfo::UPtr MotionPlannerTask::runImpl(TaskComposerInput& input,
   // Fill out request
   // --------------------
   PlannerRequest request;
-  request.env_state = input.env->getState();
-  request.env = input.env;
+  request.env_state = input.problem.env->getState();
+  request.env = input.problem.env;
   request.instructions = instructions;
   request.profiles = input.profiles;
-  request.plan_profile_remapping = input.move_profile_remapping;
-  request.composite_profile_remapping = input.composite_profile_remapping;
+  request.plan_profile_remapping = input.problem.move_profile_remapping;
+  request.composite_profile_remapping = input.problem.composite_profile_remapping;
   request.format_result_as_input = format_result_as_input_;
 
   // --------------------
@@ -108,7 +108,7 @@ TaskComposerNodeInfo::UPtr MotionPlannerTask::runImpl(TaskComposerInput& input,
   // --------------------
   if (response)
   {
-    input.data_storage->setData(output_keys_[0], response.results);
+    input.data_storage.setData(output_keys_[0], response.results);
 
     info->return_value = 1;
     info->message = response.message;

@@ -106,11 +106,14 @@ TEST(TesseractTaskComposerSerializeUnit, TaskComposerInput)  // NOLINT
   auto profiles = std::make_shared<ProfileDictionary>();
 
   // Create data storage
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", rasterExampleProgram());
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", rasterExampleProgram());
+
+  // Create problem
+  TaskComposerProblem task_problem(nullptr, task_data);
 
   // Create task input
-  auto task_input = std::make_shared<TaskComposerInput>(nullptr, profiles, task_data);
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
 
   task_input->task_infos.addInfo(std::move(info));
   task_input->abort();

@@ -66,7 +66,7 @@ TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& in
   timer.start();
 
   // Check that inputs are valid
-  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
+  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input seed to UpsampleTrajectoryTask must be a composite instruction";
@@ -78,7 +78,7 @@ TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& in
   // Get Composite Profile
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.composite_profile_remapping);
+  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
   auto cur_composite_profile = getProfile<UpsampleTrajectoryProfile>(
       name_, profile, *input.profiles, std::make_shared<UpsampleTrajectoryProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
@@ -90,7 +90,7 @@ TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& in
   new_results.clear();
 
   upsample(new_results, results, start_instruction, cur_composite_profile->longest_valid_segment_length);
-  input.data_storage->setData(output_keys_[0], new_results);
+  input.data_storage.setData(output_keys_[0], new_results);
 
   info->message = "Successful";
   info->return_value = 1;

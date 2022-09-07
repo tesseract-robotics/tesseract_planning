@@ -106,6 +106,12 @@ const TaskComposerNodeInfo& TaskComposerNodeInfoContainer::getInfo(boost::uuids:
   return *info_map_.at(key);
 }
 
+void TaskComposerNodeInfoContainer::clear()
+{
+  std::unique_lock<std::shared_mutex> lock(mutex_);
+  return info_map_.clear();
+}
+
 const TaskComposerNodeInfo& TaskComposerNodeInfoContainer::operator[](boost::uuids::uuid key) const
 {
   std::shared_lock<std::shared_mutex> lock(mutex_);

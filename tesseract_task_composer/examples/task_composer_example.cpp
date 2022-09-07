@@ -3,6 +3,7 @@
 #include <tesseract_common/utils.h>
 #include <tesseract_task_composer/task_composer_graph.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
+#include <tesseract_task_composer/task_composer_problem.h>
 
 using namespace tesseract_planning;
 
@@ -24,8 +25,8 @@ public:
     info->return_value = 0;
     std::cout << name_ << std::endl;
     double result =
-        input.data_storage->getData(left_key_).as<double>() + input.data_storage->getData(right_key_).as<double>();
-    input.data_storage->setData(output_key_, result);
+        input.data_storage.getData(left_key_).as<double>() + input.data_storage.getData(right_key_).as<double>();
+    input.data_storage.setData(output_key_, result);
     return info;
   }
 
@@ -53,8 +54,8 @@ public:
     info->return_value = 0;
     std::cout << name_ << std::endl;
     double result =
-        input.data_storage->getData(left_key_).as<double>() * input.data_storage->getData(right_key_).as<double>();
-    input.data_storage->setData(output_key_, result);
+        input.data_storage.getData(left_key_).as<double>() * input.data_storage.getData(right_key_).as<double>();
+    input.data_storage.setData(output_key_, result);
     return info;
   }
 
@@ -70,13 +71,15 @@ int main()
   double b{ 3 };
   double c{ 5 };
   double d{ 9 };
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("a", a);
-  task_data->setData("b", b);
-  task_data->setData("c", c);
-  task_data->setData("d", d);
+  TaskComposerDataStorage task_data;
+  task_data.setData("a", a);
+  task_data.setData("b", b);
+  task_data.setData("c", c);
+  task_data.setData("d", d);
 
-  auto task_input = std::make_shared<TaskComposerInput>(task_data);
+  TaskComposerProblem task_problem(task_data);
+
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem);
 
   // result = a * (b + c) + d
   auto task1 = std::make_unique<AddTaskComposerNode>("b", "c", "task1_output");
@@ -94,5 +97,5 @@ int main()
   TaskComposerFuture::UPtr future = task_executor->run(task_composer, *task_input);
   future->wait();
 
-  std::cout << "Output: " << task_data->getData("task3_output").as<double>() << std::endl;
+  std::cout << "Output: " << task_input->data_storage.getData("task3_output").as<double>() << std::endl;
 }

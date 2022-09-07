@@ -123,6 +123,9 @@ struct TaskComposerNodeInfoContainer
   /** @brief Get a copy of the task_info_map_ in case it gets resized*/
   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> getInfoMap() const;
 
+  /** @brief Clear the contents */
+  void clear();
+
   const TaskComposerNodeInfo& operator[](boost::uuids::uuid key) const;
 
   bool operator==(const TaskComposerNodeInfoContainer& rhs) const;

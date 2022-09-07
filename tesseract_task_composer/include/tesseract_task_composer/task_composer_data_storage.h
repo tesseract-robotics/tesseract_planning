@@ -50,8 +50,8 @@ public:
   ~TaskComposerDataStorage() = default;
   TaskComposerDataStorage(const TaskComposerDataStorage&);
   TaskComposerDataStorage& operator=(const TaskComposerDataStorage&);
-  TaskComposerDataStorage(TaskComposerDataStorage&&) = delete;
-  TaskComposerDataStorage& operator=(TaskComposerDataStorage&&) = delete;
+  TaskComposerDataStorage(TaskComposerDataStorage&&) = default;
+  TaskComposerDataStorage& operator=(TaskComposerDataStorage&&) = default;
 
   /**
    * @brief Check if key exists

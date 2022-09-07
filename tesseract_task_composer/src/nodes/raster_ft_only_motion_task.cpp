@@ -72,7 +72,7 @@ TaskComposerNodeInfo::UPtr RasterFtOnlyMotionTask::runImpl(TaskComposerInput& in
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
+  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
   try
   {
     checkTaskInput(input_data_poly);
@@ -88,7 +88,8 @@ TaskComposerNodeInfo::UPtr RasterFtOnlyMotionTask::runImpl(TaskComposerInput& in
   auto& program = input_data_poly.as<CompositeInstruction>();
   TaskComposerGraph task_graph;
 
-  tesseract_common::ManipulatorInfo program_manip_info = program.getManipulatorInfo().getCombined(input.manip_info);
+  tesseract_common::ManipulatorInfo program_manip_info =
+      program.getManipulatorInfo().getCombined(input.problem.manip_info);
 
   auto start_task = std::make_unique<StartTask>();
   auto start_uuid = task_graph.addNode(std::move(start_task));
@@ -131,7 +132,7 @@ TaskComposerNodeInfo::UPtr RasterFtOnlyMotionTask::runImpl(TaskComposerInput& in
     std::string raster_pipeline_key = raster_pipeline_task->getUUIDString();
     auto raster_pipeline_uuid = task_graph.addNode(std::move(raster_pipeline_task));
     raster_tasks.emplace_back(raster_pipeline_uuid, raster_pipeline_key);
-    input.data_storage->setData(raster_pipeline_key, raster_input);
+    input.data_storage.setData(raster_pipeline_key, raster_input);
 
     task_graph.addEdges(start_uuid, { raster_pipeline_uuid });
 
@@ -163,7 +164,7 @@ TaskComposerNodeInfo::UPtr RasterFtOnlyMotionTask::runImpl(TaskComposerInput& in
     std::string transition_mux_key = transition_mux_task->getUUIDString();
     auto transition_mux_uuid = task_graph.addNode(std::move(transition_mux_task));
 
-    input.data_storage->setData(transition_mux_key, transition_input);
+    input.data_storage.setData(transition_mux_key, transition_input);
 
     task_graph.addEdges(transition_mux_uuid, { transition_pipeline_uuid });
     task_graph.addEdges(prev.first, { transition_mux_uuid });
@@ -192,12 +193,12 @@ TaskComposerNodeInfo::UPtr RasterFtOnlyMotionTask::runImpl(TaskComposerInput& in
   program.clear();
   for (std::size_t i = 0; i < raster_tasks.size(); ++i)
   {
-    program.appendInstruction(input.data_storage->getData(raster_tasks[i].second).as<CompositeInstruction>());
+    program.appendInstruction(input.data_storage.getData(raster_tasks[i].second).as<CompositeInstruction>());
     if (i < raster_tasks.size() - 1)
-      program.appendInstruction(input.data_storage->getData(transition_keys[i]).as<CompositeInstruction>());
+      program.appendInstruction(input.data_storage.getData(transition_keys[i]).as<CompositeInstruction>());
   }
 
-  input.data_storage->setData(output_keys_[0], program);
+  input.data_storage.setData(output_keys_[0], program);
 
   info->message = "Successful";
   info->return_value = 1;

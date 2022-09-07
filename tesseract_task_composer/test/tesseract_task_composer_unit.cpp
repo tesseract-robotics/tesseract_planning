@@ -80,35 +80,40 @@ TEST_F(TesseractTaskComposerUnit, MinLengthTaskTest)  // NOLINT
   auto cur_state = env_->getState();
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env_);
 
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", interpolated_program);
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", interpolated_program);
+
+  TaskComposerProblem task_problem(env_, task_data);
 
   auto profiles = std::make_shared<ProfileDictionary>();
   long current_length = interpolated_program.getMoveInstructionCount();
   profiles->addProfile<MinLengthProfile>(
       MIN_LENGTH_DEFAULT_NAMESPACE, program.getProfile(), std::make_shared<MinLengthProfile>(current_length));
 
-  auto task_input = std::make_shared<TaskComposerInput>(env_, profiles, task_data);
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
 
   MinLengthTask task("input_program", "output_program", true);
   EXPECT_TRUE(task.run(*task_input) == 1);
-  long final_length = task_data->getData("output_program").as<CompositeInstruction>().getMoveInstructionCount();
+  long final_length =
+      task_input->data_storage.getData("output_program").as<CompositeInstruction>().getMoveInstructionCount();
   EXPECT_TRUE(final_length == current_length);
 
   profiles->addProfile<MinLengthProfile>(
       MIN_LENGTH_DEFAULT_NAMESPACE, program.getProfile(), std::make_shared<MinLengthProfile>(2 * current_length));
 
-  task_data->removeData("output_program");
+  task_input.reset();
   EXPECT_TRUE(task.run(*task_input) == 1);
-  long final_length2 = task_data->getData("output_program").as<CompositeInstruction>().getMoveInstructionCount();
+  long final_length2 =
+      task_input->data_storage.getData("output_program").as<CompositeInstruction>().getMoveInstructionCount();
   EXPECT_TRUE(final_length2 >= (2 * current_length));
 
   profiles->addProfile<MinLengthProfile>(
       MIN_LENGTH_DEFAULT_NAMESPACE, program.getProfile(), std::make_shared<MinLengthProfile>(3 * current_length));
 
-  task_data->removeData("output_program");
+  task_input.reset();
   EXPECT_TRUE(task.run(*task_input) == 1);
-  long final_length3 = task_data->getData("output_program").as<CompositeInstruction>().getMoveInstructionCount();
+  long final_length3 =
+      task_input->data_storage.getData("output_program").as<CompositeInstruction>().getMoveInstructionCount();
   EXPECT_TRUE(final_length3 >= (3 * current_length));
 }
 
@@ -324,10 +329,15 @@ TEST_F(TesseractTaskComposerUnit, RasterProcessManagerDefaultPlanProfileTest)  /
   profiles->addProfile<SimplePlannerPlanProfile>(
       SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
 
-  // Create data storage and input
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", program);
-  auto task_input = std::make_shared<TaskComposerInput>(env_, profiles, task_data);
+  // Create data storage
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", program);
+
+  // Create problem
+  TaskComposerProblem task_problem(env_, task_data);
+
+  // Create input
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
 
   // Create task
   RasterFtMotionTask task("input_program", "output_program");
@@ -362,10 +372,15 @@ TEST_F(TesseractTaskComposerUnit, RasterGlobalProcessManagerDefaultPlanProfileTe
   profiles->addProfile<SimplePlannerPlanProfile>(
       SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
 
-  // Create data storage and input
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", program);
-  auto task_input = std::make_shared<TaskComposerInput>(env_, profiles, task_data);
+  // Create data storage
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", program);
+
+  // Create problem
+  TaskComposerProblem task_problem(env_, task_data);
+
+  // Create input
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
 
   // Create task
   RasterFtGlobalPipelineTask task("input_program", "output_program");
@@ -400,10 +415,15 @@ TEST_F(TesseractTaskComposerUnit, RasterGlobalProcessManagerDefaultLVSPlanProfil
   profiles->addProfile<SimplePlannerPlanProfile>(
       SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
 
-  // Create data storage and input
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", program);
-  auto task_input = std::make_shared<TaskComposerInput>(env_, profiles, task_data);
+  // Create data storage
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", program);
+
+  // Create problem
+  TaskComposerProblem task_problem(env_, task_data);
+
+  // Create input
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
 
   // Create task
   RasterFtGlobalPipelineTask task("input_program", "output_program");
@@ -438,10 +458,15 @@ TEST_F(TesseractTaskComposerUnit, RasterOnlyProcessManagerDefaultPlanProfileTest
   profiles->addProfile<SimplePlannerPlanProfile>(
       SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
 
-  // Create data storage and input
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", program);
-  auto task_input = std::make_shared<TaskComposerInput>(env_, profiles, task_data);
+  // Create data storage
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", program);
+
+  // Create problem
+  TaskComposerProblem task_problem(env_, task_data);
+
+  // Create input
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
 
   // Create task
   RasterFtOnlyMotionTask task("input_program", "output_program");
@@ -476,10 +501,15 @@ TEST_F(TesseractTaskComposerUnit, RasterOnlyProcessManagerDefaultLVSPlanProfileT
   profiles->addProfile<SimplePlannerPlanProfile>(
       SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
 
-  // Create data storage and input
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", program);
-  auto task_input = std::make_shared<TaskComposerInput>(env_, profiles, task_data);
+  // Create data storage
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", program);
+
+  // Create problem
+  TaskComposerProblem task_problem(env_, task_data);
+
+  // Create input
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
 
   // Create task
   RasterFtOnlyMotionTask task("input_program", "output_program");
@@ -514,10 +544,15 @@ TEST_F(TesseractTaskComposerUnit, RasterOnlyGlobalProcessManagerDefaultPlanProfi
   profiles->addProfile<SimplePlannerPlanProfile>(
       SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
 
-  // Create data storage and input
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", program);
-  auto task_input = std::make_shared<TaskComposerInput>(env_, profiles, task_data);
+  // Create data storage
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", program);
+
+  // Create problem
+  TaskComposerProblem task_problem(env_, task_data);
+
+  // Create input
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
 
   // Create task
   RasterFtOnlyGlobalPipelineTask task("input_program", "output_program");
@@ -552,10 +587,15 @@ TEST_F(TesseractTaskComposerUnit, RasterOnlyGlobalProcessManagerDefaultLVSPlanPr
   profiles->addProfile<SimplePlannerPlanProfile>(
       SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
 
-  // Create data storage and input
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", program);
-  auto task_input = std::make_shared<TaskComposerInput>(env_, profiles, task_data);
+  // Create data storage
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", program);
+
+  // Create problem
+  TaskComposerProblem task_problem(env_, task_data);
+
+  // Create input
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
 
   // Create task
   RasterFtOnlyGlobalPipelineTask task("input_program", "output_program");

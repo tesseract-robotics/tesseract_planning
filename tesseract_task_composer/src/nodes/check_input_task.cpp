@@ -64,7 +64,7 @@ TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,
   // Get Composite Profile
   for (const auto& key : input_keys_)
   {
-    auto input_data_poly = input.data_storage->getData(key);
+    auto input_data_poly = input.data_storage.getData(key);
     if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
     {
       info->message = "Input key '" + key + "' is missing";
@@ -74,7 +74,7 @@ TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,
 
     const auto& ci = input_data_poly.as<CompositeInstruction>();
     std::string profile = ci.getProfile();
-    profile = getProfileString(name_, profile, input.composite_profile_remapping);
+    profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
     auto cur_composite_profile =
         getProfile<CheckInputProfile>(name_, profile, *input.profiles, std::make_shared<CheckInputProfile>());
     cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());

@@ -67,7 +67,7 @@ TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerInput& input,
   //  saveInputs(*info, input);
 
   // Check that inputs are valid
-  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
+  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input seed to MinLengthTask must be a composite instruction";
@@ -80,7 +80,7 @@ TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerInput& input,
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   long cnt = ci.getMoveInstructionCount();
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.composite_profile_remapping);
+  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
   auto cur_composite_profile =
       getProfile<MinLengthProfile>(name_, profile, *input.profiles, std::make_shared<MinLengthProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
@@ -94,8 +94,8 @@ TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerInput& input,
     // Fill out request and response
     PlannerRequest request;
     request.instructions = ci;
-    request.env_state = input.env->getState();
-    request.env = input.env;
+    request.env_state = input.problem.env->getState();
+    request.env = input.problem.env;
 
     // Set up planner
     SimpleMotionPlanner planner;
@@ -124,11 +124,11 @@ TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerInput& input,
       return info;
     }
 
-    input.data_storage->setData(output_keys_[0], response.results);
+    input.data_storage.setData(output_keys_[0], response.results);
   }
   else
   {
-    input.data_storage->setData(output_keys_[0], ci);
+    input.data_storage.setData(output_keys_[0], ci);
   }
 
   info->message = "Successful";

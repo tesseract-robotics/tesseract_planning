@@ -51,11 +51,14 @@ int main()
   program.print();
 
   // Create data storage
-  auto task_data = std::make_shared<TaskComposerDataStorage>();
-  task_data->setData("input_program", program);
+  TaskComposerDataStorage task_data;
+  task_data.setData("input_program", program);
+
+  // Create problem
+  TaskComposerProblem task_problem(env, task_data);
 
   // Create task input
-  auto task_input = std::make_shared<TaskComposerInput>(env, profiles, task_data);
+  auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
 
   // Create raster task
   TaskComposerTask::UPtr task = std::make_unique<RasterFtMotionTask>("input_program", "output_program");
@@ -72,7 +75,7 @@ int main()
   future->wait();
 
   // Plot Process Trajectory
-  auto output_program = task_data->getData("output_program").as<CompositeInstruction>();
+  auto output_program = task_input->data_storage.getData("output_program").as<CompositeInstruction>();
   if (plotter != nullptr && plotter->isConnected())
   {
     plotter->waitForInput();
