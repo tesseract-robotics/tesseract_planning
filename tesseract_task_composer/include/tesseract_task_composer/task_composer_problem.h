@@ -45,24 +45,32 @@ struct TaskComposerProblem
   using ConstUPtr = std::unique_ptr<const TaskComposerProblem>;
 
   TaskComposerProblem() = default;
-  TaskComposerProblem(TaskComposerDataStorage input_data);
+  TaskComposerProblem(TaskComposerDataStorage input_data, std::string name = "unset");
 
   TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
                       tesseract_common::ManipulatorInfo manip_info,
-                      TaskComposerDataStorage input_data);
+                      TaskComposerDataStorage input_data,
+                      std::string name = "unset");
 
   TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
                       tesseract_common::ManipulatorInfo manip_info,
                       ProfileRemapping move_profile_remapping,
                       ProfileRemapping composite_profile_remapping,
-                      TaskComposerDataStorage input_data);
+                      TaskComposerDataStorage input_data,
+                      std::string name = "unset");
 
   TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
                       ProfileRemapping move_profile_remapping,
                       ProfileRemapping composite_profile_remapping,
-                      TaskComposerDataStorage input_data);
+                      TaskComposerDataStorage input_data,
+                      std::string name = "unset");
 
-  TaskComposerProblem(tesseract_environment::Environment::ConstPtr env, TaskComposerDataStorage input_data);
+  TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
+                      TaskComposerDataStorage input_data,
+                      std::string name = "unset");
+
+  /** @brief The name of the task to be ran for this problem */
+  std::string name;
 
   /** @brief Tesseract associated with current state of the system */
   tesseract_environment::Environment::ConstPtr env;

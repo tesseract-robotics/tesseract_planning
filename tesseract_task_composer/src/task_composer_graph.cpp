@@ -44,6 +44,7 @@ TaskComposerGraph::TaskComposerGraph(std::string name) : TaskComposerNode(std::m
 boost::uuids::uuid TaskComposerGraph::addNode(TaskComposerNode::UPtr task_node)
 {
   boost::uuids::uuid uuid = task_node->getUUID();
+  task_node->parent_uuid_ = uuid_;
   nodes_[uuid] = std::move(task_node);
   return uuid;
 }
@@ -51,8 +52,8 @@ boost::uuids::uuid TaskComposerGraph::addNode(TaskComposerNode::UPtr task_node)
 void TaskComposerGraph::addEdges(boost::uuids::uuid source, std::vector<boost::uuids::uuid> destinations)
 {
   TaskComposerNode::Ptr& node = nodes_.at(source);
-  node->outbound_edges_.insert(node->outbound_edges_.end(), destinations.begin(), destinations.end());
 
+  node->outbound_edges_.insert(node->outbound_edges_.end(), destinations.begin(), destinations.end());
   for (const auto& d : destinations)
     nodes_.at(d)->inbound_edges_.push_back(source);
 }

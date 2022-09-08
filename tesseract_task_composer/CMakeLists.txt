@@ -64,6 +64,7 @@ add_library(
   src/task_composer_node_info.cpp
   src/task_composer_plugin_factory.cpp
   src/task_composer_problem.cpp
+  src/task_composer_server.cpp
   src/task_composer_task.cpp
   src/nodes/cartesian_motion_pipeline_task.cpp
   src/nodes/check_input_task.cpp

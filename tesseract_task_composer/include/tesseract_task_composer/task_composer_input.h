@@ -57,7 +57,10 @@ struct TaskComposerInput
   /** @brief The Profiles to use */
   ProfileDictionary::ConstPtr profiles;
 
-  /** @brief The location data is stored and retrieved during execution */
+  /**
+   * @brief The location data is stored and retrieved during execution
+   * @details The problem input data is copied into this structure when constructed
+   */
   TaskComposerDataStorage data_storage;
 
   /** @brief The location where task info is stored during execution */

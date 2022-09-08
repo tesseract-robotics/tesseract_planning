@@ -34,12 +34,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerProblem::TaskComposerProblem(TaskComposerDataStorage input_data) : input_data(std::move(input_data)) {}
+TaskComposerProblem::TaskComposerProblem(TaskComposerDataStorage input_data, std::string name)
+  : name(std::move(name)), input_data(std::move(input_data))
+{
+}
 
 TaskComposerProblem::TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
                                          tesseract_common::ManipulatorInfo manip_info,
-                                         TaskComposerDataStorage input_data)
-  : env(std::move(env)), manip_info(std::move(manip_info)), input_data(std::move(input_data))
+                                         TaskComposerDataStorage input_data,
+                                         std::string name)
+  : name(std::move(name)), env(std::move(env)), manip_info(std::move(manip_info)), input_data(std::move(input_data))
 {
 }
 
@@ -47,8 +51,10 @@ TaskComposerProblem::TaskComposerProblem(tesseract_environment::Environment::Con
                                          tesseract_common::ManipulatorInfo manip_info,
                                          ProfileRemapping move_profile_remapping,
                                          ProfileRemapping composite_profile_remapping,
-                                         TaskComposerDataStorage input_data)
-  : env(std::move(env))
+                                         TaskComposerDataStorage input_data,
+                                         std::string name)
+  : name(std::move(name))
+  , env(std::move(env))
   , manip_info(std::move(manip_info))
   , move_profile_remapping(std::move(move_profile_remapping))
   , composite_profile_remapping(std::move(composite_profile_remapping))
@@ -59,8 +65,10 @@ TaskComposerProblem::TaskComposerProblem(tesseract_environment::Environment::Con
 TaskComposerProblem::TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
                                          ProfileRemapping move_profile_remapping,
                                          ProfileRemapping composite_profile_remapping,
-                                         TaskComposerDataStorage input_data)
-  : env(std::move(env))
+                                         TaskComposerDataStorage input_data,
+                                         std::string name)
+  : name(std::move(name))
+  , env(std::move(env))
   , move_profile_remapping(std::move(move_profile_remapping))
   , composite_profile_remapping(std::move(composite_profile_remapping))
   , input_data(std::move(input_data))
@@ -68,14 +76,16 @@ TaskComposerProblem::TaskComposerProblem(tesseract_environment::Environment::Con
 }
 
 TaskComposerProblem::TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
-                                         TaskComposerDataStorage input_data)
-  : env(std::move(env)), input_data(std::move(input_data))
+                                         TaskComposerDataStorage input_data,
+                                         std::string name)
+  : name(std::move(name)), env(std::move(env)), input_data(std::move(input_data))
 {
 }
 
 bool TaskComposerProblem::operator==(const TaskComposerProblem& rhs) const
 {
   bool equal = true;
+  equal &= name == rhs.name;
   equal &= tesseract_common::pointersEqual(env, rhs.env);
   equal &= manip_info == rhs.manip_info;
   equal &= move_profile_remapping == rhs.move_profile_remapping;
@@ -89,6 +99,7 @@ bool TaskComposerProblem::operator!=(const TaskComposerProblem& rhs) const { ret
 template <class Archive>
 void TaskComposerProblem::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& boost::serialization::make_nvp("name", name);
   ar& boost::serialization::make_nvp("environment", env);
   ar& boost::serialization::make_nvp("manip_info", manip_info);
   ar& boost::serialization::make_nvp("move_profile_remapping", move_profile_remapping);

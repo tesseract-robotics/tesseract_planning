@@ -68,11 +68,17 @@ public:
   /** @brief The node type TASK, GRAPH, etc */
   TaskComposerNodeType getType() const;
 
-  /** @brief The task uuid */
+  /** @brief The node uuid */
   const boost::uuids::uuid& getUUID() const;
 
-  /** @brief The task uuid */
+  /** @brief The node uuid */
   const std::string& getUUIDString() const;
+
+  /**
+   * @brief The parent uuid which can be null
+   * @details This is not null if the node is part of a graph
+   */
+  const boost::uuids::uuid& getParentUUID() const;
 
   /** @brief IDs of nodes (i.e. node) that should run after this node */
   const std::vector<boost::uuids::uuid>& getOutboundEdges() const;
@@ -111,6 +117,12 @@ protected:
 
   /** @brief The uuid as string */
   std::string uuid_str_;
+
+  /**
+   * @brief The parent uuid
+   * @details This is set when the node is added to a graph
+   */
+  boost::uuids::uuid parent_uuid_;
 
   /** @brief IDs of nodes (i.e. tasks) that should run after this node */
   std::vector<boost::uuids::uuid> outbound_edges_;
