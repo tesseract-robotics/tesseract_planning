@@ -30,16 +30,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
-#include <tesseract_task_composer/nodes/transition_mux_task.h>
+#include <tesseract_task_composer/nodes/update_start_and_end_state_task.h>
 #include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning
 {
-TransitionMuxTask::TransitionMuxTask(std::string input_prev_key,
-                                     std::string input_next_key,
-                                     std::string output_key,
-                                     bool is_conditional,
-                                     std::string name)
+UpdateStartAndEndStateTask::UpdateStartAndEndStateTask(std::string input_prev_key,
+                                                       std::string input_next_key,
+                                                       std::string output_key,
+                                                       bool is_conditional,
+                                                       std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
 {
   input_keys_.push_back(uuid_str_);
@@ -48,12 +48,12 @@ TransitionMuxTask::TransitionMuxTask(std::string input_prev_key,
   output_keys_.push_back(std::move(output_key));
 }
 
-TransitionMuxTask::TransitionMuxTask(std::string input_key,
-                                     std::string input_prev_key,
-                                     std::string input_next_key,
-                                     std::string output_key,
-                                     bool is_conditional,
-                                     std::string name)
+UpdateStartAndEndStateTask::UpdateStartAndEndStateTask(std::string input_key,
+                                                       std::string input_prev_key,
+                                                       std::string input_next_key,
+                                                       std::string output_key,
+                                                       bool is_conditional,
+                                                       std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
 {
   input_keys_.push_back(std::move(input_key));
@@ -62,8 +62,8 @@ TransitionMuxTask::TransitionMuxTask(std::string input_key,
   output_keys_.push_back(std::move(output_key));
 }
 
-TaskComposerNodeInfo::UPtr TransitionMuxTask::runImpl(TaskComposerInput& input,
-                                                      OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr UpdateStartAndEndStateTask::runImpl(TaskComposerInput& input,
+                                                               OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
   info->return_value = 0;
@@ -86,7 +86,8 @@ TaskComposerNodeInfo::UPtr TransitionMuxTask::runImpl(TaskComposerInput& input,
   // --------------------
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "TransitionMuxTask: Input data for key '" + input_keys_[0] + "' must be a composite instruction";
+    info->message =
+        "UpdateStartAndEndStateTask: Input data for key '" + input_keys_[0] + "' must be a composite instruction";
     info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
@@ -94,7 +95,8 @@ TaskComposerNodeInfo::UPtr TransitionMuxTask::runImpl(TaskComposerInput& input,
 
   if (input_prev_data_poly.isNull() || input_prev_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "TransitionMuxTask: Input data for key '" + input_keys_[1] + "' must be a composite instruction";
+    info->message =
+        "UpdateStartAndEndStateTask: Input data for key '" + input_keys_[1] + "' must be a composite instruction";
     info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
@@ -102,7 +104,8 @@ TaskComposerNodeInfo::UPtr TransitionMuxTask::runImpl(TaskComposerInput& input,
 
   if (input_next_data_poly.isNull() || input_next_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "TransitionMuxTask: Input data for key '" + input_keys_[2] + "' must be a composite instruction";
+    info->message =
+        "UpdateStartAndEndStateTask: Input data for key '" + input_keys_[2] + "' must be a composite instruction";
     info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
@@ -133,20 +136,20 @@ TaskComposerNodeInfo::UPtr TransitionMuxTask::runImpl(TaskComposerInput& input,
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();
-  CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
+  CONSOLE_BRIDGE_logDebug("UpdateStartAndEndStateTask succeeded");
   return info;
 }
 
-bool TransitionMuxTask::operator==(const TransitionMuxTask& rhs) const
+bool UpdateStartAndEndStateTask::operator==(const UpdateStartAndEndStateTask& rhs) const
 {
   bool equal = true;
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
-bool TransitionMuxTask::operator!=(const TransitionMuxTask& rhs) const { return !operator==(rhs); }
+bool UpdateStartAndEndStateTask::operator!=(const UpdateStartAndEndStateTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
-void TransitionMuxTask::serialize(Archive& ar, const unsigned int /*version*/)
+void UpdateStartAndEndStateTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
@@ -154,5 +157,5 @@ void TransitionMuxTask::serialize(Archive& ar, const unsigned int /*version*/)
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TransitionMuxTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TransitionMuxTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::UpdateStartAndEndStateTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::UpdateStartAndEndStateTask)

@@ -99,8 +99,8 @@ add_library(
   src/nodes/start_task.cpp
   src/nodes/time_optimal_parameterization_task.cpp
   src/nodes/trajopt_motion_pipeline_task.cpp
-  src/nodes/transition_mux_task.cpp
   src/nodes/update_end_state_task.cpp
+  src/nodes/update_start_and_end_state_task.cpp
   src/nodes/update_start_state_task.cpp
   src/nodes/upsample_trajectory_task.cpp
   src/taskflow/taskflow_task_composer_executor.cpp

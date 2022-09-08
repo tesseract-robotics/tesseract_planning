@@ -1,5 +1,5 @@
 /**
- * @file transition_mux_task.h
+ * @file update_start_and_end_state_task.h
  *
  * @author Levi Armstrong
  * @date August 5, 2022
@@ -22,8 +22,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_TRANSITION_MUX_TASK_H
-#define TESSERACT_TASK_COMPOSER_TRANSITION_MUX_TASK_H
+#ifndef TESSERACT_TASK_COMPOSER_UPDATE_START_AND_END_STATE_TASK_H
+#define TESSERACT_TASK_COMPOSER_UPDATE_START_AND_END_STATE_TASK_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -34,32 +34,32 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class TransitionMuxTask : public TaskComposerTask
+class UpdateStartAndEndStateTask : public TaskComposerTask
 {
 public:
-  using Ptr = std::shared_ptr<TransitionMuxTask>;
-  using ConstPtr = std::shared_ptr<const TransitionMuxTask>;
-  using UPtr = std::unique_ptr<TransitionMuxTask>;
-  using ConstUPtr = std::unique_ptr<const TransitionMuxTask>;
+  using Ptr = std::shared_ptr<UpdateStartAndEndStateTask>;
+  using ConstPtr = std::shared_ptr<const UpdateStartAndEndStateTask>;
+  using UPtr = std::unique_ptr<UpdateStartAndEndStateTask>;
+  using ConstUPtr = std::unique_ptr<const UpdateStartAndEndStateTask>;
 
-  TransitionMuxTask() = default;
+  UpdateStartAndEndStateTask() = default;
   /** @brief The input_key is the uuid string */
-  TransitionMuxTask(std::string input_prev_key,
-                    std::string input_next_key,
-                    std::string output_key,
-                    bool is_conditional = false,
-                    std::string name = "TransitionMuxTask");
+  UpdateStartAndEndStateTask(std::string input_prev_key,
+                             std::string input_next_key,
+                             std::string output_key,
+                             bool is_conditional = false,
+                             std::string name = "UpdateStartAndEndStateTask");
 
-  TransitionMuxTask(std::string input_key,
-                    std::string input_prev_key,
-                    std::string input_next_key,
-                    std::string output_key,
-                    bool is_conditional = false,
-                    std::string name = "TransitionMuxTask");
-  ~TransitionMuxTask() override = default;
+  UpdateStartAndEndStateTask(std::string input_key,
+                             std::string input_prev_key,
+                             std::string input_next_key,
+                             std::string output_key,
+                             bool is_conditional = false,
+                             std::string name = "UpdateStartAndEndStateTask");
+  ~UpdateStartAndEndStateTask() override = default;
 
-  bool operator==(const TransitionMuxTask& rhs) const;
-  bool operator!=(const TransitionMuxTask& rhs) const;
+  bool operator==(const UpdateStartAndEndStateTask& rhs) const;
+  bool operator!=(const UpdateStartAndEndStateTask& rhs) const;
 
 protected:
   friend class tesseract_common::Serialization;
@@ -75,6 +75,6 @@ protected:
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TransitionMuxTask, "TransitionMuxTask")
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::UpdateStartAndEndStateTask, "UpdateStartAndEndStateTask")
 
-#endif  // TESSERACT_TASK_COMPOSER_TRANSITION_MUX_TASK_H
+#endif  // TESSERACT_TASK_COMPOSER_UPDATE_START_AND_END_STATE_TASK_H

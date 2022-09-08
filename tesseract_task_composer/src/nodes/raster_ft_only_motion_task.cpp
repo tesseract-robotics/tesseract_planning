@@ -37,7 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/nodes/start_task.h>
 #include <tesseract_task_composer/nodes/cartesian_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/freespace_motion_pipeline_task.h>
-#include <tesseract_task_composer/nodes/transition_mux_task.h>
+#include <tesseract_task_composer/nodes/update_start_and_end_state_task.h>
 #include <tesseract_task_composer/nodes/update_end_state_task.h>
 #include <tesseract_task_composer/nodes/update_start_state_task.h>
 #include <tesseract_command_language/composite_instruction.h>
@@ -160,7 +160,7 @@ TaskComposerNodeInfo::UPtr RasterFtOnlyMotionTask::runImpl(TaskComposerInput& in
     const auto& prev = raster_tasks[transition_idx];
     const auto& next = raster_tasks[transition_idx + 1];
     auto transition_mux_task =
-        std::make_unique<TransitionMuxTask>(prev.second, next.second, transition_pipeline_key, false);
+        std::make_unique<UpdateStartAndEndStateTask>(prev.second, next.second, transition_pipeline_key, false);
     std::string transition_mux_key = transition_mux_task->getUUIDString();
     auto transition_mux_uuid = task_graph.addNode(std::move(transition_mux_task));
 
