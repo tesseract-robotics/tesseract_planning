@@ -146,97 +146,6 @@ tesseract_common::Toolpath toToolpath(const InstructionPoly& instruction, const 
   return toolpath;
 }
 
-tesseract_common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start,
-                                               const Eigen::Isometry3d& stop,
-                                               long steps)
-{
-  // Required position change
-  Eigen::Vector3d delta_translation = (stop.translation() - start.translation());
-  Eigen::Vector3d start_pos = start.translation();
-  Eigen::Affine3d stop_prime = start.inverse() * stop;
-  Eigen::AngleAxisd delta_rotation(stop_prime.rotation());
-
-  // Step size
-  Eigen::Vector3d step = delta_translation / steps;
-
-  // Orientation interpolation
-  Eigen::Quaterniond start_q(start.rotation());
-  Eigen::Quaterniond stop_q(stop.rotation());
-  double slerp_ratio = 1.0 / static_cast<double>(steps);
-
-  tesseract_common::VectorIsometry3d result;
-  Eigen::Vector3d trans;
-  Eigen::Quaterniond q;
-  Eigen::Isometry3d pose;
-  result.reserve(static_cast<size_t>(steps) + 1);
-  for (unsigned i = 0; i <= static_cast<unsigned>(steps); ++i)
-  {
-    trans = start_pos + step * i;
-    q = start_q.slerp(slerp_ratio * i, stop_q);
-    pose = (Eigen::Translation3d(trans) * q);
-    result.push_back(pose);
-  }
-  return result;
-}
-
-Eigen::MatrixXd interpolate(const Eigen::Ref<const Eigen::VectorXd>& start,
-                            const Eigen::Ref<const Eigen::VectorXd>& stop,
-                            long steps)
-{
-  assert(start.size() == stop.size());
-
-  Eigen::MatrixXd result(start.size(), steps + 1);
-
-  for (int i = 0; i < start.size(); ++i)
-    result.row(i) = Eigen::VectorXd::LinSpaced(steps + 1, start(i), stop(i));
-
-  return result;
-}
-
-std::vector<WaypointPoly> interpolate_waypoint(const WaypointPoly& start, const WaypointPoly& stop, long steps)
-{
-  if (start.isCartesianWaypoint())
-  {
-    const auto& cwp1 = start.as<CartesianWaypointPoly>();
-    const auto& cwp2 = stop.as<CartesianWaypointPoly>();
-    tesseract_common::VectorIsometry3d eigen_poses = interpolate(cwp1.getTransform(), cwp2.getTransform(), steps);
-
-    std::vector<WaypointPoly> result;
-    result.reserve(eigen_poses.size());
-    for (auto& eigen_pose : eigen_poses)
-    {
-      CartesianWaypointPoly copy(cwp2);
-      copy.setTransform(eigen_pose);
-      result.emplace_back(copy);
-    }
-
-    return result;
-  }
-
-  if (start.isJointWaypoint())
-  {
-    const auto& jwp1 = start.as<JointWaypointPoly>();
-    const auto& jwp2 = stop.as<JointWaypointPoly>();
-
-    // TODO: Should check joint names are in the same order
-    Eigen::MatrixXd joint_poses = interpolate(jwp1.getPosition(), jwp2.getPosition(), steps);
-
-    std::vector<WaypointPoly> result;
-    result.reserve(static_cast<std::size_t>(joint_poses.cols()));
-    for (int i = 0; i < joint_poses.cols(); ++i)
-    {
-      JointWaypointPoly copy(jwp2);
-      copy.setPosition(joint_poses.col(i));
-      result.emplace_back(copy);
-    }
-
-    return result;
-  }
-
-  CONSOLE_BRIDGE_logError("Interpolator for Waypoint type %d is currently not support!", start.getType().hash_code());
-  return {};
-}
-
 bool programFlattenFilter(const InstructionPoly& instruction,
                           const CompositeInstruction& /*composite*/,
                           bool parent_is_first_composite)
@@ -252,7 +161,7 @@ bool programFlattenFilter(const InstructionPoly& instruction,
   }
 
   return true;
-};
+}
 
 std::vector<std::reference_wrapper<InstructionPoly>> flattenProgram(CompositeInstruction& composite_instruction)
 {

@@ -165,8 +165,7 @@ TEST(OMPLConstraintPlanner, OMPLConstraintPlannerUnit)  // NOLINT
   // Set the planner configuration
   ompl_planner.setConfiguration(ompl_config);
 
-  tesseract_motion_planners::PlannerResponse ompl_planning_response;
-  tesseract_common::StatusCode status = ompl_planner.solve(ompl_planning_response);
+  tesseract_motion_planners::PlannerResponse ompl_planning_response = ompl_planner.solve(ompl_planning_request);
 
   if (!status)
   {

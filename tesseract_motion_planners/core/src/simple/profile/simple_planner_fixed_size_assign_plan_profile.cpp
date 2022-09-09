@@ -26,6 +26,7 @@
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/core/interpolation.h>
 
 namespace tesseract_planning
 {
@@ -34,7 +35,7 @@ SimplePlannerFixedSizeAssignPlanProfile::SimplePlannerFixedSizeAssignPlanProfile
 {
 }
 
-CompositeInstruction
+std::vector<MoveInstructionPoly>
 SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
                                                   const MoveInstructionPoly& /*prev_seed*/,
                                                   const MoveInstructionPoly& base_instruction,
@@ -89,7 +90,30 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
       throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
   }
 
-  return getInterpolatedComposite(info2.manip->getJointNames(), states, info2.instruction);
+  // Linearly interpolate in cartesian space if linear move
+  if (base_instruction.isLinear())
+  {
+    Eigen::Isometry3d p1_world;
+    if (info1.has_cartesian_waypoint)
+      p1_world = info1.extractCartesianPose();
+    else
+      p1_world = info1.calcCartesianPose(info1.extractJointPosition());
+
+    Eigen::Isometry3d p2_world;
+    if (info2.has_cartesian_waypoint)
+      p2_world = info2.extractCartesianPose();
+    else
+      p2_world = info2.calcCartesianPose(info2.extractJointPosition());
+
+    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, linear_steps);
+    for (auto& pose : poses)
+      pose = info2.working_frame_transform.inverse() * pose;
+
+    assert(poses.size() == states.cols());
+    return getInterpolatedInstructions(poses, info2.manip->getJointNames(), states, info2.instruction);
+  }
+
+  return getInterpolatedInstructions(info2.manip->getJointNames(), states, info2.instruction);
 }
 
 }  // namespace tesseract_planning

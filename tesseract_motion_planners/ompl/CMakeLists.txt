@@ -5,10 +5,10 @@ link_directories(BEFORE ${OMPL_LIBRARY_DIRS})
 # OMPL Freespace Planning Interface
 set(OMPL_SRC
     src/ompl_motion_planner.cpp
+    src/ompl_legacy_motion_planner.cpp
     src/continuous_motion_validator.cpp
     src/discrete_motion_validator.cpp
     src/weighted_real_vector_state_sampler.cpp
-    src/ompl_motion_planner_status_category.cpp
     src/ompl_planner_configurator.cpp
     src/ompl_problem.cpp
     src/profile/ompl_default_plan_profile.cpp

@@ -122,6 +122,10 @@ struct JointWaypointConcept  // NOLINT
     const Eigen::VectorXd& upper_tol_const_ref = c.getUpperTolerance();
     UNUSED(upper_tol_const_ref);
 
+    c.setIsConstrained(true);
+    bool is_constrained = c.isConstrained();
+    UNUSED(is_constrained);
+
     c.print();
     c.print("prefix_");
   }
@@ -147,6 +151,9 @@ struct JointWaypointInterface : tesseract_common::TypeErasureInterface
   virtual void setLowerTolerance(const Eigen::VectorXd& lower_tol) = 0;
   virtual Eigen::VectorXd& getLowerTolerance() = 0;
   virtual const Eigen::VectorXd& getLowerTolerance() const = 0;
+
+  virtual void setIsConstrained(bool value) = 0;
+  virtual bool isConstrained() const = 0;
 
   virtual void print(const std::string& prefix) const = 0;
 
@@ -182,6 +189,9 @@ struct JointWaypointInstance : tesseract_common::TypeErasureInstance<T, JointWay
   void setLowerTolerance(const Eigen::VectorXd& lower_tol) final { this->get().setLowerTolerance(lower_tol); }
   Eigen::VectorXd& getLowerTolerance() final { return this->get().getLowerTolerance(); }
   const Eigen::VectorXd& getLowerTolerance() const final { return this->get().getLowerTolerance(); }
+
+  void setIsConstrained(bool value) final { this->get().setIsConstrained(value); }
+  bool isConstrained() const final { return this->get().isConstrained(); }
 
   void print(const std::string& prefix) const final { this->get().print(prefix); }
 
@@ -220,6 +230,9 @@ struct JointWaypointPoly : JointWaypointPolyBase
   Eigen::VectorXd& getLowerTolerance();
   const Eigen::VectorXd& getLowerTolerance() const;
 
+  void setIsConstrained(bool value);
+  bool isConstrained() const;
+
   void print(const std::string& prefix = "") const;
 
   /**
@@ -246,8 +259,8 @@ BOOST_CLASS_EXPORT_KEY(tesseract_planning::JointWaypointPolyBase)
 BOOST_CLASS_TRACKING(tesseract_planning::JointWaypointPolyBase, boost::serialization::track_never)
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::JointWaypointPoly)
-BOOST_CLASS_TRACKING(tesseract_planning::JointWaypointPoly, boost::serialization::track_never);
+BOOST_CLASS_TRACKING(tesseract_planning::JointWaypointPoly, boost::serialization::track_never)
 
-TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning, JointWaypointPoly);
+TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning, JointWaypointPoly)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_POLY_H

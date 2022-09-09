@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <unordered_map>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/status_code.h>
 #include <tesseract_motion_planners/core/types.h>
 
 namespace tesseract_planning
@@ -43,6 +42,7 @@ public:
   using ConstPtr = std::shared_ptr<const MotionPlanner>;
   /** @brief Construct a basic planner */
   MotionPlanner() = default;
+  MotionPlanner(std::string name);
   virtual ~MotionPlanner() = default;
   MotionPlanner(const MotionPlanner&) = delete;
   MotionPlanner& operator=(const MotionPlanner&) = delete;
@@ -53,19 +53,14 @@ public:
    *  @brief Get the name of this planner
    *  @details This is also used as the namespace for the profiles in the profile dictionary
    */
-  virtual const std::string& getName() const = 0;
+  const std::string& getName() const;
 
   /**
    * @brief Solve the planner request problem
    * @param request The planning request
-   * @param response The results from the planner
-   * @param check_type The type of validation check to be performed on the planned trajectory
-   * @param verbose Flag for printing more detailed planning information
-   * @return A code indicating the status of the planned trajectory
+   * @return A planner reponse
    */
-  virtual tesseract_common::StatusCode solve(const PlannerRequest& request,
-                                             PlannerResponse& response,
-                                             bool verbose = false) const = 0;
+  virtual PlannerResponse solve(const PlannerRequest& request) const = 0;
 
   /**
    * @brief If solve() is running, terminate the computation. Return false if termination not possible. No-op if
@@ -78,6 +73,18 @@ public:
 
   /** @brief Clone the motion planner */
   virtual MotionPlanner::Ptr clone() const = 0;
+
+  /** @brief Check planning request */
+  static bool checkRequest(const PlannerRequest& request);
+
+  /** @brief Assign a solution to the move instruction */
+  static void assignSolution(MoveInstructionPoly& mi,
+                             const std::vector<std::string>& joint_names,
+                             const Eigen::Ref<const Eigen::VectorXd>& joint_values,
+                             bool format_result_as_input);
+
+protected:
+  std::string name_;
 };
 }  // namespace tesseract_planning
 #endif  // TESSERACT_PLANNING_PLANNER_H

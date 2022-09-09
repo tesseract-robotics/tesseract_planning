@@ -39,42 +39,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
+constexpr auto SOLUTION_FOUND{ "Found valid solution" };
+constexpr auto ERROR_INVALID_INPUT{ "Input to planner is invalid. Check that instructions and seed are compatible" };
+constexpr auto FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
+
 namespace tesseract_planning
 {
-SimpleMotionPlannerStatusCategory::SimpleMotionPlannerStatusCategory(std::string name) : name_(std::move(name)) {}
-const std::string& SimpleMotionPlannerStatusCategory::name() const noexcept { return name_; }
-std::string SimpleMotionPlannerStatusCategory::message(int code) const
-{
-  switch (code)
-  {
-    case SolutionFound:
-    {
-      return "Found valid solution";
-    }
-    case ErrorInvalidInput:
-    {
-      return "Input to planner is invalid. Check that instructions and seed are compatible";
-    }
-    case FailedToFindValidSolution:
-    {
-      return "Failed to find valid solution";
-    }
-    default:
-    {
-      assert(false);
-      return "";
-    }
-  }
-}
-
-SimpleMotionPlanner::SimpleMotionPlanner(std::string name)
-  : name_(std::move(name)), status_category_(std::make_shared<const SimpleMotionPlannerStatusCategory>(name_))
-{
-  if (name_.empty())
-    throw std::runtime_error("SimpleMotionPlanner name is empty!");
-}
-
-const std::string& SimpleMotionPlanner::getName() const { return name_; }
+SimpleMotionPlanner::SimpleMotionPlanner(std::string name) : MotionPlanner(std::move(name)) {}
 
 bool SimpleMotionPlanner::terminate()
 {
@@ -86,15 +57,14 @@ void SimpleMotionPlanner::clear() {}
 
 MotionPlanner::Ptr SimpleMotionPlanner::clone() const { return std::make_shared<SimpleMotionPlanner>(name_); }
 
-tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& request,
-                                                        PlannerResponse& response,
-                                                        bool /*verbose*/) const
+PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
 {
-  if (!checkUserInput(request))
+  PlannerResponse response;
+  if (!checkRequest(request))
   {
-    response.status =
-        tesseract_common::StatusCode(SimpleMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
-    return response.status;
+    response.successful = false;
+    response.message = ERROR_INVALID_INPUT;
+    return response;
   }
 
   // Assume all the plan instructions have the same manipulator as the composite
@@ -103,7 +73,6 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
 
   // Initialize
   tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(manipulator);
-  WaypointPoly start_waypoint;
 
   // Create seed
   CompositeInstruction seed;
@@ -126,9 +95,9 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   catch (std::exception& e)
   {
     CONSOLE_BRIDGE_logError("SimplePlanner failed to generate problem: %s.", e.what());
-    response.status =
-        tesseract_common::StatusCode(SimpleMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
-    return response.status;
+    response.successful = false;
+    response.message = FAILED_TO_FIND_VALID_SOLUTION;
+    return response;
   }
 
   // Set seed start state
@@ -138,71 +107,57 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   response.results = seed;
 
   // Enforce limits
+  const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
   auto results_flattened = response.results.flatten(&moveFilter);
   for (auto& inst : results_flattened)
   {
     auto& mi = inst.get().as<MoveInstructionPoly>();
-    Eigen::VectorXd jp = getJointPosition(mi.getWaypoint());
-    assert(tesseract_common::satisfiesPositionLimits<double>(jp, manip->getLimits().joint_limits));
-    tesseract_common::enforcePositionLimits<double>(jp, manip->getLimits().joint_limits);
-    setJointPosition(mi.getWaypoint(), jp);
+    if (mi.getWaypoint().isJointWaypoint() || mi.getWaypoint().isStateWaypoint())
+    {
+      Eigen::VectorXd jp = getJointPosition(mi.getWaypoint());
+      assert(tesseract_common::satisfiesPositionLimits<double>(jp, joint_limits));
+      tesseract_common::enforcePositionLimits<double>(jp, joint_limits);
+      setJointPosition(mi.getWaypoint(), jp);
+    }
+    else if (mi.getWaypoint().isCartesianWaypoint())
+    {
+      Eigen::VectorXd& jp = mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
+      assert(tesseract_common::satisfiesPositionLimits<double>(jp, joint_limits));
+      tesseract_common::enforcePositionLimits<double>(jp, joint_limits);
+    }
+    else
+      throw std::runtime_error("Unsupported waypoint type.");
   }
 
   // Return success
-  response.status = tesseract_common::StatusCode(SimpleMotionPlannerStatusCategory::SolutionFound, status_category_);
-  return response.status;
+  response.successful = true;
+  response.message = SOLUTION_FOUND;
+  return response;
 }
 
 MoveInstructionPoly SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
                                                              const tesseract_scene_graph::SceneState& current_state,
                                                              const tesseract_kinematics::JointGroup& manip)
 {
-  // Create start instruction
-  if (request.instructions.hasStartInstruction())
+  // Get start instruction
+  MoveInstructionPoly start_instruction = request.instructions.getStartInstruction();
+  assert(start_instruction.isStart());
+  auto& start_waypoint = start_instruction.getWaypoint();
+  if (start_waypoint.isJointWaypoint() || start_waypoint.isStateWaypoint())
   {
-    const auto& start_instruction = request.instructions.getStartInstruction();
-    assert(start_instruction.isStart());
-    const auto& start_waypoint = start_instruction.getWaypoint();
-
-    MoveInstructionPoly start_instruction_seed(start_instruction);
-    if (start_waypoint.isJointWaypoint())
-    {
-      assert(checkJointPositionFormat(manip.getJointNames(), start_waypoint));
-      const auto& jwp = start_waypoint.as<JointWaypointPoly>();
-      StateWaypointPoly swp = start_instruction_seed.createStateWaypoint();
-      swp.setNames(jwp.getNames());
-      swp.setPosition(jwp.getPosition());
-      start_instruction_seed.assignStateWaypoint(swp);
-      return start_instruction_seed;
-    }
-
-    if (start_waypoint.isCartesianWaypoint())
-    {
-      /** @todo Update to run IK to find solution closest to start */
-      StateWaypointPoly swp = start_instruction_seed.createStateWaypoint();
-      swp.setNames(manip.getJointNames());
-      swp.setPosition(current_state.getJointValues(manip.getJointNames()));
-      start_instruction_seed.assignStateWaypoint(swp);
-      return start_instruction_seed;
-    }
-
-    if (start_waypoint.isStateWaypoint())
-    {
-      assert(checkJointPositionFormat(manip.getJointNames(), start_waypoint));
-      return start_instruction_seed;
-    }
-
-    throw std::runtime_error("Unsupported waypoint type!");
+    assert(checkJointPositionFormat(manip.getJointNames(), start_waypoint));
+    return start_instruction;
   }
 
-  MoveInstructionPoly start_instruction_seed(*request.instructions.getFirstMoveInstruction());
-  start_instruction_seed.setMoveType(MoveInstructionType::START);
-  StateWaypointPoly swp = start_instruction_seed.createStateWaypoint();
-  swp.setNames(manip.getJointNames());
-  swp.setPosition(current_state.getJointValues(manip.getJointNames()));
-  start_instruction_seed.assignStateWaypoint(swp);
+  if (start_waypoint.isCartesianWaypoint())
+  {
+    /** @todo Update to run IK to find solution closest to start */
+    start_waypoint.as<CartesianWaypointPoly>().setSeed(
+        tesseract_common::JointState(manip.getJointNames(), current_state.getJointValues(manip.getJointNames())));
+    return start_instruction;
+  }
 
-  return start_instruction_seed;
+  throw std::runtime_error("Unsupported waypoint type!");
 }
 
 CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const CompositeInstruction& instructions,
@@ -258,16 +213,19 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
       if (!plan_profile)
         throw std::runtime_error("SimpleMotionPlanner: Invalid profile");
 
-      CompositeInstruction instruction_seed = plan_profile->generate(prev_instruction,
-                                                                     prev_seed,
-                                                                     base_instruction,
-                                                                     next_instruction,
-                                                                     request,
-                                                                     request.instructions.getManipulatorInfo());
-      seed.appendInstruction(instruction_seed);
+      std::vector<MoveInstructionPoly> instruction_seed =
+          plan_profile->generate(prev_instruction,
+                                 prev_seed,
+                                 base_instruction,
+                                 next_instruction,
+                                 request,
+                                 request.instructions.getManipulatorInfo());
+
+      for (const auto& instr : instruction_seed)
+        seed.appendInstruction(instr);
 
       prev_instruction = base_instruction;
-      prev_seed = instruction_seed.back().as<MoveInstructionPoly>();
+      prev_seed = instruction_seed.back();
     }
     else
     {
@@ -275,24 +233,6 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
     }
   }  // for (const auto& instruction : instructions)
   return seed;
-}
-
-bool SimpleMotionPlanner::checkUserInput(const PlannerRequest& request)
-{
-  // Check that parameters are valid
-  if (request.env == nullptr)
-  {
-    CONSOLE_BRIDGE_logError("In SimpleMotionPlanner: env is a required parameter and has not been set");
-    return false;
-  }
-
-  if (request.instructions.empty())
-  {
-    CONSOLE_BRIDGE_logError("SimpleMotionPlanner requires at least one instruction");
-    return false;
-  }
-
-  return true;
 }
 
 }  // namespace tesseract_planning

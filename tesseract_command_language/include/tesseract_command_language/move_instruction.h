@@ -176,7 +176,7 @@ private:
   /** @brief Dictionary of path profiles that will override named profiles for a specific task*/
   ProfileDictionary::ConstPtr path_profile_overrides_;
 
-  /** @brief The assigned waypoint (Cartesian or Joint) */
+  /** @brief The assigned waypoint (Cartesian, Joint or State) */
   WaypointPoly waypoint_;
 
   /** @brief Contains information about the manipulator associated with this instruction*/

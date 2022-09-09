@@ -37,8 +37,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class TrajOptMotionPlannerStatusCategory;
-
 class TrajOptMotionPlanner : public MotionPlanner
 {
 public:
@@ -51,19 +49,7 @@ public:
   TrajOptMotionPlanner(TrajOptMotionPlanner&&) = delete;
   TrajOptMotionPlanner& operator=(TrajOptMotionPlanner&&) = delete;
 
-  const std::string& getName() const override;
-
-  /**
-   * @brief Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters
-   * @param response The results of the optimization. Primary output is the optimized joint trajectory
-   * @param check_type The type of collision check to perform on the planned trajectory
-   * @param verbose Boolean indicating whether logging information about the motion planning solution should be printed
-   * to console
-   * @return true if optimization complete
-   */
-  tesseract_common::StatusCode solve(const PlannerRequest& request,
-                                     PlannerResponse& response,
-                                     bool verbose = false) const override;
+  PlannerResponse solve(const PlannerRequest& request) const override;
 
   bool terminate() override;
 
@@ -72,31 +58,6 @@ public:
   MotionPlanner::Ptr clone() const override;
 
   virtual std::shared_ptr<trajopt::ProblemConstructionInfo> createProblem(const PlannerRequest& request) const;
-
-  static bool checkUserInput(const PlannerRequest& request);
-
-protected:
-  std::string name_;
-  /** @brief The planners status codes */
-  std::shared_ptr<const TrajOptMotionPlannerStatusCategory> status_category_;
-};
-
-class TrajOptMotionPlannerStatusCategory : public tesseract_common::StatusCategory
-{
-public:
-  TrajOptMotionPlannerStatusCategory(std::string name);
-  const std::string& name() const noexcept override;
-  std::string message(int code) const override;
-
-  enum
-  {
-    SolutionFound = 0,
-    ErrorInvalidInput = -1,
-    FailedToFindValidSolution = -3,
-  };
-
-private:
-  std::string name_;
 };
 
 }  // namespace tesseract_planning

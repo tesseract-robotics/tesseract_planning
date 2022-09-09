@@ -229,6 +229,13 @@ bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const
   if (waypoint.isStateWaypoint())
     return (joint_names == waypoint.as<StateWaypointPoly>().getNames());
 
+  if (waypoint.isCartesianWaypoint())
+  {
+    const auto& cwp = waypoint.as<CartesianWaypointPoly>();
+    if (cwp.hasSeed())
+      return (joint_names == waypoint.as<CartesianWaypointPoly>().getSeed().joint_names);
+  }
+
   throw std::runtime_error("Unsupported waypoint type.");
 }
 

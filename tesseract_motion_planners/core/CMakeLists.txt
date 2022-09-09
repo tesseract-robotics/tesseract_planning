@@ -2,7 +2,7 @@ find_package(tesseract_environment REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 
 # Create interface for core
-add_library(${PROJECT_NAME}_core src/core/utils.cpp)
+add_library(${PROJECT_NAME}_core src/core/planner.cpp src/core/utils.cpp src/core/interpolation.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_core
   PUBLIC tesseract::tesseract_environment
@@ -32,7 +32,11 @@ add_library(
   src/simple/profile/simple_planner_lvs_no_ik_plan_profile.cpp
   src/simple/profile/simple_planner_fixed_size_assign_plan_profile.cpp
   src/simple/profile/simple_planner_fixed_size_plan_profile.cpp
-  src/simple/profile/simple_planner_utils.cpp)
+  src/simple/simple_motion_legacy_planner.cpp
+  src/simple/profile/simple_planner_lvs_legacy_plan_profile.cpp
+  src/simple/profile/simple_planner_lvs_no_ik_legacy_plan_profile.cpp
+  src/simple/profile/simple_planner_fixed_size_assign_legacy_plan_profile.cpp
+  src/simple/profile/simple_planner_fixed_size_legacy_plan_profile.cpp)
 target_link_libraries(${PROJECT_NAME}_simple PUBLIC ${PROJECT_NAME}_core Boost::boost)
 target_compile_options(${PROJECT_NAME}_simple PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_simple PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -47,6 +51,7 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 target_include_directories(${PROJECT_NAME}_simple PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                          "$<INSTALL_INTERFACE:include>")
+add_dependencies(${PROJECT_NAME}_simple ${PROJECT_NAME}_core)
 
 # Mark cpp header files for installation
 install(DIRECTORY include/${PROJECT_NAME} DESTINATION include)

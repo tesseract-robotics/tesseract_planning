@@ -60,21 +60,7 @@ public:
   SimpleMotionPlanner(SimpleMotionPlanner&&) = delete;
   SimpleMotionPlanner& operator=(SimpleMotionPlanner&&) = delete;
 
-  const std::string& getName() const override;
-
-  /**
-   * @brief Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters
-   * @param response The results of the optimization. Primary output is the optimized joint trajectory
-   * @param check_type The type of collision check to perform on the planned trajectory
-   * @param verbose Boolean indicating whether logging information about the motion planning solution should be printed
-   * to console
-   * @return true if optimization complete
-   */
-  tesseract_common::StatusCode solve(const PlannerRequest& request,
-                                     PlannerResponse& response,
-                                     bool verbose = false) const override;
-
-  static bool checkUserInput(const PlannerRequest& request);
+  PlannerResponse solve(const PlannerRequest& request) const override;
 
   bool terminate() override;
 
@@ -83,9 +69,6 @@ public:
   MotionPlanner::Ptr clone() const override;
 
 protected:
-  std::string name_;
-  std::shared_ptr<const SimpleMotionPlannerStatusCategory> status_category_; /** @brief The planners status codes */
-
   static MoveInstructionPoly getStartInstruction(const PlannerRequest& request,
                                                  const tesseract_scene_graph::SceneState& current_state,
                                                  const tesseract_kinematics::JointGroup& manip);
@@ -94,24 +77,6 @@ protected:
                                                    MoveInstructionPoly& prev_instruction,
                                                    MoveInstructionPoly& prev_seed,
                                                    const PlannerRequest& request) const;
-};
-
-class SimpleMotionPlannerStatusCategory : public tesseract_common::StatusCategory
-{
-public:
-  SimpleMotionPlannerStatusCategory(std::string name);
-  const std::string& name() const noexcept override;
-  std::string message(int code) const override;
-
-  enum
-  {
-    SolutionFound = 0,
-    ErrorInvalidInput = -1,
-    FailedToFindValidSolution = -3,
-  };
-
-private:
-  std::string name_;
 };
 
 }  // namespace tesseract_planning

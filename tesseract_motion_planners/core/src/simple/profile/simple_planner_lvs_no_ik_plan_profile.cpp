@@ -26,6 +26,7 @@
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/core/interpolation.h>
 
 namespace tesseract_planning
 {
@@ -42,7 +43,7 @@ SimplePlannerLVSNoIKPlanProfile::SimplePlannerLVSNoIKPlanProfile(double state_lo
 {
 }
 
-CompositeInstruction
+std::vector<MoveInstructionPoly>
 SimplePlannerLVSNoIKPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
                                           const MoveInstructionPoly& /*prev_seed*/,
                                           const MoveInstructionPoly& base_instruction,
@@ -54,124 +55,40 @@ SimplePlannerLVSNoIKPlanProfile::generate(const MoveInstructionPoly& prev_instru
   JointGroupInstructionInfo info2(base_instruction, request, global_manip_info);
 
   if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
-    return stateJointJointWaypoint(info1, info2);
+    return interpolateJointJointWaypoint(info1,
+                                         info2,
+                                         state_longest_valid_segment_length,
+                                         translation_longest_valid_segment_length,
+                                         rotation_longest_valid_segment_length,
+                                         min_steps,
+                                         max_steps);
 
   if (!info1.has_cartesian_waypoint && info2.has_cartesian_waypoint)
-    return stateJointCartWaypoint(info1, info2);
+    return interpolateJointCartWaypoint(info1,
+                                        info2,
+                                        state_longest_valid_segment_length,
+                                        translation_longest_valid_segment_length,
+                                        rotation_longest_valid_segment_length,
+                                        min_steps,
+                                        max_steps);
 
   if (info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
-    return stateCartJointWaypoint(info1, info2);
+    return interpolateCartJointWaypoint(info1,
+                                        info2,
+                                        state_longest_valid_segment_length,
+                                        translation_longest_valid_segment_length,
+                                        rotation_longest_valid_segment_length,
+                                        min_steps,
+                                        max_steps);
 
-  return stateCartCartWaypoint(info1, info2, request);
+  return interpolateCartCartWaypoint(info1,
+                                     info2,
+                                     state_longest_valid_segment_length,
+                                     translation_longest_valid_segment_length,
+                                     rotation_longest_valid_segment_length,
+                                     min_steps,
+                                     max_steps,
+                                     request.env_state);
 }
 
-CompositeInstruction
-SimplePlannerLVSNoIKPlanProfile::stateJointJointWaypoint(const JointGroupInstructionInfo& prev,
-                                                         const JointGroupInstructionInfo& base) const
-{
-  // Calculate FK for start and end
-  const Eigen::VectorXd& j1 = prev.extractJointPosition();
-  Eigen::Isometry3d p1_world = prev.calcCartesianPose(j1);
-
-  const Eigen::VectorXd& j2 = base.extractJointPosition();
-  Eigen::Isometry3d p2_world = base.calcCartesianPose(j2);
-
-  double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
-  double rot_dist = Eigen::Quaterniond(p1_world.linear()).angularDistance(Eigen::Quaterniond(p2_world.linear()));
-  double joint_dist = (j2 - j1).norm();
-
-  int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
-  int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
-  int joint_steps = int(joint_dist / state_longest_valid_segment_length) + 1;
-
-  int steps = std::max(trans_steps, rot_steps);
-  steps = std::max(steps, joint_steps);
-  steps = std::max(steps, min_steps);
-  steps = std::min(steps, max_steps);
-
-  // Linearly interpolate in joint space
-  Eigen::MatrixXd states = interpolate(j1, j2, steps);
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
-}
-
-CompositeInstruction
-SimplePlannerLVSNoIKPlanProfile::stateJointCartWaypoint(const JointGroupInstructionInfo& prev,
-                                                        const JointGroupInstructionInfo& base) const
-{
-  // Calculate FK for start
-  const Eigen::VectorXd& j1 = prev.extractJointPosition();
-  Eigen::Isometry3d p1_world = prev.calcCartesianPose(j1);
-
-  // Calculate p2 in kinematics base frame without tcp for accurate comparison with p1
-  Eigen::Isometry3d p2_world = base.extractCartesianPose();
-
-  // Calculate steps based on cartesian information
-  double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
-  double rot_dist = Eigen::Quaterniond(p1_world.linear()).angularDistance(Eigen::Quaterniond(p2_world.linear()));
-  int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
-  int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
-  int steps = std::max(trans_steps, rot_steps);
-
-  // Check min steps requirement
-  steps = std::max(steps, min_steps);
-  steps = std::min(steps, max_steps);
-
-  // Convert to MoveInstructions
-  Eigen::MatrixXd states = j1.replicate(1, steps + 1);
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
-}
-
-CompositeInstruction
-SimplePlannerLVSNoIKPlanProfile::stateCartJointWaypoint(const JointGroupInstructionInfo& prev,
-                                                        const JointGroupInstructionInfo& base) const
-{
-  // Calculate FK for end
-  const Eigen::VectorXd& j2 = base.extractJointPosition();
-  Eigen::Isometry3d p2_world = base.calcCartesianPose(j2);
-
-  // Calculate p1 in kinematics base frame without tcp for accurate comparison with p1
-  Eigen::Isometry3d p1_world = prev.extractCartesianPose();
-
-  // Calculate steps based on cartesian information
-  double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
-  double rot_dist = Eigen::Quaterniond(p1_world.linear()).angularDistance(Eigen::Quaterniond(p2_world.linear()));
-  int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
-  int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
-  int steps = std::max(trans_steps, rot_steps);
-
-  // Check min steps requirement
-  steps = std::max(steps, min_steps);
-  steps = std::min(steps, max_steps);
-
-  // Convert to MoveInstructions
-  Eigen::MatrixXd states = j2.replicate(1, steps + 1);
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
-}
-
-CompositeInstruction SimplePlannerLVSNoIKPlanProfile::stateCartCartWaypoint(const JointGroupInstructionInfo& prev,
-                                                                            const JointGroupInstructionInfo& base,
-                                                                            const PlannerRequest& request) const
-{
-  // Get IK seed
-  Eigen::VectorXd seed = request.env_state.getJointValues(base.manip->getJointNames());
-  tesseract_common::enforcePositionLimits<double>(seed, base.manip->getLimits().joint_limits);
-
-  // Calculate IK for start and end
-  Eigen::Isometry3d p1_world = prev.extractCartesianPose();
-  Eigen::Isometry3d p2_world = base.extractCartesianPose();
-
-  double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
-  double rot_dist = Eigen::Quaterniond(p1_world.linear()).angularDistance(Eigen::Quaterniond(p2_world.linear()));
-  int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
-  int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
-  int steps = std::max(trans_steps, rot_steps);
-
-  // Check min steps requirement
-  steps = std::max(steps, min_steps);
-  steps = std::min(steps, max_steps);
-
-  // Convert to MoveInstructions
-  Eigen::MatrixXd states = seed.replicate(1, steps + 1);
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
-}
 }  // namespace tesseract_planning

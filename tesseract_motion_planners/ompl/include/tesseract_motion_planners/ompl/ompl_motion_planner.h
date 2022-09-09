@@ -42,7 +42,12 @@ class ParallelPlan;
 
 namespace tesseract_planning
 {
-class OMPLMotionPlannerStatusCategory;
+struct OMPLProblemConfig
+{
+  OMPLProblem::Ptr problem;
+  boost::uuids::uuid start_uuid{};
+  boost::uuids::uuid end_uuid{};
+};
 
 /**
  * @brief This planner is intended to provide an easy to use interface to OMPL for freespace planning. It is made to
@@ -53,8 +58,6 @@ class OMPLMotionPlanner : public MotionPlanner
 public:
   /** @brief Construct a planner */
   OMPLMotionPlanner(std::string name = profile_ns::OMPL_DEFAULT_NAMESPACE);
-
-  const std::string& getName() const override;
 
   /**
    * @brief Sets up the OMPL problem then solves. It is intended to simplify setting up
@@ -75,9 +78,7 @@ public:
    * @param verbose Flag for printing more detailed planning information
    * @return true if valid solution was found
    */
-  tesseract_common::StatusCode solve(const PlannerRequest& request,
-                                     PlannerResponse& response,
-                                     bool verbose = false) const override;
+  PlannerResponse solve(const PlannerRequest& request) const override;
 
   bool terminate() override;
 
@@ -85,19 +86,19 @@ public:
 
   MotionPlanner::Ptr clone() const override;
 
-  static bool checkUserInput(const PlannerRequest& request);
-
-  virtual std::vector<OMPLProblem::Ptr> createProblems(const PlannerRequest& request) const;
+  virtual std::vector<OMPLProblemConfig> createProblems(const PlannerRequest& request) const;
 
 protected:
-  /** @brief Name of planner */
-  std::string name_;
-
-  /** @brief The planners status codes */
-  std::shared_ptr<const OMPLMotionPlannerStatusCategory> status_category_;
-
   /** @brief OMPL Parallel planner */
   std::shared_ptr<ompl::tools::ParallelPlan> parallel_plan_;
+
+  OMPLProblemConfig createSubProblem(const PlannerRequest& request,
+                                     const tesseract_common::ManipulatorInfo& composite_mi,
+                                     const tesseract_kinematics::JointGroup::ConstPtr& manip,
+                                     const MoveInstructionPoly& start_instruction,
+                                     const MoveInstructionPoly& end_instruction,
+                                     int n_output_states,
+                                     int index) const;
 };
 
 }  // namespace tesseract_planning

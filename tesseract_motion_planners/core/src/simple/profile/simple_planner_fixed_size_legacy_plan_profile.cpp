@@ -1,0 +1,243 @@
+/**
+ * @file simple_planner_interpolation_plan_profile.cpp
+ * @brief
+ *
+ * @author Matthew Powelson
+ * @date July 23, 2020
+ * @version TODO
+ * @bug No known bugs
+ *
+ * @copyright Copyright (c) 2020, Southwest Research Institute
+ *
+ * @par License
+ * Software License Agreement (Apache License)
+ * @par
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * @par
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_legacy_plan_profile.h>
+#include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/core/interpolation.h>
+
+namespace tesseract_planning
+{
+SimplePlannerFixedSizeLegacyPlanProfile::SimplePlannerFixedSizeLegacyPlanProfile(int freespace_steps, int linear_steps)
+  : freespace_steps(freespace_steps), linear_steps(linear_steps)
+{
+}
+
+CompositeInstruction
+SimplePlannerFixedSizeLegacyPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
+                                                  const MoveInstructionPoly& /*prev_seed*/,
+                                                  const MoveInstructionPoly& base_instruction,
+                                                  const InstructionPoly& /*next_instruction*/,
+                                                  const PlannerRequest& request,
+                                                  const tesseract_common::ManipulatorInfo& global_manip_info) const
+{
+  KinematicGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
+  KinematicGroupInstructionInfo info2(base_instruction, request, global_manip_info);
+
+  if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
+    return stateJointJointWaypoint(info1, info2);
+
+  if (!info1.has_cartesian_waypoint && info2.has_cartesian_waypoint)
+    return stateJointCartWaypoint(info1, info2);
+
+  if (info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
+    return stateCartJointWaypoint(info1, info2);
+
+  return stateCartCartWaypoint(info1, info2, request);
+}
+
+CompositeInstruction
+SimplePlannerFixedSizeLegacyPlanProfile::stateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                                 const KinematicGroupInstructionInfo& base) const
+{
+  // Calculate FK for start and end
+  const Eigen::VectorXd& j1 = prev.extractJointPosition();
+  const Eigen::VectorXd& j2 = base.extractJointPosition();
+
+  Eigen::MatrixXd states;
+  if (base.instruction.isLinear())
+  {
+    if (linear_steps > 1)
+      states = interpolate(j1, j2, linear_steps);
+    else
+      states = j2.replicate(1, 2);
+  }
+  else if (base.instruction.isFreespace())
+  {
+    if (freespace_steps > 1)
+      states = interpolate(j1, j2, freespace_steps);
+    else
+      states = j2.replicate(1, 2);
+  }
+  else
+  {
+    throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
+  }
+
+  return getInterpolatedCompositeLegacy(base.manip->getJointNames(), states, base.instruction);
+}
+
+CompositeInstruction
+SimplePlannerFixedSizeLegacyPlanProfile::stateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                                const KinematicGroupInstructionInfo& base) const
+{
+  const Eigen::VectorXd& j1 = prev.extractJointPosition();
+
+  Eigen::VectorXd j2 = getClosestJointSolution(base, j1);
+
+  Eigen::MatrixXd states;
+  if (j2.size() == 0)
+  {
+    if (base.instruction.isLinear())
+      states = j1.replicate(1, linear_steps + 1);
+    else if (base.instruction.isFreespace())
+      states = j1.replicate(1, freespace_steps + 1);
+    else
+      throw std::runtime_error("stateJointCartWaypointFixedSize: Unsupported MoveInstructionType!");
+  }
+  else
+  {
+    if (base.instruction.isLinear())
+    {
+      if (linear_steps > 1)
+        states = interpolate(j1, j2, linear_steps);
+      else
+        states = j2.replicate(1, 2);
+    }
+    else if (base.instruction.isFreespace())
+    {
+      if (freespace_steps > 1)
+        states = interpolate(j1, j2, freespace_steps);
+      else
+        states = j2.replicate(1, 2);
+    }
+    else
+    {
+      throw std::runtime_error("stateJointCartWaypointFixedSize: Unsupported MoveInstructionType!");
+    }
+  }
+
+  return getInterpolatedCompositeLegacy(base.manip->getJointNames(), states, base.instruction);
+}
+
+CompositeInstruction
+SimplePlannerFixedSizeLegacyPlanProfile::stateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                                const KinematicGroupInstructionInfo& base) const
+{
+  const Eigen::VectorXd& j2 = base.extractJointPosition();
+  Eigen::VectorXd j1 = getClosestJointSolution(prev, j2);
+
+  Eigen::MatrixXd states;
+  if (j1.size() == 0)
+  {
+    if (base.instruction.isLinear())
+      states = j2.replicate(1, linear_steps + 1);
+    else if (base.instruction.isFreespace())
+      states = j2.replicate(1, freespace_steps + 1);
+    else
+      throw std::runtime_error("stateJointCartWaypointFixedSize: Unsupported MoveInstructionType!");
+  }
+  else
+  {
+    if (base.instruction.isLinear())
+    {
+      if (linear_steps > 1)
+        states = interpolate(j1, j2, linear_steps);
+      else
+        states = j2.replicate(1, 2);
+    }
+    else if (base.instruction.isFreespace())
+    {
+      if (freespace_steps > 1)
+        states = interpolate(j1, j2, freespace_steps);
+      else
+        states = j2.replicate(1, 2);
+    }
+    else
+    {
+      throw std::runtime_error("stateJointCartWaypointFixedSize: Unsupported MoveInstructionType!");
+    }
+  }
+
+  return getInterpolatedCompositeLegacy(base.manip->getJointNames(), states, base.instruction);
+}
+
+CompositeInstruction
+SimplePlannerFixedSizeLegacyPlanProfile::stateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                               const KinematicGroupInstructionInfo& base,
+                                                               const PlannerRequest& request) const
+{
+  // Get IK seed
+  Eigen::VectorXd seed = request.env_state.getJointValues(base.manip->getJointNames());
+  tesseract_common::enforcePositionLimits<double>(seed, base.manip->getLimits().joint_limits);
+
+  // Calculate IK for start and end
+  std::array<Eigen::VectorXd, 2> sol = getClosestJointSolution(prev, base, seed);
+
+  Eigen::MatrixXd states;
+  if (sol[0].size() != 0 && sol[1].size() != 0)
+  {
+    if (base.instruction.isLinear())
+    {
+      if (linear_steps > 1)
+        states = interpolate(sol[0], sol[1], linear_steps);
+      else
+        states = sol[1].replicate(1, 2);
+    }
+    else if (base.instruction.isFreespace())
+    {
+      if (freespace_steps > 1)
+        states = interpolate(sol[0], sol[1], freespace_steps);
+      else
+        states = sol[1].replicate(1, 2);
+    }
+    else
+    {
+      throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
+    }
+  }
+  else if (sol[0].size() != 0)
+  {
+    if (base.instruction.isLinear())
+      states = sol[0].replicate(1, linear_steps + 1);
+    else if (base.instruction.isFreespace())
+      states = sol[0].replicate(1, freespace_steps + 1);
+    else
+      throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
+  }
+  else if (sol[1].size() != 0)
+  {
+    if (base.instruction.isLinear())
+      states = sol[1].replicate(1, linear_steps + 1);
+    else if (base.instruction.isFreespace())
+      states = sol[1].replicate(1, freespace_steps + 1);
+    else
+      throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
+  }
+  else
+  {
+    if (base.instruction.isLinear())
+      states = seed.replicate(1, linear_steps + 1);
+    else if (base.instruction.isFreespace())
+      states = seed.replicate(1, freespace_steps + 1);
+    else
+      throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
+  }
+
+  // Convert to MoveInstructions
+  return getInterpolatedCompositeLegacy(base.manip->getJointNames(), states, base.instruction);
+}
+
+}  // namespace tesseract_planning

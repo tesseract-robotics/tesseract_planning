@@ -54,37 +54,6 @@ tesseract_common::Toolpath toToolpath(const InstructionPoly& instruction,
                                       const tesseract_environment::Environment& env);
 
 /**
- * @brief Interpolate between two transforms return a vector of Eigen::Isometry transforms.
- * @param start The Start Transform
- * @param stop The Stop/End Transform
- * @param steps The number of step
- * @return A vector of Eigen::Isometry with a length = steps + 1
- */
-tesseract_common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start,
-                                               const Eigen::Isometry3d& stop,
-                                               long steps);
-
-/**
- * @brief Interpolate between two Eigen::VectorXd and return a Matrix
- * @param start The Start State
- * @param stop The Stop/End State
- * @param steps The number of step
- * @return A matrix where columns = steps + 1
- */
-Eigen::MatrixXd interpolate(const Eigen::Ref<const Eigen::VectorXd>& start,
-                            const Eigen::Ref<const Eigen::VectorXd>& stop,
-                            long steps);
-
-/**
- * @brief Interpolate between two waypoints return a vector of waypoints.
- * @param start The Start Waypoint
- * @param stop The Stop/End Waypoint
- * @param steps The number of step
- * @return A vector of waypoints with a length = steps + 1
- */
-std::vector<WaypointPoly> interpolate_waypoint(const WaypointPoly& start, const WaypointPoly& stop, long steps);
-
-/**
  * @brief A program flatten filter
  * @param instruction The instruction to flatten
  * @param composite The parent composite the instruction is associated with

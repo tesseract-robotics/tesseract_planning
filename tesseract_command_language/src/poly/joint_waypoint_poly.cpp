@@ -86,6 +86,9 @@ const Eigen::VectorXd& tesseract_planning::JointWaypointPoly::getLowerTolerance(
   return getInterface().getLowerTolerance();
 }
 
+void tesseract_planning::JointWaypointPoly::setIsConstrained(bool value) { getInterface().setIsConstrained(value); }
+bool tesseract_planning::JointWaypointPoly::isConstrained() const { return getInterface().isConstrained(); }
+
 void tesseract_planning::JointWaypointPoly::print(const std::string& prefix) const { getInterface().print(prefix); }
 
 bool tesseract_planning::JointWaypointPoly::isToleranced() const
@@ -124,4 +127,4 @@ BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_joint_waypoint::JointWay
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::JointWaypointPolyBase)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::JointWaypointPoly)
 
-TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::JointWaypointPoly);
+TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::JointWaypointPoly)

@@ -10,7 +10,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/default_planner_namespaces.h>
 #include <tesseract_motion_planners/core/planner.h>
-#include <tesseract_motion_planners/descartes/descartes_motion_planner_status_category.h>
 #include <tesseract_motion_planners/descartes/descartes_problem.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_profile.h>
 
@@ -28,21 +27,7 @@ public:
   DescartesMotionPlanner(DescartesMotionPlanner&&) noexcept = delete;
   DescartesMotionPlanner& operator=(DescartesMotionPlanner&&) noexcept = delete;
 
-  const std::string& getName() const override;
-
-  /**
-   * @brief Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters
-   * @param response The results of the optimization. Primary output is the optimized joint trajectory
-   * @param check_type The type of validation check to be performed on the planned trajectory
-   * @param verbose Boolean indicating whether logging information about the motion planning solution should be printed
-   * to console
-   * @return true if optimization complete
-   */
-  tesseract_common::StatusCode solve(const PlannerRequest& request,
-                                     PlannerResponse& response,
-                                     bool verbose = false) const override;
-
-  bool checkUserInput(const PlannerRequest& request);
+  PlannerResponse solve(const PlannerRequest& request) const override;
 
   bool terminate() override;
 
@@ -51,11 +36,6 @@ public:
   MotionPlanner::Ptr clone() const override;
 
   virtual std::shared_ptr<DescartesProblem<FloatType>> createProblem(const PlannerRequest& request) const;
-
-private:
-  /** @brief The planners status codes */
-  std::string name_;
-  std::shared_ptr<const DescartesMotionPlannerStatusCategory> status_category_;
 };
 
 using DescartesMotionPlannerD = DescartesMotionPlanner<double>;

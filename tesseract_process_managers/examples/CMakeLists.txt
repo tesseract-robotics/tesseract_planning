@@ -61,6 +61,26 @@ if(NOT WIN32)
   list(APPEND Examples ${PROJECT_NAME}_memory_usage_example)
 endif()
 
+add_executable(${PROJECT_NAME}_taskflow_async_task_example taskflow_async_task_example.cpp)
+target_link_libraries(
+  ${PROJECT_NAME}_taskflow_async_task_example
+  console_bridge::console_bridge
+  Eigen3::Eigen
+  ${PROJECT_NAME}
+  ${PROJECT_NAME}_utils
+  tesseract::tesseract_environment
+  tesseract::tesseract_command_language
+  tesseract::tesseract_support
+  ${CMAKE_THREAD_LIBS_INIT})
+target_compile_options(${PROJECT_NAME}_taskflow_async_task_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
+                                                                           ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
+target_compile_definitions(${PROJECT_NAME}_taskflow_async_task_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
+target_clang_tidy(${PROJECT_NAME}_taskflow_async_task_example ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
+target_cxx_version(${PROJECT_NAME}_taskflow_async_task_example PRIVATE VERSION ${TESSERACT_CXX_VERSION})
+target_include_directories(${PROJECT_NAME}_taskflow_async_task_example
+                           PRIVATE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
+list(APPEND Examples ${PROJECT_NAME}_taskflow_async_task_example)
+
 add_executable(${PROJECT_NAME}_taskflow_profiling_example taskflow_profiling_example.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_taskflow_profiling_example

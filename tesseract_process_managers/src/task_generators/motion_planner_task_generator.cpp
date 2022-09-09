@@ -79,7 +79,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
 
   // Make a non-const copy of the input instructions to update the start/end
   CompositeInstruction instructions = input_instruction->as<CompositeInstruction>();
-  assert(!(input.manip_info.empty() && input.manip_info.empty()));
+  assert(!(input.manip_info.empty() && instructions.getManipulatorInfo().empty()));
   instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input.manip_info));
 
   // If the start and end waypoints need to be updated prior to planning
@@ -163,17 +163,16 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   // --------------------
   // Fill out response
   // --------------------
-  PlannerResponse response;
 
-  bool verbose = false;
+  request.verbose = false;
   if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
-    verbose = true;
-  auto status = planner_->solve(request, response, verbose);
+    request.verbose = true;
+  PlannerResponse response = planner_->solve(request);
 
   // --------------------
   // Verify Success
   // --------------------
-  if (status)
+  if (response)
   {
     *input_results = response.results;
     CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
@@ -186,9 +185,9 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
 
   CONSOLE_BRIDGE_logInform("%s motion planning failed (%s) for process input: %s",
                            planner_->getName().c_str(),
-                           status.message().c_str(),
+                           response.message.c_str(),
                            input_instruction->getDescription().c_str());
-  info->message = status.message();
+  info->message = response.message;
   saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
   input.addTaskInfo(std::move(info));
