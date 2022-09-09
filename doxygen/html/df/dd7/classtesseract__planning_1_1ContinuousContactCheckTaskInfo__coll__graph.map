@@ -1,9 +1,11 @@
 <map id="tesseract_planning::ContinuousContactCheckTaskInfo" name="tesseract_planning::ContinuousContactCheckTaskInfo">
-<area shape="rect" id="node1" title=" " alt="" coords="119,348,346,389"/>
-<area shape="rect" id="node2" href="$d9/dbc/classtesseract__planning_1_1TaskInfo.html" title=" " alt="" coords="73,244,203,285"/>
-<area shape="rect" id="node3" title=" " alt="" coords="35,103,113,130"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,5,129,47"/>
-<area shape="rect" id="node5" href="$d2/d8b/structtesseract__planning_1_1InstructionPoly.html" title=" " alt="" coords="151,96,282,137"/>
-<area shape="rect" id="node6" title=" " alt="" coords="154,13,293,39"/>
-<area shape="rect" id="node7" title=" " alt="" coords="227,244,427,285"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1103,119,1329,161"/>
+<area shape="rect" id="node2" href="$d9/dbc/classtesseract__planning_1_1TaskInfo.html" title=" " alt="" coords="497,119,628,161"/>
+<area shape="rect" id="node3" title=" " alt="" coords="219,53,298,80"/>
+<area shape="rect" id="node7" href="$da/de5/classtesseract__planning_1_1TaskComposerNodeInfo.html" title=" " alt="" coords="777,61,946,102"/>
+<area shape="rect" id="node8" title=" " alt="" coords="483,68,643,95"/>
+<area shape="rect" id="node4" title=" " alt="" coords="13,46,137,87"/>
+<area shape="rect" id="node5" href="$d2/d8b/structtesseract__planning_1_1InstructionPoly.html" title=" " alt="" coords="193,195,324,237"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,203,144,229"/>
+<area shape="rect" id="node9" title=" " alt="" coords="761,178,961,219"/>
 </map>

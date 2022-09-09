@@ -1,0 +1,5 @@
+<map id="tesseract_planning::ProfileSwitchTask" name="tesseract_planning::ProfileSwitchTask">
+<area shape="rect" id="node1" title="This task simply returns a value specified in the composite profile. This can be used to switch execu..." alt="" coords="12,184,145,225"/>
+<area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="6,95,151,136"/>
+<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="5,5,152,47"/>
+</map>

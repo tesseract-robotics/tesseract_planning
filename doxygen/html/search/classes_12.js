@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['waitinstruction_0',['WaitInstruction',['../d9/d2c/classtesseract__planning_1_1WaitInstruction.html',1,'tesseract_planning']]],
-  ['waypointconcept_1',['WaypointConcept',['../d2/dc7/structtesseract__planning_1_1detail__waypoint_1_1WaypointConcept.html',1,'tesseract_planning::detail_waypoint']]],
-  ['waypointinstance_2',['WaypointInstance',['../d6/db4/structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance.html',1,'tesseract_planning::detail_waypoint']]],
-  ['waypointinterface_3',['WaypointInterface',['../dd/de3/structtesseract__planning_1_1detail__waypoint_1_1WaypointInterface.html',1,'tesseract_planning::detail_waypoint']]],
-  ['waypointpoly_4',['WaypointPoly',['../df/d14/structtesseract__planning_1_1WaypointPoly.html',1,'tesseract_planning']]],
-  ['weightedrealvectorstatesampler_5',['WeightedRealVectorStateSampler',['../d8/d11/classtesseract__planning_1_1WeightedRealVectorStateSampler.html',1,'tesseract_planning']]]
+  ['updateendstatetask_0',['UpdateEndStateTask',['../d5/deb/classtesseract__planning_1_1UpdateEndStateTask.html',1,'tesseract_planning']]],
+  ['updatestartandendstatetask_1',['UpdateStartAndEndStateTask',['../d2/d5e/classtesseract__planning_1_1UpdateStartAndEndStateTask.html',1,'tesseract_planning']]],
+  ['updatestartstatetask_2',['UpdateStartStateTask',['../dd/d45/classtesseract__planning_1_1UpdateStartStateTask.html',1,'tesseract_planning']]],
+  ['upsampletrajectoryprofile_3',['UpsampleTrajectoryProfile',['../d9/dd4/structtesseract__planning_1_1UpsampleTrajectoryProfile.html',1,'tesseract_planning']]],
+  ['upsampletrajectorytask_4',['UpsampleTrajectoryTask',['../de/d59/classtesseract__planning_1_1UpsampleTrajectoryTask.html',1,'tesseract_planning']]],
+  ['upsampletrajectorytaskgenerator_5',['UpsampleTrajectoryTaskGenerator',['../d2/d60/classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator.html',1,'tesseract_planning']]],
+  ['upsampletrajectorytaskinfo_6',['UpsampleTrajectoryTaskInfo',['../dd/dbf/classtesseract__planning_1_1UpsampleTrajectoryTaskInfo.html',1,'tesseract_planning']]]
 ];

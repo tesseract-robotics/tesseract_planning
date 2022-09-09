@@ -1,0 +1,51 @@
+\hypertarget{freespace__motion__pipeline__task_8h_source}{}\doxysection{freespace\+\_\+motion\+\_\+pipeline\+\_\+task.\+h}
+\label{freespace__motion__pipeline__task_8h_source}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/freespace\_motion\_pipeline\_task.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/freespace\_motion\_pipeline\_task.h}}
+\mbox{\hyperlink{freespace__motion__pipeline__task_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_FREESPACE\_MOTION\_PIPELINE\_TASK\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_FREESPACE\_MOTION\_PIPELINE\_TASK\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__graph_8h}{tesseract\_task\_composer/task\_composer\_graph.h}}>}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{33 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{FreespaceMotionPipelineTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}}
+\DoxyCodeLine{34 \{}
+\DoxyCodeLine{35 \textcolor{keyword}{public}:}
+\DoxyCodeLine{36   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a7e581c944a5fe2d13405e9f48f36f151}{Ptr}} = std::shared\_ptr<FreespaceMotionPipelineTask>;}
+\DoxyCodeLine{37   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a1d354593f817a94cc609695d8d1be446}{ConstPtr}} = std::shared\_ptr<const FreespaceMotionPipelineTask>;}
+\DoxyCodeLine{38   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_aa2aa7ace70545a7f96a45e2f80b6f74a}{UPtr}} = std::unique\_ptr<FreespaceMotionPipelineTask>;}
+\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a350486aa4f3e4ddb0f38a2d97cbbb5d5}{ConstUPtr}} = std::unique\_ptr<const FreespaceMotionPipelineTask>;}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a7fcd2b353c72560213cd2e7de3d23122}{FreespaceMotionPipelineTask}}(std::string name = \textcolor{stringliteral}{"{}FreespaceMotionPipelineTask"{}});}
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a7fcd2b353c72560213cd2e7de3d23122}{FreespaceMotionPipelineTask}}(std::string input\_key,}
+\DoxyCodeLine{48                               std::string output\_key,}
+\DoxyCodeLine{49                               std::string name = \textcolor{stringliteral}{"{}FreespaceMotionPipelineTask"{}});}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a09194cecc271d3a14faa8db186f8589e}{\string~FreespaceMotionPipelineTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a74d9c51978e807af7730eb1ee11aa929}{FreespaceMotionPipelineTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{FreespaceMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{FreespaceMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_ac9a31cb80da4580020079c416fd48be3}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{FreespaceMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a060b10344abe22820480917253ea67ef}{FreespaceMotionPipelineTask}}(\mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{FreespaceMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{FreespaceMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a8ad4430d0734929e526d2570be5a78ba}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{FreespaceMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a48f46a0c3f59ba462859ca3bcc4c19d0}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{FreespaceMotionPipelineTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{57   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a07e8f28fd0ab5efd913689f69e80f8e0}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{FreespaceMotionPipelineTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{60   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{61   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{64   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a19a2c1926f66306c7a9db55ddbd763a6}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask_a5e513b8c5fa7303ad07b5b55fa0f18d5}{ctor}}(std::string input\_key, std::string output\_key);}
+\DoxyCodeLine{67 \};}
+\DoxyCodeLine{68 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{72 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{tesseract\_planning::FreespaceMotionPipelineTask}}, \textcolor{stringliteral}{"{}FreespaceMotionPipelineTask"{}})}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_FREESPACE\_MOTION\_PIPELINE\_TASK\_H}}
+
+\end{DoxyCode}

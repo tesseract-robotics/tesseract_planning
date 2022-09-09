@@ -1,0 +1,55 @@
+\hypertarget{simple__motion__legacy__planner_8cpp}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/core/src/simple/simple\+\_\+motion\+\_\+legacy\+\_\+planner.cpp File Reference}
+\label{simple__motion__legacy__planner_8cpp}\index{tesseract\_motion\_planners/core/src/simple/simple\_motion\_legacy\_planner.cpp@{tesseract\_motion\_planners/core/src/simple/simple\_motion\_legacy\_planner.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/simple\+\_\+motion\+\_\+legacy\+\_\+planner.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/profile/simple\+\_\+planner\+\_\+lvs\+\_\+no\+\_\+ik\+\_\+legacy\+\_\+plan\+\_\+profile.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/waypoint\+\_\+poly.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/composite\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/planner\+\_\+utils.\+h$>$}\newline
+Include dependency graph for simple\+\_\+motion\+\_\+legacy\+\_\+planner.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/dca/simple__motion__legacy__planner_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP constexpr auto \mbox{\hyperlink{simple__motion__legacy__planner_8cpp_a5c3f7af179b15ee113611d688da0059e}{SOLUTION\+\_\+\+FOUND}} \{ \char`\"{}Found valid solution\char`\"{} \}
+\item 
+constexpr auto \mbox{\hyperlink{simple__motion__legacy__planner_8cpp_adc2e4f3c03d04f9c631338193971f43f}{ERROR\+\_\+\+INVALID\+\_\+\+INPUT}} \{ \char`\"{}Input to planner is invalid. Check that instructions and seed are compatible\char`\"{} \}
+\item 
+constexpr auto \mbox{\hyperlink{simple__motion__legacy__planner_8cpp_a73c0d653585b0b21b46a3de132cf3c1c}{FAILED\+\_\+\+TO\+\_\+\+FIND\+\_\+\+VALID\+\_\+\+SOLUTION}} \{ \char`\"{}Failed to find valid solution\char`\"{} \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{simple__motion__legacy__planner_8cpp_adc2e4f3c03d04f9c631338193971f43f}\label{simple__motion__legacy__planner_8cpp_adc2e4f3c03d04f9c631338193971f43f}} 
+\index{simple\_motion\_legacy\_planner.cpp@{simple\_motion\_legacy\_planner.cpp}!ERROR\_INVALID\_INPUT@{ERROR\_INVALID\_INPUT}}
+\index{ERROR\_INVALID\_INPUT@{ERROR\_INVALID\_INPUT}!simple\_motion\_legacy\_planner.cpp@{simple\_motion\_legacy\_planner.cpp}}
+\doxysubsubsection{\texorpdfstring{ERROR\_INVALID\_INPUT}{ERROR\_INVALID\_INPUT}}
+{\footnotesize\ttfamily constexpr auto ERROR\+\_\+\+INVALID\+\_\+\+INPUT \{ \char`\"{}Input to planner is invalid. Check that instructions and seed are compatible\char`\"{} \}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{simple__motion__legacy__planner_8cpp_a73c0d653585b0b21b46a3de132cf3c1c}\label{simple__motion__legacy__planner_8cpp_a73c0d653585b0b21b46a3de132cf3c1c}} 
+\index{simple\_motion\_legacy\_planner.cpp@{simple\_motion\_legacy\_planner.cpp}!FAILED\_TO\_FIND\_VALID\_SOLUTION@{FAILED\_TO\_FIND\_VALID\_SOLUTION}}
+\index{FAILED\_TO\_FIND\_VALID\_SOLUTION@{FAILED\_TO\_FIND\_VALID\_SOLUTION}!simple\_motion\_legacy\_planner.cpp@{simple\_motion\_legacy\_planner.cpp}}
+\doxysubsubsection{\texorpdfstring{FAILED\_TO\_FIND\_VALID\_SOLUTION}{FAILED\_TO\_FIND\_VALID\_SOLUTION}}
+{\footnotesize\ttfamily constexpr auto FAILED\+\_\+\+TO\+\_\+\+FIND\+\_\+\+VALID\+\_\+\+SOLUTION \{ \char`\"{}Failed to find valid solution\char`\"{} \}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{simple__motion__legacy__planner_8cpp_a5c3f7af179b15ee113611d688da0059e}\label{simple__motion__legacy__planner_8cpp_a5c3f7af179b15ee113611d688da0059e}} 
+\index{simple\_motion\_legacy\_planner.cpp@{simple\_motion\_legacy\_planner.cpp}!SOLUTION\_FOUND@{SOLUTION\_FOUND}}
+\index{SOLUTION\_FOUND@{SOLUTION\_FOUND}!simple\_motion\_legacy\_planner.cpp@{simple\_motion\_legacy\_planner.cpp}}
+\doxysubsubsection{\texorpdfstring{SOLUTION\_FOUND}{SOLUTION\_FOUND}}
+{\footnotesize\ttfamily TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP constexpr auto SOLUTION\+\_\+\+FOUND \{ \char`\"{}Found valid solution\char`\"{} \}\hspace{0.3cm}{\ttfamily [constexpr]}}
+

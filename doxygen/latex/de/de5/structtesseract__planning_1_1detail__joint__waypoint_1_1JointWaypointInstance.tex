@@ -64,6 +64,10 @@ Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1detail__j
 \item 
 const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_a4427074dd742a149de046c6aba4820f3}{get\+Lower\+Tolerance}} () const final
 \item 
+void \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_ab2b62443156dee125750369fedcc15c6}{set\+Is\+Constrained}} (bool value) final
+\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_a741a6ad0c86d6b3b8f5d1e820cc43de0}{is\+Constrained}} () const final
+\item 
 void \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_a9a1deeef364277b2ad276b5ec5ac4dc4}{print}} (const std\+::string \&prefix) const final
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
@@ -178,6 +182,13 @@ const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1det
 {\footnotesize\ttfamily template$<$typename T $>$ \\
 Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance}{tesseract\+\_\+planning\+::detail\+\_\+joint\+\_\+waypoint\+::\+Joint\+Waypoint\+Instance}}$<$ T $>$\+::get\+Upper\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}}
 
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_a741a6ad0c86d6b3b8f5d1e820cc43de0}\label{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_a741a6ad0c86d6b3b8f5d1e820cc43de0}} 
+\index{tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$@{tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$}!isConstrained@{isConstrained}}
+\index{isConstrained@{isConstrained}!tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$@{tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{isConstrained()}{isConstrained()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance}{tesseract\+\_\+planning\+::detail\+\_\+joint\+\_\+waypoint\+::\+Joint\+Waypoint\+Instance}}$<$ T $>$\+::is\+Constrained (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}}
+
 \mbox{\Hypertarget{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_a9a1deeef364277b2ad276b5ec5ac4dc4}\label{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_a9a1deeef364277b2ad276b5ec5ac4dc4}} 
 \index{tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$@{tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$}!print@{print}}
 \index{print@{print}!tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$@{tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$}}
@@ -192,6 +203,13 @@ void \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1Jo
 {\footnotesize\ttfamily template$<$typename T $>$ \\
 template$<$class Archive $>$ \\
 void \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance}{tesseract\+\_\+planning\+::detail\+\_\+joint\+\_\+waypoint\+::\+Joint\+Waypoint\+Instance}}$<$ T $>$\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_ab2b62443156dee125750369fedcc15c6}\label{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_ab2b62443156dee125750369fedcc15c6}} 
+\index{tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$@{tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$}!setIsConstrained@{setIsConstrained}}
+\index{setIsConstrained@{setIsConstrained}!tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$@{tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setIsConstrained()}{setIsConstrained()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance}{tesseract\+\_\+planning\+::detail\+\_\+joint\+\_\+waypoint\+::\+Joint\+Waypoint\+Instance}}$<$ T $>$\+::set\+Is\+Constrained (\begin{DoxyParamCaption}\item[{bool}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_ac10e82c250505c42cc41b00efdd1484f}\label{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_ac10e82c250505c42cc41b00efdd1484f}} 
 \index{tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$@{tesseract\_planning::detail\_joint\_waypoint::JointWaypointInstance$<$ T $>$}!setLowerTolerance@{setLowerTolerance}}

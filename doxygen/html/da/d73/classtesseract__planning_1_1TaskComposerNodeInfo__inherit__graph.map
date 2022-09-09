@@ -1,0 +1,6 @@
+<map id="tesseract_planning::TaskComposerNodeInfo" name="tesseract_planning::TaskComposerNodeInfo">
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,175,112"/>
+<area shape="rect" id="node2" href="$d7/d02/classtesseract__planning_1_1ContinuousContactCheckTaskInfo.html" title=" " alt="" coords="223,5,449,47"/>
+<area shape="rect" id="node3" href="$d9/d2b/classtesseract__planning_1_1DiscreteContactCheckTaskInfo.html" title=" " alt="" coords="231,71,441,112"/>
+<area shape="rect" id="node4" href="$db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html" title=" " alt="" coords="248,136,424,177"/>
+</map>

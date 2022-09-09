@@ -6,6 +6,7 @@
 {\ttfamily \#include $<$tesseract\+\_\+environment/environment.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/simple\+\_\+motion\+\_\+planner.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/profile/simple\+\_\+planner\+\_\+fixed\+\_\+size\+\_\+plan\+\_\+profile.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/profile/simple\+\_\+planner\+\_\+fixed\+\_\+size\+\_\+legacy\+\_\+plan\+\_\+profile.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/joint\+\_\+waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/cartesian\+\_\+waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/move\+\_\+instruction.\+h$>$}\newline
@@ -34,6 +35,14 @@ class \mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolation
 \item 
 \mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_a61f7a8f4d2d0f3231fd4409341443739}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}, Cart\+Cart\+\_\+\+Joint\+Interpolation)
 \item 
+\mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_a42bb364955478be4c1596f6b0ad202ec}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}, Joint\+Joint\+\_\+\+Joint\+Interpolation\+Legacy)
+\item 
+\mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_a126eb3d1afdfeaffb3e890c0f06bee63}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}, Joint\+Cart\+\_\+\+Joint\+Interpolation\+Legacy)
+\item 
+\mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_a49f3ec6f5464a64f4bc7de603ce45ca5}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}, Cart\+Joint\+\_\+\+Joint\+Interpolation\+Legacy)
+\item 
+\mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_af09253aaac38fe16e38c9075e767eafc}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}, Cart\+Cart\+\_\+\+Joint\+Interpolation\+Legacy)
+\item 
 int \mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
 
@@ -49,7 +58,7 @@ July 23, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000158}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000171}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -74,7 +83,7 @@ July 23, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000159}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000172}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -101,24 +110,48 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \mbox{\Hypertarget{simple__planner__fixed__size__interpolation_8cpp_a61f7a8f4d2d0f3231fd4409341443739}\label{simple__planner__fixed__size__interpolation_8cpp_a61f7a8f4d2d0f3231fd4409341443739}} 
 \index{simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}}]{,  }\item[{Cart\+Cart\+\_\+\+Joint\+Interpolation}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__fixed__size__interpolation_8cpp_af09253aaac38fe16e38c9075e767eafc}\label{simple__planner__fixed__size__interpolation_8cpp_af09253aaac38fe16e38c9075e767eafc}} 
+\index{simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}}]{,  }\item[{Cart\+Cart\+\_\+\+Joint\+Interpolation\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{simple__planner__fixed__size__interpolation_8cpp_a194bc104d70e8c1eb6c3b132aef7f2e2}\label{simple__planner__fixed__size__interpolation_8cpp_a194bc104d70e8c1eb6c3b132aef7f2e2}} 
 \index{simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}}]{,  }\item[{Cart\+Joint\+\_\+\+Joint\+Interpolation}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__fixed__size__interpolation_8cpp_a49f3ec6f5464a64f4bc7de603ce45ca5}\label{simple__planner__fixed__size__interpolation_8cpp_a49f3ec6f5464a64f4bc7de603ce45ca5}} 
+\index{simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}}]{,  }\item[{Cart\+Joint\+\_\+\+Joint\+Interpolation\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{simple__planner__fixed__size__interpolation_8cpp_a3f090f70e35397948bb489de98a368ae}\label{simple__planner__fixed__size__interpolation_8cpp_a3f090f70e35397948bb489de98a368ae}} 
 \index{simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}}]{,  }\item[{Joint\+Cart\+\_\+\+Joint\+Interpolation}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__fixed__size__interpolation_8cpp_a126eb3d1afdfeaffb3e890c0f06bee63}\label{simple__planner__fixed__size__interpolation_8cpp_a126eb3d1afdfeaffb3e890c0f06bee63}} 
+\index{simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}}]{,  }\item[{Joint\+Cart\+\_\+\+Joint\+Interpolation\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{simple__planner__fixed__size__interpolation_8cpp_ab9deace8f04e471da6d5e8cf92cbacfa}\label{simple__planner__fixed__size__interpolation_8cpp_ab9deace8f04e471da6d5e8cf92cbacfa}} 
 \index{simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}}]{,  }\item[{Joint\+Joint\+\_\+\+Joint\+Interpolation}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__fixed__size__interpolation_8cpp_a42bb364955478be4c1596f6b0ad202ec}\label{simple__planner__fixed__size__interpolation_8cpp_a42bb364955478be4c1596f6b0ad202ec}} 
+\index{simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_interpolation.cpp@{simple\_planner\_fixed\_size\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}}]{,  }\item[{Joint\+Joint\+\_\+\+Joint\+Interpolation\+Legacy}]{ }\end{DoxyParamCaption})}
 

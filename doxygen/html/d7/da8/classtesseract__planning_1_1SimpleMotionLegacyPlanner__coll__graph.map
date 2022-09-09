@@ -1,0 +1,6 @@
+<map id="tesseract_planning::SimpleMotionLegacyPlanner" name="tesseract_planning::SimpleMotionLegacyPlanner">
+<area shape="rect" id="node1" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="5,276,199,317"/>
+<area shape="rect" id="node2" href="$dd/d5f/classtesseract__planning_1_1MotionPlanner.html" title=" " alt="" coords="37,185,167,227"/>
+<area shape="rect" id="node3" title=" " alt="" coords="63,96,141,123"/>
+<area shape="rect" id="node4" title=" " alt="" coords="40,5,164,47"/>
+</map>

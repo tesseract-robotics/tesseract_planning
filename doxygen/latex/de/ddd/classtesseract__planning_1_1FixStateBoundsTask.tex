@@ -1,0 +1,206 @@
+\hypertarget{classtesseract__planning_1_1FixStateBoundsTask}{}\doxysection{tesseract\+\_\+planning\+::Fix\+State\+Bounds\+Task Class Reference}
+\label{classtesseract__planning_1_1FixStateBoundsTask}\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+
+
+This task modifies the const input instructions in order to push waypoints that are outside of their limits back within them.  
+
+
+
+
+{\ttfamily \#include $<$fix\+\_\+state\+\_\+bounds\+\_\+task.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Fix\+State\+Bounds\+Task\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{d5/d93/classtesseract__planning_1_1FixStateBoundsTask__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Fix\+State\+Bounds\+Task\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/dcd/classtesseract__planning_1_1FixStateBoundsTask__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a47dab75907ed7dd7efcbeafd81c42ab9}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a22ab5ac3159f5d478bff93df0624d39d}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_aabde856ac142c6f8dac43f8a1c582253}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a2ecb029d55dbb69ffa829a608f31a41c}{Const\+UPtr}} = std\+::unique\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a8f0ca22edd88cebf71f26ef8cc99948f}{Fix\+State\+Bounds\+Task}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a33daf7a03f883176eed867506afd54a8}{Fix\+State\+Bounds\+Task}} (std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional=true, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a4f31108d4630a3366567966cb69b9f65}{profile\+\_\+ns\+::\+FIX\+\_\+\+STATE\+\_\+\+BOUNDS\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_af3bb699c90bae8cbb31e9ae2c13cd345}{$\sim$\+Fix\+State\+Bounds\+Task}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_ab19333697df62c36ab6677164e6987ff}{Fix\+State\+Bounds\+Task}} (const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \& \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_aa6b85f6675cf256d38af6249773c853b}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a05334266976643a4ec718e953ca285c5}{Fix\+State\+Bounds\+Task}} (\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \& \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a209635d7eab0e02bf29fdc220c52856b}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \&\&)=delete
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_aa550a4b26cb2b3921d01cfbe4b0bd8fc}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \&rhs) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_ad0a9871ac56d988be93a6af0d5d1bf88}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \&rhs) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a9df04258b676f0c8bfa86aaf0e29b10e}{serialize}} (Archive \&ar, const unsigned int version)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{Task\+Composer\+Node\+Info\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a163e8a2e2b6fe484c25e63ff886691a9}{run\+Impl}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&input, \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{Optional\+Task\+Composer\+Executor}} executor=std\+::nullopt) const override final
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\+\_\+common\+::\+Serialization}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+This task modifies the const input instructions in order to push waypoints that are outside of their limits back within them. 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_a22ab5ac3159f5d478bff93df0624d39d}\label{classtesseract__planning_1_1FixStateBoundsTask_a22ab5ac3159f5d478bff93df0624d39d}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a22ab5ac3159f5d478bff93df0624d39d}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_a2ecb029d55dbb69ffa829a608f31a41c}\label{classtesseract__planning_1_1FixStateBoundsTask_a2ecb029d55dbb69ffa829a608f31a41c}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!ConstUPtr@{ConstUPtr}}
+\index{ConstUPtr@{ConstUPtr}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{ConstUPtr}{ConstUPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a2ecb029d55dbb69ffa829a608f31a41c}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::\+Const\+UPtr}} =  std\+::unique\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_a47dab75907ed7dd7efcbeafd81c42ab9}\label{classtesseract__planning_1_1FixStateBoundsTask_a47dab75907ed7dd7efcbeafd81c42ab9}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a47dab75907ed7dd7efcbeafd81c42ab9}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_aabde856ac142c6f8dac43f8a1c582253}\label{classtesseract__planning_1_1FixStateBoundsTask_aabde856ac142c6f8dac43f8a1c582253}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_aabde856ac142c6f8dac43f8a1c582253}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_a8f0ca22edd88cebf71f26ef8cc99948f}\label{classtesseract__planning_1_1FixStateBoundsTask_a8f0ca22edd88cebf71f26ef8cc99948f}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!FixStateBoundsTask@{FixStateBoundsTask}}
+\index{FixStateBoundsTask@{FixStateBoundsTask}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{FixStateBoundsTask()}{FixStateBoundsTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::\+Fix\+State\+Bounds\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_a33daf7a03f883176eed867506afd54a8}\label{classtesseract__planning_1_1FixStateBoundsTask_a33daf7a03f883176eed867506afd54a8}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!FixStateBoundsTask@{FixStateBoundsTask}}
+\index{FixStateBoundsTask@{FixStateBoundsTask}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{FixStateBoundsTask()}{FixStateBoundsTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::\+Fix\+State\+Bounds\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true},  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a4f31108d4630a3366567966cb69b9f65}{profile\+\_\+ns\+::\+FIX\+\_\+\+STATE\+\_\+\+BOUNDS\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_af3bb699c90bae8cbb31e9ae2c13cd345}\label{classtesseract__planning_1_1FixStateBoundsTask_af3bb699c90bae8cbb31e9ae2c13cd345}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!````~FixStateBoundsTask@{$\sim$FixStateBoundsTask}}
+\index{````~FixStateBoundsTask@{$\sim$FixStateBoundsTask}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{$\sim$FixStateBoundsTask()}{~FixStateBoundsTask()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::$\sim$\+Fix\+State\+Bounds\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_ab19333697df62c36ab6677164e6987ff}\label{classtesseract__planning_1_1FixStateBoundsTask_ab19333697df62c36ab6677164e6987ff}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!FixStateBoundsTask@{FixStateBoundsTask}}
+\index{FixStateBoundsTask@{FixStateBoundsTask}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{FixStateBoundsTask()}{FixStateBoundsTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::\+Fix\+State\+Bounds\+Task (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_a05334266976643a4ec718e953ca285c5}\label{classtesseract__planning_1_1FixStateBoundsTask_a05334266976643a4ec718e953ca285c5}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!FixStateBoundsTask@{FixStateBoundsTask}}
+\index{FixStateBoundsTask@{FixStateBoundsTask}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{FixStateBoundsTask()}{FixStateBoundsTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::\+Fix\+State\+Bounds\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_ad0a9871ac56d988be93a6af0d5d1bf88}\label{classtesseract__planning_1_1FixStateBoundsTask_ad0a9871ac56d988be93a6af0d5d1bf88}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_aa6b85f6675cf256d38af6249773c853b}\label{classtesseract__planning_1_1FixStateBoundsTask_aa6b85f6675cf256d38af6249773c853b}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \& tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_a209635d7eab0e02bf29fdc220c52856b}\label{classtesseract__planning_1_1FixStateBoundsTask_a209635d7eab0e02bf29fdc220c52856b}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \& tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_aa550a4b26cb2b3921d01cfbe4b0bd8fc}\label{classtesseract__planning_1_1FixStateBoundsTask_aa550a4b26cb2b3921d01cfbe4b0bd8fc}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_a163e8a2e2b6fe484c25e63ff886691a9}\label{classtesseract__planning_1_1FixStateBoundsTask_a163e8a2e2b6fe484c25e63ff886691a9}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!runImpl@{runImpl}}
+\index{runImpl@{runImpl}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{runImpl()}{runImpl()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{Task\+Composer\+Node\+Info\+::\+UPtr}} tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::run\+Impl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&}]{input,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{Optional\+Task\+Composer\+Executor}}}]{executor = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_ac9d9332efa22cad525458796c3f19c3f}{tesseract\+\_\+planning\+::\+Task\+Composer\+Task}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_a9df04258b676f0c8bfa86aaf0e29b10e}\label{classtesseract__planning_1_1FixStateBoundsTask_a9df04258b676f0c8bfa86aaf0e29b10e}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{classtesseract__planning_1_1FixStateBoundsTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTask_a74c50fcc25e72cb9703ee14d7e71dcd8}\label{classtesseract__planning_1_1FixStateBoundsTask_a74c50fcc25e72cb9703ee14d7e71dcd8}} 
+\index{tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}!tesseract\_common::Serialization@{tesseract\_common::Serialization}}
+\index{tesseract\_common::Serialization@{tesseract\_common::Serialization}!tesseract\_planning::FixStateBoundsTask@{tesseract\_planning::FixStateBoundsTask}}
+\doxysubsubsection{\texorpdfstring{tesseract\_common::Serialization}{tesseract\_common::Serialization}}
+{\footnotesize\ttfamily friend class tesseract\+\_\+common\+::\+Serialization\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+task\+\_\+composer/include/tesseract\+\_\+task\+\_\+composer/nodes/\mbox{\hyperlink{fix__state__bounds__task_8h}{fix\+\_\+state\+\_\+bounds\+\_\+task.\+h}}\item 
+tesseract\+\_\+task\+\_\+composer/src/nodes/\mbox{\hyperlink{fix__state__bounds__task_8cpp}{fix\+\_\+state\+\_\+bounds\+\_\+task.\+cpp}}\end{DoxyCompactItemize}

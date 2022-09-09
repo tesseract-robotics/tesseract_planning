@@ -1,0 +1,47 @@
+\hypertarget{trajopt__legacy__motion__planner_8h_source}{}\doxysection{trajopt\+\_\+legacy\+\_\+motion\+\_\+planner.\+h}
+\label{trajopt__legacy__motion__planner_8h_source}\index{tesseract\_motion\_planners/trajopt/include/tesseract\_motion\_planners/trajopt/trajopt\_legacy\_motion\_planner.h@{tesseract\_motion\_planners/trajopt/include/tesseract\_motion\_planners/trajopt/trajopt\_legacy\_motion\_planner.h}}
+\mbox{\hyperlink{trajopt__legacy__motion__planner_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_LEGACY\_PLANNER\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_LEGACY\_PLANNER\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <trajopt/problem\_description.hpp>}}
+\DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__planner__namespaces_8h}{tesseract\_motion\_planners/default\_planner\_namespaces.h}}>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{planner_8h}{tesseract\_motion\_planners/core/planner.h}}>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{trajopt__profile_8h}{tesseract\_motion\_planners/trajopt/profile/trajopt\_profile.h}}>}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner}{TrajOptLegacyMotionPlanner}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{public}:}
+\DoxyCodeLine{44   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner_acb496264c83f6d95e272322b3904fc35}{TrajOptLegacyMotionPlanner}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a998ca159be1912d9d78a39eb5b297801}{profile\_ns::TRAJOPT\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner_a4971d834fbaf6b60ca1fa6b5d693f679}{\string~TrajOptLegacyMotionPlanner}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner_afbff266f781a12fbd59fb07da16eb6e4}{TrajOptLegacyMotionPlanner}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner}{TrajOptLegacyMotionPlanner}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner}{TrajOptLegacyMotionPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner_aa294629bca24b29a4144242719b3931a}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner}{TrajOptLegacyMotionPlanner}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner_a3de3e1fa092cc1d3528178010ba14dbf}{TrajOptLegacyMotionPlanner}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner}{TrajOptLegacyMotionPlanner}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner}{TrajOptLegacyMotionPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner_a68bd06018d3c7329c0eb6b5ad33f2ae0}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner}{TrajOptLegacyMotionPlanner}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner_a76c5fe9f8bf98d07ed8d6658c06e5ecd}{solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) \textcolor{keyword}{const override};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner_a1a6e0de4ffadf9311d23116de9dc5dcc}{terminate}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner_a0e73ebfb7b75f29626b963d006c08860}{clear}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{MotionPlanner::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner_a24c39db2258fc3f027b2f72e2fd88f15}{clone}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{keyword}{virtual} std::shared\_ptr<trajopt::ProblemConstructionInfo> \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner_adf685d33d5b7db44a5c741b7e1443e86}{createProblem}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) \textcolor{keyword}{const};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62   \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptLegacyMotionPlanner_ade9a08d64f5bd4b12f882d404b9c2179}{checkUserInput}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request);}
+\DoxyCodeLine{63 \};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_LEGACY\_PLANNER\_H}}
+
+\end{DoxyCode}

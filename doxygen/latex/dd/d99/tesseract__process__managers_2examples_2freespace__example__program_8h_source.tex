@@ -1,0 +1,81 @@
+\hypertarget{tesseract__process__managers_2examples_2freespace__example__program_8h_source}{}\doxysection{freespace\+\_\+example\+\_\+program.\+h}
+\label{tesseract__process__managers_2examples_2freespace__example__program_8h_source}\index{tesseract\_process\_managers/examples/freespace\_example\_program.h@{tesseract\_process\_managers/examples/freespace\_example\_program.h}}
+\mbox{\hyperlink{tesseract__process__managers_2examples_2freespace__example__program_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGER\_EXAMPLE\_PROGRAM\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGER\_EXAMPLE\_PROGRAM\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{5 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{composite__instruction_8h}{tesseract\_command\_language/composite\_instruction.h}}>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{state__waypoint_8h}{tesseract\_command\_language/state\_waypoint.h}}>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{cartesian__waypoint_8h}{tesseract\_command\_language/cartesian\_waypoint.h}}>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{joint__waypoint_8h}{tesseract\_command\_language/joint\_waypoint.h}}>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{move__instruction_8h}{tesseract\_command\_language/move\_instruction.h}}>}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}};}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{inline} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{namespacetesseract__planning_a4d0aafc81bd3d3129b23ec8e814f5ee4}{freespaceExampleProgramIIWA}}(}
+\DoxyCodeLine{19     \textcolor{keyword}{const} Eigen::Isometry3d\& goal = Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.2, 0.2, 1.0),}
+\DoxyCodeLine{20     \textcolor{keyword}{const} std::string\& composite\_profile = \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}},}
+\DoxyCodeLine{21     \textcolor{keyword}{const} std::string\& freespace\_profile = \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}})}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} program(}
+\DoxyCodeLine{24       composite\_profile, \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23c55205f98daabc458a817b34b4750413b587f536ac0}{CompositeInstructionOrder::ORDERED}}, \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}(\textcolor{stringliteral}{"{}manipulator"{}}, \textcolor{stringliteral}{"{}base\_link"{}}, \textcolor{stringliteral}{"{}tool0"{}}));}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26   \textcolor{comment}{// Start Joint Position for the program}}
+\DoxyCodeLine{27   std::vector<std::string> joint\_names = \{ \textcolor{stringliteral}{"{}joint\_a1"{}}, \textcolor{stringliteral}{"{}joint\_a2"{}}, \textcolor{stringliteral}{"{}joint\_a3"{}}, \textcolor{stringliteral}{"{}joint\_a4"{}},}
+\DoxyCodeLine{28                                            \textcolor{stringliteral}{"{}joint\_a5"{}}, \textcolor{stringliteral}{"{}joint\_a6"{}}, \textcolor{stringliteral}{"{}joint\_a7"{}} \};}
+\DoxyCodeLine{29   \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} wp1\{ \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{StateWaypoint}}(joint\_names, Eigen::VectorXd::Zero(7)) \};}
+\DoxyCodeLine{30   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} start\_instruction(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{MoveInstructionType::START}});}
+\DoxyCodeLine{31   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_aac3511839302abc4b2aef30331cfc562}{setStartInstruction}}(start\_instruction);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33   \textcolor{comment}{// Define target pose}}
+\DoxyCodeLine{34   \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp2\{ \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(goal) \};}
+\DoxyCodeLine{35   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f0(wp2, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
+\DoxyCodeLine{36   plan\_f0.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}freespace\_motion"{}});}
+\DoxyCodeLine{37   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f0);}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39   \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} wp3\{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{JointWaypoint}}(joint\_names, Eigen::VectorXd::Zero(7)) \};}
+\DoxyCodeLine{40   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f1(wp3, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}});}
+\DoxyCodeLine{41   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f1);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43   \textcolor{keywordflow}{return} program;}
+\DoxyCodeLine{44 \}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{keyword}{inline} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{namespacetesseract__planning_a7a2039b9a45e29e30050777ff8b69bfa}{freespaceExampleProgramABB}}(}
+\DoxyCodeLine{47     \textcolor{keyword}{const} Eigen::Isometry3d\& goal = Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.2, 0.2, 1.0),}
+\DoxyCodeLine{48     \textcolor{keyword}{const} std::string\& composite\_profile = \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}},}
+\DoxyCodeLine{49     \textcolor{keyword}{const} std::string\& freespace\_profile = \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}})}
+\DoxyCodeLine{50 \{}
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} program(}
+\DoxyCodeLine{52       composite\_profile, \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23c55205f98daabc458a817b34b4750413b587f536ac0}{CompositeInstructionOrder::ORDERED}}, \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}(\textcolor{stringliteral}{"{}manipulator"{}}, \textcolor{stringliteral}{"{}base\_link"{}}, \textcolor{stringliteral}{"{}tool0"{}}));}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54   \textcolor{comment}{// Start Joint Position for the program}}
+\DoxyCodeLine{55   std::vector<std::string> joint\_names = \{ \textcolor{stringliteral}{"{}joint\_1"{}}, \textcolor{stringliteral}{"{}joint\_2"{}}, \textcolor{stringliteral}{"{}joint\_3"{}}, \textcolor{stringliteral}{"{}joint\_4"{}}, \textcolor{stringliteral}{"{}joint\_5"{}}, \textcolor{stringliteral}{"{}joint\_6"{}} \};}
+\DoxyCodeLine{56   \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} wp1\{ \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{StateWaypoint}}(joint\_names, Eigen::VectorXd::Zero(6)) \};}
+\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} start\_instruction(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{MoveInstructionType::START}});}
+\DoxyCodeLine{58   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_aac3511839302abc4b2aef30331cfc562}{setStartInstruction}}(start\_instruction);}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{comment}{// Define target pose}}
+\DoxyCodeLine{61   \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp2\{ \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(goal) \};}
+\DoxyCodeLine{62   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f0(wp2, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
+\DoxyCodeLine{63   plan\_f0.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}freespace\_motion"{}});}
+\DoxyCodeLine{64   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f0);}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66   \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} wp3\{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{JointWaypoint}}(joint\_names, Eigen::VectorXd::Zero(6)) \};}
+\DoxyCodeLine{67   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f1(wp3, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}});}
+\DoxyCodeLine{68   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f1);}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \textcolor{keywordflow}{return} program;}
+\DoxyCodeLine{71 \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

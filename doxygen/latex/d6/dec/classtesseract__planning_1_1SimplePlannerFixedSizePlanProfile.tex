@@ -36,7 +36,7 @@ using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanPro
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a7f0f5874d4644bf152ea1ca98bd27621}{Simple\+Planner\+Fixed\+Size\+Plan\+Profile}} (int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a593d08cc3e9f41ad79488b4e538f544c}{freespace\+\_\+steps}}=10, int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a03d52871cc1b08713e150f7627ee4b51}{linear\+\_\+steps}}=10)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile}{Simple\+Planner\+Fixed\+Size\+Plan\+Profile}}. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a048084fcbe3daf9074dcb95f0cad6d12}{generate}} (const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&prev\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&prev\+\_\+seed, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&next\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+common\+::\+Manipulator\+Info \&global\+\_\+manip\+\_\+info) const override
+std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_af8ce2ecc404321f2d59cd70ed408e343}{generate}} (const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&prev\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&prev\+\_\+seed, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&next\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+common\+::\+Manipulator\+Info \&global\+\_\+manip\+\_\+info) const override
 \begin{DoxyCompactList}\small\item\em Generate a seed for the provided base\+\_\+instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -45,17 +45,6 @@ int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfi
 \begin{DoxyCompactList}\small\item\em The number of steps to use for freespace instruction. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a03d52871cc1b08713e150f7627ee4b51}{linear\+\_\+steps}}
 \begin{DoxyCompactList}\small\item\em The number of steps to use for linear instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a0ca334c0811a221850f53a36d0bf21e0}{state\+Joint\+Joint\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&base) const
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a7c4c49a822bab297185548e708392d39}{state\+Joint\+Cart\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&base) const
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a8e83e3afb09cfe5586877c7175f8c9fb}{state\+Cart\+Joint\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&base) const
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_ab37352752649216e30dd4c76e8136849}{state\+Cart\+Cart\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&base, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
-\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Typedef Documentation}
@@ -94,17 +83,17 @@ int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfi
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a048084fcbe3daf9074dcb95f0cad6d12}\label{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a048084fcbe3daf9074dcb95f0cad6d12}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_af8ce2ecc404321f2d59cd70ed408e343}\label{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_af8ce2ecc404321f2d59cd70ed408e343}} 
 \index{tesseract\_planning::SimplePlannerFixedSizePlanProfile@{tesseract\_planning::SimplePlannerFixedSizePlanProfile}!generate@{generate}}
 \index{generate@{generate}!tesseract\_planning::SimplePlannerFixedSizePlanProfile@{tesseract\_planning::SimplePlannerFixedSizePlanProfile}}
 \doxysubsubsection{\texorpdfstring{generate()}{generate()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Plan\+Profile\+::generate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{prev\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{prev\+\_\+seed,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{base\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&}]{next\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const tesseract\+\_\+common\+::\+Manipulator\+Info \&}]{global\+\_\+manip\+\_\+info }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} $>$ tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Plan\+Profile\+::generate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{prev\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{prev\+\_\+seed,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{base\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&}]{next\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const tesseract\+\_\+common\+::\+Manipulator\+Info \&}]{global\+\_\+manip\+\_\+info }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
 Generate a seed for the provided base\+\_\+instruction. 
 
-
+This should not include the prev\+\_\+instruction but must include the base\+\_\+instruction 
 \begin{DoxyParams}{Parameters}
 {\em prev\+\_\+instruction} & The previous instruction \\
 \hline
@@ -120,35 +109,11 @@ Generate a seed for the provided base\+\_\+instruction.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A composite instruction representing the seed for the base\+\_\+instruction 
+A vector of move instrucitons 
 \end{DoxyReturn}
 
 
-Implements \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a71f70cb15d487d7407e66bfb7cc05e95}{tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile}}.
-
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_ab37352752649216e30dd4c76e8136849}\label{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_ab37352752649216e30dd4c76e8136849}} 
-\index{tesseract\_planning::SimplePlannerFixedSizePlanProfile@{tesseract\_planning::SimplePlannerFixedSizePlanProfile}!stateCartCartWaypoint@{stateCartCartWaypoint}}
-\index{stateCartCartWaypoint@{stateCartCartWaypoint}!tesseract\_planning::SimplePlannerFixedSizePlanProfile@{tesseract\_planning::SimplePlannerFixedSizePlanProfile}}
-\doxysubsubsection{\texorpdfstring{stateCartCartWaypoint()}{stateCartCartWaypoint()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Plan\+Profile\+::state\+Cart\+Cart\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{base,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a8e83e3afb09cfe5586877c7175f8c9fb}\label{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a8e83e3afb09cfe5586877c7175f8c9fb}} 
-\index{tesseract\_planning::SimplePlannerFixedSizePlanProfile@{tesseract\_planning::SimplePlannerFixedSizePlanProfile}!stateCartJointWaypoint@{stateCartJointWaypoint}}
-\index{stateCartJointWaypoint@{stateCartJointWaypoint}!tesseract\_planning::SimplePlannerFixedSizePlanProfile@{tesseract\_planning::SimplePlannerFixedSizePlanProfile}}
-\doxysubsubsection{\texorpdfstring{stateCartJointWaypoint()}{stateCartJointWaypoint()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Plan\+Profile\+::state\+Cart\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a7c4c49a822bab297185548e708392d39}\label{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a7c4c49a822bab297185548e708392d39}} 
-\index{tesseract\_planning::SimplePlannerFixedSizePlanProfile@{tesseract\_planning::SimplePlannerFixedSizePlanProfile}!stateJointCartWaypoint@{stateJointCartWaypoint}}
-\index{stateJointCartWaypoint@{stateJointCartWaypoint}!tesseract\_planning::SimplePlannerFixedSizePlanProfile@{tesseract\_planning::SimplePlannerFixedSizePlanProfile}}
-\doxysubsubsection{\texorpdfstring{stateJointCartWaypoint()}{stateJointCartWaypoint()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Plan\+Profile\+::state\+Joint\+Cart\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a0ca334c0811a221850f53a36d0bf21e0}\label{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a0ca334c0811a221850f53a36d0bf21e0}} 
-\index{tesseract\_planning::SimplePlannerFixedSizePlanProfile@{tesseract\_planning::SimplePlannerFixedSizePlanProfile}!stateJointJointWaypoint@{stateJointJointWaypoint}}
-\index{stateJointJointWaypoint@{stateJointJointWaypoint}!tesseract\_planning::SimplePlannerFixedSizePlanProfile@{tesseract\_planning::SimplePlannerFixedSizePlanProfile}}
-\doxysubsubsection{\texorpdfstring{stateJointJointWaypoint()}{stateJointJointWaypoint()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Plan\+Profile\+::state\+Joint\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+Implements \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a785955ff7e64465c3390af7786f257aa}{tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile}}.
 
 
 

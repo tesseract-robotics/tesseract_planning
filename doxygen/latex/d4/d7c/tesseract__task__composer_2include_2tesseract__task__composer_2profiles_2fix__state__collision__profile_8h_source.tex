@@ -1,0 +1,61 @@
+\hypertarget{tesseract__task__composer_2include_2tesseract__task__composer_2profiles_2fix__state__collision__profile_8h_source}{}\doxysection{fix\+\_\+state\+\_\+collision\+\_\+profile.\+h}
+\label{tesseract__task__composer_2include_2tesseract__task__composer_2profiles_2fix__state__collision__profile_8h_source}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/profiles/fix\_state\_collision\_profile.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/profiles/fix\_state\_collision\_profile.h}}
+\mbox{\hyperlink{tesseract__task__composer_2include_2tesseract__task__composer_2profiles_2fix__state__collision__profile_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_FIX\_STATE\_COLLISION\_PROFILE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_FIX\_STATE\_COLLISION\_PROFILE\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{33 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <tesseract\_collision/core/types.h>}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39 \textcolor{keyword}{struct }FixStateCollisionProfile}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a709319d1ca9dbe3c19a61d0421471b66}{Ptr}} = std::shared\_ptr<FixStateCollisionProfile>;}
+\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_ae49ccc0d1458edc47e2d9177f8c49711}{ConstPtr}} = std::shared\_ptr<const FixStateCollisionProfile>;}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44   \textcolor{keyword}{enum class} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9}{Settings}}}
+\DoxyCodeLine{45   \{}
+\DoxyCodeLine{46     START\_ONLY,}
+\DoxyCodeLine{47     END\_ONLY,}
+\DoxyCodeLine{48     INTERMEDIATE\_ONLY,}
+\DoxyCodeLine{49     ALL,}
+\DoxyCodeLine{50     ALL\_EXCEPT\_START,}
+\DoxyCodeLine{51     ALL\_EXCEPT\_END,}
+\DoxyCodeLine{52     DISABLED}
+\DoxyCodeLine{53   \};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{56   \textcolor{keyword}{enum class} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a616b958914a7cfbc44c21810cac79770}{CorrectionMethod}}}
+\DoxyCodeLine{57   \{}
+\DoxyCodeLine{58     NONE,}
+\DoxyCodeLine{59     TRAJOPT,}
+\DoxyCodeLine{60     RANDOM\_SAMPLER}
+\DoxyCodeLine{61   \};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63   \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a8b700364aa7ee70af35c7ef4d13a5476}{FixStateCollisionProfile}}(\mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9}{Settings}} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a74ee9efead831c5585df06033cd7ca0f}{mode}} = \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a5fb1f955b45e38e31789286a1790398d}{Settings::ALL}}) : \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a74ee9efead831c5585df06033cd7ca0f}{mode}}(\mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a74ee9efead831c5585df06033cd7ca0f}{mode}})}
+\DoxyCodeLine{64   \{}
+\DoxyCodeLine{65     \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a1f3aa61f64810e2cc577dcb227f8577a}{collision\_check\_config}}.contact\_request.type = tesseract\_collision::ContactTestType::FIRST;}
+\DoxyCodeLine{66     \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a1f3aa61f64810e2cc577dcb227f8577a}{collision\_check\_config}}.type = tesseract\_collision::CollisionEvaluatorType::DISCRETE;}
+\DoxyCodeLine{67   \}}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{70   \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9}{Settings}} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a74ee9efead831c5585df06033cd7ca0f}{mode}};}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{74   std::vector<CorrectionMethod> \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_ab8c8cec51afd8f4956f647913aeac8e7}{correction\_workflow}}\{ \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a616b958914a7cfbc44c21810cac79770a43cddd04e52e5565a51dd6d59225d685}{CorrectionMethod::TRAJOPT}}, \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a616b958914a7cfbc44c21810cac79770ae49d22a187a81766494a4fb8fb49d1c0}{CorrectionMethod::RANDOM\_SAMPLER}} \};}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{77   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_abcf3e0fc78b4d136549c3e41ec74920a}{jiggle\_factor}}\{ 0.02 \};}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{80   tesseract\_collision::CollisionCheckConfig \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a1f3aa61f64810e2cc577dcb227f8577a}{collision\_check\_config}};}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{83   \textcolor{keywordtype}{int} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_ab7f44bc1728eb8235064159e868d6a4c}{sampling\_attempts}}\{ 100 \};}
+\DoxyCodeLine{84 \};}
+\DoxyCodeLine{85 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{86 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_FIX\_STATE\_COLLISION\_PROFILE\_H}}
+
+\end{DoxyCode}

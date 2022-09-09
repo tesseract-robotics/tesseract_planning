@@ -21,7 +21,7 @@ Collaboration diagram for tesseract\+\_\+planning\+::Traj\+Opt\+Ifopt\+Motion\+P
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{df/df1/classtesseract__planning_1_1TrajOptIfoptMotionPlanner__coll__graph}
+\includegraphics[width=322pt]{df/df1/classtesseract__planning_1_1TrajOptIfoptMotionPlanner__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -39,35 +39,21 @@ Collaboration diagram for tesseract\+\_\+planning\+::Traj\+Opt\+Ifopt\+Motion\+P
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{Traj\+Opt\+Ifopt\+Motion\+Planner}} \& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a2fbfe2932a36185b851db556ee9160e0}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{Traj\+Opt\+Ifopt\+Motion\+Planner}} \&\&)=delete
 \item 
-const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a33ade95277cfdcecae3aad41f3dd3048}{get\+Name}} () const override
-\begin{DoxyCompactList}\small\item\em Get the name of this planner. \end{DoxyCompactList}\item 
-tesseract\+\_\+common\+::\+Status\+Code \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa86732e70ee5102815d15b896927e14d}{solve}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \&response, bool verbose=false) const override
-\begin{DoxyCompactList}\small\item\em Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a8571318009fac584c15542ee8b2e4f04}{solve}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const override
+\begin{DoxyCompactList}\small\item\em Solve the planner request problem. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ad8b5ef60c1c201b78186f231749df74d}{terminate}} () override
-\begin{DoxyCompactList}\small\item\em If \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa86732e70ee5102815d15b896927e14d}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa86732e70ee5102815d15b896927e14d}{solve()}} is not running (returns true). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em If \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a8571318009fac584c15542ee8b2e4f04}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a8571318009fac584c15542ee8b2e4f04}{solve()}} is not running (returns true). \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a67fe43bcd925997b52ae5cad310bfa24}{clear}} () override
 \begin{DoxyCompactList}\small\item\em Clear the data structures used by the planner. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Motion\+Planner\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_adf6b8132dc0ec281f9c186ed389c2342}{clone}} () const override
 \begin{DoxyCompactList}\small\item\em Clone the motion planner. \end{DoxyCompactList}\item 
 virtual std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem}{Traj\+Opt\+Ifopt\+Problem}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a110527b1475e5b5f8622997825e29e35}{create\+Problem}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-static bool \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a5d88337c26aadfaf4256230f0add6634}{check\+User\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request)
-\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 std\+::vector$<$ trajopt\+\_\+sqp\+::\+SQPCallback\+::\+Ptr $>$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa8c103e093c4dcb6ee452f4db4a5b79c}{callbacks}}
 \begin{DoxyCompactList}\small\item\em Callback functions called on each iteration of the optimization (Optional) \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Protected Attributes}
-\begin{DoxyCompactItemize}
-\item 
-std\+::string \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ac2ae1e6eb681ab044ffd6843ee071b9a}{name\+\_\+}}
-\begin{DoxyCompactList}\small\item\em Name of planner. \end{DoxyCompactList}\item 
-std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlannerStatusCategory}{Traj\+Opt\+Ifopt\+Motion\+Planner\+Status\+Category}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a3d2c0a10e532e58158d0e8d7ba8c9c50}{status\+\_\+category\+\_\+}}
-\begin{DoxyCompactList}\small\item\em The planners status codes. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
@@ -103,12 +89,6 @@ Construct a basic planner.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a5d88337c26aadfaf4256230f0add6634}\label{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a5d88337c26aadfaf4256230f0add6634}} 
-\index{tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}!checkUserInput@{checkUserInput}}
-\index{checkUserInput@{checkUserInput}!tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}}
-\doxysubsubsection{\texorpdfstring{checkUserInput()}{checkUserInput()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Motion\+Planner\+::check\+User\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
 \mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a67fe43bcd925997b52ae5cad310bfa24}\label{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a67fe43bcd925997b52ae5cad310bfa24}} 
 \index{tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}!clear@{clear}}
 \index{clear@{clear}!tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}}
@@ -144,33 +124,15 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a9b0b2d771
 {\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem}{Traj\+Opt\+Ifopt\+Problem}} $>$ tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Motion\+Planner\+::create\+Problem (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000037}{Todo}}]Write a path constraint for this \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000055}{Todo}}]If fixed cartesian and not term\+\_\+type cost add as fixed \end{DoxyRefDesc}
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000038}{Todo}}]Add path constraint for this \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000056}{Todo}}]Should not make fixed if term\+\_\+type is cost \end{DoxyRefDesc}
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000039}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
-
-
-\begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000040}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a33ade95277cfdcecae3aad41f3dd3048}\label{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a33ade95277cfdcecae3aad41f3dd3048}} 
-\index{tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}!getName@{getName}}
-\index{getName@{getName}!tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}}
-\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
-{\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Motion\+Planner\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Get the name of this planner. 
-
-This is also used as the namespace for the profiles in the profile dictionary 
-
-Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_acd704df50dc81b6a624fb34e640e777c}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
-
+\item[\mbox{\hyperlink{todo__todo000057}{Todo}}]Should not make fixed if term\+\_\+type is cost \end{DoxyRefDesc}
 \mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a5fcc93e625ccaa33e0f3e282871eea8e}\label{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a5fcc93e625ccaa33e0f3e282871eea8e}} 
 \index{tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}!operator=@{operator=}}
 \index{operator=@{operator=}!tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}}
@@ -183,37 +145,33 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_acd704df50
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{Traj\+Opt\+Ifopt\+Motion\+Planner}} \& tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Motion\+Planner\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{Traj\+Opt\+Ifopt\+Motion\+Planner}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa86732e70ee5102815d15b896927e14d}\label{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa86732e70ee5102815d15b896927e14d}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a8571318009fac584c15542ee8b2e4f04}\label{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a8571318009fac584c15542ee8b2e4f04}} 
 \index{tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}!solve@{solve}}
 \index{solve@{solve}!tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}}
 \doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Status\+Code tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Motion\+Planner\+::solve (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \&}]{response,  }\item[{bool}]{verbose = {\ttfamily false} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Motion\+Planner\+::solve (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
-Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters. 
+Solve the planner request problem. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em response} & The results of the optimization. Primary output is the optimized joint trajectory \\
-\hline
-{\em check\+\_\+type} & The type of collision check to perform on the planned trajectory \\
-\hline
-{\em verbose} & Boolean indicating whether logging information about the motion planning solution should be printed to console \\
+{\em request} & The planning request \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-true if optimization complete 
+A planner reponse 
 \end{DoxyReturn}
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000035}{Todo}}]Enable solver selection (e.\+g. IPOPT) \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000053}{Todo}}]Enable solver selection (e.\+g. IPOPT) \end{DoxyRefDesc}
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000036}{Todo}}]Set these as the defaults in trajopt and allow setting \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000054}{Todo}}]Set these as the defaults in trajopt and allow setting \end{DoxyRefDesc}
 
 
-Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a1f19a1753347fd841e7c7320cd34cd02}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
+Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a60a757c5560f495611be282220fff9d2}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ad8b5ef60c1c201b78186f231749df74d}\label{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ad8b5ef60c1c201b78186f231749df74d}} 
 \index{tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}!terminate@{terminate}}
@@ -223,7 +181,7 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a1f19a1753
 
 
 
-If \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa86732e70ee5102815d15b896927e14d}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa86732e70ee5102815d15b896927e14d}{solve()}} is not running (returns true). 
+If \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a8571318009fac584c15542ee8b2e4f04}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a8571318009fac584c15542ee8b2e4f04}{solve()}} is not running (returns true). 
 
 
 
@@ -241,26 +199,6 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a44afac056
 
 
 Callback functions called on each iteration of the optimization (Optional) 
-
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ac2ae1e6eb681ab044ffd6843ee071b9a}\label{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ac2ae1e6eb681ab044ffd6843ee071b9a}} 
-\index{tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}!name\_@{name\_}}
-\index{name\_@{name\_}!tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}}
-\doxysubsubsection{\texorpdfstring{name\_}{name\_}}
-{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Motion\+Planner\+::name\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
-
-
-
-Name of planner. 
-
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a3d2c0a10e532e58158d0e8d7ba8c9c50}\label{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a3d2c0a10e532e58158d0e8d7ba8c9c50}} 
-\index{tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}!status\_category\_@{status\_category\_}}
-\index{status\_category\_@{status\_category\_}!tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}}
-\doxysubsubsection{\texorpdfstring{status\_category\_}{status\_category\_}}
-{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlannerStatusCategory}{Traj\+Opt\+Ifopt\+Motion\+Planner\+Status\+Category}}$>$ tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Motion\+Planner\+::status\+\_\+category\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
-
-
-
-The planners status codes. 
 
 
 

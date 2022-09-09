@@ -18,139 +18,141 @@
 \DoxyCodeLine{38 }
 \DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
 \DoxyCodeLine{40 \{}
-\DoxyCodeLine{50 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{ProfileDictionary}}}
-\DoxyCodeLine{51 \{}
-\DoxyCodeLine{52 \textcolor{keyword}{public}:}
-\DoxyCodeLine{53   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a6ca9e4457bcf32d459ca8d89121a963d}{Ptr}} = std::shared\_ptr<ProfileDictionary>;}
-\DoxyCodeLine{54   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ConstPtr}} = std::shared\_ptr<const ProfileDictionary>;}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{61   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
-\DoxyCodeLine{62   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a027d12665c57e25d5bbdf62520d076ff}{hasProfileEntry}}(\textcolor{keyword}{const} std::string\& ns)\textcolor{keyword}{ const}}
-\DoxyCodeLine{63 \textcolor{keyword}{  }\{}
-\DoxyCodeLine{64     std::shared\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
-\DoxyCodeLine{65     \textcolor{keyword}{auto} it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.find(ns);}
-\DoxyCodeLine{66     \textcolor{keywordflow}{if} (it == \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.end())}
-\DoxyCodeLine{67       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{68 }
-\DoxyCodeLine{69     \textcolor{keywordflow}{return} (it-\/>second.find(std::type\_index(\textcolor{keyword}{typeid}(ProfileType))) != it-\/>second.end());}
-\DoxyCodeLine{70   \}}
-\DoxyCodeLine{71 }
-\DoxyCodeLine{73   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
-\DoxyCodeLine{74   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a8d7bcd45c018b45d2d6b1b7cc7366265}{removeProfileEntry}}(\textcolor{keyword}{const} std::string\& ns)}
-\DoxyCodeLine{75   \{}
-\DoxyCodeLine{76     std::unique\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
+\DoxyCodeLine{48 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_af58c46cb77cb7674b21ca5212360ec7e}{ProfileRemapping}} = std::unordered\_map<std::string, std::unordered\_map<std::string, std::string>>;}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{59 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{ProfileDictionary}}}
+\DoxyCodeLine{60 \{}
+\DoxyCodeLine{61 \textcolor{keyword}{public}:}
+\DoxyCodeLine{62   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a6ca9e4457bcf32d459ca8d89121a963d}{Ptr}} = std::shared\_ptr<ProfileDictionary>;}
+\DoxyCodeLine{63   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ConstPtr}} = std::shared\_ptr<const ProfileDictionary>;}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{70   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
+\DoxyCodeLine{71   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a027d12665c57e25d5bbdf62520d076ff}{hasProfileEntry}}(\textcolor{keyword}{const} std::string\& ns)\textcolor{keyword}{ const}}
+\DoxyCodeLine{72 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{73     std::shared\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
+\DoxyCodeLine{74     \textcolor{keyword}{auto} it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.find(ns);}
+\DoxyCodeLine{75     \textcolor{keywordflow}{if} (it == \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.end())}
+\DoxyCodeLine{76       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{77 }
-\DoxyCodeLine{78     \textcolor{keyword}{auto} it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.find(ns);}
-\DoxyCodeLine{79     \textcolor{keywordflow}{if} (it == \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.end())}
-\DoxyCodeLine{80       \textcolor{keywordflow}{return};}
-\DoxyCodeLine{81 }
-\DoxyCodeLine{82     it-\/>second.erase(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)));}
-\DoxyCodeLine{83   \}}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{89   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
-\DoxyCodeLine{90   std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>> \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a55a06d6b378a41a29b5fb776cb525f0f}{getProfileEntry}}(\textcolor{keyword}{const} std::string\& ns)\textcolor{keyword}{ const}}
-\DoxyCodeLine{91 \textcolor{keyword}{  }\{}
-\DoxyCodeLine{92     std::shared\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
-\DoxyCodeLine{93     \textcolor{keyword}{auto} it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.find(ns);}
-\DoxyCodeLine{94     \textcolor{keywordflow}{if} (it == \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.end())}
-\DoxyCodeLine{95       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Profile namespace does not exist for '"{}} + ns + \textcolor{stringliteral}{"{}'!"{}});}
-\DoxyCodeLine{96 }
-\DoxyCodeLine{97     \textcolor{keyword}{auto} it2 = it-\/>second.find(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)));}
-\DoxyCodeLine{98     \textcolor{keywordflow}{if} (it2 != it-\/>second.end())}
-\DoxyCodeLine{99       \textcolor{keywordflow}{return} std::any\_cast<const std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>>\&>(it2-\/>second);}
-\DoxyCodeLine{100 }
-\DoxyCodeLine{101     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Profile entry does not exist for type name '"{}} +}
-\DoxyCodeLine{102                              std::string(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)).name()) + \textcolor{stringliteral}{"{}' in namespace '"{}} + ns + \textcolor{stringliteral}{"{}'!"{}});}
-\DoxyCodeLine{103   \}}
-\DoxyCodeLine{104 }
-\DoxyCodeLine{112   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
-\DoxyCodeLine{113   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a3d2b329c3e514c1f50400abaa2b38419}{addProfile}}(\textcolor{keyword}{const} std::string\& ns, \textcolor{keyword}{const} std::string\& profile\_name, std::shared\_ptr<const ProfileType> profile)}
-\DoxyCodeLine{114   \{}
-\DoxyCodeLine{115     \textcolor{keywordflow}{if} (ns.empty())}
-\DoxyCodeLine{116       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Adding profile with an empty namespace!"{}});}
-\DoxyCodeLine{117 }
-\DoxyCodeLine{118     \textcolor{keywordflow}{if} (profile\_name.empty())}
-\DoxyCodeLine{119       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Adding profile with an empty string as the key!"{}});}
-\DoxyCodeLine{120 }
-\DoxyCodeLine{121     \textcolor{keywordflow}{if} (profile == \textcolor{keyword}{nullptr})}
-\DoxyCodeLine{122       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Adding profile that is a nullptr"{}});}
-\DoxyCodeLine{123 }
-\DoxyCodeLine{124     std::unique\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
-\DoxyCodeLine{125     \textcolor{keyword}{auto} it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.find(ns);}
-\DoxyCodeLine{126     \textcolor{keywordflow}{if} (it == \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.end())}
-\DoxyCodeLine{127     \{}
-\DoxyCodeLine{128       std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>> new\_entry;}
-\DoxyCodeLine{129       new\_entry[profile\_name] = profile;}
-\DoxyCodeLine{130       \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}[ns][std::type\_index(\textcolor{keyword}{typeid}(ProfileType))] = new\_entry;}
-\DoxyCodeLine{131     \}}
-\DoxyCodeLine{132     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{133     \{}
-\DoxyCodeLine{134       \textcolor{keyword}{auto} it2 = it-\/>second.find(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)));}
-\DoxyCodeLine{135       \textcolor{keywordflow}{if} (it2 != it-\/>second.end())}
-\DoxyCodeLine{136       \{}
-\DoxyCodeLine{137         std::any\_cast<std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>>\&>(it2-\/>second)[profile\_name] =}
-\DoxyCodeLine{138             profile;}
-\DoxyCodeLine{139       \}}
-\DoxyCodeLine{140       \textcolor{keywordflow}{else}}
-\DoxyCodeLine{141       \{}
-\DoxyCodeLine{142         std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>> new\_entry;}
-\DoxyCodeLine{143         new\_entry[profile\_name] = profile;}
-\DoxyCodeLine{144         it-\/>second[std::type\_index(\textcolor{keyword}{typeid}(ProfileType))] = new\_entry;}
-\DoxyCodeLine{145       \}}
-\DoxyCodeLine{146     \}}
-\DoxyCodeLine{147   \}}
-\DoxyCodeLine{148 }
-\DoxyCodeLine{154   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
-\DoxyCodeLine{155   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aa72e7841d99a279c706c6cac7e73b2a2}{hasProfile}}(\textcolor{keyword}{const} std::string\& ns, \textcolor{keyword}{const} std::string\& profile\_name)\textcolor{keyword}{ const}}
-\DoxyCodeLine{156 \textcolor{keyword}{  }\{}
-\DoxyCodeLine{157     std::shared\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
-\DoxyCodeLine{158     \textcolor{keyword}{auto} it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.find(ns);}
-\DoxyCodeLine{159     \textcolor{keywordflow}{if} (it == \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.end())}
-\DoxyCodeLine{160       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{161 }
-\DoxyCodeLine{162     \textcolor{keyword}{auto} it2 = it-\/>second.find(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)));}
-\DoxyCodeLine{163     \textcolor{keywordflow}{if} (it2 != it-\/>second.end())}
-\DoxyCodeLine{164     \{}
-\DoxyCodeLine{165       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& profile\_map =}
-\DoxyCodeLine{166           std::any\_cast<const std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>>\&>(it2-\/>second);}
-\DoxyCodeLine{167       \textcolor{keyword}{auto} it3 = profile\_map.find(profile\_name);}
-\DoxyCodeLine{168       \textcolor{keywordflow}{if} (it3 != profile\_map.end())}
-\DoxyCodeLine{169         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{170     \}}
-\DoxyCodeLine{171     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{172   \}}
-\DoxyCodeLine{173 }
-\DoxyCodeLine{180   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
-\DoxyCodeLine{181   std::shared\_ptr<const ProfileType> \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a76d882f0e611b3404718188d5da22a2c}{getProfile}}(\textcolor{keyword}{const} std::string\& ns, \textcolor{keyword}{const} std::string\& profile\_name)\textcolor{keyword}{ const}}
-\DoxyCodeLine{182 \textcolor{keyword}{  }\{}
-\DoxyCodeLine{183     std::shared\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
-\DoxyCodeLine{184     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.at(ns);}
-\DoxyCodeLine{185     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& it2 = it.at(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)));}
-\DoxyCodeLine{186     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& profile\_map =}
-\DoxyCodeLine{187         std::any\_cast<const std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>>\&>(it2);}
-\DoxyCodeLine{188     \textcolor{keywordflow}{return} profile\_map.at(profile\_name);}
-\DoxyCodeLine{189   \}}
-\DoxyCodeLine{190 }
-\DoxyCodeLine{195   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
-\DoxyCodeLine{196   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a3fda030b09c7a0e9789606beaf504c1f}{removeProfile}}(\textcolor{keyword}{const} std::string\& ns, \textcolor{keyword}{const} std::string\& profile\_name)}
-\DoxyCodeLine{197   \{}
-\DoxyCodeLine{198     std::unique\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
-\DoxyCodeLine{199     \textcolor{keyword}{auto} it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.find(ns);}
-\DoxyCodeLine{200     \textcolor{keywordflow}{if} (it == \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.end())}
-\DoxyCodeLine{201       \textcolor{keywordflow}{return};}
-\DoxyCodeLine{202 }
-\DoxyCodeLine{203     \textcolor{keyword}{auto} it2 = it-\/>second.find(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)));}
-\DoxyCodeLine{204     \textcolor{keywordflow}{if} (it2 != it-\/>second.end())}
-\DoxyCodeLine{205       std::any\_cast<std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>>\&>(it2-\/>second)}
-\DoxyCodeLine{206           .erase(profile\_name);}
-\DoxyCodeLine{207   \}}
-\DoxyCodeLine{208 }
-\DoxyCodeLine{209 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{210   std::unordered\_map<std::string, std::unordered\_map<std::type\_index, std::any>> \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}};}
-\DoxyCodeLine{211   \textcolor{keyword}{mutable} std::shared\_mutex \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}};}
-\DoxyCodeLine{212 \};}
-\DoxyCodeLine{213 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{214 }
-\DoxyCodeLine{215 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_PROFILE\_DICTIONARY\_H}}
+\DoxyCodeLine{78     \textcolor{keywordflow}{return} (it-\/>second.find(std::type\_index(\textcolor{keyword}{typeid}(ProfileType))) != it-\/>second.end());}
+\DoxyCodeLine{79   \}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{82   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
+\DoxyCodeLine{83   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a8d7bcd45c018b45d2d6b1b7cc7366265}{removeProfileEntry}}(\textcolor{keyword}{const} std::string\& ns)}
+\DoxyCodeLine{84   \{}
+\DoxyCodeLine{85     std::unique\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87     \textcolor{keyword}{auto} it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.find(ns);}
+\DoxyCodeLine{88     \textcolor{keywordflow}{if} (it == \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.end())}
+\DoxyCodeLine{89       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91     it-\/>second.erase(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)));}
+\DoxyCodeLine{92   \}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{98   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
+\DoxyCodeLine{99   std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>> \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a55a06d6b378a41a29b5fb776cb525f0f}{getProfileEntry}}(\textcolor{keyword}{const} std::string\& ns)\textcolor{keyword}{ const}}
+\DoxyCodeLine{100 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{101     std::shared\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
+\DoxyCodeLine{102     \textcolor{keyword}{auto} it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.find(ns);}
+\DoxyCodeLine{103     \textcolor{keywordflow}{if} (it == \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.end())}
+\DoxyCodeLine{104       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Profile namespace does not exist for '"{}} + ns + \textcolor{stringliteral}{"{}'!"{}});}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106     \textcolor{keyword}{auto} it2 = it-\/>second.find(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)));}
+\DoxyCodeLine{107     \textcolor{keywordflow}{if} (it2 != it-\/>second.end())}
+\DoxyCodeLine{108       \textcolor{keywordflow}{return} std::any\_cast<const std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>>\&>(it2-\/>second);}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Profile entry does not exist for type name '"{}} +}
+\DoxyCodeLine{111                              std::string(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)).name()) + \textcolor{stringliteral}{"{}' in namespace '"{}} + ns + \textcolor{stringliteral}{"{}'!"{}});}
+\DoxyCodeLine{112   \}}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{121   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
+\DoxyCodeLine{122   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a3d2b329c3e514c1f50400abaa2b38419}{addProfile}}(\textcolor{keyword}{const} std::string\& ns, \textcolor{keyword}{const} std::string\& profile\_name, std::shared\_ptr<const ProfileType> profile)}
+\DoxyCodeLine{123   \{}
+\DoxyCodeLine{124     \textcolor{keywordflow}{if} (ns.empty())}
+\DoxyCodeLine{125       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Adding profile with an empty namespace!"{}});}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127     \textcolor{keywordflow}{if} (profile\_name.empty())}
+\DoxyCodeLine{128       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Adding profile with an empty string as the key!"{}});}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130     \textcolor{keywordflow}{if} (profile == \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{131       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Adding profile that is a nullptr"{}});}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133     std::unique\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
+\DoxyCodeLine{134     \textcolor{keyword}{auto} it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.find(ns);}
+\DoxyCodeLine{135     \textcolor{keywordflow}{if} (it == \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.end())}
+\DoxyCodeLine{136     \{}
+\DoxyCodeLine{137       std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>> new\_entry;}
+\DoxyCodeLine{138       new\_entry[profile\_name] = profile;}
+\DoxyCodeLine{139       \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}[ns][std::type\_index(\textcolor{keyword}{typeid}(ProfileType))] = new\_entry;}
+\DoxyCodeLine{140     \}}
+\DoxyCodeLine{141     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{142     \{}
+\DoxyCodeLine{143       \textcolor{keyword}{auto} it2 = it-\/>second.find(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)));}
+\DoxyCodeLine{144       \textcolor{keywordflow}{if} (it2 != it-\/>second.end())}
+\DoxyCodeLine{145       \{}
+\DoxyCodeLine{146         std::any\_cast<std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>>\&>(it2-\/>second)[profile\_name] =}
+\DoxyCodeLine{147             profile;}
+\DoxyCodeLine{148       \}}
+\DoxyCodeLine{149       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{150       \{}
+\DoxyCodeLine{151         std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>> new\_entry;}
+\DoxyCodeLine{152         new\_entry[profile\_name] = profile;}
+\DoxyCodeLine{153         it-\/>second[std::type\_index(\textcolor{keyword}{typeid}(ProfileType))] = new\_entry;}
+\DoxyCodeLine{154       \}}
+\DoxyCodeLine{155     \}}
+\DoxyCodeLine{156   \}}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{163   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
+\DoxyCodeLine{164   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aa72e7841d99a279c706c6cac7e73b2a2}{hasProfile}}(\textcolor{keyword}{const} std::string\& ns, \textcolor{keyword}{const} std::string\& profile\_name)\textcolor{keyword}{ const}}
+\DoxyCodeLine{165 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{166     std::shared\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
+\DoxyCodeLine{167     \textcolor{keyword}{auto} it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.find(ns);}
+\DoxyCodeLine{168     \textcolor{keywordflow}{if} (it == \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.end())}
+\DoxyCodeLine{169       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{171     \textcolor{keyword}{auto} it2 = it-\/>second.find(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)));}
+\DoxyCodeLine{172     \textcolor{keywordflow}{if} (it2 != it-\/>second.end())}
+\DoxyCodeLine{173     \{}
+\DoxyCodeLine{174       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& profile\_map =}
+\DoxyCodeLine{175           std::any\_cast<const std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>>\&>(it2-\/>second);}
+\DoxyCodeLine{176       \textcolor{keyword}{auto} it3 = profile\_map.find(profile\_name);}
+\DoxyCodeLine{177       \textcolor{keywordflow}{if} (it3 != profile\_map.end())}
+\DoxyCodeLine{178         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{179     \}}
+\DoxyCodeLine{180     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{181   \}}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{189   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
+\DoxyCodeLine{190   std::shared\_ptr<const ProfileType> \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a76d882f0e611b3404718188d5da22a2c}{getProfile}}(\textcolor{keyword}{const} std::string\& ns, \textcolor{keyword}{const} std::string\& profile\_name)\textcolor{keyword}{ const}}
+\DoxyCodeLine{191 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{192     std::shared\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
+\DoxyCodeLine{193     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.at(ns);}
+\DoxyCodeLine{194     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& it2 = it.at(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)));}
+\DoxyCodeLine{195     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& profile\_map =}
+\DoxyCodeLine{196         std::any\_cast<const std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>>\&>(it2);}
+\DoxyCodeLine{197     \textcolor{keywordflow}{return} profile\_map.at(profile\_name);}
+\DoxyCodeLine{198   \}}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{204   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
+\DoxyCodeLine{205   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a3fda030b09c7a0e9789606beaf504c1f}{removeProfile}}(\textcolor{keyword}{const} std::string\& ns, \textcolor{keyword}{const} std::string\& profile\_name)}
+\DoxyCodeLine{206   \{}
+\DoxyCodeLine{207     std::unique\_lock lock(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}});}
+\DoxyCodeLine{208     \textcolor{keyword}{auto} it = \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.find(ns);}
+\DoxyCodeLine{209     \textcolor{keywordflow}{if} (it == \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}}.end())}
+\DoxyCodeLine{210       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212     \textcolor{keyword}{auto} it2 = it-\/>second.find(std::type\_index(\textcolor{keyword}{typeid}(ProfileType)));}
+\DoxyCodeLine{213     \textcolor{keywordflow}{if} (it2 != it-\/>second.end())}
+\DoxyCodeLine{214       std::any\_cast<std::unordered\_map<std::string, std::shared\_ptr<const ProfileType>>\&>(it2-\/>second)}
+\DoxyCodeLine{215           .erase(profile\_name);}
+\DoxyCodeLine{216   \}}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{218 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{219   std::unordered\_map<std::string, std::unordered\_map<std::type\_index, std::any>> \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aff842a30b67daa75fcafe9c3921db6b9}{profiles\_}};}
+\DoxyCodeLine{220   \textcolor{keyword}{mutable} std::shared\_mutex \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\_}};}
+\DoxyCodeLine{221 \};}
+\DoxyCodeLine{222 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_PROFILE\_DICTIONARY\_H}}
 
 \end{DoxyCode}

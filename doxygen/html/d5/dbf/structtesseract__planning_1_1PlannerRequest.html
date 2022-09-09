@@ -126,6 +126,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a57f97df33c6644837d93650818be4d67"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a97a7a198edf46fea10c33898f4b1e2c5">PlannerProfileRemapping</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html#a57f97df33c6644837d93650818be4d67">composite_profile_remapping</a> {}</td></tr>
 <tr class="memdesc:a57f97df33c6644837d93650818be4d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">This allows the remapping of the Composite Profile identified in the command language to a specific profile for a given motion planner.  <a href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html#a57f97df33c6644837d93650818be4d67">More...</a><br /></td></tr>
 <tr class="separator:a57f97df33c6644837d93650818be4d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd0d5992c966354b676ee0041f6455f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html#acd0d5992c966354b676ee0041f6455f7">verbose</a> { false }</td></tr>
+<tr class="memdesc:acd0d5992c966354b676ee0041f6455f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate if output should be verbose.  <a href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html#acd0d5992c966354b676ee0041f6455f7">More...</a><br /></td></tr>
+<tr class="separator:acd0d5992c966354b676ee0041f6455f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cc92780142fff3e396c45bfce51e92b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html#a3cc92780142fff3e396c45bfce51e92b">format_result_as_input</a> { false }</td></tr>
+<tr class="memdesc:a3cc92780142fff3e396c45bfce51e92b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format the result as input for motion planning.  <a href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html#a3cc92780142fff3e396c45bfce51e92b">More...</a><br /></td></tr>
+<tr class="separator:a3cc92780142fff3e396c45bfce51e92b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74225e42fe18279b21af4a922fa80995"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html#a74225e42fe18279b21af4a922fa80995">data</a></td></tr>
 <tr class="memdesc:a74225e42fe18279b21af4a922fa80995"><td class="mdescLeft">&#160;</td><td class="mdescRight">data Planner specific data. For planners included in Tesseract_planning this is the planner problem that will be used if it is not null  <a href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html#a74225e42fe18279b21af4a922fa80995">More...</a><br /></td></tr>
 <tr class="separator:a74225e42fe18279b21af4a922fa80995"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -192,6 +198,26 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The start state to use for planning. </p>
+
+</div>
+</div>
+<a id="a3cc92780142fff3e396c45bfce51e92b" name="a3cc92780142fff3e396c45bfce51e92b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cc92780142fff3e396c45bfce51e92b">&#9670;&nbsp;</a></span>format_result_as_input</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::PlannerRequest::format_result_as_input { false }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Format the result as input for motion planning. </p>
+<ul>
+<li>If true it uses the input waypoint but updates the seed component</li>
+<li>If false, it replace the input waypoint with a state waypoint </li>
+</ul>
 
 </div>
 </div>
@@ -272,6 +298,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This should be a one to one match with the instructions where the <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html" title="The move instruction is used when defining the results of a motion planning request.">MoveInstruction</a> is replaced with a <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> of MoveInstructions. </p>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000009">Todo:</a></b></dt><dd>Remove when legacy planners are removed </dd></dl>
+
+</div>
+</div>
+<a id="acd0d5992c966354b676ee0041f6455f7" name="acd0d5992c966354b676ee0041f6455f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd0d5992c966354b676ee0041f6455f7">&#9670;&nbsp;</a></span>verbose</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::PlannerRequest::verbose { false }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicate if output should be verbose. </p>
 
 </div>
 </div>
@@ -281,7 +324,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 4 2022 15:27:24 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Sep 9 2022 11:44:50 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,0 +1,86 @@
+\hypertarget{fix__state__collision__task_8h}{}\doxysection{tesseract\+\_\+task\+\_\+composer/include/tesseract\+\_\+task\+\_\+composer/nodes/fix\+\_\+state\+\_\+collision\+\_\+task.h File Reference}
+\label{fix__state__collision__task_8h}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/fix\_state\_collision\_task.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/fix\_state\_collision\_task.h}}
+
+
+Task that pushes plan instructions to be out of collision.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$boost/serialization/access.\+hpp$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+node\+\_\+info.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/default\+\_\+task\+\_\+namespaces.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/profiles/fix\+\_\+state\+\_\+collision\+\_\+profile.\+h$>$}\newline
+{\ttfamily \#include $<$boost/serialization/export.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/serialization/tracking.\+hpp$>$}\newline
+Include dependency graph for fix\+\_\+state\+\_\+collision\+\_\+task.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d45/fix__state__collision__task_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d62/fix__state__collision__task_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task}}
+\begin{DoxyCompactList}\small\item\em This task modifies the const input instructions in order to push waypoints that are in collision out of collision. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Info}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ab12bd6bdd9e4fba17d47373c9412717f}{tesseract\+\_\+planning\+::state\+In\+Collision}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&start\+\_\+pos, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const Task\+Composer\+Input \&input, const Fix\+State\+Collision\+Profile \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
+\begin{DoxyCompactList}\small\item\em Checks if a joint state is in collision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a87fcfa45dcf1f1f40151e128bee60d54}{tesseract\+\_\+planning\+::waypoint\+In\+Collision}} (const Waypoint\+Poly \&waypoint, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const Task\+Composer\+Input \&input, const Fix\+State\+Collision\+Profile \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
+\begin{DoxyCompactList}\small\item\em Checks if a waypoint is in collision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a6b534f8f22bbea4a0bcf4cdd548584b2}{tesseract\+\_\+planning\+::move\+Waypoint\+From\+Collision\+Trajopt}} (Waypoint\+Poly \&waypoint, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const Task\+Composer\+Input \&input, const Fix\+State\+Collision\+Profile \&profile)
+\begin{DoxyCompactList}\small\item\em Takes a waypoint and uses a small trajopt problem to push it out of collision if necessary. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_aa4d7a120157f2190d7d17c35ef82e077}{tesseract\+\_\+planning\+::move\+Waypoint\+From\+Collision\+Random\+Sampler}} (Waypoint\+Poly \&waypoint, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const Task\+Composer\+Input \&input, const Fix\+State\+Collision\+Profile \&profile)
+\begin{DoxyCompactList}\small\item\em Takes a waypoint and uses random sampling to find a position that is out of collision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a564ab50e1f9ec0ffacf7241e12754c7a}{tesseract\+\_\+planning\+::apply\+Correction\+Workflow}} (Waypoint\+Poly \&waypoint, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const Task\+Composer\+Input \&input, const Fix\+State\+Collision\+Profile \&profile)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Task that pushes plan instructions to be out of collision. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Powelson 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+August 31. 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000307}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

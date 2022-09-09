@@ -1,0 +1,200 @@
+\hypertarget{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{}\doxysection{tesseract\+\_\+planning\+::Descartes\+Legacy\+Motion\+Planner\texorpdfstring{$<$}{<} Float\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classtesseract__planning_1_1DescartesLegacyMotionPlanner}\index{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}}
+
+
+{\ttfamily \#include $<$descartes\+\_\+legacy\+\_\+motion\+\_\+planner.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Descartes\+Legacy\+Motion\+Planner\texorpdfstring{$<$}{<} Float\+Type \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{d8/de9/classtesseract__planning_1_1DescartesLegacyMotionPlanner__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Descartes\+Legacy\+Motion\+Planner\texorpdfstring{$<$}{<} Float\+Type \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{d0/d3a/classtesseract__planning_1_1DescartesLegacyMotionPlanner__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a2eb974eaf76885350b19497685f568c6}{Descartes\+Legacy\+Motion\+Planner}} (std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a731af03f25f7a40bc02e4864b796d69e}{profile\+\_\+ns\+::\+DESCARTES\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}})
+\begin{DoxyCompactList}\small\item\em Construct a basic planner. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a78a4ad4daa89b12536d397486e5e2097}{$\sim$\+Descartes\+Legacy\+Motion\+Planner}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a35bf638e03afcb49df07a8532e4a155c}{Descartes\+Legacy\+Motion\+Planner}} (const \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{Descartes\+Legacy\+Motion\+Planner}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{Descartes\+Legacy\+Motion\+Planner}} \& \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a83667059fe4debd36d4944151eb0dbd5}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{Descartes\+Legacy\+Motion\+Planner}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a5f10ee6d4fa45450944c961add21998c}{Descartes\+Legacy\+Motion\+Planner}} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{Descartes\+Legacy\+Motion\+Planner}} \&\&) noexcept=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{Descartes\+Legacy\+Motion\+Planner}} \& \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_af1aacfd08aa5aab7b6fc3306ea2826d2}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{Descartes\+Legacy\+Motion\+Planner}} \&\&) noexcept=delete
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_ac424b12c478b0d80cff43f398c064be1}{solve}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const override
+\begin{DoxyCompactList}\small\item\em Solve the planner request problem. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_abc221bf36a5320574193ef7498e90b88}{check\+User\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request)
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a36a8a5cb32f3df3a1262c051108ffbf4}{terminate}} () override
+\begin{DoxyCompactList}\small\item\em If \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_ac424b12c478b0d80cff43f398c064be1}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_ac424b12c478b0d80cff43f398c064be1}{solve()}} is not running (returns true). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a1c16053dcd86be1524daf8220da095cf}{clear}} () override
+\begin{DoxyCompactList}\small\item\em Clear the data structures used by the planner. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Motion\+Planner\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a2dad6002cc13cc23f91d0cc3b2aeaac5}{clone}} () const override
+\begin{DoxyCompactList}\small\item\em Clone the motion planner. \end{DoxyCompactList}\item 
+virtual std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$ Float\+Type $>$ $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a5bf0b323c165cff6854321bb020cce8f}{create\+Problem}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a2eb974eaf76885350b19497685f568c6}\label{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a2eb974eaf76885350b19497685f568c6}} 
+\index{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}!DescartesLegacyMotionPlanner@{DescartesLegacyMotionPlanner}}
+\index{DescartesLegacyMotionPlanner@{DescartesLegacyMotionPlanner}!tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{DescartesLegacyMotionPlanner()}{DescartesLegacyMotionPlanner()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{tesseract\+\_\+planning\+::\+Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$\+::\+Descartes\+Legacy\+Motion\+Planner (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a731af03f25f7a40bc02e4864b796d69e}{profile\+\_\+ns\+::\+DESCARTES\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}} }\end{DoxyParamCaption})}
+
+
+
+Construct a basic planner. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a78a4ad4daa89b12536d397486e5e2097}\label{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a78a4ad4daa89b12536d397486e5e2097}} 
+\index{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}!````~DescartesLegacyMotionPlanner@{$\sim$DescartesLegacyMotionPlanner}}
+\index{````~DescartesLegacyMotionPlanner@{$\sim$DescartesLegacyMotionPlanner}!tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$DescartesLegacyMotionPlanner()}{~DescartesLegacyMotionPlanner()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{tesseract\+\_\+planning\+::\+Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$\+::$\sim$\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{Descartes\+Legacy\+Motion\+Planner}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a35bf638e03afcb49df07a8532e4a155c}\label{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a35bf638e03afcb49df07a8532e4a155c}} 
+\index{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}!DescartesLegacyMotionPlanner@{DescartesLegacyMotionPlanner}}
+\index{DescartesLegacyMotionPlanner@{DescartesLegacyMotionPlanner}!tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{DescartesLegacyMotionPlanner()}{DescartesLegacyMotionPlanner()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{tesseract\+\_\+planning\+::\+Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$\+::\+Descartes\+Legacy\+Motion\+Planner (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a5f10ee6d4fa45450944c961add21998c}\label{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a5f10ee6d4fa45450944c961add21998c}} 
+\index{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}!DescartesLegacyMotionPlanner@{DescartesLegacyMotionPlanner}}
+\index{DescartesLegacyMotionPlanner@{DescartesLegacyMotionPlanner}!tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{DescartesLegacyMotionPlanner()}{DescartesLegacyMotionPlanner()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{tesseract\+\_\+planning\+::\+Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$\+::\+Descartes\+Legacy\+Motion\+Planner (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}, {\ttfamily [noexcept]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesLegacyMotionPlanner_abc221bf36a5320574193ef7498e90b88}\label{classtesseract__planning_1_1DescartesLegacyMotionPlanner_abc221bf36a5320574193ef7498e90b88}} 
+\index{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}!checkUserInput@{checkUserInput}}
+\index{checkUserInput@{checkUserInput}!tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{checkUserInput()}{checkUserInput()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{tesseract\+\_\+planning\+::\+Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$\+::check\+User\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a1c16053dcd86be1524daf8220da095cf}\label{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a1c16053dcd86be1524daf8220da095cf}} 
+\index{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}!clear@{clear}}
+\index{clear@{clear}!tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+void \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{tesseract\+\_\+planning\+::\+Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Clear the data structures used by the planner. 
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_ae4bed503b1e52732b3908858be1ccfcc}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a2dad6002cc13cc23f91d0cc3b2aeaac5}\label{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a2dad6002cc13cc23f91d0cc3b2aeaac5}} 
+\index{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}!clone@{clone}}
+\index{clone@{clone}!tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Motion\+Planner\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{tesseract\+\_\+planning\+::\+Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Clone the motion planner. 
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a9b0b2d77127016c7aa39afc4125e2744}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a5bf0b323c165cff6854321bb020cce8f}\label{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a5bf0b323c165cff6854321bb020cce8f}} 
+\index{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}!createProblem@{createProblem}}
+\index{createProblem@{createProblem}!tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{createProblem()}{createProblem()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$ Float\+Type $>$ $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{tesseract\+\_\+planning\+::\+Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$\+::create\+Problem (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000016}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000017}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a83667059fe4debd36d4944151eb0dbd5}\label{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a83667059fe4debd36d4944151eb0dbd5}} 
+\index{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{Descartes\+Legacy\+Motion\+Planner}} \& \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{tesseract\+\_\+planning\+::\+Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesLegacyMotionPlanner_af1aacfd08aa5aab7b6fc3306ea2826d2}\label{classtesseract__planning_1_1DescartesLegacyMotionPlanner_af1aacfd08aa5aab7b6fc3306ea2826d2}} 
+\index{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{Descartes\+Legacy\+Motion\+Planner}} \& \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{tesseract\+\_\+planning\+::\+Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesLegacyMotionPlanner_ac424b12c478b0d80cff43f398c064be1}\label{classtesseract__planning_1_1DescartesLegacyMotionPlanner_ac424b12c478b0d80cff43f398c064be1}} 
+\index{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}!solve@{solve}}
+\index{solve@{solve}!tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{tesseract\+\_\+planning\+::\+Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$\+::solve (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Solve the planner request problem. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request} & The planning request \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A planner reponse 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a60a757c5560f495611be282220fff9d2}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a36a8a5cb32f3df3a1262c051108ffbf4}\label{classtesseract__planning_1_1DescartesLegacyMotionPlanner_a36a8a5cb32f3df3a1262c051108ffbf4}} 
+\index{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}!terminate@{terminate}}
+\index{terminate@{terminate}!tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$@{tesseract\_planning::DescartesLegacyMotionPlanner$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{terminate()}{terminate()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner}{tesseract\+\_\+planning\+::\+Descartes\+Legacy\+Motion\+Planner}}$<$ Float\+Type $>$\+::terminate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+If \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_ac424b12c478b0d80cff43f398c064be1}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1DescartesLegacyMotionPlanner_ac424b12c478b0d80cff43f398c064be1}{solve()}} is not running (returns true). 
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a44afac05675a12abc7df47df8f495148}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/descartes/include/tesseract\+\_\+motion\+\_\+planners/descartes/\mbox{\hyperlink{descartes__legacy__motion__planner_8h}{descartes\+\_\+legacy\+\_\+motion\+\_\+planner.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/descartes/include/tesseract\+\_\+motion\+\_\+planners/descartes/impl/\mbox{\hyperlink{descartes__legacy__motion__planner_8hpp}{descartes\+\_\+legacy\+\_\+motion\+\_\+planner.\+hpp}}\end{DoxyCompactItemize}

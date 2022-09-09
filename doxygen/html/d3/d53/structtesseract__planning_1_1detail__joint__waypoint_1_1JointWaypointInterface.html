@@ -125,6 +125,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a81e812b9297766ff63f1b016de4e57d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff74c15bed902048866e999d04b504d7"><td class="memItemLeft" align="right" valign="top">virtual const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d53/structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInterface.html#aff74c15bed902048866e999d04b504d7">getLowerTolerance</a> () const =0</td></tr>
 <tr class="separator:aff74c15bed902048866e999d04b504d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a301e91dc653efbdc6242720e2161195d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d53/structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInterface.html#a301e91dc653efbdc6242720e2161195d">setIsConstrained</a> (bool value)=0</td></tr>
+<tr class="separator:a301e91dc653efbdc6242720e2161195d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90cd09cb0bdf14009cf80370bcb7b7c9"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d53/structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInterface.html#a90cd09cb0bdf14009cf80370bcb7b7c9">isConstrained</a> () const =0</td></tr>
+<tr class="separator:a90cd09cb0bdf14009cf80370bcb7b7c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41ed9750531bef4256c994a7801a1d42"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d53/structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInterface.html#a41ed9750531bef4256c994a7801a1d42">print</a> (const std::string &amp;prefix) const =0</td></tr>
 <tr class="separator:a41ed9750531bef4256c994a7801a1d42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a870559fb568218cd84f5a4cd6b951133"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
@@ -345,6 +349,31 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="a90cd09cb0bdf14009cf80370bcb7b7c9" name="a90cd09cb0bdf14009cf80370bcb7b7c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90cd09cb0bdf14009cf80370bcb7b7c9">&#9670;&nbsp;</a></span>isConstrained()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool tesseract_planning::detail_joint_waypoint::JointWaypointInterface::isConstrained </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a41ed9750531bef4256c994a7801a1d42" name="a41ed9750531bef4256c994a7801a1d42"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a41ed9750531bef4256c994a7801a1d42">&#9670;&nbsp;</a></span>print()</h2>
 
@@ -435,6 +464,32 @@ template&lt;class Archive &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a301e91dc653efbdc6242720e2161195d" name="a301e91dc653efbdc6242720e2161195d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a301e91dc653efbdc6242720e2161195d">&#9670;&nbsp;</a></span>setIsConstrained()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void tesseract_planning::detail_joint_waypoint::JointWaypointInterface::setIsConstrained </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -595,7 +650,7 @@ template&lt;class Archive &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 4 2022 15:27:25 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Sep 9 2022 11:44:51 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

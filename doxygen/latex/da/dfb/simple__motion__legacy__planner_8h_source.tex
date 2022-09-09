@@ -1,0 +1,56 @@
+\hypertarget{simple__motion__legacy__planner_8h_source}{}\doxysection{simple\+\_\+motion\+\_\+legacy\+\_\+planner.\+h}
+\label{simple__motion__legacy__planner_8h_source}\index{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/simple/simple\_motion\_legacy\_planner.h@{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/simple/simple\_motion\_legacy\_planner.h}}
+\mbox{\hyperlink{simple__motion__legacy__planner_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_LEGACY\_PLANNER\_H}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_LEGACY\_PLANNER\_H}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__planner__namespaces_8h}{tesseract\_motion\_planners/default\_planner\_namespaces.h}}>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{planner_8h}{tesseract\_motion\_planners/core/planner.h}}>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner}{SimpleMotionLegacyPlanner}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}}
+\DoxyCodeLine{47 \{}
+\DoxyCodeLine{48 \textcolor{keyword}{public}:}
+\DoxyCodeLine{49   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Ptr}} = std::shared\_ptr<SimpleMotionLegacyPlanner>;}
+\DoxyCodeLine{50   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a8b54d1293cf621f5eca532509328d50a}{ConstPtr}} = std::shared\_ptr<const SimpleMotionLegacyPlanner>;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_ac9c3e97725739672fb9184f8b1ddb3b0}{SimpleMotionLegacyPlanner}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a52d9ecc71332c6414e0388ee6135dc88}{profile\_ns::SIMPLE\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_a041823861322d7efaecfe22538d572a8}{\string~SimpleMotionLegacyPlanner}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_ad7f4c911671b6af787ab2b0a94927a94}{SimpleMotionLegacyPlanner}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner}{SimpleMotionLegacyPlanner}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner}{SimpleMotionLegacyPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_a9b73421e811df50561192973438c8708}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner}{SimpleMotionLegacyPlanner}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_a174c031d75279f530ef38b89c28afc65}{SimpleMotionLegacyPlanner}}(\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner}{SimpleMotionLegacyPlanner}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner}{SimpleMotionLegacyPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_a76dce8f05f8f7cda29fd85c14764af2a}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner}{SimpleMotionLegacyPlanner}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_a7a3b78b66d6a03ee4e0be57e1d33fc7e}{solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) \textcolor{keyword}{const override};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62   \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_aff7b5b079c999f8dde78f9a217f52ece}{checkUserInput}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request);}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_a9e1da79fd190fb7925dc19dae9af8c87}{terminate}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_a475366448dae27c530e7f56e08f1fa66}{clear}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{MotionPlanner::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_aa607b4f2480a72a01baad6fe152f5771}{clone}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{71   \textcolor{keyword}{static} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_a22d441121aad65756ace809390b79e83}{getStartInstruction}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
+\DoxyCodeLine{72                                                  \textcolor{keyword}{const} tesseract\_scene\_graph::SceneState\& current\_state,}
+\DoxyCodeLine{73                                                  \textcolor{keyword}{const} tesseract\_kinematics::JointGroup\& manip);}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_ac745ec3ef1638f287b55870cf2f9b358}{processCompositeInstruction}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& instructions,}
+\DoxyCodeLine{76                                                    \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& prev\_instruction,}
+\DoxyCodeLine{77                                                    \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& prev\_seed,}
+\DoxyCodeLine{78                                                    \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) \textcolor{keyword}{const};}
+\DoxyCodeLine{79 \};}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_LEGACY\_PLANNER\_H}}
+
+\end{DoxyCode}

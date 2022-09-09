@@ -1,0 +1,5 @@
+<map id="tesseract_task_composer/include/tesseract_task_composer/profiles/min_length_profile.h" name="tesseract_task_composer/include/tesseract_task_composer/profiles/min_length_profile.h">
+<area shape="rect" id="node1" title="Profile for task that processing the program so it meets a minimum length. Planners like trajopt need..." alt="" coords="97,5,296,76"/>
+<area shape="rect" id="node2" href="$dd/d1c/min__length__task_8cpp.html" title="Task for processing the seed so it meets a minimum length. Planners like trajopt need at least 10 sta..." alt="" coords="5,124,177,180"/>
+<area shape="rect" id="node3" href="$d7/db5/tesseract__task__composer__unit_8cpp.html" title=" " alt="" coords="202,124,405,180"/>
+</map>

@@ -6,6 +6,7 @@
 {\ttfamily \#include $<$tesseract\+\_\+environment/environment.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/simple\+\_\+motion\+\_\+planner.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/profile/simple\+\_\+planner\+\_\+lvs\+\_\+plan\+\_\+profile.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/profile/simple\+\_\+planner\+\_\+lvs\+\_\+legacy\+\_\+plan\+\_\+profile.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/joint\+\_\+waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/cartesian\+\_\+waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/move\+\_\+instruction.\+h$>$}\newline
@@ -42,6 +43,22 @@ class \mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{
 \item 
 \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a6f1b0ec2216bf1e8f813487aeb6abd94}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Cart\+Cart\+\_\+\+Linear)
 \item 
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_afec5e8aec3be8d823d9049f5d2a8374e}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Freespace\+Legacy)
+\item 
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a75189edd1068843ccffb09c997c1955a}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Linear\+Legacy)
+\item 
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a091e1216cfc9fcc819bfb06136a68a9c}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Joint\+Cart\+\_\+\+Freespace\+Legacy)
+\item 
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ad7205ce0cd63515920486aa152808462}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Joint\+Cart\+\_\+\+Linear\+Legacy)
+\item 
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_afc84d6b2b73c869d720c5ab94f1997da}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Cart\+Joint\+\_\+\+Freespace\+Legacy)
+\item 
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a13af0fac4cc750f2704d9d9bce24f82d}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Cart\+Joint\+\_\+\+Linear\+Legacy)
+\item 
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_acaec20a80142e2bf848615dc175006e8}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Cart\+Cart\+\_\+\+Freespace\+Legacy)
+\item 
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ab97de9c0ceb6dcf5ceadf22e63657507}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Cart\+Cart\+\_\+\+Linear\+Legacy)
+\item 
 int \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
 
@@ -56,48 +73,96 @@ int \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a3c04138a5bfe5d727
 \mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a88154cdad0a66bbc9e51ecd1c8e1bdc1}\label{simple__planner__lvs__interpolation_8cpp_a88154cdad0a66bbc9e51ecd1c8e1bdc1}} 
 \index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [1/16]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Cart\+Cart\+\_\+\+Freespace}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_acaec20a80142e2bf848615dc175006e8}\label{simple__planner__lvs__interpolation_8cpp_acaec20a80142e2bf848615dc175006e8}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [2/16]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Cart\+Cart\+\_\+\+Freespace\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a6f1b0ec2216bf1e8f813487aeb6abd94}\label{simple__planner__lvs__interpolation_8cpp_a6f1b0ec2216bf1e8f813487aeb6abd94}} 
 \index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [3/16]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Cart\+Cart\+\_\+\+Linear}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ab97de9c0ceb6dcf5ceadf22e63657507}\label{simple__planner__lvs__interpolation_8cpp_ab97de9c0ceb6dcf5ceadf22e63657507}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [4/16]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Cart\+Cart\+\_\+\+Linear\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_aed8d58130de6fb780d144e09b39d34c0}\label{simple__planner__lvs__interpolation_8cpp_aed8d58130de6fb780d144e09b39d34c0}} 
 \index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [5/16]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Cart\+Joint\+\_\+\+Freespace}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_afc84d6b2b73c869d720c5ab94f1997da}\label{simple__planner__lvs__interpolation_8cpp_afc84d6b2b73c869d720c5ab94f1997da}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [6/16]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Cart\+Joint\+\_\+\+Freespace\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ab38b1283001b9771d4a7b798af96f417}\label{simple__planner__lvs__interpolation_8cpp_ab38b1283001b9771d4a7b798af96f417}} 
 \index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [7/16]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Cart\+Joint\+\_\+\+Linear}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a13af0fac4cc750f2704d9d9bce24f82d}\label{simple__planner__lvs__interpolation_8cpp_a13af0fac4cc750f2704d9d9bce24f82d}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [8/16]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Cart\+Joint\+\_\+\+Linear\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a5cabc263c55efcf71eab12149c0d9916}\label{simple__planner__lvs__interpolation_8cpp_a5cabc263c55efcf71eab12149c0d9916}} 
 \index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [9/16]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Joint\+Cart\+\_\+\+Freespace}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a091e1216cfc9fcc819bfb06136a68a9c}\label{simple__planner__lvs__interpolation_8cpp_a091e1216cfc9fcc819bfb06136a68a9c}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [10/16]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Joint\+Cart\+\_\+\+Freespace\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a7bce8d1d68b26e3fc25f360025ba7b3d}\label{simple__planner__lvs__interpolation_8cpp_a7bce8d1d68b26e3fc25f360025ba7b3d}} 
 \index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [11/16]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Joint\+Cart\+\_\+\+Linear}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ad7205ce0cd63515920486aa152808462}\label{simple__planner__lvs__interpolation_8cpp_ad7205ce0cd63515920486aa152808462}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [12/16]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Joint\+Cart\+\_\+\+Linear\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a6085d7d1e771e6ecea641442d51fed20}\label{simple__planner__lvs__interpolation_8cpp_a6085d7d1e771e6ecea641442d51fed20}} 
 \index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [13/16]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Freespace}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_afec5e8aec3be8d823d9049f5d2a8374e}\label{simple__planner__lvs__interpolation_8cpp_afec5e8aec3be8d823d9049f5d2a8374e}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [14/16]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Freespace\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a0d07a291ba63335f81bbd570a001d746}\label{simple__planner__lvs__interpolation_8cpp_a0d07a291ba63335f81bbd570a001d746}} 
 \index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [15/16]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Linear}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a75189edd1068843ccffb09c997c1955a}\label{simple__planner__lvs__interpolation_8cpp_a75189edd1068843ccffb09c997c1955a}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [16/16]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Linear\+Legacy}]{ }\end{DoxyParamCaption})}
 

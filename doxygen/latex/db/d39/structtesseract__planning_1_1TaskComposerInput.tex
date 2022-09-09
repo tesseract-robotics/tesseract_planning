@@ -1,0 +1,306 @@
+\hypertarget{structtesseract__planning_1_1TaskComposerInput}{}\doxysection{tesseract\+\_\+planning\+::Task\+Composer\+Input Struct Reference}
+\label{structtesseract__planning_1_1TaskComposerInput}\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+
+
+This struct is passed as an input to each process in the decision tree.  
+
+
+
+
+{\ttfamily \#include $<$task\+\_\+composer\+\_\+input.\+h$>$}
+
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Task\+Composer\+Input\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/de3/structtesseract__planning_1_1TaskComposerInput__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aa941074271a797f481609ae5e8596e1f}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} $>$
+\item 
+using \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a831ef7fe9c5d01aa1ab66ea826e041bd}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} $>$
+\item 
+using \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a3a45bd7bdf8bef3e4b54e2f9b42ac8d3}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} $>$
+\item 
+using \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_ab032b7927db5d9f3306143110215f1af}{Const\+UPtr}} = std\+::unique\+\_\+ptr$<$ const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a19fd89f0c796cabde82c61ec057b98d3}{Task\+Composer\+Input}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem}{Task\+Composer\+Problem}} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}, \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a5301e65f67484aef2c98ac10a8ac50ac}{profiles}}=nullptr)
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \& \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a2a2ff46007e757e4cf6dcdcaf984fd9a}{operator=}} (const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&)=delete
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_affc0385bfb14426bb7560e05452bd243}{Task\+Composer\+Input}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&\&)=delete
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \& \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a24f427ef14b26b50b07b7f28ba74855a}{operator=}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&\&)=delete
+\item 
+virtual \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a970809526b700d81512e4d8f789e01fb}{$\sim$\+Task\+Composer\+Input}} ()=default
+\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a9d92c7d36560f57b36fb4c9b5586a991}{is\+Aborted}} () const
+\begin{DoxyCompactList}\small\item\em Check if process has been aborted. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a4413beb83cfa4daf75b694cf1f7d7a5e}{is\+Successful}} () const
+\begin{DoxyCompactList}\small\item\em If it was not aborted then it was successful. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a7086869f7a2f6e8cdf582794c6f396e2}{abort}} ()
+\begin{DoxyCompactList}\small\item\em Abort the process input. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_af8d203845b837ee9504209cbcafe211b}{reset}} ()
+\begin{DoxyCompactList}\small\item\em Reset abort and data storage to constructed state. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a579fb46eb5c312cc3357cd4da9c553f6}{operator==}} (const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&rhs) const
+\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a32119ed24f1ed7b36b5cbb04ab246309}{operator!=}} (const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&rhs) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem}{Task\+Composer\+Problem}} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}
+\begin{DoxyCompactList}\small\item\em The problem. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a5301e65f67484aef2c98ac10a8ac50ac}{profiles}}
+\begin{DoxyCompactList}\small\item\em The Profiles to use. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{Task\+Composer\+Data\+Storage}} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aec2a20706c00bedd0b6491c0992980ff}{data\+\_\+storage}}
+\begin{DoxyCompactList}\small\item\em The location data is stored and retrieved during execution. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{Task\+Composer\+Node\+Info\+Container}} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aad93c68b5f7776b37daabe3e6ed6767e}{task\+\_\+infos}}
+\begin{DoxyCompactList}\small\item\em The location where task info is stored during execution. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a552a5fba84de0f14498f70939a2eb87c}{Task\+Composer\+Input}} ()=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aa669aafc5825e6aeebf96d02e2d3ecb1}{Task\+Composer\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&)
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a1bb58d9e7d8956aecb0feb6626a21ebe}{serialize}} (Archive \&ar, const unsigned int version)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::atomic$<$ bool $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a0a48ff16a1c96382a40605e08966af00}{aborted\+\_\+}} \{ false \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\+\_\+common\+::\+Serialization}}
+\item 
+class \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This struct is passed as an input to each process in the decision tree. 
+
+Note that it does not have ownership of any of its members (except the pointer). This means that if a \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} spawns a child that is a subset, it does not have to remain in scope as the references will still be valid 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a831ef7fe9c5d01aa1ab66ea826e041bd}\label{structtesseract__planning_1_1TaskComposerInput_a831ef7fe9c5d01aa1ab66ea826e041bd}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a831ef7fe9c5d01aa1ab66ea826e041bd}{tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}}$>$}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_ab032b7927db5d9f3306143110215f1af}\label{structtesseract__planning_1_1TaskComposerInput_ab032b7927db5d9f3306143110215f1af}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!ConstUPtr@{ConstUPtr}}
+\index{ConstUPtr@{ConstUPtr}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{ConstUPtr}{ConstUPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_ab032b7927db5d9f3306143110215f1af}{tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::\+Const\+UPtr}} =  std\+::unique\+\_\+ptr$<$const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}}$>$}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_aa941074271a797f481609ae5e8596e1f}\label{structtesseract__planning_1_1TaskComposerInput_aa941074271a797f481609ae5e8596e1f}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aa941074271a797f481609ae5e8596e1f}{tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}}$>$}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a3a45bd7bdf8bef3e4b54e2f9b42ac8d3}\label{structtesseract__planning_1_1TaskComposerInput_a3a45bd7bdf8bef3e4b54e2f9b42ac8d3}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a3a45bd7bdf8bef3e4b54e2f9b42ac8d3}{tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a19fd89f0c796cabde82c61ec057b98d3}\label{structtesseract__planning_1_1TaskComposerInput_a19fd89f0c796cabde82c61ec057b98d3}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!TaskComposerInput@{TaskComposerInput}}
+\index{TaskComposerInput@{TaskComposerInput}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{TaskComposerInput()}{TaskComposerInput()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::\+Task\+Composer\+Input (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem}{Task\+Composer\+Problem}}}]{problem,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}}}]{profiles = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_affc0385bfb14426bb7560e05452bd243}\label{structtesseract__planning_1_1TaskComposerInput_affc0385bfb14426bb7560e05452bd243}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!TaskComposerInput@{TaskComposerInput}}
+\index{TaskComposerInput@{TaskComposerInput}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{TaskComposerInput()}{TaskComposerInput()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::\+Task\+Composer\+Input (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a970809526b700d81512e4d8f789e01fb}\label{structtesseract__planning_1_1TaskComposerInput_a970809526b700d81512e4d8f789e01fb}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!````~TaskComposerInput@{$\sim$TaskComposerInput}}
+\index{````~TaskComposerInput@{$\sim$TaskComposerInput}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{$\sim$TaskComposerInput()}{~TaskComposerInput()}}
+{\footnotesize\ttfamily virtual tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::$\sim$\+Task\+Composer\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a552a5fba84de0f14498f70939a2eb87c}\label{structtesseract__planning_1_1TaskComposerInput_a552a5fba84de0f14498f70939a2eb87c}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!TaskComposerInput@{TaskComposerInput}}
+\index{TaskComposerInput@{TaskComposerInput}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{TaskComposerInput()}{TaskComposerInput()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::\+Task\+Composer\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_aa669aafc5825e6aeebf96d02e2d3ecb1}\label{structtesseract__planning_1_1TaskComposerInput_aa669aafc5825e6aeebf96d02e2d3ecb1}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!TaskComposerInput@{TaskComposerInput}}
+\index{TaskComposerInput@{TaskComposerInput}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{TaskComposerInput()}{TaskComposerInput()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::\+Task\+Composer\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a7086869f7a2f6e8cdf582794c6f396e2}\label{structtesseract__planning_1_1TaskComposerInput_a7086869f7a2f6e8cdf582794c6f396e2}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!abort@{abort}}
+\index{abort@{abort}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{abort()}{abort()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::abort (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Abort the process input. 
+
+This accesses the internal process interface class to abort the process \mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a9d92c7d36560f57b36fb4c9b5586a991}\label{structtesseract__planning_1_1TaskComposerInput_a9d92c7d36560f57b36fb4c9b5586a991}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!isAborted@{isAborted}}
+\index{isAborted@{isAborted}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{isAborted()}{isAborted()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::is\+Aborted (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Check if process has been aborted. 
+
+This accesses the internal process interface class \begin{DoxyReturn}{Returns}
+True if aborted otherwise false; 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a4413beb83cfa4daf75b694cf1f7d7a5e}\label{structtesseract__planning_1_1TaskComposerInput_a4413beb83cfa4daf75b694cf1f7d7a5e}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!isSuccessful@{isSuccessful}}
+\index{isSuccessful@{isSuccessful}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{isSuccessful()}{isSuccessful()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::is\+Successful (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+If it was not aborted then it was successful. 
+
+\begin{DoxyReturn}{Returns}
+True if successful, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a32119ed24f1ed7b36b5cbb04ab246309}\label{structtesseract__planning_1_1TaskComposerInput_a32119ed24f1ed7b36b5cbb04ab246309}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a2a2ff46007e757e4cf6dcdcaf984fd9a}\label{structtesseract__planning_1_1TaskComposerInput_a2a2ff46007e757e4cf6dcdcaf984fd9a}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \& tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a24f427ef14b26b50b07b7f28ba74855a}\label{structtesseract__planning_1_1TaskComposerInput_a24f427ef14b26b50b07b7f28ba74855a}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \& tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a579fb46eb5c312cc3357cd4da9c553f6}\label{structtesseract__planning_1_1TaskComposerInput_a579fb46eb5c312cc3357cd4da9c553f6}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_af8d203845b837ee9504209cbcafe211b}\label{structtesseract__planning_1_1TaskComposerInput_af8d203845b837ee9504209cbcafe211b}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!reset@{reset}}
+\index{reset@{reset}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reset abort and data storage to constructed state. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a1bb58d9e7d8956aecb0feb6626a21ebe}\label{structtesseract__planning_1_1TaskComposerInput_a1bb58d9e7d8956aecb0feb6626a21ebe}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000062}{Todo}}]Fix after profiles are serializable \end{DoxyRefDesc}
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{structtesseract__planning_1_1TaskComposerInput_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a74c50fcc25e72cb9703ee14d7e71dcd8}\label{structtesseract__planning_1_1TaskComposerInput_a74c50fcc25e72cb9703ee14d7e71dcd8}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!tesseract\_common::Serialization@{tesseract\_common::Serialization}}
+\index{tesseract\_common::Serialization@{tesseract\_common::Serialization}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{tesseract\_common::Serialization}{tesseract\_common::Serialization}}
+{\footnotesize\ttfamily friend class tesseract\+\_\+common\+::\+Serialization\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a0a48ff16a1c96382a40605e08966af00}\label{structtesseract__planning_1_1TaskComposerInput_a0a48ff16a1c96382a40605e08966af00}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!aborted\_@{aborted\_}}
+\index{aborted\_@{aborted\_}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{aborted\_}{aborted\_}}
+{\footnotesize\ttfamily std\+::atomic$<$bool$>$ tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::aborted\+\_\+ \{ false \}\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_aec2a20706c00bedd0b6491c0992980ff}\label{structtesseract__planning_1_1TaskComposerInput_aec2a20706c00bedd0b6491c0992980ff}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!data\_storage@{data\_storage}}
+\index{data\_storage@{data\_storage}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{data\_storage}{data\_storage}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{Task\+Composer\+Data\+Storage}} tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::data\+\_\+storage}
+
+
+
+The location data is stored and retrieved during execution. 
+
+The problem input data is copied into this structure when constructed \mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}\label{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!problem@{problem}}
+\index{problem@{problem}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{problem}{problem}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem}{Task\+Composer\+Problem}} tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::problem}
+
+
+
+The problem. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_a5301e65f67484aef2c98ac10a8ac50ac}\label{structtesseract__planning_1_1TaskComposerInput_a5301e65f67484aef2c98ac10a8ac50ac}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!profiles@{profiles}}
+\index{profiles@{profiles}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{profiles}{profiles}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::profiles}
+
+
+
+The Profiles to use. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskComposerInput_aad93c68b5f7776b37daabe3e6ed6767e}\label{structtesseract__planning_1_1TaskComposerInput_aad93c68b5f7776b37daabe3e6ed6767e}} 
+\index{tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}!task\_infos@{task\_infos}}
+\index{task\_infos@{task\_infos}!tesseract\_planning::TaskComposerInput@{tesseract\_planning::TaskComposerInput}}
+\doxysubsubsection{\texorpdfstring{task\_infos}{task\_infos}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{Task\+Composer\+Node\+Info\+Container}} tesseract\+\_\+planning\+::\+Task\+Composer\+Input\+::task\+\_\+infos}
+
+
+
+The location where task info is stored during execution. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+task\+\_\+composer/include/tesseract\+\_\+task\+\_\+composer/\mbox{\hyperlink{task__composer__input_8h}{task\+\_\+composer\+\_\+input.\+h}}\item 
+tesseract\+\_\+task\+\_\+composer/src/\mbox{\hyperlink{task__composer__input_8cpp}{task\+\_\+composer\+\_\+input.\+cpp}}\end{DoxyCompactItemize}

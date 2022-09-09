@@ -1,0 +1,96 @@
+\hypertarget{task__composer__plugin__factory_8h}{}\doxysection{tesseract\+\_\+task\+\_\+composer/include/tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+plugin\+\_\+factory.h File Reference}
+\label{task__composer__plugin__factory_8h}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/task\_composer\_plugin\_factory.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/task\_composer\_plugin\_factory.h}}
+
+
+A plugin factory for producing a task composer.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$yaml-\/cpp/yaml.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+node.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+executor.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/plugin\+\_\+loader.\+h$>$}\newline
+Include dependency graph for task\+\_\+composer\+\_\+plugin\+\_\+factory.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/dc4/task__composer__plugin__factory_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{df/ddd/task__composer__plugin__factory_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeFactory}{tesseract\+\_\+planning\+::\+Task\+Composer\+Node\+Factory}}
+\begin{DoxyCompactList}\small\item\em Task Composer Node Factory class used by the \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerServer}{Task\+Composer\+Server}} for loading top level task to be called by name. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutorFactory}{tesseract\+\_\+planning\+::\+Task\+Composer\+Executor\+Factory}}
+\begin{DoxyCompactList}\small\item\em Task Composer Executor Factory class used by the \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerServer}{Task\+Composer\+Server}} for loading executors to be called by name. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{tesseract\+\_\+planning\+::\+Task\+Composer\+Plugin\+Factory}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{task__composer__plugin__factory_8h_a6a5218cd3041ea9fc15f48c53168d938}{TESSERACT\+\_\+\+ADD\+\_\+\+TASK\+\_\+\+COMPOSER\+\_\+\+EXECUTOR\+\_\+\+PLUGIN}}(DERIVED\+\_\+\+CLASS,  ALIAS)~  TESSERACT\+\_\+\+ADD\+\_\+\+PLUGIN\+\_\+\+SECTIONED(DERIVED\+\_\+\+CLASS, ALIAS, Task\+Exec)
+\item 
+\#define \mbox{\hyperlink{task__composer__plugin__factory_8h_a0abd85eb7f262f82411f17211d381222}{TESSERACT\+\_\+\+ADD\+\_\+\+TASK\+\_\+\+COMPOSER\+\_\+\+NODE\+\_\+\+PLUGIN}}(DERIVED\+\_\+\+CLASS,  ALIAS)~  TESSERACT\+\_\+\+ADD\+\_\+\+PLUGIN\+\_\+\+SECTIONED(DERIVED\+\_\+\+CLASS, ALIAS, Task\+Node)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A plugin factory for producing a task composer. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+August 27, 2022 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000353}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022, Levi Armstrong
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{task__composer__plugin__factory_8h_a6a5218cd3041ea9fc15f48c53168d938}\label{task__composer__plugin__factory_8h_a6a5218cd3041ea9fc15f48c53168d938}} 
+\index{task\_composer\_plugin\_factory.h@{task\_composer\_plugin\_factory.h}!TESSERACT\_ADD\_TASK\_COMPOSER\_EXECUTOR\_PLUGIN@{TESSERACT\_ADD\_TASK\_COMPOSER\_EXECUTOR\_PLUGIN}}
+\index{TESSERACT\_ADD\_TASK\_COMPOSER\_EXECUTOR\_PLUGIN@{TESSERACT\_ADD\_TASK\_COMPOSER\_EXECUTOR\_PLUGIN}!task\_composer\_plugin\_factory.h@{task\_composer\_plugin\_factory.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_ADD\_TASK\_COMPOSER\_EXECUTOR\_PLUGIN}{TESSERACT\_ADD\_TASK\_COMPOSER\_EXECUTOR\_PLUGIN}}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+ADD\+\_\+\+TASK\+\_\+\+COMPOSER\+\_\+\+EXECUTOR\+\_\+\+PLUGIN(\begin{DoxyParamCaption}\item[{}]{DERIVED\+\_\+\+CLASS,  }\item[{}]{ALIAS }\end{DoxyParamCaption})~  TESSERACT\+\_\+\+ADD\+\_\+\+PLUGIN\+\_\+\+SECTIONED(DERIVED\+\_\+\+CLASS, ALIAS, Task\+Exec)}
+
+\mbox{\Hypertarget{task__composer__plugin__factory_8h_a0abd85eb7f262f82411f17211d381222}\label{task__composer__plugin__factory_8h_a0abd85eb7f262f82411f17211d381222}} 
+\index{task\_composer\_plugin\_factory.h@{task\_composer\_plugin\_factory.h}!TESSERACT\_ADD\_TASK\_COMPOSER\_NODE\_PLUGIN@{TESSERACT\_ADD\_TASK\_COMPOSER\_NODE\_PLUGIN}}
+\index{TESSERACT\_ADD\_TASK\_COMPOSER\_NODE\_PLUGIN@{TESSERACT\_ADD\_TASK\_COMPOSER\_NODE\_PLUGIN}!task\_composer\_plugin\_factory.h@{task\_composer\_plugin\_factory.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_ADD\_TASK\_COMPOSER\_NODE\_PLUGIN}{TESSERACT\_ADD\_TASK\_COMPOSER\_NODE\_PLUGIN}}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+ADD\+\_\+\+TASK\+\_\+\+COMPOSER\+\_\+\+NODE\+\_\+\+PLUGIN(\begin{DoxyParamCaption}\item[{}]{DERIVED\+\_\+\+CLASS,  }\item[{}]{ALIAS }\end{DoxyParamCaption})~  TESSERACT\+\_\+\+ADD\+\_\+\+PLUGIN\+\_\+\+SECTIONED(DERIVED\+\_\+\+CLASS, ALIAS, Task\+Node)}
+

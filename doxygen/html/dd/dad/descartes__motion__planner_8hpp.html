@@ -71,7 +71,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">descartes_motion_planner.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -89,6 +90,7 @@ $(function() {
 <code>#include &lt;<a class="el" href="../../d4/dd8/descartes__motion__planner_8h_source.html">tesseract_motion_planners/descartes/descartes_motion_planner.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d5/d91/descartes__default__plan__profile_8h_source.html">tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h_source.html">tesseract_motion_planners/core/utils.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d3/d08/interpolation_8h_source.html">tesseract_motion_planners/core/interpolation.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../da/de3/planner__utils_8h_source.html">tesseract_motion_planners/planner_utils.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h_source.html">tesseract_command_language/utils.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -96,56 +98,56 @@ Include dependency graph for descartes_motion_planner.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d0c/descartes__motion__planner_8hpp__incl.png" border="0" usemap="#atesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2impl_2descartes__motion__planner_8hpp" alt=""/></div>
 <map name="atesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2impl_2descartes__motion__planner_8hpp" id="atesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2impl_2descartes__motion__planner_8hpp">
-<area shape="rect" title="Tesseract ROS Descartes planner." alt="" coords="906,5,1136,76"/>
-<area shape="rect" title=" " alt="" coords="1770,622,1960,649"/>
-<area shape="rect" title=" " alt="" coords="45,124,224,180"/>
-<area shape="rect" title=" " alt="" coords="248,131,452,173"/>
-<area shape="rect" title=" " alt="" coords="953,533,1012,559"/>
-<area shape="rect" title=" " alt="" coords="640,124,791,180"/>
-<area shape="rect" title=" " alt="" coords="816,124,984,180"/>
-<area shape="rect" title=" " alt="" coords="977,436,1132,477"/>
-<area shape="rect" title=" " alt="" coords="1966,339,2121,381"/>
-<area shape="rect" href="../../d4/dd8/descartes__motion__planner_8h.html" title=" " alt="" coords="1059,124,1250,180"/>
-<area shape="rect" href="../../d5/d91/descartes__default__plan__profile_8h.html" title=" " alt="" coords="1620,124,1803,180"/>
-<area shape="rect" href="../../d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="2756,235,2934,277"/>
-<area shape="rect" href="../../d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h.html" title=" " alt="" coords="3835,339,4034,381"/>
-<area shape="rect" href="../../da/de3/planner__utils_8h.html" title=" " alt="" coords="3558,235,3737,277"/>
-<area shape="rect" title=" " alt="" coords="1502,436,1641,477"/>
-<area shape="rect" title=" " alt="" coords="660,436,800,477"/>
-<area shape="rect" title=" " alt="" coords="1868,443,1982,470"/>
-<area shape="rect" href="../../de/d3a/default__planner__namespaces_8h.html" title="A collection of motion planner profile namespaces." alt="" coords="1160,235,1365,277"/>
-<area shape="rect" href="../../d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="464,235,642,277"/>
-<area shape="rect" href="../../db/d85/descartes__motion__planner__status__category_8h.html" title="Tesseract ROS Descartes planner status category." alt="" coords="96,332,287,388"/>
-<area shape="rect" href="../../d0/d7d/descartes__problem_8h.html" title=" " alt="" coords="1124,339,1331,381"/>
-<area shape="rect" href="../../dd/db6/descartes__profile_8h.html" title=" " alt="" coords="1390,228,1572,284"/>
-<area shape="rect" title=" " alt="" coords="1568,622,1679,649"/>
-<area shape="rect" title=" " alt="" coords="412,436,585,477"/>
-<area shape="rect" href="../../d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="870,339,1049,381"/>
-<area shape="rect" title=" " alt="" coords="2650,443,2829,470"/>
-<area shape="rect" href="../../d1/db1/instruction__poly_8h.html" title=" " alt="" coords="1178,525,1376,567"/>
-<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2243,436,2442,477"/>
-<area shape="rect" title=" " alt="" coords="1387,622,1442,649"/>
-<area shape="rect" title=" " alt="" coords="890,615,1016,656"/>
-<area shape="rect" title=" " alt="" coords="1040,615,1167,656"/>
-<area shape="rect" title=" " alt="" coords="1192,622,1362,649"/>
-<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="1988,525,2187,567"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2311,525,2510,567"/>
-<area shape="rect" title=" " alt="" coords="2444,622,2512,649"/>
-<area shape="rect" title=" " alt="" coords="1206,436,1345,477"/>
-<area shape="rect" title=" " alt="" coords="1369,443,1428,470"/>
-<area shape="rect" title=" " alt="" coords="1749,235,1880,277"/>
-<area shape="rect" href="../../d3/d9c/descartes__utils_8h.html" title=" " alt="" coords="2464,235,2650,277"/>
-<area shape="rect" href="../../d7/d5d/tesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2types_8h.html" title="Tesseract descartes types." alt="" coords="1904,235,2082,277"/>
-<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="2458,339,2656,381"/>
-<area shape="rect" title=" " alt="" coords="2904,436,3066,477"/>
-<area shape="rect" title=" " alt="" coords="1863,347,1942,373"/>
-<area shape="rect" href="../../df/dfc/descartes__vertex__evaluator_8h.html" title="Tesseract Descartes Vertex Evaluator." alt="" coords="2246,332,2433,388"/>
-<area shape="rect" title=" " alt="" coords="3186,347,3354,373"/>
-<area shape="rect" title=" " alt="" coords="3378,339,3557,381"/>
-<area shape="rect" title=" " alt="" coords="2883,339,3060,381"/>
-<area shape="rect" title=" " alt="" coords="3908,443,3961,470"/>
-<area shape="rect" title=" " alt="" coords="4159,339,4352,381"/>
-<area shape="rect" href="../../d2/d80/robot__config_8h.html" title=" " alt="" coords="3632,339,3810,381"/>
+<area shape="rect" title="Tesseract ROS Descartes planner." alt="" coords="994,5,1225,76"/>
+<area shape="rect" title=" " alt="" coords="1993,622,2184,649"/>
+<area shape="rect" title=" " alt="" coords="58,124,236,180"/>
+<area shape="rect" title=" " alt="" coords="261,131,465,173"/>
+<area shape="rect" title=" " alt="" coords="295,533,354,559"/>
+<area shape="rect" title=" " alt="" coords="704,124,854,180"/>
+<area shape="rect" title=" " alt="" coords="879,124,1047,180"/>
+<area shape="rect" title=" " alt="" coords="1174,436,1328,477"/>
+<area shape="rect" title=" " alt="" coords="1970,339,2124,381"/>
+<area shape="rect" href="../../d4/dd8/descartes__motion__planner_8h.html" title=" " alt="" coords="489,124,680,180"/>
+<area shape="rect" href="../../d5/d91/descartes__default__plan__profile_8h.html" title=" " alt="" coords="1244,124,1426,180"/>
+<area shape="rect" href="../../d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="2522,235,2700,277"/>
+<area shape="rect" href="../../d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h.html" title=" " alt="" coords="2249,339,2448,381"/>
+<area shape="rect" href="../../d3/d08/interpolation_8h.html" title="Provides interpolation utils." alt="" coords="4123,235,4302,277"/>
+<area shape="rect" href="../../da/de3/planner__utils_8h.html" title=" " alt="" coords="3359,235,3538,277"/>
+<area shape="rect" title=" " alt="" coords="462,436,600,477"/>
+<area shape="rect" title=" " alt="" coords="246,436,386,477"/>
+<area shape="rect" title=" " alt="" coords="1748,443,1863,470"/>
+<area shape="rect" href="../../de/d3a/default__planner__namespaces_8h.html" title="A collection of motion planner profile namespaces." alt="" coords="195,235,400,277"/>
+<area shape="rect" href="../../d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="424,235,603,277"/>
+<area shape="rect" href="../../d0/d7d/descartes__problem_8h.html" title=" " alt="" coords="544,339,750,381"/>
+<area shape="rect" href="../../dd/db6/descartes__profile_8h.html" title=" " alt="" coords="741,228,924,284"/>
+<area shape="rect" title=" " alt="" coords="841,622,952,649"/>
+<area shape="rect" href="../../d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="3423,339,3602,381"/>
+<area shape="rect" title=" " alt="" coords="2528,443,2707,470"/>
+<area shape="rect" href="../../d1/db1/instruction__poly_8h.html" title=" " alt="" coords="2841,525,3040,567"/>
+<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2977,436,3176,477"/>
+<area shape="rect" title=" " alt="" coords="3049,622,3104,649"/>
+<area shape="rect" title=" " alt="" coords="2888,615,3014,656"/>
+<area shape="rect" title=" " alt="" coords="2737,615,2864,656"/>
+<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="3300,525,3498,567"/>
+<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2386,525,2585,567"/>
+<area shape="rect" title=" " alt="" coords="2588,622,2656,649"/>
+<area shape="rect" title=" " alt="" coords="707,436,846,477"/>
+<area shape="rect" title=" " alt="" coords="624,443,683,470"/>
+<area shape="rect" title=" " alt="" coords="1668,235,1799,277"/>
+<area shape="rect" href="../../d3/d9c/descartes__utils_8h.html" title=" " alt="" coords="1824,235,2009,277"/>
+<area shape="rect" href="../../d7/d5d/tesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2types_8h.html" title="Tesseract descartes types." alt="" coords="1246,235,1424,277"/>
+<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1697,339,1896,381"/>
+<area shape="rect" title=" " alt="" coords="2026,436,2188,477"/>
+<area shape="rect" title=" " alt="" coords="1232,347,1310,373"/>
+<area shape="rect" href="../../df/dfc/descartes__vertex__evaluator_8h.html" title="Tesseract Descartes Vertex Evaluator." alt="" coords="1386,332,1572,388"/>
+<area shape="rect" title=" " alt="" coords="3130,347,3298,373"/>
+<area shape="rect" title=" " alt="" coords="2927,339,3106,381"/>
+<area shape="rect" title=" " alt="" coords="2522,339,2700,381"/>
+<area shape="rect" title=" " alt="" coords="2322,443,2375,470"/>
+<area shape="rect" title=" " alt="" coords="4028,436,4175,477"/>
+<area shape="rect" title=" " alt="" coords="4300,339,4460,381"/>
+<area shape="rect" title=" " alt="" coords="3880,339,4073,381"/>
+<area shape="rect" href="../../d2/d80/robot__config_8h.html" title=" " alt="" coords="3676,339,3855,381"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -164,21 +166,129 @@ This graph shows which files directly or indirectly include this file:</div>
 Namespaces</h2></td></tr>
 <tr class="memitem:d9/dcd/namespacetesseract__planning"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a5c3f7af179b15ee113611d688da0059e"><td class="memItemLeft" align="right" valign="top">TESSERACT_COMMON_IGNORE_WARNINGS_PUSH TESSERACT_COMMON_IGNORE_WARNINGS_POP constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dad/descartes__motion__planner_8hpp.html#a5c3f7af179b15ee113611d688da0059e">SOLUTION_FOUND</a> { &quot;Found valid solution&quot; }</td></tr>
+<tr class="separator:a5c3f7af179b15ee113611d688da0059e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc2e4f3c03d04f9c631338193971f43f"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dad/descartes__motion__planner_8hpp.html#adc2e4f3c03d04f9c631338193971f43f">ERROR_INVALID_INPUT</a> { &quot;Failed invalid input&quot; }</td></tr>
+<tr class="separator:adc2e4f3c03d04f9c631338193971f43f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf470fcd3f8922c6fc108ef8404f85bb"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dad/descartes__motion__planner_8hpp.html#adf470fcd3f8922c6fc108ef8404f85bb">ERROR_FAILED_TO_BUILD_GRAPH</a> { &quot;Failed to build graph&quot; }</td></tr>
+<tr class="separator:adf470fcd3f8922c6fc108ef8404f85bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7845d8e667b77363523f2736ab4978fb"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dad/descartes__motion__planner_8hpp.html#a7845d8e667b77363523f2736ab4978fb">ERROR_FAILED_TO_FIND_VALID_SOLUTION</a> { &quot;Failed to find valid solution&quot; }</td></tr>
+<tr class="separator:a7845d8e667b77363523f2736ab4978fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Tesseract ROS Descartes planner. </p>
 <dl class="section author"><dt>Author</dt><dd>Levi Armstrong </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>April 18, 2018 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>TODO </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000107">Bug:</a></b></dt><dd>No known bugs</dd></dl>
+<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000119">Bug:</a></b></dt><dd>No known bugs</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2017, Southwest Research Institute</dd></dl>
+<dl class="section user"><dt>License</dt><dd>Software License Agreement (Apache License) </dd></dl>
+<dl class="section user"><dt></dt><dd>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a> </dd></dl>
+<dl class="section user"><dt></dt><dd>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Levi Armstrong </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>April 18, 2018 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>TODO </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000120">Bug:</a></b></dt><dd>No known bugs</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2017, Southwest Research Institute</dd></dl>
 <dl class="section user"><dt>License</dt><dd>Software License Agreement (Apache License) </dd></dl>
 <dl class="section user"><dt></dt><dd>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a> </dd></dl>
 <dl class="section user"><dt></dt><dd>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Variable Documentation</h2>
+<a id="adf470fcd3f8922c6fc108ef8404f85bb" name="adf470fcd3f8922c6fc108ef8404f85bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf470fcd3f8922c6fc108ef8404f85bb">&#9670;&nbsp;</a></span>ERROR_FAILED_TO_BUILD_GRAPH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto ERROR_FAILED_TO_BUILD_GRAPH { &quot;Failed to build graph&quot; }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7845d8e667b77363523f2736ab4978fb" name="a7845d8e667b77363523f2736ab4978fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7845d8e667b77363523f2736ab4978fb">&#9670;&nbsp;</a></span>ERROR_FAILED_TO_FIND_VALID_SOLUTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION { &quot;Failed to find valid solution&quot; }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adc2e4f3c03d04f9c631338193971f43f" name="adc2e4f3c03d04f9c631338193971f43f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc2e4f3c03d04f9c631338193971f43f">&#9670;&nbsp;</a></span>ERROR_INVALID_INPUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto ERROR_INVALID_INPUT { &quot;Failed invalid input&quot; }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c3f7af179b15ee113611d688da0059e" name="a5c3f7af179b15ee113611d688da0059e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c3f7af179b15ee113611d688da0059e">&#9670;&nbsp;</a></span>SOLUTION_FOUND</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TESSERACT_COMMON_IGNORE_WARNINGS_PUSH TESSERACT_COMMON_IGNORE_WARNINGS_POP constexpr auto SOLUTION_FOUND { &quot;Found valid solution&quot; }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 4 2022 15:27:23 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Sep 9 2022 11:44:47 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

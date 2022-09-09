@@ -1,14 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d3/d3b/classtesseract__examples_1_1Example.html" title="The Example base class." alt="" coords="5,332,144,373"/>
-<area shape="rect" id="node2" href="$d4/db5/classtesseract__examples_1_1BasicCartesianExample.html" title="Basic example leveraging trajopt and tesseract for cartesian planning." alt="" coords="205,5,370,47"/>
-<area shape="rect" id="node3" href="$d9/d7b/classtesseract__examples_1_1CarSeatExample.html" title="An example of a robot on a rail installing a seat in a car." alt="" coords="218,71,357,112"/>
-<area shape="rect" id="node4" href="$d7/dac/classtesseract__examples_1_1FreespaceHybridExample.html" title="An example of a robot leveraging OMPL RRTConnect to generate a freespace motion trajectory the TrajOp..." alt="" coords="200,136,375,177"/>
-<area shape="rect" id="node5" href="$d4/d35/classtesseract__examples_1_1FreespaceOMPLExample.html" title="An example of a robot leveraging OMPL RRTConnect to generate a freespace motion trajectory." alt="" coords="199,201,375,243"/>
-<area shape="rect" id="node6" href="$de/da0/classtesseract__examples_1_1GlassUprightExample.html" title="An example of a robot with fixed orientation but free to move in cartesian space leveraging tesseract..." alt="" coords="211,267,364,308"/>
-<area shape="rect" id="node7" href="$de/d26/classtesseract__examples_1_1GlassUprightOMPLExample.html" title="An example of a robot with fixed orientation but free to move in cartesian space leveraging OMPL RRTC..." alt="" coords="192,332,383,373"/>
-<area shape="rect" id="node8" href="$d1/d36/classtesseract__examples_1_1OnlinePlanningExample.html" title="This example demonstrates running the inner loop of TrajOpt in an &quot;online&quot; manner...." alt="" coords="205,397,369,439"/>
-<area shape="rect" id="node9" href="$d9/dff/classtesseract__examples_1_1PickAndPlaceExample.html" title="An example of a robot picking up a box and placing it on a shelf leveraging tesseract and trajopt to ..." alt="" coords="208,463,367,504"/>
-<area shape="rect" id="node10" href="$d8/d09/classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample.html" title="An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF t..." alt="" coords="199,527,375,583"/>
-<area shape="rect" id="node11" href="$da/d13/classtesseract__examples_1_1PuzzlePieceExample.html" title="An example of a robot leveraging trajopt and tesseract to create an optimal motion trajectory for a c..." alt="" coords="213,607,361,648"/>
-<area shape="rect" id="node12" href="$d9/dc3/classtesseract__examples_1_1SceneGraphExample.html" title="Basic example leveraging trajopt and tesseract for cartesian planning." alt="" coords="213,672,362,713"/>
+<area shape="rect" id="node1" href="$d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html" title=" " alt="" coords="5,5,141,47"/>
 </map>

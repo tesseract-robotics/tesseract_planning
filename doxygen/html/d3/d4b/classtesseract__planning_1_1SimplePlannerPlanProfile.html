@@ -116,9 +116,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a14f46167a0c8c86658a2ee52971ecbfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15e0595c5c95f89884e5980ae02743a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a15e0595c5c95f89884e5980ae02743a7">operator=</a> (<a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a> &amp;&amp;) noexcept=default</td></tr>
 <tr class="separator:a15e0595c5c95f89884e5980ae02743a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71f70cb15d487d7407e66bfb7cc05e95"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a71f70cb15d487d7407e66bfb7cc05e95">generate</a> (const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;prev_instruction, const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;prev_seed, const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;base_instruction, const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &amp;next_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_common::ManipulatorInfo &amp;global_manip_info) const =0</td></tr>
-<tr class="memdesc:a71f70cb15d487d7407e66bfb7cc05e95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a seed for the provided base_instruction.  <a href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a71f70cb15d487d7407e66bfb7cc05e95">More...</a><br /></td></tr>
-<tr class="separator:a71f70cb15d487d7407e66bfb7cc05e95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a785955ff7e64465c3390af7786f257aa"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a785955ff7e64465c3390af7786f257aa">generate</a> (const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;prev_instruction, const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;prev_seed, const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;base_instruction, const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &amp;next_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_common::ManipulatorInfo &amp;global_manip_info) const =0</td></tr>
+<tr class="memdesc:a785955ff7e64465c3390af7786f257aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a seed for the provided base_instruction.  <a href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a785955ff7e64465c3390af7786f257aa">More...</a><br /></td></tr>
+<tr class="separator:a785955ff7e64465c3390af7786f257aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases. The planner then simply loops over all of the plan instructions and calls the correct function. </p>
@@ -255,8 +255,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a71f70cb15d487d7407e66bfb7cc05e95" name="a71f70cb15d487d7407e66bfb7cc05e95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71f70cb15d487d7407e66bfb7cc05e95">&#9670;&nbsp;</a></span>generate()</h2>
+<a id="a785955ff7e64465c3390af7786f257aa" name="a785955ff7e64465c3390af7786f257aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a785955ff7e64465c3390af7786f257aa">&#9670;&nbsp;</a></span>generate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -265,7 +265,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> tesseract_planning::SimplePlannerPlanProfile::generate </td>
+          <td class="memname">virtual std::vector&lt; <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &gt; tesseract_planning::SimplePlannerPlanProfile::generate </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;&#160;</td>
           <td class="paramname"><em>prev_instruction</em>, </td>
@@ -314,7 +314,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Generate a seed for the provided base_instruction. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p >This should not include the prev_instruction but must include the base_instruction </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">prev_instruction</td><td>The previous instruction </td></tr>
     <tr><td class="paramname">prev_seed</td><td>The previous seed </td></tr>
@@ -325,9 +325,9 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A composite instruction representing the seed for the base_instruction </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector of move instrucitons </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/da8/classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile.html#a3ceadb49e20093c0e09eee306fdc1d8a">tesseract_planning::SimplePlannerFixedSizeAssignPlanProfile</a>, <a class="el" href="../../d6/dec/classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile.html#a048084fcbe3daf9074dcb95f0cad6d12">tesseract_planning::SimplePlannerFixedSizePlanProfile</a>, <a class="el" href="../../d7/d22/classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile.html#aec043e4ff233bfe35c9fb0c8b81baf42">tesseract_planning::SimplePlannerLVSNoIKPlanProfile</a>, and <a class="el" href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html#ac6208b54c36da999449bb0a9754056c4">tesseract_planning::SimplePlannerLVSPlanProfile</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/da8/classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile.html#a466a7eead245395e12e8919f04f1e0cc">tesseract_planning::SimplePlannerFixedSizeAssignPlanProfile</a>, <a class="el" href="../../d6/dec/classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile.html#af8ce2ecc404321f2d59cd70ed408e343">tesseract_planning::SimplePlannerFixedSizePlanProfile</a>, <a class="el" href="../../d7/d22/classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile.html#a72f48239d9947470c4dac5e81c5b1f03">tesseract_planning::SimplePlannerLVSNoIKPlanProfile</a>, and <a class="el" href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html#a7c35cd0756db35913d2f4076c23b9717">tesseract_planning::SimplePlannerLVSPlanProfile</a>.</p>
 
 </div>
 </div>
@@ -389,7 +389,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 4 2022 15:27:24 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Sep 9 2022 11:44:50 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

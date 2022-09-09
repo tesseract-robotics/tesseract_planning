@@ -1,0 +1,9 @@
+<map id="tesseract_planning::MinLengthTask" name="tesseract_planning::MinLengthTask">
+<area shape="rect" id="node1" title=" " alt="" coords="138,485,269,527"/>
+<area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="131,395,276,436"/>
+<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="130,304,277,345"/>
+<area shape="rect" id="node4" title=" " alt="" coords="28,96,107,123"/>
+<area shape="rect" id="node7" title=" " alt="" coords="123,193,283,219"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,5,129,47"/>
+<area shape="rect" id="node6" title=" " alt="" coords="307,185,433,227"/>
+</map>

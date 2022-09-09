@@ -1,0 +1,60 @@
+\hypertarget{update__start__state__task_8h_source}{}\doxysection{update\+\_\+start\+\_\+state\+\_\+task.\+h}
+\label{update__start__state__task_8h_source}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/update\_start\_state\_task.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/update\_start\_state\_task.h}}
+\mbox{\hyperlink{update__start__state__task_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_UPDATE\_START\_STATE\_TASK\_H}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_UPDATE\_START\_STATE\_TASK\_H}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{29 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <boost/serialization/access.hpp>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__task_8h}{tesseract\_task\_composer/task\_composer\_task.h}}>}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask}{UpdateStartStateTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39 \textcolor{keyword}{public}:}
+\DoxyCodeLine{40   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_aed2ab72fb7a359564233d0b0262888c8}{Ptr}} = std::shared\_ptr<UpdateStartStateTask>;}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_a476a6459ef87685aa4d8042bea4eb3bf}{ConstPtr}} = std::shared\_ptr<const UpdateStartStateTask>;}
+\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_ae1723f7bb7ccbe96cfa177c5b2afad30}{UPtr}} = std::unique\_ptr<UpdateStartStateTask>;}
+\DoxyCodeLine{43   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_af6c7abb7baf11360703a1d7d92156a90}{ConstUPtr}} = std::unique\_ptr<const UpdateStartStateTask>;}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   \mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_a925041a0f08542527ffbd6af6dad4876}{UpdateStartStateTask}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_a925041a0f08542527ffbd6af6dad4876}{UpdateStartStateTask}}(std::string input\_prev\_key,}
+\DoxyCodeLine{48                        std::string output\_key,}
+\DoxyCodeLine{49                        \textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{false},}
+\DoxyCodeLine{50                        std::string name = \textcolor{stringliteral}{"{}UpdateStartStateTask"{}});}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_a925041a0f08542527ffbd6af6dad4876}{UpdateStartStateTask}}(std::string input\_key,}
+\DoxyCodeLine{53                        std::string input\_prev\_key,}
+\DoxyCodeLine{54                        std::string output\_key,}
+\DoxyCodeLine{55                        \textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{false},}
+\DoxyCodeLine{56                        std::string name = \textcolor{stringliteral}{"{}UpdateStartStateTask"{}});}
+\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_a552b93c43a375af95bde2b769d0a0360}{\string~UpdateStartStateTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_a782ed37b08acf0c1659a0aebb23d5123}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask}{UpdateStartStateTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{60   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_aeee28058e5e2c38a4f706140c5239a72}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask}{UpdateStartStateTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{63   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{64   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{65   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{66   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_afc89d89b91ef46351ac079a710d3b756}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask_aa6b41cae2f4aeee5c6f96901773a624d}{runImpl}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
+\DoxyCodeLine{69                                      \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{OptionalTaskComposerExecutor}} executor = std::nullopt) \textcolor{keyword}{const override};}
+\DoxyCodeLine{70 \};}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{76 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1UpdateStartStateTask}{tesseract\_planning::UpdateStartStateTask}}, \textcolor{stringliteral}{"{}UpdateStartStateTask"{}})}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_UPDATE\_START\_STATE\_TASK\_H}}
+
+\end{DoxyCode}

@@ -81,7 +81,7 @@ $(function() {
 <p>The Kinematic Group Instruction Information struct.  
  <a href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d9/d2e/simple__planner__utils_8h_source.html">simple_planner_utils.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d3/d08/interpolation_8h_source.html">interpolation.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for tesseract_planning::KinematicGroupInstructionInfo:</div>
 <div class="dyncontent">
@@ -99,12 +99,12 @@ Collaboration diagram for tesseract_planning::KinematicGroupInstructionInfo:</di
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a83abfd60bd20168c337998626ac21791"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#a83abfd60bd20168c337998626ac21791">KinematicGroupInstructionInfo</a> (const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;plan_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_common::ManipulatorInfo &amp;manip_info)</td></tr>
 <tr class="separator:a83abfd60bd20168c337998626ac21791"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fef756f80700726afa89909dae497c2"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#a1fef756f80700726afa89909dae497c2">calcCartesianPose</a> (const Eigen::VectorXd &amp;jp) const</td></tr>
-<tr class="memdesc:a1fef756f80700726afa89909dae497c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the cartesian pose given the joint solution.  <a href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#a1fef756f80700726afa89909dae497c2">More...</a><br /></td></tr>
-<tr class="separator:a1fef756f80700726afa89909dae497c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28e72f5326caac97aea47e23c047259a"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#a28e72f5326caac97aea47e23c047259a">extractCartesianPose</a> () const</td></tr>
-<tr class="memdesc:a28e72f5326caac97aea47e23c047259a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract the cartesian pose from the instruction.  <a href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#a28e72f5326caac97aea47e23c047259a">More...</a><br /></td></tr>
-<tr class="separator:a28e72f5326caac97aea47e23c047259a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcb9e3d4e318c590ff2e5002e9217f56"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#afcb9e3d4e318c590ff2e5002e9217f56">calcCartesianPose</a> (const Eigen::VectorXd &amp;jp, bool in_world=true) const</td></tr>
+<tr class="memdesc:afcb9e3d4e318c590ff2e5002e9217f56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the cartesian pose given the joint solution.  <a href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#afcb9e3d4e318c590ff2e5002e9217f56">More...</a><br /></td></tr>
+<tr class="separator:afcb9e3d4e318c590ff2e5002e9217f56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a744c1435763bcdb0239cc37992146fcd"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#a744c1435763bcdb0239cc37992146fcd">extractCartesianPose</a> (bool in_world=true) const</td></tr>
+<tr class="memdesc:a744c1435763bcdb0239cc37992146fcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract the cartesian pose from the instruction.  <a href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#a744c1435763bcdb0239cc37992146fcd">More...</a><br /></td></tr>
+<tr class="separator:a744c1435763bcdb0239cc37992146fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a448fba85565b0588262fb146b9f1e581"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#a448fba85565b0588262fb146b9f1e581">extractJointPosition</a> () const</td></tr>
 <tr class="memdesc:a448fba85565b0588262fb146b9f1e581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract the joint position from the instruction waypoint.  <a href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#a448fba85565b0588262fb146b9f1e581">More...</a><br /></td></tr>
 <tr class="separator:a448fba85565b0588262fb146b9f1e581"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,6 +117,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a86faee3de3c751f3b7dd90174aee9cbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d4e59f4dbad3edf61f24921f0bab51d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#a6d4e59f4dbad3edf61f24921f0bab51d">working_frame</a></td></tr>
 <tr class="separator:a6d4e59f4dbad3edf61f24921f0bab51d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add17562db1c924927e11fc5bd5bd95ef"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#add17562db1c924927e11fc5bd5bd95ef">working_frame_transform</a> { Eigen::Isometry3d::Identity() }</td></tr>
+<tr class="separator:add17562db1c924927e11fc5bd5bd95ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e019f911a0a76de8d56a6e8f17c7638"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#a8e019f911a0a76de8d56a6e8f17c7638">tcp_frame</a></td></tr>
 <tr class="separator:a8e019f911a0a76de8d56a6e8f17c7638"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9126c862eb98c69d6813c81a87b97df"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#af9126c862eb98c69d6813c81a87b97df">tcp_offset</a> { Eigen::Isometry3d::Identity() }</td></tr>
@@ -162,8 +164,8 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1fef756f80700726afa89909dae497c2" name="a1fef756f80700726afa89909dae497c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fef756f80700726afa89909dae497c2">&#9670;&nbsp;</a></span>calcCartesianPose()</h2>
+<a id="afcb9e3d4e318c590ff2e5002e9217f56" name="afcb9e3d4e318c590ff2e5002e9217f56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcb9e3d4e318c590ff2e5002e9217f56">&#9670;&nbsp;</a></span>calcCartesianPose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,8 +174,18 @@ Public Attributes</h2></td></tr>
           <td class="memname">Eigen::Isometry3d tesseract_planning::KinematicGroupInstructionInfo::calcCartesianPose </td>
           <td>(</td>
           <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>jp</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"><em>jp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>in_world</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -182,6 +194,7 @@ Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">jp</td><td>The joint solution to calculate the pose </td></tr>
+    <tr><td class="paramname">in_world</td><td>Indicate if the results should be in world or relative to working frame </td></tr>
   </table>
   </dd>
 </dl>
@@ -189,8 +202,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a28e72f5326caac97aea47e23c047259a" name="a28e72f5326caac97aea47e23c047259a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28e72f5326caac97aea47e23c047259a">&#9670;&nbsp;</a></span>extractCartesianPose()</h2>
+<a id="a744c1435763bcdb0239cc37992146fcd" name="a744c1435763bcdb0239cc37992146fcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a744c1435763bcdb0239cc37992146fcd">&#9670;&nbsp;</a></span>extractCartesianPose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,14 +211,21 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">Eigen::Isometry3d tesseract_planning::KinematicGroupInstructionInfo::extractCartesianPose </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>in_world</em> = <code>true</code></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Extract the cartesian pose from the instruction. </p>
-<p >If the instruction does not have a cartesian waypoint this throws an exception </p><dl class="section return"><dt>Returns</dt><dd>Cartesian pose </dd></dl>
+<p >If the instruction does not have a cartesian waypoint this throws an exception </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in_world</td><td>Indicate if the results should be in world or relative to working frame </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Cartesian pose </dd></dl>
 
 </div>
 </div>
@@ -314,14 +334,29 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="add17562db1c924927e11fc5bd5bd95ef" name="add17562db1c924927e11fc5bd5bd95ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add17562db1c924927e11fc5bd5bd95ef">&#9670;&nbsp;</a></span>working_frame_transform</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Isometry3d tesseract_planning::KinematicGroupInstructionInfo::working_frame_transform { Eigen::Isometry3d::Identity() }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
-<li>tesseract_motion_planners/core/include/tesseract_motion_planners/simple/profile/<a class="el" href="../../d9/d2e/simple__planner__utils_8h_source.html">simple_planner_utils.h</a></li>
+<li>tesseract_motion_planners/core/include/tesseract_motion_planners/core/<a class="el" href="../../d3/d08/interpolation_8h_source.html">interpolation.h</a></li>
+<li>tesseract_motion_planners/core/src/core/<a class="el" href="../../d2/d6c/interpolation_8cpp.html">interpolation.cpp</a></li>
 <li>tesseract_motion_planners/core/src/simple/profile/<a class="el" href="../../d7/d8c/simple__planner__utils_8cpp.html">simple_planner_utils.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 4 2022 15:27:24 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Sep 9 2022 11:44:50 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

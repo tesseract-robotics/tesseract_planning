@@ -1,0 +1,136 @@
+\hypertarget{task__composer__plugin__factory_8h_source}{}\doxysection{task\+\_\+composer\+\_\+plugin\+\_\+factory.\+h}
+\label{task__composer__plugin__factory_8h_source}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/task\_composer\_plugin\_factory.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/task\_composer\_plugin\_factory.h}}
+\mbox{\hyperlink{task__composer__plugin__factory_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_FACTORY\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_FACTORY\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <yaml-\/cpp/yaml.h>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__node_8h}{tesseract\_task\_composer/task\_composer\_node.h}}>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__executor_8h}{tesseract\_task\_composer/task\_composer\_executor.h}}>}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <tesseract\_common/plugin\_loader.h>}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{comment}{// clang-\/format off}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#define TESSERACT\_ADD\_TASK\_COMPOSER\_EXECUTOR\_PLUGIN(DERIVED\_CLASS, ALIAS)                                                    \(\backslash\)}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{  TESSERACT\_ADD\_PLUGIN\_SECTIONED(DERIVED\_CLASS, ALIAS, TaskExec)}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#define TESSERACT\_ADD\_TASK\_COMPOSER\_NODE\_PLUGIN(DERIVED\_CLASS, ALIAS)                                                  \(\backslash\)}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{  TESSERACT\_ADD\_PLUGIN\_SECTIONED(DERIVED\_CLASS, ALIAS, TaskNode)}}
+\DoxyCodeLine{46 \textcolor{comment}{// clang-\/format on}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{52 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeFactory}{TaskComposerNodeFactory}}}
+\DoxyCodeLine{53 \{}
+\DoxyCodeLine{54 \textcolor{keyword}{public}:}
+\DoxyCodeLine{55   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeFactory_ac45fabbe58853cb73b9dc577bce5b9cf}{Ptr}} = std::shared\_ptr<TaskComposerNodeFactory>;}
+\DoxyCodeLine{56   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeFactory_ab85dbdf6441d5343f7f1342499225d31}{ConstPtr}} = std::shared\_ptr<const TaskComposerNodeFactory>;}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeFactory_a6347e6176865dba3e39b83659631c21f}{\string~TaskComposerNodeFactory}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_aeee363b2e1325a896f640091c2673dff}{TaskComposerNode::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeFactory_aba162719094ae5bafc0da59ee171efd9}{create}}(\textcolor{keyword}{const} std::string\& name, \textcolor{keyword}{const} YAML::Node\& config) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{63   \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeFactory_a7b2850869556e793f96ad8839badfc8b}{SECTION\_NAME}};}
+\DoxyCodeLine{64   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeFactory_a7935fed495dc747e3ee24e005a4439eb}{PluginLoader}};}
+\DoxyCodeLine{65 \};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{69 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutorFactory}{TaskComposerExecutorFactory}}}
+\DoxyCodeLine{70 \{}
+\DoxyCodeLine{71 \textcolor{keyword}{public}:}
+\DoxyCodeLine{72   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutorFactory_a66da37cfaae1277f0175079be7a66c14}{Ptr}} = std::shared\_ptr<TaskComposerExecutorFactory>;}
+\DoxyCodeLine{73   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutorFactory_adf18230495853be6395520d64bd8945e}{ConstPtr}} = std::shared\_ptr<const TaskComposerExecutorFactory>;}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutorFactory_afc1acec23f5a1001eef97c8bab124d0d}{\string~TaskComposerExecutorFactory}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_abd1fc7052da011b01d53c63c43a771c4}{TaskComposerExecutor::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutorFactory_a709e4941bc745a0d39746131a7204343}{create}}(\textcolor{keyword}{const} std::string\& name, \textcolor{keyword}{const} YAML::Node\& config) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{80   \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutorFactory_adf0d12700982c2f0cca8f5d1307a7214}{SECTION\_NAME}};}
+\DoxyCodeLine{81   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutorFactory_a7935fed495dc747e3ee24e005a4439eb}{PluginLoader}};}
+\DoxyCodeLine{82 \};}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{TaskComposerPluginFactory}}}
+\DoxyCodeLine{85 \{}
+\DoxyCodeLine{86 \textcolor{keyword}{public}:}
+\DoxyCodeLine{87   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a06a3afd79e14e51a4c05743b4b5e8b4f}{TaskComposerPluginFactory}}();}
+\DoxyCodeLine{88   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ab046c7cf58b8367c450ee7b8f08a3e80}{\string~TaskComposerPluginFactory}}();}
+\DoxyCodeLine{89   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a66624ea262a26d55867ffb0fff546a8a}{TaskComposerPluginFactory}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{TaskComposerPluginFactory}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{90   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{TaskComposerPluginFactory}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ad28a959dc35f95d1a62ec001de517613}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{TaskComposerPluginFactory}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{91   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a40068e2de594a12f8b745d01fcc8520b}{TaskComposerPluginFactory}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{TaskComposerPluginFactory}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{92   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{TaskComposerPluginFactory}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a06a36502370c9c14297a522326f9f982}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{TaskComposerPluginFactory}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{98   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a06a3afd79e14e51a4c05743b4b5e8b4f}{TaskComposerPluginFactory}}(YAML::Node config);}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{104   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a06a3afd79e14e51a4c05743b4b5e8b4f}{TaskComposerPluginFactory}}(\textcolor{keyword}{const} tesseract\_common::fs::path\& config);}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{110   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a06a3afd79e14e51a4c05743b4b5e8b4f}{TaskComposerPluginFactory}}(\textcolor{keyword}{const} std::string\& config);}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{116   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ac333056ac57ae783c6fbafa41bf64396}{addSearchPath}}(\textcolor{keyword}{const} std::string\& path);}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{122   std::set<std::string> \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_aa2a9207aae90e0e8fca5401015b52de0}{getSearchPaths}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{128   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_af95ceffbf07859f4ba174ad57212ea9e}{clearSearchPaths}}();}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{134   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_aa6b266afa59c55220cf0c65d42811cc5}{addSearchLibrary}}(\textcolor{keyword}{const} std::string\& library\_name);}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{140   std::set<std::string> \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_abd060f8c8a3d9ff0ad3aa9a625d087b5}{getSearchLibraries}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{146   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a24a7d4adb368ef662004e782d35543d3}{clearSearchLibraries}}();}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{153   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a8441ce780b0e1f26b7022624a9f59858}{addTaskComposerExecutorPlugin}}(\textcolor{keyword}{const} std::string\& name, tesseract\_common::PluginInfo plugin\_info);}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{159   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a7ef2a51dda4d5c25076b0ab6945ee889}{hasTaskComposerExecutorPlugins}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{165   tesseract\_common::PluginInfoMap \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a6ba93b1d0aebea3cc7e32f928de02780}{getTaskComposerExecutorPlugins}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{171   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a5c5696634b022edf1b97415b376d7a21}{removeTaskComposerExecutorPlugin}}(\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{177   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a31a45f27b393246942bf2e53b2e84813}{setDefaultTaskComposerExecutorPlugin}}(\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{178 }
+\DoxyCodeLine{183   std::string \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a0ede13da3bb57ed9a7732d7e395387da}{getDefaultTaskComposerExecutorPlugin}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{190   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_afdce3476bfbb1a69cb0e3d1fb5059658}{addTaskComposerNodePlugin}}(\textcolor{keyword}{const} std::string\& name, tesseract\_common::PluginInfo plugin\_info);}
+\DoxyCodeLine{191 }
+\DoxyCodeLine{196   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a9515bc2ce6cd4eec20c769aa965216ce}{hasTaskComposerNodePlugins}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{197 }
+\DoxyCodeLine{202   tesseract\_common::PluginInfoMap \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_afa1a557b605594858f847a3248f008c1}{getTaskComposerNodePlugins}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{208   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ae3a2b1c2bd45b6bd75b93331deb7ba39}{removeTaskComposerNodePlugin}}(\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{214   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ac2241afc0a32c817bcca4aeff3e83d2b}{setDefaultTaskComposerNodePlugin}}(\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{220   std::string \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ae019ffc7a6d1c0c705229225bb9e65b8}{getDefaultTaskComposerNodePlugin}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{227   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_abd1fc7052da011b01d53c63c43a771c4}{TaskComposerExecutor::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ac05f1df86111059c04016820e6cec974}{createTaskComposerExecutor}}(\textcolor{keyword}{const} std::string\& name) \textcolor{keyword}{const};}
+\DoxyCodeLine{228 }
+\DoxyCodeLine{234   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_abd1fc7052da011b01d53c63c43a771c4}{TaskComposerExecutor::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ac05f1df86111059c04016820e6cec974}{createTaskComposerExecutor}}(\textcolor{keyword}{const} std::string\& name,}
+\DoxyCodeLine{235                                                         \textcolor{keyword}{const} tesseract\_common::PluginInfo\& plugin\_info) \textcolor{keyword}{const};}
+\DoxyCodeLine{236 }
+\DoxyCodeLine{242   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_aeee363b2e1325a896f640091c2673dff}{TaskComposerNode::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ac17ef27bbea5c47cbb7872b8b743adad}{createTaskComposerNode}}(\textcolor{keyword}{const} std::string\& name) \textcolor{keyword}{const};}
+\DoxyCodeLine{243 }
+\DoxyCodeLine{249   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_aeee363b2e1325a896f640091c2673dff}{TaskComposerNode::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ac17ef27bbea5c47cbb7872b8b743adad}{createTaskComposerNode}}(\textcolor{keyword}{const} std::string\& name,}
+\DoxyCodeLine{250                                                 \textcolor{keyword}{const} tesseract\_common::PluginInfo\& plugin\_info) \textcolor{keyword}{const};}
+\DoxyCodeLine{251 }
+\DoxyCodeLine{256   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a984fe1f13ff58c21310a318df26a4013}{saveConfig}}(\textcolor{keyword}{const} boost::filesystem::path\& file\_path) \textcolor{keyword}{const};}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{262   YAML::Node \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_afd3637dd9f9c7ed7d46650c7450f4270}{getConfig}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{263 }
+\DoxyCodeLine{264 \textcolor{keyword}{private}:}
+\DoxyCodeLine{265   \textcolor{keyword}{mutable} std::map<std::string, TaskComposerExecutorFactory::Ptr> \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ade7ca2d900bae4e34339797475e87cd5}{executor\_factories\_}};}
+\DoxyCodeLine{266   \textcolor{keyword}{mutable} std::map<std::string, TaskComposerNodeFactory::Ptr> \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_adc6c292d1248e760e89d1bd48df71b8c}{node\_factories\_}};}
+\DoxyCodeLine{267   tesseract\_common::PluginInfoContainer \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a87e9716b67fe53dd97a93da128db4716}{executor\_plugin\_info\_}};}
+\DoxyCodeLine{268   tesseract\_common::PluginInfoContainer \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ab5b7ec4096fd5e77c3b6f83aa9f17e61}{node\_plugin\_info\_}};}
+\DoxyCodeLine{269   tesseract\_common::PluginLoader \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a6fe4ecfd554b7943e5143bc373e77a2a}{plugin\_loader\_}};}
+\DoxyCodeLine{270 \};}
+\DoxyCodeLine{271 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{272 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_FACTORY\_H}}
+
+\end{DoxyCode}

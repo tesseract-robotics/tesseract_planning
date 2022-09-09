@@ -33,6 +33,10 @@ tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \mbox{\hyperlink{structtessera
 \begin{DoxyCompactList}\small\item\em This allows the remapping of the Plan Profile identified in the command language to a specific profile for a given motion planner. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a57f97df33c6644837d93650818be4d67}{composite\+\_\+profile\+\_\+remapping}} \{\}
 \begin{DoxyCompactList}\small\item\em This allows the remapping of the Composite Profile identified in the command language to a specific profile for a given motion planner. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_acd0d5992c966354b676ee0041f6455f7}{verbose}} \{ false \}
+\begin{DoxyCompactList}\small\item\em Indicate if output should be verbose. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a3cc92780142fff3e396c45bfce51e92b}{format\+\_\+result\+\_\+as\+\_\+input}} \{ false \}
+\begin{DoxyCompactList}\small\item\em Format the result as input for motion planning. \end{DoxyCompactList}\item 
 std\+::shared\+\_\+ptr$<$ void $>$ \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a74225e42fe18279b21af4a922fa80995}{data}}
 \begin{DoxyCompactList}\small\item\em data Planner specific data. For planners included in Tesseract\+\_\+planning this is the planner problem that will be used if it is not null \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -78,7 +82,21 @@ The environment.
 
 The start state to use for planning. 
 
-\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}\label{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_a3cc92780142fff3e396c45bfce51e92b}\label{structtesseract__planning_1_1PlannerRequest_a3cc92780142fff3e396c45bfce51e92b}} 
+\index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!format\_result\_as\_input@{format\_result\_as\_input}}
+\index{format\_result\_as\_input@{format\_result\_as\_input}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
+\doxysubsubsection{\texorpdfstring{format\_result\_as\_input}{format\_result\_as\_input}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Planner\+Request\+::format\+\_\+result\+\_\+as\+\_\+input \{ false \}}
+
+
+
+Format the result as input for motion planning. 
+
+
+\begin{DoxyItemize}
+\item If true it uses the input waypoint but updates the seed component
+\item If false, it replace the input waypoint with a state waypoint 
+\end{DoxyItemize}\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}\label{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}} 
 \index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!instructions@{instructions}}
 \index{instructions@{instructions}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
 \doxysubsubsection{\texorpdfstring{instructions}{instructions}}
@@ -127,6 +145,18 @@ The profile dictionary.
 
 
 This should be a one to one match with the instructions where the \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} is replaced with a \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} of Move\+Instructions. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000009}{Todo}}]Remove when legacy planners are removed \end{DoxyRefDesc}
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_acd0d5992c966354b676ee0041f6455f7}\label{structtesseract__planning_1_1PlannerRequest_acd0d5992c966354b676ee0041f6455f7}} 
+\index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!verbose@{verbose}}
+\index{verbose@{verbose}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
+\doxysubsubsection{\texorpdfstring{verbose}{verbose}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Planner\+Request\+::verbose \{ false \}}
+
+
+
+Indicate if output should be verbose. 
 
 
 

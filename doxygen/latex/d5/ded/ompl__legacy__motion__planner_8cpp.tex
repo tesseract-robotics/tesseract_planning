@@ -1,0 +1,68 @@
+\hypertarget{ompl__legacy__motion__planner_8cpp}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/ompl/src/ompl\+\_\+legacy\+\_\+motion\+\_\+planner.cpp File Reference}
+\label{ompl__legacy__motion__planner_8cpp}\index{tesseract\_motion\_planners/ompl/src/ompl\_legacy\_motion\_planner.cpp@{tesseract\_motion\_planners/ompl/src/ompl\_legacy\_motion\_planner.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/base/goals/\+Goal\+State.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/base/goals/\+Goal\+States.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/tools/multiplan/\+Parallel\+Plan.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/planner\+\_\+utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+legacy\+\_\+motion\+\_\+planner.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/continuous\+\_\+motion\+\_\+validator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/discrete\+\_\+motion\+\_\+validator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/profile/ompl\+\_\+default\+\_\+plan\+\_\+profile.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/weighted\+\_\+real\+\_\+vector\+\_\+state\+\_\+sampler.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils.\+h$>$}\newline
+Include dependency graph for ompl\+\_\+legacy\+\_\+motion\+\_\+planner.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/dc0/ompl__legacy__motion__planner_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a4a26f87f961fd821c8e94b0271851b80}{tesseract\+\_\+planning\+::check\+Start\+State\+Legacy}} (const ompl\+::base\+::\+Problem\+Definition\+Ptr \&prob\+\_\+def, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&state, const OMPLState\+Extractor \&extractor)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_adcc58971708b531f253455588086de7e}{tesseract\+\_\+planning\+::check\+Goal\+State\+Legacy}} (const ompl\+::base\+::\+Problem\+Definition\+Ptr \&prob\+\_\+def, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&state, const OMPLState\+Extractor \&extractor)
+\item 
+OMPLProblem\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a096c3d69a03a81681dee44a6cf290dc6}{tesseract\+\_\+planning\+::create\+OMPLSub\+Problem}} (const Planner\+Request \&request, const tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr \&manip)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP constexpr auto \mbox{\hyperlink{ompl__legacy__motion__planner_8cpp_a5c3f7af179b15ee113611d688da0059e}{SOLUTION\+\_\+\+FOUND}} \{ \char`\"{}Found valid solution\char`\"{} \}
+\item 
+constexpr auto \mbox{\hyperlink{ompl__legacy__motion__planner_8cpp_adc2e4f3c03d04f9c631338193971f43f}{ERROR\+\_\+\+INVALID\+\_\+\+INPUT}} \{ \char`\"{}Failed invalid input\char`\"{} \}
+\item 
+constexpr auto \mbox{\hyperlink{ompl__legacy__motion__planner_8cpp_a7845d8e667b77363523f2736ab4978fb}{ERROR\+\_\+\+FAILED\+\_\+\+TO\+\_\+\+FIND\+\_\+\+VALID\+\_\+\+SOLUTION}} \{ \char`\"{}Failed to find valid solution\char`\"{} \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{ompl__legacy__motion__planner_8cpp_a7845d8e667b77363523f2736ab4978fb}\label{ompl__legacy__motion__planner_8cpp_a7845d8e667b77363523f2736ab4978fb}} 
+\index{ompl\_legacy\_motion\_planner.cpp@{ompl\_legacy\_motion\_planner.cpp}!ERROR\_FAILED\_TO\_FIND\_VALID\_SOLUTION@{ERROR\_FAILED\_TO\_FIND\_VALID\_SOLUTION}}
+\index{ERROR\_FAILED\_TO\_FIND\_VALID\_SOLUTION@{ERROR\_FAILED\_TO\_FIND\_VALID\_SOLUTION}!ompl\_legacy\_motion\_planner.cpp@{ompl\_legacy\_motion\_planner.cpp}}
+\doxysubsubsection{\texorpdfstring{ERROR\_FAILED\_TO\_FIND\_VALID\_SOLUTION}{ERROR\_FAILED\_TO\_FIND\_VALID\_SOLUTION}}
+{\footnotesize\ttfamily constexpr auto ERROR\+\_\+\+FAILED\+\_\+\+TO\+\_\+\+FIND\+\_\+\+VALID\+\_\+\+SOLUTION \{ \char`\"{}Failed to find valid solution\char`\"{} \}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{ompl__legacy__motion__planner_8cpp_adc2e4f3c03d04f9c631338193971f43f}\label{ompl__legacy__motion__planner_8cpp_adc2e4f3c03d04f9c631338193971f43f}} 
+\index{ompl\_legacy\_motion\_planner.cpp@{ompl\_legacy\_motion\_planner.cpp}!ERROR\_INVALID\_INPUT@{ERROR\_INVALID\_INPUT}}
+\index{ERROR\_INVALID\_INPUT@{ERROR\_INVALID\_INPUT}!ompl\_legacy\_motion\_planner.cpp@{ompl\_legacy\_motion\_planner.cpp}}
+\doxysubsubsection{\texorpdfstring{ERROR\_INVALID\_INPUT}{ERROR\_INVALID\_INPUT}}
+{\footnotesize\ttfamily constexpr auto ERROR\+\_\+\+INVALID\+\_\+\+INPUT \{ \char`\"{}Failed invalid input\char`\"{} \}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{ompl__legacy__motion__planner_8cpp_a5c3f7af179b15ee113611d688da0059e}\label{ompl__legacy__motion__planner_8cpp_a5c3f7af179b15ee113611d688da0059e}} 
+\index{ompl\_legacy\_motion\_planner.cpp@{ompl\_legacy\_motion\_planner.cpp}!SOLUTION\_FOUND@{SOLUTION\_FOUND}}
+\index{SOLUTION\_FOUND@{SOLUTION\_FOUND}!ompl\_legacy\_motion\_planner.cpp@{ompl\_legacy\_motion\_planner.cpp}}
+\doxysubsubsection{\texorpdfstring{SOLUTION\_FOUND}{SOLUTION\_FOUND}}
+{\footnotesize\ttfamily TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP constexpr auto SOLUTION\+\_\+\+FOUND \{ \char`\"{}Found valid solution\char`\"{} \}\hspace{0.3cm}{\ttfamily [constexpr]}}
+

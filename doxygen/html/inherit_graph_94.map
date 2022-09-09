@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d4/dcd/classunordered__map_3_01std_1_1string_00_01std_1_1unordered__map_3_01std_1_1string_00_01std_1_1string_01_4_01_4_1_1iterator.html" title=" " alt="" coords="5,5,188,76"/>
+<area shape="rect" id="node1" href="$d5/d52/classtesseract__planning_1_1TrajectoryContainer.html" title="A generic container that the time parameterization classes use." alt="" coords="5,39,145,80"/>
+<area shape="rect" id="node2" href="$d5/dc6/classtesseract__planning_1_1InstructionsTrajectory.html" title=" " alt="" coords="214,5,367,47"/>
+<area shape="rect" id="node3" href="$d3/dd9/classtesseract__planning_1_1TesseractCommonTrajectory.html" title=" " alt="" coords="193,71,388,112"/>
 </map>

@@ -51,6 +51,10 @@ Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1JointWayp
 \item 
 const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_a5b155f6e98139a841df3cd2ea0246b6d}{get\+Lower\+Tolerance}} () const
 \item 
+void \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_a7fe40a2f6ba8acf96a7da4babc08ae07}{set\+Is\+Constrained}} (bool value)
+\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_a4caa2238140ec059e75646b0d732708f}{is\+Constrained}} () const
+\item 
 void \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_afaee45bfabce542493d25a074795d03b}{print}} (const std\+::string \&prefix=\char`\"{}\char`\"{}) const
 \item 
 bool \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_a55d98b942ec787ed62a4ed92ea3d1635}{is\+Toleranced}} () const
@@ -118,6 +122,12 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_a9d42ad7b
 \doxysubsubsection{\texorpdfstring{getUpperTolerance()}{getUpperTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily const Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+Poly\+::get\+Upper\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+\mbox{\Hypertarget{structtesseract__planning_1_1JointWaypointPoly_a4caa2238140ec059e75646b0d732708f}\label{structtesseract__planning_1_1JointWaypointPoly_a4caa2238140ec059e75646b0d732708f}} 
+\index{tesseract\_planning::JointWaypointPoly@{tesseract\_planning::JointWaypointPoly}!isConstrained@{isConstrained}}
+\index{isConstrained@{isConstrained}!tesseract\_planning::JointWaypointPoly@{tesseract\_planning::JointWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{isConstrained()}{isConstrained()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Joint\+Waypoint\+Poly\+::is\+Constrained (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
 \mbox{\Hypertarget{structtesseract__planning_1_1JointWaypointPoly_a55d98b942ec787ed62a4ed92ea3d1635}\label{structtesseract__planning_1_1JointWaypointPoly_a55d98b942ec787ed62a4ed92ea3d1635}} 
 \index{tesseract\_planning::JointWaypointPoly@{tesseract\_planning::JointWaypointPoly}!isToleranced@{isToleranced}}
 \index{isToleranced@{isToleranced}!tesseract\_planning::JointWaypointPoly@{tesseract\_planning::JointWaypointPoly}}
@@ -143,6 +153,12 @@ True if waypoint has tolerances
 \doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
 {\footnotesize\ttfamily template$<$class Archive $>$ \\
 void tesseract\+\_\+planning\+::\+Joint\+Waypoint\+Poly\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1JointWaypointPoly_a7fe40a2f6ba8acf96a7da4babc08ae07}\label{structtesseract__planning_1_1JointWaypointPoly_a7fe40a2f6ba8acf96a7da4babc08ae07}} 
+\index{tesseract\_planning::JointWaypointPoly@{tesseract\_planning::JointWaypointPoly}!setIsConstrained@{setIsConstrained}}
+\index{setIsConstrained@{setIsConstrained}!tesseract\_planning::JointWaypointPoly@{tesseract\_planning::JointWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{setIsConstrained()}{setIsConstrained()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Joint\+Waypoint\+Poly\+::set\+Is\+Constrained (\begin{DoxyParamCaption}\item[{bool}]{value }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1JointWaypointPoly_aa844cd9c43d4b2555f0d305db0a53fdf}\label{structtesseract__planning_1_1JointWaypointPoly_aa844cd9c43d4b2555f0d305db0a53fdf}} 
 \index{tesseract\_planning::JointWaypointPoly@{tesseract\_planning::JointWaypointPoly}!setLowerTolerance@{setLowerTolerance}}

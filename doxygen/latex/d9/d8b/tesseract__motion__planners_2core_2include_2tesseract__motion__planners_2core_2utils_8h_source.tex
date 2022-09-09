@@ -27,50 +27,40 @@
 \DoxyCodeLine{53 tesseract\_common::Toolpath \mbox{\hyperlink{namespacetesseract__planning_a69d6940279a5076103de7a3e6a400c2e}{toToolpath}}(\textcolor{keyword}{const} InstructionPoly\& instruction,}
 \DoxyCodeLine{54                                       \textcolor{keyword}{const} tesseract\_environment::Environment\& env);}
 \DoxyCodeLine{55 }
-\DoxyCodeLine{63 tesseract\_common::VectorIsometry3d \mbox{\hyperlink{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}{interpolate}}(\textcolor{keyword}{const} Eigen::Isometry3d\& start,}
-\DoxyCodeLine{64                                                \textcolor{keyword}{const} Eigen::Isometry3d\& stop,}
-\DoxyCodeLine{65                                                \textcolor{keywordtype}{long} steps);}
+\DoxyCodeLine{63 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a2ddeab6bce78051b1fad1f74bc742cbf}{programFlattenFilter}}(\textcolor{keyword}{const} InstructionPoly\& instruction,}
+\DoxyCodeLine{64                           \textcolor{keyword}{const} CompositeInstruction\& composite,}
+\DoxyCodeLine{65                           \textcolor{keywordtype}{bool} parent\_is\_first\_composite);}
 \DoxyCodeLine{66 }
-\DoxyCodeLine{74 Eigen::MatrixXd \mbox{\hyperlink{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}{interpolate}}(\textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& start,}
-\DoxyCodeLine{75                             \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& stop,}
-\DoxyCodeLine{76                             \textcolor{keywordtype}{long} steps);}
+\DoxyCodeLine{76 std::vector<std::reference\_wrapper<InstructionPoly>> \mbox{\hyperlink{namespacetesseract__planning_a2d13ba4ba28d61cd8440e04fe696cd33}{flattenProgram}}(CompositeInstruction\& composite\_instruction);}
 \DoxyCodeLine{77 }
-\DoxyCodeLine{85 std::vector<WaypointPoly> \mbox{\hyperlink{namespacetesseract__planning_ace3fb6e4566978aa9ae8c72ab20a939f}{interpolate\_waypoint}}(\textcolor{keyword}{const} WaypointPoly\& start, \textcolor{keyword}{const} WaypointPoly\& stop, \textcolor{keywordtype}{long} steps);}
-\DoxyCodeLine{86 }
-\DoxyCodeLine{94 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a2ddeab6bce78051b1fad1f74bc742cbf}{programFlattenFilter}}(\textcolor{keyword}{const} InstructionPoly\& instruction,}
-\DoxyCodeLine{95                           \textcolor{keyword}{const} CompositeInstruction\& composite,}
-\DoxyCodeLine{96                           \textcolor{keywordtype}{bool} parent\_is\_first\_composite);}
-\DoxyCodeLine{97 }
-\DoxyCodeLine{107 std::vector<std::reference\_wrapper<InstructionPoly>> \mbox{\hyperlink{namespacetesseract__planning_a2d13ba4ba28d61cd8440e04fe696cd33}{flattenProgram}}(CompositeInstruction\& composite\_instruction);}
-\DoxyCodeLine{108 }
-\DoxyCodeLine{118 std::vector<std::reference\_wrapper<const InstructionPoly>>}
-\DoxyCodeLine{119 \mbox{\hyperlink{namespacetesseract__planning_a2d13ba4ba28d61cd8440e04fe696cd33}{flattenProgram}}(\textcolor{keyword}{const} CompositeInstruction\& composite\_instruction);}
-\DoxyCodeLine{120 }
-\DoxyCodeLine{135 std::vector<std::reference\_wrapper<InstructionPoly>>}
-\DoxyCodeLine{136 \mbox{\hyperlink{namespacetesseract__planning_a63ed4eb8623496c40ebfc74416c471fd}{flattenProgramToPattern}}(CompositeInstruction\& composite\_instruction, \textcolor{keyword}{const} CompositeInstruction\& pattern);}
-\DoxyCodeLine{137 }
-\DoxyCodeLine{152 std::vector<std::reference\_wrapper<const InstructionPoly>>}
-\DoxyCodeLine{153 \mbox{\hyperlink{namespacetesseract__planning_a63ed4eb8623496c40ebfc74416c471fd}{flattenProgramToPattern}}(\textcolor{keyword}{const} CompositeInstruction\& composite\_instruction, \textcolor{keyword}{const} CompositeInstruction\& pattern);}
-\DoxyCodeLine{154 }
-\DoxyCodeLine{164 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a82d7bc798089ef84c8c11d2806bbc9e7}{contactCheckProgram}}(std::vector<tesseract\_collision::ContactResultMap>\& contacts,}
-\DoxyCodeLine{165                          tesseract\_collision::ContinuousContactManager\& manager,}
-\DoxyCodeLine{166                          \textcolor{keyword}{const} tesseract\_scene\_graph::StateSolver\& state\_solver,}
-\DoxyCodeLine{167                          \textcolor{keyword}{const} CompositeInstruction\& program,}
-\DoxyCodeLine{168                          \textcolor{keyword}{const} tesseract\_collision::CollisionCheckConfig\& config);}
-\DoxyCodeLine{169 }
-\DoxyCodeLine{179 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a82d7bc798089ef84c8c11d2806bbc9e7}{contactCheckProgram}}(std::vector<tesseract\_collision::ContactResultMap>\& contacts,}
-\DoxyCodeLine{180                          tesseract\_collision::DiscreteContactManager\& manager,}
-\DoxyCodeLine{181                          \textcolor{keyword}{const} tesseract\_scene\_graph::StateSolver\& state\_solver,}
-\DoxyCodeLine{182                          \textcolor{keyword}{const} CompositeInstruction\& program,}
-\DoxyCodeLine{183                          \textcolor{keyword}{const} tesseract\_collision::CollisionCheckConfig\& config);}
-\DoxyCodeLine{184 }
-\DoxyCodeLine{193 CompositeInstruction \mbox{\hyperlink{namespacetesseract__planning_a32251039111617f975deb5c3078bcdba}{generateNaiveSeed}}(\textcolor{keyword}{const} CompositeInstruction\& composite\_instructions,}
-\DoxyCodeLine{194                                        \textcolor{keyword}{const} tesseract\_environment::Environment\& env);}
-\DoxyCodeLine{195 }
-\DoxyCodeLine{202 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_ac25e52a76d6ada60b39ff9bb422dcb91}{formatProgram}}(CompositeInstruction\& composite\_instructions, \textcolor{keyword}{const} tesseract\_environment::Environment\& env);}
-\DoxyCodeLine{203 }
-\DoxyCodeLine{204 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{205 }
-\DoxyCodeLine{206 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PLANNING\_UTILS\_H}}
+\DoxyCodeLine{87 std::vector<std::reference\_wrapper<const InstructionPoly>>}
+\DoxyCodeLine{88 \mbox{\hyperlink{namespacetesseract__planning_a2d13ba4ba28d61cd8440e04fe696cd33}{flattenProgram}}(\textcolor{keyword}{const} CompositeInstruction\& composite\_instruction);}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{104 std::vector<std::reference\_wrapper<InstructionPoly>>}
+\DoxyCodeLine{105 \mbox{\hyperlink{namespacetesseract__planning_a63ed4eb8623496c40ebfc74416c471fd}{flattenProgramToPattern}}(CompositeInstruction\& composite\_instruction, \textcolor{keyword}{const} CompositeInstruction\& pattern);}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{121 std::vector<std::reference\_wrapper<const InstructionPoly>>}
+\DoxyCodeLine{122 \mbox{\hyperlink{namespacetesseract__planning_a63ed4eb8623496c40ebfc74416c471fd}{flattenProgramToPattern}}(\textcolor{keyword}{const} CompositeInstruction\& composite\_instruction, \textcolor{keyword}{const} CompositeInstruction\& pattern);}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{133 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a82d7bc798089ef84c8c11d2806bbc9e7}{contactCheckProgram}}(std::vector<tesseract\_collision::ContactResultMap>\& contacts,}
+\DoxyCodeLine{134                          tesseract\_collision::ContinuousContactManager\& manager,}
+\DoxyCodeLine{135                          \textcolor{keyword}{const} tesseract\_scene\_graph::StateSolver\& state\_solver,}
+\DoxyCodeLine{136                          \textcolor{keyword}{const} CompositeInstruction\& program,}
+\DoxyCodeLine{137                          \textcolor{keyword}{const} tesseract\_collision::CollisionCheckConfig\& config);}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{148 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a82d7bc798089ef84c8c11d2806bbc9e7}{contactCheckProgram}}(std::vector<tesseract\_collision::ContactResultMap>\& contacts,}
+\DoxyCodeLine{149                          tesseract\_collision::DiscreteContactManager\& manager,}
+\DoxyCodeLine{150                          \textcolor{keyword}{const} tesseract\_scene\_graph::StateSolver\& state\_solver,}
+\DoxyCodeLine{151                          \textcolor{keyword}{const} CompositeInstruction\& program,}
+\DoxyCodeLine{152                          \textcolor{keyword}{const} tesseract\_collision::CollisionCheckConfig\& config);}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{162 CompositeInstruction \mbox{\hyperlink{namespacetesseract__planning_a32251039111617f975deb5c3078bcdba}{generateNaiveSeed}}(\textcolor{keyword}{const} CompositeInstruction\& composite\_instructions,}
+\DoxyCodeLine{163                                        \textcolor{keyword}{const} tesseract\_environment::Environment\& env);}
+\DoxyCodeLine{164 }
+\DoxyCodeLine{171 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_ac25e52a76d6ada60b39ff9bb422dcb91}{formatProgram}}(CompositeInstruction\& composite\_instructions, \textcolor{keyword}{const} tesseract\_environment::Environment\& env);}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{175 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PLANNING\_UTILS\_H}}
 
 \end{DoxyCode}

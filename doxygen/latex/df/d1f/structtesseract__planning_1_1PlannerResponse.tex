@@ -14,19 +14,39 @@ Collaboration diagram for tesseract\+\_\+planning\+::Planner\+Response\+:
 \includegraphics[width=350pt]{d0/d19/structtesseract__planning_1_1PlannerResponse__coll__graph}
 \end{center}
 \end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a749ef7347c2793139edc99ec52104bf4}{operator bool}} () const noexcept
+\begin{DoxyCompactList}\small\item\em This return true if successful. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 EIGEN\+\_\+\+MAKE\+\_\+\+ALIGNED\+\_\+\+OPERATOR\+\_\+\+NEW \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a1534da4c2a888418218dc49fef77d0b1}{results}}
 \item 
-tesseract\+\_\+common\+::\+Status\+Code \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}}
-\begin{DoxyCompactList}\small\item\em The status information. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a8e5306386326f61f9f94bd9313e90d19}{successful}} \{ false \}
+\begin{DoxyCompactList}\small\item\em Indicate if planning was successful. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a4d975cf45733c36ee713e73dae6a2724}{message}}
+\begin{DoxyCompactList}\small\item\em The status message. \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$ $>$ \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_acc314532cad43e1227b197e536bf0e22}{succeeded\+\_\+instructions}} \{\}
 \begin{DoxyCompactList}\small\item\em Waypoints for which the planner succeeded. \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$ $>$ \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a74bff70aee2676ca10e2545eca5028b0}{failed\+\_\+instructions}} \{\}
 \begin{DoxyCompactList}\small\item\em Waypoints for which the planner failed. \end{DoxyCompactList}\item 
 std\+::shared\+\_\+ptr$<$ void $>$ \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_ab010e84ee5bd79ee47b0e45efb6419f6}{data}}
 \begin{DoxyCompactList}\small\item\em Planner specific data. Planners in Tesseract\+\_\+planning use this to store the planner problem that was solved. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerResponse_a749ef7347c2793139edc99ec52104bf4}\label{structtesseract__planning_1_1PlannerResponse_a749ef7347c2793139edc99ec52104bf4}} 
+\index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!operator bool@{operator bool}}
+\index{operator bool@{operator bool}!tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
+\doxysubsubsection{\texorpdfstring{operator bool()}{operator bool()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Planner\+Response\+::operator bool (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}, {\ttfamily [noexcept]}}
+
+
+
+This return true if successful. 
+
 
 
 \doxysubsection{Member Data Documentation}
@@ -50,21 +70,21 @@ Planner specific data. Planners in Tesseract\+\_\+planning use this to store the
 
 Waypoints for which the planner failed. 
 
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerResponse_a4d975cf45733c36ee713e73dae6a2724}\label{structtesseract__planning_1_1PlannerResponse_a4d975cf45733c36ee713e73dae6a2724}} 
+\index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!message@{message}}
+\index{message@{message}!tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
+\doxysubsubsection{\texorpdfstring{message}{message}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Planner\+Response\+::message}
+
+
+
+The status message. 
+
 \mbox{\Hypertarget{structtesseract__planning_1_1PlannerResponse_a1534da4c2a888418218dc49fef77d0b1}\label{structtesseract__planning_1_1PlannerResponse_a1534da4c2a888418218dc49fef77d0b1}} 
 \index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!results@{results}}
 \index{results@{results}!tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
 \doxysubsubsection{\texorpdfstring{results}{results}}
 {\footnotesize\ttfamily EIGEN\+\_\+\+MAKE\+\_\+\+ALIGNED\+\_\+\+OPERATOR\+\_\+\+NEW \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Planner\+Response\+::results}
-
-\mbox{\Hypertarget{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}\label{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}} 
-\index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!status@{status}}
-\index{status@{status}!tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
-\doxysubsubsection{\texorpdfstring{status}{status}}
-{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Status\+Code tesseract\+\_\+planning\+::\+Planner\+Response\+::status}
-
-
-
-The status information. 
 
 \mbox{\Hypertarget{structtesseract__planning_1_1PlannerResponse_acc314532cad43e1227b197e536bf0e22}\label{structtesseract__planning_1_1PlannerResponse_acc314532cad43e1227b197e536bf0e22}} 
 \index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!succeeded\_instructions@{succeeded\_instructions}}
@@ -75,6 +95,16 @@ The status information.
 
 
 Waypoints for which the planner succeeded. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerResponse_a8e5306386326f61f9f94bd9313e90d19}\label{structtesseract__planning_1_1PlannerResponse_a8e5306386326f61f9f94bd9313e90d19}} 
+\index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!successful@{successful}}
+\index{successful@{successful}!tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
+\doxysubsubsection{\texorpdfstring{successful}{successful}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Planner\+Response\+::successful \{ false \}}
+
+
+
+Indicate if planning was successful. 
 
 
 

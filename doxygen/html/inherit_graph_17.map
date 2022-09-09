@@ -1,9 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="node1" title=" " alt="" coords="5,213,216,254"/>
-<area shape="rect" id="node2" href="$db/d66/structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInstance.html" title=" " alt="" coords="264,5,480,61"/>
-<area shape="rect" id="node3" href="$d2/d3e/structtesseract__planning_1_1detail__instruction_1_1InstructionInstance.html" title=" " alt="" coords="287,85,457,141"/>
-<area shape="rect" id="node4" href="$de/de5/structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance.html" title=" " alt="" coords="277,165,467,221"/>
-<area shape="rect" id="node5" href="$da/d4b/structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance.html" title=" " alt="" coords="271,245,473,301"/>
-<area shape="rect" id="node6" href="$dc/ddf/structtesseract__planning_1_1detail__state__waypoint_1_1StateWaypointInstance.html" title=" " alt="" coords="276,325,468,381"/>
-<area shape="rect" id="node7" href="$d6/db4/structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance.html" title=" " alt="" coords="284,405,460,461"/>
+<area shape="rect" id="node2" href="$db/db3/structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface.html" title=" " alt="" coords="264,5,451,61"/>
+<area shape="rect" id="node3" href="$d0/d4e/structtesseract__planning_1_1detail__instruction_1_1InstructionInterface.html" title=" " alt="" coords="287,85,427,141"/>
+<area shape="rect" id="node4" href="$d3/d53/structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInterface.html" title=" " alt="" coords="277,165,437,221"/>
+<area shape="rect" id="node5" href="$d8/d41/structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface.html" title=" " alt="" coords="271,245,443,301"/>
+<area shape="rect" id="node6" href="$d4/d29/structtesseract__planning_1_1detail__state__waypoint_1_1StateWaypointInterface.html" title=" " alt="" coords="276,325,439,381"/>
+<area shape="rect" id="node7" href="$dd/de3/structtesseract__planning_1_1detail__waypoint_1_1WaypointInterface.html" title=" " alt="" coords="269,405,445,461"/>
 </map>

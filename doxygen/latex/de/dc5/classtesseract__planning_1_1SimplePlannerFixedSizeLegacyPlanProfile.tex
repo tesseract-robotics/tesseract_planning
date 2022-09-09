@@ -1,0 +1,181 @@
+\hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile}{}\doxysection{tesseract\+\_\+planning\+::Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile Class Reference}
+\label{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile}\index{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}}
+
+
+{\ttfamily \#include $<$simple\+\_\+planner\+\_\+fixed\+\_\+size\+\_\+legacy\+\_\+plan\+\_\+profile.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{d1/d2b/classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{de/db5/classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a0e654956d0d77497b1114525a38d1bfa}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile}{Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a39df061ce19c4a8c48de00e0ffd3979f}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile}{Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a5d67fecd8fd1d03facd4e5c751926af3}{Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile}} (int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_aa47e867c94ce2ed1ec77c7852cda764a}{freespace\+\_\+steps}}=10, int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_aded375a6491b0012e5d016422b859139}{linear\+\_\+steps}}=10)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile}{Simple\+Planner\+Fixed\+Size\+Plan\+Profile}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_ab005044533cb273920c2d0d1bebc82c4}{generate}} (const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&prev\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&prev\+\_\+seed, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&next\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+common\+::\+Manipulator\+Info \&global\+\_\+manip\+\_\+info) const override
+\begin{DoxyCompactList}\small\item\em Generate a seed for the provided base\+\_\+instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_aa47e867c94ce2ed1ec77c7852cda764a}{freespace\+\_\+steps}}
+\begin{DoxyCompactList}\small\item\em The number of steps to use for freespace instruction. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_aded375a6491b0012e5d016422b859139}{linear\+\_\+steps}}
+\begin{DoxyCompactList}\small\item\em The number of steps to use for linear instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_acbd2cfef24c306793558a580cb1bf233}{state\+Joint\+Joint\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&base) const
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a8f10a08d2728c4d941489d863a665b04}{state\+Joint\+Cart\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&base) const
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_ac0efc427b6bf1b0270e12cb439638973}{state\+Cart\+Joint\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&base) const
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a4aa457ddd659391e8ca4fe0df0e8043d}{state\+Cart\+Cart\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&base, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a39df061ce19c4a8c48de00e0ffd3979f}\label{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a39df061ce19c4a8c48de00e0ffd3979f}} 
+\index{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a39df061ce19c4a8c48de00e0ffd3979f}{tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile}{Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a0e654956d0d77497b1114525a38d1bfa}\label{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a0e654956d0d77497b1114525a38d1bfa}} 
+\index{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a0e654956d0d77497b1114525a38d1bfa}{tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile}{Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a5d67fecd8fd1d03facd4e5c751926af3}\label{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a5d67fecd8fd1d03facd4e5c751926af3}} 
+\index{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}!SimplePlannerFixedSizeLegacyPlanProfile@{SimplePlannerFixedSizeLegacyPlanProfile}}
+\index{SimplePlannerFixedSizeLegacyPlanProfile@{SimplePlannerFixedSizeLegacyPlanProfile}!tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}}
+\doxysubsubsection{\texorpdfstring{SimplePlannerFixedSizeLegacyPlanProfile()}{SimplePlannerFixedSizeLegacyPlanProfile()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile\+::\+Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile (\begin{DoxyParamCaption}\item[{int}]{freespace\+\_\+steps = {\ttfamily 10},  }\item[{int}]{linear\+\_\+steps = {\ttfamily 10} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile}{Simple\+Planner\+Fixed\+Size\+Plan\+Profile}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em freespace\+\_\+steps} & The number of steps to use for freespace instruction \\
+\hline
+{\em linear\+\_\+steps} & The number of steps to use for linear instruction \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_ab005044533cb273920c2d0d1bebc82c4}\label{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_ab005044533cb273920c2d0d1bebc82c4}} 
+\index{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}!generate@{generate}}
+\index{generate@{generate}!tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile\+::generate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{prev\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{prev\+\_\+seed,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{base\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&}]{next\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const tesseract\+\_\+common\+::\+Manipulator\+Info \&}]{global\+\_\+manip\+\_\+info }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generate a seed for the provided base\+\_\+instruction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em prev\+\_\+instruction} & The previous instruction \\
+\hline
+{\em prev\+\_\+seed} & The previous seed \\
+\hline
+{\em base\+\_\+instruction} & The base/current instruction to generate the seed for \\
+\hline
+{\em next\+\_\+instruction} & The next instruction. This will be a null instruction for the final instruction \\
+\hline
+{\em request} & The planning request \\
+\hline
+{\em global\+\_\+manip\+\_\+info} & The global manipulator information \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A composite instruction representing the seed for the base\+\_\+instruction 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLegacyPlanProfile_acf9852c38bbb09aed13b03d6922591e7}{tesseract\+\_\+planning\+::\+Simple\+Planner\+Legacy\+Plan\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a4aa457ddd659391e8ca4fe0df0e8043d}\label{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a4aa457ddd659391e8ca4fe0df0e8043d}} 
+\index{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}!stateCartCartWaypoint@{stateCartCartWaypoint}}
+\index{stateCartCartWaypoint@{stateCartCartWaypoint}!tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}}
+\doxysubsubsection{\texorpdfstring{stateCartCartWaypoint()}{stateCartCartWaypoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile\+::state\+Cart\+Cart\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{base,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_ac0efc427b6bf1b0270e12cb439638973}\label{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_ac0efc427b6bf1b0270e12cb439638973}} 
+\index{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}!stateCartJointWaypoint@{stateCartJointWaypoint}}
+\index{stateCartJointWaypoint@{stateCartJointWaypoint}!tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}}
+\doxysubsubsection{\texorpdfstring{stateCartJointWaypoint()}{stateCartJointWaypoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile\+::state\+Cart\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a8f10a08d2728c4d941489d863a665b04}\label{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_a8f10a08d2728c4d941489d863a665b04}} 
+\index{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}!stateJointCartWaypoint@{stateJointCartWaypoint}}
+\index{stateJointCartWaypoint@{stateJointCartWaypoint}!tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}}
+\doxysubsubsection{\texorpdfstring{stateJointCartWaypoint()}{stateJointCartWaypoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile\+::state\+Joint\+Cart\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_acbd2cfef24c306793558a580cb1bf233}\label{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_acbd2cfef24c306793558a580cb1bf233}} 
+\index{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}!stateJointJointWaypoint@{stateJointJointWaypoint}}
+\index{stateJointJointWaypoint@{stateJointJointWaypoint}!tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}}
+\doxysubsubsection{\texorpdfstring{stateJointJointWaypoint()}{stateJointJointWaypoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile\+::state\+Joint\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_aa47e867c94ce2ed1ec77c7852cda764a}\label{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_aa47e867c94ce2ed1ec77c7852cda764a}} 
+\index{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}!freespace\_steps@{freespace\_steps}}
+\index{freespace\_steps@{freespace\_steps}!tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}}
+\doxysubsubsection{\texorpdfstring{freespace\_steps}{freespace\_steps}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile\+::freespace\+\_\+steps}
+
+
+
+The number of steps to use for freespace instruction. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_aded375a6491b0012e5d016422b859139}\label{classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile_aded375a6491b0012e5d016422b859139}} 
+\index{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}!linear\_steps@{linear\_steps}}
+\index{linear\_steps@{linear\_steps}!tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeLegacyPlanProfile}}
+\doxysubsubsection{\texorpdfstring{linear\_steps}{linear\_steps}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Legacy\+Plan\+Profile\+::linear\+\_\+steps}
+
+
+
+The number of steps to use for linear instruction. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/core/include/tesseract\+\_\+motion\+\_\+planners/simple/profile/\mbox{\hyperlink{simple__planner__fixed__size__legacy__plan__profile_8h}{simple\+\_\+planner\+\_\+fixed\+\_\+size\+\_\+legacy\+\_\+plan\+\_\+profile.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/core/src/simple/profile/\mbox{\hyperlink{simple__planner__fixed__size__legacy__plan__profile_8cpp}{simple\+\_\+planner\+\_\+fixed\+\_\+size\+\_\+legacy\+\_\+plan\+\_\+profile.\+cpp}}\end{DoxyCompactItemize}

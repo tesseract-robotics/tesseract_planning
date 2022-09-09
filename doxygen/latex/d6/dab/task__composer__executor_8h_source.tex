@@ -1,0 +1,228 @@
+\hypertarget{task__composer__executor_8h_source}{}\doxysection{task\+\_\+composer\+\_\+executor.\+h}
+\label{task__composer__executor_8h_source}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/task\_composer\_executor.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/task\_composer\_executor.h}}
+\mbox{\hyperlink{task__composer__executor_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_EXECUTOR\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_EXECUTOR\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__graph_8h}{tesseract\_task\_composer/task\_composer\_graph.h}}>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__task_8h}{tesseract\_task\_composer/task\_composer\_task.h}}>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__input_8h}{tesseract\_task\_composer/task\_composer\_input.h}}>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__future_8h}{tesseract\_task\_composer/task\_composer\_future.h}}>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor}{TaskComposerExecutor}}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{public}:}
+\DoxyCodeLine{44   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_ad3896b61b4d90cdf8aa528b92bbc8b9b}{Ptr}} = std::shared\_ptr<TaskComposerExecutor>;}
+\DoxyCodeLine{45   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a062495acc438a7f40742c03622ddd73d}{ConstPtr}} = std::shared\_ptr<const TaskComposerExecutor>;}
+\DoxyCodeLine{46   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_abd1fc7052da011b01d53c63c43a771c4}{UPtr}} = std::unique\_ptr<TaskComposerExecutor>;}
+\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a160ac638ff372c90cb4548307d986365}{ConstUPtr}} = std::unique\_ptr<const TaskComposerExecutor>;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a04a394f24b69e108194b9db229d87029}{TaskComposerExecutor}}(std::string name = \textcolor{stringliteral}{"{}TaskComposerExecutor"{}});}
+\DoxyCodeLine{50   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a37b5f522f87c71c81aba0b8dcae90a53}{\string~TaskComposerExecutor}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{53   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a0010a2c8b66c0559d0a2e733a4361d72}{getName}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{62   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_ad8f9f27ba611e63ecd12ad1ad91a4b66}{TaskComposerFuture::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a9338b8dc785a403aa70d77f8573300b6}{run}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode}{TaskComposerNode}}\& node, \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& task\_input);}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{70   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_ad8f9f27ba611e63ecd12ad1ad91a4b66}{TaskComposerFuture::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a8de34557e215ded668b220cfb7a546d6}{run}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}\& task\_graph, \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& task\_input) = 0;}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{78   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_ad8f9f27ba611e63ecd12ad1ad91a4b66}{TaskComposerFuture::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a9ce300d2915cdc37542f42b9a655f7f1}{run}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}\& task, \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& task\_input) = 0;}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{81   \textcolor{keyword}{virtual} \textcolor{keywordtype}{long} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a810ae8c5e1f78b4975c97f967fd0d34b}{getWorkerCount}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{84   \textcolor{keyword}{virtual} \textcolor{keywordtype}{long} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a5f86812a602232ee985f5fc01446ef08}{getTaskCount}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_adfb7517ed91ddddad6072d2efab89e7f}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor}{TaskComposerExecutor}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{87   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a2a663dc62fe8e113b7dfb52b392c9475}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor}{TaskComposerExecutor}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{90   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{91   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{94   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a919ffb9a2d1afeb1c1ed371a28a3c99c}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96   std::string \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor_a0dcb9b40baf2cd15dc7054108e5dd9c7}{name\_}};}
+\DoxyCodeLine{97 \};}
+\DoxyCodeLine{98 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{102 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor}{tesseract\_planning::TaskComposerExecutor}}, \textcolor{stringliteral}{"{}TaskComposerExecutor"{}})}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104 \textcolor{comment}{// class Executor \{}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106 \textcolor{comment}{//  friend class FlowBuilder;}}
+\DoxyCodeLine{107 \textcolor{comment}{//  friend class Subflow;}}
+\DoxyCodeLine{108 \textcolor{comment}{//  friend class cudaFlow;}}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \textcolor{comment}{//  struct PerThread \{}}
+\DoxyCodeLine{111 \textcolor{comment}{//    Worker* worker;}}
+\DoxyCodeLine{112 \textcolor{comment}{//    PerThread() : worker \{nullptr\} \{ \}}}
+\DoxyCodeLine{113 \textcolor{comment}{//  \};}}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 \textcolor{comment}{//  public:}}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{118 \textcolor{comment}{//    @brief constructs the executor with N worker threads}}
+\DoxyCodeLine{119 \textcolor{comment}{//    */}}
+\DoxyCodeLine{120 \textcolor{comment}{//    explicit Executor(size\_t N = std::thread::hardware\_concurrency());}}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{123 \textcolor{comment}{//    @brief destructs the executor}}
+\DoxyCodeLine{124 \textcolor{comment}{//    */}}
+\DoxyCodeLine{125 \textcolor{comment}{//    \string~Executor();}}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{128 \textcolor{comment}{//    @brief runs the taskflow once}}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130 \textcolor{comment}{//    @param taskflow a tf::Taskflow object}}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132 \textcolor{comment}{//    @return a tf::Future that will holds the result of the execution}}
+\DoxyCodeLine{133 \textcolor{comment}{//    */}}
+\DoxyCodeLine{134 \textcolor{comment}{//    tf::Future<void> run(Taskflow\& taskflow);}}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{137 \textcolor{comment}{//    @brief runs the taskflow once and invoke a callback upon completion}}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139 \textcolor{comment}{//    @param taskflow a tf::Taskflow object}}
+\DoxyCodeLine{140 \textcolor{comment}{//    @param callable a callable object to be invoked after this run}}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{142 \textcolor{comment}{//    @return a tf::Future that will holds the result of the execution}}
+\DoxyCodeLine{143 \textcolor{comment}{//    */}}
+\DoxyCodeLine{144 \textcolor{comment}{//    template<typename C>}}
+\DoxyCodeLine{145 \textcolor{comment}{//    tf::Future<void> run(Taskflow\& taskflow, C\&\& callable);}}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{147 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{148 \textcolor{comment}{//    @brief runs the taskflow for N times}}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150 \textcolor{comment}{//    @param taskflow a tf::Taskflow object}}
+\DoxyCodeLine{151 \textcolor{comment}{//    @param N number of runs}}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{153 \textcolor{comment}{//    @return a tf::Future that will holds the result of the execution}}
+\DoxyCodeLine{154 \textcolor{comment}{//    */}}
+\DoxyCodeLine{155 \textcolor{comment}{//    tf::Future<void> run\_n(Taskflow\& taskflow, size\_t N);}}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{157 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{158 \textcolor{comment}{//    @brief runs the taskflow for N times and then invokes a callback}}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{160 \textcolor{comment}{//    @param taskflow a tf::Taskflow}}
+\DoxyCodeLine{161 \textcolor{comment}{//    @param N number of runs}}
+\DoxyCodeLine{162 \textcolor{comment}{//    @param callable a callable object to be invoked after this run}}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164 \textcolor{comment}{//    @return a tf::Future that will holds the result of the execution}}
+\DoxyCodeLine{165 \textcolor{comment}{//    */}}
+\DoxyCodeLine{166 \textcolor{comment}{//    template<typename C>}}
+\DoxyCodeLine{167 \textcolor{comment}{//    tf::Future<void> run\_n(Taskflow\& taskflow, size\_t N, C\&\& callable);}}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{169 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{170 \textcolor{comment}{//    @brief runs the taskflow multiple times until the predicate becomes true and}}
+\DoxyCodeLine{171 \textcolor{comment}{//           then invokes a callback}}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173 \textcolor{comment}{//    @param taskflow a tf::Taskflow}}
+\DoxyCodeLine{174 \textcolor{comment}{//    @param pred a boolean predicate to return true for stop}}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{176 \textcolor{comment}{//    @return a tf::Future that will holds the result of the execution}}
+\DoxyCodeLine{177 \textcolor{comment}{//    */}}
+\DoxyCodeLine{178 \textcolor{comment}{//    template<typename P>}}
+\DoxyCodeLine{179 \textcolor{comment}{//    tf::Future<void> run\_until(Taskflow\& taskflow, P\&\& pred);}}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{182 \textcolor{comment}{//    @brief runs the taskflow multiple times until the predicate becomes true and}}
+\DoxyCodeLine{183 \textcolor{comment}{//           then invokes the callback}}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{185 \textcolor{comment}{//    @param taskflow a tf::Taskflow}}
+\DoxyCodeLine{186 \textcolor{comment}{//    @param pred a boolean predicate to return true for stop}}
+\DoxyCodeLine{187 \textcolor{comment}{//    @param callable a callable object to be invoked after this run}}
+\DoxyCodeLine{188 }
+\DoxyCodeLine{189 \textcolor{comment}{//    @return a tf::Future that will holds the result of the execution}}
+\DoxyCodeLine{190 \textcolor{comment}{//    */}}
+\DoxyCodeLine{191 \textcolor{comment}{//    template<typename P, typename C>}}
+\DoxyCodeLine{192 \textcolor{comment}{//    tf::Future<void> run\_until(Taskflow\& taskflow, P\&\& pred, C\&\& callable);}}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{195 \textcolor{comment}{//    @brief wait for all pending graphs to complete}}
+\DoxyCodeLine{196 \textcolor{comment}{//    */}}
+\DoxyCodeLine{197 \textcolor{comment}{//    void wait\_for\_all();}}
+\DoxyCodeLine{198 }
+\DoxyCodeLine{199 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{200 \textcolor{comment}{//    @brief queries the number of worker threads (can be zero)}}
+\DoxyCodeLine{201 \textcolor{comment}{//    */}}
+\DoxyCodeLine{202 \textcolor{comment}{//    size\_t num\_workers() const;}}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{204 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{205 \textcolor{comment}{//    @brief queries the number of running topologies at the time of this call}}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{207 \textcolor{comment}{//    When a taskflow is submitted to an executor, a topology is created to store}}
+\DoxyCodeLine{208 \textcolor{comment}{//    runtime metadata of the running taskflow.}}
+\DoxyCodeLine{209 \textcolor{comment}{//    */}}
+\DoxyCodeLine{210 \textcolor{comment}{//    size\_t num\_topologies() const;}}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{213 \textcolor{comment}{//    @brief queries the id of the caller thread in this executor}}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215 \textcolor{comment}{//    Each worker has an unique id from 0 to N-\/1 exclusive to the associated executor.}}
+\DoxyCodeLine{216 \textcolor{comment}{//    If the caller thread does not belong to the executor, -\/1 is returned.}}
+\DoxyCodeLine{217 \textcolor{comment}{//    */}}
+\DoxyCodeLine{218 \textcolor{comment}{//    int this\_worker\_id() const;}}
+\DoxyCodeLine{219 }
+\DoxyCodeLine{220 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{221 \textcolor{comment}{//    @brief runs a given function asynchronously}}
+\DoxyCodeLine{222 }
+\DoxyCodeLine{223 \textcolor{comment}{//    @tparam F callable type}}
+\DoxyCodeLine{224 \textcolor{comment}{//    @tparam ArgsT parameter types}}
+\DoxyCodeLine{225 }
+\DoxyCodeLine{226 \textcolor{comment}{//    @param f callable object to call}}
+\DoxyCodeLine{227 \textcolor{comment}{//    @param args parameters to pass to the callable}}
+\DoxyCodeLine{228 }
+\DoxyCodeLine{229 \textcolor{comment}{//    @return a tf::Future that will holds the result of the execution}}
+\DoxyCodeLine{230 }
+\DoxyCodeLine{231 \textcolor{comment}{//    This method is thread-\/safe. Multiple threads can launch asynchronous tasks}}
+\DoxyCodeLine{232 \textcolor{comment}{//    at the same time.}}
+\DoxyCodeLine{233 \textcolor{comment}{//    */}}
+\DoxyCodeLine{234 \textcolor{comment}{//    template <typename F, typename... ArgsT>}}
+\DoxyCodeLine{235 \textcolor{comment}{//    auto async(F\&\& f, ArgsT\&\&... args);}}
+\DoxyCodeLine{236 }
+\DoxyCodeLine{237 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{238 \textcolor{comment}{//    @brief similar to tf::Executor::async but does not return a future object}}
+\DoxyCodeLine{239 \textcolor{comment}{//    */}}
+\DoxyCodeLine{240 \textcolor{comment}{//    template <typename F, typename... ArgsT>}}
+\DoxyCodeLine{241 \textcolor{comment}{//    void silent\_async(F\&\& f, ArgsT\&\&... args);}}
+\DoxyCodeLine{242 }
+\DoxyCodeLine{243 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{244 \textcolor{comment}{//    @brief constructs an observer to inspect the activities of worker threads}}
+\DoxyCodeLine{245 }
+\DoxyCodeLine{246 \textcolor{comment}{//    Each executor manage a list of observers in shared ownership with callers.}}
+\DoxyCodeLine{247 }
+\DoxyCodeLine{248 \textcolor{comment}{//    @tparam Observer observer type derived from tf::ObserverInterface}}
+\DoxyCodeLine{249 \textcolor{comment}{//    @tparam ArgsT argument parameter pack}}
+\DoxyCodeLine{250 }
+\DoxyCodeLine{251 \textcolor{comment}{//    @param args arguments to forward to the constructor of the observer}}
+\DoxyCodeLine{252 }
+\DoxyCodeLine{253 \textcolor{comment}{//    @return a shared pointer to the created observer}}
+\DoxyCodeLine{254 \textcolor{comment}{//    */}}
+\DoxyCodeLine{255 \textcolor{comment}{//    template <typename Observer, typename... ArgsT>}}
+\DoxyCodeLine{256 \textcolor{comment}{//    std::shared\_ptr<Observer> make\_observer(ArgsT\&\&... args);}}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{259 \textcolor{comment}{//    @brief removes the associated observer}}
+\DoxyCodeLine{260 \textcolor{comment}{//    */}}
+\DoxyCodeLine{261 \textcolor{comment}{//    template <typename Observer>}}
+\DoxyCodeLine{262 \textcolor{comment}{//    void remove\_observer(std::shared\_ptr<Observer> observer);}}
+\DoxyCodeLine{263 }
+\DoxyCodeLine{264 \textcolor{comment}{//    /**}}
+\DoxyCodeLine{265 \textcolor{comment}{//    @brief queries the number of observers}}
+\DoxyCodeLine{266 \textcolor{comment}{//    */}}
+\DoxyCodeLine{267 \textcolor{comment}{//    size\_t num\_observers() const;}}
+\DoxyCodeLine{268 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_EXECUTOR\_H}}
+
+\end{DoxyCode}

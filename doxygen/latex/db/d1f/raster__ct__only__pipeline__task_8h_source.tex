@@ -1,0 +1,50 @@
+\hypertarget{raster__ct__only__pipeline__task_8h_source}{}\doxysection{raster\+\_\+ct\+\_\+only\+\_\+pipeline\+\_\+task.\+h}
+\label{raster__ct__only__pipeline__task_8h_source}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/raster\_ct\_only\_pipeline\_task.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/raster\_ct\_only\_pipeline\_task.h}}
+\mbox{\hyperlink{raster__ct__only__pipeline__task_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_RASTER\_CT\_ONLY\_PIPELINE\_TASK\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_RASTER\_CT\_ONLY\_PIPELINE\_TASK\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__graph_8h}{tesseract\_task\_composer/task\_composer\_graph.h}}>}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask}{RasterCtOnlyPipelineTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}}
+\DoxyCodeLine{47 \{}
+\DoxyCodeLine{48 \textcolor{keyword}{public}:}
+\DoxyCodeLine{49   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_ab7b42223befc202e0f0f027b9f4aa240}{Ptr}} = std::shared\_ptr<RasterCtOnlyPipelineTask>;}
+\DoxyCodeLine{50   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_a5786d8381d8ea5cc104d2f821551a2fd}{ConstPtr}} = std::shared\_ptr<const RasterCtOnlyPipelineTask>;}
+\DoxyCodeLine{51   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_ac8f6ed1fd7b79671f70cb0445e2f52f7}{UPtr}} = std::unique\_ptr<RasterCtOnlyPipelineTask>;}
+\DoxyCodeLine{52   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_adeefc472afd1e701a746e08b567c31fe}{ConstUPtr}} = std::unique\_ptr<const RasterCtOnlyPipelineTask>;}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_a1363391ac1302e42896382d8384bcc3c}{RasterCtOnlyPipelineTask}}() = \textcolor{keywordflow}{default};  \textcolor{comment}{// Required for serialization}}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_a1363391ac1302e42896382d8384bcc3c}{RasterCtOnlyPipelineTask}}(std::string input\_key,}
+\DoxyCodeLine{56                            std::string output\_key,}
+\DoxyCodeLine{57                            std::string name = \textcolor{stringliteral}{"{}RasterCtOnlyPipelineTask"{}});}
+\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_a15038a685fcba8547da103659fb33a65}{\string~RasterCtOnlyPipelineTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{59   \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_a45b689c60bbfee2d10d24026e88db6fd}{RasterCtOnlyPipelineTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask}{RasterCtOnlyPipelineTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{60   \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask}{RasterCtOnlyPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_a60d6b0f97503e7dcabd4ee2219ea9ba8}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask}{RasterCtOnlyPipelineTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{61   \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_ae6b7de448931229be93e2fd2835ef6cd}{RasterCtOnlyPipelineTask}}(\mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask}{RasterCtOnlyPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{62   \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask}{RasterCtOnlyPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_a7318493df120e810647c60005c21b9e9}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask}{RasterCtOnlyPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_a36dbdd70e65efb58df9ba509af8f9f75}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask}{RasterCtOnlyPipelineTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{65   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_abfa4ee6c07232b0f409fe4fb3069b224}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask}{RasterCtOnlyPipelineTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{68   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{69   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{72   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask_a695c124e30cdec1fdd5b72f922c9a403}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{73 \};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{79 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask}{tesseract\_planning::RasterCtOnlyPipelineTask}}, \textcolor{stringliteral}{"{}RasterCtOnlyPipelineTask"{}})}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_RASTER\_CT\_ONLY\_PIPELINE\_TASK\_H}}
+
+\end{DoxyCode}

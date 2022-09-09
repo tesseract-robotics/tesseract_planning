@@ -1,0 +1,178 @@
+\hypertarget{classtesseract__planning_1_1UpdateEndStateTask}{}\doxysection{tesseract\+\_\+planning\+::Update\+End\+State\+Task Class Reference}
+\label{classtesseract__planning_1_1UpdateEndStateTask}\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+
+
+{\ttfamily \#include $<$update\+\_\+end\+\_\+state\+\_\+task.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Update\+End\+State\+Task\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{d8/ddd/classtesseract__planning_1_1UpdateEndStateTask__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Update\+End\+State\+Task\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d44/classtesseract__planning_1_1UpdateEndStateTask__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_afba71c5a5619ecb59f57231d7010f192}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{Update\+End\+State\+Task}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_adeba54be5e552e0f5e18ee3f4167a0f0}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{Update\+End\+State\+Task}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_aaeda85fa0f3a4a6d0c9c93d736d62dee}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{Update\+End\+State\+Task}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_a874bf8a1da5a77884065887518bcc231}{Const\+UPtr}} = std\+::unique\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{Update\+End\+State\+Task}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_ac21e13b95e7cb1e13bcdbfe228658c37}{Update\+End\+State\+Task}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_a60fe46688a9a159005a55c1422d27ff6}{Update\+End\+State\+Task}} (std\+::string input\+\_\+next\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional=false, std\+::string name=\char`\"{}Update\+End\+State\+Task\char`\"{})
+\begin{DoxyCompactList}\small\item\em The input\+\_\+key is the uuid string. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_af911f9236ca49cbb63c7d6f614a09c38}{Update\+End\+State\+Task}} (std\+::string input\+\_\+key, std\+::string input\+\_\+next\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional=false, std\+::string name=\char`\"{}Update\+End\+State\+Task\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_a295e61341cfc10b6f1d37c113fa1ebf2}{$\sim$\+Update\+End\+State\+Task}} () override=default
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_aeab8a95e2a24e8f95370dfc7e5785994}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{Update\+End\+State\+Task}} \&rhs) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_a2090618241aea07465916aaf22a50bba}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{Update\+End\+State\+Task}} \&rhs) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_a527ecfce443153c5073a49014c9d0fe2}{serialize}} (Archive \&ar, const unsigned int version)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{Task\+Composer\+Node\+Info\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_ac06636e6680de68245ea5ec5c06767cd}{run\+Impl}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&input, \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{Optional\+Task\+Composer\+Executor}} executor=std\+::nullopt) const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\+\_\+common\+::\+Serialization}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_adeba54be5e552e0f5e18ee3f4167a0f0}\label{classtesseract__planning_1_1UpdateEndStateTask_adeba54be5e552e0f5e18ee3f4167a0f0}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_adeba54be5e552e0f5e18ee3f4167a0f0}{tesseract\+\_\+planning\+::\+Update\+End\+State\+Task\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{Update\+End\+State\+Task}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_a874bf8a1da5a77884065887518bcc231}\label{classtesseract__planning_1_1UpdateEndStateTask_a874bf8a1da5a77884065887518bcc231}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!ConstUPtr@{ConstUPtr}}
+\index{ConstUPtr@{ConstUPtr}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{ConstUPtr}{ConstUPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_a874bf8a1da5a77884065887518bcc231}{tesseract\+\_\+planning\+::\+Update\+End\+State\+Task\+::\+Const\+UPtr}} =  std\+::unique\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{Update\+End\+State\+Task}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_afba71c5a5619ecb59f57231d7010f192}\label{classtesseract__planning_1_1UpdateEndStateTask_afba71c5a5619ecb59f57231d7010f192}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_afba71c5a5619ecb59f57231d7010f192}{tesseract\+\_\+planning\+::\+Update\+End\+State\+Task\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{Update\+End\+State\+Task}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_aaeda85fa0f3a4a6d0c9c93d736d62dee}\label{classtesseract__planning_1_1UpdateEndStateTask_aaeda85fa0f3a4a6d0c9c93d736d62dee}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_aaeda85fa0f3a4a6d0c9c93d736d62dee}{tesseract\+\_\+planning\+::\+Update\+End\+State\+Task\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{Update\+End\+State\+Task}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_ac21e13b95e7cb1e13bcdbfe228658c37}\label{classtesseract__planning_1_1UpdateEndStateTask_ac21e13b95e7cb1e13bcdbfe228658c37}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!UpdateEndStateTask@{UpdateEndStateTask}}
+\index{UpdateEndStateTask@{UpdateEndStateTask}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{UpdateEndStateTask()}{UpdateEndStateTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Update\+End\+State\+Task\+::\+Update\+End\+State\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_a60fe46688a9a159005a55c1422d27ff6}\label{classtesseract__planning_1_1UpdateEndStateTask_a60fe46688a9a159005a55c1422d27ff6}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!UpdateEndStateTask@{UpdateEndStateTask}}
+\index{UpdateEndStateTask@{UpdateEndStateTask}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{UpdateEndStateTask()}{UpdateEndStateTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Update\+End\+State\+Task\+::\+Update\+End\+State\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+next\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily false},  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}UpdateEndStateTask\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+The input\+\_\+key is the uuid string. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_af911f9236ca49cbb63c7d6f614a09c38}\label{classtesseract__planning_1_1UpdateEndStateTask_af911f9236ca49cbb63c7d6f614a09c38}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!UpdateEndStateTask@{UpdateEndStateTask}}
+\index{UpdateEndStateTask@{UpdateEndStateTask}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{UpdateEndStateTask()}{UpdateEndStateTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Update\+End\+State\+Task\+::\+Update\+End\+State\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{input\+\_\+next\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily false},  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}UpdateEndStateTask\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_a295e61341cfc10b6f1d37c113fa1ebf2}\label{classtesseract__planning_1_1UpdateEndStateTask_a295e61341cfc10b6f1d37c113fa1ebf2}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!````~UpdateEndStateTask@{$\sim$UpdateEndStateTask}}
+\index{````~UpdateEndStateTask@{$\sim$UpdateEndStateTask}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{$\sim$UpdateEndStateTask()}{~UpdateEndStateTask()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Update\+End\+State\+Task\+::$\sim$\+Update\+End\+State\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_a2090618241aea07465916aaf22a50bba}\label{classtesseract__planning_1_1UpdateEndStateTask_a2090618241aea07465916aaf22a50bba}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Update\+End\+State\+Task\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{Update\+End\+State\+Task}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_aeab8a95e2a24e8f95370dfc7e5785994}\label{classtesseract__planning_1_1UpdateEndStateTask_aeab8a95e2a24e8f95370dfc7e5785994}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Update\+End\+State\+Task\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{Update\+End\+State\+Task}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_ac06636e6680de68245ea5ec5c06767cd}\label{classtesseract__planning_1_1UpdateEndStateTask_ac06636e6680de68245ea5ec5c06767cd}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!runImpl@{runImpl}}
+\index{runImpl@{runImpl}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{runImpl()}{runImpl()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{Task\+Composer\+Node\+Info\+::\+UPtr}} tesseract\+\_\+planning\+::\+Update\+End\+State\+Task\+::run\+Impl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&}]{input,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{Optional\+Task\+Composer\+Executor}}}]{executor = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_ac9d9332efa22cad525458796c3f19c3f}{tesseract\+\_\+planning\+::\+Task\+Composer\+Task}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_a527ecfce443153c5073a49014c9d0fe2}\label{classtesseract__planning_1_1UpdateEndStateTask_a527ecfce443153c5073a49014c9d0fe2}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Update\+End\+State\+Task\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{classtesseract__planning_1_1UpdateEndStateTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpdateEndStateTask_a74c50fcc25e72cb9703ee14d7e71dcd8}\label{classtesseract__planning_1_1UpdateEndStateTask_a74c50fcc25e72cb9703ee14d7e71dcd8}} 
+\index{tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}!tesseract\_common::Serialization@{tesseract\_common::Serialization}}
+\index{tesseract\_common::Serialization@{tesseract\_common::Serialization}!tesseract\_planning::UpdateEndStateTask@{tesseract\_planning::UpdateEndStateTask}}
+\doxysubsubsection{\texorpdfstring{tesseract\_common::Serialization}{tesseract\_common::Serialization}}
+{\footnotesize\ttfamily friend class tesseract\+\_\+common\+::\+Serialization\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+task\+\_\+composer/include/tesseract\+\_\+task\+\_\+composer/nodes/\mbox{\hyperlink{update__end__state__task_8h}{update\+\_\+end\+\_\+state\+\_\+task.\+h}}\item 
+tesseract\+\_\+task\+\_\+composer/src/nodes/\mbox{\hyperlink{update__end__state__task_8cpp}{update\+\_\+end\+\_\+state\+\_\+task.\+cpp}}\end{DoxyCompactItemize}

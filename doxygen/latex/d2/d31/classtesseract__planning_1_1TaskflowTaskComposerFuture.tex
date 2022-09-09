@@ -1,0 +1,302 @@
+\hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture}{}\doxysection{tesseract\+\_\+planning\+::Taskflow\+Task\+Composer\+Future Class Reference}
+\label{classtesseract__planning_1_1TaskflowTaskComposerFuture}\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+
+
+{\ttfamily \#include $<$taskflow\+\_\+task\+\_\+composer\+\_\+future.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Taskflow\+Task\+Composer\+Future\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{d5/d26/classtesseract__planning_1_1TaskflowTaskComposerFuture__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Taskflow\+Task\+Composer\+Future\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d00/classtesseract__planning_1_1TaskflowTaskComposerFuture__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a59ac19c560edb5f46ab7aba614673832}{Taskflow\+Task\+Composer\+Future}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a4dff92ed14157864b1f02039c6156f73}{Taskflow\+Task\+Composer\+Future}} (std\+::shared\+\_\+future$<$ void $>$ future, std\+::shared\+\_\+ptr$<$ const std\+::vector$<$ std\+::unique\+\_\+ptr$<$ tf\+::\+Taskflow $>$ $>$ $>$ container)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a1b8415a3b5b4ea7a3c3e9a2b624e9762}{$\sim$\+Taskflow\+Task\+Composer\+Future}} () override
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_abec271fc9e598f19f7bfe1bf2f665f00}{Taskflow\+Task\+Composer\+Future}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \& \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a2e51a721335ed25e0fdc94a66c1bb84d}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_ab5a0605b34f51b7a4a03da87240bd7fe}{Taskflow\+Task\+Composer\+Future}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \&\&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \& \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_af7f6dcc4e70976f40eb699edf1e824e6}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \&\&)=default
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a4f80499e583dea93c4ded51b8781c4fa}{clear}} () override final
+\begin{DoxyCompactList}\small\item\em Clear all content. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a7f552a276176ced9355e1fafd5281faa}{valid}} () const override final
+\begin{DoxyCompactList}\small\item\em Checks if the future has a shared state. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a5ed72c150f6691d24fc536c755544a0e}{ready}} () const override final
+\begin{DoxyCompactList}\small\item\em This checks if the tasks are finished. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a8d207dc6aba61358678e9560e0c1716e}{wait}} () const override final
+\begin{DoxyCompactList}\small\item\em Wait until the process has finished. \end{DoxyCompactList}\item 
+std\+::future\+\_\+status \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_ad7293784c5779b65317a2baae74e5543}{wait\+For}} (const std\+::chrono\+::duration$<$ double $>$ \&duration) const override final
+\begin{DoxyCompactList}\small\item\em Check if a process has finished for a given duration. \end{DoxyCompactList}\item 
+std\+::future\+\_\+status \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a991df752311ac72d9140f741161d7d44}{wait\+Until}} (const std\+::chrono\+::time\+\_\+point$<$ std\+::chrono\+::high\+\_\+resolution\+\_\+clock $>$ \&abs) const override final
+\begin{DoxyCompactList}\small\item\em Check if a process has finished up to a given time point. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_ad8f9f27ba611e63ecd12ad1ad91a4b66}{Task\+Composer\+Future\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a9fbd0968f988f4a1663b3f04f683b57b}{copy}} () const override final
+\begin{DoxyCompactList}\small\item\em Make a copy of the future. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a75b4fc50d14b6df2f18bd1467b1406f5}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \&rhs) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a939536a9848acbb25c9925e173a889a0}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \&rhs) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a5276bf609e528616d8ff547b923471f0}{serialize}} (Archive \&ar, const unsigned int version)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+future$<$ void $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_ab4fd8e6c5d3d1dc786144331424b6ae8}{future\+\_\+}}
+\begin{DoxyCompactList}\small\item\em This is the future return from taskflow executor.\+run. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ const std\+::vector$<$ std\+::unique\+\_\+ptr$<$ tf\+::\+Taskflow $>$ $>$ $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a02f7b3ec5a7814461b4c10f2499b7cf8}{container\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Hold objects that must not go out of scope during execution. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\+\_\+common\+::\+Serialization}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a59ac19c560edb5f46ab7aba614673832}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a59ac19c560edb5f46ab7aba614673832}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!TaskflowTaskComposerFuture@{TaskflowTaskComposerFuture}}
+\index{TaskflowTaskComposerFuture@{TaskflowTaskComposerFuture}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{TaskflowTaskComposerFuture()}{TaskflowTaskComposerFuture()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::\+Taskflow\+Task\+Composer\+Future (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a4dff92ed14157864b1f02039c6156f73}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a4dff92ed14157864b1f02039c6156f73}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!TaskflowTaskComposerFuture@{TaskflowTaskComposerFuture}}
+\index{TaskflowTaskComposerFuture@{TaskflowTaskComposerFuture}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{TaskflowTaskComposerFuture()}{TaskflowTaskComposerFuture()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::\+Taskflow\+Task\+Composer\+Future (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+future$<$ void $>$}]{future,  }\item[{std\+::shared\+\_\+ptr$<$ const std\+::vector$<$ std\+::unique\+\_\+ptr$<$ tf\+::\+Taskflow $>$ $>$ $>$}]{container }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a1b8415a3b5b4ea7a3c3e9a2b624e9762}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a1b8415a3b5b4ea7a3c3e9a2b624e9762}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!````~TaskflowTaskComposerFuture@{$\sim$TaskflowTaskComposerFuture}}
+\index{````~TaskflowTaskComposerFuture@{$\sim$TaskflowTaskComposerFuture}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{$\sim$TaskflowTaskComposerFuture()}{~TaskflowTaskComposerFuture()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::$\sim$\+Taskflow\+Task\+Composer\+Future (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_abec271fc9e598f19f7bfe1bf2f665f00}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_abec271fc9e598f19f7bfe1bf2f665f00}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!TaskflowTaskComposerFuture@{TaskflowTaskComposerFuture}}
+\index{TaskflowTaskComposerFuture@{TaskflowTaskComposerFuture}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{TaskflowTaskComposerFuture()}{TaskflowTaskComposerFuture()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::\+Taskflow\+Task\+Composer\+Future (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_ab5a0605b34f51b7a4a03da87240bd7fe}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_ab5a0605b34f51b7a4a03da87240bd7fe}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!TaskflowTaskComposerFuture@{TaskflowTaskComposerFuture}}
+\index{TaskflowTaskComposerFuture@{TaskflowTaskComposerFuture}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{TaskflowTaskComposerFuture()}{TaskflowTaskComposerFuture()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::\+Taskflow\+Task\+Composer\+Future (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a4f80499e583dea93c4ded51b8781c4fa}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a4f80499e583dea93c4ded51b8781c4fa}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!clear@{clear}}
+\index{clear@{clear}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Clear all content. 
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_acb2806675194d3e9083eb9e96e1e4c2f}{tesseract\+\_\+planning\+::\+Task\+Composer\+Future}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a9fbd0968f988f4a1663b3f04f683b57b}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a9fbd0968f988f4a1663b3f04f683b57b}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!copy@{copy}}
+\index{copy@{copy}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{copy()}{copy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_ad8f9f27ba611e63ecd12ad1ad91a4b66}{Task\+Composer\+Future\+::\+UPtr}} tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::copy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Make a copy of the future. 
+
+\begin{DoxyReturn}{Returns}
+A copy, for example to allow access from multiple thread 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_a06614f5949ed23af24d6aaf3854d8a7f}{tesseract\+\_\+planning\+::\+Task\+Composer\+Future}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a939536a9848acbb25c9925e173a889a0}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a939536a9848acbb25c9925e173a889a0}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a2e51a721335ed25e0fdc94a66c1bb84d}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a2e51a721335ed25e0fdc94a66c1bb84d}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \& tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_af7f6dcc4e70976f40eb699edf1e824e6}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_af7f6dcc4e70976f40eb699edf1e824e6}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \& tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a75b4fc50d14b6df2f18bd1467b1406f5}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a75b4fc50d14b6df2f18bd1467b1406f5}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerFuture}{Taskflow\+Task\+Composer\+Future}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a5ed72c150f6691d24fc536c755544a0e}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a5ed72c150f6691d24fc536c755544a0e}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!ready@{ready}}
+\index{ready@{ready}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{ready()}{ready()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::ready (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This checks if the tasks are finished. 
+
+\begin{DoxyReturn}{Returns}
+True if the tasks finished, otherwise false 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_a06b637c2667be10c9f5311cf4a20245f}{tesseract\+\_\+planning\+::\+Task\+Composer\+Future}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a5276bf609e528616d8ff547b923471f0}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a5276bf609e528616d8ff547b923471f0}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a7f552a276176ced9355e1fafd5281faa}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a7f552a276176ced9355e1fafd5281faa}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!valid@{valid}}
+\index{valid@{valid}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{valid()}{valid()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Checks if the future has a shared state. 
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_afc65e36b51204350b4009d9d83b307a6}{tesseract\+\_\+planning\+::\+Task\+Composer\+Future}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a8d207dc6aba61358678e9560e0c1716e}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a8d207dc6aba61358678e9560e0c1716e}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!wait@{wait}}
+\index{wait@{wait}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{wait()}{wait()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::wait (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Wait until the process has finished. 
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_afd082d1dca762f01366afbd70b87c011}{tesseract\+\_\+planning\+::\+Task\+Composer\+Future}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_ad7293784c5779b65317a2baae74e5543}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_ad7293784c5779b65317a2baae74e5543}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!waitFor@{waitFor}}
+\index{waitFor@{waitFor}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{waitFor()}{waitFor()}}
+{\footnotesize\ttfamily std\+::future\+\_\+status tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::wait\+For (\begin{DoxyParamCaption}\item[{const std\+::chrono\+::duration$<$ double $>$ \&}]{duration }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Check if a process has finished for a given duration. 
+
+\begin{DoxyReturn}{Returns}
+The future status 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_a6647beb35c7b0a36dd0703372e37e4ce}{tesseract\+\_\+planning\+::\+Task\+Composer\+Future}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a991df752311ac72d9140f741161d7d44}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a991df752311ac72d9140f741161d7d44}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!waitUntil@{waitUntil}}
+\index{waitUntil@{waitUntil}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{waitUntil()}{waitUntil()}}
+{\footnotesize\ttfamily std\+::future\+\_\+status tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::wait\+Until (\begin{DoxyParamCaption}\item[{const std\+::chrono\+::time\+\_\+point$<$ std\+::chrono\+::high\+\_\+resolution\+\_\+clock $>$ \&}]{abs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Check if a process has finished up to a given time point. 
+
+\begin{DoxyReturn}{Returns}
+The future status 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_a0ec134b17bc9059758cf6efb061bf281}{tesseract\+\_\+planning\+::\+Task\+Composer\+Future}}.
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a9d42ad7bb40288a7ac1aad8d76809fe7}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a9d42ad7bb40288a7ac1aad8d76809fe7}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!tesseract\_common::Serialization@{tesseract\_common::Serialization}}
+\index{tesseract\_common::Serialization@{tesseract\_common::Serialization}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{tesseract\_common::Serialization}{tesseract\_common::Serialization}}
+{\footnotesize\ttfamily friend struct tesseract\+\_\+common\+::\+Serialization\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_a02f7b3ec5a7814461b4c10f2499b7cf8}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_a02f7b3ec5a7814461b4c10f2499b7cf8}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!container\_@{container\_}}
+\index{container\_@{container\_}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{container\_}{container\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$const std\+::vector$<$std\+::unique\+\_\+ptr$<$tf\+::\+Taskflow$>$ $>$ $>$ tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::container\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Hold objects that must not go out of scope during execution. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowTaskComposerFuture_ab4fd8e6c5d3d1dc786144331424b6ae8}\label{classtesseract__planning_1_1TaskflowTaskComposerFuture_ab4fd8e6c5d3d1dc786144331424b6ae8}} 
+\index{tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}!future\_@{future\_}}
+\index{future\_@{future\_}!tesseract\_planning::TaskflowTaskComposerFuture@{tesseract\_planning::TaskflowTaskComposerFuture}}
+\doxysubsubsection{\texorpdfstring{future\_}{future\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+future$<$void$>$ tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Future\+::future\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+This is the future return from taskflow executor.\+run. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+task\+\_\+composer/include/tesseract\+\_\+task\+\_\+composer/taskflow/\mbox{\hyperlink{taskflow__task__composer__future_8h}{taskflow\+\_\+task\+\_\+composer\+\_\+future.\+h}}\item 
+tesseract\+\_\+task\+\_\+composer/src/taskflow/\mbox{\hyperlink{taskflow__task__composer__future_8cpp}{taskflow\+\_\+task\+\_\+composer\+\_\+future.\+cpp}}\end{DoxyCompactItemize}

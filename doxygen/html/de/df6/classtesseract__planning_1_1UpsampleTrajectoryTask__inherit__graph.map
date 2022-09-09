@@ -1,0 +1,5 @@
+<map id="tesseract_planning::UpsampleTrajectoryTask" name="tesseract_planning::UpsampleTrajectoryTask">
+<area shape="rect" id="node1" title="This is used to upsample the results trajectory based on the longest valid segment length." alt="" coords="5,184,179,225"/>
+<area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="19,95,165,136"/>
+<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="19,5,165,47"/>
+</map>

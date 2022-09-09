@@ -1,5 +1,5 @@
 <map id="tesseract_command_language/include/tesseract_command_language/move_instruction.h" name="tesseract_command_language/include/tesseract_command_language/move_instruction.h">
-<area shape="rect" id="node1" title=" " alt="" coords="3235,5,3433,61"/>
+<area shape="rect" id="node1" title=" " alt="" coords="3564,5,3763,61"/>
 <area shape="rect" id="node2" href="$db/d22/composite__instruction_8cpp.html" title=" " alt="" coords="5,117,204,158"/>
 <area shape="rect" id="node3" href="$d8/d1d/move__instruction_8cpp.html" title=" " alt="" coords="228,117,427,158"/>
 <area shape="rect" id="node4" href="$d8/d1d/move__instruction__unit_8cpp.html" title="Contains unit tests for MoveInstruction." alt="" coords="451,117,654,158"/>
@@ -23,20 +23,24 @@
 <area shape="rect" id="node22" href="$dd/db6/simple__planner__fixed__size__interpolation_8cpp.html" title=" " alt="" coords="4193,109,4371,165"/>
 <area shape="rect" id="node23" href="$d7/ddc/simple__planner__lvs__interpolation_8cpp.html" title=" " alt="" coords="4395,109,4574,165"/>
 <area shape="rect" id="node24" href="$db/d0c/trajopt__planner__tests_8cpp.html" title=" " alt="" coords="4598,117,4795,158"/>
-<area shape="rect" id="node25" href="$d2/d98/freespace__example__program_8h.html" title=" " alt="" coords="4819,109,5017,165"/>
-<area shape="rect" id="node32" href="$dc/d08/raster__dt__example__program_8h.html" title="Example raster paths with dual transitions." alt="" coords="5259,109,5452,165"/>
-<area shape="rect" id="node33" href="$db/d2d/raster__example__program_8h.html" title="Example raster paths." alt="" coords="5041,109,5235,165"/>
-<area shape="rect" id="node35" href="$d6/d73/raster__waad__dt__example__program_8h.html" title="Example raster paths with approach and departures along with dual transitions." alt="" coords="5476,109,5669,165"/>
-<area shape="rect" id="node36" href="$d7/df0/raster__waad__example__program_8h.html" title="Example raster paths with approach and departures." alt="" coords="5694,109,5905,165"/>
-<area shape="rect" id="node37" href="$d6/d43/fix__state__bounds__task__generator__unit_8cpp.html" title=" " alt="" coords="5929,109,6123,165"/>
-<area shape="rect" id="node38" href="$dc/d4a/iterative__spline__tests_8cpp.html" title=" " alt="" coords="6147,117,6358,158"/>
-<area shape="rect" id="node39" href="$d3/d72/ruckig__trajectory__smoothing__tests_8cpp.html" title=" " alt="" coords="6383,109,6597,165"/>
-<area shape="rect" id="node40" href="$d1/d43/time__optimal__trajectory__generation__tests_8cpp.html" title=" " alt="" coords="6622,109,6833,165"/>
-<area shape="rect" id="node26" href="$de/d04/freespace__manager__example_8cpp.html" title=" " alt="" coords="4808,213,5007,269"/>
-<area shape="rect" id="node27" href="$de/da3/memory__usage__example_8cpp.html" title="This example it to evaluate the memory the usage of the planning server." alt="" coords="4097,221,4349,262"/>
-<area shape="rect" id="node28" href="$df/de5/taskflow__profiling__example_8cpp.html" title="Demonstrates tools for profiling taskflows using the task infos." alt="" coords="4373,213,4567,269"/>
-<area shape="rect" id="node29" href="$d0/de6/fix__state__collision__task__generator__unit_8cpp.html" title=" " alt="" coords="4591,213,4784,269"/>
-<area shape="rect" id="node30" href="$d3/dad/tesseract__process__managers__serialization__unit_8cpp.html" title=" " alt="" coords="5031,213,5245,269"/>
-<area shape="rect" id="node31" href="$db/d38/tesseract__process__managers__unit_8cpp.html" title=" " alt="" coords="5487,213,5680,269"/>
-<area shape="rect" id="node34" href="$dc/d81/raster__manager__example_8cpp.html" title=" " alt="" coords="5269,213,5463,269"/>
+<area shape="rect" id="node25" href="$dd/d99/tesseract__process__managers_2examples_2freespace__example__program_8h.html" title=" " alt="" coords="4819,109,5017,165"/>
+<area shape="rect" id="node29" href="$dc/d08/raster__dt__example__program_8h.html" title="Example raster paths with dual transitions." alt="" coords="5041,109,5235,165"/>
+<area shape="rect" id="node32" href="$df/d26/tesseract__process__managers_2examples_2raster__example__program_8h.html" title="Example raster paths." alt="" coords="5712,109,5905,165"/>
+<area shape="rect" id="node34" href="$d6/d73/raster__waad__dt__example__program_8h.html" title="Example raster paths with approach and departures along with dual transitions." alt="" coords="5259,109,5452,165"/>
+<area shape="rect" id="node35" href="$d7/df0/raster__waad__example__program_8h.html" title="Example raster paths with approach and departures." alt="" coords="5477,109,5687,165"/>
+<area shape="rect" id="node36" href="$d6/d43/fix__state__bounds__task__generator__unit_8cpp.html" title=" " alt="" coords="5929,109,6123,165"/>
+<area shape="rect" id="node37" href="$d0/dad/tesseract__task__composer_2examples_2freespace__example__program_8h.html" title=" " alt="" coords="6147,109,6345,165"/>
+<area shape="rect" id="node39" href="$d9/db5/tesseract__task__composer_2examples_2raster__example__program_8h.html" title="Example raster paths." alt="" coords="6369,109,6542,165"/>
+<area shape="rect" id="node41" href="$d1/d6c/fix__state__bounds__task__unit_8cpp.html" title=" " alt="" coords="6567,109,6739,165"/>
+<area shape="rect" id="node42" href="$dc/d4a/iterative__spline__tests_8cpp.html" title=" " alt="" coords="6763,117,6974,158"/>
+<area shape="rect" id="node43" href="$d3/d72/ruckig__trajectory__smoothing__tests_8cpp.html" title=" " alt="" coords="6999,109,7213,165"/>
+<area shape="rect" id="node44" href="$d1/d43/time__optimal__trajectory__generation__tests_8cpp.html" title=" " alt="" coords="7238,109,7449,165"/>
+<area shape="rect" id="node26" href="$de/d04/freespace__manager__example_8cpp.html" title=" " alt="" coords="4323,213,4521,269"/>
+<area shape="rect" id="node27" href="$de/da3/memory__usage__example_8cpp.html" title="This example it to evaluate the memory the usage of the planning server." alt="" coords="4545,221,4797,262"/>
+<area shape="rect" id="node28" href="$df/de5/taskflow__profiling__example_8cpp.html" title="Demonstrates tools for profiling taskflows using the task infos." alt="" coords="4821,213,5015,269"/>
+<area shape="rect" id="node30" href="$d3/dad/tesseract__process__managers__serialization__unit_8cpp.html" title=" " alt="" coords="5039,213,5253,269"/>
+<area shape="rect" id="node31" href="$db/d38/tesseract__process__managers__unit_8cpp.html" title=" " alt="" coords="5277,213,5471,269"/>
+<area shape="rect" id="node33" href="$dc/d81/raster__manager__example_8cpp.html" title=" " alt="" coords="5712,213,5905,269"/>
+<area shape="rect" id="node38" href="$de/d6f/task__composer__trajopt__example_8cpp.html" title=" " alt="" coords="6159,213,6333,269"/>
+<area shape="rect" id="node40" href="$db/d4d/task__composer__raster__example_8cpp.html" title=" " alt="" coords="6368,213,6543,269"/>
 </map>

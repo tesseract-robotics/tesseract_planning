@@ -12,8 +12,8 @@
 \DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
 \DoxyCodeLine{33 }
 \DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__generator_8h}{tesseract\_process\_managers/core/task\_generator.h}}>}}
-\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__task__namespaces_8h}{tesseract\_process\_managers/core/default\_task\_namespaces.h}}>}}
-\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{fix__state__collision__profile_8h}{tesseract\_process\_managers/task\_profiles/fix\_state\_collision\_profile.h}}>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__process__managers_2include_2tesseract__process__managers_2core_2default__task__namespaces_8h}{tesseract\_process\_managers/core/default\_task\_namespaces.h}}>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__process__managers_2include_2tesseract__process__managers_2task__profiles_2fix__state__collision__profile_8h}{tesseract\_process\_managers/task\_profiles/fix\_state\_collision\_profile.h}}>}}
 \DoxyCodeLine{37 }
 \DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
 \DoxyCodeLine{39 \{}
@@ -43,9 +43,9 @@
 \DoxyCodeLine{69 }
 \DoxyCodeLine{70   \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_a36c12ea85148401676f73d4f4fea7bcb}{FixStateCollisionTaskInfo}}() = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{71   \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_a36c12ea85148401676f73d4f4fea7bcb}{FixStateCollisionTaskInfo}}(std::size\_t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\_id}},}
-\DoxyCodeLine{72                             std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_af8af3cd70136a1a3aae91f9a946e645f}{profile\_ns::FIX\_STATE\_COLLISION\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{72                             std::string \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a811940b9166e3ec2e4b7a1feecffbc3e}{name}} = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_af8af3cd70136a1a3aae91f9a946e645f}{profile\_ns::FIX\_STATE\_COLLISION\_DEFAULT\_NAMESPACE}});}
 \DoxyCodeLine{73 }
-\DoxyCodeLine{74   std::vector<tesseract\_collision::ContactResultMap> \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_aa15f3ca76f3612599bf98f41f589caf2}{contact\_results}};}
+\DoxyCodeLine{74   std::vector<tesseract\_collision::ContactResultMap> \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_abf0f7e6a0cb56879be333853c2af2bb8}{contact\_results}};}
 \DoxyCodeLine{75 }
 \DoxyCodeLine{76   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_ab21448f2a4d5c45e818aa780295441b1}{clone}}() \textcolor{keyword}{const override};}
 \DoxyCodeLine{77 }
@@ -53,7 +53,7 @@
 \DoxyCodeLine{79   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_a386093a98e789aa514e0870f4eb4627c}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{FixStateCollisionTaskInfo}}\& rhs) \textcolor{keyword}{const};}
 \DoxyCodeLine{80 }
 \DoxyCodeLine{81 \textcolor{keyword}{private}:}
-\DoxyCodeLine{82   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{82   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_a4305f269960e8ccc92b19b2f0480b16d}{boost::serialization::access}};}
 \DoxyCodeLine{83   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
 \DoxyCodeLine{84   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_ac684f7aef788ec9753178e63f1d1d43c}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
 \DoxyCodeLine{85 \};}

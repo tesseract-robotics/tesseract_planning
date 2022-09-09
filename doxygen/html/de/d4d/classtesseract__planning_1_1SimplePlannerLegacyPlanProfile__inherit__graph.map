@@ -1,0 +1,7 @@
+<map id="tesseract_planning::SimplePlannerLegacyPlanProfile" name="tesseract_planning::SimplePlannerLegacyPlanProfile">
+<area shape="rect" id="node1" title="Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases..." alt="" coords="5,133,221,174"/>
+<area shape="rect" id="node2" href="$d0/db5/classtesseract__planning_1_1SimplePlannerFixedSizeAssignLegacyPlanProfile.html" title=" " alt="" coords="271,5,479,61"/>
+<area shape="rect" id="node3" href="$de/dc5/classtesseract__planning_1_1SimplePlannerFixedSizeLegacyPlanProfile.html" title=" " alt="" coords="269,85,480,141"/>
+<area shape="rect" id="node4" href="$dd/d18/classtesseract__planning_1_1SimplePlannerLVSLegacyPlanProfile.html" title=" " alt="" coords="271,165,478,221"/>
+<area shape="rect" id="node5" href="$db/d02/classtesseract__planning_1_1SimplePlannerLVSNoIKLegacyPlanProfile.html" title=" " alt="" coords="269,245,480,301"/>
+</map>

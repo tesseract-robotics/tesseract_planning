@@ -1,0 +1,38 @@
+\hypertarget{fix__state__collision__task_8cpp}{}\doxysection{tesseract\+\_\+task\+\_\+composer/src/nodes/fix\+\_\+state\+\_\+collision\+\_\+task.cpp File Reference}
+\label{fix__state__collision__task_8cpp}\index{tesseract\_task\_composer/src/nodes/fix\_state\_collision\_task.cpp@{tesseract\_task\_composer/src/nodes/fix\_state\_collision\_task.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
+{\ttfamily \#include $<$boost/serialization/string.\+hpp$>$}\newline
+{\ttfamily \#include $<$trajopt/problem\+\_\+description.\+hpp$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/timer.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/fix\+\_\+state\+\_\+collision\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/planner\+\_\+utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
+Include dependency graph for fix\+\_\+state\+\_\+collision\+\_\+task.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d45/fix__state__collision__task_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ab12bd6bdd9e4fba17d47373c9412717f}{tesseract\+\_\+planning\+::state\+In\+Collision}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&start\+\_\+pos, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const Task\+Composer\+Input \&input, const Fix\+State\+Collision\+Profile \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
+\begin{DoxyCompactList}\small\item\em Checks if a joint state is in collision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a87fcfa45dcf1f1f40151e128bee60d54}{tesseract\+\_\+planning\+::waypoint\+In\+Collision}} (const Waypoint\+Poly \&waypoint, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const Task\+Composer\+Input \&input, const Fix\+State\+Collision\+Profile \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
+\begin{DoxyCompactList}\small\item\em Checks if a waypoint is in collision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a6b534f8f22bbea4a0bcf4cdd548584b2}{tesseract\+\_\+planning\+::move\+Waypoint\+From\+Collision\+Trajopt}} (Waypoint\+Poly \&waypoint, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const Task\+Composer\+Input \&input, const Fix\+State\+Collision\+Profile \&profile)
+\begin{DoxyCompactList}\small\item\em Takes a waypoint and uses a small trajopt problem to push it out of collision if necessary. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_aa4d7a120157f2190d7d17c35ef82e077}{tesseract\+\_\+planning\+::move\+Waypoint\+From\+Collision\+Random\+Sampler}} (Waypoint\+Poly \&waypoint, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const Task\+Composer\+Input \&input, const Fix\+State\+Collision\+Profile \&profile)
+\begin{DoxyCompactList}\small\item\em Takes a waypoint and uses random sampling to find a position that is out of collision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a037f2d1957d3b3c67dca95884cfcfff2}{tesseract\+\_\+planning\+::apply\+Correction\+Workflow}} (Waypoint\+Poly \&waypoint, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const Task\+Composer\+Input \&input, const Fix\+State\+Collision\+Profile \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
+\end{DoxyCompactItemize}

@@ -7,7 +7,7 @@ The Joint Group Instruction Information struct.
 
 
 
-{\ttfamily \#include $<$simple\+\_\+planner\+\_\+utils.\+h$>$}
+{\ttfamily \#include $<$interpolation.\+h$>$}
 
 
 
@@ -24,9 +24,11 @@ Collaboration diagram for tesseract\+\_\+planning\+::Joint\+Group\+Instruction\+
 \item 
 \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ab46d5e1b8aae95b6f0d3426ab117134b}{Joint\+Group\+Instruction\+Info}} (const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&plan\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info)
 \item 
-Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ac690d530dc64aceb9d78338c7c466d64}{calc\+Cartesian\+Pose}} (const Eigen\+::\+Vector\+Xd \&jp) const
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a5033bc1163757be1b484d02bb68ddf87}{get\+Working\+Frame}} () const
+\begin{DoxyCompactList}\small\item\em Get the working frame. \end{DoxyCompactList}\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ac2321b08926c7f4a2ceafb1f095e0f51}{calc\+Cartesian\+Pose}} (const Eigen\+::\+Vector\+Xd \&jp, bool in\+\_\+world=true) const
 \begin{DoxyCompactList}\small\item\em Calculate the cartesian pose given the joint solution. \end{DoxyCompactList}\item 
-Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ab497a761c032cbd09f2f5f59ae2c13c0}{extract\+Cartesian\+Pose}} () const
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_aa4bc29aa58b110da65cdbefe6f818fc6}{extract\+Cartesian\+Pose}} (bool in\+\_\+world=true) const
 \begin{DoxyCompactList}\small\item\em Extract the cartesian pose from the instruction. \end{DoxyCompactList}\item 
 const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a349a09bf21a6b8847f543dbb3d468b17}{extract\+Joint\+Position}} () const
 \begin{DoxyCompactList}\small\item\em Extract the joint position from the instruction waypoint. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -38,6 +40,8 @@ const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+I
 tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+UPtr \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a131a12f7a15dee90161c802ebc363c6f}{manip}}
 \item 
 std\+::string \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a28b9536a0b150e7252039d7fc49189f3}{working\+\_\+frame}}
+\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_afb7eab2f34a756855ff5027643e00a36}{working\+\_\+frame\+\_\+transform}} \{ Eigen\+::\+Isometry3d\+::\+Identity() \}
 \item 
 std\+::string \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a9be5829f56e092d8f6e66fd6a1d34ff4}{tcp\+\_\+frame}}
 \item 
@@ -60,11 +64,11 @@ The Joint Group Instruction Information struct.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{structtesseract__planning_1_1JointGroupInstructionInfo_ac690d530dc64aceb9d78338c7c466d64}\label{structtesseract__planning_1_1JointGroupInstructionInfo_ac690d530dc64aceb9d78338c7c466d64}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1JointGroupInstructionInfo_ac2321b08926c7f4a2ceafb1f095e0f51}\label{structtesseract__planning_1_1JointGroupInstructionInfo_ac2321b08926c7f4a2ceafb1f095e0f51}} 
 \index{tesseract\_planning::JointGroupInstructionInfo@{tesseract\_planning::JointGroupInstructionInfo}!calcCartesianPose@{calcCartesianPose}}
 \index{calcCartesianPose@{calcCartesianPose}!tesseract\_planning::JointGroupInstructionInfo@{tesseract\_planning::JointGroupInstructionInfo}}
 \doxysubsubsection{\texorpdfstring{calcCartesianPose()}{calcCartesianPose()}}
-{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info\+::calc\+Cartesian\+Pose (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{jp }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info\+::calc\+Cartesian\+Pose (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{jp,  }\item[{bool}]{in\+\_\+world = {\ttfamily true} }\end{DoxyParamCaption}) const}
 
 
 
@@ -74,21 +78,28 @@ Calculate the cartesian pose given the joint solution.
 \begin{DoxyParams}{Parameters}
 {\em jp} & The joint solution to calculate the pose \\
 \hline
+{\em in\+\_\+world} & Indicate if the results should be in world or relative to working frame \\
+\hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 The pose give the joint solution 
 \end{DoxyReturn}
-\mbox{\Hypertarget{structtesseract__planning_1_1JointGroupInstructionInfo_ab497a761c032cbd09f2f5f59ae2c13c0}\label{structtesseract__planning_1_1JointGroupInstructionInfo_ab497a761c032cbd09f2f5f59ae2c13c0}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1JointGroupInstructionInfo_aa4bc29aa58b110da65cdbefe6f818fc6}\label{structtesseract__planning_1_1JointGroupInstructionInfo_aa4bc29aa58b110da65cdbefe6f818fc6}} 
 \index{tesseract\_planning::JointGroupInstructionInfo@{tesseract\_planning::JointGroupInstructionInfo}!extractCartesianPose@{extractCartesianPose}}
 \index{extractCartesianPose@{extractCartesianPose}!tesseract\_planning::JointGroupInstructionInfo@{tesseract\_planning::JointGroupInstructionInfo}}
 \doxysubsubsection{\texorpdfstring{extractCartesianPose()}{extractCartesianPose()}}
-{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info\+::extract\+Cartesian\+Pose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info\+::extract\+Cartesian\+Pose (\begin{DoxyParamCaption}\item[{bool}]{in\+\_\+world = {\ttfamily true} }\end{DoxyParamCaption}) const}
 
 
 
 Extract the cartesian pose from the instruction. 
 
-If the instruction does not have a cartesian waypoint this throws an exception \begin{DoxyReturn}{Returns}
+If the instruction does not have a cartesian waypoint this throws an exception 
+\begin{DoxyParams}{Parameters}
+{\em in\+\_\+world} & Indicate if the results should be in world or relative to working frame \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
 Cartesian pose 
 \end{DoxyReturn}
 \mbox{\Hypertarget{structtesseract__planning_1_1JointGroupInstructionInfo_a349a09bf21a6b8847f543dbb3d468b17}\label{structtesseract__planning_1_1JointGroupInstructionInfo_a349a09bf21a6b8847f543dbb3d468b17}} 
@@ -103,6 +114,19 @@ Extract the joint position from the instruction waypoint.
 
 If the instruction does not have a joint/state waypoint this throws an exception \begin{DoxyReturn}{Returns}
 Joint Position 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structtesseract__planning_1_1JointGroupInstructionInfo_a5033bc1163757be1b484d02bb68ddf87}\label{structtesseract__planning_1_1JointGroupInstructionInfo_a5033bc1163757be1b484d02bb68ddf87}} 
+\index{tesseract\_planning::JointGroupInstructionInfo@{tesseract\_planning::JointGroupInstructionInfo}!getWorkingFrame@{getWorkingFrame}}
+\index{getWorkingFrame@{getWorkingFrame}!tesseract\_planning::JointGroupInstructionInfo@{tesseract\_planning::JointGroupInstructionInfo}}
+\doxysubsubsection{\texorpdfstring{getWorkingFrame()}{getWorkingFrame()}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info\+::get\+Working\+Frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the working frame. 
+
+\begin{DoxyReturn}{Returns}
+The working frame transfrom relative world 
 \end{DoxyReturn}
 
 
@@ -143,9 +167,16 @@ Joint Position
 \doxysubsubsection{\texorpdfstring{working\_frame}{working\_frame}}
 {\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info\+::working\+\_\+frame}
 
+\mbox{\Hypertarget{structtesseract__planning_1_1JointGroupInstructionInfo_afb7eab2f34a756855ff5027643e00a36}\label{structtesseract__planning_1_1JointGroupInstructionInfo_afb7eab2f34a756855ff5027643e00a36}} 
+\index{tesseract\_planning::JointGroupInstructionInfo@{tesseract\_planning::JointGroupInstructionInfo}!working\_frame\_transform@{working\_frame\_transform}}
+\index{working\_frame\_transform@{working\_frame\_transform}!tesseract\_planning::JointGroupInstructionInfo@{tesseract\_planning::JointGroupInstructionInfo}}
+\doxysubsubsection{\texorpdfstring{working\_frame\_transform}{working\_frame\_transform}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info\+::working\+\_\+frame\+\_\+transform \{ Eigen\+::\+Isometry3d\+::\+Identity() \}}
+
 
 
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-tesseract\+\_\+motion\+\_\+planners/core/include/tesseract\+\_\+motion\+\_\+planners/simple/profile/\mbox{\hyperlink{simple__planner__utils_8h}{simple\+\_\+planner\+\_\+utils.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/core/include/tesseract\+\_\+motion\+\_\+planners/core/\mbox{\hyperlink{interpolation_8h}{interpolation.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/core/src/core/\mbox{\hyperlink{interpolation_8cpp}{interpolation.\+cpp}}\item 
 tesseract\+\_\+motion\+\_\+planners/core/src/simple/profile/\mbox{\hyperlink{simple__planner__utils_8cpp}{simple\+\_\+planner\+\_\+utils.\+cpp}}\end{DoxyCompactItemize}

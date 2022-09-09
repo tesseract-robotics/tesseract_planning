@@ -5,7 +5,7 @@
 <area shape="rect" id="node8" href="$db/d38/tesseract__process__managers__unit_8cpp.html" title=" " alt="" coords="946,717,1139,773"/>
 <area shape="rect" id="node27" href="$d6/d43/fix__state__bounds__task__generator__unit_8cpp.html" title=" " alt="" coords="545,369,738,425"/>
 <area shape="rect" id="node47" href="$dc/ddd/tesseract__process__managers_2include_2tesseract__process__managers_2core_2utils_8h.html" title="Tesseract process managers utility functions." alt="" coords="2577,243,2770,299"/>
-<area shape="rect" id="node49" href="$d3/d86/check__input__profile_8h.html" title="Profile used for checking input data structure." alt="" coords="4093,109,4296,180"/>
+<area shape="rect" id="node49" href="$d5/de5/tesseract__process__managers_2include_2tesseract__process__managers_2task__profiles_2check__input__profile_8h.html" title="Profile used for checking input data structure." alt="" coords="4093,109,4296,180"/>
 <area shape="rect" id="node50" href="$d9/d98/task__input_8cpp.html" title="Process input." alt="" coords="4321,124,4514,165"/>
 <area shape="rect" id="node3" href="$dd/d9d/taskflow__container_8h.html" title="Taskflow container is used to contain everything that must stay around until it finishes." alt="" coords="215,243,452,299"/>
 <area shape="rect" id="node9" href="$db/da3/graph__taskflow_8h.html" title="Creates a directed graph taskflow." alt="" coords="2535,480,2742,551"/>

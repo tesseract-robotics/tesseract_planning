@@ -1,0 +1,42 @@
+\hypertarget{tesseract__task__composer_2include_2tesseract__task__composer_2profiles_2check__input__profile_8h_source}{}\doxysection{check\+\_\+input\+\_\+profile.\+h}
+\label{tesseract__task__composer_2include_2tesseract__task__composer_2profiles_2check__input__profile_8h_source}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/profiles/check\_input\_profile.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/profiles/check\_input\_profile.h}}
+\mbox{\hyperlink{tesseract__task__composer_2include_2tesseract__task__composer_2profiles_2check__input__profile_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_CHECK\_INPUT\_PROFILE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_CHECK\_INPUT\_PROFILE\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <console\_bridge/console.h>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{33 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__input_8h}{tesseract\_task\_composer/task\_composer\_input.h}}>}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39 \textcolor{keyword}{struct }CheckInputProfile}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1CheckInputProfile_a5c4861e4a8bbc76d660623e6a4904b19}{Ptr}} = std::shared\_ptr<CheckInputProfile>;}
+\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1CheckInputProfile_a3dd6bcbb19596dfdbf94f2ad2ff36a0f}{ConstPtr}} = std::shared\_ptr<const CheckInputProfile>;}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1CheckInputProfile_aee99cc10710dc956a033ec71390dd9fb}{\string~CheckInputProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{51   \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1CheckInputProfile_af95bcabf056bd15e75152f571dda3ba7}{isValid}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input)\textcolor{keyword}{ const}}
+\DoxyCodeLine{52 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{53     \textcolor{comment}{// Check Input}}
+\DoxyCodeLine{54     \textcolor{keywordflow}{if} (!input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a53863bb1b69a1696e2065bfb92d85c5d}{env}})}
+\DoxyCodeLine{55     \{}
+\DoxyCodeLine{56       CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}Input env is a nullptr"{}});}
+\DoxyCodeLine{57       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{58     \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{61   \}}
+\DoxyCodeLine{62 \};}
+\DoxyCodeLine{63 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_CHECK\_INPUT\_PROFILE\_H}}
+
+\end{DoxyCode}

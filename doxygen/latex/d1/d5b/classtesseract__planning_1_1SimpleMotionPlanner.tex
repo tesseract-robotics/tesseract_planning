@@ -26,7 +26,7 @@ Collaboration diagram for tesseract\+\_\+planning\+::Simple\+Motion\+Planner\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{d7/dc7/classtesseract__planning_1_1SimpleMotionPlanner__coll__graph}
+\includegraphics[width=193pt]{d7/dc7/classtesseract__planning_1_1SimpleMotionPlanner__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Types}
@@ -51,21 +51,14 @@ using \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a82aaf5bc
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}} \& \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_adfe8fcdf81a9a2fc76aef76d09766af2}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}} \&\&)=delete
 \item 
-const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a592c0a96be9938a36801ad6d0fa18eb8}{get\+Name}} () const override
-\begin{DoxyCompactList}\small\item\em Get the name of this planner. \end{DoxyCompactList}\item 
-tesseract\+\_\+common\+::\+Status\+Code \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ad11f91679e5a495d0b37c460f52ef5b4}{solve}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \&response, bool verbose=false) const override
-\begin{DoxyCompactList}\small\item\em Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a193f90492c392ac162cd31777f1895dd}{solve}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const override
+\begin{DoxyCompactList}\small\item\em Solve the planner request problem. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a13a6df1d08a2fa9507cf4b9983e55d17}{terminate}} () override
-\begin{DoxyCompactList}\small\item\em If \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ad11f91679e5a495d0b37c460f52ef5b4}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ad11f91679e5a495d0b37c460f52ef5b4}{solve()}} is not running (returns true). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em If \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a193f90492c392ac162cd31777f1895dd}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a193f90492c392ac162cd31777f1895dd}{solve()}} is not running (returns true). \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a61c68448ab3ca6f602f97a24044518f8}{clear}} () override
 \begin{DoxyCompactList}\small\item\em Clear the data structures used by the planner. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Motion\+Planner\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ab70b7af0e08930447e93346b7890b8d0}{clone}} () const override
 \begin{DoxyCompactList}\small\item\em Clone the motion planner. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-static bool \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ab9ef7a2e76610c76ad1044090c8a12f0}{check\+User\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request)
-\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -75,14 +68,8 @@ static bool \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ab9
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_acf61134a85d9ed814435d2736ad23115}{get\+Start\+Instruction}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \&current\+\_\+state, const tesseract\+\_\+kinematics\+::\+Joint\+Group \&manip)
-\begin{DoxyCompactList}\small\item\em The planners status codes. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Protected Attributes}
-\begin{DoxyCompactItemize}
-\item 
-std\+::string \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a04d7d2166e6a5712b6e09fdec45d2227}{name\+\_\+}}
-\item 
-std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerStatusCategory}{Simple\+Motion\+Planner\+Status\+Category}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ac7474b5c7478761fdc6c07d4208c4999}{status\+\_\+category\+\_\+}}
 \end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Detailed Description}
@@ -135,12 +122,6 @@ Construct a basic planner.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_ab9ef7a2e76610c76ad1044090c8a12f0}\label{classtesseract__planning_1_1SimpleMotionPlanner_ab9ef7a2e76610c76ad1044090c8a12f0}} 
-\index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!checkUserInput@{checkUserInput}}
-\index{checkUserInput@{checkUserInput}!tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}}
-\doxysubsubsection{\texorpdfstring{checkUserInput()}{checkUserInput()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+::check\+User\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
 \mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_a61c68448ab3ca6f602f97a24044518f8}\label{classtesseract__planning_1_1SimpleMotionPlanner_a61c68448ab3ca6f602f97a24044518f8}} 
 \index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!clear@{clear}}
 \index{clear@{clear}!tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}}
@@ -169,32 +150,14 @@ Clone the motion planner.
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a9b0b2d77127016c7aa39afc4125e2744}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
 
-\mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_a592c0a96be9938a36801ad6d0fa18eb8}\label{classtesseract__planning_1_1SimpleMotionPlanner_a592c0a96be9938a36801ad6d0fa18eb8}} 
-\index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!getName@{getName}}
-\index{getName@{getName}!tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}}
-\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
-{\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Get the name of this planner. 
-
-This is also used as the namespace for the profiles in the profile dictionary 
-
-Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_acd704df50dc81b6a624fb34e640e777c}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
-
 \mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_acf61134a85d9ed814435d2736ad23115}\label{classtesseract__planning_1_1SimpleMotionPlanner_acf61134a85d9ed814435d2736ad23115}} 
 \index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!getStartInstruction@{getStartInstruction}}
 \index{getStartInstruction@{getStartInstruction}!tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}}
 \doxysubsubsection{\texorpdfstring{getStartInstruction()}{getStartInstruction()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+::get\+Start\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \&}]{current\+\_\+state,  }\item[{const tesseract\+\_\+kinematics\+::\+Joint\+Group \&}]{manip }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
 
-
-
-The planners status codes. 
-
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000011}{Todo}}]Update to run IK to find solution closest to start \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000015}{Todo}}]Update to run IK to find solution closest to start \end{DoxyRefDesc}
 \mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_ae995d879d77c29105847750f796c7851}\label{classtesseract__planning_1_1SimpleMotionPlanner_ae995d879d77c29105847750f796c7851}} 
 \index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!operator=@{operator=}}
 \index{operator=@{operator=}!tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}}
@@ -213,31 +176,27 @@ The planners status codes.
 \doxysubsubsection{\texorpdfstring{processCompositeInstruction()}{processCompositeInstruction()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+::process\+Composite\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{instructions,  }\item[{\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{prev\+\_\+instruction,  }\item[{\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{prev\+\_\+seed,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_ad11f91679e5a495d0b37c460f52ef5b4}\label{classtesseract__planning_1_1SimpleMotionPlanner_ad11f91679e5a495d0b37c460f52ef5b4}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_a193f90492c392ac162cd31777f1895dd}\label{classtesseract__planning_1_1SimpleMotionPlanner_a193f90492c392ac162cd31777f1895dd}} 
 \index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!solve@{solve}}
 \index{solve@{solve}!tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}}
 \doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Status\+Code tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+::solve (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \&}]{response,  }\item[{bool}]{verbose = {\ttfamily false} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+::solve (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
-Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters. 
+Solve the planner request problem. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em response} & The results of the optimization. Primary output is the optimized joint trajectory \\
-\hline
-{\em check\+\_\+type} & The type of collision check to perform on the planned trajectory \\
-\hline
-{\em verbose} & Boolean indicating whether logging information about the motion planning solution should be printed to console \\
+{\em request} & The planning request \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-true if optimization complete 
+A planner reponse 
 \end{DoxyReturn}
 
 
-Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a1f19a1753347fd841e7c7320cd34cd02}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
+Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a60a757c5560f495611be282220fff9d2}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_a13a6df1d08a2fa9507cf4b9983e55d17}\label{classtesseract__planning_1_1SimpleMotionPlanner_a13a6df1d08a2fa9507cf4b9983e55d17}} 
 \index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!terminate@{terminate}}
@@ -247,26 +206,11 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a1f19a1753
 
 
 
-If \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ad11f91679e5a495d0b37c460f52ef5b4}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ad11f91679e5a495d0b37c460f52ef5b4}{solve()}} is not running (returns true). 
+If \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a193f90492c392ac162cd31777f1895dd}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a193f90492c392ac162cd31777f1895dd}{solve()}} is not running (returns true). 
 
 
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a44afac05675a12abc7df47df8f495148}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
-
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_a04d7d2166e6a5712b6e09fdec45d2227}\label{classtesseract__planning_1_1SimpleMotionPlanner_a04d7d2166e6a5712b6e09fdec45d2227}} 
-\index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!name\_@{name\_}}
-\index{name\_@{name\_}!tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}}
-\doxysubsubsection{\texorpdfstring{name\_}{name\_}}
-{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+::name\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_ac7474b5c7478761fdc6c07d4208c4999}\label{classtesseract__planning_1_1SimpleMotionPlanner_ac7474b5c7478761fdc6c07d4208c4999}} 
-\index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!status\_category\_@{status\_category\_}}
-\index{status\_category\_@{status\_category\_}!tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}}
-\doxysubsubsection{\texorpdfstring{status\_category\_}{status\_category\_}}
-{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerStatusCategory}{Simple\+Motion\+Planner\+Status\+Category}}$>$ tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+::status\+\_\+category\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 

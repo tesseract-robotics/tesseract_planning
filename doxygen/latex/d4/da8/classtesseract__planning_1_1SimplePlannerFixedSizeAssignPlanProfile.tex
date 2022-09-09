@@ -36,7 +36,7 @@ using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignP
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_ab0c23c3841993a856ab910e0d3cdeb63}{Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}} (int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_a72bff7121b717a2e6576c2f8ac78811b}{freespace\+\_\+steps}}=10, int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_ad9cdf829813cf735597644e9b9f9cf58}{linear\+\_\+steps}}=10)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}}. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_a3ceadb49e20093c0e09eee306fdc1d8a}{generate}} (const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&prev\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&prev\+\_\+seed, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&next\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+common\+::\+Manipulator\+Info \&global\+\_\+manip\+\_\+info) const override
+std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_a466a7eead245395e12e8919f04f1e0cc}{generate}} (const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&prev\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&prev\+\_\+seed, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&next\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+common\+::\+Manipulator\+Info \&global\+\_\+manip\+\_\+info) const override
 \begin{DoxyCompactList}\small\item\em Generate a seed for the provided base\+\_\+instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -83,17 +83,17 @@ int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPla
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_a3ceadb49e20093c0e09eee306fdc1d8a}\label{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_a3ceadb49e20093c0e09eee306fdc1d8a}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_a466a7eead245395e12e8919f04f1e0cc}\label{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_a466a7eead245395e12e8919f04f1e0cc}} 
 \index{tesseract\_planning::SimplePlannerFixedSizeAssignPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeAssignPlanProfile}!generate@{generate}}
 \index{generate@{generate}!tesseract\_planning::SimplePlannerFixedSizeAssignPlanProfile@{tesseract\_planning::SimplePlannerFixedSizeAssignPlanProfile}}
 \doxysubsubsection{\texorpdfstring{generate()}{generate()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile\+::generate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{prev\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{prev\+\_\+seed,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{base\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&}]{next\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const tesseract\+\_\+common\+::\+Manipulator\+Info \&}]{global\+\_\+manip\+\_\+info }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} $>$ tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile\+::generate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{prev\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{prev\+\_\+seed,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{base\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&}]{next\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const tesseract\+\_\+common\+::\+Manipulator\+Info \&}]{global\+\_\+manip\+\_\+info }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
 Generate a seed for the provided base\+\_\+instruction. 
 
-
+This should not include the prev\+\_\+instruction but must include the base\+\_\+instruction 
 \begin{DoxyParams}{Parameters}
 {\em prev\+\_\+instruction} & The previous instruction \\
 \hline
@@ -109,11 +109,11 @@ Generate a seed for the provided base\+\_\+instruction.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A composite instruction representing the seed for the base\+\_\+instruction 
+A vector of move instrucitons 
 \end{DoxyReturn}
 
 
-Implements \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a71f70cb15d487d7407e66bfb7cc05e95}{tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile}}.
+Implements \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a785955ff7e64465c3390af7786f257aa}{tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile}}.
 
 
 

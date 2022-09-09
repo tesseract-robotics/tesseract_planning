@@ -1,0 +1,7 @@
+<map id="tesseract_task_composer/include/tesseract_task_composer/profiles/fix_state_bounds_profile.h" name="tesseract_task_composer/include/tesseract_task_composer/profiles/fix_state_bounds_profile.h">
+<area shape="rect" id="node1" title="Profile for process that pushes plan instructions back within joint limits." alt="" coords="219,5,401,76"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,124,196,151"/>
+<area shape="rect" id="node3" title=" " alt="" coords="220,124,288,151"/>
+<area shape="rect" id="node4" title=" " alt="" coords="312,124,423,151"/>
+<area shape="rect" id="node5" title=" " alt="" coords="447,124,515,151"/>
+</map>

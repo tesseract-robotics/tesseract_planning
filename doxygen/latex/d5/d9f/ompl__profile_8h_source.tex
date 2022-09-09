@@ -12,7 +12,7 @@
 \DoxyCodeLine{32 \textcolor{preprocessor}{\#include <memory>}}
 \DoxyCodeLine{33 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
 \DoxyCodeLine{34 }
-\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{instruction__poly_8h}{tesseract\_command\_language/poly/instruction\_poly.h}}>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{move__instruction__poly_8h}{tesseract\_command\_language/poly/move\_instruction\_poly.h}}>}}
 \DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{ompl__problem_8h}{tesseract\_motion\_planners/ompl/ompl\_problem.h}}>}}
 \DoxyCodeLine{37 }
 \DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
@@ -34,30 +34,30 @@
 \DoxyCodeLine{54 }
 \DoxyCodeLine{55   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a62808c3408bb70633b2b6ac8f2f53597}{setup}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob) const = 0;}
 \DoxyCodeLine{56 }
-\DoxyCodeLine{57   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a245a319343bbb17e1b305d7f9a9722b8}{applyGoalStates}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob,}
+\DoxyCodeLine{57   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a7112e140805d049fc47a905031043861}{applyGoalStates}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob,}
 \DoxyCodeLine{58                                const Eigen::Isometry3d\& cartesian\_waypoint,}
-\DoxyCodeLine{59                                const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& parent\_instruction,}
+\DoxyCodeLine{59                                const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& parent\_instruction,}
 \DoxyCodeLine{60                                const tesseract\_common::\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
 \DoxyCodeLine{61                                const std::vector<std::\textcolor{keywordtype}{string}>\& active\_links,}
 \DoxyCodeLine{62                                \textcolor{keywordtype}{int} index) const = 0;}
 \DoxyCodeLine{63 }
-\DoxyCodeLine{64   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a245a319343bbb17e1b305d7f9a9722b8}{applyGoalStates}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob,}
+\DoxyCodeLine{64   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a7112e140805d049fc47a905031043861}{applyGoalStates}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob,}
 \DoxyCodeLine{65                                const Eigen::VectorXd\& joint\_waypoint,}
-\DoxyCodeLine{66                                const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& parent\_instruction,}
+\DoxyCodeLine{66                                const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& parent\_instruction,}
 \DoxyCodeLine{67                                const tesseract\_common::\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
 \DoxyCodeLine{68                                const std::vector<std::\textcolor{keywordtype}{string}>\& active\_links,}
 \DoxyCodeLine{69                                \textcolor{keywordtype}{int} index) const = 0;}
 \DoxyCodeLine{70 }
-\DoxyCodeLine{71   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a544a31b66da24d5b6f7ddd7f20665bc8}{applyStartStates}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob,}
+\DoxyCodeLine{71   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a5e4e3a6dbf94e7cf299d7da744ca3e7d}{applyStartStates}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob,}
 \DoxyCodeLine{72                                 const Eigen::Isometry3d\& cartesian\_waypoint,}
-\DoxyCodeLine{73                                 const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& parent\_instruction,}
+\DoxyCodeLine{73                                 const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& parent\_instruction,}
 \DoxyCodeLine{74                                 const tesseract\_common::\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
 \DoxyCodeLine{75                                 const std::vector<std::\textcolor{keywordtype}{string}>\& active\_links,}
 \DoxyCodeLine{76                                 \textcolor{keywordtype}{int} index) const = 0;}
 \DoxyCodeLine{77 }
-\DoxyCodeLine{78   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a544a31b66da24d5b6f7ddd7f20665bc8}{applyStartStates}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob,}
+\DoxyCodeLine{78   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a5e4e3a6dbf94e7cf299d7da744ca3e7d}{applyStartStates}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob,}
 \DoxyCodeLine{79                                 const Eigen::VectorXd\& joint\_waypoint,}
-\DoxyCodeLine{80                                 const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& parent\_instruction,}
+\DoxyCodeLine{80                                 const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& parent\_instruction,}
 \DoxyCodeLine{81                                 const tesseract\_common::\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
 \DoxyCodeLine{82                                 const std::vector<std::\textcolor{keywordtype}{string}>\& active\_links,}
 \DoxyCodeLine{83                                 \textcolor{keywordtype}{int} index) const = 0;}

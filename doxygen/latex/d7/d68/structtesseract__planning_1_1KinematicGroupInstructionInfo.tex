@@ -7,7 +7,7 @@ The Kinematic Group Instruction Information struct.
 
 
 
-{\ttfamily \#include $<$simple\+\_\+planner\+\_\+utils.\+h$>$}
+{\ttfamily \#include $<$interpolation.\+h$>$}
 
 
 
@@ -24,9 +24,9 @@ Collaboration diagram for tesseract\+\_\+planning\+::Kinematic\+Group\+Instructi
 \item 
 \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a83abfd60bd20168c337998626ac21791}{Kinematic\+Group\+Instruction\+Info}} (const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&plan\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info)
 \item 
-Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a1fef756f80700726afa89909dae497c2}{calc\+Cartesian\+Pose}} (const Eigen\+::\+Vector\+Xd \&jp) const
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_afcb9e3d4e318c590ff2e5002e9217f56}{calc\+Cartesian\+Pose}} (const Eigen\+::\+Vector\+Xd \&jp, bool in\+\_\+world=true) const
 \begin{DoxyCompactList}\small\item\em Calculate the cartesian pose given the joint solution. \end{DoxyCompactList}\item 
-Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a28e72f5326caac97aea47e23c047259a}{extract\+Cartesian\+Pose}} () const
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a744c1435763bcdb0239cc37992146fcd}{extract\+Cartesian\+Pose}} (bool in\+\_\+world=true) const
 \begin{DoxyCompactList}\small\item\em Extract the cartesian pose from the instruction. \end{DoxyCompactList}\item 
 const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a448fba85565b0588262fb146b9f1e581}{extract\+Joint\+Position}} () const
 \begin{DoxyCompactList}\small\item\em Extract the joint position from the instruction waypoint. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -38,6 +38,8 @@ const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+I
 tesseract\+\_\+kinematics\+::\+Kinematic\+Group\+::\+UPtr \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a86faee3de3c751f3b7dd90174aee9cbc}{manip}}
 \item 
 std\+::string \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a6d4e59f4dbad3edf61f24921f0bab51d}{working\+\_\+frame}}
+\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_add17562db1c924927e11fc5bd5bd95ef}{working\+\_\+frame\+\_\+transform}} \{ Eigen\+::\+Isometry3d\+::\+Identity() \}
 \item 
 std\+::string \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a8e019f911a0a76de8d56a6e8f17c7638}{tcp\+\_\+frame}}
 \item 
@@ -60,11 +62,11 @@ The Kinematic Group Instruction Information struct.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{structtesseract__planning_1_1KinematicGroupInstructionInfo_a1fef756f80700726afa89909dae497c2}\label{structtesseract__planning_1_1KinematicGroupInstructionInfo_a1fef756f80700726afa89909dae497c2}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1KinematicGroupInstructionInfo_afcb9e3d4e318c590ff2e5002e9217f56}\label{structtesseract__planning_1_1KinematicGroupInstructionInfo_afcb9e3d4e318c590ff2e5002e9217f56}} 
 \index{tesseract\_planning::KinematicGroupInstructionInfo@{tesseract\_planning::KinematicGroupInstructionInfo}!calcCartesianPose@{calcCartesianPose}}
 \index{calcCartesianPose@{calcCartesianPose}!tesseract\_planning::KinematicGroupInstructionInfo@{tesseract\_planning::KinematicGroupInstructionInfo}}
 \doxysubsubsection{\texorpdfstring{calcCartesianPose()}{calcCartesianPose()}}
-{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Kinematic\+Group\+Instruction\+Info\+::calc\+Cartesian\+Pose (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{jp }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Kinematic\+Group\+Instruction\+Info\+::calc\+Cartesian\+Pose (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{jp,  }\item[{bool}]{in\+\_\+world = {\ttfamily true} }\end{DoxyParamCaption}) const}
 
 
 
@@ -74,21 +76,28 @@ Calculate the cartesian pose given the joint solution.
 \begin{DoxyParams}{Parameters}
 {\em jp} & The joint solution to calculate the pose \\
 \hline
+{\em in\+\_\+world} & Indicate if the results should be in world or relative to working frame \\
+\hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 The pose give the joint solution 
 \end{DoxyReturn}
-\mbox{\Hypertarget{structtesseract__planning_1_1KinematicGroupInstructionInfo_a28e72f5326caac97aea47e23c047259a}\label{structtesseract__planning_1_1KinematicGroupInstructionInfo_a28e72f5326caac97aea47e23c047259a}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1KinematicGroupInstructionInfo_a744c1435763bcdb0239cc37992146fcd}\label{structtesseract__planning_1_1KinematicGroupInstructionInfo_a744c1435763bcdb0239cc37992146fcd}} 
 \index{tesseract\_planning::KinematicGroupInstructionInfo@{tesseract\_planning::KinematicGroupInstructionInfo}!extractCartesianPose@{extractCartesianPose}}
 \index{extractCartesianPose@{extractCartesianPose}!tesseract\_planning::KinematicGroupInstructionInfo@{tesseract\_planning::KinematicGroupInstructionInfo}}
 \doxysubsubsection{\texorpdfstring{extractCartesianPose()}{extractCartesianPose()}}
-{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Kinematic\+Group\+Instruction\+Info\+::extract\+Cartesian\+Pose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Kinematic\+Group\+Instruction\+Info\+::extract\+Cartesian\+Pose (\begin{DoxyParamCaption}\item[{bool}]{in\+\_\+world = {\ttfamily true} }\end{DoxyParamCaption}) const}
 
 
 
 Extract the cartesian pose from the instruction. 
 
-If the instruction does not have a cartesian waypoint this throws an exception \begin{DoxyReturn}{Returns}
+If the instruction does not have a cartesian waypoint this throws an exception 
+\begin{DoxyParams}{Parameters}
+{\em in\+\_\+world} & Indicate if the results should be in world or relative to working frame \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
 Cartesian pose 
 \end{DoxyReturn}
 \mbox{\Hypertarget{structtesseract__planning_1_1KinematicGroupInstructionInfo_a448fba85565b0588262fb146b9f1e581}\label{structtesseract__planning_1_1KinematicGroupInstructionInfo_a448fba85565b0588262fb146b9f1e581}} 
@@ -143,9 +152,16 @@ Joint Position
 \doxysubsubsection{\texorpdfstring{working\_frame}{working\_frame}}
 {\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Kinematic\+Group\+Instruction\+Info\+::working\+\_\+frame}
 
+\mbox{\Hypertarget{structtesseract__planning_1_1KinematicGroupInstructionInfo_add17562db1c924927e11fc5bd5bd95ef}\label{structtesseract__planning_1_1KinematicGroupInstructionInfo_add17562db1c924927e11fc5bd5bd95ef}} 
+\index{tesseract\_planning::KinematicGroupInstructionInfo@{tesseract\_planning::KinematicGroupInstructionInfo}!working\_frame\_transform@{working\_frame\_transform}}
+\index{working\_frame\_transform@{working\_frame\_transform}!tesseract\_planning::KinematicGroupInstructionInfo@{tesseract\_planning::KinematicGroupInstructionInfo}}
+\doxysubsubsection{\texorpdfstring{working\_frame\_transform}{working\_frame\_transform}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Kinematic\+Group\+Instruction\+Info\+::working\+\_\+frame\+\_\+transform \{ Eigen\+::\+Isometry3d\+::\+Identity() \}}
+
 
 
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-tesseract\+\_\+motion\+\_\+planners/core/include/tesseract\+\_\+motion\+\_\+planners/simple/profile/\mbox{\hyperlink{simple__planner__utils_8h}{simple\+\_\+planner\+\_\+utils.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/core/include/tesseract\+\_\+motion\+\_\+planners/core/\mbox{\hyperlink{interpolation_8h}{interpolation.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/core/src/core/\mbox{\hyperlink{interpolation_8cpp}{interpolation.\+cpp}}\item 
 tesseract\+\_\+motion\+\_\+planners/core/src/simple/profile/\mbox{\hyperlink{simple__planner__utils_8cpp}{simple\+\_\+planner\+\_\+utils.\+cpp}}\end{DoxyCompactItemize}

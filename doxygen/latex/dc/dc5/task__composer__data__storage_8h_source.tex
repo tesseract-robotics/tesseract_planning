@@ -1,0 +1,65 @@
+\hypertarget{task__composer__data__storage_8h_source}{}\doxysection{task\+\_\+composer\+\_\+data\+\_\+storage.\+h}
+\label{task__composer__data__storage_8h_source}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/task\_composer\_data\_storage.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/task\_composer\_data\_storage.h}}
+\mbox{\hyperlink{task__composer__data__storage_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_DATA\_STORAGE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_DATA\_STORAGE\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <unordered\_map>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <shared\_mutex>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <tesseract\_common/any\_poly.h>}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{TaskComposerDataStorage}}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{public}:}
+\DoxyCodeLine{44   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a266701656b8d0b14af9d20ba54c1bd7a}{Ptr}} = std::shared\_ptr<TaskComposerDataStorage>;}
+\DoxyCodeLine{45   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a16d6e1f822f10524413d4b305d3dffbb}{ConstPtr}} = std::shared\_ptr<const TaskComposerDataStorage>;}
+\DoxyCodeLine{46   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a45313eca69d8d9181bffc4ccead5910d}{UPtr}} = std::unique\_ptr<TaskComposerDataStorage>;}
+\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a29aeac0135064818b12751ef1c7bf797}{ConstUPtr}} = std::unique\_ptr<const TaskComposerDataStorage>;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a90a2eac38df431681cd72359b07efaf2}{TaskComposerDataStorage}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a48e4ab7f2bd688f0faeb7ea5acc7d580}{\string~TaskComposerDataStorage}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a90a2eac38df431681cd72359b07efaf2}{TaskComposerDataStorage}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{TaskComposerDataStorage}}\&);}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{TaskComposerDataStorage}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a2b98c6b8c031e7d75655297cccd94d09}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{TaskComposerDataStorage}}\&);}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a90a2eac38df431681cd72359b07efaf2}{TaskComposerDataStorage}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{TaskComposerDataStorage}}\&\&) noexcept;}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{TaskComposerDataStorage}}\& operator=(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{TaskComposerDataStorage}}\&\&) noexcept;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{61   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a6c141644cad4d7bde069a6966510b0f6}{hasKey}}(const std::\textcolor{keywordtype}{string}\& key);}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{68   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a66160148f9c4f6e7bc9a3b678a9b1f65}{setData}}(const std::\textcolor{keywordtype}{string}\& key, tesseract\_common::AnyPoly data);}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{76   tesseract\_common::AnyPoly \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_aa0f70e10286a1e419cd6960954370160}{getData}}(const std::\textcolor{keywordtype}{string}\& key) const;}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{82   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a51c14c7bc4c13cb3c14629dd5dd13ac8}{removeData}}(const std::\textcolor{keywordtype}{string}\& key);}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84   \textcolor{keywordtype}{bool} operator==(const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{TaskComposerDataStorage}}\& rhs) const;}
+\DoxyCodeLine{85   \textcolor{keywordtype}{bool} operator!=(const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{TaskComposerDataStorage}}\& rhs) const;}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87 protected:}
+\DoxyCodeLine{88   friend class tesseract\_common::Serialization;}
+\DoxyCodeLine{89   friend class boost::serialization::access;}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91   template <class Archive>}
+\DoxyCodeLine{92   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_ab4e931015a76659cc2dfc803a2bf51e6}{serialize}}(Archive\& ar, const \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94   mutable std::shared\_mutex \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a570686dd1ee1b946905b83af048a11c8}{mutex\_}};}
+\DoxyCodeLine{95   std::unordered\_map<std::\textcolor{keywordtype}{string}, tesseract\_common::AnyPoly> \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a5a1d1dec6d24d990ab5d064471668d21}{data\_}};}
+\DoxyCodeLine{96 \};}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{102 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{tesseract\_planning::TaskComposerDataStorage}}, \textcolor{stringliteral}{"{}TaskComposerDataStorage"{}})}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_DATA\_STORAGE\_H}}
+
+\end{DoxyCode}

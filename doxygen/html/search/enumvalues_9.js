@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['ndb_0',['NDB',['../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579a57eaecb0d3cb5d6855b841b911f6778c',1,'tesseract_planning']]],
-  ['ndt_1',['NDT',['../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579aed4c02276b8f3078120ac166c16cec42',1,'tesseract_planning']]],
-  ['none_2',['NONE',['../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a616b958914a7cfbc44c21810cac79770ab50339a10e1de285ac99d4c3990b8693',1,'tesseract_planning::FixStateCollisionProfile']]],
-  ['nub_3',['NUB',['../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579ab88543707db70c2c6ea5b19ac7301020',1,'tesseract_planning']]],
-  ['nut_4',['NUT',['../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579aa57b0a6baa71b2c846c70646369e11a0',1,'tesseract_planning']]]
+  ['lazyprmstar_0',['LazyPRMstar',['../d9/dcd/namespacetesseract__planning.html#aaced124f80faedf64173b4b9ae5bf009a047fad3f3eff568f580d6ef5796e1e8f',1,'tesseract_planning']]],
+  ['lbkpiece1_1',['LBKPIECE1',['../d9/dcd/namespacetesseract__planning.html#aaced124f80faedf64173b4b9ae5bf009a7add8dcabb8ec7cd4b9df9f81e770b06',1,'tesseract_planning']]],
+  ['linear_2',['LINEAR',['../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046',1,'tesseract_planning']]]
 ];

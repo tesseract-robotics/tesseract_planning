@@ -1,0 +1,95 @@
+\hypertarget{tesseract__task__composer__serialization__unit_8cpp}{}\doxysection{tesseract\+\_\+task\+\_\+composer/test/tesseract\+\_\+task\+\_\+composer\+\_\+serialization\+\_\+unit.cpp File Reference}
+\label{tesseract__task__composer__serialization__unit_8cpp}\index{tesseract\_task\_composer/test/tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer/test/tesseract\_task\_composer\_serialization\_unit.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$boost/uuid/uuid\+\_\+generators.\+hpp$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/unit\+\_\+test\+\_\+utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/profile\+\_\+dictionary.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+node\+\_\+info.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+input.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+data\+\_\+storage.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/continuous\+\_\+contact\+\_\+check\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/discrete\+\_\+contact\+\_\+check\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/fix\+\_\+state\+\_\+collision\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/taskflow/taskflow\+\_\+task\+\_\+composer\+\_\+future.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}raster\+\_\+example\+\_\+program.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}freespace\+\_\+example\+\_\+program.\+h\char`\"{}}\newline
+Include dependency graph for tesseract\+\_\+task\+\_\+composer\+\_\+serialization\+\_\+unit.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/d0c/tesseract__task__composer__serialization__unit_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_a17455af42e32f6ac8d4ba8681d1043f9}{set\+Node\+Info\+Data}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{Task\+Composer\+Node\+Info}} \&info)
+\item 
+\mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_ab265699061dc69d005c22cb41c4be87a}{TEST}} (Tesseract\+Task\+Composer\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{Task\+Composer\+Node\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_a414fd979507c38b51850342b293c9503}{TEST}} (Tesseract\+Task\+Composer\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo}{Continuous\+Contact\+Check\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_a089a867d794695bd1f14027dbfbcd853}{TEST}} (Tesseract\+Task\+Composer\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskInfo}{Discrete\+Contact\+Check\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_ab5f49cda7d7248ad88626ff207dc1fc7}{TEST}} (Tesseract\+Task\+Composer\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{Fix\+State\+Collision\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_aa39f1ae5562dd013884da505dc32ae24}{TEST}} (Tesseract\+Task\+Composer\+Serialize\+Unit, \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_a2a25262d50095de2ed0283cae6d5538c}{TEST}} (Tesseract\+Task\+Composer\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture}{Task\+Composer\+Future}})
+\item 
+int \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tesseract__task__composer__serialization__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{tesseract__task__composer__serialization__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}!main@{main}}
+\index{main@{main}!tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__serialization__unit_8cpp_a17455af42e32f6ac8d4ba8681d1043f9}\label{tesseract__task__composer__serialization__unit_8cpp_a17455af42e32f6ac8d4ba8681d1043f9}} 
+\index{tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}!setNodeInfoData@{setNodeInfoData}}
+\index{setNodeInfoData@{setNodeInfoData}!tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setNodeInfoData()}{setNodeInfoData()}}
+{\footnotesize\ttfamily void set\+Node\+Info\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{Task\+Composer\+Node\+Info}} \&}]{info }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__serialization__unit_8cpp_a414fd979507c38b51850342b293c9503}\label{tesseract__task__composer__serialization__unit_8cpp_a414fd979507c38b51850342b293c9503}} 
+\index{tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Task\+Composer\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo}{Continuous\+Contact\+Check\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__serialization__unit_8cpp_a089a867d794695bd1f14027dbfbcd853}\label{tesseract__task__composer__serialization__unit_8cpp_a089a867d794695bd1f14027dbfbcd853}} 
+\index{tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Task\+Composer\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskInfo}{Discrete\+Contact\+Check\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__serialization__unit_8cpp_ab5f49cda7d7248ad88626ff207dc1fc7}\label{tesseract__task__composer__serialization__unit_8cpp_ab5f49cda7d7248ad88626ff207dc1fc7}} 
+\index{tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Task\+Composer\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{Fix\+State\+Collision\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__serialization__unit_8cpp_a2a25262d50095de2ed0283cae6d5538c}\label{tesseract__task__composer__serialization__unit_8cpp_a2a25262d50095de2ed0283cae6d5538c}} 
+\index{tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Task\+Composer\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture}{Task\+Composer\+Future}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__serialization__unit_8cpp_aa39f1ae5562dd013884da505dc32ae24}\label{tesseract__task__composer__serialization__unit_8cpp_aa39f1ae5562dd013884da505dc32ae24}} 
+\index{tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Task\+Composer\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__serialization__unit_8cpp_ab265699061dc69d005c22cb41c4be87a}\label{tesseract__task__composer__serialization__unit_8cpp_ab265699061dc69d005c22cb41c4be87a}} 
+\index{tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_task\_composer\_serialization\_unit.cpp@{tesseract\_task\_composer\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Task\+Composer\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{Task\+Composer\+Node\+Info}}}]{ }\end{DoxyParamCaption})}
+

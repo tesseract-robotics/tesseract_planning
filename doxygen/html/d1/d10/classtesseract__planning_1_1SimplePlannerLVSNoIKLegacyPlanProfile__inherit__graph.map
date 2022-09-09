@@ -1,0 +1,4 @@
+<map id="tesseract_planning::SimplePlannerLVSNoIKLegacyPlanProfile" name="tesseract_planning::SimplePlannerLVSNoIKLegacyPlanProfile">
+<area shape="rect" id="node1" title=" " alt="" coords="8,95,219,151"/>
+<area shape="rect" id="node2" href="$df/d35/classtesseract__planning_1_1SimplePlannerLegacyPlanProfile.html" title="Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases..." alt="" coords="5,5,221,47"/>
+</map>

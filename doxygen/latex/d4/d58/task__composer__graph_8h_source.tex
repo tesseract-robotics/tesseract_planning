@@ -1,0 +1,66 @@
+\hypertarget{task__composer__graph_8h_source}{}\doxysection{task\+\_\+composer\+\_\+graph.\+h}
+\label{task__composer__graph_8h_source}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/task\_composer\_graph.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/task\_composer\_graph.h}}
+\mbox{\hyperlink{task__composer__graph_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_GRAPH\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_GRAPH\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__node_8h}{tesseract\_task\_composer/task\_composer\_node.h}}>}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode}{TaskComposerNode}}}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{public}:}
+\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_ac01929676a0cbbe94dd79dfc1e201965}{Ptr}} = std::shared\_ptr<TaskComposerGraph>;}
+\DoxyCodeLine{48   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a6ce2cf96b33ee0821c553a9a6b119699}{ConstPtr}} = std::shared\_ptr<const TaskComposerGraph>;}
+\DoxyCodeLine{49   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a638d4abd56b78478c016b11cc5667f21}{UPtr}} = std::unique\_ptr<TaskComposerGraph>;}
+\DoxyCodeLine{50   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a7a09fbd1ebfcc467fc0b51e76dd2d0f4}{ConstUPtr}} = std::unique\_ptr<const TaskComposerGraph>;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a079e1b621e9e1079f81c273ac05e6466}{TaskComposerGraph}}(std::string name = \textcolor{stringliteral}{"{}TaskComposerGraph"{}});}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_ae00bdc3bd4a743d4d50674c60577d68c}{\string~TaskComposerGraph}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a4f85c99a16c90bd4b4cb88f142a720e9}{TaskComposerGraph}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a917c3b5647417b30ade719f1cdd388c0}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_af3f617c86540d612be8fb59733655508}{TaskComposerGraph}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_ac8c2d3b67473a3c5a9b6b25b53ad1a11}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{63   boost::uuids::uuid \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_ad18db6bfc72762da18cdf4ab6218d233}{addNode}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_aeee363b2e1325a896f640091c2673dff}{TaskComposerNode::UPtr}} task\_node);}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{76   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a6614bd23a1af29b8e1f79c85a8fae9dc}{addEdges}}(boost::uuids::uuid source, std::vector<boost::uuids::uuid> destinations);}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{79   std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr> \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a4c774bad2e0c5dde9edc7dc02c09e2c7}{getNodes}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_afa0ced55a3ff2f3369d62b0269d875ef}{dump}}(std::ostream\& os) \textcolor{keyword}{const override};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_ac0adef99b48acf5edbeb66e7cdabdd9e}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{84   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a55eaa031c27bd762cd600d2652ce99b8}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{87   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{88   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{91   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a5c9784ba3fa9454b5f35a6445aabe04f}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a4cafe05bb535eb34fb9113dc23ab68db}{dumpHelper}}(std::ostream\& os, \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}\& parent) \textcolor{keyword}{const};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95   std::map<boost::uuids::uuid, TaskComposerNode::Ptr> \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_aef56cac14fe32ec9c15f576e8c86f5a2}{nodes\_}};}
+\DoxyCodeLine{96 \};}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{102 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{tesseract\_planning::TaskComposerGraph}}, \textcolor{stringliteral}{"{}TaskComposerGraph"{}})}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_GRAPH\_H}}
+
+\end{DoxyCode}

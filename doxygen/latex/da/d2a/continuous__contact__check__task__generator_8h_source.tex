@@ -12,7 +12,7 @@
 \DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
 \DoxyCodeLine{33 }
 \DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__generator_8h}{tesseract\_process\_managers/core/task\_generator.h}}>}}
-\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__task__namespaces_8h}{tesseract\_process\_managers/core/default\_task\_namespaces.h}}>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__process__managers_2include_2tesseract__process__managers_2core_2default__task__namespaces_8h}{tesseract\_process\_managers/core/default\_task\_namespaces.h}}>}}
 \DoxyCodeLine{36 }
 \DoxyCodeLine{37 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
 \DoxyCodeLine{38 \{}
@@ -42,17 +42,17 @@
 \DoxyCodeLine{62 }
 \DoxyCodeLine{63   \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_aac49261b5da7454713a8eb4ed8d8a6dd}{ContinuousContactCheckTaskInfo}}() = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{64   \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_aac49261b5da7454713a8eb4ed8d8a6dd}{ContinuousContactCheckTaskInfo}}(std::size\_t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\_id}},}
-\DoxyCodeLine{65                                  std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_afeac97c9b3f6a311b7e4603b55d0ea46}{profile\_ns::CONTINUOUS\_CONTACT\_CHECK\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{65                                  std::string \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a811940b9166e3ec2e4b7a1feecffbc3e}{name}} = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_afeac97c9b3f6a311b7e4603b55d0ea46}{profile\_ns::CONTINUOUS\_CONTACT\_CHECK\_DEFAULT\_NAMESPACE}});}
 \DoxyCodeLine{66 }
-\DoxyCodeLine{67   std::vector<tesseract\_collision::ContactResultMap> \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_abeb1395aaaa3348a7149799553051f1c}{contact\_results}};}
+\DoxyCodeLine{67   std::vector<tesseract\_collision::ContactResultMap> \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_a70a6d9996dc04495bf50e349d9b6a609}{contact\_results}};}
 \DoxyCodeLine{68 }
-\DoxyCodeLine{69   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_a331e34d845ec033407efad39eebca4b7}{clone}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{69   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_a0f64ff4bd98545f92c211030d08487cf}{clone}}() \textcolor{keyword}{const override};}
 \DoxyCodeLine{70 }
 \DoxyCodeLine{71   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_afe5cfb8bff59296e360219b530c5d05e}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo}{ContinuousContactCheckTaskInfo}}\& rhs) \textcolor{keyword}{const};}
 \DoxyCodeLine{72   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_ade38394ea4a656b4362356ff202ad05a}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo}{ContinuousContactCheckTaskInfo}}\& rhs) \textcolor{keyword}{const};}
 \DoxyCodeLine{73 }
 \DoxyCodeLine{74 \textcolor{keyword}{private}:}
-\DoxyCodeLine{75   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{75   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_a4305f269960e8ccc92b19b2f0480b16d}{boost::serialization::access}};}
 \DoxyCodeLine{76   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
 \DoxyCodeLine{77   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_a44a89d9a11d3d2273969a2e55817e107}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
 \DoxyCodeLine{78 \};}

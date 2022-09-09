@@ -71,7 +71,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><dl class="reflist">
 <dt>Member <a class="el" href="../../df/de5/taskflow__profiling__example_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>  ()</dt>
-<dd><a class="anchor" id="_todo000041"></a>When FreespaceTaskflow is rewritten to inherit from GraphTaskflow this will work.  </dd>
+<dd><a class="anchor" id="_todo000058"></a>When FreespaceTaskflow is rewritten to inherit from GraphTaskflow this will work.  </dd>
 <dt>Member <a class="el" href="../../d1/d36/classtesseract__examples_1_1OnlinePlanningExample.html#a354985cdbaa511e24b5c010271477fad">tesseract_examples::OnlinePlanningExample::onlinePlan</a>  ()</dt>
 <dd><a class="anchor" id="_todo000004"></a>Should check status here and maybe solve global plan again  </dd>
 <dt>Member <a class="el" href="../../d8/d09/classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample.html#a80bdddfe2d2d8a0f57f18351acd706fc">tesseract_examples::PuzzlePieceAuxillaryAxesExample::run</a>  () override final</dt>
@@ -85,76 +85,110 @@ $(function() {
 <dt>Namespace <a class="el" href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a>  </dt>
 <dd><a class="anchor" id="_todo000001"></a>Remove after refactor is complete  </dd>
 <dt>Member <a class="el" href="../../d0/d5b/classtesseract__planning_1_1DescartesDefaultPlanProfile.html#a8bbf9dd170dfc5da44f4117d74ca7a6a">tesseract_planning::DescartesDefaultPlanProfile&lt; FloatType &gt;::DescartesDefaultPlanProfile</a>  (const tinyxml2::XMLElement &amp;xml_element)</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000014"></a>Update XML </p>
-<p class="interdd"><a class="anchor" id="_todo000015"></a>Update XML </p>
-<p class="enddd"><a class="anchor" id="_todo000016"></a>Update XML  </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000020"></a>Update XML </p>
+<p class="interdd"><a class="anchor" id="_todo000019"></a>Update XML </p>
+<p class="enddd"><a class="anchor" id="_todo000018"></a>Update XML  </p>
 </dd>
 <dt>Member <a class="el" href="../../d0/d5b/classtesseract__planning_1_1DescartesDefaultPlanProfile.html#ab0ef1a785193fd3a1b91dba16e547462">tesseract_planning::DescartesDefaultPlanProfile&lt; FloatType &gt;::toXML</a>  (tinyxml2::XMLDocument &amp;doc) const override</dt>
-<dd><a class="anchor" id="_todo000017"></a>Update XML  </dd>
-<dt>Member <a class="el" href="../../d7/d2c/classtesseract__planning_1_1DescartesMotionPlanner.html#a7aa5051004a8c999fa46cbc087a09db2">tesseract_planning::DescartesMotionPlanner&lt; FloatType &gt;::createProblem</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000012"></a>Should check that the joint names match the order of the manipulator </p>
-<p class="enddd"><a class="anchor" id="_todo000013"></a>Should check that the joint names match the order of the manipulator  </p>
+<dd><a class="anchor" id="_todo000021"></a>Update XML  </dd>
+<dt>Member <a class="el" href="../../de/dee/classtesseract__planning_1_1DescartesLegacyMotionPlanner.html#a5bf0b323c165cff6854321bb020cce8f">tesseract_planning::DescartesLegacyMotionPlanner&lt; FloatType &gt;::createProblem</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000016"></a>Should check that the joint names match the order of the manipulator </p>
+<p class="enddd"><a class="anchor" id="_todo000017"></a>Should check that the joint names match the order of the manipulator  </p>
 </dd>
 <dt>Member <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af6d0dfd4f3bf9af354959f93dc8dcaa4">tesseract_planning::getClosestJointSolution</a>  (const <a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html" title="The Kinematic Group Instruction Information struct.">KinematicGroupInstructionInfo</a> &amp;info1, const <a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html" title="The Kinematic Group Instruction Information struct.">KinematicGroupInstructionInfo</a> &amp;info2, const Eigen::VectorXd &amp;seed)</dt>
-<dd><a class="anchor" id="_todo000010"></a>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed.  </dd>
+<dd><a class="anchor" id="_todo000013"></a>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed.  </dd>
 <dt>Member <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c73959c536f2f1f881910a889315465">tesseract_planning::getClosestJointSolution</a>  (const <a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html" title="The Kinematic Group Instruction Information struct.">KinematicGroupInstructionInfo</a> &amp;info, const Eigen::VectorXd &amp;seed)</dt>
-<dd><a class="anchor" id="_todo000009"></a>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed  </dd>
+<dd><a class="anchor" id="_todo000012"></a>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed  </dd>
+<dt>Member <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af6d0dfd4f3bf9af354959f93dc8dcaa4">tesseract_planning::getClosestJointSolution</a>  (const <a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html" title="The Kinematic Group Instruction Information struct.">KinematicGroupInstructionInfo</a> &amp;info1, const <a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html" title="The Kinematic Group Instruction Information struct.">KinematicGroupInstructionInfo</a> &amp;info2, const Eigen::VectorXd &amp;seed)</dt>
+<dd><a class="anchor" id="_todo000011"></a>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed.  </dd>
+<dt>Member <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c73959c536f2f1f881910a889315465">tesseract_planning::getClosestJointSolution</a>  (const <a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html" title="The Kinematic Group Instruction Information struct.">KinematicGroupInstructionInfo</a> &amp;info, const Eigen::VectorXd &amp;seed)</dt>
+<dd><a class="anchor" id="_todo000010"></a>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed  </dd>
 <dt>Member <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a0af9486d7b7cc6ca84589dbd2bacd579">tesseract_planning::MoveInstruction::operator==</a>  (const <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html" title="The move instruction is used when defining the results of a motion planning request.">MoveInstruction</a> &amp;rhs) const</dt>
 <dd><a class="anchor" id="_todo000002"></a>Add profiles overrides when serialization is supported for profiles  </dd>
 <dt>Member <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a3e0aefd8a904268b62c0ef28d994d808">tesseract_planning::MoveInstruction::serialize</a>  (Archive &amp;ar, const unsigned int version)</dt>
 <dd><a class="anchor" id="_todo000003"></a>Add profiles overrides when serialization is supported for profiles  </dd>
-<dt>Member <a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#aa0e5ed40423ce3d4c30eeed36f0c5c34">tesseract_planning::OMPLDefaultPlanProfile::applyGoalStates</a>  (<a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html">OMPLProblem</a> &amp;prob, const Eigen::Isometry3d &amp;cartesian_waypoint, const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &amp;parent_instruction, const tesseract_common::ManipulatorInfo &amp;manip_info, const std::vector&lt; std::string &gt; &amp;active_links, int index) const override</dt>
-<dd><a class="anchor" id="_todo000027"></a>Need to add Descartes pose sample to ompl profile  </dd>
-<dt>Member <a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#afcae926a48950ac684bb0b366b8863f9">tesseract_planning::OMPLDefaultPlanProfile::applyStartStates</a>  (<a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html">OMPLProblem</a> &amp;prob, const Eigen::Isometry3d &amp;cartesian_waypoint, const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &amp;parent_instruction, const tesseract_common::ManipulatorInfo &amp;manip_info, const std::vector&lt; std::string &gt; &amp;active_links, int index) const override</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000029"></a>Need to also provide the seed instruction to use here </p>
-<p class="enddd"><a class="anchor" id="_todo000028"></a>Need to add Descartes pose sampler to ompl profile  </p>
+<dt>Member <a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a85760cd8b6ebfe4699dfad07d75b1195">tesseract_planning::OMPLDefaultPlanProfile::applyGoalStates</a>  (<a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html">OMPLProblem</a> &amp;prob, const Eigen::Isometry3d &amp;cartesian_waypoint, const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;parent_instruction, const tesseract_common::ManipulatorInfo &amp;manip_info, const std::vector&lt; std::string &gt; &amp;active_links, int index) const override</dt>
+<dd><a class="anchor" id="_todo000036"></a>Need to add Descartes pose sample to ompl profile  </dd>
+<dt>Member <a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a3476f069e689f90464f180d17f93120f">tesseract_planning::OMPLDefaultPlanProfile::applyStartStates</a>  (<a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html">OMPLProblem</a> &amp;prob, const Eigen::Isometry3d &amp;cartesian_waypoint, const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;parent_instruction, const tesseract_common::ManipulatorInfo &amp;manip_info, const std::vector&lt; std::string &gt; &amp;active_links, int index) const override</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000038"></a>Need to also provide the seed instruction to use here </p>
+<p class="enddd"><a class="anchor" id="_todo000037"></a>Need to add Descartes pose sampler to ompl profile  </p>
 </dd>
 <dt>Member <a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a46c010d4fcdb918631ac92016d3bfccd">tesseract_planning::OMPLDefaultPlanProfile::OMPLDefaultPlanProfile</a>  (const tinyxml2::XMLElement &amp;xml_element)</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000025"></a>Update XML </p>
-<p class="enddd"><a class="anchor" id="_todo000026"></a>Update XML  </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000035"></a>Update XML </p>
+<p class="enddd"><a class="anchor" id="_todo000034"></a>Update XML  </p>
 </dd>
 <dt>Member <a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a9ceeaf8d8a01e483992a71b15cb32df4">tesseract_planning::OMPLDefaultPlanProfile::toXML</a>  (tinyxml2::XMLDocument &amp;doc) const override</dt>
-<dd><a class="anchor" id="_todo000030"></a>Update XML  </dd>
-<dt>Member <a class="el" href="../../dd/dd3/classtesseract__planning_1_1OMPLMotionPlanner.html#a26896a1ffb6a331553b3e7dec2af8684">tesseract_planning::OMPLMotionPlanner::createProblems</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000023"></a>Update. Extract the solution for the previous plan and set as the start </p>
-<p class="interdd"><a class="anchor" id="_todo000022"></a>Add support for linear motion to ompl planner </p>
-<p class="interdd"><a class="anchor" id="_todo000021"></a>Should check that the joint names match the order of the manipulator </p>
-<p class="enddd"><a class="anchor" id="_todo000024"></a>need to extract the solution for Cartesian waypoints to work correctly  </p>
+<dd><a class="anchor" id="_todo000039"></a>Update XML  </dd>
+<dt>Member <a class="el" href="../../d7/dd0/classtesseract__planning_1_1OMPLLegacyMotionPlanner.html#a64a1b7d599e865fa9ca2b9bfb3148d60">tesseract_planning::OMPLLegacyMotionPlanner::createProblems</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000025"></a>Should check that the joint names match the order of the manipulator </p>
+<p class="interdd"><a class="anchor" id="_todo000026"></a>Add support for linear motion to ompl planner </p>
+<p class="interdd"><a class="anchor" id="_todo000027"></a>Update. Extract the solution for the previous plan and set as the start </p>
+<p class="enddd"><a class="anchor" id="_todo000028"></a>need to extract the solution for Cartesian waypoints to work correctly  </p>
 </dd>
-<dt>Member <a class="el" href="../../dd/dd3/classtesseract__planning_1_1OMPLMotionPlanner.html#a5e97b6b8cfb1f6e22ddac32cc6d4cbad">tesseract_planning::OMPLMotionPlanner::solve</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, <a class="el" href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html">PlannerResponse</a> &amp;response, bool verbose=false) const override</dt>
-<dd><a class="anchor" id="_todo000020"></a>: Need to expand this to support multiple motion plans leveraging taskflow  </dd>
+<dt>Member <a class="el" href="../../d7/dd0/classtesseract__planning_1_1OMPLLegacyMotionPlanner.html#a9dda3ce1d71d17073d66d6fe7fe15e57">tesseract_planning::OMPLLegacyMotionPlanner::solve</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const override</dt>
+<dd><a class="anchor" id="_todo000024"></a>: Need to expand this to support multiple motion plans leveraging taskflow  </dd>
+<dt>Member <a class="el" href="../../dd/dd3/classtesseract__planning_1_1OMPLMotionPlanner.html#a2640a0313b4f72a8f0dc5b63db2bc5e0">tesseract_planning::OMPLMotionPlanner::createSubProblem</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_common::ManipulatorInfo &amp;composite_mi, const tesseract_kinematics::JointGroup::ConstPtr &amp;manip, const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;start_instruction, const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;end_instruction, int n_output_states, int index) const</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000032"></a>Should check that the joint names match the order of the manipulator </p>
+<p class="enddd"><a class="anchor" id="_todo000033"></a>Update. Extract the solution for the previous plan and set as the start  </p>
+</dd>
+<dt>Member <a class="el" href="../../dd/dd3/classtesseract__planning_1_1OMPLMotionPlanner.html#acbe96b10701a59c016d78ba4aae922eb">tesseract_planning::OMPLMotionPlanner::solve</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const override</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000031"></a>Switch to processing the composite directly versus a flat list to solve the problem above <br  />
+ </p>
+<p class="interdd"><a class="anchor" id="_todo000030"></a>Current does not handle if the returned solution is greater than the request </p>
+<p class="enddd"><a class="anchor" id="_todo000029"></a>: Need to expand this to support multiple motion plans leveraging taskflow  </p>
+</dd>
+<dt>Member <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html#a610e5a50fcb3b62f94b085072170669f">tesseract_planning::PlannerRequest::seed</a>  </dt>
+<dd><a class="anchor" id="_todo000009"></a>Remove when legacy planners are removed  </dd>
 <dt>Member <a class="el" href="../../d4/df2/classtesseract__planning_1_1ProcessPlanningServer.html#a8c1748ba72163eab8036537dd3d767f0">tesseract_planning::ProcessPlanningServer::addExecutor</a>  (const std::string &amp;name, size_t n)</dt>
-<dd><a class="anchor" id="_todo000043"></a>Need to figure out if these can associated with an individual run versus global  </dd>
+<dd><a class="anchor" id="_todo000060"></a>Need to figure out if these can associated with an individual run versus global  </dd>
+<dt>Member <a class="el" href="../../d4/d17/classtesseract__planning_1_1SimpleMotionLegacyPlanner.html#a22d441121aad65756ace809390b79e83">tesseract_planning::SimpleMotionLegacyPlanner::getStartInstruction</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_scene_graph::SceneState &amp;current_state, const tesseract_kinematics::JointGroup &amp;manip)</dt>
+<dd><a class="anchor" id="_todo000014"></a>Update to run IK to find solution closest to start  </dd>
 <dt>Member <a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#acf61134a85d9ed814435d2736ad23115">tesseract_planning::SimpleMotionPlanner::getStartInstruction</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_scene_graph::SceneState &amp;current_state, const tesseract_kinematics::JointGroup &amp;manip)</dt>
-<dd><a class="anchor" id="_todo000011"></a>Update to run IK to find solution closest to start  </dd>
+<dd><a class="anchor" id="_todo000015"></a>Update to run IK to find solution closest to start  </dd>
+<dt>Member <a class="el" href="../../db/d39/structtesseract__planning_1_1TaskComposerInput.html#a1bb58d9e7d8956aecb0feb6626a21ebe">tesseract_planning::TaskComposerInput::serialize</a>  (Archive &amp;ar, const unsigned int version)</dt>
+<dd><a class="anchor" id="_todo000062"></a>Fix after profiles are serializable  </dd>
 <dt>Member <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html#a31b7c7bcbc8168c2a17d6ce2910fd861">tesseract_planning::TaskInput::getEndInstruction</a>  () const</dt>
-<dd><a class="anchor" id="_todo000044"></a>Should this get the first move instruction?  </dd>
+<dd><a class="anchor" id="_todo000061"></a>Should this get the first move instruction?  </dd>
 <dt>Member <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html#a76282121b3d486b03a098cdc8124ad39">tesseract_planning::TaskInput::size</a>  ()</dt>
-<dd><a class="anchor" id="_todo000042"></a>Should this be -1, because composite size could be 1, 0, or other?  </dd>
+<dd><a class="anchor" id="_todo000059"></a>Should this be -1, because composite size could be 1, 0, or other?  </dd>
 <dt>Member <a class="el" href="../../d7/df1/classtesseract__planning_1_1TimeOptimalTrajectoryGeneration.html#a808c675ec842305c839339e77f1103cf">tesseract_planning::TimeOptimalTrajectoryGeneration::computeTimeStamps</a>  (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;program, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;max_velocity, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;max_acceleration, double max_velocity_scaling_factor=1.0, double max_acceleration_scaling_factor=1.0) const</dt>
-<dd><a class="anchor" id="_todo000045"></a>Figure out how to maintain the original seed structure of subcomposites  </dd>
-<dt>Member <a class="el" href="../../d6/d89/classtesseract__planning_1_1TrajOptIfoptMotionPlanner.html#a110527b1475e5b5f8622997825e29e35">tesseract_planning::TrajOptIfoptMotionPlanner::createProblem</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000037"></a>Write a path constraint for this </p>
-<p class="interdd"><a class="anchor" id="_todo000038"></a>Add path constraint for this </p>
-<p class="interdd"><a class="anchor" id="_todo000039"></a>Should check that the joint names match the order of the manipulator </p>
-<p class="enddd"><a class="anchor" id="_todo000040"></a>Should check that the joint names match the order of the manipulator  </p>
+<dd><a class="anchor" id="_todo000063"></a>Figure out how to maintain the original seed structure of subcomposites  </dd>
+<dt>Member <a class="el" href="../../de/d30/classtesseract__planning_1_1TrajOptIfoptLegacyMotionPlanner.html#a7f3e4156fd81d3df4a909397aba68167">tesseract_planning::TrajOptIfoptLegacyMotionPlanner::createProblem</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000049"></a>Write a path constraint for this </p>
+<p class="interdd"><a class="anchor" id="_todo000050"></a>Add path constraint for this </p>
+<p class="interdd"><a class="anchor" id="_todo000051"></a>Should check that the joint names match the order of the manipulator </p>
+<p class="enddd"><a class="anchor" id="_todo000052"></a>Should check that the joint names match the order of the manipulator  </p>
 </dd>
-<dt>Member <a class="el" href="../../d6/d89/classtesseract__planning_1_1TrajOptIfoptMotionPlanner.html#aa86732e70ee5102815d15b896927e14d">tesseract_planning::TrajOptIfoptMotionPlanner::solve</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, <a class="el" href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html">PlannerResponse</a> &amp;response, bool verbose=false) const override</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000036"></a>Set these as the defaults in trajopt and allow setting </p>
-<p class="enddd"><a class="anchor" id="_todo000035"></a>Enable solver selection (e.g. IPOPT)  </p>
+<dt>Member <a class="el" href="../../de/d30/classtesseract__planning_1_1TrajOptIfoptLegacyMotionPlanner.html#a1a2423387fb024efa8909ea5d29935b7">tesseract_planning::TrajOptIfoptLegacyMotionPlanner::solve</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const override</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000047"></a>Enable solver selection (e.g. IPOPT) </p>
+<p class="enddd"><a class="anchor" id="_todo000048"></a>Set these as the defaults in trajopt and allow setting  </p>
+</dd>
+<dt>Member <a class="el" href="../../d6/d89/classtesseract__planning_1_1TrajOptIfoptMotionPlanner.html#a110527b1475e5b5f8622997825e29e35">tesseract_planning::TrajOptIfoptMotionPlanner::createProblem</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000055"></a>If fixed cartesian and not term_type cost add as fixed </p>
+<p class="interdd"><a class="anchor" id="_todo000057"></a>Should not make fixed if term_type is cost </p>
+<p class="enddd"><a class="anchor" id="_todo000056"></a>Should not make fixed if term_type is cost  </p>
+</dd>
+<dt>Member <a class="el" href="../../d6/d89/classtesseract__planning_1_1TrajOptIfoptMotionPlanner.html#a8571318009fac584c15542ee8b2e4f04">tesseract_planning::TrajOptIfoptMotionPlanner::solve</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const override</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000054"></a>Set these as the defaults in trajopt and allow setting </p>
+<p class="enddd"><a class="anchor" id="_todo000053"></a>Enable solver selection (e.g. IPOPT)  </p>
+</dd>
+<dt>Member <a class="el" href="../../d6/d4e/classtesseract__planning_1_1TrajOptLegacyMotionPlanner.html#adf685d33d5b7db44a5c741b7e1443e86">tesseract_planning::TrajOptLegacyMotionPlanner::createProblem</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000043"></a>Should check that the joint names match the order of the manipulator </p>
+<p class="interdd"><a class="anchor" id="_todo000042"></a>Should check that the joint names match the order of the manipulator </p>
+<p class="interdd"><a class="anchor" id="_todo000041"></a>Add path constraint for this </p>
+<p class="enddd"><a class="anchor" id="_todo000040"></a>Write a path constraint for this  </p>
 </dd>
 <dt>Member <a class="el" href="../../d3/db9/classtesseract__planning_1_1TrajOptMotionPlanner.html#a6f42bc4743b8be6fd310b7e75282796d">tesseract_planning::TrajOptMotionPlanner::createProblem</a>  (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000034"></a>Should check that the joint names match the order of the manipulator </p>
-<p class="interdd"><a class="anchor" id="_todo000033"></a>Should check that the joint names match the order of the manipulator </p>
-<p class="interdd"><a class="anchor" id="_todo000032"></a>Add path constraint for this </p>
-<p class="enddd"><a class="anchor" id="_todo000031"></a>Write a path constraint for this </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000046"></a>Should not make fixed if term_type is cost </p>
+<p class="interdd"><a class="anchor" id="_todo000045"></a>Should not make fixed if term_type is cost </p>
+<p class="enddd"><a class="anchor" id="_todo000044"></a>If fixed cartesian and not term_type cost add as fixed </p>
 </dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 4 2022 15:27:24 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Sep 9 2022 11:44:49 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

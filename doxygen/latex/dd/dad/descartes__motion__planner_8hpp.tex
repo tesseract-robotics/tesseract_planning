@@ -16,6 +16,7 @@ Tesseract ROS Descartes planner.
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/descartes\+\_\+motion\+\_\+planner.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/profile/descartes\+\_\+default\+\_\+plan\+\_\+profile.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/interpolation.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/planner\+\_\+utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils.\+h$>$}\newline
 Include dependency graph for descartes\+\_\+motion\+\_\+planner.\+hpp\+:
@@ -39,6 +40,17 @@ This graph shows which files directly or indirectly include this file\+:
 \item 
 namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
 \end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP constexpr auto \mbox{\hyperlink{descartes__motion__planner_8hpp_a5c3f7af179b15ee113611d688da0059e}{SOLUTION\+\_\+\+FOUND}} \{ \char`\"{}Found valid solution\char`\"{} \}
+\item 
+constexpr auto \mbox{\hyperlink{descartes__motion__planner_8hpp_adc2e4f3c03d04f9c631338193971f43f}{ERROR\+\_\+\+INVALID\+\_\+\+INPUT}} \{ \char`\"{}Failed invalid input\char`\"{} \}
+\item 
+constexpr auto \mbox{\hyperlink{descartes__motion__planner_8hpp_adf470fcd3f8922c6fc108ef8404f85bb}{ERROR\+\_\+\+FAILED\+\_\+\+TO\+\_\+\+BUILD\+\_\+\+GRAPH}} \{ \char`\"{}Failed to build graph\char`\"{} \}
+\item 
+constexpr auto \mbox{\hyperlink{descartes__motion__planner_8hpp_a7845d8e667b77363523f2736ab4978fb}{ERROR\+\_\+\+FAILED\+\_\+\+TO\+\_\+\+FIND\+\_\+\+VALID\+\_\+\+SOLUTION}} \{ \char`\"{}Failed to find valid solution\char`\"{} \}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -54,7 +66,32 @@ April 18, 2018
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000107}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000119}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2017, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+\end{DoxyParagraph}
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+April 18, 2018 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000120}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -69,3 +106,30 @@ Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\
 \begin{DoxyParagraph}{}
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
 \end{DoxyParagraph}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{descartes__motion__planner_8hpp_adf470fcd3f8922c6fc108ef8404f85bb}\label{descartes__motion__planner_8hpp_adf470fcd3f8922c6fc108ef8404f85bb}} 
+\index{descartes\_motion\_planner.hpp@{descartes\_motion\_planner.hpp}!ERROR\_FAILED\_TO\_BUILD\_GRAPH@{ERROR\_FAILED\_TO\_BUILD\_GRAPH}}
+\index{ERROR\_FAILED\_TO\_BUILD\_GRAPH@{ERROR\_FAILED\_TO\_BUILD\_GRAPH}!descartes\_motion\_planner.hpp@{descartes\_motion\_planner.hpp}}
+\doxysubsubsection{\texorpdfstring{ERROR\_FAILED\_TO\_BUILD\_GRAPH}{ERROR\_FAILED\_TO\_BUILD\_GRAPH}}
+{\footnotesize\ttfamily constexpr auto ERROR\+\_\+\+FAILED\+\_\+\+TO\+\_\+\+BUILD\+\_\+\+GRAPH \{ \char`\"{}Failed to build graph\char`\"{} \}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{descartes__motion__planner_8hpp_a7845d8e667b77363523f2736ab4978fb}\label{descartes__motion__planner_8hpp_a7845d8e667b77363523f2736ab4978fb}} 
+\index{descartes\_motion\_planner.hpp@{descartes\_motion\_planner.hpp}!ERROR\_FAILED\_TO\_FIND\_VALID\_SOLUTION@{ERROR\_FAILED\_TO\_FIND\_VALID\_SOLUTION}}
+\index{ERROR\_FAILED\_TO\_FIND\_VALID\_SOLUTION@{ERROR\_FAILED\_TO\_FIND\_VALID\_SOLUTION}!descartes\_motion\_planner.hpp@{descartes\_motion\_planner.hpp}}
+\doxysubsubsection{\texorpdfstring{ERROR\_FAILED\_TO\_FIND\_VALID\_SOLUTION}{ERROR\_FAILED\_TO\_FIND\_VALID\_SOLUTION}}
+{\footnotesize\ttfamily constexpr auto ERROR\+\_\+\+FAILED\+\_\+\+TO\+\_\+\+FIND\+\_\+\+VALID\+\_\+\+SOLUTION \{ \char`\"{}Failed to find valid solution\char`\"{} \}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{descartes__motion__planner_8hpp_adc2e4f3c03d04f9c631338193971f43f}\label{descartes__motion__planner_8hpp_adc2e4f3c03d04f9c631338193971f43f}} 
+\index{descartes\_motion\_planner.hpp@{descartes\_motion\_planner.hpp}!ERROR\_INVALID\_INPUT@{ERROR\_INVALID\_INPUT}}
+\index{ERROR\_INVALID\_INPUT@{ERROR\_INVALID\_INPUT}!descartes\_motion\_planner.hpp@{descartes\_motion\_planner.hpp}}
+\doxysubsubsection{\texorpdfstring{ERROR\_INVALID\_INPUT}{ERROR\_INVALID\_INPUT}}
+{\footnotesize\ttfamily constexpr auto ERROR\+\_\+\+INVALID\+\_\+\+INPUT \{ \char`\"{}Failed invalid input\char`\"{} \}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{descartes__motion__planner_8hpp_a5c3f7af179b15ee113611d688da0059e}\label{descartes__motion__planner_8hpp_a5c3f7af179b15ee113611d688da0059e}} 
+\index{descartes\_motion\_planner.hpp@{descartes\_motion\_planner.hpp}!SOLUTION\_FOUND@{SOLUTION\_FOUND}}
+\index{SOLUTION\_FOUND@{SOLUTION\_FOUND}!descartes\_motion\_planner.hpp@{descartes\_motion\_planner.hpp}}
+\doxysubsubsection{\texorpdfstring{SOLUTION\_FOUND}{SOLUTION\_FOUND}}
+{\footnotesize\ttfamily TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP constexpr auto SOLUTION\+\_\+\+FOUND \{ \char`\"{}Found valid solution\char`\"{} \}\hspace{0.3cm}{\ttfamily [constexpr]}}
+

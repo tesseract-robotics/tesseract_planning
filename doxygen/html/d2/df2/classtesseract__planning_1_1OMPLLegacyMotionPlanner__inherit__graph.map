@@ -1,0 +1,4 @@
+<map id="tesseract_planning::OMPLLegacyMotionPlanner" name="tesseract_planning::OMPLLegacyMotionPlanner">
+<area shape="rect" id="node1" title="This planner is intended to provide an easy to use interface to OMPL for freespace planning...." alt="" coords="5,95,196,136"/>
+<area shape="rect" id="node2" href="$dd/d5f/classtesseract__planning_1_1MotionPlanner.html" title=" " alt="" coords="35,5,166,47"/>
+</map>

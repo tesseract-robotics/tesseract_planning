@@ -14,49 +14,38 @@
 \DoxyCodeLine{10 }
 \DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__planner__namespaces_8h}{tesseract\_motion\_planners/default\_planner\_namespaces.h}}>}}
 \DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{planner_8h}{tesseract\_motion\_planners/core/planner.h}}>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__motion__planner__status__category_8h}{tesseract\_motion\_planners/descartes/descartes\_motion\_planner\_status\_category.h}}>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__problem_8h}{tesseract\_motion\_planners/descartes/descartes\_problem.h}}>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__profile_8h}{tesseract\_motion\_planners/descartes/profile/descartes\_profile.h}}>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{18 \{}
-\DoxyCodeLine{19 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{20 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}}
-\DoxyCodeLine{21 \{}
-\DoxyCodeLine{22 \textcolor{keyword}{public}:}
-\DoxyCodeLine{24   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a0189e26eea69ff9160f717fab2414e22}{DescartesMotionPlanner}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a731af03f25f7a40bc02e4864b796d69e}{profile\_ns::DESCARTES\_DEFAULT\_NAMESPACE}});}
-\DoxyCodeLine{25   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a017f6257249cc7e0fa1dbf7cdcc27c99}{\string~DescartesMotionPlanner}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{26   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a141f844c40255a4d00fb9370afa4c527}{DescartesMotionPlanner}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{27   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_af26948d12a36c14b8f28eb915af62d79}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{28   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a25665cc6a29dd13ae60213de29bf1401}{DescartesMotionPlanner}}(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}\&\&) noexcept = delete;}
-\DoxyCodeLine{29   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}\& operator=(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}\&\&) noexcept = delete;}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31   const std::\textcolor{keywordtype}{string}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_ad424282e611add853a8fc23b9c98422a}{getName}}() const override;}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{41   tesseract\_common::StatusCode \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_aa608f79fb4516b7ae901c78d4f77adcb}{solve}}(const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
-\DoxyCodeLine{42                                      \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}}\& response,}
-\DoxyCodeLine{43                                      \textcolor{keywordtype}{bool} verbose = false) const override;}
-\DoxyCodeLine{44 }
-\DoxyCodeLine{45   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a2efeee49747eca2399ff5103e29924eb}{checkUserInput}}(const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request);}
-\DoxyCodeLine{46 }
-\DoxyCodeLine{47   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a0bb1f4ff5c88060f87c72dcdda8417c3}{terminate}}() override;}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{49   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_afec3c9ed00949cb779dfa7ad78cd8bee}{clear}}() override;}
-\DoxyCodeLine{50 }
-\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}::\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a9ad1370efee697b369cf98ea6a3143ae}{clone}}() const override;}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{53   virtual std::shared\_ptr<\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem}}<FloatType>> \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a7aa5051004a8c999fa46cbc087a09db2}{createProblem}}(const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) const;}
-\DoxyCodeLine{54 }
-\DoxyCodeLine{55 private:}
-\DoxyCodeLine{57   std::\textcolor{keywordtype}{string} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_ab0a92589aafb9c14410140c098c24e98}{name\_}};}
-\DoxyCodeLine{58   std::shared\_ptr<const \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory}{DescartesMotionPlannerStatusCategory}}> \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a3cffbe2fda98f2acd853cd8371857881}{status\_category\_}};}
-\DoxyCodeLine{59 \};}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61 using \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlannerD}} = \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}<\textcolor{keywordtype}{double}>;}
-\DoxyCodeLine{62 using \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlannerF}} = \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}<\textcolor{keywordtype}{float}>;}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{64 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DECARTES\_MOTION\_PLANNER\_H}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__problem_8h}{tesseract\_motion\_planners/descartes/descartes\_problem.h}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__profile_8h}{tesseract\_motion\_planners/descartes/profile/descartes\_profile.h}}>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{19 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21 \textcolor{keyword}{public}:}
+\DoxyCodeLine{23   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a0189e26eea69ff9160f717fab2414e22}{DescartesMotionPlanner}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a731af03f25f7a40bc02e4864b796d69e}{profile\_ns::DESCARTES\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{24   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a017f6257249cc7e0fa1dbf7cdcc27c99}{\string~DescartesMotionPlanner}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{25   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a141f844c40255a4d00fb9370afa4c527}{DescartesMotionPlanner}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{26   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_af26948d12a36c14b8f28eb915af62d79}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{27   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a25665cc6a29dd13ae60213de29bf1401}{DescartesMotionPlanner}}(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}\&\&) noexcept = delete;}
+\DoxyCodeLine{28   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}\& operator=(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}\&\&) noexcept = delete;}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30   \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a643d3144440f54c2eda29c5d35cc980e}{solve}}(const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) const override;}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a0bb1f4ff5c88060f87c72dcdda8417c3}{terminate}}() override;}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_afec3c9ed00949cb779dfa7ad78cd8bee}{clear}}() override;}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}::\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a9ad1370efee697b369cf98ea6a3143ae}{clone}}() const override;}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38   virtual std::shared\_ptr<\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem}}<FloatType>> \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a7aa5051004a8c999fa46cbc087a09db2}{createProblem}}(const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) const;}
+\DoxyCodeLine{39 \};}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 using \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlannerD}} = \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}<\textcolor{keywordtype}{double}>;}
+\DoxyCodeLine{42 using \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlannerF}} = \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{DescartesMotionPlanner}}<\textcolor{keywordtype}{float}>;}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DECARTES\_MOTION\_PLANNER\_H}}
 
 \end{DoxyCode}
