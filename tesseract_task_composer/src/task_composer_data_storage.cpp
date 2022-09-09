@@ -42,6 +42,23 @@ TaskComposerDataStorage& TaskComposerDataStorage::operator=(const TaskComposerDa
   data_ = other.data_;
   return *this;
 }
+TaskComposerDataStorage::TaskComposerDataStorage(TaskComposerDataStorage&& other) noexcept
+{
+  std::shared_lock lhs_lock(mutex_, std::defer_lock);
+  std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
+  std::scoped_lock lock{ lhs_lock, rhs_lock };
+
+  data_ = std::move(other.data_);
+}
+TaskComposerDataStorage& TaskComposerDataStorage::operator=(TaskComposerDataStorage&& other) noexcept
+{
+  std::shared_lock lhs_lock(mutex_, std::defer_lock);
+  std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
+  std::scoped_lock lock{ lhs_lock, rhs_lock };
+
+  data_ = std::move(other.data_);
+  return *this;
+}
 
 bool TaskComposerDataStorage::hasKey(const std::string& key)
 {

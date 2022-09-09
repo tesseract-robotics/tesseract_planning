@@ -48,8 +48,14 @@ struct TaskComposerInput
 {
   using Ptr = std::shared_ptr<TaskComposerInput>;
   using ConstPtr = std::shared_ptr<const TaskComposerInput>;
+  using UPtr = std::unique_ptr<TaskComposerInput>;
+  using ConstUPtr = std::unique_ptr<const TaskComposerInput>;
 
   TaskComposerInput(TaskComposerProblem problem, ProfileDictionary::ConstPtr profiles = nullptr);
+  TaskComposerInput& operator=(const TaskComposerInput&) = delete;
+  TaskComposerInput(TaskComposerInput&&) = delete;
+  TaskComposerInput& operator=(TaskComposerInput&&) = delete;
+  virtual ~TaskComposerInput() = default;
 
   /** @brief The problem */
   TaskComposerProblem problem;

@@ -224,10 +224,10 @@ void RasterFtOnlyMotionTask::checkTaskInput(const tesseract_common::AnyPoly& inp
     throw std::runtime_error("RasterFtOnlyMotionTask, input should have a start instruction");
 
   // Check rasters and transitions
-  for (std::size_t index = 0; index < composite.size(); index++)
+  for (const auto& i : composite)
   {
     // Both rasters and transitions should be a composite
-    if (!composite.at(index).isCompositeInstruction())
+    if (!i.isCompositeInstruction())
       throw std::runtime_error("RasterFtOnlyMotionTask, Both rasters and transitions should be a composite");
   }
 }

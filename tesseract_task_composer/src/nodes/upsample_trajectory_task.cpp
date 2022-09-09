@@ -84,12 +84,11 @@ TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& in
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   assert(cur_composite_profile->longest_valid_segment_length > 0);
-  CompositeInstruction results{ ci };
   InstructionPoly start_instruction = ci.getStartInstruction();
   CompositeInstruction new_results{ ci };
   new_results.clear();
 
-  upsample(new_results, results, start_instruction, cur_composite_profile->longest_valid_segment_length);
+  upsample(new_results, ci, start_instruction, cur_composite_profile->longest_valid_segment_length);
   input.data_storage.setData(output_keys_[0], new_results);
 
   info->message = "Successful";

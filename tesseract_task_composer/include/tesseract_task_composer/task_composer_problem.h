@@ -69,6 +69,12 @@ struct TaskComposerProblem
                       TaskComposerDataStorage input_data,
                       std::string name = "unset");
 
+  TaskComposerProblem(const TaskComposerProblem&) = default;
+  TaskComposerProblem& operator=(const TaskComposerProblem&) = default;
+  TaskComposerProblem(TaskComposerProblem&&) = default;
+  TaskComposerProblem& operator=(TaskComposerProblem&&) = default;
+  virtual ~TaskComposerProblem() = default;
+
   /** @brief The name of the task to be ran for this problem */
   std::string name;
 

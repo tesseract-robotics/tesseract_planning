@@ -122,7 +122,7 @@ protected:
    * @brief The parent uuid
    * @details This is set when the node is added to a graph
    */
-  boost::uuids::uuid parent_uuid_;
+  boost::uuids::uuid parent_uuid_{};
 
   /** @brief IDs of nodes (i.e. tasks) that should run after this node */
   std::vector<boost::uuids::uuid> outbound_edges_;
