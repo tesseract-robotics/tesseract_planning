@@ -8,7 +8,7 @@ project(${pkg_extracted_name} VERSION ${pkg_extracted_version} LANGUAGES CXX)
 find_package(tesseract_environment REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 find_package(tesseract_motion_planners REQUIRED)
-find_package(tesseract_process_managers REQUIRED)
+find_package(tesseract_task_composer REQUIRED)
 find_package(tesseract_collision REQUIRED)
 find_package(tesseract_common REQUIRED)
 find_package(tesseract_support REQUIRED)
@@ -54,7 +54,12 @@ add_library(
 target_link_libraries(
   ${PROJECT_NAME}
   tesseract::tesseract_environment
-  tesseract::tesseract_process_managers
+  tesseract::tesseract_motion_planners_core
+  tesseract::tesseract_motion_planners_ompl
+  tesseract::tesseract_motion_planners_trajopt
+  trajopt::trajopt_sqp
+  trajopt::trajopt_ifopt
+  tesseract::tesseract_task_composer
   console_bridge::console_bridge
   ${PCL_LIBRARIES})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS})
@@ -138,7 +143,7 @@ configure_package(
           tesseract_environment
           tesseract_command_language
           tesseract_motion_planners
-          tesseract_process_managers
+          tesseract_task_composer
           tesseract_collision
           tesseract_common
           tesseract_support

@@ -113,8 +113,8 @@ int main(int /*argc*/, char** /*argv*/)
     auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
 
-    // Create a seed
-    CompositeInstruction seed = generateInterpolatedProgram(program, cur_state, env);
+    // Create a interpolated program
+    CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env);
 
     // Profile Dictionary
     auto profiles = std::make_shared<ProfileDictionary>();
@@ -124,8 +124,7 @@ int main(int /*argc*/, char** /*argv*/)
 
     // Create Planning Request
     PlannerRequest request;
-    request.seed = seed;
-    request.instructions = program;
+    request.instructions = interpolated_program;
     request.env = env;
     request.env_state = cur_state;
     request.profiles = profiles;
@@ -143,7 +142,7 @@ int main(int /*argc*/, char** /*argv*/)
     }
 
     // Update Seed
-    request.seed = ompl_response.results;
+    request.instructions = ompl_response.results;
 
     // Solve TrajOpt Plan
     TrajOptMotionPlanner trajopt_planner;

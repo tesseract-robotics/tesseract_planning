@@ -54,6 +54,7 @@ public:
 
   TaskflowTaskComposerExecutor(std::string name = "TaskflowTaskComposerExecutor",
                                size_t num_threads = std::thread::hardware_concurrency());
+  TaskflowTaskComposerExecutor(size_t num_threads);
   ~TaskflowTaskComposerExecutor() override;
   TaskflowTaskComposerExecutor(const TaskflowTaskComposerExecutor&) = delete;
   TaskflowTaskComposerExecutor& operator=(const TaskflowTaskComposerExecutor&) = delete;

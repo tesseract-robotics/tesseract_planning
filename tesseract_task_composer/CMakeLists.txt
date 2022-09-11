@@ -50,6 +50,8 @@ else()
   set(TESSERACT_TASK_COMPOSER_PLUGIN_PATH ${CMAKE_INSTALL_PREFIX}/lib)
 endif()
 
+option(TESSERACT_BUILD_TRAJOPT_IFOPT "Build the Trajopt IFOPT planner" ON)
+
 # Variable for task composer plugins
 set(TASK_COMPOSER_PLUGINS "")
 
@@ -66,6 +68,7 @@ add_library(
   src/task_composer_problem.cpp
   src/task_composer_server.cpp
   src/task_composer_task.cpp
+  src/task_composer_utils.cpp
   src/nodes/cartesian_motion_pipeline_task.cpp
   src/nodes/check_input_task.cpp
   src/nodes/continuous_contact_check_task.cpp
@@ -137,6 +140,12 @@ target_code_coverage(
 target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                   "$<INSTALL_INTERFACE:include>")
 
+if(TESSERACT_BUILD_TRAJOPT_IFOPT)
+  target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/nodes/trajopt_ifopt_motion_pipeline_task.cpp)
+  target_link_libraries(${PROJECT_NAME} PUBLIC tesseract::tesseract_motion_planners_trajopt_ifopt)
+  target_compile_definitions(${PROJECT_NAME} PUBLIC TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT=1)
+endif()
+
 # Add compiler definition to core so it can find all plugins produced
 string(
   REPLACE ";"
@@ -167,15 +176,15 @@ install(
   PATTERN "*.h"
   PATTERN ".svn" EXCLUDE)
 
-# if(TESSERACT_ENABLE_EXAMPLES)
-add_subdirectory(examples)
-# endif()
+if(TESSERACT_ENABLE_EXAMPLES)
+  add_subdirectory(examples)
+endif()
 
-# if(TESSERACT_ENABLE_TESTING)
-enable_testing()
-add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
-add_subdirectory(test)
-# endif()
+if(TESSERACT_ENABLE_TESTING)
+  enable_testing()
+  add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
+  add_subdirectory(test)
+endif()
 
 if(TESSERACT_PACKAGE)
   tesseract_cpack(

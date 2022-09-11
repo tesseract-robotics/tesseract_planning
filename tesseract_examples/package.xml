@@ -17,7 +17,7 @@
   <depend>tesseract_collision</depend>
   <depend>tesseract_command_language</depend>
   <depend>tesseract_motion_planners</depend>
-  <depend>tesseract_process_managers</depend>
+  <depend>tesseract_task_composer</depend>
   <depend>tesseract_kinematics</depend>
   <depend>tesseract_environment</depend>
   <depend>tesseract_scene_graph</depend>

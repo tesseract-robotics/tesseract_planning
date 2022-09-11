@@ -65,12 +65,6 @@ struct PlannerRequest
    * This must contain a minimum of two move instruction the first move instruction is the start state
    */
   CompositeInstruction instructions;
-  /**
-   * @brief This should be a one to one match with the instructions where the MoveInstruction is replaced with a
-   * CompositeInstruction of MoveInstructions.
-   * @todo Remove when legacy planners are removed
-   */
-  CompositeInstruction seed;
 
   /**
    * @brief This allows the remapping of the Plan Profile identified in the command language to a specific profile for a

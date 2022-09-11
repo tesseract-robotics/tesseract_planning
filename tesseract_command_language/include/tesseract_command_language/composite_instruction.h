@@ -214,29 +214,6 @@ public:
    */
   std::vector<std::reference_wrapper<const InstructionPoly>> flatten(const flattenFilterFn& filter = nullptr) const;
 
-  /**
-   * @brief Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of
-   * instruction will only be flattened if the corresponding element in pattern is flattenable.
-   * The motivation for this utility is a case where you flatten only the elements in a seed that correspond to
-   * composites in the parent instruction
-   * @param instruction CompositeInstruction that will be flattened
-   * @param pattern CompositeInstruction used to determine if instruction will be flattened
-   * @param filter Used to filter only what should be considered. Should return true to include otherwise false
-   * @return A new flattened vector referencing the original instruction elements
-   */
-  std::vector<std::reference_wrapper<InstructionPoly>> flattenToPattern(const CompositeInstruction& pattern,
-                                                                        const flattenFilterFn& filter = nullptr);
-  /**
-   * @brief Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of
-   * instruction will only be flattened if the corresponding element in pattern is flattenable.
-   * @param instruction CompositeInstruction that will be flattened
-   * @param pattern CompositeInstruction used to determine if instruction will be flattened
-   * @param filter Used to filter only what should be considered. Should return true to include otherwise false
-   * @return A new flattened vector referencing the original instruction elements
-   */
-  std::vector<std::reference_wrapper<const InstructionPoly>>
-  flattenToPattern(const CompositeInstruction& pattern, const flattenFilterFn& filter = nullptr) const;
-
   bool operator==(const CompositeInstruction& rhs) const;
 
   bool operator!=(const CompositeInstruction& rhs) const;
@@ -433,34 +410,6 @@ private:
                      const CompositeInstruction& composite,
                      const flattenFilterFn& filter,
                      bool first_composite) const;
-
-  /**
-   * @brief Helper function used by FlattenToPattern. Not intended for direct use
-   * @param flattened Vector of instructions representing the full flattened composite
-   * @param composite Composite instruction to be flattened
-   * @param pattern CompositeInstruction used to determine if instruction will be flattened
-   * @param filter Used to filter only what should be considered. Should return true to include otherwise false
-   * @param first_composite Indicates if the composite being processed is the top most composite
-   */
-  void flattenToPatternHelper(std::vector<std::reference_wrapper<InstructionPoly>>& flattened,
-                              CompositeInstruction& composite,
-                              const CompositeInstruction& pattern,
-                              const flattenFilterFn& filter,
-                              bool first_composite);
-
-  /**
-   * @brief Helper function used by FlattenToPattern. Not intended for direct use
-   * @param flattened Vector of instructions representing the full flattened composite
-   * @param composite Composite instruction to be flattened
-   * @param pattern CompositeInstruction used to determine if instruction will be flattened
-   * @param filter Used to filter only what should be considered. Should return true to include otherwise false
-   * @param first_composite Indicates if the composite being processed is the top most composite
-   */
-  void flattenToPatternHelper(std::vector<std::reference_wrapper<const InstructionPoly>>& flattened,
-                              const CompositeInstruction& composite,
-                              const CompositeInstruction& pattern,
-                              const flattenFilterFn& filter,
-                              bool first_composite) const;
 
   friend class boost::serialization::access;
   template <class Archive>

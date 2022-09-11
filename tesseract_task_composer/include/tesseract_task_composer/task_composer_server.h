@@ -86,7 +86,7 @@ public:
    * @brief Get the available task names
    * @return A vector of names
    */
-  std::vector<std::string> getAvailableTask() const;
+  std::vector<std::string> getAvailableTasks() const;
 
   /**
    * @brief Execute the provided task graph

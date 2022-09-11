@@ -27,6 +27,7 @@
 #define TESSERACT_TASK_COMPOSER_RASTER_FT_ONLY_GLOBAL_PIPELINE_TASK_H
 
 #include <tesseract_task_composer/task_composer_graph.h>
+#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
@@ -54,7 +55,7 @@ public:
   RasterFtOnlyGlobalPipelineTask() = default;  // Required for serialization
   RasterFtOnlyGlobalPipelineTask(std::string input_key,
                                  std::string output_key,
-                                 std::string name = "RasterFtOnlyGlobalPipelineTask");
+                                 std::string name = node_names::RASTER_FT_O_G_PIPELINE_NAME);
   ~RasterFtOnlyGlobalPipelineTask() override = default;
   RasterFtOnlyGlobalPipelineTask(const RasterFtOnlyGlobalPipelineTask&) = delete;
   RasterFtOnlyGlobalPipelineTask& operator=(const RasterFtOnlyGlobalPipelineTask&) = delete;

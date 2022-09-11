@@ -7,6 +7,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/environment.h>
 
 #include <tesseract_motion_planners/core/types.h>
+#include <tesseract_motion_planners/default_planner_namespaces.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_plan_profile.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_plan_profile.h>
@@ -43,6 +44,7 @@ using namespace tesseract_kinematics;
 using namespace tesseract_environment;
 using namespace tesseract_scene_graph;
 using namespace tesseract_planning;
+using namespace tesseract_planning::node_names;
 using namespace tesseract_planning::profile_ns;
 
 class TesseractTaskComposerUnit : public ::testing::Test
@@ -88,7 +90,7 @@ TEST_F(TesseractTaskComposerUnit, MinLengthTaskTest)  // NOLINT
   auto profiles = std::make_shared<ProfileDictionary>();
   long current_length = interpolated_program.getMoveInstructionCount();
   profiles->addProfile<MinLengthProfile>(
-      MIN_LENGTH_DEFAULT_NAMESPACE, program.getProfile(), std::make_shared<MinLengthProfile>(current_length));
+      MIN_LENGTH_TASK_NAME, program.getProfile(), std::make_shared<MinLengthProfile>(current_length));
 
   auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
 
@@ -99,7 +101,7 @@ TEST_F(TesseractTaskComposerUnit, MinLengthTaskTest)  // NOLINT
   EXPECT_TRUE(final_length == current_length);
 
   profiles->addProfile<MinLengthProfile>(
-      MIN_LENGTH_DEFAULT_NAMESPACE, program.getProfile(), std::make_shared<MinLengthProfile>(2 * current_length));
+      MIN_LENGTH_TASK_NAME, program.getProfile(), std::make_shared<MinLengthProfile>(2 * current_length));
 
   task_input.reset();
   EXPECT_TRUE(task.run(*task_input) == 1);
@@ -108,7 +110,7 @@ TEST_F(TesseractTaskComposerUnit, MinLengthTaskTest)  // NOLINT
   EXPECT_TRUE(final_length2 >= (2 * current_length));
 
   profiles->addProfile<MinLengthProfile>(
-      MIN_LENGTH_DEFAULT_NAMESPACE, program.getProfile(), std::make_shared<MinLengthProfile>(3 * current_length));
+      MIN_LENGTH_TASK_NAME, program.getProfile(), std::make_shared<MinLengthProfile>(3 * current_length));
 
   task_input.reset();
   EXPECT_TRUE(task.run(*task_input) == 1);

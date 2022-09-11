@@ -35,9 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
-#include <tesseract_motion_planners/simple/simple_motion_legacy_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_legacy_plan_profile.h>
 
 namespace tesseract_planning
 {
@@ -71,47 +69,6 @@ inline CompositeInstruction generateInterpolatedProgram(const CompositeInstructi
   for (const auto& i : flat)
     profiles->addProfile<SimplePlannerPlanProfile>(
         planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
-
-  // Assign profile dictionary
-  request.profiles = profiles;
-
-  // Solve
-  PlannerResponse response = planner.solve(request);
-
-  return response.results;
-}
-
-/** @brief Provided for backwards compatibility */
-inline CompositeInstruction generateSeedLegacy(const CompositeInstruction& instructions,
-                                               const tesseract_scene_graph::SceneState& current_state,
-                                               const tesseract_environment::Environment::ConstPtr& env,
-                                               double state_longest_valid_segment_length = 5 * M_PI / 180,
-                                               double translation_longest_valid_segment_length = 0.15,
-                                               double rotation_longest_valid_segment_length = 5 * M_PI / 180,
-                                               int min_steps = 1)
-{
-  // Fill out request and response
-  PlannerRequest request;
-  request.instructions = instructions;
-  request.env_state = current_state;
-  request.env = env;
-
-  // Set up planner
-  SimpleMotionLegacyPlanner planner;
-
-  auto profile = std::make_shared<SimplePlannerLVSNoIKLegacyPlanProfile>(state_longest_valid_segment_length,
-                                                                         translation_longest_valid_segment_length,
-                                                                         rotation_longest_valid_segment_length,
-                                                                         min_steps);
-
-  // Create profile dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<SimplePlannerLegacyPlanProfile>(planner.getName(), instructions.getProfile(), profile);
-  auto flat = flattenProgram(instructions);
-  for (const auto& i : flat)
-    if (i.get().isMoveInstruction())
-      profiles->addProfile<SimplePlannerLegacyPlanProfile>(
-          planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
 
   // Assign profile dictionary
   request.profiles = profiles;

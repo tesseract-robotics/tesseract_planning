@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/nodes/default_task_namespaces.h>
+#include <tesseract_task_composer/task_composer_node_names.h>
 #include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning
@@ -54,7 +54,7 @@ public:
   UpsampleTrajectoryTask(std::string input_key,
                          std::string output_key,
                          bool is_conditional = false,
-                         std::string name = profile_ns::UPSAMPLE_TRAJECTORY_DEFAULT_NAMESPACE);
+                         std::string name = node_names::UPSAMPLE_TRAJECTORY_TASK_NAME);
   ~UpsampleTrajectoryTask() override = default;
   UpsampleTrajectoryTask(const UpsampleTrajectoryTask&) = delete;
   UpsampleTrajectoryTask& operator=(const UpsampleTrajectoryTask&) = delete;

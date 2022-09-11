@@ -30,7 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/nodes/default_task_namespaces.h>
+#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
@@ -46,7 +46,7 @@ public:
   RuckigTrajectorySmoothingTask(std::string input_key,
                                 std::string output_key,
                                 bool is_conditional = true,
-                                std::string name = profile_ns::RUCKIG_TRAJECTORY_SMOOTHING_DEFAULT_NAMESPACE);
+                                std::string name = node_names::RUCKIG_TRAJECTORY_SMOOTHING_TASK_NAME);
   ~RuckigTrajectorySmoothingTask() override = default;
   RuckigTrajectorySmoothingTask(const RuckigTrajectorySmoothingTask&) = delete;
   RuckigTrajectorySmoothingTask& operator=(const RuckigTrajectorySmoothingTask&) = delete;

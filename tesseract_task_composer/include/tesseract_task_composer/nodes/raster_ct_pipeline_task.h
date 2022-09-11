@@ -27,6 +27,7 @@
 #define TESSERACT_TASK_COMPOSER_RASTER_CT_PIPELINE_TASK_H
 
 #include <tesseract_task_composer/task_composer_graph.h>
+#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
@@ -54,7 +55,9 @@ public:
   using ConstUPtr = std::unique_ptr<const RasterCtPipelineTask>;
 
   RasterCtPipelineTask() = default;  // Required for serialization
-  RasterCtPipelineTask(std::string input_key, std::string output_key, std::string name = "RasterCtPipelineTask");
+  RasterCtPipelineTask(std::string input_key,
+                       std::string output_key,
+                       std::string name = node_names::RASTER_CT_PIPELINE_NAME);
   ~RasterCtPipelineTask() override = default;
   RasterCtPipelineTask(const RasterCtPipelineTask&) = delete;
   RasterCtPipelineTask& operator=(const RasterCtPipelineTask&) = delete;
