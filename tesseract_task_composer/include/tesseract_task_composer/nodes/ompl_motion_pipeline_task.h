@@ -27,6 +27,7 @@
 #define TESSERACT_TASK_COMPOSER_OMPL_MOTION_PIPELINE_TASK_H
 
 #include <tesseract_task_composer/task_composer_graph.h>
+#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
@@ -43,8 +44,10 @@ public:
    * @details This will use the uuid as the input and output key
    * @param name The name give to the task
    */
-  OMPLMotionPipelineTask(std::string name = "OMPLMotionPipelineTask");
-  OMPLMotionPipelineTask(std::string input_key, std::string output_key, std::string name = "OMPLMotionPipelineTask");
+  OMPLMotionPipelineTask(std::string name = node_names::OMPL_PIPELINE_NAME);
+  OMPLMotionPipelineTask(std::string input_key,
+                         std::string output_key,
+                         std::string name = node_names::OMPL_PIPELINE_NAME);
   ~OMPLMotionPipelineTask() override = default;
   OMPLMotionPipelineTask(const OMPLMotionPipelineTask&) = delete;
   OMPLMotionPipelineTask& operator=(const OMPLMotionPipelineTask&) = delete;

@@ -444,17 +444,6 @@ Eigen::MatrixXd interpolate(const Eigen::Ref<const Eigen::VectorXd>& start,
 std::vector<WaypointPoly> interpolate_waypoint(const WaypointPoly& start, const WaypointPoly& stop, long steps);
 
 /**
- * @brief This takes the provided seed state for the base_instruction and create a corresponding composite instruction
- * @param joint_names The joint names associated with the states
- * @param states The joint states to populate the composite instruction with
- * @param base_instruction The base instruction used to extract profile and manipulator information from
- * @return The composite instruction
- */
-CompositeInstruction getInterpolatedCompositeLegacy(const std::vector<std::string>& joint_names,
-                                                    const Eigen::MatrixXd& states,
-                                                    const MoveInstructionPoly& base_instruction);
-
-/**
  * @brief This takes the provided seed state for the base_instruction and create a vector of move instruction
  * @details This skips the first state
  * @param joint_names The joint names associated with the states

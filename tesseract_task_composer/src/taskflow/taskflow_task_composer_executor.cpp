@@ -30,6 +30,12 @@
 
 namespace tesseract_planning
 {
+TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(size_t num_threads)
+  : TaskComposerExecutor("TaskflowTaskComposerExecutor")
+  , num_threads_(num_threads)
+  , executor_(std::make_unique<tf::Executor>(num_threads_))
+{
+}
 TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(std::string name, size_t num_threads)
   : TaskComposerExecutor(std::move(name))
   , num_threads_(num_threads)

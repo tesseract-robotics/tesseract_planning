@@ -5,7 +5,6 @@ find_package(trajopt_sqp REQUIRED)
 add_library(
   ${PROJECT_NAME}_trajopt_ifopt SHARED
   src/trajopt_ifopt_motion_planner.cpp
-  src/trajopt_ifopt_legacy_motion_planner.cpp
   src/trajopt_ifopt_utils.cpp
   src/profile/trajopt_ifopt_default_plan_profile.cpp
   src/profile/trajopt_ifopt_default_composite_profile.cpp)

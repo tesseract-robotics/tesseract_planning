@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
+#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
@@ -42,7 +43,7 @@ public:
   using UPtr = std::unique_ptr<DoneTask>;
   using ConstUPtr = std::unique_ptr<const DoneTask>;
 
-  DoneTask(bool is_conditional = false, std::string name = "DoneTask");
+  DoneTask(bool is_conditional = false, std::string name = node_names::DONE_TASK_NAME);
   ~DoneTask() override = default;
 
   bool operator==(const DoneTask& rhs) const;

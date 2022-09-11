@@ -1,13 +1,13 @@
 /**
- * @file descartes_motion_planner.cpp
- * @brief Tesseract ROS Descartes planner
+ * @file task_composer_utils.h
+ * @brief A task composer utils
  *
  * @author Levi Armstrong
- * @date April 18, 2018
+ * @date August 27, 2022
  * @version TODO
  * @bug No known bugs
  *
- * @copyright Copyright (c) 2017, Southwest Research Institute
+ * @copyright Copyright (c) 2022, Levi Armstrong
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -23,12 +23,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_motion_planners/descartes/impl/descartes_legacy_motion_planner.hpp>
+#ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_UTILS_H
+#define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_UTILS_H
+
+#include <tesseract_task_composer/task_composer_server.h>
 
 namespace tesseract_planning
 {
-// Explicit template instantiation
-template class DescartesLegacyMotionPlanner<float>;
-template class DescartesLegacyMotionPlanner<double>;
+void loadDefaultTaskComposerNodes(TaskComposerServer& server);
+}
 
-}  // namespace tesseract_planning
+#endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_UTILS_H

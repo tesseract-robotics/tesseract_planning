@@ -27,6 +27,7 @@
 #define TESSERACT_TASK_COMPOSER_TRAJOPT_MOTION_PIPELINE_TASK_H
 
 #include <tesseract_task_composer/task_composer_graph.h>
+#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
@@ -43,10 +44,10 @@ public:
    * @details This will use the uuid as the input and output key
    * @param name The name give to the task
    */
-  TrajOptMotionPipelineTask(std::string name = "TrajOptMotionPipelineTask");
+  TrajOptMotionPipelineTask(std::string name = node_names::TRAJOPT_PIPELINE_NAME);
   TrajOptMotionPipelineTask(std::string input_key,
                             std::string output_key,
-                            std::string name = "TrajOptMotionPipelineTask");
+                            std::string name = node_names::TRAJOPT_PIPELINE_NAME);
   ~TrajOptMotionPipelineTask() override = default;
   TrajOptMotionPipelineTask(const TrajOptMotionPipelineTask&) = delete;
   TrajOptMotionPipelineTask& operator=(const TrajOptMotionPipelineTask&) = delete;

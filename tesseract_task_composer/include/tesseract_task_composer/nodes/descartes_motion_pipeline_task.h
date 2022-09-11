@@ -27,6 +27,7 @@
 #define TESSERACT_TASK_COMPOSER_DESCARTES_MOTION_PIPELINE_TASK_H
 
 #include <tesseract_task_composer/task_composer_graph.h>
+#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
@@ -43,10 +44,10 @@ public:
    * @details This will use the uuid as the input and output key
    * @param name The name give to the task
    */
-  DescartesMotionPipelineTask(std::string name = "DescartesMotionPipelineTask");
+  DescartesMotionPipelineTask(std::string name = node_names::DESCARTES_PIPELINE_NAME);
   DescartesMotionPipelineTask(std::string input_key,
                               std::string output_key,
-                              std::string name = "DescartesMotionPipelineTask");
+                              std::string name = node_names::DESCARTES_PIPELINE_NAME);
   ~DescartesMotionPipelineTask() override = default;
   DescartesMotionPipelineTask(const DescartesMotionPipelineTask&) = delete;
   DescartesMotionPipelineTask& operator=(const DescartesMotionPipelineTask&) = delete;

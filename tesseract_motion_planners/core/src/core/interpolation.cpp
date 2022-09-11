@@ -1017,39 +1017,6 @@ std::vector<WaypointPoly> interpolate_waypoint(const WaypointPoly& start, const 
   return {};
 }
 
-CompositeInstruction getInterpolatedCompositeLegacy(const std::vector<std::string>& joint_names,
-                                                    const Eigen::MatrixXd& states,
-                                                    const MoveInstructionPoly& base_instruction)
-{
-  CompositeInstruction composite;
-  composite.setManipulatorInfo(base_instruction.getManipulatorInfo());
-  composite.setDescription(base_instruction.getDescription());
-  composite.setProfile(base_instruction.getProfile());
-  //  composite.profile_overrides = base_instruction.profile_overrides;
-
-  // Convert to MoveInstructions
-  for (long i = 1; i < states.cols() - 1; ++i)
-  {
-    MoveInstructionPoly move_instruction = base_instruction.createChild();
-    StateWaypointPoly swp = move_instruction.createStateWaypoint();
-    swp.setNames(joint_names);
-    swp.setPosition(states.col(i));
-    move_instruction.assignStateWaypoint(swp);
-    move_instruction.setProfile(base_instruction.getPathProfile());
-    move_instruction.setPathProfile(base_instruction.getPathProfile());
-    composite.appendMoveInstruction(move_instruction);
-  }
-
-  MoveInstructionPoly move_instruction = base_instruction.createChild();
-  StateWaypointPoly swp = move_instruction.createStateWaypoint();
-  swp.setNames(joint_names);
-  swp.setPosition(states.col(states.cols() - 1));
-  move_instruction.assignStateWaypoint(swp);
-  composite.appendMoveInstruction(move_instruction);
-
-  return composite;
-}
-
 std::vector<MoveInstructionPoly> getInterpolatedInstructions(const std::vector<std::string>& joint_names,
                                                              const Eigen::MatrixXd& states,
                                                              const MoveInstructionPoly& base_instruction)

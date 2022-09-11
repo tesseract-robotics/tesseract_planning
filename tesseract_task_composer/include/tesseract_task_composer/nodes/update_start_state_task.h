@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
+#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
@@ -47,13 +48,13 @@ public:
   UpdateStartStateTask(std::string input_prev_key,
                        std::string output_key,
                        bool is_conditional = false,
-                       std::string name = "UpdateStartStateTask");
+                       std::string name = node_names::UPDATE_START_STATE_TASK_NAME);
 
   UpdateStartStateTask(std::string input_key,
                        std::string input_prev_key,
                        std::string output_key,
                        bool is_conditional = false,
-                       std::string name = "UpdateStartStateTask");
+                       std::string name = node_names::UPDATE_START_STATE_TASK_NAME);
   ~UpdateStartStateTask() override = default;
 
   bool operator==(const UpdateStartStateTask& rhs) const;

@@ -143,7 +143,7 @@ TEST_F(FixStateBoundsTaskUnit, stateInBounds)  // NOLINT
 
   auto profiles = std::make_shared<ProfileDictionary>();
   profiles->addProfile<FixStateBoundsProfile>(
-      tesseract_planning::profile_ns::FIX_STATE_BOUNDS_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, state_bounds_profile);
+      tesseract_planning::node_names::FIX_STATE_BOUNDS_TASK_NAME, DEFAULT_PROFILE_KEY, state_bounds_profile);
 
   Eigen::VectorXd mid_state = joint_limits.col(0) + (joint_limits.col(1) - joint_limits.col(0)) / 2.;
   {  // All are valid

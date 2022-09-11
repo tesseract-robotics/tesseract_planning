@@ -199,22 +199,6 @@ CompositeInstruction::flatten(const flattenFilterFn& filter) const
   return flattened;
 }
 
-std::vector<std::reference_wrapper<InstructionPoly>>
-CompositeInstruction::flattenToPattern(const CompositeInstruction& pattern, const flattenFilterFn& filter)
-{
-  std::vector<std::reference_wrapper<InstructionPoly>> flattened;
-  flattenToPatternHelper(flattened, *this, pattern, filter, true);
-  return flattened;
-}
-
-std::vector<std::reference_wrapper<const InstructionPoly>>
-CompositeInstruction::flattenToPattern(const CompositeInstruction& pattern, const flattenFilterFn& filter) const
-{
-  std::vector<std::reference_wrapper<const InstructionPoly>> flattened;
-  flattenToPatternHelper(flattened, *this, pattern, filter, true);
-  return flattened;
-}
-
 void CompositeInstruction::print(const std::string& prefix) const
 {
   std::cout << prefix + "Composite Instruction, Description: " << getDescription() << std::endl;
@@ -554,86 +538,6 @@ void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<cons
     else if (!filter || filter(i, composite, first_composite))
     {
       flattened.emplace_back(i);
-    }
-  }
-}
-
-void CompositeInstruction::flattenToPatternHelper(std::vector<std::reference_wrapper<InstructionPoly>>& flattened,
-                                                  CompositeInstruction& composite,
-                                                  const CompositeInstruction& pattern,
-                                                  const flattenFilterFn& filter,
-                                                  bool first_composite)
-{
-  if (composite.container_.size() != pattern.container_.size() ||
-      composite.hasStartInstruction() != pattern.hasStartInstruction())
-  {
-    CONSOLE_BRIDGE_logError("Instruction and pattern sizes are mismatched");
-    return;
-  }
-
-  if (composite.hasStartInstruction())
-    if (!filter || filter(composite.start_instruction_, composite, first_composite))
-      flattened.emplace_back(composite.start_instruction_);
-
-  for (std::size_t i = 0; i < pattern.container_.size(); i++)
-  {
-    if (pattern.container_.at(i).isCompositeInstruction() && composite.container_[i].isCompositeInstruction())
-    {
-      // By default composite instructions will not be stored just it children, but this allows for the filter to
-      // indicate that they should be stored.
-      if (filter)
-        if (filter(composite.container_[i], composite, first_composite))
-          flattened.emplace_back(composite.container_[i]);
-
-      flattenToPatternHelper(flattened,
-                             composite.container_[i].as<CompositeInstruction>(),
-                             pattern.container_.at(i).as<CompositeInstruction>(),
-                             filter,
-                             false);
-    }
-    else
-    {
-      flattened.emplace_back(composite.container_[i]);
-    }
-  }
-}
-
-void CompositeInstruction::flattenToPatternHelper(std::vector<std::reference_wrapper<const InstructionPoly>>& flattened,
-                                                  const CompositeInstruction& composite,
-                                                  const CompositeInstruction& pattern,
-                                                  const flattenFilterFn& filter,
-                                                  bool first_composite) const
-{
-  if (composite.container_.size() != pattern.container_.size() ||
-      composite.hasStartInstruction() != pattern.hasStartInstruction())
-  {
-    CONSOLE_BRIDGE_logError("Instruction and pattern sizes are mismatched");
-    return;
-  }
-
-  if (composite.hasStartInstruction())
-    if (!filter || filter(composite.start_instruction_, composite, first_composite))
-      flattened.emplace_back(composite.start_instruction_);
-
-  for (std::size_t i = 0; i < pattern.container_.size(); i++)
-  {
-    if (pattern.container_.at(i).isCompositeInstruction() && composite.container_[i].isCompositeInstruction())
-    {
-      // By default composite instructions will not be stored just it children, but this allows for the filter to
-      // indicate that they should be stored.
-      if (filter)
-        if (filter(composite.container_[i], composite, first_composite))
-          flattened.emplace_back(composite.container_[i]);
-
-      flattenToPatternHelper(flattened,
-                             composite.container_[i].as<CompositeInstruction>(),
-                             pattern.container_.at(i).as<CompositeInstruction>(),
-                             filter,
-                             false);
-    }
-    else
-    {
-      flattened.emplace_back(composite.container_[i]);
     }
   }
 }

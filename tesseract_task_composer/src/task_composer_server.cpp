@@ -67,7 +67,7 @@ void TaskComposerServer::addTask(TaskComposerNode::UPtr task)
 
 bool TaskComposerServer::hasTask(const std::string& name) const { return (tasks_.find(name) != tasks_.end()); }
 
-std::vector<std::string> TaskComposerServer::getAvailableTask() const
+std::vector<std::string> TaskComposerServer::getAvailableTasks() const
 {
   std::vector<std::string> tasks;
   tasks.reserve(tasks_.size());
