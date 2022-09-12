@@ -45,8 +45,28 @@ long ProcessEnvironmentCache::getCacheSize() const { return static_cast<long>(ca
 void ProcessEnvironmentCache::refreshCache() const
 {
   std::unique_lock<std::shared_mutex> lock(cache_mutex_);
-  tesseract_environment::Environment::UPtr env;
+  refreshCacheHelper();
+}
 
+tesseract_environment::Environment::UPtr ProcessEnvironmentCache::getCachedEnvironment() const
+{
+  tesseract_scene_graph::SceneState current_state = env_->getState();
+
+  std::unique_lock<std::shared_mutex> lock(cache_mutex_);
+  refreshCacheHelper();  // This is to make sure the cached items are updated if needed
+  assert(!cache_.empty());
+  tesseract_environment::Environment::UPtr t = std::move(cache_.back());
+  // Update to the current joint values
+  t->setState(current_state.joints);
+
+  cache_.pop_back();
+
+  return t;
+}
+
+void ProcessEnvironmentCache::refreshCacheHelper() const
+{
+  tesseract_environment::Environment::UPtr env;
   auto lock_read = env_->lockRead();
   int rev = env_->getRevision();
   if (rev != cache_env_revision_ || cache_.empty())
@@ -68,21 +88,4 @@ void ProcessEnvironmentCache::refreshCache() const
   }
 }
 
-tesseract_environment::Environment::UPtr ProcessEnvironmentCache::getCachedEnvironment() const
-{
-  // This is to make sure the cached items are updated if needed
-  refreshCache();
-
-  tesseract_scene_graph::SceneState current_state = env_->getState();
-
-  std::unique_lock<std::shared_mutex> lock(cache_mutex_);
-  tesseract_environment::Environment::UPtr t = std::move(cache_.back());
-
-  // Update to the current joint values
-  t->setState(current_state.joints);
-
-  cache_.pop_back();
-
-  return t;
-}
 }  // namespace tesseract_planning

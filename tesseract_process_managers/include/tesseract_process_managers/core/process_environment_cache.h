@@ -119,6 +119,9 @@ protected:
 
   /** @brief The mutex used when reading and writing to cache_ */
   mutable std::shared_mutex cache_mutex_;
+
+  /** @brief This does not take a lock */
+  void refreshCacheHelper() const;
 };
 }  // namespace tesseract_planning
 #endif  // TESSERACT_PROCESS_MANAGERS_PROCESS_ENVIRONMENT_CACHE_H
