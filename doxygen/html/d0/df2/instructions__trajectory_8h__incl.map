@@ -5,8 +5,8 @@
 <area shape="rect" id="node4" href="$d5/de8/trajectory__container_8h.html" title="Creates an interface for contaning different trajectory data structures." alt="" coords="5,377,216,419"/>
 <area shape="rect" id="node7" href="$d1/db1/instruction__poly_8h.html" title=" " alt="" coords="2331,288,2530,329"/>
 <area shape="rect" id="node16" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="502,109,701,151"/>
-<area shape="rect" id="node5" title=" " alt="" coords="47,474,137,501"/>
-<area shape="rect" id="node6" title=" " alt="" coords="162,474,230,501"/>
+<area shape="rect" id="node5" title=" " alt="" coords="27,474,117,501"/>
+<area shape="rect" id="node6" title=" " alt="" coords="305,474,373,501"/>
 <area shape="rect" id="node8" title=" " alt="" coords="1337,474,1391,501"/>
 <area shape="rect" id="node9" title=" " alt="" coords="2602,467,2729,508"/>
 <area shape="rect" id="node10" title=" " alt="" coords="1647,467,1774,508"/>
@@ -17,16 +17,17 @@
 <area shape="rect" id="node13" title=" " alt="" coords="1090,474,1166,501"/>
 <area shape="rect" id="node17" href="$dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="1562,199,1761,240"/>
 <area shape="rect" id="node23" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="239,377,438,419"/>
-<area shape="rect" id="node28" title=" " alt="" coords="614,288,818,329"/>
-<area shape="rect" id="node29" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="562,377,761,419"/>
-<area shape="rect" id="node30" title=" " alt="" coords="664,199,821,240"/>
+<area shape="rect" id="node29" title=" " alt="" coords="614,288,818,329"/>
+<area shape="rect" id="node30" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="562,377,761,419"/>
+<area shape="rect" id="node31" title=" " alt="" coords="664,199,821,240"/>
 <area shape="rect" id="node18" title=" " alt="" coords="995,295,1130,322"/>
 <area shape="rect" id="node19" href="$d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="1490,288,1694,329"/>
 <area shape="rect" id="node21" href="$d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="1769,288,1967,329"/>
 <area shape="rect" id="node22" href="$d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="2018,288,2217,329"/>
 <area shape="rect" id="node20" title=" " alt="" coords="987,377,1149,419"/>
-<area shape="rect" id="node24" title=" " alt="" coords="255,474,297,501"/>
-<area shape="rect" id="node25" title=" " alt="" coords="321,474,393,501"/>
-<area shape="rect" id="node26" title=" " alt="" coords="418,474,529,501"/>
-<area shape="rect" id="node27" title=" " alt="" coords="553,474,655,501"/>
+<area shape="rect" id="node24" title=" " alt="" coords="141,474,184,501"/>
+<area shape="rect" id="node25" title=" " alt="" coords="208,474,280,501"/>
+<area shape="rect" id="node26" title=" " alt="" coords="397,474,507,501"/>
+<area shape="rect" id="node27" title=" " alt="" coords="531,474,589,501"/>
+<area shape="rect" id="node28" title=" " alt="" coords="613,474,715,501"/>
 </map>
