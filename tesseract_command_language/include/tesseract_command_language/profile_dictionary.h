@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <typeindex>
 #include <unordered_map>
 #include <memory>
+#include <mutex>
 #include <shared_mutex>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
