@@ -50,23 +50,25 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-void loadDefaultTaskComposerNodes(TaskComposerServer& server)
+void loadDefaultTaskComposerNodes(TaskComposerServer& server,
+                                  const std::string& input_key,
+                                  const std::string& output_key)
 {
   // This currently call registerProcessPlanner which takes a lock
-  server.addTask(std::make_unique<TrajOptMotionPipelineTask>());
+  server.addTask(std::make_unique<TrajOptMotionPipelineTask>(input_key, output_key));
 #ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
-  server.addTask(std::make_unique<TrajOptIfoptMotionPipelineTask>());
+  server.addTask(std::make_unique<TrajOptIfoptMotionPipelineTask>(input_key, output_key));
 #endif
-  server.addTask(std::make_unique<DescartesMotionPipelineTask>());
-  server.addTask(std::make_unique<CartesianMotionPipelineTask>());
-  server.addTask(std::make_unique<FreespaceMotionPipelineTask>());
-  server.addTask(std::make_unique<RasterCtGlobalPipelineTask>());
-  server.addTask(std::make_unique<RasterCtOnlyGlobalPipelineTask>());
-  server.addTask(std::make_unique<RasterCtOnlyPipelineTask>());
-  server.addTask(std::make_unique<RasterCtPipelineTask>());
-  server.addTask(std::make_unique<RasterFtGlobalPipelineTask>());
-  server.addTask(std::make_unique<RasterFtOnlyGlobalPipelineTask>());
-  server.addTask(std::make_unique<RasterFtOnlyPipelineTask>());
-  server.addTask(std::make_unique<RasterFtPipelineTask>());
+  server.addTask(std::make_unique<DescartesMotionPipelineTask>(input_key, output_key));
+  server.addTask(std::make_unique<CartesianMotionPipelineTask>(input_key, output_key));
+  server.addTask(std::make_unique<FreespaceMotionPipelineTask>(input_key, output_key));
+  server.addTask(std::make_unique<RasterCtGlobalPipelineTask>(input_key, output_key));
+  server.addTask(std::make_unique<RasterCtOnlyGlobalPipelineTask>(input_key, output_key));
+  server.addTask(std::make_unique<RasterCtOnlyPipelineTask>(input_key, output_key));
+  server.addTask(std::make_unique<RasterCtPipelineTask>(input_key, output_key));
+  server.addTask(std::make_unique<RasterFtGlobalPipelineTask>(input_key, output_key));
+  server.addTask(std::make_unique<RasterFtOnlyGlobalPipelineTask>(input_key, output_key));
+  server.addTask(std::make_unique<RasterFtOnlyPipelineTask>(input_key, output_key));
+  server.addTask(std::make_unique<RasterFtPipelineTask>(input_key, output_key));
 }
 }  // namespace tesseract_planning

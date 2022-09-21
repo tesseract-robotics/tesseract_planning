@@ -30,7 +30,9 @@
 
 namespace tesseract_planning
 {
-void loadDefaultTaskComposerNodes(TaskComposerServer& server);
+void loadDefaultTaskComposerNodes(TaskComposerServer& server,
+                                  const std::string& input_key,
+                                  const std::string& output_key);
 }
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_UTILS_H
