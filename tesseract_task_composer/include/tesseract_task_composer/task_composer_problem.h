@@ -44,7 +44,7 @@ struct TaskComposerProblem
   using UPtr = std::unique_ptr<TaskComposerProblem>;
   using ConstUPtr = std::unique_ptr<const TaskComposerProblem>;
 
-  TaskComposerProblem() = default;
+  TaskComposerProblem(std::string name = "unset");
   TaskComposerProblem(TaskComposerDataStorage input_data, std::string name = "unset");
 
   TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
