@@ -48,6 +48,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/nodes/trajopt_motion_pipeline_task.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
+#include <trajopt_sco/osqp_interface.hpp>
 
 using namespace trajopt;
 using namespace tesseract_environment;
@@ -209,6 +210,9 @@ bool PuzzlePieceAuxillaryAxesExample::run()
 
   auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
   trajopt_solver_profile->convex_solver = sco::ModelType::OSQP;
+  auto convex_solver_config = std::make_shared<sco::OSQPModelConfig>();
+  convex_solver_config->settings.adaptive_rho = 0;
+  trajopt_solver_profile->convex_solver_config = convex_solver_config;
   trajopt_solver_profile->opt_info.max_iter = 200;
   trajopt_solver_profile->opt_info.min_approx_improve = 1e-3;
   trajopt_solver_profile->opt_info.min_trust_box_size = 1e-3;

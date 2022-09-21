@@ -48,6 +48,9 @@ public:
   /** @brief The Convex solver to use */
   sco::ModelType convex_solver{ sco::ModelType::OSQP };
 
+  /** @brief The convex solver config to use, if nullptr the default settings are used */
+  sco::ModelConfig::Ptr convex_solver_config{ nullptr };
+
   /** @brief Optimization paramters */
   sco::BasicTrustRegionSQPParameters opt_info;
 
