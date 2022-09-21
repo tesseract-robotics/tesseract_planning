@@ -31,6 +31,7 @@ namespace tesseract_planning
 void TrajOptDefaultSolverProfile::apply(trajopt::ProblemConstructionInfo& pci) const
 {
   pci.basic_info.convex_solver = convex_solver;
+  pci.basic_info.convex_solver_config = convex_solver_config;
   pci.opt_info = opt_info;
   pci.callbacks = callbacks;
 }
