@@ -230,13 +230,10 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
   tesseract_environment::Environment::ConstPtr env = request.env;
   std::vector<std::string> active_links = problem->manip->getActiveLinkNames();
   std::vector<std::string> joint_names = problem->manip->getJointNames();
+  Eigen::MatrixX2d joint_limits_eigen = problem->manip->getLimits().joint_limits;
 
   // Flatten the input for planning
   auto move_instructions = request.instructions.flatten(&moveFilter);
-
-  // Create a temp seed storage.
-  std::vector<Eigen::VectorXd> seed_states;
-  seed_states.reserve(move_instructions.size());
 
   // ----------------
   // Translate TCL for MoveInstructions
@@ -268,18 +265,28 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
     if (move_instruction.getWaypoint().isCartesianWaypoint())
     {
       const auto& cwp = move_instruction.getWaypoint().as<CartesianWaypointPoly>();
-      cur_plan_profile->apply(*problem, cwp, move_instruction, composite_mi, active_links, i);
 
-      // Seed state
+      // Add seed state
+      Eigen::VectorXd seed_state;
       if (cwp.hasSeed())
       {
         assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
-        seed_states.push_back(cwp.getSeed().position);
+        seed_state = cwp.getSeed().position;
       }
       else
       {
-        seed_states.push_back(request.env_state.getJointValues(joint_names));
+        seed_state = request.env_state.getJointValues(joint_names);
       }
+
+      // Add variable set to problem
+      auto var = std::make_shared<trajopt_ifopt::JointPosition>(
+          seed_state, joint_names, "Joint_Position_" + std::to_string(i));
+      var->SetBounds(joint_limits_eigen);
+      problem->vars.push_back(var);
+      problem->nlp->addVariableSet(var);
+
+      // Apply profile
+      cur_plan_profile->apply(*problem, cwp, move_instruction, composite_mi, active_links, i);
 
       /** @todo If fixed cartesian and not term_type cost add as fixed */
     }
@@ -288,6 +295,15 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
       assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
 
       const auto& jwp = move_instruction.getWaypoint().as<JointWaypointPoly>();
+
+      // Add variable set to problem
+      auto var = std::make_shared<trajopt_ifopt::JointPosition>(
+          jwp.getPosition(), joint_names, "Joint_Position_" + std::to_string(i));
+      var->SetBounds(joint_limits_eigen);
+      problem->vars.push_back(var);
+      problem->nlp->addVariableSet(var);
+
+      // Apply profile
       if (jwp.isConstrained())
       {
         cur_plan_profile->apply(*problem, jwp, move_instruction, composite_mi, active_links, i);
@@ -296,9 +312,6 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
         if (!jwp.isToleranced()) /** @todo Should not make fixed if term_type is cost */
           fixed_steps.push_back(i);
       }
-
-      // Add seed state
-      seed_states.push_back(jwp.getPosition());
     }
     else if (move_instruction.getWaypoint().isStateWaypoint())
     {
@@ -307,10 +320,16 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
       JointWaypointPoly jwp = move_instruction.createJointWaypoint();
       jwp.setNames(swp.getNames());
       jwp.setPosition(swp.getPosition());
-      cur_plan_profile->apply(*problem, jwp, move_instruction, composite_mi, active_links, i);
 
-      // Add seed state
-      seed_states.push_back(swp.getPosition());
+      // Add variable set to problem
+      auto var = std::make_shared<trajopt_ifopt::JointPosition>(
+          swp.getPosition(), joint_names, "Joint_Position_" + std::to_string(i));
+      var->SetBounds(joint_limits_eigen);
+      problem->vars.push_back(var);
+      problem->nlp->addVariableSet(var);
+
+      // Apply profile
+      cur_plan_profile->apply(*problem, jwp, move_instruction, composite_mi, active_links, i);
 
       // Add to fixed indices
       fixed_steps.push_back(i); /** @todo Should not make fixed if term_type is cost */
