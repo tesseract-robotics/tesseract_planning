@@ -35,12 +35,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_node_info.h>
+#include <tesseract_task_composer/task_composer_node.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
-TaskComposerNodeInfo::TaskComposerNodeInfo(boost::uuids::uuid uuid, std::string name)
-  : name(std::move(name)), uuid(uuid)
+TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node)
+  : name(node.name_), uuid(node.uuid_), inbound_edges(node.inbound_edges_), outbound_edges(node.outbound_edges_)
 {
 }
 
@@ -55,6 +56,8 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= return_value == rhs.return_value;
   equal &= message == rhs.message;
   equal &= tesseract_common::almostEqualRelativeAndAbs(elapsed_time, rhs.elapsed_time, max_diff);
+  equal &= tesseract_common::isIdentical(inbound_edges, rhs.inbound_edges, false);
+  equal &= tesseract_common::isIdentical(outbound_edges, rhs.outbound_edges, true);
   equal &= tesseract_common::isIdentical(input_keys, rhs.input_keys, false);
   equal &= tesseract_common::isIdentical(output_keys, rhs.output_keys, false);
   return equal;
@@ -73,7 +76,8 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("return_value", return_value);
   ar& boost::serialization::make_nvp("message", message);
   ar& boost::serialization::make_nvp("elapsed_time", elapsed_time);
-
+  ar& boost::serialization::make_nvp("inbound_edges", inbound_edges);
+  ar& boost::serialization::make_nvp("outbound_edges", outbound_edges);
   ar& boost::serialization::make_nvp("input_keys", input_keys);
   ar& boost::serialization::make_nvp("output_keys", output_keys);
 }

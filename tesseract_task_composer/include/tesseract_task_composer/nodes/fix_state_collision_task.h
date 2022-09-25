@@ -86,7 +86,7 @@ public:
   using ConstUPtr = std::unique_ptr<const FixStateCollisionTaskInfo>;
 
   FixStateCollisionTaskInfo() = default;
-  FixStateCollisionTaskInfo(boost::uuids::uuid uuid, std::string name = node_names::FIX_STATE_COLLISION_TASK_NAME);
+  FixStateCollisionTaskInfo(const FixStateCollisionTask& task);
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;
 

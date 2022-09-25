@@ -77,8 +77,7 @@ public:
   using ConstUPtr = std::unique_ptr<const DiscreteContactCheckTaskInfo>;
 
   DiscreteContactCheckTaskInfo() = default;
-  DiscreteContactCheckTaskInfo(boost::uuids::uuid uuid,
-                               std::string name = node_names::DISCRETE_CONTACT_CHECK_TASK_NAME);
+  DiscreteContactCheckTaskInfo(const DiscreteContactCheckTask& task);
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;
 

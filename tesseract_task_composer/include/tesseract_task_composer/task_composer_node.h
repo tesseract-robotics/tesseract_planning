@@ -38,8 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class TaskComposerGraph;
-
 enum class TaskComposerNodeType
 {
   TASK,
@@ -100,6 +98,7 @@ public:
 
 protected:
   friend class TaskComposerGraph;
+  friend class TaskComposerNodeInfo;
   friend class tesseract_common::Serialization;
   friend class boost::serialization::access;
 

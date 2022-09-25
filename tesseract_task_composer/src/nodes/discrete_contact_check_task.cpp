@@ -49,7 +49,7 @@ DiscreteContactCheckTask::DiscreteContactCheckTask(std::string input_key, bool i
 TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& input,
                                                              OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<DiscreteContactCheckTaskInfo>(uuid_, name_);
+  auto info = std::make_unique<DiscreteContactCheckTaskInfo>(*this);
   info->return_value = 0;
 
   if (input.isAborted())
@@ -127,8 +127,8 @@ void DiscreteContactCheckTask::serialize(Archive& ar, const unsigned int /*versi
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-DiscreteContactCheckTaskInfo::DiscreteContactCheckTaskInfo(boost::uuids::uuid uuid, std::string name)
-  : TaskComposerNodeInfo(uuid, std::move(name))
+DiscreteContactCheckTaskInfo::DiscreteContactCheckTaskInfo(const DiscreteContactCheckTask& task)
+  : TaskComposerNodeInfo(task)
 {
 }
 

@@ -52,7 +52,7 @@ RuckigTrajectorySmoothingTask::RuckigTrajectorySmoothingTask(std::string input_k
 TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerInput& input,
                                                                   OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
 
   if (input.isAborted())

@@ -27,7 +27,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
-#include <boost/uuid/uuid_generators.hpp>
+//#include <boost/uuid/uuid_generators.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/unit_test_utils.h>
@@ -39,6 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/nodes/continuous_contact_check_task.h>
 #include <tesseract_task_composer/nodes/discrete_contact_check_task.h>
 #include <tesseract_task_composer/nodes/fix_state_collision_task.h>
+#include <tesseract_task_composer/nodes/start_task.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_future.h>
 
 #include "raster_example_program.h"
@@ -56,16 +57,16 @@ void setNodeInfoData(TaskComposerNodeInfo& info)
 
 TEST(TesseractTaskComposerSerializeUnit, TaskComposerNodeInfo)  // NOLINT
 {
-  boost::uuids::uuid uuid = boost::uuids::random_generator()();
-  auto info = std::make_shared<TaskComposerNodeInfo>(uuid, "my task");
+  StartTask task("my task");
+  auto info = std::make_shared<TaskComposerNodeInfo>(task);
   setNodeInfoData(*info);
   tesseract_common::testSerialization<TaskComposerNodeInfo>(*info, "TaskComposerNodeInfo");
 }
 
 TEST(TesseractTaskComposerSerializeUnit, ContinuousContactCheckTaskInfo)  // NOLINT
 {
-  boost::uuids::uuid uuid = boost::uuids::random_generator()();
-  auto info = std::make_shared<ContinuousContactCheckTaskInfo>(uuid, "ContinuousContactCheckTaskInfo");
+  ContinuousContactCheckTask task;
+  auto info = std::make_shared<ContinuousContactCheckTaskInfo>(task);
   setNodeInfoData(*info);
   tesseract_common::testSerialization<ContinuousContactCheckTaskInfo>(*info, "ContinuousContactCheckTaskInfo");
   tesseract_common::testSerializationDerivedClass<TaskComposerNodeInfo, ContinuousContactCheckTaskInfo>(info,
@@ -76,8 +77,8 @@ TEST(TesseractTaskComposerSerializeUnit, ContinuousContactCheckTaskInfo)  // NOL
 
 TEST(TesseractTaskComposerSerializeUnit, DiscreteContactCheckTaskInfo)  // NOLINT
 {
-  boost::uuids::uuid uuid = boost::uuids::random_generator()();
-  auto info = std::make_shared<DiscreteContactCheckTaskInfo>(uuid, "DiscreteContactCheckTaskInfo");
+  DiscreteContactCheckTask task;
+  auto info = std::make_shared<DiscreteContactCheckTaskInfo>(task);
   setNodeInfoData(*info);
   tesseract_common::testSerialization<DiscreteContactCheckTaskInfo>(*info, "DiscreteContactCheckTaskInfo");
   tesseract_common::testSerializationDerivedClass<TaskComposerNodeInfo, DiscreteContactCheckTaskInfo>(info,
@@ -87,8 +88,8 @@ TEST(TesseractTaskComposerSerializeUnit, DiscreteContactCheckTaskInfo)  // NOLIN
 
 TEST(TesseractTaskComposerSerializeUnit, FixStateCollisionTaskInfo)  // NOLINT
 {
-  boost::uuids::uuid uuid = boost::uuids::random_generator()();
-  auto info = std::make_shared<FixStateCollisionTaskInfo>(uuid, "FixStateCollisionTaskInfo");
+  FixStateCollisionTask task;
+  auto info = std::make_shared<FixStateCollisionTaskInfo>(task);
   setNodeInfoData(*info);
   tesseract_common::testSerialization<FixStateCollisionTaskInfo>(*info, "FixStateCollisionTaskInfo");
   tesseract_common::testSerializationDerivedClass<TaskComposerNodeInfo, FixStateCollisionTaskInfo>(info,
@@ -98,8 +99,8 @@ TEST(TesseractTaskComposerSerializeUnit, FixStateCollisionTaskInfo)  // NOLINT
 
 TEST(TesseractTaskComposerSerializeUnit, TaskComposerInput)  // NOLINT
 {
-  boost::uuids::uuid uuid = boost::uuids::random_generator()();
-  auto info = std::make_unique<TaskComposerNodeInfo>(uuid, "my task");
+  StartTask task("my task");
+  auto info = std::make_unique<TaskComposerNodeInfo>(task);
   setNodeInfoData(*info);
 
   // Define profiles

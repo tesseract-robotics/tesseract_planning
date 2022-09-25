@@ -318,7 +318,7 @@ FixStateCollisionTask::FixStateCollisionTask(std::string input_key,
 TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& input,
                                                           OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<FixStateCollisionTaskInfo>(uuid_, name_);
+  auto info = std::make_unique<FixStateCollisionTaskInfo>(*this);
   info->return_value = 0;
 
   if (input.isAborted())
@@ -600,10 +600,7 @@ void FixStateCollisionTask::serialize(Archive& ar, const unsigned int /*version*
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-FixStateCollisionTaskInfo::FixStateCollisionTaskInfo(boost::uuids::uuid uuid, std::string name)
-  : TaskComposerNodeInfo(uuid, std::move(name))
-{
-}
+FixStateCollisionTaskInfo::FixStateCollisionTaskInfo(const FixStateCollisionTask& task) : TaskComposerNodeInfo(task) {}
 
 bool FixStateCollisionTaskInfo::operator==(const FixStateCollisionTaskInfo& rhs) const
 {
