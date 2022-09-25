@@ -42,6 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/task_composer_input.h>
 #include <tesseract_task_composer/task_composer_node_names.h>
 #include <tesseract_task_composer/nodes/trajopt_motion_pipeline_task.h>
+#include <tesseract_task_composer/nodes/trajopt_ifopt_motion_pipeline_task.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
@@ -239,7 +240,7 @@ bool GlassUprightExample::run()
   TaskComposerInput input(problem, profiles);
   if (ifopt_)
   {
-    TrajOptMotionPipelineTask task("input_program", "output_program");
+    TrajOptIfoptMotionPipelineTask task("input_program", "output_program");
     TaskComposerFuture::UPtr future = executor->run(task, input);
     future->wait();
   }
