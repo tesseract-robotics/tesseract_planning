@@ -52,10 +52,10 @@ public:
   TaskComposerTask() = default;  // Required for serialization
   TaskComposerTask(bool is_conditional, std::string name = "TaskComposerTask");
   ~TaskComposerTask() override = default;
-  TaskComposerTask(const TaskComposerGraph&) = delete;
-  TaskComposerTask& operator=(const TaskComposerGraph&) = delete;
-  TaskComposerTask(TaskComposerGraph&&) = delete;
-  TaskComposerTask& operator=(TaskComposerGraph&&) = delete;
+  TaskComposerTask(const TaskComposerTask&) = delete;
+  TaskComposerTask& operator=(const TaskComposerTask&) = delete;
+  TaskComposerTask(TaskComposerTask&&) = delete;
+  TaskComposerTask& operator=(TaskComposerTask&&) = delete;
 
   bool operator==(const TaskComposerTask& rhs) const;
   bool operator!=(const TaskComposerTask& rhs) const;

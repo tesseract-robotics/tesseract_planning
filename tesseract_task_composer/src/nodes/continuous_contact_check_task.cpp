@@ -50,7 +50,7 @@ ContinuousContactCheckTask::ContinuousContactCheckTask(std::string input_key, bo
 TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput& input,
                                                                OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<ContinuousContactCheckTaskInfo>(uuid_, name_);
+  auto info = std::make_unique<ContinuousContactCheckTaskInfo>(*this);
   info->return_value = 0;
 
   if (input.isAborted())
@@ -130,8 +130,8 @@ void ContinuousContactCheckTask::serialize(Archive& ar, const unsigned int /*ver
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-ContinuousContactCheckTaskInfo::ContinuousContactCheckTaskInfo(boost::uuids::uuid uuid, std::string name)
-  : TaskComposerNodeInfo(uuid, std::move(name))
+ContinuousContactCheckTaskInfo::ContinuousContactCheckTaskInfo(const ContinuousContactCheckTask& task)
+  : TaskComposerNodeInfo(task)
 {
 }
 

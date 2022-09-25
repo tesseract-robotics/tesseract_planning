@@ -53,7 +53,7 @@ MinLengthTask::MinLengthTask(std::string input_key, std::string output_key, bool
 TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerInput& input,
                                                   OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
 
   if (input.isAborted())

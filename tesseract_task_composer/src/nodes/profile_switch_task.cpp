@@ -46,7 +46,7 @@ ProfileSwitchTask::ProfileSwitchTask(std::string input_key, bool is_conditional,
 TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,
                                                       OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
 
   if (input.isAborted())

@@ -39,6 +39,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class TaskComposerNode;
+
 /** Stores information about a node */
 class TaskComposerNodeInfo
 {
@@ -49,7 +51,7 @@ public:
   using ConstUPtr = std::unique_ptr<const TaskComposerNodeInfo>;
 
   TaskComposerNodeInfo() = default;  // Required for serialization
-  TaskComposerNodeInfo(boost::uuids::uuid uuid, std::string name = "");
+  TaskComposerNodeInfo(const TaskComposerNode& node);
   virtual ~TaskComposerNodeInfo() = default;
   TaskComposerNodeInfo(const TaskComposerNodeInfo&) = default;
   TaskComposerNodeInfo& operator=(const TaskComposerNodeInfo&) = default;
@@ -62,6 +64,18 @@ public:
   /** @brief The task uuid */
   boost::uuids::uuid uuid{};
 
+  /** @brief The nodes inbound edges */
+  std::vector<boost::uuids::uuid> inbound_edges;
+
+  /** @brief The nodes outbound edges */
+  std::vector<boost::uuids::uuid> outbound_edges;
+
+  /** @brief The input keys */
+  std::vector<std::string> input_keys;
+
+  /** @brief The output keys */
+  std::vector<std::string> output_keys;
+
   /** @brief Store the results of the task */
   tesseract_common::AnyPoly results;
 
@@ -71,14 +85,8 @@ public:
   /** @brief Status message */
   std::string message;
 
-  /** @brief elapsed_time Time spent in this task in seconds*/
+  /** @brief Time spent in this task in seconds*/
   double elapsed_time{ 0 };
-
-  /** @brief The input keys */
-  std::vector<std::string> input_keys;
-
-  /** @brief The output keys */
-  std::vector<std::string> output_keys;
 
   bool operator==(const TaskComposerNodeInfo& rhs) const;
   bool operator!=(const TaskComposerNodeInfo& rhs) const;
