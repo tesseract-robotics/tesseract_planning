@@ -1,5 +1,4 @@
 <map id="tesseract_planning::FixStateCollisionTaskInfo" name="tesseract_planning::FixStateCollisionTaskInfo">
-<area shape="rect" id="node1" title=" " alt="" coords="69,95,245,136"/>
-<area shape="rect" id="node2" href="$d9/dbc/classtesseract__planning_1_1TaskInfo.html" title=" " alt="" coords="5,5,136,47"/>
-<area shape="rect" id="node3" href="$da/de5/classtesseract__planning_1_1TaskComposerNodeInfo.html" title=" " alt="" coords="161,5,330,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,95,181,136"/>
+<area shape="rect" id="node2" href="$da/de5/classtesseract__planning_1_1TaskComposerNodeInfo.html" title=" " alt="" coords="9,5,178,47"/>
 </map>

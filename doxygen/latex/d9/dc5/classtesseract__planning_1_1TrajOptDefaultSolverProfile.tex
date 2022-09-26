@@ -60,6 +60,8 @@ tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1Tra
 \item 
 sco\+::\+Model\+Type \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a68bc22f75793bef4d4665f168944926b}{convex\+\_\+solver}} \{ sco\+::\+Model\+Type\+::\+OSQP \}
 \begin{DoxyCompactList}\small\item\em The Convex solver to use. \end{DoxyCompactList}\item 
+sco\+::\+Model\+Config\+::\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a8db7a52a7ebfa090be6ae166549e8a91}{convex\+\_\+solver\+\_\+config}} \{ nullptr \}
+\begin{DoxyCompactList}\small\item\em The convex solver config to use, if nullptr the default settings are used. \end{DoxyCompactList}\item 
 sco\+::\+Basic\+Trust\+Region\+SQPParameters \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a67b241436e8f35c35012a2be860772e6}{opt\+\_\+info}}
 \begin{DoxyCompactList}\small\item\em Optimization paramters. \end{DoxyCompactList}\item 
 std\+::vector$<$ sco\+::\+Optimizer\+::\+Callback $>$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a8b99377c7c52aac96685c0687665477e}{callbacks}}
@@ -166,6 +168,16 @@ Optimization callbacks.
 
 
 The Convex solver to use. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a8db7a52a7ebfa090be6ae166549e8a91}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a8db7a52a7ebfa090be6ae166549e8a91}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!convex\_solver\_config@{convex\_solver\_config}}
+\index{convex\_solver\_config@{convex\_solver\_config}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{convex\_solver\_config}{convex\_solver\_config}}
+{\footnotesize\ttfamily sco\+::\+Model\+Config\+::\+Ptr tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::convex\+\_\+solver\+\_\+config \{ nullptr \}}
+
+
+
+The convex solver config to use, if nullptr the default settings are used. 
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a67b241436e8f35c35012a2be860772e6}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a67b241436e8f35c35012a2be860772e6}} 
 \index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!opt\_info@{opt\_info}}

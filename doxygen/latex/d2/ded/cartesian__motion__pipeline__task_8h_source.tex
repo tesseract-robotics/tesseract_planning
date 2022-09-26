@@ -7,45 +7,46 @@
 \DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_CARTESIAN\_MOTION\_PIPELINE\_TASK\_H}}
 \DoxyCodeLine{28 }
 \DoxyCodeLine{29 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__graph_8h}{tesseract\_task\_composer/task\_composer\_graph.h}}>}}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{32 \{}
-\DoxyCodeLine{33 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}}
-\DoxyCodeLine{34 \{}
-\DoxyCodeLine{35 \textcolor{keyword}{public}:}
-\DoxyCodeLine{36   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a7679a07b567b232668e828653b702818}{Ptr}} = std::shared\_ptr<CartesianMotionPipelineTask>;}
-\DoxyCodeLine{37   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a6ca2dd05f5e730cb38946876792e5361}{ConstPtr}} = std::shared\_ptr<const CartesianMotionPipelineTask>;}
-\DoxyCodeLine{38   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a31f1168a12122e015547ef91d546504d}{UPtr}} = std::unique\_ptr<CartesianMotionPipelineTask>;}
-\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_af26c5ed803ae54646bd589c384e07a6f}{ConstUPtr}} = std::unique\_ptr<const CartesianMotionPipelineTask>;}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_af8673a303bcaf873801c30d42382341c}{CartesianMotionPipelineTask}}(std::string name = \textcolor{stringliteral}{"{}CartesianMotionPipelineTask"{}});}
-\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_af8673a303bcaf873801c30d42382341c}{CartesianMotionPipelineTask}}(std::string input\_key,}
-\DoxyCodeLine{48                               std::string output\_key,}
-\DoxyCodeLine{49                               std::string name = \textcolor{stringliteral}{"{}CartesianMotionPipelineTask"{}});}
-\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a972073fb3461b71bd06aa94adbd5e1eb}{\string~CartesianMotionPipelineTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a6504ddc79db8bc047b3fa11119b55509}{CartesianMotionPipelineTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_ab922e7eb350fc202febf4b82d6981396}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a1d7894ed24f9b6fc926a2c4846b01f5a}{CartesianMotionPipelineTask}}(\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_af7ee318afd3c5226bfea74f6a4b5e365}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{56   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a9159e6073510c709ab764f0d55371b80}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{57   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_ad02559c6b891663154b91ddf1d4aa672}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{59 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{60   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
-\DoxyCodeLine{61   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{64   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_aeb1ecba550904371ec9676ecce481589}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a5290a38d8bb6e1e1b8e3d493c6fbeef8}{ctor}}(std::string input\_key, std::string output\_key);}
-\DoxyCodeLine{67 \};}
-\DoxyCodeLine{68 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{70 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
-\DoxyCodeLine{71 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
-\DoxyCodeLine{72 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{tesseract\_planning::CartesianMotionPipelineTask}}, \textcolor{stringliteral}{"{}CartesianMotionPipelineTask"{}})}
-\DoxyCodeLine{73 }
-\DoxyCodeLine{74 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_CARTESIAN\_MOTION\_PIPELINE\_TASK\_H}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__node__names_8h}{tesseract\_task\_composer/task\_composer\_node\_names.h}}>}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36 \textcolor{keyword}{public}:}
+\DoxyCodeLine{37   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a7679a07b567b232668e828653b702818}{Ptr}} = std::shared\_ptr<CartesianMotionPipelineTask>;}
+\DoxyCodeLine{38   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a6ca2dd05f5e730cb38946876792e5361}{ConstPtr}} = std::shared\_ptr<const CartesianMotionPipelineTask>;}
+\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a31f1168a12122e015547ef91d546504d}{UPtr}} = std::unique\_ptr<CartesianMotionPipelineTask>;}
+\DoxyCodeLine{40   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_af26c5ed803ae54646bd589c384e07a6f}{ConstUPtr}} = std::unique\_ptr<const CartesianMotionPipelineTask>;}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a5dbfff9b434a97b857a31f15c898674b}{CartesianMotionPipelineTask}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ad9e28c743c218ad22e9e32c0a2a1772c}{node\_names::CARTESIAN\_PIPELINE\_NAME}});}
+\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a5dbfff9b434a97b857a31f15c898674b}{CartesianMotionPipelineTask}}(std::string input\_key,}
+\DoxyCodeLine{49                               std::string output\_key,}
+\DoxyCodeLine{50                               std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ad9e28c743c218ad22e9e32c0a2a1772c}{node\_names::CARTESIAN\_PIPELINE\_NAME}});}
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a972073fb3461b71bd06aa94adbd5e1eb}{\string~CartesianMotionPipelineTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a6504ddc79db8bc047b3fa11119b55509}{CartesianMotionPipelineTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_ab922e7eb350fc202febf4b82d6981396}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a1d7894ed24f9b6fc926a2c4846b01f5a}{CartesianMotionPipelineTask}}(\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_af7ee318afd3c5226bfea74f6a4b5e365}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a9159e6073510c709ab764f0d55371b80}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{58   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_ad02559c6b891663154b91ddf1d4aa672}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{CartesianMotionPipelineTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{61   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{62   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{65   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_aeb1ecba550904371ec9676ecce481589}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask_a5290a38d8bb6e1e1b8e3d493c6fbeef8}{ctor}}(std::string input\_key, std::string output\_key);}
+\DoxyCodeLine{68 \};}
+\DoxyCodeLine{69 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{73 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{tesseract\_planning::CartesianMotionPipelineTask}}, \textcolor{stringliteral}{"{}CartesianMotionPipelineTask"{}})}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_CARTESIAN\_MOTION\_PIPELINE\_TASK\_H}}
 
 \end{DoxyCode}

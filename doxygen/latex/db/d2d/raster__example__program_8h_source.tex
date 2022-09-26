@@ -1,10 +1,10 @@
 \hypertarget{raster__example__program_8h_source}{}\doxysection{raster\+\_\+example\+\_\+program.\+h}
-\label{raster__example__program_8h_source}\index{tesseract\_process\_managers/examples/raster\_example\_program.h@{tesseract\_process\_managers/examples/raster\_example\_program.h}}
+\label{raster__example__program_8h_source}\index{tesseract\_task\_composer/examples/raster\_example\_program.h@{tesseract\_task\_composer/examples/raster\_example\_program.h}}
 \mbox{\hyperlink{raster__example__program_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 }
-\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_RASTER\_EXAMPLE\_PROGRAM\_H}}
-\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_RASTER\_EXAMPLE\_PROGRAM\_H}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_RASTER\_EXAMPLE\_PROGRAM\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_RASTER\_EXAMPLE\_PROGRAM\_H}}
 \DoxyCodeLine{28 }
 \DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
 \DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
@@ -93,7 +93,7 @@
 \DoxyCodeLine{113       plan\_f1.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end\_plan"{}});}
 \DoxyCodeLine{114 }
 \DoxyCodeLine{115       \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} transition(freespace\_profile);}
-\DoxyCodeLine{116       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end"{}});}
+\DoxyCodeLine{116       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}Transition \#"{}} + std::to\_string(i + 1));}
 \DoxyCodeLine{117       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f1);}
 \DoxyCodeLine{118       program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5bdc97e314d770891ae12bcb75a30476}{appendInstruction}}(transition);}
 \DoxyCodeLine{119     \}}
@@ -107,7 +107,7 @@
 \DoxyCodeLine{127       plan\_f1.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end\_plan"{}});}
 \DoxyCodeLine{128 }
 \DoxyCodeLine{129       \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} transition(freespace\_profile);}
-\DoxyCodeLine{130       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end"{}});}
+\DoxyCodeLine{130       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}Transition \#"{}} + std::to\_string(i + 1));}
 \DoxyCodeLine{131       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f1);}
 \DoxyCodeLine{132       program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5bdc97e314d770891ae12bcb75a30476}{appendInstruction}}(transition);}
 \DoxyCodeLine{133     \}}
@@ -188,7 +188,7 @@
 \DoxyCodeLine{208       plan\_f1.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end\_plan"{}});}
 \DoxyCodeLine{209 }
 \DoxyCodeLine{210       \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} transition(freespace\_profile);}
-\DoxyCodeLine{211       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end"{}});}
+\DoxyCodeLine{211       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}Transition \#"{}} + std::to\_string(i + 1));}
 \DoxyCodeLine{212       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f1);}
 \DoxyCodeLine{213       program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5bdc97e314d770891ae12bcb75a30476}{appendInstruction}}(transition);}
 \DoxyCodeLine{214     \}}
@@ -202,7 +202,7 @@
 \DoxyCodeLine{222       plan\_f1.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end\_plan"{}});}
 \DoxyCodeLine{223 }
 \DoxyCodeLine{224       \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} transition(freespace\_profile);}
-\DoxyCodeLine{225       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end"{}});}
+\DoxyCodeLine{225       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}Transition \#"{}} + std::to\_string(i + 1));}
 \DoxyCodeLine{226       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f1);}
 \DoxyCodeLine{227       program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5bdc97e314d770891ae12bcb75a30476}{appendInstruction}}(transition);}
 \DoxyCodeLine{228     \}}

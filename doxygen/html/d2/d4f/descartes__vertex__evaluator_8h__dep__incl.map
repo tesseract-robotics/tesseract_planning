@@ -1,20 +1,18 @@
 <map id="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/descartes_vertex_evaluator.h" name="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/descartes_vertex_evaluator.h">
-<area shape="rect" id="node1" title="Tesseract Descartes Vertex Evaluator." alt="" coords="457,5,652,76"/>
-<area shape="rect" id="node2" href="$d7/d5d/tesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2types_8h.html" title="Tesseract descartes types." alt="" coords="439,124,670,180"/>
-<area shape="rect" id="node3" href="$d1/dad/descartes__robot__sampler_8h.html" title="Tesseract Descartes Kinematics Sampler." alt="" coords="264,235,451,306"/>
-<area shape="rect" id="node8" href="$d5/d91/descartes__default__plan__profile_8h.html" title=" " alt="" coords="727,228,926,313"/>
+<area shape="rect" id="node1" title="Tesseract Descartes Vertex Evaluator." alt="" coords="451,5,645,76"/>
+<area shape="rect" id="node2" href="$d7/d5d/tesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2types_8h.html" title="Tesseract descartes types." alt="" coords="433,124,663,180"/>
+<area shape="rect" id="node3" href="$d1/dad/descartes__robot__sampler_8h.html" title="Tesseract Descartes Kinematics Sampler." alt="" coords="257,235,444,306"/>
+<area shape="rect" id="node8" href="$d5/d91/descartes__default__plan__profile_8h.html" title=" " alt="" coords="647,228,846,313"/>
 <area shape="rect" id="node4" href="$d0/d0a/descartes__robot__sampler_8hpp.html" title="Tesseract Descartes Kinematics Sampler Implementation." alt="" coords="5,369,229,439"/>
-<area shape="rect" id="node6" href="$df/d3e/descartes__default__plan__profile_8hpp.html" title=" " alt="" coords="260,361,455,447"/>
-<area shape="rect" id="node5" href="$db/d0f/descartes__robot__sampler_8cpp.html" title="Tesseract Descartes Robot Kinematics Sampler." alt="" coords="13,502,192,558"/>
-<area shape="rect" id="node7" href="$da/dcd/descartes__default__plan__profile_8cpp.html" title=" " alt="" coords="216,495,395,565"/>
-<area shape="rect" id="node9" href="$dd/d1e/descartes_2include_2tesseract__motion__planners_2descartes_2deserialize_8h.html" title="Provide methods for deserialize descartes plans to xml." alt="" coords="533,369,720,439"/>
-<area shape="rect" id="node10" href="$d5/d68/descartes_2src_2deserialize_8cpp.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="419,509,613,551"/>
-<area shape="rect" id="node11" href="$d3/d15/tesseract__motion__planners_2test_2serialize__test_8cpp.html" title=" " alt="" coords="637,509,816,551"/>
-<area shape="rect" id="node12" href="$d1/d19/descartes__legacy__motion__planner_8hpp.html" title=" " alt="" coords="795,361,997,447"/>
-<area shape="rect" id="node14" href="$dd/dad/descartes__motion__planner_8hpp.html" title="Tesseract ROS Descartes planner." alt="" coords="1021,369,1251,439"/>
-<area shape="rect" id="node16" href="$d2/de8/chain__example_8cpp.html" title="Chained motion planning example." alt="" coords="1276,383,1471,425"/>
-<area shape="rect" id="node17" href="$d4/dfe/raster__example_8cpp.html" title="Raster motion planning example." alt="" coords="1495,383,1692,425"/>
-<area shape="rect" id="node18" href="$d6/dcb/descartes__planner__tests_8cpp.html" title="This contains unit test for the tesseract descartes planner." alt="" coords="1716,376,1895,432"/>
-<area shape="rect" id="node13" href="$dc/dff/descartes__legacy__motion__planner_8cpp.html" title=" " alt="" coords="841,502,1026,558"/>
-<area shape="rect" id="node15" href="$d5/dd0/descartes__motion__planner_8cpp.html" title="Tesseract ROS Descartes planner." alt="" coords="1051,502,1229,558"/>
+<area shape="rect" id="node6" href="$df/d3e/descartes__default__plan__profile_8hpp.html" title=" " alt="" coords="253,361,448,447"/>
+<area shape="rect" id="node5" href="$db/d0f/descartes__robot__sampler_8cpp.html" title="Tesseract Descartes Robot Kinematics Sampler." alt="" coords="28,502,207,558"/>
+<area shape="rect" id="node7" href="$da/dcd/descartes__default__plan__profile_8cpp.html" title=" " alt="" coords="233,495,412,565"/>
+<area shape="rect" id="node9" href="$dd/d1e/descartes_2include_2tesseract__motion__planners_2descartes_2deserialize_8h.html" title="Provide methods for deserialize descartes plans to xml." alt="" coords="523,369,709,439"/>
+<area shape="rect" id="node10" href="$d5/d68/descartes_2src_2deserialize_8cpp.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="436,509,631,551"/>
+<area shape="rect" id="node11" href="$d3/d15/tesseract__motion__planners_2test_2serialize__test_8cpp.html" title=" " alt="" coords="655,509,833,551"/>
+<area shape="rect" id="node12" href="$dd/dad/descartes__motion__planner_8hpp.html" title="Tesseract ROS Descartes planner." alt="" coords="785,369,1015,439"/>
+<area shape="rect" id="node14" href="$d2/de8/chain__example_8cpp.html" title="Chained motion planning example." alt="" coords="1040,383,1235,425"/>
+<area shape="rect" id="node15" href="$d4/dfe/raster__example_8cpp.html" title="Raster motion planning example." alt="" coords="1259,383,1456,425"/>
+<area shape="rect" id="node16" href="$d6/dcb/descartes__planner__tests_8cpp.html" title="This contains unit test for the tesseract descartes planner." alt="" coords="1480,376,1659,432"/>
+<area shape="rect" id="node13" href="$d5/dd0/descartes__motion__planner_8cpp.html" title="Tesseract ROS Descartes planner." alt="" coords="857,502,1036,558"/>
 </map>

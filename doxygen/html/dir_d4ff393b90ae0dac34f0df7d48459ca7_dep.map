@@ -1,10 +1,10 @@
 <map id="tesseract_motion_planners/trajopt/src/profile" name="tesseract_motion_planners/trajopt/src/profile">
 <area shape="rect" id="node1" href="dir_d4ff393b90ae0dac34f0df7d48459ca7.html" title="profile" alt="" coords="101,52,173,100"/>
 <area shape="rect" id="node2" href="dir_69518f7ef736443110ee2b2a50b977af.html" title="include" alt="" coords="5,148,77,196"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000035_000016.html" title="5" alt="" coords="80,134,88,149"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000031_000013.html" title="5" alt="" coords="80,134,88,149"/>
 <area shape="rect" id="node3" href="dir_ba42fb948e9041f2f8c5ac347b7f6bb7.html" title="core" alt="" coords="101,148,173,196"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000035_000000.html" title="1" alt="" coords="142,122,150,137"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000031_000000.html" title="1" alt="" coords="142,122,150,137"/>
 <area shape="rect" id="node4" href="dir_fa47c2fa9b13a12fc195f1b83854b816.html" title="tesseract_command_language" alt="" coords="197,148,395,196"/>
-<area shape="rect" id="edge3-headlabel" href="dir_000035_000058.html" title="5" alt="" coords="242,124,250,139"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000031_000048.html" title="5" alt="" coords="242,124,250,139"/>
 <area shape="rect" id="clust1" href="dir_786d4f88b5723d1ed7606901b175895c.html" title="src" alt="" coords="91,16,184,111"/>
 </map>

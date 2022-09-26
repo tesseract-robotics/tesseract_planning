@@ -1,5 +1,5 @@
-<map id="tesseract_process_managers/include/tesseract_process_managers/task_profiles/contact_check_profile.h" name="tesseract_process_managers/include/tesseract_process_managers/task_profiles/contact_check_profile.h">
-<area shape="rect" id="node1" title="Contact check trajectory profile." alt="" coords="199,5,410,76"/>
+<map id="tesseract_task_composer/include/tesseract_task_composer/profiles/contact_check_profile.h" name="tesseract_task_composer/include/tesseract_task_composer/profiles/contact_check_profile.h">
+<area shape="rect" id="node1" title="Contact check trajectory profile." alt="" coords="215,5,394,76"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,131,196,158"/>
 <area shape="rect" id="node3" title=" " alt="" coords="221,131,389,158"/>
 <area shape="rect" id="node4" title=" " alt="" coords="413,124,543,165"/>

@@ -6,7 +6,6 @@
 {\ttfamily \#include $<$tesseract\+\_\+environment/environment.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/simple\+\_\+motion\+\_\+planner.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/profile/simple\+\_\+planner\+\_\+fixed\+\_\+size\+\_\+assign\+\_\+plan\+\_\+profile.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/profile/simple\+\_\+planner\+\_\+fixed\+\_\+size\+\_\+assign\+\_\+legacy\+\_\+plan\+\_\+profile.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/joint\+\_\+waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/cartesian\+\_\+waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/move\+\_\+instruction.\+h$>$}\newline
@@ -33,12 +32,6 @@ class \mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeAssignPositio
 \item 
 \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_ab583fb896a6e1bf734b2de87814bb4c2}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeAssignPositionUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Assign\+Position\+Unit}}, Cartesian\+Cartesian\+\_\+\+Assign\+Joint\+Position)
 \item 
-\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_ac2bedcfbcff919305ad396ede80f9aab}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeAssignPositionUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Assign\+Position\+Unit}}, Joint\+Cartesian\+\_\+\+Assign\+Joint\+Position\+Legacy)
-\item 
-\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aa6a37b44b10d9bedd46bfc58be6b026b}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeAssignPositionUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Assign\+Position\+Unit}}, Cartesian\+Joint\+\_\+\+Assign\+Joint\+Position\+Legacy)
-\item 
-\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a8d47b3ad89a731eaba8f877a461c1b35}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeAssignPositionUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Assign\+Position\+Unit}}, Cartesian\+Cartesian\+\_\+\+Assign\+Joint\+Position\+Legacy)
-\item 
 int \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
 
@@ -54,7 +47,7 @@ July 28, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000170}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000155}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -81,36 +74,18 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \mbox{\Hypertarget{simple__planner__fixed__size__assign__position_8cpp_ab583fb896a6e1bf734b2de87814bb4c2}\label{simple__planner__fixed__size__assign__position_8cpp_ab583fb896a6e1bf734b2de87814bb4c2}} 
 \index{simple\_planner\_fixed\_size\_assign\_position.cpp@{simple\_planner\_fixed\_size\_assign\_position.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_assign\_position.cpp@{simple\_planner\_fixed\_size\_assign\_position.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeAssignPositionUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Assign\+Position\+Unit}}}]{,  }\item[{Cartesian\+Cartesian\+\_\+\+Assign\+Joint\+Position}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{simple__planner__fixed__size__assign__position_8cpp_a8d47b3ad89a731eaba8f877a461c1b35}\label{simple__planner__fixed__size__assign__position_8cpp_a8d47b3ad89a731eaba8f877a461c1b35}} 
-\index{simple\_planner\_fixed\_size\_assign\_position.cpp@{simple\_planner\_fixed\_size\_assign\_position.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_assign\_position.cpp@{simple\_planner\_fixed\_size\_assign\_position.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeAssignPositionUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Assign\+Position\+Unit}}}]{,  }\item[{Cartesian\+Cartesian\+\_\+\+Assign\+Joint\+Position\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{simple__planner__fixed__size__assign__position_8cpp_a2872978e996837e175b2cd59086fd358}\label{simple__planner__fixed__size__assign__position_8cpp_a2872978e996837e175b2cd59086fd358}} 
 \index{simple\_planner\_fixed\_size\_assign\_position.cpp@{simple\_planner\_fixed\_size\_assign\_position.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_assign\_position.cpp@{simple\_planner\_fixed\_size\_assign\_position.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeAssignPositionUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Assign\+Position\+Unit}}}]{,  }\item[{Cartesian\+Joint\+\_\+\+Assign\+Joint\+Position}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{simple__planner__fixed__size__assign__position_8cpp_aa6a37b44b10d9bedd46bfc58be6b026b}\label{simple__planner__fixed__size__assign__position_8cpp_aa6a37b44b10d9bedd46bfc58be6b026b}} 
-\index{simple\_planner\_fixed\_size\_assign\_position.cpp@{simple\_planner\_fixed\_size\_assign\_position.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_assign\_position.cpp@{simple\_planner\_fixed\_size\_assign\_position.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeAssignPositionUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Assign\+Position\+Unit}}}]{,  }\item[{Cartesian\+Joint\+\_\+\+Assign\+Joint\+Position\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{simple__planner__fixed__size__assign__position_8cpp_a6be7273dc2988355d47a042b34ad7f61}\label{simple__planner__fixed__size__assign__position_8cpp_a6be7273dc2988355d47a042b34ad7f61}} 
 \index{simple\_planner\_fixed\_size\_assign\_position.cpp@{simple\_planner\_fixed\_size\_assign\_position.cpp}!TEST\_F@{TEST\_F}}
 \index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_assign\_position.cpp@{simple\_planner\_fixed\_size\_assign\_position.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
 {\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeAssignPositionUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Assign\+Position\+Unit}}}]{,  }\item[{Joint\+Cartesian\+\_\+\+Assign\+Joint\+Position}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{simple__planner__fixed__size__assign__position_8cpp_ac2bedcfbcff919305ad396ede80f9aab}\label{simple__planner__fixed__size__assign__position_8cpp_ac2bedcfbcff919305ad396ede80f9aab}} 
-\index{simple\_planner\_fixed\_size\_assign\_position.cpp@{simple\_planner\_fixed\_size\_assign\_position.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!simple\_planner\_fixed\_size\_assign\_position.cpp@{simple\_planner\_fixed\_size\_assign\_position.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeAssignPositionUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Assign\+Position\+Unit}}}]{,  }\item[{Joint\+Cartesian\+\_\+\+Assign\+Joint\+Position\+Legacy}]{ }\end{DoxyParamCaption})}
 

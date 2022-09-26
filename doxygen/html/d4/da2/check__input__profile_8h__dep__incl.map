@@ -1,4 +1,4 @@
-<map id="tesseract_process_managers/include/tesseract_process_managers/task_profiles/check_input_profile.h" name="tesseract_process_managers/include/tesseract_process_managers/task_profiles/check_input_profile.h">
-<area shape="rect" id="node1" title="Profile used for checking input data structure." alt="" coords="5,5,208,76"/>
-<area shape="rect" id="node2" href="$d9/d0a/check__input__task__generator_8cpp.html" title=" " alt="" coords="10,124,203,180"/>
+<map id="tesseract_task_composer/include/tesseract_task_composer/profiles/check_input_profile.h" name="tesseract_task_composer/include/tesseract_task_composer/profiles/check_input_profile.h">
+<area shape="rect" id="node1" title="Profile used for checking input data structure." alt="" coords="5,5,177,76"/>
+<area shape="rect" id="node2" href="$d7/de4/check__input__task_8cpp.html" title="Task for checking input data structure." alt="" coords="5,124,177,180"/>
 </map>

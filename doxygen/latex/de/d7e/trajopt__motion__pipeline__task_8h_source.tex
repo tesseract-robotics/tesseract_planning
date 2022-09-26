@@ -7,45 +7,46 @@
 \DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_TRAJOPT\_MOTION\_PIPELINE\_TASK\_H}}
 \DoxyCodeLine{28 }
 \DoxyCodeLine{29 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__graph_8h}{tesseract\_task\_composer/task\_composer\_graph.h}}>}}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{32 \{}
-\DoxyCodeLine{33 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}}
-\DoxyCodeLine{34 \{}
-\DoxyCodeLine{35 \textcolor{keyword}{public}:}
-\DoxyCodeLine{36   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_adee98b598845bc98e41559b72c295cd3}{Ptr}} = std::shared\_ptr<TrajOptMotionPipelineTask>;}
-\DoxyCodeLine{37   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a9fe6f20875c6da2b4d1281b25bb71890}{ConstPtr}} = std::shared\_ptr<const TrajOptMotionPipelineTask>;}
-\DoxyCodeLine{38   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a7fbfe1e7056263668a0c01e3a04bdba2}{UPtr}} = std::unique\_ptr<TrajOptMotionPipelineTask>;}
-\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a615ecefe5a08f6e64551391f4020708f}{ConstUPtr}} = std::unique\_ptr<const TrajOptMotionPipelineTask>;}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a7bf14bac76185e3b1427ee6f239f350f}{TrajOptMotionPipelineTask}}(std::string name = \textcolor{stringliteral}{"{}TrajOptMotionPipelineTask"{}});}
-\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a7bf14bac76185e3b1427ee6f239f350f}{TrajOptMotionPipelineTask}}(std::string input\_key,}
-\DoxyCodeLine{48                             std::string output\_key,}
-\DoxyCodeLine{49                             std::string name = \textcolor{stringliteral}{"{}TrajOptMotionPipelineTask"{}});}
-\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_abb8152a9ddecac6c1ab4e69cb8408fe1}{\string~TrajOptMotionPipelineTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a7d036eace422cddb566719ea0251367e}{TrajOptMotionPipelineTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a75d3d265964070a41c75b675b8b45a02}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_ae0e599f5c201ef323ca808daf0b44188}{TrajOptMotionPipelineTask}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a8e0169d3586ff2eeb68fb7d635621f1b}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{56   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a804b3c3ec3240efa2565d2f4be943d62}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{57   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a2be0e7d88422555fa9250b5a9a712476}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{59 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{60   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
-\DoxyCodeLine{61   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{64   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a1897514ae21775e54edbfb158bac484c}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a64b608c051edba46e311561591eb5ed9}{ctor}}(std::string input\_key, std::string output\_key);}
-\DoxyCodeLine{67 \};}
-\DoxyCodeLine{68 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{70 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
-\DoxyCodeLine{71 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
-\DoxyCodeLine{72 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{tesseract\_planning::TrajOptMotionPipelineTask}}, \textcolor{stringliteral}{"{}TrajOptMotionPipelineTask"{}})}
-\DoxyCodeLine{73 }
-\DoxyCodeLine{74 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_TRAJOPT\_MOTION\_PIPELINE\_TASK\_H}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__node__names_8h}{tesseract\_task\_composer/task\_composer\_node\_names.h}}>}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36 \textcolor{keyword}{public}:}
+\DoxyCodeLine{37   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_adee98b598845bc98e41559b72c295cd3}{Ptr}} = std::shared\_ptr<TrajOptMotionPipelineTask>;}
+\DoxyCodeLine{38   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a9fe6f20875c6da2b4d1281b25bb71890}{ConstPtr}} = std::shared\_ptr<const TrajOptMotionPipelineTask>;}
+\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a7fbfe1e7056263668a0c01e3a04bdba2}{UPtr}} = std::unique\_ptr<TrajOptMotionPipelineTask>;}
+\DoxyCodeLine{40   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a615ecefe5a08f6e64551391f4020708f}{ConstUPtr}} = std::unique\_ptr<const TrajOptMotionPipelineTask>;}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_aa8bdb05dcaeb836a05cccf82ce61b51f}{TrajOptMotionPipelineTask}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_aa3bbb0403499450a6a476c46f8c2d82f}{node\_names::TRAJOPT\_PIPELINE\_NAME}});}
+\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_aa8bdb05dcaeb836a05cccf82ce61b51f}{TrajOptMotionPipelineTask}}(std::string input\_key,}
+\DoxyCodeLine{49                             std::string output\_key,}
+\DoxyCodeLine{50                             std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_aa3bbb0403499450a6a476c46f8c2d82f}{node\_names::TRAJOPT\_PIPELINE\_NAME}});}
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_abb8152a9ddecac6c1ab4e69cb8408fe1}{\string~TrajOptMotionPipelineTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a7d036eace422cddb566719ea0251367e}{TrajOptMotionPipelineTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a75d3d265964070a41c75b675b8b45a02}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_ae0e599f5c201ef323ca808daf0b44188}{TrajOptMotionPipelineTask}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a8e0169d3586ff2eeb68fb7d635621f1b}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a804b3c3ec3240efa2565d2f4be943d62}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{58   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a2be0e7d88422555fa9250b5a9a712476}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{TrajOptMotionPipelineTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{61   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{62   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{65   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a1897514ae21775e54edbfb158bac484c}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask_a64b608c051edba46e311561591eb5ed9}{ctor}}(std::string input\_key, std::string output\_key);}
+\DoxyCodeLine{68 \};}
+\DoxyCodeLine{69 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{73 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{tesseract\_planning::TrajOptMotionPipelineTask}}, \textcolor{stringliteral}{"{}TrajOptMotionPipelineTask"{}})}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_TRAJOPT\_MOTION\_PIPELINE\_TASK\_H}}
 
 \end{DoxyCode}

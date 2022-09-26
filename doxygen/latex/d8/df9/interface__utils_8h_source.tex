@@ -15,93 +15,51 @@
 \DoxyCodeLine{35 }
 \DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h}{tesseract\_motion\_planners/core/utils.h}}>}}
 \DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{simple__motion__planner_8h}{tesseract\_motion\_planners/simple/simple\_motion\_planner.h}}>}}
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{simple__motion__legacy__planner_8h}{tesseract\_motion\_planners/simple/simple\_motion\_legacy\_planner.h}}>}}
-\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{simple__planner__lvs__no__ik__plan__profile_8h}{tesseract\_motion\_planners/simple/profile/simple\_planner\_lvs\_no\_ik\_plan\_profile.h}}>}}
-\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{simple__planner__lvs__no__ik__legacy__plan__profile_8h}{tesseract\_motion\_planners/simple/profile/simple\_planner\_lvs\_no\_ik\_legacy\_plan\_profile.h}}>}}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{43 \{}
-\DoxyCodeLine{45 \textcolor{keyword}{inline} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{namespacetesseract__planning_ad3c37e3202443529c1ac97d85dc4ffcd}{generateInterpolatedProgram}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& instructions,}
-\DoxyCodeLine{46                                                         \textcolor{keyword}{const} tesseract\_scene\_graph::SceneState\& current\_state,}
-\DoxyCodeLine{47                                                         \textcolor{keyword}{const} tesseract\_environment::Environment::ConstPtr\& env,}
-\DoxyCodeLine{48                                                         \textcolor{keywordtype}{double} state\_longest\_valid\_segment\_length = 5 * M\_PI / 180,}
-\DoxyCodeLine{49                                                         \textcolor{keywordtype}{double} translation\_longest\_valid\_segment\_length = 0.15,}
-\DoxyCodeLine{50                                                         \textcolor{keywordtype}{double} rotation\_longest\_valid\_segment\_length = 5 * M\_PI / 180,}
-\DoxyCodeLine{51                                                         \textcolor{keywordtype}{int} min\_steps = 1)}
-\DoxyCodeLine{52 \{}
-\DoxyCodeLine{53   \textcolor{comment}{// Fill out request and response}}
-\DoxyCodeLine{54   \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}} request;}
-\DoxyCodeLine{55   request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}} = instructions;}
-\DoxyCodeLine{56   request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a15896a8c7bd1050d934da96ab05c27b2}{env\_state}} = current\_state;}
-\DoxyCodeLine{57   request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}} = env;}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{59   \textcolor{comment}{// Set up planner}}
-\DoxyCodeLine{60   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{SimpleMotionPlanner}} planner;}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62   \textcolor{keyword}{auto} profile = std::make\_shared<SimplePlannerLVSNoIKPlanProfile>(state\_longest\_valid\_segment\_length,}
-\DoxyCodeLine{63                                                                    translation\_longest\_valid\_segment\_length,}
-\DoxyCodeLine{64                                                                    rotation\_longest\_valid\_segment\_length,}
-\DoxyCodeLine{65                                                                    min\_steps);}
-\DoxyCodeLine{66 }
-\DoxyCodeLine{67   \textcolor{comment}{// Create profile dictionary}}
-\DoxyCodeLine{68   \textcolor{keyword}{auto} profiles = std::make\_shared<ProfileDictionary>();}
-\DoxyCodeLine{69   profiles-\/>addProfile<\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}>(planner.\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a8c3cc153aa4a3474197882e4a02f9e9c}{getName}}(), instructions.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a1f648ba485add98e6de2366c01d1fd4c}{getProfile}}(), profile);}
-\DoxyCodeLine{70   \textcolor{keyword}{auto} flat = instructions.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a3740d532a545a33145b7148614eceebb}{flatten}}(\&\mbox{\hyperlink{namespacetesseract__planning_ae41ec83784beef5d83186ff7dbafb216}{moveFilter}});}
-\DoxyCodeLine{71   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& i : flat)}
-\DoxyCodeLine{72     profiles-\/>addProfile<\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}>(}
-\DoxyCodeLine{73         planner.\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a8c3cc153aa4a3474197882e4a02f9e9c}{getName}}(), i.get().as<\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}>().\mbox{\hyperlink{namespacetesseract__planning_a133a28cdbbe2c494193b66f9f6507710}{getProfile}}(), profile);}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{75   \textcolor{comment}{// Assign profile dictionary}}
-\DoxyCodeLine{76   request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}{profiles}} = profiles;}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{78   \textcolor{comment}{// Solve}}
-\DoxyCodeLine{79   \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} response = planner.\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a193f90492c392ac162cd31777f1895dd}{solve}}(request);}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{81   \textcolor{keywordflow}{return} response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a1534da4c2a888418218dc49fef77d0b1}{results}};}
-\DoxyCodeLine{82 \}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{simple__planner__lvs__no__ik__plan__profile_8h}{tesseract\_motion\_planners/simple/profile/simple\_planner\_lvs\_no\_ik\_plan\_profile.h}}>}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{inline} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{namespacetesseract__planning_ad3c37e3202443529c1ac97d85dc4ffcd}{generateInterpolatedProgram}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& instructions,}
+\DoxyCodeLine{44                                                         \textcolor{keyword}{const} tesseract\_scene\_graph::SceneState\& current\_state,}
+\DoxyCodeLine{45                                                         \textcolor{keyword}{const} tesseract\_environment::Environment::ConstPtr\& env,}
+\DoxyCodeLine{46                                                         \textcolor{keywordtype}{double} state\_longest\_valid\_segment\_length = 5 * M\_PI / 180,}
+\DoxyCodeLine{47                                                         \textcolor{keywordtype}{double} translation\_longest\_valid\_segment\_length = 0.15,}
+\DoxyCodeLine{48                                                         \textcolor{keywordtype}{double} rotation\_longest\_valid\_segment\_length = 5 * M\_PI / 180,}
+\DoxyCodeLine{49                                                         \textcolor{keywordtype}{int} min\_steps = 1)}
+\DoxyCodeLine{50 \{}
+\DoxyCodeLine{51   \textcolor{comment}{// Fill out request and response}}
+\DoxyCodeLine{52   \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}} request;}
+\DoxyCodeLine{53   request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}} = instructions;}
+\DoxyCodeLine{54   request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a15896a8c7bd1050d934da96ab05c27b2}{env\_state}} = current\_state;}
+\DoxyCodeLine{55   request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}} = env;}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   \textcolor{comment}{// Set up planner}}
+\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{SimpleMotionPlanner}} planner;}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{keyword}{auto} profile = std::make\_shared<SimplePlannerLVSNoIKPlanProfile>(state\_longest\_valid\_segment\_length,}
+\DoxyCodeLine{61                                                                    translation\_longest\_valid\_segment\_length,}
+\DoxyCodeLine{62                                                                    rotation\_longest\_valid\_segment\_length,}
+\DoxyCodeLine{63                                                                    min\_steps);}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \textcolor{comment}{// Create profile dictionary}}
+\DoxyCodeLine{66   \textcolor{keyword}{auto} profiles = std::make\_shared<ProfileDictionary>();}
+\DoxyCodeLine{67   profiles-\/>addProfile<\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}>(planner.\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a8c3cc153aa4a3474197882e4a02f9e9c}{getName}}(), instructions.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a1f648ba485add98e6de2366c01d1fd4c}{getProfile}}(), profile);}
+\DoxyCodeLine{68   \textcolor{keyword}{auto} flat = instructions.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a3740d532a545a33145b7148614eceebb}{flatten}}(\&\mbox{\hyperlink{namespacetesseract__planning_ae41ec83784beef5d83186ff7dbafb216}{moveFilter}});}
+\DoxyCodeLine{69   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& i : flat)}
+\DoxyCodeLine{70     profiles-\/>addProfile<\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}>(}
+\DoxyCodeLine{71         planner.\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a8c3cc153aa4a3474197882e4a02f9e9c}{getName}}(), i.get().as<\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}>().\mbox{\hyperlink{namespacetesseract__planning_a133a28cdbbe2c494193b66f9f6507710}{getProfile}}(), profile);}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73   \textcolor{comment}{// Assign profile dictionary}}
+\DoxyCodeLine{74   request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}{profiles}} = profiles;}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76   \textcolor{comment}{// Solve}}
+\DoxyCodeLine{77   \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} response = planner.\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a193f90492c392ac162cd31777f1895dd}{solve}}(request);}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79   \textcolor{keywordflow}{return} response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a1534da4c2a888418218dc49fef77d0b1}{results}};}
+\DoxyCodeLine{80 \}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82 \}  \textcolor{comment}{// namespace tesseract\_planning}}
 \DoxyCodeLine{83 }
-\DoxyCodeLine{85 \textcolor{keyword}{inline} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{namespacetesseract__planning_a23afd110eb37bd0f58adc925edb93088}{generateSeedLegacy}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& instructions,}
-\DoxyCodeLine{86                                                \textcolor{keyword}{const} tesseract\_scene\_graph::SceneState\& current\_state,}
-\DoxyCodeLine{87                                                \textcolor{keyword}{const} tesseract\_environment::Environment::ConstPtr\& env,}
-\DoxyCodeLine{88                                                \textcolor{keywordtype}{double} state\_longest\_valid\_segment\_length = 5 * M\_PI / 180,}
-\DoxyCodeLine{89                                                \textcolor{keywordtype}{double} translation\_longest\_valid\_segment\_length = 0.15,}
-\DoxyCodeLine{90                                                \textcolor{keywordtype}{double} rotation\_longest\_valid\_segment\_length = 5 * M\_PI / 180,}
-\DoxyCodeLine{91                                                \textcolor{keywordtype}{int} min\_steps = 1)}
-\DoxyCodeLine{92 \{}
-\DoxyCodeLine{93   \textcolor{comment}{// Fill out request and response}}
-\DoxyCodeLine{94   \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}} request;}
-\DoxyCodeLine{95   request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}} = instructions;}
-\DoxyCodeLine{96   request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a15896a8c7bd1050d934da96ab05c27b2}{env\_state}} = current\_state;}
-\DoxyCodeLine{97   request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}} = env;}
-\DoxyCodeLine{98 }
-\DoxyCodeLine{99   \textcolor{comment}{// Set up planner}}
-\DoxyCodeLine{100   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner}{SimpleMotionLegacyPlanner}} planner;}
-\DoxyCodeLine{101 }
-\DoxyCodeLine{102   \textcolor{keyword}{auto} profile = std::make\_shared<SimplePlannerLVSNoIKLegacyPlanProfile>(state\_longest\_valid\_segment\_length,}
-\DoxyCodeLine{103                                                                          translation\_longest\_valid\_segment\_length,}
-\DoxyCodeLine{104                                                                          rotation\_longest\_valid\_segment\_length,}
-\DoxyCodeLine{105                                                                          min\_steps);}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{107   \textcolor{comment}{// Create profile dictionary}}
-\DoxyCodeLine{108   \textcolor{keyword}{auto} profiles = std::make\_shared<ProfileDictionary>();}
-\DoxyCodeLine{109   profiles-\/>addProfile<\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLegacyPlanProfile}{SimplePlannerLegacyPlanProfile}}>(planner.\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a8c3cc153aa4a3474197882e4a02f9e9c}{getName}}(), instructions.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a1f648ba485add98e6de2366c01d1fd4c}{getProfile}}(), profile);}
-\DoxyCodeLine{110   \textcolor{keyword}{auto} flat = \mbox{\hyperlink{namespacetesseract__planning_a2d13ba4ba28d61cd8440e04fe696cd33}{flattenProgram}}(instructions);}
-\DoxyCodeLine{111   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& i : flat)}
-\DoxyCodeLine{112     \textcolor{keywordflow}{if} (i.get().isMoveInstruction())}
-\DoxyCodeLine{113       profiles-\/>addProfile<\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLegacyPlanProfile}{SimplePlannerLegacyPlanProfile}}>(}
-\DoxyCodeLine{114           planner.\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a8c3cc153aa4a3474197882e4a02f9e9c}{getName}}(), i.get().as<\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}>().\mbox{\hyperlink{namespacetesseract__planning_a133a28cdbbe2c494193b66f9f6507710}{getProfile}}(), profile);}
-\DoxyCodeLine{115 }
-\DoxyCodeLine{116   \textcolor{comment}{// Assign profile dictionary}}
-\DoxyCodeLine{117   request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}{profiles}} = profiles;}
-\DoxyCodeLine{118 }
-\DoxyCodeLine{119   \textcolor{comment}{// Solve}}
-\DoxyCodeLine{120   \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} response = planner.\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionLegacyPlanner_a7a3b78b66d6a03ee4e0be57e1d33fc7e}{solve}}(request);}
-\DoxyCodeLine{121 }
-\DoxyCodeLine{122   \textcolor{keywordflow}{return} response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a1534da4c2a888418218dc49fef77d0b1}{results}};}
-\DoxyCodeLine{123 \}}
-\DoxyCodeLine{124 }
-\DoxyCodeLine{125 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{126 }
-\DoxyCodeLine{127 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PLANNING\_UTILS\_H}}
+\DoxyCodeLine{84 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PLANNING\_UTILS\_H}}
 
 \end{DoxyCode}

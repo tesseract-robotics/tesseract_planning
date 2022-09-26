@@ -21,7 +21,7 @@ Collaboration diagram for tesseract\+\_\+planning\+::Task\+Composer\+Node\+Info\
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=309pt]{d1/de7/classtesseract__planning_1_1TaskComposerNodeInfo__coll__graph}
+\includegraphics[width=350pt]{d1/de7/classtesseract__planning_1_1TaskComposerNodeInfo__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Types}
@@ -40,7 +40,7 @@ using \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a237099f
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a7805786579ed63785a6054fd3e707f3c}{Task\+Composer\+Node\+Info}} ()=default
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_ae3d0b0e6019490873503c65f9c2b4408}{Task\+Composer\+Node\+Info}} (boost\+::uuids\+::uuid \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a2d763ea28fdcc1fc93bf0ca6a657c5d8}{uuid}}, std\+::string \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a811940b9166e3ec2e4b7a1feecffbc3e}{name}}=\char`\"{}\char`\"{})
+\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_afe97265b5df7a59e844ddab7b4d0e015}{Task\+Composer\+Node\+Info}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode}{Task\+Composer\+Node}} \&node)
 \item 
 virtual \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a04fe54fcd88089d09ea85199ab983e38}{$\sim$\+Task\+Composer\+Node\+Info}} ()=default
 \item 
@@ -65,6 +65,14 @@ std\+::string \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_
 \begin{DoxyCompactList}\small\item\em The name. \end{DoxyCompactList}\item 
 boost\+::uuids\+::uuid \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a2d763ea28fdcc1fc93bf0ca6a657c5d8}{uuid}} \{\}
 \begin{DoxyCompactList}\small\item\em The task uuid. \end{DoxyCompactList}\item 
+std\+::vector$<$ boost\+::uuids\+::uuid $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a4984e38b8c5362c696462f8decf814cf}{inbound\+\_\+edges}}
+\begin{DoxyCompactList}\small\item\em The nodes inbound edges. \end{DoxyCompactList}\item 
+std\+::vector$<$ boost\+::uuids\+::uuid $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a392e6427167a2c56c1c38205e06effd5}{outbound\+\_\+edges}}
+\begin{DoxyCompactList}\small\item\em The nodes outbound edges. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a1e79ef64737f153789bda7a7964c0313}{input\+\_\+keys}}
+\begin{DoxyCompactList}\small\item\em The input keys. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_aed1c3cdab82d905b627d72f67f99c44e}{output\+\_\+keys}}
+\begin{DoxyCompactList}\small\item\em The output keys. \end{DoxyCompactList}\item 
 tesseract\+\_\+common\+::\+Any\+Poly \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a1e71b33f3145bc6e82fe8bb5e9dbe8de}{results}}
 \begin{DoxyCompactList}\small\item\em Store the results of the task. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a909eda44fd00f7dc0fb4ff2aa4e9ef25}{return\+\_\+value}} \{ std\+::numeric\+\_\+limits$<$int$>$\+::lowest() \}
@@ -72,11 +80,7 @@ int \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a909eda44f
 std\+::string \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_aabb841b4e39efe203132cff0f1c7c069}{message}}
 \begin{DoxyCompactList}\small\item\em Status message. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_ab1514ced460ec4e026b558c7b11ffda0}{elapsed\+\_\+time}} \{ 0 \}
-\begin{DoxyCompactList}\small\item\em elapsed\+\_\+time Time spent in this task in seconds \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a1e79ef64737f153789bda7a7964c0313}{input\+\_\+keys}}
-\begin{DoxyCompactList}\small\item\em The input keys. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_aed1c3cdab82d905b627d72f67f99c44e}{output\+\_\+keys}}
-\begin{DoxyCompactList}\small\item\em The output keys. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Time spent in this task in seconds. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -128,11 +132,11 @@ Stores information about a node
 \doxysubsubsection{\texorpdfstring{TaskComposerNodeInfo()}{TaskComposerNodeInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Node\+Info\+::\+Task\+Composer\+Node\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerNodeInfo_ae3d0b0e6019490873503c65f9c2b4408}\label{classtesseract__planning_1_1TaskComposerNodeInfo_ae3d0b0e6019490873503c65f9c2b4408}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerNodeInfo_afe97265b5df7a59e844ddab7b4d0e015}\label{classtesseract__planning_1_1TaskComposerNodeInfo_afe97265b5df7a59e844ddab7b4d0e015}} 
 \index{tesseract\_planning::TaskComposerNodeInfo@{tesseract\_planning::TaskComposerNodeInfo}!TaskComposerNodeInfo@{TaskComposerNodeInfo}}
 \index{TaskComposerNodeInfo@{TaskComposerNodeInfo}!tesseract\_planning::TaskComposerNodeInfo@{tesseract\_planning::TaskComposerNodeInfo}}
 \doxysubsubsection{\texorpdfstring{TaskComposerNodeInfo()}{TaskComposerNodeInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Node\+Info\+::\+Task\+Composer\+Node\+Info (\begin{DoxyParamCaption}\item[{boost\+::uuids\+::uuid}]{uuid,  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Node\+Info\+::\+Task\+Composer\+Node\+Info (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode}{Task\+Composer\+Node}} \&}]{node }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerNodeInfo_a04fe54fcd88089d09ea85199ab983e38}\label{classtesseract__planning_1_1TaskComposerNodeInfo_a04fe54fcd88089d09ea85199ab983e38}} 
 \index{tesseract\_planning::TaskComposerNodeInfo@{tesseract\_planning::TaskComposerNodeInfo}!````~TaskComposerNodeInfo@{$\sim$TaskComposerNodeInfo}}
@@ -163,7 +167,7 @@ Stores information about a node
 
 
 
-Reimplemented in \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_a0f64ff4bd98545f92c211030d08487cf}{tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Info}}, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskInfo_a9c1c757e6eb8283c85cc6b4be283e53a}{tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Info}}, \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_ab21448f2a4d5c45e818aa780295441b1}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Info}}, \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_a0f64ff4bd98545f92c211030d08487cf}{tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Info}}, and \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskInfo_a9c1c757e6eb8283c85cc6b4be283e53a}{tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Info}}.
+Reimplemented in \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_a0f64ff4bd98545f92c211030d08487cf}{tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Info}}, and \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskInfo_a9c1c757e6eb8283c85cc6b4be283e53a}{tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Info}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerNodeInfo_ac3b35fc3f1e224ae8d6e78da1f32e7f1}\label{classtesseract__planning_1_1TaskComposerNodeInfo_ac3b35fc3f1e224ae8d6e78da1f32e7f1}} 
 \index{tesseract\_planning::TaskComposerNodeInfo@{tesseract\_planning::TaskComposerNodeInfo}!operator"!=@{operator"!=}}
@@ -222,7 +226,17 @@ void tesseract\+\_\+planning\+::\+Task\+Composer\+Node\+Info\+::serialize (\begi
 
 
 
-elapsed\+\_\+time Time spent in this task in seconds 
+Time spent in this task in seconds. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerNodeInfo_a4984e38b8c5362c696462f8decf814cf}\label{classtesseract__planning_1_1TaskComposerNodeInfo_a4984e38b8c5362c696462f8decf814cf}} 
+\index{tesseract\_planning::TaskComposerNodeInfo@{tesseract\_planning::TaskComposerNodeInfo}!inbound\_edges@{inbound\_edges}}
+\index{inbound\_edges@{inbound\_edges}!tesseract\_planning::TaskComposerNodeInfo@{tesseract\_planning::TaskComposerNodeInfo}}
+\doxysubsubsection{\texorpdfstring{inbound\_edges}{inbound\_edges}}
+{\footnotesize\ttfamily std\+::vector$<$boost\+::uuids\+::uuid$>$ tesseract\+\_\+planning\+::\+Task\+Composer\+Node\+Info\+::inbound\+\_\+edges}
+
+
+
+The nodes inbound edges. 
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerNodeInfo_a1e79ef64737f153789bda7a7964c0313}\label{classtesseract__planning_1_1TaskComposerNodeInfo_a1e79ef64737f153789bda7a7964c0313}} 
 \index{tesseract\_planning::TaskComposerNodeInfo@{tesseract\_planning::TaskComposerNodeInfo}!input\_keys@{input\_keys}}
@@ -253,6 +267,16 @@ Status message.
 
 
 The name. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerNodeInfo_a392e6427167a2c56c1c38205e06effd5}\label{classtesseract__planning_1_1TaskComposerNodeInfo_a392e6427167a2c56c1c38205e06effd5}} 
+\index{tesseract\_planning::TaskComposerNodeInfo@{tesseract\_planning::TaskComposerNodeInfo}!outbound\_edges@{outbound\_edges}}
+\index{outbound\_edges@{outbound\_edges}!tesseract\_planning::TaskComposerNodeInfo@{tesseract\_planning::TaskComposerNodeInfo}}
+\doxysubsubsection{\texorpdfstring{outbound\_edges}{outbound\_edges}}
+{\footnotesize\ttfamily std\+::vector$<$boost\+::uuids\+::uuid$>$ tesseract\+\_\+planning\+::\+Task\+Composer\+Node\+Info\+::outbound\+\_\+edges}
+
+
+
+The nodes outbound edges. 
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerNodeInfo_aed1c3cdab82d905b627d72f67f99c44e}\label{classtesseract__planning_1_1TaskComposerNodeInfo_aed1c3cdab82d905b627d72f67f99c44e}} 
 \index{tesseract\_planning::TaskComposerNodeInfo@{tesseract\_planning::TaskComposerNodeInfo}!output\_keys@{output\_keys}}

@@ -42,25 +42,19 @@ namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning
 \begin{DoxyCompactItemize}
 \item 
 tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_a69d6940279a5076103de7a3e6a400c2e}{tesseract\+\_\+planning\+::to\+Toolpath}} (const Instruction\+Poly \&instruction, const tesseract\+\_\+environment\+::\+Environment \&env)
+\begin{DoxyCompactList}\small\item\em Extract toolpath from a instruction. \end{DoxyCompactList}\item 
+tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_a232993ed695ecfe1b9dd2aa83d3a0d80}{tesseract\+\_\+planning\+::to\+Toolpath}} (const Composite\+Instruction \&ci, const tesseract\+\_\+environment\+::\+Environment \&env)
 \begin{DoxyCompactList}\small\item\em Extract toolpath from a composite instruction. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a2ddeab6bce78051b1fad1f74bc742cbf}{tesseract\+\_\+planning\+::program\+Flatten\+Filter}} (const Instruction\+Poly \&instruction, const Composite\+Instruction \&composite, bool parent\+\_\+is\+\_\+first\+\_\+composite)
-\begin{DoxyCompactList}\small\item\em A program flatten filter. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction\+Poly $>$ $>$ \mbox{\hyperlink{namespacetesseract__planning_a2d13ba4ba28d61cd8440e04fe696cd33}{tesseract\+\_\+planning\+::flatten\+Program}} (Composite\+Instruction \&composite\+\_\+instruction)
-\begin{DoxyCompactList}\small\item\em Flattens a \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} into a vector of Instruction\&. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ const Instruction\+Poly $>$ $>$ \mbox{\hyperlink{namespacetesseract__planning_a63b0e80dba690558aba8bd9b8682df89}{tesseract\+\_\+planning\+::flatten\+Program}} (const Composite\+Instruction \&composite\+\_\+instruction)
-\begin{DoxyCompactList}\small\item\em Flattens a \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} into a vector of Instruction\&. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction\+Poly $>$ $>$ \mbox{\hyperlink{namespacetesseract__planning_a63ed4eb8623496c40ebfc74416c471fd}{tesseract\+\_\+planning\+::flatten\+Program\+To\+Pattern}} (Composite\+Instruction \&composite\+\_\+instruction, const Composite\+Instruction \&pattern)
-\begin{DoxyCompactList}\small\item\em Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flatten-\/able. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ const Instruction\+Poly $>$ $>$ \mbox{\hyperlink{namespacetesseract__planning_a540c237b1c62532e6d482905c28cab3c}{tesseract\+\_\+planning\+::flatten\+Program\+To\+Pattern}} (const Composite\+Instruction \&composite\+\_\+instruction, const Composite\+Instruction \&pattern)
-\begin{DoxyCompactList}\small\item\em Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flatten-\/able. \end{DoxyCompactList}\item 
+tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_a33684ed1b854f6c4741da54b43676c37}{tesseract\+\_\+planning\+::to\+Toolpath}} (const Move\+Instruction\+Poly \&mi, const tesseract\+\_\+environment\+::\+Environment \&env)
+\begin{DoxyCompactList}\small\item\em Extract toolpath from a move instruction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacetesseract__planning_a331a798804f11eb3ca112818639075a8}{tesseract\+\_\+planning\+::assign\+Current\+State\+As\+Seed}} (Composite\+Instruction \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env)
+\begin{DoxyCompactList}\small\item\em This will assign the current state as the seed for all cartesian waypoint. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ac25e52a76d6ada60b39ff9bb422dcb91}{tesseract\+\_\+planning\+::format\+Program}} (Composite\+Instruction \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env)
+\begin{DoxyCompactList}\small\item\em This formats the joint and state waypoints to align with the kinematics object. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a82d7bc798089ef84c8c11d2806bbc9e7}{tesseract\+\_\+planning\+::contact\+Check\+Program}} (std\+::vector$<$ tesseract\+\_\+collision\+::\+Contact\+Result\+Map $>$ \&contacts, tesseract\+\_\+collision\+::\+Continuous\+Contact\+Manager \&manager, const tesseract\+\_\+scene\+\_\+graph\+::\+State\+Solver \&state\+\_\+solver, const Composite\+Instruction \&program, const tesseract\+\_\+collision\+::\+Collision\+Check\+Config \&config)
 \begin{DoxyCompactList}\small\item\em Should perform a continuous collision check over the trajectory. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a7da45a95ed6e668c0c8f9b1d81aea3a8}{tesseract\+\_\+planning\+::contact\+Check\+Program}} (std\+::vector$<$ tesseract\+\_\+collision\+::\+Contact\+Result\+Map $>$ \&contacts, tesseract\+\_\+collision\+::\+Discrete\+Contact\+Manager \&manager, const tesseract\+\_\+scene\+\_\+graph\+::\+State\+Solver \&state\+\_\+solver, const Composite\+Instruction \&program, const tesseract\+\_\+collision\+::\+Collision\+Check\+Config \&config)
-\begin{DoxyCompactList}\small\item\em Should perform a discrete collision check over the trajectory. \end{DoxyCompactList}\item 
-Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_a32251039111617f975deb5c3078bcdba}{tesseract\+\_\+planning\+::generate\+Naive\+Seed}} (const Composite\+Instruction \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env)
-\begin{DoxyCompactList}\small\item\em This generates a naive seed for the provided program. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_ac25e52a76d6ada60b39ff9bb422dcb91}{tesseract\+\_\+planning\+::format\+Program}} (Composite\+Instruction \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env)
-\begin{DoxyCompactList}\small\item\em This formats the joint and state waypoints to align with the kinematics object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Should perform a discrete collision check over the trajectory. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

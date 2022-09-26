@@ -1,52 +1,52 @@
 <map id="tesseract_examples/src/puzzle_piece_example.cpp" name="tesseract_examples/src/puzzle_piece_example.cpp">
-<area shape="rect" id="node1" title="Puzzle piece example implementation." alt="" coords="1526,5,1727,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="1185,675,1375,701"/>
-<area shape="rect" id="node3" title=" " alt="" coords="312,199,480,225"/>
-<area shape="rect" id="node4" title=" " alt="" coords="177,102,244,129"/>
-<area shape="rect" id="node5" href="$da/d01/puzzle__piece__example_8h.html" title="An example of a robot leveraging trajopt and tesseract to create an optimal motion trajectory for a c..." alt="" coords="448,399,613,441"/>
-<area shape="rect" id="node11" title=" " alt="" coords="504,191,659,233"/>
-<area shape="rect" id="node12" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="1067,295,1266,337"/>
-<area shape="rect" id="node27" href="$d1/d10/state__waypoint_8h.html" title=" " alt="" coords="2641,399,2839,441"/>
-<area shape="rect" id="node30" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1290,295,1489,337"/>
-<area shape="rect" id="node32" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="2863,399,3062,441"/>
-<area shape="rect" id="node33" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="1795,295,1994,337"/>
-<area shape="rect" id="node34" href="$d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h.html" title=" " alt="" coords="733,191,931,233"/>
-<area shape="rect" id="node36" href="$de/d3a/default__planner__namespaces_8h.html" title="A collection of motion planner profile namespaces." alt="" coords="1715,95,1920,136"/>
-<area shape="rect" id="node37" href="$d9/da2/trajopt__default__plan__profile_8h.html" title=" " alt="" coords="59,184,237,240"/>
-<area shape="rect" id="node40" href="$d8/d8f/trajopt__default__composite__profile_8h.html" title=" " alt="" coords="1864,184,2051,240"/>
-<area shape="rect" id="node42" href="$d9/d4c/trajopt__default__solver__profile_8h.html" title=" " alt="" coords="2692,184,2871,240"/>
-<area shape="rect" id="node44" href="$d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="980,95,1159,136"/>
-<area shape="rect" id="node47" href="$df/d74/default__process__planners_8h.html" title="The default process planners provided by Tesseract." alt="" coords="3425,95,3639,136"/>
-<area shape="rect" id="node49" href="$dc/dd9/process__planning__server_8h.html" title="A process planning server with a default set of process planners." alt="" coords="3658,399,3867,441"/>
-<area shape="rect" id="node50" title=" " alt="" coords="3663,95,3843,136"/>
-<area shape="rect" id="node6" title=" " alt="" coords="2110,675,2165,701"/>
-<area shape="rect" id="node7" title=" " alt="" coords="624,503,803,530"/>
-<area shape="rect" id="node8" href="$df/d24/example_8h.html" title=" " alt="" coords="461,496,600,537"/>
-<area shape="rect" id="node9" title=" " alt="" coords="3274,675,3342,701"/>
-<area shape="rect" id="node10" title=" " alt="" coords="659,585,813,627"/>
-<area shape="rect" id="node13" title=" " alt="" coords="3369,503,3428,530"/>
-<area shape="rect" id="node14" href="$d1/db1/instruction__poly_8h.html" title=" " alt="" coords="2641,496,2839,537"/>
-<area shape="rect" id="node17" href="$dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="2090,399,2289,441"/>
-<area shape="rect" id="node22" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="3502,496,3701,537"/>
-<area shape="rect" id="node24" title=" " alt="" coords="1334,496,1538,537"/>
-<area shape="rect" id="node25" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="1181,585,1379,627"/>
-<area shape="rect" id="node26" title=" " alt="" coords="953,399,1111,441"/>
-<area shape="rect" id="node15" href="$d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="2301,585,2499,627"/>
-<area shape="rect" id="node16" title=" " alt="" coords="2530,675,2745,701"/>
-<area shape="rect" id="node18" href="$d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="1766,496,1970,537"/>
-<area shape="rect" id="node20" href="$d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="2418,496,2617,537"/>
-<area shape="rect" id="node21" href="$d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="2146,496,2345,537"/>
-<area shape="rect" id="node19" title=" " alt="" coords="1505,585,1666,627"/>
-<area shape="rect" id="node23" title=" " alt="" coords="3598,593,3701,619"/>
-<area shape="rect" id="node28" title=" " alt="" coords="3260,503,3345,530"/>
-<area shape="rect" id="node29" title=" " alt="" coords="2913,503,3084,530"/>
-<area shape="rect" id="node31" title=" " alt="" coords="1439,407,1553,433"/>
-<area shape="rect" id="node35" title=" " alt="" coords="775,303,828,329"/>
-<area shape="rect" id="node38" title=" " alt="" coords="94,295,237,337"/>
-<area shape="rect" id="node39" href="$d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="2100,288,2279,344"/>
-<area shape="rect" id="node41" href="$d5/d5d/trajopt__collision__config_8h.html" title="TrajOpt collision configuration settings." alt="" coords="1628,392,1807,448"/>
-<area shape="rect" id="node43" title=" " alt="" coords="2719,295,2844,337"/>
-<area shape="rect" id="node45" title=" " alt="" coords="1107,191,1285,233"/>
-<area shape="rect" id="node46" title=" " alt="" coords="1310,191,1487,233"/>
-<area shape="rect" id="node48" href="$db/d75/taskflow__generator_8h.html" title="Taskflow generator." alt="" coords="4029,496,4222,537"/>
+<area shape="rect" id="node1" title="Puzzle piece example implementation." alt="" coords="2554,5,2755,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="1875,675,2066,701"/>
+<area shape="rect" id="node3" title=" " alt="" coords="3132,213,3300,240"/>
+<area shape="rect" id="node4" title=" " alt="" coords="3705,109,3772,136"/>
+<area shape="rect" id="node5" href="$da/d01/puzzle__piece__example_8h.html" title="An example of a robot leveraging trajopt and tesseract to create an optimal motion trajectory for a c..." alt="" coords="3073,310,3239,351"/>
+<area shape="rect" id="node11" title=" " alt="" coords="3324,206,3479,247"/>
+<area shape="rect" id="node12" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="1649,310,1847,351"/>
+<area shape="rect" id="node26" href="$d1/d10/state__waypoint_8h.html" title=" " alt="" coords="2151,310,2350,351"/>
+<area shape="rect" id="node29" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1377,310,1575,351"/>
+<area shape="rect" id="node31" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="1929,310,2127,351"/>
+<area shape="rect" id="node32" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="1105,310,1303,351"/>
+<area shape="rect" id="node33" href="$d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h.html" title=" " alt="" coords="2454,206,2653,247"/>
+<area shape="rect" id="node35" href="$de/d3a/default__planner__namespaces_8h.html" title="A collection of motion planner profile namespaces." alt="" coords="3796,102,4001,143"/>
+<area shape="rect" id="node36" href="$d9/da2/trajopt__default__plan__profile_8h.html" title=" " alt="" coords="901,199,1080,255"/>
+<area shape="rect" id="node39" href="$d8/d8f/trajopt__default__composite__profile_8h.html" title=" " alt="" coords="1799,199,1985,255"/>
+<area shape="rect" id="node41" href="$d9/d4c/trajopt__default__solver__profile_8h.html" title=" " alt="" coords="356,199,535,255"/>
+<area shape="rect" id="node43" href="$d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="2789,102,2968,143"/>
+<area shape="rect" id="node45" href="$d7/d6d/task__composer__problem_8h.html" title="A task composer server problem." alt="" coords="3444,496,3623,537"/>
+<area shape="rect" id="node46" href="$db/ddf/task__composer__input_8h.html" title="The input data structure to the pipeline." alt="" coords="3399,407,3571,448"/>
+<area shape="rect" id="node47" href="$d3/da7/task__composer__node__names_8h.html" title="Contains default node names." alt="" coords="142,585,349,627"/>
+<area shape="rect" id="node48" href="$de/d7e/trajopt__motion__pipeline__task_8h.html" title=" " alt="" coords="771,95,943,151"/>
+<area shape="rect" id="node49" href="$da/d8c/taskflow__task__composer__executor_8h.html" title="The tasflow executor implementation." alt="" coords="3402,303,3574,359"/>
+<area shape="rect" id="node50" title=" " alt="" coords="4026,102,4206,143"/>
+<area shape="rect" id="node6" title=" " alt="" coords="731,675,786,701"/>
+<area shape="rect" id="node7" title=" " alt="" coords="2857,414,3036,441"/>
+<area shape="rect" id="node8" href="$df/d24/example_8h.html" title=" " alt="" coords="3231,496,3369,537"/>
+<area shape="rect" id="node9" title=" " alt="" coords="3261,675,3329,701"/>
+<area shape="rect" id="node10" title=" " alt="" coords="3332,585,3487,627"/>
+<area shape="rect" id="node13" title=" " alt="" coords="1479,414,1537,441"/>
+<area shape="rect" id="node14" href="$d1/db1/instruction__poly_8h.html" title=" " alt="" coords="417,496,615,537"/>
+<area shape="rect" id="node17" href="$dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="801,407,999,448"/>
+<area shape="rect" id="node22" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2857,585,3055,627"/>
+<area shape="rect" id="node23" title=" " alt="" coords="1445,496,1649,537"/>
+<area shape="rect" id="node24" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="1429,585,1627,627"/>
+<area shape="rect" id="node25" title=" " alt="" coords="1815,407,1972,448"/>
+<area shape="rect" id="node15" href="$d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="778,585,977,627"/>
+<area shape="rect" id="node16" title=" " alt="" coords="330,675,545,701"/>
+<area shape="rect" id="node18" href="$d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="1013,496,1217,537"/>
+<area shape="rect" id="node20" href="$d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="194,496,393,537"/>
+<area shape="rect" id="node21" href="$d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="790,496,989,537"/>
+<area shape="rect" id="node19" title=" " alt="" coords="2115,585,2277,627"/>
+<area shape="rect" id="node27" title=" " alt="" coords="2047,414,2132,441"/>
+<area shape="rect" id="node28" title=" " alt="" coords="2359,414,2529,441"/>
+<area shape="rect" id="node30" title=" " alt="" coords="359,414,473,441"/>
+<area shape="rect" id="node34" title=" " alt="" coords="2679,317,2732,344"/>
+<area shape="rect" id="node37" title=" " alt="" coords="582,310,725,351"/>
+<area shape="rect" id="node38" href="$d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="901,303,1080,359"/>
+<area shape="rect" id="node40" href="$d5/d5d/trajopt__collision__config_8h.html" title="TrajOpt collision configuration settings." alt="" coords="2375,303,2553,359"/>
+<area shape="rect" id="node42" title=" " alt="" coords="381,310,507,351"/>
+<area shape="rect" id="node44" title=" " alt="" coords="2727,206,2905,247"/>
 </map>

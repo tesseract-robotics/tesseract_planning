@@ -1,4 +1,5 @@
 <map id="tesseract_task_composer/include/tesseract_task_composer/nodes/raster_ft_only_pipeline_task.h" name="tesseract_task_composer/include/tesseract_task_composer/nodes/raster_ft_only_pipeline_task.h">
-<area shape="rect" id="node1" title="Raster only motion planning task with freespace transitions." alt="" coords="5,5,183,76"/>
-<area shape="rect" id="node2" href="$d4/dfc/raster__ft__only__pipeline__task_8cpp.html" title=" " alt="" coords="8,124,180,180"/>
+<area shape="rect" id="node1" title="Raster only motion planning task with freespace transitions." alt="" coords="105,5,283,76"/>
+<area shape="rect" id="node2" href="$d4/dfc/raster__ft__only__pipeline__task_8cpp.html" title=" " alt="" coords="5,124,177,180"/>
+<area shape="rect" id="node3" href="$d7/d3a/task__composer__utils_8cpp.html" title="A task composer utils." alt="" coords="202,131,394,173"/>
 </map>

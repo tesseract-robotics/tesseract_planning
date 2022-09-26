@@ -114,10 +114,6 @@ std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{structtessera
 \begin{DoxyCompactList}\small\item\em Flattens a \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} into a vector of Instruction. \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$ $>$ \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a8ad0013d1d05dfc35efba189798157d8}{flatten}} (const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} \&filter=nullptr) const
 \begin{DoxyCompactList}\small\item\em Flattens a \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} into a vector of Instruction\&. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$ $>$ \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a74d5eca48a7e86f77a11ea273d68b5ed}{flatten\+To\+Pattern}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&pattern, const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} \&filter=nullptr)
-\begin{DoxyCompactList}\small\item\em Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable. The motivation for this utility is a case where you flatten only the elements in a seed that correspond to composites in the parent instruction. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$ $>$ \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a22ef91cff9ada3795194d6e0f58863d7}{flatten\+To\+Pattern}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&pattern, const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} \&filter=nullptr) const
-\begin{DoxyCompactList}\small\item\em Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a038e64d00d68e35ba9b7e7ca6eccdb68}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&rhs) const
 \item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ab7d4afc80f2b29ee8fcbbc4e68dce390}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&rhs) const
@@ -209,10 +205,6 @@ void \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a370fa398
 \begin{DoxyCompactList}\small\item\em Helper function used by Flatten. Not intended for direct use. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ac0149b42056a2855cbb8e610225f7b77}{flatten\+Helper}} (std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$ $>$ \&flattened, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite, const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} \&filter, bool first\+\_\+composite) const
 \begin{DoxyCompactList}\small\item\em Helper function used by Flatten. Not intended for direct use. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a23914ba467dad4c476e58a91fe498e22}{flatten\+To\+Pattern\+Helper}} (std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$ $>$ \&flattened, \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&pattern, const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} \&filter, bool first\+\_\+composite)
-\begin{DoxyCompactList}\small\item\em Helper function used by Flatten\+To\+Pattern. Not intended for direct use. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a34ee4ac1bb645869aaaa9df471c73931}{flatten\+To\+Pattern\+Helper}} (std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$ $>$ \&flattened, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&pattern, const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} \&filter, bool first\+\_\+composite) const
-\begin{DoxyCompactList}\small\item\em Helper function used by Flatten\+To\+Pattern. Not intended for direct use. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a8adc89fe501b242f2e3a132f846380b1}{serialize}} (Archive \&ar, const unsigned int version)
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
@@ -606,96 +598,6 @@ Helper function used by Flatten. Not intended for direct use.
 {\em flattened} & Vector of instructions representing the full flattened composite \\
 \hline
 {\em composite} & Composite instruction to be flattened \\
-\hline
-{\em filter} & Used to filter only what should be considered. Should return true to include otherwise false \\
-\hline
-{\em first\+\_\+composite} & Indicates if the composite being processed is the top most composite \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a74d5eca48a7e86f77a11ea273d68b5ed}\label{classtesseract__planning_1_1CompositeInstruction_a74d5eca48a7e86f77a11ea273d68b5ed}} 
-\index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!flattenToPattern@{flattenToPattern}}
-\index{flattenToPattern@{flattenToPattern}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
-\doxysubsubsection{\texorpdfstring{flattenToPattern()}{flattenToPattern()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$ $>$ tesseract\+\_\+planning\+::\+Composite\+Instruction\+::flatten\+To\+Pattern (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{pattern,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} \&}]{filter = {\ttfamily nullptr} }\end{DoxyParamCaption})}
-
-
-
-Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable. The motivation for this utility is a case where you flatten only the elements in a seed that correspond to composites in the parent instruction. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em instruction} & \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} that will be flattened \\
-\hline
-{\em pattern} & \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} used to determine if instruction will be flattened \\
-\hline
-{\em filter} & Used to filter only what should be considered. Should return true to include otherwise false \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-A new flattened vector referencing the original instruction elements 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a22ef91cff9ada3795194d6e0f58863d7}\label{classtesseract__planning_1_1CompositeInstruction_a22ef91cff9ada3795194d6e0f58863d7}} 
-\index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!flattenToPattern@{flattenToPattern}}
-\index{flattenToPattern@{flattenToPattern}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
-\doxysubsubsection{\texorpdfstring{flattenToPattern()}{flattenToPattern()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$ $>$ tesseract\+\_\+planning\+::\+Composite\+Instruction\+::flatten\+To\+Pattern (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{pattern,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} \&}]{filter = {\ttfamily nullptr} }\end{DoxyParamCaption}) const}
-
-
-
-Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em instruction} & \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} that will be flattened \\
-\hline
-{\em pattern} & \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} used to determine if instruction will be flattened \\
-\hline
-{\em filter} & Used to filter only what should be considered. Should return true to include otherwise false \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-A new flattened vector referencing the original instruction elements 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a34ee4ac1bb645869aaaa9df471c73931}\label{classtesseract__planning_1_1CompositeInstruction_a34ee4ac1bb645869aaaa9df471c73931}} 
-\index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!flattenToPatternHelper@{flattenToPatternHelper}}
-\index{flattenToPatternHelper@{flattenToPatternHelper}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
-\doxysubsubsection{\texorpdfstring{flattenToPatternHelper()}{flattenToPatternHelper()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Composite\+Instruction\+::flatten\+To\+Pattern\+Helper (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$ $>$ \&}]{flattened,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{composite,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{pattern,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} \&}]{filter,  }\item[{bool}]{first\+\_\+composite }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Helper function used by Flatten\+To\+Pattern. Not intended for direct use. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em flattened} & Vector of instructions representing the full flattened composite \\
-\hline
-{\em composite} & Composite instruction to be flattened \\
-\hline
-{\em pattern} & \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} used to determine if instruction will be flattened \\
-\hline
-{\em filter} & Used to filter only what should be considered. Should return true to include otherwise false \\
-\hline
-{\em first\+\_\+composite} & Indicates if the composite being processed is the top most composite \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a23914ba467dad4c476e58a91fe498e22}\label{classtesseract__planning_1_1CompositeInstruction_a23914ba467dad4c476e58a91fe498e22}} 
-\index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!flattenToPatternHelper@{flattenToPatternHelper}}
-\index{flattenToPatternHelper@{flattenToPatternHelper}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
-\doxysubsubsection{\texorpdfstring{flattenToPatternHelper()}{flattenToPatternHelper()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Composite\+Instruction\+::flatten\+To\+Pattern\+Helper (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$ $>$ \&}]{flattened,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{composite,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{pattern,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} \&}]{filter,  }\item[{bool}]{first\+\_\+composite }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Helper function used by Flatten\+To\+Pattern. Not intended for direct use. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em flattened} & Vector of instructions representing the full flattened composite \\
-\hline
-{\em composite} & Composite instruction to be flattened \\
-\hline
-{\em pattern} & \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} used to determine if instruction will be flattened \\
 \hline
 {\em filter} & Used to filter only what should be considered. Should return true to include otherwise false \\
 \hline

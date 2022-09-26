@@ -1,5 +1,5 @@
 <map id="tesseract_planning::TaskComposerGraph" name="tesseract_planning::TaskComposerGraph">
-<area shape="rect" id="node1" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="200,463,351,504"/>
+<area shape="rect" id="node1" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="200,496,351,537"/>
 <area shape="rect" id="node3" href="$de/d09/classtesseract__planning_1_1CartesianMotionPipelineTask.html" title=" " alt="" coords="419,5,617,47"/>
 <area shape="rect" id="node4" href="$d4/d3a/classtesseract__planning_1_1DescartesGlobalMotionPipelineTask.html" title=" " alt="" coords="399,71,637,112"/>
 <area shape="rect" id="node5" href="$d6/d4c/classtesseract__planning_1_1DescartesMotionPipelineTask.html" title=" " alt="" coords="417,136,619,177"/>
@@ -14,6 +14,7 @@
 <area shape="rect" id="node14" href="$d9/d47/classtesseract__planning_1_1RasterFtOnlyPipelineTask.html" title="The RasterFtOnlyPipelineTask class." alt="" coords="429,724,607,765"/>
 <area shape="rect" id="node15" href="$d4/d8c/classtesseract__planning_1_1RasterFtPipelineTask.html" title="The RasterFtPipelineTask class." alt="" coords="441,789,595,831"/>
 <area shape="rect" id="node16" href="$d0/db1/classtesseract__planning_1_1SimpleMotionPipelineTask.html" title=" " alt="" coords="427,855,609,896"/>
-<area shape="rect" id="node17" href="$d4/de3/classtesseract__planning_1_1TrajOptMotionPipelineTask.html" title=" " alt="" coords="425,920,611,961"/>
-<area shape="rect" id="node2" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="5,463,152,504"/>
+<area shape="rect" id="node17" href="$dc/df3/classtesseract__planning_1_1TrajOptIfoptMotionPipelineTask.html" title=" " alt="" coords="413,920,623,961"/>
+<area shape="rect" id="node18" href="$d4/de3/classtesseract__planning_1_1TrajOptMotionPipelineTask.html" title=" " alt="" coords="425,985,611,1027"/>
+<area shape="rect" id="node2" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="5,496,152,537"/>
 </map>

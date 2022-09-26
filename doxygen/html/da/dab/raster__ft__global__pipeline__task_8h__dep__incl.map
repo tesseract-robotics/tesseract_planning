@@ -1,5 +1,6 @@
 <map id="tesseract_task_composer/include/tesseract_task_composer/nodes/raster_ft_global_pipeline_task.h" name="tesseract_task_composer/include/tesseract_task_composer/nodes/raster_ft_global_pipeline_task.h">
-<area shape="rect" id="node1" title="Plans raster paths with freespace transitions." alt="" coords="111,5,289,76"/>
+<area shape="rect" id="node1" title="Plans raster paths with freespace transitions." alt="" coords="213,5,390,76"/>
 <area shape="rect" id="node2" href="$dd/d2d/raster__ft__global__pipeline__task_8cpp.html" title=" " alt="" coords="5,124,181,180"/>
-<area shape="rect" id="node3" href="$d7/db5/tesseract__task__composer__unit_8cpp.html" title=" " alt="" coords="205,124,408,180"/>
+<area shape="rect" id="node3" href="$d7/d3a/task__composer__utils_8cpp.html" title="A task composer utils." alt="" coords="205,131,397,173"/>
+<area shape="rect" id="node4" href="$d7/db5/tesseract__task__composer__unit_8cpp.html" title=" " alt="" coords="421,124,624,180"/>
 </map>

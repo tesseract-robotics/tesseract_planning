@@ -27,7 +27,6 @@ This contains unit test for the tesseract descartes planner.
 {\ttfamily \#include $<$tesseract\+\_\+environment/environment.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+environment/utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+motion\+\_\+planner.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+legacy\+\_\+motion\+\_\+planner.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+planner\+\_\+configurator.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/profile/ompl\+\_\+default\+\_\+plan\+\_\+profile.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/types.\+h$>$}\newline
@@ -69,12 +68,6 @@ static void \mbox{\hyperlink{ompl__planner__tests_8cpp_a533082e77d10c35b9e73f7f6
 \item 
 \mbox{\hyperlink{ompl__planner__tests_8cpp_a98f8132f429e3bec5020e6afbdf158a8}{TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classOMPLTestFixture}{OMPLTest\+Fixture}}, OMPLFreespace\+Cartesian\+Start\+Planner\+Unit)
 \item 
-\mbox{\hyperlink{ompl__planner__tests_8cpp_a0c75f059dafb1e354f763c477d9e2123}{TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classOMPLTestFixture}{OMPLTest\+Fixture}}, OMPLFreespace\+Planner\+Unit\+Legacy)
-\item 
-\mbox{\hyperlink{ompl__planner__tests_8cpp_a54dd2e7dc474559b43050b2e7e36f2d0}{TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classOMPLTestFixture}{OMPLTest\+Fixture}}, OMPLFreespace\+Cartesian\+Goal\+Planner\+Unit\+Legacy)
-\item 
-\mbox{\hyperlink{ompl__planner__tests_8cpp_aacbdf93424b33c1f7235d03afbb8e98b}{TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classOMPLTestFixture}{OMPLTest\+Fixture}}, OMPLFreespace\+Cartesian\+Start\+Planner\+Unit\+Legacy)
-\item 
 int \mbox{\hyperlink{ompl__planner__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
@@ -101,7 +94,7 @@ September 16, 2019
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000167}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000152}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -143,38 +136,20 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_a0ed482bc11dcac315e4c847569fcc744}\label{ompl__planner__tests_8cpp_a0ed482bc11dcac315e4c847569fcc744}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!TYPED\_TEST@{TYPED\_TEST}}
 \index{TYPED\_TEST@{TYPED\_TEST}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TYPED\_TEST()}{TYPED\_TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+\doxysubsubsection{\texorpdfstring{TYPED\_TEST()}{TYPED\_TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily TYPED\+\_\+\+TEST (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classOMPLTestFixture}{OMPLTest\+Fixture}}}]{,  }\item[{OMPLFreespace\+Cartesian\+Goal\+Planner\+Unit}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{ompl__planner__tests_8cpp_a54dd2e7dc474559b43050b2e7e36f2d0}\label{ompl__planner__tests_8cpp_a54dd2e7dc474559b43050b2e7e36f2d0}} 
-\index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!TYPED\_TEST@{TYPED\_TEST}}
-\index{TYPED\_TEST@{TYPED\_TEST}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TYPED\_TEST()}{TYPED\_TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
-{\footnotesize\ttfamily TYPED\+\_\+\+TEST (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classOMPLTestFixture}{OMPLTest\+Fixture}}}]{,  }\item[{OMPLFreespace\+Cartesian\+Goal\+Planner\+Unit\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_a98f8132f429e3bec5020e6afbdf158a8}\label{ompl__planner__tests_8cpp_a98f8132f429e3bec5020e6afbdf158a8}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!TYPED\_TEST@{TYPED\_TEST}}
 \index{TYPED\_TEST@{TYPED\_TEST}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TYPED\_TEST()}{TYPED\_TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+\doxysubsubsection{\texorpdfstring{TYPED\_TEST()}{TYPED\_TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily TYPED\+\_\+\+TEST (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classOMPLTestFixture}{OMPLTest\+Fixture}}}]{,  }\item[{OMPLFreespace\+Cartesian\+Start\+Planner\+Unit}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{ompl__planner__tests_8cpp_aacbdf93424b33c1f7235d03afbb8e98b}\label{ompl__planner__tests_8cpp_aacbdf93424b33c1f7235d03afbb8e98b}} 
-\index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!TYPED\_TEST@{TYPED\_TEST}}
-\index{TYPED\_TEST@{TYPED\_TEST}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TYPED\_TEST()}{TYPED\_TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
-{\footnotesize\ttfamily TYPED\+\_\+\+TEST (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classOMPLTestFixture}{OMPLTest\+Fixture}}}]{,  }\item[{OMPLFreespace\+Cartesian\+Start\+Planner\+Unit\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_ad9b54e3a147ab4867cca0b7d6ff1432b}\label{ompl__planner__tests_8cpp_ad9b54e3a147ab4867cca0b7d6ff1432b}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!TYPED\_TEST@{TYPED\_TEST}}
 \index{TYPED\_TEST@{TYPED\_TEST}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TYPED\_TEST()}{TYPED\_TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+\doxysubsubsection{\texorpdfstring{TYPED\_TEST()}{TYPED\_TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
 {\footnotesize\ttfamily TYPED\+\_\+\+TEST (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classOMPLTestFixture}{OMPLTest\+Fixture}}}]{,  }\item[{OMPLFreespace\+Planner\+Unit}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{ompl__planner__tests_8cpp_a0c75f059dafb1e354f763c477d9e2123}\label{ompl__planner__tests_8cpp_a0c75f059dafb1e354f763c477d9e2123}} 
-\index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!TYPED\_TEST@{TYPED\_TEST}}
-\index{TYPED\_TEST@{TYPED\_TEST}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TYPED\_TEST()}{TYPED\_TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
-{\footnotesize\ttfamily TYPED\+\_\+\+TEST (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classOMPLTestFixture}{OMPLTest\+Fixture}}}]{,  }\item[{OMPLFreespace\+Planner\+Unit\+Legacy}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_af3ecdebbe7ac02df1bfaa7134bf3c7f0}\label{ompl__planner__tests_8cpp_af3ecdebbe7ac02df1bfaa7134bf3c7f0}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!TYPED\_TEST\_CASE@{TYPED\_TEST\_CASE}}

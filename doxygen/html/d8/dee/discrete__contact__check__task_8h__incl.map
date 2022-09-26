@@ -1,36 +1,35 @@
 <map id="tesseract_task_composer/include/tesseract_task_composer/nodes/discrete_contact_check_task.h" name="tesseract_task_composer/include/tesseract_task_composer/nodes/discrete_contact_check_task.h">
-<area shape="rect" id="node1" title="Discrete Collision check trajectory task." alt="" coords="1273,5,1447,76"/>
-<area shape="rect" id="node2" title=" " alt="" coords="1085,667,1275,694"/>
-<area shape="rect" id="node3" title=" " alt="" coords="3101,124,3227,165"/>
-<area shape="rect" id="node4" title=" " alt="" coords="1121,310,1180,337"/>
-<area shape="rect" id="node5" href="$da/d71/task__composer__task_8h.html" title="A task in the pipeline." alt="" coords="1213,124,1385,165"/>
-<area shape="rect" id="node21" title=" " alt="" coords="2349,660,2475,701"/>
-<area shape="rect" id="node22" title=" " alt="" coords="1498,571,1625,612"/>
-<area shape="rect" id="node23" href="$d7/d2c/task__composer__node__info_8h.html" title="Task composer node info." alt="" coords="1366,392,1554,433"/>
-<area shape="rect" id="node33" href="$dc/deb/tesseract__task__composer_2include_2tesseract__task__composer_2nodes_2default__task__namespaces_8h.html" title="The default namespaces for each of the task." alt="" coords="143,571,369,612"/>
-<area shape="rect" id="node6" title=" " alt="" coords="235,667,290,694"/>
-<area shape="rect" id="node7" title=" " alt="" coords="2725,667,2793,694"/>
-<area shape="rect" id="node8" href="$da/dbe/task__composer__node_8h.html" title="A node in the pipeline." alt="" coords="1686,213,1858,255"/>
-<area shape="rect" id="node9" title=" " alt="" coords="1599,489,1734,515"/>
-<area shape="rect" id="node10" href="$db/ddf/task__composer__input_8h.html" title="The input data structure to the pipeline." alt="" coords="1810,303,1982,344"/>
-<area shape="rect" id="node19" href="$dc/dc5/task__composer__data__storage_8h.html" title="Data storage used when executing the pipeline." alt="" coords="2013,481,2219,523"/>
-<area shape="rect" id="node11" title=" " alt="" coords="1865,399,1927,426"/>
-<area shape="rect" id="node12" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2473,481,2671,523"/>
-<area shape="rect" id="node31" href="$d7/d6d/task__composer__problem_8h.html" title="A task composer server problem." alt="" coords="2196,392,2375,433"/>
-<area shape="rect" id="node13" title=" " alt="" coords="2449,578,2492,605"/>
-<area shape="rect" id="node14" title=" " alt="" coords="2516,578,2588,605"/>
-<area shape="rect" id="node15" title=" " alt="" coords="1777,667,1853,694"/>
-<area shape="rect" id="node16" title=" " alt="" coords="2162,578,2273,605"/>
-<area shape="rect" id="node17" title=" " alt="" coords="2613,578,2670,605"/>
-<area shape="rect" id="node18" title=" " alt="" coords="1882,578,1985,605"/>
-<area shape="rect" id="node20" title=" " alt="" coords="1700,571,1857,612"/>
-<area shape="rect" id="node24" title=" " alt="" coords="1325,489,1371,515"/>
-<area shape="rect" id="node25" href="$d1/db1/instruction__poly_8h.html" title=" " alt="" coords="561,481,759,523"/>
-<area shape="rect" id="node26" title=" " alt="" coords="934,660,1061,701"/>
-<area shape="rect" id="node27" title=" " alt="" coords="315,667,485,694"/>
-<area shape="rect" id="node28" href="$d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="697,571,895,612"/>
-<area shape="rect" id="node29" title=" " alt="" coords="510,667,725,694"/>
-<area shape="rect" id="node30" title=" " alt="" coords="749,660,910,701"/>
-<area shape="rect" id="node32" title=" " alt="" coords="2244,481,2399,523"/>
-<area shape="rect" id="node34" href="$de/d3a/default__planner__namespaces_8h.html" title="A collection of motion planner profile namespaces." alt="" coords="5,660,211,701"/>
+<area shape="rect" id="node1" title="Discrete Collision check trajectory task." alt="" coords="1080,5,1255,76"/>
+<area shape="rect" id="node2" title=" " alt="" coords="855,667,1045,694"/>
+<area shape="rect" id="node3" title=" " alt="" coords="2908,124,3035,165"/>
+<area shape="rect" id="node4" title=" " alt="" coords="929,310,987,337"/>
+<area shape="rect" id="node5" href="$da/d71/task__composer__task_8h.html" title="A task in the pipeline." alt="" coords="1020,124,1192,165"/>
+<area shape="rect" id="node21" title=" " alt="" coords="2156,660,2283,701"/>
+<area shape="rect" id="node22" title=" " alt="" coords="1305,571,1432,612"/>
+<area shape="rect" id="node23" href="$d7/d2c/task__composer__node__info_8h.html" title="Task composer node info." alt="" coords="1173,392,1361,433"/>
+<area shape="rect" id="node33" href="$d3/da7/task__composer__node__names_8h.html" title="Contains default node names." alt="" coords="71,571,277,612"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,667,60,694"/>
+<area shape="rect" id="node7" title=" " alt="" coords="2532,667,2600,694"/>
+<area shape="rect" id="node8" href="$da/dbe/task__composer__node_8h.html" title="A node in the pipeline." alt="" coords="1493,213,1665,255"/>
+<area shape="rect" id="node9" title=" " alt="" coords="1407,489,1541,515"/>
+<area shape="rect" id="node10" href="$db/ddf/task__composer__input_8h.html" title="The input data structure to the pipeline." alt="" coords="1617,303,1789,344"/>
+<area shape="rect" id="node19" href="$dc/dc5/task__composer__data__storage_8h.html" title="Data storage used when executing the pipeline." alt="" coords="1820,481,2027,523"/>
+<area shape="rect" id="node11" title=" " alt="" coords="1673,399,1734,426"/>
+<area shape="rect" id="node12" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2280,481,2479,523"/>
+<area shape="rect" id="node31" href="$d7/d6d/task__composer__problem_8h.html" title="A task composer server problem." alt="" coords="2003,392,2182,433"/>
+<area shape="rect" id="node13" title=" " alt="" coords="2257,578,2299,605"/>
+<area shape="rect" id="node14" title=" " alt="" coords="2323,578,2395,605"/>
+<area shape="rect" id="node15" title=" " alt="" coords="1563,667,1639,694"/>
+<area shape="rect" id="node16" title=" " alt="" coords="1969,578,2080,605"/>
+<area shape="rect" id="node17" title=" " alt="" coords="2420,578,2477,605"/>
+<area shape="rect" id="node18" title=" " alt="" coords="1689,578,1792,605"/>
+<area shape="rect" id="node20" title=" " alt="" coords="1507,571,1665,612"/>
+<area shape="rect" id="node24" title=" " alt="" coords="1132,489,1179,515"/>
+<area shape="rect" id="node25" href="$d1/db1/instruction__poly_8h.html" title=" " alt="" coords="368,481,567,523"/>
+<area shape="rect" id="node26" title=" " alt="" coords="704,660,831,701"/>
+<area shape="rect" id="node27" title=" " alt="" coords="85,667,255,694"/>
+<area shape="rect" id="node28" href="$d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="504,571,703,612"/>
+<area shape="rect" id="node29" title=" " alt="" coords="280,667,495,694"/>
+<area shape="rect" id="node30" title=" " alt="" coords="519,660,680,701"/>
+<area shape="rect" id="node32" title=" " alt="" coords="2051,481,2206,523"/>
 </map>

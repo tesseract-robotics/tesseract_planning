@@ -212,12 +212,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8ad0013d1d05dfc35efba189798157d8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a8ad0013d1d05dfc35efba189798157d8">flatten</a> (const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a> &amp;filter=nullptr) const</td></tr>
 <tr class="memdesc:a8ad0013d1d05dfc35efba189798157d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> into a vector of Instruction&amp;.  <a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a8ad0013d1d05dfc35efba189798157d8">More...</a><br /></td></tr>
 <tr class="separator:a8ad0013d1d05dfc35efba189798157d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74d5eca48a7e86f77a11ea273d68b5ed"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a74d5eca48a7e86f77a11ea273d68b5ed">flattenToPattern</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a> &amp;filter=nullptr)</td></tr>
-<tr class="memdesc:a74d5eca48a7e86f77a11ea273d68b5ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable. The motivation for this utility is a case where you flatten only the elements in a seed that correspond to composites in the parent instruction.  <a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a74d5eca48a7e86f77a11ea273d68b5ed">More...</a><br /></td></tr>
-<tr class="separator:a74d5eca48a7e86f77a11ea273d68b5ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22ef91cff9ada3795194d6e0f58863d7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a22ef91cff9ada3795194d6e0f58863d7">flattenToPattern</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a> &amp;filter=nullptr) const</td></tr>
-<tr class="memdesc:a22ef91cff9ada3795194d6e0f58863d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable.  <a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a22ef91cff9ada3795194d6e0f58863d7">More...</a><br /></td></tr>
-<tr class="separator:a22ef91cff9ada3795194d6e0f58863d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a038e64d00d68e35ba9b7e7ca6eccdb68"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a038e64d00d68e35ba9b7e7ca6eccdb68">operator==</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;rhs) const</td></tr>
 <tr class="separator:a038e64d00d68e35ba9b7e7ca6eccdb68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7d4afc80f2b29ee8fcbbc4e68dce390"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#ab7d4afc80f2b29ee8fcbbc4e68dce390">operator!=</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;rhs) const</td></tr>
@@ -344,12 +338,6 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:ac0149b42056a2855cbb8e610225f7b77"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#ac0149b42056a2855cbb8e610225f7b77">flattenHelper</a> (std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &gt; &gt; &amp;flattened, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a> &amp;filter, bool first_composite) const</td></tr>
 <tr class="memdesc:ac0149b42056a2855cbb8e610225f7b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function used by Flatten. Not intended for direct use.  <a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#ac0149b42056a2855cbb8e610225f7b77">More...</a><br /></td></tr>
 <tr class="separator:ac0149b42056a2855cbb8e610225f7b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23914ba467dad4c476e58a91fe498e22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a23914ba467dad4c476e58a91fe498e22">flattenToPatternHelper</a> (std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &gt; &gt; &amp;flattened, <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a> &amp;filter, bool first_composite)</td></tr>
-<tr class="memdesc:a23914ba467dad4c476e58a91fe498e22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function used by FlattenToPattern. Not intended for direct use.  <a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a23914ba467dad4c476e58a91fe498e22">More...</a><br /></td></tr>
-<tr class="separator:a23914ba467dad4c476e58a91fe498e22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34ee4ac1bb645869aaaa9df471c73931"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a34ee4ac1bb645869aaaa9df471c73931">flattenToPatternHelper</a> (std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &gt; &gt; &amp;flattened, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a> &amp;filter, bool first_composite) const</td></tr>
-<tr class="memdesc:a34ee4ac1bb645869aaaa9df471c73931"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function used by FlattenToPattern. Not intended for direct use.  <a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a34ee4ac1bb645869aaaa9df471c73931">More...</a><br /></td></tr>
-<tr class="separator:a34ee4ac1bb645869aaaa9df471c73931"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8adc89fe501b242f2e3a132f846380b1"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
 <tr class="memitem:a8adc89fe501b242f2e3a132f846380b1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a8adc89fe501b242f2e3a132f846380b1">serialize</a> (Archive &amp;ar, const unsigned int version)</td></tr>
 <tr class="separator:a8adc89fe501b242f2e3a132f846380b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1197,216 +1185,6 @@ Friends</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">flattened</td><td>Vector of instructions representing the full flattened composite </td></tr>
     <tr><td class="paramname">composite</td><td>Composite instruction to be flattened </td></tr>
-    <tr><td class="paramname">filter</td><td>Used to filter only what should be considered. Should return true to include otherwise false </td></tr>
-    <tr><td class="paramname">first_composite</td><td>Indicates if the composite being processed is the top most composite </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a74d5eca48a7e86f77a11ea273d68b5ed" name="a74d5eca48a7e86f77a11ea273d68b5ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74d5eca48a7e86f77a11ea273d68b5ed">&#9670;&nbsp;</a></span>flattenToPattern() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &gt; &gt; tesseract_planning::CompositeInstruction::flattenToPattern </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>pattern</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a> &amp;&#160;</td>
-          <td class="paramname"><em>filter</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable. The motivation for this utility is a case where you flatten only the elements in a seed that correspond to composites in the parent instruction. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">instruction</td><td><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> that will be flattened </td></tr>
-    <tr><td class="paramname">pattern</td><td><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> used to determine if instruction will be flattened </td></tr>
-    <tr><td class="paramname">filter</td><td>Used to filter only what should be considered. Should return true to include otherwise false </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A new flattened vector referencing the original instruction elements </dd></dl>
-
-</div>
-</div>
-<a id="a22ef91cff9ada3795194d6e0f58863d7" name="a22ef91cff9ada3795194d6e0f58863d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22ef91cff9ada3795194d6e0f58863d7">&#9670;&nbsp;</a></span>flattenToPattern() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &gt; &gt; tesseract_planning::CompositeInstruction::flattenToPattern </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>pattern</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a> &amp;&#160;</td>
-          <td class="paramname"><em>filter</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">instruction</td><td><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> that will be flattened </td></tr>
-    <tr><td class="paramname">pattern</td><td><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> used to determine if instruction will be flattened </td></tr>
-    <tr><td class="paramname">filter</td><td>Used to filter only what should be considered. Should return true to include otherwise false </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A new flattened vector referencing the original instruction elements </dd></dl>
-
-</div>
-</div>
-<a id="a34ee4ac1bb645869aaaa9df471c73931" name="a34ee4ac1bb645869aaaa9df471c73931"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34ee4ac1bb645869aaaa9df471c73931">&#9670;&nbsp;</a></span>flattenToPatternHelper() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tesseract_planning::CompositeInstruction::flattenToPatternHelper </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>flattened</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>composite</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>pattern</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a> &amp;&#160;</td>
-          <td class="paramname"><em>filter</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>first_composite</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper function used by FlattenToPattern. Not intended for direct use. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">flattened</td><td>Vector of instructions representing the full flattened composite </td></tr>
-    <tr><td class="paramname">composite</td><td>Composite instruction to be flattened </td></tr>
-    <tr><td class="paramname">pattern</td><td><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> used to determine if instruction will be flattened </td></tr>
-    <tr><td class="paramname">filter</td><td>Used to filter only what should be considered. Should return true to include otherwise false </td></tr>
-    <tr><td class="paramname">first_composite</td><td>Indicates if the composite being processed is the top most composite </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a23914ba467dad4c476e58a91fe498e22" name="a23914ba467dad4c476e58a91fe498e22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23914ba467dad4c476e58a91fe498e22">&#9670;&nbsp;</a></span>flattenToPatternHelper() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tesseract_planning::CompositeInstruction::flattenToPatternHelper </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>flattened</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>composite</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>pattern</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a> &amp;&#160;</td>
-          <td class="paramname"><em>filter</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>first_composite</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper function used by FlattenToPattern. Not intended for direct use. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">flattened</td><td>Vector of instructions representing the full flattened composite </td></tr>
-    <tr><td class="paramname">composite</td><td>Composite instruction to be flattened </td></tr>
-    <tr><td class="paramname">pattern</td><td><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> used to determine if instruction will be flattened </td></tr>
     <tr><td class="paramname">filter</td><td>Used to filter only what should be considered. Should return true to include otherwise false </td></tr>
     <tr><td class="paramname">first_composite</td><td>Indicates if the composite being processed is the top most composite </td></tr>
   </table>
@@ -2857,7 +2635,7 @@ template&lt;class Archive &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 14 2022 20:02:37 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Mon Sep 26 2022 01:16:25 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
