@@ -53,6 +53,8 @@ tesseract\+\_\+common\+::\+Any\+Poly \mbox{\hyperlink{classtesseract__planning_1
 \begin{DoxyCompactList}\small\item\em Get the data for the provided key. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a51c14c7bc4c13cb3c14629dd5dd13ac8}{remove\+Data}} (const std\+::string \&key)
 \begin{DoxyCompactList}\small\item\em Remove data for the provide key. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ std\+::string, tesseract\+\_\+common\+::\+Any\+Poly $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_aab9de547870a8a6d7ee738c008758f1f}{get\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Get all data stored. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a84385bed1785dbe048a9297f25704cef}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{Task\+Composer\+Data\+Storage}} \&rhs) const
 \item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a374e9dd651bbfe9b4397b8d893327033}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{Task\+Composer\+Data\+Storage}} \&rhs) const
@@ -136,10 +138,23 @@ A thread save data storage.
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerDataStorage_aab9de547870a8a6d7ee738c008758f1f}\label{classtesseract__planning_1_1TaskComposerDataStorage_aab9de547870a8a6d7ee738c008758f1f}} 
+\index{tesseract\_planning::TaskComposerDataStorage@{tesseract\_planning::TaskComposerDataStorage}!getData@{getData}}
+\index{getData@{getData}!tesseract\_planning::TaskComposerDataStorage@{tesseract\_planning::TaskComposerDataStorage}}
+\doxysubsubsection{\texorpdfstring{getData()}{getData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$ std\+::string, tesseract\+\_\+common\+::\+Any\+Poly $>$ tesseract\+\_\+planning\+::\+Task\+Composer\+Data\+Storage\+::get\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get all data stored. 
+
+\begin{DoxyReturn}{Returns}
+A copy of the data 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerDataStorage_aa0f70e10286a1e419cd6960954370160}\label{classtesseract__planning_1_1TaskComposerDataStorage_aa0f70e10286a1e419cd6960954370160}} 
 \index{tesseract\_planning::TaskComposerDataStorage@{tesseract\_planning::TaskComposerDataStorage}!getData@{getData}}
 \index{getData@{getData}!tesseract\_planning::TaskComposerDataStorage@{tesseract\_planning::TaskComposerDataStorage}}
-\doxysubsubsection{\texorpdfstring{getData()}{getData()}}
+\doxysubsubsection{\texorpdfstring{getData()}{getData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily tesseract\+\_\+common\+::\+Any\+Poly tesseract\+\_\+planning\+::\+Task\+Composer\+Data\+Storage\+::get\+Data (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const}
 
 
