@@ -81,6 +81,12 @@ public:
    */
   void removeData(const std::string& key);
 
+  /**
+   * @brief Get all data stored
+   * @return A copy of the data
+   */
+  std::unordered_map<std::string, tesseract_common::AnyPoly> getData() const;
+
   bool operator==(const TaskComposerDataStorage& rhs) const;
   bool operator!=(const TaskComposerDataStorage& rhs) const;
 

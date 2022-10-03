@@ -92,6 +92,12 @@ void TaskComposerDataStorage::removeData(const std::string& key)
   data_.erase(key);
 }
 
+std::unordered_map<std::string, tesseract_common::AnyPoly> TaskComposerDataStorage::getData() const
+{
+  std::shared_lock lock(mutex_);
+  return data_;
+}
+
 bool TaskComposerDataStorage::operator==(const TaskComposerDataStorage& rhs) const
 {
   std::shared_lock lhs_lock(mutex_, std::defer_lock);
