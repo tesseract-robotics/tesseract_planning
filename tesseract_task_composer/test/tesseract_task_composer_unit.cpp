@@ -103,7 +103,7 @@ TEST_F(TesseractTaskComposerUnit, MinLengthTaskTest)  // NOLINT
   profiles->addProfile<MinLengthProfile>(
       MIN_LENGTH_TASK_NAME, program.getProfile(), std::make_shared<MinLengthProfile>(2 * current_length));
 
-  task_input.reset();
+  task_input->reset();
   EXPECT_TRUE(task.run(*task_input) == 1);
   long final_length2 =
       task_input->data_storage.getData("output_program").as<CompositeInstruction>().getMoveInstructionCount();
@@ -112,7 +112,7 @@ TEST_F(TesseractTaskComposerUnit, MinLengthTaskTest)  // NOLINT
   profiles->addProfile<MinLengthProfile>(
       MIN_LENGTH_TASK_NAME, program.getProfile(), std::make_shared<MinLengthProfile>(3 * current_length));
 
-  task_input.reset();
+  task_input->reset();
   EXPECT_TRUE(task.run(*task_input) == 1);
   long final_length3 =
       task_input->data_storage.getData("output_program").as<CompositeInstruction>().getMoveInstructionCount();
