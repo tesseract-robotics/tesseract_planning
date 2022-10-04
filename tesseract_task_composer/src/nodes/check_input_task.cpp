@@ -86,6 +86,7 @@ TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,
     }
   }
 
+  info->env = input.problem.env;
   info->message = "Successful";
   info->return_value = 1;
   return info;

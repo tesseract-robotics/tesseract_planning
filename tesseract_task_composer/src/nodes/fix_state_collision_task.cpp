@@ -320,6 +320,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
 {
   auto info = std::make_unique<FixStateCollisionTaskInfo>(*this);
   info->return_value = 0;
+  info->env = input.problem.env;
 
   if (input.isAborted())
   {

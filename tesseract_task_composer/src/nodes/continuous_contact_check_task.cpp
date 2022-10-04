@@ -52,6 +52,7 @@ TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput
 {
   auto info = std::make_unique<ContinuousContactCheckTaskInfo>(*this);
   info->return_value = 0;
+  info->env = input.problem.env;
 
   if (input.isAborted())
   {

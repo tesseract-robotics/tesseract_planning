@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_environment/environment.h>
 #include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_common/any_poly.h>
 
@@ -75,6 +76,9 @@ public:
 
   /** @brief The output keys */
   std::vector<std::string> output_keys;
+
+  /** @brief The environment used */
+  tesseract_environment::Environment::ConstPtr env;
 
   /** @brief Store the results of the task */
   tesseract_common::AnyPoly results;

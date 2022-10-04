@@ -51,6 +51,7 @@ TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& 
 {
   auto info = std::make_unique<DiscreteContactCheckTaskInfo>(*this);
   info->return_value = 0;
+  info->env = input.problem.env;
 
   if (input.isAborted())
   {
