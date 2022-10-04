@@ -55,6 +55,7 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= results == rhs.results;
   equal &= return_value == rhs.return_value;
   equal &= message == rhs.message;
+  equal &= env == rhs.env;
   equal &= tesseract_common::almostEqualRelativeAndAbs(elapsed_time, rhs.elapsed_time, max_diff);
   equal &= tesseract_common::isIdentical(inbound_edges, rhs.inbound_edges, false);
   equal &= tesseract_common::isIdentical(outbound_edges, rhs.outbound_edges, true);
@@ -75,6 +76,7 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("results", results);
   ar& boost::serialization::make_nvp("return_value", return_value);
   ar& boost::serialization::make_nvp("message", message);
+  ar& boost::serialization::make_nvp("environment", env);
   ar& boost::serialization::make_nvp("elapsed_time", elapsed_time);
   ar& boost::serialization::make_nvp("inbound_edges", inbound_edges);
   ar& boost::serialization::make_nvp("outbound_edges", outbound_edges);

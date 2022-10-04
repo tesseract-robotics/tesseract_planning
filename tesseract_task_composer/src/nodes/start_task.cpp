@@ -40,6 +40,7 @@ TaskComposerNodeInfo::UPtr StartTask::runImpl(TaskComposerInput& input, Optional
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
+  info->env = input.problem.env;
 
   if (input.isAborted())
   {

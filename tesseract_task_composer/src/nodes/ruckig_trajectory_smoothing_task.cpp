@@ -54,6 +54,7 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
+  info->env = input.problem.env;
 
   if (input.isAborted())
   {
