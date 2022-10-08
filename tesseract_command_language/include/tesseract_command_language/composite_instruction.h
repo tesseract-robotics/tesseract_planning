@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/constants.h>
-#include <tesseract_command_language/profile_dictionary.h>
+#include <tesseract_command_language/types.h>
 #include <tesseract_common/manipulator_info.h>
 
 namespace tesseract_planning
@@ -117,10 +117,10 @@ public:
   void print(const std::string& prefix = "") const;
 
   void setProfile(const std::string& profile);
-  const std::string& getProfile() const;
+  const std::string& getProfile(const std::string& ns = "") const;
 
-  void setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides);
-  ProfileDictionary::ConstPtr getProfileOverrides() const;
+  void setProfileOverrides(ProfileOverrides profile_overrides);
+  ProfileOverrides getProfileOverrides() const;
 
   void setManipulatorInfo(tesseract_common::ManipulatorInfo info);
   const tesseract_common::ManipulatorInfo& getManipulatorInfo() const;
@@ -386,7 +386,7 @@ private:
   std::string profile_{ DEFAULT_PROFILE_KEY };
 
   /** @brief Dictionary of profiles that will override named profiles for a specific task*/
-  ProfileDictionary::ConstPtr profile_overrides_;
+  ProfileOverrides profile_overrides_;
 
   /** @brief The order of the composite instruction */
   CompositeInstructionOrder order_{ CompositeInstructionOrder::ORDERED };

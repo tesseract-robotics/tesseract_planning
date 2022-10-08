@@ -68,33 +68,36 @@ void tesseract_planning::MoveInstructionPoly::setProfile(const std::string& prof
 {
   getInterface().setProfile(profile);
 }
-const std::string& tesseract_planning::MoveInstructionPoly::getProfile() const { return getInterface().getProfile(); }
+const std::string& tesseract_planning::MoveInstructionPoly::getProfile(const std::string& ns) const
+{
+  return getInterface().getProfile(ns);
+}
 
 void tesseract_planning::MoveInstructionPoly::setPathProfile(const std::string& profile)
 {
   getInterface().setPathProfile(profile);
 }
-const std::string& tesseract_planning::MoveInstructionPoly::getPathProfile() const
+const std::string& tesseract_planning::MoveInstructionPoly::getPathProfile(const std::string& ns) const
 {
-  return getInterface().getPathProfile();
+  return getInterface().getPathProfile(ns);
 }
 
 void tesseract_planning::MoveInstructionPoly::setProfileOverrides(
-    tesseract_planning::ProfileDictionary::ConstPtr profile_overrides)
+    tesseract_planning::ProfileOverrides profile_overrides)
 {
   getInterface().setProfileOverrides(std::move(profile_overrides));
 }
-tesseract_planning::ProfileDictionary::ConstPtr tesseract_planning::MoveInstructionPoly::getProfileOverrides() const
+tesseract_planning::ProfileOverrides tesseract_planning::MoveInstructionPoly::getProfileOverrides() const
 {
   return getInterface().getProfileOverrides();
 }
 
 void tesseract_planning::MoveInstructionPoly::setPathProfileOverrides(
-    tesseract_planning::ProfileDictionary::ConstPtr profile_overrides)
+    tesseract_planning::ProfileOverrides profile_overrides)
 {
   getInterface().setPathProfileOverrides(std::move(profile_overrides));
 }
-tesseract_planning::ProfileDictionary::ConstPtr tesseract_planning::MoveInstructionPoly::getPathProfileOverrides() const
+tesseract_planning::ProfileOverrides tesseract_planning::MoveInstructionPoly::getPathProfileOverrides() const
 {
   return getInterface().getPathProfileOverrides();
 }

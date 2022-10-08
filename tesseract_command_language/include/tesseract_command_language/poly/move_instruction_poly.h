@@ -40,7 +40,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/poly/waypoint_poly.h>
-#include <tesseract_command_language/profile_dictionary.h>
+#include <tesseract_command_language/types.h>
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/type_erasure.h>
@@ -131,11 +131,11 @@ struct MoveInstructionConcept  // NOLINT
     const std::string& path_profile_const = c.getPathProfile();
     UNUSED(path_profile_const);
 
-    c.setProfileOverrides(nullptr);
+    c.setProfileOverrides(ProfileOverrides{});
     auto profile_overrides = c.getProfileOverrides();
     UNUSED(profile_overrides);
 
-    c.setPathProfileOverrides(nullptr);
+    c.setPathProfileOverrides(ProfileOverrides{});
     auto path_profile_overrides = c.getPathProfileOverrides();
     UNUSED(path_profile_overrides);
 
@@ -184,16 +184,16 @@ struct MoveInstructionInterface : tesseract_common::TypeErasureInterface
   virtual tesseract_common::ManipulatorInfo& getManipulatorInfo() = 0;
 
   virtual void setProfile(const std::string& profile) = 0;
-  virtual const std::string& getProfile() const = 0;
+  virtual const std::string& getProfile(const std::string& ns = "") const = 0;
 
   virtual void setPathProfile(const std::string& profile) = 0;
-  virtual const std::string& getPathProfile() const = 0;
+  virtual const std::string& getPathProfile(const std::string& ns = "") const = 0;
 
-  virtual void setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides) = 0;
-  virtual ProfileDictionary::ConstPtr getProfileOverrides() const = 0;
+  virtual void setProfileOverrides(ProfileOverrides profile_overrides) = 0;
+  virtual ProfileOverrides getProfileOverrides() const = 0;
 
-  virtual void setPathProfileOverrides(ProfileDictionary::ConstPtr profile_overrides) = 0;
-  virtual ProfileDictionary::ConstPtr getPathProfileOverrides() const = 0;
+  virtual void setPathProfileOverrides(ProfileOverrides profile_overrides) = 0;
+  virtual ProfileOverrides getPathProfileOverrides() const = 0;
 
   virtual void setMoveType(MoveInstructionType move_type) = 0;
   virtual MoveInstructionType getMoveType() const = 0;
@@ -248,22 +248,22 @@ struct MoveInstructionInstance : tesseract_common::TypeErasureInstance<T, MoveIn
   tesseract_common::ManipulatorInfo& getManipulatorInfo() final { return this->get().getManipulatorInfo(); }
 
   void setProfile(const std::string& profile) final { this->get().setProfile(profile); }
-  const std::string& getProfile() const final { return this->get().getProfile(); }
+  const std::string& getProfile(const std::string& ns = "") const final { return this->get().getProfile(ns); }
 
   void setPathProfile(const std::string& profile) final { this->get().setPathProfile(profile); }
-  const std::string& getPathProfile() const final { return this->get().getPathProfile(); }
+  const std::string& getPathProfile(const std::string& ns = "") const final { return this->get().getPathProfile(ns); }
 
-  void setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides) final
+  void setProfileOverrides(ProfileOverrides profile_overrides) final
   {
     this->get().setProfileOverrides(profile_overrides);
   }
-  ProfileDictionary::ConstPtr getProfileOverrides() const final { return this->get().getProfileOverrides(); }
+  ProfileOverrides getProfileOverrides() const final { return this->get().getProfileOverrides(); }
 
-  void setPathProfileOverrides(ProfileDictionary::ConstPtr profile_overrides) final
+  void setPathProfileOverrides(ProfileOverrides profile_overrides) final
   {
     this->get().setPathProfileOverrides(profile_overrides);
   }
-  ProfileDictionary::ConstPtr getPathProfileOverrides() const final { return this->get().getPathProfileOverrides(); }
+  ProfileOverrides getPathProfileOverrides() const final { return this->get().getPathProfileOverrides(); }
 
   void setMoveType(MoveInstructionType move_type) final { this->get().setMoveType(move_type); }
   MoveInstructionType getMoveType() const final { return this->get().getMoveType(); }
@@ -314,16 +314,16 @@ struct MoveInstructionPoly : MoveInstructionPolyBase
   tesseract_common::ManipulatorInfo& getManipulatorInfo();
 
   void setProfile(const std::string& profile);
-  const std::string& getProfile() const;
+  const std::string& getProfile(const std::string& ns = "") const;
 
   void setPathProfile(const std::string& profile);
-  const std::string& getPathProfile() const;
+  const std::string& getPathProfile(const std::string& ns = "") const;
 
-  void setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides);
-  ProfileDictionary::ConstPtr getProfileOverrides() const;
+  void setProfileOverrides(ProfileOverrides profile_overrides);
+  ProfileOverrides getProfileOverrides() const;
 
-  void setPathProfileOverrides(ProfileDictionary::ConstPtr profile_overrides);
-  ProfileDictionary::ConstPtr getPathProfileOverrides() const;
+  void setPathProfileOverrides(ProfileOverrides profile_overrides);
+  ProfileOverrides getPathProfileOverrides() const;
 
   void setMoveType(MoveInstructionType move_type);
   MoveInstructionType getMoveType() const;
