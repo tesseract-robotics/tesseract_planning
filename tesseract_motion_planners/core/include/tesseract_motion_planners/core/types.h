@@ -30,18 +30,10 @@
 #include <tesseract_common/types.h>
 #include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/profile_dictionary.h>
 
 namespace tesseract_planning
 {
-/**
- * This used to store planner specific profile mapping with the request
- *
- * For example say you have a profile named Raster in your command language. Say you have multiple Raster profiles
- * for descartes {Raster, Raster1, Raster2}. This allows you to remap the meaning of Raster in the command language to
- * say Raster2 for the specific planner Descartes by Map<Descartes, Map<Raster, Raster1>>.
- */
-using PlannerProfileRemapping = std::unordered_map<std::string, std::unordered_map<std::string, std::string>>;
-
 struct PlannerRequest
 {
   // LCOV_EXCL_START
@@ -65,18 +57,6 @@ struct PlannerRequest
    * This must contain a minimum of two move instruction the first move instruction is the start state
    */
   CompositeInstruction instructions;
-
-  /**
-   * @brief This allows the remapping of the Plan Profile identified in the command language to a specific profile for a
-   * given motion planner.
-   */
-  PlannerProfileRemapping plan_profile_remapping{};
-
-  /**
-   * @brief This allows the remapping of the Composite Profile identified in the command language to a specific profile
-   * for a given motion planner.
-   */
-  PlannerProfileRemapping composite_profile_remapping{};
 
   /** @brief Indicate if output should be verbose */
   bool verbose{ false };
