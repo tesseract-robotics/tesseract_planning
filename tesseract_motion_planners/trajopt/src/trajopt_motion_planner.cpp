@@ -210,15 +210,8 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   }
 
   // Apply Solver parameters
-  std::string profile = request.instructions.getProfile();
-  ProfileDictionary::ConstPtr profile_overrides = request.instructions.getProfileOverrides();
-  profile = getProfileString(name_, profile, request.plan_profile_remapping);
-  TrajOptSolverProfile::ConstPtr solver_profile = getProfile<TrajOptSolverProfile>(
-      name_, profile, *request.profiles, std::make_shared<TrajOptDefaultSolverProfile>());
-  solver_profile = applyProfileOverrides(name_, profile, solver_profile, profile_overrides);
-  if (!solver_profile)
-    throw std::runtime_error("TrajOptMotionPlanner: Invalid profile");
-
+  TrajOptSolverProfile::ConstPtr solver_profile =
+      request.profiles->getProfile<TrajOptSolverProfile>(name_, request.instructions.getProfile(name_));
   solver_profile->apply(*pci);
 
   // Get kinematics information
@@ -250,12 +243,8 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
       throw std::runtime_error("TrajOpt, working_frame is empty!");
 
     // Get Plan Profile
-    std::string profile = getProfileString(name_, move_instruction.getProfile(), request.plan_profile_remapping);
-    TrajOptPlanProfile::ConstPtr cur_plan_profile = getProfile<TrajOptPlanProfile>(
-        name_, profile, *request.profiles, std::make_shared<TrajOptDefaultPlanProfile>());
-    cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile, move_instruction.getProfileOverrides());
-    if (!cur_plan_profile)
-      throw std::runtime_error("TrajOptMotionPlanner: Invalid profile");
+    TrajOptPlanProfile::ConstPtr cur_plan_profile =
+        request.profiles->getProfile<TrajOptPlanProfile>(name_, move_instruction.getProfile(name_));
 
     if (move_instruction.getWaypoint().isCartesianWaypoint())
     {
@@ -333,14 +322,8 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   for (long i = 0; i < pci->basic_info.n_steps; ++i)
     pci->init_info.data.row(i) = seed_states[static_cast<std::size_t>(i)];
 
-  profile = getProfileString(name_, request.instructions.getProfile(), request.composite_profile_remapping);
-  TrajOptCompositeProfile::ConstPtr cur_composite_profile = getProfile<TrajOptCompositeProfile>(
-      name_, profile, *request.profiles, std::make_shared<TrajOptDefaultCompositeProfile>());
-  cur_composite_profile =
-      applyProfileOverrides(name_, profile, cur_composite_profile, request.instructions.getProfileOverrides());
-  if (!cur_composite_profile)
-    throw std::runtime_error("TrajOptMotionPlanner: Invalid profile");
-
+  TrajOptCompositeProfile::ConstPtr cur_composite_profile =
+      request.profiles->getProfile<TrajOptCompositeProfile>(name_, request.instructions.getProfile(name_));
   cur_composite_profile->apply(*pci, 0, pci->basic_info.n_steps - 1, composite_mi, active_links, fixed_steps);
 
   return pci;

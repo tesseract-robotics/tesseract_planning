@@ -283,14 +283,8 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
       throw std::runtime_error("Descartes, working_frame is empty!");
 
     // Get Plan Profile
-    std::string profile = plan_instruction.getProfile();
-    profile = getProfileString(name_, profile, request.plan_profile_remapping);
-    auto cur_plan_profile = getProfile<DescartesPlanProfile<FloatType>>(
-        name_, profile, *request.profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
-    //      cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile,
-    //      plan_instruction.profile_overrides);
-    if (!cur_plan_profile)
-      throw std::runtime_error("DescartesMotionPlanner: Invalid profile");
+    auto cur_plan_profile =
+        request.profiles->getProfile<DescartesPlanProfile<FloatType>>(name_, plan_instruction.getProfile(name_));
 
     if (plan_instruction.getWaypoint().isCartesianWaypoint())
     {

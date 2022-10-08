@@ -190,18 +190,13 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
       SimplePlannerPlanProfile::ConstPtr plan_profile;
       if (base_instruction.getPathProfile().empty())
       {
-        std::string profile = getProfileString(name_, base_instruction.getProfile(), request.plan_profile_remapping);
-        plan_profile = getProfile<SimplePlannerPlanProfile>(
-            name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
-        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.getProfileOverrides());
+        plan_profile =
+            request.profiles->getProfile<SimplePlannerPlanProfile>(name_, base_instruction.getProfile(name_));
       }
       else
       {
-        std::string profile =
-            getProfileString(name_, base_instruction.getPathProfile(), request.plan_profile_remapping);
-        plan_profile = getProfile<SimplePlannerPlanProfile>(
-            name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
-        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.getProfileOverrides());
+        plan_profile =
+            request.profiles->getProfile<SimplePlannerPlanProfile>(name_, base_instruction.getPathProfile(name_));
       }
 
       if (!plan_profile)
