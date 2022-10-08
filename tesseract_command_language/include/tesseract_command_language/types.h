@@ -31,6 +31,16 @@
 namespace tesseract_planning
 {
 using ManipulatorInfo = tesseract_common::ManipulatorInfo;
+
+/**
+ * @brief Map that associates for override profile names (values) with specified task namespaces (keys)
+ * @details For example, a profile "default" might have the following override profiles names for various specific task
+ * namespaces
+ *   - ["ompl", "custom_profile_1"]
+ *   - ["time_parameterization", "custom_profile_2"]
+ */
+using ProfileOverrides = std::unordered_map<std::string, std::string>;
+
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_TYPES_H
