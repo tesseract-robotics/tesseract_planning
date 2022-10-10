@@ -673,6 +673,39 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   }
 }
 
+TEST(TesseractCommandLanguageMoveInstructionPolyUnit, ProfileOverrides)
+{
+  Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
+  std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
+  StateWaypointPoly swp(StateWaypoint(jn, jv));
+  MoveInstruction instr(swp, MoveInstructionType::START, DEFAULT_PROFILE_KEY, DEFAULT_PROFILE_KEY);
+
+  // Create arbitrary profile overrides under arbitrary namespaces
+  const std::string ns1 = "ns1";
+  const std::string ns1_profile = "profile1";
+  const std::string ns2 = "ns2";
+  const std::string ns2_profile = "profile2";
+  {
+    ProfileOverrides overrides;
+    overrides[ns1] = ns1_profile;
+    overrides[ns2] = ns2_profile;
+    instr.setProfileOverrides(overrides);
+    instr.setPathProfileOverrides(overrides);
+  }
+
+  // Profile Overrides
+  EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
+  EXPECT_EQ(instr.getProfile(ns1), ns1_profile);
+  EXPECT_EQ(instr.getProfile(ns2), ns2_profile);
+  EXPECT_EQ(instr.getProfile("nonexistent_ns"), DEFAULT_PROFILE_KEY);
+
+  // Path Profile Overrides
+  EXPECT_EQ(instr.getPathProfile(), DEFAULT_PROFILE_KEY);
+  EXPECT_EQ(instr.getPathProfile(ns1), ns1_profile);
+  EXPECT_EQ(instr.getPathProfile(ns2), ns2_profile);
+  EXPECT_EQ(instr.getPathProfile("nonexistent_ns"), DEFAULT_PROFILE_KEY);
+}
+
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);
