@@ -40,6 +40,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/interface_utils.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
@@ -135,11 +136,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
   profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -210,11 +213,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
   profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -290,11 +295,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
   profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -374,11 +381,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
   profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -458,11 +467,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
   profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -542,11 +553,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
   profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -634,11 +647,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
   profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -705,11 +720,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   plan_profile->term_type = trajopt::TermType::TT_COST;  // Everything associated with profile is now added as a cost
 
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
   profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
