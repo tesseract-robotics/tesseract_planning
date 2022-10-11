@@ -26,13 +26,20 @@
 #ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_UTILS_H
 #define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_UTILS_H
 
-#include <tesseract_task_composer/task_composer_server.h>
+#include <string>
+#include <vector>
 
 namespace tesseract_planning
 {
+class TaskComposerServer;
+class ProfileDictionary;
+
 void loadDefaultTaskComposerNodes(TaskComposerServer& server,
                                   const std::string& input_key,
                                   const std::string& output_key);
-}
+
+void addDefaultTaskComposerProfiles(ProfileDictionary& profiles, const std::vector<std::string>& profile_names);
+void addDefaultPlannerProfiles(ProfileDictionary& profiles, const std::vector<std::string>& profile_names);
+}  // namespace tesseract_planning
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_UTILS_H
