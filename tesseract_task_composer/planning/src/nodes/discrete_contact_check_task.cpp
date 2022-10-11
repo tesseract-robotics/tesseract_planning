@@ -89,11 +89,7 @@ TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& 
 
   // Get Composite Profile
   const auto& ci = input_data_poly.as<CompositeInstruction>();
-  std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, problem.composite_profile_remapping);
-  auto cur_composite_profile =
-      getProfile<ContactCheckProfile>(name_, profile, *problem.profiles, std::make_shared<ContactCheckProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
+  auto cur_composite_profile = problem.profiles->getProfile<ContactCheckProfile>(name_, ci.getProfile(name_));
 
   // Get state solver
   tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(problem.manip_info);

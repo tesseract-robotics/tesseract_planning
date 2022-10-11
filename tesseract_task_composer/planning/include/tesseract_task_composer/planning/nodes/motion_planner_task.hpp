@@ -146,8 +146,6 @@ protected:
     request.env = problem.env;
     request.instructions = instructions;
     request.profiles = problem.profiles;
-    request.plan_profile_remapping = problem.move_profile_remapping;
-    request.composite_profile_remapping = problem.composite_profile_remapping;
     request.format_result_as_input = format_result_as_input_;
 
     // --------------------

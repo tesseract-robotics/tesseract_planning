@@ -89,11 +89,7 @@ TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& in
 
   // Get Composite Profile
   const auto& ci = input_data_poly.as<CompositeInstruction>();
-  std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, problem.composite_profile_remapping);
-  auto cur_composite_profile = getProfile<UpsampleTrajectoryProfile>(
-      name_, profile, *problem.profiles, std::make_shared<UpsampleTrajectoryProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
+  auto cur_composite_profile = problem.profiles->getProfile<UpsampleTrajectoryProfile>(name_, ci.getProfile(name_));
 
   assert(cur_composite_profile->longest_valid_segment_length > 0);
   InstructionPoly start_instruction;

@@ -90,11 +90,7 @@ TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerInput& input,
   // Get Composite Profile
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   long cnt = ci.getMoveInstructionCount();
-  std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, problem.composite_profile_remapping);
-  auto cur_composite_profile =
-      getProfile<MinLengthProfile>(name_, profile, *problem.profiles, std::make_shared<MinLengthProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
+  auto cur_composite_profile = problem.profiles->getProfile<MinLengthProfile>(name_, ci.getProfile(name_));
 
   if (cnt < cur_composite_profile->min_length)
   {
