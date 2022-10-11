@@ -44,6 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/task_composer_problem.h>
 #include <tesseract_task_composer/task_composer_input.h>
 #include <tesseract_task_composer/task_composer_node_names.h>
+#include <tesseract_task_composer/task_composer_utils.h>
 #include <tesseract_task_composer/nodes/freespace_motion_pipeline_task.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
@@ -131,7 +132,7 @@ bool FreespaceOMPLExample::run()
 
   // Create Program
   CompositeInstruction program(
-      "FREESPACE", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+      DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start and End Joint Position for the program
   StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_start_pos) };
@@ -141,7 +142,7 @@ bool FreespaceOMPLExample::run()
   program.setStartInstruction(start_instruction);
 
   // Plan freespace from start
-  MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "FREESPACE");
+  MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE);
   plan_f0.setDescription("freespace_plan");
 
   // Add Instructions to program
@@ -164,7 +165,9 @@ bool FreespaceOMPLExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(profile_ns::OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
+  addDefaultPlannerProfiles(*profiles, { DEFAULT_PROFILE_KEY });
+  addDefaultTaskComposerProfiles(*profiles, { DEFAULT_PROFILE_KEY });
+  profiles->addProfile<OMPLPlanProfile>(profile_ns::OMPL_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, ompl_profile);
 
   // Create Task Input Data
   TaskComposerDataStorage input_data;

@@ -44,6 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/task_composer_problem.h>
 #include <tesseract_task_composer/task_composer_input.h>
 #include <tesseract_task_composer/task_composer_node_names.h>
+#include <tesseract_task_composer/task_composer_utils.h>
 #include <tesseract_task_composer/nodes/trajopt_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/discrete_contact_check_task.h>
 #include <tesseract_task_composer/profiles/contact_check_profile.h>
@@ -206,6 +207,9 @@ bool PickAndPlaceExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
+  addDefaultPlannerProfiles(*profiles, { "DEFAULT", "CARTESIAN", "FREESPACE" });
+  addDefaultTaskComposerProfiles(*profiles, { "DEFAULT", "CARTESIAN", "FREESPACE" });
+
   profiles->addProfile<TrajOptPlanProfile>(profile_ns::TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
   profiles->addProfile<TrajOptCompositeProfile>(
       profile_ns::TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
