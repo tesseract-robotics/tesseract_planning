@@ -138,7 +138,7 @@ bool FreespaceOMPLExample::run()
 
   // Create Program
   CompositeInstruction program(
-      "FREESPACE", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+      DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start and End Joint Position for the program
   StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_start_pos) };
@@ -148,7 +148,7 @@ bool FreespaceOMPLExample::run()
   start_instruction.setDescription("Start Instruction");
 
   // Plan freespace from start
-  MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "FREESPACE");
+  MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE);
   plan_f0.setDescription("freespace_plan");
 
   // Add Instructions to program
@@ -172,7 +172,9 @@ bool FreespaceOMPLExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
+  addDefaultPlannerProfiles(*profiles, { DEFAULT_PROFILE_KEY });
+  addDefaultTaskComposerProfiles(*profiles, { DEFAULT_PROFILE_KEY });
+  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, ompl_profile);
 
   // Create task
   TaskComposerNode::UPtr task = factory.createTaskComposerNode("OMPLPipeline");

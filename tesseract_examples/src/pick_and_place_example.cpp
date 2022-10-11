@@ -212,8 +212,12 @@ bool PickAndPlaceExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
+  addDefaultPlannerProfiles(*profiles, { "DEFAULT", "CARTESIAN", "FREESPACE" });
+  addDefaultTaskComposerProfiles(*profiles, { "DEFAULT", "CARTESIAN", "FREESPACE" });
+
   profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
+  profiles->addProfile<TrajOptCompositeProfile>(
+      TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
   profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
 
   profiles->addProfile<ContactCheckProfile>(DISCRETE_CONTACT_CHECK_TASK_NAME, "CARTESIAN", post_check_profile);

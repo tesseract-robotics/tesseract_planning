@@ -201,6 +201,9 @@ bool BasicCartesianExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
+  addDefaultPlannerProfiles(*profiles, { "RASTER", "freespace_profile" });
+  addDefaultTaskComposerProfiles(*profiles, { "RASTER", "freespace_profile" });
+
   if (ifopt_)
   {
     auto composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();

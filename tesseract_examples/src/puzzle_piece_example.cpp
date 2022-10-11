@@ -212,8 +212,12 @@ bool PuzzlePieceExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
+  addDefaultPlannerProfiles(*profiles, { "DEFAULT", "CARTESIAN" });
+  addDefaultTaskComposerProfiles(*profiles, { "DEFAULT", "CARTESIAN" });
+
   profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
+  profiles->addProfile<TrajOptCompositeProfile>(
+      TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
   profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
 
   // Create task

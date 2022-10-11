@@ -151,7 +151,7 @@ bool GlassUprightExample::run()
 
   // Create Program
   CompositeInstruction program(
-      "UPRIGHT", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+      DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start and End Joint Position for the program
   StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_start_pos) };
@@ -162,7 +162,7 @@ bool GlassUprightExample::run()
 
   // Plan freespace from start
   // Assign a linear motion so cartesian is defined as the target
-  MoveInstruction plan_f0(wp1, MoveInstructionType::LINEAR, "UPRIGHT");
+  MoveInstruction plan_f0(wp1, MoveInstructionType::LINEAR);
   plan_f0.setDescription("freespace_plan");
 
   // Add Instructions to program
@@ -177,6 +177,9 @@ bool GlassUprightExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
+  addDefaultPlannerProfiles(*profiles, { DEFAULT_PROFILE_KEY });
+  addDefaultTaskComposerProfiles(*profiles, { DEFAULT_PROFILE_KEY });
+
   if (ifopt_)
   {
     auto composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
@@ -191,7 +194,8 @@ bool GlassUprightExample::run()
     composite_profile->smooth_accelerations = false;
     composite_profile->smooth_jerks = false;
     composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
-    profiles->addProfile<TrajOptIfoptCompositeProfile>(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "UPRIGHT", composite_profile);
+    profiles->addProfile<TrajOptIfoptCompositeProfile>(
+        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, composite_profile);
 
     auto plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
     plan_profile->joint_coeff = Eigen::VectorXd::Ones(7);
@@ -199,7 +203,8 @@ bool GlassUprightExample::run()
     plan_profile->cartesian_coeff(0) = 0;
     plan_profile->cartesian_coeff(1) = 0;
     plan_profile->cartesian_coeff(2) = 0;
-    profiles->addProfile<TrajOptIfoptPlanProfile>(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "UPRIGHT", plan_profile);
+    profiles->addProfile<TrajOptIfoptPlanProfile>(
+        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, plan_profile);
   }
   else
   {
@@ -218,7 +223,8 @@ bool GlassUprightExample::run()
     composite_profile->smooth_accelerations = false;
     composite_profile->smooth_jerks = false;
     composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
-    profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "UPRIGHT", composite_profile);
+    profiles->addProfile<TrajOptCompositeProfile>(
+        TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, composite_profile);
 
     auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
     plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 5);
@@ -227,7 +233,7 @@ bool GlassUprightExample::run()
     plan_profile->cartesian_coeff(2) = 0;
 
     // Add profile to Dictionary
-    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "UPRIGHT", plan_profile);
+    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, plan_profile);
   }
 
   // Create task
