@@ -57,21 +57,6 @@ struct PlanningTaskComposerProblem : public TaskComposerProblem
                               std::string name = "unset");
 
   PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
-                              tesseract_common::ManipulatorInfo manip_info,
-                              ProfileRemapping move_profile_remapping,
-                              ProfileRemapping composite_profile_remapping,
-                              TaskComposerDataStorage input_data,
-                              ProfileDictionary::ConstPtr profiles = nullptr,
-                              std::string name = "unset");
-
-  PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
-                              ProfileRemapping move_profile_remapping,
-                              ProfileRemapping composite_profile_remapping,
-                              TaskComposerDataStorage input_data,
-                              ProfileDictionary::ConstPtr profiles = nullptr,
-                              std::string name = "unset");
-
-  PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
                               TaskComposerDataStorage input_data,
                               ProfileDictionary::ConstPtr profiles = nullptr,
                               std::string name = "unset");
@@ -90,18 +75,6 @@ struct PlanningTaskComposerProblem : public TaskComposerProblem
 
   /** @brief The Profiles to use */
   ProfileDictionary::ConstPtr profiles;
-
-  /**
-   * @brief This allows the remapping of the Move Profile identified in the command language to a specific profile for a
-   * given motion planner.
-   */
-  ProfileRemapping move_profile_remapping;
-
-  /**
-   * @brief This allows the remapping of the Composite Profile identified in the command language to a specific profile
-   * for a given motion planner.
-   */
-  ProfileRemapping composite_profile_remapping;
 
   TaskComposerProblem::UPtr clone() const override;
 
