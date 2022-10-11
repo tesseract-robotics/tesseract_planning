@@ -53,19 +53,6 @@ struct TaskComposerProblem
                       std::string name = "unset");
 
   TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
-                      tesseract_common::ManipulatorInfo manip_info,
-                      ProfileRemapping move_profile_remapping,
-                      ProfileRemapping composite_profile_remapping,
-                      TaskComposerDataStorage input_data,
-                      std::string name = "unset");
-
-  TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
-                      ProfileRemapping move_profile_remapping,
-                      ProfileRemapping composite_profile_remapping,
-                      TaskComposerDataStorage input_data,
-                      std::string name = "unset");
-
-  TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
                       TaskComposerDataStorage input_data,
                       std::string name = "unset");
 
@@ -83,18 +70,6 @@ struct TaskComposerProblem
 
   /** @brief Global Manipulator Information */
   tesseract_common::ManipulatorInfo manip_info;
-
-  /**
-   * @brief This allows the remapping of the Move Profile identified in the command language to a specific profile for a
-   * given motion planner.
-   */
-  ProfileRemapping move_profile_remapping;
-
-  /**
-   * @brief This allows the remapping of the Composite Profile identified in the command language to a specific profile
-   * for a given motion planner.
-   */
-  ProfileRemapping composite_profile_remapping;
 
   /** @brief The location data is stored and retrieved during execution */
   TaskComposerDataStorage input_data;
