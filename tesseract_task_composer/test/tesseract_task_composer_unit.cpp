@@ -11,17 +11,19 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_plan_profile.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_plan_profile.h>
+
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/interface_utils.h>
 
 #include <tesseract_task_composer/task_composer_input.h>
 #include <tesseract_task_composer/task_composer_data_storage.h>
+#include <tesseract_task_composer/task_composer_utils.h>
 #include <tesseract_task_composer/nodes/min_length_task.h>
-#include <tesseract_task_composer/profiles/min_length_profile.h>
 #include <tesseract_task_composer/nodes/raster_ft_global_pipeline_task.h>
 #include <tesseract_task_composer/nodes/raster_ft_motion_task.h>
 #include <tesseract_task_composer/nodes/raster_ft_only_global_pipeline_task.h>
 #include <tesseract_task_composer/nodes/raster_ft_only_motion_task.h>
+#include <tesseract_task_composer/profiles/min_length_profile.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 
 #include <tesseract_support/tesseract_support_resource_locator.h>
@@ -302,12 +304,13 @@ TEST_F(TesseractTaskComposerUnit, RasterProcessManagerDefaultPlanProfileTest)  /
   CompositeInstruction program = rasterExampleProgram(freespace_profile, process_profile);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, freespace_profile, default_simple_plan_profile);
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
+  addDefaultPlannerProfiles(*profiles, { freespace_profile, process_profile });
+  addDefaultTaskComposerProfiles(*profiles, { freespace_profile, process_profile });
+
+  auto simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, freespace_profile, simple_plan_profile);
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, process_profile, simple_plan_profile);
 
   // Create data storage
   TaskComposerDataStorage task_data;
@@ -345,12 +348,13 @@ TEST_F(TesseractTaskComposerUnit, RasterGlobalProcessManagerDefaultPlanProfileTe
   CompositeInstruction program = rasterExampleProgram(freespace_profile, process_profile);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, freespace_profile, default_simple_plan_profile);
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
+  addDefaultPlannerProfiles(*profiles, { freespace_profile, process_profile });
+  addDefaultTaskComposerProfiles(*profiles, { freespace_profile, process_profile });
+
+  auto simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, freespace_profile, simple_plan_profile);
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, process_profile, simple_plan_profile);
 
   // Create data storage
   TaskComposerDataStorage task_data;
@@ -388,12 +392,13 @@ TEST_F(TesseractTaskComposerUnit, RasterGlobalProcessManagerDefaultLVSPlanProfil
   CompositeInstruction program = rasterExampleProgram(freespace_profile, process_profile);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, freespace_profile, default_simple_plan_profile);
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
+  addDefaultPlannerProfiles(*profiles, { freespace_profile, process_profile });
+  addDefaultTaskComposerProfiles(*profiles, { freespace_profile, process_profile });
+
+  auto lvs_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, freespace_profile, lvs_simple_plan_profile);
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, process_profile, lvs_simple_plan_profile);
 
   // Create data storage
   TaskComposerDataStorage task_data;
@@ -431,12 +436,13 @@ TEST_F(TesseractTaskComposerUnit, RasterOnlyProcessManagerDefaultPlanProfileTest
   CompositeInstruction program = rasterOnlyExampleProgram(freespace_profile, process_profile);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, freespace_profile, default_simple_plan_profile);
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
+  addDefaultPlannerProfiles(*profiles, { freespace_profile, process_profile });
+  addDefaultTaskComposerProfiles(*profiles, { freespace_profile, process_profile });
+
+  auto simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, freespace_profile, simple_plan_profile);
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, process_profile, simple_plan_profile);
 
   // Create data storage
   TaskComposerDataStorage task_data;
@@ -474,12 +480,13 @@ TEST_F(TesseractTaskComposerUnit, RasterOnlyProcessManagerDefaultLVSPlanProfileT
   CompositeInstruction program = rasterOnlyExampleProgram(freespace_profile, process_profile);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, freespace_profile, default_simple_plan_profile);
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
+  addDefaultPlannerProfiles(*profiles, { freespace_profile, process_profile });
+  addDefaultTaskComposerProfiles(*profiles, { freespace_profile, process_profile });
+
+  auto lvs_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, freespace_profile, lvs_simple_plan_profile);
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, process_profile, lvs_simple_plan_profile);
 
   // Create data storage
   TaskComposerDataStorage task_data;
@@ -517,12 +524,13 @@ TEST_F(TesseractTaskComposerUnit, RasterOnlyGlobalProcessManagerDefaultPlanProfi
   CompositeInstruction program = rasterOnlyExampleProgram(freespace_profile, process_profile);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, freespace_profile, default_simple_plan_profile);
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
+  addDefaultPlannerProfiles(*profiles, { freespace_profile, process_profile });
+  addDefaultTaskComposerProfiles(*profiles, { freespace_profile, process_profile });
+
+  auto simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, freespace_profile, simple_plan_profile);
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, process_profile, simple_plan_profile);
 
   // Create data storage
   TaskComposerDataStorage task_data;
@@ -560,12 +568,13 @@ TEST_F(TesseractTaskComposerUnit, RasterOnlyGlobalProcessManagerDefaultLVSPlanPr
   CompositeInstruction program = rasterOnlyExampleProgram(freespace_profile, process_profile);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, freespace_profile, default_simple_plan_profile);
-  profiles->addProfile<SimplePlannerPlanProfile>(
-      SIMPLE_DEFAULT_NAMESPACE, process_profile, default_simple_plan_profile);
+  addDefaultPlannerProfiles(*profiles, { freespace_profile, process_profile });
+  addDefaultTaskComposerProfiles(*profiles, { freespace_profile, process_profile });
+
+  auto lvs_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, freespace_profile, lvs_simple_plan_profile);
+  profiles->addProfile<SimplePlannerPlanProfile>(SIMPLE_DEFAULT_NAMESPACE, process_profile, lvs_simple_plan_profile);
 
   // Create data storage
   TaskComposerDataStorage task_data;
