@@ -92,8 +92,6 @@ TaskComposerNodeInfo::UPtr MotionPlannerTask::runImpl(TaskComposerInput& input,
   request.env = input.problem.env;
   request.instructions = instructions;
   request.profiles = input.profiles;
-  request.plan_profile_remapping = input.problem.move_profile_remapping;
-  request.composite_profile_remapping = input.problem.composite_profile_remapping;
   request.format_result_as_input = format_result_as_input_;
 
   // --------------------

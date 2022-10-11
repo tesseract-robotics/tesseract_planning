@@ -346,11 +346,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
   auto& ci = input_data_poly.as<CompositeInstruction>();
 
   // Get Composite Profile
-  std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
-  auto cur_composite_profile = getProfile<FixStateCollisionProfile>(
-      name_, profile, *input.profiles, std::make_shared<FixStateCollisionProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
+  auto cur_composite_profile = input.profiles->getProfile<FixStateCollisionProfile>(name_, ci.getProfile(name_));
 
   switch (cur_composite_profile->mode)
   {

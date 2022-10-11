@@ -86,11 +86,8 @@ TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComp
   auto limits = joint_group->getLimits();
 
   // Get Composite Profile
-  std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
-  auto cur_composite_profile = getProfile<IterativeSplineParameterizationProfile>(
-      name_, profile, *input.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
+  auto cur_composite_profile =
+      input.profiles->getProfile<IterativeSplineParameterizationProfile>(name_, ci.getProfile(name_));
 
   // Create data structures for checking for plan profile overrides
   auto flattened = ci.flatten(moveFilter);
@@ -112,19 +109,17 @@ TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComp
   for (Eigen::Index idx = 0; idx < static_cast<Eigen::Index>(flattened.size()); idx++)
   {
     const auto& mi = flattened[static_cast<std::size_t>(idx)].get().as<MoveInstructionPoly>();
-    std::string move_profile = mi.getProfile();
-
-    // Check for remapping of the plan profile
-    move_profile = getProfileString(name_, profile, input.problem.move_profile_remapping);
-    auto cur_move_profile = getProfile<IterativeSplineParameterizationProfile>(
-        name_, move_profile, *input.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
-    //    cur_move_profile = applyProfileOverrides(name_, profile, cur_move_profile, mi.profile_overrides);
 
     // If there is a move profile associated with it, override the parameters
-    if (cur_move_profile)
+    try
     {
+      auto cur_move_profile =
+          input.profiles->getProfile<IterativeSplineParameterizationProfile>(name_, mi.getProfile(name_));
       velocity_scaling_factors[idx] = cur_move_profile->max_velocity_scaling_factor;
       acceleration_scaling_factors[idx] = cur_move_profile->max_acceleration_scaling_factor;
+    }
+    catch (const std::exception&)
+    {
     }
   }
 

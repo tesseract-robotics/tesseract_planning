@@ -72,16 +72,19 @@ TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,
       return info;
     }
 
-    const auto& ci = input_data_poly.as<CompositeInstruction>();
-    std::string profile = ci.getProfile();
-    profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
-    auto cur_composite_profile =
-        getProfile<CheckInputProfile>(name_, profile, *input.profiles, std::make_shared<CheckInputProfile>());
-    cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
-
-    if (!cur_composite_profile->isValid(input))
+    try
     {
-      info->message = "Validator failed";
+      const auto& ci = input_data_poly.as<CompositeInstruction>();
+      auto cur_composite_profile = input.profiles->getProfile<CheckInputProfile>(name_, ci.getProfile(name_));
+      if (!cur_composite_profile->isValid(input))
+      {
+        info->message = "Validator failed";
+        return info;
+      }
+    }
+    catch (const std::exception& ex)
+    {
+      info->message = ex.what();
       return info;
     }
   }

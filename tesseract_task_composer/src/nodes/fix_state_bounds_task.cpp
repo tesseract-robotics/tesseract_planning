@@ -84,11 +84,8 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
   auto limits = joint_group->getLimits();
 
   // Get Composite Profile
-  std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
-  auto cur_composite_profile =
-      getProfile<FixStateBoundsProfile>(name_, profile, *input.profiles, std::make_shared<FixStateBoundsProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
+  std::string profile;
+  auto cur_composite_profile = input.profiles->getProfile<FixStateBoundsProfile>(name_, ci.getProfile(name_));
 
   if (cur_composite_profile->mode == FixStateBoundsProfile::Settings::DISABLED)
   {
