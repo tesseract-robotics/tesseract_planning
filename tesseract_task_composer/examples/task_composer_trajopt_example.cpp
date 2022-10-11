@@ -52,6 +52,8 @@ int main()
 
   // Define profiles
   auto profiles = std::make_shared<ProfileDictionary>();
+  addDefaultPlannerProfiles(*profiles, { DEFAULT_PROFILE_KEY });
+  addDefaultTaskComposerProfiles(*profiles, { DEFAULT_PROFILE_KEY });
 
   // Define the program
   CompositeInstruction program = test_suite::freespaceExampleProgramIIWA();
