@@ -7,6 +7,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_graph.h>
 #include <tesseract_task_composer/task_composer_data_storage.h>
+#include <tesseract_task_composer/task_composer_utils.h>
 #include <tesseract_task_composer/nodes/trajopt_motion_pipeline_task.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 
@@ -44,6 +45,8 @@ int main()
 
   // Define profiles
   auto profiles = std::make_shared<ProfileDictionary>();
+  addDefaultPlannerProfiles(*profiles, { DEFAULT_PROFILE_KEY });
+  addDefaultTaskComposerProfiles(*profiles, { DEFAULT_PROFILE_KEY });
 
   // Define the program
   CompositeInstruction program = freespaceExampleProgramIIWA();
