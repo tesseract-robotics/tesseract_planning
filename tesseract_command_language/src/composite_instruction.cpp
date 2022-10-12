@@ -73,8 +73,8 @@ const std::string& CompositeInstruction::getProfile(const std::string& ns) const
 {
   if (ns.empty() || (profile_overrides_.find(ns) == profile_overrides_.end()))
     return profile_;
-  else
-    return profile_overrides_.at(ns);
+
+  return profile_overrides_.at(ns);
 }
 
 void CompositeInstruction::setProfileOverrides(ProfileOverrides profile_overrides)

@@ -291,7 +291,7 @@ TEST(TesseractCommandLanguageMoveInstructionPolyUnit, boostSerialization)  // NO
   EXPECT_FALSE(child_ninstr.getParentUUID().is_nil());
 }
 
-TEST(TesseractCommandLanguageMoveInstructionPolyUnit, ProfileOverrides)
+TEST(TesseractCommandLanguageMoveInstructionPolyUnit, ProfileOverrides)  // NOLINT
 {
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
   std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };

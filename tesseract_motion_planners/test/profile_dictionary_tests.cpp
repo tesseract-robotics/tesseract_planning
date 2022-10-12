@@ -60,12 +60,12 @@ TEST(TesseractPlanningProfileDictionaryUnit, ProfileDictionaryTest)  // NOLINT
 {
   ProfileDictionary profiles;
 
-  EXPECT_THROW(profiles.getProfile<ProfileBase>("ns", "key"), std::runtime_error);
+  EXPECT_THROW(profiles.getProfile<ProfileBase>("ns", "key"), std::runtime_error);  // NOLINT
 
   profiles.addProfile<ProfileBase>("ns", "key", std::make_shared<ProfileTest>());
 
   ProfileBase::ConstPtr profile;
-  ASSERT_NO_THROW(profile = profiles.getProfile<ProfileBase>("ns", "key"));
+  ASSERT_NO_THROW(profile = profiles.getProfile<ProfileBase>("ns", "key"));  // NOLINT
 
   ASSERT_TRUE(profile != nullptr);
   EXPECT_EQ(profile->a, 0);
@@ -73,14 +73,14 @@ TEST(TesseractPlanningProfileDictionaryUnit, ProfileDictionaryTest)  // NOLINT
   // Check add same profile with different key
   profiles.addProfile<ProfileBase>("ns", "key2", profile);
   ProfileBase::ConstPtr profile2;
-  ASSERT_NO_THROW(profile2 = profiles.getProfile<ProfileBase>("ns", "key2"));
+  ASSERT_NO_THROW(profile2 = profiles.getProfile<ProfileBase>("ns", "key2"));  // NOLINT
   ASSERT_TRUE(profile2 != nullptr);
   EXPECT_EQ(profile2->a, 0);
 
   // Check replacing a profile
   profiles.addProfile<ProfileBase>("ns", "key", std::make_shared<ProfileTest>(10));
   ProfileBase::ConstPtr profile_check;
-  ASSERT_NO_THROW(profile_check = profiles.getProfile<ProfileBase>("ns", "key"));
+  ASSERT_NO_THROW(profile_check = profiles.getProfile<ProfileBase>("ns", "key"));  // NOLINT
   ASSERT_TRUE(profile_check != nullptr);
   EXPECT_EQ(profile_check->a, 10);
 
@@ -91,7 +91,7 @@ TEST(TesseractPlanningProfileDictionaryUnit, ProfileDictionaryTest)  // NOLINT
 
   profiles.addProfile<ProfileBase>("ns", "key", std::make_shared<ProfileTest>(20));
   ProfileBase::ConstPtr profile_check2;
-  ASSERT_NO_THROW(profile_check2 = profiles.getProfile<ProfileBase>("ns", "key"));
+  ASSERT_NO_THROW(profile_check2 = profiles.getProfile<ProfileBase>("ns", "key"));  // NOLINT
   ASSERT_TRUE(profile_check2 != nullptr);
   EXPECT_EQ(profile_check2->a, 20);
 
@@ -117,12 +117,12 @@ TEST(TesseractPlanningProfileDictionaryUnit, ProfileDictionaryTest)  // NOLINT
   profiles.addProfile<ProfileBase2>("ns", "key", std::make_shared<ProfileTest2>(5));
   EXPECT_TRUE(profiles.hasProfileEntry<ProfileBase2>("ns"));
   ProfileBase2::ConstPtr profile_check3;
-  ASSERT_NO_THROW(profile_check3 = profiles.getProfile<ProfileBase2>("ns", "key"));
+  ASSERT_NO_THROW(profile_check3 = profiles.getProfile<ProfileBase2>("ns", "key"));  // NOLINT
   ASSERT_TRUE(profile_check3 != nullptr);
   EXPECT_EQ(profile_check3->b, 5);
   // Check that other profile entry with same key is not affected
   ProfileBase::ConstPtr profile_check4;
-  ASSERT_NO_THROW(profile_check4 = profiles.getProfile<ProfileBase>("ns", "key"));
+  ASSERT_NO_THROW(profile_check4 = profiles.getProfile<ProfileBase>("ns", "key"));  // NOLINT
   ASSERT_TRUE(profile_check4 != nullptr);
   EXPECT_EQ(profile_check4->a, 20);
 }
