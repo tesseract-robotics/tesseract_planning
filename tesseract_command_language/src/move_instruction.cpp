@@ -194,8 +194,8 @@ const std::string& MoveInstruction::getProfile(const std::string& ns) const
 {
   if (ns.empty() || (profile_overrides_.find(ns) == profile_overrides_.end()))
     return profile_;
-  else
-    return profile_overrides_.at(ns);
+
+  return profile_overrides_.at(ns);
 }
 
 void MoveInstruction::setPathProfile(const std::string& profile) { path_profile_ = profile; }
@@ -203,8 +203,8 @@ const std::string& MoveInstruction::getPathProfile(const std::string& ns) const
 {
   if (ns.empty() || (path_profile_overrides_.find(ns) == path_profile_overrides_.end()))
     return path_profile_;
-  else
-    return path_profile_overrides_.at(ns);
+
+  return path_profile_overrides_.at(ns);
 }
 
 void MoveInstruction::setProfileOverrides(ProfileOverrides profile_overrides)
