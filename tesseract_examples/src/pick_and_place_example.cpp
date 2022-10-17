@@ -262,12 +262,12 @@ bool PickAndPlaceExample::run()
   joint_box2.parent_to_joint_origin_transform = Eigen::Isometry3d::Identity();
   joint_box2.parent_to_joint_origin_transform.translation() += Eigen::Vector3d(0, 0, box_size_ / 2.0);
   cmds.push_back(std::make_shared<tesseract_environment::MoveLinkCommand>(joint_box2));
-  cmds.push_back(std::make_shared<tesseract_environment::AddAllowedCollisionCommand>(
-      LINK_BOX_NAME, LINK_END_EFFECTOR_NAME, "Never"));
-  cmds.push_back(
-      std::make_shared<tesseract_environment::AddAllowedCollisionCommand>(LINK_BOX_NAME, "iiwa_link_7", "Never"));
-  cmds.push_back(
-      std::make_shared<tesseract_environment::AddAllowedCollisionCommand>(LINK_BOX_NAME, "iiwa_link_6", "Never"));
+  tesseract_common::AllowedCollisionMatrix add_ac;
+  add_ac.addAllowedCollision(LINK_BOX_NAME, LINK_END_EFFECTOR_NAME, "Never");
+  add_ac.addAllowedCollision(LINK_BOX_NAME, "iiwa_link_7", "Never");
+  add_ac.addAllowedCollision(LINK_BOX_NAME, "iiwa_link_6", "Never");
+  cmds.push_back(std::make_shared<tesseract_environment::ModifyAllowedCollisionsCommand>(
+      add_ac, tesseract_environment::ModifyAllowedCollisionsType::ADD));
   env_->applyCommands(cmds);
 
   // Get the last move instruction

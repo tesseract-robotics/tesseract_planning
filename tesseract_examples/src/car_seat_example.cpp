@@ -335,12 +335,16 @@ bool CarSeatExample::run()
 
   cmds.clear();
   cmds.push_back(std::make_shared<MoveLinkCommand>(joint_seat_1_robot));
-  cmds.push_back(std::make_shared<AddAllowedCollisionCommand>("seat_1", "end_effector", "Adjacent"));
-  cmds.push_back(std::make_shared<AddAllowedCollisionCommand>("seat_1", "cell_logo", "Never"));
-  cmds.push_back(std::make_shared<AddAllowedCollisionCommand>("seat_1", "fence", "Never"));
-  cmds.push_back(std::make_shared<AddAllowedCollisionCommand>("seat_1", "link_b", "Never"));
-  cmds.push_back(std::make_shared<AddAllowedCollisionCommand>("seat_1", "link_r", "Never"));
-  cmds.push_back(std::make_shared<AddAllowedCollisionCommand>("seat_1", "link_t", "Never"));
+
+  tesseract_common::AllowedCollisionMatrix add_ac;
+  add_ac.addAllowedCollision("seat_1", "end_effector", "Adjacent");
+  add_ac.addAllowedCollision("seat_1", "cell_logo", "Never");
+  add_ac.addAllowedCollision("seat_1", "fence", "Never");
+  add_ac.addAllowedCollision("seat_1", "link_b", "Never");
+  add_ac.addAllowedCollision("seat_1", "link_r", "Never");
+  add_ac.addAllowedCollision("seat_1", "link_t", "Never");
+  cmds.push_back(std::make_shared<tesseract_environment::ModifyAllowedCollisionsCommand>(
+      add_ac, tesseract_environment::ModifyAllowedCollisionsType::ADD));
 
   // Apply the commands to the environment
   if (!env_->applyCommands(cmds))
