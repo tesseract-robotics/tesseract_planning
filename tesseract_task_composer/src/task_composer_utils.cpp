@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/task_composer_utils.h>
 #include <tesseract_task_composer/task_composer_node_names.h>
 #include <tesseract_task_composer/nodes/trajopt_motion_pipeline_task.h>
+#include <tesseract_task_composer/nodes/ompl_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/descartes_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/cartesian_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/freespace_motion_pipeline_task.h>
@@ -59,6 +60,7 @@ void loadDefaultTaskComposerNodes(TaskComposerServer& server,
 #ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
   server.addTask(std::make_unique<TrajOptIfoptMotionPipelineTask>(input_key, output_key));
 #endif
+  server.addTask(std::make_unique<OMPLMotionPipelineTask>(input_key, output_key));
   server.addTask(std::make_unique<DescartesMotionPipelineTask>(input_key, output_key));
   server.addTask(std::make_unique<CartesianMotionPipelineTask>(input_key, output_key));
   server.addTask(std::make_unique<FreespaceMotionPipelineTask>(input_key, output_key));
