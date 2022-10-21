@@ -44,10 +44,10 @@ public:
    * @details This will use the uuid as the input and output key
    * @param name The name give to the task
    */
-  TrajOptIfoptMotionPipelineTask(std::string name = node_names::TRAJOPT_PIPELINE_NAME);
+  TrajOptIfoptMotionPipelineTask(std::string name = node_names::TRAJOPT_IFOPT_PIPELINE_NAME);
   TrajOptIfoptMotionPipelineTask(std::string input_key,
                                  std::string output_key,
-                                 std::string name = node_names::TRAJOPT_PIPELINE_NAME);
+                                 std::string name = node_names::TRAJOPT_IFOPT_PIPELINE_NAME);
   ~TrajOptIfoptMotionPipelineTask() override = default;
   TrajOptIfoptMotionPipelineTask(const TrajOptIfoptMotionPipelineTask&) = delete;
   TrajOptIfoptMotionPipelineTask& operator=(const TrajOptIfoptMotionPipelineTask&) = delete;
