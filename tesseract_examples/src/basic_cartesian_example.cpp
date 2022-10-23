@@ -158,7 +158,7 @@ bool BasicCartesianExample::run()
 
   // Start Joint Position for the program
   StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_pos) };
-  MoveInstruction start_instruction(wp0, MoveInstructionType::START);
+  MoveInstruction start_instruction(wp0, MoveInstructionType::START, "freespace_profile");
   program.setStartInstruction(start_instruction);
 
   // Create cartesian waypoint
@@ -194,8 +194,8 @@ bool BasicCartesianExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  addDefaultPlannerProfiles(*profiles, { "RASTER", "freespace_profile" });
-  addDefaultTaskComposerProfiles(*profiles, { "RASTER", "freespace_profile" });
+  addDefaultPlannerProfiles(*profiles, { "RASTER", "freespace_profile", "cartesian_program" });
+  addDefaultTaskComposerProfiles(*profiles, { "RASTER", "freespace_profile", "cartesian_program" });
 
   if (ifopt_)
   {
