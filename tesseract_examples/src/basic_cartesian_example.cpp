@@ -201,8 +201,8 @@ bool BasicCartesianExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  addDefaultPlannerProfiles(*profiles, { "RASTER", "freespace_profile" });
-  addDefaultTaskComposerProfiles(*profiles, { "RASTER", "freespace_profile" });
+  addDefaultPlannerProfiles(*profiles, { "RASTER", "freespace_profile", "cartesian_program" });
+  addDefaultTaskComposerProfiles(*profiles, { "RASTER", "freespace_profile", "cartesian_program" });
 
   if (ifopt_)
   {
