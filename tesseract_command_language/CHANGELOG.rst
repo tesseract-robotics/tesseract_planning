@@ -2,8 +2,8 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.14.0 (2022-10-23)
+-------------------
 * Remove references to tesseract process managers package
 * Fixes for Ubuntu 22.04 (boost and mutex)
 * Add tesseract_task_composer package to replace tesseract_process_managers

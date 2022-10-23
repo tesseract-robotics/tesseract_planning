@@ -2,8 +2,8 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.14.0 (2022-10-23)
+-------------------
 * Update to use ModifyAllowedCollisionCommand
 * Fix trajopt ifopt planner
 * Add convex solver config to TrajOpt solver profile and fix puzzle piece aux example

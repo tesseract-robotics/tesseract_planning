@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.14.0 (2022-10-23)
+-------------------
 * Fix trajopt ifopt planner
 * Add convex solver config to TrajOpt solver profile and fix puzzle piece aux example
 * Remove references to tesseract process managers package
