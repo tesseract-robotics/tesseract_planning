@@ -2,6 +2,16 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update to use ModifyAllowedCollisionCommand
+* Fix trajopt ifopt planner
+* Add convex solver config to TrajOpt solver profile and fix puzzle piece aux example
+* Remove references to tesseract process managers package
+* Add tesseract_task_composer package to replace tesseract_process_managers
+* Remove use of tesseract_common::StatusCode
+* Contributors: Levi Armstrong
+
 0.13.1 (2022-08-30)
 -------------------
 
