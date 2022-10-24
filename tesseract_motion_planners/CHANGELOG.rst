@@ -2,6 +2,30 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.14.0 (2022-10-23)
+-------------------
+* Fix trajopt ifopt planner
+* Add convex solver config to TrajOpt solver profile and fix puzzle piece aux example
+* Remove references to tesseract process managers package
+* Add tesseract_task_composer package to replace tesseract_process_managers
+* Fix raster global tasks
+* Fix rebase conflicts
+* Fix clang-tidy errors
+* Update interpolation to return vector of MoveInstructionPoly
+* Move the interpolate functions into its own file and add StartTask need for raster task
+* Add format_result_as_input to PlannerRequest
+* Fix cmake files
+* Move name and check input into motion planners base class
+* Rename generateSeed to generateInterpolatedProgram
+* Fix descartes and simple planner unit tests
+* Add new trajopt ifopt planner and rename existing one legacy
+* Add new trajopt planner and rename existing one legacy
+* Add new ompl planner and rename existing one legacy
+* Add new descartes planner and rename existing one legacy
+* Add new simple planner and rename existing one legacy
+* Remove use of tesseract_common::StatusCode
+* Contributors: Levi Armstrong
+
 0.13.1 (2022-08-30)
 -------------------
 * Add back profile overrides to MoveInstruction

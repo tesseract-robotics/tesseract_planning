@@ -2,6 +2,17 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.14.0 (2022-10-23)
+-------------------
+* Remove references to tesseract process managers package
+* Fixes for Ubuntu 22.04 (boost and mutex)
+* Add tesseract_task_composer package to replace tesseract_process_managers
+* Finish migrating unit tests
+* Add new trajopt planner and rename existing one legacy
+* Add isConstrained to JointWaypoint
+* Add task composer package
+* Contributors: Levi Armstrong, Roelof Oomen
+
 0.13.1 (2022-08-30)
 -------------------
 * Add back profile overrides to MoveInstruction

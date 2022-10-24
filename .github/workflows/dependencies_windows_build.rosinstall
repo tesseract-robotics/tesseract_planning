@@ -9,11 +9,11 @@
 - git:
     local-name: tesseract
     uri: https://github.com/ros-industrial-consortium/tesseract.git
-    version: 0.13.0
+    version: 0.14.0
 - git:
     local-name: trajopt
     uri: https://github.com/ros-industrial-consortium/trajopt_ros.git
-    version: 0.3.0
+    version: 0.3.1
 - git:
     local-name: descartes_light
     uri: https://github.com/swri-robotics/descartes_light.git
