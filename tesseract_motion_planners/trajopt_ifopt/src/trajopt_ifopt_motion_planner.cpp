@@ -301,10 +301,7 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
           fixed_steps.push_back(i);
       }
     }
-    else if (move_instruction.getWaypoint().isStateWaypoint())  //  solver_profile = applyProfileOverrides(name,
-                                                                //  solver_profile, profile_overrides);
-    //  if (!solver_profile)
-    //    throw std::runtime_error("TrajOptSolverConfig: Invalid profile");
+    else if (move_instruction.getWaypoint().isStateWaypoint())
     {
       assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
       const auto& swp = move_instruction.getWaypoint().as<StateWaypointPoly>();
