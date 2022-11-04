@@ -44,6 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/task_composer_problem.h>
 #include <tesseract_task_composer/task_composer_input.h>
 #include <tesseract_task_composer/task_composer_node_names.h>
+#include <tesseract_task_composer/task_composer_utils.h>
 #include <tesseract_task_composer/nodes/trajopt_motion_pipeline_task.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 #include <tesseract_motion_planners/default_planner_namespaces.h>
@@ -258,17 +259,21 @@ bool CarSeatExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
+  addDefaultPlannerProfiles(*profiles, { DEFAULT_PROFILE_KEY });
+  addDefaultTaskComposerProfiles(*profiles, { DEFAULT_PROFILE_KEY });
+
   profiles->addProfile<TrajOptCompositeProfile>(
-      profile_ns::TRAJOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_composite_profile);
+      profile_ns::TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, trajopt_composite_profile);
   profiles->addProfile<TrajOptSolverProfile>(
-      profile_ns::TRAJOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_solver_profile);
+      profile_ns::TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, trajopt_solver_profile);
 
   // Solve Trajectory
   CONSOLE_BRIDGE_logInform("Car Seat Demo Started");
 
   {  // Create Program to pick up first seat
-    CompositeInstruction program(
-        "FREESPACE", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "world", "end_effector"));
+    CompositeInstruction program(DEFAULT_PROFILE_KEY,
+                                 CompositeInstructionOrder::ORDERED,
+                                 ManipulatorInfo("manipulator", "world", "end_effector"));
     program.setDescription("Pick up the first seat!");
 
     // Start and End Joint Position for the program
@@ -282,7 +287,7 @@ bool CarSeatExample::run()
     start_instruction.setDescription("Start Instruction");
 
     // Plan freespace from start
-    MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "FREESPACE");
+    MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE);
     plan_f0.setDescription("Freespace pick seat 1");
 
     // Add Instructions to program
@@ -352,8 +357,9 @@ bool CarSeatExample::run()
     return false;
 
   {  // Create Program to place first seat
-    CompositeInstruction program(
-        "FREESPACE", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "world", "end_effector"));
+    CompositeInstruction program(DEFAULT_PROFILE_KEY,
+                                 CompositeInstructionOrder::ORDERED,
+                                 ManipulatorInfo("manipulator", "world", "end_effector"));
     program.setDescription("Place the first seat!");
 
     // Start and End Joint Position for the program
@@ -367,7 +373,7 @@ bool CarSeatExample::run()
     start_instruction.setDescription("Start Instruction");
 
     // Plan freespace from start
-    MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "FREESPACE");
+    MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE);
     plan_f0.setDescription("Freespace pick seat 1");
 
     // Add Instructions to program

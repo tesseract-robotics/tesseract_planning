@@ -35,19 +35,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <mutex>
 #include <shared_mutex>
+#include <sstream>
+#include <boost/core/demangle.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-/**
- * This used to store specific profile mapping with the request
- *
- * For example say you have a profile named Raster in your command language. Say you have multiple Raster profiles
- * for descartes {Raster, Raster1, Raster2}. This allows you to remap the meaning of Raster in the command language to
- * say Raster2 for the specific planner Descartes by Map<Descartes, Map<Raster, Raster1>>.
- */
-using ProfileRemapping = std::unordered_map<std::string, std::unordered_map<std::string, std::string>>;
-
 /**
  * @brief This class is used to store profiles for motion planning and process planning
  * @details This is a thread safe class
@@ -157,31 +150,6 @@ public:
   }
 
   /**
-   * @brief Check if a profile exists
-   * @details If profile entry does not exist it also returns false
-   * @return True if profile exists, otherwise false
-   */
-  template <typename ProfileType>
-  bool hasProfile(const std::string& ns, const std::string& profile_name) const
-  {
-    std::shared_lock lock(mutex_);
-    auto it = profiles_.find(ns);
-    if (it == profiles_.end())
-      return false;
-
-    auto it2 = it->second.find(std::type_index(typeid(ProfileType)));
-    if (it2 != it->second.end())
-    {
-      const auto& profile_map =
-          std::any_cast<const std::unordered_map<std::string, std::shared_ptr<const ProfileType>>&>(it2->second);
-      auto it3 = profile_map.find(profile_name);
-      if (it3 != profile_map.end())
-        return true;
-    }
-    return false;
-  }
-
-  /**
    * @brief Get a profile by name
    * @details Check if the profile exist before calling this function, if missing an exception is thrown
    * @param profile_name The profile name
@@ -191,11 +159,50 @@ public:
   std::shared_ptr<const ProfileType> getProfile(const std::string& ns, const std::string& profile_name) const
   {
     std::shared_lock lock(mutex_);
-    const auto& it = profiles_.at(ns);
-    const auto& it2 = it.at(std::type_index(typeid(ProfileType)));
+
+    const std::unordered_map<std::type_index, std::any>* it = nullptr;
+    try
+    {
+      it = &(profiles_.at(ns));
+    }
+    catch (const std::exception&)
+    {
+      std::stringstream ss;
+      ss << "Failed to find entries for namespace '" << ns << "'. Available namespaces are: ";
+      for (auto it = profiles_.begin(); it != profiles_.end(); ++it)
+      {
+        ss << "'" << it->first << "', ";
+      }
+      std::throw_with_nested(std::runtime_error(ss.str()));
+    }
+
+    const std::any* it2 = nullptr;
+    try
+    {
+      it2 = &(it->at(std::type_index(typeid(ProfileType))));
+    }
+    catch (const std::exception&)
+    {
+      std::stringstream ss;
+      ss << "No entries for profile base class type '" << boost::core::demangle(typeid(ProfileType).name()) << "'";
+      std::throw_with_nested(std::runtime_error(ss.str()));
+    }
+
     const auto& profile_map =
-        std::any_cast<const std::unordered_map<std::string, std::shared_ptr<const ProfileType>>&>(it2);
-    return profile_map.at(profile_name);
+        std::any_cast<const std::unordered_map<std::string, std::shared_ptr<const ProfileType>>&>(*it2);
+    try
+    {
+      return profile_map.at(profile_name);
+    }
+    catch (const std::exception&)
+    {
+      std::stringstream ss;
+      ss << "No entries for profile '" << profile_name << "' in namespace '" << ns << "'. Available profiles are: ";
+      for (auto it = profile_map.begin(); it != profile_map.end(); ++it)
+        ss << "'" << it->first << "', ";
+
+      std::throw_with_nested(std::runtime_error(ss.str()));
+    }
   }
 
   /**

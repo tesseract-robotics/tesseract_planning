@@ -73,11 +73,7 @@ TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,
 
   // Get Composite Profile
   const auto& ci = input_data_poly.as<CompositeInstruction>();
-  std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
-  auto cur_composite_profile =
-      getProfile<ProfileSwitchProfile>(name_, profile, *input.profiles, std::make_shared<ProfileSwitchProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
+  auto cur_composite_profile = input.profiles->getProfile<ProfileSwitchProfile>(name_, ci.getProfile(name_));
 
   // Return the value specified in the profile
   CONSOLE_BRIDGE_logDebug("ProfileSwitchProfile returning %d", cur_composite_profile->return_value);

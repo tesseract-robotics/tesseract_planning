@@ -148,22 +148,34 @@ const tesseract_common::ManipulatorInfo& MoveInstruction::getManipulatorInfo() c
 tesseract_common::ManipulatorInfo& MoveInstruction::getManipulatorInfo() { return manipulator_info_; }
 
 void MoveInstruction::setProfile(const std::string& profile) { profile_ = profile; }
-const std::string& MoveInstruction::getProfile() const { return profile_; }
+const std::string& MoveInstruction::getProfile(const std::string& ns) const
+{
+  if (ns.empty() || (profile_overrides_.find(ns) == profile_overrides_.end()))
+    return profile_;
+
+  return profile_overrides_.at(ns);
+}
 
 void MoveInstruction::setPathProfile(const std::string& profile) { path_profile_ = profile; }
-const std::string& MoveInstruction::getPathProfile() const { return path_profile_; }
+const std::string& MoveInstruction::getPathProfile(const std::string& ns) const
+{
+  if (ns.empty() || (path_profile_overrides_.find(ns) == path_profile_overrides_.end()))
+    return path_profile_;
 
-void MoveInstruction::setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides)
+  return path_profile_overrides_.at(ns);
+}
+
+void MoveInstruction::setProfileOverrides(ProfileOverrides profile_overrides)
 {
   profile_overrides_ = std::move(profile_overrides);
 }
-ProfileDictionary::ConstPtr MoveInstruction::getProfileOverrides() const { return profile_overrides_; }
+ProfileOverrides MoveInstruction::getProfileOverrides() const { return profile_overrides_; }
 
-void MoveInstruction::setPathProfileOverrides(ProfileDictionary::ConstPtr profile_overrides)
+void MoveInstruction::setPathProfileOverrides(ProfileOverrides profile_overrides)
 {
   path_profile_overrides_ = std::move(profile_overrides);
 }
-ProfileDictionary::ConstPtr MoveInstruction::getPathProfileOverrides() const { return path_profile_overrides_; }
+ProfileOverrides MoveInstruction::getPathProfileOverrides() const { return path_profile_overrides_; }
 
 const std::string& MoveInstruction::getDescription() const { return description_; }
 
