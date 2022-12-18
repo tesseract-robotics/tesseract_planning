@@ -77,6 +77,12 @@ public:
 
   CompositeInstructionOrder getOrder() const;
 
+  const boost::uuids::uuid& getUUID() const;
+  void regenerateUUID();
+
+  const boost::uuids::uuid& getParentUUID() const;
+  void setParentUUID(const boost::uuids::uuid& uuid);
+
   void setDescription(const std::string& description);
   const std::string& getDescription() const;
 
@@ -334,6 +340,12 @@ public:
 
 private:
   std::vector<InstructionPoly> container_;
+
+  /** @brief The instructions UUID */
+  boost::uuids::uuid uuid_{};
+
+  /** @brief The parent UUID if created from createChild */
+  boost::uuids::uuid parent_uuid_{};
 
   /** @brief The description of the instruction */
   std::string description_{ "Tesseract Composite Instruction" };

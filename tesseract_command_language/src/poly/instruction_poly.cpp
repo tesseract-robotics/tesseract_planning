@@ -15,6 +15,20 @@ void tesseract_planning::detail_instruction::InstructionInterface::serialize(Arc
                                      boost::serialization::base_object<tesseract_common::TypeErasureInterface>(*this));
 }
 
+const boost::uuids::uuid& tesseract_planning::InstructionPoly::getUUID() const { return getInterface().getUUID(); }
+
+void tesseract_planning::InstructionPoly::regenerateUUID() { getInterface().regenerateUUID(); }
+
+const boost::uuids::uuid& tesseract_planning::InstructionPoly::getParentUUID() const
+{
+  return getInterface().getParentUUID();
+}
+
+void tesseract_planning::InstructionPoly::setParentUUID(const boost::uuids::uuid& uuid)
+{
+  getInterface().setParentUUID(uuid);
+}
+
 const std::string& tesseract_planning::InstructionPoly::getDescription() const
 {
   return getInterface().getDescription();

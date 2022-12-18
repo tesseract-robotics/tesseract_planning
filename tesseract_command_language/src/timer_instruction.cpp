@@ -28,6 +28,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <boost/uuid/uuid_serialize.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/timer_instruction.h>
@@ -36,9 +39,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 TimerInstruction::TimerInstruction(TimerInstructionType type, double time, int io)
-  : timer_type_(type), timer_time_(time), timer_io_(io)
+  : uuid_(boost::uuids::random_generator()()), timer_type_(type), timer_time_(time), timer_io_(io)
 {
 }
+
+const boost::uuids::uuid& TimerInstruction::getUUID() const { return uuid_; }
+void TimerInstruction::regenerateUUID() { uuid_ = boost::uuids::random_generator()(); }
+
+const boost::uuids::uuid& TimerInstruction::getParentUUID() const { return parent_uuid_; }
+void TimerInstruction::setParentUUID(const boost::uuids::uuid& uuid) { parent_uuid_ = uuid; }
 
 const std::string& TimerInstruction::getDescription() const { return description_; }
 
@@ -80,6 +89,8 @@ bool TimerInstruction::operator!=(const TimerInstruction& rhs) const { return !o
 template <class Archive>
 void TimerInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& boost::serialization::make_nvp("uuid", uuid_);
+  ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
   ar& boost::serialization::make_nvp("description", description_);
   ar& boost::serialization::make_nvp("timer_type", timer_type_);
   ar& boost::serialization::make_nvp("timer_time", timer_time_);

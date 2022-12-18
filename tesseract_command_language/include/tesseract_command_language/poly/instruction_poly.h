@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/export.hpp>
 #include <boost/concept_check.hpp>
+#include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/waypoint_poly.h>
@@ -86,6 +87,15 @@ struct InstructionConcept  // NOLINT
     UNUSED(eq);
     UNUSED(neq);
 
+    const auto& uuid = c.getUUID();
+    UNUSED(uuid);
+
+    c.regenerateUUID();
+    c.setParentUUID(uuid);
+
+    const auto& parent_uuid = c.getParentUUID();
+    UNUSED(parent_uuid);
+
     const std::string& desc = c.getDescription();
     UNUSED(desc);
 
@@ -100,6 +110,12 @@ private:
 
 struct InstructionInterface : tesseract_common::TypeErasureInterface
 {
+  virtual const boost::uuids::uuid& getUUID() const = 0;
+  virtual void regenerateUUID() = 0;
+
+  virtual const boost::uuids::uuid& getParentUUID() const = 0;
+  virtual void setParentUUID(const boost::uuids::uuid& uuid) = 0;
+
   virtual const std::string& getDescription() const = 0;
 
   virtual void setDescription(const std::string& description) = 0;
@@ -122,6 +138,12 @@ struct InstructionInstance : tesseract_common::TypeErasureInstance<T, Instructio
   InstructionInstance(InstructionInstance&& x) noexcept : BaseType(std::move(x)) {}
 
   BOOST_CONCEPT_ASSERT((InstructionConcept<T>));
+
+  const boost::uuids::uuid& getUUID() const final { return this->get().getUUID(); }
+  void regenerateUUID() final { this->get().regenerateUUID(); }
+
+  const boost::uuids::uuid& getParentUUID() const final { return this->get().getParentUUID(); }
+  void setParentUUID(const boost::uuids::uuid& uuid) final { this->get().setParentUUID(uuid); }
 
   const std::string& getDescription() const final { return this->get().getDescription(); }
 
@@ -147,6 +169,12 @@ using InstructionPolyBase = tesseract_common::TypeErasureBase<detail_instruction
 struct InstructionPoly : InstructionPolyBase
 {
   using InstructionPolyBase::InstructionPolyBase;
+
+  const boost::uuids::uuid& getUUID() const;
+  void regenerateUUID();
+
+  const boost::uuids::uuid& getParentUUID() const;
+  void setParentUUID(const boost::uuids::uuid& uuid);
 
   const std::string& getDescription() const;
 
