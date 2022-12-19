@@ -80,7 +80,7 @@ TaskComposerInput::TaskComposerInput(const TaskComposerInput& rhs)
 
 TaskComposerInput::TaskComposerInput(TaskComposerInput&& rhs) noexcept
   : problem(std::move(rhs.problem))
-  , profiles(rhs.profiles)
+  , profiles(std::move(rhs.profiles))
   , data_storage(std::move(rhs.data_storage))
   , task_infos(std::move(rhs.task_infos))
   , aborted_(rhs.aborted_.load())
