@@ -40,7 +40,9 @@ namespace tesseract_planning
 class CartesianWaypoint
 {
 public:
+  // LCOV_EXCL_START
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  // LCOV_EXCL_STOP
 
   CartesianWaypoint() = default;
   CartesianWaypoint(const Eigen::Isometry3d& transform);

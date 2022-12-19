@@ -69,7 +69,9 @@ enum class CompositeInstructionOrder
 class CompositeInstruction
 {
 public:
+  // LCOV_EXCL_START
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  // LCOV_EXCL_STOP
 
   CompositeInstruction(std::string profile = DEFAULT_PROFILE_KEY,
                        CompositeInstructionOrder order = CompositeInstructionOrder::ORDERED,

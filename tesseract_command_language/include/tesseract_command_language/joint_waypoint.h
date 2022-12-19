@@ -41,7 +41,9 @@ namespace tesseract_planning
 class JointWaypoint
 {
 public:
+  // LCOV_EXCL_START
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  // LCOV_EXCL_STOP
 
   JointWaypoint() = default;
   JointWaypoint(std::vector<std::string> names, const Eigen::VectorXd& position, bool is_constrained = true);
