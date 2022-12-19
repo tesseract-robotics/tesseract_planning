@@ -93,8 +93,7 @@ TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(const TaskComposerN
 
   *this = other;
 }
-TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::
-operator=(const TaskComposerNodeInfoContainer& other) noexcept
+TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(const TaskComposerNodeInfoContainer& other)
 {
   std::shared_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
@@ -114,7 +113,7 @@ TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(TaskComposerNodeInf
 
   *this = std::move(other);
 }
-TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(TaskComposerNodeInfoContainer&& other)
+TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(TaskComposerNodeInfoContainer&& other) noexcept
 {
   std::shared_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
