@@ -53,7 +53,6 @@ struct TaskComposerInput
 
   TaskComposerInput(TaskComposerProblem problem, ProfileDictionary::ConstPtr profiles = nullptr);
   TaskComposerInput& operator=(const TaskComposerInput&) = delete;
-  TaskComposerInput(TaskComposerInput&&) = delete;
   TaskComposerInput& operator=(TaskComposerInput&&) = delete;
   virtual ~TaskComposerInput() = default;
 
@@ -103,6 +102,7 @@ protected:
 
   TaskComposerInput() = default;  // Required for serialization
   TaskComposerInput(const TaskComposerInput&);
+  TaskComposerInput(TaskComposerInput&&);
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT

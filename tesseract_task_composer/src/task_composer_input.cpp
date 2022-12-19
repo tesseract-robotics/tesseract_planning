@@ -78,6 +78,15 @@ TaskComposerInput::TaskComposerInput(const TaskComposerInput& rhs)
 {
 }
 
+TaskComposerInput::TaskComposerInput(TaskComposerInput&& rhs)
+  : problem(std::move(rhs.problem))
+  , profiles(rhs.profiles)
+  , data_storage(std::move(rhs.data_storage))
+  , task_infos(std::move(rhs.task_infos))
+  , aborted_(rhs.aborted_.load())
+{
+}
+
 template <class Archive>
 void TaskComposerInput::serialize(Archive& ar, const unsigned int /*version*/)
 {

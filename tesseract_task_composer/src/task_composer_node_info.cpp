@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/string.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
+#include <mutex>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_node_info.h>
@@ -86,6 +87,10 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
 
 TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(const TaskComposerNodeInfoContainer& other)
 {
+  std::shared_lock lhs_lock(mutex_, std::defer_lock);
+  std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
+  std::scoped_lock lock{ lhs_lock, rhs_lock };
+
   *this = other;
 }
 TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(const TaskComposerNodeInfoContainer& other)
@@ -96,6 +101,25 @@ TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(const Ta
 
   for (const auto& pair : other.info_map_)
     info_map_[pair.first] = pair.second->clone();
+
+  return *this;
+}
+
+TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(TaskComposerNodeInfoContainer&& other)
+{
+  std::shared_lock lhs_lock(mutex_, std::defer_lock);
+  std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
+  std::scoped_lock lock{ lhs_lock, rhs_lock };
+
+  *this = std::move(other);
+}
+TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(TaskComposerNodeInfoContainer&& other)
+{
+  std::shared_lock lhs_lock(mutex_, std::defer_lock);
+  std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
+  std::scoped_lock lock{ lhs_lock, rhs_lock };
+
+  info_map_ = std::move(other.info_map_);
 
   return *this;
 }
@@ -135,6 +159,10 @@ std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> TaskComposerNodeInfoCon
 
 bool TaskComposerNodeInfoContainer::operator==(const TaskComposerNodeInfoContainer& rhs) const
 {
+  std::shared_lock lhs_lock(mutex_, std::defer_lock);
+  std::shared_lock rhs_lock(rhs.mutex_, std::defer_lock);
+  std::scoped_lock lock{ lhs_lock, rhs_lock };
+
   bool equal = true;
   auto equality = [](const TaskComposerNodeInfo::UPtr& p1, const TaskComposerNodeInfo::UPtr& p2) {
     return (p1 && p2 && *p1 == *p2) || (!p1 && !p2);
@@ -146,12 +174,17 @@ bool TaskComposerNodeInfoContainer::operator==(const TaskComposerNodeInfoContain
 
 bool TaskComposerNodeInfoContainer::operator!=(const TaskComposerNodeInfoContainer& rhs) const
 {
+  std::shared_lock lhs_lock(mutex_, std::defer_lock);
+  std::shared_lock rhs_lock(rhs.mutex_, std::defer_lock);
+  std::scoped_lock lock{ lhs_lock, rhs_lock };
+
   return !operator==(rhs);
 }
 
 template <class Archive>
 void TaskComposerNodeInfoContainer::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  std::unique_lock<std::shared_mutex> lock(mutex_);
   ar& BOOST_SERIALIZATION_NVP(info_map_);
 }
 
