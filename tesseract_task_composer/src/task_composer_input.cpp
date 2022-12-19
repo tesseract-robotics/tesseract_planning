@@ -78,7 +78,7 @@ TaskComposerInput::TaskComposerInput(const TaskComposerInput& rhs)
 {
 }
 
-TaskComposerInput::TaskComposerInput(TaskComposerInput&& rhs)
+TaskComposerInput::TaskComposerInput(TaskComposerInput&& rhs) noexcept
   : problem(std::move(rhs.problem))
   , profiles(rhs.profiles)
   , data_storage(std::move(rhs.data_storage))

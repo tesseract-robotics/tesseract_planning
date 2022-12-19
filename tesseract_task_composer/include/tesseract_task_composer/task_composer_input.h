@@ -102,7 +102,7 @@ protected:
 
   TaskComposerInput() = default;  // Required for serialization
   TaskComposerInput(const TaskComposerInput&);
-  TaskComposerInput(TaskComposerInput&&);
+  TaskComposerInput(TaskComposerInput&&) noexcept;
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
