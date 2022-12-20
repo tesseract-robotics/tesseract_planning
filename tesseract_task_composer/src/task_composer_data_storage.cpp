@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/library_version_type.hpp>
 #endif
 #include <boost/serialization/unordered_map.hpp>
+#include <mutex>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_data_storage.h>

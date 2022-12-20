@@ -29,6 +29,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <boost/uuid/uuid_serialize.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/set_tool_instruction.h>
@@ -36,7 +39,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-SetToolInstruction::SetToolInstruction(int tool_id) : tool_id_(tool_id) {}
+SetToolInstruction::SetToolInstruction(int tool_id) : uuid_(boost::uuids::random_generator()()), tool_id_(tool_id) {}
+
+const boost::uuids::uuid& SetToolInstruction::getUUID() const { return uuid_; }
+void SetToolInstruction::regenerateUUID() { uuid_ = boost::uuids::random_generator()(); }
+
+const boost::uuids::uuid& SetToolInstruction::getParentUUID() const { return parent_uuid_; }
+void SetToolInstruction::setParentUUID(const boost::uuids::uuid& uuid) { parent_uuid_ = uuid; }
 
 const std::string& SetToolInstruction::getDescription() const { return description_; }
 
@@ -63,6 +72,8 @@ bool SetToolInstruction::operator!=(const SetToolInstruction& rhs) const { retur
 template <class Archive>
 void SetToolInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& boost::serialization::make_nvp("uuid", uuid_);
+  ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
   ar& boost::serialization::make_nvp("description", description_);
   ar& boost::serialization::make_nvp("tool_id", tool_id_);
 }

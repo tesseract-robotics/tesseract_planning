@@ -28,6 +28,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <boost/uuid/uuid_serialize.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/set_analog_instruction.h>
@@ -36,9 +39,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 SetAnalogInstruction::SetAnalogInstruction(std::string key, int index, double value)
-  : key_(std::move(key)), index_(index), value_(value)
+  : uuid_(boost::uuids::random_generator()()), key_(std::move(key)), index_(index), value_(value)
 {
 }
+
+const boost::uuids::uuid& SetAnalogInstruction::getUUID() const { return uuid_; }
+void SetAnalogInstruction::regenerateUUID() { uuid_ = boost::uuids::random_generator()(); }
+
+const boost::uuids::uuid& SetAnalogInstruction::getParentUUID() const { return parent_uuid_; }
+void SetAnalogInstruction::setParentUUID(const boost::uuids::uuid& uuid) { parent_uuid_ = uuid; }
 
 const std::string& SetAnalogInstruction::getDescription() const { return description_; }
 
@@ -73,6 +82,8 @@ bool SetAnalogInstruction::operator!=(const SetAnalogInstruction& rhs) const { r
 template <class Archive>
 void SetAnalogInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& boost::serialization::make_nvp("uuid", uuid_);
+  ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
   ar& boost::serialization::make_nvp("description", description_);
   ar& boost::serialization::make_nvp("key", key_);
   ar& boost::serialization::make_nvp("index", index_);

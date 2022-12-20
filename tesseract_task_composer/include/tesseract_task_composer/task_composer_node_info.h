@@ -116,8 +116,8 @@ struct TaskComposerNodeInfoContainer
   ~TaskComposerNodeInfoContainer() = default;
   TaskComposerNodeInfoContainer(const TaskComposerNodeInfoContainer&);
   TaskComposerNodeInfoContainer& operator=(const TaskComposerNodeInfoContainer&);
-  TaskComposerNodeInfoContainer(TaskComposerNodeInfoContainer&&) = delete;
-  TaskComposerNodeInfoContainer& operator=(TaskComposerNodeInfoContainer&&) = delete;
+  TaskComposerNodeInfoContainer(TaskComposerNodeInfoContainer&&) noexcept;
+  TaskComposerNodeInfoContainer& operator=(TaskComposerNodeInfoContainer&&) noexcept;
 
   /**
    * @brief Add info to the container

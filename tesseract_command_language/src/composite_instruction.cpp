@@ -31,6 +31,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/vector.hpp>
 #include <console_bridge/console.h>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <boost/uuid/uuid_serialize.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/composite_instruction.h>
@@ -55,9 +58,18 @@ bool moveFilter(const InstructionPoly& instruction,
 CompositeInstruction::CompositeInstruction(std::string profile,
                                            CompositeInstructionOrder order,
                                            tesseract_common::ManipulatorInfo manipulator_info)
-  : manipulator_info_(std::move(manipulator_info)), profile_(std::move(profile)), order_(order)
+  : uuid_(boost::uuids::random_generator()())
+  , manipulator_info_(std::move(manipulator_info))
+  , profile_(std::move(profile))
+  , order_(order)
 {
 }
+
+const boost::uuids::uuid& CompositeInstruction::getUUID() const { return uuid_; }
+void CompositeInstruction::regenerateUUID() { uuid_ = boost::uuids::random_generator()(); }
+
+const boost::uuids::uuid& CompositeInstruction::getParentUUID() const { return parent_uuid_; }
+void CompositeInstruction::setParentUUID(const boost::uuids::uuid& uuid) { parent_uuid_ = uuid; }
 
 CompositeInstructionOrder CompositeInstruction::getOrder() const { return order_; }
 
@@ -545,6 +557,8 @@ void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<cons
 template <class Archive>
 void CompositeInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& boost::serialization::make_nvp("uuid", uuid_);
+  ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
   ar& boost::serialization::make_nvp("description", description_);
   ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
   ar& boost::serialization::make_nvp("profile", profile_);

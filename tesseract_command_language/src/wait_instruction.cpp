@@ -28,6 +28,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <boost/uuid/uuid_serialize.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/wait_instruction.h>
@@ -41,6 +44,12 @@ WaitInstruction::WaitInstruction(WaitInstructionType type, int io) : wait_type_(
   if (wait_type_ == WaitInstructionType::TIME)
     throw std::runtime_error("WaitInstruction: Invalid type 'WaitInstructionType::TIME' for constructor");
 }
+
+const boost::uuids::uuid& WaitInstruction::getUUID() const { return uuid_; }
+void WaitInstruction::regenerateUUID() { uuid_ = boost::uuids::random_generator()(); }
+
+const boost::uuids::uuid& WaitInstruction::getParentUUID() const { return parent_uuid_; }
+void WaitInstruction::setParentUUID(const boost::uuids::uuid& uuid) { parent_uuid_ = uuid; }
 
 const std::string& WaitInstruction::getDescription() const { return description_; }
 
@@ -81,6 +90,8 @@ bool WaitInstruction::operator!=(const WaitInstruction& rhs) const { return !ope
 template <class Archive>
 void WaitInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& boost::serialization::make_nvp("uuid", uuid_);
+  ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
   ar& boost::serialization::make_nvp("description", description_);
   ar& boost::serialization::make_nvp("wait_type", wait_type_);
   ar& boost::serialization::make_nvp("wait_time", wait_time_);

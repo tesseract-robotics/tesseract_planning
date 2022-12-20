@@ -54,6 +54,12 @@ public:
   TimerInstruction() = default;  // Required for boost serialization do not use
   TimerInstruction(TimerInstructionType type, double time, int io);
 
+  const boost::uuids::uuid& getUUID() const;
+  void regenerateUUID();
+
+  const boost::uuids::uuid& getParentUUID() const;
+  void setParentUUID(const boost::uuids::uuid& uuid);
+
   const std::string& getDescription() const;
 
   void setDescription(const std::string& description);
@@ -110,6 +116,10 @@ public:
   bool operator!=(const TimerInstruction& rhs) const;
 
 private:
+  /** @brief The instructions UUID */
+  boost::uuids::uuid uuid_{};
+  /** @brief The parent UUID if created from createChild */
+  boost::uuids::uuid parent_uuid_{};
   /** @brief The description of the instruction */
   std::string description_{ "Tesseract Timer Instruction" };
   TimerInstructionType timer_type_{ TimerInstructionType::DIGITAL_OUTPUT_LOW };
