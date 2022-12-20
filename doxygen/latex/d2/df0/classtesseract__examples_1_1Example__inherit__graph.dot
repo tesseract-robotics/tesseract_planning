@@ -1,0 +1,31 @@
+digraph "tesseract_examples::Example"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="tesseract_examples\l::Example",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="The Example base class."];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="tesseract_examples\l::BasicCartesianExample",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d4/db5/classtesseract__examples_1_1BasicCartesianExample.html",tooltip="Basic example leveraging trajopt and tesseract for cartesian planning."];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="tesseract_examples\l::CarSeatExample",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d9/d7b/classtesseract__examples_1_1CarSeatExample.html",tooltip="An example of a robot on a rail installing a seat in a car."];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="tesseract_examples\l::FreespaceHybridExample",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d7/dac/classtesseract__examples_1_1FreespaceHybridExample.html",tooltip="An example of a robot leveraging OMPL RRTConnect to generate a freespace motion trajectory the TrajOp..."];
+  Node1 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="tesseract_examples\l::FreespaceOMPLExample",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d4/d35/classtesseract__examples_1_1FreespaceOMPLExample.html",tooltip="An example of a robot leveraging OMPL RRTConnect to generate a freespace motion trajectory."];
+  Node1 -> Node6 [dir="back",color="steelblue1",style="solid"];
+  Node6 [label="tesseract_examples\l::GlassUprightExample",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$de/da0/classtesseract__examples_1_1GlassUprightExample.html",tooltip="An example of a robot with fixed orientation but free to move in cartesian space leveraging tesseract..."];
+  Node1 -> Node7 [dir="back",color="steelblue1",style="solid"];
+  Node7 [label="tesseract_examples\l::GlassUprightOMPLExample",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$de/d26/classtesseract__examples_1_1GlassUprightOMPLExample.html",tooltip="An example of a robot with fixed orientation but free to move in cartesian space leveraging OMPL RRTC..."];
+  Node1 -> Node8 [dir="back",color="steelblue1",style="solid"];
+  Node8 [label="tesseract_examples\l::OnlinePlanningExample",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d1/d36/classtesseract__examples_1_1OnlinePlanningExample.html",tooltip="This example demonstrates running the inner loop of TrajOpt in an \"online\" manner...."];
+  Node1 -> Node9 [dir="back",color="steelblue1",style="solid"];
+  Node9 [label="tesseract_examples\l::PickAndPlaceExample",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d9/dff/classtesseract__examples_1_1PickAndPlaceExample.html",tooltip="An example of a robot picking up a box and placing it on a shelf leveraging tesseract and trajopt to ..."];
+  Node1 -> Node10 [dir="back",color="steelblue1",style="solid"];
+  Node10 [label="tesseract_examples\l::PuzzlePieceAuxillaryAxes\lExample",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d8/d09/classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample.html",tooltip="An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF t..."];
+  Node1 -> Node11 [dir="back",color="steelblue1",style="solid"];
+  Node11 [label="tesseract_examples\l::PuzzlePieceExample",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$da/d13/classtesseract__examples_1_1PuzzlePieceExample.html",tooltip="An example of a robot leveraging trajopt and tesseract to create an optimal motion trajectory for a c..."];
+  Node1 -> Node12 [dir="back",color="steelblue1",style="solid"];
+  Node12 [label="tesseract_examples\l::SceneGraphExample",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d9/dc3/classtesseract__examples_1_1SceneGraphExample.html",tooltip="Basic example leveraging trajopt and tesseract for cartesian planning."];
+}

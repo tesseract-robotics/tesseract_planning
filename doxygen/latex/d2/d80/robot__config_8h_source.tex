@@ -30,21 +30,21 @@
 \DoxyCodeLine{62 \textcolor{keyword}{static} \textcolor{keyword}{const} std::vector<std::string> \mbox{\hyperlink{namespacetesseract__planning_ad2c39c4d68bea0d0071b0ab44b6a0fad}{RobotConfigString}} = \{ \textcolor{stringliteral}{"{}NUT"{}}, \textcolor{stringliteral}{"{}FUT"{}}, \textcolor{stringliteral}{"{}NDT"{}}, \textcolor{stringliteral}{"{}FDT"{}}, \textcolor{stringliteral}{"{}NDB"{}}, \textcolor{stringliteral}{"{}FDB"{}}, \textcolor{stringliteral}{"{}NUB"{}}, \textcolor{stringliteral}{"{}FUB"{}} \};}
 \DoxyCodeLine{63 }
 \DoxyCodeLine{73 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{74 \textcolor{keyword}{inline} \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579}{RobotConfig}} \mbox{\hyperlink{namespacetesseract__planning_afb2005ce4bffdfb711e9db3cd91768e9}{getRobotConfig}}(\textcolor{keyword}{const} tesseract\_kinematics::JointGroup\& joint\_group,}
+\DoxyCodeLine{74 \textcolor{keyword}{inline} \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579}{RobotConfig}} \mbox{\hyperlink{namespacetesseract__planning_afb2005ce4bffdfb711e9db3cd91768e9}{getRobotConfig}}(\textcolor{keyword}{const} tesseract\_kinematics::JointGroup\& \mbox{\hyperlink{ompl__planner__tests_8cpp_a553a400a0c81f57e4dd2d27aefef9b9c}{joint\_group}},}
 \DoxyCodeLine{75                                   \textcolor{keyword}{const} std::string\& base\_link,}
-\DoxyCodeLine{76                                   \textcolor{keyword}{const} std::string\& tcp\_frame,}
-\DoxyCodeLine{77                                   \textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& joint\_values,}
+\DoxyCodeLine{76                                   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{ompl__planner__tests_8cpp_a5f746d461721e8676a6f317d3884e327}{tcp\_frame}},}
+\DoxyCodeLine{77                                   \textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& \mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}},}
 \DoxyCodeLine{78                                   \textcolor{keyword}{const} Eigen::Ref<const Eigen::Vector2i>\& sign\_correction = Eigen::Vector2i::Ones())}
 \DoxyCodeLine{79 \{}
 \DoxyCodeLine{80   \textcolor{comment}{// Get state}}
-\DoxyCodeLine{81   tesseract\_common::TransformMap state = joint\_group.calcFwdKin(joint\_values.template cast<double>());}
+\DoxyCodeLine{81   tesseract\_common::TransformMap \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}} = \mbox{\hyperlink{ompl__planner__tests_8cpp_a553a400a0c81f57e4dd2d27aefef9b9c}{joint\_group}}.calcFwdKin(\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}.template cast<double>());}
 \DoxyCodeLine{82 }
 \DoxyCodeLine{83   \textcolor{comment}{// Get the pose at tool0}}
-\DoxyCodeLine{84   Eigen::Isometry3d pose = state.at(base\_link).inverse() * state.at(tcp\_frame);}
+\DoxyCodeLine{84   Eigen::Isometry3d pose = \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}.at(base\_link).inverse() * \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}.at(\mbox{\hyperlink{ompl__planner__tests_8cpp_a5f746d461721e8676a6f317d3884e327}{tcp\_frame}});}
 \DoxyCodeLine{85 }
 \DoxyCodeLine{86   \textcolor{comment}{// Get the base rotated by joint 1}}
 \DoxyCodeLine{87   Eigen::Isometry3d prime\_pose(}
-\DoxyCodeLine{88       Eigen::AngleAxisd(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(joint\_values.tail(6)(0)), Eigen::Vector3d::UnitZ()));}
+\DoxyCodeLine{88       Eigen::AngleAxisd(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}.tail(6)(0)), Eigen::Vector3d::UnitZ()));}
 \DoxyCodeLine{89 }
 \DoxyCodeLine{90   \textcolor{comment}{// Transform tool0 pose into new frame}}
 \DoxyCodeLine{91   Eigen::Isometry3d pose\_prime = prime\_pose.inverse() * pose;}
@@ -55,13 +55,13 @@
 \DoxyCodeLine{96   std::array<std::string, 3> config;}
 \DoxyCodeLine{97 }
 \DoxyCodeLine{98   \textcolor{comment}{// Wrist Flip or Not Flip}}
-\DoxyCodeLine{99   \textcolor{keywordflow}{if} ((sign\_correction[1] * joint\_values(4)) >= 0)}
+\DoxyCodeLine{99   \textcolor{keywordflow}{if} ((sign\_correction[1] * \mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}(4)) >= 0)}
 \DoxyCodeLine{100     config[0] = \textcolor{stringliteral}{"{}F"{}};}
 \DoxyCodeLine{101   \textcolor{keywordflow}{else}}
 \DoxyCodeLine{102     config[0] = \textcolor{stringliteral}{"{}N"{}};}
 \DoxyCodeLine{103 }
 \DoxyCodeLine{104   \textcolor{comment}{// Elbow Up or Down}}
-\DoxyCodeLine{105   \textcolor{keywordflow}{if} ((sign\_correction[0] * joint\_values(2)) < M\_PI / 2)}
+\DoxyCodeLine{105   \textcolor{keywordflow}{if} ((sign\_correction[0] * \mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}(2)) < M\_PI / 2)}
 \DoxyCodeLine{106     config[1] = \textcolor{stringliteral}{"{}U"{}};}
 \DoxyCodeLine{107   \textcolor{keywordflow}{else}}
 \DoxyCodeLine{108     config[1] = \textcolor{stringliteral}{"{}D"{}};}
@@ -97,12 +97,12 @@
 \DoxyCodeLine{138 \}}
 \DoxyCodeLine{139 }
 \DoxyCodeLine{145 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{146 \textcolor{keyword}{inline} Eigen::VectorXi \mbox{\hyperlink{namespacetesseract__planning_a8c543584d607b7345d6ad3e12178f48c}{getJointTurns}}(\textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& joint\_values)}
+\DoxyCodeLine{146 \textcolor{keyword}{inline} Eigen::VectorXi \mbox{\hyperlink{namespacetesseract__planning_a8c543584d607b7345d6ad3e12178f48c}{getJointTurns}}(\textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& \mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}})}
 \DoxyCodeLine{147 \{}
 \DoxyCodeLine{148   Eigen::VectorXi joint\_turns;}
-\DoxyCodeLine{149   joint\_turns.resize(joint\_values.rows());}
-\DoxyCodeLine{150   \textcolor{keywordflow}{for} (Eigen::Index i = 0; i < joint\_values.rows(); ++i)}
-\DoxyCodeLine{151     joint\_turns(i) = int(joint\_values(i) / M\_PI);}
+\DoxyCodeLine{149   joint\_turns.resize(\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}.rows());}
+\DoxyCodeLine{150   \textcolor{keywordflow}{for} (Eigen::Index i = 0; i < \mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}.rows(); ++i)}
+\DoxyCodeLine{151     joint\_turns(i) = int(\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}(i) / M\_PI);}
 \DoxyCodeLine{152 }
 \DoxyCodeLine{153   \textcolor{keywordflow}{return} joint\_turns;}
 \DoxyCodeLine{154 \}}

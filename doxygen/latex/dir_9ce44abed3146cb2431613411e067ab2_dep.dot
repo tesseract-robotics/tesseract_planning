@@ -1,0 +1,12 @@
+digraph "tesseract_examples/include/tesseract_examples"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_bb24e368087ccf1e177724285ce8e577 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="include", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_bb24e368087ccf1e177724285ce8e577.html",tooltip=""]
+  dir_9ce44abed3146cb2431613411e067ab2 [label="tesseract_examples", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_9ce44abed3146cb2431613411e067ab2.html",tooltip=""];
+  }
+}

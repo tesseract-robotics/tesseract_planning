@@ -1,11 +1,11 @@
 <map id="tesseract_examples/src/basic_cartesian_example_node.cpp" name="tesseract_examples/src/basic_cartesian_example_node.cpp">
-<area shape="rect" id="node1" title="Basic cartesian example node." alt="" coords="201,5,339,61"/>
-<area shape="rect" id="node2" href="$d7/d35/basic__cartesian__example_8h.html" title="Basic example leveraging trajopt and tesseract for cartesian planning." alt="" coords="75,109,257,151"/>
-<area shape="rect" id="node9" title=" " alt="" coords="281,109,467,151"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,295,196,322"/>
-<area shape="rect" id="node4" title=" " alt="" coords="139,206,193,233"/>
-<area shape="rect" id="node5" href="$df/d24/example_8h.html" title=" " alt="" coords="218,199,357,240"/>
-<area shape="rect" id="node6" title=" " alt="" coords="220,295,288,322"/>
-<area shape="rect" id="node7" title=" " alt="" coords="311,288,466,329"/>
-<area shape="rect" id="node8" title=" " alt="" coords="490,288,645,329"/>
+<area shape="rect" id="node1" title="Basic cartesian example node." alt="" coords="201,5,339,60"/>
+<area shape="rect" id="node2" href="$d7/d35/basic__cartesian__example_8h.html" title="Basic example leveraging trajopt and tesseract for cartesian planning." alt="" coords="75,108,257,148"/>
+<area shape="rect" id="node9" title=" " alt="" coords="281,108,467,148"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,291,196,317"/>
+<area shape="rect" id="node4" title=" " alt="" coords="139,203,193,229"/>
+<area shape="rect" id="node5" href="$df/d24/example_8h.html" title=" " alt="" coords="218,196,357,236"/>
+<area shape="rect" id="node6" title=" " alt="" coords="220,291,288,317"/>
+<area shape="rect" id="node7" title=" " alt="" coords="313,284,467,324"/>
+<area shape="rect" id="node8" title=" " alt="" coords="491,284,646,324"/>
 </map>

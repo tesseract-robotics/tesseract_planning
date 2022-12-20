@@ -1,0 +1,26 @@
+digraph "tesseract_planning::DescartesRobotSampler&lt; FloatType &gt;"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="tesseract_planning\l::DescartesRobotSampler\l\< FloatType \>",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="descartes_light::Waypoint\lSampler\< FloatType \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" target_working_frame\l_\ntcp_frame_" ];
+  Node3 [label="std::string",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="std::basic_string\<\l Char \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" collision_" ];
+  Node5 [label="std::shared_ptr\< Descartes\lCollision \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node6 -> Node5 [dir="back",color="darkorchid3",style="dashed",label=" ptr" ];
+  Node6 [label="tesseract_planning\l::DescartesCollision",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d0/d2a/classtesseract__planning_1_1DescartesCollision.html",tooltip=" "];
+  Node7 -> Node6 [dir="back",color="darkorchid3",style="dashed",label=" active_link_names_" ];
+  Node7 [label="std::vector\< std::string \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node7 [dir="back",color="darkorchid3",style="dashed",label=" elements" ];
+  Node8 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" is_valid_" ];
+  Node8 [label="std::shared_ptr\< Descartes\lVertexEvaluator \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node9 -> Node8 [dir="back",color="darkorchid3",style="dashed",label=" ptr" ];
+  Node9 [label="tesseract_planning\l::DescartesVertexEvaluator",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$da/d8a/classtesseract__planning_1_1DescartesVertexEvaluator.html",tooltip=" "];
+}

@@ -1,7 +1,7 @@
 <map id="tesseract_examples::CarSeatExample" name="tesseract_examples::CarSeatExample">
-<area shape="rect" id="node1" title="An example of a robot on a rail installing a seat in a car." alt="" coords="672,45,811,87"/>
-<area shape="rect" id="node2" href="$d3/d3b/classtesseract__examples_1_1Example.html" title="The Example base class." alt="" coords="358,5,497,47"/>
-<area shape="rect" id="node3" title=" " alt="" coords="336,71,519,141"/>
-<area shape="rect" id="node4" title=" " alt="" coords="179,93,257,119"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,85,129,127"/>
+<area shape="rect" id="node1" title="An example of a robot on a rail installing a seat in a car." alt="" coords="672,44,811,84"/>
+<area shape="rect" id="node2" href="$d3/d3b/classtesseract__examples_1_1Example.html" title="The Example base class." alt="" coords="358,5,497,45"/>
+<area shape="rect" id="node3" title=" " alt="" coords="336,69,519,139"/>
+<area shape="rect" id="node4" title=" " alt="" coords="179,91,257,117"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,84,129,124"/>
 </map>

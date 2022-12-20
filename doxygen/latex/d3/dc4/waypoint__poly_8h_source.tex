@@ -54,10 +54,10 @@
 \DoxyCodeLine{80   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointConcept_a4f7509f5f05c8de7bae0d161df53ed26}{BOOST\_CONCEPT\_USAGE}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointConcept}{WaypointConcept}})}
 \DoxyCodeLine{81   \{}
 \DoxyCodeLine{82     T cp(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointConcept_ae11e57f5f789b2e48615cde89cc00469}{c}});}
-\DoxyCodeLine{83     T assign = \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointConcept_ae11e57f5f789b2e48615cde89cc00469}{c}};}
+\DoxyCodeLine{83     T \mbox{\hyperlink{move__instruction__unit_8cpp_aca345e06220adc619de0005143e9a3a2}{assign}} = \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointConcept_ae11e57f5f789b2e48615cde89cc00469}{c}};}
 \DoxyCodeLine{84     \textcolor{keywordtype}{bool} eq = (\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointConcept_ae11e57f5f789b2e48615cde89cc00469}{c}} == cp);}
 \DoxyCodeLine{85     \textcolor{keywordtype}{bool} neq = (\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointConcept_ae11e57f5f789b2e48615cde89cc00469}{c}} != cp);}
-\DoxyCodeLine{86     UNUSED(assign);}
+\DoxyCodeLine{86     UNUSED(\mbox{\hyperlink{move__instruction__unit_8cpp_aca345e06220adc619de0005143e9a3a2}{assign}});}
 \DoxyCodeLine{87     UNUSED(eq);}
 \DoxyCodeLine{88     UNUSED(neq);}
 \DoxyCodeLine{89 }
@@ -108,9 +108,9 @@
 \DoxyCodeLine{134     tesseract\_common::TypeErasureBase<detail\_waypoint::WaypointInterface, detail\_waypoint::WaypointInstance>;}
 \DoxyCodeLine{135 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}} : \mbox{\hyperlink{namespacetesseract__planning_abedb1dd50c00d7cc68eb78a77edb249e}{WaypointPolyBase}}}
 \DoxyCodeLine{136 \{}
-\DoxyCodeLine{137   \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_abedb1dd50c00d7cc68eb78a77edb249e}{WaypointPolyBase::WaypointPolyBase}};}
+\DoxyCodeLine{137   \textcolor{keyword}{using }WaypointPolyBase::WaypointPolyBase;}
 \DoxyCodeLine{138 }
-\DoxyCodeLine{139   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly_a9ab379fd93ec767cd053fdc486922a9a}{print}}(\textcolor{keyword}{const} std::string\& prefix = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{const};}
+\DoxyCodeLine{139   \textcolor{keywordtype}{void} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a325e3dfd0187a4d3d0e2fe1be25fade0}{print}}(\textcolor{keyword}{const} std::string\& prefix = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{const};}
 \DoxyCodeLine{140 }
 \DoxyCodeLine{141   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly_a5bdd55b987aed7b278dbe18d25d1d5df}{isCartesianWaypoint}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{142 }

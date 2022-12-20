@@ -1,12 +1,12 @@
 <map id="tesseract_examples/src/puzzle_piece_example_node.cpp" name="tesseract_examples/src/puzzle_piece_example_node.cpp">
-<area shape="rect" id="node1" title="Puzzle piece example node." alt="" coords="197,5,375,61"/>
-<area shape="rect" id="node2" href="$da/d01/puzzle__piece__example_8h.html" title="An example of a robot leveraging trajopt and tesseract to create an optimal motion trajectory for a c..." alt="" coords="103,109,269,151"/>
-<area shape="rect" id="node10" title=" " alt="" coords="293,109,479,151"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,295,196,322"/>
-<area shape="rect" id="node4" title=" " alt="" coords="88,206,143,233"/>
-<area shape="rect" id="node5" title=" " alt="" coords="167,206,346,233"/>
-<area shape="rect" id="node6" href="$df/d24/example_8h.html" title=" " alt="" coords="370,199,509,240"/>
-<area shape="rect" id="node7" title=" " alt="" coords="271,295,339,322"/>
-<area shape="rect" id="node8" title=" " alt="" coords="362,288,517,329"/>
-<area shape="rect" id="node9" title=" " alt="" coords="541,288,695,329"/>
+<area shape="rect" id="node1" title="Puzzle piece example node." alt="" coords="197,5,375,60"/>
+<area shape="rect" id="node2" href="$da/d01/puzzle__piece__example_8h.html" title="An example of a robot leveraging trajopt and tesseract to create an optimal motion trajectory for a c..." alt="" coords="103,108,269,148"/>
+<area shape="rect" id="node10" title=" " alt="" coords="293,108,479,148"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,291,196,317"/>
+<area shape="rect" id="node4" title=" " alt="" coords="88,203,143,229"/>
+<area shape="rect" id="node5" title=" " alt="" coords="167,203,346,229"/>
+<area shape="rect" id="node6" href="$df/d24/example_8h.html" title=" " alt="" coords="370,196,509,236"/>
+<area shape="rect" id="node7" title=" " alt="" coords="269,291,337,317"/>
+<area shape="rect" id="node8" title=" " alt="" coords="362,284,517,324"/>
+<area shape="rect" id="node9" title=" " alt="" coords="541,284,695,324"/>
 </map>

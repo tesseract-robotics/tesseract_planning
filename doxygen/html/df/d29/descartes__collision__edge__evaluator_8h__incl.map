@@ -1,11 +1,11 @@
 <map id="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/descartes_collision_edge_evaluator.h" name="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/descartes_collision_edge_evaluator.h">
-<area shape="rect" id="node1" title="Tesseract Descartes Collision Edge Evaluator Implementation." alt="" coords="429,5,671,76"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,139,196,165"/>
-<area shape="rect" id="node3" title=" " alt="" coords="220,139,288,165"/>
-<area shape="rect" id="node4" title=" " alt="" coords="313,139,371,165"/>
-<area shape="rect" id="node5" title=" " alt="" coords="395,131,534,173"/>
-<area shape="rect" id="node6" title=" " alt="" coords="558,131,713,173"/>
-<area shape="rect" id="node7" title=" " alt="" coords="737,124,888,180"/>
-<area shape="rect" id="node8" title=" " alt="" coords="913,124,1081,180"/>
-<area shape="rect" id="node9" title=" " alt="" coords="1105,131,1235,173"/>
+<area shape="rect" id="node1" title="Tesseract Descartes Collision Edge Evaluator Implementation." alt="" coords="429,5,671,75"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,137,196,163"/>
+<area shape="rect" id="node3" title=" " alt="" coords="220,137,288,163"/>
+<area shape="rect" id="node4" title=" " alt="" coords="313,137,371,163"/>
+<area shape="rect" id="node5" title=" " alt="" coords="395,130,534,170"/>
+<area shape="rect" id="node6" title=" " alt="" coords="558,130,713,170"/>
+<area shape="rect" id="node7" title=" " alt="" coords="737,123,888,177"/>
+<area shape="rect" id="node8" title=" " alt="" coords="913,123,1081,177"/>
+<area shape="rect" id="node9" title=" " alt="" coords="1105,130,1235,170"/>
 </map>

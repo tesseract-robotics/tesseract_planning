@@ -4,13 +4,7 @@
 {\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/profile\+\_\+dictionary.\+h$>$}\newline
 Include dependency graph for profile\+\_\+dictionary\+\_\+tests.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{de/dc6/profile__dictionary__tests_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -25,9 +19,88 @@ struct \mbox{\hyperlink{structProfileTest2}{Profile\+Test2}}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{profile__dictionary__tests_8cpp_af17500c76e27d9200fd3565109c64570}{TEST}} (Tesseract\+Planning\+Profile\+Dictionary\+Unit, Profile\+Dictionary\+Test)
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_ad3606309dac85b2a86bb97053811cf20}{EXPECT\+\_\+\+FALSE}} (profiles.\+has\+Profile\+Entry$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$(\char`\"{}ns\char`\"{}))
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{profile__dictionary__tests_8cpp_aa75b3a1029f33cacba93836398a9c72c}{add\+Profile$<$ Profile\+Base $>$}} (\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{}, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structProfileTest}{Profile\+Test}} $>$())
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_a69518063bd6776b89663033a04aaefb2}{EXPECT\+\_\+\+TRUE}} (profiles.\+has\+Profile\+Entry$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$(\char`\"{}ns\char`\"{}))
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_a78bdcdc558376d241d17ac963d89bff3}{EXPECT\+\_\+\+TRUE}} (profiles.\+has\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$(\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{}))
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_a1aa4826fc245895f7dbb2747de8dc8d9}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}} !=nullptr)
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_ae73d4c58431b651016aca3dc4a808590}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}-\/$>$a, 0)
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{profile__dictionary__tests_8cpp_a14a5b132418637d00129e465cbad9d57}{add\+Profile$<$ Profile\+Base $>$}} (\char`\"{}ns\char`\"{}, \char`\"{}key2\char`\"{}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}})
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_ab735545b889dfa85ae0de53a284bd89f}{EXPECT\+\_\+\+TRUE}} (profiles.\+has\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$(\char`\"{}ns\char`\"{}, \char`\"{}key2\char`\"{}))
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_a691b26b1317bedc8b4772d9b04627d28}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_ae2c5e74a6b6f37a676be8d5f5523f97c}{profile2}} !=nullptr)
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_a59e61ae92d27a36fbce81c422fda6a9e}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_ae2c5e74a6b6f37a676be8d5f5523f97c}{profile2}}-\/$>$a, 0)
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{profile__dictionary__tests_8cpp_ae822506d62b0f0ddcc32eb8584ef11fe}{add\+Profile$<$ Profile\+Base $>$}} (\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{}, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structProfileTest}{Profile\+Test}} $>$(10))
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_acc3535a0b38051e1cb14b44b3997b1ab}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_ae54390d38bd1a4e9f003c5f2d88d9f7c}{profile\+\_\+check}} !=nullptr)
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_ad9ff53c3f7da85a7387e0284623de8b7}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_ae54390d38bd1a4e9f003c5f2d88d9f7c}{profile\+\_\+check}}-\/$>$a, 10)
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_a7964a84ff6c976f55a6755788fc43ada}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} !=profile\+\_\+map.\+end())
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_a2337a13ad16770dd16a12aad6a2e31a3}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}}-\/$>$second-\/$>$a, 10)
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{profile__dictionary__tests_8cpp_a8860fd8913fac33b496b8b60a1a80b43}{add\+Profile$<$ Profile\+Base $>$}} (\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{}, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structProfileTest}{Profile\+Test}} $>$(20))
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_aeb2c57848b1256e2a164cfb2e8985b84}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_ab90d7e999fe4b1a9ed75660ccbb5a480}{profile\+\_\+check2}} !=nullptr)
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_a020a30cd2e8b139f6fd561d0febf16cb}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_ab90d7e999fe4b1a9ed75660ccbb5a480}{profile\+\_\+check2}}-\/$>$a, 20)
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_a7a335237c6767d358b898ba21e77087a}{EXPECT\+\_\+\+ANY\+\_\+\+THROW}} (profiles.\+get\+Profile\+Entry$<$ int $>$(\char`\"{}Does\+Not\+Exist\char`\"{}))
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_af001a4e2f229509536c743724f45c83e}{EXPECT\+\_\+\+ANY\+\_\+\+THROW}} (profiles.\+get\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$(\char`\"{}Does\+Not\+Exist\char`\"{}, \char`\"{}key\char`\"{}))
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_aab9dce9740780be1be9b5ccfbb728a1c}{EXPECT\+\_\+\+ANY\+\_\+\+THROW}} (profiles.\+get\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$(\char`\"{}ns\char`\"{}, \char`\"{}Does\+Not\+Exist\char`\"{}))
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_a77761617bcce54a2b2e6d7f1442d462f}{EXPECT\+\_\+\+ANY\+\_\+\+THROW}} (profiles.\+add\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$(\char`\"{}\char`\"{}, \char`\"{}key3\char`\"{}, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structProfileTest}{Profile\+Test}} $>$(20)))
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_adab1cb8cfee338220c311d96dc34912b}{EXPECT\+\_\+\+ANY\+\_\+\+THROW}} (profiles.\+add\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$(\char`\"{}ns\char`\"{}, \char`\"{}\char`\"{}, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structProfileTest}{Profile\+Test}} $>$(20)))
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_a2a4f7e557a8391145afc2418924b725a}{EXPECT\+\_\+\+ANY\+\_\+\+THROW}} (profiles.\+add\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$(\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{}, nullptr))
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{profile__dictionary__tests_8cpp_a211f937c238f9bc533a35e7720b8f00c}{add\+Profile$<$ Profile\+Base2 $>$}} (\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{}, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structProfileTest2}{Profile\+Test2}} $>$(5))
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_a47a4617774c861b22d40e2bf120ab20c}{EXPECT\+\_\+\+TRUE}} (profiles.\+has\+Profile\+Entry$<$ \mbox{\hyperlink{structProfileBase2}{Profile\+Base2}} $>$(\char`\"{}ns\char`\"{}))
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_ab38b218d91c12753e440a670d9678493}{EXPECT\+\_\+\+TRUE}} (profiles.\+has\+Profile$<$ \mbox{\hyperlink{structProfileBase2}{Profile\+Base2}} $>$(\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{}))
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_a292983873e6070895ca85593f25498ed}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_a97823c50dc3c5d4926f73fc2bac56be9}{profile\+\_\+check3}} !=nullptr)
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_adf286ed137a1ec6f8429222e8669e88a}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_a97823c50dc3c5d4926f73fc2bac56be9}{profile\+\_\+check3}}-\/$>$b, 5)
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_af2b5113b456644d8b8ab6377a2eed3e8}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_a1471fef50bcb4a2db87a3ce95033527b}{profile\+\_\+check4}} !=nullptr)
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_ad131b45bb25300925c6d85a1bdbb14ac}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_a1471fef50bcb4a2db87a3ce95033527b}{profile\+\_\+check4}}-\/$>$a, 20)
 \item 
 int \mbox{\hyperlink{profile__dictionary__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}} = profiles.\+get\+Profile$<$\mbox{\hyperlink{structProfileBase}{Profile\+Base}}$>$(\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{})
+\item 
+auto \mbox{\hyperlink{profile__dictionary__tests_8cpp_ae2c5e74a6b6f37a676be8d5f5523f97c}{profile2}} = profiles.\+get\+Profile$<$\mbox{\hyperlink{structProfileBase}{Profile\+Base}}$>$(\char`\"{}ns\char`\"{}, \char`\"{}key2\char`\"{})
+\item 
+auto \mbox{\hyperlink{profile__dictionary__tests_8cpp_ae54390d38bd1a4e9f003c5f2d88d9f7c}{profile\+\_\+check}} = profiles.\+get\+Profile$<$\mbox{\hyperlink{structProfileBase}{Profile\+Base}}$>$(\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{})
+\item 
+auto \mbox{\hyperlink{profile__dictionary__tests_8cpp_ad7d948648dd0c092c64fdb8fa60ee97f}{profile\+\_\+map}} = profiles.\+get\+Profile\+Entry$<$\mbox{\hyperlink{structProfileBase}{Profile\+Base}}$>$(\char`\"{}ns\char`\"{})
+\item 
+auto \mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} = profile\+\_\+map.\+find(\char`\"{}key\char`\"{})
+\item 
+auto \mbox{\hyperlink{profile__dictionary__tests_8cpp_ab90d7e999fe4b1a9ed75660ccbb5a480}{profile\+\_\+check2}} = profiles.\+get\+Profile$<$\mbox{\hyperlink{structProfileBase}{Profile\+Base}}$>$(\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{})
+\item 
+auto \mbox{\hyperlink{profile__dictionary__tests_8cpp_a97823c50dc3c5d4926f73fc2bac56be9}{profile\+\_\+check3}} = profiles.\+get\+Profile$<$\mbox{\hyperlink{structProfileBase2}{Profile\+Base2}}$>$(\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{})
+\item 
+auto \mbox{\hyperlink{profile__dictionary__tests_8cpp_a1471fef50bcb4a2db87a3ce95033527b}{profile\+\_\+check4}} = profiles.\+get\+Profile$<$\mbox{\hyperlink{structProfileBase}{Profile\+Base}}$>$(\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{})
 \end{DoxyCompactItemize}
 
 
@@ -60,15 +133,246 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_aa75b3a1029f33cacba93836398a9c72c}\label{profile__dictionary__tests_8cpp_aa75b3a1029f33cacba93836398a9c72c}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!addProfile$<$ ProfileBase $>$@{addProfile$<$ ProfileBase $>$}}
+\index{addProfile$<$ ProfileBase $>$@{addProfile$<$ ProfileBase $>$}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ ProfileBase $>$()}{addProfile< ProfileBase >()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$ (\begin{DoxyParamCaption}\item[{\char`\"{}ns\char`\"{}}]{,  }\item[{\char`\"{}key\char`\"{}}]{,  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structProfileTest}{Profile\+Test}} $>$}]{() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_ae822506d62b0f0ddcc32eb8584ef11fe}\label{profile__dictionary__tests_8cpp_ae822506d62b0f0ddcc32eb8584ef11fe}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!addProfile$<$ ProfileBase $>$@{addProfile$<$ ProfileBase $>$}}
+\index{addProfile$<$ ProfileBase $>$@{addProfile$<$ ProfileBase $>$}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ ProfileBase $>$()}{addProfile< ProfileBase >()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$ (\begin{DoxyParamCaption}\item[{\char`\"{}ns\char`\"{}}]{,  }\item[{\char`\"{}key\char`\"{}}]{,  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structProfileTest}{Profile\+Test}} $>$}]{10 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a8860fd8913fac33b496b8b60a1a80b43}\label{profile__dictionary__tests_8cpp_a8860fd8913fac33b496b8b60a1a80b43}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!addProfile$<$ ProfileBase $>$@{addProfile$<$ ProfileBase $>$}}
+\index{addProfile$<$ ProfileBase $>$@{addProfile$<$ ProfileBase $>$}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ ProfileBase $>$()}{addProfile< ProfileBase >()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$ (\begin{DoxyParamCaption}\item[{\char`\"{}ns\char`\"{}}]{,  }\item[{\char`\"{}key\char`\"{}}]{,  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structProfileTest}{Profile\+Test}} $>$}]{20 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a14a5b132418637d00129e465cbad9d57}\label{profile__dictionary__tests_8cpp_a14a5b132418637d00129e465cbad9d57}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!addProfile$<$ ProfileBase $>$@{addProfile$<$ ProfileBase $>$}}
+\index{addProfile$<$ ProfileBase $>$@{addProfile$<$ ProfileBase $>$}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ ProfileBase $>$()}{addProfile< ProfileBase >()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$ (\begin{DoxyParamCaption}\item[{\char`\"{}ns\char`\"{}}]{,  }\item[{\char`\"{}key2\char`\"{}}]{,  }\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a211f937c238f9bc533a35e7720b8f00c}\label{profile__dictionary__tests_8cpp_a211f937c238f9bc533a35e7720b8f00c}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!addProfile$<$ ProfileBase2 $>$@{addProfile$<$ ProfileBase2 $>$}}
+\index{addProfile$<$ ProfileBase2 $>$@{addProfile$<$ ProfileBase2 $>$}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ ProfileBase2 $>$()}{addProfile< ProfileBase2 >()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{structProfileBase2}{Profile\+Base2}} $>$ (\begin{DoxyParamCaption}\item[{\char`\"{}ns\char`\"{}}]{,  }\item[{\char`\"{}key\char`\"{}}]{,  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structProfileTest2}{Profile\+Test2}} $>$}]{5 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a77761617bcce54a2b2e6d7f1442d462f}\label{profile__dictionary__tests_8cpp_a77761617bcce54a2b2e6d7f1442d462f}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}}
+\index{EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_ANY\_THROW()}{EXPECT\_ANY\_THROW()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+ANY\+\_\+\+THROW (\begin{DoxyParamCaption}\item[{profiles.\+add\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$}]{\char`\"{}\char`\"{}, \char`\"{}key3\char`\"{}, std\+::make\+\_\+shared$<$ Profile\+Test $>$(20) }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_adab1cb8cfee338220c311d96dc34912b}\label{profile__dictionary__tests_8cpp_adab1cb8cfee338220c311d96dc34912b}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}}
+\index{EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_ANY\_THROW()}{EXPECT\_ANY\_THROW()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+ANY\+\_\+\+THROW (\begin{DoxyParamCaption}\item[{profiles.\+add\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$}]{\char`\"{}ns\char`\"{}, \char`\"{}\char`\"{}, std\+::make\+\_\+shared$<$ Profile\+Test $>$(20) }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a2a4f7e557a8391145afc2418924b725a}\label{profile__dictionary__tests_8cpp_a2a4f7e557a8391145afc2418924b725a}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}}
+\index{EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_ANY\_THROW()}{EXPECT\_ANY\_THROW()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+ANY\+\_\+\+THROW (\begin{DoxyParamCaption}\item[{profiles.\+add\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$}]{\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{}, nullptr }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_af001a4e2f229509536c743724f45c83e}\label{profile__dictionary__tests_8cpp_af001a4e2f229509536c743724f45c83e}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}}
+\index{EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_ANY\_THROW()}{EXPECT\_ANY\_THROW()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+ANY\+\_\+\+THROW (\begin{DoxyParamCaption}\item[{profiles.\+get\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$}]{\char`\"{}\+Does\+Not\+Exist\char`\"{}, \char`\"{}key\char`\"{} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_aab9dce9740780be1be9b5ccfbb728a1c}\label{profile__dictionary__tests_8cpp_aab9dce9740780be1be9b5ccfbb728a1c}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}}
+\index{EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_ANY\_THROW()}{EXPECT\_ANY\_THROW()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+ANY\+\_\+\+THROW (\begin{DoxyParamCaption}\item[{profiles.\+get\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$}]{\char`\"{}ns\char`\"{}, \char`\"{}\+Does\+Not\+Exist\char`\"{} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a7a335237c6767d358b898ba21e77087a}\label{profile__dictionary__tests_8cpp_a7a335237c6767d358b898ba21e77087a}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}}
+\index{EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_ANY\_THROW()}{EXPECT\_ANY\_THROW()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+ANY\+\_\+\+THROW (\begin{DoxyParamCaption}\item[{profiles.\+get\+Profile\+Entry$<$ int $>$}]{\char`\"{}\+Does\+Not\+Exist\char`\"{} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a2337a13ad16770dd16a12aad6a2e31a3}\label{profile__dictionary__tests_8cpp_a2337a13ad16770dd16a12aad6a2e31a3}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [1/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}}-\/$>$second-\/$>$}]{a,  }\item[{10}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_ae73d4c58431b651016aca3dc4a808590}\label{profile__dictionary__tests_8cpp_ae73d4c58431b651016aca3dc4a808590}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [2/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}-\/$>$}]{a,  }\item[{0}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a59e61ae92d27a36fbce81c422fda6a9e}\label{profile__dictionary__tests_8cpp_a59e61ae92d27a36fbce81c422fda6a9e}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [3/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_ae2c5e74a6b6f37a676be8d5f5523f97c}{profile2}}-\/$>$}]{a,  }\item[{0}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_ad9ff53c3f7da85a7387e0284623de8b7}\label{profile__dictionary__tests_8cpp_ad9ff53c3f7da85a7387e0284623de8b7}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [4/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_ae54390d38bd1a4e9f003c5f2d88d9f7c}{profile\+\_\+check}}-\/$>$}]{a,  }\item[{10}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a020a30cd2e8b139f6fd561d0febf16cb}\label{profile__dictionary__tests_8cpp_a020a30cd2e8b139f6fd561d0febf16cb}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [5/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_ab90d7e999fe4b1a9ed75660ccbb5a480}{profile\+\_\+check2}}-\/$>$}]{a,  }\item[{20}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_adf286ed137a1ec6f8429222e8669e88a}\label{profile__dictionary__tests_8cpp_adf286ed137a1ec6f8429222e8669e88a}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [6/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_a97823c50dc3c5d4926f73fc2bac56be9}{profile\+\_\+check3}}-\/$>$}]{b,  }\item[{5}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_ad131b45bb25300925c6d85a1bdbb14ac}\label{profile__dictionary__tests_8cpp_ad131b45bb25300925c6d85a1bdbb14ac}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [7/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_a1471fef50bcb4a2db87a3ce95033527b}{profile\+\_\+check4}}-\/$>$}]{a,  }\item[{20}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_ad3606309dac85b2a86bb97053811cf20}\label{profile__dictionary__tests_8cpp_ad3606309dac85b2a86bb97053811cf20}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{profiles.\+has\+Profile\+Entry$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$}]{\char`\"{}ns\char`\"{} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a7964a84ff6c976f55a6755788fc43ada}\label{profile__dictionary__tests_8cpp_a7964a84ff6c976f55a6755788fc43ada}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/12]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} !}]{ = {\ttfamily profile\+\_\+map.end()} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a1aa4826fc245895f7dbb2747de8dc8d9}\label{profile__dictionary__tests_8cpp_a1aa4826fc245895f7dbb2747de8dc8d9}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/12]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}} !}]{ = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a691b26b1317bedc8b4772d9b04627d28}\label{profile__dictionary__tests_8cpp_a691b26b1317bedc8b4772d9b04627d28}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [3/12]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_ae2c5e74a6b6f37a676be8d5f5523f97c}{profile2}} !}]{ = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_acc3535a0b38051e1cb14b44b3997b1ab}\label{profile__dictionary__tests_8cpp_acc3535a0b38051e1cb14b44b3997b1ab}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [4/12]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_ae54390d38bd1a4e9f003c5f2d88d9f7c}{profile\+\_\+check}} !}]{ = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_aeb2c57848b1256e2a164cfb2e8985b84}\label{profile__dictionary__tests_8cpp_aeb2c57848b1256e2a164cfb2e8985b84}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [5/12]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_ab90d7e999fe4b1a9ed75660ccbb5a480}{profile\+\_\+check2}} !}]{ = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a292983873e6070895ca85593f25498ed}\label{profile__dictionary__tests_8cpp_a292983873e6070895ca85593f25498ed}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [6/12]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_a97823c50dc3c5d4926f73fc2bac56be9}{profile\+\_\+check3}} !}]{ = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_af2b5113b456644d8b8ab6377a2eed3e8}\label{profile__dictionary__tests_8cpp_af2b5113b456644d8b8ab6377a2eed3e8}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [7/12]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{profile__dictionary__tests_8cpp_a1471fef50bcb4a2db87a3ce95033527b}{profile\+\_\+check4}} !}]{ = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a78bdcdc558376d241d17ac963d89bff3}\label{profile__dictionary__tests_8cpp_a78bdcdc558376d241d17ac963d89bff3}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [8/12]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{profiles.\+has\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$}]{\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_ab735545b889dfa85ae0de53a284bd89f}\label{profile__dictionary__tests_8cpp_ab735545b889dfa85ae0de53a284bd89f}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [9/12]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{profiles.\+has\+Profile$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$}]{\char`\"{}ns\char`\"{}, \char`\"{}key2\char`\"{} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_ab38b218d91c12753e440a670d9678493}\label{profile__dictionary__tests_8cpp_ab38b218d91c12753e440a670d9678493}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [10/12]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{profiles.\+has\+Profile$<$ \mbox{\hyperlink{structProfileBase2}{Profile\+Base2}} $>$}]{\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a69518063bd6776b89663033a04aaefb2}\label{profile__dictionary__tests_8cpp_a69518063bd6776b89663033a04aaefb2}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [11/12]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{profiles.\+has\+Profile\+Entry$<$ \mbox{\hyperlink{structProfileBase}{Profile\+Base}} $>$}]{\char`\"{}ns\char`\"{} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a47a4617774c861b22d40e2bf120ab20c}\label{profile__dictionary__tests_8cpp_a47a4617774c861b22d40e2bf120ab20c}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [12/12]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{profiles.\+has\+Profile\+Entry$<$ \mbox{\hyperlink{structProfileBase2}{Profile\+Base2}} $>$}]{\char`\"{}ns\char`\"{} }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{profile__dictionary__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{profile__dictionary__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
 \index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!main@{main}}
 \index{main@{main}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{profile__dictionary__tests_8cpp_af17500c76e27d9200fd3565109c64570}\label{profile__dictionary__tests_8cpp_af17500c76e27d9200fd3565109c64570}} 
-\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Planning\+Profile\+Dictionary\+Unit}]{,  }\item[{Profile\+Dictionary\+Test}]{ }\end{DoxyParamCaption})}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}\label{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!it@{it}}
+\index{it@{it}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{it}{it}}
+{\footnotesize\ttfamily auto it = profile\+\_\+map.\+find(\char`\"{}key\char`\"{})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}\label{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!profile@{profile}}
+\index{profile@{profile}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{profile}{profile}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} profile = profiles.\+get\+Profile$<$\mbox{\hyperlink{structProfileBase}{Profile\+Base}}$>$(\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_ae2c5e74a6b6f37a676be8d5f5523f97c}\label{profile__dictionary__tests_8cpp_ae2c5e74a6b6f37a676be8d5f5523f97c}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!profile2@{profile2}}
+\index{profile2@{profile2}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{profile2}{profile2}}
+{\footnotesize\ttfamily auto profile2 = profiles.\+get\+Profile$<$\mbox{\hyperlink{structProfileBase}{Profile\+Base}}$>$(\char`\"{}ns\char`\"{}, \char`\"{}key2\char`\"{})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_ae54390d38bd1a4e9f003c5f2d88d9f7c}\label{profile__dictionary__tests_8cpp_ae54390d38bd1a4e9f003c5f2d88d9f7c}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!profile\_check@{profile\_check}}
+\index{profile\_check@{profile\_check}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{profile\_check}{profile\_check}}
+{\footnotesize\ttfamily auto profile\+\_\+check = profiles.\+get\+Profile$<$\mbox{\hyperlink{structProfileBase}{Profile\+Base}}$>$(\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_ab90d7e999fe4b1a9ed75660ccbb5a480}\label{profile__dictionary__tests_8cpp_ab90d7e999fe4b1a9ed75660ccbb5a480}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!profile\_check2@{profile\_check2}}
+\index{profile\_check2@{profile\_check2}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{profile\_check2}{profile\_check2}}
+{\footnotesize\ttfamily auto profile\+\_\+check2 = profiles.\+get\+Profile$<$\mbox{\hyperlink{structProfileBase}{Profile\+Base}}$>$(\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a97823c50dc3c5d4926f73fc2bac56be9}\label{profile__dictionary__tests_8cpp_a97823c50dc3c5d4926f73fc2bac56be9}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!profile\_check3@{profile\_check3}}
+\index{profile\_check3@{profile\_check3}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{profile\_check3}{profile\_check3}}
+{\footnotesize\ttfamily auto profile\+\_\+check3 = profiles.\+get\+Profile$<$\mbox{\hyperlink{structProfileBase2}{Profile\+Base2}}$>$(\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_a1471fef50bcb4a2db87a3ce95033527b}\label{profile__dictionary__tests_8cpp_a1471fef50bcb4a2db87a3ce95033527b}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!profile\_check4@{profile\_check4}}
+\index{profile\_check4@{profile\_check4}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{profile\_check4}{profile\_check4}}
+{\footnotesize\ttfamily auto profile\+\_\+check4 = profiles.\+get\+Profile$<$\mbox{\hyperlink{structProfileBase}{Profile\+Base}}$>$(\char`\"{}ns\char`\"{}, \char`\"{}key\char`\"{})}
+
+\mbox{\Hypertarget{profile__dictionary__tests_8cpp_ad7d948648dd0c092c64fdb8fa60ee97f}\label{profile__dictionary__tests_8cpp_ad7d948648dd0c092c64fdb8fa60ee97f}} 
+\index{profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}!profile\_map@{profile\_map}}
+\index{profile\_map@{profile\_map}!profile\_dictionary\_tests.cpp@{profile\_dictionary\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{profile\_map}{profile\_map}}
+{\footnotesize\ttfamily auto profile\+\_\+map = profiles.\+get\+Profile\+Entry$<$\mbox{\hyperlink{structProfileBase}{Profile\+Base}}$>$(\char`\"{}ns\char`\"{})}
 

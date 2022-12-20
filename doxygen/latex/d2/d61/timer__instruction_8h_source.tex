@@ -25,43 +25,51 @@
 \DoxyCodeLine{52 \{}
 \DoxyCodeLine{53 \textcolor{keyword}{public}:}
 \DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a0cf210e59f1618b7630616a7a9e15793}{TimerInstruction}}() = \textcolor{keywordflow}{default};  \textcolor{comment}{// Required for boost serialization do not use}}
-\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a0cf210e59f1618b7630616a7a9e15793}{TimerInstruction}}(\mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{TimerInstructionType}} type, \textcolor{keywordtype}{double} time, \textcolor{keywordtype}{int} io);}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a0cf210e59f1618b7630616a7a9e15793}{TimerInstruction}}(\mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{TimerInstructionType}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a03004818513b2a0604415827c17b9595}{type}}, \textcolor{keywordtype}{double} time, \textcolor{keywordtype}{int} io);}
 \DoxyCodeLine{56 }
-\DoxyCodeLine{57   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ae1fa87c46f652c26b4fbd57ee1c22ee0}{getDescription}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{59   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_aa455b335032848e22c714adff13de4e8}{setDescription}}(\textcolor{keyword}{const} std::string\& description);}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a972fdfd8165fb869425980eb4530061a}{print}}(\textcolor{keyword}{const} std::string\& prefix = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{const};  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{57   \textcolor{keyword}{const} boost::uuids::uuid\& \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a8dbf34c2f551b244cea5d0e77e9d0508}{getUUID}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{58   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a066d544517fb862347438331f5ec7499}{regenerateUUID}}();}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{keyword}{const} boost::uuids::uuid\& \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a5eeccdaa5c437f3773d06af0c9bb687f}{getParentUUID}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{61   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a1b346a2a17c25759e497479ce5feb0ee}{setParentUUID}}(\textcolor{keyword}{const} boost::uuids::uuid\& \mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}});}
 \DoxyCodeLine{62 }
-\DoxyCodeLine{67   \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{TimerInstructionType}} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a3d54437343e0353ba1e1dc3908f8ce2a}{getTimerType}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{63   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ae1fa87c46f652c26b4fbd57ee1c22ee0}{getDescription}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_aa455b335032848e22c714adff13de4e8}{setDescription}}(\textcolor{keyword}{const} std::string\& description);}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   \textcolor{keywordtype}{void} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a325e3dfd0187a4d3d0e2fe1be25fade0}{print}}(\textcolor{keyword}{const} std::string\& prefix = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{const};  \textcolor{comment}{// NOLINT}}
 \DoxyCodeLine{68 }
-\DoxyCodeLine{73   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a31f72570f6be71244925d5d2ef636733}{setTimerType}}(\mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{TimerInstructionType}} type);}
+\DoxyCodeLine{73   \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{TimerInstructionType}} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a3d54437343e0353ba1e1dc3908f8ce2a}{getTimerType}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{74 }
-\DoxyCodeLine{79   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a1ab88d23926bcbe2cf2bb0869bdcc283}{getTimerTime}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{84   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ab41095b891c72ef743c80f06caa6a103}{setTimerTime}}(\textcolor{keywordtype}{double} time);}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{90   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a9681082716b5e56fb080abd1a6561dd8}{getTimerIO}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{79   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a31f72570f6be71244925d5d2ef636733}{setTimerType}}(\mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{TimerInstructionType}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a03004818513b2a0604415827c17b9595}{type}});}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{85   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a1ab88d23926bcbe2cf2bb0869bdcc283}{getTimerTime}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{90   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ab41095b891c72ef743c80f06caa6a103}{setTimerTime}}(\textcolor{keywordtype}{double} time);}
 \DoxyCodeLine{91 }
-\DoxyCodeLine{96   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a762405f2f3c9f9a4cbefaebdec13bb0b}{setTimerIO}}(\textcolor{keywordtype}{int} io);}
+\DoxyCodeLine{96   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a9681082716b5e56fb080abd1a6561dd8}{getTimerIO}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{97 }
-\DoxyCodeLine{103   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_acf83026ab15866b7d1ae5ed390b7870e}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{TimerInstruction}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{104 }
-\DoxyCodeLine{110   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a286fa3e47fbb07c30e0532bc7d4c6e0a}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{TimerInstruction}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{111 }
-\DoxyCodeLine{112 \textcolor{keyword}{private}:}
-\DoxyCodeLine{114   std::string \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_af68e25dcab9170a1322cbba7c4fcd55a}{description\_}}\{ \textcolor{stringliteral}{"{}Tesseract Timer Instruction"{}} \};}
-\DoxyCodeLine{115   \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{TimerInstructionType}} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ac29217cfc3c96eba590a2f64a5ead646}{timer\_type\_}}\{ \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2adc44bfe9b2ce1975d7312158278ac8df}{TimerInstructionType::DIGITAL\_OUTPUT\_LOW}} \};}
-\DoxyCodeLine{116   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a711e35d61bc776766f0669a820ef9a26}{timer\_time\_}}\{ 0 \};}
-\DoxyCodeLine{117   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_aa7cb5b0a66d8aa4671904e668247cf60}{timer\_io\_}}\{ -\/1 \};}
-\DoxyCodeLine{118 }
-\DoxyCodeLine{119   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{120   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{121   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a4f872c6f9adf515c6b8d27b69cb4982d}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{122 \};}
-\DoxyCodeLine{123 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{124 }
-\DoxyCodeLine{125 \mbox{\hyperlink{timer__instruction_8h_a9c055a1910bcf6501424a9abe0a5a552}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}, TimerInstruction);}
-\DoxyCodeLine{126 }
-\DoxyCodeLine{127 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_TIMER\_INSTRUCTION\_H}}
+\DoxyCodeLine{102   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a762405f2f3c9f9a4cbefaebdec13bb0b}{setTimerIO}}(\textcolor{keywordtype}{int} io);}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{109   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_acf83026ab15866b7d1ae5ed390b7870e}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{TimerInstruction}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{116   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a286fa3e47fbb07c30e0532bc7d4c6e0a}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{TimerInstruction}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118 \textcolor{keyword}{private}:}
+\DoxyCodeLine{120   boost::uuids::uuid \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a18434d8f4b41fa31ce825e312d0a720a}{uuid\_}}\{\};}
+\DoxyCodeLine{122   boost::uuids::uuid \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a8b2586df9cac6edc8dcffe9c7c189701}{parent\_uuid\_}}\{\};}
+\DoxyCodeLine{124   std::string \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_af68e25dcab9170a1322cbba7c4fcd55a}{description\_}}\{ \textcolor{stringliteral}{"{}Tesseract Timer Instruction"{}} \};}
+\DoxyCodeLine{125   \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{TimerInstructionType}} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ac29217cfc3c96eba590a2f64a5ead646}{timer\_type\_}}\{ \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2adc44bfe9b2ce1975d7312158278ac8df}{TimerInstructionType::DIGITAL\_OUTPUT\_LOW}} \};}
+\DoxyCodeLine{126   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a711e35d61bc776766f0669a820ef9a26}{timer\_time\_}}\{ 0 \};}
+\DoxyCodeLine{127   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_aa7cb5b0a66d8aa4671904e668247cf60}{timer\_io\_}}\{ -\/1 \};}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{130   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{131   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a4f872c6f9adf515c6b8d27b69cb4982d}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{132 \};}
+\DoxyCodeLine{133 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135 \mbox{\hyperlink{instruction__poly_8h_a4dc28033f37b499d6d9e64b1d5767973}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}, TimerInstruction);}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_TIMER\_INSTRUCTION\_H}}
 
 \end{DoxyCode}

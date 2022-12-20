@@ -1,7 +1,7 @@
 <map id="tesseract_planning::TaskflowTaskComposerFuture" name="tesseract_planning::TaskflowTaskComposerFuture">
-<area shape="rect" id="node1" title=" " alt="" coords="728,41,933,83"/>
-<area shape="rect" id="node2" href="$d4/dc6/classtesseract__planning_1_1TaskComposerFuture.html" title="This contains the result for the task composer request." alt="" coords="460,5,613,47"/>
-<area shape="rect" id="node3" title=" " alt="" coords="457,70,616,126"/>
-<area shape="rect" id="node4" title=" " alt="" coords="236,77,391,119"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,77,131,119"/>
+<area shape="rect" id="node1" title=" " alt="" coords="728,41,933,81"/>
+<area shape="rect" id="node2" href="$d4/dc6/classtesseract__planning_1_1TaskComposerFuture.html" title="This contains the result for the task composer request." alt="" coords="460,5,613,45"/>
+<area shape="rect" id="node3" title=" " alt="" coords="457,70,616,125"/>
+<area shape="rect" id="node4" title=" " alt="" coords="236,77,391,117"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,77,131,117"/>
 </map>

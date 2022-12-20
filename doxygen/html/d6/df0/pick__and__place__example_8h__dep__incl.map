@@ -1,6 +1,6 @@
 <map id="tesseract_examples/include/tesseract_examples/pick_and_place_example.h" name="tesseract_examples/include/tesseract_examples/pick_and_place_example.h">
-<area shape="rect" id="node1" title="An example of a robot picking up a box and placing it on a shelf." alt="" coords="144,5,331,61"/>
-<area shape="rect" id="node2" href="$d9/d6a/pick__and__place__example_8cpp.html" title="Pick and place implementation." alt="" coords="5,109,144,165"/>
-<area shape="rect" id="node3" href="$df/db2/pick__and__place__example__node_8cpp.html" title="Pick and place example node." alt="" coords="168,109,307,165"/>
-<area shape="rect" id="node4" href="$d9/d82/pick__and__place__example__unit_8cpp.html" title=" " alt="" coords="331,109,474,165"/>
+<area shape="rect" id="node1" title="An example of a robot picking up a box and placing it on a shelf." alt="" coords="144,5,331,60"/>
+<area shape="rect" id="node2" href="$d9/d6a/pick__and__place__example_8cpp.html" title="Pick and place implementation." alt="" coords="5,108,144,163"/>
+<area shape="rect" id="node3" href="$df/db2/pick__and__place__example__node_8cpp.html" title="Pick and place example node." alt="" coords="168,108,307,163"/>
+<area shape="rect" id="node4" href="$d9/d82/pick__and__place__example__unit_8cpp.html" title=" " alt="" coords="331,108,474,163"/>
 </map>

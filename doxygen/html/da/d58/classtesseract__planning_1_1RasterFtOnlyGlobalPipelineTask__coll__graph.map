@@ -1,12 +1,12 @@
 <map id="tesseract_planning::RasterFtOnlyGlobalPipelineTask" name="tesseract_planning::RasterFtOnlyGlobalPipelineTask">
-<area shape="rect" id="node1" title="The RasterFtOnlyGlobalPipelineTask class." alt="" coords="1145,123,1361,165"/>
-<area shape="rect" id="node2" href="$d3/dac/classtesseract__planning_1_1TaskComposerGraph.html" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="945,123,1096,165"/>
-<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="689,79,836,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="179,28,257,55"/>
-<area shape="rect" id="node7" title=" " alt="" coords="363,72,523,99"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,21,129,62"/>
-<area shape="rect" id="node6" title=" " alt="" coords="380,123,505,165"/>
-<area shape="rect" id="node8" title=" " alt="" coords="673,152,852,208"/>
-<area shape="rect" id="node9" title=" " alt="" coords="374,189,511,216"/>
-<area shape="rect" id="node10" title=" " alt="" coords="199,189,237,216"/>
+<area shape="rect" id="node1" title="The RasterFtOnlyGlobalPipelineTask class." alt="" coords="1145,123,1361,163"/>
+<area shape="rect" id="node2" href="$d3/dac/classtesseract__planning_1_1TaskComposerGraph.html" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="945,123,1096,163"/>
+<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="689,79,836,119"/>
+<area shape="rect" id="node4" title=" " alt="" coords="179,29,257,54"/>
+<area shape="rect" id="node7" title=" " alt="" coords="363,73,523,98"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,21,129,61"/>
+<area shape="rect" id="node6" title=" " alt="" coords="380,124,505,164"/>
+<area shape="rect" id="node8" title=" " alt="" coords="673,151,852,206"/>
+<area shape="rect" id="node9" title=" " alt="" coords="374,189,511,214"/>
+<area shape="rect" id="node10" title=" " alt="" coords="199,189,237,214"/>
 </map>

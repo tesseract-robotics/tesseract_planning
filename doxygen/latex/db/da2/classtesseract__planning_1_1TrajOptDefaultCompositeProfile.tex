@@ -7,23 +7,11 @@
 
 
 Inheritance diagram for tesseract\+\_\+planning\+::Traj\+Opt\+Default\+Composite\+Profile\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=238pt]{d3/db7/classtesseract__planning_1_1TrajOptDefaultCompositeProfile__inherit__graph}
-\end{center}
-\end{figure}
+% FIG 0
 
 
 Collaboration diagram for tesseract\+\_\+planning\+::Traj\+Opt\+Default\+Composite\+Profile\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d5/d20/classtesseract__planning_1_1TrajOptDefaultCompositeProfile__coll__graph}
-\end{center}
-\end{figure}
+% FIG 1
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -48,7 +36,7 @@ using \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfil
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile}{Traj\+Opt\+Default\+Composite\+Profile}} \& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a06ce6f27ff5facb3832818c0e3d7f1cb}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile}{Traj\+Opt\+Default\+Composite\+Profile}} \&\&)=default
 \item 
-void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a99fde068add1a85ee68800145fbbcdde}{apply}} (trajopt\+::\+Problem\+Construction\+Info \&pci, int start\+\_\+index, int end\+\_\+index, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const override
+void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a99fde068add1a85ee68800145fbbcdde}{apply}} (trajopt\+::\+Problem\+Construction\+Info \&\mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}}, int start\+\_\+index, int end\+\_\+index, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const override
 \item 
 tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a1afc056c77858f3679e7f60d39e0dcb9}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const override
 \end{DoxyCompactItemize}
@@ -88,19 +76,19 @@ util\+::\+Safety\+Margin\+Data\+::\+Ptr \mbox{\hyperlink{classtesseract__plannin
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_af4ab83ef48fdb59b7809ec309c258b2d}{add\+Collision\+Cost}} (trajopt\+::\+Problem\+Construction\+Info \&pci, int start\+\_\+index, int end\+\_\+index, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
+void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_af4ab83ef48fdb59b7809ec309c258b2d}{add\+Collision\+Cost}} (trajopt\+::\+Problem\+Construction\+Info \&\mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}}, int start\+\_\+index, int end\+\_\+index, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
 \item 
-void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a595af0d45d099d1fb36d6812410144a3}{add\+Collision\+Constraint}} (trajopt\+::\+Problem\+Construction\+Info \&pci, int start\+\_\+index, int end\+\_\+index, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
+void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a595af0d45d099d1fb36d6812410144a3}{add\+Collision\+Constraint}} (trajopt\+::\+Problem\+Construction\+Info \&\mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}}, int start\+\_\+index, int end\+\_\+index, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
 \item 
-void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_ac2c483156f81dde04c9a399569fb6c0c}{add\+Velocity\+Smoothing}} (trajopt\+::\+Problem\+Construction\+Info \&pci, int start\+\_\+index, int end\+\_\+index, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
+void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_ac2c483156f81dde04c9a399569fb6c0c}{add\+Velocity\+Smoothing}} (trajopt\+::\+Problem\+Construction\+Info \&\mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}}, int start\+\_\+index, int end\+\_\+index, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
 \item 
-void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a10f3dd5023c74afba57f86c580cbf776}{add\+Acceleration\+Smoothing}} (trajopt\+::\+Problem\+Construction\+Info \&pci, int start\+\_\+index, int end\+\_\+index, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
+void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a10f3dd5023c74afba57f86c580cbf776}{add\+Acceleration\+Smoothing}} (trajopt\+::\+Problem\+Construction\+Info \&\mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}}, int start\+\_\+index, int end\+\_\+index, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
 \item 
-void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a89763c77bc47770e2e354f6d6c07e38d}{add\+Jerk\+Smoothing}} (trajopt\+::\+Problem\+Construction\+Info \&pci, int start\+\_\+index, int end\+\_\+index, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
+void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a89763c77bc47770e2e354f6d6c07e38d}{add\+Jerk\+Smoothing}} (trajopt\+::\+Problem\+Construction\+Info \&\mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}}, int start\+\_\+index, int end\+\_\+index, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
 \item 
-void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a34bb3d39f4b20c331d75848681db82ad}{add\+Constraint\+Error\+Functions}} (trajopt\+::\+Problem\+Construction\+Info \&pci, int start\+\_\+index, int end\+\_\+index, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
+void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a34bb3d39f4b20c331d75848681db82ad}{add\+Constraint\+Error\+Functions}} (trajopt\+::\+Problem\+Construction\+Info \&\mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}}, int start\+\_\+index, int end\+\_\+index, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
 \item 
-void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_ad6ee85e63bcf4e50b4dc833cdd203804}{add\+Avoid\+Singularity}} (trajopt\+::\+Problem\+Construction\+Info \&pci, int start\+\_\+index, int end\+\_\+index, const std\+::string \&link, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
+void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_ad6ee85e63bcf4e50b4dc833cdd203804}{add\+Avoid\+Singularity}} (trajopt\+::\+Problem\+Construction\+Info \&\mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}}, int start\+\_\+index, int end\+\_\+index, const std\+::string \&link, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}

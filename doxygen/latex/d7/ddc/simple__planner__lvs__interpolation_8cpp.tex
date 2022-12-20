@@ -11,13 +11,7 @@
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/move\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+support/tesseract\+\_\+support\+\_\+resource\+\_\+locator.\+h$>$}\newline
 Include dependency graph for simple\+\_\+planner\+\_\+lvs\+\_\+interpolation.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d1/d77/simple__planner__lvs__interpolation_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -26,78 +20,418 @@ class \mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a6085d7d1e771e6ecea641442d51fed20}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Freespace)
+\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a1ec45bb96817a5d9022d35e048e2b209}{instr1\+\_\+seed}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_af8e1eeab0e90a53cbffd7a657c417c18}{assign\+Joint\+Waypoint}} (\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}(joint\+\_\+names\+\_\+, request.\+env\+\_\+state.\+get\+Joint\+Values(joint\+\_\+names\+\_\+)))
 \item 
-\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a0d07a291ba63335f81bbd570a001d746}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Linear)
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a393541d0c2f5f7ef035f8c42bdc18fa6}{for}} (std\+::size\+\_\+t i=0;i$<$ move\+\_\+instructions.\+size() -\/ 1;++i)
 \item 
-\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a5cabc263c55efcf71eab12149c0d9916}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Joint\+Cart\+\_\+\+Freespace)
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ae8f0909fd97c11e41027d2618d3c5b78}{EXPECT\+\_\+\+EQ}} (mi.\+get\+Profile(), instr2.\+get\+Profile())
 \item 
-\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a7bce8d1d68b26e3fc25f360025ba7b3d}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Joint\+Cart\+\_\+\+Linear)
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aa366af15f9e44c7019fecdd61a6dd0ca}{EXPECT\+\_\+\+TRUE}} (mi.\+get\+Waypoint().as$<$ \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} $>$().is\+Constrained())
 \item 
-\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aed8d58130de6fb780d144e09b39d34c0}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Cart\+Joint\+\_\+\+Freespace)
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a909f1310aba5959a2bd9ca3dbc3c9779}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{trajopt__planner__tests_8cpp_a5224d9f3f38aae0c4028178a2f3604f3}{wp2.\+get\+Position}}().is\+Approx(mi.\+get\+Waypoint().as$<$ \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} $>$().\mbox{\hyperlink{trajopt__planner__tests_8cpp_a5224d9f3f38aae0c4028178a2f3604f3}{get\+Position}}(), 1e-\/5))
 \item 
-\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ab38b1283001b9771d4a7b798af96f417}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Cart\+Joint\+\_\+\+Linear)
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a251891a0a168eb03ca753c4b601a7ca9}{EXPECT\+\_\+\+EQ}} (cs.\+size(), \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}})
 \item 
-\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a88154cdad0a66bbc9e51ecd1c8e1bdc1}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Cart\+Cart\+\_\+\+Freespace)
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a0cd14b883260259f4d0376c25246e9db}{EXPECT\+\_\+\+TRUE}} (static\+\_\+cast$<$ int $>$(cl.\+size()) $>$ \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}})
 \item 
-\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a6f1b0ec2216bf1e8f813487aeb6abd94}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+State\+Waypoint\+\_\+\+Cart\+Cart\+\_\+\+Linear)
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a08c9049d70ac4f32abffede7e066d267}{EXPECT\+\_\+\+EQ}} (cl.\+size(), \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ab4ae7205573977222eadd0795db193e2}{steps}})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a82745468f52f5edcec8494103d5a0e02}{instr2}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}{wp2}}, Move\+Instruction\+Type\+::\+LINEAR, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, manip\+\_\+info\+\_\+)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ad5eec42b48ab228b7c2b9bd3211f6a34}{cs\+\_\+profile}} (6.\+28, 10, 6.\+28, \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}})
+\item 
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a07e8306cb5f25dc63ba66eea83b31b66}{EXPECT\+\_\+\+TRUE}} (static\+\_\+cast$<$ int $>$(ctl.\+size()) $>$ \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}})
+\item 
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a761b5be1922a9383acf165b5bd5b5609}{EXPECT\+\_\+\+EQ}} (ctl.\+size(), \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a919ef492d5c96d4a91c0c6db8f4d8066}{trans\+\_\+steps}})
+\item 
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ac06ee5ef2d4a7319650d2dcb78351dc9}{EXPECT\+\_\+\+TRUE}} (static\+\_\+cast$<$ int $>$(crl.\+size()) $>$ \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}})
+\item 
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2aed31f0cc4b2c6f9704ae30b4b777c6}{EXPECT\+\_\+\+EQ}} (crl.\+size(), \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ab11aec960f9662c7f0f1b15c70b6f65b}{rot\+\_\+steps}})
+\item 
+\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a229c11dd26cba81deff2232bb208da71}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_a08321a59f7119e4e7db1695718d32c9f}{wp2.\+get\+Transform}}().is\+Approx(\mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_ab5211617e50552d358310cba6960630e}{final\+\_\+pose}}, 1e-\/3))
 \item 
 int \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}} = env\+\_\+
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a5083a6bcf9f46da48634a2146d75ca2f}{env\+\_\+state}} = env\+\_\+-\/$>$get\+State()
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}} \{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}(joint\+\_\+names\+\_\+, Eigen\+::\+Vector\+Xd\+::\+Zero(7)) \}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ac649cc6d78dd4e3cc452c433c9c4dfe9}{instr1}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}, Move\+Instruction\+Type\+::\+START, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, manip\+\_\+info\+\_\+)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a1ec45bb96817a5d9022d35e048e2b209}{instr1\+\_\+seed}} \{ \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aca25bd6faf42723e9e0779a55f444f4a}{instr1}} \}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}{wp2}} \{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}(joint\+\_\+names\+\_\+, Eigen\+::\+Vector\+Xd\+::\+Ones(7)) \}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_af989fc4e23961991ee655258c4df58fb}{instr2}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}{wp2}}, Move\+Instruction\+Type\+::\+FREESPACE, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, manip\+\_\+info\+\_\+)
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a0974d90c18191aae546af818d1b4e188}{instr3}}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_af1c4f7f1949affb077630cdd4e7e5885}{profile}} (3.\+14, 0.\+5, 1.\+57, 5)
+\item 
+auto \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_afc956deae1c8ba7e742f96eac6569af8}{move\+\_\+instructions}}
+\item 
+const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \& \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ac020d8df86eb7befc80e57fefae2b730}{mi}} = move\+\_\+instructions.\+back()
+\item 
+int \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}} = 5
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a38da969245cceece8a087b3fcf537920}{cs\+\_\+profile}} (6.\+28, 0.\+5, 1.\+57, \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}})
+\item 
+auto \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aa891b3b42f7f349ebc8e927cf6e45a5b}{cs}} = cs\+\_\+profile.\+generate(\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aca25bd6faf42723e9e0779a55f444f4a}{instr1}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a1ec45bb96817a5d9022d35e048e2b209}{instr1\+\_\+seed}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a14a941355ea631985fbd89bad8a6a26b}{instr2}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a0974d90c18191aae546af818d1b4e188}{instr3}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}, tesseract\+\_\+common\+::\+Manipulator\+Info())
+\item 
+double \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ad4614839bb63e579d5ebd9c2324dca9f}{longest\+\_\+valid\+\_\+segment\+\_\+length}} = 0.\+05
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a1904f1a26ec9c0ae17cb15bb8eb527d7}{cl\+\_\+profile}} (\mbox{\hyperlink{ompl__planner__tests_8cpp_ad4614839bb63e579d5ebd9c2324dca9f}{longest\+\_\+valid\+\_\+segment\+\_\+length}}, 10, 6.\+28, \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}})
+\item 
+auto \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_afda7f69427145cb2277aa41b326b304f}{cl}} = cl\+\_\+profile.\+generate(\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aca25bd6faf42723e9e0779a55f444f4a}{instr1}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a1ec45bb96817a5d9022d35e048e2b209}{instr1\+\_\+seed}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a14a941355ea631985fbd89bad8a6a26b}{instr2}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a0974d90c18191aae546af818d1b4e188}{instr3}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}, tesseract\+\_\+common\+::\+Manipulator\+Info())
+\item 
+double \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_accf93555161c9eedf006462a228af523}{dist}} = (\mbox{\hyperlink{trajopt__planner__tests_8cpp_a5224d9f3f38aae0c4028178a2f3604f3}{wp1.\+get\+Position}}() -\/ \mbox{\hyperlink{trajopt__planner__tests_8cpp_a5224d9f3f38aae0c4028178a2f3604f3}{wp2.\+get\+Position}}()).norm()
+\item 
+int \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ab4ae7205573977222eadd0795db193e2}{steps}} = int(\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_accf93555161c9eedf006462a228af523}{dist}} / \mbox{\hyperlink{ompl__planner__tests_8cpp_ad4614839bb63e579d5ebd9c2324dca9f}{longest\+\_\+valid\+\_\+segment\+\_\+length}}) + 1
+\item 
+auto \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a553a400a0c81f57e4dd2d27aefef9b9c}{joint\+\_\+group}} = env\+\_\+-\/$>$get\+Joint\+Group(\mbox{\hyperlink{ompl__planner__tests_8cpp_a061d54ee4d7fda9875195a5ed606df49}{manip\+\_\+info\+\_\+.\+manipulator}})
+\item 
+double \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aeb206e98287e12d469962ec670e227b2}{translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}} = 0.\+01
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ae68f3095f0ef34e4ffdad3e52eaf06e7}{ctl\+\_\+profile}} (6.\+28, \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aeb206e98287e12d469962ec670e227b2}{translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}, 6.\+28, \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}})
+\item 
+auto \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a8a08cad92436d0d069c922e82381d089}{ctl}} = ctl\+\_\+profile.\+generate(\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aca25bd6faf42723e9e0779a55f444f4a}{instr1}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a1ec45bb96817a5d9022d35e048e2b209}{instr1\+\_\+seed}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a14a941355ea631985fbd89bad8a6a26b}{instr2}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a0974d90c18191aae546af818d1b4e188}{instr3}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}, tesseract\+\_\+common\+::\+Manipulator\+Info())
+\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aa3a23bc77c9d993af4e6bc28a696ac89}{p1}} = \mbox{\hyperlink{ompl__planner__tests_8cpp_a553a400a0c81f57e4dd2d27aefef9b9c}{joint\+\_\+group}}-\/$>$calc\+Fwd\+Kin(\mbox{\hyperlink{trajopt__planner__tests_8cpp_a5224d9f3f38aae0c4028178a2f3604f3}{wp1.\+get\+Position}}()).at(\mbox{\hyperlink{ompl__planner__tests_8cpp_a5f746d461721e8676a6f317d3884e327}{manip\+\_\+info\+\_\+.\+tcp\+\_\+frame}})
+\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a4fb450ea8fbcf99e4f449d48265b5aac}{p2}} = \mbox{\hyperlink{ompl__planner__tests_8cpp_a553a400a0c81f57e4dd2d27aefef9b9c}{joint\+\_\+group}}-\/$>$calc\+Fwd\+Kin(\mbox{\hyperlink{trajopt__planner__tests_8cpp_a5224d9f3f38aae0c4028178a2f3604f3}{wp2.\+get\+Position}}()).at(\mbox{\hyperlink{ompl__planner__tests_8cpp_a5f746d461721e8676a6f317d3884e327}{manip\+\_\+info\+\_\+.\+tcp\+\_\+frame}})
+\item 
+double \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a31a749b18c54599de1b3f22e00f769df}{trans\+\_\+dist}} = (\mbox{\hyperlink{plan__instruction__unit_8cpp_a9cb95563407c2de8192f4e147b86825a}{p2.\+translation}}() -\/ \mbox{\hyperlink{plan__instruction__unit_8cpp_a9cb95563407c2de8192f4e147b86825a}{p1.\+translation}}()).norm()
+\item 
+int \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a919ef492d5c96d4a91c0c6db8f4d8066}{trans\+\_\+steps}} = int(\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a31a749b18c54599de1b3f22e00f769df}{trans\+\_\+dist}} / \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aeb206e98287e12d469962ec670e227b2}{translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}) + 1
+\item 
+double \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a78e060bb016be1e83ee53af92e390844}{rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}} = 0.\+01
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a0d057df006cdb5c3ff68e84a401164d1}{crl\+\_\+profile}} (6.\+28, 10, \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a78e060bb016be1e83ee53af92e390844}{rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}, \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}})
+\item 
+auto \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a54996822cfc53608050848278f913f44}{crl}} = crl\+\_\+profile.\+generate(\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aca25bd6faf42723e9e0779a55f444f4a}{instr1}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a1ec45bb96817a5d9022d35e048e2b209}{instr1\+\_\+seed}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a14a941355ea631985fbd89bad8a6a26b}{instr2}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a0974d90c18191aae546af818d1b4e188}{instr3}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}, tesseract\+\_\+common\+::\+Manipulator\+Info())
+\item 
+double \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aa3c294744c08bf8d7393730d2aee45ab}{rot\+\_\+dist}} = Eigen\+::\+Quaterniond(p1.\+linear()).angular\+Distance(Eigen\+::\+Quaterniond(p2.\+linear()))
+\item 
+int \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ab11aec960f9662c7f0f1b15c70b6f65b}{rot\+\_\+steps}} = int(\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aa3c294744c08bf8d7393730d2aee45ab}{rot\+\_\+dist}} / \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a78e060bb016be1e83ee53af92e390844}{rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}) + 1
+\item 
+const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a6427446a55d2bcb370d3e304e6607050}{last\+\_\+position}} = mi.\+get\+Waypoint().as$<$\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}}$>$().get\+Seed().\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aceccc0cd449d679775c9c519a9eca6ce}{position}}
+\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ab5211617e50552d358310cba6960630e}{final\+\_\+pose}} = \mbox{\hyperlink{ompl__planner__tests_8cpp_a553a400a0c81f57e4dd2d27aefef9b9c}{joint\+\_\+group}}-\/$>$calc\+Fwd\+Kin(\mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_aa03cba3b04f99e092d88422783cc5538}{last\+\_\+position}}).at(\mbox{\hyperlink{ompl__planner__tests_8cpp_a5f746d461721e8676a6f317d3884e327}{manip\+\_\+info\+\_\+.\+tcp\+\_\+frame}})
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_af8e1eeab0e90a53cbffd7a657c417c18}\label{simple__planner__lvs__interpolation_8cpp_af8e1eeab0e90a53cbffd7a657c417c18}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!assignJointWaypoint@{assignJointWaypoint}}
+\index{assignJointWaypoint@{assignJointWaypoint}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{assignJointWaypoint()}{assignJointWaypoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a1ec45bb96817a5d9022d35e048e2b209}{instr1\+\_\+seed}} assign\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}(joint\+\_\+names\+\_\+, request.\+env\+\_\+state.\+get\+Joint\+Values(joint\+\_\+names\+\_\+))}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ad5eec42b48ab228b7c2b9bd3211f6a34}\label{simple__planner__lvs__interpolation_8cpp_ad5eec42b48ab228b7c2b9bd3211f6a34}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!cs\_profile@{cs\_profile}}
+\index{cs\_profile@{cs\_profile}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{cs\_profile()}{cs\_profile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} cs\+\_\+profile (\begin{DoxyParamCaption}\item[{6.}]{28,  }\item[{10}]{,  }\item[{6.}]{28,  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a08c9049d70ac4f32abffede7e066d267}\label{simple__planner__lvs__interpolation_8cpp_a08c9049d70ac4f32abffede7e066d267}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{cl.}]{size(),  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ab4ae7205573977222eadd0795db193e2}{steps}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a2aed31f0cc4b2c6f9704ae30b4b777c6}\label{simple__planner__lvs__interpolation_8cpp_a2aed31f0cc4b2c6f9704ae30b4b777c6}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{crl.}]{size(),  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ab11aec960f9662c7f0f1b15c70b6f65b}{rot\+\_\+steps}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a251891a0a168eb03ca753c4b601a7ca9}\label{simple__planner__lvs__interpolation_8cpp_a251891a0a168eb03ca753c4b601a7ca9}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{cs.}]{size(),  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a761b5be1922a9383acf165b5bd5b5609}\label{simple__planner__lvs__interpolation_8cpp_a761b5be1922a9383acf165b5bd5b5609}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{ctl.}]{size(),  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a919ef492d5c96d4a91c0c6db8f4d8066}{trans\+\_\+steps}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ae8f0909fd97c11e41027d2618d3c5b78}\label{simple__planner__lvs__interpolation_8cpp_ae8f0909fd97c11e41027d2618d3c5b78}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{mi.}]{get\+Profile(),  }\item[{instr2.}]{get\+Profile() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_aa366af15f9e44c7019fecdd61a6dd0ca}\label{simple__planner__lvs__interpolation_8cpp_aa366af15f9e44c7019fecdd61a6dd0ca}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{mi.}]{get\+Waypoint).\+as$<$ Joint\+Waypoint\+Poly $>$().\+is\+Constrained( }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a0cd14b883260259f4d0376c25246e9db}\label{simple__planner__lvs__interpolation_8cpp_a0cd14b883260259f4d0376c25246e9db}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{static\+\_\+cast$<$ int $>$}]{cl.\+size(),  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ac06ee5ef2d4a7319650d2dcb78351dc9}\label{simple__planner__lvs__interpolation_8cpp_ac06ee5ef2d4a7319650d2dcb78351dc9}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{static\+\_\+cast$<$ int $>$}]{crl.\+size(),  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a07e8306cb5f25dc63ba66eea83b31b66}\label{simple__planner__lvs__interpolation_8cpp_a07e8306cb5f25dc63ba66eea83b31b66}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{static\+\_\+cast$<$ int $>$}]{ctl.\+size(),  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a909f1310aba5959a2bd9ca3dbc3c9779}\label{simple__planner__lvs__interpolation_8cpp_a909f1310aba5959a2bd9ca3dbc3c9779}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{wp2.}]{get\+Position).\+is\+Approx(mi.\+get\+Waypoint().\+as$<$ Joint\+Waypoint\+Poly $>$().\+get\+Position(), 1e-\/5 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a229c11dd26cba81deff2232bb208da71}\label{simple__planner__lvs__interpolation_8cpp_a229c11dd26cba81deff2232bb208da71}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{wp2.}]{get\+Transform).\+is\+Approx(final\+\_\+pose, 1e-\/3 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a393541d0c2f5f7ef035f8c42bdc18fa6}\label{simple__planner__lvs__interpolation_8cpp_a393541d0c2f5f7ef035f8c42bdc18fa6}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!for@{for}}
+\index{for@{for}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{for()}{for()}}
+{\footnotesize\ttfamily for (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a82745468f52f5edcec8494103d5a0e02}\label{simple__planner__lvs__interpolation_8cpp_a82745468f52f5edcec8494103d5a0e02}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!instr2@{instr2}}
+\index{instr2@{instr2}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{instr2()}{instr2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} instr2 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}{wp2}}}]{,  }\item[{Move\+Instruction\+Type\+::\+LINEAR}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{manip\+\_\+info\+\_\+}]{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{simple__planner__lvs__interpolation_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
 \index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!main@{main}}
 \index{main@{main}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a88154cdad0a66bbc9e51ecd1c8e1bdc1}\label{simple__planner__lvs__interpolation_8cpp_a88154cdad0a66bbc9e51ecd1c8e1bdc1}} 
-\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Cart\+Cart\+\_\+\+Freespace}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a6f1b0ec2216bf1e8f813487aeb6abd94}\label{simple__planner__lvs__interpolation_8cpp_a6f1b0ec2216bf1e8f813487aeb6abd94}} 
-\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Cart\+Cart\+\_\+\+Linear}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_aed8d58130de6fb780d144e09b39d34c0}\label{simple__planner__lvs__interpolation_8cpp_aed8d58130de6fb780d144e09b39d34c0}} 
-\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Cart\+Joint\+\_\+\+Freespace}]{ }\end{DoxyParamCaption})}
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_afda7f69427145cb2277aa41b326b304f}\label{simple__planner__lvs__interpolation_8cpp_afda7f69427145cb2277aa41b326b304f}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!cl@{cl}}
+\index{cl@{cl}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{cl}{cl}}
+{\footnotesize\ttfamily auto cl = cl\+\_\+profile.\+generate(\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aca25bd6faf42723e9e0779a55f444f4a}{instr1}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a1ec45bb96817a5d9022d35e048e2b209}{instr1\+\_\+seed}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a14a941355ea631985fbd89bad8a6a26b}{instr2}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a0974d90c18191aae546af818d1b4e188}{instr3}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}, tesseract\+\_\+common\+::\+Manipulator\+Info())}
 
-\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ab38b1283001b9771d4a7b798af96f417}\label{simple__planner__lvs__interpolation_8cpp_ab38b1283001b9771d4a7b798af96f417}} 
-\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Cart\+Joint\+\_\+\+Linear}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a1904f1a26ec9c0ae17cb15bb8eb527d7}\label{simple__planner__lvs__interpolation_8cpp_a1904f1a26ec9c0ae17cb15bb8eb527d7}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!cl\_profile@{cl\_profile}}
+\index{cl\_profile@{cl\_profile}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{cl\_profile}{cl\_profile}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} cl\+\_\+profile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ompl__planner__tests_8cpp_ad4614839bb63e579d5ebd9c2324dca9f}{longest\+\_\+valid\+\_\+segment\+\_\+length}}}]{,  }\item[{10}]{,  }\item[{6.}]{28,  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}}}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a5cabc263c55efcf71eab12149c0d9916}\label{simple__planner__lvs__interpolation_8cpp_a5cabc263c55efcf71eab12149c0d9916}} 
-\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Joint\+Cart\+\_\+\+Freespace}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a54996822cfc53608050848278f913f44}\label{simple__planner__lvs__interpolation_8cpp_a54996822cfc53608050848278f913f44}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!crl@{crl}}
+\index{crl@{crl}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{crl}{crl}}
+{\footnotesize\ttfamily auto crl = crl\+\_\+profile.\+generate(\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aca25bd6faf42723e9e0779a55f444f4a}{instr1}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a1ec45bb96817a5d9022d35e048e2b209}{instr1\+\_\+seed}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a14a941355ea631985fbd89bad8a6a26b}{instr2}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a0974d90c18191aae546af818d1b4e188}{instr3}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}, tesseract\+\_\+common\+::\+Manipulator\+Info())}
 
-\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a7bce8d1d68b26e3fc25f360025ba7b3d}\label{simple__planner__lvs__interpolation_8cpp_a7bce8d1d68b26e3fc25f360025ba7b3d}} 
-\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Joint\+Cart\+\_\+\+Linear}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a0d057df006cdb5c3ff68e84a401164d1}\label{simple__planner__lvs__interpolation_8cpp_a0d057df006cdb5c3ff68e84a401164d1}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!crl\_profile@{crl\_profile}}
+\index{crl\_profile@{crl\_profile}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{crl\_profile}{crl\_profile}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} crl\+\_\+profile (\begin{DoxyParamCaption}\item[{6.}]{28,  }\item[{10}]{,  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a78e060bb016be1e83ee53af92e390844}{rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}}]{,  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}}}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a6085d7d1e771e6ecea641442d51fed20}\label{simple__planner__lvs__interpolation_8cpp_a6085d7d1e771e6ecea641442d51fed20}} 
-\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Freespace}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_aa891b3b42f7f349ebc8e927cf6e45a5b}\label{simple__planner__lvs__interpolation_8cpp_aa891b3b42f7f349ebc8e927cf6e45a5b}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!cs@{cs}}
+\index{cs@{cs}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{cs}{cs}}
+{\footnotesize\ttfamily auto cs = cs\+\_\+profile.\+generate(\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aca25bd6faf42723e9e0779a55f444f4a}{instr1}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a1ec45bb96817a5d9022d35e048e2b209}{instr1\+\_\+seed}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a14a941355ea631985fbd89bad8a6a26b}{instr2}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a0974d90c18191aae546af818d1b4e188}{instr3}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}, tesseract\+\_\+common\+::\+Manipulator\+Info())}
 
-\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a0d07a291ba63335f81bbd570a001d746}\label{simple__planner__lvs__interpolation_8cpp_a0d07a291ba63335f81bbd570a001d746}} 
-\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}}]{,  }\item[{Interpolate\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Linear}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a38da969245cceece8a087b3fcf537920}\label{simple__planner__lvs__interpolation_8cpp_a38da969245cceece8a087b3fcf537920}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!cs\_profile@{cs\_profile}}
+\index{cs\_profile@{cs\_profile}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{cs\_profile}{cs\_profile}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} cs\+\_\+profile (\begin{DoxyParamCaption}\item[{6.}]{28,  }\item[{0.}]{5,  }\item[{1.}]{57,  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a8a08cad92436d0d069c922e82381d089}\label{simple__planner__lvs__interpolation_8cpp_a8a08cad92436d0d069c922e82381d089}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!ctl@{ctl}}
+\index{ctl@{ctl}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{ctl}{ctl}}
+{\footnotesize\ttfamily auto ctl = ctl\+\_\+profile.\+generate(\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aca25bd6faf42723e9e0779a55f444f4a}{instr1}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a1ec45bb96817a5d9022d35e048e2b209}{instr1\+\_\+seed}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a14a941355ea631985fbd89bad8a6a26b}{instr2}}, \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a0974d90c18191aae546af818d1b4e188}{instr3}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}, tesseract\+\_\+common\+::\+Manipulator\+Info())}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ae68f3095f0ef34e4ffdad3e52eaf06e7}\label{simple__planner__lvs__interpolation_8cpp_ae68f3095f0ef34e4ffdad3e52eaf06e7}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!ctl\_profile@{ctl\_profile}}
+\index{ctl\_profile@{ctl\_profile}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{ctl\_profile}{ctl\_profile}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} ctl\+\_\+profile (\begin{DoxyParamCaption}\item[{6.}]{28,  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aeb206e98287e12d469962ec670e227b2}{translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}}]{,  }\item[{6.}]{28,  }\item[{\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\+\_\+steps}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_accf93555161c9eedf006462a228af523}\label{simple__planner__lvs__interpolation_8cpp_accf93555161c9eedf006462a228af523}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!dist@{dist}}
+\index{dist@{dist}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{dist}{dist}}
+{\footnotesize\ttfamily double dist = (\mbox{\hyperlink{trajopt__planner__tests_8cpp_a5224d9f3f38aae0c4028178a2f3604f3}{wp1.\+get\+Position}}() -\/ \mbox{\hyperlink{trajopt__planner__tests_8cpp_a5224d9f3f38aae0c4028178a2f3604f3}{wp2.\+get\+Position}}()).norm()}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}\label{simple__planner__lvs__interpolation_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!env@{env}}
+\index{env@{env}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{env}{env}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} env = env\+\_\+}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a5083a6bcf9f46da48634a2146d75ca2f}\label{simple__planner__lvs__interpolation_8cpp_a5083a6bcf9f46da48634a2146d75ca2f}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!env\_state@{env\_state}}
+\index{env\_state@{env\_state}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{env\_state}{env\_state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} env\+\_\+state = env\+\_\+-\/$>$get\+State()}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ab5211617e50552d358310cba6960630e}\label{simple__planner__lvs__interpolation_8cpp_ab5211617e50552d358310cba6960630e}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!final\_pose@{final\_pose}}
+\index{final\_pose@{final\_pose}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{final\_pose}{final\_pose}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d final\+\_\+pose = \mbox{\hyperlink{ompl__planner__tests_8cpp_a553a400a0c81f57e4dd2d27aefef9b9c}{joint\+\_\+group}}-\/$>$calc\+Fwd\+Kin(\mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_aa03cba3b04f99e092d88422783cc5538}{last\+\_\+position}}).at(\mbox{\hyperlink{ompl__planner__tests_8cpp_a5f746d461721e8676a6f317d3884e327}{manip\+\_\+info\+\_\+.\+tcp\+\_\+frame}})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ac649cc6d78dd4e3cc452c433c9c4dfe9}\label{simple__planner__lvs__interpolation_8cpp_ac649cc6d78dd4e3cc452c433c9c4dfe9}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!instr1@{instr1}}
+\index{instr1@{instr1}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{instr1}{instr1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} instr1(\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}, Move\+Instruction\+Type\+::\+START, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, manip\+\_\+info\+\_\+) (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}}]{,  }\item[{Move\+Instruction\+Type\+::\+START}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{manip\+\_\+info\+\_\+}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a1ec45bb96817a5d9022d35e048e2b209}\label{simple__planner__lvs__interpolation_8cpp_a1ec45bb96817a5d9022d35e048e2b209}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!instr1\_seed@{instr1\_seed}}
+\index{instr1\_seed@{instr1\_seed}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{instr1\_seed}{instr1\_seed}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} instr1\+\_\+seed \{ \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aca25bd6faf42723e9e0779a55f444f4a}{instr1}} \}}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_af989fc4e23961991ee655258c4df58fb}\label{simple__planner__lvs__interpolation_8cpp_af989fc4e23961991ee655258c4df58fb}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!instr2@{instr2}}
+\index{instr2@{instr2}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{instr2}{instr2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} instr2(\mbox{\hyperlink{descartes__planner__tests_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}{wp2}}, Move\+Instruction\+Type\+::\+LINEAR, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, manip\+\_\+info\+\_\+) (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}{wp2}}}]{,  }\item[{Move\+Instruction\+Type\+::\+FREESPACE}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{manip\+\_\+info\+\_\+}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a0974d90c18191aae546af818d1b4e188}\label{simple__planner__lvs__interpolation_8cpp_a0974d90c18191aae546af818d1b4e188}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!instr3@{instr3}}
+\index{instr3@{instr3}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{instr3}{instr3}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} instr3}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a553a400a0c81f57e4dd2d27aefef9b9c}\label{simple__planner__lvs__interpolation_8cpp_a553a400a0c81f57e4dd2d27aefef9b9c}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!joint\_group@{joint\_group}}
+\index{joint\_group@{joint\_group}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{joint\_group}{joint\_group}}
+{\footnotesize\ttfamily auto joint\+\_\+group = env\+\_\+-\/$>$get\+Joint\+Group(\mbox{\hyperlink{ompl__planner__tests_8cpp_a061d54ee4d7fda9875195a5ed606df49}{manip\+\_\+info\+\_\+.\+manipulator}})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a6427446a55d2bcb370d3e304e6607050}\label{simple__planner__lvs__interpolation_8cpp_a6427446a55d2bcb370d3e304e6607050}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!last\_position@{last\_position}}
+\index{last\_position@{last\_position}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{last\_position}{last\_position}}
+{\footnotesize\ttfamily const Eigen\+::\+Vector\+Xd\& last\+\_\+position = mi.\+get\+Waypoint().as$<$\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}}$>$().get\+Seed().\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aceccc0cd449d679775c9c519a9eca6ce}{position}}}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ad4614839bb63e579d5ebd9c2324dca9f}\label{simple__planner__lvs__interpolation_8cpp_ad4614839bb63e579d5ebd9c2324dca9f}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!longest\_valid\_segment\_length@{longest\_valid\_segment\_length}}
+\index{longest\_valid\_segment\_length@{longest\_valid\_segment\_length}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{longest\_valid\_segment\_length}{longest\_valid\_segment\_length}}
+{\footnotesize\ttfamily double longest\+\_\+valid\+\_\+segment\+\_\+length = 0.\+05}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ac020d8df86eb7befc80e57fefae2b730}\label{simple__planner__lvs__interpolation_8cpp_ac020d8df86eb7befc80e57fefae2b730}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!mi@{mi}}
+\index{mi@{mi}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{mi}{mi}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}}\& mi = move\+\_\+instructions.\+back()}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}\label{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!min\_steps@{min\_steps}}
+\index{min\_steps@{min\_steps}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{min\_steps}{min\_steps}}
+{\footnotesize\ttfamily int min\+\_\+steps = 5}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_afc956deae1c8ba7e742f96eac6569af8}\label{simple__planner__lvs__interpolation_8cpp_afc956deae1c8ba7e742f96eac6569af8}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!move\_instructions@{move\_instructions}}
+\index{move\_instructions@{move\_instructions}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{move\_instructions}{move\_instructions}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}}$>$ move\+\_\+instructions}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_af1c4f7f1949affb077630cdd4e7e5885}{profile}}.\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a7c35cd0756db35913d2f4076c23b9717}{generate}}(\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ac649cc6d78dd4e3cc452c433c9c4dfe9}{instr1}}, \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a1ec45bb96817a5d9022d35e048e2b209}{instr1\_seed}}, \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_af989fc4e23961991ee655258c4df58fb}{instr2}}, \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a0974d90c18191aae546af818d1b4e188}{instr3}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}, tesseract\_common::ManipulatorInfo())}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_aa3a23bc77c9d993af4e6bc28a696ac89}\label{simple__planner__lvs__interpolation_8cpp_aa3a23bc77c9d993af4e6bc28a696ac89}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!p1@{p1}}
+\index{p1@{p1}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{p1}{p1}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d p1 = \mbox{\hyperlink{ompl__planner__tests_8cpp_a553a400a0c81f57e4dd2d27aefef9b9c}{joint\+\_\+group}}-\/$>$calc\+Fwd\+Kin(\mbox{\hyperlink{trajopt__planner__tests_8cpp_a5224d9f3f38aae0c4028178a2f3604f3}{wp1.\+get\+Position}}()).at(\mbox{\hyperlink{ompl__planner__tests_8cpp_a5f746d461721e8676a6f317d3884e327}{manip\+\_\+info\+\_\+.\+tcp\+\_\+frame}})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a4fb450ea8fbcf99e4f449d48265b5aac}\label{simple__planner__lvs__interpolation_8cpp_a4fb450ea8fbcf99e4f449d48265b5aac}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!p2@{p2}}
+\index{p2@{p2}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{p2}{p2}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d p2 = \mbox{\hyperlink{ompl__planner__tests_8cpp_a553a400a0c81f57e4dd2d27aefef9b9c}{joint\+\_\+group}}-\/$>$calc\+Fwd\+Kin(\mbox{\hyperlink{trajopt__planner__tests_8cpp_a5224d9f3f38aae0c4028178a2f3604f3}{wp2.\+get\+Position}}()).at(\mbox{\hyperlink{ompl__planner__tests_8cpp_a5f746d461721e8676a6f317d3884e327}{manip\+\_\+info\+\_\+.\+tcp\+\_\+frame}})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_af1c4f7f1949affb077630cdd4e7e5885}\label{simple__planner__lvs__interpolation_8cpp_af1c4f7f1949affb077630cdd4e7e5885}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!profile@{profile}}
+\index{profile@{profile}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{profile}{profile}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} profile(3.\+14, 0.\+5, 1.\+57, 5) (\begin{DoxyParamCaption}\item[{3.}]{14,  }\item[{0.}]{5,  }\item[{1.}]{57,  }\item[{5}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_aa3c294744c08bf8d7393730d2aee45ab}\label{simple__planner__lvs__interpolation_8cpp_aa3c294744c08bf8d7393730d2aee45ab}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!rot\_dist@{rot\_dist}}
+\index{rot\_dist@{rot\_dist}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{rot\_dist}{rot\_dist}}
+{\footnotesize\ttfamily double rot\+\_\+dist = Eigen\+::\+Quaterniond(p1.\+linear()).angular\+Distance(Eigen\+::\+Quaterniond(p2.\+linear()))}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ab11aec960f9662c7f0f1b15c70b6f65b}\label{simple__planner__lvs__interpolation_8cpp_ab11aec960f9662c7f0f1b15c70b6f65b}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!rot\_steps@{rot\_steps}}
+\index{rot\_steps@{rot\_steps}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{rot\_steps}{rot\_steps}}
+{\footnotesize\ttfamily int rot\+\_\+steps = int(\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aa3c294744c08bf8d7393730d2aee45ab}{rot\+\_\+dist}} / \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a78e060bb016be1e83ee53af92e390844}{rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}) + 1}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a78e060bb016be1e83ee53af92e390844}\label{simple__planner__lvs__interpolation_8cpp_a78e060bb016be1e83ee53af92e390844}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!rotation\_longest\_valid\_segment\_length@{rotation\_longest\_valid\_segment\_length}}
+\index{rotation\_longest\_valid\_segment\_length@{rotation\_longest\_valid\_segment\_length}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{rotation\_longest\_valid\_segment\_length}{rotation\_longest\_valid\_segment\_length}}
+{\footnotesize\ttfamily double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length = 0.\+01}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ab4ae7205573977222eadd0795db193e2}\label{simple__planner__lvs__interpolation_8cpp_ab4ae7205573977222eadd0795db193e2}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!steps@{steps}}
+\index{steps@{steps}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{steps}{steps}}
+{\footnotesize\ttfamily int steps = int(\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_accf93555161c9eedf006462a228af523}{dist}} / \mbox{\hyperlink{ompl__planner__tests_8cpp_ad4614839bb63e579d5ebd9c2324dca9f}{longest\+\_\+valid\+\_\+segment\+\_\+length}}) + 1}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a31a749b18c54599de1b3f22e00f769df}\label{simple__planner__lvs__interpolation_8cpp_a31a749b18c54599de1b3f22e00f769df}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!trans\_dist@{trans\_dist}}
+\index{trans\_dist@{trans\_dist}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{trans\_dist}{trans\_dist}}
+{\footnotesize\ttfamily double trans\+\_\+dist = (\mbox{\hyperlink{plan__instruction__unit_8cpp_a9cb95563407c2de8192f4e147b86825a}{p2.\+translation}}() -\/ \mbox{\hyperlink{plan__instruction__unit_8cpp_a9cb95563407c2de8192f4e147b86825a}{p1.\+translation}}()).norm()}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a919ef492d5c96d4a91c0c6db8f4d8066}\label{simple__planner__lvs__interpolation_8cpp_a919ef492d5c96d4a91c0c6db8f4d8066}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!trans\_steps@{trans\_steps}}
+\index{trans\_steps@{trans\_steps}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{trans\_steps}{trans\_steps}}
+{\footnotesize\ttfamily int trans\+\_\+steps = int(\mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a31a749b18c54599de1b3f22e00f769df}{trans\+\_\+dist}} / \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aeb206e98287e12d469962ec670e227b2}{translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}) + 1}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_aeb206e98287e12d469962ec670e227b2}\label{simple__planner__lvs__interpolation_8cpp_aeb206e98287e12d469962ec670e227b2}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!translation\_longest\_valid\_segment\_length@{translation\_longest\_valid\_segment\_length}}
+\index{translation\_longest\_valid\_segment\_length@{translation\_longest\_valid\_segment\_length}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{translation\_longest\_valid\_segment\_length}{translation\_longest\_valid\_segment\_length}}
+{\footnotesize\ttfamily double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length = 0.\+01}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_ae64db9b4e6bc99309ba972a308668172}\label{simple__planner__lvs__interpolation_8cpp_ae64db9b4e6bc99309ba972a308668172}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!wp1@{wp1}}
+\index{wp1@{wp1}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{wp1}{wp1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} wp1 \{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}(joint\+\_\+names\+\_\+, Eigen\+::\+Vector\+Xd\+::\+Zero(7)) \}}
+
+\mbox{\Hypertarget{simple__planner__lvs__interpolation_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}\label{simple__planner__lvs__interpolation_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}} 
+\index{simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}!wp2@{wp2}}
+\index{wp2@{wp2}!simple\_planner\_lvs\_interpolation.cpp@{simple\_planner\_lvs\_interpolation.cpp}}
+\doxysubsubsection{\texorpdfstring{wp2}{wp2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} wp2 \{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}(joint\+\_\+names\+\_\+, Eigen\+::\+Vector\+Xd\+::\+Ones(7)) \}}
 

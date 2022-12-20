@@ -1,5 +1,5 @@
 <map id="tesseract_planning::ContinuousContactCheckTask" name="tesseract_planning::ContinuousContactCheckTask">
-<area shape="rect" id="node1" title=" " alt="" coords="5,184,209,225"/>
-<area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="35,95,180,136"/>
-<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="34,5,181,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,181,209,221"/>
+<area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="35,93,180,133"/>
+<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="34,5,181,45"/>
 </map>

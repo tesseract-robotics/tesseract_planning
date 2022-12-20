@@ -15,13 +15,7 @@
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/utils.\+h$>$}\newline
 Include dependency graph for utils.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d1/ddc/tesseract__motion__planners_2core_2src_2core_2utils_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -30,21 +24,21 @@ namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-Eigen\+::\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_a89dc348cbd8945867618baaf9a1b4162}{tesseract\+\_\+planning\+::calc\+Pose}} (const Waypoint\+Poly \&wp, const std\+::string \&working\+\_\+frame, const std\+::string \&tip\+\_\+link, const Eigen\+::\+Isometry3d \&tcp, const tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \&current\+\_\+state, tesseract\+\_\+scene\+\_\+graph\+::\+State\+Solver \&state\+\_\+solver)
+Eigen\+::\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_a89dc348cbd8945867618baaf9a1b4162}{tesseract\+\_\+planning\+::calc\+Pose}} (const Waypoint\+Poly \&\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}}, const std\+::string \&\mbox{\hyperlink{ompl__planner__tests_8cpp_ad73045f52bfea3af6967e2fc8a7c17bd}{working\+\_\+frame}}, const std\+::string \&tip\+\_\+link, const Eigen\+::\+Isometry3d \&tcp, const tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \&current\+\_\+state, tesseract\+\_\+scene\+\_\+graph\+::\+State\+Solver \&state\+\_\+solver)
 \item 
-tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_a69d6940279a5076103de7a3e6a400c2e}{tesseract\+\_\+planning\+::to\+Toolpath}} (const Instruction\+Poly \&instruction, const tesseract\+\_\+environment\+::\+Environment \&env)
+tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_a69d6940279a5076103de7a3e6a400c2e}{tesseract\+\_\+planning\+::to\+Toolpath}} (const Instruction\+Poly \&instruction, const tesseract\+\_\+environment\+::\+Environment \&\mbox{\hyperlink{basic__cartesian__example__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}})
 \begin{DoxyCompactList}\small\item\em Extract toolpath from a instruction. \end{DoxyCompactList}\item 
-tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_a232993ed695ecfe1b9dd2aa83d3a0d80}{tesseract\+\_\+planning\+::to\+Toolpath}} (const Composite\+Instruction \&ci, const tesseract\+\_\+environment\+::\+Environment \&env)
+tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_a232993ed695ecfe1b9dd2aa83d3a0d80}{tesseract\+\_\+planning\+::to\+Toolpath}} (const Composite\+Instruction \&ci, const tesseract\+\_\+environment\+::\+Environment \&\mbox{\hyperlink{basic__cartesian__example__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}})
 \begin{DoxyCompactList}\small\item\em Extract toolpath from a composite instruction. \end{DoxyCompactList}\item 
-tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_a33684ed1b854f6c4741da54b43676c37}{tesseract\+\_\+planning\+::to\+Toolpath}} (const Move\+Instruction\+Poly \&mi, const tesseract\+\_\+environment\+::\+Environment \&env)
+tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_a33684ed1b854f6c4741da54b43676c37}{tesseract\+\_\+planning\+::to\+Toolpath}} (const Move\+Instruction\+Poly \&\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aacf8f831786eae51fba4caaedbde9cf0}{mi}}, const tesseract\+\_\+environment\+::\+Environment \&\mbox{\hyperlink{basic__cartesian__example__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}})
 \begin{DoxyCompactList}\small\item\em Extract toolpath from a move instruction. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacetesseract__planning_a331a798804f11eb3ca112818639075a8}{tesseract\+\_\+planning\+::assign\+Current\+State\+As\+Seed}} (Composite\+Instruction \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env)
+void \mbox{\hyperlink{namespacetesseract__planning_a331a798804f11eb3ca112818639075a8}{tesseract\+\_\+planning\+::assign\+Current\+State\+As\+Seed}} (Composite\+Instruction \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&\mbox{\hyperlink{basic__cartesian__example__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}})
 \begin{DoxyCompactList}\small\item\em This will assign the current state as the seed for all cartesian waypoint. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a7de9f63151c4267c7bfd7b06145c1b75}{tesseract\+\_\+planning\+::format\+Program\+Helper}} (Composite\+Instruction \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ std\+::string $>$ $>$ \&manip\+\_\+joint\+\_\+names)
+bool \mbox{\hyperlink{namespacetesseract__planning_a7de9f63151c4267c7bfd7b06145c1b75}{tesseract\+\_\+planning\+::format\+Program\+Helper}} (Composite\+Instruction \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&\mbox{\hyperlink{basic__cartesian__example__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}}, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ std\+::string $>$ $>$ \&manip\+\_\+joint\+\_\+names)
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_ac25e52a76d6ada60b39ff9bb422dcb91}{tesseract\+\_\+planning\+::format\+Program}} (Composite\+Instruction \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env)
+bool \mbox{\hyperlink{namespacetesseract__planning_ac25e52a76d6ada60b39ff9bb422dcb91}{tesseract\+\_\+planning\+::format\+Program}} (Composite\+Instruction \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&\mbox{\hyperlink{basic__cartesian__example__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}})
 \begin{DoxyCompactList}\small\item\em This formats the joint and state waypoints to align with the kinematics object. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a82d7bc798089ef84c8c11d2806bbc9e7}{tesseract\+\_\+planning\+::contact\+Check\+Program}} (std\+::vector$<$ tesseract\+\_\+collision\+::\+Contact\+Result\+Map $>$ \&contacts, tesseract\+\_\+collision\+::\+Continuous\+Contact\+Manager \&manager, const tesseract\+\_\+scene\+\_\+graph\+::\+State\+Solver \&state\+\_\+solver, const Composite\+Instruction \&program, const tesseract\+\_\+collision\+::\+Collision\+Check\+Config \&config)
+bool \mbox{\hyperlink{namespacetesseract__planning_a82d7bc798089ef84c8c11d2806bbc9e7}{tesseract\+\_\+planning\+::contact\+Check\+Program}} (std\+::vector$<$ tesseract\+\_\+collision\+::\+Contact\+Result\+Map $>$ \&\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}}, tesseract\+\_\+collision\+::\+Continuous\+Contact\+Manager \&manager, const tesseract\+\_\+scene\+\_\+graph\+::\+State\+Solver \&state\+\_\+solver, const Composite\+Instruction \&\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}, const tesseract\+\_\+collision\+::\+Collision\+Check\+Config \&config)
 \begin{DoxyCompactList}\small\item\em Should perform a continuous collision check over the trajectory. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a7da45a95ed6e668c0c8f9b1d81aea3a8}{tesseract\+\_\+planning\+::contact\+Check\+Program}} (std\+::vector$<$ tesseract\+\_\+collision\+::\+Contact\+Result\+Map $>$ \&contacts, tesseract\+\_\+collision\+::\+Discrete\+Contact\+Manager \&manager, const tesseract\+\_\+scene\+\_\+graph\+::\+State\+Solver \&state\+\_\+solver, const Composite\+Instruction \&program, const tesseract\+\_\+collision\+::\+Collision\+Check\+Config \&config)
+bool \mbox{\hyperlink{namespacetesseract__planning_a7da45a95ed6e668c0c8f9b1d81aea3a8}{tesseract\+\_\+planning\+::contact\+Check\+Program}} (std\+::vector$<$ tesseract\+\_\+collision\+::\+Contact\+Result\+Map $>$ \&\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}}, tesseract\+\_\+collision\+::\+Discrete\+Contact\+Manager \&manager, const tesseract\+\_\+scene\+\_\+graph\+::\+State\+Solver \&state\+\_\+solver, const Composite\+Instruction \&\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}, const tesseract\+\_\+collision\+::\+Collision\+Check\+Config \&config)
 \begin{DoxyCompactList}\small\item\em Should perform a discrete collision check over the trajectory. \end{DoxyCompactList}\end{DoxyCompactItemize}

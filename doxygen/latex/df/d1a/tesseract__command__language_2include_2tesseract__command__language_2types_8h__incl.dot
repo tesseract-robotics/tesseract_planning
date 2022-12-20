@@ -1,0 +1,10 @@
+digraph "tesseract_command_language/include/tesseract_command_language/types.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="tesseract_command_language\l/include/tesseract_command\l_language/types.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Contains common types used throughout command language."];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="tesseract_common/manipulator\l_info.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+}

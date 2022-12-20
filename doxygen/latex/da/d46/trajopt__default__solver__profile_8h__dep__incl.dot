@@ -1,0 +1,20 @@
+digraph "tesseract_motion_planners/trajopt/include/tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="tesseract_motion_planners\l/trajopt/include/tesseract\l_motion_planners/trajopt/profile\l/trajopt_default_solver_profile.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="tesseract_examples\l/src/car_seat_example.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d0/d87/car__seat__example_8cpp.html",tooltip="Car seat example implementation."];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="tesseract_examples\l/src/pick_and_place\l_example.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d6a/pick__and__place__example_8cpp.html",tooltip="Pick and place implementation."];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="tesseract_examples\l/src/puzzle_piece_auxillary\l_axes_example.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/d7e/puzzle__piece__auxillary__axes__example_8cpp.html",tooltip="Puzzle piece auxillary axes implementation."];
+  Node1 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="tesseract_examples\l/src/puzzle_piece_example.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/d8f/puzzle__piece__example_8cpp.html",tooltip="Puzzle piece example implementation."];
+  Node1 -> Node6 [dir="back",color="steelblue1",style="solid"];
+  Node6 [label="tesseract_motion_planners\l/trajopt/src/profile/trajopt\l_default_solver_profile.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d93/trajopt__default__solver__profile_8cpp.html",tooltip=" "];
+  Node1 -> Node7 [dir="back",color="steelblue1",style="solid"];
+  Node7 [label="tesseract_motion_planners\l/trajopt/src/trajopt_motion\l_planner.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/df5/trajopt__motion__planner_8cpp.html",tooltip=" "];
+}

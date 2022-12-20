@@ -14,21 +14,9 @@ The state waypoint interface.
 {\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/type\+\_\+erasure.\+h$>$}\newline
 Include dependency graph for state\+\_\+waypoint\+\_\+poly.\+h\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d4/dc1/state__waypoint__poly_8h__incl}
-\end{center}
-\end{figure}
+% FIG 0
 This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d9/dfa/state__waypoint__poly_8h__dep__incl}
-\end{center}
-\end{figure}
+% FIG 1
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -64,7 +52,7 @@ using \mbox{\hyperlink{namespacetesseract__planning_ad000d7036e52bd6407cc1606d7d
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__state__waypoint_1_1StateWaypointInterface}{tesseract\+\_\+planning\+::detail\+\_\+state\+\_\+waypoint\+::\+State\+Waypoint\+Interface}}, boost\+::serialization\+::track\+\_\+never) \mbox{\hyperlink{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(tesseract\+\_\+planning \mbox{\hyperlink{state__waypoint__poly_8h_a1e713c91af7a1d27af36eeb7a92cb5d0}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY}} (tesseract\+\_\+planning, State\+Waypoint\+Poly)
+\mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__state__waypoint_1_1StateWaypointInterface}{tesseract\+\_\+planning\+::detail\+\_\+state\+\_\+waypoint\+::\+State\+Waypoint\+Interface}}, boost\+::serialization\+::track\+\_\+never) \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(tesseract\+\_\+planning \mbox{\hyperlink{state__waypoint__poly_8h_a1e713c91af7a1d27af36eeb7a92cb5d0}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY}} (tesseract\+\_\+planning, State\+Waypoint\+Poly)
 \end{DoxyCompactItemize}
 
 
@@ -142,10 +130,10 @@ If shared library, this must go in the cpp after the implicit instantiation of t
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keyword}{namespace }N                                                                                                          \(\backslash\)}
 \DoxyCodeLine{  \{                                                                                                                    \(\backslash\)}
-\DoxyCodeLine{  using C\#\#InstanceBase =                                                                                              \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keyword}{using }C\#\#InstanceBase =                                                                                              \(\backslash\)}
 \DoxyCodeLine{      tesseract\_common::TypeErasureInstance<C, tesseract\_planning::detail\_state\_waypoint::StateWaypointInterface>;     \(\backslash\)}
-\DoxyCodeLine{  using C\#\#Instance = \mbox{\hyperlink{structtesseract__planning_1_1detail__state__waypoint_1_1StateWaypointInstance}{tesseract\_planning::detail\_state\_waypoint::StateWaypointInstance<C>}};                             \(\backslash\)}
-\DoxyCodeLine{  using C\#\#InstanceWrapper = tesseract\_common::TypeErasureInstanceWrapper<C\#\#Instance>;                                \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keyword}{using }C\#\#Instance = \mbox{\hyperlink{structtesseract__planning_1_1detail__state__waypoint_1_1StateWaypointInstance}{tesseract\_planning::detail\_state\_waypoint::StateWaypointInstance<C>}};                             \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keyword}{using }C\#\#InstanceWrapper = tesseract\_common::TypeErasureInstanceWrapper<C\#\#Instance>;                                \(\backslash\)}
 \DoxyCodeLine{  \}                                                                                                                    \(\backslash\)}
 \DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceBase)                                                                           \(\backslash\)}
 \DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#Instance)                                                                               \(\backslash\)}
@@ -166,5 +154,5 @@ If shared library, this must go in the header after the class definition.
 \index{state\_waypoint\_poly.h@{state\_waypoint\_poly.h}!TESSERACT\_WAYPOINT\_EXPORT\_KEY@{TESSERACT\_WAYPOINT\_EXPORT\_KEY}}
 \index{TESSERACT\_WAYPOINT\_EXPORT\_KEY@{TESSERACT\_WAYPOINT\_EXPORT\_KEY}!state\_waypoint\_poly.h@{state\_waypoint\_poly.h}}
 \doxysubsubsection{\texorpdfstring{TESSERACT\_WAYPOINT\_EXPORT\_KEY()}{TESSERACT\_WAYPOINT\_EXPORT\_KEY()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__state__waypoint_1_1StateWaypointInterface}{tesseract\+\_\+planning\+::detail\+\_\+state\+\_\+waypoint\+::\+State\+Waypoint\+Interface}}, boost\+::serialization\+::track\+\_\+never) \mbox{\hyperlink{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(tesseract\+\_\+planning TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY (\begin{DoxyParamCaption}\item[{tesseract\+\_\+planning}]{,  }\item[{State\+Waypoint\+Poly}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__state__waypoint_1_1StateWaypointInterface}{tesseract\+\_\+planning\+::detail\+\_\+state\+\_\+waypoint\+::\+State\+Waypoint\+Interface}}, boost\+::serialization\+::track\+\_\+never) \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(tesseract\+\_\+planning TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY (\begin{DoxyParamCaption}\item[{tesseract\+\_\+planning}]{,  }\item[{State\+Waypoint\+Poly}]{ }\end{DoxyParamCaption})}
 

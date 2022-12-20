@@ -1,0 +1,14 @@
+digraph "tesseract_motion_planners/core/include/tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_plan_profile.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="tesseract_motion_planners\l/core/include/tesseract\l_motion_planners/simple\l/profile/simple_planner_fixed\l_size_assign_plan_profile.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="tesseract_motion_planners\l/core/src/simple/profile\l/simple_planner_fixed_size\l_assign_plan_profile.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/db1/simple__planner__fixed__size__assign__plan__profile_8cpp.html",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="tesseract_motion_planners\l/test/simple_planner_fixed\l_size_assign_position.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d25/simple__planner__fixed__size__assign__position_8cpp.html",tooltip=" "];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="tesseract_task_composer\l/test/tesseract_task_composer\l_unit.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/db5/tesseract__task__composer__unit_8cpp.html",tooltip=" "];
+}

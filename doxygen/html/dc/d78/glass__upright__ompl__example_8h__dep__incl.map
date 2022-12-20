@@ -1,5 +1,5 @@
 <map id="tesseract_examples/include/tesseract_examples/glass_upright_ompl_example.h" name="tesseract_examples/include/tesseract_examples/glass_upright_ompl_example.h">
-<area shape="rect" id="node1" title="An example of a robot with fixed orientation but free to move in cartesian space." alt="" coords="76,5,279,61"/>
-<area shape="rect" id="node2" href="$d6/d0e/glass__upright__ompl__example_8cpp.html" title="Glass upright OMPL example implementation." alt="" coords="5,109,165,165"/>
-<area shape="rect" id="node3" href="$d4/def/glass__upright__ompl__example__node_8cpp.html" title="Glass upright OMPL example node." alt="" coords="189,109,349,165"/>
+<area shape="rect" id="node1" title="An example of a robot with fixed orientation but free to move in cartesian space." alt="" coords="76,5,279,60"/>
+<area shape="rect" id="node2" href="$d6/d0e/glass__upright__ompl__example_8cpp.html" title="Glass upright OMPL example implementation." alt="" coords="5,108,165,163"/>
+<area shape="rect" id="node3" href="$d4/def/glass__upright__ompl__example__node_8cpp.html" title="Glass upright OMPL example node." alt="" coords="189,108,349,163"/>
 </map>

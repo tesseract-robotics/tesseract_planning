@@ -22,17 +22,17 @@
 \DoxyCodeLine{42 }
 \DoxyCodeLine{43   \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_ac269c2f1aa10a971a3b59e0f34e2d116}{ContactCheckProfile}}() : \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile}{ContactCheckProfile}}(0.05, 0) \{\}}
 \DoxyCodeLine{44 }
-\DoxyCodeLine{45   \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a7028b7498c1dc25cf162ec2ef0a643f3}{ContactCheckProfile}}(\textcolor{keywordtype}{double} longest\_valid\_segment\_length, \textcolor{keywordtype}{double} contact\_distance)}
+\DoxyCodeLine{45   \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a7028b7498c1dc25cf162ec2ef0a643f3}{ContactCheckProfile}}(\textcolor{keywordtype}{double} \mbox{\hyperlink{ompl__planner__tests_8cpp_ad4614839bb63e579d5ebd9c2324dca9f}{longest\_valid\_segment\_length}}, \textcolor{keywordtype}{double} contact\_distance)}
 \DoxyCodeLine{46   \{}
 \DoxyCodeLine{47     \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.type = tesseract\_collision::CollisionEvaluatorType::LVS\_DISCRETE;}
-\DoxyCodeLine{48     \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.longest\_valid\_segment\_length = longest\_valid\_segment\_length;}
+\DoxyCodeLine{48     \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.longest\_valid\_segment\_length = \mbox{\hyperlink{ompl__planner__tests_8cpp_ad4614839bb63e579d5ebd9c2324dca9f}{longest\_valid\_segment\_length}};}
 \DoxyCodeLine{49     \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.contact\_manager\_config.margin\_data = tesseract\_collision::CollisionMarginData(contact\_distance);}
 \DoxyCodeLine{50     \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.contact\_manager\_config.margin\_data\_override\_type =}
 \DoxyCodeLine{51         tesseract\_collision::CollisionMarginOverrideType::OVERRIDE\_DEFAULT\_MARGIN;}
 \DoxyCodeLine{52 }
 \DoxyCodeLine{53     \textcolor{keywordflow}{if} (\mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.longest\_valid\_segment\_length <= 0)}
 \DoxyCodeLine{54     \{}
-\DoxyCodeLine{55       CONSOLE\_BRIDGE\_logWarn(\textcolor{stringliteral}{"{}ContactCheckProfile: Invalid longest valid segment. Defaulting to 0.05"{}});}
+\DoxyCodeLine{55       \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a6dbf0af520d656a5487548e54fb3594d}{CONSOLE\_BRIDGE\_logWarn}}(\textcolor{stringliteral}{"{}ContactCheckProfile: Invalid longest valid segment. Defaulting to 0.05"{}});}
 \DoxyCodeLine{56       \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.longest\_valid\_segment\_length = 0.05;}
 \DoxyCodeLine{57     \}}
 \DoxyCodeLine{58   \}}

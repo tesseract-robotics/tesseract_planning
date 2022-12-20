@@ -15,21 +15,9 @@ The cartesian waypoint interface.
 {\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/type\+\_\+erasure.\+h$>$}\newline
 Include dependency graph for cartesian\+\_\+waypoint\+\_\+poly.\+h\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{dd/d7a/cartesian__waypoint__poly_8h__incl}
-\end{center}
-\end{figure}
+% FIG 0
 This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{dd/d61/cartesian__waypoint__poly_8h__dep__incl}
-\end{center}
-\end{figure}
+% FIG 1
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -65,7 +53,7 @@ using \mbox{\hyperlink{namespacetesseract__planning_aa3566b66783a0e8526c04c7e718
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface}{tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface}}, boost\+::serialization\+::track\+\_\+never) \mbox{\hyperlink{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(tesseract\+\_\+planning \mbox{\hyperlink{cartesian__waypoint__poly_8h_aca1188b041c56f33d5f638cdf17ae9de}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY}} (tesseract\+\_\+planning, Cartesian\+Waypoint\+Poly)
+\mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface}{tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface}}, boost\+::serialization\+::track\+\_\+never) \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(tesseract\+\_\+planning \mbox{\hyperlink{cartesian__waypoint__poly_8h_aca1188b041c56f33d5f638cdf17ae9de}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY}} (tesseract\+\_\+planning, Cartesian\+Waypoint\+Poly)
 \end{DoxyCompactItemize}
 
 
@@ -143,10 +131,10 @@ If shared library, this must go in the cpp after the implicit instantiation of t
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keyword}{namespace }N                                                                                                          \(\backslash\)}
 \DoxyCodeLine{  \{                                                                                                                    \(\backslash\)}
-\DoxyCodeLine{  using C\#\#InstanceBase = tesseract\_common::                                                                           \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keyword}{using }C\#\#InstanceBase = tesseract\_common::                                                                           \(\backslash\)}
 \DoxyCodeLine{      TypeErasureInstance<C, tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface>;               \(\backslash\)}
-\DoxyCodeLine{  using C\#\#Instance = \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInstance}{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInstance<C>}};                     \(\backslash\)}
-\DoxyCodeLine{  using C\#\#InstanceWrapper = tesseract\_common::TypeErasureInstanceWrapper<C\#\#Instance>;                                \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keyword}{using }C\#\#Instance = \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInstance}{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInstance<C>}};                     \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keyword}{using }C\#\#InstanceWrapper = tesseract\_common::TypeErasureInstanceWrapper<C\#\#Instance>;                                \(\backslash\)}
 \DoxyCodeLine{  \}                                                                                                                    \(\backslash\)}
 \DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceBase)                                                                           \(\backslash\)}
 \DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#Instance)                                                                               \(\backslash\)}
@@ -167,5 +155,5 @@ If shared library, this must go in the header after the class definition.
 \index{cartesian\_waypoint\_poly.h@{cartesian\_waypoint\_poly.h}!TESSERACT\_WAYPOINT\_EXPORT\_KEY@{TESSERACT\_WAYPOINT\_EXPORT\_KEY}}
 \index{TESSERACT\_WAYPOINT\_EXPORT\_KEY@{TESSERACT\_WAYPOINT\_EXPORT\_KEY}!cartesian\_waypoint\_poly.h@{cartesian\_waypoint\_poly.h}}
 \doxysubsubsection{\texorpdfstring{TESSERACT\_WAYPOINT\_EXPORT\_KEY()}{TESSERACT\_WAYPOINT\_EXPORT\_KEY()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface}{tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface}}, boost\+::serialization\+::track\+\_\+never) \mbox{\hyperlink{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(tesseract\+\_\+planning TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY (\begin{DoxyParamCaption}\item[{tesseract\+\_\+planning}]{,  }\item[{Cartesian\+Waypoint\+Poly}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface}{tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface}}, boost\+::serialization\+::track\+\_\+never) \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(tesseract\+\_\+planning TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY (\begin{DoxyParamCaption}\item[{tesseract\+\_\+planning}]{,  }\item[{Cartesian\+Waypoint\+Poly}]{ }\end{DoxyParamCaption})}
 

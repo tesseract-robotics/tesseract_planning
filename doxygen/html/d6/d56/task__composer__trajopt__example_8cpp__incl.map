@@ -1,52 +1,52 @@
 <map id="tesseract_task_composer/examples/task_composer_trajopt_example.cpp" name="tesseract_task_composer/examples/task_composer_trajopt_example.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="4716,5,4891,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="2389,771,2580,798"/>
-<area shape="rect" id="node3" title=" " alt="" coords="4553,771,4621,798"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5417,124,5485,151"/>
-<area shape="rect" id="node5" href="$d4/d58/task__composer__graph_8h.html" title="A task graph." alt="" coords="2757,317,2929,359"/>
-<area shape="rect" id="node15" href="$dc/dc5/task__composer__data__storage_8h.html" title="Data storage used when executing the pipeline." alt="" coords="4343,675,4549,716"/>
-<area shape="rect" id="node20" title=" " alt="" coords="4726,675,4881,716"/>
-<area shape="rect" id="node24" href="$de/d7e/trajopt__motion__pipeline__task_8h.html" title=" " alt="" coords="3293,213,3465,269"/>
-<area shape="rect" id="node26" href="$da/d8c/taskflow__task__composer__executor_8h.html" title="The tasflow executor implementation." alt="" coords="4717,109,4889,165"/>
-<area shape="rect" id="node30" title=" " alt="" coords="27,593,206,619"/>
-<area shape="rect" id="node31" href="$d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h.html" title=" " alt="" coords="132,407,331,448"/>
-<area shape="rect" id="node41" title=" " alt="" coords="5509,117,5663,158"/>
-<area shape="rect" id="node42" title=" " alt="" coords="5688,117,5873,158"/>
-<area shape="rect" id="node43" href="$d2/d98/freespace__example__program_8h.html" title=" " alt="" coords="1573,414,1772,441"/>
-<area shape="rect" id="node6" title=" " alt="" coords="872,771,927,798"/>
-<area shape="rect" id="node7" title=" " alt="" coords="2363,593,2422,619"/>
-<area shape="rect" id="node8" href="$da/dbe/task__composer__node_8h.html" title="A node in the pipeline." alt="" coords="3036,407,3208,448"/>
-<area shape="rect" id="node17" title=" " alt="" coords="3084,764,3211,805"/>
-<area shape="rect" id="node18" title=" " alt="" coords="5159,764,5285,805"/>
-<area shape="rect" id="node9" title=" " alt="" coords="3055,682,3189,709"/>
-<area shape="rect" id="node10" href="$db/ddf/task__composer__input_8h.html" title="The input data structure to the pipeline." alt="" coords="4416,496,4588,537"/>
-<area shape="rect" id="node11" title=" " alt="" coords="4443,593,4505,619"/>
-<area shape="rect" id="node12" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="3917,675,4116,716"/>
-<area shape="rect" id="node19" href="$d7/d2c/task__composer__node__info_8h.html" title="Task composer node info." alt="" coords="3791,585,3979,627"/>
-<area shape="rect" id="node23" href="$d7/d6d/task__composer__problem_8h.html" title="A task composer server problem." alt="" coords="4529,585,4707,627"/>
-<area shape="rect" id="node13" title=" " alt="" coords="4241,771,4352,798"/>
-<area shape="rect" id="node14" title=" " alt="" coords="3965,771,4068,798"/>
-<area shape="rect" id="node16" title=" " alt="" coords="3751,764,3909,805"/>
-<area shape="rect" id="node21" href="$d1/db1/instruction__poly_8h.html" title=" " alt="" coords="1699,675,1897,716"/>
-<area shape="rect" id="node22" title=" " alt="" coords="1275,771,1489,798"/>
-<area shape="rect" id="node25" href="$d3/da7/task__composer__node__names_8h.html" title="Contains default node names." alt="" coords="433,675,640,716"/>
-<area shape="rect" id="node27" href="$d6/dab/task__composer__executor_8h.html" title="The executor for executing task graphs." alt="" coords="4649,221,4830,262"/>
-<area shape="rect" id="node28" href="$da/d71/task__composer__task_8h.html" title="A task in the pipeline." alt="" coords="3036,317,3208,359"/>
-<area shape="rect" id="node29" href="$dc/d59/task__composer__future_8h.html" title="A task composer future." alt="" coords="3468,675,3640,716"/>
-<area shape="rect" id="node32" title=" " alt="" coords="141,503,194,530"/>
-<area shape="rect" id="node33" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="1573,496,1772,537"/>
-<area shape="rect" id="node36" title=" " alt="" coords="188,764,349,805"/>
-<area shape="rect" id="node34" href="$dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="1472,585,1671,627"/>
-<area shape="rect" id="node39" title=" " alt="" coords="1471,675,1675,716"/>
-<area shape="rect" id="node40" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="1795,585,1993,627"/>
-<area shape="rect" id="node35" href="$d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="868,675,1072,716"/>
-<area shape="rect" id="node37" href="$d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="1971,675,2169,716"/>
-<area shape="rect" id="node38" href="$d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="1147,675,1345,716"/>
-<area shape="rect" id="node44" href="$d1/d10/state__waypoint_8h.html" title=" " alt="" coords="1099,496,1297,537"/>
-<area shape="rect" id="node47" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="876,496,1075,537"/>
-<area shape="rect" id="node49" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="2224,496,2423,537"/>
-<area shape="rect" id="node50" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="1899,496,2097,537"/>
-<area shape="rect" id="node45" title=" " alt="" coords="1158,593,1243,619"/>
-<area shape="rect" id="node46" title=" " alt="" coords="2067,593,2238,619"/>
-<area shape="rect" id="node48" title=" " alt="" coords="1019,593,1134,619"/>
+<area shape="rect" id="node1" title=" " alt="" coords="4099,5,4274,60"/>
+<area shape="rect" id="node2" title=" " alt="" coords="2259,761,2450,786"/>
+<area shape="rect" id="node3" title=" " alt="" coords="4647,761,4715,786"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5251,123,5319,148"/>
+<area shape="rect" id="node5" href="$d4/d58/task__composer__graph_8h.html" title="A task graph." alt="" coords="2671,313,2843,353"/>
+<area shape="rect" id="node15" href="$dc/dc5/task__composer__data__storage_8h.html" title="Data storage used when executing the pipeline." alt="" coords="4386,665,4593,705"/>
+<area shape="rect" id="node20" title=" " alt="" coords="4207,665,4361,705"/>
+<area shape="rect" id="node24" href="$de/d7e/trajopt__motion__pipeline__task_8h.html" title=" " alt="" coords="2671,211,2843,265"/>
+<area shape="rect" id="node26" href="$da/d8c/taskflow__task__composer__executor_8h.html" title="The tasflow executor implementation." alt="" coords="4101,108,4273,163"/>
+<area shape="rect" id="node30" title=" " alt="" coords="93,585,272,610"/>
+<area shape="rect" id="node31" href="$d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h.html" title=" " alt="" coords="73,401,271,441"/>
+<area shape="rect" id="node41" title=" " alt="" coords="5344,115,5499,155"/>
+<area shape="rect" id="node42" title=" " alt="" coords="5523,115,5709,155"/>
+<area shape="rect" id="node43" href="$d2/d98/freespace__example__program_8h.html" title=" " alt="" coords="1958,409,2157,434"/>
+<area shape="rect" id="node6" title=" " alt="" coords="641,761,695,786"/>
+<area shape="rect" id="node7" title=" " alt="" coords="2385,585,2444,610"/>
+<area shape="rect" id="node8" href="$da/dbe/task__composer__node_8h.html" title="A node in the pipeline." alt="" coords="3178,401,3350,441"/>
+<area shape="rect" id="node17" title=" " alt="" coords="3001,753,3127,793"/>
+<area shape="rect" id="node18" title=" " alt="" coords="4871,753,4998,793"/>
+<area shape="rect" id="node9" title=" " alt="" coords="2646,761,2781,786"/>
+<area shape="rect" id="node10" href="$db/ddf/task__composer__input_8h.html" title="The input data structure to the pipeline." alt="" coords="4161,489,4333,529"/>
+<area shape="rect" id="node11" title=" " alt="" coords="4411,585,4472,610"/>
+<area shape="rect" id="node12" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="3730,665,3929,705"/>
+<area shape="rect" id="node19" href="$d7/d2c/task__composer__node__info_8h.html" title="Task composer node info." alt="" coords="3667,577,3855,617"/>
+<area shape="rect" id="node23" href="$d7/d6d/task__composer__problem_8h.html" title="A task composer server problem." alt="" coords="4157,577,4336,617"/>
+<area shape="rect" id="node13" title=" " alt="" coords="3838,761,3949,786"/>
+<area shape="rect" id="node14" title=" " alt="" coords="4017,761,4119,786"/>
+<area shape="rect" id="node16" title=" " alt="" coords="3613,753,3771,793"/>
+<area shape="rect" id="node21" href="$d1/db1/instruction__poly_8h.html" title=" " alt="" coords="2042,665,2241,705"/>
+<area shape="rect" id="node22" title=" " alt="" coords="1623,761,1838,786"/>
+<area shape="rect" id="node25" href="$d3/da7/task__composer__node__names_8h.html" title="Contains default node names." alt="" coords="297,665,503,705"/>
+<area shape="rect" id="node27" href="$d6/dab/task__composer__executor_8h.html" title="The executor for executing task graphs." alt="" coords="3399,218,3580,258"/>
+<area shape="rect" id="node28" href="$da/d71/task__composer__task_8h.html" title="A task in the pipeline." alt="" coords="3178,313,3350,353"/>
+<area shape="rect" id="node29" href="$dc/d59/task__composer__future_8h.html" title="A task composer future." alt="" coords="3279,665,3451,705"/>
+<area shape="rect" id="node32" title=" " alt="" coords="93,497,147,522"/>
+<area shape="rect" id="node33" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="1735,489,1934,529"/>
+<area shape="rect" id="node36" title=" " alt="" coords="77,753,238,793"/>
+<area shape="rect" id="node34" href="$dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="1958,577,2157,617"/>
+<area shape="rect" id="node39" title=" " alt="" coords="1489,665,1693,705"/>
+<area shape="rect" id="node40" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="1438,577,1637,617"/>
+<area shape="rect" id="node35" href="$d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="782,665,986,705"/>
+<area shape="rect" id="node37" href="$d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="1819,665,2018,705"/>
+<area shape="rect" id="node38" href="$d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="1062,665,1261,705"/>
+<area shape="rect" id="node44" href="$d1/d10/state__waypoint_8h.html" title=" " alt="" coords="1077,489,1275,529"/>
+<area shape="rect" id="node47" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="826,489,1025,529"/>
+<area shape="rect" id="node49" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="2181,489,2379,529"/>
+<area shape="rect" id="node50" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="1958,489,2157,529"/>
+<area shape="rect" id="node45" title=" " alt="" coords="1176,585,1261,610"/>
+<area shape="rect" id="node46" title=" " alt="" coords="1763,585,1933,610"/>
+<area shape="rect" id="node48" title=" " alt="" coords="987,585,1101,610"/>
 </map>

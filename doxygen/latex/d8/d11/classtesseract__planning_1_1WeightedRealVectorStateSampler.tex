@@ -12,33 +12,21 @@ Tesseract OMPL Weighted State Sampler.
 
 
 Inheritance diagram for tesseract\+\_\+planning\+::Weighted\+Real\+Vector\+State\+Sampler\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=249pt]{d4/d7e/classtesseract__planning_1_1WeightedRealVectorStateSampler__inherit__graph}
-\end{center}
-\end{figure}
+% FIG 0
 
 
 Collaboration diagram for tesseract\+\_\+planning\+::Weighted\+Real\+Vector\+State\+Sampler\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=249pt]{df/ddc/classtesseract__planning_1_1WeightedRealVectorStateSampler__coll__graph}
-\end{center}
-\end{figure}
+% FIG 1
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler_a382b5c40d281195bae710e9d0d732b4a}{Weighted\+Real\+Vector\+State\+Sampler}} (const ompl\+::base\+::\+State\+Space $\ast$space, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&weights, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix\+X2d $>$ \&bounds)
 \item 
-void \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler_ae684f3f4cd7f095d3785199e0cfdc581}{sample\+Uniform}} (ompl\+::base\+::\+State $\ast$state) override
+void \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler_ae684f3f4cd7f095d3785199e0cfdc581}{sample\+Uniform}} (ompl\+::base\+::\+State $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}) override
 \item 
-void \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler_a74178942b848c494c3b9c74ea3693caf}{sample\+Uniform\+Near}} (ompl\+::base\+::\+State $\ast$state, const ompl\+::base\+::\+State $\ast$near, double distance) override
+void \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler_a74178942b848c494c3b9c74ea3693caf}{sample\+Uniform\+Near}} (ompl\+::base\+::\+State $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}, const ompl\+::base\+::\+State $\ast$near, double distance) override
 \begin{DoxyCompactList}\small\item\em Sample a state such that each component state\mbox{[}i\mbox{]} is uniformly sampled from \mbox{[}near\mbox{[}i\mbox{]}-\/distance, near\mbox{[}i\mbox{]}+distance\mbox{]}. If this interval exceeds the state space bounds, the interval is truncated. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler_a3abf0597a4cdc80723b22d144ed76ca9}{sample\+Gaussian}} (ompl\+::base\+::\+State $\ast$state, const ompl\+::base\+::\+State $\ast$mean, double std\+Dev) override
+void \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler_a3abf0597a4cdc80723b22d144ed76ca9}{sample\+Gaussian}} (ompl\+::base\+::\+State $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}, const ompl\+::base\+::\+State $\ast$mean, double std\+Dev) override
 \begin{DoxyCompactList}\small\item\em Sample a state such that each component state\mbox{[}i\mbox{]} has a Gaussian distribution with mean mean\mbox{[}i\mbox{]} and standard deviation std\+Dev. If the sampled value exceeds the state space boundary, it is thresholded to the nearest boundary. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}

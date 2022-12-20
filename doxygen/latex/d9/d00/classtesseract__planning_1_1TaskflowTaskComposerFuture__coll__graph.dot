@@ -1,0 +1,17 @@
+digraph "tesseract_planning::TaskflowTaskComposerFuture"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="tesseract_planning\l::TaskflowTaskComposerFuture",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="tesseract_planning\l::TaskComposerFuture",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d4/dc6/classtesseract__planning_1_1TaskComposerFuture.html",tooltip="This contains the result for the task composer request."];
+  Node3 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" container_" ];
+  Node3 [label="std::shared_ptr\< const\l std::vector\< std::unique\l_ptr\< tf::Taskflow \> \> \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node3 [dir="back",color="darkorchid3",style="dashed",label=" ptr" ];
+  Node4 [label="std::vector\< std::unique\l_ptr\< tf::Taskflow \> \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node4 [dir="back",color="darkorchid3",style="dashed",label=" elements" ];
+  Node5 [label="std::unique_ptr\< tf\l::Taskflow \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+}

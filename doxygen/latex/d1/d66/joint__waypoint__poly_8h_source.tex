@@ -53,10 +53,10 @@
 \DoxyCodeLine{79   \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointConcept_a5c0a4211345b4ca82883a2d0d302bd08}{BOOST\_CONCEPT\_USAGE}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointConcept}{JointWaypointConcept}})}
 \DoxyCodeLine{80   \{}
 \DoxyCodeLine{81     T cp(\mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointConcept_a8a56dc6eda0980f86a30567e12b3d297}{c}});}
-\DoxyCodeLine{82     T assign = \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointConcept_a8a56dc6eda0980f86a30567e12b3d297}{c}};}
+\DoxyCodeLine{82     T \mbox{\hyperlink{move__instruction__unit_8cpp_aca345e06220adc619de0005143e9a3a2}{assign}} = \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointConcept_a8a56dc6eda0980f86a30567e12b3d297}{c}};}
 \DoxyCodeLine{83     \textcolor{keywordtype}{bool} eq = (\mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointConcept_a8a56dc6eda0980f86a30567e12b3d297}{c}} == cp);}
 \DoxyCodeLine{84     \textcolor{keywordtype}{bool} neq = (\mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointConcept_a8a56dc6eda0980f86a30567e12b3d297}{c}} != cp);}
-\DoxyCodeLine{85     UNUSED(assign);}
+\DoxyCodeLine{85     UNUSED(\mbox{\hyperlink{move__instruction__unit_8cpp_aca345e06220adc619de0005143e9a3a2}{assign}});}
 \DoxyCodeLine{86     UNUSED(eq);}
 \DoxyCodeLine{87     UNUSED(neq);}
 \DoxyCodeLine{88 }
@@ -69,8 +69,8 @@
 \DoxyCodeLine{95     \textcolor{keyword}{const} std::vector<std::string>\& names\_const\_ref = \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointConcept_a8a56dc6eda0980f86a30567e12b3d297}{c}}.getNames();}
 \DoxyCodeLine{96     UNUSED(names\_const\_ref);}
 \DoxyCodeLine{97 }
-\DoxyCodeLine{98     Eigen::VectorXd position;}
-\DoxyCodeLine{99     \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointConcept_a8a56dc6eda0980f86a30567e12b3d297}{c}}.setPosition(position);}
+\DoxyCodeLine{98     Eigen::VectorXd \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aceccc0cd449d679775c9c519a9eca6ce}{position}};}
+\DoxyCodeLine{99     \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointConcept_a8a56dc6eda0980f86a30567e12b3d297}{c}}.setPosition(\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aceccc0cd449d679775c9c519a9eca6ce}{position}});}
 \DoxyCodeLine{100 }
 \DoxyCodeLine{101     Eigen::VectorXd\& position\_ref = \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointConcept_a8a56dc6eda0980f86a30567e12b3d297}{c}}.getPosition();}
 \DoxyCodeLine{102     UNUSED(position\_ref);}
@@ -114,7 +114,7 @@
 \DoxyCodeLine{140   \textcolor{keyword}{virtual} std::vector<std::string>\& \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInterface_a383516d9c49956474fdc658d4261b846}{getNames}}() = 0;}
 \DoxyCodeLine{141   \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::vector<std::string>\& \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInterface_af3396182c07c08ff62dadb174c32e36a}{getNames}}() \textcolor{keyword}{const} = 0;}
 \DoxyCodeLine{142 }
-\DoxyCodeLine{143   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInterface_a0a9eb7bd57485fa228d0a7d65943795c}{setPosition}}(\textcolor{keyword}{const} Eigen::VectorXd\& position) = 0;}
+\DoxyCodeLine{143   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInterface_a0a9eb7bd57485fa228d0a7d65943795c}{setPosition}}(\textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aceccc0cd449d679775c9c519a9eca6ce}{position}}) = 0;}
 \DoxyCodeLine{144   \textcolor{keyword}{virtual} Eigen::VectorXd\& \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInterface_ad59feb17681c4e2479aea92897719d2e}{getPosition}}() = 0;}
 \DoxyCodeLine{145   \textcolor{keyword}{virtual} \textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInterface_af58eefaaa4cb99f81b10140b71529017}{getPosition}}() \textcolor{keyword}{const} = 0;}
 \DoxyCodeLine{146 }
@@ -152,7 +152,7 @@
 \DoxyCodeLine{178   std::vector<std::string>\& \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_ac872ceef15fe32f965cd50a8ba6f881b}{getNames}}() final \{ \textcolor{keywordflow}{return} this-\/>get().getNames(); \}}
 \DoxyCodeLine{179   \textcolor{keyword}{const} std::vector<std::string>\& \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_adc9aa2f0bcec98eae1934fdf97a897a8}{getNames}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getNames(); \}}
 \DoxyCodeLine{180 }
-\DoxyCodeLine{181   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_a5f14def6990003bc0318b5e6172ffeb8}{setPosition}}(\textcolor{keyword}{const} Eigen::VectorXd\& position) \textcolor{keyword}{final} \{ this-\/>get().setPosition(position); \}}
+\DoxyCodeLine{181   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_a5f14def6990003bc0318b5e6172ffeb8}{setPosition}}(\textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aceccc0cd449d679775c9c519a9eca6ce}{position}}) \textcolor{keyword}{final} \{ this-\/>get().setPosition(\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aceccc0cd449d679775c9c519a9eca6ce}{position}}); \}}
 \DoxyCodeLine{182   Eigen::VectorXd\& \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_abcedcfd503c42520ca135854ed353ae0}{getPosition}}() final \{ \textcolor{keywordflow}{return} this-\/>get().getPosition(); \}}
 \DoxyCodeLine{183   \textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance_a828cad2b8ebbd27226cdb6585ccfefdb}{getPosition}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getPosition(); \}}
 \DoxyCodeLine{184 }
@@ -186,13 +186,13 @@
 \DoxyCodeLine{212                                                                 \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance}{detail\_joint\_waypoint::JointWaypointInstance}}>;}
 \DoxyCodeLine{213 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} : \mbox{\hyperlink{namespacetesseract__planning_a4b67e25de24450d16e76f4711e9cba2d}{JointWaypointPolyBase}}}
 \DoxyCodeLine{214 \{}
-\DoxyCodeLine{215   \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a4b67e25de24450d16e76f4711e9cba2d}{JointWaypointPolyBase::JointWaypointPolyBase}};}
+\DoxyCodeLine{215   \textcolor{keyword}{using }JointWaypointPolyBase::JointWaypointPolyBase;}
 \DoxyCodeLine{216 }
 \DoxyCodeLine{217   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_a54ab85f1415645a3eabfb2d47fd27ab0}{setNames}}(\textcolor{keyword}{const} std::vector<std::string>\& names);}
 \DoxyCodeLine{218   std::vector<std::string>\& \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_ae9cdac7950ef99e7177117e0bf33c258}{getNames}}();}
 \DoxyCodeLine{219   \textcolor{keyword}{const} std::vector<std::string>\& \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_ae9cdac7950ef99e7177117e0bf33c258}{getNames}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{220 }
-\DoxyCodeLine{221   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_ae9a976d017a2a4de36a664462ce9880d}{setPosition}}(\textcolor{keyword}{const} Eigen::VectorXd\& position);}
+\DoxyCodeLine{221   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_ae9a976d017a2a4de36a664462ce9880d}{setPosition}}(\textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aceccc0cd449d679775c9c519a9eca6ce}{position}});}
 \DoxyCodeLine{222   Eigen::VectorXd\& \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_aa3414cc01b2598b71a5e978041bf4c92}{getPosition}}();}
 \DoxyCodeLine{223   \textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_aa3414cc01b2598b71a5e978041bf4c92}{getPosition}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{224 }
@@ -207,7 +207,7 @@
 \DoxyCodeLine{233   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_a7fe40a2f6ba8acf96a7da4babc08ae07}{setIsConstrained}}(\textcolor{keywordtype}{bool} value);}
 \DoxyCodeLine{234   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_a4caa2238140ec059e75646b0d732708f}{isConstrained}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{235 }
-\DoxyCodeLine{236   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_afaee45bfabce542493d25a074795d03b}{print}}(\textcolor{keyword}{const} std::string\& prefix = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{const};}
+\DoxyCodeLine{236   \textcolor{keywordtype}{void} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a325e3dfd0187a4d3d0e2fe1be25fade0}{print}}(\textcolor{keyword}{const} std::string\& prefix = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{const};}
 \DoxyCodeLine{237 }
 \DoxyCodeLine{242   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly_a55d98b942ec787ed62a4ed92ea3d1635}{isToleranced}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{243 }

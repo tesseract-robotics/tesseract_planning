@@ -1,7 +1,7 @@
 <map id="tesseract_task_composer/include/tesseract_task_composer/profiles/fix_state_collision_profile.h" name="tesseract_task_composer/include/tesseract_task_composer/profiles/fix_state_collision_profile.h">
-<area shape="rect" id="node1" title="Profile for process that pushes plan instructions to be out of collision." alt="" coords="207,5,389,76"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,131,196,158"/>
-<area shape="rect" id="node3" title=" " alt="" coords="220,131,288,158"/>
-<area shape="rect" id="node4" title=" " alt="" coords="313,131,371,158"/>
-<area shape="rect" id="node5" title=" " alt="" coords="395,124,526,165"/>
+<area shape="rect" id="node1" title="Profile for process that pushes plan instructions to be out of collision." alt="" coords="207,5,389,75"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,130,196,155"/>
+<area shape="rect" id="node3" title=" " alt="" coords="220,130,288,155"/>
+<area shape="rect" id="node4" title=" " alt="" coords="313,130,371,155"/>
+<area shape="rect" id="node5" title=" " alt="" coords="395,123,526,163"/>
 </map>

@@ -12,13 +12,7 @@ This is a wait instruction similar to wait instruction on industrial controllers
 
 
 Collaboration diagram for tesseract\+\_\+planning\+::Wait\+Instruction\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=184pt]{d2/db1/classtesseract__planning_1_1WaitInstruction__coll__graph}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -26,7 +20,15 @@ Collaboration diagram for tesseract\+\_\+planning\+::Wait\+Instruction\+:
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_aade41c4ff7ebce340f2e69f854ca9ffb}{Wait\+Instruction}} (double time)
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a80966abd3d33793952962709ac18eabc}{Wait\+Instruction}} (\mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66e}{Wait\+Instruction\+Type}} type, int io)
+\mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a80966abd3d33793952962709ac18eabc}{Wait\+Instruction}} (\mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66e}{Wait\+Instruction\+Type}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a03004818513b2a0604415827c17b9595}{type}}, int io)
+\item 
+const boost\+::uuids\+::uuid \& \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a5494603e578f2edd5f934b2f60728938}{get\+UUID}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a246c249fe99c83f7ba803e6b21cc2284}{regenerate\+UUID}} ()
+\item 
+const boost\+::uuids\+::uuid \& \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a70054338abe7b175ac3fc95585780926}{get\+Parent\+UUID}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_ad8edcef3f5fef92456ab6dd16367dd9a}{set\+Parent\+UUID}} (const boost\+::uuids\+::uuid \&\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}})
 \item 
 const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_ad59033b490ff18ab0f4289e1bd4eeb49}{get\+Description}} () const
 \item 
@@ -36,7 +38,7 @@ void \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_ab557dd08a7922
 \item 
 \mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66e}{Wait\+Instruction\+Type}} \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a35cdf30ac2ddcc49886e64ef379d4aa5}{get\+Wait\+Type}} () const
 \begin{DoxyCompactList}\small\item\em Get the wait type. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_ad8aec76a668acf8931814ad37110a8d9}{set\+Wait\+Type}} (\mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66e}{Wait\+Instruction\+Type}} type)
+void \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_ad8aec76a668acf8931814ad37110a8d9}{set\+Wait\+Type}} (\mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66e}{Wait\+Instruction\+Type}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a03004818513b2a0604415827c17b9595}{type}})
 \begin{DoxyCompactList}\small\item\em Set the wait type. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_aeef7a70c2df5776204c6224e82b25a92}{get\+Wait\+Time}} () const
 \begin{DoxyCompactList}\small\item\em Get wait time in second. \end{DoxyCompactList}\item 
@@ -58,6 +60,10 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a331eca2bea44d
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
+boost\+::uuids\+::uuid \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a17f12f082d7c17c26f25ea2140c970d4}{uuid\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em The instructions UUID. \end{DoxyCompactList}\item 
+boost\+::uuids\+::uuid \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a070f503c85b4ea4975b4a18bdca586bb}{parent\+\_\+uuid\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em The parent UUID if created from create\+Child. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a956cddb65c04f54279fd3393046acbf5}{description\+\_\+}} \{ \char`\"{}Tesseract Wait Instruction\char`\"{} \}
 \begin{DoxyCompactList}\small\item\em The description of the instruction. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66e}{Wait\+Instruction\+Type}} \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a20ec599d76aa511f6df716c0d9ddeaef}{wait\+\_\+type\+\_\+}} \{ \mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66ea346ff32eaa3c09983fb2ec057816d352}{Wait\+Instruction\+Type\+::\+TIME}} \}
@@ -114,6 +120,18 @@ The instruction has several modes of operation.
 \index{getDescription@{getDescription}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
 {\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Wait\+Instruction\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_a70054338abe7b175ac3fc95585780926}\label{classtesseract__planning_1_1WaitInstruction_a70054338abe7b175ac3fc95585780926}} 
+\index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!getParentUUID@{getParentUUID}}
+\index{getParentUUID@{getParentUUID}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
+\doxysubsubsection{\texorpdfstring{getParentUUID()}{getParentUUID()}}
+{\footnotesize\ttfamily const boost\+::uuids\+::uuid \& tesseract\+\_\+planning\+::\+Wait\+Instruction\+::get\+Parent\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_a5494603e578f2edd5f934b2f60728938}\label{classtesseract__planning_1_1WaitInstruction_a5494603e578f2edd5f934b2f60728938}} 
+\index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!getUUID@{getUUID}}
+\index{getUUID@{getUUID}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
+\doxysubsubsection{\texorpdfstring{getUUID()}{getUUID()}}
+{\footnotesize\ttfamily const boost\+::uuids\+::uuid \& tesseract\+\_\+planning\+::\+Wait\+Instruction\+::get\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_ab094872c5d2ed0dc013ed3ca631cb4d2}\label{classtesseract__planning_1_1WaitInstruction_ab094872c5d2ed0dc013ed3ca631cb4d2}} 
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!getWaitIO@{getWaitIO}}
@@ -196,6 +214,12 @@ True if equal, otherwise false
 \doxysubsubsection{\texorpdfstring{print()}{print()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_a246c249fe99c83f7ba803e6b21cc2284}\label{classtesseract__planning_1_1WaitInstruction_a246c249fe99c83f7ba803e6b21cc2284}} 
+\index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!regenerateUUID@{regenerateUUID}}
+\index{regenerateUUID@{regenerateUUID}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
+\doxysubsubsection{\texorpdfstring{regenerateUUID()}{regenerateUUID()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::regenerate\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_a26b12cb34586cd5abdb83c78b755b66e}\label{classtesseract__planning_1_1WaitInstruction_a26b12cb34586cd5abdb83c78b755b66e}} 
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!serialize@{serialize}}
 \index{serialize@{serialize}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
@@ -208,6 +232,12 @@ void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::serialize (\begin{DoxyPar
 \index{setDescription@{setDescription}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_ad8edcef3f5fef92456ab6dd16367dd9a}\label{classtesseract__planning_1_1WaitInstruction_ad8edcef3f5fef92456ab6dd16367dd9a}} 
+\index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!setParentUUID@{setParentUUID}}
+\index{setParentUUID@{setParentUUID}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
+\doxysubsubsection{\texorpdfstring{setParentUUID()}{setParentUUID()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::set\+Parent\+UUID (\begin{DoxyParamCaption}\item[{const boost\+::uuids\+::uuid \&}]{uuid }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_a848e03066886574ee8f8fb6347343240}\label{classtesseract__planning_1_1WaitInstruction_a848e03066886574ee8f8fb6347343240}} 
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!setWaitIO@{setWaitIO}}
@@ -275,6 +305,26 @@ Set the wait type.
 
 
 The description of the instruction. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_a070f503c85b4ea4975b4a18bdca586bb}\label{classtesseract__planning_1_1WaitInstruction_a070f503c85b4ea4975b4a18bdca586bb}} 
+\index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!parent\_uuid\_@{parent\_uuid\_}}
+\index{parent\_uuid\_@{parent\_uuid\_}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
+\doxysubsubsection{\texorpdfstring{parent\_uuid\_}{parent\_uuid\_}}
+{\footnotesize\ttfamily boost\+::uuids\+::uuid tesseract\+\_\+planning\+::\+Wait\+Instruction\+::parent\+\_\+uuid\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The parent UUID if created from create\+Child. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_a17f12f082d7c17c26f25ea2140c970d4}\label{classtesseract__planning_1_1WaitInstruction_a17f12f082d7c17c26f25ea2140c970d4}} 
+\index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!uuid\_@{uuid\_}}
+\index{uuid\_@{uuid\_}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
+\doxysubsubsection{\texorpdfstring{uuid\_}{uuid\_}}
+{\footnotesize\ttfamily boost\+::uuids\+::uuid tesseract\+\_\+planning\+::\+Wait\+Instruction\+::uuid\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The instructions UUID. 
 
 \mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_a1c674c1e42997a5e1e57e0e2974fa722}\label{classtesseract__planning_1_1WaitInstruction_a1c674c1e42997a5e1e57e0e2974fa722}} 
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!wait\_io\_@{wait\_io\_}}

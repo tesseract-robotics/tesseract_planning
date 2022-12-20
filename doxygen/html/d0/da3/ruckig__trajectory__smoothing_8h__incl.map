@@ -1,7 +1,7 @@
 <map id="tesseract_time_parameterization/include/tesseract_time_parameterization/ruckig_trajectory_smoothing.h" name="tesseract_time_parameterization/include/tesseract_time_parameterization/ruckig_trajectory_smoothing.h">
-<area shape="rect" id="node1" title="Leveraging Ruckig to smooth trajectory." alt="" coords="114,5,373,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,199,196,225"/>
-<area shape="rect" id="node3" title=" " alt="" coords="326,199,417,225"/>
-<area shape="rect" id="node4" href="$d5/de8/trajectory__container_8h.html" title="Creates an interface for contaning different trajectory data structures." alt="" coords="138,109,349,151"/>
-<area shape="rect" id="node5" title=" " alt="" coords="220,199,288,225"/>
+<area shape="rect" id="node1" title="Leveraging Ruckig to smooth trajectory." alt="" coords="114,5,373,60"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,196,196,221"/>
+<area shape="rect" id="node3" title=" " alt="" coords="326,196,417,221"/>
+<area shape="rect" id="node4" href="$d5/de8/trajectory__container_8h.html" title="Creates an interface for contaning different trajectory data structures." alt="" coords="138,108,349,148"/>
+<area shape="rect" id="node5" title=" " alt="" coords="220,196,288,221"/>
 </map>

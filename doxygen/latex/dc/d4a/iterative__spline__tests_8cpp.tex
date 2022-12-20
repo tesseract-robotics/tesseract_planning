@@ -8,13 +8,7 @@
 {\ttfamily \#include $<$tesseract\+\_\+time\+\_\+parameterization/iterative\+\_\+spline\+\_\+parameterization.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+time\+\_\+parameterization/instructions\+\_\+trajectory.\+h$>$}\newline
 Include dependency graph for iterative\+\_\+spline\+\_\+tests.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{de/dbc/iterative__spline__tests_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -22,21 +16,50 @@ Include dependency graph for iterative\+\_\+spline\+\_\+tests.\+cpp\+:
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{iterative__spline__tests_8cpp_a2517a990d50812c8b544130f3a1ff7e9}{create\+Straight\+Trajectory}} ()
 \item 
-\mbox{\hyperlink{iterative__spline__tests_8cpp_a94d5990f95d5cf33b838b59d07a3030f}{TEST}} (Iterative\+Spline\+Parameterization\+Unit, Solve)
+\mbox{\hyperlink{iterative__spline__tests_8cpp_a78892ab694dcb162e8741207b01d1304}{EXPECT\+\_\+\+TRUE}} (time\+\_\+parameterization.\+compute($\ast$\mbox{\hyperlink{iterative__spline__tests_8cpp_a42770b019b3c810751d40ab5f2f25e20}{trajectory}}, \mbox{\hyperlink{iterative__spline__tests_8cpp_a4edd2e19f0e2c29472298acb4c9314bc}{max\+\_\+velocity}}, \mbox{\hyperlink{iterative__spline__tests_8cpp_ace361fc180c17eec994c8f5b4b5a260e}{max\+\_\+acceleration}}))
 \item 
-\mbox{\hyperlink{iterative__spline__tests_8cpp_a1fb67aa34417d03016c74d44bd7f54e0}{TEST}} (Test\+Time\+Parameterization, Test\+Iterative\+Spline)
+\mbox{\hyperlink{iterative__spline__tests_8cpp_a6379a9a46f8ac0b413a44a5ec5429334}{ASSERT\+\_\+\+LT}} (program.\+back().as$<$ \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} $>$().get\+Waypoint().as$<$ \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} $>$().get\+Time(), 5.\+0)
 \item 
-\mbox{\hyperlink{iterative__spline__tests_8cpp_aae916733e35631f4750dbc1bbf628000}{TEST}} (Test\+Time\+Parameterization, Test\+Iterative\+Spline\+Add\+Points)
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{iterative__spline__tests_8cpp_adcd24ecaf4e3291d94797d167ba545cf}{max\+\_\+velocity}} (6)
 \item 
-\mbox{\hyperlink{iterative__spline__tests_8cpp_a8bdbc0bcd2e1b7a1253a19c8373540ed}{TEST}} (Test\+Time\+Parameterization, Test\+Iterative\+Spline\+Dynamic\+Params)
+\mbox{\hyperlink{iterative__spline__tests_8cpp_a9a210df5ca8f0f764428163b5580dbdd}{EXPECT\+\_\+\+TRUE}} (time\+\_\+parameterization.\+compute($\ast$\mbox{\hyperlink{iterative__spline__tests_8cpp_a42770b019b3c810751d40ab5f2f25e20}{trajectory}}, \mbox{\hyperlink{iterative__spline__tests_8cpp_a4edd2e19f0e2c29472298acb4c9314bc}{max\+\_\+velocity}}, \mbox{\hyperlink{iterative__spline__tests_8cpp_ace361fc180c17eec994c8f5b4b5a260e}{max\+\_\+acceleration}}, \mbox{\hyperlink{iterative__spline__tests_8cpp_a3f9d5b7b93f8eeb8a7a70641a2cd1c4c}{max\+\_\+velocity\+\_\+scaling\+\_\+factors}}, \mbox{\hyperlink{iterative__spline__tests_8cpp_ac85e0028fd530fc5f5f085bf7e886dc6}{max\+\_\+acceleration\+\_\+scaling\+\_\+factors}}))
 \item 
-\mbox{\hyperlink{iterative__spline__tests_8cpp_ab781032eb35a81d9e63d273589f28f8f}{TEST}} (Test\+Time\+Parameterization, Test\+Repeated\+Point)
+\mbox{\hyperlink{iterative__spline__tests_8cpp_a4e38cd9bbb242da7d9fbaeeb976da543}{EXPECT\+\_\+\+LT}} (program.\+back().as$<$ \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} $>$().get\+Waypoint().as$<$ \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} $>$().get\+Time(), 5.\+0)
+\item 
+\mbox{\hyperlink{iterative__spline__tests_8cpp_ac10e0e1182e07e45c13c166c2434af4c}{ASSERT\+\_\+\+LT}} (program.\+back().as$<$ \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} $>$().get\+Waypoint().as$<$ \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} $>$().get\+Time(), 0.\+001)
 \item 
 int \mbox{\hyperlink{iterative__spline__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{iterative__spline__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} = \mbox{\hyperlink{iterative__spline__tests_8cpp_a2517a990d50812c8b544130f3a1ff7e9}{create\+Straight\+Trajectory}}()
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{iterative__spline__tests_8cpp_a4edd2e19f0e2c29472298acb4c9314bc}{max\+\_\+velocity}} = \{ 2.\+088, 2.\+082, 3.\+27, 3.\+6, 3.\+3, 3.\+078 \}
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{iterative__spline__tests_8cpp_ace361fc180c17eec994c8f5b4b5a260e}{max\+\_\+acceleration}} = \{ 1, 1, 1, 1, 1, 1 \}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_addac5779485104d03ae174b032df5e6a}{Trajectory\+Container\+::\+Ptr}} \mbox{\hyperlink{iterative__spline__tests_8cpp_a42770b019b3c810751d40ab5f2f25e20}{trajectory}} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory}{Instructions\+Trajectory}}$>$(\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}})
+\item 
+\mbox{\hyperlink{iterative__spline__tests_8cpp_a3f9d5b7b93f8eeb8a7a70641a2cd1c4c}{max\+\_\+velocity\+\_\+scaling\+\_\+factors}} \mbox{[}0\mbox{]} = 0.\+5
+\item 
+\mbox{\hyperlink{iterative__spline__tests_8cpp_ac85e0028fd530fc5f5f085bf7e886dc6}{max\+\_\+acceleration\+\_\+scaling\+\_\+factors}} \mbox{[}0\mbox{]} = 0.\+5
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{iterative__spline__tests_8cpp_ac10e0e1182e07e45c13c166c2434af4c}\label{iterative__spline__tests_8cpp_ac10e0e1182e07e45c13c166c2434af4c}} 
+\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!ASSERT\_LT@{ASSERT\_LT}}
+\index{ASSERT\_LT@{ASSERT\_LT}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{ASSERT\_LT()}{ASSERT\_LT()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily ASSERT\+\_\+\+LT (\begin{DoxyParamCaption}\item[{program.}]{back).\+as$<$ Move\+Instruction\+Poly $>$().\+get\+Waypoint().\+as$<$ State\+Waypoint\+Poly $>$().\+get\+Time(,  }\item[{0.}]{001 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{iterative__spline__tests_8cpp_a6379a9a46f8ac0b413a44a5ec5429334}\label{iterative__spline__tests_8cpp_a6379a9a46f8ac0b413a44a5ec5429334}} 
+\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!ASSERT\_LT@{ASSERT\_LT}}
+\index{ASSERT\_LT@{ASSERT\_LT}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{ASSERT\_LT()}{ASSERT\_LT()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily ASSERT\+\_\+\+LT (\begin{DoxyParamCaption}\item[{program.}]{back).\+as$<$ Move\+Instruction\+Poly $>$().\+get\+Waypoint().\+as$<$ State\+Waypoint\+Poly $>$().\+get\+Time(,  }\item[{5.}]{0 }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{iterative__spline__tests_8cpp_a335759f56b7cbc95784d1ddda2447244}\label{iterative__spline__tests_8cpp_a335759f56b7cbc95784d1ddda2447244}} 
 \index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!createRepeatedPointTrajectory@{createRepeatedPointTrajectory}}
 \index{createRepeatedPointTrajectory@{createRepeatedPointTrajectory}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
@@ -49,39 +72,72 @@ int \mbox{\hyperlink{iterative__spline__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18
 \doxysubsubsection{\texorpdfstring{createStraightTrajectory()}{createStraightTrajectory()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} create\+Straight\+Trajectory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{iterative__spline__tests_8cpp_a4e38cd9bbb242da7d9fbaeeb976da543}\label{iterative__spline__tests_8cpp_a4e38cd9bbb242da7d9fbaeeb976da543}} 
+\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!EXPECT\_LT@{EXPECT\_LT}}
+\index{EXPECT\_LT@{EXPECT\_LT}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_LT()}{EXPECT\_LT()}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+LT (\begin{DoxyParamCaption}\item[{program.}]{back).\+as$<$ Move\+Instruction\+Poly $>$().\+get\+Waypoint().\+as$<$ State\+Waypoint\+Poly $>$().\+get\+Time(,  }\item[{5.}]{0 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{iterative__spline__tests_8cpp_a78892ab694dcb162e8741207b01d1304}\label{iterative__spline__tests_8cpp_a78892ab694dcb162e8741207b01d1304}} 
+\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{time\+\_\+parameterization.\+compute $\ast$,,}]{max\+\_\+acceleration }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{iterative__spline__tests_8cpp_a9a210df5ca8f0f764428163b5580dbdd}\label{iterative__spline__tests_8cpp_a9a210df5ca8f0f764428163b5580dbdd}} 
+\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{time\+\_\+parameterization.\+compute $\ast$,,,,}]{max\+\_\+acceleration\+\_\+scaling\+\_\+factors }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{iterative__spline__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{iterative__spline__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
 \index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!main@{main}}
 \index{main@{main}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{iterative__spline__tests_8cpp_a94d5990f95d5cf33b838b59d07a3030f}\label{iterative__spline__tests_8cpp_a94d5990f95d5cf33b838b59d07a3030f}} 
-\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Iterative\+Spline\+Parameterization\+Unit}]{,  }\item[{Solve}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{iterative__spline__tests_8cpp_adcd24ecaf4e3291d94797d167ba545cf}\label{iterative__spline__tests_8cpp_adcd24ecaf4e3291d94797d167ba545cf}} 
+\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!max\_velocity@{max\_velocity}}
+\index{max\_velocity@{max\_velocity}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{max\_velocity()}{max\_velocity()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd max\+\_\+velocity (\begin{DoxyParamCaption}\item[{6}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{iterative__spline__tests_8cpp_a1fb67aa34417d03016c74d44bd7f54e0}\label{iterative__spline__tests_8cpp_a1fb67aa34417d03016c74d44bd7f54e0}} 
-\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Test\+Time\+Parameterization}]{,  }\item[{Test\+Iterative\+Spline}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{iterative__spline__tests_8cpp_aae916733e35631f4750dbc1bbf628000}\label{iterative__spline__tests_8cpp_aae916733e35631f4750dbc1bbf628000}} 
-\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Test\+Time\+Parameterization}]{,  }\item[{Test\+Iterative\+Spline\+Add\+Points}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{iterative__spline__tests_8cpp_a8bdbc0bcd2e1b7a1253a19c8373540ed}\label{iterative__spline__tests_8cpp_a8bdbc0bcd2e1b7a1253a19c8373540ed}} 
-\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Test\+Time\+Parameterization}]{,  }\item[{Test\+Iterative\+Spline\+Dynamic\+Params}]{ }\end{DoxyParamCaption})}
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{iterative__spline__tests_8cpp_ace361fc180c17eec994c8f5b4b5a260e}\label{iterative__spline__tests_8cpp_ace361fc180c17eec994c8f5b4b5a260e}} 
+\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!max\_acceleration@{max\_acceleration}}
+\index{max\_acceleration@{max\_acceleration}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{max\_acceleration}{max\_acceleration}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ max\+\_\+acceleration = \{ 1, 1, 1, 1, 1, 1 \}}
 
-\mbox{\Hypertarget{iterative__spline__tests_8cpp_ab781032eb35a81d9e63d273589f28f8f}\label{iterative__spline__tests_8cpp_ab781032eb35a81d9e63d273589f28f8f}} 
-\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Test\+Time\+Parameterization}]{,  }\item[{Test\+Repeated\+Point}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{iterative__spline__tests_8cpp_ac85e0028fd530fc5f5f085bf7e886dc6}\label{iterative__spline__tests_8cpp_ac85e0028fd530fc5f5f085bf7e886dc6}} 
+\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!max\_acceleration\_scaling\_factors@{max\_acceleration\_scaling\_factors}}
+\index{max\_acceleration\_scaling\_factors@{max\_acceleration\_scaling\_factors}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{max\_acceleration\_scaling\_factors}{max\_acceleration\_scaling\_factors}}
+{\footnotesize\ttfamily max\+\_\+acceleration\+\_\+scaling\+\_\+factors\mbox{[}0\mbox{]} = 0.\+5}
+
+\mbox{\Hypertarget{iterative__spline__tests_8cpp_a4edd2e19f0e2c29472298acb4c9314bc}\label{iterative__spline__tests_8cpp_a4edd2e19f0e2c29472298acb4c9314bc}} 
+\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!max\_velocity@{max\_velocity}}
+\index{max\_velocity@{max\_velocity}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{max\_velocity}{max\_velocity}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ max\+\_\+velocity = \{ 2.\+088, 2.\+082, 3.\+27, 3.\+6, 3.\+3, 3.\+078 \}}
+
+\mbox{\Hypertarget{iterative__spline__tests_8cpp_a3f9d5b7b93f8eeb8a7a70641a2cd1c4c}\label{iterative__spline__tests_8cpp_a3f9d5b7b93f8eeb8a7a70641a2cd1c4c}} 
+\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!max\_velocity\_scaling\_factors@{max\_velocity\_scaling\_factors}}
+\index{max\_velocity\_scaling\_factors@{max\_velocity\_scaling\_factors}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{max\_velocity\_scaling\_factors}{max\_velocity\_scaling\_factors}}
+{\footnotesize\ttfamily max\+\_\+velocity\+\_\+scaling\+\_\+factors\mbox{[}0\mbox{]} = 0.\+5}
+
+\mbox{\Hypertarget{iterative__spline__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}\label{iterative__spline__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}} 
+\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!program@{program}}
+\index{program@{program}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{program}{program}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} program = \mbox{\hyperlink{iterative__spline__tests_8cpp_a2517a990d50812c8b544130f3a1ff7e9}{create\+Straight\+Trajectory}}()}
+
+\mbox{\Hypertarget{iterative__spline__tests_8cpp_a42770b019b3c810751d40ab5f2f25e20}\label{iterative__spline__tests_8cpp_a42770b019b3c810751d40ab5f2f25e20}} 
+\index{iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}!trajectory@{trajectory}}
+\index{trajectory@{trajectory}!iterative\_spline\_tests.cpp@{iterative\_spline\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{trajectory}{trajectory}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_addac5779485104d03ae174b032df5e6a}{Trajectory\+Container\+::\+Ptr}} trajectory = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory}{Instructions\+Trajectory}}$>$(\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}})}
 

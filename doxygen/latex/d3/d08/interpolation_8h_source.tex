@@ -20,9 +20,9 @@
 \DoxyCodeLine{40 \{}
 \DoxyCodeLine{42 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{JointGroupInstructionInfo}}}
 \DoxyCodeLine{43 \{}
-\DoxyCodeLine{44   \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ab46d5e1b8aae95b6f0d3426ab117134b}{JointGroupInstructionInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& plan\_instruction,}
-\DoxyCodeLine{45                             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
-\DoxyCodeLine{46                             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& manip\_info);}
+\DoxyCodeLine{44   \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{JointGroupInstructionInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& plan\_instruction,}
+\DoxyCodeLine{45                             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}},}
+\DoxyCodeLine{46                             \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info);}
 \DoxyCodeLine{47 }
 \DoxyCodeLine{48   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ae63daf07346ec6b72ae961ee56fe2788}{instruction}};}
 \DoxyCodeLine{49   tesseract\_kinematics::JointGroup::UPtr \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a131a12f7a15dee90161c802ebc363c6f}{manip}};}
@@ -34,7 +34,7 @@
 \DoxyCodeLine{55 }
 \DoxyCodeLine{60   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a5033bc1163757be1b484d02bb68ddf87}{getWorkingFrame}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{61 }
-\DoxyCodeLine{68   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ac2321b08926c7f4a2ceafb1f095e0f51}{calcCartesianPose}}(\textcolor{keyword}{const} Eigen::VectorXd\& jp, \textcolor{keywordtype}{bool} in\_world = \textcolor{keyword}{true}) \textcolor{keyword}{const};}
+\DoxyCodeLine{68   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ac2321b08926c7f4a2ceafb1f095e0f51}{calcCartesianPose}}(\textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a83ecd9e2360f26bfc3430d39a228afe6}{jp}}, \textcolor{keywordtype}{bool} in\_world = \textcolor{keyword}{true}) \textcolor{keyword}{const};}
 \DoxyCodeLine{69 }
 \DoxyCodeLine{76   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_aa4bc29aa58b110da65cdbefe6f818fc6}{extractCartesianPose}}(\textcolor{keywordtype}{bool} in\_world = \textcolor{keyword}{true}) \textcolor{keyword}{const};}
 \DoxyCodeLine{77 }
@@ -43,9 +43,9 @@
 \DoxyCodeLine{85 }
 \DoxyCodeLine{87 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}}
 \DoxyCodeLine{88 \{}
-\DoxyCodeLine{89   \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a83abfd60bd20168c337998626ac21791}{KinematicGroupInstructionInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& plan\_instruction,}
-\DoxyCodeLine{90                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
-\DoxyCodeLine{91                                 \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& manip\_info);}
+\DoxyCodeLine{89   \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& plan\_instruction,}
+\DoxyCodeLine{90                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}},}
+\DoxyCodeLine{91                                 \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info);}
 \DoxyCodeLine{92 }
 \DoxyCodeLine{93   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_ae48a8b5bfbfbace4d7367f28e4a7f1a9}{instruction}};}
 \DoxyCodeLine{94   tesseract\_kinematics::KinematicGroup::UPtr \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a86faee3de3c751f3b7dd90174aee9cbc}{manip}};}
@@ -55,7 +55,7 @@
 \DoxyCodeLine{98   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_af9126c862eb98c69d6813c81a87b97df}{tcp\_offset}}\{ Eigen::Isometry3d::Identity() \};}
 \DoxyCodeLine{99   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_af3bf322bd93d2d0e95c216b997962efe}{has\_cartesian\_waypoint}}\{ \textcolor{keyword}{false} \};}
 \DoxyCodeLine{100 }
-\DoxyCodeLine{107   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_afcb9e3d4e318c590ff2e5002e9217f56}{calcCartesianPose}}(\textcolor{keyword}{const} Eigen::VectorXd\& jp, \textcolor{keywordtype}{bool} in\_world = \textcolor{keyword}{true}) \textcolor{keyword}{const};}
+\DoxyCodeLine{107   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_afcb9e3d4e318c590ff2e5002e9217f56}{calcCartesianPose}}(\textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a83ecd9e2360f26bfc3430d39a228afe6}{jp}}, \textcolor{keywordtype}{bool} in\_world = \textcolor{keyword}{true}) \textcolor{keyword}{const};}
 \DoxyCodeLine{108 }
 \DoxyCodeLine{115   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a744c1435763bcdb0239cc37992146fcd}{extractCartesianPose}}(\textcolor{keywordtype}{bool} in\_world = \textcolor{keyword}{true}) \textcolor{keyword}{const};}
 \DoxyCodeLine{116 }
@@ -88,7 +88,7 @@
 \DoxyCodeLine{170                                                                \textcolor{keywordtype}{double} state\_lvs\_length,}
 \DoxyCodeLine{171                                                                \textcolor{keywordtype}{double} translation\_lvs\_length,}
 \DoxyCodeLine{172                                                                \textcolor{keywordtype}{double} rotation\_lvs\_length,}
-\DoxyCodeLine{173                                                                \textcolor{keywordtype}{int} min\_steps,}
+\DoxyCodeLine{173                                                                \textcolor{keywordtype}{int} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\_steps}},}
 \DoxyCodeLine{174                                                                \textcolor{keywordtype}{int} max\_steps);}
 \DoxyCodeLine{175 }
 \DoxyCodeLine{200 std::vector<MoveInstructionPoly> \mbox{\hyperlink{namespacetesseract__planning_af23a0bfb1bc88714bbc3959ffdd6b80e}{interpolateJointCartWaypoint}}(\textcolor{keyword}{const} KinematicGroupInstructionInfo\& prev,}
@@ -96,7 +96,7 @@
 \DoxyCodeLine{202                                                               \textcolor{keywordtype}{double} state\_lvs\_length,}
 \DoxyCodeLine{203                                                               \textcolor{keywordtype}{double} translation\_lvs\_length,}
 \DoxyCodeLine{204                                                               \textcolor{keywordtype}{double} rotation\_lvs\_length,}
-\DoxyCodeLine{205                                                               \textcolor{keywordtype}{int} min\_steps,}
+\DoxyCodeLine{205                                                               \textcolor{keywordtype}{int} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\_steps}},}
 \DoxyCodeLine{206                                                               \textcolor{keywordtype}{int} max\_steps);}
 \DoxyCodeLine{207 }
 \DoxyCodeLine{234 std::vector<MoveInstructionPoly> \mbox{\hyperlink{namespacetesseract__planning_a55ebb8b8b51198baf3a700366af06450}{interpolateCartJointWaypoint}}(\textcolor{keyword}{const} KinematicGroupInstructionInfo\& prev,}
@@ -104,7 +104,7 @@
 \DoxyCodeLine{236                                                               \textcolor{keywordtype}{double} state\_lvs\_length,}
 \DoxyCodeLine{237                                                               \textcolor{keywordtype}{double} translation\_lvs\_length,}
 \DoxyCodeLine{238                                                               \textcolor{keywordtype}{double} rotation\_lvs\_length,}
-\DoxyCodeLine{239                                                               \textcolor{keywordtype}{int} min\_steps,}
+\DoxyCodeLine{239                                                               \textcolor{keywordtype}{int} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\_steps}},}
 \DoxyCodeLine{240                                                               \textcolor{keywordtype}{int} max\_steps);}
 \DoxyCodeLine{241 }
 \DoxyCodeLine{272 std::vector<MoveInstructionPoly> \mbox{\hyperlink{namespacetesseract__planning_afe82bde773fd418145db05673cf7e509}{interpolateCartCartWaypoint}}(\textcolor{keyword}{const} KinematicGroupInstructionInfo\& prev,}
@@ -112,7 +112,7 @@
 \DoxyCodeLine{274                                                              \textcolor{keywordtype}{double} state\_lvs\_length,}
 \DoxyCodeLine{275                                                              \textcolor{keywordtype}{double} translation\_lvs\_length,}
 \DoxyCodeLine{276                                                              \textcolor{keywordtype}{double} rotation\_lvs\_length,}
-\DoxyCodeLine{277                                                              \textcolor{keywordtype}{int} min\_steps,}
+\DoxyCodeLine{277                                                              \textcolor{keywordtype}{int} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\_steps}},}
 \DoxyCodeLine{278                                                              \textcolor{keywordtype}{int} max\_steps,}
 \DoxyCodeLine{279                                                              \textcolor{keyword}{const} tesseract\_scene\_graph::SceneState\& scene\_state);}
 \DoxyCodeLine{280 }
@@ -121,7 +121,7 @@
 \DoxyCodeLine{305                                                                \textcolor{keywordtype}{double} state\_lvs\_length,}
 \DoxyCodeLine{306                                                                \textcolor{keywordtype}{double} translation\_lvs\_length,}
 \DoxyCodeLine{307                                                                \textcolor{keywordtype}{double} rotation\_lvs\_length,}
-\DoxyCodeLine{308                                                                \textcolor{keywordtype}{int} min\_steps,}
+\DoxyCodeLine{308                                                                \textcolor{keywordtype}{int} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\_steps}},}
 \DoxyCodeLine{309                                                                \textcolor{keywordtype}{int} max\_steps);}
 \DoxyCodeLine{310 }
 \DoxyCodeLine{335 std::vector<MoveInstructionPoly> \mbox{\hyperlink{namespacetesseract__planning_af23a0bfb1bc88714bbc3959ffdd6b80e}{interpolateJointCartWaypoint}}(\textcolor{keyword}{const} JointGroupInstructionInfo\& prev,}
@@ -129,7 +129,7 @@
 \DoxyCodeLine{337                                                               \textcolor{keywordtype}{double} state\_lvs\_length,}
 \DoxyCodeLine{338                                                               \textcolor{keywordtype}{double} translation\_lvs\_length,}
 \DoxyCodeLine{339                                                               \textcolor{keywordtype}{double} rotation\_lvs\_length,}
-\DoxyCodeLine{340                                                               \textcolor{keywordtype}{int} min\_steps,}
+\DoxyCodeLine{340                                                               \textcolor{keywordtype}{int} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\_steps}},}
 \DoxyCodeLine{341                                                               \textcolor{keywordtype}{int} max\_steps);}
 \DoxyCodeLine{342 }
 \DoxyCodeLine{369 std::vector<MoveInstructionPoly> \mbox{\hyperlink{namespacetesseract__planning_a55ebb8b8b51198baf3a700366af06450}{interpolateCartJointWaypoint}}(\textcolor{keyword}{const} JointGroupInstructionInfo\& prev,}
@@ -137,7 +137,7 @@
 \DoxyCodeLine{371                                                               \textcolor{keywordtype}{double} state\_lvs\_length,}
 \DoxyCodeLine{372                                                               \textcolor{keywordtype}{double} translation\_lvs\_length,}
 \DoxyCodeLine{373                                                               \textcolor{keywordtype}{double} rotation\_lvs\_length,}
-\DoxyCodeLine{374                                                               \textcolor{keywordtype}{int} min\_steps,}
+\DoxyCodeLine{374                                                               \textcolor{keywordtype}{int} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\_steps}},}
 \DoxyCodeLine{375                                                               \textcolor{keywordtype}{int} max\_steps);}
 \DoxyCodeLine{376 }
 \DoxyCodeLine{407 std::vector<MoveInstructionPoly> \mbox{\hyperlink{namespacetesseract__planning_afe82bde773fd418145db05673cf7e509}{interpolateCartCartWaypoint}}(\textcolor{keyword}{const} JointGroupInstructionInfo\& prev,}
@@ -145,29 +145,29 @@
 \DoxyCodeLine{409                                                              \textcolor{keywordtype}{double} state\_lvs\_length,}
 \DoxyCodeLine{410                                                              \textcolor{keywordtype}{double} translation\_lvs\_length,}
 \DoxyCodeLine{411                                                              \textcolor{keywordtype}{double} rotation\_lvs\_length,}
-\DoxyCodeLine{412                                                              \textcolor{keywordtype}{int} min\_steps,}
+\DoxyCodeLine{412                                                              \textcolor{keywordtype}{int} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a2eb7c7e24e6632f45847edf8a59bce5b}{min\_steps}},}
 \DoxyCodeLine{413                                                              \textcolor{keywordtype}{int} max\_steps,}
 \DoxyCodeLine{414                                                              \textcolor{keyword}{const} tesseract\_scene\_graph::SceneState\& scene\_state);}
-\DoxyCodeLine{422 tesseract\_common::VectorIsometry3d \mbox{\hyperlink{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}{interpolate}}(\textcolor{keyword}{const} Eigen::Isometry3d\& start,}
+\DoxyCodeLine{422 tesseract\_common::VectorIsometry3d \mbox{\hyperlink{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}{interpolate}}(\textcolor{keyword}{const} Eigen::Isometry3d\& \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}},}
 \DoxyCodeLine{423                                                \textcolor{keyword}{const} Eigen::Isometry3d\& stop,}
-\DoxyCodeLine{424                                                \textcolor{keywordtype}{long} steps);}
+\DoxyCodeLine{424                                                \textcolor{keywordtype}{long} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ab4ae7205573977222eadd0795db193e2}{steps}});}
 \DoxyCodeLine{425 }
-\DoxyCodeLine{433 Eigen::MatrixXd \mbox{\hyperlink{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}{interpolate}}(\textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& start,}
+\DoxyCodeLine{433 Eigen::MatrixXd \mbox{\hyperlink{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}{interpolate}}(\textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}},}
 \DoxyCodeLine{434                             \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& stop,}
-\DoxyCodeLine{435                             \textcolor{keywordtype}{long} steps);}
+\DoxyCodeLine{435                             \textcolor{keywordtype}{long} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ab4ae7205573977222eadd0795db193e2}{steps}});}
 \DoxyCodeLine{436 }
-\DoxyCodeLine{444 std::vector<WaypointPoly> \mbox{\hyperlink{namespacetesseract__planning_ace3fb6e4566978aa9ae8c72ab20a939f}{interpolate\_waypoint}}(\textcolor{keyword}{const} WaypointPoly\& start, \textcolor{keyword}{const} WaypointPoly\& stop, \textcolor{keywordtype}{long} steps);}
+\DoxyCodeLine{444 std::vector<WaypointPoly> \mbox{\hyperlink{namespacetesseract__planning_ace3fb6e4566978aa9ae8c72ab20a939f}{interpolate\_waypoint}}(\textcolor{keyword}{const} WaypointPoly\& \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}}, \textcolor{keyword}{const} WaypointPoly\& stop, \textcolor{keywordtype}{long} \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ab4ae7205573977222eadd0795db193e2}{steps}});}
 \DoxyCodeLine{445 }
-\DoxyCodeLine{454 std::vector<MoveInstructionPoly> \mbox{\hyperlink{namespacetesseract__planning_a3eb5693b1699344d8da461070c03da3a}{getInterpolatedInstructions}}(\textcolor{keyword}{const} std::vector<std::string>\& joint\_names,}
+\DoxyCodeLine{454 std::vector<MoveInstructionPoly> \mbox{\hyperlink{namespacetesseract__planning_a3eb5693b1699344d8da461070c03da3a}{getInterpolatedInstructions}}(\textcolor{keyword}{const} std::vector<std::string>\& \mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a5f85173ecc1ddcb342ebc27f28437f5c}{joint\_names}},}
 \DoxyCodeLine{455                                                              \textcolor{keyword}{const} Eigen::MatrixXd\& states,}
 \DoxyCodeLine{456                                                              \textcolor{keyword}{const} MoveInstructionPoly\& base\_instruction);}
 \DoxyCodeLine{457 }
 \DoxyCodeLine{466 std::vector<MoveInstructionPoly> \mbox{\hyperlink{namespacetesseract__planning_a3eb5693b1699344d8da461070c03da3a}{getInterpolatedInstructions}}(\textcolor{keyword}{const} tesseract\_common::VectorIsometry3d\& poses,}
-\DoxyCodeLine{467                                                              \textcolor{keyword}{const} std::vector<std::string>\& joint\_names,}
+\DoxyCodeLine{467                                                              \textcolor{keyword}{const} std::vector<std::string>\& \mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a5f85173ecc1ddcb342ebc27f28437f5c}{joint\_names}},}
 \DoxyCodeLine{468                                                              \textcolor{keyword}{const} Eigen::MatrixXd\& states,}
 \DoxyCodeLine{469                                                              \textcolor{keyword}{const} MoveInstructionPoly\& base\_instruction);}
 \DoxyCodeLine{470 }
-\DoxyCodeLine{477 Eigen::VectorXd \mbox{\hyperlink{namespacetesseract__planning_a2c73959c536f2f1f881910a889315465}{getClosestJointSolution}}(\textcolor{keyword}{const} KinematicGroupInstructionInfo\& info, \textcolor{keyword}{const} Eigen::VectorXd\& seed);}
+\DoxyCodeLine{477 Eigen::VectorXd \mbox{\hyperlink{namespacetesseract__planning_a2c73959c536f2f1f881910a889315465}{getClosestJointSolution}}(\textcolor{keyword}{const} KinematicGroupInstructionInfo\& \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}, \textcolor{keyword}{const} Eigen::VectorXd\& seed);}
 \DoxyCodeLine{478 }
 \DoxyCodeLine{487 std::array<Eigen::VectorXd, 2> \mbox{\hyperlink{namespacetesseract__planning_a2c73959c536f2f1f881910a889315465}{getClosestJointSolution}}(\textcolor{keyword}{const} KinematicGroupInstructionInfo\& info1,}
 \DoxyCodeLine{488                                                        \textcolor{keyword}{const} KinematicGroupInstructionInfo\& info2,}

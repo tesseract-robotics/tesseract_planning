@@ -1,0 +1,10 @@
+digraph "tesseract_planning::DiscreteContactCheckTaskInfo"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="tesseract_planning\l::DiscreteContactCheckTaskInfo",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="tesseract_planning\l::TaskComposerNodeInfo",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$da/de5/classtesseract__planning_1_1TaskComposerNodeInfo.html",tooltip=" "];
+}

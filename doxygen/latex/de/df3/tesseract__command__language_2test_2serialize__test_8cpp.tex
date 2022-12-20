@@ -18,23 +18,28 @@
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
 Include dependency graph for serialize\+\_\+test.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d7/d0f/tesseract__command__language_2test_2serialize__test_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_a0521c81eb85dd98338887525d5a1d9c9}{get\+Program}} ()
 \item 
-\mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_ada1343ecaacb2a2102e5c45267a6b08f}{TEST}} (Tesseract\+Command\+Language\+Serialize\+Unit, serialization\+Composite\+Instruction)
+\mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_a87f7bcc571310780a4dec8cbcde77cb7}{EXPECT\+\_\+\+TRUE}} (tesseract\+\_\+common\+::\+Serialization\+::to\+Archive\+File\+XML$<$ \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$(\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}, file\+\_\+path))
 \item 
-\mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_adbc61148007a7f4277ca46b3813c0336}{TEST}} (Tesseract\+Command\+Language\+Serialize\+Unit, Type\+Erasure\+In\+Type\+Erasure)
+\mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_a3c1c68cca80c7af57f5babe45cb3715d}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}==\mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_a1568b9a0dfe77d8ac9c7d3a10dd6e84c}{nprogram}})
+\item 
+\mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_a2b8be1935aba316947e34bf08ee3e5d8}{EXPECT\+\_\+\+FALSE}} (program\+\_\+string.\+empty())
+\item 
+\mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_a6f989eced8c29a352c828b90d865a7f4}{EXPECT\+\_\+\+EQ}} (any\+\_\+type.\+get\+Type(), std\+::type\+\_\+index(typeid(\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{tesseract\+\_\+planning\+::\+Instruction\+Poly}})))
 \item 
 int \mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_a1568b9a0dfe77d8ac9c7d3a10dd6e84c}{nprogram}} = tesseract\+\_\+common\+::\+Serialization\+::from\+Archive\+File\+XML$<$\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}}$>$(file\+\_\+path)
+\item 
+tesseract\+\_\+common\+::\+Any\+Poly \mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_a78b4c52ee2d91762bc95662a4c50c41b}{any\+\_\+type}}
 \end{DoxyCompactItemize}
 
 
@@ -67,6 +72,30 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tesseract__command__language_2test_2serialize__test_8cpp_a6f989eced8c29a352c828b90d865a7f4}\label{tesseract__command__language_2test_2serialize__test_8cpp_a6f989eced8c29a352c828b90d865a7f4}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{any\+\_\+type.}]{get\+Type(),  }\item[{std\+::type\+\_\+index(typeid(\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{tesseract\+\_\+planning\+::\+Instruction\+Poly}}))}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__command__language_2test_2serialize__test_8cpp_a2b8be1935aba316947e34bf08ee3e5d8}\label{tesseract__command__language_2test_2serialize__test_8cpp_a2b8be1935aba316947e34bf08ee3e5d8}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{program\+\_\+string.}]{empty() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__command__language_2test_2serialize__test_8cpp_a3c1c68cca80c7af57f5babe45cb3715d}\label{tesseract__command__language_2test_2serialize__test_8cpp_a3c1c68cca80c7af57f5babe45cb3715d}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}}]{ = {\ttfamily =\mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_a1568b9a0dfe77d8ac9c7d3a10dd6e84c}{nprogram}}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__command__language_2test_2serialize__test_8cpp_a87f7bcc571310780a4dec8cbcde77cb7}\label{tesseract__command__language_2test_2serialize__test_8cpp_a87f7bcc571310780a4dec8cbcde77cb7}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{tesseract\+\_\+common\+::\+Serialization\+::to\+Archive\+File\+XML$<$ \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} $>$}]{program, file\+\_\+path }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{tesseract__command__language_2test_2serialize__test_8cpp_a0521c81eb85dd98338887525d5a1d9c9}\label{tesseract__command__language_2test_2serialize__test_8cpp_a0521c81eb85dd98338887525d5a1d9c9}} 
 \index{serialize\_test.cpp@{serialize\_test.cpp}!getProgram@{getProgram}}
 \index{getProgram@{getProgram}!serialize\_test.cpp@{serialize\_test.cpp}}
@@ -79,15 +108,24 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__command__language_2test_2serialize__test_8cpp_ada1343ecaacb2a2102e5c45267a6b08f}\label{tesseract__command__language_2test_2serialize__test_8cpp_ada1343ecaacb2a2102e5c45267a6b08f}} 
-\index{serialize\_test.cpp@{serialize\_test.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!serialize\_test.cpp@{serialize\_test.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Serialize\+Unit}]{,  }\item[{serialization\+Composite\+Instruction}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__command__language_2test_2serialize__test_8cpp_adbc61148007a7f4277ca46b3813c0336}\label{tesseract__command__language_2test_2serialize__test_8cpp_adbc61148007a7f4277ca46b3813c0336}} 
-\index{serialize\_test.cpp@{serialize\_test.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!serialize\_test.cpp@{serialize\_test.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Serialize\+Unit}]{,  }\item[{Type\+Erasure\+In\+Type\+Erasure}]{ }\end{DoxyParamCaption})}
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{tesseract__command__language_2test_2serialize__test_8cpp_a78b4c52ee2d91762bc95662a4c50c41b}\label{tesseract__command__language_2test_2serialize__test_8cpp_a78b4c52ee2d91762bc95662a4c50c41b}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!any\_type@{any\_type}}
+\index{any\_type@{any\_type}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{any\_type}{any\_type}}
+{\footnotesize\ttfamily any\+\_\+type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{  \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{tesseract\_planning::InstructionPoly}} instruction\{ \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction}{SetToolInstruction}}(5) \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tesseract__command__language_2test_2serialize__test_8cpp_a1568b9a0dfe77d8ac9c7d3a10dd6e84c}\label{tesseract__command__language_2test_2serialize__test_8cpp_a1568b9a0dfe77d8ac9c7d3a10dd6e84c}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!nprogram@{nprogram}}
+\index{nprogram@{nprogram}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{nprogram}{nprogram}}
+{\footnotesize\ttfamily auto nprogram = tesseract\+\_\+common\+::\+Serialization\+::from\+Archive\+File\+XML$<$\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}}$>$(file\+\_\+path)}
 

@@ -1,13 +1,13 @@
 <map id="tesseract_examples/test/puzzle_piece_auxillary_axes_example_unit.cpp" name="tesseract_examples/test/puzzle_piece_auxillary_axes_example_unit.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="119,5,298,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,310,196,337"/>
-<area shape="rect" id="node3" title=" " alt="" coords="88,124,183,151"/>
-<area shape="rect" id="node4" href="$d1/d6f/puzzle__piece__auxillary__axes__example_8h.html" title="An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF t..." alt="" coords="207,109,360,165"/>
-<area shape="rect" id="node11" title=" " alt="" coords="384,117,569,158"/>
-<area shape="rect" id="node5" title=" " alt="" coords="139,221,193,247"/>
-<area shape="rect" id="node6" title=" " alt="" coords="218,221,397,247"/>
-<area shape="rect" id="node7" href="$df/d24/example_8h.html" title=" " alt="" coords="421,213,559,255"/>
-<area shape="rect" id="node8" title=" " alt="" coords="321,310,389,337"/>
-<area shape="rect" id="node9" title=" " alt="" coords="413,303,567,344"/>
-<area shape="rect" id="node10" title=" " alt="" coords="591,303,746,344"/>
+<area shape="rect" id="node1" title=" " alt="" coords="119,5,298,60"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,306,196,331"/>
+<area shape="rect" id="node3" title=" " alt="" coords="88,123,183,148"/>
+<area shape="rect" id="node4" href="$d1/d6f/puzzle__piece__auxillary__axes__example_8h.html" title="An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF t..." alt="" coords="207,108,360,163"/>
+<area shape="rect" id="node11" title=" " alt="" coords="384,115,569,155"/>
+<area shape="rect" id="node5" title=" " alt="" coords="139,218,193,243"/>
+<area shape="rect" id="node6" title=" " alt="" coords="218,218,397,243"/>
+<area shape="rect" id="node7" href="$df/d24/example_8h.html" title=" " alt="" coords="421,211,559,251"/>
+<area shape="rect" id="node8" title=" " alt="" coords="320,306,388,331"/>
+<area shape="rect" id="node9" title=" " alt="" coords="413,299,567,339"/>
+<area shape="rect" id="node10" title=" " alt="" coords="591,299,746,339"/>
 </map>

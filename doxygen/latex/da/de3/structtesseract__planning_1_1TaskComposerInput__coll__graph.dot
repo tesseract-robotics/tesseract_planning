@@ -1,0 +1,47 @@
+digraph "tesseract_planning::TaskComposerInput"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="tesseract_planning\l::TaskComposerInput",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="This struct is passed as an input to each process in the decision tree."];
+  Node2 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" problem" ];
+  Node2 [label="tesseract_planning\l::TaskComposerProblem",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d4/d67/structtesseract__planning_1_1TaskComposerProblem.html",tooltip=" "];
+  Node3 -> Node2 [dir="back",color="darkorchid3",style="dashed",label=" name" ];
+  Node3 [label="std::string",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="std::basic_string\<\l Char \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node2 [dir="back",color="darkorchid3",style="dashed",label=" manip_info" ];
+  Node5 [label="ManipulatorInfo",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node6 -> Node2 [dir="back",color="darkorchid3",style="dashed",label=" composite_profile_remapping\nmove_profile_remapping" ];
+  Node6 [label="std::unordered_map\l\< std::string, std::\lunordered_map\< std::string,\l std::string \> \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node6 [dir="back",color="darkorchid3",style="dashed",label=" keys" ];
+  Node7 -> Node2 [dir="back",color="darkorchid3",style="dashed",label=" input_data" ];
+  Node7 [label="tesseract_planning\l::TaskComposerDataStorage",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d9/d84/classtesseract__planning_1_1TaskComposerDataStorage.html",tooltip="A thread save data storage."];
+  Node8 -> Node7 [dir="back",color="darkorchid3",style="dashed",label=" mutex_" ];
+  Node8 [label="std::shared_mutex",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node9 -> Node7 [dir="back",color="darkorchid3",style="dashed",label=" data_" ];
+  Node9 [label="std::unordered_map\l\< std::string, tesseract\l_common::AnyPoly \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node9 [dir="back",color="darkorchid3",style="dashed",label=" keys" ];
+  Node10 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" profiles" ];
+  Node10 [label="std::shared_ptr\< const\l ProfileDictionary \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node11 -> Node10 [dir="back",color="darkorchid3",style="dashed",label=" ptr" ];
+  Node11 [label="tesseract_planning\l::ProfileDictionary",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d5/d9d/classtesseract__planning_1_1ProfileDictionary.html",tooltip="This class is used to store profiles for motion planning and process planning."];
+  Node12 -> Node11 [dir="back",color="darkorchid3",style="dashed",label=" profiles_" ];
+  Node12 [label="std::unordered_map\l\< std::string, std::\lunordered_map\< std::type\l_index, std::any \> \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node12 [dir="back",color="darkorchid3",style="dashed",label=" keys" ];
+  Node8 -> Node11 [dir="back",color="darkorchid3",style="dashed",label=" mutex_" ];
+  Node7 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" data_storage" ];
+  Node13 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" task_infos" ];
+  Node13 [label="tesseract_planning\l::TaskComposerNodeInfoContainer",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d9/d48/structtesseract__planning_1_1TaskComposerNodeInfoContainer.html",tooltip="A threadsafe container for TaskComposerNodeInfo."];
+  Node8 -> Node13 [dir="back",color="darkorchid3",style="dashed",label=" mutex_" ];
+  Node14 -> Node13 [dir="back",color="darkorchid3",style="dashed",label=" info_map_" ];
+  Node14 [label="std::map\< boost::uuids\l::uuid, TaskComposerNodeInfo\l::UPtr \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node15 -> Node14 [dir="back",color="darkorchid3",style="dashed",label=" elements" ];
+  Node15 [label="std::unique_ptr\< T \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node16 -> Node15 [dir="back",color="darkorchid3",style="dashed",label=" ptr" ];
+  Node16 [label="T",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node17 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" aborted_" ];
+  Node17 [label="std::atomic\< bool \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+}

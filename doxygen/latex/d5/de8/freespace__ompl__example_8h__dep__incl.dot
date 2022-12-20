@@ -1,0 +1,12 @@
+digraph "tesseract_examples/include/tesseract_examples/freespace_ompl_example.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="tesseract_examples\l/include/tesseract_examples\l/freespace_ompl_example.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="An example of a feespace motion planning with OMPL."];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="tesseract_examples\l/src/freespace_ompl\l_example.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d1/d33/freespace__ompl__example_8cpp.html",tooltip="An example of a feespace motion planning with OMPL."];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="tesseract_examples\l/src/freespace_ompl\l_example_node.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/df3/freespace__ompl__example__node_8cpp.html",tooltip="An example of a feespace motion planning with OMPL."];
+}

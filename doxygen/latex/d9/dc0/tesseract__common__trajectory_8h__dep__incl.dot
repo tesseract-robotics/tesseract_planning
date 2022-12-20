@@ -1,0 +1,10 @@
+digraph "tesseract_time_parameterization/include/tesseract_time_parameterization/tesseract_common_trajectory.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="tesseract_time_parameterization\l/include/tesseract_time_parameterization\l/tesseract_common_trajectory.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="tesseract_time_parameterization\l/src/tesseract_common_trajectory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$df/d65/tesseract__common__trajectory_8cpp.html",tooltip="Trajectory Container implementation for tesseract_common::JointState trajectories."];
+}

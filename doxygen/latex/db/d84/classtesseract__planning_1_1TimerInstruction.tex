@@ -12,19 +12,21 @@ This instruction indicates that a timer should be started and when the time expi
 
 
 Collaboration diagram for tesseract\+\_\+planning\+::Timer\+Instruction\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=184pt]{df/de4/classtesseract__planning_1_1TimerInstruction__coll__graph}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a0cf210e59f1618b7630616a7a9e15793}{Timer\+Instruction}} ()=default
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ad3d2c2c49c4f46240541184bfdd22c58}{Timer\+Instruction}} (\mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}} type, double time, int io)
+\mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ad3d2c2c49c4f46240541184bfdd22c58}{Timer\+Instruction}} (\mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a03004818513b2a0604415827c17b9595}{type}}, double time, int io)
+\item 
+const boost\+::uuids\+::uuid \& \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a8dbf34c2f551b244cea5d0e77e9d0508}{get\+UUID}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a066d544517fb862347438331f5ec7499}{regenerate\+UUID}} ()
+\item 
+const boost\+::uuids\+::uuid \& \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a5eeccdaa5c437f3773d06af0c9bb687f}{get\+Parent\+UUID}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a1b346a2a17c25759e497479ce5feb0ee}{set\+Parent\+UUID}} (const boost\+::uuids\+::uuid \&\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}})
 \item 
 const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ae1fa87c46f652c26b4fbd57ee1c22ee0}{get\+Description}} () const
 \item 
@@ -34,7 +36,7 @@ void \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a972fdfd8165f
 \item 
 \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a3d54437343e0353ba1e1dc3908f8ce2a}{get\+Timer\+Type}} () const
 \begin{DoxyCompactList}\small\item\em Get the timer type. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a31f72570f6be71244925d5d2ef636733}{set\+Timer\+Type}} (\mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}} type)
+void \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a31f72570f6be71244925d5d2ef636733}{set\+Timer\+Type}} (\mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a03004818513b2a0604415827c17b9595}{type}})
 \begin{DoxyCompactList}\small\item\em Set the timer type. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a1ab88d23926bcbe2cf2bb0869bdcc283}{get\+Timer\+Time}} () const
 \begin{DoxyCompactList}\small\item\em Get timer time in second. \end{DoxyCompactList}\item 
@@ -56,6 +58,10 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a286fa3e47fbb
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
+boost\+::uuids\+::uuid \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a18434d8f4b41fa31ce825e312d0a720a}{uuid\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em The instructions UUID. \end{DoxyCompactList}\item 
+boost\+::uuids\+::uuid \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a8b2586df9cac6edc8dcffe9c7c189701}{parent\+\_\+uuid\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em The parent UUID if created from create\+Child. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_af68e25dcab9170a1322cbba7c4fcd55a}{description\+\_\+}} \{ \char`\"{}Tesseract Timer Instruction\char`\"{} \}
 \begin{DoxyCompactList}\small\item\em The description of the instruction. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}} \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ac29217cfc3c96eba590a2f64a5ead646}{timer\+\_\+type\+\_\+}} \{ \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2adc44bfe9b2ce1975d7312158278ac8df}{Timer\+Instruction\+Type\+::\+DIGITAL\+\_\+\+OUTPUT\+\_\+\+LOW}} \}
@@ -102,6 +108,12 @@ This instruction indicates that a timer should be started and when the time expi
 \doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
 {\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Timer\+Instruction\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a5eeccdaa5c437f3773d06af0c9bb687f}\label{classtesseract__planning_1_1TimerInstruction_a5eeccdaa5c437f3773d06af0c9bb687f}} 
+\index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!getParentUUID@{getParentUUID}}
+\index{getParentUUID@{getParentUUID}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
+\doxysubsubsection{\texorpdfstring{getParentUUID()}{getParentUUID()}}
+{\footnotesize\ttfamily const boost\+::uuids\+::uuid \& tesseract\+\_\+planning\+::\+Timer\+Instruction\+::get\+Parent\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a9681082716b5e56fb080abd1a6561dd8}\label{classtesseract__planning_1_1TimerInstruction_a9681082716b5e56fb080abd1a6561dd8}} 
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!getTimerIO@{getTimerIO}}
 \index{getTimerIO@{getTimerIO}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
@@ -141,6 +153,12 @@ Get the timer type.
 \begin{DoxyReturn}{Returns}
 The timer type 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a8dbf34c2f551b244cea5d0e77e9d0508}\label{classtesseract__planning_1_1TimerInstruction_a8dbf34c2f551b244cea5d0e77e9d0508}} 
+\index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!getUUID@{getUUID}}
+\index{getUUID@{getUUID}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
+\doxysubsubsection{\texorpdfstring{getUUID()}{getUUID()}}
+{\footnotesize\ttfamily const boost\+::uuids\+::uuid \& tesseract\+\_\+planning\+::\+Timer\+Instruction\+::get\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a286fa3e47fbb07c30e0532bc7d4c6e0a}\label{classtesseract__planning_1_1TimerInstruction_a286fa3e47fbb07c30e0532bc7d4c6e0a}} 
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!operator"!=@{operator"!=}}
 \index{operator"!=@{operator"!=}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
@@ -183,6 +201,12 @@ True if equal, otherwise false
 \doxysubsubsection{\texorpdfstring{print()}{print()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a066d544517fb862347438331f5ec7499}\label{classtesseract__planning_1_1TimerInstruction_a066d544517fb862347438331f5ec7499}} 
+\index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!regenerateUUID@{regenerateUUID}}
+\index{regenerateUUID@{regenerateUUID}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
+\doxysubsubsection{\texorpdfstring{regenerateUUID()}{regenerateUUID()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::regenerate\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a4f872c6f9adf515c6b8d27b69cb4982d}\label{classtesseract__planning_1_1TimerInstruction_a4f872c6f9adf515c6b8d27b69cb4982d}} 
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!serialize@{serialize}}
 \index{serialize@{serialize}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
@@ -195,6 +219,12 @@ void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::serialize (\begin{DoxyPa
 \index{setDescription@{setDescription}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a1b346a2a17c25759e497479ce5feb0ee}\label{classtesseract__planning_1_1TimerInstruction_a1b346a2a17c25759e497479ce5feb0ee}} 
+\index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!setParentUUID@{setParentUUID}}
+\index{setParentUUID@{setParentUUID}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
+\doxysubsubsection{\texorpdfstring{setParentUUID()}{setParentUUID()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::set\+Parent\+UUID (\begin{DoxyParamCaption}\item[{const boost\+::uuids\+::uuid \&}]{uuid }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a762405f2f3c9f9a4cbefaebdec13bb0b}\label{classtesseract__planning_1_1TimerInstruction_a762405f2f3c9f9a4cbefaebdec13bb0b}} 
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!setTimerIO@{setTimerIO}}
@@ -263,6 +293,16 @@ Set the timer type.
 
 The description of the instruction. 
 
+\mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a8b2586df9cac6edc8dcffe9c7c189701}\label{classtesseract__planning_1_1TimerInstruction_a8b2586df9cac6edc8dcffe9c7c189701}} 
+\index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!parent\_uuid\_@{parent\_uuid\_}}
+\index{parent\_uuid\_@{parent\_uuid\_}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
+\doxysubsubsection{\texorpdfstring{parent\_uuid\_}{parent\_uuid\_}}
+{\footnotesize\ttfamily boost\+::uuids\+::uuid tesseract\+\_\+planning\+::\+Timer\+Instruction\+::parent\+\_\+uuid\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The parent UUID if created from create\+Child. 
+
 \mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_aa7cb5b0a66d8aa4671904e668247cf60}\label{classtesseract__planning_1_1TimerInstruction_aa7cb5b0a66d8aa4671904e668247cf60}} 
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!timer\_io\_@{timer\_io\_}}
 \index{timer\_io\_@{timer\_io\_}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
@@ -280,6 +320,16 @@ The description of the instruction.
 \index{timer\_type\_@{timer\_type\_}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{timer\_type\_}{timer\_type\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}} tesseract\+\_\+planning\+::\+Timer\+Instruction\+::timer\+\_\+type\+\_\+ \{ \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2adc44bfe9b2ce1975d7312158278ac8df}{Timer\+Instruction\+Type\+::\+DIGITAL\+\_\+\+OUTPUT\+\_\+\+LOW}} \}\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a18434d8f4b41fa31ce825e312d0a720a}\label{classtesseract__planning_1_1TimerInstruction_a18434d8f4b41fa31ce825e312d0a720a}} 
+\index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!uuid\_@{uuid\_}}
+\index{uuid\_@{uuid\_}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
+\doxysubsubsection{\texorpdfstring{uuid\_}{uuid\_}}
+{\footnotesize\ttfamily boost\+::uuids\+::uuid tesseract\+\_\+planning\+::\+Timer\+Instruction\+::uuid\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The instructions UUID. 
 
 
 

@@ -74,7 +74,7 @@
 \DoxyCodeLine{95 }
 \DoxyCodeLine{96     \textcolor{keywordflow}{if} (enabled\_element != \textcolor{keyword}{nullptr})}
 \DoxyCodeLine{97     \{}
-\DoxyCodeLine{98       status = enabled\_element-\/>QueryBoolText(\&enable\_edge\_collision);}
+\DoxyCodeLine{98       status = enabled\_element-\/>QueryBoolText(\&\mbox{\hyperlink{descartes__planner__tests_8cpp_a54234c02ffbccadf4c2f2e571e0a18ff}{enable\_edge\_collision}});}
 \DoxyCodeLine{99       \textcolor{keywordflow}{if} (status != tinyxml2::XML\_NO\_ATTRIBUTE \&\& status != tinyxml2::XML\_SUCCESS)}
 \DoxyCodeLine{100         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesPlanProfile: EdgeCollisions: Error parsing Enabled string"{}});}
 \DoxyCodeLine{101     \}}
@@ -119,7 +119,7 @@
 \DoxyCodeLine{142     \textcolor{keywordflow}{if} (!tesseract\_common::isNumeric(num\_threads\_string))}
 \DoxyCodeLine{143       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesPlanProfile: NumberThreads is not a numeric values."{}});}
 \DoxyCodeLine{144 }
-\DoxyCodeLine{145     tesseract\_common::toNumeric<int>(num\_threads\_string, num\_threads);}
+\DoxyCodeLine{145     tesseract\_common::toNumeric<int>(num\_threads\_string, \mbox{\hyperlink{descartes__planner__tests_8cpp_acd769fd0d2150922b2277aff5f993f19}{num\_threads}});}
 \DoxyCodeLine{146   \}}
 \DoxyCodeLine{147 }
 \DoxyCodeLine{148   \textcolor{keywordflow}{if} (allow\_collisions\_element != \textcolor{keyword}{nullptr})}
@@ -141,25 +141,25 @@
 \DoxyCodeLine{164 \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_ad58f95e294d2a54c4df27ac91fbe39ae}{DescartesDefaultPlanProfile<FloatType>::apply}}(\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem<FloatType>}}\& prob,}
 \DoxyCodeLine{165                                                    \textcolor{keyword}{const} Eigen::Isometry3d\& cartesian\_waypoint,}
 \DoxyCodeLine{166                                                    \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& parent\_instruction,}
-\DoxyCodeLine{167                                                    \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& manip\_info,}
+\DoxyCodeLine{167                                                    \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info,}
 \DoxyCodeLine{168                                                    \textcolor{keywordtype}{int} index)\textcolor{keyword}{ const}}
 \DoxyCodeLine{169 \textcolor{keyword}{}\{}
 \DoxyCodeLine{170   assert(parent\_instruction.\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_add30aeec2a23a428e04474140daf640d}{isMoveInstruction}}());}
 \DoxyCodeLine{171   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& base\_instruction = parent\_instruction.as<\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}>();}
 \DoxyCodeLine{172   assert(!(manip\_info.empty() \&\& base\_instruction.getManipulatorInfo().empty()));}
-\DoxyCodeLine{173   \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}} mi = manip\_info.getCombined(base\_instruction.getManipulatorInfo());}
+\DoxyCodeLine{173   tesseract\_common::ManipulatorInfo \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aacf8f831786eae51fba4caaedbde9cf0}{mi}} = manip\_info.getCombined(base\_instruction.getManipulatorInfo());}
 \DoxyCodeLine{174 }
-\DoxyCodeLine{175   \textcolor{keywordflow}{if} (mi.manipulator.empty())}
+\DoxyCodeLine{175   \textcolor{keywordflow}{if} (\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aacf8f831786eae51fba4caaedbde9cf0}{mi}}.manipulator.empty())}
 \DoxyCodeLine{176     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, manipulator is empty!"{}});}
 \DoxyCodeLine{177 }
-\DoxyCodeLine{178   \textcolor{keywordflow}{if} (mi.tcp\_frame.empty())}
+\DoxyCodeLine{178   \textcolor{keywordflow}{if} (\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aacf8f831786eae51fba4caaedbde9cf0}{mi}}.tcp\_frame.empty())}
 \DoxyCodeLine{179     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, tcp\_frame is empty!"{}});}
 \DoxyCodeLine{180 }
-\DoxyCodeLine{181   \textcolor{keywordflow}{if} (mi.working\_frame.empty())}
+\DoxyCodeLine{181   \textcolor{keywordflow}{if} (\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aacf8f831786eae51fba4caaedbde9cf0}{mi}}.working\_frame.empty())}
 \DoxyCodeLine{182     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, working\_frame is empty!"{}});}
 \DoxyCodeLine{183 }
-\DoxyCodeLine{184   Eigen::Isometry3d tcp\_offset = prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a92d22933ce22fb06264719fc6674848c}{env}}-\/>findTCPOffset(mi);}
-\DoxyCodeLine{185   std::vector<std::string> joint\_names = prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}}-\/>getJointNames();}
+\DoxyCodeLine{184   Eigen::Isometry3d tcp\_offset = prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a92d22933ce22fb06264719fc6674848c}{env}}-\/>findTCPOffset(\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aacf8f831786eae51fba4caaedbde9cf0}{mi}});}
+\DoxyCodeLine{185   std::vector<std::string> \mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a5f85173ecc1ddcb342ebc27f28437f5c}{joint\_names}} = prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}}-\/>getJointNames();}
 \DoxyCodeLine{186 }
 \DoxyCodeLine{187   \textcolor{comment}{/* Check if this cartesian waypoint is dynamic}}
 \DoxyCodeLine{188 \textcolor{comment}{   * (i.e. defined relative to a frame that will move with the kinematic chain) */}}
@@ -178,12 +178,12 @@
 \DoxyCodeLine{201   \textcolor{keywordflow}{if} (vertex\_evaluator == \textcolor{keyword}{nullptr})}
 \DoxyCodeLine{202   \{}
 \DoxyCodeLine{203     \textcolor{keyword}{auto} ve = std::make\_shared<DescartesJointLimitsVertexEvaluator>(prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}}-\/>getLimits().joint\_limits);}
-\DoxyCodeLine{204     sampler = std::make\_shared<DescartesRobotSampler<FloatType>>(mi.working\_frame,}
+\DoxyCodeLine{204     sampler = std::make\_shared<DescartesRobotSampler<FloatType>>(\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aacf8f831786eae51fba4caaedbde9cf0}{mi}}.working\_frame,}
 \DoxyCodeLine{205                                                                  cartesian\_waypoint,}
-\DoxyCodeLine{206                                                                  target\_pose\_sampler,}
+\DoxyCodeLine{206                                                                  \mbox{\hyperlink{descartes__planner__tests_8cpp_ace2f0baaaf2dccc5be57836ddac4e304}{target\_pose\_sampler}},}
 \DoxyCodeLine{207                                                                  prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}},}
 \DoxyCodeLine{208                                                                  ci,}
-\DoxyCodeLine{209                                                                  mi.tcp\_frame,}
+\DoxyCodeLine{209                                                                  \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aacf8f831786eae51fba4caaedbde9cf0}{mi}}.tcp\_frame,}
 \DoxyCodeLine{210                                                                  tcp\_offset,}
 \DoxyCodeLine{211                                                                  allow\_collision,}
 \DoxyCodeLine{212                                                                  ve,}
@@ -191,12 +191,12 @@
 \DoxyCodeLine{214   \}}
 \DoxyCodeLine{215   \textcolor{keywordflow}{else}}
 \DoxyCodeLine{216   \{}
-\DoxyCodeLine{217     sampler = std::make\_shared<DescartesRobotSampler<FloatType>>(mi.working\_frame,}
+\DoxyCodeLine{217     sampler = std::make\_shared<DescartesRobotSampler<FloatType>>(\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aacf8f831786eae51fba4caaedbde9cf0}{mi}}.working\_frame,}
 \DoxyCodeLine{218                                                                  cartesian\_waypoint,}
-\DoxyCodeLine{219                                                                  target\_pose\_sampler,}
+\DoxyCodeLine{219                                                                  \mbox{\hyperlink{descartes__planner__tests_8cpp_ace2f0baaaf2dccc5be57836ddac4e304}{target\_pose\_sampler}},}
 \DoxyCodeLine{220                                                                  prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}},}
 \DoxyCodeLine{221                                                                  ci,}
-\DoxyCodeLine{222                                                                  mi.tcp\_frame,}
+\DoxyCodeLine{222                                                                  \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aacf8f831786eae51fba4caaedbde9cf0}{mi}}.tcp\_frame,}
 \DoxyCodeLine{223                                                                  tcp\_offset,}
 \DoxyCodeLine{224                                                                  allow\_collision,}
 \DoxyCodeLine{225                                                                  vertex\_evaluator(prob),}
@@ -209,7 +209,7 @@
 \DoxyCodeLine{232     \textcolor{comment}{// Add edge Evaluator}}
 \DoxyCodeLine{233     \textcolor{keywordflow}{if} (edge\_evaluator == \textcolor{keyword}{nullptr})}
 \DoxyCodeLine{234     \{}
-\DoxyCodeLine{235       \textcolor{keywordflow}{if} (enable\_edge\_collision)}
+\DoxyCodeLine{235       \textcolor{keywordflow}{if} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a54234c02ffbccadf4c2f2e571e0a18ff}{enable\_edge\_collision}})}
 \DoxyCodeLine{236       \{}
 \DoxyCodeLine{237         \textcolor{keyword}{auto} compound\_evaluator = std::make\_shared<descartes\_light::CompoundEdgeEvaluator<FloatType>>();}
 \DoxyCodeLine{238         compound\_evaluator-\/>evaluators.push\_back(}
@@ -235,28 +235,28 @@
 \DoxyCodeLine{258   \textcolor{keywordflow}{else}}
 \DoxyCodeLine{259     prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_ad3a33ab7c267a46a72baf5b5a274fba2}{state\_evaluators}}.push\_back(std::make\_shared<\textcolor{keyword}{const} descartes\_light::StateEvaluator<FloatType>>());}
 \DoxyCodeLine{260 }
-\DoxyCodeLine{261   prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_af402017d6500a4bb68d357e141dd3668}{num\_threads}} = num\_threads;}
+\DoxyCodeLine{261   prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_af402017d6500a4bb68d357e141dd3668}{num\_threads}} = \mbox{\hyperlink{descartes__planner__tests_8cpp_acd769fd0d2150922b2277aff5f993f19}{num\_threads}};}
 \DoxyCodeLine{262 \}}
 \DoxyCodeLine{263 }
 \DoxyCodeLine{264 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
 \DoxyCodeLine{265 \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_ad58f95e294d2a54c4df27ac91fbe39ae}{DescartesDefaultPlanProfile<FloatType>::apply}}(\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem<FloatType>}}\& prob,}
 \DoxyCodeLine{266                                                    \textcolor{keyword}{const} Eigen::VectorXd\& joint\_waypoint,}
 \DoxyCodeLine{267                                                    \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& \textcolor{comment}{/*parent\_instruction*/},}
-\DoxyCodeLine{268                                                    \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \textcolor{comment}{/*manip\_info*/},}
+\DoxyCodeLine{268                                                    \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& \textcolor{comment}{/*manip\_info*/},}
 \DoxyCodeLine{269                                                    \textcolor{keywordtype}{int} index)\textcolor{keyword}{ const}}
 \DoxyCodeLine{270 \textcolor{keyword}{}\{}
-\DoxyCodeLine{271   \textcolor{keyword}{auto} state = std::make\_shared<descartes\_light::State<FloatType>>(joint\_waypoint.cast<FloatType>());}
-\DoxyCodeLine{272   \textcolor{keyword}{auto} sampler = std::make\_shared<descartes\_light::FixedJointWaypointSampler<FloatType>>(state);}
+\DoxyCodeLine{271   \textcolor{keyword}{auto} \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}} = std::make\_shared<descartes\_light::State<FloatType>>(joint\_waypoint.cast<FloatType>());}
+\DoxyCodeLine{272   \textcolor{keyword}{auto} sampler = std::make\_shared<descartes\_light::FixedJointWaypointSampler<FloatType>>(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}});}
 \DoxyCodeLine{273   prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_abeb575d4b7d1c7a8901ef479d4737a1d}{samplers}}.push\_back(std::move(sampler));}
 \DoxyCodeLine{274 }
-\DoxyCodeLine{275   std::vector<std::string> joint\_names = prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}}-\/>getJointNames();}
+\DoxyCodeLine{275   std::vector<std::string> \mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a5f85173ecc1ddcb342ebc27f28437f5c}{joint\_names}} = prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}}-\/>getJointNames();}
 \DoxyCodeLine{276 }
 \DoxyCodeLine{277   \textcolor{keywordflow}{if} (index != 0)}
 \DoxyCodeLine{278   \{}
 \DoxyCodeLine{279     \textcolor{comment}{// Add edge Evaluator}}
 \DoxyCodeLine{280     \textcolor{keywordflow}{if} (edge\_evaluator == \textcolor{keyword}{nullptr})}
 \DoxyCodeLine{281     \{}
-\DoxyCodeLine{282       \textcolor{keywordflow}{if} (enable\_edge\_collision)}
+\DoxyCodeLine{282       \textcolor{keywordflow}{if} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a54234c02ffbccadf4c2f2e571e0a18ff}{enable\_edge\_collision}})}
 \DoxyCodeLine{283       \{}
 \DoxyCodeLine{284         \textcolor{keyword}{auto} compound\_evaluator = std::make\_shared<descartes\_light::CompoundEdgeEvaluator<FloatType>>();}
 \DoxyCodeLine{285         compound\_evaluator-\/>evaluators.push\_back(}
@@ -281,7 +281,7 @@
 \DoxyCodeLine{304   \textcolor{keywordflow}{else}}
 \DoxyCodeLine{305     prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_ad3a33ab7c267a46a72baf5b5a274fba2}{state\_evaluators}}.push\_back(std::make\_shared<\textcolor{keyword}{const} descartes\_light::StateEvaluator<FloatType>>());}
 \DoxyCodeLine{306 }
-\DoxyCodeLine{307   prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_af402017d6500a4bb68d357e141dd3668}{num\_threads}} = num\_threads;}
+\DoxyCodeLine{307   prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_af402017d6500a4bb68d357e141dd3668}{num\_threads}} = \mbox{\hyperlink{descartes__planner__tests_8cpp_acd769fd0d2150922b2277aff5f993f19}{num\_threads}};}
 \DoxyCodeLine{308 \}}
 \DoxyCodeLine{309 }
 \DoxyCodeLine{310 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
@@ -305,7 +305,7 @@
 \DoxyCodeLine{328 }
 \DoxyCodeLine{329   tinyxml2::XMLElement* edge\_collisions = doc.NewElement(\textcolor{stringliteral}{"{}EdgeCollisions"{}});}
 \DoxyCodeLine{330   tinyxml2::XMLElement* edge\_collisions\_enabled = doc.NewElement(\textcolor{stringliteral}{"{}Enabled"{}});}
-\DoxyCodeLine{331   edge\_collisions\_enabled-\/>SetText(enable\_edge\_collision);}
+\DoxyCodeLine{331   edge\_collisions\_enabled-\/>SetText(\mbox{\hyperlink{descartes__planner__tests_8cpp_a54234c02ffbccadf4c2f2e571e0a18ff}{enable\_edge\_collision}});}
 \DoxyCodeLine{332   edge\_collisions-\/>InsertEndChild(edge\_collisions\_enabled);}
 \DoxyCodeLine{333 }
 \DoxyCodeLine{335   \textcolor{comment}{//  tinyxml2::XMLElement* edge\_collisions\_safety\_margin = doc.NewElement("{}CollisionSafetyMargin"{});}}
@@ -319,7 +319,7 @@
 \DoxyCodeLine{343   xml\_descartes-\/>InsertEndChild(edge\_collisions);}
 \DoxyCodeLine{344 }
 \DoxyCodeLine{345   tinyxml2::XMLElement* number\_threads = doc.NewElement(\textcolor{stringliteral}{"{}NumberThreads"{}});}
-\DoxyCodeLine{346   number\_threads-\/>SetText(num\_threads);}
+\DoxyCodeLine{346   number\_threads-\/>SetText(\mbox{\hyperlink{descartes__planner__tests_8cpp_acd769fd0d2150922b2277aff5f993f19}{num\_threads}});}
 \DoxyCodeLine{347   xml\_descartes-\/>InsertEndChild(number\_threads);}
 \DoxyCodeLine{348 }
 \DoxyCodeLine{349   tinyxml2::XMLElement* allow\_collision\_element = doc.NewElement(\textcolor{stringliteral}{"{}AllowCollisions"{}});}

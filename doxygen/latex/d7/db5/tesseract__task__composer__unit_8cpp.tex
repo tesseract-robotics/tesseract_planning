@@ -24,13 +24,7 @@
 {\ttfamily \#include \char`\"{}raster\+\_\+example\+\_\+program.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}freespace\+\_\+example\+\_\+program.\+h\char`\"{}}\newline
 Include dependency graph for tesseract\+\_\+task\+\_\+composer\+\_\+unit.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{de/d2b/tesseract__task__composer__unit_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -39,118 +33,508 @@ class \mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_aac1d8268f4852fbef46727b2223322d3}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}, Min\+Length\+Task\+Test)
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a4e89368442be7dbcca802e2ad3bfde69}{EXPECT\+\_\+\+FALSE}} (\mbox{\hyperlink{trajopt__planner__tests_8cpp_ad2cb92292af90d7b9417d0aaf53a64d8}{program.\+get\+Manipulator\+Info}}().empty())
 \item 
-\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a7ca9c74cca2051090101b9a4d9969b65}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}, Raster\+Simple\+Motion\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile\+Test)
+\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_aeef1e9d42d9a9b3c3439d3efd49b5421}{set\+Manipulator\+Info}} (\mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}})
 \item 
-\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_aacc5a88902cd26288e3f6bcfd6307a94}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}, Raster\+Simple\+Motion\+Planner\+LVSPlan\+Profile\+Test)
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a2269f714c45b900021405fe85c1cd56d}{EXPECT\+\_\+\+TRUE}} (program.\+has\+Start\+Instruction())
 \item 
-\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a715b6759e1048dc5e8e59bbe0a7eecda}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}, Raster\+Simple\+Motion\+Planner\+Default\+LVSNo\+IKPlan\+Profile\+Test)
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}{task\+\_\+data}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a2beed3bef6c88e0f5f3c09f1220354da}{set\+Data}} (\char`\"{}input\+\_\+program\char`\"{}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a3ade23b6b911c6766f0bd5660b6eef8d}{interpolated\+\_\+program}})
 \item 
-\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a49585d7f0952f6d666503faf7818ef72}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}, Freespace\+Simple\+Motion\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile\+Test)
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a9a4725d4502a6a3d9c0cbcb41a377892}{add\+Profile$<$ Min\+Length\+Profile $>$}} (MIN\+\_\+\+LENGTH\+\_\+\+TASK\+\_\+\+NAME, program.\+get\+Profile(), std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structtesseract__planning_1_1MinLengthProfile}{Min\+Length\+Profile}} $>$(\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab7d79704726db6afc21fd3f7678242e8}{current\+\_\+length}}))
 \item 
-\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_aa2d139cd76b2685eb50b5f78e74457a4}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}, Freespace\+Simple\+Motion\+Planner\+Default\+LVSPlan\+Profile\+Test)
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab097101ef0c800677edbb6282654bab6}{EXPECT\+\_\+\+TRUE}} (task.\+run($\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}})==1)
 \item 
-\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ae4a38885bc8af29b1fe5cd77c4afbf06}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}, Raster\+Process\+Manager\+Default\+Plan\+Profile\+Test)
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab5d96a2f8923a0116fb7e182aa0aecd6}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a7e05672f41a52ca233d01063091080f5}{final\+\_\+length}}==\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab7d79704726db6afc21fd3f7678242e8}{current\+\_\+length}})
 \item 
-\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a71f05b6054a410cfa60a0f02f966e748}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}, Raster\+Global\+Process\+Manager\+Default\+Plan\+Profile\+Test)
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ae83499ace66bb5c0aae533d3a9bf7d85}{add\+Profile$<$ Min\+Length\+Profile $>$}} (MIN\+\_\+\+LENGTH\+\_\+\+TASK\+\_\+\+NAME, program.\+get\+Profile(), std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structtesseract__planning_1_1MinLengthProfile}{Min\+Length\+Profile}} $>$(2 $\ast$\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab7d79704726db6afc21fd3f7678242e8}{current\+\_\+length}}))
 \item 
-\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a44ed34d894344f69056fb6eb27542c33}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}, Raster\+Global\+Process\+Manager\+Default\+LVSPlan\+Profile\+Test)
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a3910e686f86dedde8cb1947db8d83d12}{reset}} ()
 \item 
-\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_abbd3cef7abd0e3b1cd8529f97378fd38}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}, Raster\+Only\+Process\+Manager\+Default\+Plan\+Profile\+Test)
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a9f7f787b155608fe23f400ea3347a7d8}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a55e869da1b7b1257f38cf72cf87995a8}{final\+\_\+length2}} $>$=(2 $\ast$\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab7d79704726db6afc21fd3f7678242e8}{current\+\_\+length}}))
 \item 
-\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_acf3107430434cafe3a72186eed484998}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}, Raster\+Only\+Process\+Manager\+Default\+LVSPlan\+Profile\+Test)
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a6ce6c00f577ae651e441c08234ef375c}{add\+Profile$<$ Min\+Length\+Profile $>$}} (MIN\+\_\+\+LENGTH\+\_\+\+TASK\+\_\+\+NAME, program.\+get\+Profile(), std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structtesseract__planning_1_1MinLengthProfile}{Min\+Length\+Profile}} $>$(3 $\ast$\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab7d79704726db6afc21fd3f7678242e8}{current\+\_\+length}}))
 \item 
-\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a7e66d19b0f837a50f7af560dc569bb32}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}, Raster\+Only\+Global\+Process\+Manager\+Default\+Plan\+Profile\+Test)
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a342856f7866f45d4165bafd522311869}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a1f7e7236111cc06d9519ff6334ae287c}{final\+\_\+length3}} $>$=(3 $\ast$\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab7d79704726db6afc21fd3f7678242e8}{current\+\_\+length}}))
 \item 
-\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_afd558e6879e0522b4e26640dc75cb2bd}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}, Raster\+Only\+Global\+Process\+Manager\+Default\+LVSPlan\+Profile\+Test)
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a659d9142eb895ba9eb40556647fb16c2}{add\+Profile$<$ Simple\+Planner\+Plan\+Profile $>$}} (SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a2ac3e01fdc7bc88e781a722f6f4e2071}{process\+\_\+profile}}, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}} $>$())
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a89b6b5ccaf28a46555c9506284f22a79}{add\+Profile$<$ Simple\+Planner\+Plan\+Profile $>$}} (SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a8d247618b588cda8471cf2c97bb506f4}{freespace\+\_\+profile}}, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}} $>$())
+\item 
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_aa64f29bb57dbfbc93e7f9db59923c45c}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a07993abf4f35535ce7d053b419179c7b}{EXPECT\+\_\+\+EQ}} (((\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab4e30c84b6e005d7d84c7d24169e5f7b}{pcnt}} -\/ 1) $\ast$10)+1, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a4bbc83500690d554ee6d495ddf1ec44d}{mcnt}})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a2573b06147ca9582ddaa1be2fb1d5f26}{EXPECT\+\_\+\+TRUE}} (response.\+results.\+has\+Start\+Instruction())
+\item 
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ad61b1cc554965a87df3333f18ff152ee}{EXPECT\+\_\+\+FALSE}} (\mbox{\hyperlink{trajopt__planner__tests_8cpp_ad2cb92292af90d7b9417d0aaf53a64d8}{response.\+results.\+get\+Manipulator\+Info}}().empty())
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ac031cb4aaf2a46697c6934ba0799a3df}{add\+Profile$<$ Simple\+Planner\+Plan\+Profile $>$}} (SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a2ac3e01fdc7bc88e781a722f6f4e2071}{process\+\_\+profile}}, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} $>$())
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a03e64e2b39fc5ec448ba6226bc176a43}{add\+Profile$<$ Simple\+Planner\+Plan\+Profile $>$}} (SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a8d247618b588cda8471cf2c97bb506f4}{freespace\+\_\+profile}}, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} $>$())
+\item 
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a26019573e1405de1c9ea943226fe0fd3}{EXPECT\+\_\+\+EQ}} (98, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a4bbc83500690d554ee6d495ddf1ec44d}{mcnt}})
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_af0ed8a1d0d7a26cb49dca6a4333eaedb}{add\+Profile$<$ Simple\+Planner\+Plan\+Profile $>$}} (SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a2ac3e01fdc7bc88e781a722f6f4e2071}{process\+\_\+profile}}, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile}{Simple\+Planner\+LVSNo\+IKPlan\+Profile}} $>$())
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a5bf510640d5cc1d9ec5d7d087c430b93}{add\+Profile$<$ Simple\+Planner\+Plan\+Profile $>$}} (SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a8d247618b588cda8471cf2c97bb506f4}{freespace\+\_\+profile}}, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile}{Simple\+Planner\+LVSNo\+IKPlan\+Profile}} $>$())
+\item 
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a898ab6f8207967119b6c7c7e1772bb8f}{EXPECT\+\_\+\+EQ}} (83, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a4bbc83500690d554ee6d495ddf1ec44d}{mcnt}})
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab23d98fbe7b19c5eadec9a9f09206991}{add\+Profile$<$ Simple\+Planner\+Plan\+Profile $>$}} (SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}} $>$())
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ad8e94e696a1d09a517c5fba4986be5ea}{add\+Profile$<$ Simple\+Planner\+Plan\+Profile $>$}} (SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY, std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} $>$())
+\item 
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab6b746e7b70f68564c588e09ce032972}{EXPECT\+\_\+\+EQ}} (37, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a4bbc83500690d554ee6d495ddf1ec44d}{mcnt}})
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a9a0019a367bf7801520d4ecff37df185}{add\+Profile$<$ Simple\+Planner\+Plan\+Profile $>$}} (SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a8d247618b588cda8471cf2c97bb506f4}{freespace\+\_\+profile}}, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a51485bf7e67f2b166635d59ac85bac96}{default\+\_\+simple\+\_\+plan\+\_\+profile}})
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_aa34fcbf01891f74c0ea3e9484cbb884e}{add\+Profile$<$ Simple\+Planner\+Plan\+Profile $>$}} (SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a2ac3e01fdc7bc88e781a722f6f4e2071}{process\+\_\+profile}}, \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a51485bf7e67f2b166635d59ac85bac96}{default\+\_\+simple\+\_\+plan\+\_\+profile}})
+\item 
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}{task\+\_\+data}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ae879a2256643655e541d23c1d74b4b34}{set\+Data}} (\char`\"{}input\+\_\+program\char`\"{}, \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1RasterFtMotionTask}{Raster\+Ft\+Motion\+Task}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a930e60f0f776dce210394294e7eaa719}{task}} (\char`\"{}input\+\_\+program\char`\"{}, \char`\"{}output\+\_\+program\char`\"{})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a0083a709b2a6e456c7d620d4a1d72f7e}{future}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_acf703fafa69cad2bd35ed000c868c929}{wait}} ()
+\item 
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a4dc4f65d9c617a3aa340518b7ae8757d}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a0083a709b2a6e456c7d620d4a1d72f7e}{future}}-\/$>$ready())
+\item 
+\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a885b6d87afb774dd4203644722c0cee0}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}-\/$>$is\+Successful())
 \item 
 int \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_aa286b62ffc5f362a9629f912c3421781}{cur\+\_\+state}} = env\+\_\+-\/$>$get\+State()
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a3ade23b6b911c6766f0bd5660b6eef8d}{interpolated\+\_\+program}} = generate\+Interpolated\+Program(\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_aa286b62ffc5f362a9629f912c3421781}{cur\+\_\+state}}, env\+\_\+)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{Task\+Composer\+Data\+Storage}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}{task\+\_\+data}}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem}{Task\+Composer\+Problem}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a689d64bb0bc1e07b72fcf0346ac67a45}{task\+\_\+problem}} (env\+\_\+, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}{task\+\_\+data}})
+\item 
+auto \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}$>$()
+\item 
+long \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab7d79704726db6afc21fd3f7678242e8}{current\+\_\+length}} = interpolated\+\_\+program.\+get\+Move\+Instruction\+Count()
+\item 
+auto \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}}$>$(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_ad622a7ca1f792b29507b23ec736946e7}{task\+\_\+problem}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1MinLengthTask}{Min\+Length\+Task}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a5db2ebb466c248635e199e98caf465eb}{task}} (\char`\"{}input\+\_\+program\char`\"{}, \char`\"{}output\+\_\+program\char`\"{}, true)
+\item 
+long \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a7e05672f41a52ca233d01063091080f5}{final\+\_\+length}}
+\item 
+long \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a55e869da1b7b1257f38cf72cf87995a8}{final\+\_\+length2}}
+\item 
+long \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a1f7e7236111cc06d9519ff6334ae287c}{final\+\_\+length3}}
+\item 
+std\+::string \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a2ac3e01fdc7bc88e781a722f6f4e2071}{process\+\_\+profile}} = \char`\"{}PROCESS\char`\"{}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{tesseract\+\_\+planning\+::\+Composite\+Instruction}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} = raster\+Example\+Program()
+\item 
+auto \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a50a0bccf9a7f2fd4bea69af296eba54e}{interpolator}} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}}$>$()
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}} = \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}} = env\+\_\+
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a5083a6bcf9f46da48634a2146d75ca2f}{env\+\_\+state}} = env\+\_\+-\/$>$get\+State()
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}} = \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a50a0bccf9a7f2fd4bea69af296eba54e}{interpolator}}-\/$>$solve(\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}})
+\item 
+auto \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab4e30c84b6e005d7d84c7d24169e5f7b}{pcnt}} = request.\+instructions.\+get\+Move\+Instruction\+Count()
+\item 
+auto \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a4bbc83500690d554ee6d495ddf1ec44d}{mcnt}} = response.\+results.\+get\+Move\+Instruction\+Count()
+\item 
+std\+::string \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a8d247618b588cda8471cf2c97bb506f4}{freespace\+\_\+profile}} = DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY
+\item 
+auto \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a51485bf7e67f2b166635d59ac85bac96}{default\+\_\+simple\+\_\+plan\+\_\+profile}} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}}$>$()
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_ad8f9f27ba611e63ecd12ad1ad91a4b66}{Task\+Composer\+Future\+::\+UPtr}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a0083a709b2a6e456c7d620d4a1d72f7e}{future}} = executor-\/$>$run(\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a5db2ebb466c248635e199e98caf465eb}{task}}, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}})
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_ae83499ace66bb5c0aae533d3a9bf7d85}\label{tesseract__task__composer__unit_8cpp_ae83499ace66bb5c0aae533d3a9bf7d85}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!addProfile$<$ MinLengthProfile $>$@{addProfile$<$ MinLengthProfile $>$}}
+\index{addProfile$<$ MinLengthProfile $>$@{addProfile$<$ MinLengthProfile $>$}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ MinLengthProfile $>$()}{addProfile< MinLengthProfile >()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{structtesseract__planning_1_1MinLengthProfile}{Min\+Length\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{MIN\+\_\+\+LENGTH\+\_\+\+TASK\+\_\+\+NAME}]{,  }\item[{program.}]{get\+Profile(),  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structtesseract__planning_1_1MinLengthProfile}{Min\+Length\+Profile}} $>$}]{2 $\ast$current\+\_\+length }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a6ce6c00f577ae651e441c08234ef375c}\label{tesseract__task__composer__unit_8cpp_a6ce6c00f577ae651e441c08234ef375c}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!addProfile$<$ MinLengthProfile $>$@{addProfile$<$ MinLengthProfile $>$}}
+\index{addProfile$<$ MinLengthProfile $>$@{addProfile$<$ MinLengthProfile $>$}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ MinLengthProfile $>$()}{addProfile< MinLengthProfile >()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{structtesseract__planning_1_1MinLengthProfile}{Min\+Length\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{MIN\+\_\+\+LENGTH\+\_\+\+TASK\+\_\+\+NAME}]{,  }\item[{program.}]{get\+Profile(),  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structtesseract__planning_1_1MinLengthProfile}{Min\+Length\+Profile}} $>$}]{3 $\ast$current\+\_\+length }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a9a4725d4502a6a3d9c0cbcb41a377892}\label{tesseract__task__composer__unit_8cpp_a9a4725d4502a6a3d9c0cbcb41a377892}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!addProfile$<$ MinLengthProfile $>$@{addProfile$<$ MinLengthProfile $>$}}
+\index{addProfile$<$ MinLengthProfile $>$@{addProfile$<$ MinLengthProfile $>$}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ MinLengthProfile $>$()}{addProfile< MinLengthProfile >()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{structtesseract__planning_1_1MinLengthProfile}{Min\+Length\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{MIN\+\_\+\+LENGTH\+\_\+\+TASK\+\_\+\+NAME}]{,  }\item[{program.}]{get\+Profile(),  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{structtesseract__planning_1_1MinLengthProfile}{Min\+Length\+Profile}} $>$}]{current\+\_\+length }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_ab23d98fbe7b19c5eadec9a9f09206991}\label{tesseract__task__composer__unit_8cpp_ab23d98fbe7b19c5eadec9a9f09206991}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}}
+\index{addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ SimplePlannerPlanProfile $>$()}{addProfile< SimplePlannerPlanProfile >()}\hspace{0.1cm}{\footnotesize\ttfamily [1/10]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}]{,  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}} $>$}]{() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_ad8e94e696a1d09a517c5fba4986be5ea}\label{tesseract__task__composer__unit_8cpp_ad8e94e696a1d09a517c5fba4986be5ea}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}}
+\index{addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ SimplePlannerPlanProfile $>$()}{addProfile< SimplePlannerPlanProfile >()}\hspace{0.1cm}{\footnotesize\ttfamily [2/10]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}]{,  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} $>$}]{() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a9a0019a367bf7801520d4ecff37df185}\label{tesseract__task__composer__unit_8cpp_a9a0019a367bf7801520d4ecff37df185}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}}
+\index{addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ SimplePlannerPlanProfile $>$()}{addProfile< SimplePlannerPlanProfile >()}\hspace{0.1cm}{\footnotesize\ttfamily [3/10]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a8d247618b588cda8471cf2c97bb506f4}{freespace\+\_\+profile}}}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a51485bf7e67f2b166635d59ac85bac96}{default\+\_\+simple\+\_\+plan\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a89b6b5ccaf28a46555c9506284f22a79}\label{tesseract__task__composer__unit_8cpp_a89b6b5ccaf28a46555c9506284f22a79}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}}
+\index{addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ SimplePlannerPlanProfile $>$()}{addProfile< SimplePlannerPlanProfile >()}\hspace{0.1cm}{\footnotesize\ttfamily [4/10]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a8d247618b588cda8471cf2c97bb506f4}{freespace\+\_\+profile}}}]{,  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}} $>$}]{() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a5bf510640d5cc1d9ec5d7d087c430b93}\label{tesseract__task__composer__unit_8cpp_a5bf510640d5cc1d9ec5d7d087c430b93}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}}
+\index{addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ SimplePlannerPlanProfile $>$()}{addProfile< SimplePlannerPlanProfile >()}\hspace{0.1cm}{\footnotesize\ttfamily [5/10]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a8d247618b588cda8471cf2c97bb506f4}{freespace\+\_\+profile}}}]{,  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile}{Simple\+Planner\+LVSNo\+IKPlan\+Profile}} $>$}]{() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a03e64e2b39fc5ec448ba6226bc176a43}\label{tesseract__task__composer__unit_8cpp_a03e64e2b39fc5ec448ba6226bc176a43}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}}
+\index{addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ SimplePlannerPlanProfile $>$()}{addProfile< SimplePlannerPlanProfile >()}\hspace{0.1cm}{\footnotesize\ttfamily [6/10]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a8d247618b588cda8471cf2c97bb506f4}{freespace\+\_\+profile}}}]{,  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} $>$}]{() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_aa34fcbf01891f74c0ea3e9484cbb884e}\label{tesseract__task__composer__unit_8cpp_aa34fcbf01891f74c0ea3e9484cbb884e}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}}
+\index{addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ SimplePlannerPlanProfile $>$()}{addProfile< SimplePlannerPlanProfile >()}\hspace{0.1cm}{\footnotesize\ttfamily [7/10]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a2ac3e01fdc7bc88e781a722f6f4e2071}{process\+\_\+profile}}}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a51485bf7e67f2b166635d59ac85bac96}{default\+\_\+simple\+\_\+plan\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a659d9142eb895ba9eb40556647fb16c2}\label{tesseract__task__composer__unit_8cpp_a659d9142eb895ba9eb40556647fb16c2}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}}
+\index{addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ SimplePlannerPlanProfile $>$()}{addProfile< SimplePlannerPlanProfile >()}\hspace{0.1cm}{\footnotesize\ttfamily [8/10]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a2ac3e01fdc7bc88e781a722f6f4e2071}{process\+\_\+profile}}}]{,  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}} $>$}]{() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_af0ed8a1d0d7a26cb49dca6a4333eaedb}\label{tesseract__task__composer__unit_8cpp_af0ed8a1d0d7a26cb49dca6a4333eaedb}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}}
+\index{addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ SimplePlannerPlanProfile $>$()}{addProfile< SimplePlannerPlanProfile >()}\hspace{0.1cm}{\footnotesize\ttfamily [9/10]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a2ac3e01fdc7bc88e781a722f6f4e2071}{process\+\_\+profile}}}]{,  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile}{Simple\+Planner\+LVSNo\+IKPlan\+Profile}} $>$}]{() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_ac031cb4aaf2a46697c6934ba0799a3df}\label{tesseract__task__composer__unit_8cpp_ac031cb4aaf2a46697c6934ba0799a3df}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}}
+\index{addProfile$<$ SimplePlannerPlanProfile $>$@{addProfile$<$ SimplePlannerPlanProfile $>$}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ SimplePlannerPlanProfile $>$()}{addProfile< SimplePlannerPlanProfile >()}\hspace{0.1cm}{\footnotesize\ttfamily [10/10]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{SIMPLE\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a2ac3e01fdc7bc88e781a722f6f4e2071}{process\+\_\+profile}}}]{,  }\item[{std\+::make\+\_\+shared$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}} $>$}]{() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a07993abf4f35535ce7d053b419179c7b}\label{tesseract__task__composer__unit_8cpp_a07993abf4f35535ce7d053b419179c7b}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{((\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab4e30c84b6e005d7d84c7d24169e5f7b}{pcnt}} -\/ 1) $\ast$10)+}]{1,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a4bbc83500690d554ee6d495ddf1ec44d}{mcnt}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_ab6b746e7b70f68564c588e09ce032972}\label{tesseract__task__composer__unit_8cpp_ab6b746e7b70f68564c588e09ce032972}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{37}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a4bbc83500690d554ee6d495ddf1ec44d}{mcnt}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a898ab6f8207967119b6c7c7e1772bb8f}\label{tesseract__task__composer__unit_8cpp_a898ab6f8207967119b6c7c7e1772bb8f}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{83}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a4bbc83500690d554ee6d495ddf1ec44d}{mcnt}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a26019573e1405de1c9ea943226fe0fd3}\label{tesseract__task__composer__unit_8cpp_a26019573e1405de1c9ea943226fe0fd3}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{98}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a4bbc83500690d554ee6d495ddf1ec44d}{mcnt}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a4e89368442be7dbcca802e2ad3bfde69}\label{tesseract__task__composer__unit_8cpp_a4e89368442be7dbcca802e2ad3bfde69}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{program.}]{get\+Manipulator\+Info).\+empty( }\end{DoxyParamCaption})}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{  \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} = \mbox{\hyperlink{namespacetesseract__planning_a7a2039b9a45e29e30050777ff8b69bfa}{freespaceExampleProgramABB}}()}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_ad61b1cc554965a87df3333f18ff152ee}\label{tesseract__task__composer__unit_8cpp_ad61b1cc554965a87df3333f18ff152ee}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{response.\+results.}]{get\+Manipulator\+Info).\+empty( }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a9f7f787b155608fe23f400ea3347a7d8}\label{tesseract__task__composer__unit_8cpp_a9f7f787b155608fe23f400ea3347a7d8}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/9]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a55e869da1b7b1257f38cf72cf87995a8}{final\+\_\+length2}} $>$=}]{2 $\ast$current\+\_\+length }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a342856f7866f45d4165bafd522311869}\label{tesseract__task__composer__unit_8cpp_a342856f7866f45d4165bafd522311869}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/9]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a1f7e7236111cc06d9519ff6334ae287c}{final\+\_\+length3}} $>$=}]{3 $\ast$current\+\_\+length }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_ab5d96a2f8923a0116fb7e182aa0aecd6}\label{tesseract__task__composer__unit_8cpp_ab5d96a2f8923a0116fb7e182aa0aecd6}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [3/9]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a7e05672f41a52ca233d01063091080f5}{final\+\_\+length}}}]{ = {\ttfamily =\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_ab7d79704726db6afc21fd3f7678242e8}{current\+\_\+length}}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a4dc4f65d9c617a3aa340518b7ae8757d}\label{tesseract__task__composer__unit_8cpp_a4dc4f65d9c617a3aa340518b7ae8757d}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [4/9]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a0083a709b2a6e456c7d620d4a1d72f7e}{future}}-\/$>$}]{ready() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a2269f714c45b900021405fe85c1cd56d}\label{tesseract__task__composer__unit_8cpp_a2269f714c45b900021405fe85c1cd56d}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [5/9]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{program.}]{has\+Start\+Instruction() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_aa64f29bb57dbfbc93e7f9db59923c45c}\label{tesseract__task__composer__unit_8cpp_aa64f29bb57dbfbc93e7f9db59923c45c}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [6/9]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a2573b06147ca9582ddaa1be2fb1d5f26}\label{tesseract__task__composer__unit_8cpp_a2573b06147ca9582ddaa1be2fb1d5f26}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [7/9]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{response.\+results.}]{has\+Start\+Instruction() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_ab097101ef0c800677edbb6282654bab6}\label{tesseract__task__composer__unit_8cpp_ab097101ef0c800677edbb6282654bab6}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [8/9]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{task.\+run $\ast$}]{task\+\_\+input = {\ttfamily =1} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a885b6d87afb774dd4203644722c0cee0}\label{tesseract__task__composer__unit_8cpp_a885b6d87afb774dd4203644722c0cee0}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [9/9]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}-\/$>$}]{is\+Successful() }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{tesseract__task__composer__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
 \index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!main@{main}}
 \index{main@{main}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_aa2d139cd76b2685eb50b5f78e74457a4}\label{tesseract__task__composer__unit_8cpp_aa2d139cd76b2685eb50b5f78e74457a4}} 
-\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [1/13]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}}]{,  }\item[{Freespace\+Simple\+Motion\+Planner\+Default\+LVSPlan\+Profile\+Test}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a3910e686f86dedde8cb1947db8d83d12}\label{tesseract__task__composer__unit_8cpp_a3910e686f86dedde8cb1947db8d83d12}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!reset@{reset}}
+\index{reset@{reset}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}} reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a49585d7f0952f6d666503faf7818ef72}\label{tesseract__task__composer__unit_8cpp_a49585d7f0952f6d666503faf7818ef72}} 
-\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [2/13]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}}]{,  }\item[{Freespace\+Simple\+Motion\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile\+Test}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a2beed3bef6c88e0f5f3c09f1220354da}\label{tesseract__task__composer__unit_8cpp_a2beed3bef6c88e0f5f3c09f1220354da}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!setData@{setData}}
+\index{setData@{setData}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}{task\+\_\+data}} set\+Data (\begin{DoxyParamCaption}\item[{\char`\"{}input\+\_\+program\char`\"{}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a3ade23b6b911c6766f0bd5660b6eef8d}{interpolated\+\_\+program}}}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_aac1d8268f4852fbef46727b2223322d3}\label{tesseract__task__composer__unit_8cpp_aac1d8268f4852fbef46727b2223322d3}} 
-\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [3/13]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}}]{,  }\item[{Min\+Length\+Task\+Test}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_ae879a2256643655e541d23c1d74b4b34}\label{tesseract__task__composer__unit_8cpp_ae879a2256643655e541d23c1d74b4b34}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!setData@{setData}}
+\index{setData@{setData}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}{task\+\_\+data}} set\+Data (\begin{DoxyParamCaption}\item[{\char`\"{}input\+\_\+program\char`\"{}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a44ed34d894344f69056fb6eb27542c33}\label{tesseract__task__composer__unit_8cpp_a44ed34d894344f69056fb6eb27542c33}} 
-\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [4/13]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}}]{,  }\item[{Raster\+Global\+Process\+Manager\+Default\+LVSPlan\+Profile\+Test}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_aeef1e9d42d9a9b3c3439d3efd49b5421}\label{tesseract__task__composer__unit_8cpp_aeef1e9d42d9a9b3c3439d3efd49b5421}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!setManipulatorInfo@{setManipulatorInfo}}
+\index{setManipulatorInfo@{setManipulatorInfo}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setManipulatorInfo()}{setManipulatorInfo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} set\+Manipulator\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}}}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a71f05b6054a410cfa60a0f02f966e748}\label{tesseract__task__composer__unit_8cpp_a71f05b6054a410cfa60a0f02f966e748}} 
-\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [5/13]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}}]{,  }\item[{Raster\+Global\+Process\+Manager\+Default\+Plan\+Profile\+Test}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a930e60f0f776dce210394294e7eaa719}\label{tesseract__task__composer__unit_8cpp_a930e60f0f776dce210394294e7eaa719}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!task@{task}}
+\index{task@{task}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{task()}{task()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1RasterFtMotionTask}{Raster\+Ft\+Motion\+Task}} task (\begin{DoxyParamCaption}\item[{\char`\"{}input\+\_\+program\char`\"{}}]{,  }\item[{\char`\"{}output\+\_\+program\char`\"{}}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_afd558e6879e0522b4e26640dc75cb2bd}\label{tesseract__task__composer__unit_8cpp_afd558e6879e0522b4e26640dc75cb2bd}} 
-\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [6/13]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}}]{,  }\item[{Raster\+Only\+Global\+Process\+Manager\+Default\+LVSPlan\+Profile\+Test}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_acf703fafa69cad2bd35ed000c868c929}\label{tesseract__task__composer__unit_8cpp_acf703fafa69cad2bd35ed000c868c929}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!wait@{wait}}
+\index{wait@{wait}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{wait()}{wait()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a0083a709b2a6e456c7d620d4a1d72f7e}{future}} wait (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a7e66d19b0f837a50f7af560dc569bb32}\label{tesseract__task__composer__unit_8cpp_a7e66d19b0f837a50f7af560dc569bb32}} 
-\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [7/13]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}}]{,  }\item[{Raster\+Only\+Global\+Process\+Manager\+Default\+Plan\+Profile\+Test}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_acf3107430434cafe3a72186eed484998}\label{tesseract__task__composer__unit_8cpp_acf3107430434cafe3a72186eed484998}} 
-\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [8/13]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}}]{,  }\item[{Raster\+Only\+Process\+Manager\+Default\+LVSPlan\+Profile\+Test}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_abbd3cef7abd0e3b1cd8529f97378fd38}\label{tesseract__task__composer__unit_8cpp_abbd3cef7abd0e3b1cd8529f97378fd38}} 
-\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [9/13]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}}]{,  }\item[{Raster\+Only\+Process\+Manager\+Default\+Plan\+Profile\+Test}]{ }\end{DoxyParamCaption})}
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_aa286b62ffc5f362a9629f912c3421781}\label{tesseract__task__composer__unit_8cpp_aa286b62ffc5f362a9629f912c3421781}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!cur\_state@{cur\_state}}
+\index{cur\_state@{cur\_state}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{cur\_state}{cur\_state}}
+{\footnotesize\ttfamily auto cur\+\_\+state = env\+\_\+-\/$>$get\+State()}
 
-\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_ae4a38885bc8af29b1fe5cd77c4afbf06}\label{tesseract__task__composer__unit_8cpp_ae4a38885bc8af29b1fe5cd77c4afbf06}} 
-\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [10/13]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}}]{,  }\item[{Raster\+Process\+Manager\+Default\+Plan\+Profile\+Test}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_ab7d79704726db6afc21fd3f7678242e8}\label{tesseract__task__composer__unit_8cpp_ab7d79704726db6afc21fd3f7678242e8}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!current\_length@{current\_length}}
+\index{current\_length@{current\_length}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{current\_length}{current\_length}}
+{\footnotesize\ttfamily long current\+\_\+length = interpolated\+\_\+program.\+get\+Move\+Instruction\+Count()}
 
-\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a715b6759e1048dc5e8e59bbe0a7eecda}\label{tesseract__task__composer__unit_8cpp_a715b6759e1048dc5e8e59bbe0a7eecda}} 
-\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [11/13]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}}]{,  }\item[{Raster\+Simple\+Motion\+Planner\+Default\+LVSNo\+IKPlan\+Profile\+Test}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a51485bf7e67f2b166635d59ac85bac96}\label{tesseract__task__composer__unit_8cpp_a51485bf7e67f2b166635d59ac85bac96}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!default\_simple\_plan\_profile@{default\_simple\_plan\_profile}}
+\index{default\_simple\_plan\_profile@{default\_simple\_plan\_profile}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{default\_simple\_plan\_profile}{default\_simple\_plan\_profile}}
+{\footnotesize\ttfamily auto default\+\_\+simple\+\_\+plan\+\_\+profile = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}}$>$()}
 
-\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a7ca9c74cca2051090101b9a4d9969b65}\label{tesseract__task__composer__unit_8cpp_a7ca9c74cca2051090101b9a4d9969b65}} 
-\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [12/13]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}}]{,  }\item[{Raster\+Simple\+Motion\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile\+Test}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}\label{tesseract__task__composer__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!env@{env}}
+\index{env@{env}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{env}{env}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} env = env\+\_\+}
 
-\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_aacc5a88902cd26288e3f6bcfd6307a94}\label{tesseract__task__composer__unit_8cpp_aacc5a88902cd26288e3f6bcfd6307a94}} 
-\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [13/13]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractTaskComposerUnit}{Tesseract\+Task\+Composer\+Unit}}}]{,  }\item[{Raster\+Simple\+Motion\+Planner\+LVSPlan\+Profile\+Test}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a5083a6bcf9f46da48634a2146d75ca2f}\label{tesseract__task__composer__unit_8cpp_a5083a6bcf9f46da48634a2146d75ca2f}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!env\_state@{env\_state}}
+\index{env\_state@{env\_state}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{env\_state}{env\_state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} env\+\_\+state = env\+\_\+-\/$>$get\+State()}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a7e05672f41a52ca233d01063091080f5}\label{tesseract__task__composer__unit_8cpp_a7e05672f41a52ca233d01063091080f5}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!final\_length@{final\_length}}
+\index{final\_length@{final\_length}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{final\_length}{final\_length}}
+{\footnotesize\ttfamily long final\+\_\+length}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\_input}}-\/>data\_storage.getData(\textcolor{stringliteral}{"{}output\_program"{}}).as<\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}>().getMoveInstructionCount()}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a55e869da1b7b1257f38cf72cf87995a8}\label{tesseract__task__composer__unit_8cpp_a55e869da1b7b1257f38cf72cf87995a8}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!final\_length2@{final\_length2}}
+\index{final\_length2@{final\_length2}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{final\_length2}{final\_length2}}
+{\footnotesize\ttfamily long final\+\_\+length2}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\_input}}-\/>data\_storage.getData(\textcolor{stringliteral}{"{}output\_program"{}}).as<\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}>().getMoveInstructionCount()}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a1f7e7236111cc06d9519ff6334ae287c}\label{tesseract__task__composer__unit_8cpp_a1f7e7236111cc06d9519ff6334ae287c}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!final\_length3@{final\_length3}}
+\index{final\_length3@{final\_length3}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{final\_length3}{final\_length3}}
+{\footnotesize\ttfamily long final\+\_\+length3}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\_input}}-\/>data\_storage.getData(\textcolor{stringliteral}{"{}output\_program"{}}).as<\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}>().getMoveInstructionCount()}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a8d247618b588cda8471cf2c97bb506f4}\label{tesseract__task__composer__unit_8cpp_a8d247618b588cda8471cf2c97bb506f4}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!freespace\_profile@{freespace\_profile}}
+\index{freespace\_profile@{freespace\_profile}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{freespace\_profile}{freespace\_profile}}
+{\footnotesize\ttfamily std\+::string freespace\+\_\+profile = DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a0083a709b2a6e456c7d620d4a1d72f7e}\label{tesseract__task__composer__unit_8cpp_a0083a709b2a6e456c7d620d4a1d72f7e}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!future@{future}}
+\index{future@{future}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{future}{future}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_ad8f9f27ba611e63ecd12ad1ad91a4b66}{Task\+Composer\+Future\+::\+UPtr}} future = executor-\/$>$run(\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a5db2ebb466c248635e199e98caf465eb}{task}}, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a540933d401a016e1bb8a7a67aeba9e19}\label{tesseract__task__composer__unit_8cpp_a540933d401a016e1bb8a7a67aeba9e19}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!instructions@{instructions}}
+\index{instructions@{instructions}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{instructions}{instructions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} instructions = \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a3ade23b6b911c6766f0bd5660b6eef8d}\label{tesseract__task__composer__unit_8cpp_a3ade23b6b911c6766f0bd5660b6eef8d}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!interpolated\_program@{interpolated\_program}}
+\index{interpolated\_program@{interpolated\_program}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{interpolated\_program}{interpolated\_program}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} interpolated\+\_\+program = generate\+Interpolated\+Program(\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_aa286b62ffc5f362a9629f912c3421781}{cur\+\_\+state}}, env\+\_\+)}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a50a0bccf9a7f2fd4bea69af296eba54e}\label{tesseract__task__composer__unit_8cpp_a50a0bccf9a7f2fd4bea69af296eba54e}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!interpolator@{interpolator}}
+\index{interpolator@{interpolator}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{interpolator}{interpolator}}
+{\footnotesize\ttfamily auto interpolator = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}}$>$()}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a4bbc83500690d554ee6d495ddf1ec44d}\label{tesseract__task__composer__unit_8cpp_a4bbc83500690d554ee6d495ddf1ec44d}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!mcnt@{mcnt}}
+\index{mcnt@{mcnt}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{mcnt}{mcnt}}
+{\footnotesize\ttfamily auto mcnt = response.\+results.\+get\+Move\+Instruction\+Count()}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_ab4e30c84b6e005d7d84c7d24169e5f7b}\label{tesseract__task__composer__unit_8cpp_ab4e30c84b6e005d7d84c7d24169e5f7b}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!pcnt@{pcnt}}
+\index{pcnt@{pcnt}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{pcnt}{pcnt}}
+{\footnotesize\ttfamily auto pcnt = request.\+instructions.\+get\+Move\+Instruction\+Count()}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a2ac3e01fdc7bc88e781a722f6f4e2071}\label{tesseract__task__composer__unit_8cpp_a2ac3e01fdc7bc88e781a722f6f4e2071}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!process\_profile@{process\_profile}}
+\index{process\_profile@{process\_profile}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{process\_profile}{process\_profile}}
+{\footnotesize\ttfamily std\+::string process\+\_\+profile = \char`\"{}PROCESS\char`\"{}}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a13750846d267dd5648a15c858593c1cb}\label{tesseract__task__composer__unit_8cpp_a13750846d267dd5648a15c858593c1cb}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!profiles@{profiles}}
+\index{profiles@{profiles}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{profiles}{profiles}}
+{\footnotesize\ttfamily auto profiles = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}$>$()}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_ab5a75a7fd217179774b21aaa94fccc66}\label{tesseract__task__composer__unit_8cpp_ab5a75a7fd217179774b21aaa94fccc66}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!program@{program}}
+\index{program@{program}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{program}{program}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} program = raster\+Example\+Program()}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}\label{tesseract__task__composer__unit_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!request@{request}}
+\index{request@{request}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{request}{request}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} request}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}\label{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!response@{response}}
+\index{response@{response}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{response}{response}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} response = \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a50a0bccf9a7f2fd4bea69af296eba54e}{interpolator}}-\/$>$solve(\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a5db2ebb466c248635e199e98caf465eb}\label{tesseract__task__composer__unit_8cpp_a5db2ebb466c248635e199e98caf465eb}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!task@{task}}
+\index{task@{task}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{task}{task}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1RasterFtOnlyGlobalPipelineTask}{Raster\+Ft\+Only\+Global\+Pipeline\+Task}} task (\begin{DoxyParamCaption}\item[{\char`\"{}input\+\_\+program\char`\"{}}]{,  }\item[{\char`\"{}output\+\_\+program\char`\"{}}]{,  }\item[{true}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}\label{tesseract__task__composer__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!task\_data@{task\_data}}
+\index{task\_data@{task\_data}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{task\_data}{task\_data}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{Task\+Composer\+Data\+Storage}} task\+\_\+data}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a534e02381108c8756d563fed0582e9d3}\label{tesseract__task__composer__unit_8cpp_a534e02381108c8756d563fed0582e9d3}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!task\_input@{task\_input}}
+\index{task\_input@{task\_input}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{task\_input}{task\_input}}
+{\footnotesize\ttfamily auto task\+\_\+input = std\+::make\+\_\+shared$<$\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}}$>$(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_ad622a7ca1f792b29507b23ec736946e7}{task\+\_\+problem}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}})}
+
+\mbox{\Hypertarget{tesseract__task__composer__unit_8cpp_a689d64bb0bc1e07b72fcf0346ac67a45}\label{tesseract__task__composer__unit_8cpp_a689d64bb0bc1e07b72fcf0346ac67a45}} 
+\index{tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}!task\_problem@{task\_problem}}
+\index{task\_problem@{task\_problem}!tesseract\_task\_composer\_unit.cpp@{tesseract\_task\_composer\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{task\_problem}{task\_problem}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem}{Task\+Composer\+Problem}} task\+\_\+problem(env\+\_\+, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}{task\+\_\+data}}) (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}{task\+\_\+data}}}]{ }\end{DoxyParamCaption})}
 

@@ -7,13 +7,7 @@
 
 
 Collaboration diagram for tesseract\+\_\+planning\+::totg\+::Trajectory\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d2/d5c/classtesseract__planning_1_1totg_1_1Trajectory__coll__graph}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -22,7 +16,7 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1Traje
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a78d9b62367b7178b2d23eaf185969319}{Trajectory}} (const \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path}{Path}} \&path, const Eigen\+::\+Vector\+Xd \&max\+\_\+velocity, const Eigen\+::\+Vector\+Xd \&max\+\_\+acceleration, double time\+\_\+step=0.\+001)
+\mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a78d9b62367b7178b2d23eaf185969319}{Trajectory}} (const \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path}{Path}} \&\mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a4d455efceee21e97d8e21ee40e9b4a20}{path}}, const Eigen\+::\+Vector\+Xd \&\mbox{\hyperlink{iterative__spline__tests_8cpp_a4edd2e19f0e2c29472298acb4c9314bc}{max\+\_\+velocity}}, const Eigen\+::\+Vector\+Xd \&\mbox{\hyperlink{iterative__spline__tests_8cpp_ace361fc180c17eec994c8f5b4b5a260e}{max\+\_\+acceleration}}, double time\+\_\+step=0.\+001)
 \begin{DoxyCompactList}\small\item\em Generates a time-\/optimal trajectory. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a6dfde6fc848c5cfeb4dda5fc343b29cb}{is\+Valid}} () const
 \begin{DoxyCompactList}\small\item\em Call this method after constructing the object to make sure the trajectory generation succeeded without errors. If this method returns false, all other methods have undefined behavior. \end{DoxyCompactList}\item 
@@ -36,7 +30,7 @@ Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Traje
 \begin{DoxyCompactList}\small\item\em Return the velocity vector for a given point in time. \end{DoxyCompactList}\item 
 Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a1acebaa67669a12fa69dbf1d768ccea1}{get\+Acceleration}} (double time) const
 \begin{DoxyCompactList}\small\item\em Return the acceleration vector for a given point in time. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ab4f3648c196728cd55bd0397032eb312}{assign\+Data}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&trajectory) const
+bool \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ab4f3648c196728cd55bd0397032eb312}{assign\+Data}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&\mbox{\hyperlink{iterative__spline__tests_8cpp_a42770b019b3c810751d40ab5f2f25e20}{trajectory}}) const
 \begin{DoxyCompactList}\small\item\em Assign trajectory velocity acceleration and time. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
@@ -49,7 +43,7 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ad1226143d6
 \item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a95e0598a803ca04faba42ac224dd3a99}{get\+Next\+Velocity\+Switching\+Point}} (double path\+\_\+pos, \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep}{Trajectory\+Step}} \&next\+\_\+switching\+\_\+point, double \&before\+\_\+acceleration, double \&after\+\_\+acceleration)
 \item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_aa3481e6bce77318230ca08d6462d58cb}{integrate\+Forward}} (std\+::list$<$ \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep}{Trajectory\+Step}} $>$ \&trajectory, double acceleration)
+bool \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_aa3481e6bce77318230ca08d6462d58cb}{integrate\+Forward}} (std\+::list$<$ \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep}{Trajectory\+Step}} $>$ \&\mbox{\hyperlink{iterative__spline__tests_8cpp_a42770b019b3c810751d40ab5f2f25e20}{trajectory}}, double acceleration)
 \item 
 void \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a68b0f0a20c3fb3daeddfdf0e9c9cc014}{integrate\+Backward}} (std\+::list$<$ \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep}{Trajectory\+Step}} $>$ \&start\+\_\+trajectory, double path\+\_\+pos, double path\+\_\+vel, double acceleration)
 \item 

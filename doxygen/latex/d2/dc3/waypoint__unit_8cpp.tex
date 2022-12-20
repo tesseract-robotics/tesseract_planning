@@ -14,32 +14,43 @@
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/state\+\_\+waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/joint\+\_\+waypoint.\+h$>$}\newline
 Include dependency graph for waypoint\+\_\+unit.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d2/dab/waypoint__unit_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{waypoint__unit_8cpp_ac8ae328024287438ed33c01e59e66113}{TEST}} (Tesseract\+Command\+Language\+Waypoint\+Unit, boost\+Serialization)
+\mbox{\hyperlink{waypoint__unit_8cpp_a5f8fc383d24eb241b72e006a87ff7dc4}{EXPECT\+\_\+\+TRUE}} (null\+\_\+wp.\+is\+Null())
 \item 
-void \mbox{\hyperlink{waypoint__unit_8cpp_afb590a2664d1e87a7b3d2a359b909403}{Serialize\+Deserialize\+Test}} (const \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \&wp)
+\mbox{\hyperlink{waypoint__unit_8cpp_a3f8f9af3c98b8bc11b7aecf4eee51d1b}{EXPECT\+\_\+\+FALSE}} (null\+\_\+wp.\+is\+Cartesian\+Waypoint())
 \item 
-\mbox{\hyperlink{waypoint__unit_8cpp_a974706b13c205a868d1a6e8f1536e7d3}{TEST}} (Tesseract\+Command\+Language\+Waypoint\+Unit, equality\+Operator\+And\+Serialization)
+\mbox{\hyperlink{waypoint__unit_8cpp_a5ad2d6b9d15883a4ae6522ff644f2b1c}{EXPECT\+\_\+\+TRUE}} (nnull\+\_\+wp.\+is\+Null())
 \item 
-int \mbox{\hyperlink{waypoint__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+void \mbox{\hyperlink{waypoint__unit_8cpp_afb590a2664d1e87a7b3d2a359b909403}{Serialize\+Deserialize\+Test}} (const \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \&\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{waypoint__unit_8cpp_af3c5ec06a1d6e2ac391b3f80e212012a}{nnull\+\_\+wp}} = tesseract\+\_\+common\+::\+Serialization\+::from\+Archive\+File\+XML$<$\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}}$>$(\char`\"{}/tmp/waypoint\+\_\+null\+\_\+boost.\+xml\char`\"{})
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{waypoint__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{waypoint__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
-\index{waypoint\_unit.cpp@{waypoint\_unit.cpp}!main@{main}}
-\index{main@{main}!waypoint\_unit.cpp@{waypoint\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{main()}{main()}}
-{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{waypoint__unit_8cpp_a3f8f9af3c98b8bc11b7aecf4eee51d1b}\label{waypoint__unit_8cpp_a3f8f9af3c98b8bc11b7aecf4eee51d1b}} 
+\index{waypoint\_unit.cpp@{waypoint\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!waypoint\_unit.cpp@{waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{null\+\_\+wp.}]{is\+Cartesian\+Waypoint() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{waypoint__unit_8cpp_a5ad2d6b9d15883a4ae6522ff644f2b1c}\label{waypoint__unit_8cpp_a5ad2d6b9d15883a4ae6522ff644f2b1c}} 
+\index{waypoint\_unit.cpp@{waypoint\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!waypoint\_unit.cpp@{waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{nnull\+\_\+wp.}]{is\+Null() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{waypoint__unit_8cpp_a5f8fc383d24eb241b72e006a87ff7dc4}\label{waypoint__unit_8cpp_a5f8fc383d24eb241b72e006a87ff7dc4}} 
+\index{waypoint\_unit.cpp@{waypoint\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!waypoint\_unit.cpp@{waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{null\+\_\+wp.}]{is\+Null() }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{waypoint__unit_8cpp_afb590a2664d1e87a7b3d2a359b909403}\label{waypoint__unit_8cpp_afb590a2664d1e87a7b3d2a359b909403}} 
 \index{waypoint\_unit.cpp@{waypoint\_unit.cpp}!SerializeDeserializeTest@{SerializeDeserializeTest}}
@@ -47,15 +58,12 @@ int \mbox{\hyperlink{waypoint__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main
 \doxysubsubsection{\texorpdfstring{SerializeDeserializeTest()}{SerializeDeserializeTest()}}
 {\footnotesize\ttfamily void Serialize\+Deserialize\+Test (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \&}]{wp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{waypoint__unit_8cpp_ac8ae328024287438ed33c01e59e66113}\label{waypoint__unit_8cpp_ac8ae328024287438ed33c01e59e66113}} 
-\index{waypoint\_unit.cpp@{waypoint\_unit.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!waypoint\_unit.cpp@{waypoint\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Waypoint\+Unit}]{,  }\item[{boost\+Serialization}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{waypoint__unit_8cpp_a974706b13c205a868d1a6e8f1536e7d3}\label{waypoint__unit_8cpp_a974706b13c205a868d1a6e8f1536e7d3}} 
-\index{waypoint\_unit.cpp@{waypoint\_unit.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!waypoint\_unit.cpp@{waypoint\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Waypoint\+Unit}]{,  }\item[{equality\+Operator\+And\+Serialization}]{ }\end{DoxyParamCaption})}
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{waypoint__unit_8cpp_af3c5ec06a1d6e2ac391b3f80e212012a}\label{waypoint__unit_8cpp_af3c5ec06a1d6e2ac391b3f80e212012a}} 
+\index{waypoint\_unit.cpp@{waypoint\_unit.cpp}!nnull\_wp@{nnull\_wp}}
+\index{nnull\_wp@{nnull\_wp}!waypoint\_unit.cpp@{waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{nnull\_wp}{nnull\_wp}}
+{\footnotesize\ttfamily auto nnull\+\_\+wp = tesseract\+\_\+common\+::\+Serialization\+::from\+Archive\+File\+XML$<$\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}}$>$(\char`\"{}/tmp/waypoint\+\_\+null\+\_\+boost.\+xml\char`\"{})}
 

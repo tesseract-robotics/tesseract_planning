@@ -1,9 +1,9 @@
 <map id="tesseract_motion_planners/trajopt_ifopt/include/tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h" name="tesseract_motion_planners/trajopt_ifopt/include/tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h">
-<area shape="rect" id="node1" title=" " alt="" coords="392,5,575,91"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,146,196,173"/>
-<area shape="rect" id="node3" title=" " alt="" coords="220,146,387,173"/>
-<area shape="rect" id="node4" title=" " alt="" coords="410,146,469,173"/>
-<area shape="rect" id="node5" title=" " alt="" coords="493,146,561,173"/>
-<area shape="rect" id="node6" title=" " alt="" coords="585,139,781,180"/>
-<area shape="rect" id="node7" title=" " alt="" coords="806,139,961,180"/>
+<area shape="rect" id="node1" title=" " alt="" coords="393,5,576,89"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,145,196,170"/>
+<area shape="rect" id="node3" title=" " alt="" coords="220,145,387,170"/>
+<area shape="rect" id="node4" title=" " alt="" coords="411,145,470,170"/>
+<area shape="rect" id="node5" title=" " alt="" coords="495,145,563,170"/>
+<area shape="rect" id="node6" title=" " alt="" coords="587,137,783,177"/>
+<area shape="rect" id="node7" title=" " alt="" coords="807,137,962,177"/>
 </map>

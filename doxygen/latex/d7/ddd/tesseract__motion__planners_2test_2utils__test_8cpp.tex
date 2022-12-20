@@ -8,13 +8,7 @@
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/planner\+\_\+utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+support/tesseract\+\_\+support\+\_\+resource\+\_\+locator.\+h$>$}\newline
 Include dependency graph for utils\+\_\+test.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d8/df4/tesseract__motion__planners_2test_2utils__test_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -23,11 +17,30 @@ class \mbox{\hyperlink{classTesseractPlanningUtilsUnit}{Tesseract\+Planning\+Uti
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a60223085506fe0d71f6b70fb5b98f189}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningUtilsUnit}{Tesseract\+Planning\+Utils\+Unit}}, Generate\+Seed)
+\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a40cb969b7aa044ffb37fc115e6ae3065}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a5d3ff3f3899275fade3a86d25fa018bd}{output\+\_\+profile}}, \char`\"{}DEFAULT\char`\"{})
 \item 
-\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a2ff750ae03e74473fe97b77ddb9ec165}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningUtilsUnit}{Tesseract\+Planning\+Utils\+Unit}}, Get\+Profile\+String\+Test)
+\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_aaae1cd6ece07835d13c3e2d49d7e7ee5}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a5d3ff3f3899275fade3a86d25fa018bd}{output\+\_\+profile}}, \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_aee57cf1e634e9b07dfc75ee4a7425333}{default\+\_\+planner}})
+\item 
+\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a5d8675882830a184e63e7c76c299b6c1}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a07b9bfc97b6cc0b60023afa6bca6fbf3}{input\+\_\+profile}}, \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a5d3ff3f3899275fade3a86d25fa018bd}{output\+\_\+profile}})
+\item 
+\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_ad6b71f602b50acd86315b7582efee59b}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a5d3ff3f3899275fade3a86d25fa018bd}{output\+\_\+profile}}, \char`\"{}profile\+\_\+1\+\_\+remapped\char`\"{})
 \item 
 int \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_aced4e550ad6d57d72063d5d980c098a4}{planner\+\_\+name}} = \char`\"{}Planner\+\_\+1\char`\"{}
+\item 
+std\+::string \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_aee57cf1e634e9b07dfc75ee4a7425333}{default\+\_\+planner}} = \char`\"{}TEST\+\_\+\+DEFAULT\char`\"{}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a51171346a6f0e28f848f60cad4d96b9c}{remap}} = \char`\"{}profile\+\_\+1\+\_\+remapped\char`\"{}
+\item 
+\mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a71f3ff586203a1b71f61c84109930924}{remapping}} = \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a51171346a6f0e28f848f60cad4d96b9c}{remap}}
+\item 
+std\+::string \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a5d3ff3f3899275fade3a86d25fa018bd}{output\+\_\+profile}} = get\+Profile\+String(\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_aced4e550ad6d57d72063d5d980c098a4}{planner\+\_\+name}}, \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a07b9bfc97b6cc0b60023afa6bca6fbf3}{input\+\_\+profile}}, \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a71f3ff586203a1b71f61c84109930924}{remapping}})
+\item 
+\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a07b9bfc97b6cc0b60023afa6bca6fbf3}{input\+\_\+profile}} = \char`\"{}profile\+\_\+1\char`\"{}
 \end{DoxyCompactItemize}
 
 
@@ -85,21 +98,72 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2utils__test_8cpp_a5d8675882830a184e63e7c76c299b6c1}\label{tesseract__motion__planners_2test_2utils__test_8cpp_a5d8675882830a184e63e7c76c299b6c1}} 
+\index{utils\_test.cpp@{utils\_test.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!utils\_test.cpp@{utils\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a07b9bfc97b6cc0b60023afa6bca6fbf3}{input\+\_\+profile}}}]{,  }\item[{\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a5d3ff3f3899275fade3a86d25fa018bd}{output\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2utils__test_8cpp_a40cb969b7aa044ffb37fc115e6ae3065}\label{tesseract__motion__planners_2test_2utils__test_8cpp_a40cb969b7aa044ffb37fc115e6ae3065}} 
+\index{utils\_test.cpp@{utils\_test.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!utils\_test.cpp@{utils\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a5d3ff3f3899275fade3a86d25fa018bd}{output\+\_\+profile}}}]{,  }\item[{\char`\"{}DEFAULT\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2utils__test_8cpp_ad6b71f602b50acd86315b7582efee59b}\label{tesseract__motion__planners_2test_2utils__test_8cpp_ad6b71f602b50acd86315b7582efee59b}} 
+\index{utils\_test.cpp@{utils\_test.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!utils\_test.cpp@{utils\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a5d3ff3f3899275fade3a86d25fa018bd}{output\+\_\+profile}}}]{,  }\item[{\char`\"{}profile\+\_\+1\+\_\+remapped\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2utils__test_8cpp_aaae1cd6ece07835d13c3e2d49d7e7ee5}\label{tesseract__motion__planners_2test_2utils__test_8cpp_aaae1cd6ece07835d13c3e2d49d7e7ee5}} 
+\index{utils\_test.cpp@{utils\_test.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!utils\_test.cpp@{utils\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a5d3ff3f3899275fade3a86d25fa018bd}{output\+\_\+profile}}}]{,  }\item[{\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_aee57cf1e634e9b07dfc75ee4a7425333}{default\+\_\+planner}}}]{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{tesseract__motion__planners_2test_2utils__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{tesseract__motion__planners_2test_2utils__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
 \index{utils\_test.cpp@{utils\_test.cpp}!main@{main}}
 \index{main@{main}!utils\_test.cpp@{utils\_test.cpp}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__motion__planners_2test_2utils__test_8cpp_a60223085506fe0d71f6b70fb5b98f189}\label{tesseract__motion__planners_2test_2utils__test_8cpp_a60223085506fe0d71f6b70fb5b98f189}} 
-\index{utils\_test.cpp@{utils\_test.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!utils\_test.cpp@{utils\_test.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningUtilsUnit}{Tesseract\+Planning\+Utils\+Unit}}}]{,  }\item[{Generate\+Seed}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__motion__planners_2test_2utils__test_8cpp_a2ff750ae03e74473fe97b77ddb9ec165}\label{tesseract__motion__planners_2test_2utils__test_8cpp_a2ff750ae03e74473fe97b77ddb9ec165}} 
-\index{utils\_test.cpp@{utils\_test.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!utils\_test.cpp@{utils\_test.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningUtilsUnit}{Tesseract\+Planning\+Utils\+Unit}}}]{,  }\item[{Get\+Profile\+String\+Test}]{ }\end{DoxyParamCaption})}
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2utils__test_8cpp_aee57cf1e634e9b07dfc75ee4a7425333}\label{tesseract__motion__planners_2test_2utils__test_8cpp_aee57cf1e634e9b07dfc75ee4a7425333}} 
+\index{utils\_test.cpp@{utils\_test.cpp}!default\_planner@{default\_planner}}
+\index{default\_planner@{default\_planner}!utils\_test.cpp@{utils\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{default\_planner}{default\_planner}}
+{\footnotesize\ttfamily std\+::string default\+\_\+planner = \char`\"{}TEST\+\_\+\+DEFAULT\char`\"{}}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2utils__test_8cpp_a07b9bfc97b6cc0b60023afa6bca6fbf3}\label{tesseract__motion__planners_2test_2utils__test_8cpp_a07b9bfc97b6cc0b60023afa6bca6fbf3}} 
+\index{utils\_test.cpp@{utils\_test.cpp}!input\_profile@{input\_profile}}
+\index{input\_profile@{input\_profile}!utils\_test.cpp@{utils\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{input\_profile}{input\_profile}}
+{\footnotesize\ttfamily input\+\_\+profile = \char`\"{}profile\+\_\+1\char`\"{}}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2utils__test_8cpp_a5d3ff3f3899275fade3a86d25fa018bd}\label{tesseract__motion__planners_2test_2utils__test_8cpp_a5d3ff3f3899275fade3a86d25fa018bd}} 
+\index{utils\_test.cpp@{utils\_test.cpp}!output\_profile@{output\_profile}}
+\index{output\_profile@{output\_profile}!utils\_test.cpp@{utils\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{output\_profile}{output\_profile}}
+{\footnotesize\ttfamily output\+\_\+profile = get\+Profile\+String(\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_aced4e550ad6d57d72063d5d980c098a4}{planner\+\_\+name}}, \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a07b9bfc97b6cc0b60023afa6bca6fbf3}{input\+\_\+profile}}, \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a71f3ff586203a1b71f61c84109930924}{remapping}})}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2utils__test_8cpp_aced4e550ad6d57d72063d5d980c098a4}\label{tesseract__motion__planners_2test_2utils__test_8cpp_aced4e550ad6d57d72063d5d980c098a4}} 
+\index{utils\_test.cpp@{utils\_test.cpp}!planner\_name@{planner\_name}}
+\index{planner\_name@{planner\_name}!utils\_test.cpp@{utils\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{planner\_name}{planner\_name}}
+{\footnotesize\ttfamily std\+::string planner\+\_\+name = \char`\"{}Planner\+\_\+1\char`\"{}}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2utils__test_8cpp_a51171346a6f0e28f848f60cad4d96b9c}\label{tesseract__motion__planners_2test_2utils__test_8cpp_a51171346a6f0e28f848f60cad4d96b9c}} 
+\index{utils\_test.cpp@{utils\_test.cpp}!remap@{remap}}
+\index{remap@{remap}!utils\_test.cpp@{utils\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{remap}{remap}}
+{\footnotesize\ttfamily remap\mbox{[}\char`\"{}profile\+\_\+1\char`\"{}\mbox{]} = \char`\"{}profile\+\_\+1\+\_\+remapped\char`\"{}}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2utils__test_8cpp_a71f3ff586203a1b71f61c84109930924}\label{tesseract__motion__planners_2test_2utils__test_8cpp_a71f3ff586203a1b71f61c84109930924}} 
+\index{utils\_test.cpp@{utils\_test.cpp}!remapping@{remapping}}
+\index{remapping@{remapping}!utils\_test.cpp@{utils\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{remapping}{remapping}}
+{\footnotesize\ttfamily remapping\mbox{[}\char`\"{}Planner\+\_\+2\char`\"{}\mbox{]} = \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a51171346a6f0e28f848f60cad4d96b9c}{remap}}}
 

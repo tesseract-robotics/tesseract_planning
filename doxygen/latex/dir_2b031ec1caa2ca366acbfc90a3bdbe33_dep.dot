@@ -1,0 +1,16 @@
+digraph "tesseract_command_language/include"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_fa47c2fa9b13a12fc195f1b83854b816 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="tesseract_command_language", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_fa47c2fa9b13a12fc195f1b83854b816.html",tooltip=""]
+  subgraph clusterdir_2b031ec1caa2ca366acbfc90a3bdbe33 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_2b031ec1caa2ca366acbfc90a3bdbe33.html",tooltip=""]
+    dir_2b031ec1caa2ca366acbfc90a3bdbe33 [shape=plaintext, label="include"];
+  dir_01b616d47187535601161b70f3827efe [label="tesseract_command_language", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_01b616d47187535601161b70f3827efe.html",tooltip=""];
+  }
+  }
+}

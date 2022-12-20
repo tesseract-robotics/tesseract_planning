@@ -7,19 +7,21 @@
 
 
 Collaboration diagram for tesseract\+\_\+planning\+::Set\+Analog\+Instruction\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=192pt]{d8/da9/classtesseract__planning_1_1SetAnalogInstruction__coll__graph}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a7ab3ca81b831491d8f02526de75f7994}{Set\+Analog\+Instruction}} ()=default
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a4917df8bf776d13eae6a3f58bfdd6613}{Set\+Analog\+Instruction}} (std\+::string key, int index, double value)
+\item 
+const boost\+::uuids\+::uuid \& \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ab333eaf33024345ded3e75294516ed2b}{get\+UUID}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a222d6fe5865c3438b392a21d89d7abed}{regenerate\+UUID}} ()
+\item 
+const boost\+::uuids\+::uuid \& \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a82481077713865be993c9d0e90be359a}{get\+Parent\+UUID}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a58f5ff967adcb98f84dcd1d2cf498784}{set\+Parent\+UUID}} (const boost\+::uuids\+::uuid \&\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}})
 \item 
 const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a40c1a81b10484cd4009d182631af6f48}{get\+Description}} () const
 \item 
@@ -45,6 +47,10 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ad2dd0ac2
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
+boost\+::uuids\+::uuid \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ae5932fa66096c53e2c8fb9a72ded141d}{uuid\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em The instructions UUID. \end{DoxyCompactList}\item 
+boost\+::uuids\+::uuid \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_af6e057a46273bef50205f952f5207a6b}{parent\+\_\+uuid\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em The parent UUID if created from create\+Child. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_af87174ccbc617ae6752d8a9bd6f23a0c}{description\+\_\+}} \{ \char`\"{}Tesseract Set Analog Instruction\char`\"{} \}
 \begin{DoxyCompactList}\small\item\em The description of the instruction. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ae111c0e743b30e762b91a35c725dfadb}{key\+\_\+}}
@@ -102,6 +108,18 @@ Get the analog index.
 
 Get the analog key. 
 
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a82481077713865be993c9d0e90be359a}\label{classtesseract__planning_1_1SetAnalogInstruction_a82481077713865be993c9d0e90be359a}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!getParentUUID@{getParentUUID}}
+\index{getParentUUID@{getParentUUID}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{getParentUUID()}{getParentUUID()}}
+{\footnotesize\ttfamily const boost\+::uuids\+::uuid \& tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::get\+Parent\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_ab333eaf33024345ded3e75294516ed2b}\label{classtesseract__planning_1_1SetAnalogInstruction_ab333eaf33024345ded3e75294516ed2b}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!getUUID@{getUUID}}
+\index{getUUID@{getUUID}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{getUUID()}{getUUID()}}
+{\footnotesize\ttfamily const boost\+::uuids\+::uuid \& tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::get\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_ae500d4b1cc3879fb60cd7dedcdc1ae14}\label{classtesseract__planning_1_1SetAnalogInstruction_ae500d4b1cc3879fb60cd7dedcdc1ae14}} 
 \index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!getValue@{getValue}}
 \index{getValue@{getValue}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
@@ -154,6 +172,12 @@ True if equal, otherwise false
 \doxysubsubsection{\texorpdfstring{print()}{print()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a222d6fe5865c3438b392a21d89d7abed}\label{classtesseract__planning_1_1SetAnalogInstruction_a222d6fe5865c3438b392a21d89d7abed}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!regenerateUUID@{regenerateUUID}}
+\index{regenerateUUID@{regenerateUUID}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{regenerateUUID()}{regenerateUUID()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::regenerate\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a816ac79463f3f67cdb791a3954dd1436}\label{classtesseract__planning_1_1SetAnalogInstruction_a816ac79463f3f67cdb791a3954dd1436}} 
 \index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!serialize@{serialize}}
 \index{serialize@{serialize}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
@@ -166,6 +190,12 @@ void tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::serialize (\begin{
 \index{setDescription@{setDescription}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
 \doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a58f5ff967adcb98f84dcd1d2cf498784}\label{classtesseract__planning_1_1SetAnalogInstruction_a58f5ff967adcb98f84dcd1d2cf498784}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!setParentUUID@{setParentUUID}}
+\index{setParentUUID@{setParentUUID}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{setParentUUID()}{setParentUUID()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::set\+Parent\+UUID (\begin{DoxyParamCaption}\item[{const boost\+::uuids\+::uuid \&}]{uuid }\end{DoxyParamCaption})}
 
 
 
@@ -208,6 +238,26 @@ The analog index to set.
 
 
 The key is used to identify which type of analog to set. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_af6e057a46273bef50205f952f5207a6b}\label{classtesseract__planning_1_1SetAnalogInstruction_af6e057a46273bef50205f952f5207a6b}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!parent\_uuid\_@{parent\_uuid\_}}
+\index{parent\_uuid\_@{parent\_uuid\_}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{parent\_uuid\_}{parent\_uuid\_}}
+{\footnotesize\ttfamily boost\+::uuids\+::uuid tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::parent\+\_\+uuid\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The parent UUID if created from create\+Child. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_ae5932fa66096c53e2c8fb9a72ded141d}\label{classtesseract__planning_1_1SetAnalogInstruction_ae5932fa66096c53e2c8fb9a72ded141d}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!uuid\_@{uuid\_}}
+\index{uuid\_@{uuid\_}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{uuid\_}{uuid\_}}
+{\footnotesize\ttfamily boost\+::uuids\+::uuid tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::uuid\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The instructions UUID. 
 
 \mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a49635964ef7b0a55e9ac42ef9c1776f3}\label{classtesseract__planning_1_1SetAnalogInstruction_a49635964ef7b0a55e9ac42ef9c1776f3}} 
 \index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!value\_@{value\_}}

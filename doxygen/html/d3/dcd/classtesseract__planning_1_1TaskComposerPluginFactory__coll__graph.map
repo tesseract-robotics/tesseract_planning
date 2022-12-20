@@ -1,9 +1,9 @@
 <map id="tesseract_planning::TaskComposerPluginFactory" name="tesseract_planning::TaskComposerPluginFactory">
-<area shape="rect" id="node1" title=" " alt="" coords="811,53,1005,94"/>
-<area shape="rect" id="node2" title=" " alt="" coords="439,5,645,61"/>
-<area shape="rect" id="node3" title=" " alt="" coords="225,15,304,41"/>
-<area shape="rect" id="node7" title=" " alt="" coords="449,85,635,141"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,7,129,49"/>
-<area shape="rect" id="node5" title=" " alt="" coords="196,112,333,139"/>
-<area shape="rect" id="node6" title=" " alt="" coords="48,112,87,139"/>
+<area shape="rect" id="node1" title=" " alt="" coords="811,53,1005,93"/>
+<area shape="rect" id="node2" title=" " alt="" coords="439,5,645,60"/>
+<area shape="rect" id="node3" title=" " alt="" coords="225,13,304,39"/>
+<area shape="rect" id="node7" title=" " alt="" coords="449,84,635,139"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,6,129,46"/>
+<area shape="rect" id="node5" title=" " alt="" coords="196,111,333,136"/>
+<area shape="rect" id="node6" title=" " alt="" coords="48,111,87,136"/>
 </map>

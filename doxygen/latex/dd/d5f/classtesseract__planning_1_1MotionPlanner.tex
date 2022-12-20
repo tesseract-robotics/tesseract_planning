@@ -7,23 +7,11 @@
 
 
 Inheritance diagram for tesseract\+\_\+planning\+::Motion\+Planner\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=349pt]{db/dfb/classtesseract__planning_1_1MotionPlanner__inherit__graph}
-\end{center}
-\end{figure}
+% FIG 0
 
 
 Collaboration diagram for tesseract\+\_\+planning\+::Motion\+Planner\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=178pt]{dd/d6c/classtesseract__planning_1_1MotionPlanner__coll__graph}
-\end{center}
-\end{figure}
+% FIG 1
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -50,7 +38,7 @@ virtual \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_acd173ef2cf62
 \item 
 const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a8c3cc153aa4a3474197882e4a02f9e9c}{get\+Name}} () const
 \begin{DoxyCompactList}\small\item\em Get the name of this planner. \end{DoxyCompactList}\item 
-virtual \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a60a757c5560f495611be282220fff9d2}{solve}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const =0
+virtual \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a60a757c5560f495611be282220fff9d2}{solve}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}) const =0
 \begin{DoxyCompactList}\small\item\em Solve the planner request problem. \end{DoxyCompactList}\item 
 virtual bool \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a44afac05675a12abc7df47df8f495148}{terminate}} ()=0
 \begin{DoxyCompactList}\small\item\em If \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a60a757c5560f495611be282220fff9d2}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a60a757c5560f495611be282220fff9d2}{solve()}} is not running (returns true). \end{DoxyCompactList}\item 
@@ -61,9 +49,9 @@ virtual \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a0
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static bool \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a354882304601d30d17f0884e30f0748b}{check\+Request}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request)
+static bool \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a354882304601d30d17f0884e30f0748b}{check\+Request}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}})
 \begin{DoxyCompactList}\small\item\em Check planning request. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_ae01cd65dbc5c91a04c527b30544b500d}{assign\+Solution}} (\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&mi, const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&joint\+\_\+values, bool format\+\_\+result\+\_\+as\+\_\+input)
+static void \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_ae01cd65dbc5c91a04c527b30544b500d}{assign\+Solution}} (\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&\mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aacf8f831786eae51fba4caaedbde9cf0}{mi}}, const std\+::vector$<$ std\+::string $>$ \&\mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a5f85173ecc1ddcb342ebc27f28437f5c}{joint\+\_\+names}}, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\+\_\+values}}, bool format\+\_\+result\+\_\+as\+\_\+input)
 \begin{DoxyCompactList}\small\item\em Assign a solution to the move instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}

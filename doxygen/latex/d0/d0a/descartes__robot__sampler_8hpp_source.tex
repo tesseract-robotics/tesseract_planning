@@ -21,20 +21,20 @@
 \DoxyCodeLine{41 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
 \DoxyCodeLine{42 \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a83e0240d0363f251ebdbe87b3e959d44}{DescartesRobotSampler<FloatType>::DescartesRobotSampler}}(std::string target\_working\_frame,}
 \DoxyCodeLine{43                                                         \textcolor{keyword}{const} Eigen::Isometry3d\& target\_pose,}
-\DoxyCodeLine{44                                                         \mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{PoseSamplerFn}} target\_pose\_sampler,}
-\DoxyCodeLine{45                                                         tesseract\_kinematics::KinematicGroup::ConstPtr manip,}
+\DoxyCodeLine{44                                                         \mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{PoseSamplerFn}} \mbox{\hyperlink{descartes__planner__tests_8cpp_ace2f0baaaf2dccc5be57836ddac4e304}{target\_pose\_sampler}},}
+\DoxyCodeLine{45                                                         tesseract\_kinematics::KinematicGroup::ConstPtr \mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}},}
 \DoxyCodeLine{46                                                         \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_aaeaeca3bdae2070fe34bdbd64fa19eb9}{DescartesCollision::Ptr}} collision,}
-\DoxyCodeLine{47                                                         std::string tcp\_frame,}
+\DoxyCodeLine{47                                                         std::string \mbox{\hyperlink{ompl__planner__tests_8cpp_a5f746d461721e8676a6f317d3884e327}{tcp\_frame}},}
 \DoxyCodeLine{48                                                         \textcolor{keyword}{const} Eigen::Isometry3d\& tcp\_offset,}
 \DoxyCodeLine{49                                                         \textcolor{keywordtype}{bool} allow\_collision,}
 \DoxyCodeLine{50                                                         \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af9323f7e0912986b89ba5a57ee6e3262}{DescartesVertexEvaluator::Ptr}} is\_valid,}
 \DoxyCodeLine{51                                                         \textcolor{keywordtype}{bool} use\_redundant\_joint\_solutions)}
 \DoxyCodeLine{52   : target\_working\_frame\_(std::move(target\_working\_frame))}
 \DoxyCodeLine{53   , target\_pose\_(target\_pose)}
-\DoxyCodeLine{54   , target\_pose\_sampler\_(std::move(target\_pose\_sampler))}
-\DoxyCodeLine{55   , manip\_(std::move(manip))}
+\DoxyCodeLine{54   , target\_pose\_sampler\_(std::move(\mbox{\hyperlink{descartes__planner__tests_8cpp_ace2f0baaaf2dccc5be57836ddac4e304}{target\_pose\_sampler}}))}
+\DoxyCodeLine{55   , manip\_(std::move(\mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}}))}
 \DoxyCodeLine{56   , collision\_(std::move(collision))}
-\DoxyCodeLine{57   , tcp\_frame\_(std::move(tcp\_frame))}
+\DoxyCodeLine{57   , tcp\_frame\_(std::move(\mbox{\hyperlink{ompl__planner__tests_8cpp_a5f746d461721e8676a6f317d3884e327}{tcp\_frame}}))}
 \DoxyCodeLine{58   , tcp\_offset\_(tcp\_offset)}
 \DoxyCodeLine{59   , allow\_collision\_(allow\_collision)}
 \DoxyCodeLine{60   , dof\_(static\_cast<int>(manip\_-\/>numJoints()))}
@@ -72,20 +72,20 @@
 \DoxyCodeLine{92       \textcolor{keywordflow}{if} ((is\_valid\_ != \textcolor{keyword}{nullptr}) \&\& !(*is\_valid\_)(sol))}
 \DoxyCodeLine{93         \textcolor{keywordflow}{continue};}
 \DoxyCodeLine{94 }
-\DoxyCodeLine{95       \textcolor{keyword}{auto} state = std::make\_shared<descartes\_light::State<FloatType>>(sol.cast<FloatType>());}
+\DoxyCodeLine{95       \textcolor{keyword}{auto} \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}} = std::make\_shared<descartes\_light::State<FloatType>>(sol.cast<FloatType>());}
 \DoxyCodeLine{96       \textcolor{keywordflow}{if} (allow\_collision\_ \&\& collision\_ == \textcolor{keyword}{nullptr})}
 \DoxyCodeLine{97       \{}
-\DoxyCodeLine{98         samples.push\_back(descartes\_light::StateSample<FloatType>\{ state, \textcolor{keyword}{static\_cast<}FloatType\textcolor{keyword}{>}(0.0) \});}
+\DoxyCodeLine{98         samples.push\_back(descartes\_light::StateSample<FloatType>\{ \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}, \textcolor{keyword}{static\_cast<}FloatType\textcolor{keyword}{>}(0.0) \});}
 \DoxyCodeLine{99       \}}
 \DoxyCodeLine{100       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!allow\_collision\_)}
 \DoxyCodeLine{101       \{}
 \DoxyCodeLine{102         \textcolor{keywordflow}{if} (collision\_-\/>validate(sol))}
-\DoxyCodeLine{103           samples.push\_back(descartes\_light::StateSample<FloatType>\{ state, 0.0 \});}
+\DoxyCodeLine{103           samples.push\_back(descartes\_light::StateSample<FloatType>\{ \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}, 0.0 \});}
 \DoxyCodeLine{104       \}}
 \DoxyCodeLine{105       \textcolor{keywordflow}{else}}
 \DoxyCodeLine{106       \{}
 \DoxyCodeLine{107         \textcolor{keyword}{const} FloatType cost = \textcolor{keyword}{static\_cast<}FloatType\textcolor{keyword}{>}(collision\_-\/>distance(sol));}
-\DoxyCodeLine{108         samples.push\_back(descartes\_light::StateSample<FloatType>\{ state, cost \});}
+\DoxyCodeLine{108         samples.push\_back(descartes\_light::StateSample<FloatType>\{ \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}, cost \});}
 \DoxyCodeLine{109       \}}
 \DoxyCodeLine{110     \}}
 \DoxyCodeLine{111   \}}

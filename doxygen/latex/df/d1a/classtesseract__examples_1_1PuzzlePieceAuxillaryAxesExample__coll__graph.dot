@@ -1,0 +1,10 @@
+digraph "tesseract_examples::PuzzlePieceAuxillaryAxesExample"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="tesseract_examples\l::PuzzlePieceAuxillaryAxes\lExample",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF t..."];
+  Node2 -> Node1 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="tesseract_examples\l::Example",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d3/d3b/classtesseract__examples_1_1Example.html",tooltip="The Example base class."];
+}

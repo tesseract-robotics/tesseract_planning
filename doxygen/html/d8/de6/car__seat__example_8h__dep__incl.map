@@ -1,6 +1,6 @@
 <map id="tesseract_examples/include/tesseract_examples/car_seat_example.h" name="tesseract_examples/include/tesseract_examples/car_seat_example.h">
-<area shape="rect" id="node1" title="An example of a robot on a rail installing a seat in a car." alt="" coords="190,5,377,61"/>
-<area shape="rect" id="node2" href="$d0/d87/car__seat__example_8cpp.html" title="Car seat example implementation." alt="" coords="5,117,183,158"/>
-<area shape="rect" id="node3" href="$d0/d7f/car__seat__example__node_8cpp.html" title="Car seat example node." alt="" coords="207,109,360,165"/>
-<area shape="rect" id="node4" href="$d7/dcb/car__seat__example__unit_8cpp.html" title=" " alt="" coords="385,109,542,165"/>
+<area shape="rect" id="node1" title="An example of a robot on a rail installing a seat in a car." alt="" coords="190,5,377,60"/>
+<area shape="rect" id="node2" href="$d0/d87/car__seat__example_8cpp.html" title="Car seat example implementation." alt="" coords="5,115,183,155"/>
+<area shape="rect" id="node3" href="$d0/d7f/car__seat__example__node_8cpp.html" title="Car seat example node." alt="" coords="207,108,360,163"/>
+<area shape="rect" id="node4" href="$d7/dcb/car__seat__example__unit_8cpp.html" title=" " alt="" coords="385,108,542,163"/>
 </map>

@@ -1,9 +1,9 @@
 <map id="tesseract_planning::FixStateCollisionTaskInfo" name="tesseract_planning::FixStateCollisionTaskInfo">
-<area shape="rect" id="node1" title=" " alt="" coords="1008,107,1184,149"/>
-<area shape="rect" id="node2" href="$da/de5/classtesseract__planning_1_1TaskComposerNodeInfo.html" title=" " alt="" coords="682,59,851,101"/>
-<area shape="rect" id="node3" title=" " alt="" coords="179,37,257,64"/>
-<area shape="rect" id="node6" title=" " alt="" coords="363,68,523,95"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,30,129,71"/>
-<area shape="rect" id="node5" title=" " alt="" coords="380,119,505,161"/>
-<area shape="rect" id="node7" title=" " alt="" coords="667,125,867,166"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1008,107,1184,147"/>
+<area shape="rect" id="node2" href="$da/de5/classtesseract__planning_1_1TaskComposerNodeInfo.html" title=" " alt="" coords="682,60,851,100"/>
+<area shape="rect" id="node3" title=" " alt="" coords="179,38,257,63"/>
+<area shape="rect" id="node6" title=" " alt="" coords="363,69,523,94"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,31,129,71"/>
+<area shape="rect" id="node5" title=" " alt="" coords="380,120,505,160"/>
+<area shape="rect" id="node7" title=" " alt="" coords="667,124,867,164"/>
 </map>

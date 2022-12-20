@@ -1,7 +1,7 @@
 <map id="tesseract_planning::TrajOptIfoptMotionPlanner" name="tesseract_planning::TrajOptIfoptMotionPlanner">
-<area shape="rect" id="node1" title=" " alt="" coords="110,289,290,331"/>
-<area shape="rect" id="node2" href="$dd/d5f/classtesseract__planning_1_1MotionPlanner.html" title=" " alt="" coords="5,185,136,227"/>
-<area shape="rect" id="node3" title=" " alt="" coords="31,96,110,123"/>
-<area shape="rect" id="node4" title=" " alt="" coords="9,5,133,47"/>
-<area shape="rect" id="node5" title=" " alt="" coords="160,185,328,227"/>
+<area shape="rect" id="node1" title=" " alt="" coords="110,285,290,325"/>
+<area shape="rect" id="node2" href="$dd/d5f/classtesseract__planning_1_1MotionPlanner.html" title=" " alt="" coords="5,183,136,223"/>
+<area shape="rect" id="node3" title=" " alt="" coords="31,95,110,120"/>
+<area shape="rect" id="node4" title=" " alt="" coords="9,5,133,45"/>
+<area shape="rect" id="node5" title=" " alt="" coords="160,183,328,223"/>
 </map>

@@ -1,13 +1,13 @@
 <map id="tesseract_examples/src/pick_and_place_example_node.cpp" name="tesseract_examples/src/pick_and_place_example_node.cpp">
-<area shape="rect" id="node1" title="Pick and place example node." alt="" coords="190,5,329,61"/>
-<area shape="rect" id="node2" href="$d2/dab/pick__and__place__example_8h.html" title="An example of a robot picking up a box and placing it on a shelf." alt="" coords="65,109,246,151"/>
-<area shape="rect" id="node11" title=" " alt="" coords="271,109,456,151"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,295,196,322"/>
-<area shape="rect" id="node4" title=" " alt="" coords="51,206,105,233"/>
-<area shape="rect" id="node5" title=" " alt="" coords="130,206,181,233"/>
-<area shape="rect" id="node6" title=" " alt="" coords="205,206,383,233"/>
-<area shape="rect" id="node7" href="$df/d24/example_8h.html" title=" " alt="" coords="407,199,546,240"/>
-<area shape="rect" id="node8" title=" " alt="" coords="308,295,376,322"/>
-<area shape="rect" id="node9" title=" " alt="" coords="399,288,554,329"/>
-<area shape="rect" id="node10" title=" " alt="" coords="578,288,733,329"/>
+<area shape="rect" id="node1" title="Pick and place example node." alt="" coords="190,5,329,60"/>
+<area shape="rect" id="node2" href="$d2/dab/pick__and__place__example_8h.html" title="An example of a robot picking up a box and placing it on a shelf." alt="" coords="65,108,246,148"/>
+<area shape="rect" id="node11" title=" " alt="" coords="271,108,456,148"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,291,196,317"/>
+<area shape="rect" id="node4" title=" " alt="" coords="51,203,105,229"/>
+<area shape="rect" id="node5" title=" " alt="" coords="130,203,181,229"/>
+<area shape="rect" id="node6" title=" " alt="" coords="205,203,383,229"/>
+<area shape="rect" id="node7" href="$df/d24/example_8h.html" title=" " alt="" coords="407,196,546,236"/>
+<area shape="rect" id="node8" title=" " alt="" coords="307,291,375,317"/>
+<area shape="rect" id="node9" title=" " alt="" coords="399,284,554,324"/>
+<area shape="rect" id="node10" title=" " alt="" coords="578,284,733,324"/>
 </map>

@@ -1,7 +1,7 @@
 <map id="tesseract_motion_planners/ompl/include/tesseract_motion_planners/ompl/ompl_planner_configurator.h" name="tesseract_motion_planners/ompl/include/tesseract_motion_planners/ompl/ompl_planner_configurator.h">
-<area shape="rect" id="node1" title="Tesseract OMPL planner configurator." alt="" coords="321,5,509,76"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,124,196,151"/>
-<area shape="rect" id="node3" title=" " alt="" coords="220,124,419,151"/>
-<area shape="rect" id="node4" title=" " alt="" coords="443,124,583,151"/>
-<area shape="rect" id="node5" title=" " alt="" coords="607,124,685,151"/>
+<area shape="rect" id="node1" title="Tesseract OMPL planner configurator." alt="" coords="321,5,509,75"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,123,196,148"/>
+<area shape="rect" id="node3" title=" " alt="" coords="220,123,419,148"/>
+<area shape="rect" id="node4" title=" " alt="" coords="443,123,583,148"/>
+<area shape="rect" id="node5" title=" " alt="" coords="607,123,685,148"/>
 </map>

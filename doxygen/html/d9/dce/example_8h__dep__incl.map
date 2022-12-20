@@ -1,43 +1,43 @@
 <map id="tesseract_examples/include/tesseract_examples/example.h" name="tesseract_examples/include/tesseract_examples/example.h">
-<area shape="rect" id="node1" title=" " alt="" coords="2380,5,2567,61"/>
-<area shape="rect" id="node2" href="$d7/d35/basic__cartesian__example_8h.html" title="Basic example leveraging trajopt and tesseract for cartesian planning." alt="" coords="227,117,413,173"/>
-<area shape="rect" id="node6" href="$d0/d6f/car__seat__example_8h.html" title="An example of a robot on a rail installing a seat in a car." alt="" coords="773,117,960,173"/>
-<area shape="rect" id="node10" href="$d7/d12/freespace__hybrid__example_8h.html" title="An example of a feespace motion planning with OMPL then TrajOpt." alt="" coords="1208,117,1397,173"/>
-<area shape="rect" id="node13" href="$df/dcf/freespace__ompl__example_8h.html" title="An example of a feespace motion planning with OMPL." alt="" coords="1541,117,1728,173"/>
-<area shape="rect" id="node16" href="$d7/d74/glass__upright__example_8h.html" title="An example of a robot with fixed orientation but free to move in cartesian space." alt="" coords="2023,117,2209,173"/>
-<area shape="rect" id="node20" href="$de/db3/glass__upright__ompl__example_8h.html" title="An example of a robot with fixed orientation but free to move in cartesian space." alt="" coords="2372,117,2575,173"/>
-<area shape="rect" id="node23" href="$de/d73/online__planning__example_8h.html" title="This example demonstrates using trajopt to plan in an &quot;online&quot; manner. As the environment is changed ..." alt="" coords="2668,117,2855,173"/>
-<area shape="rect" id="node26" href="$d2/dab/pick__and__place__example_8h.html" title="An example of a robot picking up a box and placing it on a shelf." alt="" coords="3075,117,3261,173"/>
-<area shape="rect" id="node30" href="$d1/d6f/puzzle__piece__auxillary__axes__example_8h.html" title="An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF t..." alt="" coords="3603,109,3789,180"/>
-<area shape="rect" id="node34" href="$da/d01/puzzle__piece__example_8h.html" title="An example of a robot leveraging trajopt and tesseract to create an optimal motion trajectory for a c..." alt="" coords="4225,117,4412,173"/>
-<area shape="rect" id="node38" href="$d1/d70/scene__graph__example_8h.html" title="This example initializes 2 robots from a URDF. It then reattaches one of the robots to the end effect..." alt="" coords="4859,117,5045,173"/>
-<area shape="rect" id="node3" href="$da/d69/basic__cartesian__example_8cpp.html" title=" " alt="" coords="5,228,144,284"/>
-<area shape="rect" id="node4" href="$db/da4/basic__cartesian__example__node_8cpp.html" title="Basic cartesian example node." alt="" coords="168,228,307,284"/>
-<area shape="rect" id="node5" href="$d2/d28/basic__cartesian__example__unit_8cpp.html" title=" " alt="" coords="331,228,474,284"/>
-<area shape="rect" id="node7" href="$d0/d87/car__seat__example_8cpp.html" title="Car seat example implementation." alt="" coords="498,235,675,277"/>
-<area shape="rect" id="node8" href="$d0/d7f/car__seat__example__node_8cpp.html" title="Car seat example node." alt="" coords="699,228,853,284"/>
-<area shape="rect" id="node9" href="$d7/dcb/car__seat__example__unit_8cpp.html" title=" " alt="" coords="877,228,1035,284"/>
-<area shape="rect" id="node11" href="$d1/dda/freespace__hybrid__example_8cpp.html" title=" " alt="" coords="1059,228,1205,284"/>
-<area shape="rect" id="node12" href="$d6/d41/freespace__hybrid__example__node_8cpp.html" title="An example of a feespace motion planning with OMPL then TrajOpt." alt="" coords="1229,228,1376,284"/>
-<area shape="rect" id="node14" href="$d1/d33/freespace__ompl__example_8cpp.html" title="An example of a feespace motion planning with OMPL." alt="" coords="1401,228,1541,284"/>
-<area shape="rect" id="node15" href="$dc/df3/freespace__ompl__example__node_8cpp.html" title="An example of a feespace motion planning with OMPL." alt="" coords="1565,228,1705,284"/>
-<area shape="rect" id="node17" href="$dc/da1/glass__upright__example_8cpp.html" title="Glass upright example implementation." alt="" coords="1729,235,1933,277"/>
-<area shape="rect" id="node18" href="$d3/d53/glass__upright__example__node_8cpp.html" title="Glass upright example node." alt="" coords="1957,228,2137,284"/>
-<area shape="rect" id="node19" href="$de/df5/glass__upright__example__unit_8cpp.html" title=" " alt="" coords="2161,228,2300,284"/>
-<area shape="rect" id="node21" href="$d6/d0e/glass__upright__ompl__example_8cpp.html" title="Glass upright OMPL example implementation." alt="" coords="2324,228,2484,284"/>
-<area shape="rect" id="node22" href="$d4/def/glass__upright__ompl__example__node_8cpp.html" title="Glass upright OMPL example node." alt="" coords="2508,228,2668,284"/>
-<area shape="rect" id="node24" href="$d7/dc8/online__planning__example_8cpp.html" title="This example demonstrates using trajopt to plan in an &quot;online&quot; manner. As the environment is changed ..." alt="" coords="2692,228,2831,284"/>
-<area shape="rect" id="node25" href="$d0/db2/online__planning__example__node_8cpp.html" title="This example demonstrates using trajopt to plan in an &quot;online&quot; manner. As the environment is changed ..." alt="" coords="2855,228,2993,284"/>
-<area shape="rect" id="node27" href="$d9/d6a/pick__and__place__example_8cpp.html" title="Pick and place implementation." alt="" coords="3017,228,3156,284"/>
-<area shape="rect" id="node28" href="$df/db2/pick__and__place__example__node_8cpp.html" title="Pick and place example node." alt="" coords="3180,228,3319,284"/>
-<area shape="rect" id="node29" href="$d9/d82/pick__and__place__example__unit_8cpp.html" title=" " alt="" coords="3343,228,3486,284"/>
-<area shape="rect" id="node31" href="$d3/d7e/puzzle__piece__auxillary__axes__example_8cpp.html" title="Puzzle piece auxillary axes implementation." alt="" coords="3510,228,3685,284"/>
-<area shape="rect" id="node32" href="$d2/d44/puzzle__piece__auxillary__axes__example__node_8cpp.html" title="uzzle piece auxillary axes example node" alt="" coords="3709,228,3883,284"/>
-<area shape="rect" id="node33" href="$d4/d0b/puzzle__piece__auxillary__axes__example__unit_8cpp.html" title=" " alt="" coords="3908,228,4087,284"/>
-<area shape="rect" id="node35" href="$dd/d8f/puzzle__piece__example_8cpp.html" title="Puzzle piece example implementation." alt="" coords="4111,235,4313,277"/>
-<area shape="rect" id="node36" href="$d9/d23/puzzle__piece__example__node_8cpp.html" title="Puzzle piece example node." alt="" coords="4337,228,4514,284"/>
-<area shape="rect" id="node37" href="$d3/d43/puzzle__piece__example__unit_8cpp.html" title=" " alt="" coords="4539,228,4720,284"/>
-<area shape="rect" id="node39" href="$d1/db2/scene__graph__example_8cpp.html" title="scene_graph_example implementation" alt="" coords="4745,235,4946,277"/>
-<area shape="rect" id="node40" href="$d2/dbd/scene__graph__example__node_8cpp.html" title="Demonstrates manipulating the scene graph with a robot picking up another robot." alt="" coords="4970,228,5147,284"/>
-<area shape="rect" id="node41" href="$db/d44/scene__graph__example__unit_8cpp.html" title="Runs the scene_graph_example." alt="" coords="5172,228,5353,284"/>
+<area shape="rect" id="node1" title=" " alt="" coords="2380,5,2567,60"/>
+<area shape="rect" id="node2" href="$d7/d35/basic__cartesian__example_8h.html" title="Basic example leveraging trajopt and tesseract for cartesian planning." alt="" coords="227,115,413,170"/>
+<area shape="rect" id="node6" href="$d0/d6f/car__seat__example_8h.html" title="An example of a robot on a rail installing a seat in a car." alt="" coords="773,115,960,170"/>
+<area shape="rect" id="node10" href="$d7/d12/freespace__hybrid__example_8h.html" title="An example of a feespace motion planning with OMPL then TrajOpt." alt="" coords="1208,115,1397,170"/>
+<area shape="rect" id="node13" href="$df/dcf/freespace__ompl__example_8h.html" title="An example of a feespace motion planning with OMPL." alt="" coords="1541,115,1728,170"/>
+<area shape="rect" id="node16" href="$d7/d74/glass__upright__example_8h.html" title="An example of a robot with fixed orientation but free to move in cartesian space." alt="" coords="2023,115,2209,170"/>
+<area shape="rect" id="node20" href="$de/db3/glass__upright__ompl__example_8h.html" title="An example of a robot with fixed orientation but free to move in cartesian space." alt="" coords="2372,115,2575,170"/>
+<area shape="rect" id="node23" href="$de/d73/online__planning__example_8h.html" title="This example demonstrates using trajopt to plan in an &quot;online&quot; manner. As the environment is changed ..." alt="" coords="2668,115,2855,170"/>
+<area shape="rect" id="node26" href="$d2/dab/pick__and__place__example_8h.html" title="An example of a robot picking up a box and placing it on a shelf." alt="" coords="3075,115,3261,170"/>
+<area shape="rect" id="node30" href="$d1/d6f/puzzle__piece__auxillary__axes__example_8h.html" title="An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF t..." alt="" coords="3603,108,3789,177"/>
+<area shape="rect" id="node34" href="$da/d01/puzzle__piece__example_8h.html" title="An example of a robot leveraging trajopt and tesseract to create an optimal motion trajectory for a c..." alt="" coords="4225,115,4412,170"/>
+<area shape="rect" id="node38" href="$d1/d70/scene__graph__example_8h.html" title="This example initializes 2 robots from a URDF. It then reattaches one of the robots to the end effect..." alt="" coords="4859,115,5045,170"/>
+<area shape="rect" id="node3" href="$da/d69/basic__cartesian__example_8cpp.html" title=" " alt="" coords="5,225,144,280"/>
+<area shape="rect" id="node4" href="$db/da4/basic__cartesian__example__node_8cpp.html" title="Basic cartesian example node." alt="" coords="168,225,307,280"/>
+<area shape="rect" id="node5" href="$d2/d28/basic__cartesian__example__unit_8cpp.html" title=" " alt="" coords="331,225,474,280"/>
+<area shape="rect" id="node7" href="$d0/d87/car__seat__example_8cpp.html" title="Car seat example implementation." alt="" coords="498,233,675,273"/>
+<area shape="rect" id="node8" href="$d0/d7f/car__seat__example__node_8cpp.html" title="Car seat example node." alt="" coords="699,225,853,280"/>
+<area shape="rect" id="node9" href="$d7/dcb/car__seat__example__unit_8cpp.html" title=" " alt="" coords="877,225,1035,280"/>
+<area shape="rect" id="node11" href="$d1/dda/freespace__hybrid__example_8cpp.html" title=" " alt="" coords="1059,225,1205,280"/>
+<area shape="rect" id="node12" href="$d6/d41/freespace__hybrid__example__node_8cpp.html" title="An example of a feespace motion planning with OMPL then TrajOpt." alt="" coords="1229,225,1376,280"/>
+<area shape="rect" id="node14" href="$d1/d33/freespace__ompl__example_8cpp.html" title="An example of a feespace motion planning with OMPL." alt="" coords="1401,225,1541,280"/>
+<area shape="rect" id="node15" href="$dc/df3/freespace__ompl__example__node_8cpp.html" title="An example of a feespace motion planning with OMPL." alt="" coords="1565,225,1705,280"/>
+<area shape="rect" id="node17" href="$dc/da1/glass__upright__example_8cpp.html" title="Glass upright example implementation." alt="" coords="1729,233,1933,273"/>
+<area shape="rect" id="node18" href="$d3/d53/glass__upright__example__node_8cpp.html" title="Glass upright example node." alt="" coords="1957,225,2137,280"/>
+<area shape="rect" id="node19" href="$de/df5/glass__upright__example__unit_8cpp.html" title=" " alt="" coords="2161,225,2300,280"/>
+<area shape="rect" id="node21" href="$d6/d0e/glass__upright__ompl__example_8cpp.html" title="Glass upright OMPL example implementation." alt="" coords="2324,225,2484,280"/>
+<area shape="rect" id="node22" href="$d4/def/glass__upright__ompl__example__node_8cpp.html" title="Glass upright OMPL example node." alt="" coords="2508,225,2668,280"/>
+<area shape="rect" id="node24" href="$d7/dc8/online__planning__example_8cpp.html" title="This example demonstrates using trajopt to plan in an &quot;online&quot; manner. As the environment is changed ..." alt="" coords="2692,225,2831,280"/>
+<area shape="rect" id="node25" href="$d0/db2/online__planning__example__node_8cpp.html" title="This example demonstrates using trajopt to plan in an &quot;online&quot; manner. As the environment is changed ..." alt="" coords="2855,225,2993,280"/>
+<area shape="rect" id="node27" href="$d9/d6a/pick__and__place__example_8cpp.html" title="Pick and place implementation." alt="" coords="3017,225,3156,280"/>
+<area shape="rect" id="node28" href="$df/db2/pick__and__place__example__node_8cpp.html" title="Pick and place example node." alt="" coords="3180,225,3319,280"/>
+<area shape="rect" id="node29" href="$d9/d82/pick__and__place__example__unit_8cpp.html" title=" " alt="" coords="3343,225,3486,280"/>
+<area shape="rect" id="node31" href="$d3/d7e/puzzle__piece__auxillary__axes__example_8cpp.html" title="Puzzle piece auxillary axes implementation." alt="" coords="3510,225,3685,280"/>
+<area shape="rect" id="node32" href="$d2/d44/puzzle__piece__auxillary__axes__example__node_8cpp.html" title="uzzle piece auxillary axes example node" alt="" coords="3709,225,3883,280"/>
+<area shape="rect" id="node33" href="$d4/d0b/puzzle__piece__auxillary__axes__example__unit_8cpp.html" title=" " alt="" coords="3908,225,4087,280"/>
+<area shape="rect" id="node35" href="$dd/d8f/puzzle__piece__example_8cpp.html" title="Puzzle piece example implementation." alt="" coords="4111,233,4313,273"/>
+<area shape="rect" id="node36" href="$d9/d23/puzzle__piece__example__node_8cpp.html" title="Puzzle piece example node." alt="" coords="4337,225,4514,280"/>
+<area shape="rect" id="node37" href="$d3/d43/puzzle__piece__example__unit_8cpp.html" title=" " alt="" coords="4539,225,4720,280"/>
+<area shape="rect" id="node39" href="$d1/db2/scene__graph__example_8cpp.html" title="scene_graph_example implementation" alt="" coords="4745,233,4946,273"/>
+<area shape="rect" id="node40" href="$d2/dbd/scene__graph__example__node_8cpp.html" title="Demonstrates manipulating the scene graph with a robot picking up another robot." alt="" coords="4970,225,5147,280"/>
+<area shape="rect" id="node41" href="$db/d44/scene__graph__example__unit_8cpp.html" title="Runs the scene_graph_example." alt="" coords="5172,225,5353,280"/>
 </map>

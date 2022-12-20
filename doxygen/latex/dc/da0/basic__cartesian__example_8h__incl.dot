@@ -1,0 +1,21 @@
+digraph "tesseract_examples/include/tesseract_examples/basic_cartesian_example.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="tesseract_examples\l/include/tesseract_examples\l/basic_cartesian_example.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Basic example leveraging trajopt and tesseract for cartesian planning."];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="tesseract_common/macros.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="string",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="tesseract_examples\l/example.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$df/d24/example_8h.html",tooltip=" "];
+  Node4 -> Node2 [color="steelblue1",style="solid"];
+  Node4 -> Node5 [color="steelblue1",style="solid"];
+  Node5 [label="memory",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node4 -> Node6 [color="steelblue1",style="solid"];
+  Node6 [label="tesseract_environment\l/environment.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node4 -> Node7 [color="steelblue1",style="solid"];
+  Node7 [label="tesseract_visualization\l/visualization.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+}

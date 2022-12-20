@@ -1,5 +1,5 @@
 <map id="tesseract_planning::FixStateBoundsTask" name="tesseract_planning::FixStateBoundsTask">
-<area shape="rect" id="node1" title="This task modifies the const input instructions in order to push waypoints that are outside of their ..." alt="" coords="5,184,155,225"/>
-<area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="7,95,153,136"/>
-<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="7,5,153,47"/>
+<area shape="rect" id="node1" title="This task modifies the const input instructions in order to push waypoints that are outside of their ..." alt="" coords="5,181,155,221"/>
+<area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="7,93,153,133"/>
+<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="7,5,153,45"/>
 </map>

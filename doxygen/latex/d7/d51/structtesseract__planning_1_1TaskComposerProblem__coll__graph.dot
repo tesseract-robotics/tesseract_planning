@@ -1,0 +1,25 @@
+digraph "tesseract_planning::TaskComposerProblem"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="tesseract_planning\l::TaskComposerProblem",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" name" ];
+  Node2 [label="std::string",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="std::basic_string\<\l Char \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" manip_info" ];
+  Node4 [label="ManipulatorInfo",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" composite_profile_remapping\nmove_profile_remapping" ];
+  Node5 [label="std::unordered_map\l\< std::string, std::\lunordered_map\< std::string,\l std::string \> \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node5 [dir="back",color="darkorchid3",style="dashed",label=" keys" ];
+  Node6 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" input_data" ];
+  Node6 [label="tesseract_planning\l::TaskComposerDataStorage",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d9/d84/classtesseract__planning_1_1TaskComposerDataStorage.html",tooltip="A thread save data storage."];
+  Node7 -> Node6 [dir="back",color="darkorchid3",style="dashed",label=" mutex_" ];
+  Node7 [label="std::shared_mutex",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node8 -> Node6 [dir="back",color="darkorchid3",style="dashed",label=" data_" ];
+  Node8 [label="std::unordered_map\l\< std::string, tesseract\l_common::AnyPoly \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node8 [dir="back",color="darkorchid3",style="dashed",label=" keys" ];
+}

@@ -1,0 +1,19 @@
+digraph "tesseract_planning::MotionPlanner"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="tesseract_planning\l::MotionPlanner",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="tesseract_planning\l::DescartesMotionPlanner\l\< FloatType \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d7/d2c/classtesseract__planning_1_1DescartesMotionPlanner.html",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="tesseract_planning\l::OMPLMotionPlanner",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$dd/dd3/classtesseract__planning_1_1OMPLMotionPlanner.html",tooltip="This planner is intended to provide an easy to use interface to OMPL for freespace planning...."];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="tesseract_planning\l::SimpleMotionPlanner",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html",tooltip="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..."];
+  Node1 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="tesseract_planning\l::TrajOptIfoptMotionPlanner",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d6/d89/classtesseract__planning_1_1TrajOptIfoptMotionPlanner.html",tooltip=" "];
+  Node1 -> Node6 [dir="back",color="steelblue1",style="solid"];
+  Node6 [label="tesseract_planning\l::TrajOptMotionPlanner",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d3/db9/classtesseract__planning_1_1TrajOptMotionPlanner.html",tooltip=" "];
+}

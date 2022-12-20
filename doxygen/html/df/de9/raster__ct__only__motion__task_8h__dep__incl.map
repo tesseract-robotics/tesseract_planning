@@ -1,6 +1,6 @@
 <map id="tesseract_task_composer/include/tesseract_task_composer/nodes/raster_ct_only_motion_task.h" name="tesseract_task_composer/include/tesseract_task_composer/nodes/raster_ct_only_motion_task.h">
-<area shape="rect" id="node1" title="Plans raster paths with cartesian transitions." alt="" coords="197,5,377,76"/>
-<area shape="rect" id="node2" href="$d6/dac/raster__ct__only__global__pipeline__task_8cpp.html" title=" " alt="" coords="5,124,177,180"/>
-<area shape="rect" id="node3" href="$d7/d41/raster__ct__only__motion__task_8cpp.html" title="Plans raster paths with cartesian transitions." alt="" coords="201,124,373,180"/>
-<area shape="rect" id="node4" href="$d5/d70/raster__ct__only__pipeline__task_8cpp.html" title=" " alt="" coords="397,124,569,180"/>
+<area shape="rect" id="node1" title="Plans raster paths with cartesian transitions." alt="" coords="197,5,377,75"/>
+<area shape="rect" id="node2" href="$d6/dac/raster__ct__only__global__pipeline__task_8cpp.html" title=" " alt="" coords="5,123,177,177"/>
+<area shape="rect" id="node3" href="$d7/d41/raster__ct__only__motion__task_8cpp.html" title="Plans raster paths with cartesian transitions." alt="" coords="201,123,373,177"/>
+<area shape="rect" id="node4" href="$d5/d70/raster__ct__only__pipeline__task_8cpp.html" title=" " alt="" coords="397,123,569,177"/>
 </map>

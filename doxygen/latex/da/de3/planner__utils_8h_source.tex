@@ -22,14 +22,14 @@
 \DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
 \DoxyCodeLine{43 \{}
 \DoxyCodeLine{53 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{54 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_af0a6a646d66932568a74534b67fb709b}{isWithinJointLimits}}(\textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& joint\_values,}
+\DoxyCodeLine{54 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_af0a6a646d66932568a74534b67fb709b}{isWithinJointLimits}}(\textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& \mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}},}
 \DoxyCodeLine{55                          \textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 2>\& limits,}
 \DoxyCodeLine{56                          \textcolor{keyword}{const} Eigen::Vector2d\& coupling\_limits)}
 \DoxyCodeLine{57 \{}
-\DoxyCodeLine{58   \textcolor{keywordflow}{if} (tesseract\_common::isWithinPositionLimits<FloatType>(joint\_values, limits))}
+\DoxyCodeLine{58   \textcolor{keywordflow}{if} (tesseract\_common::isWithinPositionLimits<FloatType>(\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}, limits))}
 \DoxyCodeLine{59   \{}
-\DoxyCodeLine{60     \textcolor{keywordflow}{if} (((joint\_values(joint\_values.size() -\/ 3) + joint\_values(joint\_values.size() -\/ 1)) < coupling\_limits(0)) ||}
-\DoxyCodeLine{61         ((joint\_values(joint\_values.size() -\/ 3) + joint\_values(joint\_values.size() -\/ 1)) > coupling\_limits(1)))}
+\DoxyCodeLine{60     \textcolor{keywordflow}{if} (((\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}(\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}.size() -\/ 3) + \mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}(\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}.size() -\/ 1)) < coupling\_limits(0)) ||}
+\DoxyCodeLine{61         ((\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}(\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}.size() -\/ 3) + \mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}(\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}.size() -\/ 1)) > coupling\_limits(1)))}
 \DoxyCodeLine{62       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{63   \}}
 \DoxyCodeLine{64   \textcolor{keywordflow}{else}}
@@ -42,35 +42,35 @@
 \DoxyCodeLine{71 }
 \DoxyCodeLine{79 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
 \DoxyCodeLine{80 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a40e1a43db1c6a2eec3a793887b17dca7}{isValidState}}(\textcolor{keyword}{const} tesseract\_kinematics::ForwardKinematics::ConstPtr\& robot\_kin,}
-\DoxyCodeLine{81                   \textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& joint\_values,}
+\DoxyCodeLine{81                   \textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& \mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}},}
 \DoxyCodeLine{82                   \textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 2>\& limits)}
 \DoxyCodeLine{83 \{}
-\DoxyCodeLine{84   \textcolor{keywordflow}{if} (!tesseract\_common::isWithinPositionLimits(joint\_values, limits))}
+\DoxyCodeLine{84   \textcolor{keywordflow}{if} (!tesseract\_common::isWithinPositionLimits(\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}, limits))}
 \DoxyCodeLine{85     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{86 }
 \DoxyCodeLine{87   Eigen::Vector2i sign\_correction = Eigen::Vector2i::Ones();}
 \DoxyCodeLine{88   sign\_correction(0) = -\/1;}
 \DoxyCodeLine{89   \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579}{RobotConfig}} robot\_config =}
-\DoxyCodeLine{90       getRobotConfig<FloatType>(joint\_values.tail(robot\_kin-\/>numJoints()), robot\_kin, sign\_correction);}
+\DoxyCodeLine{90       getRobotConfig<FloatType>(\mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}}.tail(robot\_kin-\/>numJoints()), robot\_kin, sign\_correction);}
 \DoxyCodeLine{91 }
 \DoxyCodeLine{92   \textcolor{keywordflow}{return} !(robot\_config != \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a77600c70a81708b4f616283cf3231ddf}{RobotConfig::FUT}} \&\& robot\_config != \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aa57b0a6baa71b2c846c70646369e11a0}{RobotConfig::NUT}});}
 \DoxyCodeLine{93 \}}
 \DoxyCodeLine{94 }
 \DoxyCodeLine{103 \textcolor{keyword}{inline} std::string \mbox{\hyperlink{namespacetesseract__planning_a4c2dd8bf456bf47e36e6777ac7f3e513}{getProfileString}}(\textcolor{keyword}{const} std::string\& ns,}
-\DoxyCodeLine{104                                     \textcolor{keyword}{const} std::string\& profile,}
+\DoxyCodeLine{104                                     \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}},}
 \DoxyCodeLine{105                                     \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}}\& profile\_remapping,}
 \DoxyCodeLine{106                                     std::string default\_profile = \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}})}
 \DoxyCodeLine{107 \{}
-\DoxyCodeLine{108   std::string results = profile;}
-\DoxyCodeLine{109   \textcolor{keywordflow}{if} (profile.empty())}
+\DoxyCodeLine{108   std::string results = \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}};}
+\DoxyCodeLine{109   \textcolor{keywordflow}{if} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}.empty())}
 \DoxyCodeLine{110     results = std::move(default\_profile);}
 \DoxyCodeLine{111 }
 \DoxyCodeLine{112   \textcolor{comment}{// Check for remapping of profile}}
-\DoxyCodeLine{113   \textcolor{keyword}{auto} remap = profile\_remapping.find(ns);}
-\DoxyCodeLine{114   \textcolor{keywordflow}{if} (remap != profile\_remapping.end())}
+\DoxyCodeLine{113   \textcolor{keyword}{auto} \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a51171346a6f0e28f848f60cad4d96b9c}{remap}} = profile\_remapping.find(ns);}
+\DoxyCodeLine{114   \textcolor{keywordflow}{if} (\mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a51171346a6f0e28f848f60cad4d96b9c}{remap}} != profile\_remapping.end())}
 \DoxyCodeLine{115   \{}
-\DoxyCodeLine{116     \textcolor{keyword}{auto} p = remap-\/>second.find(profile);}
-\DoxyCodeLine{117     \textcolor{keywordflow}{if} (p != remap-\/>second.end())}
+\DoxyCodeLine{116     \textcolor{keyword}{auto} p = \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a51171346a6f0e28f848f60cad4d96b9c}{remap}}-\/>second.find(\mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}});}
+\DoxyCodeLine{117     \textcolor{keywordflow}{if} (p != \mbox{\hyperlink{tesseract__motion__planners_2test_2utils__test_8cpp_a51171346a6f0e28f848f60cad4d96b9c}{remap}}-\/>second.end())}
 \DoxyCodeLine{118       results = p-\/>second;}
 \DoxyCodeLine{119   \}}
 \DoxyCodeLine{120   \textcolor{keywordflow}{return} results;}
@@ -78,17 +78,17 @@
 \DoxyCodeLine{122 }
 \DoxyCodeLine{131 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
 \DoxyCodeLine{132 std::shared\_ptr<const ProfileType> \mbox{\hyperlink{namespacetesseract__planning_a133a28cdbbe2c494193b66f9f6507710}{getProfile}}(\textcolor{keyword}{const} std::string\& ns,}
-\DoxyCodeLine{133                                               \textcolor{keyword}{const} std::string\& profile,}
+\DoxyCodeLine{133                                               \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}},}
 \DoxyCodeLine{134                                               \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{ProfileDictionary}}\& profile\_dictionary,}
 \DoxyCodeLine{135                                               std::shared\_ptr<const ProfileType> default\_profile = \textcolor{keyword}{nullptr})}
 \DoxyCodeLine{136 \{}
-\DoxyCodeLine{137   \textcolor{keywordflow}{if} (profile\_dictionary.\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aa72e7841d99a279c706c6cac7e73b2a2}{hasProfile}}<ProfileType>(ns, profile))}
-\DoxyCodeLine{138     \textcolor{keywordflow}{return} profile\_dictionary.\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a76d882f0e611b3404718188d5da22a2c}{getProfile}}<ProfileType>(ns, profile);}
+\DoxyCodeLine{137   \textcolor{keywordflow}{if} (profile\_dictionary.\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aa72e7841d99a279c706c6cac7e73b2a2}{hasProfile}}<ProfileType>(ns, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}))}
+\DoxyCodeLine{138     \textcolor{keywordflow}{return} profile\_dictionary.\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a76d882f0e611b3404718188d5da22a2c}{getProfile}}<ProfileType>(ns, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}});}
 \DoxyCodeLine{139 }
 \DoxyCodeLine{140   CONSOLE\_BRIDGE\_logDebug(\textcolor{stringliteral}{"{}Profile '\%s' was not found in namespace '\%s' for type '\%s'. Using default if available. "{}}}
 \DoxyCodeLine{141                           \textcolor{stringliteral}{"{}Available "{}}}
 \DoxyCodeLine{142                           \textcolor{stringliteral}{"{}profiles:"{}},}
-\DoxyCodeLine{143                           profile.c\_str(),}
+\DoxyCodeLine{143                           \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}.c\_str(),}
 \DoxyCodeLine{144                           ns.c\_str(),}
 \DoxyCodeLine{145                           \textcolor{keyword}{typeid}(ProfileType).name());}
 \DoxyCodeLine{146 }
@@ -105,15 +105,15 @@
 \DoxyCodeLine{157 }
 \DoxyCodeLine{167 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
 \DoxyCodeLine{168 std::shared\_ptr<const ProfileType> \mbox{\hyperlink{namespacetesseract__planning_abc4e0abb003d616199f38f74bdad6421}{applyProfileOverrides}}(\textcolor{keyword}{const} std::string\& ns,}
-\DoxyCodeLine{169                                                          \textcolor{keyword}{const} std::string\& profile,}
+\DoxyCodeLine{169                                                          \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}},}
 \DoxyCodeLine{170                                                          \textcolor{keyword}{const} std::shared\_ptr<ProfileType>\& nominal\_profile,}
 \DoxyCodeLine{171                                                          \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}}\& overrides = \textcolor{keyword}{nullptr})}
 \DoxyCodeLine{172 \{}
 \DoxyCodeLine{173   \textcolor{keywordflow}{if} (!overrides)}
 \DoxyCodeLine{174     \textcolor{keywordflow}{return} nominal\_profile;}
 \DoxyCodeLine{175 }
-\DoxyCodeLine{176   \textcolor{keywordflow}{if} (overrides-\/>hasProfile<ProfileType>(ns, profile))}
-\DoxyCodeLine{177     \textcolor{keywordflow}{return} overrides-\/>getProfile<ProfileType>(ns, profile);}
+\DoxyCodeLine{176   \textcolor{keywordflow}{if} (overrides-\/>hasProfile<ProfileType>(ns, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}))}
+\DoxyCodeLine{177     \textcolor{keywordflow}{return} overrides-\/>getProfile<ProfileType>(ns, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}});}
 \DoxyCodeLine{178 }
 \DoxyCodeLine{179   \textcolor{keywordflow}{return} nominal\_profile;}
 \DoxyCodeLine{180 \}}

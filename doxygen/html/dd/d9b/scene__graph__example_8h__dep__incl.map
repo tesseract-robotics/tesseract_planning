@@ -1,6 +1,6 @@
 <map id="tesseract_examples/include/tesseract_examples/scene_graph_example.h" name="tesseract_examples/include/tesseract_examples/scene_graph_example.h">
-<area shape="rect" id="node1" title="This example initializes 2 robots from a URDF. It then reattaches one of the robots to the end effect..." alt="" coords="226,5,413,61"/>
-<area shape="rect" id="node2" href="$d1/db2/scene__graph__example_8cpp.html" title="scene_graph_example implementation" alt="" coords="5,117,207,158"/>
-<area shape="rect" id="node3" href="$d2/dbd/scene__graph__example__node_8cpp.html" title="Demonstrates manipulating the scene graph with a robot picking up another robot." alt="" coords="231,109,408,165"/>
-<area shape="rect" id="node4" href="$db/d44/scene__graph__example__unit_8cpp.html" title="Runs the scene_graph_example." alt="" coords="433,109,614,165"/>
+<area shape="rect" id="node1" title="This example initializes 2 robots from a URDF. It then reattaches one of the robots to the end effect..." alt="" coords="226,5,413,60"/>
+<area shape="rect" id="node2" href="$d1/db2/scene__graph__example_8cpp.html" title="scene_graph_example implementation" alt="" coords="5,115,207,155"/>
+<area shape="rect" id="node3" href="$d2/dbd/scene__graph__example__node_8cpp.html" title="Demonstrates manipulating the scene graph with a robot picking up another robot." alt="" coords="231,108,408,163"/>
+<area shape="rect" id="node4" href="$db/d44/scene__graph__example__unit_8cpp.html" title="Runs the scene_graph_example." alt="" coords="433,108,614,163"/>
 </map>

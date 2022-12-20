@@ -1,4 +1,4 @@
 <map id="tesseract_examples::OnlinePlanningExample" name="tesseract_examples::OnlinePlanningExample">
-<area shape="rect" id="node1" title="This example demonstrates running the inner loop of TrajOpt in an &quot;online&quot; manner...." alt="" coords="5,95,169,136"/>
-<area shape="rect" id="node2" href="$d3/d3b/classtesseract__examples_1_1Example.html" title="The Example base class." alt="" coords="18,5,157,47"/>
+<area shape="rect" id="node1" title="This example demonstrates running the inner loop of TrajOpt in an &quot;online&quot; manner...." alt="" coords="5,93,169,133"/>
+<area shape="rect" id="node2" href="$d3/d3b/classtesseract__examples_1_1Example.html" title="The Example base class." alt="" coords="18,5,157,45"/>
 </map>

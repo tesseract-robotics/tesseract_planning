@@ -1,0 +1,14 @@
+digraph "tesseract_motion_planners/trajopt_ifopt/include/tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="tesseract_motion_planners\l/trajopt_ifopt/include\l/tesseract_motion_planners\l/trajopt_ifopt/trajopt_ifopt_utils.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="tesseract_motion_planners\l/trajopt_ifopt/src/profile\l/trajopt_ifopt_default_composite\l_profile.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d01/trajopt__ifopt__default__composite__profile_8cpp.html",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="tesseract_motion_planners\l/trajopt_ifopt/src/profile\l/trajopt_ifopt_default_plan\l_profile.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d01/trajopt__ifopt__default__plan__profile_8cpp.html",tooltip=" "];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="tesseract_motion_planners\l/trajopt_ifopt/src/trajopt\l_ifopt_utils.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$da/dfd/trajopt__ifopt__utils_8cpp.html",tooltip=" "];
+}

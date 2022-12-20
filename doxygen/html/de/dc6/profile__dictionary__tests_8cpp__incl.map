@@ -1,13 +1,13 @@
 <map id="tesseract_motion_planners/test/profile_dictionary_tests.cpp" name="tesseract_motion_planners/test/profile_dictionary_tests.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="146,5,325,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,199,196,225"/>
-<area shape="rect" id="node3" title=" " alt="" coords="188,117,283,143"/>
-<area shape="rect" id="node4" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="323,109,521,151"/>
-<area shape="rect" id="node5" title=" " alt="" coords="221,199,263,225"/>
-<area shape="rect" id="node6" title=" " alt="" coords="287,199,359,225"/>
-<area shape="rect" id="node7" title=" " alt="" coords="384,199,460,225"/>
-<area shape="rect" id="node8" title=" " alt="" coords="484,199,595,225"/>
-<area shape="rect" id="node9" title=" " alt="" coords="619,199,687,225"/>
-<area shape="rect" id="node10" title=" " alt="" coords="711,199,768,225"/>
-<area shape="rect" id="node11" title=" " alt="" coords="792,199,895,225"/>
+<area shape="rect" id="node1" title=" " alt="" coords="146,5,325,60"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,196,196,221"/>
+<area shape="rect" id="node3" title=" " alt="" coords="188,115,283,141"/>
+<area shape="rect" id="node4" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="323,108,521,148"/>
+<area shape="rect" id="node5" title=" " alt="" coords="221,196,263,221"/>
+<area shape="rect" id="node6" title=" " alt="" coords="287,196,359,221"/>
+<area shape="rect" id="node7" title=" " alt="" coords="384,196,460,221"/>
+<area shape="rect" id="node8" title=" " alt="" coords="484,196,595,221"/>
+<area shape="rect" id="node9" title=" " alt="" coords="619,196,687,221"/>
+<area shape="rect" id="node10" title=" " alt="" coords="711,196,768,221"/>
+<area shape="rect" id="node11" title=" " alt="" coords="792,196,895,221"/>
 </map>

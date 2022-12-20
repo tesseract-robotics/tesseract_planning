@@ -20,11 +20,11 @@
 \DoxyCodeLine{40 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
 \DoxyCodeLine{41 \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a9a4c440c2c4fd673057deac1f4ceb100}{DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator}}(}
 \DoxyCodeLine{42     \textcolor{keyword}{const} tesseract\_environment::Environment\& collision\_env,}
-\DoxyCodeLine{43     tesseract\_kinematics::JointGroup::ConstPtr manip,}
+\DoxyCodeLine{43     tesseract\_kinematics::JointGroup::ConstPtr \mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}},}
 \DoxyCodeLine{44     tesseract\_collision::CollisionCheckConfig config,}
 \DoxyCodeLine{45     \textcolor{keywordtype}{bool} allow\_collision,}
 \DoxyCodeLine{46     \textcolor{keywordtype}{bool} debug)}
-\DoxyCodeLine{47   : manip\_(std::move(manip))}
+\DoxyCodeLine{47   : manip\_(std::move(\mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}}))}
 \DoxyCodeLine{48   , active\_link\_names\_(manip\_-\/>getActiveLinkNames())}
 \DoxyCodeLine{49   , discrete\_contact\_manager\_(collision\_env.getDiscreteContactManager())}
 \DoxyCodeLine{50   , continuous\_contact\_manager\_(collision\_env.getContinuousContactManager())}
@@ -41,17 +41,17 @@
 \DoxyCodeLine{61 }
 \DoxyCodeLine{62 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
 \DoxyCodeLine{63 std::pair<bool, FloatType>}
-\DoxyCodeLine{64 \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a30427575131a80dda8ef9b9160194149}{DescartesCollisionEdgeEvaluator<FloatType>::evaluate}}(\textcolor{keyword}{const} descartes\_light::State<FloatType>\& start,}
+\DoxyCodeLine{64 \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a30427575131a80dda8ef9b9160194149}{DescartesCollisionEdgeEvaluator<FloatType>::evaluate}}(\textcolor{keyword}{const} descartes\_light::State<FloatType>\& \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}},}
 \DoxyCodeLine{65                                                      \textcolor{keyword}{const} descartes\_light::State<FloatType>\& end)\textcolor{keyword}{ const}}
 \DoxyCodeLine{66 \textcolor{keyword}{}\{}
-\DoxyCodeLine{67   assert(start.values.rows() == end.values.rows());}
+\DoxyCodeLine{67   assert(\mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}}.values.rows() == end.values.rows());}
 \DoxyCodeLine{68 }
 \DoxyCodeLine{69   \textcolor{comment}{// Happens in two phases:}}
 \DoxyCodeLine{70   \textcolor{comment}{// 1. Compute the transform of all objects}}
-\DoxyCodeLine{71   tesseract\_common::TrajArray segment(2, start.values.rows());}
-\DoxyCodeLine{72   \textcolor{keywordflow}{for} (Eigen::Index i = 0; i < start.values.rows(); ++i)}
+\DoxyCodeLine{71   tesseract\_common::TrajArray segment(2, \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}}.values.rows());}
+\DoxyCodeLine{72   \textcolor{keywordflow}{for} (Eigen::Index i = 0; i < \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}}.values.rows(); ++i)}
 \DoxyCodeLine{73   \{}
-\DoxyCodeLine{74     segment(0, i) = start[i];}
+\DoxyCodeLine{74     segment(0, i) = \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}}[i];}
 \DoxyCodeLine{75     segment(1, i) = end[i];}
 \DoxyCodeLine{76   \}}
 \DoxyCodeLine{77 }
@@ -93,15 +93,15 @@
 \DoxyCodeLine{113   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} hash = std::hash<std::thread::id>\{\}(std::this\_thread::get\_id());}
 \DoxyCodeLine{114   tesseract\_collision::ContinuousContactManager::Ptr cm;}
 \DoxyCodeLine{115   mutex\_.lock();}
-\DoxyCodeLine{116   \textcolor{keyword}{auto} it = continuous\_contact\_managers\_.find(hash);}
-\DoxyCodeLine{117   \textcolor{keywordflow}{if} (it == continuous\_contact\_managers\_.end())}
+\DoxyCodeLine{116   \textcolor{keyword}{auto} \mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} = continuous\_contact\_managers\_.find(hash);}
+\DoxyCodeLine{117   \textcolor{keywordflow}{if} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} == continuous\_contact\_managers\_.end())}
 \DoxyCodeLine{118   \{}
 \DoxyCodeLine{119     cm = continuous\_contact\_manager\_-\/>clone();}
 \DoxyCodeLine{120     continuous\_contact\_managers\_[hash] = cm;}
 \DoxyCodeLine{121   \}}
 \DoxyCodeLine{122   \textcolor{keywordflow}{else}}
 \DoxyCodeLine{123   \{}
-\DoxyCodeLine{124     cm = it-\/>second;}
+\DoxyCodeLine{124     cm = \mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}}-\/>second;}
 \DoxyCodeLine{125   \}}
 \DoxyCodeLine{126   mutex\_.unlock();}
 \DoxyCodeLine{127   tesseract\_collision::CollisionCheckConfig config = collision\_check\_config\_;}
@@ -126,15 +126,15 @@
 \DoxyCodeLine{146   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} hash = std::hash<std::thread::id>\{\}(std::this\_thread::get\_id());}
 \DoxyCodeLine{147   tesseract\_collision::DiscreteContactManager::Ptr cm;}
 \DoxyCodeLine{148   mutex\_.lock();}
-\DoxyCodeLine{149   \textcolor{keyword}{auto} it = discrete\_contact\_managers\_.find(hash);}
-\DoxyCodeLine{150   \textcolor{keywordflow}{if} (it == discrete\_contact\_managers\_.end())}
+\DoxyCodeLine{149   \textcolor{keyword}{auto} \mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} = discrete\_contact\_managers\_.find(hash);}
+\DoxyCodeLine{150   \textcolor{keywordflow}{if} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} == discrete\_contact\_managers\_.end())}
 \DoxyCodeLine{151   \{}
 \DoxyCodeLine{152     cm = discrete\_contact\_manager\_-\/>clone();}
 \DoxyCodeLine{153     discrete\_contact\_managers\_[hash] = cm;}
 \DoxyCodeLine{154   \}}
 \DoxyCodeLine{155   \textcolor{keywordflow}{else}}
 \DoxyCodeLine{156   \{}
-\DoxyCodeLine{157     cm = it-\/>second;}
+\DoxyCodeLine{157     cm = \mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}}-\/>second;}
 \DoxyCodeLine{158   \}}
 \DoxyCodeLine{159   mutex\_.unlock();}
 \DoxyCodeLine{160 }

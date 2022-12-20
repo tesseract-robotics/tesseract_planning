@@ -1,0 +1,13 @@
+digraph "tesseract_planning::TrajectoryContainer"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="tesseract_planning\l::TrajectoryContainer",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="A generic container that the time parameterization classes use."];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="tesseract_planning\l::InstructionsTrajectory",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d5/dc6/classtesseract__planning_1_1InstructionsTrajectory.html",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="tesseract_planning\l::TesseractCommonTrajectory",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d3/dd9/classtesseract__planning_1_1TesseractCommonTrajectory.html",tooltip=" "];
+}

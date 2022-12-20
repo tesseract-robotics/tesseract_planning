@@ -24,13 +24,7 @@ This contains unit test for the tesseract descartes planner.
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/interface\+\_\+utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+support/tesseract\+\_\+support\+\_\+resource\+\_\+locator.\+h$>$}\newline
 Include dependency graph for descartes\+\_\+planner\+\_\+tests.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d4/de7/descartes__planner__tests_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -39,11 +33,25 @@ class \mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{descartes__planner__tests_8cpp_a0827317eaf5f848aa4c21fbbc435c2f0}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\+Descartes\+Unit}}, Descartes\+Planner\+Fixed\+Poses)
+\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} \mbox{\hyperlink{descartes__planner__tests_8cpp_a0f6c8a4a70f3acb0e6d8f7768f9f185e}{set\+Start\+Instruction}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_aac5edbcdb4439ed4a647013441d012fe}{start\+\_\+instruction}})
 \item 
-\mbox{\hyperlink{descartes__planner__tests_8cpp_a412eafa4c0d411dfab4d08df7a091e1d}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\+Descartes\+Unit}}, Descartes\+Planner\+Axial\+Symetric)
+\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} \mbox{\hyperlink{descartes__planner__tests_8cpp_aeef1e9d42d9a9b3c3439d3efd49b5421}{set\+Manipulator\+Info}} (\mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}})
 \item 
-\mbox{\hyperlink{descartes__planner__tests_8cpp_a581fe58a08afc372a6545e2c369350c6}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\+Descartes\+Unit}}, Descartes\+Planner\+Collision\+Edge\+Evaluator)
+\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} \mbox{\hyperlink{descartes__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}{append\+Move\+Instruction}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a42efaf78a1c46b95e0b8c0fb79f395ed}{plan\+\_\+f1}})
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{descartes__planner__tests_8cpp_ad3a58ddf21c298bd3a28e278ec5334fc}{add\+Profile$<$ Descartes\+Plan\+Profile$<$ double $>$ $>$}} (DESCARTES\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}})
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_aedf1ea67d0861e399ea290886f4033ab}{for}} (int i=0;i$<$ 10;++i)
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_aca94f6ac243633873111744cdceca822}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a94410711eed97b0a46df8d4adce2e219}{problem}}-\/$>$samplers.\+size(), 11)
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a84ee4424db563d90a324eb008156ae4d}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a94410711eed97b0a46df8d4adce2e219}{problem}}-\/$>$edge\+\_\+evaluators.\+size(), 10)
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a1a4d8931fcff0f5111f2f04dc112f5d4}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a94410711eed97b0a46df8d4adce2e219}{problem}}-\/$>$samplers.\+size(), 3)
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a63773e0a2eade3b79661fe3f345ad3ae}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a94410711eed97b0a46df8d4adce2e219}{problem}}-\/$>$edge\+\_\+evaluators.\+size(), 2)
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a18a8e65d6871d646ff133641517e0300}{EXPECT\+\_\+\+EQ}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a94410711eed97b0a46df8d4adce2e219}{problem}}-\/$>$\mbox{\hyperlink{descartes__planner__tests_8cpp_acd769fd0d2150922b2277aff5f993f19}{num\+\_\+threads}}, 1)
 \item 
 int \mbox{\hyperlink{descartes__planner__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
@@ -51,6 +59,48 @@ int \mbox{\hyperlink{descartes__planner__tests_8cpp_a3c04138a5bfe5d72780bb7e82a1
 \begin{DoxyCompactItemize}
 \item 
 const bool \mbox{\hyperlink{descartes__planner__tests_8cpp_a9c4ab189c2f018bc7ccc8ba4f6e04b9d}{DEBUG}} = false
+\item 
+tesseract\+\_\+kinematics\+::\+Kinematic\+Group\+::\+Ptr \mbox{\hyperlink{descartes__planner__tests_8cpp_afdd9d9bd327d0f63e53b3cf04a038fc6}{kin\+\_\+group}}
+\item 
+auto \mbox{\hyperlink{descartes__planner__tests_8cpp_aa286b62ffc5f362a9629f912c3421781}{cur\+\_\+state}} = env\+\_\+-\/$>$get\+State()
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} \mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} \mbox{\hyperlink{descartes__planner__tests_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}{wp2}}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{descartes__planner__tests_8cpp_aac5edbcdb4439ed4a647013441d012fe}{start\+\_\+instruction}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}, Move\+Instruction\+Type\+::\+START, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, \mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{descartes__planner__tests_8cpp_a42efaf78a1c46b95e0b8c0fb79f395ed}{plan\+\_\+f1}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}{wp2}}, Move\+Instruction\+Type\+::\+LINEAR, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, \mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} = raster\+Example\+Program()
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{descartes__planner__tests_8cpp_a3ade23b6b911c6766f0bd5660b6eef8d}{interpolated\+\_\+program}}
+\item 
+auto \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{namespacetesseract__planning_abc2be5357377e9f284108b7fbbd416aa}{Descartes\+Default\+Plan\+ProfileD}}$>$()
+\item 
+auto \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}$>$()
+\item 
+\mbox{\hyperlink{namespacetesseract__planning_a879c4c0c1f66689c9d1d2dca01757155}{Descartes\+Motion\+PlannerD}} \mbox{\hyperlink{descartes__planner__tests_8cpp_a7197a46a14009103802cddf7475a9f6f}{single\+\_\+descartes\+\_\+planner}}
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}} \mbox{\hyperlink{descartes__planner__tests_8cpp_acd769fd0d2150922b2277aff5f993f19}{num\+\_\+threads}} = 1
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} \mbox{\hyperlink{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}} = \mbox{\hyperlink{descartes__planner__tests_8cpp_a3ade23b6b911c6766f0bd5660b6eef8d}{interpolated\+\_\+program}}
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} \mbox{\hyperlink{descartes__planner__tests_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}} = env\+\_\+
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} \mbox{\hyperlink{descartes__planner__tests_8cpp_a5083a6bcf9f46da48634a2146d75ca2f}{env\+\_\+state}} = \mbox{\hyperlink{descartes__planner__tests_8cpp_aa286b62ffc5f362a9629f912c3421781}{cur\+\_\+state}}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \mbox{\hyperlink{descartes__planner__tests_8cpp_adf1c959fd746acdeae35cbf40fa9a17f}{single\+\_\+planner\+\_\+response}} = single\+\_\+descartes\+\_\+planner.\+solve(\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{descartes__planner__tests_8cpp_a84c2d5131645955b4d7e7c514488a83a}{official\+\_\+results}} = single\+\_\+planner\+\_\+response.\+results
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}} \mbox{\hyperlink{descartes__planner__tests_8cpp_ace2f0baaaf2dccc5be57836ddac4e304}{target\+\_\+pose\+\_\+sampler}}
+\item 
+auto \mbox{\hyperlink{descartes__planner__tests_8cpp_a94410711eed97b0a46df8d4adce2e219}{problem}} = single\+\_\+descartes\+\_\+planner.\+create\+Problem(\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}})
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}} \mbox{\hyperlink{descartes__planner__tests_8cpp_a54234c02ffbccadf4c2f2e571e0a18ff}{enable\+\_\+edge\+\_\+collision}} = true
 \end{DoxyCompactItemize}
 
 
@@ -85,36 +135,235 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_ad3a58ddf21c298bd3a28e278ec5334fc}\label{descartes__planner__tests_8cpp_ad3a58ddf21c298bd3a28e278ec5334fc}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!addProfile$<$ DescartesPlanProfile$<$ double $>$ $>$@{addProfile$<$ DescartesPlanProfile$<$ double $>$ $>$}}
+\index{addProfile$<$ DescartesPlanProfile$<$ double $>$ $>$@{addProfile$<$ DescartesPlanProfile$<$ double $>$ $>$}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ DescartesPlanProfile$<$ double $>$ $>$()}{addProfile< DescartesPlanProfile< double > >()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ double $>$ $>$ (\begin{DoxyParamCaption}\item[{DESCARTES\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}\label{descartes__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!appendMoveInstruction@{appendMoveInstruction}}
+\index{appendMoveInstruction@{appendMoveInstruction}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{appendMoveInstruction()}{appendMoveInstruction()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} append\+Move\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a42efaf78a1c46b95e0b8c0fb79f395ed}{plan\+\_\+f1}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a84ee4424db563d90a324eb008156ae4d}\label{descartes__planner__tests_8cpp_a84ee4424db563d90a324eb008156ae4d}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a94410711eed97b0a46df8d4adce2e219}{problem}}-\/$>$edge\+\_\+evaluators.}]{size(),  }\item[{10}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a63773e0a2eade3b79661fe3f345ad3ae}\label{descartes__planner__tests_8cpp_a63773e0a2eade3b79661fe3f345ad3ae}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a94410711eed97b0a46df8d4adce2e219}{problem}}-\/$>$edge\+\_\+evaluators.}]{size(),  }\item[{2}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a18a8e65d6871d646ff133641517e0300}\label{descartes__planner__tests_8cpp_a18a8e65d6871d646ff133641517e0300}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a94410711eed97b0a46df8d4adce2e219}{problem}}-\/$>$}]{num\+\_\+threads,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_aca94f6ac243633873111744cdceca822}\label{descartes__planner__tests_8cpp_aca94f6ac243633873111744cdceca822}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a94410711eed97b0a46df8d4adce2e219}{problem}}-\/$>$samplers.}]{size(),  }\item[{11}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a1a4d8931fcff0f5111f2f04dc112f5d4}\label{descartes__planner__tests_8cpp_a1a4d8931fcff0f5111f2f04dc112f5d4}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a94410711eed97b0a46df8d4adce2e219}{problem}}-\/$>$samplers.}]{size(),  }\item[{3}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_aedf1ea67d0861e399ea290886f4033ab}\label{descartes__planner__tests_8cpp_aedf1ea67d0861e399ea290886f4033ab}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!for@{for}}
+\index{for@{for}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{for()}{for()}}
+{\footnotesize\ttfamily for (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{descartes__planner__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{descartes__planner__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
 \index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!main@{main}}
 \index{main@{main}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{descartes__planner__tests_8cpp_a412eafa4c0d411dfab4d08df7a091e1d}\label{descartes__planner__tests_8cpp_a412eafa4c0d411dfab4d08df7a091e1d}} 
-\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\+Descartes\+Unit}}}]{,  }\item[{Descartes\+Planner\+Axial\+Symetric}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_aeef1e9d42d9a9b3c3439d3efd49b5421}\label{descartes__planner__tests_8cpp_aeef1e9d42d9a9b3c3439d3efd49b5421}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!setManipulatorInfo@{setManipulatorInfo}}
+\index{setManipulatorInfo@{setManipulatorInfo}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{setManipulatorInfo()}{setManipulatorInfo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} set\+Manipulator\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}}}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{descartes__planner__tests_8cpp_a581fe58a08afc372a6545e2c369350c6}\label{descartes__planner__tests_8cpp_a581fe58a08afc372a6545e2c369350c6}} 
-\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\+Descartes\+Unit}}}]{,  }\item[{Descartes\+Planner\+Collision\+Edge\+Evaluator}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{descartes__planner__tests_8cpp_a0827317eaf5f848aa4c21fbbc435c2f0}\label{descartes__planner__tests_8cpp_a0827317eaf5f848aa4c21fbbc435c2f0}} 
-\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\+Descartes\+Unit}}}]{,  }\item[{Descartes\+Planner\+Fixed\+Poses}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a0f6c8a4a70f3acb0e6d8f7768f9f185e}\label{descartes__planner__tests_8cpp_a0f6c8a4a70f3acb0e6d8f7768f9f185e}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!setStartInstruction@{setStartInstruction}}
+\index{setStartInstruction@{setStartInstruction}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{setStartInstruction()}{setStartInstruction()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} set\+Start\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_aac5edbcdb4439ed4a647013441d012fe}{start\+\_\+instruction}}}]{ }\end{DoxyParamCaption})}
 
 
 
 \doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_aa286b62ffc5f362a9629f912c3421781}\label{descartes__planner__tests_8cpp_aa286b62ffc5f362a9629f912c3421781}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!cur\_state@{cur\_state}}
+\index{cur\_state@{cur\_state}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{cur\_state}{cur\_state}}
+{\footnotesize\ttfamily auto cur\+\_\+state = env\+\_\+-\/$>$get\+State()}
+
 \mbox{\Hypertarget{descartes__planner__tests_8cpp_a9c4ab189c2f018bc7ccc8ba4f6e04b9d}\label{descartes__planner__tests_8cpp_a9c4ab189c2f018bc7ccc8ba4f6e04b9d}} 
 \index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!DEBUG@{DEBUG}}
 \index{DEBUG@{DEBUG}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{DEBUG}{DEBUG}}
 {\footnotesize\ttfamily const bool DEBUG = false}
 
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a54234c02ffbccadf4c2f2e571e0a18ff}\label{descartes__planner__tests_8cpp_a54234c02ffbccadf4c2f2e571e0a18ff}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!enable\_edge\_collision@{enable\_edge\_collision}}
+\index{enable\_edge\_collision@{enable\_edge\_collision}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{enable\_edge\_collision}{enable\_edge\_collision}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}} enable\+\_\+edge\+\_\+collision = true}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}\label{descartes__planner__tests_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!env@{env}}
+\index{env@{env}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{env}{env}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} env = env\+\_\+}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a5083a6bcf9f46da48634a2146d75ca2f}\label{descartes__planner__tests_8cpp_a5083a6bcf9f46da48634a2146d75ca2f}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!env\_state@{env\_state}}
+\index{env\_state@{env\_state}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{env\_state}{env\_state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} env\+\_\+state = \mbox{\hyperlink{descartes__planner__tests_8cpp_aa286b62ffc5f362a9629f912c3421781}{cur\+\_\+state}}}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}\label{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!instructions@{instructions}}
+\index{instructions@{instructions}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{instructions}{instructions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} instructions = \mbox{\hyperlink{descartes__planner__tests_8cpp_a3ade23b6b911c6766f0bd5660b6eef8d}{interpolated\+\_\+program}}}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a3ade23b6b911c6766f0bd5660b6eef8d}\label{descartes__planner__tests_8cpp_a3ade23b6b911c6766f0bd5660b6eef8d}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!interpolated\_program@{interpolated\_program}}
+\index{interpolated\_program@{interpolated\_program}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{interpolated\_program}{interpolated\_program}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} interpolated\+\_\+program}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      \mbox{\hyperlink{namespacetesseract__planning_ad3c37e3202443529c1ac97d85dc4ffcd}{generateInterpolatedProgram}}(\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_aa286b62ffc5f362a9629f912c3421781}{cur\_state}}, env\_, 3.14, 1.0, 3.14, 10)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_afdd9d9bd327d0f63e53b3cf04a038fc6}\label{descartes__planner__tests_8cpp_afdd9d9bd327d0f63e53b3cf04a038fc6}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!kin\_group@{kin\_group}}
+\index{kin\_group@{kin\_group}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{kin\_group}{kin\_group}}
+{\footnotesize\ttfamily auto kin\+\_\+group}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      env\_-\/>getKinematicGroup(\mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}}.manipulator, \mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}}.manipulator\_ik\_solver)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_acd769fd0d2150922b2277aff5f993f19}\label{descartes__planner__tests_8cpp_acd769fd0d2150922b2277aff5f993f19}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!num\_threads@{num\_threads}}
+\index{num\_threads@{num\_threads}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{num\_threads}{num\_threads}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}} num\+\_\+threads = 1}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a84c2d5131645955b4d7e7c514488a83a}\label{descartes__planner__tests_8cpp_a84c2d5131645955b4d7e7c514488a83a}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!official\_results@{official\_results}}
+\index{official\_results@{official\_results}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{official\_results}{official\_results}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} official\+\_\+results = single\+\_\+planner\+\_\+response.\+results}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a42efaf78a1c46b95e0b8c0fb79f395ed}\label{descartes__planner__tests_8cpp_a42efaf78a1c46b95e0b8c0fb79f395ed}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!plan\_f1@{plan\_f1}}
+\index{plan\_f1@{plan\_f1}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{plan\_f1}{plan\_f1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} plan\+\_\+f1 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}{wp2}}}]{,  }\item[{Move\+Instruction\+Type\+::\+LINEAR}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{\mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}\label{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!plan\_profile@{plan\_profile}}
+\index{plan\_profile@{plan\_profile}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{plan\_profile}{plan\_profile}}
+{\footnotesize\ttfamily auto plan\+\_\+profile = std\+::make\+\_\+shared$<$\mbox{\hyperlink{namespacetesseract__planning_abc2be5357377e9f284108b7fbbd416aa}{Descartes\+Default\+Plan\+ProfileD}}$>$()}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a94410711eed97b0a46df8d4adce2e219}\label{descartes__planner__tests_8cpp_a94410711eed97b0a46df8d4adce2e219}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!problem@{problem}}
+\index{problem@{problem}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{problem}{problem}}
+{\footnotesize\ttfamily trajopt\+::\+Traj\+Opt\+Prob\+::\+Ptr problem = single\+\_\+descartes\+\_\+planner.\+create\+Problem(\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}\label{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!profiles@{profiles}}
+\index{profiles@{profiles}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{profiles}{profiles}}
+{\footnotesize\ttfamily auto profiles = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}$>$()}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}\label{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!program@{program}}
+\index{program@{program}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{program}{program}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} program = raster\+Example\+Program()}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}\label{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!request@{request}}
+\index{request@{request}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{request}{request}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} request}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a7197a46a14009103802cddf7475a9f6f}\label{descartes__planner__tests_8cpp_a7197a46a14009103802cddf7475a9f6f}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!single\_descartes\_planner@{single\_descartes\_planner}}
+\index{single\_descartes\_planner@{single\_descartes\_planner}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{single\_descartes\_planner}{single\_descartes\_planner}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a879c4c0c1f66689c9d1d2dca01757155}{Descartes\+Motion\+PlannerD}} single\+\_\+descartes\+\_\+planner}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_adf1c959fd746acdeae35cbf40fa9a17f}\label{descartes__planner__tests_8cpp_adf1c959fd746acdeae35cbf40fa9a17f}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!single\_planner\_response@{single\_planner\_response}}
+\index{single\_planner\_response@{single\_planner\_response}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{single\_planner\_response}{single\_planner\_response}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_afb6b6125e4d86fa648bcedea6bcd4e04}{EXPECT\+\_\+\+TRUE}} \& single\+\_\+planner\+\_\+response = single\+\_\+descartes\+\_\+planner.\+solve(\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_aac5edbcdb4439ed4a647013441d012fe}\label{descartes__planner__tests_8cpp_aac5edbcdb4439ed4a647013441d012fe}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!start\_instruction@{start\_instruction}}
+\index{start\_instruction@{start\_instruction}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{start\_instruction}{start\_instruction}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} start\+\_\+instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}}]{,  }\item[{Move\+Instruction\+Type\+::\+START}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{\mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_ace2f0baaaf2dccc5be57836ddac4e304}\label{descartes__planner__tests_8cpp_ace2f0baaaf2dccc5be57836ddac4e304}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!target\_pose\_sampler@{target\_pose\_sampler}}
+\index{target\_pose\_sampler@{target\_pose\_sampler}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{target\_pose\_sampler}{target\_pose\_sampler}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}} target\+\_\+pose\+\_\+sampler}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= [](\textcolor{keyword}{const} Eigen::Isometry3d\& tool\_pose) \{}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacetesseract__planning_adf2bb32372d00e42763932cdde163c01}{tesseract\_planning::sampleToolAxis}}(tool\_pose, M\_PI\_4, Eigen::Vector3d(0, 0, 1));}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}\label{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!wp1@{wp1}}
+\index{wp1@{wp1}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{wp1}{wp1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} wp1}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{ \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -\/.20, 0.8) *}
+\DoxyCodeLine{                                               Eigen::Quaterniond(0, 0, -\/1.0, 0)) \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}\label{descartes__planner__tests_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!wp2@{wp2}}
+\index{wp2@{wp2}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{wp2}{wp2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} wp2}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{ \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *}
+\DoxyCodeLine{                                               Eigen::Quaterniond(0, 0, -\/1.0, 0)) \}}
+
+\end{DoxyCode}

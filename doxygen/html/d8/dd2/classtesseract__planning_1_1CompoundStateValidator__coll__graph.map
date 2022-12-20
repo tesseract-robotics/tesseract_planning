@@ -1,6 +1,6 @@
 <map id="tesseract_planning::CompoundStateValidator" name="tesseract_planning::CompoundStateValidator">
-<area shape="rect" id="node1" title="Create a single state validity checker from multiple." alt="" coords="323,77,495,119"/>
-<area shape="rect" id="node2" title=" " alt="" coords="25,5,188,47"/>
-<area shape="rect" id="node3" title=" " alt="" coords="18,70,195,126"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,149,208,191"/>
+<area shape="rect" id="node1" title="Create a single state validity checker from multiple." alt="" coords="323,77,495,117"/>
+<area shape="rect" id="node2" title=" " alt="" coords="25,5,188,45"/>
+<area shape="rect" id="node3" title=" " alt="" coords="18,70,195,125"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,149,208,189"/>
 </map>

@@ -1,6 +1,6 @@
 <map id="tesseract_examples/include/tesseract_examples/basic_cartesian_example.h" name="tesseract_examples/include/tesseract_examples/basic_cartesian_example.h">
-<area shape="rect" id="node1" title="Basic example leveraging trajopt and tesseract for cartesian planning." alt="" coords="144,5,331,61"/>
-<area shape="rect" id="node2" href="$da/d69/basic__cartesian__example_8cpp.html" title=" " alt="" coords="5,109,144,165"/>
-<area shape="rect" id="node3" href="$db/da4/basic__cartesian__example__node_8cpp.html" title="Basic cartesian example node." alt="" coords="168,109,307,165"/>
-<area shape="rect" id="node4" href="$d2/d28/basic__cartesian__example__unit_8cpp.html" title=" " alt="" coords="331,109,474,165"/>
+<area shape="rect" id="node1" title="Basic example leveraging trajopt and tesseract for cartesian planning." alt="" coords="144,5,331,60"/>
+<area shape="rect" id="node2" href="$da/d69/basic__cartesian__example_8cpp.html" title=" " alt="" coords="5,108,144,163"/>
+<area shape="rect" id="node3" href="$db/da4/basic__cartesian__example__node_8cpp.html" title="Basic cartesian example node." alt="" coords="168,108,307,163"/>
+<area shape="rect" id="node4" href="$d2/d28/basic__cartesian__example__unit_8cpp.html" title=" " alt="" coords="331,108,474,163"/>
 </map>

@@ -7,19 +7,21 @@
 
 
 Collaboration diagram for tesseract\+\_\+planning\+::Set\+Tool\+Instruction\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=186pt]{d1/d4e/classtesseract__planning_1_1SetToolInstruction__coll__graph}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_a9b971e5e88c28ba9c3f8b2fbe3a34cab}{Set\+Tool\+Instruction}} ()=default
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_ae9c29fc7412f2b51b6a64afaa0f48a60}{Set\+Tool\+Instruction}} (int tool\+\_\+id)
+\item 
+const boost\+::uuids\+::uuid \& \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_aaf0509206859892d21f8a3472995d2a2}{get\+UUID}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_ac4e4d43995d67b44ffb33a6e0fd292fb}{regenerate\+UUID}} ()
+\item 
+const boost\+::uuids\+::uuid \& \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_a3df8eae7e933e75b77bfb49a2f60d054}{get\+Parent\+UUID}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_af7bc97fee42dc9fdf38e525e2f31a3bf}{set\+Parent\+UUID}} (const boost\+::uuids\+::uuid \&\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}})
 \item 
 const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_a8f27ed15725bbc4441d56f43d83f0091}{get\+Description}} () const
 \item 
@@ -41,10 +43,14 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_a2a7fcaf172
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
+boost\+::uuids\+::uuid \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_aa43e590e1e3c725bf21dbb1e4affa9b9}{uuid\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em The instructions UUID. \end{DoxyCompactList}\item 
+boost\+::uuids\+::uuid \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_a2b6d2cdb36ddcb433bbf9970ee280255}{parent\+\_\+uuid\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em The parent UUID if created from create\+Child. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_aa011b3c57bc81ade816336f8067c8dac}{description\+\_\+}} \{ \char`\"{}Tesseract Set Tool Instruction\char`\"{} \}
 \begin{DoxyCompactList}\small\item\em The description of the instruction. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_a1f42c3772fc1e91e8916bf4fd93df53a}{tool\+\_\+id\+\_\+}} \{ -\/1 \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The tool ID. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
@@ -74,6 +80,12 @@ class \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_ac98d07dd8
 \doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
 {\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_a3df8eae7e933e75b77bfb49a2f60d054}\label{classtesseract__planning_1_1SetToolInstruction_a3df8eae7e933e75b77bfb49a2f60d054}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!getParentUUID@{getParentUUID}}
+\index{getParentUUID@{getParentUUID}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{getParentUUID()}{getParentUUID()}}
+{\footnotesize\ttfamily const boost\+::uuids\+::uuid \& tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::get\+Parent\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_a9dfb57e0ae21b0b6f9990c1004ea3674}\label{classtesseract__planning_1_1SetToolInstruction_a9dfb57e0ae21b0b6f9990c1004ea3674}} 
 \index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!getTool@{getTool}}
 \index{getTool@{getTool}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
@@ -87,6 +99,12 @@ Get the tool ID.
 \begin{DoxyReturn}{Returns}
 The tool ID 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_aaf0509206859892d21f8a3472995d2a2}\label{classtesseract__planning_1_1SetToolInstruction_aaf0509206859892d21f8a3472995d2a2}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!getUUID@{getUUID}}
+\index{getUUID@{getUUID}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{getUUID()}{getUUID()}}
+{\footnotesize\ttfamily const boost\+::uuids\+::uuid \& tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::get\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_a2a7fcaf172e11fcf8b4995a811da04ca}\label{classtesseract__planning_1_1SetToolInstruction_a2a7fcaf172e11fcf8b4995a811da04ca}} 
 \index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!operator"!=@{operator"!=}}
 \index{operator"!=@{operator"!=}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
@@ -129,6 +147,12 @@ True if equal, otherwise false
 \doxysubsubsection{\texorpdfstring{print()}{print()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_ac4e4d43995d67b44ffb33a6e0fd292fb}\label{classtesseract__planning_1_1SetToolInstruction_ac4e4d43995d67b44ffb33a6e0fd292fb}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!regenerateUUID@{regenerateUUID}}
+\index{regenerateUUID@{regenerateUUID}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{regenerateUUID()}{regenerateUUID()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::regenerate\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_a72a2254579bc76af293298f7244a7f80}\label{classtesseract__planning_1_1SetToolInstruction_a72a2254579bc76af293298f7244a7f80}} 
 \index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!serialize@{serialize}}
 \index{serialize@{serialize}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
@@ -141,6 +165,12 @@ void tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::serialize (\begin{Do
 \index{setDescription@{setDescription}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
 \doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_af7bc97fee42dc9fdf38e525e2f31a3bf}\label{classtesseract__planning_1_1SetToolInstruction_af7bc97fee42dc9fdf38e525e2f31a3bf}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!setParentUUID@{setParentUUID}}
+\index{setParentUUID@{setParentUUID}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{setParentUUID()}{setParentUUID()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::set\+Parent\+UUID (\begin{DoxyParamCaption}\item[{const boost\+::uuids\+::uuid \&}]{uuid }\end{DoxyParamCaption})}
 
 
 
@@ -164,11 +194,35 @@ void tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::serialize (\begin{Do
 
 The description of the instruction. 
 
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_a2b6d2cdb36ddcb433bbf9970ee280255}\label{classtesseract__planning_1_1SetToolInstruction_a2b6d2cdb36ddcb433bbf9970ee280255}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!parent\_uuid\_@{parent\_uuid\_}}
+\index{parent\_uuid\_@{parent\_uuid\_}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{parent\_uuid\_}{parent\_uuid\_}}
+{\footnotesize\ttfamily boost\+::uuids\+::uuid tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::parent\+\_\+uuid\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The parent UUID if created from create\+Child. 
+
 \mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_a1f42c3772fc1e91e8916bf4fd93df53a}\label{classtesseract__planning_1_1SetToolInstruction_a1f42c3772fc1e91e8916bf4fd93df53a}} 
 \index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!tool\_id\_@{tool\_id\_}}
 \index{tool\_id\_@{tool\_id\_}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
 \doxysubsubsection{\texorpdfstring{tool\_id\_}{tool\_id\_}}
 {\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::tool\+\_\+id\+\_\+ \{ -\/1 \}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The tool ID. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_aa43e590e1e3c725bf21dbb1e4affa9b9}\label{classtesseract__planning_1_1SetToolInstruction_aa43e590e1e3c725bf21dbb1e4affa9b9}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!uuid\_@{uuid\_}}
+\index{uuid\_@{uuid\_}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{uuid\_}{uuid\_}}
+{\footnotesize\ttfamily boost\+::uuids\+::uuid tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::uuid\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The instructions UUID. 
 
 
 

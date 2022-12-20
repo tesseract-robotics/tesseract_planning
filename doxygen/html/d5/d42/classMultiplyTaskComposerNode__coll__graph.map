@@ -1,9 +1,9 @@
 <map id="MultiplyTaskComposerNode" name="MultiplyTaskComposerNode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,488,191,515"/>
-<area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="173,397,319,439"/>
-<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="195,305,342,347"/>
-<area shape="rect" id="node4" title=" " alt="" coords="104,96,183,123"/>
-<area shape="rect" id="node7" title=" " alt="" coords="221,193,381,219"/>
-<area shape="rect" id="node5" title=" " alt="" coords="81,5,205,47"/>
-<area shape="rect" id="node6" title=" " alt="" coords="405,185,530,227"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,483,191,508"/>
+<area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="173,393,319,433"/>
+<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="195,302,342,342"/>
+<area shape="rect" id="node4" title=" " alt="" coords="104,95,183,120"/>
+<area shape="rect" id="node7" title=" " alt="" coords="221,190,381,215"/>
+<area shape="rect" id="node5" title=" " alt="" coords="81,5,205,45"/>
+<area shape="rect" id="node6" title=" " alt="" coords="405,183,530,223"/>
 </map>

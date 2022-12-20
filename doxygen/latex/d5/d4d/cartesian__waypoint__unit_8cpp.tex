@@ -15,25 +15,44 @@ Contains unit tests for Cartesian\+Waypoint.
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/cartesian\+\_\+waypoint\+\_\+poly.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/cartesian\+\_\+waypoint.\+h$>$}\newline
 Include dependency graph for cartesian\+\_\+waypoint\+\_\+unit.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d3/d4e/cartesian__waypoint__unit_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_abe23d544b6c9e64f90db2894d109a312}{TEST}} (Tesseract\+Command\+Language\+Cartesian\+Waypoint\+Unit, is\+Toleranced)
+\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aaffeb082fa9ce84869b11be7291fcde5}{EXPECT\+\_\+\+FALSE}} (cw.\+is\+Toleranced())
 \item 
-\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a16411082e4509447894415507001918f}{TEST}} (Tesseract\+Command\+Language\+Cartesian\+Waypoint\+Unit, boost\+Serialization)
+\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a98d8b26d6b0ed18dad6b900443db2624}{set\+Upper\+Tolerance}} (Eigen\+::\+Vector\+Xd\+::\+Constant(3, 5))
 \item 
-void \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a45523800e5e8eb5fafc23e825a493642}{Serialize\+Deserialize\+Test}} (const \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} \&wp)
+\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ac3aef26a26603b6efdb0d2220a25934e}{set\+Lower\+Tolerance}} (Eigen\+::\+Vector\+Xd\+::\+Constant(3, -\/5))
 \item 
-\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a9ee1eda71a2cdabb6a5ef0479c22618f}{TEST}} (Tesseract\+Command\+Language\+Cartesian\+Waypoint\+Unit, equality\+Operator\+And\+Serialization)
+\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_afb6b6125e4d86fa648bcedea6bcd4e04}{EXPECT\+\_\+\+TRUE}} (cw.\+is\+Toleranced())
 \item 
-int \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a0b2d5af0d9dd47fc34e1040a3e508184}{set\+Upper\+Tolerance}} (Eigen\+::\+Vector\+Xd\+::\+Constant(3, -\/5))
+\item 
+\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a6ea1508d836090f676d02315f2ce0829}{EXPECT\+\_\+\+ANY\+\_\+\+THROW}} (cw.\+is\+Toleranced())
+\item 
+\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a764052131224167d22eb2dca4cc35cd5}{set\+Lower\+Tolerance}} (Eigen\+::\+Vector\+Xd\+::\+Constant(3, 5))
+\item 
+\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a4c639d196f2da29de0d12c4738abdc32}{set\+Upper\+Tolerance}} (Eigen\+::\+Vector\+Xd\+::\+Constant(3, 0))
+\item 
+\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a747f95f9cea900bc34f1e98669a78320}{set\+Lower\+Tolerance}} (Eigen\+::\+Vector\+Xd\+::\+Constant(3, 0))
+\item 
+\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a325e3dfd0187a4d3d0e2fe1be25fade0}{print}} ()
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ac02603dc5f0aa7b934cdfda47075961c}{cw}} (pose)
+\item 
+\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a8f03f7261678e9d87852425c05f5c5a4}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}}==nwp.\+as$<$ \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} $>$())
+\item 
+void \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a45523800e5e8eb5fafc23e825a493642}{Serialize\+Deserialize\+Test}} (const \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} \&\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} \{ \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}(pose) \}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}} \{ \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} \}
+\item 
+auto \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aef81220d0559af23b937520646e10001}{nwp}}
 \end{DoxyCompactItemize}
 
 
@@ -67,6 +86,8 @@ Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\
 \begin{DoxyParagraph}{}
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 \end{DoxyParagraph}
+
+
 \begin{DoxyAuthor}{Author}
 Levi Armstrong 
 
@@ -97,11 +118,41 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{cartesian__waypoint__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
-\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!main@{main}}
-\index{main@{main}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{main()}{main()}}
-{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_ac02603dc5f0aa7b934cdfda47075961c}\label{cartesian__waypoint__unit_8cpp_ac02603dc5f0aa7b934cdfda47075961c}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!cw@{cw}}
+\index{cw@{cw}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{cw()}{cw()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} cw (\begin{DoxyParamCaption}\item[{pose}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a6ea1508d836090f676d02315f2ce0829}\label{cartesian__waypoint__unit_8cpp_a6ea1508d836090f676d02315f2ce0829}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}}
+\index{EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_ANY\_THROW()}{EXPECT\_ANY\_THROW()}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+ANY\+\_\+\+THROW (\begin{DoxyParamCaption}\item[{cw.}]{is\+Toleranced() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_aaffeb082fa9ce84869b11be7291fcde5}\label{cartesian__waypoint__unit_8cpp_aaffeb082fa9ce84869b11be7291fcde5}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{cw.}]{is\+Toleranced() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_afb6b6125e4d86fa648bcedea6bcd4e04}\label{cartesian__waypoint__unit_8cpp_afb6b6125e4d86fa648bcedea6bcd4e04}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{cw.}]{is\+Toleranced() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a8f03f7261678e9d87852425c05f5c5a4}\label{cartesian__waypoint__unit_8cpp_a8f03f7261678e9d87852425c05f5c5a4}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}}}]{ = {\ttfamily =nwp.as$<$~\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}~$>$()} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a325e3dfd0187a4d3d0e2fe1be25fade0}\label{cartesian__waypoint__unit_8cpp_a325e3dfd0187a4d3d0e2fe1be25fade0}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!print@{print}}
+\index{print@{print}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a45523800e5e8eb5fafc23e825a493642}\label{cartesian__waypoint__unit_8cpp_a45523800e5e8eb5fafc23e825a493642}} 
 \index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!SerializeDeserializeTest@{SerializeDeserializeTest}}
@@ -109,21 +160,66 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{SerializeDeserializeTest()}{SerializeDeserializeTest()}}
 {\footnotesize\ttfamily void Serialize\+Deserialize\+Test (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} \&}]{wp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a16411082e4509447894415507001918f}\label{cartesian__waypoint__unit_8cpp_a16411082e4509447894415507001918f}} 
-\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Cartesian\+Waypoint\+Unit}]{,  }\item[{boost\+Serialization}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_ac3aef26a26603b6efdb0d2220a25934e}\label{cartesian__waypoint__unit_8cpp_ac3aef26a26603b6efdb0d2220a25934e}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!setLowerTolerance@{setLowerTolerance}}
+\index{setLowerTolerance@{setLowerTolerance}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setLowerTolerance()}{setLowerTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} set\+Lower\+Tolerance (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd\+::\+Constant(3, -\/5)}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a9ee1eda71a2cdabb6a5ef0479c22618f}\label{cartesian__waypoint__unit_8cpp_a9ee1eda71a2cdabb6a5ef0479c22618f}} 
-\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Cartesian\+Waypoint\+Unit}]{,  }\item[{equality\+Operator\+And\+Serialization}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a747f95f9cea900bc34f1e98669a78320}\label{cartesian__waypoint__unit_8cpp_a747f95f9cea900bc34f1e98669a78320}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!setLowerTolerance@{setLowerTolerance}}
+\index{setLowerTolerance@{setLowerTolerance}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setLowerTolerance()}{setLowerTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} set\+Lower\+Tolerance (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd\+::\+Constant(3, 0)}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_abe23d544b6c9e64f90db2894d109a312}\label{cartesian__waypoint__unit_8cpp_abe23d544b6c9e64f90db2894d109a312}} 
-\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Cartesian\+Waypoint\+Unit}]{,  }\item[{is\+Toleranced}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a764052131224167d22eb2dca4cc35cd5}\label{cartesian__waypoint__unit_8cpp_a764052131224167d22eb2dca4cc35cd5}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!setLowerTolerance@{setLowerTolerance}}
+\index{setLowerTolerance@{setLowerTolerance}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setLowerTolerance()}{setLowerTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} set\+Lower\+Tolerance (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd\+::\+Constant(3, 5)}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a0b2d5af0d9dd47fc34e1040a3e508184}\label{cartesian__waypoint__unit_8cpp_a0b2d5af0d9dd47fc34e1040a3e508184}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!setUpperTolerance@{setUpperTolerance}}
+\index{setUpperTolerance@{setUpperTolerance}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setUpperTolerance()}{setUpperTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} set\+Upper\+Tolerance (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd\+::\+Constant(3, -\/5)}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a4c639d196f2da29de0d12c4738abdc32}\label{cartesian__waypoint__unit_8cpp_a4c639d196f2da29de0d12c4738abdc32}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!setUpperTolerance@{setUpperTolerance}}
+\index{setUpperTolerance@{setUpperTolerance}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setUpperTolerance()}{setUpperTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} set\+Upper\+Tolerance (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd\+::\+Constant(3, 0)}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a98d8b26d6b0ed18dad6b900443db2624}\label{cartesian__waypoint__unit_8cpp_a98d8b26d6b0ed18dad6b900443db2624}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!setUpperTolerance@{setUpperTolerance}}
+\index{setUpperTolerance@{setUpperTolerance}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setUpperTolerance()}{setUpperTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} set\+Upper\+Tolerance (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd\+::\+Constant(3, 5)}]{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}\label{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!cw@{cw}}
+\index{cw@{cw}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{cw}{cw}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} cw(pose) \{ \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}(pose) \}}
+
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_aef81220d0559af23b937520646e10001}\label{cartesian__waypoint__unit_8cpp_aef81220d0559af23b937520646e10001}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!nwp@{nwp}}
+\index{nwp@{nwp}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{nwp}{nwp}}
+{\footnotesize\ttfamily auto nwp}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= tesseract\_common::Serialization::fromArchiveFileXML<CartesianWaypointPoly>(\textcolor{stringliteral}{"{}/tmp/"{}}}
+\DoxyCodeLine{                                                                                        \textcolor{stringliteral}{"{}cartesian\_waypoint\_boost.xml"{}})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}\label{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}} 
+\index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!wp@{wp}}
+\index{wp@{wp}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{wp}{wp}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} wp \{ \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_aeeaddebb43aef0f9e50e929ed1f7fb20}{cw}} \}}
 

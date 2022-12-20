@@ -1,10 +1,10 @@
 <map id="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/descartes_problem.h" name="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/descartes_problem.h">
-<area shape="rect" id="node1" title=" " alt="" coords="523,5,710,76"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,131,196,158"/>
-<area shape="rect" id="node3" title=" " alt="" coords="221,124,359,165"/>
-<area shape="rect" id="node4" title=" " alt="" coords="383,124,522,165"/>
-<area shape="rect" id="node5" title=" " alt="" coords="547,124,687,165"/>
-<area shape="rect" id="node6" title=" " alt="" coords="711,131,770,158"/>
-<area shape="rect" id="node7" title=" " alt="" coords="794,131,853,158"/>
-<area shape="rect" id="node8" title=" " alt="" coords="877,124,1031,165"/>
+<area shape="rect" id="node1" title=" " alt="" coords="523,5,710,75"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,130,196,155"/>
+<area shape="rect" id="node3" title=" " alt="" coords="221,123,359,163"/>
+<area shape="rect" id="node4" title=" " alt="" coords="383,123,522,163"/>
+<area shape="rect" id="node5" title=" " alt="" coords="547,123,687,163"/>
+<area shape="rect" id="node6" title=" " alt="" coords="711,130,770,155"/>
+<area shape="rect" id="node7" title=" " alt="" coords="794,130,853,155"/>
+<area shape="rect" id="node8" title=" " alt="" coords="877,123,1031,163"/>
 </map>

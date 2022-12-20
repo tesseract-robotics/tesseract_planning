@@ -1,41 +1,41 @@
 <map id="tesseract_command_language/src/move_instruction.cpp" name="tesseract_command_language/src/move_instruction.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="1515,5,1714,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="1179,459,1370,486"/>
-<area shape="rect" id="node3" title=" " alt="" coords="26,370,98,397"/>
-<area shape="rect" id="node4" title=" " alt="" coords="926,102,1094,129"/>
-<area shape="rect" id="node5" title=" " alt="" coords="1118,102,1321,129"/>
-<area shape="rect" id="node6" title=" " alt="" coords="1346,102,1496,129"/>
-<area shape="rect" id="node7" title=" " alt="" coords="1520,102,1708,129"/>
-<area shape="rect" id="node8" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="1732,95,1931,136"/>
-<area shape="rect" id="node21" title=" " alt="" coords="2883,459,3098,486"/>
-<area shape="rect" id="node34" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="2506,184,2704,225"/>
-<area shape="rect" id="node36" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="2983,184,3182,225"/>
-<area shape="rect" id="node38" href="$d1/d10/state__waypoint_8h.html" title=" " alt="" coords="3264,184,3463,225"/>
-<area shape="rect" id="node9" title=" " alt="" coords="3200,281,3258,307"/>
-<area shape="rect" id="node10" title=" " alt="" coords="2850,281,2965,307"/>
-<area shape="rect" id="node11" href="$dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="1662,184,1860,225"/>
-<area shape="rect" id="node18" href="$d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="1818,363,2016,404"/>
-<area shape="rect" id="node27" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="356,273,555,315"/>
-<area shape="rect" id="node32" title=" " alt="" coords="1798,273,2002,315"/>
-<area shape="rect" id="node33" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="735,363,934,404"/>
-<area shape="rect" id="node12" title=" " alt="" coords="807,459,862,486"/>
-<area shape="rect" id="node13" title=" " alt="" coords="2598,452,2724,493"/>
-<area shape="rect" id="node14" title=" " alt="" coords="2344,452,2471,493"/>
-<area shape="rect" id="node15" title=" " alt="" coords="1948,459,2118,486"/>
-<area shape="rect" id="node16" title=" " alt="" coords="1112,281,1247,307"/>
-<area shape="rect" id="node17" href="$d1/db1/instruction__poly_8h.html" title=" " alt="" coords="1524,273,1723,315"/>
-<area shape="rect" id="node22" title=" " alt="" coords="1722,452,1883,493"/>
-<area shape="rect" id="node23" href="$d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="2248,273,2452,315"/>
-<area shape="rect" id="node25" href="$d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="2026,273,2224,315"/>
-<area shape="rect" id="node26" href="$d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="2476,273,2675,315"/>
-<area shape="rect" id="node19" title=" " alt="" coords="3208,459,3276,486"/>
-<area shape="rect" id="node20" title=" " alt="" coords="983,459,1059,486"/>
-<area shape="rect" id="node24" title=" " alt="" coords="3104,363,3266,404"/>
-<area shape="rect" id="node28" title=" " alt="" coords="173,370,216,397"/>
-<area shape="rect" id="node29" title=" " alt="" coords="240,370,351,397"/>
-<area shape="rect" id="node30" title=" " alt="" coords="375,370,432,397"/>
-<area shape="rect" id="node31" title=" " alt="" coords="456,370,559,397"/>
-<area shape="rect" id="node35" title=" " alt="" coords="3040,281,3125,307"/>
-<area shape="rect" id="node37" title=" " alt="" coords="3282,281,3453,307"/>
-<area shape="rect" id="node39" title=" " alt="" coords="3578,281,3757,307"/>
+<area shape="rect" id="node1" title=" " alt="" coords="4162,5,4361,45"/>
+<area shape="rect" id="node2" title=" " alt="" coords="2402,453,2593,478"/>
+<area shape="rect" id="node3" title=" " alt="" coords="3351,365,3423,390"/>
+<area shape="rect" id="node4" title=" " alt="" coords="4349,101,4517,126"/>
+<area shape="rect" id="node5" title=" " alt="" coords="4541,101,4744,126"/>
+<area shape="rect" id="node6" title=" " alt="" coords="4769,101,4919,126"/>
+<area shape="rect" id="node7" title=" " alt="" coords="4943,101,5131,126"/>
+<area shape="rect" id="node8" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="2801,93,2999,133"/>
+<area shape="rect" id="node21" title=" " alt="" coords="2617,453,2831,478"/>
+<area shape="rect" id="node34" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="761,181,959,221"/>
+<area shape="rect" id="node36" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="3479,181,3678,221"/>
+<area shape="rect" id="node38" href="$d1/d10/state__waypoint_8h.html" title=" " alt="" coords="3806,181,4005,221"/>
+<area shape="rect" id="node9" title=" " alt="" coords="3667,277,3725,302"/>
+<area shape="rect" id="node10" title=" " alt="" coords="5,277,120,302"/>
+<area shape="rect" id="node11" href="$dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="1686,181,1885,221"/>
+<area shape="rect" id="node18" href="$d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="1906,357,2105,397"/>
+<area shape="rect" id="node27" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2801,269,2999,309"/>
+<area shape="rect" id="node32" title=" " alt="" coords="3126,269,3330,309"/>
+<area shape="rect" id="node33" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="914,357,1113,397"/>
+<area shape="rect" id="node12" title=" " alt="" coords="1334,453,1389,478"/>
+<area shape="rect" id="node13" title=" " alt="" coords="1626,445,1753,485"/>
+<area shape="rect" id="node14" title=" " alt="" coords="534,445,661,485"/>
+<area shape="rect" id="node15" title=" " alt="" coords="1427,453,1597,478"/>
+<area shape="rect" id="node16" title=" " alt="" coords="1189,365,1323,390"/>
+<area shape="rect" id="node17" href="$d1/db1/instruction__poly_8h.html" title=" " alt="" coords="1446,269,1645,309"/>
+<area shape="rect" id="node22" title=" " alt="" coords="1783,445,1945,485"/>
+<area shape="rect" id="node23" href="$d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="723,269,927,309"/>
+<area shape="rect" id="node25" href="$d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="1758,269,1957,309"/>
+<area shape="rect" id="node26" href="$d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="2130,269,2329,309"/>
+<area shape="rect" id="node19" title=" " alt="" coords="3437,453,3505,478"/>
+<area shape="rect" id="node20" title=" " alt="" coords="2135,453,2211,478"/>
+<area shape="rect" id="node24" title=" " alt="" coords="322,357,483,397"/>
+<area shape="rect" id="node28" title=" " alt="" coords="2687,365,2729,390"/>
+<area shape="rect" id="node29" title=" " alt="" coords="2754,365,2865,390"/>
+<area shape="rect" id="node30" title=" " alt="" coords="2889,365,2946,390"/>
+<area shape="rect" id="node31" title=" " alt="" coords="2970,365,3073,390"/>
+<area shape="rect" id="node35" title=" " alt="" coords="3456,277,3541,302"/>
+<area shape="rect" id="node37" title=" " alt="" coords="3749,277,3920,302"/>
+<area shape="rect" id="node39" title=" " alt="" coords="3995,277,4173,302"/>
 </map>

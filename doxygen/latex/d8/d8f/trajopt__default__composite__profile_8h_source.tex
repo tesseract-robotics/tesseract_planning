@@ -51,47 +51,47 @@
 \DoxyCodeLine{97   util::SafetyMarginData::Ptr \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a1ceaecdd0f322615e70e041b1def2827}{special\_collision\_cost}}\{ \textcolor{keyword}{nullptr} \};}
 \DoxyCodeLine{99   util::SafetyMarginData::Ptr \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_ab609942c1d58b7a049abd35d1683da6b}{special\_collision\_constraint}}\{ \textcolor{keyword}{nullptr} \};}
 \DoxyCodeLine{100 }
-\DoxyCodeLine{101   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a99fde068add1a85ee68800145fbbcdde}{apply}}(trajopt::ProblemConstructionInfo\& pci,}
+\DoxyCodeLine{101   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a99fde068add1a85ee68800145fbbcdde}{apply}}(trajopt::ProblemConstructionInfo\& \mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}},}
 \DoxyCodeLine{102              \textcolor{keywordtype}{int} start\_index,}
 \DoxyCodeLine{103              \textcolor{keywordtype}{int} end\_index,}
-\DoxyCodeLine{104              \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& manip\_info,}
+\DoxyCodeLine{104              \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info,}
 \DoxyCodeLine{105              \textcolor{keyword}{const} std::vector<std::string>\& active\_links,}
 \DoxyCodeLine{106              \textcolor{keyword}{const} std::vector<int>\& fixed\_indices) \textcolor{keyword}{const override};}
 \DoxyCodeLine{107 }
 \DoxyCodeLine{108   tinyxml2::XMLElement* \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a1afc056c77858f3679e7f60d39e0dcb9}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
 \DoxyCodeLine{109 }
 \DoxyCodeLine{110 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{111   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_af4ab83ef48fdb59b7809ec309c258b2d}{addCollisionCost}}(trajopt::ProblemConstructionInfo\& pci,}
+\DoxyCodeLine{111   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_af4ab83ef48fdb59b7809ec309c258b2d}{addCollisionCost}}(trajopt::ProblemConstructionInfo\& \mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}},}
 \DoxyCodeLine{112                         \textcolor{keywordtype}{int} start\_index,}
 \DoxyCodeLine{113                         \textcolor{keywordtype}{int} end\_index,}
 \DoxyCodeLine{114                         \textcolor{keyword}{const} std::vector<int>\& fixed\_indices) \textcolor{keyword}{const};}
 \DoxyCodeLine{115 }
-\DoxyCodeLine{116   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a595af0d45d099d1fb36d6812410144a3}{addCollisionConstraint}}(trajopt::ProblemConstructionInfo\& pci,}
+\DoxyCodeLine{116   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a595af0d45d099d1fb36d6812410144a3}{addCollisionConstraint}}(trajopt::ProblemConstructionInfo\& \mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}},}
 \DoxyCodeLine{117                               \textcolor{keywordtype}{int} start\_index,}
 \DoxyCodeLine{118                               \textcolor{keywordtype}{int} end\_index,}
 \DoxyCodeLine{119                               \textcolor{keyword}{const} std::vector<int>\& fixed\_indices) \textcolor{keyword}{const};}
 \DoxyCodeLine{120 }
-\DoxyCodeLine{121   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_ac2c483156f81dde04c9a399569fb6c0c}{addVelocitySmoothing}}(trajopt::ProblemConstructionInfo\& pci,}
+\DoxyCodeLine{121   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_ac2c483156f81dde04c9a399569fb6c0c}{addVelocitySmoothing}}(trajopt::ProblemConstructionInfo\& \mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}},}
 \DoxyCodeLine{122                             \textcolor{keywordtype}{int} start\_index,}
 \DoxyCodeLine{123                             \textcolor{keywordtype}{int} end\_index,}
 \DoxyCodeLine{124                             \textcolor{keyword}{const} std::vector<int>\& fixed\_indices) \textcolor{keyword}{const};}
 \DoxyCodeLine{125 }
-\DoxyCodeLine{126   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a10f3dd5023c74afba57f86c580cbf776}{addAccelerationSmoothing}}(trajopt::ProblemConstructionInfo\& pci,}
+\DoxyCodeLine{126   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a10f3dd5023c74afba57f86c580cbf776}{addAccelerationSmoothing}}(trajopt::ProblemConstructionInfo\& \mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}},}
 \DoxyCodeLine{127                                 \textcolor{keywordtype}{int} start\_index,}
 \DoxyCodeLine{128                                 \textcolor{keywordtype}{int} end\_index,}
 \DoxyCodeLine{129                                 \textcolor{keyword}{const} std::vector<int>\& fixed\_indices) \textcolor{keyword}{const};}
 \DoxyCodeLine{130 }
-\DoxyCodeLine{131   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a89763c77bc47770e2e354f6d6c07e38d}{addJerkSmoothing}}(trajopt::ProblemConstructionInfo\& pci,}
+\DoxyCodeLine{131   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a89763c77bc47770e2e354f6d6c07e38d}{addJerkSmoothing}}(trajopt::ProblemConstructionInfo\& \mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}},}
 \DoxyCodeLine{132                         \textcolor{keywordtype}{int} start\_index,}
 \DoxyCodeLine{133                         \textcolor{keywordtype}{int} end\_index,}
 \DoxyCodeLine{134                         \textcolor{keyword}{const} std::vector<int>\& fixed\_indices) \textcolor{keyword}{const};}
 \DoxyCodeLine{135 }
-\DoxyCodeLine{136   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a34bb3d39f4b20c331d75848681db82ad}{addConstraintErrorFunctions}}(trajopt::ProblemConstructionInfo\& pci,}
+\DoxyCodeLine{136   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_a34bb3d39f4b20c331d75848681db82ad}{addConstraintErrorFunctions}}(trajopt::ProblemConstructionInfo\& \mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}},}
 \DoxyCodeLine{137                                    \textcolor{keywordtype}{int} start\_index,}
 \DoxyCodeLine{138                                    \textcolor{keywordtype}{int} end\_index,}
 \DoxyCodeLine{139                                    \textcolor{keyword}{const} std::vector<int>\& fixed\_indices) \textcolor{keyword}{const};}
 \DoxyCodeLine{140 }
-\DoxyCodeLine{141   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_ad6ee85e63bcf4e50b4dc833cdd203804}{addAvoidSingularity}}(trajopt::ProblemConstructionInfo\& pci,}
+\DoxyCodeLine{141   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile_ad6ee85e63bcf4e50b4dc833cdd203804}{addAvoidSingularity}}(trajopt::ProblemConstructionInfo\& \mbox{\hyperlink{trajopt__planner__tests_8cpp_abb1f1d86a9078eb450730e187c50ae5f}{pci}},}
 \DoxyCodeLine{142                            \textcolor{keywordtype}{int} start\_index,}
 \DoxyCodeLine{143                            \textcolor{keywordtype}{int} end\_index,}
 \DoxyCodeLine{144                            \textcolor{keyword}{const} std::string\& link,}

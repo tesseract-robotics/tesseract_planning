@@ -1,10 +1,10 @@
 <map id="tesseract_examples/src/scene_graph_example_node.cpp" name="tesseract_examples/src/scene_graph_example_node.cpp">
-<area shape="rect" id="node1" title="Demonstrates manipulating the scene graph with a robot picking up another robot." alt="" coords="332,5,509,61"/>
-<area shape="rect" id="node2" href="$d1/d70/scene__graph__example_8h.html" title="This example initializes 2 robots from a URDF. It then reattaches one of the robots to the end effect..." alt="" coords="238,109,403,151"/>
-<area shape="rect" id="node8" title=" " alt="" coords="428,109,613,151"/>
-<area shape="rect" id="node3" href="$df/d24/example_8h.html" title=" " alt="" coords="251,199,390,240"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,295,196,322"/>
-<area shape="rect" id="node5" title=" " alt="" coords="220,295,288,322"/>
-<area shape="rect" id="node6" title=" " alt="" coords="311,288,466,329"/>
-<area shape="rect" id="node7" title=" " alt="" coords="490,288,645,329"/>
+<area shape="rect" id="node1" title="Demonstrates manipulating the scene graph with a robot picking up another robot." alt="" coords="333,5,511,60"/>
+<area shape="rect" id="node2" href="$d1/d70/scene__graph__example_8h.html" title="This example initializes 2 robots from a URDF. It then reattaches one of the robots to the end effect..." alt="" coords="239,108,405,148"/>
+<area shape="rect" id="node8" title=" " alt="" coords="429,108,615,148"/>
+<area shape="rect" id="node3" href="$df/d24/example_8h.html" title=" " alt="" coords="253,196,391,236"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,291,196,317"/>
+<area shape="rect" id="node5" title=" " alt="" coords="220,291,288,317"/>
+<area shape="rect" id="node6" title=" " alt="" coords="313,284,467,324"/>
+<area shape="rect" id="node7" title=" " alt="" coords="491,284,646,324"/>
 </map>

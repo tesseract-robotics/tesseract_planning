@@ -21,36 +21,44 @@
 \DoxyCodeLine{41   \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a7ab3ca81b831491d8f02526de75f7994}{SetAnalogInstruction}}() = \textcolor{keywordflow}{default};  \textcolor{comment}{// Required for boost serialization do not use}}
 \DoxyCodeLine{42   \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a7ab3ca81b831491d8f02526de75f7994}{SetAnalogInstruction}}(std::string key, \textcolor{keywordtype}{int} index, \textcolor{keywordtype}{double} value);}
 \DoxyCodeLine{43 }
-\DoxyCodeLine{44   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a40c1a81b10484cd4009d182631af6f48}{getDescription}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_aa30920215d15ce574e1b30eddf985d3d}{setDescription}}(\textcolor{keyword}{const} std::string\& description);}
-\DoxyCodeLine{47 }
-\DoxyCodeLine{48   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a3ed5464d9d3806b355fc7ea5e4e9e8e9}{print}}(\textcolor{keyword}{const} std::string\& prefix = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{const};  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{44   \textcolor{keyword}{const} boost::uuids::uuid\& \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ab333eaf33024345ded3e75294516ed2b}{getUUID}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{45   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a222d6fe5865c3438b392a21d89d7abed}{regenerateUUID}}();}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47   \textcolor{keyword}{const} boost::uuids::uuid\& \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a82481077713865be993c9d0e90be359a}{getParentUUID}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{48   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a58f5ff967adcb98f84dcd1d2cf498784}{setParentUUID}}(\textcolor{keyword}{const} boost::uuids::uuid\& \mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}});}
 \DoxyCodeLine{49 }
-\DoxyCodeLine{51   std::string \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a008a6a94907ee3d9669f1792ca95486a}{getKey}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{54   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a35150e1b139f4293445ab396dbe8838e}{getIndex}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{50   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a40c1a81b10484cd4009d182631af6f48}{getDescription}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_aa30920215d15ce574e1b30eddf985d3d}{setDescription}}(\textcolor{keyword}{const} std::string\& description);}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54   \textcolor{keywordtype}{void} \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a325e3dfd0187a4d3d0e2fe1be25fade0}{print}}(\textcolor{keyword}{const} std::string\& prefix = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{const};  \textcolor{comment}{// NOLINT}}
 \DoxyCodeLine{55 }
-\DoxyCodeLine{57   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ae500d4b1cc3879fb60cd7dedcdc1ae14}{getValue}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{57   std::string \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a008a6a94907ee3d9669f1792ca95486a}{getKey}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{58 }
-\DoxyCodeLine{64   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a1821fb8895994b29fde39e2481fd2c6a}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{SetAnalogInstruction}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{71   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ad2dd0ac2c69a2862c6eba876149d9da3}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{SetAnalogInstruction}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{73 \textcolor{keyword}{private}:}
-\DoxyCodeLine{75   std::string \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_af87174ccbc617ae6752d8a9bd6f23a0c}{description\_}}\{ \textcolor{stringliteral}{"{}Tesseract Set Analog Instruction"{}} \};}
-\DoxyCodeLine{77   std::string \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ae111c0e743b30e762b91a35c725dfadb}{key\_}};}
-\DoxyCodeLine{79   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a56d6b146914744227764e8bcba44d872}{index\_}}\{ 0 \};}
-\DoxyCodeLine{81   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a49635964ef7b0a55e9ac42ef9c1776f3}{value\_}}\{ 0 \};}
-\DoxyCodeLine{82 }
-\DoxyCodeLine{83   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{84   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{85   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a816ac79463f3f67cdb791a3954dd1436}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{86 \};}
-\DoxyCodeLine{87 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{89 \mbox{\hyperlink{set__analog__instruction_8h_a9fa702bdd187165e1d62914af9fa904b}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}, SetAnalogInstruction);}
-\DoxyCodeLine{90 }
-\DoxyCodeLine{91 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_SET\_ANALOG\_INSTRUCTION\_H}}
+\DoxyCodeLine{60   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a35150e1b139f4293445ab396dbe8838e}{getIndex}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{63   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ae500d4b1cc3879fb60cd7dedcdc1ae14}{getValue}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{70   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a1821fb8895994b29fde39e2481fd2c6a}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{SetAnalogInstruction}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{77   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ad2dd0ac2c69a2862c6eba876149d9da3}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{SetAnalogInstruction}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \textcolor{keyword}{private}:}
+\DoxyCodeLine{81   boost::uuids::uuid \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ae5932fa66096c53e2c8fb9a72ded141d}{uuid\_}}\{\};}
+\DoxyCodeLine{83   boost::uuids::uuid \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_af6e057a46273bef50205f952f5207a6b}{parent\_uuid\_}}\{\};}
+\DoxyCodeLine{85   std::string \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_af87174ccbc617ae6752d8a9bd6f23a0c}{description\_}}\{ \textcolor{stringliteral}{"{}Tesseract Set Analog Instruction"{}} \};}
+\DoxyCodeLine{87   std::string \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ae111c0e743b30e762b91a35c725dfadb}{key\_}};}
+\DoxyCodeLine{89   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a56d6b146914744227764e8bcba44d872}{index\_}}\{ 0 \};}
+\DoxyCodeLine{91   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a49635964ef7b0a55e9ac42ef9c1776f3}{value\_}}\{ 0 \};}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{94   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{95   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a816ac79463f3f67cdb791a3954dd1436}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{96 \};}
+\DoxyCodeLine{97 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 \mbox{\hyperlink{instruction__poly_8h_a4dc28033f37b499d6d9e64b1d5767973}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}, SetAnalogInstruction);}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_SET\_ANALOG\_INSTRUCTION\_H}}
 
 \end{DoxyCode}

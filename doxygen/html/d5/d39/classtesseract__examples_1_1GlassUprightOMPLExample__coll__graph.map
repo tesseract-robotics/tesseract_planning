@@ -1,4 +1,4 @@
 <map id="tesseract_examples::GlassUprightOMPLExample" name="tesseract_examples::GlassUprightOMPLExample">
-<area shape="rect" id="node1" title="An example of a robot with fixed orientation but free to move in cartesian space leveraging OMPL RRTC..." alt="" coords="5,95,196,136"/>
-<area shape="rect" id="node2" href="$d3/d3b/classtesseract__examples_1_1Example.html" title="The Example base class." alt="" coords="31,5,170,47"/>
+<area shape="rect" id="node1" title="An example of a robot with fixed orientation but free to move in cartesian space leveraging OMPL RRTC..." alt="" coords="5,93,196,133"/>
+<area shape="rect" id="node2" href="$d3/d3b/classtesseract__examples_1_1Example.html" title="The Example base class." alt="" coords="31,5,170,45"/>
 </map>

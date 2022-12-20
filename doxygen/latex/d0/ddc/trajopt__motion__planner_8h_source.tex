@@ -20,7 +20,7 @@
 \DoxyCodeLine{40 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{TrajOptMotionPlanner}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}}
 \DoxyCodeLine{41 \{}
 \DoxyCodeLine{42 \textcolor{keyword}{public}:}
-\DoxyCodeLine{44   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a948777d9cbc128465e7e3b98e19c942b}{TrajOptMotionPlanner}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a998ca159be1912d9d78a39eb5b297801}{profile\_ns::TRAJOPT\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{44   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{TrajOptMotionPlanner}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a998ca159be1912d9d78a39eb5b297801}{profile\_ns::TRAJOPT\_DEFAULT\_NAMESPACE}});}
 \DoxyCodeLine{45 }
 \DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a5de4843db7289e07d32d46043ef6161d}{\string~TrajOptMotionPlanner}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_adbb77deec2e3fbcdb8f7d8d1bd7f6ee8}{TrajOptMotionPlanner}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{TrajOptMotionPlanner}}\&) = \textcolor{keyword}{delete};}
@@ -28,7 +28,7 @@
 \DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a5055806aedf4a9e0c90a2adeb69d0aad}{TrajOptMotionPlanner}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{TrajOptMotionPlanner}}\&\&) = \textcolor{keyword}{delete};}
 \DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{TrajOptMotionPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a8c620c648008efa1a558f8385dceaa21}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{TrajOptMotionPlanner}}\&\&) = \textcolor{keyword}{delete};}
 \DoxyCodeLine{51 }
-\DoxyCodeLine{52   \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_af2c5a7c6b0927d602fb902962a6d136c}{solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) \textcolor{keyword}{const override};}
+\DoxyCodeLine{52   \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_af2c5a7c6b0927d602fb902962a6d136c}{solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}) \textcolor{keyword}{const override};}
 \DoxyCodeLine{53 }
 \DoxyCodeLine{54   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_afa51678f7a588545207400a39ceab3f8}{terminate}}() \textcolor{keyword}{override};}
 \DoxyCodeLine{55 }
@@ -36,7 +36,7 @@
 \DoxyCodeLine{57 }
 \DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{MotionPlanner::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a8eb60c2a9f65e4af4eb5ce8386a368ab}{clone}}() \textcolor{keyword}{const override};}
 \DoxyCodeLine{59 }
-\DoxyCodeLine{60   \textcolor{keyword}{virtual} std::shared\_ptr<trajopt::ProblemConstructionInfo> \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a6f42bc4743b8be6fd310b7e75282796d}{createProblem}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) \textcolor{keyword}{const};}
+\DoxyCodeLine{60   \textcolor{keyword}{virtual} std::shared\_ptr<trajopt::ProblemConstructionInfo> \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a6f42bc4743b8be6fd310b7e75282796d}{createProblem}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}) \textcolor{keyword}{const};}
 \DoxyCodeLine{61 \};}
 \DoxyCodeLine{62 }
 \DoxyCodeLine{63 \}  \textcolor{comment}{// namespace tesseract\_planning}}

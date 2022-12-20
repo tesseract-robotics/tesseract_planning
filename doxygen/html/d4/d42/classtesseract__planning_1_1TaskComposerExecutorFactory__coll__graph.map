@@ -1,5 +1,5 @@
 <map id="tesseract_planning::TaskComposerExecutorFactory" name="tesseract_planning::TaskComposerExecutorFactory">
-<area shape="rect" id="node1" title="Task Composer Executor Factory class used by the TaskComposerServer for loading executors to be calle..." alt="" coords="5,185,215,227"/>
-<area shape="rect" id="node2" title=" " alt="" coords="71,96,149,123"/>
-<area shape="rect" id="node3" title=" " alt="" coords="48,5,172,47"/>
+<area shape="rect" id="node1" title="Task Composer Executor Factory class used by the TaskComposerServer for loading executors to be calle..." alt="" coords="5,183,215,223"/>
+<area shape="rect" id="node2" title=" " alt="" coords="71,95,149,120"/>
+<area shape="rect" id="node3" title=" " alt="" coords="48,5,172,45"/>
 </map>

@@ -12,29 +12,17 @@ This planner is intended to provide an easy to use interface to OMPL for freespa
 
 
 Inheritance diagram for tesseract\+\_\+planning\+::OMPLMotion\+Planner\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=192pt]{df/d90/classtesseract__planning_1_1OMPLMotionPlanner__inherit__graph}
-\end{center}
-\end{figure}
+% FIG 0
 
 
 Collaboration diagram for tesseract\+\_\+planning\+::OMPLMotion\+Planner\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=306pt]{d6/d4a/classtesseract__planning_1_1OMPLMotionPlanner__coll__graph}
-\end{center}
-\end{figure}
+% FIG 1
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a352554812cb613cb02075c3ad662e068}{OMPLMotion\+Planner}} (std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a811e05491f894926eee1f76ec7d05f5d}{profile\+\_\+ns\+::\+OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}})
 \begin{DoxyCompactList}\small\item\em Construct a planner. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_acbe96b10701a59c016d78ba4aae922eb}{solve}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const override
+\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_acbe96b10701a59c016d78ba4aae922eb}{solve}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}) const override
 \begin{DoxyCompactList}\small\item\em Sets up the OMPL problem then solves. It is intended to simplify setting up and solving freespace motion problems. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a4818d612aa8ae0e022c9ed120db0320d}{terminate}} () override
 \begin{DoxyCompactList}\small\item\em If \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_acbe96b10701a59c016d78ba4aae922eb}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_acbe96b10701a59c016d78ba4aae922eb}{solve()}} is not running (returns true). \end{DoxyCompactList}\item 
@@ -42,12 +30,12 @@ void \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a7852b146c5b
 \begin{DoxyCompactList}\small\item\em Clear the data structures used by the planner. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Motion\+Planner\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a468109943a10b09807c769bdb9f39d86}{clone}} () const override
 \begin{DoxyCompactList}\small\item\em Clone the motion planner. \end{DoxyCompactList}\item 
-virtual std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblemConfig}{OMPLProblem\+Config}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_ab44d60379ba478eee84305e892488c65}{create\+Problems}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
+virtual std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblemConfig}{OMPLProblem\+Config}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_ab44d60379ba478eee84305e892488c65}{create\+Problems}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblemConfig}{OMPLProblem\+Config}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a2640a0313b4f72a8f0dc5b63db2bc5e0}{create\+Sub\+Problem}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+common\+::\+Manipulator\+Info \&composite\+\_\+mi, const tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr \&manip, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&start\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&end\+\_\+instruction, int n\+\_\+output\+\_\+states, int index) const
+\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblemConfig}{OMPLProblem\+Config}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a2640a0313b4f72a8f0dc5b63db2bc5e0}{create\+Sub\+Problem}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}, const tesseract\+\_\+common\+::\+Manipulator\+Info \&composite\+\_\+mi, const tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr \&\mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}}, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&\mbox{\hyperlink{descartes__planner__tests_8cpp_aac5edbcdb4439ed4a647013441d012fe}{start\+\_\+instruction}}, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&end\+\_\+instruction, int \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_af2cca69f4faa242d22aa29593f76455a}{n\+\_\+output\+\_\+states}}, int index) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -130,7 +118,7 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a9b0b2d771
 
 Sets up the OMPL problem then solves. It is intended to simplify setting up and solving freespace motion problems. 
 
-This planner leverages OMPL Parallel\+Plan which supports being called multiple times. So you are able to set\+Configuration and keep calling solve and with each solve it will continue to build the existing planner graph. If you want to start with a clean graph you must call set\+Configuration() before calling solve again.
+This planner leverages OMPL Parallel\+Plan which supports being called multiple times. So you are able to set\+Configuration and keep calling solve and with each solve it will continue to build the existing planner graph. If you want to start with a clean graph you must call \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a0c3eaba29b0cfea6fda2782c3eaa7133}{set\+Configuration()}} before calling solve again.
 
 This planner (and the associated config passed to the set\+Configuration) does not expose all of the available configuration data in OMPL. This is done to simplify the interface. However, many problems may require more specific setups. In that case, the source code for this planner may be used as an example.
 

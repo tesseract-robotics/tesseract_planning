@@ -1,4 +1,4 @@
 <map id="tesseract_examples::SceneGraphExample" name="tesseract_examples::SceneGraphExample">
-<area shape="rect" id="node1" title="Basic example leveraging trajopt and tesseract for cartesian planning." alt="" coords="5,95,155,136"/>
-<area shape="rect" id="node2" href="$d3/d3b/classtesseract__examples_1_1Example.html" title="The Example base class." alt="" coords="11,5,149,47"/>
+<area shape="rect" id="node1" title="Basic example leveraging trajopt and tesseract for cartesian planning." alt="" coords="5,93,155,133"/>
+<area shape="rect" id="node2" href="$d3/d3b/classtesseract__examples_1_1Example.html" title="The Example base class." alt="" coords="11,5,149,45"/>
 </map>

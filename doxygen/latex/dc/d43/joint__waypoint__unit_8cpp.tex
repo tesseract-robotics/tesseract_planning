@@ -15,25 +15,36 @@ Contains unit tests for Joint\+Waypoint.
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/joint\+\_\+waypoint\+\_\+poly.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/joint\+\_\+waypoint.\+h$>$}\newline
 Include dependency graph for joint\+\_\+waypoint\+\_\+unit.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d3/d03/joint__waypoint__unit_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{joint__waypoint__unit_8cpp_af4e02d80804447e104dca5da0ced3f12}{TEST}} (Tesseract\+Command\+Language\+Joint\+Waypoint\+Unit, is\+Toleranced)
+\mbox{\hyperlink{joint__waypoint__unit_8cpp_a8dbf3c0ccc57f65ac2b5e1b3460b50f9}{EXPECT\+\_\+\+FALSE}} (jw.\+is\+Toleranced())
 \item 
-\mbox{\hyperlink{joint__waypoint__unit_8cpp_a7941dfa2d400acb05429823848ce0c37}{TEST}} (Tesseract\+Command\+Language\+Joint\+Waypoint\+Unit, boost\+Serialization)
+\mbox{\hyperlink{joint__waypoint__unit_8cpp_a3c3c287c8edc6cb437a680b89542f060}{jw}} \mbox{\hyperlink{joint__waypoint__unit_8cpp_a5af6c54ac772020c04ebd0ec45759827}{get\+Upper\+Tolerance}} () = Eigen\+::\+Vector\+Xd\+::\+Constant(3, -\/5)
 \item 
-void \mbox{\hyperlink{joint__waypoint__unit_8cpp_ae85c45ef4569668d09ed61f9e5bed63d}{Serialize\+Deserialize\+Test}} (const \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} \&wp)
+\mbox{\hyperlink{joint__waypoint__unit_8cpp_a3c3c287c8edc6cb437a680b89542f060}{jw}} \mbox{\hyperlink{joint__waypoint__unit_8cpp_ac797ae8ceceb3f6cb8806fd615ea2f1a}{get\+Lower\+Tolerance}} () = Eigen\+::\+Vector\+Xd\+::\+Constant(3, -\/5)
 \item 
-\mbox{\hyperlink{joint__waypoint__unit_8cpp_a62023d30009b1e2c6e7128f4ed8cfa1f}{TEST}} (Tesseract\+Command\+Language\+Joint\+Waypoint\+Unit, equality\+Operator\+And\+Serialization)
+\mbox{\hyperlink{joint__waypoint__unit_8cpp_a230efb66cbc730cf1662cc427d8624df}{EXPECT\+\_\+\+TRUE}} (jw.\+is\+Toleranced())
 \item 
-int \mbox{\hyperlink{joint__waypoint__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\mbox{\hyperlink{joint__waypoint__unit_8cpp_ad2af535892f8d8c9eb278765396799bb}{EXPECT\+\_\+\+ANY\+\_\+\+THROW}} (jw.\+is\+Toleranced())
+\item 
+\mbox{\hyperlink{joint__waypoint__unit_8cpp_a3c3c287c8edc6cb437a680b89542f060}{jw}} \mbox{\hyperlink{joint__waypoint__unit_8cpp_aabfc80a70d4dbf6b00d921b3b2a1ad70}{print}} ()
+\item 
+\mbox{\hyperlink{joint__waypoint__unit_8cpp_a4cf0bf889170c3d95293ba26bd0215ab}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{joint__waypoint__unit_8cpp_a3c3c287c8edc6cb437a680b89542f060}{jw}}==nwp.\+as$<$ \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} $>$())
+\item 
+void \mbox{\hyperlink{joint__waypoint__unit_8cpp_ae85c45ef4569668d09ed61f9e5bed63d}{Serialize\+Deserialize\+Test}} (const \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} \&\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\+\_\+values}} = Eigen\+::\+Vector\+Xd\+::\+Constant(3, 1)
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} \mbox{\hyperlink{joint__waypoint__unit_8cpp_a3c3c287c8edc6cb437a680b89542f060}{jw}} \{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}(\mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a5f85173ecc1ddcb342ebc27f28437f5c}{joint\+\_\+names}}, \mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\+\_\+values}}) \}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \mbox{\hyperlink{joint__waypoint__unit_8cpp_a93bf77bebcea96a10cc4f32fb59a2dfc}{wp}} = \mbox{\hyperlink{joint__waypoint__unit_8cpp_a3c3c287c8edc6cb437a680b89542f060}{jw}}
+\item 
+auto \mbox{\hyperlink{joint__waypoint__unit_8cpp_aef81220d0559af23b937520646e10001}{nwp}} = tesseract\+\_\+common\+::\+Serialization\+::from\+Archive\+File\+XML$<$\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}}$>$(\char`\"{}/tmp/joint\+\_\+waypoint\+\_\+boost.\+xml\char`\"{})
 \end{DoxyCompactItemize}
 
 
@@ -68,11 +79,47 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{joint__waypoint__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{joint__waypoint__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
-\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!main@{main}}
-\index{main@{main}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{main()}{main()}}
-{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{joint__waypoint__unit_8cpp_ad2af535892f8d8c9eb278765396799bb}\label{joint__waypoint__unit_8cpp_ad2af535892f8d8c9eb278765396799bb}} 
+\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}}
+\index{EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_ANY\_THROW()}{EXPECT\_ANY\_THROW()}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+ANY\+\_\+\+THROW (\begin{DoxyParamCaption}\item[{jw.}]{is\+Toleranced() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{joint__waypoint__unit_8cpp_a8dbf3c0ccc57f65ac2b5e1b3460b50f9}\label{joint__waypoint__unit_8cpp_a8dbf3c0ccc57f65ac2b5e1b3460b50f9}} 
+\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{jw.}]{is\+Toleranced() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{joint__waypoint__unit_8cpp_a230efb66cbc730cf1662cc427d8624df}\label{joint__waypoint__unit_8cpp_a230efb66cbc730cf1662cc427d8624df}} 
+\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{jw.}]{is\+Toleranced() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{joint__waypoint__unit_8cpp_a4cf0bf889170c3d95293ba26bd0215ab}\label{joint__waypoint__unit_8cpp_a4cf0bf889170c3d95293ba26bd0215ab}} 
+\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{joint__waypoint__unit_8cpp_a3c3c287c8edc6cb437a680b89542f060}{jw}}}]{ = {\ttfamily =nwp.as$<$~\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}}~$>$()} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{joint__waypoint__unit_8cpp_ac797ae8ceceb3f6cb8806fd615ea2f1a}\label{joint__waypoint__unit_8cpp_ac797ae8ceceb3f6cb8806fd615ea2f1a}} 
+\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!getLowerTolerance@{getLowerTolerance}}
+\index{getLowerTolerance@{getLowerTolerance}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{getLowerTolerance()}{getLowerTolerance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{joint__waypoint__unit_8cpp_a3c3c287c8edc6cb437a680b89542f060}{jw}} get\+Lower\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) = Eigen\+::\+Vector\+Xd\+::\+Constant(3, -\/5)}
+
+\mbox{\Hypertarget{joint__waypoint__unit_8cpp_a5af6c54ac772020c04ebd0ec45759827}\label{joint__waypoint__unit_8cpp_a5af6c54ac772020c04ebd0ec45759827}} 
+\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!getUpperTolerance@{getUpperTolerance}}
+\index{getUpperTolerance@{getUpperTolerance}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{getUpperTolerance()}{getUpperTolerance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{joint__waypoint__unit_8cpp_a3c3c287c8edc6cb437a680b89542f060}{jw}} get\+Upper\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) = Eigen\+::\+Vector\+Xd\+::\+Constant(3, -\/5)}
+
+\mbox{\Hypertarget{joint__waypoint__unit_8cpp_aabfc80a70d4dbf6b00d921b3b2a1ad70}\label{joint__waypoint__unit_8cpp_aabfc80a70d4dbf6b00d921b3b2a1ad70}} 
+\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!print@{print}}
+\index{print@{print}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{joint__waypoint__unit_8cpp_a3c3c287c8edc6cb437a680b89542f060}{jw}} print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{joint__waypoint__unit_8cpp_ae85c45ef4569668d09ed61f9e5bed63d}\label{joint__waypoint__unit_8cpp_ae85c45ef4569668d09ed61f9e5bed63d}} 
 \index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!SerializeDeserializeTest@{SerializeDeserializeTest}}
@@ -80,21 +127,30 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{SerializeDeserializeTest()}{SerializeDeserializeTest()}}
 {\footnotesize\ttfamily void Serialize\+Deserialize\+Test (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} \&}]{wp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{joint__waypoint__unit_8cpp_a7941dfa2d400acb05429823848ce0c37}\label{joint__waypoint__unit_8cpp_a7941dfa2d400acb05429823848ce0c37}} 
-\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Joint\+Waypoint\+Unit}]{,  }\item[{boost\+Serialization}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{joint__waypoint__unit_8cpp_a62023d30009b1e2c6e7128f4ed8cfa1f}\label{joint__waypoint__unit_8cpp_a62023d30009b1e2c6e7128f4ed8cfa1f}} 
-\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Joint\+Waypoint\+Unit}]{,  }\item[{equality\+Operator\+And\+Serialization}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{joint__waypoint__unit_8cpp_af4e02d80804447e104dca5da0ced3f12}\label{joint__waypoint__unit_8cpp_af4e02d80804447e104dca5da0ced3f12}} 
-\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Joint\+Waypoint\+Unit}]{,  }\item[{is\+Toleranced}]{ }\end{DoxyParamCaption})}
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}\label{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}} 
+\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!joint\_values@{joint\_values}}
+\index{joint\_values@{joint\_values}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{joint\_values}{joint\_values}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd joint\+\_\+values = Eigen\+::\+Vector\+Xd\+::\+Constant(3, 1)}
+
+\mbox{\Hypertarget{joint__waypoint__unit_8cpp_a3c3c287c8edc6cb437a680b89542f060}\label{joint__waypoint__unit_8cpp_a3c3c287c8edc6cb437a680b89542f060}} 
+\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!jw@{jw}}
+\index{jw@{jw}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{jw}{jw}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} jw \{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}(\mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a5f85173ecc1ddcb342ebc27f28437f5c}{joint\+\_\+names}}, \mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\+\_\+values}}) \}}
+
+\mbox{\Hypertarget{joint__waypoint__unit_8cpp_aef81220d0559af23b937520646e10001}\label{joint__waypoint__unit_8cpp_aef81220d0559af23b937520646e10001}} 
+\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!nwp@{nwp}}
+\index{nwp@{nwp}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{nwp}{nwp}}
+{\footnotesize\ttfamily auto nwp = tesseract\+\_\+common\+::\+Serialization\+::from\+Archive\+File\+XML$<$\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}}$>$(\char`\"{}/tmp/joint\+\_\+waypoint\+\_\+boost.\+xml\char`\"{})}
+
+\mbox{\Hypertarget{joint__waypoint__unit_8cpp_a93bf77bebcea96a10cc4f32fb59a2dfc}\label{joint__waypoint__unit_8cpp_a93bf77bebcea96a10cc4f32fb59a2dfc}} 
+\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!wp@{wp}}
+\index{wp@{wp}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{wp}{wp}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} wp = \mbox{\hyperlink{joint__waypoint__unit_8cpp_a3c3c287c8edc6cb437a680b89542f060}{jw}}}
 

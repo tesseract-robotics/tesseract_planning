@@ -1,5 +1,5 @@
 <map id="tesseract_planning::RasterCtGlobalPipelineTask" name="tesseract_planning::RasterCtGlobalPipelineTask">
-<area shape="rect" id="node1" title="The RasterCtGlobalPipelineTask class." alt="" coords="5,184,196,225"/>
-<area shape="rect" id="node2" href="$d3/dac/classtesseract__planning_1_1TaskComposerGraph.html" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="25,95,176,136"/>
-<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="27,5,174,47"/>
+<area shape="rect" id="node1" title="The RasterCtGlobalPipelineTask class." alt="" coords="5,181,196,221"/>
+<area shape="rect" id="node2" href="$d3/dac/classtesseract__planning_1_1TaskComposerGraph.html" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="25,93,176,133"/>
+<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="27,5,174,45"/>
 </map>

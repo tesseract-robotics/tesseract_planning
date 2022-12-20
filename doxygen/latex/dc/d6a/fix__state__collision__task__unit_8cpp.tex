@@ -11,13 +11,7 @@
 {\ttfamily \#include $<$tesseract\+\_\+support/tesseract\+\_\+support\+\_\+resource\+\_\+locator.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}freespace\+\_\+example\+\_\+program.\+h\char`\"{}}\newline
 Include dependency graph for fix\+\_\+state\+\_\+collision\+\_\+task\+\_\+unit.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{df/dec/fix__state__collision__task__unit_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -26,46 +20,242 @@ class \mbox{\hyperlink{classFixStateCollisionTaskUnit}{Fix\+State\+Collision\+Ta
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a29727b5b25e525d642eff137b4dff0a0}{TEST\+\_\+F}} (\mbox{\hyperlink{classFixStateCollisionTaskUnit}{Fix\+State\+Collision\+Task\+Unit}}, State\+In\+Collision\+Test)
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}{task\+\_\+data}} \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_ae879a2256643655e541d23c1d74b4b34}{set\+Data}} (\char`\"{}input\+\_\+program\char`\"{}, \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}})
 \item 
-\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_ae20e5a706901f8364b8debe8019e58b2}{TEST\+\_\+F}} (\mbox{\hyperlink{classFixStateCollisionTaskUnit}{Fix\+State\+Collision\+Task\+Unit}}, Waypoint\+In\+Collision\+Test)
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_ad19eba84b4bf9075915345e299c5e9d5}{EXPECT\+\_\+\+TRUE}} (state\+In\+Collision(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}}))
 \item 
-\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_ad330e12591ac0fd052b7ab1d689e0726}{TEST\+\_\+F}} (\mbox{\hyperlink{classFixStateCollisionTaskUnit}{Fix\+State\+Collision\+Task\+Unit}}, Move\+Waypoint\+From\+Collision\+Random\+Sampler\+Test)
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a405b0eb87638a645fb102fb901697505}{EXPECT\+\_\+\+FALSE}} (contacts.\+empty())
 \item 
-\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a38646bd5cd9fcf88640f4762b69f07ff}{TEST\+\_\+F}} (\mbox{\hyperlink{classFixStateCollisionTaskUnit}{Fix\+State\+Collision\+Task\+Unit}}, Move\+Waypoint\+From\+Collision\+Trajopt\+Test)
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}} \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_aece27a3a69145fb1f240e617113a74c8}{clear}} ()
+\item 
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a3c39a1d2b060644f38494a4ad7c72f91}{EXPECT\+\_\+\+FALSE}} (state\+In\+Collision(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}}))
+\item 
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a3a787264fea73cef2f1300d227d26386}{EXPECT\+\_\+\+TRUE}} (contacts.\+empty())
+\item 
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_ad436d5138ea5b2ea1d0e63a8bd34e418}{EXPECT\+\_\+\+TRUE}} (waypoint\+In\+Collision(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}}))
+\item 
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}} \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4455c38af85a22ca9395447934349a3d}{get\+Position}} ()\mbox{[}0\mbox{]}
+\item 
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a23b651aebb62dab8059153439aa059b3}{EXPECT\+\_\+\+FALSE}} (waypoint\+In\+Collision(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}}))
+\item 
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4b84b2bbb2ba07809d844d20d6889856}{EXPECT\+\_\+\+FALSE}} (waypoint\+In\+Collision(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a42530728f8f98e2fc8084a141bf1b7b4}{cart\+\_\+wp}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}}))
+\item 
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_ac5265919b292f597d6db1ed10a785f70}{EXPECT\+\_\+\+TRUE}} (waypoint\+In\+Collision(\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}}))
+\item 
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a1f13ad479a655f4b5bb1e2db1f6bcc0a}{EXPECT\+\_\+\+FALSE}} (move\+Waypoint\+From\+Collision\+Random\+Sampler(\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}))
+\item 
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a385c1e772ebb1881e95d3dce4ea024a3}{EXPECT\+\_\+\+TRUE}} (move\+Waypoint\+From\+Collision\+Random\+Sampler(\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}))
+\item 
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_aa21dcb677ab17f3f4164731963b2ee54}{EXPECT\+\_\+\+FALSE}} (waypoint\+In\+Collision(\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}}))
+\item 
+\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_abc14ad0ad98007c8aab9cda1def0acb0}{EXPECT\+\_\+\+TRUE}} (move\+Waypoint\+From\+Collision\+Trajopt(\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}))
 \item 
 int \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{Task\+Composer\+Data\+Storage}} \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}{task\+\_\+data}}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem}{Task\+Composer\+Problem}} \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_ad622a7ca1f792b29507b23ec736946e7}{task\+\_\+problem}} (env\+\_\+, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}{task\+\_\+data}})
+\item 
+auto \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}}$>$(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_ad622a7ca1f792b29507b23ec736946e7}{task\+\_\+problem}})
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}
+\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}} = Eigen\+::\+Vector\+Xd\+::\+Zero(2)
+\item 
+tesseract\+\_\+collision\+::\+Contact\+Result\+Map \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}}
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}} collision\+\_\+check\+\_\+config \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_abc286e89ab9076f99b157213be209a4d}{contact\+\_\+manager\+\_\+config}} = tesseract\+\_\+collision\+::\+Contact\+Manager\+Config(0.\+1)
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}} \{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}(\{ \char`\"{}boxbot\+\_\+x\+\_\+joint\char`\"{}, \char`\"{}boxbot\+\_\+y\+\_\+joint\char`\"{} \}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}) \}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a42530728f8f98e2fc8084a141bf1b7b4}{cart\+\_\+wp}} (Eigen\+::\+Isometry3d\+::\+Identity())
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}} \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a95d703a8e10cc02968f608d9ce0c8d00}{jiggle\+\_\+factor}} = 1.\+0
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a27742b190149439e828a7be27db371d6}{wp}} (\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}})
+\item 
+\mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}} \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4f3d62a7038c8e60099456c1f679bdbd}{sampling\+\_\+attempts}} = 0
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_aece27a3a69145fb1f240e617113a74c8}\label{fix__state__collision__task__unit_8cpp_aece27a3a69145fb1f240e617113a74c8}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!clear@{clear}}
+\index{clear@{clear}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}} clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a405b0eb87638a645fb102fb901697505}\label{fix__state__collision__task__unit_8cpp_a405b0eb87638a645fb102fb901697505}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{contacts.}]{empty() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a1f13ad479a655f4b5bb1e2db1f6bcc0a}\label{fix__state__collision__task__unit_8cpp_a1f13ad479a655f4b5bb1e2db1f6bcc0a}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{move\+Waypoint\+From\+Collision\+Random\+Sampler(\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}})}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a3c39a1d2b060644f38494a4ad7c72f91}\label{fix__state__collision__task__unit_8cpp_a3c39a1d2b060644f38494a4ad7c72f91}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{state\+In\+Collision(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}})}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a4b84b2bbb2ba07809d844d20d6889856}\label{fix__state__collision__task__unit_8cpp_a4b84b2bbb2ba07809d844d20d6889856}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{waypoint\+In\+Collision(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a42530728f8f98e2fc8084a141bf1b7b4}{cart\+\_\+wp}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}})}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a23b651aebb62dab8059153439aa059b3}\label{fix__state__collision__task__unit_8cpp_a23b651aebb62dab8059153439aa059b3}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{waypoint\+In\+Collision(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}})}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_aa21dcb677ab17f3f4164731963b2ee54}\label{fix__state__collision__task__unit_8cpp_aa21dcb677ab17f3f4164731963b2ee54}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{waypoint\+In\+Collision(\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}})}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a3a787264fea73cef2f1300d227d26386}\label{fix__state__collision__task__unit_8cpp_a3a787264fea73cef2f1300d227d26386}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{contacts.}]{empty() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a385c1e772ebb1881e95d3dce4ea024a3}\label{fix__state__collision__task__unit_8cpp_a385c1e772ebb1881e95d3dce4ea024a3}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{move\+Waypoint\+From\+Collision\+Random\+Sampler(\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}})}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_abc14ad0ad98007c8aab9cda1def0acb0}\label{fix__state__collision__task__unit_8cpp_abc14ad0ad98007c8aab9cda1def0acb0}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{move\+Waypoint\+From\+Collision\+Trajopt(\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}})}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_ad19eba84b4bf9075915345e299c5e9d5}\label{fix__state__collision__task__unit_8cpp_ad19eba84b4bf9075915345e299c5e9d5}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{state\+In\+Collision(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}})}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_ad436d5138ea5b2ea1d0e63a8bd34e418}\label{fix__state__collision__task__unit_8cpp_ad436d5138ea5b2ea1d0e63a8bd34e418}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{waypoint\+In\+Collision(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}})}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_ac5265919b292f597d6db1ed10a785f70}\label{fix__state__collision__task__unit_8cpp_ac5265919b292f597d6db1ed10a785f70}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{waypoint\+In\+Collision(\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}}, manip\+\_\+, $\ast$\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}{task\+\_\+input}}, \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}})}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a4455c38af85a22ca9395447934349a3d}\label{fix__state__collision__task__unit_8cpp_a4455c38af85a22ca9395447934349a3d}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}} get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{fix__state__collision__task__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
 \index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!main@{main}}
 \index{main@{main}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_ad330e12591ac0fd052b7ab1d689e0726}\label{fix__state__collision__task__unit_8cpp_ad330e12591ac0fd052b7ab1d689e0726}} 
-\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classFixStateCollisionTaskUnit}{Fix\+State\+Collision\+Task\+Unit}}}]{,  }\item[{Move\+Waypoint\+From\+Collision\+Random\+Sampler\+Test}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_ae879a2256643655e541d23c1d74b4b34}\label{fix__state__collision__task__unit_8cpp_ae879a2256643655e541d23c1d74b4b34}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!setData@{setData}}
+\index{setData@{setData}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}{task\+\_\+data}} set\+Data (\begin{DoxyParamCaption}\item[{\char`\"{}input\+\_\+program\char`\"{}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a38646bd5cd9fcf88640f4762b69f07ff}\label{fix__state__collision__task__unit_8cpp_a38646bd5cd9fcf88640f4762b69f07ff}} 
-\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classFixStateCollisionTaskUnit}{Fix\+State\+Collision\+Task\+Unit}}}]{,  }\item[{Move\+Waypoint\+From\+Collision\+Trajopt\+Test}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a29727b5b25e525d642eff137b4dff0a0}\label{fix__state__collision__task__unit_8cpp_a29727b5b25e525d642eff137b4dff0a0}} 
-\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classFixStateCollisionTaskUnit}{Fix\+State\+Collision\+Task\+Unit}}}]{,  }\item[{State\+In\+Collision\+Test}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_ae20e5a706901f8364b8debe8019e58b2}\label{fix__state__collision__task__unit_8cpp_ae20e5a706901f8364b8debe8019e58b2}} 
-\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classFixStateCollisionTaskUnit}{Fix\+State\+Collision\+Task\+Unit}}}]{,  }\item[{Waypoint\+In\+Collision\+Test}]{ }\end{DoxyParamCaption})}
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a42530728f8f98e2fc8084a141bf1b7b4}\label{fix__state__collision__task__unit_8cpp_a42530728f8f98e2fc8084a141bf1b7b4}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!cart\_wp@{cart\_wp}}
+\index{cart\_wp@{cart\_wp}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{cart\_wp}{cart\_wp}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} cart\+\_\+wp(Eigen\+::\+Isometry3d\+::\+Identity()) (\begin{DoxyParamCaption}\item[{Eigen\+::\+Isometry3d\+::\+Identity()}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_abc286e89ab9076f99b157213be209a4d}\label{fix__state__collision__task__unit_8cpp_abc286e89ab9076f99b157213be209a4d}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!contact\_manager\_config@{contact\_manager\_config}}
+\index{contact\_manager\_config@{contact\_manager\_config}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{contact\_manager\_config}{contact\_manager\_config}}
+{\footnotesize\ttfamily \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}} collision\+\_\+check\+\_\+config contact\+\_\+manager\+\_\+config = tesseract\+\_\+collision\+::\+Contact\+Manager\+Config(0.\+1)}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}\label{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!contacts@{contacts}}
+\index{contacts@{contacts}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{contacts}{contacts}}
+{\footnotesize\ttfamily tesseract\+\_\+collision\+::\+Contact\+Result\+Map contacts}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a95d703a8e10cc02968f608d9ce0c8d00}\label{fix__state__collision__task__unit_8cpp_a95d703a8e10cc02968f608d9ce0c8d00}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!jiggle\_factor@{jiggle\_factor}}
+\index{jiggle\_factor@{jiggle\_factor}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{jiggle\_factor}{jiggle\_factor}}
+{\footnotesize\ttfamily \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}} jiggle\+\_\+factor = 1.\+0}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_abef2081b208ab62011ea9a1557a0be70}\label{fix__state__collision__task__unit_8cpp_abef2081b208ab62011ea9a1557a0be70}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!profile@{profile}}
+\index{profile@{profile}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{profile}{profile}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} profile}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a4f3d62a7038c8e60099456c1f679bdbd}\label{fix__state__collision__task__unit_8cpp_a4f3d62a7038c8e60099456c1f679bdbd}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!sampling\_attempts@{sampling\_attempts}}
+\index{sampling\_attempts@{sampling\_attempts}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{sampling\_attempts}{sampling\_attempts}}
+{\footnotesize\ttfamily \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}} sampling\+\_\+attempts = 0}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}\label{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!state@{state}}
+\index{state@{state}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd state = Eigen\+::\+Vector\+Xd\+::\+Zero(2)}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}\label{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!task\_data@{task\_data}}
+\index{task\_data@{task\_data}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{task\_data}{task\_data}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage}{Task\+Composer\+Data\+Storage}} task\+\_\+data}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{  \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} = \mbox{\hyperlink{namespacetesseract__planning_a7a2039b9a45e29e30050777ff8b69bfa}{freespaceExampleProgramABB}}()}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}\label{fix__state__collision__task__unit_8cpp_a534e02381108c8756d563fed0582e9d3}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!task\_input@{task\_input}}
+\index{task\_input@{task\_input}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{task\_input}{task\_input}}
+{\footnotesize\ttfamily auto task\+\_\+input = std\+::make\+\_\+shared$<$\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}}$>$(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_ad622a7ca1f792b29507b23ec736946e7}{task\+\_\+problem}})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_ad622a7ca1f792b29507b23ec736946e7}\label{fix__state__collision__task__unit_8cpp_ad622a7ca1f792b29507b23ec736946e7}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!task\_problem@{task\_problem}}
+\index{task\_problem@{task\_problem}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{task\_problem}{task\_problem}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem}{Task\+Composer\+Problem}} task\+\_\+problem (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a53f42612549d0e4b34e18876cc7a9ed3}{task\+\_\+data}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}\label{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!waypoint@{waypoint}}
+\index{waypoint@{waypoint}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{waypoint}{waypoint}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} waypoint \{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}(\{ \char`\"{}boxbot\+\_\+x\+\_\+joint\char`\"{}, \char`\"{}boxbot\+\_\+y\+\_\+joint\char`\"{} \}, \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_afeafa25c1ddf0622559ed3eaa523e063}{state}}) \}}
+
+\mbox{\Hypertarget{fix__state__collision__task__unit_8cpp_a27742b190149439e828a7be27db371d6}\label{fix__state__collision__task__unit_8cpp_a27742b190149439e828a7be27db371d6}} 
+\index{fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}!wp@{wp}}
+\index{wp@{wp}!fix\_state\_collision\_task\_unit.cpp@{fix\_state\_collision\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{wp}{wp}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} wp(\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}}) (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}}}]{ }\end{DoxyParamCaption})}
 

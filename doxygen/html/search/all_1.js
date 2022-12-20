@@ -45,5 +45,6 @@ var searchData=
   ['bounds_5f_42',['bounds_',['../d8/d11/classtesseract__planning_1_1WeightedRealVectorStateSampler.html#a4af14719e6d4c903323d2278971ffa60',1,'tesseract_planning::WeightedRealVectorStateSampler']]],
   ['box_5fposition_5f_43',['box_position_',['../d9/dff/classtesseract__examples_1_1PickAndPlaceExample.html#a73e5832abbe38ab922d4a471ce0f2fed',1,'tesseract_examples::PickAndPlaceExample']]],
   ['box_5fsize_5f_44',['box_size_',['../d1/d36/classtesseract__examples_1_1OnlinePlanningExample.html#a4f21249555cbbe83fc31c845e4b6b2ff',1,'tesseract_examples::OnlinePlanningExample::box_size_()'],['../d9/dff/classtesseract__examples_1_1PickAndPlaceExample.html#a707e9fa987324e01ad6d19e0858a06fd',1,'tesseract_examples::PickAndPlaceExample::box_size_()']]],
-  ['bug_20list_45',['Bug List',['../de/da5/bug.html',1,'']]]
+  ['buffer_45',['buffer',['../d8/df6/tesseract__command__language_2test_2utils__test_8cpp.html#adbf6a7492c6521b38c1510aebe307770',1,'utils_test.cpp']]],
+  ['bug_20list_46',['Bug List',['../de/da5/bug.html',1,'']]]
 ];

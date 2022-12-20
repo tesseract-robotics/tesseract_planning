@@ -1,7 +1,7 @@
 <map id="tesseract_command_language/include/tesseract_command_language/set_analog_instruction.h" name="tesseract_command_language/include/tesseract_command_language/set_analog_instruction.h">
-<area shape="rect" id="node1" title="Set Analog Instruction." alt="" coords="329,5,555,61"/>
-<area shape="rect" id="node2" href="$d8/d79/instruction__type_8cpp.html" title=" " alt="" coords="5,109,204,151"/>
-<area shape="rect" id="node3" href="$d7/d2d/set__analog__instruction_8cpp.html" title="Set Analog Instruction." alt="" coords="229,109,431,151"/>
-<area shape="rect" id="node4" href="$de/df3/tesseract__command__language_2test_2serialize__test_8cpp.html" title=" " alt="" coords="456,109,655,151"/>
-<area shape="rect" id="node5" href="$d1/dbe/type__erasure__benchmark_8cpp.html" title=" " alt="" coords="679,109,901,151"/>
+<area shape="rect" id="node1" title="Set Analog Instruction." alt="" coords="329,5,555,60"/>
+<area shape="rect" id="node2" href="$d8/d79/instruction__type_8cpp.html" title=" " alt="" coords="5,108,204,148"/>
+<area shape="rect" id="node3" href="$d7/d2d/set__analog__instruction_8cpp.html" title="Set Analog Instruction." alt="" coords="229,108,431,148"/>
+<area shape="rect" id="node4" href="$de/df3/tesseract__command__language_2test_2serialize__test_8cpp.html" title=" " alt="" coords="456,108,655,148"/>
+<area shape="rect" id="node5" href="$d1/dbe/type__erasure__benchmark_8cpp.html" title=" " alt="" coords="679,108,901,148"/>
 </map>

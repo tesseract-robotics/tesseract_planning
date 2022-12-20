@@ -83,37 +83,37 @@
 \DoxyCodeLine{116   \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a8a2769a8a4243c7e6728ef78c9b7dd4b}{\string~TaskComposerNodeInfoContainer}}() = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{117   \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a1c46453aaa96579a8706731a98199237}{TaskComposerNodeInfoContainer}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\&);}
 \DoxyCodeLine{118   \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a662d3475dd1c268d6e1e61301f0b8129}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\&);}
-\DoxyCodeLine{119   \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a8654b5a7d435045e3dc91e56f0950229}{TaskComposerNodeInfoContainer}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{120   \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a8de6a2a7595c64fa36d292c004aa8dbe}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{119   \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a1c46453aaa96579a8706731a98199237}{TaskComposerNodeInfoContainer}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\&\&) noexcept;}
+\DoxyCodeLine{120   \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\& operator=(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\&\&) noexcept;}
 \DoxyCodeLine{121 }
-\DoxyCodeLine{126   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a1a992128903040dc915673b29e7a32fb}{addInfo}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} info);}
+\DoxyCodeLine{126   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a1a992128903040dc915673b29e7a32fb}{addInfo}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{TaskComposerNodeInfo}}::\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a142eab8f165d5f21d43c6c076a47944b}{UPtr}} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}});}
 \DoxyCodeLine{127 }
-\DoxyCodeLine{133   \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{TaskComposerNodeInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_ac9565fb7cec309b82744aa64dc571537}{getInfo}}(boost::uuids::uuid key) \textcolor{keyword}{const};}
+\DoxyCodeLine{133   const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{TaskComposerNodeInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_ac9565fb7cec309b82744aa64dc571537}{getInfo}}(boost::uuids::\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}} key) const;}
 \DoxyCodeLine{134 }
-\DoxyCodeLine{136   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a6d83cbb9666850f7ad3c0d8dbaca0a80}{getInfoMap}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{136   std::map<boost::uuids::\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}}, \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{TaskComposerNodeInfo}}::\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a142eab8f165d5f21d43c6c076a47944b}{UPtr}}> \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a6d83cbb9666850f7ad3c0d8dbaca0a80}{getInfoMap}}() const;}
 \DoxyCodeLine{137 }
 \DoxyCodeLine{139   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a881f28fc4bfaf1b46ea4593a8588c706}{clear}}();}
 \DoxyCodeLine{140 }
-\DoxyCodeLine{141   \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{TaskComposerNodeInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a4044b656f6c213ae0aaec7ca98dca1d8}{operator[]}}(boost::uuids::uuid key) \textcolor{keyword}{const};}
+\DoxyCodeLine{141   const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{TaskComposerNodeInfo}}\& operator[](boost::uuids::\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}} key) const;}
 \DoxyCodeLine{142 }
-\DoxyCodeLine{143   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_ad1d70bd979c53a2b95f0a61b2c3d94c7}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{144   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_ade55c6ebd80d16e476060f07a24015ef}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{143   \textcolor{keywordtype}{bool} operator==(const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\& rhs) const;}
+\DoxyCodeLine{144   \textcolor{keywordtype}{bool} operator!=(const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\& rhs) const;}
 \DoxyCodeLine{145 }
-\DoxyCodeLine{146 \textcolor{keyword}{private}:}
-\DoxyCodeLine{147   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
-\DoxyCodeLine{148   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{149   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{150   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a9e3650f12f2c3654bd433ca1499b46c5}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{146 private:}
+\DoxyCodeLine{147   friend class tesseract\_common::\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a74c50fcc25e72cb9703ee14d7e71dcd8}{Serialization}};}
+\DoxyCodeLine{148   friend class boost::serialization::\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_ac98d07dd8f7b70e16ccb9a01abf56b9c}{access}};}
+\DoxyCodeLine{149   template <class Archive>}
+\DoxyCodeLine{150   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a9e3650f12f2c3654bd433ca1499b46c5}{serialize}}(Archive\& ar, const \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
 \DoxyCodeLine{151 }
-\DoxyCodeLine{152   \textcolor{keyword}{mutable} std::shared\_mutex \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_abaf58ed8cacac214ac59e0013e45ebef}{mutex\_}};}
-\DoxyCodeLine{153   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a21f6731396e79b7adcfb735b3a3a6f5f}{info\_map\_}};}
+\DoxyCodeLine{152   mutable std::shared\_mutex \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_abaf58ed8cacac214ac59e0013e45ebef}{mutex\_}};}
+\DoxyCodeLine{153   std::map<boost::uuids::\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}}, \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{TaskComposerNodeInfo}}::\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a142eab8f165d5f21d43c6c076a47944b}{UPtr}}> \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a21f6731396e79b7adcfb735b3a3a6f5f}{info\_map\_}};}
 \DoxyCodeLine{154 \};}
 \DoxyCodeLine{155 \}  \textcolor{comment}{// namespace tesseract\_planning}}
 \DoxyCodeLine{156 }
 \DoxyCodeLine{157 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
 \DoxyCodeLine{158 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
 \DoxyCodeLine{159 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{tesseract\_planning::TaskComposerNodeInfo}}, \textcolor{stringliteral}{"{}TaskComposerNodeInfo"{}})}
-\DoxyCodeLine{160 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::TaskComposerNodeInfoContainer, "{}TaskComposerNodeInfoContainer"{})}
+\DoxyCodeLine{160 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}, "{}\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}"{})}
 \DoxyCodeLine{161 }
 \DoxyCodeLine{162 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_NODE\_INFO\_H}}
 

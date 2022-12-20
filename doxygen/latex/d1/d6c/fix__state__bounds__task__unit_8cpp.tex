@@ -13,13 +13,7 @@
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/move\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+support/tesseract\+\_\+support\+\_\+resource\+\_\+locator.\+h$>$}\newline
 Include dependency graph for fix\+\_\+state\+\_\+bounds\+\_\+task\+\_\+unit.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d7/d81/fix__state__bounds__task__unit_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -28,22 +22,209 @@ class \mbox{\hyperlink{classFixStateBoundsTaskUnit}{Fix\+State\+Bounds\+Task\+Un
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_aa6b2dcd5083b7702f534d5145bbed0e5}{create\+Program}} (const Eigen\+::\+Vector\+Xd \&\mbox{\hyperlink{ompl__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}, const Eigen\+::\+Vector\+Xd \&goal\+\_\+state, const std\+::string \&composite\+\_\+profile)
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_aa6b2dcd5083b7702f534d5145bbed0e5}{create\+Program}} (const Eigen\+::\+Vector\+Xd \&\mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}, const Eigen\+::\+Vector\+Xd \&goal\+\_\+state, const std\+::string \&\mbox{\hyperlink{trajopt__planner__tests_8cpp_ab5ca2bc3543c598ab7780590481d7d34}{composite\+\_\+profile}})
 \item 
-void \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_afc65e7a7ccc06bd107fabca1df74812e}{check\+Program}} (const Environment\+::\+Ptr \&env, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip, const Eigen\+::\+Vector\+Xd \&\mbox{\hyperlink{ompl__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}, const Eigen\+::\+Vector\+Xd \&goal\+\_\+state, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}} $>$ \&profiles, \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a5ca76ba80aa9d3a8fe819937ee1a0560}{Fix\+State\+Bounds\+Profile\+::\+Settings}} setting, bool pre\+\_\+check\+\_\+return, int expected\+\_\+return)
+void \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_afc65e7a7ccc06bd107fabca1df74812e}{check\+Program}} (const Environment\+::\+Ptr \&\mbox{\hyperlink{basic__cartesian__example__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}}, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&\mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}}, const Eigen\+::\+Vector\+Xd \&\mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}, const Eigen\+::\+Vector\+Xd \&goal\+\_\+state, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}} $>$ \&\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a5ca76ba80aa9d3a8fe819937ee1a0560}{Fix\+State\+Bounds\+Profile\+::\+Settings}} setting, bool pre\+\_\+check\+\_\+return, int expected\+\_\+return)
 \item 
-\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a641a03cc401e64e18ff6e8bd5d277258}{TEST\+\_\+F}} (\mbox{\hyperlink{classFixStateBoundsTaskUnit}{Fix\+State\+Bounds\+Task\+Unit}}, state\+In\+Bounds)
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a45e6937e3889e6f245438bc79c6e0515}{add\+Profile$<$ Fix\+State\+Bounds\+Profile $>$}} (\mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a50bf0d4e3e555c74597f9995e18e4914}{tesseract\+\_\+planning\+::node\+\_\+names\+::\+FIX\+\_\+\+STATE\+\_\+\+BOUNDS\+\_\+\+TASK\+\_\+\+NAME}}, DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}})
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a02a4dbfe4f379a6fd1b538592a09bbda}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+ALL, true, 1)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a72946ec03215cf151e2e03e0a1863e53}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+END\+\_\+\+ONLY, true, 1)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_af9f8c2c5de7b85cc910fea63063028ad}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+START\+\_\+\+ONLY, true, 1)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a00aee30656c42db4da364fd7e30e34c7}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+DISABLED, true, 1)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_ae7736c6f6b70e40efb635accc9b2bebd}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, invalid\+\_\+state, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+ALL, false, 1)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a1bd2f4f84bd24fadccaae5076dddbee5}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, invalid\+\_\+state, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+END\+\_\+\+ONLY, false, 1)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a2fb3dbca0940fd395e756be28a73d071}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, invalid\+\_\+state, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+START\+\_\+\+ONLY, false, 1)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a2fdcad40a2e8b9ce3f1443fdc5c6a911}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, invalid\+\_\+state, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+DISABLED, false, 1)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a11ef8912d55148f0605277327534b5cc}{check\+Program}} (env\+\_\+, manip\+\_\+, invalid\+\_\+state, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+ALL, false, 1)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a76e643373b37587d763ebda81ad72e29}{check\+Program}} (env\+\_\+, manip\+\_\+, invalid\+\_\+state, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+END\+\_\+\+ONLY, false, 1)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a7e4f458208172365d19dd76ff0715f2d}{check\+Program}} (env\+\_\+, manip\+\_\+, invalid\+\_\+state, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+START\+\_\+\+ONLY, false, 1)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a59df16fd5420ee2f2c7a907c62e11831}{check\+Program}} (env\+\_\+, manip\+\_\+, invalid\+\_\+state, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+DISABLED, false, 1)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_acfc44e09656329b528c5278402a474c4}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, invalid\+\_\+state, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+ALL, false, 0)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a3ba46607b1afd81df64bd40b05b1999d}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, invalid\+\_\+state, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+END\+\_\+\+ONLY, false, 0)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a026f02ee3e7dfaf293a5e84c51a2e384}{check\+Program}} (env\+\_\+, manip\+\_\+, invalid\+\_\+state, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+ALL, false, 0)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_ac67c875ad406331a7a4f6674d3edc3e3}{check\+Program}} (env\+\_\+, manip\+\_\+, invalid\+\_\+state, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+START\+\_\+\+ONLY, false, 0)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a5ce67b3869ca5bd88263b6b5a5e70e47}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}, \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a33df652be8e68c853b03222aed100f68}{end\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+ALL, false, 0)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a0bae1882db7e47da471d7ba30382b936}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}, \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a33df652be8e68c853b03222aed100f68}{end\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+END\+\_\+\+ONLY, false, 0)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_af3cbcc22f5951358f18df7ac0f2b87dc}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}, \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a33df652be8e68c853b03222aed100f68}{end\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+START\+\_\+\+ONLY, false, 0)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a381c6ff5aaaced3facc64ad8a65af02a}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}, \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a33df652be8e68c853b03222aed100f68}{end\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+DISABLED, false, 1)
 \item 
 int \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a6d60373e976cb81b4852bcd9864a54b5}{joint\+\_\+limits}} = env\+\_\+-\/$>$get\+Joint\+Group(\mbox{\hyperlink{ompl__planner__tests_8cpp_a061d54ee4d7fda9875195a5ed606df49}{manip\+\_\+.\+manipulator}})-\/$>$get\+Limits().joint\+\_\+limits
+\item 
+auto \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile}{Fix\+State\+Bounds\+Profile}}$>$()
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}} \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a672d0559bd3040ade49dfcbdf8ab5293}{max\+\_\+deviation\+\_\+global}} = 0.\+2
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}} \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a887a56a47112ff88749bdd17336b4348}{lower\+\_\+bounds\+\_\+reduction}} = 1e-\/3
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}} \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a054a31787b4046f496452242c6a2bd0f}{upper\+\_\+bounds\+\_\+reduction}} = 1e-\/3
+\item 
+auto \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}$>$()
+\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}} = joint\+\_\+limits.\+col(0) + (joint\+\_\+limits.\+col(1) -\/ joint\+\_\+limits.\+col(0)) / 2.
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}} \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a17c934ede36edd4c1fb7f1b4f800e498}{mode}} = Settings\+::\+END\+\_\+\+ONLY
+\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a14d9a117eb6554afb69441f84946138f}{end\+\_\+state}} = joint\+\_\+limits.\+col(1).array() + .\+6
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a45e6937e3889e6f245438bc79c6e0515}\label{fix__state__bounds__task__unit_8cpp_a45e6937e3889e6f245438bc79c6e0515}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!addProfile$<$ FixStateBoundsProfile $>$@{addProfile$<$ FixStateBoundsProfile $>$}}
+\index{addProfile$<$ FixStateBoundsProfile $>$@{addProfile$<$ FixStateBoundsProfile $>$}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addProfile$<$ FixStateBoundsProfile $>$()}{addProfile< FixStateBoundsProfile >()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile}{Fix\+State\+Bounds\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a50bf0d4e3e555c74597f9995e18e4914}{tesseract\+\_\+planning\+::node\+\_\+names\+::\+FIX\+\_\+\+STATE\+\_\+\+BOUNDS\+\_\+\+TASK\+\_\+\+NAME}}}]{,  }\item[{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_afc65e7a7ccc06bd107fabca1df74812e}\label{fix__state__bounds__task__unit_8cpp_afc65e7a7ccc06bd107fabca1df74812e}} 
 \index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
 \index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [1/21]}}
 {\footnotesize\ttfamily void check\+Program (\begin{DoxyParamCaption}\item[{const Environment\+::\+Ptr \&}]{env,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{manip,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{start\+\_\+state,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{goal\+\_\+state,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}} $>$ \&}]{profiles,  }\item[{\mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a5ca76ba80aa9d3a8fe819937ee1a0560}{Fix\+State\+Bounds\+Profile\+::\+Settings}}}]{setting,  }\item[{bool}]{pre\+\_\+check\+\_\+return,  }\item[{int}]{expected\+\_\+return }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a026f02ee3e7dfaf293a5e84c51a2e384}\label{fix__state__bounds__task__unit_8cpp_a026f02ee3e7dfaf293a5e84c51a2e384}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [2/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{invalid\+\_\+state}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+ALL}]{,  }\item[{false}]{,  }\item[{0}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a11ef8912d55148f0605277327534b5cc}\label{fix__state__bounds__task__unit_8cpp_a11ef8912d55148f0605277327534b5cc}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [3/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{invalid\+\_\+state}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+ALL}]{,  }\item[{false}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a59df16fd5420ee2f2c7a907c62e11831}\label{fix__state__bounds__task__unit_8cpp_a59df16fd5420ee2f2c7a907c62e11831}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [4/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{invalid\+\_\+state}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+DISABLED}]{,  }\item[{false}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a76e643373b37587d763ebda81ad72e29}\label{fix__state__bounds__task__unit_8cpp_a76e643373b37587d763ebda81ad72e29}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [5/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{invalid\+\_\+state}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+END\+\_\+\+ONLY}]{,  }\item[{false}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_ac67c875ad406331a7a4f6674d3edc3e3}\label{fix__state__bounds__task__unit_8cpp_ac67c875ad406331a7a4f6674d3edc3e3}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [6/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{invalid\+\_\+state}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+START\+\_\+\+ONLY}]{,  }\item[{false}]{,  }\item[{0}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a7e4f458208172365d19dd76ff0715f2d}\label{fix__state__bounds__task__unit_8cpp_a7e4f458208172365d19dd76ff0715f2d}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [7/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{invalid\+\_\+state}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+START\+\_\+\+ONLY}]{,  }\item[{false}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_acfc44e09656329b528c5278402a474c4}\label{fix__state__bounds__task__unit_8cpp_acfc44e09656329b528c5278402a474c4}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [8/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{invalid\+\_\+state}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+ALL}]{,  }\item[{false}]{,  }\item[{0}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_ae7736c6f6b70e40efb635accc9b2bebd}\label{fix__state__bounds__task__unit_8cpp_ae7736c6f6b70e40efb635accc9b2bebd}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [9/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{invalid\+\_\+state}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+ALL}]{,  }\item[{false}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a2fdcad40a2e8b9ce3f1443fdc5c6a911}\label{fix__state__bounds__task__unit_8cpp_a2fdcad40a2e8b9ce3f1443fdc5c6a911}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [10/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{invalid\+\_\+state}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+DISABLED}]{,  }\item[{false}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a3ba46607b1afd81df64bd40b05b1999d}\label{fix__state__bounds__task__unit_8cpp_a3ba46607b1afd81df64bd40b05b1999d}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [11/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{invalid\+\_\+state}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+END\+\_\+\+ONLY}]{,  }\item[{false}]{,  }\item[{0}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a1bd2f4f84bd24fadccaae5076dddbee5}\label{fix__state__bounds__task__unit_8cpp_a1bd2f4f84bd24fadccaae5076dddbee5}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [12/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{invalid\+\_\+state}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+END\+\_\+\+ONLY}]{,  }\item[{false}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a2fb3dbca0940fd395e756be28a73d071}\label{fix__state__bounds__task__unit_8cpp_a2fb3dbca0940fd395e756be28a73d071}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [13/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{invalid\+\_\+state}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+START\+\_\+\+ONLY}]{,  }\item[{false}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a02a4dbfe4f379a6fd1b538592a09bbda}\label{fix__state__bounds__task__unit_8cpp_a02a4dbfe4f379a6fd1b538592a09bbda}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [14/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+ALL}]{,  }\item[{true}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a00aee30656c42db4da364fd7e30e34c7}\label{fix__state__bounds__task__unit_8cpp_a00aee30656c42db4da364fd7e30e34c7}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [15/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+DISABLED}]{,  }\item[{true}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a72946ec03215cf151e2e03e0a1863e53}\label{fix__state__bounds__task__unit_8cpp_a72946ec03215cf151e2e03e0a1863e53}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [16/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+END\+\_\+\+ONLY}]{,  }\item[{true}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_af9f8c2c5de7b85cc910fea63063028ad}\label{fix__state__bounds__task__unit_8cpp_af9f8c2c5de7b85cc910fea63063028ad}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [17/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+START\+\_\+\+ONLY}]{,  }\item[{true}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a5ce67b3869ca5bd88263b6b5a5e70e47}\label{fix__state__bounds__task__unit_8cpp_a5ce67b3869ca5bd88263b6b5a5e70e47}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [18/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a33df652be8e68c853b03222aed100f68}{end\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+ALL}]{,  }\item[{false}]{,  }\item[{0}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a381c6ff5aaaced3facc64ad8a65af02a}\label{fix__state__bounds__task__unit_8cpp_a381c6ff5aaaced3facc64ad8a65af02a}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [19/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a33df652be8e68c853b03222aed100f68}{end\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+DISABLED}]{,  }\item[{false}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a0bae1882db7e47da471d7ba30382b936}\label{fix__state__bounds__task__unit_8cpp_a0bae1882db7e47da471d7ba30382b936}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [20/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a33df652be8e68c853b03222aed100f68}{end\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+END\+\_\+\+ONLY}]{,  }\item[{false}]{,  }\item[{0}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_af3cbcc22f5951358f18df7ac0f2b87dc}\label{fix__state__bounds__task__unit_8cpp_af3cbcc22f5951358f18df7ac0f2b87dc}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [21/21]}}
+{\footnotesize\ttfamily check\+Program (\begin{DoxyParamCaption}\item[{env\+\_\+}]{,  }\item[{manip\+\_\+}]{,  }\item[{\mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a33df652be8e68c853b03222aed100f68}{end\+\_\+state}}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}}]{,  }\item[{Settings\+::\+START\+\_\+\+ONLY}]{,  }\item[{false}]{,  }\item[{0}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_aa6b2dcd5083b7702f534d5145bbed0e5}\label{fix__state__bounds__task__unit_8cpp_aa6b2dcd5083b7702f534d5145bbed0e5}} 
 \index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!createProgram@{createProgram}}
@@ -57,9 +238,60 @@ int \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a3c04138a5bfe5d72780bb7
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a641a03cc401e64e18ff6e8bd5d277258}\label{fix__state__bounds__task__unit_8cpp_a641a03cc401e64e18ff6e8bd5d277258}} 
-\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!TEST\_F@{TEST\_F}}
-\index{TEST\_F@{TEST\_F}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}}
-{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classFixStateBoundsTaskUnit}{Fix\+State\+Bounds\+Task\+Unit}}}]{,  }\item[{state\+In\+Bounds}]{ }\end{DoxyParamCaption})}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a14d9a117eb6554afb69441f84946138f}\label{fix__state__bounds__task__unit_8cpp_a14d9a117eb6554afb69441f84946138f}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!end\_state@{end\_state}}
+\index{end\_state@{end\_state}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{end\_state}{end\_state}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd end\+\_\+state = joint\+\_\+limits.\+col(1).array() + .\+6}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a6d60373e976cb81b4852bcd9864a54b5}\label{fix__state__bounds__task__unit_8cpp_a6d60373e976cb81b4852bcd9864a54b5}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!joint\_limits@{joint\_limits}}
+\index{joint\_limits@{joint\_limits}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{joint\_limits}{joint\_limits}}
+{\footnotesize\ttfamily auto joint\+\_\+limits = env\+\_\+-\/$>$get\+Joint\+Group(\mbox{\hyperlink{ompl__planner__tests_8cpp_a061d54ee4d7fda9875195a5ed606df49}{manip\+\_\+.\+manipulator}})-\/$>$get\+Limits().joint\+\_\+limits}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a887a56a47112ff88749bdd17336b4348}\label{fix__state__bounds__task__unit_8cpp_a887a56a47112ff88749bdd17336b4348}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!lower\_bounds\_reduction@{lower\_bounds\_reduction}}
+\index{lower\_bounds\_reduction@{lower\_bounds\_reduction}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{lower\_bounds\_reduction}{lower\_bounds\_reduction}}
+{\footnotesize\ttfamily \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}} lower\+\_\+bounds\+\_\+reduction = 1e-\/3}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a672d0559bd3040ade49dfcbdf8ab5293}\label{fix__state__bounds__task__unit_8cpp_a672d0559bd3040ade49dfcbdf8ab5293}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!max\_deviation\_global@{max\_deviation\_global}}
+\index{max\_deviation\_global@{max\_deviation\_global}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{max\_deviation\_global}{max\_deviation\_global}}
+{\footnotesize\ttfamily \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}} max\+\_\+deviation\+\_\+global = 0.\+2}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}\label{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!mid\_state@{mid\_state}}
+\index{mid\_state@{mid\_state}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{mid\_state}{mid\_state}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd mid\+\_\+state = joint\+\_\+limits.\+col(0) + (joint\+\_\+limits.\+col(1) -\/ joint\+\_\+limits.\+col(0)) / 2.}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a17c934ede36edd4c1fb7f1b4f800e498}\label{fix__state__bounds__task__unit_8cpp_a17c934ede36edd4c1fb7f1b4f800e498}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!mode@{mode}}
+\index{mode@{mode}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{mode}{mode}}
+{\footnotesize\ttfamily \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}} mode = Settings\+::\+END\+\_\+\+ONLY}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a13750846d267dd5648a15c858593c1cb}\label{fix__state__bounds__task__unit_8cpp_a13750846d267dd5648a15c858593c1cb}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!profiles@{profiles}}
+\index{profiles@{profiles}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{profiles}{profiles}}
+{\footnotesize\ttfamily auto profiles = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}$>$()}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}\label{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!state\_bounds\_profile@{state\_bounds\_profile}}
+\index{state\_bounds\_profile@{state\_bounds\_profile}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{state\_bounds\_profile}{state\_bounds\_profile}}
+{\footnotesize\ttfamily auto state\+\_\+bounds\+\_\+profile = std\+::make\+\_\+shared$<$\mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile}{Fix\+State\+Bounds\+Profile}}$>$()}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a054a31787b4046f496452242c6a2bd0f}\label{fix__state__bounds__task__unit_8cpp_a054a31787b4046f496452242c6a2bd0f}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!upper\_bounds\_reduction@{upper\_bounds\_reduction}}
+\index{upper\_bounds\_reduction@{upper\_bounds\_reduction}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{upper\_bounds\_reduction}{upper\_bounds\_reduction}}
+{\footnotesize\ttfamily \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}} upper\+\_\+bounds\+\_\+reduction = 1e-\/3}
 

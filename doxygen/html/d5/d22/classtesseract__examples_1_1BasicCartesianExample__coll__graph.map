@@ -1,4 +1,4 @@
 <map id="tesseract_examples::BasicCartesianExample" name="tesseract_examples::BasicCartesianExample">
-<area shape="rect" id="node1" title="Basic example leveraging trajopt and tesseract for cartesian planning." alt="" coords="5,95,171,136"/>
-<area shape="rect" id="node2" href="$d3/d3b/classtesseract__examples_1_1Example.html" title="The Example base class." alt="" coords="19,5,157,47"/>
+<area shape="rect" id="node1" title="Basic example leveraging trajopt and tesseract for cartesian planning." alt="" coords="5,93,171,133"/>
+<area shape="rect" id="node2" href="$d3/d3b/classtesseract__examples_1_1Example.html" title="The Example base class." alt="" coords="19,5,157,45"/>
 </map>

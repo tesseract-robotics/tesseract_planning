@@ -12,21 +12,15 @@ The Joint Group Instruction Information struct.
 
 
 Collaboration diagram for tesseract\+\_\+planning\+::Joint\+Group\+Instruction\+Info\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=320pt]{d0/d1f/structtesseract__planning_1_1JointGroupInstructionInfo__coll__graph}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ab46d5e1b8aae95b6f0d3426ab117134b}{Joint\+Group\+Instruction\+Info}} (const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&plan\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info)
+\mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ab46d5e1b8aae95b6f0d3426ab117134b}{Joint\+Group\+Instruction\+Info}} (const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&plan\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info)
 \item 
 Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a5033bc1163757be1b484d02bb68ddf87}{get\+Working\+Frame}} () const
 \begin{DoxyCompactList}\small\item\em Get the working frame. \end{DoxyCompactList}\item 
-Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ac2321b08926c7f4a2ceafb1f095e0f51}{calc\+Cartesian\+Pose}} (const Eigen\+::\+Vector\+Xd \&jp, bool in\+\_\+world=true) const
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ac2321b08926c7f4a2ceafb1f095e0f51}{calc\+Cartesian\+Pose}} (const Eigen\+::\+Vector\+Xd \&\mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a83ecd9e2360f26bfc3430d39a228afe6}{jp}}, bool in\+\_\+world=true) const
 \begin{DoxyCompactList}\small\item\em Calculate the cartesian pose given the joint solution. \end{DoxyCompactList}\item 
 Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_aa4bc29aa58b110da65cdbefe6f818fc6}{extract\+Cartesian\+Pose}} (bool in\+\_\+world=true) const
 \begin{DoxyCompactList}\small\item\em Extract the cartesian pose from the instruction. \end{DoxyCompactList}\item 

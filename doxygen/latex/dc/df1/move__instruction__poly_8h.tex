@@ -21,21 +21,9 @@ The move instruction interface.
 {\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/type\+\_\+erasure.\+h$>$}\newline
 Include dependency graph for move\+\_\+instruction\+\_\+poly.\+h\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{dc/db3/move__instruction__poly_8h__incl}
-\end{center}
-\end{figure}
+% FIG 0
 This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{df/da8/move__instruction__poly_8h__dep__incl}
-\end{center}
-\end{figure}
+% FIG 1
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -153,10 +141,10 @@ If shared library, this must go in the cpp after the implicit instantiation of t
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keyword}{namespace }N                                                                                                          \(\backslash\)}
 \DoxyCodeLine{  \{                                                                                                                    \(\backslash\)}
-\DoxyCodeLine{  using C\#\#InstanceBase =                                                                                              \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keyword}{using }C\#\#InstanceBase =                                                                                              \(\backslash\)}
 \DoxyCodeLine{      tesseract\_common::TypeErasureInstance<C, tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface>; \(\backslash\)}
-\DoxyCodeLine{  using C\#\#Instance = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance}{tesseract\_planning::detail\_move\_instruction::MoveInstructionInstance<C>}};                         \(\backslash\)}
-\DoxyCodeLine{  using C\#\#InstanceWrapper = tesseract\_common::TypeErasureInstanceWrapper<C\#\#Instance>;                                \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keyword}{using }C\#\#Instance = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance}{tesseract\_planning::detail\_move\_instruction::MoveInstructionInstance<C>}};                         \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keyword}{using }C\#\#InstanceWrapper = tesseract\_common::TypeErasureInstanceWrapper<C\#\#Instance>;                                \(\backslash\)}
 \DoxyCodeLine{  \}                                                                                                                    \(\backslash\)}
 \DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceBase)                                                                           \(\backslash\)}
 \DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#Instance)                                                                               \(\backslash\)}

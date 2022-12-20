@@ -1,6 +1,6 @@
 <map id="tesseract_examples/include/tesseract_examples/puzzle_piece_auxillary_axes_example.h" name="tesseract_examples/include/tesseract_examples/puzzle_piece_auxillary_axes_example.h">
-<area shape="rect" id="node1" title="An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF t..." alt="" coords="198,5,385,76"/>
-<area shape="rect" id="node2" href="$d3/d7e/puzzle__piece__auxillary__axes__example_8cpp.html" title="Puzzle piece auxillary axes implementation." alt="" coords="5,124,180,180"/>
-<area shape="rect" id="node3" href="$d2/d44/puzzle__piece__auxillary__axes__example__node_8cpp.html" title="uzzle piece auxillary axes example node" alt="" coords="204,124,379,180"/>
-<area shape="rect" id="node4" href="$d4/d0b/puzzle__piece__auxillary__axes__example__unit_8cpp.html" title=" " alt="" coords="403,124,582,180"/>
+<area shape="rect" id="node1" title="An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF t..." alt="" coords="198,5,385,75"/>
+<area shape="rect" id="node2" href="$d3/d7e/puzzle__piece__auxillary__axes__example_8cpp.html" title="Puzzle piece auxillary axes implementation." alt="" coords="5,123,180,177"/>
+<area shape="rect" id="node3" href="$d2/d44/puzzle__piece__auxillary__axes__example__node_8cpp.html" title="uzzle piece auxillary axes example node" alt="" coords="204,123,379,177"/>
+<area shape="rect" id="node4" href="$d4/d0b/puzzle__piece__auxillary__axes__example__unit_8cpp.html" title=" " alt="" coords="403,123,582,177"/>
 </map>

@@ -1,13 +1,13 @@
 <map id="tesseract_motion_planners/trajopt" name="tesseract_motion_planners/trajopt">
-<area shape="rect" id="node1" href="dir_ba42fb948e9041f2f8c5ac347b7f6bb7.html" title="core" alt="" coords="68,255,140,303"/>
-<area shape="rect" id="node3" href="dir_69518f7ef736443110ee2b2a50b977af.html" title="include" alt="" coords="99,159,171,207"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000013_000000.html" title="2" alt="" coords="121,233,129,247"/>
-<area shape="rect" id="node5" href="dir_fa47c2fa9b13a12fc195f1b83854b816.html" title="tesseract_command_language" alt="" coords="237,255,435,303"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000013_000048.html" title="5" alt="" coords="270,232,278,247"/>
-<area shape="rect" id="node4" href="dir_786d4f88b5723d1ed7606901b175895c.html" title="src" alt="" coords="37,63,109,111"/>
-<area shape="rect" id="edge4-headlabel" href="dir_000042_000000.html" title="3" alt="" coords="95,227,103,242"/>
-<area shape="rect" id="edge3-headlabel" href="dir_000042_000013.html" title="14" alt="" coords="109,131,124,146"/>
-<area shape="rect" id="edge5-headlabel" href="dir_000042_000048.html" title="6" alt="" coords="295,229,303,244"/>
-<area shape="rect" id="clust2" href="dir_a2b25e711a2c1ee210ea3f441a2ab0d0.html" alt="" coords="27,52,216,217"/>
-<area shape="rect" id="clust1" href="dir_ae3a79ad3cbc8e5dda6288dc4d617504.html" title="tesseract_motion_planners" alt="" coords="16,16,227,313"/>
+<area shape="rect" id="node1" href="dir_ba42fb948e9041f2f8c5ac347b7f6bb7.html" title="core" alt="" coords="75,209,122,235"/>
+<area shape="rect" id="node3" href="dir_69518f7ef736443110ee2b2a50b977af.html" title="include" alt="" coords="97,136,159,161"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000013_000000.html" title="2" alt="" coords="114,188,122,203"/>
+<area shape="rect" id="node5" href="dir_fa47c2fa9b13a12fc195f1b83854b816.html" title="tesseract_command_language" alt="" coords="206,209,405,235"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000013_000048.html" title="5" alt="" coords="258,187,266,202"/>
+<area shape="rect" id="node4" href="dir_786d4f88b5723d1ed7606901b175895c.html" title="src" alt="" coords="51,63,91,88"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000042_000000.html" title="3" alt="" coords="93,182,101,196"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000042_000013.html" title="14" alt="" coords="106,109,121,123"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000042_000048.html" title="6" alt="" coords="272,184,280,199"/>
+<area shape="rect" id="clust2" href="dir_a2b25e711a2c1ee210ea3f441a2ab0d0.html" alt="" coords="40,52,184,172"/>
+<area shape="rect" id="clust1" href="dir_ae3a79ad3cbc8e5dda6288dc4d617504.html" title="tesseract_motion_planners" alt="" coords="16,16,195,245"/>
 </map>

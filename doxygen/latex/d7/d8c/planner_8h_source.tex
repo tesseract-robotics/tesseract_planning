@@ -30,7 +30,7 @@
 \DoxyCodeLine{51 }
 \DoxyCodeLine{56   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a8c3cc153aa4a3474197882e4a02f9e9c}{getName}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{57 }
-\DoxyCodeLine{63   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a60a757c5560f495611be282220fff9d2}{solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{63   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a60a757c5560f495611be282220fff9d2}{solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}) \textcolor{keyword}{const} = 0;}
 \DoxyCodeLine{64 }
 \DoxyCodeLine{69   \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a44afac05675a12abc7df47df8f495148}{terminate}}() = 0;}
 \DoxyCodeLine{70 }
@@ -38,11 +38,11 @@
 \DoxyCodeLine{73 }
 \DoxyCodeLine{75   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{MotionPlanner::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a9b0b2d77127016c7aa39afc4125e2744}{clone}}() \textcolor{keyword}{const} = 0;}
 \DoxyCodeLine{76 }
-\DoxyCodeLine{78   \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a354882304601d30d17f0884e30f0748b}{checkRequest}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request);}
+\DoxyCodeLine{78   \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a354882304601d30d17f0884e30f0748b}{checkRequest}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}});}
 \DoxyCodeLine{79 }
-\DoxyCodeLine{81   \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_ae01cd65dbc5c91a04c527b30544b500d}{assignSolution}}(\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& mi,}
-\DoxyCodeLine{82                              \textcolor{keyword}{const} std::vector<std::string>\& joint\_names,}
-\DoxyCodeLine{83                              \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& joint\_values,}
+\DoxyCodeLine{81   \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_ae01cd65dbc5c91a04c527b30544b500d}{assignSolution}}(\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_aacf8f831786eae51fba4caaedbde9cf0}{mi}},}
+\DoxyCodeLine{82                              \textcolor{keyword}{const} std::vector<std::string>\& \mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a5f85173ecc1ddcb342ebc27f28437f5c}{joint\_names}},}
+\DoxyCodeLine{83                              \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& \mbox{\hyperlink{joint__waypoint__unit_8cpp_a92a1dd25d82ead2eaba8f5ae7e4ba88b}{joint\_values}},}
 \DoxyCodeLine{84                              \textcolor{keywordtype}{bool} format\_result\_as\_input);}
 \DoxyCodeLine{85 }
 \DoxyCodeLine{86 \textcolor{keyword}{protected}:}

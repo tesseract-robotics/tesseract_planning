@@ -1,10 +1,10 @@
 <map id="tesseract_planning::TaskComposerProblem" name="tesseract_planning::TaskComposerProblem">
-<area shape="rect" id="node1" title=" " alt="" coords="1020,103,1184,145"/>
-<area shape="rect" id="node2" title=" " alt="" coords="179,52,257,79"/>
-<area shape="rect" id="node5" title=" " alt="" coords="511,146,693,217"/>
-<area shape="rect" id="node8" title=" " alt="" coords="336,37,487,93"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,45,129,86"/>
-<area shape="rect" id="node4" title=" " alt="" coords="756,209,867,236"/>
-<area shape="rect" id="node6" href="$d9/d84/classtesseract__planning_1_1TaskComposerDataStorage.html" title="A thread save data storage." alt="" coords="717,66,905,107"/>
-<area shape="rect" id="node7" title=" " alt="" coords="348,117,475,144"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1020,104,1184,144"/>
+<area shape="rect" id="node2" title=" " alt="" coords="179,53,257,78"/>
+<area shape="rect" id="node5" title=" " alt="" coords="511,145,693,215"/>
+<area shape="rect" id="node8" title=" " alt="" coords="336,38,487,93"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,45,129,85"/>
+<area shape="rect" id="node4" title=" " alt="" coords="756,209,867,234"/>
+<area shape="rect" id="node6" href="$d9/d84/classtesseract__planning_1_1TaskComposerDataStorage.html" title="A thread save data storage." alt="" coords="717,67,905,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="348,117,475,142"/>
 </map>

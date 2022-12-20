@@ -15,23 +15,76 @@ Contains unit tests for Plan\+Instruction.
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/joint\+\_\+waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/cartesian\+\_\+waypoint.\+h$>$}\newline
 Include dependency graph for plan\+\_\+instruction\+\_\+unit.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{d4/de6/plan__instruction__unit_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{plan__instruction__unit_8cpp_a1e3c45e9fa48a9cbc73ee76ad4f26450}{TEST}} (Tesseract\+Command\+Language\+Plan\+Instruction\+Unit, constructor)
+pose \mbox{\hyperlink{plan__instruction__unit_8cpp_a9cb95563407c2de8192f4e147b86825a}{translation}} () = Eigen\+::\+Vector3d(1, 2, 3)
 \item 
-\mbox{\hyperlink{plan__instruction__unit_8cpp_a54830c974db5ff47f5533f2ba7c68ef3}{TEST}} (Tesseract\+Command\+Language\+Plan\+Instruction\+Unit, setters)
+\mbox{\hyperlink{plan__instruction__unit_8cpp_af904e2e39a0cff9f4d49c19a06914dc8}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Waypoint(), \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}})
 \item 
-\mbox{\hyperlink{plan__instruction__unit_8cpp_ae10cd2eb85d7b5ded135bee228e13463}{TEST}} (Tesseract\+Command\+Language\+Plan\+Instruction\+Unit, boost\+Serialization)
+\mbox{\hyperlink{plan__instruction__unit_8cpp_acf7e0b7cc025ba7c51320447801bdd88}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Plan\+Type(), Plan\+Instruction\+Type\+::\+START)
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_aaedd93539afe17943c4ecc6e5acf2e11}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Profile(), DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY)
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_aa86edb9f91303a1a26eeec6f221dd617}{EXPECT\+\_\+\+TRUE}} (instr.\+get\+Path\+Profile().empty())
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_a47dcb5f49bdf2e3fc9ccb9b35194e000}{EXPECT\+\_\+\+FALSE}} (instr.\+get\+Description().empty())
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_ac28395a635782d3914e90ea12cb462c1}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Plan\+Type(), Plan\+Instruction\+Type\+::\+FREESPACE)
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_ac3a54616d39166433724b7f0e5d8a0f7}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Plan\+Type(), Plan\+Instruction\+Type\+::\+LINEAR)
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_a5e911c4e2237d0c358e92a85b7b10339}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Profile(), \char`\"{}TEST\+\_\+\+PROFILE\char`\"{})
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_a27634a66ce58b50d36b9534e8fb551a7}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Path\+Profile(), \char`\"{}TEST\+\_\+\+PATH\+\_\+\+PROFILE\char`\"{})
+\item 
+Plan\+Instruction \mbox{\hyperlink{plan__instruction__unit_8cpp_a3a8b22acb5b80576e9e10fdfccaf5094}{instr}} (\mbox{\hyperlink{plan__instruction__unit_8cpp_ac7cc8e59c85cc8d4272cf17ed3a9ce01}{cwp}}, Plan\+Instruction\+Type\+::\+START)
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_a2435543090db6f31db73b593bf74b7d0}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Waypoint(), \mbox{\hyperlink{plan__instruction__unit_8cpp_ac7cc8e59c85cc8d4272cf17ed3a9ce01}{cwp}})
+\item 
+\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} \mbox{\hyperlink{plan__instruction__unit_8cpp_ab2db0f328921bceaf28a090bf08fd613}{set\+Waypoint}} (\mbox{\hyperlink{plan__instruction__unit_8cpp_a450758fb4ad2771525dcd257ee9af14c}{jwp}})
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_aab4c3adbad44b5f012564bcde43c36fd}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Waypoint(), \mbox{\hyperlink{plan__instruction__unit_8cpp_a450758fb4ad2771525dcd257ee9af14c}{jwp}})
+\item 
+\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} \mbox{\hyperlink{plan__instruction__unit_8cpp_aff93eeba4ef72ca6ebebe15e8da11553}{set\+Plan\+Type}} (Plan\+Instruction\+Type\+::\+LINEAR)
+\item 
+\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} \mbox{\hyperlink{plan__instruction__unit_8cpp_ab4ad367587e598253a284d5895a49fcc}{set\+Profile}} (\char`\"{}TEST\+\_\+\+PROFILE\char`\"{})
+\item 
+\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} \mbox{\hyperlink{plan__instruction__unit_8cpp_ac4a026ce3bb7d0abdd31036b9016371c}{set\+Path\+Profile}} (\char`\"{}TEST\+\_\+\+PATH\+\_\+\+PROFILE\char`\"{})
+\item 
+\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} \mbox{\hyperlink{plan__instruction__unit_8cpp_af2aa5aaa29cab51537c6ae3136ecb19e}{set\+Description}} (\char`\"{}This is a test.\char`\"{})
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_a64e27a6f15e4482f2d406cdc76c24ecd}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Description(), \char`\"{}This is a test.\char`\"{})
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_ac0900e267339ec4610b373eb3598d517}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}}==\mbox{\hyperlink{move__instruction__unit_8cpp_a59f432e366886b2b38454572259bacdb}{ninstr}})
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_af9a0673d1425dc6f6276424ca3a160b7}{EXPECT\+\_\+\+EQ}} (ninstr.\+get\+Waypoint(), \mbox{\hyperlink{plan__instruction__unit_8cpp_ac7cc8e59c85cc8d4272cf17ed3a9ce01}{cwp}})
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_a72b916e2e9bc56e10964d87f45f0bd1f}{EXPECT\+\_\+\+EQ}} (ninstr.\+get\+Plan\+Type(), Plan\+Instruction\+Type\+::\+LINEAR)
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_a0fed606a94684a58a0a88dc860462129}{EXPECT\+\_\+\+EQ}} (ninstr.\+get\+Profile(), \char`\"{}TEST\+\_\+\+PROFILE\char`\"{})
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_a69647c83e3a0704327eeab105f2291c5}{EXPECT\+\_\+\+EQ}} (ninstr.\+get\+Path\+Profile(), \char`\"{}TEST\+\_\+\+PATH\+\_\+\+PROFILE\char`\"{})
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_aaa9efb1aebe2c7096d615dc61239ac5a}{EXPECT\+\_\+\+EQ}} (ninstr.\+get\+Description(), \char`\"{}This is a test.\char`\"{})
 \item 
 int \mbox{\hyperlink{plan__instruction__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \mbox{\hyperlink{plan__instruction__unit_8cpp_afd6f58bd88ecadbd2b5a24bb81a3b4e1}{wp}} (pose)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \mbox{\hyperlink{plan__instruction__unit_8cpp_ac7cc8e59c85cc8d4272cf17ed3a9ce01}{cwp}} (pose)
+\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{plan__instruction__unit_8cpp_ae8d6077c41b38764c8f2702f5541678b}{jv}} = Eigen\+::\+Vector\+Xd\+::\+Ones(6)
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{plan__instruction__unit_8cpp_a7713006ea80ce3a61f1071f917f69f31}{jn}} = \{ \char`\"{}j1\char`\"{}, \char`\"{}j2\char`\"{}, \char`\"{}j3\char`\"{}, \char`\"{}j4\char`\"{}, \char`\"{}j5\char`\"{}, \char`\"{}j6\char`\"{} \}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \mbox{\hyperlink{plan__instruction__unit_8cpp_a450758fb4ad2771525dcd257ee9af14c}{jwp}} (\mbox{\hyperlink{move__instruction__unit_8cpp_a42020bb58202b80e8d756cd992fbdac7}{jn}}, \mbox{\hyperlink{plan__instruction__unit_8cpp_ae8d6077c41b38764c8f2702f5541678b}{jv}}) \{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}(\mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a5f85173ecc1ddcb342ebc27f28437f5c}{joint\+\_\+names}}, \mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a81e8e5ac4055cfddba2949abfd5983af}{values}}) \}
+\item 
+auto \mbox{\hyperlink{plan__instruction__unit_8cpp_a59f432e366886b2b38454572259bacdb}{ninstr}}
 \end{DoxyCompactItemize}
 
 
@@ -66,27 +119,210 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a64e27a6f15e4482f2d406cdc76c24ecd}\label{plan__instruction__unit_8cpp_a64e27a6f15e4482f2d406cdc76c24ecd}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [1/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Description(),  }\item[{\char`\"{}This is a test.\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a27634a66ce58b50d36b9534e8fb551a7}\label{plan__instruction__unit_8cpp_a27634a66ce58b50d36b9534e8fb551a7}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [2/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Path\+Profile(),  }\item[{\char`\"{}TEST\+\_\+\+PATH\+\_\+\+PROFILE\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_ac28395a635782d3914e90ea12cb462c1}\label{plan__instruction__unit_8cpp_ac28395a635782d3914e90ea12cb462c1}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [3/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Plan\+Type(),  }\item[{Plan\+Instruction\+Type\+::\+FREESPACE}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_ac3a54616d39166433724b7f0e5d8a0f7}\label{plan__instruction__unit_8cpp_ac3a54616d39166433724b7f0e5d8a0f7}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [4/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Plan\+Type(),  }\item[{Plan\+Instruction\+Type\+::\+LINEAR}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_acf7e0b7cc025ba7c51320447801bdd88}\label{plan__instruction__unit_8cpp_acf7e0b7cc025ba7c51320447801bdd88}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [5/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Plan\+Type(),  }\item[{Plan\+Instruction\+Type\+::\+START}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a5e911c4e2237d0c358e92a85b7b10339}\label{plan__instruction__unit_8cpp_a5e911c4e2237d0c358e92a85b7b10339}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [6/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Profile(),  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_aaedd93539afe17943c4ecc6e5acf2e11}\label{plan__instruction__unit_8cpp_aaedd93539afe17943c4ecc6e5acf2e11}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [7/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Profile(),  }\item[{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a2435543090db6f31db73b593bf74b7d0}\label{plan__instruction__unit_8cpp_a2435543090db6f31db73b593bf74b7d0}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [8/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Waypoint(),  }\item[{\mbox{\hyperlink{plan__instruction__unit_8cpp_ac7cc8e59c85cc8d4272cf17ed3a9ce01}{cwp}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_aab4c3adbad44b5f012564bcde43c36fd}\label{plan__instruction__unit_8cpp_aab4c3adbad44b5f012564bcde43c36fd}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [9/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Waypoint(),  }\item[{\mbox{\hyperlink{plan__instruction__unit_8cpp_a450758fb4ad2771525dcd257ee9af14c}{jwp}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_af904e2e39a0cff9f4d49c19a06914dc8}\label{plan__instruction__unit_8cpp_af904e2e39a0cff9f4d49c19a06914dc8}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [10/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Waypoint(),  }\item[{\mbox{\hyperlink{cartesian__waypoint__unit_8cpp_ae7b72440201264ba481477d5f5682747}{wp}}}]{ }\end{DoxyParamCaption})}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    PlanInstruction \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}}(\mbox{\hyperlink{plan__instruction__unit_8cpp_afd6f58bd88ecadbd2b5a24bb81a3b4e1}{wp}}, PlanInstructionType::FREESPACE)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_aaa9efb1aebe2c7096d615dc61239ac5a}\label{plan__instruction__unit_8cpp_aaa9efb1aebe2c7096d615dc61239ac5a}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [11/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{ninstr.}]{get\+Description(),  }\item[{\char`\"{}This is a test.\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a69647c83e3a0704327eeab105f2291c5}\label{plan__instruction__unit_8cpp_a69647c83e3a0704327eeab105f2291c5}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [12/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{ninstr.}]{get\+Path\+Profile(),  }\item[{\char`\"{}TEST\+\_\+\+PATH\+\_\+\+PROFILE\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a72b916e2e9bc56e10964d87f45f0bd1f}\label{plan__instruction__unit_8cpp_a72b916e2e9bc56e10964d87f45f0bd1f}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [13/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{ninstr.}]{get\+Plan\+Type(),  }\item[{Plan\+Instruction\+Type\+::\+LINEAR}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a0fed606a94684a58a0a88dc860462129}\label{plan__instruction__unit_8cpp_a0fed606a94684a58a0a88dc860462129}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [14/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{ninstr.}]{get\+Profile(),  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_af9a0673d1425dc6f6276424ca3a160b7}\label{plan__instruction__unit_8cpp_af9a0673d1425dc6f6276424ca3a160b7}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [15/15]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{ninstr.}]{get\+Waypoint(),  }\item[{\mbox{\hyperlink{plan__instruction__unit_8cpp_ac7cc8e59c85cc8d4272cf17ed3a9ce01}{cwp}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a47dcb5f49bdf2e3fc9ccb9b35194e000}\label{plan__instruction__unit_8cpp_a47dcb5f49bdf2e3fc9ccb9b35194e000}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{instr.}]{get\+Description).\+empty( }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_aa86edb9f91303a1a26eeec6f221dd617}\label{plan__instruction__unit_8cpp_aa86edb9f91303a1a26eeec6f221dd617}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{instr.}]{get\+Path\+Profile).\+empty( }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_ac0900e267339ec4610b373eb3598d517}\label{plan__instruction__unit_8cpp_ac0900e267339ec4610b373eb3598d517}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}}}]{ = {\ttfamily =\mbox{\hyperlink{move__instruction__unit_8cpp_a59f432e366886b2b38454572259bacdb}{ninstr}}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a3a8b22acb5b80576e9e10fdfccaf5094}\label{plan__instruction__unit_8cpp_a3a8b22acb5b80576e9e10fdfccaf5094}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!instr@{instr}}
+\index{instr@{instr}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{instr()}{instr()}}
+{\footnotesize\ttfamily Plan\+Instruction instr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{plan__instruction__unit_8cpp_ac7cc8e59c85cc8d4272cf17ed3a9ce01}{cwp}}}]{,  }\item[{Plan\+Instruction\+Type\+::\+START}]{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{plan__instruction__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{plan__instruction__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
 \index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!main@{main}}
 \index{main@{main}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{plan__instruction__unit_8cpp_ae10cd2eb85d7b5ded135bee228e13463}\label{plan__instruction__unit_8cpp_ae10cd2eb85d7b5ded135bee228e13463}} 
-\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Plan\+Instruction\+Unit}]{,  }\item[{boost\+Serialization}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_af2aa5aaa29cab51537c6ae3136ecb19e}\label{plan__instruction__unit_8cpp_af2aa5aaa29cab51537c6ae3136ecb19e}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!setDescription@{setDescription}}
+\index{setDescription@{setDescription}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} set\+Description (\begin{DoxyParamCaption}\item[{\char`\"{}This is a test.\char`\"{}}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{plan__instruction__unit_8cpp_a1e3c45e9fa48a9cbc73ee76ad4f26450}\label{plan__instruction__unit_8cpp_a1e3c45e9fa48a9cbc73ee76ad4f26450}} 
-\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Plan\+Instruction\+Unit}]{,  }\item[{constructor}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_ac4a026ce3bb7d0abdd31036b9016371c}\label{plan__instruction__unit_8cpp_ac4a026ce3bb7d0abdd31036b9016371c}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!setPathProfile@{setPathProfile}}
+\index{setPathProfile@{setPathProfile}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setPathProfile()}{setPathProfile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} set\+Path\+Profile (\begin{DoxyParamCaption}\item[{\char`\"{}TEST\+\_\+\+PATH\+\_\+\+PROFILE\char`\"{}}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{plan__instruction__unit_8cpp_a54830c974db5ff47f5533f2ba7c68ef3}\label{plan__instruction__unit_8cpp_a54830c974db5ff47f5533f2ba7c68ef3}} 
-\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!TEST@{TEST}}
-\index{TEST@{TEST}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Plan\+Instruction\+Unit}]{,  }\item[{setters}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_aff93eeba4ef72ca6ebebe15e8da11553}\label{plan__instruction__unit_8cpp_aff93eeba4ef72ca6ebebe15e8da11553}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!setPlanType@{setPlanType}}
+\index{setPlanType@{setPlanType}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setPlanType()}{setPlanType()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} set\+Plan\+Type (\begin{DoxyParamCaption}\item[{Plan\+Instruction\+Type\+::\+LINEAR}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_ab4ad367587e598253a284d5895a49fcc}\label{plan__instruction__unit_8cpp_ab4ad367587e598253a284d5895a49fcc}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!setProfile@{setProfile}}
+\index{setProfile@{setProfile}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setProfile()}{setProfile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} set\+Profile (\begin{DoxyParamCaption}\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_ab2db0f328921bceaf28a090bf08fd613}\label{plan__instruction__unit_8cpp_ab2db0f328921bceaf28a090bf08fd613}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!setWaypoint@{setWaypoint}}
+\index{setWaypoint@{setWaypoint}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setWaypoint()}{setWaypoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} set\+Waypoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{plan__instruction__unit_8cpp_a450758fb4ad2771525dcd257ee9af14c}{jwp}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a9cb95563407c2de8192f4e147b86825a}\label{plan__instruction__unit_8cpp_a9cb95563407c2de8192f4e147b86825a}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!translation@{translation}}
+\index{translation@{translation}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{translation()}{translation()}}
+{\footnotesize\ttfamily pose translation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) = Eigen\+::\+Vector3d(1, 2, 3)}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_ac7cc8e59c85cc8d4272cf17ed3a9ce01}\label{plan__instruction__unit_8cpp_ac7cc8e59c85cc8d4272cf17ed3a9ce01}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!cwp@{cwp}}
+\index{cwp@{cwp}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{cwp}{cwp}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} cwp (\begin{DoxyParamCaption}\item[{pose}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a7713006ea80ce3a61f1071f917f69f31}\label{plan__instruction__unit_8cpp_a7713006ea80ce3a61f1071f917f69f31}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!jn@{jn}}
+\index{jn@{jn}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{jn}{jn}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ jn = \{ \char`\"{}j1\char`\"{}, \char`\"{}j2\char`\"{}, \char`\"{}j3\char`\"{}, \char`\"{}j4\char`\"{}, \char`\"{}j5\char`\"{}, \char`\"{}j6\char`\"{} \}}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_ae8d6077c41b38764c8f2702f5541678b}\label{plan__instruction__unit_8cpp_ae8d6077c41b38764c8f2702f5541678b}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!jv@{jv}}
+\index{jv@{jv}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{jv}{jv}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd jv = Eigen\+::\+Vector\+Xd\+::\+Ones(6)}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a450758fb4ad2771525dcd257ee9af14c}\label{plan__instruction__unit_8cpp_a450758fb4ad2771525dcd257ee9af14c}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!jwp@{jwp}}
+\index{jwp@{jwp}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{jwp}{jwp}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} jwp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_a42020bb58202b80e8d756cd992fbdac7}{jn}}}]{,  }\item[{\mbox{\hyperlink{plan__instruction__unit_8cpp_ae8d6077c41b38764c8f2702f5541678b}{jv}}}]{ }\end{DoxyParamCaption}) \{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}(\mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a5f85173ecc1ddcb342ebc27f28437f5c}{joint\+\_\+names}}, \mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a81e8e5ac4055cfddba2949abfd5983af}{values}}) \}}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a59f432e366886b2b38454572259bacdb}\label{plan__instruction__unit_8cpp_a59f432e366886b2b38454572259bacdb}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!ninstr@{ninstr}}
+\index{ninstr@{ninstr}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{ninstr}{ninstr}}
+{\footnotesize\ttfamily auto ninstr}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= tesseract\_common::Serialization::fromArchiveFileXML<Instruction>(\textcolor{stringliteral}{"{}/tmp/plan\_instruction\_boost.xml"{}})}
+\DoxyCodeLine{                    .as<PlanInstruction>()}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_afd6f58bd88ecadbd2b5a24bb81a3b4e1}\label{plan__instruction__unit_8cpp_afd6f58bd88ecadbd2b5a24bb81a3b4e1}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!wp@{wp}}
+\index{wp@{wp}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{wp}{wp}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} wp(pose) (\begin{DoxyParamCaption}\item[{pose}]{ }\end{DoxyParamCaption})}
 

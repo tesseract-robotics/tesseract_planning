@@ -1,8 +1,8 @@
 <map id="tesseract_planning::OMPLProblemConfig" name="tesseract_planning::OMPLProblemConfig">
-<area shape="rect" id="node1" title=" " alt="" coords="37,481,188,523"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,392,220,419"/>
-<area shape="rect" id="node3" href="$dc/d1a/structtesseract__planning_1_1OMPLProblem.html" title=" " alt="" coords="47,288,178,329"/>
-<area shape="rect" id="node4" title=" " alt="" coords="25,184,200,225"/>
-<area shape="rect" id="node5" title=" " alt="" coords="44,95,181,121"/>
-<area shape="rect" id="node6" title=" " alt="" coords="93,5,132,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="37,475,188,515"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,387,220,412"/>
+<area shape="rect" id="node3" href="$dc/d1a/structtesseract__planning_1_1OMPLProblem.html" title=" " alt="" coords="47,284,178,324"/>
+<area shape="rect" id="node4" title=" " alt="" coords="25,181,200,221"/>
+<area shape="rect" id="node5" title=" " alt="" coords="44,93,181,119"/>
+<area shape="rect" id="node6" title=" " alt="" coords="93,5,132,31"/>
 </map>

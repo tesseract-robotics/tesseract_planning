@@ -1,8 +1,8 @@
 <map id="TesseractPlanningSimplePlannerLVSInterpolationUnit" name="TesseractPlanningSimplePlannerLVSInterpolationUnit">
-<area shape="rect" id="node1" title=" " alt="" coords="71,275,286,316"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,185,99,212"/>
-<area shape="rect" id="node3" title=" " alt="" coords="123,185,234,212"/>
-<area shape="rect" id="node4" title=" " alt="" coords="259,185,419,212"/>
-<area shape="rect" id="node5" title=" " alt="" coords="299,96,378,123"/>
-<area shape="rect" id="node6" title=" " alt="" coords="277,5,401,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="71,271,286,311"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,183,99,208"/>
+<area shape="rect" id="node3" title=" " alt="" coords="123,183,234,208"/>
+<area shape="rect" id="node4" title=" " alt="" coords="259,183,419,208"/>
+<area shape="rect" id="node5" title=" " alt="" coords="299,95,378,120"/>
+<area shape="rect" id="node6" title=" " alt="" coords="277,5,401,45"/>
 </map>

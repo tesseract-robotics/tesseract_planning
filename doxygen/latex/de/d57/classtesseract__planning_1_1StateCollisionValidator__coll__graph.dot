@@ -1,0 +1,21 @@
+digraph "tesseract_planning::StateCollisionValidator"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="tesseract_planning\l::StateCollisionValidator",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Continuous collision check between two states."];
+  Node2 -> Node1 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="ompl::base::StateValidity\lChecker",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" links_" ];
+  Node3 [label="std::vector\< std::string \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node3 [dir="back",color="darkorchid3",style="dashed",label=" elements" ];
+  Node4 [label="std::string",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="std::basic_string\<\l Char \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node6 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" mutex_" ];
+  Node6 [label="std::mutex",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node7 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" contact_managers_" ];
+  Node7 [label="std::map\< unsigned\l long int, tesseract\l_collision::DiscreteContact\lManager::Ptr \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+}

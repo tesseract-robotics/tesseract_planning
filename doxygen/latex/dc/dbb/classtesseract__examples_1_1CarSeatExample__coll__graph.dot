@@ -1,0 +1,17 @@
+digraph "tesseract_examples::CarSeatExample"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="tesseract_examples\l::CarSeatExample",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="An example of a robot on a rail installing a seat in a car."];
+  Node2 -> Node1 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="tesseract_examples\l::Example",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d3/d3b/classtesseract__examples_1_1Example.html",tooltip="The Example base class."];
+  Node3 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" saved_positions_" ];
+  Node3 [label="std::unordered_map\l\< std::string, std::\lunordered_map\< std::string,\l double \> \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node3 [dir="back",color="darkorchid3",style="dashed",label=" keys" ];
+  Node4 [label="std::string",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="std::basic_string\<\l Char \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+}

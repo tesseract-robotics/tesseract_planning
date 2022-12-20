@@ -1,6 +1,6 @@
 <map id="tesseract_examples/include/tesseract_examples/glass_upright_example.h" name="tesseract_examples/include/tesseract_examples/glass_upright_example.h">
-<area shape="rect" id="node1" title="An example of a robot with fixed orientation but free to move in cartesian space." alt="" coords="230,5,417,61"/>
-<area shape="rect" id="node2" href="$dc/da1/glass__upright__example_8cpp.html" title="Glass upright example implementation." alt="" coords="5,117,209,158"/>
-<area shape="rect" id="node3" href="$d3/d53/glass__upright__example__node_8cpp.html" title="Glass upright example node." alt="" coords="233,109,413,165"/>
-<area shape="rect" id="node4" href="$de/df5/glass__upright__example__unit_8cpp.html" title=" " alt="" coords="438,109,577,165"/>
+<area shape="rect" id="node1" title="An example of a robot with fixed orientation but free to move in cartesian space." alt="" coords="230,5,417,60"/>
+<area shape="rect" id="node2" href="$dc/da1/glass__upright__example_8cpp.html" title="Glass upright example implementation." alt="" coords="5,115,209,155"/>
+<area shape="rect" id="node3" href="$d3/d53/glass__upright__example__node_8cpp.html" title="Glass upright example node." alt="" coords="233,108,413,163"/>
+<area shape="rect" id="node4" href="$de/df5/glass__upright__example__unit_8cpp.html" title=" " alt="" coords="438,108,577,163"/>
 </map>

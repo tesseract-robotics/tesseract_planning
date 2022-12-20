@@ -1,45 +1,45 @@
 <map id="tesseract_planning::TaskComposerNode" name="tesseract_planning::TaskComposerNode">
-<area shape="rect" id="node1" title="Represents a node the pipeline to be executed." alt="" coords="5,1135,152,1176"/>
-<area shape="rect" id="node2" href="$d3/dac/classtesseract__planning_1_1TaskComposerGraph.html" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="200,528,351,569"/>
-<area shape="rect" id="node19" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="203,1741,348,1783"/>
-<area shape="rect" id="node3" href="$de/d09/classtesseract__planning_1_1CartesianMotionPipelineTask.html" title=" " alt="" coords="419,5,617,47"/>
-<area shape="rect" id="node4" href="$d4/d3a/classtesseract__planning_1_1DescartesGlobalMotionPipelineTask.html" title=" " alt="" coords="399,71,637,112"/>
-<area shape="rect" id="node5" href="$d6/d4c/classtesseract__planning_1_1DescartesMotionPipelineTask.html" title=" " alt="" coords="417,136,619,177"/>
-<area shape="rect" id="node6" href="$dc/d45/classtesseract__planning_1_1FreespaceMotionPipelineTask.html" title=" " alt="" coords="417,201,619,243"/>
-<area shape="rect" id="node7" href="$d2/d76/classtesseract__planning_1_1OMPLMotionPipelineTask.html" title=" " alt="" coords="428,267,608,308"/>
-<area shape="rect" id="node8" href="$da/d60/classtesseract__planning_1_1RasterCtGlobalPipelineTask.html" title="The RasterCtGlobalPipelineTask class." alt="" coords="423,332,613,373"/>
-<area shape="rect" id="node9" href="$dc/d0b/classtesseract__planning_1_1RasterCtOnlyGlobalPipelineTask.html" title="The RasterCtOnlyGlobalPipelineTask class." alt="" coords="409,397,627,439"/>
-<area shape="rect" id="node10" href="$d7/dff/classtesseract__planning_1_1RasterCtOnlyPipelineTask.html" title="The RasterCtOnlyGlobalPipelineTask class." alt="" coords="428,463,608,504"/>
-<area shape="rect" id="node11" href="$de/d4a/classtesseract__planning_1_1RasterCtPipelineTask.html" title="The RasterCtPipelineTask class." alt="" coords="441,528,595,569"/>
-<area shape="rect" id="node12" href="$d0/d72/classtesseract__planning_1_1RasterFtGlobalPipelineTask.html" title="The RasterFtGlobalPipelineTask class." alt="" coords="423,593,613,635"/>
-<area shape="rect" id="node13" href="$da/de2/classtesseract__planning_1_1RasterFtOnlyGlobalPipelineTask.html" title="The RasterFtOnlyGlobalPipelineTask class." alt="" coords="410,659,626,700"/>
-<area shape="rect" id="node14" href="$d9/d47/classtesseract__planning_1_1RasterFtOnlyPipelineTask.html" title="The RasterFtOnlyPipelineTask class." alt="" coords="429,724,607,765"/>
-<area shape="rect" id="node15" href="$d4/d8c/classtesseract__planning_1_1RasterFtPipelineTask.html" title="The RasterFtPipelineTask class." alt="" coords="441,789,595,831"/>
-<area shape="rect" id="node16" href="$d0/db1/classtesseract__planning_1_1SimpleMotionPipelineTask.html" title=" " alt="" coords="427,855,609,896"/>
-<area shape="rect" id="node17" href="$dc/df3/classtesseract__planning_1_1TrajOptIfoptMotionPipelineTask.html" title=" " alt="" coords="413,920,623,961"/>
-<area shape="rect" id="node18" href="$d4/de3/classtesseract__planning_1_1TrajOptMotionPipelineTask.html" title=" " alt="" coords="425,985,611,1027"/>
-<area shape="rect" id="node20" href="$d6/d85/classAddTaskComposerNode.html" title=" " alt="" coords="436,1051,600,1078"/>
-<area shape="rect" id="node21" href="$d1/de8/classMultiplyTaskComposerNode.html" title=" " alt="" coords="425,1102,611,1129"/>
-<area shape="rect" id="node22" href="$de/d24/classtesseract__planning_1_1CheckInputTask.html" title=" " alt="" coords="453,1153,583,1195"/>
-<area shape="rect" id="node23" href="$d0/dc5/classtesseract__planning_1_1ContinuousContactCheckTask.html" title=" " alt="" coords="416,1219,620,1260"/>
-<area shape="rect" id="node24" href="$d0/ddd/classtesseract__planning_1_1DiscreteContactCheckTask.html" title=" " alt="" coords="425,1284,611,1325"/>
-<area shape="rect" id="node25" href="$da/da8/classtesseract__planning_1_1DoneTask.html" title=" " alt="" coords="453,1349,583,1391"/>
-<area shape="rect" id="node26" href="$d6/d3d/classtesseract__planning_1_1ErrorTask.html" title=" " alt="" coords="453,1415,583,1456"/>
-<area shape="rect" id="node27" href="$de/ddd/classtesseract__planning_1_1FixStateBoundsTask.html" title="This task modifies the const input instructions in order to push waypoints that are outside of their ..." alt="" coords="443,1480,593,1521"/>
-<area shape="rect" id="node28" href="$d9/dd2/classtesseract__planning_1_1FixStateCollisionTask.html" title="This task modifies the const input instructions in order to push waypoints that are in collision out ..." alt="" coords="441,1545,595,1587"/>
-<area shape="rect" id="node29" href="$de/d1a/classtesseract__planning_1_1IterativeSplineParameterizationTask.html" title=" " alt="" coords="399,1611,637,1652"/>
-<area shape="rect" id="node30" href="$d2/d89/classtesseract__planning_1_1MinLengthTask.html" title=" " alt="" coords="453,1676,583,1717"/>
-<area shape="rect" id="node31" href="$d0/d05/classtesseract__planning_1_1MotionPlannerTask.html" title=" " alt="" coords="448,1741,588,1783"/>
-<area shape="rect" id="node32" href="$d7/d83/classtesseract__planning_1_1ProfileSwitchTask.html" title="This task simply returns a value specified in the composite profile. This can be used to switch execu..." alt="" coords="451,1807,585,1848"/>
-<area shape="rect" id="node33" href="$dd/d32/classtesseract__planning_1_1RasterCtMotionTask.html" title="The RasterCtMotionTask class." alt="" coords="445,1872,591,1913"/>
-<area shape="rect" id="node34" href="$d9/d1c/classtesseract__planning_1_1RasterCtOnlyMotionTask.html" title="The RasterCtOnlyMotionTask class." alt="" coords="431,1937,605,1979"/>
-<area shape="rect" id="node35" href="$d2/d6f/classtesseract__planning_1_1RasterFtMotionTask.html" title="The RasterFtMotionTask class." alt="" coords="445,2003,591,2044"/>
-<area shape="rect" id="node36" href="$d3/db5/classtesseract__planning_1_1RasterFtOnlyMotionTask.html" title="The RasterFtOnlyMotionTask class." alt="" coords="432,2068,604,2109"/>
-<area shape="rect" id="node37" href="$da/da7/classtesseract__planning_1_1RuckigTrajectorySmoothingTask.html" title=" " alt="" coords="410,2133,626,2175"/>
-<area shape="rect" id="node38" href="$d5/d24/classtesseract__planning_1_1StartTask.html" title=" " alt="" coords="453,2199,583,2240"/>
-<area shape="rect" id="node39" href="$de/d3e/classtesseract__planning_1_1TimeOptimalParameterizationTask.html" title=" " alt="" coords="404,2264,632,2305"/>
-<area shape="rect" id="node40" href="$d5/deb/classtesseract__planning_1_1UpdateEndStateTask.html" title=" " alt="" coords="442,2329,594,2371"/>
-<area shape="rect" id="node41" href="$d2/d5e/classtesseract__planning_1_1UpdateStartAndEndStateTask.html" title=" " alt="" coords="417,2395,619,2436"/>
-<area shape="rect" id="node42" href="$dd/d45/classtesseract__planning_1_1UpdateStartStateTask.html" title=" " alt="" coords="439,2460,597,2501"/>
-<area shape="rect" id="node43" href="$de/d59/classtesseract__planning_1_1UpsampleTrajectoryTask.html" title="This is used to upsample the results trajectory based on the longest valid segment length." alt="" coords="431,2525,605,2567"/>
+<area shape="rect" id="node1" title="Represents a node the pipeline to be executed." alt="" coords="5,1112,152,1152"/>
+<area shape="rect" id="node2" href="$d3/dac/classtesseract__planning_1_1TaskComposerGraph.html" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="200,517,351,557"/>
+<area shape="rect" id="node19" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="203,1705,348,1745"/>
+<area shape="rect" id="node3" href="$de/d09/classtesseract__planning_1_1CartesianMotionPipelineTask.html" title=" " alt="" coords="419,5,617,45"/>
+<area shape="rect" id="node4" href="$d4/d3a/classtesseract__planning_1_1DescartesGlobalMotionPipelineTask.html" title=" " alt="" coords="399,69,637,109"/>
+<area shape="rect" id="node5" href="$d6/d4c/classtesseract__planning_1_1DescartesMotionPipelineTask.html" title=" " alt="" coords="417,133,619,173"/>
+<area shape="rect" id="node6" href="$dc/d45/classtesseract__planning_1_1FreespaceMotionPipelineTask.html" title=" " alt="" coords="417,197,619,237"/>
+<area shape="rect" id="node7" href="$d2/d76/classtesseract__planning_1_1OMPLMotionPipelineTask.html" title=" " alt="" coords="428,261,608,301"/>
+<area shape="rect" id="node8" href="$da/d60/classtesseract__planning_1_1RasterCtGlobalPipelineTask.html" title="The RasterCtGlobalPipelineTask class." alt="" coords="423,325,613,365"/>
+<area shape="rect" id="node9" href="$dc/d0b/classtesseract__planning_1_1RasterCtOnlyGlobalPipelineTask.html" title="The RasterCtOnlyGlobalPipelineTask class." alt="" coords="409,389,627,429"/>
+<area shape="rect" id="node10" href="$d7/dff/classtesseract__planning_1_1RasterCtOnlyPipelineTask.html" title="The RasterCtOnlyGlobalPipelineTask class." alt="" coords="428,453,608,493"/>
+<area shape="rect" id="node11" href="$de/d4a/classtesseract__planning_1_1RasterCtPipelineTask.html" title="The RasterCtPipelineTask class." alt="" coords="441,517,595,557"/>
+<area shape="rect" id="node12" href="$d0/d72/classtesseract__planning_1_1RasterFtGlobalPipelineTask.html" title="The RasterFtGlobalPipelineTask class." alt="" coords="423,581,613,621"/>
+<area shape="rect" id="node13" href="$da/de2/classtesseract__planning_1_1RasterFtOnlyGlobalPipelineTask.html" title="The RasterFtOnlyGlobalPipelineTask class." alt="" coords="410,645,626,685"/>
+<area shape="rect" id="node14" href="$d9/d47/classtesseract__planning_1_1RasterFtOnlyPipelineTask.html" title="The RasterFtOnlyPipelineTask class." alt="" coords="429,709,607,749"/>
+<area shape="rect" id="node15" href="$d4/d8c/classtesseract__planning_1_1RasterFtPipelineTask.html" title="The RasterFtPipelineTask class." alt="" coords="441,773,595,813"/>
+<area shape="rect" id="node16" href="$d0/db1/classtesseract__planning_1_1SimpleMotionPipelineTask.html" title=" " alt="" coords="427,837,609,877"/>
+<area shape="rect" id="node17" href="$dc/df3/classtesseract__planning_1_1TrajOptIfoptMotionPipelineTask.html" title=" " alt="" coords="413,901,623,941"/>
+<area shape="rect" id="node18" href="$d4/de3/classtesseract__planning_1_1TrajOptMotionPipelineTask.html" title=" " alt="" coords="425,965,611,1005"/>
+<area shape="rect" id="node20" href="$d6/d85/classAddTaskComposerNode.html" title=" " alt="" coords="436,1030,600,1055"/>
+<area shape="rect" id="node21" href="$d1/de8/classMultiplyTaskComposerNode.html" title=" " alt="" coords="425,1079,611,1105"/>
+<area shape="rect" id="node22" href="$de/d24/classtesseract__planning_1_1CheckInputTask.html" title=" " alt="" coords="453,1129,583,1169"/>
+<area shape="rect" id="node23" href="$d0/dc5/classtesseract__planning_1_1ContinuousContactCheckTask.html" title=" " alt="" coords="416,1193,620,1233"/>
+<area shape="rect" id="node24" href="$d0/ddd/classtesseract__planning_1_1DiscreteContactCheckTask.html" title=" " alt="" coords="425,1257,611,1297"/>
+<area shape="rect" id="node25" href="$da/da8/classtesseract__planning_1_1DoneTask.html" title=" " alt="" coords="453,1321,583,1361"/>
+<area shape="rect" id="node26" href="$d6/d3d/classtesseract__planning_1_1ErrorTask.html" title=" " alt="" coords="453,1385,583,1425"/>
+<area shape="rect" id="node27" href="$de/ddd/classtesseract__planning_1_1FixStateBoundsTask.html" title="This task modifies the const input instructions in order to push waypoints that are outside of their ..." alt="" coords="443,1449,593,1489"/>
+<area shape="rect" id="node28" href="$d9/dd2/classtesseract__planning_1_1FixStateCollisionTask.html" title="This task modifies the const input instructions in order to push waypoints that are in collision out ..." alt="" coords="441,1513,595,1553"/>
+<area shape="rect" id="node29" href="$de/d1a/classtesseract__planning_1_1IterativeSplineParameterizationTask.html" title=" " alt="" coords="399,1577,637,1617"/>
+<area shape="rect" id="node30" href="$d2/d89/classtesseract__planning_1_1MinLengthTask.html" title=" " alt="" coords="453,1641,583,1681"/>
+<area shape="rect" id="node31" href="$d0/d05/classtesseract__planning_1_1MotionPlannerTask.html" title=" " alt="" coords="448,1705,588,1745"/>
+<area shape="rect" id="node32" href="$d7/d83/classtesseract__planning_1_1ProfileSwitchTask.html" title="This task simply returns a value specified in the composite profile. This can be used to switch execu..." alt="" coords="451,1769,585,1809"/>
+<area shape="rect" id="node33" href="$dd/d32/classtesseract__planning_1_1RasterCtMotionTask.html" title="The RasterCtMotionTask class." alt="" coords="445,1833,591,1873"/>
+<area shape="rect" id="node34" href="$d9/d1c/classtesseract__planning_1_1RasterCtOnlyMotionTask.html" title="The RasterCtOnlyMotionTask class." alt="" coords="431,1897,605,1937"/>
+<area shape="rect" id="node35" href="$d2/d6f/classtesseract__planning_1_1RasterFtMotionTask.html" title="The RasterFtMotionTask class." alt="" coords="445,1961,591,2001"/>
+<area shape="rect" id="node36" href="$d3/db5/classtesseract__planning_1_1RasterFtOnlyMotionTask.html" title="The RasterFtOnlyMotionTask class." alt="" coords="432,2025,604,2065"/>
+<area shape="rect" id="node37" href="$da/da7/classtesseract__planning_1_1RuckigTrajectorySmoothingTask.html" title=" " alt="" coords="410,2089,626,2129"/>
+<area shape="rect" id="node38" href="$d5/d24/classtesseract__planning_1_1StartTask.html" title=" " alt="" coords="453,2153,583,2193"/>
+<area shape="rect" id="node39" href="$de/d3e/classtesseract__planning_1_1TimeOptimalParameterizationTask.html" title=" " alt="" coords="404,2217,632,2257"/>
+<area shape="rect" id="node40" href="$d5/deb/classtesseract__planning_1_1UpdateEndStateTask.html" title=" " alt="" coords="442,2281,594,2321"/>
+<area shape="rect" id="node41" href="$d2/d5e/classtesseract__planning_1_1UpdateStartAndEndStateTask.html" title=" " alt="" coords="417,2345,619,2385"/>
+<area shape="rect" id="node42" href="$dd/d45/classtesseract__planning_1_1UpdateStartStateTask.html" title=" " alt="" coords="439,2409,597,2449"/>
+<area shape="rect" id="node43" href="$de/d59/classtesseract__planning_1_1UpsampleTrajectoryTask.html" title="This is used to upsample the results trajectory based on the longest valid segment length." alt="" coords="431,2473,605,2513"/>
 </map>
