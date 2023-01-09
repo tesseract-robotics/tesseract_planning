@@ -51,6 +51,18 @@ static const tesseract_planning::locateFilterFn toJointTrajectoryInstructionFilt
       return false;
     };
 
+tesseract_common::JointTrajectory toJointTrajectory(const InstructionPoly& instruction)
+{
+  using namespace tesseract_planning;
+  if (instruction.isCompositeInstruction())
+  {
+    const auto& ci = instruction.as<CompositeInstruction>();
+    return toJointTrajectory(ci);
+  }
+
+  throw std::runtime_error("toJointTrajectory: Unsupported Instruction Type!");
+}
+
 tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& composite_instructions)
 {
   tesseract_common::JointTrajectory trajectory;
