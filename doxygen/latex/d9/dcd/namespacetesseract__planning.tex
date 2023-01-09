@@ -505,6 +505,8 @@ bool \mbox{\hyperlink{namespacetesseract__planning_a3328003f95ef5bed103a3e742ca1
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a329603710c303499ba811aae4edd6f68}{is\+Wait\+Instruction}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&instruction)
 \item 
+tesseract\+\_\+common\+::\+Joint\+Trajectory \mbox{\hyperlink{namespacetesseract__planning_ac35f27929356cd729efbf90bbac0cfe5}{to\+Joint\+Trajectory}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&instruction)
+\begin{DoxyCompactList}\small\item\em Convert instruction to a joint trajectory. \end{DoxyCompactList}\item 
 tesseract\+\_\+common\+::\+Joint\+Trajectory \mbox{\hyperlink{namespacetesseract__planning_a4631f1616bd5577e3b1a049553ce557a}{to\+Joint\+Trajectory}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite\+\_\+instructions)
 \begin{DoxyCompactList}\small\item\em Convert composite instruction to a joint trajectory. \end{DoxyCompactList}\item 
 const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{namespacetesseract__planning_a49306b610c951ca98df499be491a51c0}{get\+Joint\+Position}} (const \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \&\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}})
@@ -3178,7 +3180,7 @@ true if successful
 \mbox{\Hypertarget{namespacetesseract__planning_a4631f1616bd5577e3b1a049553ce557a}\label{namespacetesseract__planning_a4631f1616bd5577e3b1a049553ce557a}} 
 \index{tesseract\_planning@{tesseract\_planning}!toJointTrajectory@{toJointTrajectory}}
 \index{toJointTrajectory@{toJointTrajectory}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toJointTrajectory()}{toJointTrajectory()}}
+\doxysubsubsection{\texorpdfstring{toJointTrajectory()}{toJointTrajectory()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily tesseract\+\_\+common\+::\+Joint\+Trajectory tesseract\+\_\+planning\+::to\+Joint\+Trajectory (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{composite\+\_\+instructions }\end{DoxyParamCaption})}
 
 
@@ -3188,6 +3190,24 @@ Convert composite instruction to a joint trajectory.
 This searches for both move and plan instruction to support converting both input and results to planning requests. If it contains a Cartesian waypoint it is skipped. 
 \begin{DoxyParams}{Parameters}
 {\em composite\+\_\+instructions} & The composite instruction to convert \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A joint trajectory 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacetesseract__planning_ac35f27929356cd729efbf90bbac0cfe5}\label{namespacetesseract__planning_ac35f27929356cd729efbf90bbac0cfe5}} 
+\index{tesseract\_planning@{tesseract\_planning}!toJointTrajectory@{toJointTrajectory}}
+\index{toJointTrajectory@{toJointTrajectory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{toJointTrajectory()}{toJointTrajectory()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Joint\+Trajectory tesseract\+\_\+planning\+::to\+Joint\+Trajectory (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&}]{instruction }\end{DoxyParamCaption})}
+
+
+
+Convert instruction to a joint trajectory. 
+
+This searches for both move instructions. If it contains a Cartesian waypoint it is skipped. 
+\begin{DoxyParams}{Parameters}
+{\em instruction} & The instruction to convert \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
