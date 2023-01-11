@@ -52,11 +52,29 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
   , allow_collision_(allow_collision)
   , debug_(debug)
 {
-  discrete_contact_manager_->setActiveCollisionObjects(active_link_names_);
-  discrete_contact_manager_->applyContactManagerConfig(config.contact_manager_config);
+  if (discrete_contact_manager_ != nullptr)
+  {
+    discrete_contact_manager_->setActiveCollisionObjects(active_link_names_);
+    discrete_contact_manager_->applyContactManagerConfig(config.contact_manager_config);
+  }
+  else if (collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::DISCRETE ||
+           collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
+  {
+    throw std::runtime_error("Evaluator type is DISCRETE or LVS_DISCRETE, but discrete contact manager is not "
+                             "available");
+  }
 
-  continuous_contact_manager_->setActiveCollisionObjects(active_link_names_);
-  continuous_contact_manager_->applyContactManagerConfig(config.contact_manager_config);
+  if (continuous_contact_manager_ != nullptr)
+  {
+    continuous_contact_manager_->setActiveCollisionObjects(active_link_names_);
+    continuous_contact_manager_->applyContactManagerConfig(config.contact_manager_config);
+  }
+  else if (collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::CONTINUOUS ||
+           collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
+  {
+    throw std::runtime_error("Evaluator type is CONTINUOUS or LVS_CONTINUOUS, but continuous contact manager is not "
+                             "available");
+  }
 }
 
 template <typename FloatType>
@@ -75,30 +93,27 @@ DescartesCollisionEdgeEvaluator<FloatType>::evaluate(const descartes_light::Stat
     segment(1, i) = end[i];
   }
 
-  std::vector<tesseract_collision::ContactResultMap> discrete_results;
-  std::vector<tesseract_collision::ContactResultMap> continuous_results;
-  bool discrete_in_contact = discreteCollisionCheck(discrete_results, segment, allow_collision_);
-  bool continuous_in_contact = continuousCollisionCheck(continuous_results, segment, allow_collision_);
+  std::vector<tesseract_collision::ContactResultMap> contact_results;
+  bool in_contact{ true };
+  if (collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::CONTINUOUS ||
+      collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
+  {
+    in_contact = continuousCollisionCheck(contact_results, segment, allow_collision_);
+  }
+  else
+  {
+    in_contact = discreteCollisionCheck(contact_results, segment, allow_collision_);
+  }
 
-  if (!discrete_in_contact && !continuous_in_contact)
+  if (!in_contact)
     return std::make_pair(true, 0);
 
   // TODO: Update this to consider link pairs
   auto collision_safety_margin_ =
       static_cast<FloatType>(collision_check_config_.contact_manager_config.margin_data.getMaxCollisionMargin());
 
-  if (!discrete_in_contact && continuous_in_contact && allow_collision_)
-    return std::make_pair(true, collision_safety_margin_ - continuous_results.begin()->begin()->second[0].distance);
-
-  if (discrete_in_contact && !continuous_in_contact && allow_collision_)
-    return std::make_pair(true, collision_safety_margin_ - discrete_results.begin()->begin()->second[0].distance);
-
-  if (discrete_in_contact && continuous_in_contact && allow_collision_)
-  {
-    double d = collision_safety_margin_ - discrete_results.begin()->begin()->second[0].distance;
-    double c = collision_safety_margin_ - continuous_results.begin()->begin()->second[0].distance;
-    return std::make_pair(true, std::max(d, c));
-  }
+  if (in_contact && allow_collision_)
+    return std::make_pair(true, collision_safety_margin_ - contact_results.begin()->begin()->second[0].distance);
 
   return std::make_pair(false, 0);
 }
@@ -125,11 +140,6 @@ bool DescartesCollisionEdgeEvaluator<FloatType>::continuousCollisionCheck(
   }
   mutex_.unlock();
   tesseract_collision::CollisionCheckConfig config = collision_check_config_;
-  if (config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE ||
-      config.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
-    config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
-  else
-    config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
   config.contact_request.type =
       (find_best) ? tesseract_collision::ContactTestType::CLOSEST : tesseract_collision::ContactTestType::FIRST;
 
@@ -159,11 +169,6 @@ bool DescartesCollisionEdgeEvaluator<FloatType>::discreteCollisionCheck(
   mutex_.unlock();
 
   tesseract_collision::CollisionCheckConfig config = collision_check_config_;
-  if (config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE ||
-      config.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
-    config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
-  else
-    config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
   config.contact_request.type =
       (find_best) ? tesseract_collision::ContactTestType::CLOSEST : tesseract_collision::ContactTestType::FIRST;
 
