@@ -32,126 +32,131 @@
 \DoxyCodeLine{52   , allow\_collision\_(allow\_collision)}
 \DoxyCodeLine{53   , debug\_(debug)}
 \DoxyCodeLine{54 \{}
-\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a005b976fe7f8800d1d5f6b4f563a1b1a}{discrete\_contact\_manager\_}}-\/>setActiveCollisionObjects(\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_aaa722ee288880e45ad54fd124bc0e11a}{active\_link\_names\_}});}
-\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a005b976fe7f8800d1d5f6b4f563a1b1a}{discrete\_contact\_manager\_}}-\/>applyContactManagerConfig(config.contact\_manager\_config);}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_af4cd2c16c78c1563f081ebf0a03dca87}{continuous\_contact\_manager\_}}-\/>setActiveCollisionObjects(\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_aaa722ee288880e45ad54fd124bc0e11a}{active\_link\_names\_}});}
-\DoxyCodeLine{59   \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_af4cd2c16c78c1563f081ebf0a03dca87}{continuous\_contact\_manager\_}}-\/>applyContactManagerConfig(config.contact\_manager\_config);}
-\DoxyCodeLine{60 \}}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{63 std::pair<bool, FloatType>}
-\DoxyCodeLine{64 \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a30427575131a80dda8ef9b9160194149}{DescartesCollisionEdgeEvaluator<FloatType>::evaluate}}(\textcolor{keyword}{const} descartes\_light::State<FloatType>\& \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}},}
-\DoxyCodeLine{65                                                      \textcolor{keyword}{const} descartes\_light::State<FloatType>\& end)\textcolor{keyword}{ const}}
-\DoxyCodeLine{66 \textcolor{keyword}{}\{}
-\DoxyCodeLine{67   assert(\mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}}.values.rows() == end.values.rows());}
-\DoxyCodeLine{68 }
-\DoxyCodeLine{69   \textcolor{comment}{// Happens in two phases:}}
-\DoxyCodeLine{70   \textcolor{comment}{// 1. Compute the transform of all objects}}
-\DoxyCodeLine{71   tesseract\_common::TrajArray segment(2, \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}}.values.rows());}
-\DoxyCodeLine{72   \textcolor{keywordflow}{for} (Eigen::Index i = 0; i < \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}}.values.rows(); ++i)}
-\DoxyCodeLine{73   \{}
-\DoxyCodeLine{74     segment(0, i) = \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}}[i];}
-\DoxyCodeLine{75     segment(1, i) = end[i];}
-\DoxyCodeLine{76   \}}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{78   std::vector<tesseract\_collision::ContactResultMap> discrete\_results;}
-\DoxyCodeLine{79   std::vector<tesseract\_collision::ContactResultMap> continuous\_results;}
-\DoxyCodeLine{80   \textcolor{keywordtype}{bool} discrete\_in\_contact = discreteCollisionCheck(discrete\_results, segment, allow\_collision\_);}
-\DoxyCodeLine{81   \textcolor{keywordtype}{bool} continuous\_in\_contact = continuousCollisionCheck(continuous\_results, segment, allow\_collision\_);}
-\DoxyCodeLine{82 }
-\DoxyCodeLine{83   \textcolor{keywordflow}{if} (!discrete\_in\_contact \&\& !continuous\_in\_contact)}
-\DoxyCodeLine{84     \textcolor{keywordflow}{return} std::make\_pair(\textcolor{keyword}{true}, 0);}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{86   \textcolor{comment}{// TODO: Update this to consider link pairs}}
-\DoxyCodeLine{87   \textcolor{keyword}{auto} collision\_safety\_margin\_ =}
-\DoxyCodeLine{88       \textcolor{keyword}{static\_cast<}FloatType\textcolor{keyword}{>}(collision\_check\_config\_.contact\_manager\_config.margin\_data.getMaxCollisionMargin());}
-\DoxyCodeLine{89 }
-\DoxyCodeLine{90   \textcolor{keywordflow}{if} (!discrete\_in\_contact \&\& continuous\_in\_contact \&\& allow\_collision\_)}
-\DoxyCodeLine{91     \textcolor{keywordflow}{return} std::make\_pair(\textcolor{keyword}{true}, collision\_safety\_margin\_ -\/ continuous\_results.begin()-\/>begin()-\/>second[0].distance);}
-\DoxyCodeLine{92 }
-\DoxyCodeLine{93   \textcolor{keywordflow}{if} (discrete\_in\_contact \&\& !continuous\_in\_contact \&\& allow\_collision\_)}
-\DoxyCodeLine{94     \textcolor{keywordflow}{return} std::make\_pair(\textcolor{keyword}{true}, collision\_safety\_margin\_ -\/ discrete\_results.begin()-\/>begin()-\/>second[0].distance);}
+\DoxyCodeLine{55   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a005b976fe7f8800d1d5f6b4f563a1b1a}{discrete\_contact\_manager\_}} != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{56   \{}
+\DoxyCodeLine{57     \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a005b976fe7f8800d1d5f6b4f563a1b1a}{discrete\_contact\_manager\_}}-\/>setActiveCollisionObjects(\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_aaa722ee288880e45ad54fd124bc0e11a}{active\_link\_names\_}});}
+\DoxyCodeLine{58     \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a005b976fe7f8800d1d5f6b4f563a1b1a}{discrete\_contact\_manager\_}}-\/>applyContactManagerConfig(config.contact\_manager\_config);}
+\DoxyCodeLine{59   \}}
+\DoxyCodeLine{60   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a06cec4d2777042340abf623c20a9792d}{collision\_check\_config\_}}.type == tesseract\_collision::CollisionEvaluatorType::DISCRETE ||}
+\DoxyCodeLine{61            \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a06cec4d2777042340abf623c20a9792d}{collision\_check\_config\_}}.type == tesseract\_collision::CollisionEvaluatorType::LVS\_DISCRETE)}
+\DoxyCodeLine{62   \{}
+\DoxyCodeLine{63     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Evaluator type is DISCRETE or LVS\_DISCRETE, but discrete contact manager is not "{}}}
+\DoxyCodeLine{64                              \textcolor{stringliteral}{"{}available"{}});}
+\DoxyCodeLine{65   \}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_af4cd2c16c78c1563f081ebf0a03dca87}{continuous\_contact\_manager\_}} != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{68   \{}
+\DoxyCodeLine{69     \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_af4cd2c16c78c1563f081ebf0a03dca87}{continuous\_contact\_manager\_}}-\/>setActiveCollisionObjects(\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_aaa722ee288880e45ad54fd124bc0e11a}{active\_link\_names\_}});}
+\DoxyCodeLine{70     \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_af4cd2c16c78c1563f081ebf0a03dca87}{continuous\_contact\_manager\_}}-\/>applyContactManagerConfig(config.contact\_manager\_config);}
+\DoxyCodeLine{71   \}}
+\DoxyCodeLine{72   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a06cec4d2777042340abf623c20a9792d}{collision\_check\_config\_}}.type == tesseract\_collision::CollisionEvaluatorType::CONTINUOUS ||}
+\DoxyCodeLine{73            \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a06cec4d2777042340abf623c20a9792d}{collision\_check\_config\_}}.type == tesseract\_collision::CollisionEvaluatorType::LVS\_CONTINUOUS)}
+\DoxyCodeLine{74   \{}
+\DoxyCodeLine{75     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Evaluator type is CONTINUOUS or LVS\_CONTINUOUS, but continuous contact manager is not "{}}}
+\DoxyCodeLine{76                              \textcolor{stringliteral}{"{}available"{}});}
+\DoxyCodeLine{77   \}}
+\DoxyCodeLine{78 \}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{81 std::pair<bool, FloatType>}
+\DoxyCodeLine{82 \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a30427575131a80dda8ef9b9160194149}{DescartesCollisionEdgeEvaluator<FloatType>::evaluate}}(\textcolor{keyword}{const} descartes\_light::State<FloatType>\& \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}},}
+\DoxyCodeLine{83                                                      \textcolor{keyword}{const} descartes\_light::State<FloatType>\& end)\textcolor{keyword}{ const}}
+\DoxyCodeLine{84 \textcolor{keyword}{}\{}
+\DoxyCodeLine{85   assert(\mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}}.values.rows() == end.values.rows());}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87   \textcolor{comment}{// Happens in two phases:}}
+\DoxyCodeLine{88   \textcolor{comment}{// 1. Compute the transform of all objects}}
+\DoxyCodeLine{89   tesseract\_common::TrajArray segment(2, \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}}.values.rows());}
+\DoxyCodeLine{90   \textcolor{keywordflow}{for} (Eigen::Index i = 0; i < \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}}.values.rows(); ++i)}
+\DoxyCodeLine{91   \{}
+\DoxyCodeLine{92     segment(0, i) = \mbox{\hyperlink{ompl__planner__tests_8cpp_a62ebfcefbc3b45ade04ab058f594e835}{start}}[i];}
+\DoxyCodeLine{93     segment(1, i) = end[i];}
+\DoxyCodeLine{94   \}}
 \DoxyCodeLine{95 }
-\DoxyCodeLine{96   \textcolor{keywordflow}{if} (discrete\_in\_contact \&\& continuous\_in\_contact \&\& allow\_collision\_)}
-\DoxyCodeLine{97   \{}
-\DoxyCodeLine{98     \textcolor{keywordtype}{double} d = collision\_safety\_margin\_ -\/ discrete\_results.begin()-\/>begin()-\/>second[0].distance;}
-\DoxyCodeLine{99     \textcolor{keywordtype}{double} c = collision\_safety\_margin\_ -\/ continuous\_results.begin()-\/>begin()-\/>second[0].distance;}
-\DoxyCodeLine{100     \textcolor{keywordflow}{return} std::make\_pair(\textcolor{keyword}{true}, std::max(d, c));}
-\DoxyCodeLine{101   \}}
-\DoxyCodeLine{102 }
-\DoxyCodeLine{103   \textcolor{keywordflow}{return} std::make\_pair(\textcolor{keyword}{false}, 0);}
-\DoxyCodeLine{104 \}}
-\DoxyCodeLine{105 }
-\DoxyCodeLine{106 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{107 \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_ac2e4fa4cd2becf3016bea15a4702f684}{DescartesCollisionEdgeEvaluator<FloatType>::continuousCollisionCheck}}(}
-\DoxyCodeLine{108     std::vector<tesseract\_collision::ContactResultMap>\& results,}
-\DoxyCodeLine{109     \textcolor{keyword}{const} tesseract\_common::TrajArray\& segment,}
-\DoxyCodeLine{110     \textcolor{keywordtype}{bool} find\_best)\textcolor{keyword}{ const}}
-\DoxyCodeLine{111 \textcolor{keyword}{}\{}
-\DoxyCodeLine{112   \textcolor{comment}{// It was time using chronos time elapsed and it was faster to cache the contact manager}}
-\DoxyCodeLine{113   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} hash = std::hash<std::thread::id>\{\}(std::this\_thread::get\_id());}
-\DoxyCodeLine{114   tesseract\_collision::ContinuousContactManager::Ptr cm;}
-\DoxyCodeLine{115   mutex\_.lock();}
-\DoxyCodeLine{116   \textcolor{keyword}{auto} \mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} = continuous\_contact\_managers\_.find(hash);}
-\DoxyCodeLine{117   \textcolor{keywordflow}{if} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} == continuous\_contact\_managers\_.end())}
-\DoxyCodeLine{118   \{}
-\DoxyCodeLine{119     cm = continuous\_contact\_manager\_-\/>clone();}
-\DoxyCodeLine{120     continuous\_contact\_managers\_[hash] = cm;}
-\DoxyCodeLine{121   \}}
-\DoxyCodeLine{122   \textcolor{keywordflow}{else}}
-\DoxyCodeLine{123   \{}
-\DoxyCodeLine{124     cm = \mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}}-\/>second;}
-\DoxyCodeLine{125   \}}
-\DoxyCodeLine{126   mutex\_.unlock();}
-\DoxyCodeLine{127   tesseract\_collision::CollisionCheckConfig config = collision\_check\_config\_;}
-\DoxyCodeLine{128   \textcolor{keywordflow}{if} (config.type == tesseract\_collision::CollisionEvaluatorType::LVS\_DISCRETE ||}
-\DoxyCodeLine{129       config.type == tesseract\_collision::CollisionEvaluatorType::LVS\_CONTINUOUS)}
-\DoxyCodeLine{130     config.type = tesseract\_collision::CollisionEvaluatorType::LVS\_CONTINUOUS;}
-\DoxyCodeLine{131   \textcolor{keywordflow}{else}}
-\DoxyCodeLine{132     config.type = tesseract\_collision::CollisionEvaluatorType::CONTINUOUS;}
-\DoxyCodeLine{133   config.contact\_request.type =}
-\DoxyCodeLine{134       (find\_best) ? tesseract\_collision::ContactTestType::CLOSEST : tesseract\_collision::ContactTestType::FIRST;}
-\DoxyCodeLine{135 }
-\DoxyCodeLine{136   \textcolor{keywordflow}{return} tesseract\_environment::checkTrajectory(results, *cm, *manip\_, segment, config);}
-\DoxyCodeLine{137 \}}
-\DoxyCodeLine{138 }
-\DoxyCodeLine{139 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{140 \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a57d71274366e887d079a49fadd1b34cc}{DescartesCollisionEdgeEvaluator<FloatType>::discreteCollisionCheck}}(}
-\DoxyCodeLine{141     std::vector<tesseract\_collision::ContactResultMap>\& results,}
-\DoxyCodeLine{142     \textcolor{keyword}{const} tesseract\_common::TrajArray\& segment,}
-\DoxyCodeLine{143     \textcolor{keywordtype}{bool} find\_best)\textcolor{keyword}{ const}}
-\DoxyCodeLine{144 \textcolor{keyword}{}\{}
-\DoxyCodeLine{145   \textcolor{comment}{// It was time using chronos time elapsed and it was faster to cache the contact manager}}
-\DoxyCodeLine{146   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} hash = std::hash<std::thread::id>\{\}(std::this\_thread::get\_id());}
-\DoxyCodeLine{147   tesseract\_collision::DiscreteContactManager::Ptr cm;}
-\DoxyCodeLine{148   mutex\_.lock();}
-\DoxyCodeLine{149   \textcolor{keyword}{auto} \mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} = discrete\_contact\_managers\_.find(hash);}
-\DoxyCodeLine{150   \textcolor{keywordflow}{if} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} == discrete\_contact\_managers\_.end())}
-\DoxyCodeLine{151   \{}
-\DoxyCodeLine{152     cm = discrete\_contact\_manager\_-\/>clone();}
-\DoxyCodeLine{153     discrete\_contact\_managers\_[hash] = cm;}
-\DoxyCodeLine{154   \}}
-\DoxyCodeLine{155   \textcolor{keywordflow}{else}}
-\DoxyCodeLine{156   \{}
-\DoxyCodeLine{157     cm = \mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}}-\/>second;}
-\DoxyCodeLine{158   \}}
-\DoxyCodeLine{159   mutex\_.unlock();}
-\DoxyCodeLine{160 }
-\DoxyCodeLine{161   tesseract\_collision::CollisionCheckConfig config = collision\_check\_config\_;}
-\DoxyCodeLine{162   \textcolor{keywordflow}{if} (config.type == tesseract\_collision::CollisionEvaluatorType::LVS\_DISCRETE ||}
-\DoxyCodeLine{163       config.type == tesseract\_collision::CollisionEvaluatorType::LVS\_CONTINUOUS)}
-\DoxyCodeLine{164     config.type = tesseract\_collision::CollisionEvaluatorType::LVS\_DISCRETE;}
+\DoxyCodeLine{96   std::vector<tesseract\_collision::ContactResultMap> contact\_results;}
+\DoxyCodeLine{97   \textcolor{keywordtype}{bool} in\_contact\{ \textcolor{keyword}{true} \};}
+\DoxyCodeLine{98   \textcolor{keywordflow}{if} (collision\_check\_config\_.type == tesseract\_collision::CollisionEvaluatorType::CONTINUOUS ||}
+\DoxyCodeLine{99       collision\_check\_config\_.type == tesseract\_collision::CollisionEvaluatorType::LVS\_CONTINUOUS)}
+\DoxyCodeLine{100   \{}
+\DoxyCodeLine{101     in\_contact = continuousCollisionCheck(contact\_results, segment, allow\_collision\_);}
+\DoxyCodeLine{102   \}}
+\DoxyCodeLine{103   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{104   \{}
+\DoxyCodeLine{105     in\_contact = discreteCollisionCheck(contact\_results, segment, allow\_collision\_);}
+\DoxyCodeLine{106   \}}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108   \textcolor{keywordflow}{if} (!in\_contact)}
+\DoxyCodeLine{109     \textcolor{keywordflow}{return} std::make\_pair(\textcolor{keyword}{true}, 0);}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111   \textcolor{comment}{// TODO: Update this to consider link pairs}}
+\DoxyCodeLine{112   \textcolor{keyword}{auto} collision\_safety\_margin\_ =}
+\DoxyCodeLine{113       \textcolor{keyword}{static\_cast<}FloatType\textcolor{keyword}{>}(collision\_check\_config\_.contact\_manager\_config.margin\_data.getMaxCollisionMargin());}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115   \textcolor{keywordflow}{if} (in\_contact \&\& allow\_collision\_)}
+\DoxyCodeLine{116     \textcolor{keywordflow}{return} std::make\_pair(\textcolor{keyword}{true}, collision\_safety\_margin\_ -\/ contact\_results.begin()-\/>begin()-\/>second[0].distance);}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118   \textcolor{keywordflow}{return} std::make\_pair(\textcolor{keyword}{false}, 0);}
+\DoxyCodeLine{119 \}}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{122 \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_ac2e4fa4cd2becf3016bea15a4702f684}{DescartesCollisionEdgeEvaluator<FloatType>::continuousCollisionCheck}}(}
+\DoxyCodeLine{123     std::vector<tesseract\_collision::ContactResultMap>\& results,}
+\DoxyCodeLine{124     \textcolor{keyword}{const} tesseract\_common::TrajArray\& segment,}
+\DoxyCodeLine{125     \textcolor{keywordtype}{bool} find\_best)\textcolor{keyword}{ const}}
+\DoxyCodeLine{126 \textcolor{keyword}{}\{}
+\DoxyCodeLine{127   \textcolor{comment}{// It was time using chronos time elapsed and it was faster to cache the contact manager}}
+\DoxyCodeLine{128   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} hash = std::hash<std::thread::id>\{\}(std::this\_thread::get\_id());}
+\DoxyCodeLine{129   tesseract\_collision::ContinuousContactManager::Ptr cm;}
+\DoxyCodeLine{130   mutex\_.lock();}
+\DoxyCodeLine{131   \textcolor{keyword}{auto} \mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} = continuous\_contact\_managers\_.find(hash);}
+\DoxyCodeLine{132   \textcolor{keywordflow}{if} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} == continuous\_contact\_managers\_.end())}
+\DoxyCodeLine{133   \{}
+\DoxyCodeLine{134     cm = continuous\_contact\_manager\_-\/>clone();}
+\DoxyCodeLine{135     continuous\_contact\_managers\_[hash] = cm;}
+\DoxyCodeLine{136   \}}
+\DoxyCodeLine{137   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{138   \{}
+\DoxyCodeLine{139     cm = \mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}}-\/>second;}
+\DoxyCodeLine{140   \}}
+\DoxyCodeLine{141   mutex\_.unlock();}
+\DoxyCodeLine{142   tesseract\_collision::CollisionCheckConfig config = collision\_check\_config\_;}
+\DoxyCodeLine{143   config.contact\_request.type =}
+\DoxyCodeLine{144       (find\_best) ? tesseract\_collision::ContactTestType::CLOSEST : tesseract\_collision::ContactTestType::FIRST;}
+\DoxyCodeLine{145 }
+\DoxyCodeLine{146   \textcolor{keywordflow}{return} tesseract\_environment::checkTrajectory(results, *cm, *manip\_, segment, config);}
+\DoxyCodeLine{147 \}}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{150 \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a57d71274366e887d079a49fadd1b34cc}{DescartesCollisionEdgeEvaluator<FloatType>::discreteCollisionCheck}}(}
+\DoxyCodeLine{151     std::vector<tesseract\_collision::ContactResultMap>\& results,}
+\DoxyCodeLine{152     \textcolor{keyword}{const} tesseract\_common::TrajArray\& segment,}
+\DoxyCodeLine{153     \textcolor{keywordtype}{bool} find\_best)\textcolor{keyword}{ const}}
+\DoxyCodeLine{154 \textcolor{keyword}{}\{}
+\DoxyCodeLine{155   \textcolor{comment}{// It was time using chronos time elapsed and it was faster to cache the contact manager}}
+\DoxyCodeLine{156   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} hash = std::hash<std::thread::id>\{\}(std::this\_thread::get\_id());}
+\DoxyCodeLine{157   tesseract\_collision::DiscreteContactManager::Ptr cm;}
+\DoxyCodeLine{158   mutex\_.lock();}
+\DoxyCodeLine{159   \textcolor{keyword}{auto} \mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} = discrete\_contact\_managers\_.find(hash);}
+\DoxyCodeLine{160   \textcolor{keywordflow}{if} (\mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}} == discrete\_contact\_managers\_.end())}
+\DoxyCodeLine{161   \{}
+\DoxyCodeLine{162     cm = discrete\_contact\_manager\_-\/>clone();}
+\DoxyCodeLine{163     discrete\_contact\_managers\_[hash] = cm;}
+\DoxyCodeLine{164   \}}
 \DoxyCodeLine{165   \textcolor{keywordflow}{else}}
-\DoxyCodeLine{166     config.type = tesseract\_collision::CollisionEvaluatorType::DISCRETE;}
-\DoxyCodeLine{167   config.contact\_request.type =}
-\DoxyCodeLine{168       (find\_best) ? tesseract\_collision::ContactTestType::CLOSEST : tesseract\_collision::ContactTestType::FIRST;}
-\DoxyCodeLine{169 }
-\DoxyCodeLine{170   \textcolor{keywordflow}{return} tesseract\_environment::checkTrajectory(results, *cm, *manip\_, segment, config);}
-\DoxyCodeLine{171 \}}
-\DoxyCodeLine{172 }
-\DoxyCodeLine{173 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{166   \{}
+\DoxyCodeLine{167     cm = \mbox{\hyperlink{profile__dictionary__tests_8cpp_a325f3c2b297a245575c6f2f91bd5f1e2}{it}}-\/>second;}
+\DoxyCodeLine{168   \}}
+\DoxyCodeLine{169   mutex\_.unlock();}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{171   tesseract\_collision::CollisionCheckConfig config = collision\_check\_config\_;}
+\DoxyCodeLine{172   config.contact\_request.type =}
+\DoxyCodeLine{173       (find\_best) ? tesseract\_collision::ContactTestType::CLOSEST : tesseract\_collision::ContactTestType::FIRST;}
 \DoxyCodeLine{174 }
-\DoxyCodeLine{175 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_IMPL\_DESCARTES\_COLLISION\_EDGE\_EVALUATOR\_HPP}}
+\DoxyCodeLine{175   \textcolor{keywordflow}{return} tesseract\_environment::checkTrajectory(results, *cm, *manip\_, segment, config);}
+\DoxyCodeLine{176 \}}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{179 }
+\DoxyCodeLine{180 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_IMPL\_DESCARTES\_COLLISION\_EDGE\_EVALUATOR\_HPP}}
 
 \end{DoxyCode}
