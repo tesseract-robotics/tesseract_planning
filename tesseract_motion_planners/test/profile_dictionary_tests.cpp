@@ -30,6 +30,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/profile_dictionary.h>
 
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_environment/environment.h>
+#include <tesseract_motion_planners/core/profile_dictionary.h>
+
 struct ProfileBase
 {
   using ConstPtr = std::shared_ptr<const ProfileBase>;
@@ -125,6 +129,124 @@ TEST(TesseractPlanningProfileDictionaryUnit, ProfileDictionaryTest)  // NOLINT
   ASSERT_NO_THROW(profile_check4 = profiles.getProfile<ProfileBase>("ns", "key"));  // NOLINT
   ASSERT_TRUE(profile_check4 != nullptr);
   EXPECT_EQ(profile_check4->a, 20);
+}
+
+/**
+ * @brief Test implementation of the waypoint profile interface
+ */
+class TestWaypointProfile : public WaypointProfile
+{
+public:
+  std::any create(const MoveInstruction&, tesseract_environment::Environment::ConstPtr) const override
+  {
+    return "waypoint_profile";
+  }
+};
+
+/**
+ * @brief Test implementation of the composite profile interface
+ */
+class TestCompositeProfile : public CompositeProfile
+{
+  std::any create(const CompositeInstruction&, tesseract_environment::Environment::ConstPtr) const override
+  {
+    return "composite_profile";
+  }
+};
+
+/**
+ * @brief Test implementation of the planner profile
+ */
+class TestPlannerProfile : public PlannerProfile
+{
+  std::any create() const override { return "planner_profile"; }
+};
+
+/**
+ * @brief Factory function for producing test implementations of a profile
+ */
+template <typename ProfileT>
+typename ProfileT::ConstPtr create();
+
+template <>
+WaypointProfile::ConstPtr create<WaypointProfile>()
+{
+  return std::make_shared<TestWaypointProfile>();
+}
+
+template <>
+CompositeProfile::ConstPtr create<CompositeProfile>()
+{
+  return std::make_shared<TestCompositeProfile>();
+}
+
+template <>
+PlannerProfile::ConstPtr create<PlannerProfile>()
+{
+  return std::make_shared<TestPlannerProfile>();
+}
+
+template <typename ProfileT>
+class ProfileDictionaryFixture : public ::testing::Test
+{
+protected:
+  tmp::ProfileDictionary<ProfileT> profiles;
+};
+
+using Implementations = ::testing::Types<WaypointProfile, CompositeProfile, PlannerProfile>;
+
+TYPED_TEST_CASE(ProfileDictionaryFixture, Implementations);  // NOLINT
+
+TYPED_TEST(ProfileDictionaryFixture, ProfileDictionaryTest)
+{
+  // Check for a non-existent profile
+  EXPECT_THROW(this->profiles.getProfile("ns", "key"), std::runtime_error);  // NOLINT
+
+  // Add a profile
+  this->profiles.addProfile("ns", "key", create<TypeParam>());
+
+  // Retrieve the profile
+  typename TypeParam::ConstPtr profile;
+  ASSERT_NO_THROW(profile = this->profiles.getProfile("ns", "key"));  // NOLINT
+  ASSERT_TRUE(profile != nullptr);
+
+  // Check add same profile with different key
+  this->profiles.addProfile("ns", "key2", profile);
+  typename TypeParam::ConstPtr profile2;
+  ASSERT_NO_THROW(profile2 = this->profiles.getProfile("ns", "key2"));  // NOLINT
+  ASSERT_TRUE(profile2 != nullptr);
+
+  // Check replacing a profile
+  this->profiles.addProfile("ns", "key", create<TypeParam>());
+  typename TypeParam::ConstPtr profile_check;
+  ASSERT_NO_THROW(profile_check = this->profiles.getProfile("ns", "key"));  // NOLINT
+  ASSERT_TRUE(profile_check != nullptr);
+
+  // Check removing a profile
+  ASSERT_NO_THROW(this->profiles.removeProfile("ns", "key2"));                // NOLINT
+  ASSERT_THROW(this->profiles.getProfile("ns", "key2"), std::runtime_error);  // NOLINT
+
+  auto profile_map = this->profiles.getProfileEntry("ns");
+  auto it = profile_map.find("key");
+  EXPECT_TRUE(it != profile_map.end());
+
+  // Request a profile entry namespace that does not exist
+  EXPECT_ANY_THROW(this->profiles.getProfile("DoesNotExist", "DoesNotExist"));  // NOLINT
+
+  // Request a profile that does not exist
+  EXPECT_ANY_THROW(this->profiles.getProfile("DoesNotExist", "key"));  // NOLINT
+
+  // Request a profile that does not exist
+  EXPECT_ANY_THROW(this->profiles.getProfile("ns", "DoesNotExist"));  // NOLINT
+
+  // Check adding a empty namespace
+  EXPECT_ANY_THROW(this->profiles.addProfile("", "key3", nullptr));  // NOLINT
+
+  // Check adding a empty key
+  EXPECT_ANY_THROW(this->profiles.addProfile("ns", "", nullptr));  // NOLINT
+
+  // Check adding a nullptr profile
+  EXPECT_ANY_THROW(this->profiles.addProfile("ns", "key", nullptr));  // NOLINT
 }
 
 int main(int argc, char** argv)
