@@ -92,8 +92,8 @@ int main(int /*argc*/, char** /*argv*/)
 
     // Start Joint Position for the program
     StateWaypointPoly wp0{ StateWaypoint(kin_group->getJointNames(), Eigen::VectorXd::Zero(6)) };
-    MoveInstruction start_instruction(wp0, MoveInstructionType::START);
-    program.setStartInstruction(start_instruction);
+    MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE);
+    start_instruction.setDescription("Start");
 
     // Define raster poses
     CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
@@ -123,8 +123,9 @@ int main(int /*argc*/, char** /*argv*/)
     plan_f0.setDescription("from_start_plan");
     CompositeInstruction from_start;
     from_start.setDescription("from_start");
+    from_start.appendMoveInstruction(start_instruction);
     from_start.appendMoveInstruction(plan_f0);
-    program.appendInstruction(from_start);
+    program.push_back(from_start);
 
     {
       CompositeInstruction raster_segment;
@@ -135,7 +136,7 @@ int main(int /*argc*/, char** /*argv*/)
       raster_segment.appendMoveInstruction(plan_c3);
       raster_segment.appendMoveInstruction(plan_c4);
       raster_segment.appendMoveInstruction(plan_c5);
-      program.appendInstruction(raster_segment);
+      program.push_back(raster_segment);
     }
 
     {
@@ -150,9 +151,9 @@ int main(int /*argc*/, char** /*argv*/)
 
       CompositeInstruction transitions("DEFAULT", CompositeInstructionOrder::UNORDERED);
       transitions.setDescription("transitions");
-      transitions.appendInstruction(transition_from_start);
-      transitions.appendInstruction(transition_from_end);
-      program.appendInstruction(transitions);
+      transitions.push_back(transition_from_start);
+      transitions.push_back(transition_from_end);
+      program.push_back(transitions);
     }
 
     {
@@ -164,7 +165,7 @@ int main(int /*argc*/, char** /*argv*/)
       raster_segment.appendMoveInstruction(plan_c3);
       raster_segment.appendMoveInstruction(plan_c4);
       raster_segment.appendMoveInstruction(plan_c5);
-      program.appendInstruction(raster_segment);
+      program.push_back(raster_segment);
     }
 
     {
@@ -179,9 +180,9 @@ int main(int /*argc*/, char** /*argv*/)
 
       CompositeInstruction transitions("DEFAULT", CompositeInstructionOrder::UNORDERED);
       transitions.setDescription("transitions");
-      transitions.appendInstruction(transition_from_start);
-      transitions.appendInstruction(transition_from_end);
-      program.appendInstruction(transitions);
+      transitions.push_back(transition_from_start);
+      transitions.push_back(transition_from_end);
+      program.push_back(transitions);
     }
 
     {
@@ -193,7 +194,7 @@ int main(int /*argc*/, char** /*argv*/)
       raster_segment.appendMoveInstruction(plan_c3);
       raster_segment.appendMoveInstruction(plan_c4);
       raster_segment.appendMoveInstruction(plan_c5);
-      program.appendInstruction(raster_segment);
+      program.push_back(raster_segment);
     }
 
     MoveInstruction plan_f2(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
@@ -201,7 +202,7 @@ int main(int /*argc*/, char** /*argv*/)
     CompositeInstruction to_end;
     to_end.setDescription("to_end");
     to_end.appendMoveInstruction(plan_f2);
-    program.appendInstruction(to_end);
+    program.push_back(to_end);
 
     // Plot Program
     auto state_solver = env->getStateSolver();

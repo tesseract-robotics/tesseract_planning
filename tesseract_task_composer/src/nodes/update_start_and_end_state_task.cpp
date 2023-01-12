@@ -118,8 +118,7 @@ TaskComposerNodeInfo::UPtr UpdateStartAndEndStateTask::runImpl(TaskComposerInput
   const auto* next_start_move = input_next_data_poly.as<CompositeInstruction>().getFirstMoveInstruction();
 
   // Update start instruction
-  instructions.setStartInstruction(*prev_last_move);
-  instructions.getStartInstruction().setMoveType(MoveInstructionType::START);
+  instructions.at(0) = (*prev_last_move);
 
   // Update end instruction
   if (next_start_move->getWaypoint().isCartesianWaypoint())

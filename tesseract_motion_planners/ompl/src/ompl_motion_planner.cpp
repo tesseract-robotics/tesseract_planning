@@ -248,16 +248,6 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 
     bool found{ false };
     Eigen::Index row{ 0 };
-    if (start_index == 0)
-    {
-      MoveInstructionPoly& mi = response.results.getStartInstruction();
-      if (mi.getUUID() == pc.start_uuid)
-      {
-        assignSolution(mi, joint_names, traj.row(row++), request.format_result_as_input);
-        found = true;
-      }
-    }
-
     auto& ci = response.results.getInstructions();
     for (auto it = ci.begin() + static_cast<long>(start_index); it != ci.end(); ++it)
     {

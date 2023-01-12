@@ -47,8 +47,8 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
   StateWaypointPoly swp1{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
-  MoveInstruction start_instruction(swp1, MoveInstructionType::START);
-  program.setStartInstruction(start_instruction);
+  MoveInstruction start_instruction(swp1, MoveInstructionType::FREESPACE, freespace_profile);
+  start_instruction.setDescription("Start");
 
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
                                                Eigen::Quaterniond(0, 0, -1.0, 0)) };
@@ -58,8 +58,9 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
   plan_f0.setDescription("from_start_plan");
   CompositeInstruction from_start(freespace_profile);
   from_start.setDescription("from_start");
+  from_start.appendMoveInstruction(start_instruction);
   from_start.appendMoveInstruction(plan_f0);
-  program.appendInstruction(from_start);
+  program.push_back(from_start);
 
   //
   for (int i = 0; i < 4; ++i)
@@ -100,7 +101,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
       raster_segment.appendMoveInstruction(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
       raster_segment.appendMoveInstruction(MoveInstruction(wp1, MoveInstructionType::LINEAR, process_profile));
     }
-    program.appendInstruction(raster_segment);
+    program.push_back(raster_segment);
 
     // Add transition
     if (i == 0 || i == 2)
@@ -115,7 +116,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
       CompositeInstruction transition(freespace_profile);
       transition.setDescription("Transition #" + std::to_string(i + 1));
       transition.appendMoveInstruction(plan_f1);
-      program.appendInstruction(transition);
+      program.push_back(transition);
     }
     else if (i == 1)
     {
@@ -129,7 +130,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
       CompositeInstruction transition(freespace_profile);
       transition.setDescription("Transition #" + std::to_string(i + 1));
       transition.appendMoveInstruction(plan_f1);
-      program.appendInstruction(transition);
+      program.push_back(transition);
     }
   }
 
@@ -138,7 +139,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
   CompositeInstruction to_end(freespace_profile);
   to_end.setDescription("to_end");
   to_end.appendMoveInstruction(plan_f2);
-  program.appendInstruction(to_end);
+  program.push_back(to_end);
 
   return program;
 }
@@ -148,14 +149,6 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
 {
   CompositeInstruction program(
       DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
-
-  CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-
-  // Define start instruction
-  MoveInstruction start_instruction(wp1, MoveInstructionType::START);
-  start_instruction.setDescription("Start Instruction");
-  program.setStartInstruction(start_instruction);
 
   for (int i = 0; i < 4; ++i)
   {
@@ -179,6 +172,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
     raster_segment.setDescription("Raster #" + std::to_string(i + 1));
     if (i == 0 || i == 2)
     {
+      raster_segment.appendMoveInstruction(MoveInstruction(wp1, MoveInstructionType::LINEAR, process_profile));
       raster_segment.appendMoveInstruction(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
       raster_segment.appendMoveInstruction(MoveInstruction(wp3, MoveInstructionType::LINEAR, process_profile));
       raster_segment.appendMoveInstruction(MoveInstruction(wp4, MoveInstructionType::LINEAR, process_profile));
@@ -195,7 +189,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
       raster_segment.appendMoveInstruction(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
       raster_segment.appendMoveInstruction(MoveInstruction(wp1, MoveInstructionType::LINEAR, process_profile));
     }
-    program.appendInstruction(raster_segment);
+    program.push_back(raster_segment);
 
     // Add transition
     if (i == 0 || i == 2)
@@ -210,7 +204,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
       CompositeInstruction transition(freespace_profile);
       transition.setDescription("Transition #" + std::to_string(i + 1));
       transition.appendMoveInstruction(plan_f1);
-      program.appendInstruction(transition);
+      program.push_back(transition);
     }
     else if (i == 1)
     {
@@ -224,7 +218,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
       CompositeInstruction transition(freespace_profile);
       transition.setDescription("Transition #" + std::to_string(i + 1));
       transition.appendMoveInstruction(plan_f1);
-      program.appendInstruction(transition);
+      program.push_back(transition);
     }
   }
 

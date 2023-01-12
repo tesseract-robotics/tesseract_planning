@@ -164,9 +164,6 @@ tesseract_common::Toolpath toToolpath(const MoveInstructionPoly& mi, const tesse
 void assignCurrentStateAsSeed(CompositeInstruction& composite_instructions,
                               const tesseract_environment::Environment& env)
 {
-  if (!composite_instructions.hasStartInstruction())
-    throw std::runtime_error("Top most composite instruction is missing start instruction!");
-
   std::unordered_map<std::string, tesseract_common::JointState> manip_joint_state;
   tesseract_scene_graph::SceneState state = env.getState();
   const tesseract_common::ManipulatorInfo& global_mi = composite_instructions.getManipulatorInfo();
@@ -240,41 +237,9 @@ bool formatProgramHelper(CompositeInstruction& composite_instructions,
 
 bool formatProgram(CompositeInstruction& composite_instructions, const tesseract_environment::Environment& env)
 {
-  if (!composite_instructions.hasStartInstruction())
-    throw std::runtime_error("Top most composite instruction is missing start instruction!");
-
   std::unordered_map<std::string, std::vector<std::string>> manip_joint_names;
   bool format_required = false;
   tesseract_common::ManipulatorInfo mi = composite_instructions.getManipulatorInfo();
-
-  std::unordered_map<std::string, tesseract_kinematics::JointGroup::UPtr> manipulators;
-
-  if (composite_instructions.hasStartInstruction())
-  {
-    auto& pi = composite_instructions.getStartInstruction();
-
-    tesseract_common::ManipulatorInfo start_mi = mi.getCombined(pi.getManipulatorInfo());
-
-    std::vector<std::string> joint_names;
-    auto it = manip_joint_names.find(start_mi.manipulator);
-    if (it == manip_joint_names.end())
-    {
-      joint_names = env.getGroupJointNames(start_mi.manipulator);
-      manip_joint_names[start_mi.manipulator] = joint_names;
-    }
-    else
-    {
-      joint_names = it->second;
-    }
-
-    if (pi.getWaypoint().isStateWaypoint() || pi.getWaypoint().isJointWaypoint())
-    {
-      if (formatJointPosition(joint_names, pi.getWaypoint()))
-        format_required = true;
-    }
-  }
-  else
-    throw std::runtime_error("Top most composite instruction start instruction has invalid waypoint type!");
 
   if (formatProgramHelper(composite_instructions, env, mi, manip_joint_names))
     format_required = true;

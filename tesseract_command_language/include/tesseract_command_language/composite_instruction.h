@@ -50,14 +50,10 @@ class CompositeInstruction;
  *
  * The filter should return true when the instruction passed should be included not throw.
  */
-using flattenFilterFn =
-    std::function<bool(const InstructionPoly&, const CompositeInstruction&, bool parent_is_first_composite)>;
-using locateFilterFn =
-    std::function<bool(const InstructionPoly&, const CompositeInstruction&, bool parent_is_first_composite)>;
+using flattenFilterFn = std::function<bool(const InstructionPoly&, const CompositeInstruction&)>;
+using locateFilterFn = std::function<bool(const InstructionPoly&, const CompositeInstruction&)>;
 
-bool moveFilter(const InstructionPoly& instruction,
-                const CompositeInstruction& composite,
-                bool parent_is_first_composite);
+bool moveFilter(const InstructionPoly& instruction, const CompositeInstruction& composite);
 
 enum class CompositeInstructionOrder
 {
@@ -73,9 +69,37 @@ public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   // LCOV_EXCL_STOP
 
+  /** value_type */
+  using value_type = InstructionPoly;
+  /** pointer */
+  using pointer = typename std::vector<value_type>::pointer;
+  /** const_pointer */
+  using const_pointer = typename std::vector<value_type>::const_pointer;
+  /** reference */
+  using reference = typename std::vector<value_type>::reference;
+  /** const_reference */
+  using const_reference = typename std::vector<value_type>::const_reference;
+  /** size_type */
+  using size_type = typename std::vector<value_type>::size_type;
+  /** difference_type */
+  using difference_type = typename std::vector<value_type>::difference_type;
+  /** iterator */
+  using iterator = typename std::vector<value_type>::iterator;
+  /** const_iterator */
+  using const_iterator = typename std::vector<value_type>::const_iterator;
+  /** reverse_iterator */
+  using reverse_iterator = typename std::vector<value_type>::reverse_iterator;
+  /** const_reverse_iterator */
+  using const_reverse_iterator = typename std::vector<value_type>::const_reverse_iterator;
+
   CompositeInstruction(std::string profile = DEFAULT_PROFILE_KEY,
                        CompositeInstructionOrder order = CompositeInstructionOrder::ORDERED,
                        tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
+
+  template <class InputIt>
+  CompositeInstruction(InputIt first, InputIt last) : container_(first, last)
+  {
+  }
 
   CompositeInstructionOrder getOrder() const;
 
@@ -100,13 +124,6 @@ public:
   const tesseract_common::ManipulatorInfo& getManipulatorInfo() const;
   tesseract_common::ManipulatorInfo& getManipulatorInfo();
 
-  void setStartInstruction(MoveInstructionPoly instruction);
-
-  void resetStartInstruction();
-  const MoveInstructionPoly& getStartInstruction() const;
-  MoveInstructionPoly& getStartInstruction();
-  bool hasStartInstruction() const;
-
   void setInstructions(std::vector<tesseract_planning::InstructionPoly> instructions);
   std::vector<tesseract_planning::InstructionPoly>& getInstructions();
   const std::vector<tesseract_planning::InstructionPoly>& getInstructions() const;
@@ -114,8 +131,8 @@ public:
   void appendMoveInstruction(const MoveInstructionPoly& mi);
   void appendMoveInstruction(const MoveInstructionPoly&& mi);
 
-  void appendInstruction(const InstructionPoly& i);
-  void appendInstruction(const InstructionPoly&& i);
+  iterator insertMoveInstruction(const_iterator p, const MoveInstructionPoly& x);
+  iterator insertMoveInstruction(const_iterator p, MoveInstructionPoly&& x);
 
   /**
    * @brief Get the first Move Instruction in a Composite Instruction
@@ -228,34 +245,6 @@ public:
 
   // C++ container support
 
-  /** value_type */
-  using value_type = InstructionPoly;
-  /** pointer */
-  using pointer = typename std::vector<value_type>::pointer;
-  /** const_pointer */
-  using const_pointer = typename std::vector<value_type>::const_pointer;
-  /** reference */
-  using reference = typename std::vector<value_type>::reference;
-  /** const_reference */
-  using const_reference = typename std::vector<value_type>::const_reference;
-  /** size_type */
-  using size_type = typename std::vector<value_type>::size_type;
-  /** difference_type */
-  using difference_type = typename std::vector<value_type>::difference_type;
-  /** iterator */
-  using iterator = typename std::vector<value_type>::iterator;
-  /** const_iterator */
-  using const_iterator = typename std::vector<value_type>::const_iterator;
-  /** reverse_iterator */
-  using reverse_iterator = typename std::vector<value_type>::reverse_iterator;
-  /** const_reverse_iterator */
-  using const_reverse_iterator = typename std::vector<value_type>::const_reverse_iterator;
-
-  //  template <class InputIt>
-  //  CompositeInstruction(InputIt first, InputIt last) : container_(first, last)
-  //  {
-  //  }
-
   ///////////////
   // Iterators //
   ///////////////
@@ -330,9 +319,41 @@ public:
   /** @brief clears the contents */
   void clear();
 
+  /** @brief inserts element */
+  iterator insert(const_iterator p, const value_type& x);
+  iterator insert(const_iterator p, value_type&& x);
+  iterator insert(const_iterator p, std::initializer_list<value_type> l);
+  template <class InputIt>
+  void insert(const_iterator pos, InputIt first, InputIt last)
+  {
+    container_.insert(pos, first, last);
+  }
+
+  /** @brief constructs element in-place */
+  template <class... Args>
+  iterator emplace(const_iterator pos, Args&&... args);
+
   /** @brief erases element */
   iterator erase(const_iterator p);
   iterator erase(const_iterator first, const_iterator last);
+
+  /** @brief adds an element to the end */
+  void push_back(const value_type& x);
+  void push_back(const value_type&& x);
+
+  /** @brief constructs an element in-place at the end  */
+  template <typename... Args>
+#if __cplusplus > 201402L
+  reference emplace_back(Args&&... args)
+  {
+    return container_.emplace_back(std::forward<Args>(args)...);
+  }
+#else
+  void emplace_back(Args&&... args)
+  {
+    container_.emplace_back(std::forward<Args>(args)...);
+  }
+#endif
 
   /** @brief removes the last element */
   void pop_back();
@@ -368,38 +389,25 @@ private:
   /** @brief The order of the composite instruction */
   CompositeInstructionOrder order_{ CompositeInstructionOrder::ORDERED };
 
-  /**
-   * @brief The start instruction to use for composite instruction. This should be of type
-   * MoveInstruction but is stored as type Instruction because it is not required
-   *
-   * If not provided, the planner should use the current state of the robot is used and defined as fixed.
-   */
-  InstructionPoly start_instruction_;
-
   const InstructionPoly* getFirstInstructionHelper(const CompositeInstruction& composite_instruction,
                                                    const locateFilterFn& locate_filter,
-                                                   bool process_child_composites,
-                                                   bool first_composite) const;
+                                                   bool process_child_composites) const;
 
   InstructionPoly* getFirstInstructionHelper(CompositeInstruction& composite_instruction,
                                              const locateFilterFn& locate_filter,
-                                             bool process_child_composites,
-                                             bool first_composite);
+                                             bool process_child_composites);
 
   const InstructionPoly* getLastInstructionHelper(const CompositeInstruction& composite_instruction,
                                                   const locateFilterFn& locate_filter,
-                                                  bool process_child_composites,
-                                                  bool first_composite) const;
+                                                  bool process_child_composites) const;
 
   InstructionPoly* getLastInstructionHelper(CompositeInstruction& composite_instruction,
                                             const locateFilterFn& locate_filter,
-                                            bool process_child_composites,
-                                            bool first_composite);
+                                            bool process_child_composites);
 
   long getInstructionCountHelper(const CompositeInstruction& composite_instruction,
                                  const locateFilterFn& locate_filter,
-                                 bool process_child_composites,
-                                 bool first_composite) const;
+                                 bool process_child_composites) const;
 
   /**
    * @brief Helper function used by Flatten. Not intended for direct use
@@ -410,8 +418,7 @@ private:
    */
   void flattenHelper(std::vector<std::reference_wrapper<InstructionPoly>>& flattened,
                      CompositeInstruction& composite,
-                     const flattenFilterFn& filter,
-                     bool first_composite);
+                     const flattenFilterFn& filter);
 
   /**
    * @brief Helper function used by Flatten. Not intended for direct use
@@ -422,8 +429,7 @@ private:
    */
   void flattenHelper(std::vector<std::reference_wrapper<const InstructionPoly>>& flattened,
                      const CompositeInstruction& composite,
-                     const flattenFilterFn& filter,
-                     bool first_composite) const;
+                     const flattenFilterFn& filter) const;
 
   friend class boost::serialization::access;
   template <class Archive>

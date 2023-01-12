@@ -99,15 +99,15 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
                                                Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Define Start Instruction
-  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE", manip);
+  MoveInstruction start_instruction(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
 
   // Define Plan Instructions
   MoveInstruction plan_f1(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
 
   // Create a program
   CompositeInstruction program;
-  program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
+  program.appendMoveInstruction(start_instruction);
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
@@ -211,15 +211,15 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
                                                Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Define Start Instruction
-  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE", manip);
+  MoveInstruction start_instruction(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
 
   // Define Plan Instructions
   MoveInstruction plan_f1(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
 
   // Create a program
   CompositeInstruction program;
-  program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
+  program.appendMoveInstruction(start_instruction);
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
@@ -314,15 +314,15 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
                                                Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Define Start Instruction
-  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE", manip);
+  MoveInstruction start_instruction(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
 
   // Define Plan Instructions
   MoveInstruction plan_f1(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
 
   // Create a program
   CompositeInstruction program;
-  program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
+  program.appendMoveInstruction(start_instruction);
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed

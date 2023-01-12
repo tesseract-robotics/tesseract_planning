@@ -111,7 +111,7 @@ int main(int /*argc*/, char** /*argv*/)
                                                  Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
     // Define Plan Instructions
-    MoveInstruction start_instruction(wp0, MoveInstructionType::START);
+    MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "DEFAULT");
     MoveInstruction plan_f1(wp1, MoveInstructionType::FREESPACE, "DEFAULT");
     MoveInstruction plan_c1(wp2, MoveInstructionType::LINEAR, "DEFAULT");
     MoveInstruction plan_c2(wp3, MoveInstructionType::LINEAR, "DEFAULT");
@@ -122,8 +122,8 @@ int main(int /*argc*/, char** /*argv*/)
 
     // Create program
     CompositeInstruction program;
-    program.setStartInstruction(start_instruction);
     program.setManipulatorInfo(manip);
+    program.appendMoveInstruction(start_instruction);
     program.appendMoveInstruction(plan_f1);
     program.appendMoveInstruction(plan_c1);
     program.appendMoveInstruction(plan_c2);

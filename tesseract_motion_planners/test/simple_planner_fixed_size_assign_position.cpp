@@ -69,7 +69,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, JointCartesian
   request.env = env_;
   request.env_state = env_->getState();
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
@@ -111,7 +111,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianJoint
   request.env = env_;
   request.env_state = env_->getState();
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
@@ -152,7 +152,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCarte
   request.env = env_;
   request.env_state = env_->getState();
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 

@@ -69,10 +69,6 @@ public:
   MotionPlanner::Ptr clone() const override;
 
 protected:
-  static MoveInstructionPoly getStartInstruction(const PlannerRequest& request,
-                                                 const tesseract_scene_graph::SceneState& current_state,
-                                                 const tesseract_kinematics::JointGroup& manip);
-
   CompositeInstruction processCompositeInstruction(const CompositeInstruction& instructions,
                                                    MoveInstructionPoly& prev_instruction,
                                                    MoveInstructionPoly& prev_seed,

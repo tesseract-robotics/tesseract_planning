@@ -84,7 +84,6 @@ enum class MoveInstructionType : int
   LINEAR = 0,
   FREESPACE = 1,
   CIRCULAR = 2,
-  START = 3 /**< This indicates it is a start instruction. */
 };
 }  // namespace tesseract_planning
 
@@ -344,8 +343,6 @@ struct MoveInstructionPoly : MoveInstructionPolyBase
   bool isFreespace() const;
 
   bool isCircular() const;
-
-  bool isStart() const;
 
   bool isChild() const;
 

@@ -75,7 +75,6 @@ TEST_F(TesseractTaskComposerUnit, MinLengthTaskTest)  // NOLINT
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   program.setManipulatorInfo(manip);
-  EXPECT_TRUE(program.hasStartInstruction());
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   // Define the Process Input
@@ -129,7 +128,6 @@ TEST_F(TesseractTaskComposerUnit, RasterSimpleMotionPlannerFixedSizeAssignPlanPr
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   program.setManipulatorInfo(manip);
-  EXPECT_TRUE(program.hasStartInstruction());
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   // Profile Dictionary
@@ -157,7 +155,6 @@ TEST_F(TesseractTaskComposerUnit, RasterSimpleMotionPlannerFixedSizeAssignPlanPr
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
   // ten move instruction.
   EXPECT_EQ(((pcnt - 1) * 10) + 1, mcnt);
-  EXPECT_TRUE(response.results.hasStartInstruction());
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
 
@@ -170,7 +167,6 @@ TEST_F(TesseractTaskComposerUnit, RasterSimpleMotionPlannerLVSPlanProfileTest)  
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   program.setManipulatorInfo(manip);
-  EXPECT_TRUE(program.hasStartInstruction());
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   // Profile Dictionary
@@ -197,7 +193,6 @@ TEST_F(TesseractTaskComposerUnit, RasterSimpleMotionPlannerLVSPlanProfileTest)  
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
   // ten move instruction.
   EXPECT_EQ(98, mcnt);
-  EXPECT_TRUE(response.results.hasStartInstruction());
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
 
@@ -210,7 +205,6 @@ TEST_F(TesseractTaskComposerUnit, RasterSimpleMotionPlannerDefaultLVSNoIKPlanPro
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   program.setManipulatorInfo(manip);
-  EXPECT_TRUE(program.hasStartInstruction());
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   // Profile Dictionary
@@ -237,7 +231,6 @@ TEST_F(TesseractTaskComposerUnit, RasterSimpleMotionPlannerDefaultLVSNoIKPlanPro
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
   // ten move instruction.
   EXPECT_EQ(83, mcnt);
-  EXPECT_TRUE(response.results.hasStartInstruction());
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
 
@@ -247,7 +240,6 @@ TEST_F(TesseractTaskComposerUnit, FreespaceSimpleMotionPlannerFixedSizeAssignPla
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   program.setManipulatorInfo(manip);
-  EXPECT_TRUE(program.hasStartInstruction());
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   auto interpolator = std::make_shared<SimpleMotionPlanner>();
@@ -273,7 +265,6 @@ TEST_F(TesseractTaskComposerUnit, FreespaceSimpleMotionPlannerFixedSizeAssignPla
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
   // ten move instruction.
   EXPECT_EQ(((pcnt - 1) * 10) + 1, mcnt);
-  EXPECT_TRUE(response.results.hasStartInstruction());
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
 
@@ -283,7 +274,6 @@ TEST_F(TesseractTaskComposerUnit, FreespaceSimpleMotionPlannerDefaultLVSPlanProf
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   program.setManipulatorInfo(manip);
-  EXPECT_TRUE(program.hasStartInstruction());
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   // Profile Dictionary
@@ -308,7 +298,6 @@ TEST_F(TesseractTaskComposerUnit, FreespaceSimpleMotionPlannerDefaultLVSPlanProf
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
   // 32 move instruction.
   EXPECT_EQ(37, mcnt);
-  EXPECT_TRUE(response.results.hasStartInstruction());
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
 

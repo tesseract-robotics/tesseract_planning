@@ -81,9 +81,6 @@ TaskComposerNodeInfo::UPtr MotionPlannerTask::runImpl(TaskComposerInput& input,
   assert(!(input.problem.manip_info.empty() && instructions.getManipulatorInfo().empty()));
   instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input.problem.manip_info));
 
-  // It should always have a start instruction which required by the motion planners
-  assert(instructions.hasStartInstruction());
-
   // --------------------
   // Fill out request
   // --------------------

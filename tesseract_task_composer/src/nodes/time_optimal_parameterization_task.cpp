@@ -166,7 +166,6 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
       RescaleTimings(unflattened, scaling_factors);
     }
 
-    ci.setStartInstruction(unflattened.getStartInstruction());
     for (std::size_t idx = 0; idx < ci.size(); idx++)
       ci[idx] = unflattened[idx];
   }
@@ -176,7 +175,6 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
       CONSOLE_BRIDGE_logWarn("TOTG Move Profile specified but unflatten is not set in the composite profile. Move "
                              "Profile will be ignored");
 
-    ci.setStartInstruction(resampled.getStartInstruction());
     for (std::size_t idx = 0; idx < ci.size(); idx++)
       ci[idx] = resampled[idx];
   }
@@ -194,7 +192,6 @@ CompositeInstruction TimeOptimalParameterizationTask::unflatten(const CompositeI
                                                                 double tolerance)
 {
   CompositeInstruction unflattened(pattern);
-  unflattened.setStartInstruction(flattened_input.getStartInstruction());
   for (auto& instr : unflattened)
     instr.as<CompositeInstruction>().clear();
 
@@ -242,7 +239,7 @@ CompositeInstruction TimeOptimalParameterizationTask::unflatten(const CompositeI
     }
 
     // Add flattened point to the subcomposite
-    unflattened[original_idx].as<CompositeInstruction>().appendInstruction(flattened_input.at(resample_idx));
+    unflattened[original_idx].as<CompositeInstruction>().push_back(flattened_input.at(resample_idx));
 
     // Correct the meta information, taking information from the last element of each composite in the original
     if (unflattened[original_idx].as<CompositeInstruction>().back().isMoveInstruction())
