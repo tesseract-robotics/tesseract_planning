@@ -2,7 +2,13 @@ find_package(tesseract_environment REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 
 # Create interface for core
-add_library(${PROJECT_NAME}_core src/core/planner.cpp src/core/utils.cpp src/core/interpolation.cpp)
+add_library(
+  ${PROJECT_NAME}_core
+  src/core/interpolation.cpp
+  src/core/planner.cpp
+  src/core/profiles.cpp
+  src/core/profile_dictionary.cpp
+  src/core/utils.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_core
   PUBLIC tesseract::tesseract_environment
