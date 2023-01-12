@@ -101,8 +101,7 @@ TaskComposerNodeInfo::UPtr UpdateStartStateTask::runImpl(TaskComposerInput& inpu
   const auto* prev_last_move = input_prev_data_poly.as<CompositeInstruction>().getLastMoveInstruction();
 
   // Update start instruction
-  instructions.setStartInstruction(*prev_last_move);
-  instructions.getStartInstruction().setMoveType(MoveInstructionType::START);
+  instructions.at(0) = (*prev_last_move);
 
   // Store results
   input.data_storage.setData(output_keys_[0], input_data_poly);

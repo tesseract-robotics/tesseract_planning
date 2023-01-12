@@ -55,17 +55,7 @@ constexpr double EPS = 0.000001;
 namespace tesseract_planning
 {
 static const flattenFilterFn programFlattenMoveInstructionFilter =
-    [](const InstructionPoly& i, const CompositeInstruction& /*composite*/, bool parent_is_first_composite) {
-      if (i.isMoveInstruction())
-      {
-        if (i.as<MoveInstructionPoly>().isStart())
-          return (parent_is_first_composite);
-
-        return true;
-      }
-
-      return false;
-    };
+    [](const InstructionPoly& i, const CompositeInstruction& /*composite*/) { return i.isMoveInstruction(); };
 
 TimeOptimalTrajectoryGeneration::TimeOptimalTrajectoryGeneration(double path_tolerance,
                                                                  double resample_dt,
@@ -198,16 +188,6 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
   auto input_instruction = trajectory.back().get().as<MoveInstructionPoly>();
   CompositeInstruction new_program(program);
   new_program.clear();
-
-  if (new_program.hasStartInstruction())
-  {
-    if (new_program.getStartInstruction().getWaypoint().isStateWaypoint())
-    {
-      auto& waypoint = new_program.getStartInstruction().getWaypoint().as<StateWaypointPoly>();
-      waypoint.setVelocity(Eigen::VectorXd::Zero(num_joints));
-      waypoint.setAcceleration(Eigen::VectorXd::Zero(num_joints));
-    }
-  }
 
   /// @todo Figure out how to maintain the original seed structure of subcomposites
   for (size_t sample = 0; sample <= sample_count; ++sample)

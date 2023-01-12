@@ -45,11 +45,11 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
 
   // Minimum arguments
   {
-    MoveInstruction instr(swp, MoveInstructionType::START);
+    MoveInstruction instr(swp, MoveInstructionType::CIRCULAR);
     EXPECT_EQ(instr.getWaypoint(), swp);
-    EXPECT_EQ(instr.getMoveType(), MoveInstructionType::START);
+    EXPECT_EQ(instr.getMoveType(), MoveInstructionType::CIRCULAR);
     EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
-    EXPECT_TRUE(instr.getPathProfile().empty());
+    EXPECT_EQ(instr.getPathProfile(), DEFAULT_PROFILE_KEY);
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -79,11 +79,11 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
 
   // With plan profile
   {
-    MoveInstruction instr(swp, MoveInstructionType::START, "TEST_PROFILE");
+    MoveInstruction instr(swp, MoveInstructionType::CIRCULAR, "TEST_PROFILE");
     EXPECT_EQ(instr.getWaypoint(), swp);
-    EXPECT_EQ(instr.getMoveType(), MoveInstructionType::START);
+    EXPECT_EQ(instr.getMoveType(), MoveInstructionType::CIRCULAR);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
-    EXPECT_TRUE(instr.getPathProfile().empty());
+    EXPECT_EQ(instr.getPathProfile(), "TEST_PROFILE");
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -113,9 +113,9 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
 
   // With plan and path profile
   {
-    MoveInstruction instr(swp, MoveInstructionType::START, "TEST_PROFILE", "TEST_PATH_PROFILE");
+    MoveInstruction instr(swp, MoveInstructionType::CIRCULAR, "TEST_PROFILE", "TEST_PATH_PROFILE");
     EXPECT_EQ(instr.getWaypoint(), swp);
-    EXPECT_EQ(instr.getMoveType(), MoveInstructionType::START);
+    EXPECT_EQ(instr.getMoveType(), MoveInstructionType::CIRCULAR);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
     EXPECT_FALSE(instr.getDescription().empty());
@@ -152,9 +152,9 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, setters)  // NOLINT
   std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
   StateWaypointPoly swp(StateWaypoint(jn, jv));
 
-  MoveInstruction instr(swp, MoveInstructionType::START);
+  MoveInstruction instr(swp, MoveInstructionType::FREESPACE);
   EXPECT_EQ(instr.getWaypoint(), swp);
-  EXPECT_EQ(instr.getMoveType(), MoveInstructionType::START);
+  EXPECT_EQ(instr.getMoveType(), MoveInstructionType::FREESPACE);
   EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
   EXPECT_TRUE(instr.getPathProfile().empty());
   EXPECT_FALSE(instr.getDescription().empty());
@@ -192,9 +192,9 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, UUID)  // NOLINT
   std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
   StateWaypointPoly swp(StateWaypoint(jn, jv));
 
-  MoveInstruction instr(swp, MoveInstructionType::START);
+  MoveInstruction instr(swp, MoveInstructionType::FREESPACE);
   EXPECT_EQ(instr.getWaypoint(), swp);
-  EXPECT_EQ(instr.getMoveType(), MoveInstructionType::START);
+  EXPECT_EQ(instr.getMoveType(), MoveInstructionType::FREESPACE);
   EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
   EXPECT_TRUE(instr.getPathProfile().empty());
   EXPECT_FALSE(instr.getDescription().empty());
@@ -219,7 +219,7 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, boostSerialization)  // NOLINT
   std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
   StateWaypointPoly swp(StateWaypoint(jn, jv));
 
-  MoveInstruction instr(swp, MoveInstructionType::START);
+  MoveInstruction instr(swp, MoveInstructionType::FREESPACE);
   instr.setMoveType(MoveInstructionType::LINEAR);
   instr.setProfile("TEST_PROFILE");
   instr.setPathProfile("TEST_PATH_PROFILE");
@@ -245,7 +245,7 @@ TEST(TesseractCommandLanguageMoveInstructionPolyUnit, boostSerialization)  // NO
   std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
   StateWaypointPoly swp(StateWaypoint(jn, jv));
 
-  MoveInstruction instr(swp, MoveInstructionType::START);
+  MoveInstruction instr(swp, MoveInstructionType::FREESPACE);
   instr.setMoveType(MoveInstructionType::LINEAR);
   instr.setProfile("TEST_PROFILE");
   instr.setPathProfile("TEST_PATH_PROFILE");

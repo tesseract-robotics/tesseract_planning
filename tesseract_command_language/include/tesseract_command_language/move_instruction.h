@@ -159,7 +159,7 @@ private:
   boost::uuids::uuid parent_uuid_{};
 
   /** @brief The move instruction type */
-  MoveInstructionType move_type_{ MoveInstructionType::START };
+  MoveInstructionType move_type_{ MoveInstructionType::FREESPACE };
 
   /** @brief The description of the instruction */
   std::string description_{ "Tesseract Move Instruction" };

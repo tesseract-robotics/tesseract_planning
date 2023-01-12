@@ -31,17 +31,7 @@
 namespace tesseract_planning
 {
 static const flattenFilterFn programFlattenMoveInstructionFilter =
-    [](const InstructionPoly& i, const CompositeInstruction& /*composite*/, bool parent_is_first_composite) {
-      if (i.isMoveInstruction())
-      {
-        if (i.as<MoveInstructionPoly>().isStart())
-          return (parent_is_first_composite);
-
-        return true;
-      }
-
-      return false;
-    };
+    [](const InstructionPoly& i, const CompositeInstruction& /*composite*/) { return i.isMoveInstruction(); };
 
 InstructionsTrajectory::InstructionsTrajectory(std::vector<std::reference_wrapper<InstructionPoly>> trajectory)
   : trajectory_(std::move(trajectory))

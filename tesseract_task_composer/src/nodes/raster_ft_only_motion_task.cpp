@@ -108,25 +108,16 @@ TaskComposerNodeInfo::UPtr RasterFtOnlyMotionTask::runImpl(TaskComposerInput& in
     // Set the manipulator info
     raster_input.setManipulatorInfo(raster_input.getManipulatorInfo().getCombined(program_manip_info));
 
-    // Get Start Plan Instruction
-    MoveInstructionPoly start_instruction;
-    if (idx == 0)
-    {
-      start_instruction = program.getStartInstruction();
-    }
-    else
+    // Insert Start Plan Instruction
+    if (idx > 0)
     {
       const InstructionPoly& pre_input_instruction = program[idx - 1];
       assert(pre_input_instruction.isCompositeInstruction());
       const auto& tci = pre_input_instruction.as<CompositeInstruction>();
       const auto* li = tci.getLastMoveInstruction();
       assert(li != nullptr);
-      start_instruction = *li;
+      raster_input.insertMoveInstruction(raster_input.begin(), *li);
     }
-
-    // Update start state
-    start_instruction.setMoveType(MoveInstructionType::START);
-    raster_input.setStartInstruction(start_instruction);
 
     auto raster_pipeline_task = std::make_unique<CartesianMotionPipelineTask>(
         "Raster #" + std::to_string(raster_idx + 1) + ": " + raster_input.getDescription());
@@ -151,6 +142,13 @@ TaskComposerNodeInfo::UPtr RasterFtOnlyMotionTask::runImpl(TaskComposerInput& in
 
     // Set the manipulator info
     transition_input.setManipulatorInfo(transition_input.getManipulatorInfo().getCombined(program_manip_info));
+
+    const InstructionPoly& pre_input_instruction = program[idx - 1];
+    assert(pre_input_instruction.isCompositeInstruction());
+    const auto& tci = pre_input_instruction.as<CompositeInstruction>();
+    const auto* li = tci.getLastMoveInstruction();
+    assert(li != nullptr);
+    transition_input.insertMoveInstruction(transition_input.begin(), *li);
 
     auto transition_pipeline_task = std::make_unique<FreespaceMotionPipelineTask>(
         "Transition #" + std::to_string(transition_idx + 1) + ": " + transition_input.getDescription());
@@ -194,9 +192,18 @@ TaskComposerNodeInfo::UPtr RasterFtOnlyMotionTask::runImpl(TaskComposerInput& in
   program.clear();
   for (std::size_t i = 0; i < raster_tasks.size(); ++i)
   {
-    program.appendInstruction(input.data_storage.getData(raster_tasks[i].second).as<CompositeInstruction>());
+    CompositeInstruction segment = input.data_storage.getData(raster_tasks[i].second).as<CompositeInstruction>();
+    if (i != 0)
+      segment.erase(segment.begin());
+
+    program.emplace_back(segment);
+
     if (i < raster_tasks.size() - 1)
-      program.appendInstruction(input.data_storage.getData(transition_keys[i]).as<CompositeInstruction>());
+    {
+      CompositeInstruction transition = input.data_storage.getData(transition_keys[i]).as<CompositeInstruction>();
+      transition.erase(transition.begin());
+      program.emplace_back(transition);
+    }
   }
 
   input.data_storage.setData(output_keys_[0], program);
@@ -219,10 +226,6 @@ void RasterFtOnlyMotionTask::checkTaskInput(const tesseract_common::AnyPoly& inp
     throw std::runtime_error("RasterFtOnlyMotionTask, input is not a composite instruction");
 
   const auto& composite = input.as<CompositeInstruction>();
-
-  // Check that it has a start instruction
-  if (!composite.hasStartInstruction())
-    throw std::runtime_error("RasterFtOnlyMotionTask, input should have a start instruction");
 
   // Check rasters and transitions
   for (const auto& i : composite)

@@ -157,8 +157,8 @@ bool BasicCartesianExample::run()
 
   // Start Joint Position for the program
   StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_pos) };
-  MoveInstruction start_instruction(wp0, MoveInstructionType::START);
-  program.setStartInstruction(start_instruction);
+  MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
+  start_instruction.setDescription("Start Instruction");
 
   // Create cartesian waypoint
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.5, -0.2, 0.62) *
@@ -179,6 +179,7 @@ bool BasicCartesianExample::run()
   plan_f1.setDescription("to_end_plan");
 
   // Add Instructions to program
+  program.appendMoveInstruction(start_instruction);
   program.appendMoveInstruction(plan_f0);
   program.appendMoveInstruction(plan_c0);
   program.appendMoveInstruction(plan_f1);

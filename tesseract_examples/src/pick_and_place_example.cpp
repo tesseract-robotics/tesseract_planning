@@ -152,8 +152,8 @@ bool PickAndPlaceExample::run()
                                     ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
   StateWaypointPoly pick_swp{ StateWaypoint(joint_names, joint_pos) };
-  MoveInstruction start_instruction(pick_swp, MoveInstructionType::START);
-  pick_program.setStartInstruction(start_instruction);
+  MoveInstruction start_instruction(pick_swp, MoveInstructionType::FREESPACE, "FREESPACE");
+  start_instruction.setDescription("Start Instruction");
 
   // Define the final pose (on top of the box)
   Eigen::Isometry3d pick_final_pose;
@@ -176,6 +176,7 @@ bool PickAndPlaceExample::run()
   pick_plan_a1.setDescription("Pick Approach");
 
   // Add Instructions to program
+  pick_program.appendMoveInstruction(start_instruction);
   pick_program.appendMoveInstruction(pick_plan_a0);
   pick_program.appendMoveInstruction(pick_plan_a1);
 
@@ -305,10 +306,6 @@ bool PickAndPlaceExample::run()
                                      CompositeInstructionOrder::ORDERED,
                                      ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
-  MoveInstructionPoly place_start_instruction(*pick_final_state);
-  place_start_instruction.setMoveType(MoveInstructionType::START);
-  place_program.setStartInstruction(place_start_instruction);
-
   // Define the approach pose
   CartesianWaypointPoly place_wp0{ CartesianWaypoint(retreat_pose) };
 
@@ -331,6 +328,7 @@ bool PickAndPlaceExample::run()
   place_plan_a2.setDescription("Place approach");
 
   // Add Instructions to program
+  place_program.appendMoveInstruction(*pick_final_state);
   place_program.appendMoveInstruction(place_plan_a0);
   place_program.appendMoveInstruction(place_plan_a1);
   place_program.appendMoveInstruction(place_plan_a2);

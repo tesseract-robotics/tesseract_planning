@@ -151,8 +151,8 @@ bool GlassUprightExample::run()
   StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_start_pos) };
   StateWaypointPoly wp1{ StateWaypoint(joint_names, joint_end_pos) };
 
-  MoveInstruction start_instruction(wp0, MoveInstructionType::START);
-  program.setStartInstruction(start_instruction);
+  MoveInstruction start_instruction(wp0, MoveInstructionType::LINEAR, "UPRIGHT");
+  start_instruction.setDescription("Start Instruction");
 
   // Plan freespace from start
   // Assign a linear motion so cartesian is defined as the target
@@ -160,6 +160,7 @@ bool GlassUprightExample::run()
   plan_f0.setDescription("freespace_plan");
 
   // Add Instructions to program
+  program.appendMoveInstruction(start_instruction);
   program.appendMoveInstruction(plan_f0);
 
   // Print Diagnostics

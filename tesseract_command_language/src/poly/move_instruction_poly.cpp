@@ -154,11 +154,6 @@ bool tesseract_planning::MoveInstructionPoly::isCircular() const
   return (getInterface().getMoveType() == MoveInstructionType::CIRCULAR);
 }
 
-bool tesseract_planning::MoveInstructionPoly::isStart() const
-{
-  return (getInterface().getMoveType() == MoveInstructionType::START);
-}
-
 bool tesseract_planning::MoveInstructionPoly::isChild() const { return (!getInterface().getParentUUID().is_nil()); }
 
 template <class Archive>

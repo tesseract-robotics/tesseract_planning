@@ -49,8 +49,9 @@ CompositeInstruction createProgram(const Eigen::VectorXd& start_state,
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
 
   JointWaypointPoly wp1{ JointWaypoint(joint_names, start_state) };
-  MoveInstruction start_instruction(wp1, MoveInstructionType::START);
-  program.setStartInstruction(start_instruction);
+  MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE);
+  start_instruction.setDescription("Start Instruction");
+  program.appendMoveInstruction(start_instruction);
 
   JointWaypointPoly wp2{ JointWaypoint(joint_names, start_state + ((goal_state - start_state) / 2)) };
   MoveInstruction plan_f0(wp2, MoveInstructionType::FREESPACE);

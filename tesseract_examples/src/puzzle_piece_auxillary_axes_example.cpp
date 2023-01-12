@@ -172,12 +172,7 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   CompositeInstruction program("DEFAULT", CompositeInstructionOrder::ORDERED, mi);
 
   // Create cartesian waypoint
-  CartesianWaypointPoly wp{ CartesianWaypoint(tool_poses[0]) };
-  MoveInstruction plan_instruction(wp, MoveInstructionType::START, "CARTESIAN");
-  plan_instruction.setDescription("from_start_plan");
-  program.setStartInstruction(plan_instruction);
-
-  for (std::size_t i = 1; i < tool_poses.size(); ++i)
+  for (std::size_t i = 0; i < tool_poses.size(); ++i)
   {
     CartesianWaypointPoly wp{ CartesianWaypoint(tool_poses[i]) };
     MoveInstruction plan_instruction(wp, MoveInstructionType::LINEAR, "CARTESIAN");

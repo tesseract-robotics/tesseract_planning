@@ -69,7 +69,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_Join
   request.env = env_;
   request.env_state = env_->getState();
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
@@ -111,7 +111,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_Joint
   request.env = env_;
   request.env_state = env_->getState();
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
@@ -158,7 +158,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_Joint
   request.env_state = env_->getState();
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, 0, 1);
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
@@ -201,7 +201,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartCart_JointI
   request.env_state = env_->getState();
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, -0.1, 1);
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 

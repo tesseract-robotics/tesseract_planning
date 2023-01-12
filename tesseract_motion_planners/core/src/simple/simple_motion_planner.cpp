@@ -77,18 +77,14 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
   // Create seed
   CompositeInstruction seed;
 
-  // Get the start waypoint/instruction
-  MoveInstructionPoly start_instruction = getStartInstruction(request, request.env_state, *manip);
-
-  // Set start instruction
-  MoveInstructionPoly start_instruction_seed = start_instruction;
-  start_instruction_seed.setMoveType(MoveInstructionType::START);
+  // Place holder for start instruction
+  MoveInstructionPoly null_instruction;
 
   // Process the instructions into the seed
   try
   {
-    MoveInstructionPoly start_instruction_copy = start_instruction;
-    MoveInstructionPoly start_instruction_seed_copy = start_instruction_seed;
+    MoveInstructionPoly start_instruction_copy = null_instruction;
+    MoveInstructionPoly start_instruction_seed_copy = null_instruction;
     seed =
         processCompositeInstruction(request.instructions, start_instruction_copy, start_instruction_seed_copy, request);
   }
@@ -99,9 +95,6 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
     response.message = FAILED_TO_FIND_VALID_SOLUTION;
     return response;
   }
-
-  // Set seed start state
-  seed.setStartInstruction(start_instruction_seed);
 
   // Fill out the response
   response.results = seed;
@@ -135,31 +128,6 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
   return response;
 }
 
-MoveInstructionPoly SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
-                                                             const tesseract_scene_graph::SceneState& current_state,
-                                                             const tesseract_kinematics::JointGroup& manip)
-{
-  // Get start instruction
-  MoveInstructionPoly start_instruction = request.instructions.getStartInstruction();
-  assert(start_instruction.isStart());
-  auto& start_waypoint = start_instruction.getWaypoint();
-  if (start_waypoint.isJointWaypoint() || start_waypoint.isStateWaypoint())
-  {
-    assert(checkJointPositionFormat(manip.getJointNames(), start_waypoint));
-    return start_instruction;
-  }
-
-  if (start_waypoint.isCartesianWaypoint())
-  {
-    /** @todo Update to run IK to find solution closest to start */
-    start_waypoint.as<CartesianWaypointPoly>().setSeed(
-        tesseract_common::JointState(manip.getJointNames(), current_state.getJointValues(manip.getJointNames())));
-    return start_instruction;
-  }
-
-  throw std::runtime_error("Unsupported waypoint type!");
-}
-
 CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const CompositeInstruction& instructions,
                                                                       MoveInstructionPoly& prev_instruction,
                                                                       MoveInstructionPoly& prev_seed,
@@ -174,12 +142,38 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
 
     if (instruction.isCompositeInstruction())
     {
-      seed.appendInstruction(
+      seed.push_back(
           processCompositeInstruction(instruction.as<CompositeInstruction>(), prev_instruction, prev_seed, request));
     }
     else if (instruction.isMoveInstruction())
     {
       const auto& base_instruction = instruction.as<MoveInstructionPoly>();
+      if (prev_instruction.isNull())
+      {
+        const std::string manipulator = request.instructions.getManipulatorInfo().manipulator;
+        const std::string manipulator_ik_solver = request.instructions.getManipulatorInfo().manipulator_ik_solver;
+        tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(manipulator);
+
+        prev_instruction = base_instruction;
+        auto& start_waypoint = prev_instruction.getWaypoint();
+        if (start_waypoint.isJointWaypoint() || start_waypoint.isStateWaypoint())
+        {
+          assert(checkJointPositionFormat(manip->getJointNames(), start_waypoint));
+        }
+        else if (start_waypoint.isCartesianWaypoint())
+        {
+          /** @todo Update to run IK to find solution closest to start */
+          start_waypoint.as<CartesianWaypointPoly>().setSeed(tesseract_common::JointState(
+              manip->getJointNames(), request.env_state.getJointValues(manip->getJointNames())));
+        }
+        else
+        {
+          throw std::runtime_error("Unsupported waypoint type!");
+        }
+        prev_seed = prev_instruction;
+        seed.push_back(prev_instruction);
+        continue;
+      }
 
       // Get the next plan instruction if it exists
       InstructionPoly next_instruction;
@@ -222,14 +216,14 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
                                  request.instructions.getManipulatorInfo());
 
       for (const auto& instr : instruction_seed)
-        seed.appendInstruction(instr);
+        seed.push_back(instr);
 
       prev_instruction = base_instruction;
       prev_seed = instruction_seed.back();
     }
     else
     {
-      seed.appendInstruction(instruction);
+      seed.push_back(instruction);
     }
   }  // for (const auto& instruction : instructions)
   return seed;

@@ -57,8 +57,8 @@ CompositeInstruction getProgram()
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
   StateWaypointPoly wp0{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
-  MoveInstruction start_instruction(wp0, MoveInstructionType::START);
-  program.setStartInstruction(start_instruction);
+  MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
+  start_instruction.setDescription("Start Instruction");
 
   // Define raster poses
   CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
@@ -87,8 +87,9 @@ CompositeInstruction getProgram()
   plan_f0.setDescription("from_start_plan");
   CompositeInstruction from_start;
   from_start.setDescription("from_start");
+  from_start.appendMoveInstruction(start_instruction);
   from_start.appendMoveInstruction(plan_f0);
-  program.appendInstruction(from_start);
+  program.push_back(from_start);
 
   {
     CompositeInstruction raster_segment;
@@ -99,7 +100,7 @@ CompositeInstruction getProgram()
     raster_segment.appendMoveInstruction(plan_c3);
     raster_segment.appendMoveInstruction(plan_c4);
     raster_segment.appendMoveInstruction(plan_c5);
-    program.appendInstruction(raster_segment);
+    program.push_back(raster_segment);
   }
 
   {
@@ -114,9 +115,9 @@ CompositeInstruction getProgram()
 
     CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
     transitions.setDescription("transitions");
-    transitions.appendInstruction(transition_from_start);
-    transitions.appendInstruction(transition_from_end);
-    program.appendInstruction(transitions);
+    transitions.push_back(transition_from_start);
+    transitions.push_back(transition_from_end);
+    program.push_back(transitions);
   }
 
   {
@@ -128,7 +129,7 @@ CompositeInstruction getProgram()
     raster_segment.appendMoveInstruction(plan_c3);
     raster_segment.appendMoveInstruction(plan_c4);
     raster_segment.appendMoveInstruction(plan_c5);
-    program.appendInstruction(raster_segment);
+    program.push_back(raster_segment);
   }
 
   {
@@ -143,9 +144,9 @@ CompositeInstruction getProgram()
 
     CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
     transitions.setDescription("transitions");
-    transitions.appendInstruction(transition_from_start);
-    transitions.appendInstruction(transition_from_end);
-    program.appendInstruction(transitions);
+    transitions.push_back(transition_from_start);
+    transitions.push_back(transition_from_end);
+    program.push_back(transitions);
   }
 
   {
@@ -157,7 +158,7 @@ CompositeInstruction getProgram()
     raster_segment.appendMoveInstruction(plan_c3);
     raster_segment.appendMoveInstruction(plan_c4);
     raster_segment.appendMoveInstruction(plan_c5);
-    program.appendInstruction(raster_segment);
+    program.push_back(raster_segment);
   }
 
   MoveInstruction plan_f2(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
@@ -165,26 +166,26 @@ CompositeInstruction getProgram()
   CompositeInstruction to_end;
   to_end.setDescription("to_end");
   to_end.appendMoveInstruction(plan_f2);
-  program.appendInstruction(to_end);
+  program.push_back(to_end);
 
   // Add a wait instruction
   WaitInstruction wait_instruction_time(1.5);
-  program.appendInstruction(wait_instruction_time);
+  program.push_back(wait_instruction_time);
 
   WaitInstruction wait_instruction_io(WaitInstructionType::DIGITAL_INPUT_LOW, 10);
-  program.appendInstruction(wait_instruction_io);
+  program.push_back(wait_instruction_io);
 
   // Add a timer instruction
   TimerInstruction timer_instruction(TimerInstructionType::DIGITAL_OUTPUT_LOW, 3.1, 5);
-  program.appendInstruction(timer_instruction);
+  program.push_back(timer_instruction);
 
   // Add a set tool instruction
   SetToolInstruction set_tool_instruction(5);
-  program.appendInstruction(set_tool_instruction);
+  program.push_back(set_tool_instruction);
 
   // Add a set tool instruction
   SetAnalogInstruction set_analog_instruction("R", 0, 1.5);
-  program.appendInstruction(set_analog_instruction);
+  program.push_back(set_analog_instruction);
 
   return program;
 }
@@ -236,7 +237,7 @@ static void BM_MoveInstructionCreation(benchmark::State& state)
 {
   CartesianWaypointPoly w{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   for (auto _ : state)
-    MoveInstruction i(w, MoveInstructionType::START);
+    MoveInstruction i(w, MoveInstructionType::FREESPACE);
 }
 
 BENCHMARK(BM_MoveInstructionCreation);

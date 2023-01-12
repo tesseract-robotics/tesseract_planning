@@ -85,7 +85,7 @@ TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& in
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   assert(cur_composite_profile->longest_valid_segment_length > 0);
-  InstructionPoly start_instruction = ci.getStartInstruction();
+  InstructionPoly start_instruction;
   CompositeInstruction new_results{ ci };
   new_results.clear();
 
@@ -113,10 +113,16 @@ void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
       new_cc.clear();
 
       upsample(new_cc, cc, start_instruction, longest_valid_segment_length);
-      composite.appendInstruction(new_cc);
+      composite.push_back(new_cc);
     }
     else if (i.isMoveInstruction())
     {
+      if (start_instruction.isNull())
+      {
+        start_instruction = i.as<MoveInstructionPoly>();
+        continue;
+      }
+
       assert(start_instruction.isMoveInstruction());
       const auto& mi0 = start_instruction.as<MoveInstructionPoly>();
       const auto& mi1 = i.as<MoveInstructionPoly>();
@@ -145,7 +151,7 @@ void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
       }
       else
       {
-        composite.appendInstruction(i);
+        composite.push_back(i);
       }
 
       start_instruction = i;
@@ -153,7 +159,7 @@ void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
     else
     {
       assert(!i.isMoveInstruction());
-      composite.appendInstruction(i);
+      composite.push_back(i);
     }
   }
 }

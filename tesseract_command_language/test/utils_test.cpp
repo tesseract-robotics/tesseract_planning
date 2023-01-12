@@ -63,9 +63,9 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
                                    std::to_string(k));
         sub_sub_composite.appendMoveInstruction(instruction);
       }
-      sub_composite.appendInstruction(sub_sub_composite);
+      sub_composite.push_back(sub_sub_composite);
     }
-    composite.appendInstruction(sub_composite);
+    composite.push_back(sub_composite);
   }
 
   // flatten(composite);
@@ -112,7 +112,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
       composite.print();
 
     // flatten the composite keeping the composite instructions
-    flattenFilterFn filter = [](const InstructionPoly&, const CompositeInstruction&, bool) { return true; };
+    flattenFilterFn filter = [](const InstructionPoly&, const CompositeInstruction&) { return true; };
     std::vector<std::reference_wrapper<InstructionPoly>> flattened = composite.flatten(filter);
     EXPECT_EQ(flattened.size(), i_max * j_max * k_max + 16);  // Add 16 for the composite instructions
 

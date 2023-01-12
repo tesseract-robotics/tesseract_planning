@@ -70,7 +70,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   request.env_state = env_->getState();
 
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
@@ -128,7 +128,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
@@ -197,7 +197,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
 
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
@@ -254,7 +254,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = request.env->getJointGroup(manip_info_.manipulator);
 
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
@@ -325,7 +325,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   CartesianWaypointPoly wp1{ CartesianWaypoint(
       joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame)) };
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
@@ -382,7 +382,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   CartesianWaypointPoly wp1{ CartesianWaypoint(
       joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame)) };
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
@@ -451,7 +451,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   CartesianWaypointPoly wp1{ CartesianWaypoint(
       joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame)) };
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
@@ -510,7 +510,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   CartesianWaypointPoly wp1{ CartesianWaypoint(
       joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame)) };
-  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 

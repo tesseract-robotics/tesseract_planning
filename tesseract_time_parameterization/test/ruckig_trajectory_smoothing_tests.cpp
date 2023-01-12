@@ -27,10 +27,7 @@ CompositeInstruction createRepeatedPointTrajectory()
   {
     StateWaypointPoly swp{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
     swp.getPosition()[0] = 1;
-    if (i == 0)
-      program.setStartInstruction(MoveInstruction(swp, MoveInstructionType::START));
-    else
-      program.appendMoveInstruction(MoveInstruction(swp, MoveInstructionType::FREESPACE));
+    program.appendMoveInstruction(MoveInstruction(swp, MoveInstructionType::FREESPACE));
   }
 
   return program;
@@ -49,10 +46,7 @@ CompositeInstruction createStraightTrajectory()
   {
     StateWaypointPoly swp{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
     swp.getPosition()[0] = i * max / num;
-    if (i == 0)
-      program.setStartInstruction(MoveInstruction(swp, MoveInstructionType::START));
-    else
-      program.appendMoveInstruction(MoveInstruction(swp, MoveInstructionType::FREESPACE));
+    program.appendMoveInstruction(MoveInstruction(swp, MoveInstructionType::FREESPACE));
   }
 
   // leave final velocity/acceleration unset
