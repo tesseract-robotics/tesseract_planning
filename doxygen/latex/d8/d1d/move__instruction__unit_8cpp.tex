@@ -21,11 +21,9 @@ Include dependency graph for move\+\_\+instruction\+\_\+unit.\+cpp\+:
 \item 
 \mbox{\hyperlink{move__instruction__unit_8cpp_afcaf1effadc3ca5f530c1d186fbc13e3}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Waypoint(), \mbox{\hyperlink{move__instruction__unit_8cpp_a4ea050835145a70eed92c074f5a609eb}{swp}})
 \item 
-\mbox{\hyperlink{move__instruction__unit_8cpp_a410f52c81a644700fbc490d17fab97b9}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Move\+Type(), Move\+Instruction\+Type\+::\+START)
+\mbox{\hyperlink{move__instruction__unit_8cpp_a070a6f763a46b3edde63eee8df8e1bfd}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Move\+Type(), Move\+Instruction\+Type\+::\+CIRCULAR)
 \item 
 \mbox{\hyperlink{move__instruction__unit_8cpp_aaedd93539afe17943c4ecc6e5acf2e11}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Profile(), DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY)
-\item 
-\mbox{\hyperlink{move__instruction__unit_8cpp_aa86edb9f91303a1a26eeec6f221dd617}{EXPECT\+\_\+\+TRUE}} (instr.\+get\+Path\+Profile().empty())
 \item 
 \mbox{\hyperlink{move__instruction__unit_8cpp_a47dcb5f49bdf2e3fc9ccb9b35194e000}{EXPECT\+\_\+\+FALSE}} (instr.\+get\+Description().empty())
 \item 
@@ -35,6 +33,8 @@ Include dependency graph for move\+\_\+instruction\+\_\+unit.\+cpp\+:
 \item 
 \mbox{\hyperlink{move__instruction__unit_8cpp_ac6011cf3d79c19dd708c8521eb0de962}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Move\+Type(), Move\+Instruction\+Type\+::\+FREESPACE)
 \item 
+\mbox{\hyperlink{move__instruction__unit_8cpp_aa86edb9f91303a1a26eeec6f221dd617}{EXPECT\+\_\+\+TRUE}} (instr.\+get\+Path\+Profile().empty())
+\item 
 \mbox{\hyperlink{move__instruction__unit_8cpp_a6698a585613ec08f16962642b92ab0f9}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Move\+Type(), Move\+Instruction\+Type\+::\+LINEAR)
 \item 
 \mbox{\hyperlink{move__instruction__unit_8cpp_a5e911c4e2237d0c358e92a85b7b10339}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Profile(), \char`\"{}TEST\+\_\+\+PROFILE\char`\"{})
@@ -43,35 +43,35 @@ Include dependency graph for move\+\_\+instruction\+\_\+unit.\+cpp\+:
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{State\+Waypoint}} \mbox{\hyperlink{move__instruction__unit_8cpp_a4afc028563b8d3b022e3daa5610869fe}{test\+\_\+swp}} (\mbox{\hyperlink{move__instruction__unit_8cpp_a42020bb58202b80e8d756cd992fbdac7}{jn}}, 5 $\ast$\mbox{\hyperlink{plan__instruction__unit_8cpp_ae8d6077c41b38764c8f2702f5541678b}{jv}})
 \item 
-\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_a9daa83e7fbdfaa28133ecbf6ca8bad8a}{assign\+State\+Waypoint}} (\mbox{\hyperlink{move__instruction__unit_8cpp_a4afc028563b8d3b022e3daa5610869fe}{test\+\_\+swp}})
+\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_a9daa83e7fbdfaa28133ecbf6ca8bad8a}{assign\+State\+Waypoint}} (\mbox{\hyperlink{move__instruction__unit_8cpp_a4afc028563b8d3b022e3daa5610869fe}{test\+\_\+swp}})
 \item 
 \mbox{\hyperlink{move__instruction__unit_8cpp_ae7f30482c50730ed776d07d5b29daba6}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Waypoint().as$<$ \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} $>$().as$<$ \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{State\+Waypoint}} $>$(), \mbox{\hyperlink{move__instruction__unit_8cpp_a4afc028563b8d3b022e3daa5610869fe}{test\+\_\+swp}})
 \item 
-\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_a6b9926ce73363e323b6ee1c2bc884487}{set\+Move\+Type}} (Move\+Instruction\+Type\+::\+LINEAR)
+\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_a6b9926ce73363e323b6ee1c2bc884487}{set\+Move\+Type}} (Move\+Instruction\+Type\+::\+LINEAR)
 \item 
-\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_ab4ad367587e598253a284d5895a49fcc}{set\+Profile}} (\char`\"{}TEST\+\_\+\+PROFILE\char`\"{})
+\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_ab4ad367587e598253a284d5895a49fcc}{set\+Profile}} (\char`\"{}TEST\+\_\+\+PROFILE\char`\"{})
 \item 
-\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_ac4a026ce3bb7d0abdd31036b9016371c}{set\+Path\+Profile}} (\char`\"{}TEST\+\_\+\+PATH\+\_\+\+PROFILE\char`\"{})
+\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_ac4a026ce3bb7d0abdd31036b9016371c}{set\+Path\+Profile}} (\char`\"{}TEST\+\_\+\+PATH\+\_\+\+PROFILE\char`\"{})
 \item 
-\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_af2aa5aaa29cab51537c6ae3136ecb19e}{set\+Description}} (\char`\"{}This is a test.\char`\"{})
+\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_af2aa5aaa29cab51537c6ae3136ecb19e}{set\+Description}} (\char`\"{}This is a test.\char`\"{})
 \item 
 \mbox{\hyperlink{move__instruction__unit_8cpp_a64e27a6f15e4482f2d406cdc76c24ecd}{EXPECT\+\_\+\+EQ}} (instr.\+get\+Description(), \char`\"{}This is a test.\char`\"{})
 \item 
-\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_a01f3a5b630366e520e175980fb434c4c}{regenerate\+UUID}} ()
+\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_a01f3a5b630366e520e175980fb434c4c}{regenerate\+UUID}} ()
 \item 
 \mbox{\hyperlink{move__instruction__unit_8cpp_a796cfac0b040f85f55d19d7f400af697}{EXPECT\+\_\+\+FALSE}} (\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}}==instr.\+get\+UUID())
 \item 
-\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_aa10f3439713615d3b7ebab8958c442d2}{set\+Parent\+UUID}} (\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}})
+\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} \mbox{\hyperlink{move__instruction__unit_8cpp_aa10f3439713615d3b7ebab8958c442d2}{set\+Parent\+UUID}} (\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}})
 \item 
 \mbox{\hyperlink{move__instruction__unit_8cpp_a188974d25f9cc455e39d148d0d7d1c35}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}}==instr.\+get\+Parent\+UUID())
 \item 
-\mbox{\hyperlink{move__instruction__unit_8cpp_ad54d0c7013a5715e69b3222ee1b2bc2e}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{move__instruction__unit_8cpp_aca345e06220adc619de0005143e9a3a2}{assign}}==\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}})
+\mbox{\hyperlink{move__instruction__unit_8cpp_ad54d0c7013a5715e69b3222ee1b2bc2e}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{move__instruction__unit_8cpp_aca345e06220adc619de0005143e9a3a2}{assign}}==\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}})
 \item 
 \mbox{\hyperlink{move__instruction__unit_8cpp_a3e74ca0f98c8f50b1bf40032b19c8a7a}{EXPECT\+\_\+\+TRUE}} (assign.\+get\+UUID()==instr.\+get\+UUID())
 \item 
-\mbox{\hyperlink{move__instruction__unit_8cpp_a485285b3672afc570dede0719180865a}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{move__instruction__unit_8cpp_abdc729cc274af667ef0a2306cfd35596}{copy}}==\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}})
+\mbox{\hyperlink{move__instruction__unit_8cpp_a485285b3672afc570dede0719180865a}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{move__instruction__unit_8cpp_abdc729cc274af667ef0a2306cfd35596}{copy}}==\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}})
 \item 
-\mbox{\hyperlink{move__instruction__unit_8cpp_a690e5a72a145dae4b1a08c615da4f8a9}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{move__instruction__unit_8cpp_a59f432e366886b2b38454572259bacdb}{ninstr}}==\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}})
+\mbox{\hyperlink{move__instruction__unit_8cpp_a690e5a72a145dae4b1a08c615da4f8a9}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{move__instruction__unit_8cpp_a59f432e366886b2b38454572259bacdb}{ninstr}}==\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}})
 \item 
 \mbox{\hyperlink{move__instruction__unit_8cpp_a78455d8173fcd4a6f9110e68c8859b43}{EXPECT\+\_\+\+EQ}} (ninstr.\+get\+Waypoint(), \mbox{\hyperlink{move__instruction__unit_8cpp_a4ea050835145a70eed92c074f5a609eb}{swp}})
 \item 
@@ -118,17 +118,17 @@ std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{move__instruction__unit_8cpp
 \item 
 \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} \mbox{\hyperlink{move__instruction__unit_8cpp_a4ea050835145a70eed92c074f5a609eb}{swp}} (\mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{State\+Waypoint}}(\mbox{\hyperlink{move__instruction__unit_8cpp_a42020bb58202b80e8d756cd992fbdac7}{jn}}, \mbox{\hyperlink{plan__instruction__unit_8cpp_ae8d6077c41b38764c8f2702f5541678b}{jv}}))
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} (\mbox{\hyperlink{move__instruction__unit_8cpp_a4ea050835145a70eed92c074f5a609eb}{swp}}, Move\+Instruction\+Type\+::\+START)
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} (\mbox{\hyperlink{move__instruction__unit_8cpp_a4ea050835145a70eed92c074f5a609eb}{swp}}, Move\+Instruction\+Type\+::\+FREESPACE)
 \item 
 boost\+::uuids\+::uuid \mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}} = instr.\+get\+UUID()
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{move__instruction__unit_8cpp_aca345e06220adc619de0005143e9a3a2}{assign}} = \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}}
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{move__instruction__unit_8cpp_aca345e06220adc619de0005143e9a3a2}{assign}} = \mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{move__instruction__unit_8cpp_abdc729cc274af667ef0a2306cfd35596}{copy}} (\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}})
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{move__instruction__unit_8cpp_abdc729cc274af667ef0a2306cfd35596}{copy}} (\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}})
 \item 
 auto \mbox{\hyperlink{move__instruction__unit_8cpp_a59f432e366886b2b38454572259bacdb}{ninstr}} = tesseract\+\_\+common\+::\+Serialization\+::from\+Archive\+File\+XML$<$\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}}$>$(\char`\"{}/tmp/move\+\_\+instruction\+\_\+boost.\+xml\char`\"{})
 \item 
-\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \mbox{\hyperlink{move__instruction__unit_8cpp_ad7b6cb3db9af15b213056ac81a81ec6d}{instr\+\_\+poly}} (\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}})
+\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \mbox{\hyperlink{move__instruction__unit_8cpp_ad7b6cb3db9af15b213056ac81a81ec6d}{instr\+\_\+poly}} (\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}})
 \item 
 \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \mbox{\hyperlink{move__instruction__unit_8cpp_a24692226220e8a7240720017db65c502}{child\+\_\+instr\+\_\+poly}} = instr\+\_\+poly.\+create\+Child()
 \item 
@@ -173,7 +173,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!assignStateWaypoint@{assignStateWaypoint}}
 \index{assignStateWaypoint@{assignStateWaypoint}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{assignStateWaypoint()}{assignStateWaypoint()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} assign\+State\+Waypoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_a4afc028563b8d3b022e3daa5610869fe}{test\+\_\+swp}}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} assign\+State\+Waypoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_a4afc028563b8d3b022e3daa5610869fe}{test\+\_\+swp}}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_a33c82aea5f46b93d813bbe071024744d}\label{move__instruction__unit_8cpp_a33c82aea5f46b93d813bbe071024744d}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
@@ -223,23 +223,23 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [8/22]}}
 {\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Description(),  }\item[{\char`\"{}This is a test.\char`\"{}}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{move__instruction__unit_8cpp_ac6011cf3d79c19dd708c8521eb0de962}\label{move__instruction__unit_8cpp_ac6011cf3d79c19dd708c8521eb0de962}} 
+\mbox{\Hypertarget{move__instruction__unit_8cpp_a070a6f763a46b3edde63eee8df8e1bfd}\label{move__instruction__unit_8cpp_a070a6f763a46b3edde63eee8df8e1bfd}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
 \index{EXPECT\_EQ@{EXPECT\_EQ}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [9/22]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Move\+Type(),  }\item[{Move\+Instruction\+Type\+::\+CIRCULAR}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{move__instruction__unit_8cpp_ac6011cf3d79c19dd708c8521eb0de962}\label{move__instruction__unit_8cpp_ac6011cf3d79c19dd708c8521eb0de962}} 
+\index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [10/22]}}
 {\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Move\+Type(),  }\item[{Move\+Instruction\+Type\+::\+FREESPACE}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_a6698a585613ec08f16962642b92ab0f9}\label{move__instruction__unit_8cpp_a6698a585613ec08f16962642b92ab0f9}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
 \index{EXPECT\_EQ@{EXPECT\_EQ}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [10/22]}}
-{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Move\+Type(),  }\item[{Move\+Instruction\+Type\+::\+LINEAR}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{move__instruction__unit_8cpp_a410f52c81a644700fbc490d17fab97b9}\label{move__instruction__unit_8cpp_a410f52c81a644700fbc490d17fab97b9}} 
-\index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
-\index{EXPECT\_EQ@{EXPECT\_EQ}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [11/22]}}
-{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Move\+Type(),  }\item[{Move\+Instruction\+Type\+::\+START}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{instr.}]{get\+Move\+Type(),  }\item[{Move\+Instruction\+Type\+::\+LINEAR}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_a27634a66ce58b50d36b9534e8fb551a7}\label{move__instruction__unit_8cpp_a27634a66ce58b50d36b9534e8fb551a7}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
@@ -268,7 +268,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}}(\mbox{\hyperlink{move__instruction__unit_8cpp_a4ea050835145a70eed92c074f5a609eb}{swp}}, MoveInstructionType::FREESPACE)}
+\DoxyCodeLine{    \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} \mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}}(\mbox{\hyperlink{move__instruction__unit_8cpp_a4ea050835145a70eed92c074f5a609eb}{swp}}, MoveInstructionType::FREESPACE)}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{move__instruction__unit_8cpp_ae7f30482c50730ed776d07d5b29daba6}\label{move__instruction__unit_8cpp_ae7f30482c50730ed776d07d5b29daba6}} 
@@ -359,7 +359,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
 \index{EXPECT\_TRUE@{EXPECT\_TRUE}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/9]}}
-{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_aca345e06220adc619de0005143e9a3a2}{assign}}}]{ = {\ttfamily =\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_aca345e06220adc619de0005143e9a3a2}{assign}}}]{ = {\ttfamily =\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}}} }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_a1f342535ba3b0c6393a99ebdbd963db3}\label{move__instruction__unit_8cpp_a1f342535ba3b0c6393a99ebdbd963db3}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
@@ -371,7 +371,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
 \index{EXPECT\_TRUE@{EXPECT\_TRUE}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [4/9]}}
-{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_abdc729cc274af667ef0a2306cfd35596}{copy}}}]{ = {\ttfamily =\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_abdc729cc274af667ef0a2306cfd35596}{copy}}}]{ = {\ttfamily =\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}}} }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_a7df6fb6ee4b1f432130a455ac6a3070b}\label{move__instruction__unit_8cpp_a7df6fb6ee4b1f432130a455ac6a3070b}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
@@ -395,7 +395,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
 \index{EXPECT\_TRUE@{EXPECT\_TRUE}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [8/9]}}
-{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_a59f432e366886b2b38454572259bacdb}{ninstr}}}]{ = {\ttfamily =\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_a59f432e366886b2b38454572259bacdb}{ninstr}}}]{ = {\ttfamily =\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}}} }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_a188974d25f9cc455e39d148d0d7d1c35}\label{move__instruction__unit_8cpp_a188974d25f9cc455e39d148d0d7d1c35}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
@@ -413,37 +413,37 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!regenerateUUID@{regenerateUUID}}
 \index{regenerateUUID@{regenerateUUID}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{regenerateUUID()}{regenerateUUID()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} regenerate\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} regenerate\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_af2aa5aaa29cab51537c6ae3136ecb19e}\label{move__instruction__unit_8cpp_af2aa5aaa29cab51537c6ae3136ecb19e}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!setDescription@{setDescription}}
 \index{setDescription@{setDescription}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} set\+Description (\begin{DoxyParamCaption}\item[{\char`\"{}This is a test.\char`\"{}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} set\+Description (\begin{DoxyParamCaption}\item[{\char`\"{}This is a test.\char`\"{}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_a6b9926ce73363e323b6ee1c2bc884487}\label{move__instruction__unit_8cpp_a6b9926ce73363e323b6ee1c2bc884487}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!setMoveType@{setMoveType}}
 \index{setMoveType@{setMoveType}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{setMoveType()}{setMoveType()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} set\+Move\+Type (\begin{DoxyParamCaption}\item[{Move\+Instruction\+Type\+::\+LINEAR}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} set\+Move\+Type (\begin{DoxyParamCaption}\item[{Move\+Instruction\+Type\+::\+LINEAR}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_aa10f3439713615d3b7ebab8958c442d2}\label{move__instruction__unit_8cpp_aa10f3439713615d3b7ebab8958c442d2}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!setParentUUID@{setParentUUID}}
 \index{setParentUUID@{setParentUUID}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{setParentUUID()}{setParentUUID()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} set\+Parent\+UUID (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} set\+Parent\+UUID (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_aba5257568d83f4cbc9eab871b8a47f4f}{uuid}}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_ac4a026ce3bb7d0abdd31036b9016371c}\label{move__instruction__unit_8cpp_ac4a026ce3bb7d0abdd31036b9016371c}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!setPathProfile@{setPathProfile}}
 \index{setPathProfile@{setPathProfile}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{setPathProfile()}{setPathProfile()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} set\+Path\+Profile (\begin{DoxyParamCaption}\item[{\char`\"{}TEST\+\_\+\+PATH\+\_\+\+PROFILE\char`\"{}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} set\+Path\+Profile (\begin{DoxyParamCaption}\item[{\char`\"{}TEST\+\_\+\+PATH\+\_\+\+PROFILE\char`\"{}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_ab4ad367587e598253a284d5895a49fcc}\label{move__instruction__unit_8cpp_ab4ad367587e598253a284d5895a49fcc}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!setProfile@{setProfile}}
 \index{setProfile@{setProfile}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{setProfile()}{setProfile()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}} set\+Profile (\begin{DoxyParamCaption}\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}} set\+Profile (\begin{DoxyParamCaption}\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_a4afc028563b8d3b022e3daa5610869fe}\label{move__instruction__unit_8cpp_a4afc028563b8d3b022e3daa5610869fe}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!test\_swp@{test\_swp}}
@@ -458,7 +458,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!assign@{assign}}
 \index{assign@{assign}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{assign}{assign}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} assign = \mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} assign = \mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}}}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_a24692226220e8a7240720017db65c502}\label{move__instruction__unit_8cpp_a24692226220e8a7240720017db65c502}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!child\_instr\_poly@{child\_instr\_poly}}
@@ -489,19 +489,19 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!copy@{copy}}
 \index{copy@{copy}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{copy}{copy}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} copy(\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}}) (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} copy(\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}}) (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}}}]{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}\label{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}} 
+\mbox{\Hypertarget{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}\label{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!instr@{instr}}
 \index{instr@{instr}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{instr}{instr}}
-{\footnotesize\ttfamily Plan\+Instruction instr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_a4ea050835145a70eed92c074f5a609eb}{swp}}}]{,  }\item[{Move\+Instruction\+Type\+::\+START}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Plan\+Instruction instr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_a4ea050835145a70eed92c074f5a609eb}{swp}}}]{,  }\item[{Move\+Instruction\+Type\+::\+FREESPACE}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_ad7b6cb3db9af15b213056ac81a81ec6d}\label{move__instruction__unit_8cpp_ad7b6cb3db9af15b213056ac81a81ec6d}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!instr\_poly@{instr\_poly}}
 \index{instr\_poly@{instr\_poly}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{instr\_poly}{instr\_poly}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} instr\+\_\+poly(\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}}) (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_aef6c42973b72435e0120bfa48ad29715}{instr}}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} instr\+\_\+poly(\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}}) (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move__instruction__unit_8cpp_a426d530b266aabb484ecd9aacab3dbf3}{instr}}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_a42020bb58202b80e8d756cd992fbdac7}\label{move__instruction__unit_8cpp_a42020bb58202b80e8d756cd992fbdac7}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!jn@{jn}}

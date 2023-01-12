@@ -333,9 +333,9 @@ class \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSample
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} = std\+::function$<$ bool(const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&, bool parent\+\_\+is\+\_\+first\+\_\+composite)$>$
+using \mbox{\hyperlink{namespacetesseract__planning_a03ae53e9120c49cb221163e1551aecb0}{flatten\+Filter\+Fn}} = std\+::function$<$ bool(const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&)$>$
 \begin{DoxyCompactList}\small\item\em This is used for filtering only what you want in the vector. \end{DoxyCompactList}\item 
-using \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{locate\+Filter\+Fn}} = std\+::function$<$ bool(const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&, bool parent\+\_\+is\+\_\+first\+\_\+composite)$>$
+using \mbox{\hyperlink{namespacetesseract__planning_aee6e9673ebb2a6c4d57d0a966d72658f}{locate\+Filter\+Fn}} = std\+::function$<$ bool(const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&)$>$
 \item 
 using \mbox{\hyperlink{namespacetesseract__planning_aa3566b66783a0e8526c04c7e718ff89d}{Cartesian\+Waypoint\+Poly\+Base}} = tesseract\+\_\+common\+::\+Type\+Erasure\+Base$<$ \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface}{detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface}}, \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInstance}{detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Instance}} $>$
 \item 
@@ -426,7 +426,6 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23
 enum class \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} \+: int \{ \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{LINEAR}} = 0
 , \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{FREESPACE}} = 1
 , \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca93c8d295bb538cdb3302604512828d68}{CIRCULAR}} = 2
-, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{START}} = 3
  \}
 \item 
 enum class \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}} \+: int \{ \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2afd7449f3c0dae783bd8960c264eff1af}{DIGITAL\+\_\+\+OUTPUT\+\_\+\+HIGH}} = 0
@@ -491,7 +490,7 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_a8809a0aba7c84528f1fa9a
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_ae41ec83784beef5d83186ff7dbafb216}{move\+Filter}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&instruction, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite, bool parent\+\_\+is\+\_\+first\+\_\+composite)
+bool \mbox{\hyperlink{namespacetesseract__planning_a7d7f5ca99b6c38d8925ffbdbb2710ff2}{move\+Filter}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&instruction, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite)
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_ab840989153160ef984b82b8cd40e39d8}{is\+Comment\+Instruction}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&instruction)
 \item 
@@ -810,13 +809,13 @@ void \mbox{\hyperlink{namespacetesseract__planning_a1080031c4ab64d14f36e2e4ce8ff
 \item 
 static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}} = \char`\"{}DEFAULT\char`\"{}
 \begin{DoxyCompactList}\small\item\em Set to DEFAULT. Default profiles are given this name. \end{DoxyCompactList}\item 
-static const \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{tesseract\+\_\+planning\+::locate\+Filter\+Fn}} \mbox{\hyperlink{namespacetesseract__planning_a683f78d4f45a6b027dc453d2566d39ca}{to\+Joint\+Trajectory\+Instruction\+Filter}}
+static const \mbox{\hyperlink{namespacetesseract__planning_aee6e9673ebb2a6c4d57d0a966d72658f}{tesseract\+\_\+planning\+::locate\+Filter\+Fn}} \mbox{\hyperlink{namespacetesseract__planning_a683f78d4f45a6b027dc453d2566d39ca}{to\+Joint\+Trajectory\+Instruction\+Filter}}
 \item 
 static const std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{namespacetesseract__planning_ad2c39c4d68bea0d0071b0ab44b6a0fad}{Robot\+Config\+String}} = \{ \char`\"{}NUT\char`\"{}, \char`\"{}FUT\char`\"{}, \char`\"{}NDT\char`\"{}, \char`\"{}FDT\char`\"{}, \char`\"{}NDB\char`\"{}, \char`\"{}FDB\char`\"{}, \char`\"{}NUB\char`\"{}, \char`\"{}FUB\char`\"{} \}
 \item 
-static const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} \mbox{\hyperlink{namespacetesseract__planning_aeea1bf1f16d41f415b0c76537b6a46a2}{program\+Flatten\+Move\+Instruction\+Filter}}
+static const \mbox{\hyperlink{namespacetesseract__planning_a03ae53e9120c49cb221163e1551aecb0}{flatten\+Filter\+Fn}} \mbox{\hyperlink{namespacetesseract__planning_aeea1bf1f16d41f415b0c76537b6a46a2}{program\+Flatten\+Move\+Instruction\+Filter}}
 \item 
-static const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} \mbox{\hyperlink{namespacetesseract__planning_aeea1bf1f16d41f415b0c76537b6a46a2}{program\+Flatten\+Move\+Instruction\+Filter}}
+static const \mbox{\hyperlink{namespacetesseract__planning_a03ae53e9120c49cb221163e1551aecb0}{flatten\+Filter\+Fn}} \mbox{\hyperlink{namespacetesseract__planning_aeea1bf1f16d41f415b0c76537b6a46a2}{program\+Flatten\+Move\+Instruction\+Filter}}
 \end{DoxyCompactItemize}
 
 
@@ -944,11 +943,11 @@ using \mbox{\hyperlink{namespacetesseract__planning_a7a8351e5785986a6e075296e3bf
 
 This is used for tesseract descartes samplers that filters out invalid solutions. 
 
-Example\+: This would be used to filter out solution outside of custom joint limits. \mbox{\Hypertarget{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}\label{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}} 
+Example\+: This would be used to filter out solution outside of custom joint limits. \mbox{\Hypertarget{namespacetesseract__planning_a03ae53e9120c49cb221163e1551aecb0}\label{namespacetesseract__planning_a03ae53e9120c49cb221163e1551aecb0}} 
 \index{tesseract\_planning@{tesseract\_planning}!flattenFilterFn@{flattenFilterFn}}
 \index{flattenFilterFn@{flattenFilterFn}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{flattenFilterFn}{flattenFilterFn}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{tesseract\+\_\+planning\+::flatten\+Filter\+Fn}} = typedef std\+::function$<$bool(const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}}\&, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}}\&, bool parent\+\_\+is\+\_\+first\+\_\+composite)$>$}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a03ae53e9120c49cb221163e1551aecb0}{tesseract\+\_\+planning\+::flatten\+Filter\+Fn}} = typedef std\+::function$<$bool(const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}}\&, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}}\&)$>$}
 
 
 
@@ -968,11 +967,11 @@ The filter should return true when the instruction passed should be included not
 \doxysubsubsection{\texorpdfstring{JointWaypointPolyBase}{JointWaypointPolyBase}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a4b67e25de24450d16e76f4711e9cba2d}{tesseract\+\_\+planning\+::\+Joint\+Waypoint\+Poly\+Base}} = typedef tesseract\+\_\+common\+::\+Type\+Erasure\+Base$<$\mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInterface}{detail\+\_\+joint\+\_\+waypoint\+::\+Joint\+Waypoint\+Interface}}, \mbox{\hyperlink{structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointInstance}{detail\+\_\+joint\+\_\+waypoint\+::\+Joint\+Waypoint\+Instance}}$>$}
 
-\mbox{\Hypertarget{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}\label{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}} 
+\mbox{\Hypertarget{namespacetesseract__planning_aee6e9673ebb2a6c4d57d0a966d72658f}\label{namespacetesseract__planning_aee6e9673ebb2a6c4d57d0a966d72658f}} 
 \index{tesseract\_planning@{tesseract\_planning}!locateFilterFn@{locateFilterFn}}
 \index{locateFilterFn@{locateFilterFn}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{locateFilterFn}{locateFilterFn}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{tesseract\+\_\+planning\+::locate\+Filter\+Fn}} = typedef std\+::function$<$bool(const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}}\&, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}}\&, bool parent\+\_\+is\+\_\+first\+\_\+composite)$>$}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_aee6e9673ebb2a6c4d57d0a966d72658f}{tesseract\+\_\+planning\+::locate\+Filter\+Fn}} = typedef std\+::function$<$bool(const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}}\&, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}}\&)$>$}
 
 \mbox{\Hypertarget{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}\label{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}} 
 \index{tesseract\_planning@{tesseract\_planning}!ManipulatorInfo@{ManipulatorInfo}}
@@ -1138,10 +1137,6 @@ FREESPACE&\\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CIRCULAR@{CIRCULAR}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!CIRCULAR@{CIRCULAR}}}\mbox{\Hypertarget{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca93c8d295bb538cdb3302604512828d68}\label{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca93c8d295bb538cdb3302604512828d68}} 
 CIRCULAR&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{START@{START}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!START@{START}}}\mbox{\Hypertarget{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}\label{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}} 
-START&This indicates it is a start instruction. \\
 \hline
 
 \end{DoxyEnumFields}
@@ -2861,11 +2856,11 @@ True if the waypoit falls within the joint limits
 \doxysubsubsection{\texorpdfstring{loadDefaultTaskComposerNodes()}{loadDefaultTaskComposerNodes()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::load\+Default\+Task\+Composer\+Nodes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerServer}{Task\+Composer\+Server}} \&}]{server,  }\item[{const std\+::string \&}]{input\+\_\+key,  }\item[{const std\+::string \&}]{output\+\_\+key }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_ae41ec83784beef5d83186ff7dbafb216}\label{namespacetesseract__planning_ae41ec83784beef5d83186ff7dbafb216}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a7d7f5ca99b6c38d8925ffbdbb2710ff2}\label{namespacetesseract__planning_a7d7f5ca99b6c38d8925ffbdbb2710ff2}} 
 \index{tesseract\_planning@{tesseract\_planning}!moveFilter@{moveFilter}}
 \index{moveFilter@{moveFilter}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{moveFilter()}{moveFilter()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::move\+Filter (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&}]{instruction,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{composite,  }\item[{bool}]{parent\+\_\+is\+\_\+first\+\_\+composite }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::move\+Filter (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}} \&}]{instruction,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{composite }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_aa4d7a120157f2190d7d17c35ef82e077}\label{namespacetesseract__planning_aa4d7a120157f2190d7d17c35ef82e077}} 
 \index{tesseract\_planning@{tesseract\_planning}!moveWaypointFromCollisionRandomSampler@{moveWaypointFromCollisionRandomSampler}}
@@ -3484,44 +3479,24 @@ Set to DEFAULT. Default profiles are given this name.
 \index{tesseract\_planning@{tesseract\_planning}!programFlattenMoveInstructionFilter@{programFlattenMoveInstructionFilter}}
 \index{programFlattenMoveInstructionFilter@{programFlattenMoveInstructionFilter}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{programFlattenMoveInstructionFilter}{programFlattenMoveInstructionFilter}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} tesseract\+\_\+planning\+::program\+Flatten\+Move\+Instruction\+Filter\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{namespacetesseract__planning_a03ae53e9120c49cb221163e1551aecb0}{flatten\+Filter\+Fn}} tesseract\+\_\+planning\+::program\+Flatten\+Move\+Instruction\+Filter\hspace{0.3cm}{\ttfamily [static]}}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{=}
-\DoxyCodeLine{    [](\textcolor{keyword}{const} InstructionPoly\& i, \textcolor{keyword}{const} CompositeInstruction\& , \textcolor{keywordtype}{bool} parent\_is\_first\_composite) \{}
-\DoxyCodeLine{      \textcolor{keywordflow}{if} (i.isMoveInstruction())}
-\DoxyCodeLine{      \{}
-\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.as<MoveInstructionPoly>().isStart())}
-\DoxyCodeLine{          \textcolor{keywordflow}{return} (parent\_is\_first\_composite);}
-\DoxyCodeLine{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{      \}}
-\DoxyCodeLine{}
-\DoxyCodeLine{      \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{    \}}
+\DoxyCodeLine{    [](\textcolor{keyword}{const} InstructionPoly\& i, \textcolor{keyword}{const} CompositeInstruction\& ) \{ \textcolor{keywordflow}{return} i.isMoveInstruction(); \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{namespacetesseract__planning_aeea1bf1f16d41f415b0c76537b6a46a2}\label{namespacetesseract__planning_aeea1bf1f16d41f415b0c76537b6a46a2}} 
 \index{tesseract\_planning@{tesseract\_planning}!programFlattenMoveInstructionFilter@{programFlattenMoveInstructionFilter}}
 \index{programFlattenMoveInstructionFilter@{programFlattenMoveInstructionFilter}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{programFlattenMoveInstructionFilter}{programFlattenMoveInstructionFilter}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flatten\+Filter\+Fn}} tesseract\+\_\+planning\+::program\+Flatten\+Move\+Instruction\+Filter\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{namespacetesseract__planning_a03ae53e9120c49cb221163e1551aecb0}{flatten\+Filter\+Fn}} tesseract\+\_\+planning\+::program\+Flatten\+Move\+Instruction\+Filter\hspace{0.3cm}{\ttfamily [static]}}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{=}
-\DoxyCodeLine{    [](\textcolor{keyword}{const} InstructionPoly\& i, \textcolor{keyword}{const} CompositeInstruction\& , \textcolor{keywordtype}{bool} parent\_is\_first\_composite) \{}
-\DoxyCodeLine{      \textcolor{keywordflow}{if} (i.isMoveInstruction())}
-\DoxyCodeLine{      \{}
-\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.as<MoveInstructionPoly>().isStart())}
-\DoxyCodeLine{          \textcolor{keywordflow}{return} (parent\_is\_first\_composite);}
-\DoxyCodeLine{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{      \}}
-\DoxyCodeLine{}
-\DoxyCodeLine{      \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{    \}}
+\DoxyCodeLine{    [](\textcolor{keyword}{const} InstructionPoly\& i, \textcolor{keyword}{const} CompositeInstruction\& ) \{ \textcolor{keywordflow}{return} i.isMoveInstruction(); \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{namespacetesseract__planning_ad2c39c4d68bea0d0071b0ab44b6a0fad}\label{namespacetesseract__planning_ad2c39c4d68bea0d0071b0ab44b6a0fad}} 
@@ -3534,23 +3509,13 @@ Set to DEFAULT. Default profiles are given this name.
 \index{tesseract\_planning@{tesseract\_planning}!toJointTrajectoryInstructionFilter@{toJointTrajectoryInstructionFilter}}
 \index{toJointTrajectoryInstructionFilter@{toJointTrajectoryInstructionFilter}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{toJointTrajectoryInstructionFilter}{toJointTrajectoryInstructionFilter}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{tesseract\+\_\+planning\+::locate\+Filter\+Fn}} tesseract\+\_\+planning\+::to\+Joint\+Trajectory\+Instruction\+Filter\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{namespacetesseract__planning_aee6e9673ebb2a6c4d57d0a966d72658f}{tesseract\+\_\+planning\+::locate\+Filter\+Fn}} tesseract\+\_\+planning\+::to\+Joint\+Trajectory\+Instruction\+Filter\hspace{0.3cm}{\ttfamily [static]}}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{=}
-\DoxyCodeLine{    [](\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{tesseract\_planning::InstructionPoly}}\& i,}
-\DoxyCodeLine{       \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{tesseract\_planning::CompositeInstruction}}\& ,}
-\DoxyCodeLine{       \textcolor{keywordtype}{bool} parent\_is\_first\_composite) \{}
-\DoxyCodeLine{      \textcolor{keywordflow}{if} (i.\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_add30aeec2a23a428e04474140daf640d}{isMoveInstruction}}())}
-\DoxyCodeLine{      \{}
-\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.as<MoveInstructionPoly>().isStart())}
-\DoxyCodeLine{          \textcolor{keywordflow}{return} (parent\_is\_first\_composite);}
-\DoxyCodeLine{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{      \}}
-\DoxyCodeLine{}
-\DoxyCodeLine{      \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{    [](\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{tesseract\_planning::InstructionPoly}}\& i, \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{tesseract\_planning::CompositeInstruction}}\& ) \{}
+\DoxyCodeLine{      \textcolor{keywordflow}{return} i.\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_add30aeec2a23a428e04474140daf640d}{isMoveInstruction}}();}
 \DoxyCodeLine{    \}}
 
 \end{DoxyCode}

@@ -460,11 +460,11 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ae94f95a1810bd2a47f5bd854f3760672"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a> = std::function&lt; bool(const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &amp;, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;, bool parent_is_first_composite)&gt;</td></tr>
-<tr class="memdesc:ae94f95a1810bd2a47f5bd854f3760672"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is used for filtering only what you want in the vector.  <a href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">More...</a><br /></td></tr>
-<tr class="separator:ae94f95a1810bd2a47f5bd854f3760672"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0e86a819d88eebe51c6023c1ad51d2f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af0e86a819d88eebe51c6023c1ad51d2f">locateFilterFn</a> = std::function&lt; bool(const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &amp;, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;, bool parent_is_first_composite)&gt;</td></tr>
-<tr class="separator:af0e86a819d88eebe51c6023c1ad51d2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03ae53e9120c49cb221163e1551aecb0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a03ae53e9120c49cb221163e1551aecb0">flattenFilterFn</a> = std::function&lt; bool(const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &amp;, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;)&gt;</td></tr>
+<tr class="memdesc:a03ae53e9120c49cb221163e1551aecb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is used for filtering only what you want in the vector.  <a href="../../d9/dcd/namespacetesseract__planning.html#a03ae53e9120c49cb221163e1551aecb0">More...</a><br /></td></tr>
+<tr class="separator:a03ae53e9120c49cb221163e1551aecb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee6e9673ebb2a6c4d57d0a966d72658f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aee6e9673ebb2a6c4d57d0a966d72658f">locateFilterFn</a> = std::function&lt; bool(const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &amp;, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;)&gt;</td></tr>
+<tr class="separator:aee6e9673ebb2a6c4d57d0a966d72658f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3566b66783a0e8526c04c7e718ff89d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa3566b66783a0e8526c04c7e718ff89d">CartesianWaypointPolyBase</a> = tesseract_common::TypeErasureBase&lt; <a class="el" href="../../db/db3/structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface.html">detail_cartesian_waypoint::CartesianWaypointInterface</a>, <a class="el" href="../../db/d66/structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInstance.html">detail_cartesian_waypoint::CartesianWaypointInstance</a> &gt;</td></tr>
 <tr class="separator:aa3566b66783a0e8526c04c7e718ff89d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a888a5b82fb1015c9de8d7388e1ef0bcb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a888a5b82fb1015c9de8d7388e1ef0bcb">InstructionPolyBase</a> = tesseract_common::TypeErasureBase&lt; <a class="el" href="../../d0/d4e/structtesseract__planning_1_1detail__instruction_1_1InstructionInterface.html">detail_instruction::InstructionInterface</a>, <a class="el" href="../../d2/d3e/structtesseract__planning_1_1detail__instruction_1_1InstructionInstance.html">detail_instruction::InstructionInstance</a> &gt;</td></tr>
@@ -561,7 +561,6 @@ Enumerations</h2></td></tr>
 <tr class="memitem:acdeb2344747f1fe9d0825bf09e0da7ac"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> : int { <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046">LINEAR</a> = 0
 , <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd">FREESPACE</a> = 1
 , <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7aca93c8d295bb538cdb3302604512828d68">CIRCULAR</a> = 2
-, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac">START</a> = 3
  }</td></tr>
 <tr class="separator:acdeb2344747f1fe9d0825bf09e0da7ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2">TimerInstructionType</a> : int { <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2afd7449f3c0dae783bd8960c264eff1af">DIGITAL_OUTPUT_HIGH</a> = 0
@@ -630,8 +629,8 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae41ec83784beef5d83186ff7dbafb216"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae41ec83784beef5d83186ff7dbafb216">moveFilter</a> (const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &amp;instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, bool parent_is_first_composite)</td></tr>
-<tr class="separator:ae41ec83784beef5d83186ff7dbafb216"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d7f5ca99b6c38d8925ffbdbb2710ff2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7d7f5ca99b6c38d8925ffbdbb2710ff2">moveFilter</a> (const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &amp;instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite)</td></tr>
+<tr class="separator:a7d7f5ca99b6c38d8925ffbdbb2710ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab840989153160ef984b82b8cd40e39d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ab840989153160ef984b82b8cd40e39d8">isCommentInstruction</a> (const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &amp;instruction)</td></tr>
 <tr class="separator:ab840989153160ef984b82b8cd40e39d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae90961c3b70dcad15a541ce2f7706599"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae90961c3b70dcad15a541ce2f7706599">isVariableInstruction</a> (const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a> &amp;instruction)</td></tr>
@@ -1016,13 +1015,13 @@ Variables</h2></td></tr>
 <tr class="memitem:a2c7f691c616d8edb55709be6ced8d565"><td class="memItemLeft" align="right" valign="top">static const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a> = &quot;DEFAULT&quot;</td></tr>
 <tr class="memdesc:a2c7f691c616d8edb55709be6ced8d565"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set to DEFAULT. Default profiles are given this name.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">More...</a><br /></td></tr>
 <tr class="separator:a2c7f691c616d8edb55709be6ced8d565"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a683f78d4f45a6b027dc453d2566d39ca"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af0e86a819d88eebe51c6023c1ad51d2f">tesseract_planning::locateFilterFn</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a683f78d4f45a6b027dc453d2566d39ca">toJointTrajectoryInstructionFilter</a></td></tr>
+<tr class="memitem:a683f78d4f45a6b027dc453d2566d39ca"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aee6e9673ebb2a6c4d57d0a966d72658f">tesseract_planning::locateFilterFn</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a683f78d4f45a6b027dc453d2566d39ca">toJointTrajectoryInstructionFilter</a></td></tr>
 <tr class="separator:a683f78d4f45a6b027dc453d2566d39ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2c39c4d68bea0d0071b0ab44b6a0fad"><td class="memItemLeft" align="right" valign="top">static const std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad2c39c4d68bea0d0071b0ab44b6a0fad">RobotConfigString</a> = { &quot;NUT&quot;, &quot;FUT&quot;, &quot;NDT&quot;, &quot;FDT&quot;, &quot;NDB&quot;, &quot;FDB&quot;, &quot;NUB&quot;, &quot;FUB&quot; }</td></tr>
 <tr class="separator:ad2c39c4d68bea0d0071b0ab44b6a0fad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeea1bf1f16d41f415b0c76537b6a46a2"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeea1bf1f16d41f415b0c76537b6a46a2">programFlattenMoveInstructionFilter</a></td></tr>
+<tr class="memitem:aeea1bf1f16d41f415b0c76537b6a46a2"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a03ae53e9120c49cb221163e1551aecb0">flattenFilterFn</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeea1bf1f16d41f415b0c76537b6a46a2">programFlattenMoveInstructionFilter</a></td></tr>
 <tr class="separator:aeea1bf1f16d41f415b0c76537b6a46a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeea1bf1f16d41f415b0c76537b6a46a2"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeea1bf1f16d41f415b0c76537b6a46a2">programFlattenMoveInstructionFilter</a></td></tr>
+<tr class="memitem:aeea1bf1f16d41f415b0c76537b6a46a2"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a03ae53e9120c49cb221163e1551aecb0">flattenFilterFn</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeea1bf1f16d41f415b0c76537b6a46a2">programFlattenMoveInstructionFilter</a></td></tr>
 <tr class="separator:aeea1bf1f16d41f415b0c76537b6a46a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -1281,14 +1280,14 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="ae94f95a1810bd2a47f5bd854f3760672" name="ae94f95a1810bd2a47f5bd854f3760672"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae94f95a1810bd2a47f5bd854f3760672">&#9670;&#160;</a></span>flattenFilterFn</h2>
+<a id="a03ae53e9120c49cb221163e1551aecb0" name="a03ae53e9120c49cb221163e1551aecb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03ae53e9120c49cb221163e1551aecb0">&#9670;&#160;</a></span>flattenFilterFn</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">tesseract_planning::flattenFilterFn</a> = typedef std::function&lt;bool(const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a>&amp;, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&amp;, bool parent_is_first_composite)&gt;</td>
+          <td class="memname">using <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a03ae53e9120c49cb221163e1551aecb0">tesseract_planning::flattenFilterFn</a> = typedef std::function&lt;bool(const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a>&amp;, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&amp;)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1327,14 +1326,14 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="af0e86a819d88eebe51c6023c1ad51d2f" name="af0e86a819d88eebe51c6023c1ad51d2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0e86a819d88eebe51c6023c1ad51d2f">&#9670;&#160;</a></span>locateFilterFn</h2>
+<a id="aee6e9673ebb2a6c4d57d0a966d72658f" name="aee6e9673ebb2a6c4d57d0a966d72658f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee6e9673ebb2a6c4d57d0a966d72658f">&#9670;&#160;</a></span>locateFilterFn</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af0e86a819d88eebe51c6023c1ad51d2f">tesseract_planning::locateFilterFn</a> = typedef std::function&lt;bool(const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a>&amp;, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&amp;, bool parent_is_first_composite)&gt;</td>
+          <td class="memname">using <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aee6e9673ebb2a6c4d57d0a966d72658f">tesseract_planning::locateFilterFn</a> = typedef std::function&lt;bool(const <a class="el" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">InstructionPoly</a>&amp;, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&amp;)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1676,8 +1675,6 @@ template&lt;typename FloatType &gt; </div>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046" name="acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046"></a>LINEAR&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd" name="acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd"></a>FREESPACE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="acdeb2344747f1fe9d0825bf09e0da7aca93c8d295bb538cdb3302604512828d68" name="acdeb2344747f1fe9d0825bf09e0da7aca93c8d295bb538cdb3302604512828d68"></a>CIRCULAR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac" name="acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac"></a>START&#160;</td><td class="fielddoc"><p >This indicates it is a start instruction. </p>
-</td></tr>
 </table>
 
 </div>
@@ -6699,8 +6696,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="ae41ec83784beef5d83186ff7dbafb216" name="ae41ec83784beef5d83186ff7dbafb216"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae41ec83784beef5d83186ff7dbafb216">&#9670;&#160;</a></span>moveFilter()</h2>
+<a id="a7d7f5ca99b6c38d8925ffbdbb2710ff2" name="a7d7f5ca99b6c38d8925ffbdbb2710ff2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d7f5ca99b6c38d8925ffbdbb2710ff2">&#9670;&#160;</a></span>moveFilter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6715,13 +6712,7 @@ template&lt;typename FloatType &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>composite</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>parent_is_first_composite</em>&#160;</td>
+          <td class="paramname"><em>composite</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -8249,7 +8240,7 @@ template&lt;typename FloatType &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a> tesseract_planning::programFlattenMoveInstructionFilter</td>
+          <td class="memname">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a03ae53e9120c49cb221163e1551aecb0">flattenFilterFn</a> tesseract_planning::programFlattenMoveInstructionFilter</td>
         </tr>
       </table>
   </td>
@@ -8259,17 +8250,7 @@ template&lt;typename FloatType &gt; </div>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">    [](<span class="keyword">const</span> InstructionPoly&amp; i, <span class="keyword">const</span> CompositeInstruction&amp; , <span class="keywordtype">bool</span> parent_is_first_composite) {</div>
-<div class="line">      <span class="keywordflow">if</span> (i.isMoveInstruction())</div>
-<div class="line">      {</div>
-<div class="line">        <span class="keywordflow">if</span> (i.as&lt;MoveInstructionPoly&gt;().isStart())</div>
-<div class="line">          <span class="keywordflow">return</span> (parent_is_first_composite);</div>
-<div class="line"> </div>
-<div class="line">        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line">      }</div>
-<div class="line"> </div>
-<div class="line">      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line">    }</div>
+<div class="line">    [](<span class="keyword">const</span> InstructionPoly&amp; i, <span class="keyword">const</span> CompositeInstruction&amp; ) { <span class="keywordflow">return</span> i.isMoveInstruction(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -8283,7 +8264,7 @@ template&lt;typename FloatType &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae94f95a1810bd2a47f5bd854f3760672">flattenFilterFn</a> tesseract_planning::programFlattenMoveInstructionFilter</td>
+          <td class="memname">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a03ae53e9120c49cb221163e1551aecb0">flattenFilterFn</a> tesseract_planning::programFlattenMoveInstructionFilter</td>
         </tr>
       </table>
   </td>
@@ -8293,17 +8274,7 @@ template&lt;typename FloatType &gt; </div>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">    [](<span class="keyword">const</span> InstructionPoly&amp; i, <span class="keyword">const</span> CompositeInstruction&amp; , <span class="keywordtype">bool</span> parent_is_first_composite) {</div>
-<div class="line">      <span class="keywordflow">if</span> (i.isMoveInstruction())</div>
-<div class="line">      {</div>
-<div class="line">        <span class="keywordflow">if</span> (i.as&lt;MoveInstructionPoly&gt;().isStart())</div>
-<div class="line">          <span class="keywordflow">return</span> (parent_is_first_composite);</div>
-<div class="line"> </div>
-<div class="line">        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line">      }</div>
-<div class="line"> </div>
-<div class="line">      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line">    }</div>
+<div class="line">    [](<span class="keyword">const</span> InstructionPoly&amp; i, <span class="keyword">const</span> CompositeInstruction&amp; ) { <span class="keywordflow">return</span> i.isMoveInstruction(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -8339,7 +8310,7 @@ template&lt;typename FloatType &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af0e86a819d88eebe51c6023c1ad51d2f">tesseract_planning::locateFilterFn</a> tesseract_planning::toJointTrajectoryInstructionFilter</td>
+          <td class="memname">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aee6e9673ebb2a6c4d57d0a966d72658f">tesseract_planning::locateFilterFn</a> tesseract_planning::toJointTrajectoryInstructionFilter</td>
         </tr>
       </table>
   </td>
@@ -8349,20 +8320,10 @@ template&lt;typename FloatType &gt; </div>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">    [](<span class="keyword">const</span> <a class="code hl_struct" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">tesseract_planning::InstructionPoly</a>&amp; i,</div>
-<div class="line">       <span class="keyword">const</span> <a class="code hl_class" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">tesseract_planning::CompositeInstruction</a>&amp; ,</div>
-<div class="line">       <span class="keywordtype">bool</span> parent_is_first_composite) {</div>
-<div class="line">      <span class="keywordflow">if</span> (i.<a class="code hl_function" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html#add30aeec2a23a428e04474140daf640d">isMoveInstruction</a>())</div>
-<div class="line">      {</div>
-<div class="line">        <span class="keywordflow">if</span> (i.as&lt;MoveInstructionPoly&gt;().isStart())</div>
-<div class="line">          <span class="keywordflow">return</span> (parent_is_first_composite);</div>
-<div class="line"> </div>
-<div class="line">        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line">      }</div>
-<div class="line"> </div>
-<div class="line">      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line">    [](<span class="keyword">const</span> <a class="code hl_struct" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">tesseract_planning::InstructionPoly</a>&amp; i, <span class="keyword">const</span> <a class="code hl_class" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">tesseract_planning::CompositeInstruction</a>&amp; ) {</div>
+<div class="line">      <span class="keywordflow">return</span> i.<a class="code hl_function" href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html#add30aeec2a23a428e04474140daf640d">isMoveInstruction</a>();</div>
 <div class="line">    }</div>
-<div class="ttc" id="aclasstesseract__planning_1_1CompositeInstruction_html"><div class="ttname"><a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">tesseract_planning::CompositeInstruction</a></div><div class="ttdef"><b>Definition:</b> composite_instruction.h:70</div></div>
+<div class="ttc" id="aclasstesseract__planning_1_1CompositeInstruction_html"><div class="ttname"><a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">tesseract_planning::CompositeInstruction</a></div><div class="ttdef"><b>Definition:</b> composite_instruction.h:66</div></div>
 <div class="ttc" id="astructtesseract__planning_1_1InstructionPoly_html"><div class="ttname"><a href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html">tesseract_planning::InstructionPoly</a></div><div class="ttdef"><b>Definition:</b> instruction_poly.h:170</div></div>
 <div class="ttc" id="astructtesseract__planning_1_1InstructionPoly_html_add30aeec2a23a428e04474140daf640d"><div class="ttname"><a href="../../d2/d8b/structtesseract__planning_1_1InstructionPoly.html#add30aeec2a23a428e04474140daf640d">tesseract_planning::InstructionPoly::isMoveInstruction</a></div><div class="ttdeci">bool isMoveInstruction() const</div><div class="ttdef"><b>Definition:</b> instruction_poly.cpp:49</div></div>
 </div><!-- fragment -->
@@ -8371,7 +8332,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 11 2023 04:50:54 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+Generated on Thu Jan 12 2023 23:07:31 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
 </small></address>
 </body>
 </html>

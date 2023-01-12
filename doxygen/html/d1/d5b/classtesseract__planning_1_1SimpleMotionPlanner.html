@@ -81,7 +81,6 @@ $(function() {
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="../../d6/d1c/classtesseract__planning_1_1SimpleMotionPlanner-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">tesseract_planning::SimpleMotionPlanner Class Reference</div></div>
 </div><!--header-->
@@ -187,11 +186,6 @@ Public Member Functions</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:ad5aa3b8331fcb4504367dd32d31d9854"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad5aa3b8331fcb4504367dd32d31d9854">processCompositeInstruction</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;<a class="el" href="../../d6/dcb/descartes__planner__tests_8cpp.html#a540933d401a016e1bb8a7a67aeba9e19">instructions</a>, <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;prev_instruction, <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;prev_seed, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;<a class="el" href="../../d6/dcb/descartes__planner__tests_8cpp.html#abf1f9730cb985d80f279a7faa7e5f42a">request</a>) const</td></tr>
 <tr class="separator:ad5aa3b8331fcb4504367dd32d31d9854"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
-Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:acf61134a85d9ed814435d2736ad23115"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#acf61134a85d9ed814435d2736ad23115">getStartInstruction</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;<a class="el" href="../../d6/dcb/descartes__planner__tests_8cpp.html#abf1f9730cb985d80f279a7faa7e5f42a">request</a>, const tesseract_scene_graph::SceneState &amp;current_state, const tesseract_kinematics::JointGroup &amp;<a class="el" href="../../d9/d5d/ompl__planner__tests_8cpp.html#aa0c9c5fd2281440db1e2dd97fc3358f7">manip</a>)</td></tr>
-<tr class="separator:acf61134a85d9ed814435d2736ad23115"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -394,49 +388,6 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="acf61134a85d9ed814435d2736ad23115" name="acf61134a85d9ed814435d2736ad23115"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf61134a85d9ed814435d2736ad23115">&#9670;&#160;</a></span>getStartInstruction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> tesseract_planning::SimpleMotionPlanner::getStartInstruction </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const tesseract_scene_graph::SceneState &amp;&#160;</td>
-          <td class="paramname"><em>current_state</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const tesseract_kinematics::JointGroup &amp;&#160;</td>
-          <td class="paramname"><em>manip</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000009">Todo:</a></b></dt><dd>Update to run IK to find solution closest to start </dd></dl>
-
-</div>
-</div>
 <a id="ae995d879d77c29105847750f796c7851" name="ae995d879d77c29105847750f796c7851"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae995d879d77c29105847750f796c7851">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
@@ -534,6 +485,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000009">Todo:</a></b></dt><dd>Update to run IK to find solution closest to start </dd></dl>
 
 </div>
 </div>
@@ -610,7 +562,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 11 2023 04:50:54 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+Generated on Thu Jan 12 2023 23:07:32 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
 </small></address>
 </body>
 </html>

@@ -29,7 +29,6 @@ digraph "tesseract_planning::PlannerResponse"
   Node6 -> Node11 [dir="back",color="darkorchid3",style="dashed",label=" keys" ];
   Node12 -> Node10 [dir="back",color="darkorchid3",style="dashed",label=" mutex_" ];
   Node12 [label="std::shared_mutex",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
-  Node4 -> Node2 [dir="back",color="darkorchid3",style="dashed",label=" start_instruction_" ];
   Node6 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" message" ];
   Node13 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" failed_instructions\nsucceeded_instructions" ];
   Node13 [label="std::vector\< std::reference\l_wrapper\< tesseract_planning\l::InstructionPoly \> \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];

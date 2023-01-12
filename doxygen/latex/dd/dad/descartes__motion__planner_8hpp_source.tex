@@ -114,7 +114,7 @@
 \DoxyCodeLine{134 }
 \DoxyCodeLine{135   \textcolor{comment}{// Flatten the results to make them easier to process}}
 \DoxyCodeLine{136   \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}}.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a1534da4c2a888418218dc49fef77d0b1}{results}} = \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}};}
-\DoxyCodeLine{137   \textcolor{keyword}{auto} results\_instructions = \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}}.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a1534da4c2a888418218dc49fef77d0b1}{results}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a3740d532a545a33145b7148614eceebb}{flatten}}(\&\mbox{\hyperlink{namespacetesseract__planning_ae41ec83784beef5d83186ff7dbafb216}{moveFilter}});}
+\DoxyCodeLine{137   \textcolor{keyword}{auto} results\_instructions = \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}}.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a1534da4c2a888418218dc49fef77d0b1}{results}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a3740d532a545a33145b7148614eceebb}{flatten}}(\&\mbox{\hyperlink{namespacetesseract__planning_a7d7f5ca99b6c38d8925ffbdbb2710ff2}{moveFilter}});}
 \DoxyCodeLine{138 }
 \DoxyCodeLine{139   \textcolor{comment}{// Loop over the flattened results and add them to response if the input was a plan instruction}}
 \DoxyCodeLine{140   std::size\_t result\_index\{ 0 \};}
@@ -237,7 +237,7 @@
 \DoxyCodeLine{257   std::vector<std::string> \mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a5f85173ecc1ddcb342ebc27f28437f5c}{joint\_names}} = prob-\/>manip-\/>getJointNames();}
 \DoxyCodeLine{258 }
 \DoxyCodeLine{259   \textcolor{comment}{// Flatten the input for planning}}
-\DoxyCodeLine{260   \textcolor{keyword}{auto} \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a10f9b23447c02d5a60efb9830f93db5d}{move\_instructions}} = \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a3740d532a545a33145b7148614eceebb}{flatten}}(\&\mbox{\hyperlink{namespacetesseract__planning_ae41ec83784beef5d83186ff7dbafb216}{moveFilter}});}
+\DoxyCodeLine{260   \textcolor{keyword}{auto} \mbox{\hyperlink{simple__planner__fixed__size__assign__position_8cpp_a10f9b23447c02d5a60efb9830f93db5d}{move\_instructions}} = \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a3740d532a545a33145b7148614eceebb}{flatten}}(\&\mbox{\hyperlink{namespacetesseract__planning_a7d7f5ca99b6c38d8925ffbdbb2710ff2}{moveFilter}});}
 \DoxyCodeLine{261 }
 \DoxyCodeLine{262   \textcolor{comment}{// Transform plan instructions into descartes samplers}}
 \DoxyCodeLine{263   \textcolor{keywordtype}{int} index = 0;}

@@ -62,9 +62,9 @@ static void \mbox{\hyperlink{ompl__planner__tests_8cpp_a533082e77d10c35b9e73f7f6
 \item 
 \mbox{\hyperlink{ompl__planner__tests_8cpp_a5f00a976816097c6753a63bf03f79596}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{basic__cartesian__example__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}}-\/$>$init(\mbox{\hyperlink{basic__cartesian__example__unit_8cpp_a9ea6791444269d5d10c00d49c9ae0f09}{urdf\+\_\+path}}, \mbox{\hyperlink{basic__cartesian__example__unit_8cpp_a8040f115379942f10fe133e16f610552}{srdf\+\_\+path}}, \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_ac23cdf7d517ef4adf22863d54c6c9c65}{locator}}))
 \item 
-\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a0f6c8a4a70f3acb0e6d8f7768f9f185e}{set\+Start\+Instruction}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_aac5edbcdb4439ed4a647013441d012fe}{start\+\_\+instruction}})
-\item 
 \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} \mbox{\hyperlink{ompl__planner__tests_8cpp_aeef1e9d42d9a9b3c3439d3efd49b5421}{set\+Manipulator\+Info}} (\mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}})
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a247deddb7be884977edbd33bb56577f6}{append\+Move\+Instruction}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a9933a5594170f08ed02d225c4dd638a5}{start\+\_\+instruction}})
 \item 
 \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} \mbox{\hyperlink{ompl__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}{append\+Move\+Instruction}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a42efaf78a1c46b95e0b8c0fb79f395ed}{plan\+\_\+f1}})
 \item 
@@ -76,11 +76,7 @@ static void \mbox{\hyperlink{ompl__planner__tests_8cpp_a533082e77d10c35b9e73f7f6
 \item 
 \mbox{\hyperlink{ompl__planner__tests_8cpp_a9a8d3215612252e79883310cf424727d}{if}} (!\mbox{\hyperlink{ompl__planner__tests_8cpp_a0b6e062fd49cdb031cbfb666c6b058f6}{planner\+\_\+response}})
 \item 
-\mbox{\hyperlink{ompl__planner__tests_8cpp_a70e7da4a953c2a6bc1d8527c659e9320}{EXPECT\+\_\+\+TRUE}} (planner\+\_\+response.\+results.\+has\+Start\+Instruction())
-\item 
 \mbox{\hyperlink{ompl__planner__tests_8cpp_ac7a206b2fe223e1ea5f33bc871fd9114}{EXPECT\+\_\+\+EQ}} (planner\+\_\+response.\+results.\+get\+Move\+Instruction\+Count(), 21)
-\item 
-\mbox{\hyperlink{ompl__planner__tests_8cpp_a231a1eb5b847237c295d4e95fdf0d9fa}{EXPECT\+\_\+\+EQ}} (planner\+\_\+response.\+results.\+size(), 20)
 \item 
 \mbox{\hyperlink{ompl__planner__tests_8cpp_a69a2c864395bf150ffddf14edce181c1}{EXPECT\+\_\+\+TRUE}} (\mbox{\hyperlink{trajopt__planner__tests_8cpp_a5224d9f3f38aae0c4028178a2f3604f3}{wp1.\+get\+Position}}().is\+Approx(get\+Joint\+Position(planner\+\_\+response.\+results.\+get\+First\+Move\+Instruction() -\/$>$get\+Waypoint()), 1e-\/5))
 \item 
@@ -135,7 +131,7 @@ auto \mbox{\hyperlink{ompl__planner__tests_8cpp_aa286b62ffc5f362a9629f912c342178
 \item 
 \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a0fc687f33f167a9f9d8fa4e510d1cb71}{wp2}}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a53203737aab21ea6d978639569e7d833}{start\+\_\+instruction}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}, Move\+Instruction\+Type\+::\+START, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}) = \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}}(\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}, Move\+Instruction\+Type\+::\+START, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{})
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a40ce8eb4725238e8a695b513bed6c4ac}{start\+\_\+instruction}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}, Move\+Instruction\+Type\+::\+FREESPACE, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}) = \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}}(\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}, Move\+Instruction\+Type\+::\+FREESPACE, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{})
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a9895eb3c1047580187e1926ab07288c4}{plan\+\_\+f1}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}{wp2}}, Move\+Instruction\+Type\+::\+FREESPACE, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}) = \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}}(\mbox{\hyperlink{descartes__planner__tests_8cpp_a6a7c0153c4436a5cb1d544fb68aa6847}{wp2}}, Move\+Instruction\+Type\+::\+FREESPACE, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{})
 \item 
@@ -252,32 +248,32 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}\label{ompl__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!appendMoveInstruction@{appendMoveInstruction}}
 \index{appendMoveInstruction@{appendMoveInstruction}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{appendMoveInstruction()}{appendMoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{appendMoveInstruction()}{appendMoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} append\+Move\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a42efaf78a1c46b95e0b8c0fb79f395ed}{plan\+\_\+f1}}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_a1bef28502115ff03eaf31718efe84451}\label{ompl__planner__tests_8cpp_a1bef28502115ff03eaf31718efe84451}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!appendMoveInstruction@{appendMoveInstruction}}
 \index{appendMoveInstruction@{appendMoveInstruction}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{appendMoveInstruction()}{appendMoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsection{\texorpdfstring{appendMoveInstruction()}{appendMoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} append\+Move\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ompl__planner__tests_8cpp_a440f765256464a174a5db556a754b2d5}{plan\+\_\+f2}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ompl__planner__tests_8cpp_a247deddb7be884977edbd33bb56577f6}\label{ompl__planner__tests_8cpp_a247deddb7be884977edbd33bb56577f6}} 
+\index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!appendMoveInstruction@{appendMoveInstruction}}
+\index{appendMoveInstruction@{appendMoveInstruction}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{appendMoveInstruction()}{appendMoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} append\+Move\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a9933a5594170f08ed02d225c4dd638a5}{start\+\_\+instruction}}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_a144cb3ccae62c15774abed6d86956640}\label{ompl__planner__tests_8cpp_a144cb3ccae62c15774abed6d86956640}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
 \index{EXPECT\_EQ@{EXPECT\_EQ}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{planner\+\_\+response.\+results.}]{get\+Move\+Instruction\+Count(),  }\item[{11}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_ac7a206b2fe223e1ea5f33bc871fd9114}\label{ompl__planner__tests_8cpp_ac7a206b2fe223e1ea5f33bc871fd9114}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
 \index{EXPECT\_EQ@{EXPECT\_EQ}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{planner\+\_\+response.\+results.}]{get\+Move\+Instruction\+Count(),  }\item[{21}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{ompl__planner__tests_8cpp_a231a1eb5b847237c295d4e95fdf0d9fa}\label{ompl__planner__tests_8cpp_a231a1eb5b847237c295d4e95fdf0d9fa}} 
-\index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
-\index{EXPECT\_EQ@{EXPECT\_EQ}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{planner\+\_\+response.\+results.}]{size(),  }\item[{20}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_a0d35422da90974132a78b386c2b1740d}\label{ompl__planner__tests_8cpp_a0d35422da90974132a78b386c2b1740d}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
@@ -288,43 +284,37 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_a5f00a976816097c6753a63bf03f79596}\label{ompl__planner__tests_8cpp_a5f00a976816097c6753a63bf03f79596}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
 \index{EXPECT\_TRUE@{EXPECT\_TRUE}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/7]}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
 {\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{basic__cartesian__example__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}}-\/$>$}]{initurdf\+\_\+path, srdf\+\_\+path, locator }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{ompl__planner__tests_8cpp_a70e7da4a953c2a6bc1d8527c659e9320}\label{ompl__planner__tests_8cpp_a70e7da4a953c2a6bc1d8527c659e9320}} 
-\index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
-\index{EXPECT\_TRUE@{EXPECT\_TRUE}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/7]}}
-{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{planner\+\_\+response.\+results.}]{has\+Start\+Instruction() }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_a69a2c864395bf150ffddf14edce181c1}\label{ompl__planner__tests_8cpp_a69a2c864395bf150ffddf14edce181c1}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
 \index{EXPECT\_TRUE@{EXPECT\_TRUE}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [3/7]}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
 {\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{wp1.}]{get\+Position).\+is\+Approx(get\+Joint\+Position(planner\+\_\+response.\+results.\+get\+First\+Move\+Instruction() -\/$>$get\+Waypoint()), 1e-\/5 }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_a1065aeb7b043485bb1d72931068300a5}\label{ompl__planner__tests_8cpp_a1065aeb7b043485bb1d72931068300a5}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
 \index{EXPECT\_TRUE@{EXPECT\_TRUE}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [4/7]}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
 {\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{wp1.}]{get\+Position).\+is\+Approx(get\+Joint\+Position(planner\+\_\+response.\+results.\+get\+Last\+Move\+Instruction() -\/$>$get\+Waypoint()), 1e-\/5 }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_a50fcb05e6325302d40193731a5bfdfd8}\label{ompl__planner__tests_8cpp_a50fcb05e6325302d40193731a5bfdfd8}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
 \index{EXPECT\_TRUE@{EXPECT\_TRUE}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [5/7]}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
 {\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{wp1.}]{get\+Transform).\+is\+Approx(check\+\_\+start, 1e-\/3 }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_a88205a1e3b880ce316b125b2d2a2af1c}\label{ompl__planner__tests_8cpp_a88205a1e3b880ce316b125b2d2a2af1c}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
 \index{EXPECT\_TRUE@{EXPECT\_TRUE}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [6/7]}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
 {\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{wp2.}]{get\+Position).\+is\+Approx(get\+Joint\+Position(planner\+\_\+response.\+results.\+get\+Last\+Move\+Instruction() -\/$>$get\+Waypoint()), 1e-\/5 }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_abfd8544bb39d582bc8b6835adb541f92}\label{ompl__planner__tests_8cpp_abfd8544bb39d582bc8b6835adb541f92}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
 \index{EXPECT\_TRUE@{EXPECT\_TRUE}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [7/7]}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
 {\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{wp2.}]{get\+Transform).\+is\+Approx(check\+\_\+goal, 1e-\/3 }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_ae2ab8f8439f3dadf5fd4f036b9dfa907}\label{ompl__planner__tests_8cpp_ae2ab8f8439f3dadf5fd4f036b9dfa907}} 
@@ -374,12 +364,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \index{setPosition@{setPosition}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}} set\+Position (\begin{DoxyParamCaption}\item[{Eigen\+::\+Map$<$ const Eigen\+::\+Vector\+Xd $>$}]{swp.\+data(), static\+\_\+cast$<$ long $>$(swp.\+size()) }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{ompl__planner__tests_8cpp_a0f6c8a4a70f3acb0e6d8f7768f9f185e}\label{ompl__planner__tests_8cpp_a0f6c8a4a70f3acb0e6d8f7768f9f185e}} 
-\index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!setStartInstruction@{setStartInstruction}}
-\index{setStartInstruction@{setStartInstruction}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
-\doxysubsubsection{\texorpdfstring{setStartInstruction()}{setStartInstruction()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} set\+Start\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_aac5edbcdb4439ed4a647013441d012fe}{start\+\_\+instruction}}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_aecf2b697963284497a33fb7619d52e2a}\label{ompl__planner__tests_8cpp_aecf2b697963284497a33fb7619d52e2a}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!srdf\_path@{srdf\_path}}
@@ -626,11 +610,11 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{start}{start}}
 {\footnotesize\ttfamily Eigen\+::\+Isometry3d start = \mbox{\hyperlink{descartes__planner__tests_8cpp_afdd9d9bd327d0f63e53b3cf04a038fc6}{kin\+\_\+group}}-\/$>$calc\+Fwd\+Kin(\mbox{\hyperlink{ompl__planner__tests_8cpp_ae80cdd99586e0014fd6678951f7992c8}{start\+\_\+jv}}).at(\mbox{\hyperlink{ompl__planner__tests_8cpp_a5f746d461721e8676a6f317d3884e327}{manip.\+tcp\+\_\+frame}})}
 
-\mbox{\Hypertarget{ompl__planner__tests_8cpp_a53203737aab21ea6d978639569e7d833}\label{ompl__planner__tests_8cpp_a53203737aab21ea6d978639569e7d833}} 
+\mbox{\Hypertarget{ompl__planner__tests_8cpp_a40ce8eb4725238e8a695b513bed6c4ac}\label{ompl__planner__tests_8cpp_a40ce8eb4725238e8a695b513bed6c4ac}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!start\_instruction@{start\_instruction}}
 \index{start\_instruction@{start\_instruction}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{start\_instruction}{start\_instruction}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} start\+\_\+instruction(\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}, Move\+Instruction\+Type\+::\+START, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}) (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}}]{,  }\item[{Move\+Instruction\+Type\+::\+START}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{ }\end{DoxyParamCaption}) = \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}}(\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}, Move\+Instruction\+Type\+::\+START, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} start\+\_\+instruction(\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}, Move\+Instruction\+Type\+::\+FREESPACE, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}) (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}}]{,  }\item[{Move\+Instruction\+Type\+::\+FREESPACE}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{ }\end{DoxyParamCaption}) = \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}}(\mbox{\hyperlink{descartes__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}{wp1}}, Move\+Instruction\+Type\+::\+FREESPACE, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_ae80cdd99586e0014fd6678951f7992c8}\label{ompl__planner__tests_8cpp_ae80cdd99586e0014fd6678951f7992c8}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!start\_jv@{start\_jv}}

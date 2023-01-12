@@ -1,13 +1,13 @@
 <map id="tesseract_planning::CompositeInstruction" name="tesseract_planning::CompositeInstruction">
-<area shape="rect" id="node1" title=" " alt="" coords="1176,107,1327,147"/>
-<area shape="rect" id="node2" title=" " alt="" coords="843,49,1023,89"/>
-<area shape="rect" id="node3" href="$d2/d8b/structtesseract__planning_1_1InstructionPoly.html" title=" " alt="" coords="607,8,737,48"/>
-<area shape="rect" id="node4" title=" " alt="" coords="352,15,491,41"/>
-<area shape="rect" id="node5" title=" " alt="" coords="179,150,257,175"/>
-<area shape="rect" id="node10" title=" " alt="" coords="336,164,507,233"/>
-<area shape="rect" id="node6" title=" " alt="" coords="5,143,129,183"/>
-<area shape="rect" id="node7" title=" " alt="" coords="877,229,988,254"/>
-<area shape="rect" id="node8" title=" " alt="" coords="857,164,1008,204"/>
-<area shape="rect" id="node9" href="$d5/d9d/classtesseract__planning_1_1ProfileDictionary.html" title="This class is used to store profiles for motion planning and process planning." alt="" coords="607,179,737,219"/>
-<area shape="rect" id="node11" title=" " alt="" coords="358,258,485,283"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1176,97,1327,137"/>
+<area shape="rect" id="node2" title=" " alt="" coords="843,13,1023,53"/>
+<area shape="rect" id="node3" href="$d2/d8b/structtesseract__planning_1_1InstructionPoly.html" title=" " alt="" coords="607,5,737,45"/>
+<area shape="rect" id="node4" title=" " alt="" coords="352,13,491,38"/>
+<area shape="rect" id="node5" title=" " alt="" coords="179,122,257,147"/>
+<area shape="rect" id="node10" title=" " alt="" coords="336,136,507,205"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,115,129,155"/>
+<area shape="rect" id="node7" title=" " alt="" coords="877,201,988,226"/>
+<area shape="rect" id="node8" title=" " alt="" coords="857,136,1008,176"/>
+<area shape="rect" id="node9" href="$d5/d9d/classtesseract__planning_1_1ProfileDictionary.html" title="This class is used to store profiles for motion planning and process planning." alt="" coords="607,151,737,191"/>
+<area shape="rect" id="node11" title=" " alt="" coords="358,230,485,255"/>
 </map>

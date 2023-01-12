@@ -31,7 +31,6 @@ digraph "tesseract_planning::PlannerRequest"
   Node12 -> Node8 [dir="back",color="darkorchid3",style="dashed",label=" manipulator_info_" ];
   Node12 [label="ManipulatorInfo",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
   Node4 -> Node8 [dir="back",color="darkorchid3",style="dashed",label=" profile_overrides_" ];
-  Node10 -> Node8 [dir="back",color="darkorchid3",style="dashed",label=" start_instruction_" ];
   Node13 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" composite_profile_remapping\nplan_profile_remapping" ];
   Node13 [label="std::unordered_map\l\< std::string, std::\lunordered_map\< std::string,\l std::string \> \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
   Node2 -> Node13 [dir="back",color="darkorchid3",style="dashed",label=" keys" ];

@@ -27,5 +27,4 @@ digraph "tesseract_planning::CompositeInstruction"
   Node5 -> Node10 [dir="back",color="darkorchid3",style="dashed",label=" keys" ];
   Node11 -> Node9 [dir="back",color="darkorchid3",style="dashed",label=" mutex_" ];
   Node11 [label="std::shared_mutex",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
-  Node3 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" start_instruction_" ];
 }
