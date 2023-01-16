@@ -152,7 +152,7 @@ bool GlassUprightExample::run()
   StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_start_pos) };
   StateWaypointPoly wp1{ StateWaypoint(joint_names, joint_end_pos) };
 
-  MoveInstruction start_instruction(wp0, MoveInstructionType::LINEAR, "UPRIGHT");
+  MoveInstruction start_instruction(wp0, MoveInstructionType::LINEAR, DEFAULT_PROFILE_KEY);
   start_instruction.setDescription("Start Instruction");
 
   // Plan freespace from start

@@ -283,7 +283,7 @@ bool CarSeatExample::run()
     StateWaypointPoly wp1{ StateWaypoint(joint_group->getJointNames(), pick_pose) };
 
     // Start Joint Position for the program
-    MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "FREESPACE");
+    MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, DEFAULT_PROFILE_KEY);
     start_instruction.setDescription("Start Instruction");
 
     // Plan freespace from start
@@ -369,7 +369,7 @@ bool CarSeatExample::run()
     StateWaypointPoly wp1{ StateWaypoint(joint_group->getJointNames(), pick_pose) };
 
     // Start Joint Position for the program
-    MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "FREESPACE");
+    MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, DEFAULT_PROFILE_KEY);
     start_instruction.setDescription("Start Instruction");
 
     // Plan freespace from start
