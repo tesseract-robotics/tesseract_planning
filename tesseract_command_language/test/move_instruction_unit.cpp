@@ -296,7 +296,7 @@ TEST(TesseractCommandLanguageMoveInstructionPolyUnit, ProfileOverrides)  // NOLI
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
   std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
   StateWaypointPoly swp(StateWaypoint(jn, jv));
-  MoveInstruction instr(swp, MoveInstructionType::START, DEFAULT_PROFILE_KEY, DEFAULT_PROFILE_KEY);
+  MoveInstruction instr(swp, MoveInstructionType::FREESPACE, DEFAULT_PROFILE_KEY, DEFAULT_PROFILE_KEY);
 
   // Create arbitrary profile overrides under arbitrary namespaces
   const std::string ns1 = "ns1";
