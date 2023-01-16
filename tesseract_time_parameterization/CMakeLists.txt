@@ -13,7 +13,6 @@ find_package(console_bridge REQUIRED)
 find_package(tesseract_common REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 find_package(Eigen3 REQUIRED)
-find_package(ruckig REQUIRED)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)
@@ -39,20 +38,13 @@ add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE})
 # Load variable for clang tidy args, compiler options and cxx version
 tesseract_variables()
 
-add_library(
-  ${PROJECT_NAME}
-  src/instructions_trajectory.cpp
-  src/iterative_spline_parameterization.cpp
-  src/ruckig_trajectory_smoothing.cpp
-  src/time_optimal_trajectory_generation.cpp
-  src/tesseract_common_trajectory.cpp)
+add_library(${PROJECT_NAME} src/instructions_trajectory.cpp src/tesseract_common_trajectory.cpp)
 target_link_libraries(
   ${PROJECT_NAME}
   PUBLIC tesseract::tesseract_common
          tesseract::tesseract_command_language
          console_bridge::console_bridge
-         Eigen3::Eigen
-         ruckig::ruckig)
+         Eigen3::Eigen)
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -67,21 +59,35 @@ target_code_coverage(
 target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                   "$<INSTALL_INTERFACE:include>")
 
-configure_package(NAMESPACE tesseract TARGETS ${PROJECT_NAME})
+option(TESSERACT_BUILD_ISP "Build the Iterative Spline Parameterization (ISP) time parameterization implementation" ON)
+if(TESSERACT_BUILD_ISP)
+  message("Building ISP")
+  add_subdirectory(isp)
+endif()
+
+option(TESSERACT_BUILD_TOTG "Build the Time Optimal Trajectory Generation (TOTG) time parameterization implementation"
+       ON)
+if(TESSERACT_BUILD_TOTG)
+  message("Building TOTG")
+  add_subdirectory(totg)
+endif()
+
+option(TESSERACT_BUILD_RUCKIG "Build the Ruckig Trajectory Smoothing time parameterization implementation" ON)
+if(TESSERACT_BUILD_RUCKIG)
+  message("Building Ruckig")
+  add_subdirectory(ruckig)
+endif()
 
 # Mark header files for installation
-install(
-  DIRECTORY include/${PROJECT_NAME}
-  DESTINATION include
-  FILES_MATCHING
-  PATTERN "*.h"
-  PATTERN ".svn" EXCLUDE)
+install(DIRECTORY include/${PROJECT_NAME} DESTINATION include)
 
 if(TESSERACT_ENABLE_TESTING)
   enable_testing()
   add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
   add_subdirectory(test)
 endif()
+
+configure_package(NAMESPACE tesseract TARGETS ${PROJECT_NAME})
 
 if(TESSERACT_PACKAGE)
   tesseract_cpack(
