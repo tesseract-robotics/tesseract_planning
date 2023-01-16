@@ -32,6 +32,8 @@
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/profile_dictionary.h>
 
+#include <tesseract_motion_planners/core/profile_dictionary.h>
+
 namespace tesseract_planning
 {
 struct PlannerRequest
@@ -51,6 +53,10 @@ struct PlannerRequest
 
   /** @brief The profile dictionary */
   ProfileDictionary::ConstPtr profiles{ std::make_shared<ProfileDictionary>() };
+
+  tmp::WaypointProfileDictionary::ConstPtr waypoint_profiles{ std::make_shared<tmp::WaypointProfileDictionary>() };
+  tmp::CompositeProfileDictionary::ConstPtr composite_profiles{ std::make_shared<tmp::CompositeProfileDictionary>() };
+  tmp::PlannerProfileDictionary::ConstPtr planner_profiles{ std::make_shared<tmp::PlannerProfileDictionary>() };
 
   /**
    * @brief The program instruction
