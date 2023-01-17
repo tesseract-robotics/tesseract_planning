@@ -42,7 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_time_parameterization/iterative_spline_parameterization.h>
+#include <tesseract_time_parameterization/isp/iterative_spline_parameterization.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning

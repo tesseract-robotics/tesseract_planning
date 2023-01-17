@@ -37,12 +37,12 @@
  */
 
 #include <gtest/gtest.h>
-#include <tesseract_time_parameterization/time_optimal_trajectory_generation.h>
+#include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
-#include <tesseract_time_parameterization/instructions_trajectory.h>
+#include <tesseract_time_parameterization/core/instructions_trajectory.h>
 
 using tesseract_planning::CompositeInstruction;
 using tesseract_planning::InstructionsTrajectory;

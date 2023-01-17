@@ -24,7 +24,7 @@
  * limitations under the License.
  */
 
-#include <tesseract_time_parameterization/instructions_trajectory.h>
+#include <tesseract_time_parameterization/core/instructions_trajectory.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 

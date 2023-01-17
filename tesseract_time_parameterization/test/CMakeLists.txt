@@ -72,7 +72,7 @@ if(TESSERACT_BUILD_TOTG)
 endif()
 
 # Ruckig Timeparameterization Tests
-if(TESSERACT_BUILD_RUCKIG)
+if(TESSERACT_BUILD_RUCKIG AND TESSERACT_BUILD_ISP)
   add_executable(${PROJECT_NAME}_ruckig_trajectory_smoothing_tests ruckig_trajectory_smoothing_tests.cpp)
   target_link_libraries(${PROJECT_NAME}_ruckig_trajectory_smoothing_tests PRIVATE GTest::GTest GTest::Main
                                                                                   ${PROJECT_NAME})

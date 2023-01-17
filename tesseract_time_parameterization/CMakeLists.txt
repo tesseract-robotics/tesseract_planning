@@ -38,13 +38,7 @@ add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE})
 # Load variable for clang tidy args, compiler options and cxx version
 tesseract_variables()
 
-add_library(${PROJECT_NAME} src/instructions_trajectory.cpp src/tesseract_common_trajectory.cpp)
-target_link_libraries(
-  ${PROJECT_NAME}
-  PUBLIC tesseract::tesseract_common
-         tesseract::tesseract_command_language
-         console_bridge::console_bridge
-         Eigen3::Eigen)
+add_library(${PROJECT_NAME})
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -56,8 +50,8 @@ target_code_coverage(
   ALL
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
-target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-                                                  "$<INSTALL_INTERFACE:include>")
+
+add_subdirectory(core)
 
 option(TESSERACT_BUILD_ISP "Build the Iterative Spline Parameterization (ISP) time parameterization implementation" ON)
 if(TESSERACT_BUILD_ISP)
@@ -77,9 +71,6 @@ if(TESSERACT_BUILD_RUCKIG)
   message("Building Ruckig")
   add_subdirectory(ruckig)
 endif()
-
-# Mark header files for installation
-install(DIRECTORY include/${PROJECT_NAME} DESTINATION include)
 
 if(TESSERACT_ENABLE_TESTING)
   enable_testing()

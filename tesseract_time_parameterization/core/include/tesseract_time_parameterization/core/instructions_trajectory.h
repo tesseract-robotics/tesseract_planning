@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_time_parameterization/trajectory_container.h>
+#include <tesseract_time_parameterization/core/trajectory_container.h>
 #include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
 
