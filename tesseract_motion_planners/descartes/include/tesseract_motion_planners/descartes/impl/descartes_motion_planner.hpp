@@ -159,11 +159,11 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
         }
 
         const Eigen::VectorXd& start_state = solution[result_index - 1];
-        Eigen::Index cnt = 0;
+        Eigen::Index cnt = 1;
         bool is_constrained = jwp.isConstrained();
         while (!is_constrained)
         {
-          auto temp = results_instructions.at(idx + static_cast<std::size_t>(++cnt)).get().as<MoveInstructionPoly>();
+          auto temp = results_instructions.at(idx + static_cast<std::size_t>(cnt++)).get().as<MoveInstructionPoly>();
           if (temp.getWaypoint().isCartesianWaypoint() || temp.getWaypoint().isStateWaypoint())
             is_constrained = true;
           else if (temp.getWaypoint().isJointWaypoint())
@@ -171,13 +171,15 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
           else
             throw std::runtime_error("Unsupported Waypoint Type!");
         }
-        const Eigen::VectorXd& end_state = solution[result_index++];
+        const Eigen::VectorXd& end_state = solution[result_index];
 
         Eigen::MatrixXd states = interpolate(start_state, end_state, cnt);
-        for (Eigen::Index i = 1; i <= cnt; ++i)
+        for (Eigen::Index i = 0; i < cnt - 1; ++i)
         {
-          auto& interp_mi = results_instructions.at(idx++).get().as<MoveInstructionPoly>();
-          assignSolution(interp_mi, joint_names, states.col(i), request.format_result_as_input);
+          if (i != 0)
+            ++idx;
+          auto& interp_mi = results_instructions.at(idx).get().as<MoveInstructionPoly>();
+          assignSolution(interp_mi, joint_names, states.col(i + 1), request.format_result_as_input);
         }
       }
       else if (move_instruction.getWaypoint().isStateWaypoint())
