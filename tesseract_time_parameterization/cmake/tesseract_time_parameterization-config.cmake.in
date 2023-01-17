@@ -9,7 +9,7 @@ find_dependency(tesseract_common)
 find_dependency(tesseract_command_language)
 find_dependency(Eigen3)
 find_dependency(console_bridge)
-if(TESSERACT_BUILD_RUCKIG)
+if(@TESSERACT_BUILD_RUCKIG@)
   find_dependency(ruckig)
 endif()
 
