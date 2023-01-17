@@ -38,8 +38,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/utils.h>
-#include <tesseract_time_parameterization/time_optimal_trajectory_generation.h>
-#include <tesseract_time_parameterization/utils.h>
+#include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation.h>
+#include <tesseract_time_parameterization/core/utils.h>
 
 namespace tesseract_planning
 {

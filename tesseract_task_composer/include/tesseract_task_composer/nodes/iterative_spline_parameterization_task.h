@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
 #include <tesseract_task_composer/task_composer_node_names.h>
-#include <tesseract_time_parameterization/iterative_spline_parameterization.h>
+#include <tesseract_time_parameterization/isp/iterative_spline_parameterization.h>
 
 namespace tesseract_planning
 {
