@@ -8,7 +8,7 @@ digraph "tesseract_time_parameterization/test/time_optimal_trajectory_generation
   Node1 -> Node2 [color="steelblue1",style="solid"];
   Node2 [label="gtest/gtest.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node1 -> Node3 [color="steelblue1",style="solid"];
-  Node3 [label="tesseract_time_parameterization\l/time_optimal_trajectory_generation.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/d54/time__optimal__trajectory__generation_8h.html",tooltip=" "];
+  Node3 [label="tesseract_time_parameterization\l/totg/time_optimal_trajectory\l_generation.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/d54/time__optimal__trajectory__generation_8h.html",tooltip=" "];
   Node3 -> Node4 [color="steelblue1",style="solid"];
   Node4 [label="tesseract_common/macros.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node3 -> Node5 [color="steelblue1",style="solid"];
@@ -121,7 +121,7 @@ digraph "tesseract_time_parameterization/test/time_optimal_trajectory_generation
   Node7 -> Node33 [color="steelblue1",style="solid"];
   Node33 [label="tesseract_common/any\l_poly.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node3 -> Node34 [color="steelblue1",style="solid"];
-  Node34 [label="tesseract_time_parameterization\l/trajectory_container.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d5/de8/trajectory__container_8h.html",tooltip="Creates an interface for contaning different trajectory data structures."];
+  Node34 [label="tesseract_time_parameterization\l/core/trajectory_container.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d5/de8/trajectory__container_8h.html",tooltip="Creates an interface for contaning different trajectory data structures."];
   Node34 -> Node4 [color="steelblue1",style="solid"];
   Node34 -> Node5 [color="steelblue1",style="solid"];
   Node34 -> Node16 [color="steelblue1",style="solid"];
@@ -153,7 +153,7 @@ digraph "tesseract_time_parameterization/test/time_optimal_trajectory_generation
   Node39 -> Node25 [color="steelblue1",style="solid"];
   Node39 -> Node31 [color="steelblue1",style="solid"];
   Node1 -> Node41 [color="steelblue1",style="solid"];
-  Node41 [label="tesseract_time_parameterization\l/instructions_trajectory.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d7a/instructions__trajectory_8h.html",tooltip="Trajectory Container implementation for command language instructions."];
+  Node41 [label="tesseract_time_parameterization\l/core/instructions_trajectory.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d7a/instructions__trajectory_8h.html",tooltip="Trajectory Container implementation for command language instructions."];
   Node41 -> Node4 [color="steelblue1",style="solid"];
   Node41 -> Node8 [color="steelblue1",style="solid"];
   Node41 -> Node34 [color="steelblue1",style="solid"];

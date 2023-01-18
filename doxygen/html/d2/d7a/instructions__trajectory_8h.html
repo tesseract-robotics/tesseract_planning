@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Tesseract Planning: tesseract_time_parameterization/include/tesseract_time_parameterization/instructions_trajectory.h File Reference</title>
+<title>Tesseract Planning: tesseract_time_parameterization/core/include/tesseract_time_parameterization/core/instructions_trajectory.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -73,7 +73,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="../../dir_d95fa72e1f80b7ab426a2222fe7ccfd9.html">tesseract_time_parameterization</a></li><li class="navelem"><a class="el" href="../../dir_1a203550f83f36732ec0f5874e0fa98d.html">include</a></li><li class="navelem"><a class="el" href="../../dir_63a496afbaafd34db09f689de1124c13.html">tesseract_time_parameterization</a></li>  </ul>
+<li class="navelem"><a class="el" href="../../dir_d95fa72e1f80b7ab426a2222fe7ccfd9.html">tesseract_time_parameterization</a></li><li class="navelem"><a class="el" href="../../dir_68e56e9c09e14b8e1bac5d9210612b17.html">core</a></li><li class="navelem"><a class="el" href="../../dir_c61fb5ea46e66ff06776db1f9ff1290c.html">include</a></li><li class="navelem"><a class="el" href="../../dir_8377c5a24ec0a906ce9017d89be3971d.html">tesseract_time_parameterization</a></li><li class="navelem"><a class="el" href="../../dir_7da5ca91adfc026c5910e30ddbf6f1b5.html">core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -88,59 +88,59 @@ $(function() {
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;tesseract_common/macros.h&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d5/de8/trajectory__container_8h_source.html">tesseract_time_parameterization/trajectory_container.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d5/de8/trajectory__container_8h_source.html">tesseract_time_parameterization/core/trajectory_container.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d1/db1/instruction__poly_8h_source.html">tesseract_command_language/poly/instruction_poly.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d5/df7/composite__instruction_8h_source.html">tesseract_command_language/composite_instruction.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for instructions_trajectory.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d0/df2/instructions__trajectory_8h__incl.png" border="0" usemap="#atesseract__time__parameterization_2include_2tesseract__time__parameterization_2instructions__trajectory_8h" alt=""/></div>
-<map name="atesseract__time__parameterization_2include_2tesseract__time__parameterization_2instructions__trajectory_8h" id="atesseract__time__parameterization_2include_2tesseract__time__parameterization_2instructions__trajectory_8h">
-<area shape="rect" title="Trajectory Container implementation for command language instructions." alt="" coords="2459,5,2718,60"/>
-<area shape="rect" title=" " alt="" coords="2641,467,2832,493"/>
-<area shape="rect" title=" " alt="" coords="2843,203,2902,229"/>
-<area shape="rect" href="../../d5/de8/trajectory__container_8h.html" title="Creates an interface for contaning different trajectory data structures." alt="" coords="2163,372,2374,412"/>
-<area shape="rect" href="../../d1/db1/instruction__poly_8h.html" title=" " alt="" coords="552,284,751,324"/>
-<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2489,108,2688,148"/>
-<area shape="rect" title=" " alt="" coords="2275,467,2366,493"/>
-<area shape="rect" title=" " alt="" coords="2183,467,2251,493"/>
-<area shape="rect" title=" " alt="" coords="1896,467,1951,493"/>
-<area shape="rect" title=" " alt="" coords="479,460,605,500"/>
-<area shape="rect" title=" " alt="" coords="284,460,411,500"/>
-<area shape="rect" title=" " alt="" coords="801,467,971,493"/>
-<area shape="rect" title=" " alt="" coords="124,379,259,405"/>
-<area shape="rect" href="../../d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="1535,372,1733,412"/>
-<area shape="rect" title=" " alt="" coords="1457,467,1672,493"/>
-<area shape="rect" title=" " alt="" coords="1001,460,1163,500"/>
-<area shape="rect" title=" " alt="" coords="2029,467,2105,493"/>
-<area shape="rect" href="../../dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="1395,196,1593,236"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2977,372,3176,412"/>
-<area shape="rect" title=" " alt="" coords="2316,284,2520,324"/>
-<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="2500,372,2699,412"/>
-<area shape="rect" title=" " alt="" coords="2510,196,2667,236"/>
-<area shape="rect" href="../../d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="1268,284,1472,324"/>
-<area shape="rect" href="../../d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="1672,284,1871,324"/>
-<area shape="rect" href="../../d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="907,284,1105,324"/>
-<area shape="rect" title=" " alt="" coords="1247,372,1408,412"/>
-<area shape="rect" title=" " alt="" coords="2858,467,2901,493"/>
-<area shape="rect" title=" " alt="" coords="2925,467,2997,493"/>
-<area shape="rect" title=" " alt="" coords="3021,467,3132,493"/>
-<area shape="rect" title=" " alt="" coords="3156,467,3213,493"/>
-<area shape="rect" title=" " alt="" coords="3237,467,3340,493"/>
+<div class="center"><img src="../../d0/df2/instructions__trajectory_8h__incl.png" border="0" usemap="#atesseract__time__parameterization_2core_2include_2tesseract__time__parameterization_2core_2instructions__trajectory_8h" alt=""/></div>
+<map name="atesseract__time__parameterization_2core_2include_2tesseract__time__parameterization_2core_2instructions__trajectory_8h" id="atesseract__time__parameterization_2core_2include_2tesseract__time__parameterization_2core_2instructions__trajectory_8h">
+<area shape="rect" title="Trajectory Container implementation for command language instructions." alt="" coords="2477,5,2701,75"/>
+<area shape="rect" title=" " alt="" coords="2641,482,2832,507"/>
+<area shape="rect" title=" " alt="" coords="2843,218,2902,243"/>
+<area shape="rect" href="../../d5/de8/trajectory__container_8h.html" title="Creates an interface for contaning different trajectory data structures." alt="" coords="2163,387,2374,427"/>
+<area shape="rect" href="../../d1/db1/instruction__poly_8h.html" title=" " alt="" coords="552,299,751,339"/>
+<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2489,123,2688,163"/>
+<area shape="rect" title=" " alt="" coords="2275,482,2366,507"/>
+<area shape="rect" title=" " alt="" coords="2183,482,2251,507"/>
+<area shape="rect" title=" " alt="" coords="1896,482,1951,507"/>
+<area shape="rect" title=" " alt="" coords="479,475,605,515"/>
+<area shape="rect" title=" " alt="" coords="284,475,411,515"/>
+<area shape="rect" title=" " alt="" coords="801,482,971,507"/>
+<area shape="rect" title=" " alt="" coords="124,394,259,419"/>
+<area shape="rect" href="../../d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="1535,387,1733,427"/>
+<area shape="rect" title=" " alt="" coords="1457,482,1672,507"/>
+<area shape="rect" title=" " alt="" coords="1001,475,1163,515"/>
+<area shape="rect" title=" " alt="" coords="2029,482,2105,507"/>
+<area shape="rect" href="../../dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="1395,211,1593,251"/>
+<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2977,387,3176,427"/>
+<area shape="rect" title=" " alt="" coords="2316,299,2520,339"/>
+<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="2500,387,2699,427"/>
+<area shape="rect" title=" " alt="" coords="2510,211,2667,251"/>
+<area shape="rect" href="../../d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="1268,299,1472,339"/>
+<area shape="rect" href="../../d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="1672,299,1871,339"/>
+<area shape="rect" href="../../d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="907,299,1105,339"/>
+<area shape="rect" title=" " alt="" coords="1247,387,1408,427"/>
+<area shape="rect" title=" " alt="" coords="2858,482,2901,507"/>
+<area shape="rect" title=" " alt="" coords="2925,482,2997,507"/>
+<area shape="rect" title=" " alt="" coords="3021,482,3132,507"/>
+<area shape="rect" title=" " alt="" coords="3156,482,3213,507"/>
+<area shape="rect" title=" " alt="" coords="3237,482,3340,507"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d3/d38/instructions__trajectory_8h__dep__incl.png" border="0" usemap="#atesseract__time__parameterization_2include_2tesseract__time__parameterization_2instructions__trajectory_8hdep" alt=""/></div>
-<map name="atesseract__time__parameterization_2include_2tesseract__time__parameterization_2instructions__trajectory_8hdep" id="atesseract__time__parameterization_2include_2tesseract__time__parameterization_2instructions__trajectory_8hdep">
-<area shape="rect" title="Trajectory Container implementation for command language instructions." alt="" coords="510,5,769,60"/>
-<area shape="rect" href="../../d8/dfa/iterative__spline__parameterization__task_8cpp.html" title="Perform iterative spline time parameterization." alt="" coords="5,108,185,163"/>
-<area shape="rect" href="../../d6/d36/ruckig__trajectory__smoothing__task_8cpp.html" title=" " alt="" coords="209,108,392,163"/>
-<area shape="rect" href="../../d7/da7/instructions__trajectory_8cpp.html" title="Trajectory Container implementation for command language instructions." alt="" coords="417,115,627,155"/>
-<area shape="rect" href="../../dc/d4a/iterative__spline__tests_8cpp.html" title=" " alt="" coords="651,115,862,155"/>
-<area shape="rect" href="../../d3/d72/ruckig__trajectory__smoothing__tests_8cpp.html" title=" " alt="" coords="887,108,1101,163"/>
-<area shape="rect" href="../../d1/d43/time__optimal__trajectory__generation__tests_8cpp.html" title=" " alt="" coords="1126,108,1337,163"/>
+<div class="center"><img src="../../d3/d38/instructions__trajectory_8h__dep__incl.png" border="0" usemap="#atesseract__time__parameterization_2core_2include_2tesseract__time__parameterization_2core_2instructions__trajectory_8hdep" alt=""/></div>
+<map name="atesseract__time__parameterization_2core_2include_2tesseract__time__parameterization_2core_2instructions__trajectory_8hdep" id="atesseract__time__parameterization_2core_2include_2tesseract__time__parameterization_2core_2instructions__trajectory_8hdep">
+<area shape="rect" title="Trajectory Container implementation for command language instructions." alt="" coords="539,5,763,75"/>
+<area shape="rect" href="../../d8/dfa/iterative__spline__parameterization__task_8cpp.html" title="Perform iterative spline time parameterization." alt="" coords="5,123,185,177"/>
+<area shape="rect" href="../../d6/d36/ruckig__trajectory__smoothing__task_8cpp.html" title=" " alt="" coords="209,123,392,177"/>
+<area shape="rect" href="../../d7/da7/instructions__trajectory_8cpp.html" title="Trajectory Container implementation for command language instructions." alt="" coords="416,130,644,170"/>
+<area shape="rect" href="../../dc/d4a/iterative__spline__tests_8cpp.html" title=" " alt="" coords="669,130,879,170"/>
+<area shape="rect" href="../../d3/d72/ruckig__trajectory__smoothing__tests_8cpp.html" title=" " alt="" coords="904,123,1119,177"/>
+<area shape="rect" href="../../d1/d43/time__optimal__trajectory__generation__tests_8cpp.html" title=" " alt="" coords="1143,123,1354,177"/>
 </map>
 </div>
 </div>
@@ -169,7 +169,7 @@ Namespaces</h2></td></tr>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 17 2023 03:08:46 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+Generated on Wed Jan 18 2023 22:24:12 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
 </small></address>
 </body>
 </html>

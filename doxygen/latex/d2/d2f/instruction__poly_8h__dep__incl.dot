@@ -104,7 +104,7 @@ digraph "tesseract_command_language/include/tesseract_command_language/poly/inst
   Node2 -> Node104 [dir="back",color="steelblue1",style="solid"];
   Node104 [label="tesseract_task_composer\l/src/nodes/raster_ft_only\l_motion_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/d4b/raster__ft__only__motion__task_8cpp.html",tooltip="Plans raster paths with freespace transitions."];
   Node2 -> Node110 [dir="back",color="steelblue1",style="solid"];
-  Node110 [label="tesseract_time_parameterization\l/include/tesseract_time_parameterization\l/instructions_trajectory.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d2/d7a/instructions__trajectory_8h.html",tooltip="Trajectory Container implementation for command language instructions."];
+  Node110 [label="tesseract_time_parameterization\l/core/include/tesseract_time\l_parameterization/core/instructions\l_trajectory.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d2/d7a/instructions__trajectory_8h.html",tooltip="Trajectory Container implementation for command language instructions."];
   Node110 -> Node83 [dir="back",color="steelblue1",style="solid"];
   Node1 -> Node116 [dir="back",color="steelblue1",style="solid"];
   Node116 [label="tesseract_command_language\l/include/tesseract_command\l_language/poly/move_instruction_poly.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$dc/df1/move__instruction__poly_8h.html",tooltip="The move instruction interface."];

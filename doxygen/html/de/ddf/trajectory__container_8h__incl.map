@@ -1,6 +1,6 @@
-<map id="tesseract_time_parameterization/include/tesseract_time_parameterization/trajectory_container.h" name="tesseract_time_parameterization/include/tesseract_time_parameterization/trajectory_container.h">
-<area shape="rect" id="node1" title="Creates an interface for contaning different trajectory data structures." alt="" coords="137,5,395,60"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,108,196,133"/>
-<area shape="rect" id="node3" title=" " alt="" coords="221,108,311,133"/>
-<area shape="rect" id="node4" title=" " alt="" coords="336,108,404,133"/>
+<map id="tesseract_time_parameterization/core/include/tesseract_time_parameterization/core/trajectory_container.h" name="tesseract_time_parameterization/core/include/tesseract_time_parameterization/core/trajectory_container.h">
+<area shape="rect" id="node1" title="Creates an interface for contaning different trajectory data structures." alt="" coords="161,5,371,75"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,123,196,148"/>
+<area shape="rect" id="node3" title=" " alt="" coords="221,123,311,148"/>
+<area shape="rect" id="node4" title=" " alt="" coords="336,123,404,148"/>
 </map>

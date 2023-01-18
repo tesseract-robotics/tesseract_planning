@@ -126,7 +126,7 @@ digraph "tesseract_command_language/include/tesseract_command_language/utils.h"
   Node1 -> Node49 [dir="back",color="steelblue1",style="solid"];
   Node49 [label="tesseract_task_composer\l/test/fix_state_collision\l_task_unit.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d6a/fix__state__collision__task__unit_8cpp.html",tooltip=" "];
   Node1 -> Node50 [dir="back",color="steelblue1",style="solid"];
-  Node50 [label="tesseract_time_parameterization\l/src/instructions_trajectory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/da7/instructions__trajectory_8cpp.html",tooltip="Trajectory Container implementation for command language instructions."];
+  Node50 [label="tesseract_time_parameterization\l/core/src/instructions_trajectory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/da7/instructions__trajectory_8cpp.html",tooltip="Trajectory Container implementation for command language instructions."];
   Node1 -> Node51 [dir="back",color="steelblue1",style="solid"];
-  Node51 [label="tesseract_time_parameterization\l/src/time_optimal_trajectory\l_generation.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d0/d26/time__optimal__trajectory__generation_8cpp.html",tooltip=" "];
+  Node51 [label="tesseract_time_parameterization\l/totg/src/time_optimal_trajectory\l_generation.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d0/d26/time__optimal__trajectory__generation_8cpp.html",tooltip=" "];
 }

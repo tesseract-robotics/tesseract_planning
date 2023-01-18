@@ -1,5 +1,5 @@
-<map id="tesseract_time_parameterization/src/instructions_trajectory.cpp" name="tesseract_time_parameterization/src/instructions_trajectory.cpp">
-<area shape="rect" id="node1" title="Trajectory Container implementation for command language instructions." alt="" coords="1067,5,1277,45"/>
+<map id="tesseract_time_parameterization/core/src/instructions_trajectory.cpp" name="tesseract_time_parameterization/core/src/instructions_trajectory.cpp">
+<area shape="rect" id="node1" title="Trajectory Container implementation for command language instructions." alt="" coords="1058,5,1286,45"/>
 <area shape="rect" id="node2" href="$d2/d7a/instructions__trajectory_8h.html" title="Trajectory Container implementation for command language instructions." alt="" coords="667,93,877,133"/>
 <area shape="rect" id="node23" href="$d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="2502,357,2701,397"/>
 <area shape="rect" id="node33" href="$d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h.html" title=" " alt="" coords="1073,93,1271,133"/>

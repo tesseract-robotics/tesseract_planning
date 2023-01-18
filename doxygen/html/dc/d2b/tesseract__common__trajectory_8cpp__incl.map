@@ -1,10 +1,4 @@
-<map id="tesseract_time_parameterization/src/tesseract_common_trajectory.cpp" name="tesseract_time_parameterization/src/tesseract_common_trajectory.cpp">
-<area shape="rect" id="node1" title="Trajectory Container implementation for tesseract_common::JointState trajectories." alt="" coords="51,5,294,45"/>
-<area shape="rect" id="node2" href="$dd/d39/tesseract__common__trajectory_8h.html" title=" " alt="" coords="67,93,278,133"/>
-<area shape="rect" id="node3" title=" " alt="" coords="16,269,206,295"/>
-<area shape="rect" id="node4" title=" " alt="" coords="25,181,186,221"/>
-<area shape="rect" id="node5" title=" " alt="" coords="211,189,270,214"/>
-<area shape="rect" id="node6" href="$d5/de8/trajectory__container_8h.html" title="Creates an interface for contaning different trajectory data structures." alt="" coords="294,181,504,221"/>
-<area shape="rect" id="node7" title=" " alt="" coords="302,269,392,295"/>
-<area shape="rect" id="node8" title=" " alt="" coords="417,269,485,295"/>
+<map id="tesseract_time_parameterization/core/src/tesseract_common_trajectory.cpp" name="tesseract_time_parameterization/core/src/tesseract_common_trajectory.cpp">
+<area shape="rect" id="node1" title="Trajectory Container implementation for tesseract_common::JointState trajectories." alt="" coords="5,5,216,60"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,108,216,148"/>
 </map>

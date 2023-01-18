@@ -145,7 +145,7 @@ digraph "tesseract_task_composer/src/nodes/cartesian_motion_pipeline_task.cpp"
   Node53 -> Node39 [color="steelblue1",style="solid"];
   Node53 -> Node36 [color="steelblue1",style="solid"];
   Node53 -> Node54 [color="steelblue1",style="solid"];
-  Node54 [label="tesseract_time_parameterization\l/iterative_spline_parameterization.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d3/d2c/iterative__spline__parameterization_8h.html",tooltip=" "];
+  Node54 [label="tesseract_time_parameterization\l/isp/iterative_spline_parameterization.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d3/d2c/iterative__spline__parameterization_8h.html",tooltip=" "];
   Node54 -> Node2 [color="steelblue1",style="solid"];
   Node54 -> Node55 [color="steelblue1",style="solid"];
   Node55 [label="Eigen/Eigen",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];

@@ -1,18 +1,18 @@
-digraph "tesseract_time_parameterization/include/tesseract_time_parameterization/trajectory_container.h"
+digraph "tesseract_time_parameterization/core/include/tesseract_time_parameterization/core/trajectory_container.h"
 {
  // LATEX_PDF_SIZE
   bgcolor="transparent";
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
-  Node1 [label="tesseract_time_parameterization\l/include/tesseract_time_parameterization\l/trajectory_container.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Creates an interface for contaning different trajectory data structures."];
+  Node1 [label="tesseract_time_parameterization\l/core/include/tesseract_time\l_parameterization/core/trajectory\l_container.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Creates an interface for contaning different trajectory data structures."];
   Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
-  Node2 [label="tesseract_time_parameterization\l/include/tesseract_time_parameterization\l/instructions_trajectory.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d7a/instructions__trajectory_8h.html",tooltip="Trajectory Container implementation for command language instructions."];
+  Node2 [label="tesseract_time_parameterization\l/core/include/tesseract_time\l_parameterization/core/instructions\l_trajectory.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d7a/instructions__trajectory_8h.html",tooltip="Trajectory Container implementation for command language instructions."];
   Node2 -> Node3 [dir="back",color="steelblue1",style="solid"];
   Node3 [label="tesseract_task_composer\l/src/nodes/iterative_spline\l_parameterization_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/dfa/iterative__spline__parameterization__task_8cpp.html",tooltip="Perform iterative spline time parameterization."];
   Node2 -> Node4 [dir="back",color="steelblue1",style="solid"];
   Node4 [label="tesseract_task_composer\l/src/nodes/ruckig_trajectory\l_smoothing_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/d36/ruckig__trajectory__smoothing__task_8cpp.html",tooltip=" "];
   Node2 -> Node5 [dir="back",color="steelblue1",style="solid"];
-  Node5 [label="tesseract_time_parameterization\l/src/instructions_trajectory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/da7/instructions__trajectory_8cpp.html",tooltip="Trajectory Container implementation for command language instructions."];
+  Node5 [label="tesseract_time_parameterization\l/core/src/instructions_trajectory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/da7/instructions__trajectory_8cpp.html",tooltip="Trajectory Container implementation for command language instructions."];
   Node2 -> Node6 [dir="back",color="steelblue1",style="solid"];
   Node6 [label="tesseract_time_parameterization\l/test/iterative_spline_tests.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d4a/iterative__spline__tests_8cpp.html",tooltip=" "];
   Node2 -> Node7 [dir="back",color="steelblue1",style="solid"];
@@ -20,7 +20,7 @@ digraph "tesseract_time_parameterization/include/tesseract_time_parameterization
   Node2 -> Node8 [dir="back",color="steelblue1",style="solid"];
   Node8 [label="tesseract_time_parameterization\l/test/time_optimal_trajectory\l_generation_tests.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d1/d43/time__optimal__trajectory__generation__tests_8cpp.html",tooltip=" "];
   Node1 -> Node9 [dir="back",color="steelblue1",style="solid"];
-  Node9 [label="tesseract_time_parameterization\l/include/tesseract_time_parameterization\l/iterative_spline_parameterization.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/d2c/iterative__spline__parameterization_8h.html",tooltip=" "];
+  Node9 [label="tesseract_time_parameterization\l/isp/include/tesseract_time\l_parameterization/isp/iterative\l_spline_parameterization.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/d2c/iterative__spline__parameterization_8h.html",tooltip=" "];
   Node9 -> Node10 [dir="back",color="steelblue1",style="solid"];
   Node10 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/iterative\l_spline_parameterization_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/db1/iterative__spline__parameterization__task_8h.html",tooltip="Perform iterative spline time parameterization."];
   Node10 -> Node11 [dir="back",color="steelblue1",style="solid"];
@@ -37,24 +37,20 @@ digraph "tesseract_time_parameterization/include/tesseract_time_parameterization
   Node10 -> Node16 [dir="back",color="steelblue1",style="solid"];
   Node16 [label="tesseract_task_composer\l/src/nodes/trajopt_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/dc8/trajopt__motion__pipeline__task_8cpp.html",tooltip=" "];
   Node9 -> Node17 [dir="back",color="steelblue1",style="solid"];
-  Node17 [label="tesseract_time_parameterization\l/src/iterative_spline_parameterization.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/ddc/iterative__spline__parameterization_8cpp.html",tooltip=" "];
+  Node17 [label="tesseract_time_parameterization\l/isp/src/iterative_spline\l_parameterization.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/ddc/iterative__spline__parameterization_8cpp.html",tooltip=" "];
   Node9 -> Node6 [dir="back",color="steelblue1",style="solid"];
   Node9 -> Node7 [dir="back",color="steelblue1",style="solid"];
   Node1 -> Node18 [dir="back",color="steelblue1",style="solid"];
-  Node18 [label="tesseract_time_parameterization\l/include/tesseract_time_parameterization\l/ruckig_trajectory_smoothing.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/d3b/ruckig__trajectory__smoothing_8h.html",tooltip="Leveraging Ruckig to smooth trajectory."];
+  Node18 [label="tesseract_time_parameterization\l/ruckig/include/tesseract\l_time_parameterization/ruckig\l/ruckig_trajectory_smoothing.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/d3b/ruckig__trajectory__smoothing_8h.html",tooltip="Leveraging Ruckig to smooth trajectory."];
   Node18 -> Node4 [dir="back",color="steelblue1",style="solid"];
   Node18 -> Node19 [dir="back",color="steelblue1",style="solid"];
-  Node19 [label="tesseract_time_parameterization\l/src/ruckig_trajectory_smoothing.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$de/d7d/ruckig__trajectory__smoothing_8cpp.html",tooltip=" "];
+  Node19 [label="tesseract_time_parameterization\l/ruckig/src/ruckig_trajectory\l_smoothing.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$de/d7d/ruckig__trajectory__smoothing_8cpp.html",tooltip=" "];
   Node18 -> Node7 [dir="back",color="steelblue1",style="solid"];
   Node1 -> Node20 [dir="back",color="steelblue1",style="solid"];
-  Node20 [label="tesseract_time_parameterization\l/include/tesseract_time_parameterization\l/tesseract_common_trajectory.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/d39/tesseract__common__trajectory_8h.html",tooltip=" "];
+  Node20 [label="tesseract_time_parameterization\l/totg/include/tesseract_time\l_parameterization/totg/time\l_optimal_trajectory_generation.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/d54/time__optimal__trajectory__generation_8h.html",tooltip=" "];
   Node20 -> Node21 [dir="back",color="steelblue1",style="solid"];
-  Node21 [label="tesseract_time_parameterization\l/src/tesseract_common_trajectory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$df/d65/tesseract__common__trajectory_8cpp.html",tooltip="Trajectory Container implementation for tesseract_common::JointState trajectories."];
-  Node1 -> Node22 [dir="back",color="steelblue1",style="solid"];
-  Node22 [label="tesseract_time_parameterization\l/include/tesseract_time_parameterization\l/time_optimal_trajectory_generation.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/d54/time__optimal__trajectory__generation_8h.html",tooltip=" "];
-  Node22 -> Node23 [dir="back",color="steelblue1",style="solid"];
-  Node23 [label="tesseract_task_composer\l/src/nodes/time_optimal\l_parameterization_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/df4/time__optimal__parameterization__task_8cpp.html",tooltip=" "];
-  Node22 -> Node24 [dir="back",color="steelblue1",style="solid"];
-  Node24 [label="tesseract_time_parameterization\l/src/time_optimal_trajectory\l_generation.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d0/d26/time__optimal__trajectory__generation_8cpp.html",tooltip=" "];
-  Node22 -> Node8 [dir="back",color="steelblue1",style="solid"];
+  Node21 [label="tesseract_task_composer\l/src/nodes/time_optimal\l_parameterization_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/df4/time__optimal__parameterization__task_8cpp.html",tooltip=" "];
+  Node20 -> Node8 [dir="back",color="steelblue1",style="solid"];
+  Node20 -> Node22 [dir="back",color="steelblue1",style="solid"];
+  Node22 [label="tesseract_time_parameterization\l/totg/src/time_optimal_trajectory\l_generation.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d0/d26/time__optimal__trajectory__generation_8cpp.html",tooltip=" "];
 }

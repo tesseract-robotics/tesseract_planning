@@ -1,10 +1,10 @@
-digraph "tesseract_time_parameterization/include/tesseract_time_parameterization/time_optimal_trajectory_generation.h"
+digraph "tesseract_time_parameterization/totg/include/tesseract_time_parameterization/totg/time_optimal_trajectory_generation.h"
 {
  // LATEX_PDF_SIZE
   bgcolor="transparent";
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
-  Node1 [label="tesseract_time_parameterization\l/include/tesseract_time_parameterization\l/time_optimal_trajectory_generation.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 [label="tesseract_time_parameterization\l/totg/include/tesseract_time\l_parameterization/totg/time\l_optimal_trajectory_generation.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
   Node1 -> Node2 [color="steelblue1",style="solid"];
   Node2 [label="tesseract_common/macros.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node1 -> Node3 [color="steelblue1",style="solid"];
@@ -117,7 +117,7 @@ digraph "tesseract_time_parameterization/include/tesseract_time_parameterization
   Node5 -> Node31 [color="steelblue1",style="solid"];
   Node31 [label="tesseract_common/any\l_poly.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node1 -> Node32 [color="steelblue1",style="solid"];
-  Node32 [label="tesseract_time_parameterization\l/trajectory_container.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d5/de8/trajectory__container_8h.html",tooltip="Creates an interface for contaning different trajectory data structures."];
+  Node32 [label="tesseract_time_parameterization\l/core/trajectory_container.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d5/de8/trajectory__container_8h.html",tooltip="Creates an interface for contaning different trajectory data structures."];
   Node32 -> Node2 [color="steelblue1",style="solid"];
   Node32 -> Node3 [color="steelblue1",style="solid"];
   Node32 -> Node14 [color="steelblue1",style="solid"];

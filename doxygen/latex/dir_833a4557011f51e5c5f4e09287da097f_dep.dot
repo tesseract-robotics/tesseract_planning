@@ -11,6 +11,6 @@ digraph "tesseract_task_composer/examples"
   dir_833a4557011f51e5c5f4e09287da097f [label="examples", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_833a4557011f51e5c5f4e09287da097f.html",tooltip=""];
   }
   dir_fa47c2fa9b13a12fc195f1b83854b816 [label="tesseract_command_language", fillcolor="#edf0f7", color="red", style="filled", URL="dir_fa47c2fa9b13a12fc195f1b83854b816.html",tooltip=""];
-  dir_833a4557011f51e5c5f4e09287da097f->dir_fa47c2fa9b13a12fc195f1b83854b816 [headlabel="12", labeldistance=1.5 headhref="dir_000006_000048.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_833a4557011f51e5c5f4e09287da097f->dir_ff05f754d9f00523f9dfe00daec97662 [headlabel="11", labeldistance=1.5 headhref="dir_000006_000015.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_833a4557011f51e5c5f4e09287da097f->dir_fa47c2fa9b13a12fc195f1b83854b816 [headlabel="12", labeldistance=1.5 headhref="dir_000008_000060.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_833a4557011f51e5c5f4e09287da097f->dir_ff05f754d9f00523f9dfe00daec97662 [headlabel="11", labeldistance=1.5 headhref="dir_000008_000017.html" color="steelblue1" fontcolor="steelblue1"];
 }

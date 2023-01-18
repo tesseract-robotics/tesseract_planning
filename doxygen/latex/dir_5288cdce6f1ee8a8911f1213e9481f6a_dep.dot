@@ -15,8 +15,8 @@ digraph "tesseract_motion_planners/trajopt/include/tesseract_motion_planners/tra
   }
   dir_ba42fb948e9041f2f8c5ac347b7f6bb7 [label="core", fillcolor="#edf0f7", color="red", style="filled,dashed", URL="dir_ba42fb948e9041f2f8c5ac347b7f6bb7.html",tooltip=""];
   dir_fa47c2fa9b13a12fc195f1b83854b816 [label="tesseract_command_language", fillcolor="#edf0f7", color="red", style="filled", URL="dir_fa47c2fa9b13a12fc195f1b83854b816.html",tooltip=""];
-  dir_5288cdce6f1ee8a8911f1213e9481f6a->dir_18dde6799dab0e87ff0a1005951cc8ab [headlabel="4", labeldistance=1.5 headhref="dir_000068_000030.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_5288cdce6f1ee8a8911f1213e9481f6a->dir_ba42fb948e9041f2f8c5ac347b7f6bb7 [headlabel="2", labeldistance=1.5 headhref="dir_000068_000000.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_5288cdce6f1ee8a8911f1213e9481f6a->dir_fa47c2fa9b13a12fc195f1b83854b816 [headlabel="5", labeldistance=1.5 headhref="dir_000068_000048.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_18dde6799dab0e87ff0a1005951cc8ab->dir_fa47c2fa9b13a12fc195f1b83854b816 [headlabel="3", labeldistance=1.5 headhref="dir_000030_000048.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_5288cdce6f1ee8a8911f1213e9481f6a->dir_18dde6799dab0e87ff0a1005951cc8ab [headlabel="4", labeldistance=1.5 headhref="dir_000085_000037.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_5288cdce6f1ee8a8911f1213e9481f6a->dir_ba42fb948e9041f2f8c5ac347b7f6bb7 [headlabel="2", labeldistance=1.5 headhref="dir_000085_000000.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_5288cdce6f1ee8a8911f1213e9481f6a->dir_fa47c2fa9b13a12fc195f1b83854b816 [headlabel="5", labeldistance=1.5 headhref="dir_000085_000060.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_18dde6799dab0e87ff0a1005951cc8ab->dir_fa47c2fa9b13a12fc195f1b83854b816 [headlabel="3", labeldistance=1.5 headhref="dir_000037_000060.html" color="steelblue1" fontcolor="steelblue1"];
 }

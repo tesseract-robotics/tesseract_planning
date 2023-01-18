@@ -1,9 +1,7 @@
-<map id="tesseract_time_parameterization/include/tesseract_time_parameterization/tesseract_common_trajectory.h" name="tesseract_time_parameterization/include/tesseract_time_parameterization/tesseract_common_trajectory.h">
-<area shape="rect" id="node1" title=" " alt="" coords="43,5,302,60"/>
-<area shape="rect" id="node2" title=" " alt="" coords="16,196,206,221"/>
-<area shape="rect" id="node3" title=" " alt="" coords="25,108,186,148"/>
-<area shape="rect" id="node4" title=" " alt="" coords="211,115,270,141"/>
-<area shape="rect" id="node5" href="$d5/de8/trajectory__container_8h.html" title="Creates an interface for contaning different trajectory data structures." alt="" coords="294,108,504,148"/>
-<area shape="rect" id="node6" title=" " alt="" coords="302,196,392,221"/>
-<area shape="rect" id="node7" title=" " alt="" coords="417,196,485,221"/>
+<map id="tesseract_time_parameterization/core/include/tesseract_time_parameterization/core/tesseract_common_trajectory.h" name="tesseract_time_parameterization/core/include/tesseract_time_parameterization/core/tesseract_common_trajectory.h">
+<area shape="rect" id="node1" title=" " alt="" coords="262,5,473,75"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,130,196,155"/>
+<area shape="rect" id="node3" title=" " alt="" coords="220,123,381,163"/>
+<area shape="rect" id="node4" title=" " alt="" coords="406,130,465,155"/>
+<area shape="rect" id="node5" title=" " alt="" coords="489,123,699,163"/>
 </map>

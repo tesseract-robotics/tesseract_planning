@@ -1,13 +1,13 @@
-<map id="tesseract_time_parameterization/src/ruckig_trajectory_smoothing.cpp" name="tesseract_time_parameterization/src/ruckig_trajectory_smoothing.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="543,5,778,45"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,269,196,295"/>
-<area shape="rect" id="node3" title=" " alt="" coords="474,101,642,126"/>
-<area shape="rect" id="node4" href="$d3/d3b/ruckig__trajectory__smoothing_8h.html" title="Leveraging Ruckig to smooth trajectory." alt="" coords="163,93,374,133"/>
-<area shape="rect" id="node7" title=" " alt="" coords="385,269,453,295"/>
-<area shape="rect" id="node8" title=" " alt="" coords="667,93,860,133"/>
-<area shape="rect" id="node9" title=" " alt="" coords="885,101,1063,126"/>
-<area shape="rect" id="node10" title=" " alt="" coords="1087,101,1207,126"/>
-<area shape="rect" id="node11" title=" " alt="" coords="1231,101,1370,126"/>
-<area shape="rect" id="node5" title=" " alt="" coords="254,269,345,295"/>
-<area shape="rect" id="node6" href="$d5/de8/trajectory__container_8h.html" title="Creates an interface for contaning different trajectory data structures." alt="" coords="138,181,349,221"/>
+<map id="tesseract_time_parameterization/ruckig/src/ruckig_trajectory_smoothing.cpp" name="tesseract_time_parameterization/ruckig/src/ruckig_trajectory_smoothing.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="555,5,766,60"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,299,196,324"/>
+<area shape="rect" id="node3" title=" " alt="" coords="474,123,642,148"/>
+<area shape="rect" id="node4" href="$d3/d3b/ruckig__trajectory__smoothing_8h.html" title="Leveraging Ruckig to smooth trajectory." alt="" coords="163,108,374,163"/>
+<area shape="rect" id="node7" title=" " alt="" coords="385,299,453,324"/>
+<area shape="rect" id="node8" title=" " alt="" coords="667,115,860,155"/>
+<area shape="rect" id="node9" title=" " alt="" coords="885,123,1063,148"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1087,123,1207,148"/>
+<area shape="rect" id="node11" title=" " alt="" coords="1231,123,1370,148"/>
+<area shape="rect" id="node5" title=" " alt="" coords="254,299,345,324"/>
+<area shape="rect" id="node6" href="$d5/de8/trajectory__container_8h.html" title="Creates an interface for contaning different trajectory data structures." alt="" coords="138,211,349,251"/>
 </map>

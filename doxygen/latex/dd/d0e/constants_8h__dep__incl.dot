@@ -128,14 +128,14 @@ digraph "tesseract_command_language/include/tesseract_command_language/constants
   Node2 -> Node109 [dir="back",color="steelblue1",style="solid"];
   Node109 [label="tesseract_task_composer\l/src/nodes/update_start\l_state_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/df3/update__start__state__task_8cpp.html",tooltip=" "];
   Node2 -> Node110 [dir="back",color="steelblue1",style="solid"];
-  Node110 [label="tesseract_time_parameterization\l/include/tesseract_time_parameterization\l/instructions_trajectory.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d2/d7a/instructions__trajectory_8h.html",tooltip="Trajectory Container implementation for command language instructions."];
+  Node110 [label="tesseract_time_parameterization\l/core/include/tesseract_time\l_parameterization/core/instructions\l_trajectory.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d2/d7a/instructions__trajectory_8h.html",tooltip="Trajectory Container implementation for command language instructions."];
   Node110 -> Node83 [dir="back",color="steelblue1",style="solid"];
   Node110 -> Node84 [dir="back",color="steelblue1",style="solid"];
   Node2 -> Node114 [dir="back",color="steelblue1",style="solid"];
-  Node114 [label="tesseract_time_parameterization\l/include/tesseract_time_parameterization\l/time_optimal_trajectory_generation.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d6/d54/time__optimal__trajectory__generation_8h.html",tooltip=" "];
+  Node114 [label="tesseract_time_parameterization\l/core/include/tesseract_time\l_parameterization/core/utils.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/dd8/tesseract__time__parameterization_2core_2include_2tesseract__time__parameterization_2core_2utils_8h.html",tooltip="Time parameterization utils."];
   Node114 -> Node49 [dir="back",color="steelblue1",style="solid"];
   Node2 -> Node115 [dir="back",color="steelblue1",style="solid"];
-  Node115 [label="tesseract_time_parameterization\l/include/tesseract_time_parameterization/utils.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$df/d4b/tesseract__time__parameterization_2include_2tesseract__time__parameterization_2utils_8h.html",tooltip="Time parameterization utils."];
+  Node115 [label="tesseract_time_parameterization\l/totg/include/tesseract_time\l_parameterization/totg/time\l_optimal_trajectory_generation.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d6/d54/time__optimal__trajectory__generation_8h.html",tooltip=" "];
   Node115 -> Node49 [dir="back",color="steelblue1",style="solid"];
   Node1 -> Node116 [dir="back",color="steelblue1",style="solid"];
   Node116 [label="tesseract_command_language\l/include/tesseract_command\l_language/move_instruction.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$da/d74/move__instruction_8h.html",tooltip=" "];

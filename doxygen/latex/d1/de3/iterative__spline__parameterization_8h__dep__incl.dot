@@ -1,10 +1,10 @@
-digraph "tesseract_time_parameterization/include/tesseract_time_parameterization/iterative_spline_parameterization.h"
+digraph "tesseract_time_parameterization/isp/include/tesseract_time_parameterization/isp/iterative_spline_parameterization.h"
 {
  // LATEX_PDF_SIZE
   bgcolor="transparent";
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
-  Node1 [label="tesseract_time_parameterization\l/include/tesseract_time_parameterization\l/iterative_spline_parameterization.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 [label="tesseract_time_parameterization\l/isp/include/tesseract_time\l_parameterization/isp/iterative\l_spline_parameterization.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
   Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
   Node2 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/iterative\l_spline_parameterization_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/db1/iterative__spline__parameterization__task_8h.html",tooltip="Perform iterative spline time parameterization."];
   Node2 -> Node3 [dir="back",color="steelblue1",style="solid"];
@@ -22,7 +22,7 @@ digraph "tesseract_time_parameterization/include/tesseract_time_parameterization
   Node2 -> Node9 [dir="back",color="steelblue1",style="solid"];
   Node9 [label="tesseract_task_composer\l/src/nodes/trajopt_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/dc8/trajopt__motion__pipeline__task_8cpp.html",tooltip=" "];
   Node1 -> Node10 [dir="back",color="steelblue1",style="solid"];
-  Node10 [label="tesseract_time_parameterization\l/src/iterative_spline_parameterization.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/ddc/iterative__spline__parameterization_8cpp.html",tooltip=" "];
+  Node10 [label="tesseract_time_parameterization\l/isp/src/iterative_spline\l_parameterization.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/ddc/iterative__spline__parameterization_8cpp.html",tooltip=" "];
   Node1 -> Node11 [dir="back",color="steelblue1",style="solid"];
   Node11 [label="tesseract_time_parameterization\l/test/iterative_spline_tests.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d4a/iterative__spline__tests_8cpp.html",tooltip=" "];
   Node1 -> Node12 [dir="back",color="steelblue1",style="solid"];

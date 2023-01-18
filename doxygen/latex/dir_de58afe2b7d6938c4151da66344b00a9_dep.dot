@@ -1,0 +1,18 @@
+digraph "tesseract_time_parameterization/isp/include"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_131fec00122d666ec2b3e04ed848643d {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="isp", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_131fec00122d666ec2b3e04ed848643d.html",tooltip=""]
+  subgraph clusterdir_de58afe2b7d6938c4151da66344b00a9 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_de58afe2b7d6938c4151da66344b00a9.html",tooltip=""]
+    dir_de58afe2b7d6938c4151da66344b00a9 [shape=plaintext, label="include"];
+  dir_03f1deafc3fe93f7308f71f0a7ea7bdf [label="tesseract_time_parameterization", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_03f1deafc3fe93f7308f71f0a7ea7bdf.html",tooltip=""];
+  }
+  }
+  dir_68e56e9c09e14b8e1bac5d9210612b17 [label="core", fillcolor="#edf0f7", color="red", style="filled,dashed", URL="dir_68e56e9c09e14b8e1bac5d9210612b17.html",tooltip=""];
+  dir_03f1deafc3fe93f7308f71f0a7ea7bdf->dir_68e56e9c09e14b8e1bac5d9210612b17 [headlabel="1", labeldistance=1.5 headhref="dir_000074_000003.html" color="steelblue1" fontcolor="steelblue1"];
+}

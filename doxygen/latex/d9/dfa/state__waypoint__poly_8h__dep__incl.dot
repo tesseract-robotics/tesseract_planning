@@ -44,7 +44,7 @@ digraph "tesseract_command_language/include/tesseract_command_language/poly/stat
   Node4 -> Node50 [dir="back",color="steelblue1",style="solid"];
   Node50 [label="tesseract_task_composer\l/src/nodes/time_optimal\l_parameterization_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/df4/time__optimal__parameterization__task_8cpp.html",tooltip=" "];
   Node4 -> Node53 [dir="back",color="steelblue1",style="solid"];
-  Node53 [label="tesseract_time_parameterization\l/src/instructions_trajectory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/da7/instructions__trajectory_8cpp.html",tooltip="Trajectory Container implementation for command language instructions."];
+  Node53 [label="tesseract_time_parameterization\l/core/src/instructions_trajectory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/da7/instructions__trajectory_8cpp.html",tooltip="Trajectory Container implementation for command language instructions."];
   Node3 -> Node55 [dir="back",color="steelblue1",style="solid"];
   Node55 [label="tesseract_command_language\l/src/composite_instruction.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d22/composite__instruction_8cpp.html",tooltip=" "];
   Node3 -> Node56 [dir="back",color="steelblue1",style="solid"];

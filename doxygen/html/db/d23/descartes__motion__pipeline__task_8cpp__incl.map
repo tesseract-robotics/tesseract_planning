@@ -13,7 +13,7 @@
 <area shape="rect" id="node40" href="$d5/d86/done__task_8h.html" title=" " alt="" coords="1105,394,1277,434"/>
 <area shape="rect" id="node41" href="$d4/d4c/error__task_8h.html" title=" " alt="" coords="909,394,1081,434"/>
 <area shape="rect" id="node42" href="$d4/dd8/descartes__motion__planner_8h.html" title=" " alt="" coords="4473,108,4663,163"/>
-<area shape="rect" id="node7" href="$d4/d58/task__composer__graph_8h.html" title="A task graph." alt="" coords="1319,489,1491,529"/>
+<area shape="rect" id="node7" href="$d4/d58/task__composer__graph_8h.html" title="A task graph." alt="" coords="1303,489,1475,529"/>
 <area shape="rect" id="node13" title=" " alt="" coords="611,665,738,705"/>
 <area shape="rect" id="node14" title=" " alt="" coords="155,665,282,705"/>
 <area shape="rect" id="node15" href="$d3/da7/task__composer__node__names_8h.html" title="Contains default node names." alt="" coords="1875,489,2082,529"/>
@@ -38,8 +38,8 @@
 <area shape="rect" id="node28" title=" " alt="" coords="3755,673,3858,698"/>
 <area shape="rect" id="node34" href="$d7/d2c/task__composer__node__info_8h.html" title="Task composer node info." alt="" coords="2907,489,3095,529"/>
 <area shape="rect" id="node35" title=" " alt="" coords="3049,585,3095,610"/>
-<area shape="rect" id="node37" href="$d3/d2c/iterative__spline__parameterization_8h.html" title=" " alt="" coords="1013,489,1238,529"/>
-<area shape="rect" id="node38" title=" " alt="" coords="944,673,1035,698"/>
+<area shape="rect" id="node37" href="$d3/d2c/iterative__spline__parameterization_8h.html" title=" " alt="" coords="1007,489,1254,529"/>
+<area shape="rect" id="node38" title=" " alt="" coords="945,673,1036,698"/>
 <area shape="rect" id="node39" href="$d5/de8/trajectory__container_8h.html" title="Creates an interface for contaning different trajectory data structures." alt="" coords="1067,577,1277,617"/>
 <area shape="rect" id="node43" title=" " alt="" coords="5003,577,5141,617"/>
 <area shape="rect" id="node44" title=" " alt="" coords="5166,577,5306,617"/>
