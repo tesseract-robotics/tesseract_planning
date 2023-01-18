@@ -118,7 +118,10 @@ target_link_libraries(
          tesseract::tesseract_motion_planners_trajopt
          tesseract::tesseract_motion_planners_ompl
          tesseract::tesseract_motion_planners_descartes
-         tesseract::tesseract_time_parameterization
+         tesseract::tesseract_time_parameterization_core
+         tesseract::tesseract_time_parameterization_isp
+         tesseract::tesseract_time_parameterization_ruckig
+         tesseract::tesseract_time_parameterization_totg
          trajopt::trajopt
          Boost::boost
          Boost::serialization

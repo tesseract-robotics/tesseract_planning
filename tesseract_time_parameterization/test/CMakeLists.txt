@@ -33,7 +33,7 @@ include(GoogleTest)
 # Iterative Spline Time Parameterization Test
 if(TESSERACT_BUILD_ISP)
   add_executable(${PROJECT_NAME}_iterative_spline iterative_spline_tests.cpp)
-  target_link_libraries(${PROJECT_NAME}_iterative_spline PRIVATE GTest::GTest GTest::Main ${PROJECT_NAME})
+  target_link_libraries(${PROJECT_NAME}_iterative_spline PRIVATE GTest::GTest GTest::Main ${PROJECT_NAME}_isp)
   target_compile_options(${PROJECT_NAME}_iterative_spline PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
   target_compile_options(${PROJECT_NAME}_iterative_spline PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
   target_clang_tidy(${PROJECT_NAME}_iterative_spline ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
@@ -45,7 +45,7 @@ if(TESSERACT_BUILD_ISP)
     EXCLUDE ${COVERAGE_EXCLUDE}
     ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
   add_gtest_discover_tests(${PROJECT_NAME}_iterative_spline)
-  add_dependencies(${PROJECT_NAME}_iterative_spline ${PROJECT_NAME})
+  add_dependencies(${PROJECT_NAME}_iterative_spline ${PROJECT_NAME}_isp)
   add_dependencies(run_tests ${PROJECT_NAME}_iterative_spline)
 endif()
 
@@ -53,7 +53,7 @@ endif()
 if(TESSERACT_BUILD_TOTG)
   add_executable(${PROJECT_NAME}_time_optimal_trajectory_generation_tests time_optimal_trajectory_generation_tests.cpp)
   target_link_libraries(${PROJECT_NAME}_time_optimal_trajectory_generation_tests PRIVATE GTest::GTest GTest::Main
-                                                                                         ${PROJECT_NAME})
+                                                                                         ${PROJECT_NAME}_totg)
   target_compile_options(${PROJECT_NAME}_time_optimal_trajectory_generation_tests
                          PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
   target_compile_options(${PROJECT_NAME}_time_optimal_trajectory_generation_tests
@@ -67,15 +67,19 @@ if(TESSERACT_BUILD_TOTG)
     EXCLUDE ${COVERAGE_EXCLUDE}
     ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
   add_gtest_discover_tests(${PROJECT_NAME}_time_optimal_trajectory_generation_tests)
-  add_dependencies(${PROJECT_NAME}_time_optimal_trajectory_generation_tests ${PROJECT_NAME})
+  add_dependencies(${PROJECT_NAME}_time_optimal_trajectory_generation_tests ${PROJECT_NAME}_totg)
   add_dependencies(run_tests ${PROJECT_NAME}_time_optimal_trajectory_generation_tests)
 endif()
 
 # Ruckig Timeparameterization Tests
 if(TESSERACT_BUILD_RUCKIG AND TESSERACT_BUILD_ISP)
   add_executable(${PROJECT_NAME}_ruckig_trajectory_smoothing_tests ruckig_trajectory_smoothing_tests.cpp)
-  target_link_libraries(${PROJECT_NAME}_ruckig_trajectory_smoothing_tests PRIVATE GTest::GTest GTest::Main
-                                                                                  ${PROJECT_NAME})
+  target_link_libraries(
+    ${PROJECT_NAME}_ruckig_trajectory_smoothing_tests
+    PRIVATE GTest::GTest
+            GTest::Main
+            ${PROJECT_NAME}_ruckig
+            ${PROJECT_NAME}_isp)
   target_compile_options(${PROJECT_NAME}_ruckig_trajectory_smoothing_tests PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
   target_compile_options(${PROJECT_NAME}_ruckig_trajectory_smoothing_tests PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
   target_clang_tidy(${PROJECT_NAME}_ruckig_trajectory_smoothing_tests ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
@@ -87,6 +91,6 @@ if(TESSERACT_BUILD_RUCKIG AND TESSERACT_BUILD_ISP)
     EXCLUDE ${COVERAGE_EXCLUDE}
     ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
   add_gtest_discover_tests(${PROJECT_NAME}_ruckig_trajectory_smoothing_tests)
-  add_dependencies(${PROJECT_NAME}_ruckig_trajectory_smoothing_tests ${PROJECT_NAME})
+  add_dependencies(${PROJECT_NAME}_ruckig_trajectory_smoothing_tests ${PROJECT_NAME}_ruckig ${PROJECT_NAME}_isp)
   add_dependencies(run_tests ${PROJECT_NAME}_ruckig_trajectory_smoothing_tests)
 endif()
