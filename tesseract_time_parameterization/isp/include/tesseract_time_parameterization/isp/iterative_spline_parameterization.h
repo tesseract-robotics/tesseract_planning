@@ -43,7 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Eigen>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_time_parameterization/trajectory_container.h>
+#include <tesseract_time_parameterization/core/trajectory_container.h>
 
 namespace tesseract_planning
 {

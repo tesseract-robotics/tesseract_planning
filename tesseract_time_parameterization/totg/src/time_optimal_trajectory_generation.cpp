@@ -46,7 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_time_parameterization/time_optimal_trajectory_generation.h>
+#include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_command_language/utils.h>
 

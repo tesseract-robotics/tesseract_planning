@@ -6,9 +6,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
-#include <tesseract_time_parameterization/ruckig_trajectory_smoothing.h>
-#include <tesseract_time_parameterization/iterative_spline_parameterization.h>
-#include <tesseract_time_parameterization/instructions_trajectory.h>
+#include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing.h>
+#include <tesseract_time_parameterization/isp/iterative_spline_parameterization.h>
+#include <tesseract_time_parameterization/core/instructions_trajectory.h>
 
 #include <ruckig/input_parameter.hpp>
 #include <ruckig/ruckig.hpp>

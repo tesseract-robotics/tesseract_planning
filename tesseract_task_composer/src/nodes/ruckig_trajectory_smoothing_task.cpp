@@ -34,8 +34,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/profiles/ruckig_trajectory_smoothing_profile.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
-#include <tesseract_time_parameterization/instructions_trajectory.h>
-#include <tesseract_time_parameterization/ruckig_trajectory_smoothing.h>
+#include <tesseract_time_parameterization/core/instructions_trajectory.h>
+#include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing.h>
 
 namespace tesseract_planning
 {
