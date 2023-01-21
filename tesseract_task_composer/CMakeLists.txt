@@ -74,6 +74,7 @@ add_library(
   src/nodes/continuous_contact_check_task.cpp
   src/nodes/descartes_global_motion_pipeline_task.cpp
   src/nodes/descartes_motion_pipeline_task.cpp
+  src/nodes/descartes_npc_motion_pipeline_task.cpp
   src/nodes/discrete_contact_check_task.cpp
   src/nodes/done_task.cpp
   src/nodes/error_task.cpp
