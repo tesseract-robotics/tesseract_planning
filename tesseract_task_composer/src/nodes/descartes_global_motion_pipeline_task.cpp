@@ -67,7 +67,7 @@ void DescartesGlobalMotionPipelineTask::ctor(std::string input_key, std::string 
   // Setup TrajOpt
   auto motion_planner = std::make_shared<DescartesMotionPlannerF>();
   boost::uuids::uuid motion_planner_task =
-      addNode(std::make_unique<MotionPlannerTask>(motion_planner, input_keys_[0], output_keys_[0], false));
+      addNode(std::make_unique<MotionPlannerTask>(motion_planner, input_keys_[0], output_keys_[0], true, true));
 
   // Add edges
   addEdges(motion_planner_task, { error_task, done_task });
