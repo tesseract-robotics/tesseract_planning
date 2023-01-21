@@ -297,34 +297,6 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 
       ++start_index;
     }
-
-    //    bool found {false};
-    //    Eigen::Index row{0};
-    //    for (std::size_t i = start_index; i < results_flattened.size(); ++i)
-    //    {
-    //      auto& mi = results_flattened[i].get().as<MoveInstructionPoly>();
-    //      if (mi.getUUID() == pc.start_uuid)
-    //        found = true;
-
-    //      if (found)
-    //      {
-    //        if (mi.getWaypoint().isCartesianWaypoint())
-    //          mi.getWaypoint().as<CartesianWaypointPoly>().setSeed(tesseract_common::JointState(joint_names,
-    //          traj.row(row++)));
-    //        else if (mi.getWaypoint().isJointWaypoint())
-    //          mi.getWaypoint().as<JointWaypointPoly>().setPosition(traj.row(row++));
-    //        else if (mi.getWaypoint().isStateWaypoint())
-    //          mi.getWaypoint().as<StateWaypointPoly>().setPosition(traj.row(row++));
-    //        else
-    //          throw std::runtime_error("OMPLMotionPlannerDefaultConfig: unknown waypoint type");
-    //      }
-
-    //      if (mi.getUUID() == pc.end_uuid)
-    //      {
-    //        start_index = i;
-    //        break;
-    //      }
-    //    }
   }
 
   response.successful = true;
