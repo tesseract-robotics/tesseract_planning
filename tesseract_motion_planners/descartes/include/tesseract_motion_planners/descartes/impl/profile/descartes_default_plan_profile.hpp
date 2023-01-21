@@ -248,7 +248,18 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
     }
     else
     {
-      prob.edge_evaluators.push_back(edge_evaluator(prob));
+      if (enable_edge_collision)
+      {
+        auto compound_evaluator = std::make_shared<descartes_light::CompoundEdgeEvaluator<FloatType>>();
+        compound_evaluator->evaluators.push_back(edge_evaluator(prob));
+        compound_evaluator->evaluators.push_back(std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(
+            *prob.env, prob.manip, edge_collision_check_config, allow_collision, debug));
+        prob.edge_evaluators.push_back(compound_evaluator);
+      }
+      else
+      {
+        prob.edge_evaluators.push_back(edge_evaluator(prob));
+      }
     }
   }
 
