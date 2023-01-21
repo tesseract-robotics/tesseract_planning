@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/nodes/trajopt_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/ompl_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/descartes_motion_pipeline_task.h>
+#include <tesseract_task_composer/nodes/descartes_npc_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/cartesian_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/freespace_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/raster_ct_global_pipeline_task.h>
@@ -62,6 +63,7 @@ void loadDefaultTaskComposerNodes(TaskComposerServer& server,
 #endif
   server.addTask(std::make_unique<OMPLMotionPipelineTask>(input_key, output_key));
   server.addTask(std::make_unique<DescartesMotionPipelineTask>(input_key, output_key));
+  server.addTask(std::make_unique<DescartesNPCMotionPipelineTask>(input_key, output_key));
   server.addTask(std::make_unique<CartesianMotionPipelineTask>(input_key, output_key));
   server.addTask(std::make_unique<FreespaceMotionPipelineTask>(input_key, output_key));
   server.addTask(std::make_unique<RasterCtGlobalPipelineTask>(input_key, output_key));

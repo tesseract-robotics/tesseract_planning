@@ -51,6 +51,9 @@ static const std::string OMPL_PIPELINE_NAME = "OMPLPipeline";
 /** @brief Descartes pipeline */
 static const std::string DESCARTES_PIPELINE_NAME = "DescartesPipeline";
 
+/** @brief Descartes no post check pipeline */
+static const std::string DESCARTES_NPC_PIPELINE_NAME = "DescartesNPCPipeline";
+
 /** @brief Freespace pipeline */
 static const std::string FREESPACE_PIPELINE_NAME = "FreespacePipeline";
 
