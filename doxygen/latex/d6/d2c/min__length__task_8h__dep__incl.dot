@@ -10,15 +10,17 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/nodes/min_lengt
   Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
   Node3 [label="tesseract_task_composer\l/src/nodes/descartes_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/daf/descartes__motion__pipeline__task_8cpp.html",tooltip=" "];
   Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
-  Node4 [label="tesseract_task_composer\l/src/nodes/freespace_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d89/freespace__motion__pipeline__task_8cpp.html",tooltip=" "];
+  Node4 [label="tesseract_task_composer\l/src/nodes/descartes_npc\l_motion_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$da/d51/descartes__npc__motion__pipeline__task_8cpp.html",tooltip=" "];
   Node1 -> Node5 [dir="back",color="steelblue1",style="solid"];
-  Node5 [label="tesseract_task_composer\l/src/nodes/min_length\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/d1c/min__length__task_8cpp.html",tooltip="Task for processing the seed so it meets a minimum length. Planners like trajopt need at least 10 sta..."];
+  Node5 [label="tesseract_task_composer\l/src/nodes/freespace_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d89/freespace__motion__pipeline__task_8cpp.html",tooltip=" "];
   Node1 -> Node6 [dir="back",color="steelblue1",style="solid"];
-  Node6 [label="tesseract_task_composer\l/src/nodes/ompl_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/d5c/ompl__motion__pipeline__task_8cpp.html",tooltip=" "];
+  Node6 [label="tesseract_task_composer\l/src/nodes/min_length\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/d1c/min__length__task_8cpp.html",tooltip="Task for processing the seed so it meets a minimum length. Planners like trajopt need at least 10 sta..."];
   Node1 -> Node7 [dir="back",color="steelblue1",style="solid"];
-  Node7 [label="tesseract_task_composer\l/src/nodes/trajopt_ifopt\l_motion_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d1e/trajopt__ifopt__motion__pipeline__task_8cpp.html",tooltip=" "];
+  Node7 [label="tesseract_task_composer\l/src/nodes/ompl_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/d5c/ompl__motion__pipeline__task_8cpp.html",tooltip=" "];
   Node1 -> Node8 [dir="back",color="steelblue1",style="solid"];
-  Node8 [label="tesseract_task_composer\l/src/nodes/trajopt_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/dc8/trajopt__motion__pipeline__task_8cpp.html",tooltip=" "];
+  Node8 [label="tesseract_task_composer\l/src/nodes/trajopt_ifopt\l_motion_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d1e/trajopt__ifopt__motion__pipeline__task_8cpp.html",tooltip=" "];
   Node1 -> Node9 [dir="back",color="steelblue1",style="solid"];
-  Node9 [label="tesseract_task_composer\l/test/tesseract_task_composer\l_unit.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/db5/tesseract__task__composer__unit_8cpp.html",tooltip=" "];
+  Node9 [label="tesseract_task_composer\l/src/nodes/trajopt_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/dc8/trajopt__motion__pipeline__task_8cpp.html",tooltip=" "];
+  Node1 -> Node10 [dir="back",color="steelblue1",style="solid"];
+  Node10 [label="tesseract_task_composer\l/test/tesseract_task_composer\l_unit.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/db5/tesseract__task__composer__unit_8cpp.html",tooltip=" "];
 }

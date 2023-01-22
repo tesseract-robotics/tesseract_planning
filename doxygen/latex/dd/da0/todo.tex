@@ -80,11 +80,11 @@ Current does not handle if the returned solution is greater than the request
 \item[Member \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ad5aa3b8331fcb4504367dd32d31d9854}{tesseract\+\_\+planning\+::Simple\+Motion\+Planner\+::process\+Composite\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&instructions, \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&prev\+\_\+instruction, \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&prev\+\_\+seed, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const]\label{todo__todo000009}%
 \Hypertarget{todo__todo000009}%
 Update to run IK to find solution closest to start  
-\item[Member \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a1bb58d9e7d8956aecb0feb6626a21ebe}{tesseract\+\_\+planning\+::Task\+Composer\+Input\+::serialize}} (Archive \&ar, const unsigned int version)]\label{todo__todo000035}%
-\Hypertarget{todo__todo000035}%
-Fix after profiles are serializable  
-\item[Member \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a808c675ec842305c839339e77f1103cf}{tesseract\+\_\+planning\+::Time\+Optimal\+Trajectory\+Generation\+::compute\+Time\+Stamps}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&program, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration, double max\+\_\+velocity\+\_\+scaling\+\_\+factor=1.\+0, double max\+\_\+acceleration\+\_\+scaling\+\_\+factor=1.\+0) const]\label{todo__todo000036}%
+\item[Member \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a1bb58d9e7d8956aecb0feb6626a21ebe}{tesseract\+\_\+planning\+::Task\+Composer\+Input\+::serialize}} (Archive \&ar, const unsigned int version)]\label{todo__todo000036}%
 \Hypertarget{todo__todo000036}%
+Fix after profiles are serializable  
+\item[Member \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a808c675ec842305c839339e77f1103cf}{tesseract\+\_\+planning\+::Time\+Optimal\+Trajectory\+Generation\+::compute\+Time\+Stamps}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&program, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration, double max\+\_\+velocity\+\_\+scaling\+\_\+factor=1.\+0, double max\+\_\+acceleration\+\_\+scaling\+\_\+factor=1.\+0) const]\label{todo__todo000037}%
+\Hypertarget{todo__todo000037}%
 Figure out how to maintain the original seed structure of subcomposites  
 \item[Member \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a110527b1475e5b5f8622997825e29e35}{tesseract\+\_\+planning\+::Traj\+Opt\+Ifopt\+Motion\+Planner\+::create\+Problem}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const]\label{todo__todo000032}%
 \Hypertarget{todo__todo000032}%
@@ -114,5 +114,8 @@ Should not make fixed if term\+\_\+type is cost
 
 \label{todo__todo000029}%
 \Hypertarget{todo__todo000029}%
-Should not make fixed if term\+\_\+type is cost 
+Should not make fixed if term\+\_\+type is cost  
+\item[Member \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_ac06636e6680de68245ea5ec5c06767cd}{tesseract\+\_\+planning\+::Update\+End\+State\+Task\+::run\+Impl}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&input, Optional\+Task\+Composer\+Executor executor=std\+::nullopt) const override]\label{todo__todo000035}%
+\Hypertarget{todo__todo000035}%
+Should the waypoint profile be updated to the path profile if it exists? 
 \end{DoxyRefList}

@@ -1,52 +1,52 @@
 <map id="tesseract_task_composer/include/tesseract_task_composer/task_composer_node.h" name="tesseract_task_composer/include/tesseract_task_composer/task_composer_node.h">
-<area shape="rect" id="node1" title="A node in the pipeline." alt="" coords="5853,5,6077,60"/>
-<area shape="rect" id="node2" href="$d4/d58/task__composer__graph_8h.html" title="A task graph." alt="" coords="5876,108,6055,177"/>
-<area shape="rect" id="node24" href="$da/d42/task__composer__plugin__factory_8h.html" title="A plugin factory for producing a task composer." alt="" coords="1735,343,1913,412"/>
-<area shape="rect" id="node28" href="$da/d71/task__composer__task_8h.html" title="A task in the pipeline." alt="" coords="2476,115,2697,170"/>
-<area shape="rect" id="node49" href="$db/d3c/task__composer__node_8cpp.html" title="A node in the pipeline." alt="" coords="6079,123,6275,163"/>
-<area shape="rect" id="node50" href="$dd/d15/task__composer__node__info_8cpp.html" title="Task composer node info." alt="" coords="6299,115,6471,170"/>
-<area shape="rect" id="node3" href="$d2/d8b/task__composer__example_8cpp.html" title=" " alt="" coords="6575,460,6750,515"/>
-<area shape="rect" id="node4" href="$db/d4d/task__composer__raster__example_8cpp.html" title=" " alt="" coords="4350,460,4525,515"/>
-<area shape="rect" id="node5" href="$de/d6f/task__composer__trajopt__example_8cpp.html" title=" " alt="" coords="4617,460,4791,515"/>
-<area shape="rect" id="node6" href="$d2/ded/cartesian__motion__pipeline__task_8h.html" title="Cartesian motion planning pipeline." alt="" coords="4793,225,4975,295"/>
-<area shape="rect" id="node7" href="$d5/d90/descartes__global__motion__pipeline__task_8h.html" title=" " alt="" coords="5000,225,5203,295"/>
-<area shape="rect" id="node8" href="$d4/d01/descartes__motion__pipeline__task_8h.html" title=" " alt="" coords="5227,225,5413,295"/>
-<area shape="rect" id="node9" href="$db/d7a/freespace__motion__pipeline__task_8h.html" title=" " alt="" coords="5437,225,5624,295"/>
-<area shape="rect" id="node10" href="$d0/de5/ompl__motion__pipeline__task_8h.html" title=" " alt="" coords="5648,225,5851,295"/>
-<area shape="rect" id="node11" href="$d4/d09/raster__ct__global__pipeline__task_8h.html" title="Plans raster paths with cartesian transitions." alt="" coords="5875,225,6055,295"/>
-<area shape="rect" id="node12" href="$d3/dfb/raster__ct__only__global__pipeline__task_8h.html" title="Raster only global motion planning task with cartesian transitions." alt="" coords="6080,225,6267,295"/>
-<area shape="rect" id="node13" href="$db/d1f/raster__ct__only__pipeline__task_8h.html" title="Raster only motion planning task with cartesian transitions." alt="" coords="6291,225,6471,295"/>
-<area shape="rect" id="node14" href="$d1/dc3/raster__ct__pipeline__task_8h.html" title="Plans raster paths with cartesian transitions." alt="" coords="6495,225,6675,295"/>
-<area shape="rect" id="node15" href="$d9/d11/raster__ft__global__pipeline__task_8h.html" title="Plans raster paths with freespace transitions." alt="" coords="6699,225,6877,295"/>
-<area shape="rect" id="node16" href="$d2/d44/raster__ft__only__global__pipeline__task_8h.html" title="Raster only global motion planning task with freespace transitions." alt="" coords="6901,225,7088,295"/>
-<area shape="rect" id="node17" href="$d2/d37/raster__ft__only__pipeline__task_8h.html" title="Raster only motion planning task with freespace transitions." alt="" coords="7113,225,7290,295"/>
-<area shape="rect" id="node18" href="$de/d8e/raster__ft__pipeline__task_8h.html" title="Plans raster paths with freespace transitions." alt="" coords="7314,225,7491,295"/>
-<area shape="rect" id="node19" href="$d2/dd8/simple__motion__pipeline__task_8h.html" title=" " alt="" coords="7516,225,7729,295"/>
-<area shape="rect" id="node20" href="$d2/d10/trajopt__ifopt__motion__pipeline__task_8h.html" title=" " alt="" coords="7754,225,7947,295"/>
-<area shape="rect" id="node21" href="$de/d7e/trajopt__motion__pipeline__task_8h.html" title=" " alt="" coords="4742,343,4914,412"/>
-<area shape="rect" id="node22" href="$db/d1d/task__composer_8h.html" title="A task graph." alt="" coords="7972,233,8161,287"/>
-<area shape="rect" id="node23" href="$d6/dab/task__composer__executor_8h.html" title="The executor for executing task graphs." alt="" coords="4336,225,4515,295"/>
-<area shape="rect" id="node26" href="$da/d8c/taskflow__task__composer__executor_8h.html" title="The tasflow executor implementation." alt="" coords="4475,343,4666,412"/>
-<area shape="rect" id="node27" href="$de/d20/task__composer__graph_8cpp.html" title="A task graph." alt="" coords="8185,240,8385,280"/>
-<area shape="rect" id="node25" href="$d7/d4b/task__composer__plugin__factory_8cpp.html" title="A plugin factory for producing a task composer." alt="" coords="1735,460,1913,515"/>
-<area shape="rect" id="node29" href="$d7/d32/check__input__task_8h.html" title="Task for checking input data structure." alt="" coords="3158,233,3399,287"/>
-<area shape="rect" id="node30" href="$d0/d58/continuous__contact__check__task_8h.html" title="Continuous Collision check trajectory task." alt="" coords="3424,225,3616,295"/>
-<area shape="rect" id="node31" href="$d1/d26/discrete__contact__check__task_8h.html" title="Discrete Collision check trajectory task." alt="" coords="3641,225,3815,295"/>
-<area shape="rect" id="node32" href="$d5/d86/done__task_8h.html" title=" " alt="" coords="3891,233,4090,287"/>
-<area shape="rect" id="node33" href="$d4/d4c/error__task_8h.html" title=" " alt="" coords="4115,233,4312,287"/>
-<area shape="rect" id="node34" href="$dd/d8f/fix__state__bounds__task_8h.html" title="Task that pushes plan instructions back within joint limits." alt="" coords="34,225,211,295"/>
-<area shape="rect" id="node35" href="$d6/db0/fix__state__collision__task_8h.html" title="Task that pushes plan instructions to be out of collision." alt="" coords="235,225,413,295"/>
-<area shape="rect" id="node36" href="$d3/db1/iterative__spline__parameterization__task_8h.html" title="Perform iterative spline time parameterization." alt="" coords="437,225,643,295"/>
-<area shape="rect" id="node37" href="$d3/d6c/min__length__task_8h.html" title="Task for processing the seed so it meets a minimum length. Planners like trajopt need at least 10 sta..." alt="" coords="668,233,903,287"/>
-<area shape="rect" id="node38" href="$db/dd9/motion__planner__task_8h.html" title="Task Composer motion planner task." alt="" coords="927,233,1185,287"/>
-<area shape="rect" id="node39" href="$dd/d2f/profile__switch__task_8h.html" title="Task that returns a value based on the profile." alt="" coords="1210,225,1382,295"/>
-<area shape="rect" id="node40" href="$db/d8a/raster__ct__motion__task_8h.html" title="Raster motion task with cartesian transitions." alt="" coords="1406,225,1586,295"/>
-<area shape="rect" id="node41" href="$dc/df9/raster__ct__only__motion__task_8h.html" title="Plans raster paths with cartesian transitions." alt="" coords="1610,225,1790,295"/>
-<area shape="rect" id="node42" href="$df/d50/raster__ft__motion__task_8h.html" title="Raster motion task with freespace transitions." alt="" coords="3994,343,4171,412"/>
-<area shape="rect" id="node43" href="$d7/d81/raster__ft__only__motion__task_8h.html" title="Plans raster paths with freespace transitions." alt="" coords="1814,225,1991,295"/>
-<area shape="rect" id="node44" href="$d4/d4d/ruckig__trajectory__smoothing__task_8h.html" title="Leveraging Ruckig to smooth trajectory." alt="" coords="2016,225,2240,295"/>
-<area shape="rect" id="node45" href="$d2/d48/start__task_8h.html" title=" " alt="" coords="2264,233,2461,287"/>
-<area shape="rect" id="node46" href="$d6/d94/time__optimal__parameterization__task_8h.html" title="Perform TOTG." alt="" coords="2485,225,2688,295"/>
-<area shape="rect" id="node47" href="$d4/d1c/update__end__state__task_8h.html" title=" " alt="" coords="2713,225,2909,295"/>
-<area shape="rect" id="node48" href="$da/d4e/update__start__and__end__state__task_8h.html" title=" " alt="" coords="2933,225,3134,295"/>
+<area shape="rect" id="node1" title="A node in the pipeline." alt="" coords="5580,5,5804,60"/>
+<area shape="rect" id="node2" href="$d4/d58/task__composer__graph_8h.html" title="A task graph." alt="" coords="5603,108,5781,177"/>
+<area shape="rect" id="node25" href="$da/d42/task__composer__plugin__factory_8h.html" title="A plugin factory for producing a task composer." alt="" coords="1357,343,1536,412"/>
+<area shape="rect" id="node29" href="$da/d71/task__composer__task_8h.html" title="A task in the pipeline." alt="" coords="2321,115,2543,170"/>
+<area shape="rect" id="node49" href="$db/d3c/task__composer__node_8cpp.html" title="A node in the pipeline." alt="" coords="5806,123,6002,163"/>
+<area shape="rect" id="node50" href="$dd/d15/task__composer__node__info_8cpp.html" title="Task composer node info." alt="" coords="6026,115,6198,170"/>
+<area shape="rect" id="node3" href="$d2/d8b/task__composer__example_8cpp.html" title=" " alt="" coords="4674,460,4849,515"/>
+<area shape="rect" id="node4" href="$db/d4d/task__composer__raster__example_8cpp.html" title=" " alt="" coords="4290,460,4465,515"/>
+<area shape="rect" id="node5" href="$de/d6f/task__composer__trajopt__example_8cpp.html" title=" " alt="" coords="5025,460,5199,515"/>
+<area shape="rect" id="node6" href="$d2/ded/cartesian__motion__pipeline__task_8h.html" title="Cartesian motion planning pipeline." alt="" coords="5274,225,5457,295"/>
+<area shape="rect" id="node7" href="$d5/d90/descartes__global__motion__pipeline__task_8h.html" title=" " alt="" coords="5481,225,5684,295"/>
+<area shape="rect" id="node8" href="$d4/d01/descartes__motion__pipeline__task_8h.html" title=" " alt="" coords="5708,225,5895,295"/>
+<area shape="rect" id="node9" href="$db/de1/descartes__npc__motion__pipeline__task_8h.html" title=" " alt="" coords="5919,225,6108,295"/>
+<area shape="rect" id="node10" href="$db/d7a/freespace__motion__pipeline__task_8h.html" title=" " alt="" coords="6132,225,6319,295"/>
+<area shape="rect" id="node11" href="$d0/de5/ompl__motion__pipeline__task_8h.html" title=" " alt="" coords="6343,225,6545,295"/>
+<area shape="rect" id="node12" href="$d4/d09/raster__ct__global__pipeline__task_8h.html" title="Plans raster paths with cartesian transitions." alt="" coords="6570,225,6750,295"/>
+<area shape="rect" id="node13" href="$d3/dfb/raster__ct__only__global__pipeline__task_8h.html" title="Raster only global motion planning task with cartesian transitions." alt="" coords="6775,225,6961,295"/>
+<area shape="rect" id="node14" href="$db/d1f/raster__ct__only__pipeline__task_8h.html" title="Raster only motion planning task with cartesian transitions." alt="" coords="6986,225,7166,295"/>
+<area shape="rect" id="node15" href="$d1/dc3/raster__ct__pipeline__task_8h.html" title="Plans raster paths with cartesian transitions." alt="" coords="7190,225,7370,295"/>
+<area shape="rect" id="node16" href="$d9/d11/raster__ft__global__pipeline__task_8h.html" title="Plans raster paths with freespace transitions." alt="" coords="7394,225,7571,295"/>
+<area shape="rect" id="node17" href="$d2/d44/raster__ft__only__global__pipeline__task_8h.html" title="Raster only global motion planning task with freespace transitions." alt="" coords="7596,225,7783,295"/>
+<area shape="rect" id="node18" href="$d2/d37/raster__ft__only__pipeline__task_8h.html" title="Raster only motion planning task with freespace transitions." alt="" coords="7807,225,7985,295"/>
+<area shape="rect" id="node19" href="$de/d8e/raster__ft__pipeline__task_8h.html" title="Plans raster paths with freespace transitions." alt="" coords="8009,225,8186,295"/>
+<area shape="rect" id="node20" href="$d2/dd8/simple__motion__pipeline__task_8h.html" title=" " alt="" coords="8211,225,8424,295"/>
+<area shape="rect" id="node21" href="$d2/d10/trajopt__ifopt__motion__pipeline__task_8h.html" title=" " alt="" coords="4415,225,4609,295"/>
+<area shape="rect" id="node22" href="$de/d7e/trajopt__motion__pipeline__task_8h.html" title=" " alt="" coords="5026,343,5198,412"/>
+<area shape="rect" id="node23" href="$db/d1d/task__composer_8h.html" title="A task graph." alt="" coords="4684,233,4873,287"/>
+<area shape="rect" id="node24" href="$d6/dab/task__composer__executor_8h.html" title="The executor for executing task graphs." alt="" coords="4111,225,4289,295"/>
+<area shape="rect" id="node27" href="$da/d8c/taskflow__task__composer__executor_8h.html" title="The tasflow executor implementation." alt="" coords="4517,343,4707,412"/>
+<area shape="rect" id="node28" href="$de/d20/task__composer__graph_8cpp.html" title="A task graph." alt="" coords="4948,240,5148,280"/>
+<area shape="rect" id="node26" href="$d7/d4b/task__composer__plugin__factory_8cpp.html" title="A plugin factory for producing a task composer." alt="" coords="1357,460,1536,515"/>
+<area shape="rect" id="node30" href="$d7/d32/check__input__task_8h.html" title="Task for checking input data structure." alt="" coords="1757,233,1998,287"/>
+<area shape="rect" id="node31" href="$d0/d58/continuous__contact__check__task_8h.html" title="Continuous Collision check trajectory task." alt="" coords="2023,225,2215,295"/>
+<area shape="rect" id="node32" href="$d1/d26/discrete__contact__check__task_8h.html" title="Discrete Collision check trajectory task." alt="" coords="2239,225,2414,295"/>
+<area shape="rect" id="node33" href="$d5/d86/done__task_8h.html" title=" " alt="" coords="2438,233,2637,287"/>
+<area shape="rect" id="node34" href="$d4/d4c/error__task_8h.html" title=" " alt="" coords="2661,233,2859,287"/>
+<area shape="rect" id="node35" href="$dd/d8f/fix__state__bounds__task_8h.html" title="Task that pushes plan instructions back within joint limits." alt="" coords="2883,225,3061,295"/>
+<area shape="rect" id="node36" href="$d6/db0/fix__state__collision__task_8h.html" title="Task that pushes plan instructions to be out of collision." alt="" coords="3137,225,3314,295"/>
+<area shape="rect" id="node37" href="$d3/db1/iterative__spline__parameterization__task_8h.html" title="Perform iterative spline time parameterization." alt="" coords="3338,225,3545,295"/>
+<area shape="rect" id="node38" href="$d3/d6c/min__length__task_8h.html" title="Task for processing the seed so it meets a minimum length. Planners like trajopt need at least 10 sta..." alt="" coords="3569,233,3804,287"/>
+<area shape="rect" id="node39" href="$db/dd9/motion__planner__task_8h.html" title="Task Composer motion planner task." alt="" coords="3828,233,4087,287"/>
+<area shape="rect" id="node40" href="$dd/d2f/profile__switch__task_8h.html" title="Task that returns a value based on the profile." alt="" coords="34,225,206,295"/>
+<area shape="rect" id="node41" href="$db/d8a/raster__ct__motion__task_8h.html" title="Raster motion task with cartesian transitions." alt="" coords="230,225,410,295"/>
+<area shape="rect" id="node42" href="$dc/df9/raster__ct__only__motion__task_8h.html" title="Plans raster paths with cartesian transitions." alt="" coords="434,225,614,295"/>
+<area shape="rect" id="node43" href="$df/d50/raster__ft__motion__task_8h.html" title="Raster motion task with freespace transitions." alt="" coords="3586,343,3763,412"/>
+<area shape="rect" id="node44" href="$d7/d81/raster__ft__only__motion__task_8h.html" title="Plans raster paths with freespace transitions." alt="" coords="638,225,815,295"/>
+<area shape="rect" id="node45" href="$d4/d4d/ruckig__trajectory__smoothing__task_8h.html" title="Leveraging Ruckig to smooth trajectory." alt="" coords="840,225,1064,295"/>
+<area shape="rect" id="node46" href="$d2/d48/start__task_8h.html" title=" " alt="" coords="1088,233,1285,287"/>
+<area shape="rect" id="node47" href="$d6/d94/time__optimal__parameterization__task_8h.html" title="Perform TOTG." alt="" coords="1309,225,1512,295"/>
+<area shape="rect" id="node48" href="$d4/d1c/update__end__state__task_8h.html" title=" " alt="" coords="1537,225,1733,295"/>
 </map>

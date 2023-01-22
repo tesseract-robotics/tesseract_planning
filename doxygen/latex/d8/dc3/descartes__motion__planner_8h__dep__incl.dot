@@ -21,4 +21,6 @@ digraph "tesseract_motion_planners/descartes/include/tesseract_motion_planners/d
   Node8 [label="tesseract_task_composer\l/src/nodes/descartes_global\l_motion_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d24/descartes__global__motion__pipeline__task_8cpp.html",tooltip=" "];
   Node1 -> Node9 [dir="back",color="steelblue1",style="solid"];
   Node9 [label="tesseract_task_composer\l/src/nodes/descartes_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/daf/descartes__motion__pipeline__task_8cpp.html",tooltip=" "];
+  Node1 -> Node10 [dir="back",color="steelblue1",style="solid"];
+  Node10 [label="tesseract_task_composer\l/src/nodes/descartes_npc\l_motion_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$da/d51/descartes__npc__motion__pipeline__task_8cpp.html",tooltip=" "];
 }
