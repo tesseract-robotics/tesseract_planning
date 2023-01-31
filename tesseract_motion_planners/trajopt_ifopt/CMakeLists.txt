@@ -25,7 +25,7 @@ target_code_coverage(
   PRIVATE
   ALL
   EXCLUDE ${COVERAGE_EXCLUDE}
-  ENABLE ${TESSERACT_ENABLE_TESTING})
+  ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 target_include_directories(${PROJECT_NAME}_trajopt_ifopt PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                                 "$<INSTALL_INTERFACE:include>")
 
