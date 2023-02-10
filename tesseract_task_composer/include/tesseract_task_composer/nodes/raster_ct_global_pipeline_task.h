@@ -29,10 +29,15 @@
 #include <tesseract_task_composer/task_composer_graph.h>
 #include <tesseract_task_composer/task_composer_node_names.h>
 
+#include <tesseract_task_composer/nodes/raster_global_pipeline_task.hpp>
+#include <tesseract_task_composer/nodes/simple_motion_pipeline_task.h>
+#include <tesseract_task_composer/nodes/raster_ct_motion_task.h>
+#include <tesseract_task_composer/nodes/descartes_global_motion_pipeline_task.h>
+
 namespace tesseract_planning
 {
 /**
- * @brief The RasterCtGlobalPipelineTask class
+ * @brief The RasterGlobalPipelineTask class
  * @details The required format is below.
  *
  * Composite
@@ -46,7 +51,10 @@ namespace tesseract_planning
  *   Composite - to end
  * }
  */
-class RasterCtGlobalPipelineTask : public TaskComposerGraph
+using RasterCtGlobalPipelineTaskBase =
+    RasterGlobalPipelineTask<SimpleMotionPipelineTask, DescartesGlobalMotionPipelineTask, RasterCtMotionTask>;
+
+class RasterCtGlobalPipelineTask : public RasterCtGlobalPipelineTaskBase
 {
 public:
   using Ptr = std::shared_ptr<RasterCtGlobalPipelineTask>;
@@ -64,9 +72,6 @@ public:
   RasterCtGlobalPipelineTask(RasterCtGlobalPipelineTask&&) = delete;
   RasterCtGlobalPipelineTask& operator=(RasterCtGlobalPipelineTask&&) = delete;
 
-  bool operator==(const RasterCtGlobalPipelineTask& rhs) const;
-  bool operator!=(const RasterCtGlobalPipelineTask& rhs) const;
-
 protected:
   friend class tesseract_common::Serialization;
   friend class boost::serialization::access;
@@ -78,7 +83,7 @@ protected:
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RasterCtGlobalPipelineTaskBase, "RasterCtGlobalPipelineTaskBase")
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RasterCtGlobalPipelineTask, "RasterCtGlobalPipelineTask")
 
 #endif  // TESSERACT_TASK_COMPOSER_RASTER_CT_GLOBAL_PIPELINE_TASK_H

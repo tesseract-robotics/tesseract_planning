@@ -29,6 +29,10 @@
 #include <tesseract_task_composer/task_composer_graph.h>
 #include <tesseract_task_composer/task_composer_node_names.h>
 
+#include <tesseract_task_composer/nodes/raster_pipeline_task.hpp>
+#include <tesseract_task_composer/nodes/simple_motion_pipeline_task.h>
+#include <tesseract_task_composer/nodes/raster_ft_only_motion_task.h>
+
 namespace tesseract_planning
 {
 /**
@@ -44,7 +48,8 @@ namespace tesseract_planning
  *   Composite - Raster segment
  * }
  */
-class RasterFtOnlyPipelineTask : public TaskComposerGraph
+using RasterFtOnlyPipelineTaskBase = RasterPipelineTask<SimpleMotionPipelineTask, RasterFtOnlyMotionTask>;
+class RasterFtOnlyPipelineTask : public RasterFtOnlyPipelineTaskBase
 {
 public:
   using Ptr = std::shared_ptr<RasterFtOnlyPipelineTask>;
@@ -62,9 +67,6 @@ public:
   RasterFtOnlyPipelineTask(RasterFtOnlyPipelineTask&&) = delete;
   RasterFtOnlyPipelineTask& operator=(RasterFtOnlyPipelineTask&&) = delete;
 
-  bool operator==(const RasterFtOnlyPipelineTask& rhs) const;
-  bool operator!=(const RasterFtOnlyPipelineTask& rhs) const;
-
 protected:
   friend class tesseract_common::Serialization;
   friend class boost::serialization::access;
@@ -76,7 +78,7 @@ protected:
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RasterFtOnlyPipelineTaskBase, "RasterFtOnlyPipelineTaskBase")
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RasterFtOnlyPipelineTask, "RasterFtOnlyPipelineTask")
 
 #endif  // TESSERACT_TASK_COMPOSER_RASTER_FT_ONLY_PIPELINE_TASK_H

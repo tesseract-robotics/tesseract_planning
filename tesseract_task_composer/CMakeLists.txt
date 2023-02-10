@@ -178,6 +178,7 @@ install(
   DESTINATION include
   FILES_MATCHING
   PATTERN "*.h"
+  PATTERN "*.hpp"
   PATTERN ".svn" EXCLUDE)
 
 if(TESSERACT_ENABLE_EXAMPLES)
