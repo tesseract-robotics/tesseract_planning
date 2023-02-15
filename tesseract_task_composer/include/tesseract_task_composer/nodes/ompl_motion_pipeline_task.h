@@ -29,9 +29,16 @@
 #include <tesseract_task_composer/task_composer_graph.h>
 #include <tesseract_task_composer/task_composer_node_names.h>
 
+#include <tesseract_task_composer/nodes/motion_pipeline_task.hpp>
+#include <tesseract_task_composer/nodes/ompl_motion_planner_task.h>
+#include <tesseract_task_composer/nodes/discrete_contact_check_task.h>
+#include <tesseract_task_composer/nodes/iterative_spline_parameterization_task.h>
+
 namespace tesseract_planning
 {
-class OMPLMotionPipelineTask : public TaskComposerGraph
+using OMPLMotionPipelineTaskBase =
+    MotionPipelineTask<OMPLMotionPlannerTask, DiscreteContactCheckTask, IterativeSplineParameterizationTask>;
+class OMPLMotionPipelineTask : public OMPLMotionPipelineTaskBase
 {
 public:
   using Ptr = std::shared_ptr<OMPLMotionPipelineTask>;
@@ -39,11 +46,6 @@ public:
   using UPtr = std::unique_ptr<OMPLMotionPipelineTask>;
   using ConstUPtr = std::unique_ptr<const OMPLMotionPipelineTask>;
 
-  /**
-   * @brief OMPLMotionPipelineTask
-   * @details This will use the uuid as the input and output key
-   * @param name The name give to the task
-   */
   OMPLMotionPipelineTask(std::string name = node_names::OMPL_PIPELINE_NAME);
   OMPLMotionPipelineTask(std::string input_key,
                          std::string output_key,
@@ -54,22 +56,17 @@ public:
   OMPLMotionPipelineTask(OMPLMotionPipelineTask&&) = delete;
   OMPLMotionPipelineTask& operator=(OMPLMotionPipelineTask&&) = delete;
 
-  bool operator==(const OMPLMotionPipelineTask& rhs) const;
-  bool operator!=(const OMPLMotionPipelineTask& rhs) const;
-
 protected:
   friend class tesseract_common::Serialization;
   friend class boost::serialization::access;
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
-  void ctor(std::string input_key, std::string output_key);
 };
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::OMPLMotionPipelineTaskBase, "OMPLMotionPipelineTaskBase")
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::OMPLMotionPipelineTask, "OMPLMotionPipelineTask")
 
 #endif  // TESSERACT_TASK_COMPOSER_OMPL_MOTION_PIPELINE_TASK_H

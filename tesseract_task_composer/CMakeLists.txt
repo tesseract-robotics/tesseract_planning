@@ -74,6 +74,7 @@ add_library(
   src/nodes/continuous_contact_check_task.cpp
   src/nodes/descartes_global_motion_pipeline_task.cpp
   src/nodes/descartes_motion_pipeline_task.cpp
+  src/nodes/descartes_motion_planner_task.cpp
   src/nodes/descartes_npc_motion_pipeline_task.cpp
   src/nodes/discrete_contact_check_task.cpp
   src/nodes/done_task.cpp
@@ -82,8 +83,8 @@ add_library(
   src/nodes/fix_state_collision_task.cpp
   src/nodes/freespace_motion_pipeline_task.cpp
   src/nodes/iterative_spline_parameterization_task.cpp
-  src/nodes/motion_planner_task.cpp
   src/nodes/ompl_motion_pipeline_task.cpp
+  src/nodes/ompl_motion_planner_task.cpp
   src/nodes/profile_switch_task.cpp
   src/nodes/raster_ct_global_pipeline_task.cpp
   src/nodes/raster_ct_motion_task.cpp
@@ -100,9 +101,11 @@ add_library(
   src/nodes/ruckig_trajectory_smoothing_task.cpp
   src/nodes/min_length_task.cpp
   src/nodes/simple_motion_pipeline_task.cpp
+  src/nodes/simple_motion_planner_task.cpp
   src/nodes/start_task.cpp
   src/nodes/time_optimal_parameterization_task.cpp
   src/nodes/trajopt_motion_pipeline_task.cpp
+  src/nodes/trajopt_motion_planner_task.cpp
   src/nodes/update_end_state_task.cpp
   src/nodes/update_start_and_end_state_task.cpp
   src/nodes/update_start_state_task.cpp
@@ -145,7 +148,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CUR
                                                   "$<INSTALL_INTERFACE:include>")
 
 if(TESSERACT_BUILD_TRAJOPT_IFOPT)
-  target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/nodes/trajopt_ifopt_motion_pipeline_task.cpp)
+  target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/nodes/trajopt_ifopt_motion_pipeline_task.cpp
+                                         ${CMAKE_CURRENT_SOURCE_DIR}/src/nodes/trajopt_ifopt_motion_planner_task.cpp)
   target_link_libraries(${PROJECT_NAME} PUBLIC tesseract::tesseract_motion_planners_trajopt_ifopt)
   target_compile_definitions(${PROJECT_NAME} PUBLIC TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT=1)
 endif()

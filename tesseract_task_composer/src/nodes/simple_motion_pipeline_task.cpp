@@ -32,12 +32,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
 #include <tesseract_task_composer/nodes/simple_motion_pipeline_task.h>
+
 #include <tesseract_task_composer/nodes/check_input_task.h>
-#include <tesseract_task_composer/nodes/motion_planner_task.h>
+#include <tesseract_task_composer/nodes/simple_motion_planner_task.h>
 #include <tesseract_task_composer/nodes/done_task.h>
 #include <tesseract_task_composer/nodes/error_task.h>
-
-#include <tesseract_motion_planners/simple/simple_motion_planner.h>
 
 namespace tesseract_planning
 {
@@ -63,9 +62,8 @@ void SimpleMotionPipelineTask::ctor(std::string input_key, std::string output_ke
   boost::uuids::uuid check_input_task = addNode(std::make_unique<CheckInputTask>(input_keys_[0]));
 
   // Setup Simple Planner
-  auto motion_planner = std::make_shared<SimpleMotionPlanner>();
   boost::uuids::uuid motion_planner_task =
-      addNode(std::make_unique<MotionPlannerTask>(motion_planner, input_keys_[0], output_keys_[0], false));
+      addNode(std::make_unique<SimpleMotionPlannerTask>(input_keys_[0], output_keys_[0], false));
 
   // Add edges
   addEdges(check_input_task, { error_task, motion_planner_task });

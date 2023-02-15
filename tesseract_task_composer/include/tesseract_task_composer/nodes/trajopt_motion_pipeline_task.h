@@ -29,9 +29,16 @@
 #include <tesseract_task_composer/task_composer_graph.h>
 #include <tesseract_task_composer/task_composer_node_names.h>
 
+#include <tesseract_task_composer/nodes/motion_pipeline_task.hpp>
+#include <tesseract_task_composer/nodes/trajopt_motion_planner_task.h>
+#include <tesseract_task_composer/nodes/discrete_contact_check_task.h>
+#include <tesseract_task_composer/nodes/iterative_spline_parameterization_task.h>
+
 namespace tesseract_planning
 {
-class TrajOptMotionPipelineTask : public TaskComposerGraph
+using TrajOptMotionPipelineTaskBase =
+    MotionPipelineTask<TrajOptMotionPlannerTask, DiscreteContactCheckTask, IterativeSplineParameterizationTask>;
+class TrajOptMotionPipelineTask : public TrajOptMotionPipelineTaskBase
 {
 public:
   using Ptr = std::shared_ptr<TrajOptMotionPipelineTask>;
@@ -39,11 +46,6 @@ public:
   using UPtr = std::unique_ptr<TrajOptMotionPipelineTask>;
   using ConstUPtr = std::unique_ptr<const TrajOptMotionPipelineTask>;
 
-  /**
-   * @brief TrajOptMotionPipelineTask
-   * @details This will use the uuid as the input and output key
-   * @param name The name give to the task
-   */
   TrajOptMotionPipelineTask(std::string name = node_names::TRAJOPT_PIPELINE_NAME);
   TrajOptMotionPipelineTask(std::string input_key,
                             std::string output_key,
@@ -54,22 +56,17 @@ public:
   TrajOptMotionPipelineTask(TrajOptMotionPipelineTask&&) = delete;
   TrajOptMotionPipelineTask& operator=(TrajOptMotionPipelineTask&&) = delete;
 
-  bool operator==(const TrajOptMotionPipelineTask& rhs) const;
-  bool operator!=(const TrajOptMotionPipelineTask& rhs) const;
-
 protected:
   friend class tesseract_common::Serialization;
   friend class boost::serialization::access;
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
-  void ctor(std::string input_key, std::string output_key);
 };
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TrajOptMotionPipelineTaskBase, "TrajOptMotionPipelineTaskBase")
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TrajOptMotionPipelineTask, "TrajOptMotionPipelineTask")
 
 #endif  // TESSERACT_TASK_COMPOSER_TRAJOPT_MOTION_PIPELINE_TASK_H

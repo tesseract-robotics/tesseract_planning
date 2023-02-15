@@ -33,12 +33,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/nodes/descartes_global_motion_pipeline_task.h>
 
-#include <tesseract_task_composer/nodes/motion_planner_task.h>
+#include <tesseract_task_composer/nodes/descartes_motion_planner_task.h>
 #include <tesseract_task_composer/nodes/discrete_contact_check_task.h>
 #include <tesseract_task_composer/nodes/done_task.h>
 #include <tesseract_task_composer/nodes/error_task.h>
-
-#include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 
 namespace tesseract_planning
 {
@@ -65,9 +63,8 @@ void DescartesGlobalMotionPipelineTask::ctor(std::string input_key, std::string 
   boost::uuids::uuid error_task = addNode(std::make_unique<ErrorTask>());
 
   // Setup TrajOpt
-  auto motion_planner = std::make_shared<DescartesMotionPlannerF>();
   boost::uuids::uuid motion_planner_task =
-      addNode(std::make_unique<MotionPlannerTask>(motion_planner, input_keys_[0], output_keys_[0], true, true));
+      addNode(std::make_unique<DescartesMotionPlannerTask>(input_keys_[0], output_keys_[0], true, true));
 
   // Add edges
   addEdges(motion_planner_task, { error_task, done_task });

@@ -33,13 +33,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/nodes/descartes_npc_motion_pipeline_task.h>
 
-#include <tesseract_task_composer/nodes/motion_planner_task.h>
+#include <tesseract_task_composer/nodes/descartes_motion_planner_task.h>
 #include <tesseract_task_composer/nodes/min_length_task.h>
 #include <tesseract_task_composer/nodes/iterative_spline_parameterization_task.h>
 #include <tesseract_task_composer/nodes/done_task.h>
 #include <tesseract_task_composer/nodes/error_task.h>
-
-#include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 
 namespace tesseract_planning
 {
@@ -70,9 +68,8 @@ void DescartesNPCMotionPipelineTask::ctor(std::string input_key, std::string out
   boost::uuids::uuid min_length_task = addNode(std::make_unique<MinLengthTask>(input_keys_[0], output_keys_[0]));
 
   // Setup TrajOpt
-  auto motion_planner = std::make_shared<DescartesMotionPlannerF>();
   boost::uuids::uuid motion_planner_task =
-      addNode(std::make_unique<MotionPlannerTask>(motion_planner, output_keys_[0], output_keys_[0], false));
+      addNode(std::make_unique<DescartesMotionPlannerTask>(output_keys_[0], output_keys_[0], false));
 
   // Setup time parameterization and smoothing
   boost::uuids::uuid time_parameterization_task =
