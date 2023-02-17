@@ -1,0 +1,54 @@
+\hypertarget{simple__motion__planner__task_8h_source}{}\doxysection{simple\+\_\+motion\+\_\+planner\+\_\+task.\+h}
+\label{simple__motion__planner__task_8h_source}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/simple\_motion\_planner\_task.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/simple\_motion\_planner\_task.h}}
+\mbox{\hyperlink{simple__motion__planner__task_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_SIMPLE\_MOTION\_PLANNER\_TASK\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_SIMPLE\_MOTION\_PLANNER\_TASK\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__task_8h}{tesseract\_task\_composer/task\_composer\_task.h}}>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__node__names_8h}{tesseract\_task\_composer/task\_composer\_node\_names.h}}>}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{motion__planner__task_8hpp}{tesseract\_task\_composer/nodes/motion\_planner\_task.hpp}}>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{simple__motion__planner_8h}{tesseract\_motion\_planners/simple/simple\_motion\_planner.h}}>}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37 \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{SimpleMotionPlannerTaskBase}} = \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{MotionPlannerTask<SimpleMotionPlanner>}};}
+\DoxyCodeLine{38 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask}{SimpleMotionPlannerTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{SimpleMotionPlannerTaskBase}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 \textcolor{keyword}{public}:}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_aed8cea654158a2c650c1588ec49261c5}{Ptr}} = std::shared\_ptr<SimpleMotionPlannerTask>;}
+\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_ae81658c6cf56fdd047f740ed9975bd62}{ConstPtr}} = std::shared\_ptr<const SimpleMotionPlannerTask>;}
+\DoxyCodeLine{43   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_a6fdaafcdad65a12776762b0edc04e40c}{UPtr}} = std::unique\_ptr<SimpleMotionPlannerTask>;}
+\DoxyCodeLine{44   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_a7c602c2acd81cddfa71a02b1ad046234}{ConstUPtr}} = std::unique\_ptr<const SimpleMotionPlannerTask>;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_a8e1259bf245707fc5d1482960a38fd49}{SimpleMotionPlannerTask}}() = \textcolor{keywordflow}{default};  \textcolor{comment}{// Required for serialization}}
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_a8e1259bf245707fc5d1482960a38fd49}{SimpleMotionPlannerTask}}(std::string input\_key,}
+\DoxyCodeLine{48                           std::string output\_key,}
+\DoxyCodeLine{49                           \textcolor{keywordtype}{bool} format\_result\_as\_input = \textcolor{keyword}{true},}
+\DoxyCodeLine{50                           \textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{true},}
+\DoxyCodeLine{51                           std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ac9486cd2c325a47a88e6c735a78aeb3e}{node\_names::SIMPLE\_MOTION\_PLANNER\_TASK\_NAME}});}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_ad72152231bd36a89a6c7a97fc2357ac0}{\string~SimpleMotionPlannerTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_aaabc5b769c56010fc522828cc544bed6}{SimpleMotionPlannerTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask}{SimpleMotionPlannerTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask}{SimpleMotionPlannerTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_acc192614a4523c1484f2bbcbc0d1a88a}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask}{SimpleMotionPlannerTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_a33cbcdca4040120377de432307a40bc0}{SimpleMotionPlannerTask}}(\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask}{SimpleMotionPlannerTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask}{SimpleMotionPlannerTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_a0b9dc97d7afcef50a1dbb704cc188adf}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask}{SimpleMotionPlannerTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{59   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{60   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{63   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask_af818d709afdf619f1c10cb16ccb059c3}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{64 \};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{69 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{tesseract\_planning::SimpleMotionPlannerTaskBase}}, \textcolor{stringliteral}{"{}SimpleMotionPlannerTaskBase"{}})}
+\DoxyCodeLine{70 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::SimpleMotionPlannerTask, "{}SimpleMotionPlannerTask"{})}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_SIMPLE\_MOTION\_PLANNER\_TASK\_H}}
+
+\end{DoxyCode}

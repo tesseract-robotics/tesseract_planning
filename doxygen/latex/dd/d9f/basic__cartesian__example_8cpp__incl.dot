@@ -191,15 +191,16 @@ digraph "tesseract_examples/src/basic_cartesian_example.cpp"
   Node79 [label="tesseract_task_composer\l/task_composer_node_names.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/da7/task__composer__node__names_8h.html",tooltip="Contains default node names."];
   Node79 -> Node2 [color="steelblue1",style="solid"];
   Node79 -> Node7 [color="steelblue1",style="solid"];
+  Node79 -> Node53 [color="steelblue1",style="solid"];
   Node1 -> Node80 [color="steelblue1",style="solid"];
   Node80 [label="tesseract_task_composer\l/nodes/trajopt_motion\l_pipeline_task.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$de/d7e/trajopt__motion__pipeline__task_8h.html",tooltip=" "];
   Node80 -> Node79 [color="steelblue1",style="solid"];
-  Node1 -> Node83 [color="steelblue1",style="solid"];
-  Node83 [label="tesseract_task_composer\l/nodes/trajopt_ifopt_motion\l_pipeline_task.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d2/d10/trajopt__ifopt__motion__pipeline__task_8h.html",tooltip=" "];
-  Node83 -> Node79 [color="steelblue1",style="solid"];
-  Node1 -> Node84 [color="steelblue1",style="solid"];
-  Node84 [label="tesseract_task_composer\l/taskflow/taskflow_task\l_composer_executor.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$da/d8c/taskflow__task__composer__executor_8h.html",tooltip="The tasflow executor implementation."];
-  Node84 -> Node2 [color="steelblue1",style="solid"];
-  Node84 -> Node9 [color="steelblue1",style="solid"];
-  Node84 -> Node75 [color="steelblue1",style="solid"];
+  Node1 -> Node99 [color="steelblue1",style="solid"];
+  Node99 [label="tesseract_task_composer\l/nodes/trajopt_ifopt_motion\l_pipeline_task.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d2/d10/trajopt__ifopt__motion__pipeline__task_8h.html",tooltip=" "];
+  Node99 -> Node79 [color="steelblue1",style="solid"];
+  Node1 -> Node103 [color="steelblue1",style="solid"];
+  Node103 [label="tesseract_task_composer\l/taskflow/taskflow_task\l_composer_executor.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$da/d8c/taskflow__task__composer__executor_8h.html",tooltip="The tasflow executor implementation."];
+  Node103 -> Node2 [color="steelblue1",style="solid"];
+  Node103 -> Node9 [color="steelblue1",style="solid"];
+  Node103 -> Node75 [color="steelblue1",style="solid"];
 }

@@ -56,8 +56,12 @@ digraph "tesseract_motion_planners/core/include/tesseract_motion_planners/simple
   Node23 -> Node4 [dir="back",color="steelblue1",style="solid"];
   Node23 -> Node8 [dir="back",color="steelblue1",style="solid"];
   Node23 -> Node22 [dir="back",color="steelblue1",style="solid"];
-  Node23 -> Node9 [dir="back",color="steelblue1",style="solid"];
   Node23 -> Node24 [dir="back",color="steelblue1",style="solid"];
-  Node24 [label="tesseract_task_composer\l/src/nodes/simple_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/de9/simple__motion__pipeline__task_8cpp.html",tooltip=" "];
+  Node24 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/simple_motion\l_planner_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d06/simple__motion__planner__task_8h.html",tooltip="simple motion planning pipeline"];
+  Node24 -> Node25 [dir="back",color="steelblue1",style="solid"];
+  Node25 [label="tesseract_task_composer\l/src/nodes/simple_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/de9/simple__motion__pipeline__task_8cpp.html",tooltip=" "];
+  Node24 -> Node26 [dir="back",color="steelblue1",style="solid"];
+  Node26 [label="tesseract_task_composer\l/src/nodes/simple_motion\l_planner_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/d0f/simple__motion__planner__task_8cpp.html",tooltip=" "];
+  Node23 -> Node9 [dir="back",color="steelblue1",style="solid"];
   Node23 -> Node5 [dir="back",color="steelblue1",style="solid"];
 }

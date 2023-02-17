@@ -1,21 +1,24 @@
 <map id="tesseract_planning::TaskComposerGraph" name="tesseract_planning::TaskComposerGraph">
-<area shape="rect" id="node1" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="200,517,351,557"/>
-<area shape="rect" id="node3" href="$de/d09/classtesseract__planning_1_1CartesianMotionPipelineTask.html" title=" " alt="" coords="419,5,617,45"/>
-<area shape="rect" id="node4" href="$d4/d3a/classtesseract__planning_1_1DescartesGlobalMotionPipelineTask.html" title=" " alt="" coords="399,69,637,109"/>
-<area shape="rect" id="node5" href="$d6/d4c/classtesseract__planning_1_1DescartesMotionPipelineTask.html" title=" " alt="" coords="417,133,619,173"/>
-<area shape="rect" id="node6" href="$d5/d48/classtesseract__planning_1_1DescartesNPCMotionPipelineTask.html" title=" " alt="" coords="403,197,633,237"/>
-<area shape="rect" id="node7" href="$dc/d45/classtesseract__planning_1_1FreespaceMotionPipelineTask.html" title=" " alt="" coords="417,261,619,301"/>
-<area shape="rect" id="node8" href="$d2/d76/classtesseract__planning_1_1OMPLMotionPipelineTask.html" title=" " alt="" coords="428,325,608,365"/>
-<area shape="rect" id="node9" href="$da/d60/classtesseract__planning_1_1RasterCtGlobalPipelineTask.html" title="The RasterCtGlobalPipelineTask class." alt="" coords="423,389,613,429"/>
-<area shape="rect" id="node10" href="$dc/d0b/classtesseract__planning_1_1RasterCtOnlyGlobalPipelineTask.html" title="The RasterCtOnlyGlobalPipelineTask class." alt="" coords="409,453,627,493"/>
-<area shape="rect" id="node11" href="$d7/dff/classtesseract__planning_1_1RasterCtOnlyPipelineTask.html" title="The RasterCtOnlyGlobalPipelineTask class." alt="" coords="428,517,608,557"/>
-<area shape="rect" id="node12" href="$de/d4a/classtesseract__planning_1_1RasterCtPipelineTask.html" title="The RasterCtPipelineTask class." alt="" coords="441,581,595,621"/>
-<area shape="rect" id="node13" href="$d0/d72/classtesseract__planning_1_1RasterFtGlobalPipelineTask.html" title="The RasterFtGlobalPipelineTask class." alt="" coords="423,645,613,685"/>
-<area shape="rect" id="node14" href="$da/de2/classtesseract__planning_1_1RasterFtOnlyGlobalPipelineTask.html" title="The RasterFtOnlyGlobalPipelineTask class." alt="" coords="410,709,626,749"/>
-<area shape="rect" id="node15" href="$d9/d47/classtesseract__planning_1_1RasterFtOnlyPipelineTask.html" title="The RasterFtOnlyPipelineTask class." alt="" coords="429,773,607,813"/>
-<area shape="rect" id="node16" href="$d4/d8c/classtesseract__planning_1_1RasterFtPipelineTask.html" title="The RasterFtPipelineTask class." alt="" coords="441,837,595,877"/>
-<area shape="rect" id="node17" href="$d0/db1/classtesseract__planning_1_1SimpleMotionPipelineTask.html" title=" " alt="" coords="427,901,609,941"/>
-<area shape="rect" id="node18" href="$dc/df3/classtesseract__planning_1_1TrajOptIfoptMotionPipelineTask.html" title=" " alt="" coords="413,965,623,1005"/>
-<area shape="rect" id="node19" href="$d4/de3/classtesseract__planning_1_1TrajOptMotionPipelineTask.html" title=" " alt="" coords="425,1029,611,1069"/>
-<area shape="rect" id="node2" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="5,517,152,557"/>
+<area shape="rect" id="node1" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="200,309,351,349"/>
+<area shape="rect" id="node3" href="$de/d09/classtesseract__planning_1_1CartesianMotionPipelineTask.html" title=" " alt="" coords="419,73,617,113"/>
+<area shape="rect" id="node4" href="$d4/d3a/classtesseract__planning_1_1DescartesGlobalMotionPipelineTask.html" title=" " alt="" coords="399,137,637,177"/>
+<area shape="rect" id="node5" href="$d5/d48/classtesseract__planning_1_1DescartesNPCMotionPipelineTask.html" title=" " alt="" coords="403,201,633,241"/>
+<area shape="rect" id="node6" href="$dc/d45/classtesseract__planning_1_1FreespaceMotionPipelineTask.html" title=" " alt="" coords="417,265,619,305"/>
+<area shape="rect" id="node7" href="$de/dde/classtesseract__planning_1_1MotionPipelineTask.html" title=" " alt="" coords="409,329,627,413"/>
+<area shape="rect" id="node12" href="$d6/dc7/classtesseract__planning_1_1RasterGlobalPipelineTask.html" title=" " alt="" coords="401,553,635,622"/>
+<area shape="rect" id="node17" href="$d0/d9c/classtesseract__planning_1_1RasterPipelineTask.html" title=" " alt="" coords="416,917,620,986"/>
+<area shape="rect" id="node22" href="$d0/db1/classtesseract__planning_1_1SimpleMotionPipelineTask.html" title=" " alt="" coords="427,1010,609,1050"/>
+<area shape="rect" id="node2" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="5,309,152,349"/>
+<area shape="rect" id="node8" href="$d6/d4c/classtesseract__planning_1_1DescartesMotionPipelineTask.html" title=" " alt="" coords="703,5,942,89"/>
+<area shape="rect" id="node9" href="$d2/d76/classtesseract__planning_1_1OMPLMotionPipelineTask.html" title=" " alt="" coords="700,113,945,197"/>
+<area shape="rect" id="node10" href="$dc/df3/classtesseract__planning_1_1TrajOptIfoptMotionPipelineTask.html" title=" " alt="" coords="685,221,960,305"/>
+<area shape="rect" id="node11" href="$d4/de3/classtesseract__planning_1_1TrajOptMotionPipelineTask.html" title=" " alt="" coords="700,329,945,413"/>
+<area shape="rect" id="node13" href="$da/d60/classtesseract__planning_1_1RasterCtGlobalPipelineTask.html" title=" " alt="" coords="703,437,942,521"/>
+<area shape="rect" id="node14" href="$dc/d0b/classtesseract__planning_1_1RasterCtOnlyGlobalPipelineTask.html" title=" " alt="" coords="703,545,942,629"/>
+<area shape="rect" id="node15" href="$d0/d72/classtesseract__planning_1_1RasterFtGlobalPipelineTask.html" title=" " alt="" coords="703,653,942,737"/>
+<area shape="rect" id="node16" href="$da/de2/classtesseract__planning_1_1RasterFtOnlyGlobalPipelineTask.html" title=" " alt="" coords="703,761,942,845"/>
+<area shape="rect" id="node18" href="$d7/dff/classtesseract__planning_1_1RasterCtOnlyPipelineTask.html" title=" " alt="" coords="727,870,918,939"/>
+<area shape="rect" id="node19" href="$de/d4a/classtesseract__planning_1_1RasterCtPipelineTask.html" title=" " alt="" coords="727,963,918,1033"/>
+<area shape="rect" id="node20" href="$d9/d47/classtesseract__planning_1_1RasterFtOnlyPipelineTask.html" title=" " alt="" coords="727,1057,918,1126"/>
+<area shape="rect" id="node21" href="$d4/d8c/classtesseract__planning_1_1RasterFtPipelineTask.html" title=" " alt="" coords="727,1150,918,1219"/>
 </map>

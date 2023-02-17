@@ -192,16 +192,17 @@ digraph "tesseract_examples/src/puzzle_piece_auxillary_axes_example.cpp"
   Node68 [label="tesseract_task_composer\l/task_composer_node_names.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/da7/task__composer__node__names_8h.html",tooltip="Contains default node names."];
   Node68 -> Node2 [color="steelblue1",style="solid"];
   Node68 -> Node6 [color="steelblue1",style="solid"];
+  Node68 -> Node47 [color="steelblue1",style="solid"];
   Node1 -> Node69 [color="steelblue1",style="solid"];
   Node69 [label="tesseract_task_composer\l/nodes/trajopt_motion\l_pipeline_task.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$de/d7e/trajopt__motion__pipeline__task_8h.html",tooltip=" "];
   Node69 -> Node68 [color="steelblue1",style="solid"];
-  Node1 -> Node72 [color="steelblue1",style="solid"];
-  Node72 [label="tesseract_task_composer\l/taskflow/taskflow_task\l_composer_executor.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$da/d8c/taskflow__task__composer__executor_8h.html",tooltip="The tasflow executor implementation."];
-  Node72 -> Node2 [color="steelblue1",style="solid"];
-  Node72 -> Node9 [color="steelblue1",style="solid"];
-  Node72 -> Node64 [color="steelblue1",style="solid"];
-  Node1 -> Node78 [color="steelblue1",style="solid"];
-  Node78 [label="tesseract_visualization\l/markers/toolpath_marker.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
-  Node1 -> Node79 [color="steelblue1",style="solid"];
-  Node79 [label="trajopt_sco/osqp_interface.hpp",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node89 [color="steelblue1",style="solid"];
+  Node89 [label="tesseract_task_composer\l/taskflow/taskflow_task\l_composer_executor.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$da/d8c/taskflow__task__composer__executor_8h.html",tooltip="The tasflow executor implementation."];
+  Node89 -> Node2 [color="steelblue1",style="solid"];
+  Node89 -> Node9 [color="steelblue1",style="solid"];
+  Node89 -> Node64 [color="steelblue1",style="solid"];
+  Node1 -> Node94 [color="steelblue1",style="solid"];
+  Node94 [label="tesseract_visualization\l/markers/toolpath_marker.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node95 [color="steelblue1",style="solid"];
+  Node95 [label="trajopt_sco/osqp_interface.hpp",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
 }

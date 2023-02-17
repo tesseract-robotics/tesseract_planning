@@ -185,6 +185,7 @@ digraph "tesseract_examples/src/freespace_hybrid_example.cpp"
   Node75 [label="tesseract_task_composer\l/task_composer_node_names.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/da7/task__composer__node__names_8h.html",tooltip="Contains default node names."];
   Node75 -> Node2 [color="steelblue1",style="solid"];
   Node75 -> Node5 [color="steelblue1",style="solid"];
+  Node75 -> Node47 [color="steelblue1",style="solid"];
   Node1 -> Node76 [color="steelblue1",style="solid"];
   Node76 [label="tesseract_task_composer\l/nodes/freespace_motion\l_pipeline_task.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$db/d7a/freespace__motion__pipeline__task_8h.html",tooltip=" "];
   Node76 -> Node75 [color="steelblue1",style="solid"];

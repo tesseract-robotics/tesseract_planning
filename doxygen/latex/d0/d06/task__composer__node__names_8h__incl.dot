@@ -9,4 +9,6 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/task_composer_n
   Node2 [label="tesseract_common/macros.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node1 -> Node3 [color="steelblue1",style="solid"];
   Node3 [label="string",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="tesseract_motion_planners\l/default_planner_namespaces.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$de/d3a/default__planner__namespaces_8h.html",tooltip="A collection of motion planner profile namespaces."];
 }

@@ -1,5 +1,6 @@
 <map id="tesseract_task_composer/include/tesseract_task_composer/task_composer_node_names.h" name="tesseract_task_composer/include/tesseract_task_composer/task_composer_node_names.h">
-<area shape="rect" id="node1" title="Contains default node names." alt="" coords="85,5,263,75"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,123,196,148"/>
-<area shape="rect" id="node3" title=" " alt="" coords="220,123,275,148"/>
+<area shape="rect" id="node1" title="Contains default node names." alt="" coords="158,5,337,75"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,130,196,155"/>
+<area shape="rect" id="node3" title=" " alt="" coords="220,130,275,155"/>
+<area shape="rect" id="node4" href="$de/d3a/default__planner__namespaces_8h.html" title="A collection of motion planner profile namespaces." alt="" coords="299,123,505,163"/>
 </map>

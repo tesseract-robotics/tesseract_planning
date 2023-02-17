@@ -11,68 +11,79 @@
 \DoxyCodeLine{31 \textcolor{preprocessor}{\#include <string>}}
 \DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
 \DoxyCodeLine{33 }
-\DoxyCodeLine{34 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning_1_1node__names}{tesseract\_planning::node\_names}}}
-\DoxyCodeLine{35 \{}
-\DoxyCodeLine{36 \textcolor{comment}{// Graph/Pipeline names}}
-\DoxyCodeLine{38 \textcolor{comment}{}\textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a6366128ad8635274be4de393c33e677b}{SIMPLE\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}SimplePipeline"{}};}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{41 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_aa3bbb0403499450a6a476c46f8c2d82f}{TRAJOPT\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}TrajOptPipeline"{}};}
-\DoxyCodeLine{42 }
-\DoxyCodeLine{43 \textcolor{preprocessor}{\#ifdef TESSERACT\_TASK\_COMPOSER\_HAS\_TRAJOPT\_IFOPT}}
-\DoxyCodeLine{45 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string TRAJOPT\_IFOPT\_PIPELINE\_NAME = \textcolor{stringliteral}{"{}TrajOptIfoptPipeline"{}};}
-\DoxyCodeLine{46 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{47 }
-\DoxyCodeLine{49 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ab31f5d3b1033ebdcde450d34e145dc76}{OMPL\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}OMPLPipeline"{}};}
-\DoxyCodeLine{50 }
-\DoxyCodeLine{52 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ae29b33d65f1e12fa67d3b457f0a31167}{DESCARTES\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}DescartesPipeline"{}};}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{55 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a94a08d84ad10421c99edb8e88f198919}{DESCARTES\_NPC\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}DescartesNPCPipeline"{}};}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{58 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ab0ab3f789375d81d917ab341e81ad8c6}{FREESPACE\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}FreespacePipeline"{}};}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{61 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ad9e28c743c218ad22e9e32c0a2a1772c}{CARTESIAN\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}CartesianPipeline"{}};}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{64 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a546a13f80178c1f8fb13f1ba2fb83f02}{RASTER\_FT\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterFtPipeline"{}};}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{67 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ae6cc7ca18a462f66580187a0bec429fa}{RASTER\_CT\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterCtPipeline"{}};}
-\DoxyCodeLine{68 }
-\DoxyCodeLine{70 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_aef15a1620505fb80f4ff3d2596776e68}{RASTER\_FT\_G\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterFtGlobalPipeline"{}};}
-\DoxyCodeLine{71 }
-\DoxyCodeLine{73 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_add0b0abbd0f839d962b424ee56def435}{RASTER\_CT\_G\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterCtGlobalPipeline"{}};}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{76 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_af902013ac2593daf1dddb4734e857d05}{RASTER\_FT\_O\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterFtOnlyPipeline"{}};}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{79 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a69886db5f122aa291764d1abf4e30e88}{RASTER\_CT\_O\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterCtOnlyPipeline"{}};}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{83 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a2bdbc2d56148f72176ea44b9c68dcdbd}{RASTER\_FT\_O\_G\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterFtOnlyGlobalPipeline"{}};}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{87 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a25639f44b751f4db650bd7ba8a4b82a7}{RASTER\_CT\_O\_G\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterCtOnlyGlobalPipeline"{}};}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{89 \textcolor{comment}{// Task Names}}
-\DoxyCodeLine{90 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a9b7c01126d36338d1ebe35c631a25847}{CHECK\_INPUT\_TASK\_NAME}} = \textcolor{stringliteral}{"{}CheckInputTask"{}};}
-\DoxyCodeLine{91 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a60b9847941c5996997f542e144cad74b}{CONTINUOUS\_CONTACT\_CHECK\_TASK\_NAME}} = \textcolor{stringliteral}{"{}ContinuousContactCheckTask"{}};}
-\DoxyCodeLine{92 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a85ee9f4d98e8b48cfd38e1adb9ff0f56}{DISCRETE\_CONTACT\_CHECK\_TASK\_NAME}} = \textcolor{stringliteral}{"{}DiscreteContactCheckTask"{}};}
-\DoxyCodeLine{93 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ad3b064c2a2cfde6c26ed9e468e1cd1fd}{DONE\_TASK\_NAME}} = \textcolor{stringliteral}{"{}DoneTask"{}};}
-\DoxyCodeLine{94 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a08eaf5fea53d70ad17922c7793015b65}{ERROR\_TASK\_NAME}} = \textcolor{stringliteral}{"{}ErrorTask"{}};}
-\DoxyCodeLine{95 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a50bf0d4e3e555c74597f9995e18e4914}{FIX\_STATE\_BOUNDS\_TASK\_NAME}} = \textcolor{stringliteral}{"{}FixStateBoundsTask"{}};}
-\DoxyCodeLine{96 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_add0e4719ed35872a817cec9fbd8426f9}{FIX\_STATE\_COLLISION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}FixStateCollisionTask"{}};}
-\DoxyCodeLine{97 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a689f0684b06da82fcfbe34acd75d5b00}{ITERATIVE\_SPLINE\_PARAMETERIZATION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}IterativeSplineParameterizationTask"{}};}
-\DoxyCodeLine{98 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a892be472bdeaecfe7e627f13d876d996}{MIN\_LENGTH\_TASK\_NAME}} = \textcolor{stringliteral}{"{}MinLengthTask"{}};}
-\DoxyCodeLine{99 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_af3f167beb7741b9a45566d7cd177063f}{PROFILE\_SWITCH\_TASK\_NAME}} = \textcolor{stringliteral}{"{}ProfileSwitchTask"{}};}
-\DoxyCodeLine{100 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_af76108b59480ee074001f249ddccf136}{RASTER\_CT\_MOTION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}RasterCtMotionTask"{}};}
-\DoxyCodeLine{101 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a8e3d63a05eb672e8c369494462aada24}{RASTER\_CT\_ONLY\_MOTION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}RasterCtOnlyMotionTask"{}};}
-\DoxyCodeLine{102 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a8713257ee3a3c4aeb68b4d78b038d78a}{RASTER\_FT\_MOTION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}RasterFtMotionTask"{}};}
-\DoxyCodeLine{103 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ad836d18b203e35c48007e991eb2107bd}{RASTER\_FT\_ONLY\_MOTION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}RasterFtOnlyMotionTask"{}};}
-\DoxyCodeLine{104 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a6f625ed50c8078ee3560f2b2ba4084b6}{RUCKIG\_TRAJECTORY\_SMOOTHING\_TASK\_NAME}} = \textcolor{stringliteral}{"{}RuckigTrajectorySmoothingTask"{}};}
-\DoxyCodeLine{105 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a40038670a406c7aab6aa640847766888}{START\_TASK\_NAME}} = \textcolor{stringliteral}{"{}StartTask"{}};}
-\DoxyCodeLine{106 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a80c5ac5334db10de9acd8770536175bb}{TIME\_OPTIMAL\_PARAMETERIZATION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}TimeOptimalParameterizationTask"{}};}
-\DoxyCodeLine{107 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a2d4079b8729d7dad317c84bd08f83f47}{UPDATE\_END\_STATE\_TASK\_NAME}} = \textcolor{stringliteral}{"{}UpdateEndStateTask"{}};}
-\DoxyCodeLine{108 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_aea5bb2ffb87adf0aaef338559b0e955f}{UPDATE\_START\_AND\_END\_STATE\_TASK\_NAME}} = \textcolor{stringliteral}{"{}UpdateStartAndEndStateTask"{}};}
-\DoxyCodeLine{109 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a8cc628f7398bbc7071bf0f34c280bd5d}{UPDATE\_START\_STATE\_TASK\_NAME}} = \textcolor{stringliteral}{"{}UpdateStartStateTask"{}};}
-\DoxyCodeLine{110 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ab2b90dc280e170c0be0de4628072516a}{UPSAMPLE\_TRAJECTORY\_TASK\_NAME}} = \textcolor{stringliteral}{"{}UpsampleTrajectoryTask"{}};}
-\DoxyCodeLine{111 }
-\DoxyCodeLine{112 \}  \textcolor{comment}{// namespace tesseract\_planning::node\_names}}
-\DoxyCodeLine{113 }
-\DoxyCodeLine{114 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_NODE\_NAMES\_H}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__planner__namespaces_8h}{tesseract\_motion\_planners/default\_planner\_namespaces.h}}>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning_1_1node__names}{tesseract\_planning::node\_names}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38 \textcolor{comment}{// Graph/Pipeline names}}
+\DoxyCodeLine{40 \textcolor{comment}{}\textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a6366128ad8635274be4de393c33e677b}{SIMPLE\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}SimplePipeline"{}};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{43 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_aa3bbb0403499450a6a476c46f8c2d82f}{TRAJOPT\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}TrajOptPipeline"{}};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#ifdef TESSERACT\_TASK\_COMPOSER\_HAS\_TRAJOPT\_IFOPT}}
+\DoxyCodeLine{47 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string TRAJOPT\_IFOPT\_PIPELINE\_NAME = \textcolor{stringliteral}{"{}TrajOptIfoptPipeline"{}};}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{51 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ab31f5d3b1033ebdcde450d34e145dc76}{OMPL\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}OMPLPipeline"{}};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{54 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ae29b33d65f1e12fa67d3b457f0a31167}{DESCARTES\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}DescartesPipeline"{}};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{57 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a94a08d84ad10421c99edb8e88f198919}{DESCARTES\_NPC\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}DescartesNPCPipeline"{}};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{60 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ab0ab3f789375d81d917ab341e81ad8c6}{FREESPACE\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}FreespacePipeline"{}};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{63 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ad9e28c743c218ad22e9e32c0a2a1772c}{CARTESIAN\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}CartesianPipeline"{}};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{66 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a546a13f80178c1f8fb13f1ba2fb83f02}{RASTER\_FT\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterFtPipeline"{}};}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{69 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ae6cc7ca18a462f66580187a0bec429fa}{RASTER\_CT\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterCtPipeline"{}};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{72 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_aef15a1620505fb80f4ff3d2596776e68}{RASTER\_FT\_G\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterFtGlobalPipeline"{}};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{75 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_add0b0abbd0f839d962b424ee56def435}{RASTER\_CT\_G\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterCtGlobalPipeline"{}};}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{78 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_af902013ac2593daf1dddb4734e857d05}{RASTER\_FT\_O\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterFtOnlyPipeline"{}};}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{81 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a69886db5f122aa291764d1abf4e30e88}{RASTER\_CT\_O\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterCtOnlyPipeline"{}};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{85 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a2bdbc2d56148f72176ea44b9c68dcdbd}{RASTER\_FT\_O\_G\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterFtOnlyGlobalPipeline"{}};}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{89 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a25639f44b751f4db650bd7ba8a4b82a7}{RASTER\_CT\_O\_G\_PIPELINE\_NAME}} = \textcolor{stringliteral}{"{}RasterCtOnlyGlobalPipeline"{}};}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91 \textcolor{comment}{// Motion Planner Task Names}}
+\DoxyCodeLine{92 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a1a91a5e76c0eaa1f36bc8c1d97a82099}{DESCARTES\_MOTION\_PLANNER\_TASK\_NAME}} = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a731af03f25f7a40bc02e4864b796d69e}{profile\_ns::DESCARTES\_DEFAULT\_NAMESPACE}};}
+\DoxyCodeLine{93 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a5d9d60d40ba75229f641afa4ca2b8f6c}{OMPL\_MOTION\_PLANNER\_TASK\_NAME}} = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a811e05491f894926eee1f76ec7d05f5d}{profile\_ns::OMPL\_DEFAULT\_NAMESPACE}};}
+\DoxyCodeLine{94 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ac9486cd2c325a47a88e6c735a78aeb3e}{SIMPLE\_MOTION\_PLANNER\_TASK\_NAME}} = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a52d9ecc71332c6414e0388ee6135dc88}{profile\_ns::SIMPLE\_DEFAULT\_NAMESPACE}};}
+\DoxyCodeLine{95 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a0b30e9874136bb24a6141329e56aa249}{TRAJOPT\_MOTION\_PLANNER\_TASK\_NAME}} = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a998ca159be1912d9d78a39eb5b297801}{profile\_ns::TRAJOPT\_DEFAULT\_NAMESPACE}};}
+\DoxyCodeLine{96 \textcolor{preprocessor}{\#ifdef TESSERACT\_TASK\_COMPOSER\_HAS\_TRAJOPT\_IFOPT}}
+\DoxyCodeLine{98 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string TRAJOPT\_IFOPT\_MOTION\_PLANNER\_TASK\_NAME = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_ad4c7bebbeb575190675682bb9da8d0f7}{profile\_ns::TRAJOPT\_IFOPT\_DEFAULT\_NAMESPACE}};}
+\DoxyCodeLine{99 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{comment}{// Task Names}}
+\DoxyCodeLine{102 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a9b7c01126d36338d1ebe35c631a25847}{CHECK\_INPUT\_TASK\_NAME}} = \textcolor{stringliteral}{"{}CheckInputTask"{}};}
+\DoxyCodeLine{103 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a60b9847941c5996997f542e144cad74b}{CONTINUOUS\_CONTACT\_CHECK\_TASK\_NAME}} = \textcolor{stringliteral}{"{}ContinuousContactCheckTask"{}};}
+\DoxyCodeLine{104 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a85ee9f4d98e8b48cfd38e1adb9ff0f56}{DISCRETE\_CONTACT\_CHECK\_TASK\_NAME}} = \textcolor{stringliteral}{"{}DiscreteContactCheckTask"{}};}
+\DoxyCodeLine{105 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ad3b064c2a2cfde6c26ed9e468e1cd1fd}{DONE\_TASK\_NAME}} = \textcolor{stringliteral}{"{}DoneTask"{}};}
+\DoxyCodeLine{106 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a08eaf5fea53d70ad17922c7793015b65}{ERROR\_TASK\_NAME}} = \textcolor{stringliteral}{"{}ErrorTask"{}};}
+\DoxyCodeLine{107 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a50bf0d4e3e555c74597f9995e18e4914}{FIX\_STATE\_BOUNDS\_TASK\_NAME}} = \textcolor{stringliteral}{"{}FixStateBoundsTask"{}};}
+\DoxyCodeLine{108 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_add0e4719ed35872a817cec9fbd8426f9}{FIX\_STATE\_COLLISION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}FixStateCollisionTask"{}};}
+\DoxyCodeLine{109 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a689f0684b06da82fcfbe34acd75d5b00}{ITERATIVE\_SPLINE\_PARAMETERIZATION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}IterativeSplineParameterizationTask"{}};}
+\DoxyCodeLine{110 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a892be472bdeaecfe7e627f13d876d996}{MIN\_LENGTH\_TASK\_NAME}} = \textcolor{stringliteral}{"{}MinLengthTask"{}};}
+\DoxyCodeLine{111 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_af3f167beb7741b9a45566d7cd177063f}{PROFILE\_SWITCH\_TASK\_NAME}} = \textcolor{stringliteral}{"{}ProfileSwitchTask"{}};}
+\DoxyCodeLine{112 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_af76108b59480ee074001f249ddccf136}{RASTER\_CT\_MOTION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}RasterCtMotionTask"{}};}
+\DoxyCodeLine{113 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a8e3d63a05eb672e8c369494462aada24}{RASTER\_CT\_ONLY\_MOTION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}RasterCtOnlyMotionTask"{}};}
+\DoxyCodeLine{114 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a8713257ee3a3c4aeb68b4d78b038d78a}{RASTER\_FT\_MOTION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}RasterFtMotionTask"{}};}
+\DoxyCodeLine{115 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ad836d18b203e35c48007e991eb2107bd}{RASTER\_FT\_ONLY\_MOTION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}RasterFtOnlyMotionTask"{}};}
+\DoxyCodeLine{116 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a6f625ed50c8078ee3560f2b2ba4084b6}{RUCKIG\_TRAJECTORY\_SMOOTHING\_TASK\_NAME}} = \textcolor{stringliteral}{"{}RuckigTrajectorySmoothingTask"{}};}
+\DoxyCodeLine{117 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a40038670a406c7aab6aa640847766888}{START\_TASK\_NAME}} = \textcolor{stringliteral}{"{}StartTask"{}};}
+\DoxyCodeLine{118 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a80c5ac5334db10de9acd8770536175bb}{TIME\_OPTIMAL\_PARAMETERIZATION\_TASK\_NAME}} = \textcolor{stringliteral}{"{}TimeOptimalParameterizationTask"{}};}
+\DoxyCodeLine{119 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a2d4079b8729d7dad317c84bd08f83f47}{UPDATE\_END\_STATE\_TASK\_NAME}} = \textcolor{stringliteral}{"{}UpdateEndStateTask"{}};}
+\DoxyCodeLine{120 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_aea5bb2ffb87adf0aaef338559b0e955f}{UPDATE\_START\_AND\_END\_STATE\_TASK\_NAME}} = \textcolor{stringliteral}{"{}UpdateStartAndEndStateTask"{}};}
+\DoxyCodeLine{121 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a8cc628f7398bbc7071bf0f34c280bd5d}{UPDATE\_START\_STATE\_TASK\_NAME}} = \textcolor{stringliteral}{"{}UpdateStartStateTask"{}};}
+\DoxyCodeLine{122 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ab2b90dc280e170c0be0de4628072516a}{UPSAMPLE\_TRAJECTORY\_TASK\_NAME}} = \textcolor{stringliteral}{"{}UpsampleTrajectoryTask"{}};}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124 \}  \textcolor{comment}{// namespace tesseract\_planning::node\_names}}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_NODE\_NAMES\_H}}
 
 \end{DoxyCode}

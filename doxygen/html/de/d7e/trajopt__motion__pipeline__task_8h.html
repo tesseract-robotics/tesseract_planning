@@ -79,51 +79,73 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle"><div class="title">trajopt_motion_pipeline_task.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d4/d58/task__composer__graph_8h_source.html">tesseract_task_composer/task_composer_graph.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d3/da7/task__composer__node__names_8h_source.html">tesseract_task_composer/task_composer_node_names.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../de/d12/motion__pipeline__task_8hpp_source.html">tesseract_task_composer/nodes/motion_pipeline_task.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d0/dfc/trajopt__motion__planner__task_8h_source.html">tesseract_task_composer/nodes/trajopt_motion_planner_task.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d1/d26/discrete__contact__check__task_8h_source.html">tesseract_task_composer/nodes/discrete_contact_check_task.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d3/db1/iterative__spline__parameterization__task_8h_source.html">tesseract_task_composer/nodes/iterative_spline_parameterization_task.h</a>&gt;</code><br />
 <code>#include &lt;boost/serialization/export.hpp&gt;</code><br />
-<code>#include &lt;boost/serialization/tracking.hpp&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for trajopt_motion_pipeline_task.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d0c/trajopt__motion__pipeline__task_8h__incl.png" border="0" usemap="#atesseract__task__composer_2include_2tesseract__task__composer_2nodes_2trajopt__motion__pipeline__task_8h" alt=""/></div>
 <map name="atesseract__task__composer_2include_2tesseract__task__composer_2nodes_2trajopt__motion__pipeline__task_8h" id="atesseract__task__composer_2include_2tesseract__task__composer_2nodes_2trajopt__motion__pipeline__task_8h">
-<area shape="rect" title=" " alt="" coords="2688,5,2860,75"/>
-<area shape="rect" href="../../d4/d58/task__composer__graph_8h.html" title="A task graph." alt="" coords="2604,123,2776,163"/>
-<area shape="rect" title=" " alt="" coords="2329,651,2456,691"/>
-<area shape="rect" title=" " alt="" coords="2431,563,2557,603"/>
-<area shape="rect" href="../../d3/da7/task__composer__node__names_8h.html" title="Contains default node names." alt="" coords="61,563,268,603"/>
-<area shape="rect" title=" " alt="" coords="971,658,1161,683"/>
-<area shape="rect" title=" " alt="" coords="5,658,60,683"/>
-<area shape="rect" title=" " alt="" coords="2631,306,2690,331"/>
-<area shape="rect" title=" " alt="" coords="2207,658,2275,683"/>
-<area shape="rect" href="../../da/dbe/task__composer__node_8h.html" title="A node in the pipeline." alt="" coords="2407,211,2579,251"/>
-<area shape="rect" title=" " alt="" coords="872,570,1007,595"/>
-<area shape="rect" href="../../db/ddf/task__composer__input_8h.html" title="The input data structure to the pipeline." alt="" coords="2212,299,2384,339"/>
-<area shape="rect" href="../../dc/dc5/task__composer__data__storage_8h.html" title="Data storage used when executing the pipeline." alt="" coords="2027,475,2233,515"/>
-<area shape="rect" title=" " alt="" coords="2335,394,2397,419"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="1472,475,1671,515"/>
-<area shape="rect" href="../../d7/d2c/task__composer__node__info_8h.html" title="Task composer node info." alt="" coords="1615,387,1803,427"/>
-<area shape="rect" href="../../d7/d6d/task__composer__problem_8h.html" title="A task composer server problem." alt="" coords="2082,387,2261,427"/>
-<area shape="rect" title=" " alt="" coords="1469,570,1511,595"/>
-<area shape="rect" title=" " alt="" coords="1535,570,1607,595"/>
-<area shape="rect" title=" " alt="" coords="871,658,947,683"/>
-<area shape="rect" title=" " alt="" coords="1809,570,1920,595"/>
-<area shape="rect" title=" " alt="" coords="1387,570,1444,595"/>
-<area shape="rect" title=" " alt="" coords="1683,570,1785,595"/>
-<area shape="rect" title=" " alt="" coords="1995,563,2153,603"/>
-<area shape="rect" title=" " alt="" coords="1083,482,1129,507"/>
-<area shape="rect" title=" " alt="" coords="1847,475,2002,515"/>
-<area shape="rect" href="../../d1/db1/instruction__poly_8h.html" title=" " alt="" coords="496,475,695,515"/>
-<area shape="rect" title=" " alt="" coords="285,651,412,691"/>
-<area shape="rect" title=" " alt="" coords="437,658,607,683"/>
-<area shape="rect" href="../../d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="445,563,644,603"/>
-<area shape="rect" title=" " alt="" coords="632,658,847,683"/>
-<area shape="rect" title=" " alt="" coords="100,651,261,691"/>
+<area shape="rect" title=" " alt="" coords="2647,5,2819,75"/>
+<area shape="rect" href="../../d4/d58/task__composer__graph_8h.html" title="A task graph." alt="" coords="1569,328,1741,368"/>
+<area shape="rect" title=" " alt="" coords="1817,783,1943,823"/>
+<area shape="rect" href="../../d3/da7/task__composer__node__names_8h.html" title="Contains default node names." alt="" coords="3022,328,3229,368"/>
+<area shape="rect" href="../../de/d12/motion__pipeline__task_8hpp.html" title=" " alt="" coords="2337,123,2509,177"/>
+<area shape="rect" href="../../d0/dfc/trajopt__motion__planner__task_8h.html" title="TrajOpt motion planning pipeline." alt="" coords="3237,123,3409,177"/>
+<area shape="rect" href="../../d1/d26/discrete__contact__check__task_8h.html" title="Discrete Collision check trajectory task." alt="" coords="2843,225,3015,280"/>
+<area shape="rect" href="../../d3/db1/iterative__spline__parameterization__task_8h.html" title="Perform iterative spline time parameterization." alt="" coords="2647,225,2819,280"/>
+<area shape="rect" title=" " alt="" coords="3273,790,3463,815"/>
+<area shape="rect" title=" " alt="" coords="4885,790,4939,815"/>
+<area shape="rect" title=" " alt="" coords="2744,614,2803,639"/>
+<area shape="rect" title=" " alt="" coords="782,790,850,815"/>
+<area shape="rect" href="../../da/dbe/task__composer__node_8h.html" title="A node in the pipeline." alt="" coords="1518,416,1690,456"/>
+<area shape="rect" title=" " alt="" coords="271,783,398,823"/>
+<area shape="rect" title=" " alt="" coords="2867,790,3002,815"/>
+<area shape="rect" href="../../db/ddf/task__composer__input_8h.html" title="The input data structure to the pipeline." alt="" coords="1319,511,1491,551"/>
+<area shape="rect" href="../../dc/dc5/task__composer__data__storage_8h.html" title="Data storage used when executing the pipeline." alt="" coords="905,695,1111,735"/>
+<area shape="rect" title=" " alt="" coords="1375,614,1436,639"/>
+<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="1238,695,1437,735"/>
+<area shape="rect" href="../../d7/d2c/task__composer__node__info_8h.html" title="Task composer node info." alt="" coords="2145,607,2333,647"/>
+<area shape="rect" href="../../d7/d6d/task__composer__problem_8h.html" title="A task composer server problem." alt="" coords="1116,607,1295,647"/>
+<area shape="rect" title=" " alt="" coords="1094,790,1205,815"/>
+<area shape="rect" title=" " alt="" coords="1286,790,1389,815"/>
+<area shape="rect" title=" " alt="" coords="1635,783,1792,823"/>
+<area shape="rect" title=" " alt="" coords="2299,702,2346,727"/>
+<area shape="rect" title=" " alt="" coords="2069,695,2224,735"/>
+<area shape="rect" href="../../d1/db1/instruction__poly_8h.html" title=" " alt="" coords="3131,695,3330,735"/>
+<area shape="rect" href="../../de/d3a/default__planner__namespaces_8h.html" title="A collection of motion planner profile namespaces." alt="" coords="4568,416,4773,456"/>
+<area shape="rect" title=" " alt="" coords="3304,335,3472,361"/>
+<area shape="rect" title=" " alt="" coords="2269,328,2395,368"/>
+<area shape="rect" href="../../d3/d6c/min__length__task_8h.html" title="Task for processing the seed so it meets a minimum length. Planners like trajopt need at least 10 sta..." alt="" coords="2399,233,2571,273"/>
+<area shape="rect" href="../../d5/d86/done__task_8h.html" title=" " alt="" coords="2151,233,2323,273"/>
+<area shape="rect" href="../../d4/d4c/error__task_8h.html" title=" " alt="" coords="1955,233,2127,273"/>
+<area shape="rect" href="../../da/d71/task__composer__task_8h.html" title="A task in the pipeline." alt="" coords="2419,328,2591,368"/>
+<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="3269,511,3467,551"/>
+<area shape="rect" href="../../dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="3406,607,3605,647"/>
+<area shape="rect" title=" " alt="" coords="3507,695,3711,735"/>
+<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="4390,695,4589,735"/>
+<area shape="rect" href="../../d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="3958,695,4162,735"/>
+<area shape="rect" href="../../d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="3735,695,3934,735"/>
+<area shape="rect" href="../../d2/df3/motion__planner__task_8hpp.html" title=" " alt="" coords="3355,225,3527,280"/>
+<area shape="rect" href="../../d0/ddc/trajopt__motion__planner_8h.html" title=" " alt="" coords="4696,225,4875,280"/>
+<area shape="rect" title=" " alt="" coords="3496,335,3672,361"/>
+<area shape="rect" href="../../d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="3747,328,3925,368"/>
+<area shape="rect" href="../../d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="3181,416,3360,456"/>
+<area shape="rect" title=" " alt="" coords="4011,614,4213,639"/>
+<area shape="rect" href="../../d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="3757,504,3936,559"/>
+<area shape="rect" href="../../d3/d2c/iterative__spline__parameterization_8h.html" title=" " alt="" coords="4381,607,4627,647"/>
+<area shape="rect" title=" " alt="" coords="5117,790,5208,815"/>
+<area shape="rect" href="../../d5/de8/trajectory__container_8h.html" title="Creates an interface for contaning different trajectory data structures." alt="" coords="4613,695,4824,735"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -155,11 +177,16 @@ Classes</h2></td></tr>
 Namespaces</h2></td></tr>
 <tr class="memitem:d9/dcd/namespacetesseract__planning"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a2886237e465abccfa453515c3cae726a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2886237e465abccfa453515c3cae726a">tesseract_planning::TrajOptMotionPipelineTaskBase</a> = MotionPipelineTask&lt; TrajOptMotionPlannerTask, DiscreteContactCheckTask, IterativeSplineParameterizationTask &gt;</td></tr>
+<tr class="separator:a2886237e465abccfa453515c3cae726a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 3 2023 15:20:52 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+Generated on Fri Feb 17 2023 03:20:28 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
 </small></address>
 </body>
 </html>

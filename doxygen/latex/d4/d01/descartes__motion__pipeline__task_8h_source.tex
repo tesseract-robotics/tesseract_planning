@@ -9,44 +9,46 @@
 \DoxyCodeLine{29 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__graph_8h}{tesseract\_task\_composer/task\_composer\_graph.h}}>}}
 \DoxyCodeLine{30 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__node__names_8h}{tesseract\_task\_composer/task\_composer\_node\_names.h}}>}}
 \DoxyCodeLine{31 }
-\DoxyCodeLine{32 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{33 \{}
-\DoxyCodeLine{34 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}}}
-\DoxyCodeLine{35 \{}
-\DoxyCodeLine{36 \textcolor{keyword}{public}:}
-\DoxyCodeLine{37   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_aa9329e35db13b41eba49a47d7c5f6e14}{Ptr}} = std::shared\_ptr<DescartesMotionPipelineTask>;}
-\DoxyCodeLine{38   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_a26f78990d6ae20c72d1464191effc42c}{ConstPtr}} = std::shared\_ptr<const DescartesMotionPipelineTask>;}
-\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_ac66ad2e8a86bb2d473c6538239fb98ae}{UPtr}} = std::unique\_ptr<DescartesMotionPipelineTask>;}
-\DoxyCodeLine{40   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_adc3a09b3009935f59f44ddc9b9bb5ee2}{ConstUPtr}} = std::unique\_ptr<const DescartesMotionPipelineTask>;}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ae29b33d65f1e12fa67d3b457f0a31167}{node\_names::DESCARTES\_PIPELINE\_NAME}});}
-\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}(std::string input\_key,}
-\DoxyCodeLine{49                               std::string output\_key,}
-\DoxyCodeLine{50                               std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ae29b33d65f1e12fa67d3b457f0a31167}{node\_names::DESCARTES\_PIPELINE\_NAME}});}
-\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_a5258f4cf7a7d83f5641aa7f9011f6a0b}{\string~DescartesMotionPipelineTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_a9c4616372e4fe893bb7dfb802c8bf244}{DescartesMotionPipelineTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_add4954e5dce76ad83c46a191bcbe1474}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_ae380568075b3fd0f4218184422a7b5ef}{DescartesMotionPipelineTask}}(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_a47e864df0c94b6ff16be93d1e5a77c6d}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_adee922366789de1a08f5900c2fe55110}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{58   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_a16b7cfd01cefa162936694db9b2bbfc1}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{60 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{61   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
-\DoxyCodeLine{62   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{64   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{65   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_ab9b2980eea1d83963c1c62900f153630}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{66 }
-\DoxyCodeLine{67   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_ad9ad67f389912696199516f5160d065b}{ctor}}(std::string input\_key, std::string output\_key);}
-\DoxyCodeLine{68 \};}
-\DoxyCodeLine{69 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
-\DoxyCodeLine{72 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
-\DoxyCodeLine{73 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{tesseract\_planning::DescartesMotionPipelineTask}}, \textcolor{stringliteral}{"{}DescartesMotionPipelineTask"{}})}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{75 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_DESCARTES\_MOTION\_PIPELINE\_TASK\_H}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{motion__pipeline__task_8hpp}{tesseract\_task\_composer/nodes/motion\_pipeline\_task.hpp}}>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__motion__planner__task_8h}{tesseract\_task\_composer/nodes/descartes\_motion\_planner\_task.h}}>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{discrete__contact__check__task_8h}{tesseract\_task\_composer/nodes/discrete\_contact\_check\_task.h}}>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{iterative__spline__parameterization__task_8h}{tesseract\_task\_composer/nodes/iterative\_spline\_parameterization\_task.h}}>}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39 \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1MotionPipelineTask}{DescartesMotionPipelineTaskBase}} =}
+\DoxyCodeLine{40     \mbox{\hyperlink{classtesseract__planning_1_1MotionPipelineTask}{MotionPipelineTask<DescartesMotionPlannerTask, DiscreteContactCheckTask, IterativeSplineParameterizationTask>}};}
+\DoxyCodeLine{41 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1MotionPipelineTask}{DescartesMotionPipelineTaskBase}}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{public}:}
+\DoxyCodeLine{44   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_aa9329e35db13b41eba49a47d7c5f6e14}{Ptr}} = std::shared\_ptr<DescartesMotionPipelineTask>;}
+\DoxyCodeLine{45   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_a26f78990d6ae20c72d1464191effc42c}{ConstPtr}} = std::shared\_ptr<const DescartesMotionPipelineTask>;}
+\DoxyCodeLine{46   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_ac66ad2e8a86bb2d473c6538239fb98ae}{UPtr}} = std::unique\_ptr<DescartesMotionPipelineTask>;}
+\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_adc3a09b3009935f59f44ddc9b9bb5ee2}{ConstUPtr}} = std::unique\_ptr<const DescartesMotionPipelineTask>;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ae29b33d65f1e12fa67d3b457f0a31167}{node\_names::DESCARTES\_PIPELINE\_NAME}});}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}(std::string input\_key,}
+\DoxyCodeLine{51                               std::string output\_key,}
+\DoxyCodeLine{52                               std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ae29b33d65f1e12fa67d3b457f0a31167}{node\_names::DESCARTES\_PIPELINE\_NAME}});}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_a5258f4cf7a7d83f5641aa7f9011f6a0b}{\string~DescartesMotionPipelineTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_a9c4616372e4fe893bb7dfb802c8bf244}{DescartesMotionPipelineTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_add4954e5dce76ad83c46a191bcbe1474}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_ae380568075b3fd0f4218184422a7b5ef}{DescartesMotionPipelineTask}}(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_a47e864df0c94b6ff16be93d1e5a77c6d}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{DescartesMotionPipelineTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{60   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{61   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{64   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask_ab9b2980eea1d83963c1c62900f153630}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{65 \};}
+\DoxyCodeLine{66 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{69 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1MotionPipelineTask}{tesseract\_planning::DescartesMotionPipelineTaskBase}}, \textcolor{stringliteral}{"{}DescartesMotionPipelineTaskBase"{}})}
+\DoxyCodeLine{70 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::DescartesMotionPipelineTask, "{}DescartesMotionPipelineTask"{})}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_DESCARTES\_MOTION\_PIPELINE\_TASK\_H}}
 
 \end{DoxyCode}

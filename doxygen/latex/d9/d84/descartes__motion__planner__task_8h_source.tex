@@ -1,0 +1,54 @@
+\hypertarget{descartes__motion__planner__task_8h_source}{}\doxysection{descartes\+\_\+motion\+\_\+planner\+\_\+task.\+h}
+\label{descartes__motion__planner__task_8h_source}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/descartes\_motion\_planner\_task.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/descartes\_motion\_planner\_task.h}}
+\mbox{\hyperlink{descartes__motion__planner__task_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_DESCARTES\_MOTION\_PLANNER\_TASK\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_DESCARTES\_MOTION\_PLANNER\_TASK\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__task_8h}{tesseract\_task\_composer/task\_composer\_task.h}}>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__node__names_8h}{tesseract\_task\_composer/task\_composer\_node\_names.h}}>}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{motion__planner__task_8hpp}{tesseract\_task\_composer/nodes/motion\_planner\_task.hpp}}>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__motion__planner_8h}{tesseract\_motion\_planners/descartes/descartes\_motion\_planner.h}}>}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37 \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{DescartesMotionPlannerTaskBase}} = \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{MotionPlannerTask<DescartesMotionPlannerF>}};}
+\DoxyCodeLine{38 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask}{DescartesMotionPlannerTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{DescartesMotionPlannerTaskBase}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 \textcolor{keyword}{public}:}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_ab2d9aa580ccfea3202159ba3ca8d87a4}{Ptr}} = std::shared\_ptr<DescartesMotionPlannerTask>;}
+\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_ac4eb061fa407733d78a038dbcebbb48b}{ConstPtr}} = std::shared\_ptr<const DescartesMotionPlannerTask>;}
+\DoxyCodeLine{43   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_a2642d6dba232932e731668fa3c9d4793}{UPtr}} = std::unique\_ptr<DescartesMotionPlannerTask>;}
+\DoxyCodeLine{44   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_a78a71e78b5d57a6f0e944869f2c66252}{ConstUPtr}} = std::unique\_ptr<const DescartesMotionPlannerTask>;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_a176a757ae6d999698d7b917481d79c05}{DescartesMotionPlannerTask}}() = \textcolor{keywordflow}{default};  \textcolor{comment}{// Required for serialization}}
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_a176a757ae6d999698d7b917481d79c05}{DescartesMotionPlannerTask}}(std::string input\_key,}
+\DoxyCodeLine{48                              std::string output\_key,}
+\DoxyCodeLine{49                              \textcolor{keywordtype}{bool} format\_result\_as\_input = \textcolor{keyword}{true},}
+\DoxyCodeLine{50                              \textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{true},}
+\DoxyCodeLine{51                              std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a1a91a5e76c0eaa1f36bc8c1d97a82099}{node\_names::DESCARTES\_MOTION\_PLANNER\_TASK\_NAME}});}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_ac6d752b3029092bb9a76f32813d29ec3}{\string~DescartesMotionPlannerTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_a58f70bc2d7e8d78d692c3255d775cd7a}{DescartesMotionPlannerTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask}{DescartesMotionPlannerTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask}{DescartesMotionPlannerTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_ae8d65ec6d864f54f26e5776f6952c899}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask}{DescartesMotionPlannerTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_a42c518fd46e2fe6f4fef5f7b208a9046}{DescartesMotionPlannerTask}}(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask}{DescartesMotionPlannerTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask}{DescartesMotionPlannerTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_a4b8e13bfce657703e0aedeb8026335df}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask}{DescartesMotionPlannerTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{59   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{60   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{63   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask_ab7165fcd457b265b980b5ac8add97985}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{64 \};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{69 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{tesseract\_planning::DescartesMotionPlannerTaskBase}}, \textcolor{stringliteral}{"{}DescartesMotionPlannerTaskBase"{}})}
+\DoxyCodeLine{70 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::DescartesMotionPlannerTask, "{}DescartesMotionPlannerTask"{})}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_DESCARTES\_MOTION\_PLANNER\_TASK\_H}}
+
+\end{DoxyCode}

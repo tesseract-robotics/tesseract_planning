@@ -8,11 +8,19 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/nodes/raster_ft
   Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
   Node2 [label="tesseract_task_composer\l/examples/task_composer\l_raster_example.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d4d/task__composer__raster__example_8cpp.html",tooltip=" "];
   Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
-  Node3 [label="tesseract_task_composer\l/src/nodes/raster_ft_global\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/d2d/raster__ft__global__pipeline__task_8cpp.html",tooltip=" "];
-  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
-  Node4 [label="tesseract_task_composer\l/src/nodes/raster_ft_motion\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$df/dad/raster__ft__motion__task_8cpp.html",tooltip="Raster motion planning task with freespace transitions."];
-  Node1 -> Node5 [dir="back",color="steelblue1",style="solid"];
-  Node5 [label="tesseract_task_composer\l/src/nodes/raster_ft_pipeline\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/dfb/raster__ft__pipeline__task_8cpp.html",tooltip=" "];
-  Node1 -> Node6 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/raster_ft\l_global_pipeline_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d11/raster__ft__global__pipeline__task_8h.html",tooltip="Plans raster paths with freespace transitions."];
+  Node3 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="tesseract_task_composer\l/src/nodes/raster_ft_global\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/d2d/raster__ft__global__pipeline__task_8cpp.html",tooltip=" "];
+  Node3 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="tesseract_task_composer\l/src/task_composer_utils.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d3a/task__composer__utils_8cpp.html",tooltip="A task composer utils."];
+  Node3 -> Node6 [dir="back",color="steelblue1",style="solid"];
   Node6 [label="tesseract_task_composer\l/test/tesseract_task_composer\l_unit.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/db5/tesseract__task__composer__unit_8cpp.html",tooltip=" "];
+  Node1 -> Node7 [dir="back",color="steelblue1",style="solid"];
+  Node7 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/raster_ft\l_pipeline_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$de/d8e/raster__ft__pipeline__task_8h.html",tooltip="Plans raster paths with freespace transitions."];
+  Node7 -> Node8 [dir="back",color="steelblue1",style="solid"];
+  Node8 [label="tesseract_task_composer\l/src/nodes/raster_ft_pipeline\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/dfb/raster__ft__pipeline__task_8cpp.html",tooltip=" "];
+  Node7 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node1 -> Node9 [dir="back",color="steelblue1",style="solid"];
+  Node9 [label="tesseract_task_composer\l/src/nodes/raster_ft_motion\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$df/dad/raster__ft__motion__task_8cpp.html",tooltip="Raster motion planning task with freespace transitions."];
+  Node1 -> Node6 [dir="back",color="steelblue1",style="solid"];
 }

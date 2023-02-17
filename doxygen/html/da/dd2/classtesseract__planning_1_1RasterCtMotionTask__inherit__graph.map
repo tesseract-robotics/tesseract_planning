@@ -1,5 +1,6 @@
 <map id="tesseract_planning::RasterCtMotionTask" name="tesseract_planning::RasterCtMotionTask">
-<area shape="rect" id="node1" title="The RasterCtMotionTask class." alt="" coords="5,181,152,221"/>
-<area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="6,93,151,133"/>
-<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="5,5,152,45"/>
+<area shape="rect" id="node1" title=" " alt="" coords="17,255,164,295"/>
+<area shape="rect" id="node2" href="$d2/d21/classtesseract__planning_1_1RasterMotionTask.html" title="The RasterCtMotionTask class." alt="" coords="5,181,176,207"/>
+<area shape="rect" id="node3" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="18,93,163,133"/>
+<area shape="rect" id="node4" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="17,5,164,45"/>
 </map>

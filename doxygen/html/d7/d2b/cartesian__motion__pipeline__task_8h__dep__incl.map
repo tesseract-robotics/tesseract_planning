@@ -1,9 +1,31 @@
 <map id="tesseract_task_composer/include/tesseract_task_composer/nodes/cartesian_motion_pipeline_task.h" name="tesseract_task_composer/include/tesseract_task_composer/nodes/cartesian_motion_pipeline_task.h">
-<area shape="rect" id="node1" title="Cartesian motion planning pipeline." alt="" coords="519,5,702,75"/>
-<area shape="rect" id="node2" href="$d7/d06/cartesian__motion__pipeline__task_8cpp.html" title=" " alt="" coords="5,123,192,177"/>
-<area shape="rect" id="node3" href="$d2/d01/raster__ct__motion__task_8cpp.html" title="Raster motion planning task with cartesian transitions." alt="" coords="216,123,400,177"/>
-<area shape="rect" id="node4" href="$d7/d41/raster__ct__only__motion__task_8cpp.html" title="Plans raster paths with cartesian transitions." alt="" coords="425,123,597,177"/>
-<area shape="rect" id="node5" href="$df/dad/raster__ft__motion__task_8cpp.html" title="Raster motion planning task with freespace transitions." alt="" coords="621,123,803,177"/>
-<area shape="rect" id="node6" href="$d8/d4b/raster__ft__only__motion__task_8cpp.html" title="Plans raster paths with freespace transitions." alt="" coords="827,123,999,177"/>
-<area shape="rect" id="node7" href="$d7/d3a/task__composer__utils_8cpp.html" title="A task composer utils." alt="" coords="1024,130,1216,170"/>
+<area shape="rect" id="node1" title="Cartesian motion planning pipeline." alt="" coords="1319,5,1502,75"/>
+<area shape="rect" id="node2" href="$db/d8a/raster__ct__motion__task_8h.html" title="Raster motion task with cartesian transitions." alt="" coords="314,123,494,192"/>
+<area shape="rect" id="node5" href="$d7/d3a/task__composer__utils_8cpp.html" title="A task composer utils." alt="" coords="1223,365,1415,405"/>
+<area shape="rect" id="node9" href="$dc/df9/raster__ct__only__motion__task_8h.html" title="Plans raster paths with cartesian transitions." alt="" coords="923,123,1103,192"/>
+<area shape="rect" id="node15" href="$df/d50/raster__ft__motion__task_8h.html" title="Raster motion task with freespace transitions." alt="" coords="1586,123,1763,192"/>
+<area shape="rect" id="node23" href="$d7/d81/raster__ft__only__motion__task_8h.html" title="Plans raster paths with freespace transitions." alt="" coords="2122,123,2299,192"/>
+<area shape="rect" id="node29" href="$d7/d06/cartesian__motion__pipeline__task_8cpp.html" title=" " alt="" coords="2324,130,2511,185"/>
+<area shape="rect" id="node3" href="$d4/d09/raster__ct__global__pipeline__task_8h.html" title="Plans raster paths with cartesian transitions." alt="" coords="6,240,186,309"/>
+<area shape="rect" id="node6" href="$d1/dc3/raster__ct__pipeline__task_8h.html" title="Plans raster paths with cartesian transitions." alt="" coords="210,240,390,309"/>
+<area shape="rect" id="node8" href="$d2/d01/raster__ct__motion__task_8cpp.html" title="Raster motion planning task with cartesian transitions." alt="" coords="415,247,599,302"/>
+<area shape="rect" id="node4" href="$dd/d2e/raster__ct__global__pipeline__task_8cpp.html" title=" " alt="" coords="5,357,184,412"/>
+<area shape="rect" id="node7" href="$dc/d61/raster__ct__pipeline__task_8cpp.html" title=" " alt="" coords="208,357,397,412"/>
+<area shape="rect" id="node10" href="$d3/dfb/raster__ct__only__global__pipeline__task_8h.html" title="Raster only global motion planning task with cartesian transitions." alt="" coords="1024,240,1211,309"/>
+<area shape="rect" id="node12" href="$db/d1f/raster__ct__only__pipeline__task_8h.html" title="Raster only motion planning task with cartesian transitions." alt="" coords="819,240,999,309"/>
+<area shape="rect" id="node14" href="$d7/d41/raster__ct__only__motion__task_8cpp.html" title="Plans raster paths with cartesian transitions." alt="" coords="623,247,795,302"/>
+<area shape="rect" id="node11" href="$d6/dac/raster__ct__only__global__pipeline__task_8cpp.html" title=" " alt="" coords="1026,357,1198,412"/>
+<area shape="rect" id="node13" href="$d5/d70/raster__ct__only__pipeline__task_8cpp.html" title=" " alt="" coords="823,357,995,412"/>
+<area shape="rect" id="node16" href="$db/d4d/task__composer__raster__example_8cpp.html" title=" " alt="" coords="1286,247,1461,302"/>
+<area shape="rect" id="node17" href="$d9/d11/raster__ft__global__pipeline__task_8h.html" title="Plans raster paths with freespace transitions." alt="" coords="2094,240,2271,309"/>
+<area shape="rect" id="node19" href="$d7/db5/tesseract__task__composer__unit_8cpp.html" title=" " alt="" coords="2293,357,2496,412"/>
+<area shape="rect" id="node20" href="$de/d8e/raster__ft__pipeline__task_8h.html" title="Plans raster paths with freespace transitions." alt="" coords="1485,240,1662,309"/>
+<area shape="rect" id="node22" href="$df/dad/raster__ft__motion__task_8cpp.html" title="Raster motion planning task with freespace transitions." alt="" coords="1687,247,1868,302"/>
+<area shape="rect" id="node18" href="$dd/d2d/raster__ft__global__pipeline__task_8cpp.html" title=" " alt="" coords="2093,357,2269,412"/>
+<area shape="rect" id="node21" href="$dc/dfb/raster__ft__pipeline__task_8cpp.html" title=" " alt="" coords="1480,357,1667,412"/>
+<area shape="rect" id="node24" href="$d2/d44/raster__ft__only__global__pipeline__task_8h.html" title="Raster only global motion planning task with freespace transitions." alt="" coords="2347,240,2533,309"/>
+<area shape="rect" id="node26" href="$d2/d37/raster__ft__only__pipeline__task_8h.html" title="Raster only motion planning task with freespace transitions." alt="" coords="1893,240,2070,309"/>
+<area shape="rect" id="node28" href="$d8/d4b/raster__ft__only__motion__task_8cpp.html" title="Plans raster paths with freespace transitions." alt="" coords="2609,247,2781,302"/>
+<area shape="rect" id="node25" href="$d5/d2e/raster__ft__only__global__pipeline__task_8cpp.html" title=" " alt="" coords="2521,357,2693,412"/>
+<area shape="rect" id="node27" href="$d4/dfc/raster__ft__only__pipeline__task_8cpp.html" title=" " alt="" coords="1895,357,2067,412"/>
 </map>

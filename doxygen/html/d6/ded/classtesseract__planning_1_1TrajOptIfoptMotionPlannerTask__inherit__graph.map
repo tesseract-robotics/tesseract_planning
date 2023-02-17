@@ -1,0 +1,6 @@
+<map id="tesseract_planning::TrajOptIfoptMotionPlannerTask" name="tesseract_planning::TrajOptIfoptMotionPlannerTask">
+<area shape="rect" id="node1" title=" " alt="" coords="5,269,215,309"/>
+<area shape="rect" id="node2" href="$d0/d05/classtesseract__planning_1_1MotionPlannerTask.html" title=" " alt="" coords="23,181,197,221"/>
+<area shape="rect" id="node3" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="37,93,183,133"/>
+<area shape="rect" id="node4" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="37,5,183,45"/>
+</map>

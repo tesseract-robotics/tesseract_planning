@@ -1,31 +1,35 @@
 <map id="tesseract_motion_planners/ompl/include/tesseract_motion_planners/ompl/ompl_planner_configurator.h" name="tesseract_motion_planners/ompl/include/tesseract_motion_planners/ompl/ompl_planner_configurator.h">
-<area shape="rect" id="node1" title="Tesseract OMPL planner configurator." alt="" coords="2460,5,2648,75"/>
-<area shape="rect" id="node2" href="$dd/d3c/ompl__problem_8h.html" title="Tesseract OMPL problem definition." alt="" coords="705,123,893,192"/>
-<area shape="rect" id="node8" href="$d7/da8/ompl__constrained__planner__tests_8cpp.html" title="This contains unit test ompl constrained planning." alt="" coords="2927,475,3106,529"/>
-<area shape="rect" id="node9" href="$d9/d5d/ompl__planner__tests_8cpp.html" title="This contains unit test for the tesseract descartes planner." alt="" coords="2530,482,2719,522"/>
-<area shape="rect" id="node12" href="$d8/d16/ompl__default__plan__profile_8h.html" title="Tesseract OMPL default plan profile." alt="" coords="1359,357,1554,427"/>
-<area shape="rect" id="node29" href="$d2/da1/ompl__planner__configurator_8cpp.html" title="Tesseract OMPL planner configurators." alt="" coords="2642,130,2821,185"/>
-<area shape="rect" id="node3" href="$d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="1234,240,1429,309"/>
-<area shape="rect" id="node21" href="$da/df9/tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2types_8h.html" title="Tesseract OMPL types." alt="" coords="408,247,609,302"/>
-<area shape="rect" id="node22" href="$d1/d13/tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2utils_8h.html" title="Tesseract OMPL planner utility functions." alt="" coords="634,247,829,302"/>
-<area shape="rect" id="node27" href="$d0/d6d/ompl__problem_8cpp.html" title=" " alt="" coords="771,372,956,412"/>
-<area shape="rect" id="node4" href="$d2/dec/ompl__motion__planner_8h.html" title="Tesseract OMPL motion planner." alt="" coords="2189,357,2377,427"/>
-<area shape="rect" id="node19" href="$db/d43/ompl_2include_2tesseract__motion__planners_2ompl_2serialize_8h.html" title="Provide methods for serializing ompl plans to xml." alt="" coords="980,365,1197,419"/>
-<area shape="rect" id="node5" href="$d6/d0e/glass__upright__ompl__example_8cpp.html" title="Glass upright OMPL example implementation." alt="" coords="2743,475,2903,529"/>
-<area shape="rect" id="node6" href="$d4/d82/freespace__example_8cpp.html" title="Freespace motion planning example." alt="" coords="1873,482,2094,522"/>
-<area shape="rect" id="node7" href="$d8/d63/ompl__motion__planner_8cpp.html" title="Tesseract OMPL motion planner." alt="" coords="981,482,1207,522"/>
-<area shape="rect" id="node10" href="$d9/d89/freespace__motion__pipeline__task_8cpp.html" title=" " alt="" coords="2119,475,2309,529"/>
-<area shape="rect" id="node11" href="$d6/d5c/ompl__motion__pipeline__task_8cpp.html" title=" " alt="" coords="2333,475,2505,529"/>
-<area shape="rect" id="node13" href="$d1/dda/freespace__hybrid__example_8cpp.html" title=" " alt="" coords="1651,475,1798,529"/>
-<area shape="rect" id="node14" href="$d1/d33/freespace__ompl__example_8cpp.html" title="An example of a feespace motion planning with OMPL." alt="" coords="1487,475,1627,529"/>
-<area shape="rect" id="node15" href="$d1/dd0/ompl_2include_2tesseract__motion__planners_2ompl_2deserialize_8h.html" title="Provide methods for deserialize ompl plans to xml." alt="" coords="1232,475,1463,529"/>
-<area shape="rect" id="node16" href="$d6/dcf/ompl_2src_2deserialize_8cpp.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="1502,577,1681,617"/>
-<area shape="rect" id="node17" href="$d3/d15/tesseract__motion__planners_2test_2serialize__test_8cpp.html" title=" " alt="" coords="854,577,1033,617"/>
-<area shape="rect" id="node18" href="$d6/dc0/ompl__default__plan__profile_8cpp.html" title=" " alt="" coords="271,475,450,529"/>
-<area shape="rect" id="node20" href="$d6/de6/ompl_2src_2serialize_8cpp.html" title=" " alt="" coords="727,482,906,522"/>
-<area shape="rect" id="node23" href="$d3/d7a/continuous__motion__validator_8h.html" title="Tesseract OMPL planner continuous collision check between two states." alt="" coords="5,357,228,427"/>
-<area shape="rect" id="node25" href="$d4/d86/state__collision__validator_8h.html" title="Tesseract OMPL planner OMPL state collision check." alt="" coords="506,357,695,427"/>
-<area shape="rect" id="node26" href="$dc/d50/state__collision__validator_8cpp.html" title="Tesseract OMPL planner OMPL state collision check." alt="" coords="474,475,653,529"/>
-<area shape="rect" id="node28" href="$df/d55/tesseract__motion__planners_2ompl_2src_2utils_8cpp.html" title="Tesseract OMPL planner utility functions." alt="" coords="253,372,431,412"/>
-<area shape="rect" id="node24" href="$dd/d98/continuous__motion__validator_8cpp.html" title="Tesseract OMPL planner continuous collision check between two states." alt="" coords="22,475,211,529"/>
+<area shape="rect" id="node1" title="Tesseract OMPL planner configurator." alt="" coords="1997,5,2185,75"/>
+<area shape="rect" id="node2" href="$dd/d3c/ompl__problem_8h.html" title="Tesseract OMPL problem definition." alt="" coords="1789,123,1977,192"/>
+<area shape="rect" id="node8" href="$d7/da8/ompl__constrained__planner__tests_8cpp.html" title="This contains unit test ompl constrained planning." alt="" coords="2691,482,2869,537"/>
+<area shape="rect" id="node9" href="$d9/d5d/ompl__planner__tests_8cpp.html" title="This contains unit test for the tesseract descartes planner." alt="" coords="1997,489,2187,529"/>
+<area shape="rect" id="node16" href="$d8/d16/ompl__default__plan__profile_8h.html" title="Tesseract OMPL default plan profile." alt="" coords="1203,357,1397,427"/>
+<area shape="rect" id="node33" href="$d2/da1/ompl__planner__configurator_8cpp.html" title="Tesseract OMPL planner configurators." alt="" coords="2421,130,2600,185"/>
+<area shape="rect" id="node3" href="$d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="1581,240,1776,309"/>
+<area shape="rect" id="node25" href="$da/df9/tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2types_8h.html" title="Tesseract OMPL types." alt="" coords="1851,247,2053,302"/>
+<area shape="rect" id="node26" href="$d1/d13/tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2utils_8h.html" title="Tesseract OMPL planner utility functions." alt="" coords="784,247,979,302"/>
+<area shape="rect" id="node31" href="$d0/d6d/ompl__problem_8cpp.html" title=" " alt="" coords="1797,372,1982,412"/>
+<area shape="rect" id="node4" href="$d2/dec/ompl__motion__planner_8h.html" title="Tesseract OMPL motion planner." alt="" coords="1585,357,1773,427"/>
+<area shape="rect" id="node23" href="$db/d43/ompl_2include_2tesseract__motion__planners_2ompl_2serialize_8h.html" title="Provide methods for serializing ompl plans to xml." alt="" coords="2129,365,2346,419"/>
+<area shape="rect" id="node5" href="$d6/d0e/glass__upright__ompl__example_8cpp.html" title="Glass upright OMPL example implementation." alt="" coords="1813,482,1973,537"/>
+<area shape="rect" id="node6" href="$d4/d82/freespace__example_8cpp.html" title="Freespace motion planning example." alt="" coords="1568,489,1789,529"/>
+<area shape="rect" id="node7" href="$d8/d63/ompl__motion__planner_8cpp.html" title="Tesseract OMPL motion planner." alt="" coords="624,489,851,529"/>
+<area shape="rect" id="node10" href="$d6/d00/ompl__motion__planner__task_8h.html" title="OMPL motion planning pipeline." alt="" coords="2261,475,2464,544"/>
+<area shape="rect" id="node11" href="$d0/de5/ompl__motion__pipeline__task_8h.html" title=" " alt="" coords="2040,592,2243,661"/>
+<area shape="rect" id="node14" href="$d9/d89/freespace__motion__pipeline__task_8cpp.html" title=" " alt="" coords="2267,599,2458,654"/>
+<area shape="rect" id="node15" href="$d0/de2/ompl__motion__planner__task_8cpp.html" title="OMPL motion planner task." alt="" coords="2482,599,2654,654"/>
+<area shape="rect" id="node12" href="$d6/d5c/ompl__motion__pipeline__task_8cpp.html" title=" " alt="" coords="1951,709,2123,764"/>
+<area shape="rect" id="node13" href="$d7/d3a/task__composer__utils_8cpp.html" title="A task composer utils." alt="" coords="2148,717,2340,757"/>
+<area shape="rect" id="node17" href="$d1/dda/freespace__hybrid__example_8cpp.html" title=" " alt="" coords="875,482,1021,537"/>
+<area shape="rect" id="node18" href="$d1/d33/freespace__ompl__example_8cpp.html" title="An example of a feespace motion planning with OMPL." alt="" coords="1046,482,1186,537"/>
+<area shape="rect" id="node19" href="$d1/dd0/ompl_2include_2tesseract__motion__planners_2ompl_2deserialize_8h.html" title="Provide methods for deserialize ompl plans to xml." alt="" coords="1262,482,1493,537"/>
+<area shape="rect" id="node20" href="$d6/dcf/ompl_2src_2deserialize_8cpp.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="1187,607,1365,647"/>
+<area shape="rect" id="node21" href="$d3/d15/tesseract__motion__planners_2test_2serialize__test_8cpp.html" title=" " alt="" coords="1441,607,1620,647"/>
+<area shape="rect" id="node22" href="$d6/dc0/ompl__default__plan__profile_8cpp.html" title=" " alt="" coords="5,482,184,537"/>
+<area shape="rect" id="node24" href="$d6/de6/ompl_2src_2serialize_8cpp.html" title=" " alt="" coords="2488,489,2667,529"/>
+<area shape="rect" id="node27" href="$d3/d7a/continuous__motion__validator_8h.html" title="Tesseract OMPL planner continuous collision check between two states." alt="" coords="557,357,779,427"/>
+<area shape="rect" id="node29" href="$d4/d86/state__collision__validator_8h.html" title="Tesseract OMPL planner OMPL state collision check." alt="" coords="343,357,532,427"/>
+<area shape="rect" id="node30" href="$dc/d50/state__collision__validator_8cpp.html" title="Tesseract OMPL planner OMPL state collision check." alt="" coords="421,482,600,537"/>
+<area shape="rect" id="node32" href="$df/d55/tesseract__motion__planners_2ompl_2src_2utils_8cpp.html" title="Tesseract OMPL planner utility functions." alt="" coords="855,372,1033,412"/>
+<area shape="rect" id="node28" href="$dd/d98/continuous__motion__validator_8cpp.html" title="Tesseract OMPL planner continuous collision check between two states." alt="" coords="208,482,397,537"/>
 </map>

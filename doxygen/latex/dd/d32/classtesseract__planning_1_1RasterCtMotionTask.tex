@@ -2,11 +2,6 @@
 \label{classtesseract__planning_1_1RasterCtMotionTask}\index{tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}}
 
 
-The \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} class.  
-
-
-
-
 {\ttfamily \#include $<$raster\+\_\+ct\+\_\+motion\+\_\+task.\+h$>$}
 
 
@@ -33,7 +28,7 @@ using \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_a356edff93
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_a589ec95330013eb61dcc59cdc67340c2}{Raster\+Ct\+Motion\+Task}} ()=default
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_a89c2cf692ca095ae2e491376b2c0a8f7}{Raster\+Ct\+Motion\+Task}} (std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional=true, std\+::string name=\char`\"{}Raster\+Ct\+Motion\+Task\char`\"{})
+\mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_a8eb50c72397cc330e7ba5c692826673f}{Raster\+Ct\+Motion\+Task}} (std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional=true, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1node__names_af76108b59480ee074001f249ddccf136}{node\+\_\+names\+::\+RASTER\+\_\+\+CT\+\_\+\+MOTION\+\_\+\+TASK\+\_\+\+NAME}})
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_a6e1718fd07f895287e95c76a216e9de5}{$\sim$\+Raster\+Ct\+Motion\+Task}} () override=default
 \item 
@@ -44,22 +39,11 @@ using \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_a356edff93
 \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_a0ca24c56b07d7a0b689c1eb724a6a225}{Raster\+Ct\+Motion\+Task}} (\mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} \&\&)=delete
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} \& \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_a0b2f8229cd9be8fce8f5d132c1851496}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} \&\&)=delete
-\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_a7a9318836b6cdb576d51ee17bde57353}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} \&rhs) const
-\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_a13c7f50c3370fb53696cf75202ec2ef8}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} \&rhs) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_a7779742cf7149b80cb340f1cc9f419db}{serialize}} (Archive \&ar, const unsigned int version)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{Task\+Composer\+Node\+Info\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_aeea1186df0eeeedc8e7e98b29dc8767d}{run\+Impl}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&input, \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{Optional\+Task\+Composer\+Executor}} executor) const override final
-\end{DoxyCompactItemize}
-\doxysubsection*{Static Protected Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-static void \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_a65e67160ca0dddd2e0c1508f48571842}{check\+Task\+Input}} (const tesseract\+\_\+common\+::\+Any\+Poly \&input)
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -70,13 +54,6 @@ class \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask_ac98d07dd8
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
-
-\doxysubsection{Detailed Description}
-The \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} class. 
-
-The required format is below.
-
-Composite \{ Composite -\/ from start Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ to end \} 
 
 \doxysubsection{Member Typedef Documentation}
 \mbox{\Hypertarget{classtesseract__planning_1_1RasterCtMotionTask_a0ebc4417cf4473d257be9d63c0ce63ad}\label{classtesseract__planning_1_1RasterCtMotionTask_a0ebc4417cf4473d257be9d63c0ce63ad}} 
@@ -112,11 +89,11 @@ Composite \{ Composite -\/ from start Composite -\/ Raster segment Composite -\/
 \doxysubsubsection{\texorpdfstring{RasterCtMotionTask()}{RasterCtMotionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Raster\+Ct\+Motion\+Task\+::\+Raster\+Ct\+Motion\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterCtMotionTask_a89c2cf692ca095ae2e491376b2c0a8f7}\label{classtesseract__planning_1_1RasterCtMotionTask_a89c2cf692ca095ae2e491376b2c0a8f7}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterCtMotionTask_a8eb50c72397cc330e7ba5c692826673f}\label{classtesseract__planning_1_1RasterCtMotionTask_a8eb50c72397cc330e7ba5c692826673f}} 
 \index{tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}!RasterCtMotionTask@{RasterCtMotionTask}}
 \index{RasterCtMotionTask@{RasterCtMotionTask}!tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}}
 \doxysubsubsection{\texorpdfstring{RasterCtMotionTask()}{RasterCtMotionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Raster\+Ct\+Motion\+Task\+::\+Raster\+Ct\+Motion\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true},  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}RasterCtMotionTask\char`\"{}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Raster\+Ct\+Motion\+Task\+::\+Raster\+Ct\+Motion\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true},  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_af76108b59480ee074001f249ddccf136}{node\+\_\+names\+::\+RASTER\+\_\+\+CT\+\_\+\+MOTION\+\_\+\+TASK\+\_\+\+NAME}}} }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1RasterCtMotionTask_a6e1718fd07f895287e95c76a216e9de5}\label{classtesseract__planning_1_1RasterCtMotionTask_a6e1718fd07f895287e95c76a216e9de5}} 
 \index{tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}!````~RasterCtMotionTask@{$\sim$RasterCtMotionTask}}
@@ -139,18 +116,6 @@ Composite \{ Composite -\/ from start Composite -\/ Raster segment Composite -\/
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterCtMotionTask_a65e67160ca0dddd2e0c1508f48571842}\label{classtesseract__planning_1_1RasterCtMotionTask_a65e67160ca0dddd2e0c1508f48571842}} 
-\index{tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}!checkTaskInput@{checkTaskInput}}
-\index{checkTaskInput@{checkTaskInput}!tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}}
-\doxysubsubsection{\texorpdfstring{checkTaskInput()}{checkTaskInput()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Raster\+Ct\+Motion\+Task\+::check\+Task\+Input (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+common\+::\+Any\+Poly \&}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterCtMotionTask_a13c7f50c3370fb53696cf75202ec2ef8}\label{classtesseract__planning_1_1RasterCtMotionTask_a13c7f50c3370fb53696cf75202ec2ef8}} 
-\index{tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}!operator"!=@{operator"!=}}
-\index{operator"!=@{operator"!=}!tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}}
-\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Raster\+Ct\+Motion\+Task\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} \&}]{rhs }\end{DoxyParamCaption}) const}
-
 \mbox{\Hypertarget{classtesseract__planning_1_1RasterCtMotionTask_a1ed6eb56f8df0f6746ea2209e3fa55a9}\label{classtesseract__planning_1_1RasterCtMotionTask_a1ed6eb56f8df0f6746ea2209e3fa55a9}} 
 \index{tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}!operator=@{operator=}}
 \index{operator=@{operator=}!tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}}
@@ -162,22 +127,6 @@ Composite \{ Composite -\/ from start Composite -\/ Raster segment Composite -\/
 \index{operator=@{operator=}!tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}}
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} \& tesseract\+\_\+planning\+::\+Raster\+Ct\+Motion\+Task\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterCtMotionTask_a7a9318836b6cdb576d51ee17bde57353}\label{classtesseract__planning_1_1RasterCtMotionTask_a7a9318836b6cdb576d51ee17bde57353}} 
-\index{tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}!operator==@{operator==}}
-\index{operator==@{operator==}!tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}}
-\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Raster\+Ct\+Motion\+Task\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} \&}]{rhs }\end{DoxyParamCaption}) const}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterCtMotionTask_aeea1186df0eeeedc8e7e98b29dc8767d}\label{classtesseract__planning_1_1RasterCtMotionTask_aeea1186df0eeeedc8e7e98b29dc8767d}} 
-\index{tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}!runImpl@{runImpl}}
-\index{runImpl@{runImpl}!tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}}
-\doxysubsubsection{\texorpdfstring{runImpl()}{runImpl()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{Task\+Composer\+Node\+Info\+::\+UPtr}} tesseract\+\_\+planning\+::\+Raster\+Ct\+Motion\+Task\+::run\+Impl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&}]{input,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{Optional\+Task\+Composer\+Executor}}}]{executor }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
-
-
-
-Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_ac9d9332efa22cad525458796c3f19c3f}{tesseract\+\_\+planning\+::\+Task\+Composer\+Task}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1RasterCtMotionTask_a7779742cf7149b80cb340f1cc9f419db}\label{classtesseract__planning_1_1RasterCtMotionTask_a7779742cf7149b80cb340f1cc9f419db}} 
 \index{tesseract\_planning::RasterCtMotionTask@{tesseract\_planning::RasterCtMotionTask}!serialize@{serialize}}

@@ -1,5 +1,6 @@
 <map id="tesseract_planning::DescartesMotionPipelineTask" name="tesseract_planning::DescartesMotionPipelineTask">
-<area shape="rect" id="node1" title=" " alt="" coords="5,181,207,221"/>
-<area shape="rect" id="node2" href="$d3/dac/classtesseract__planning_1_1TaskComposerGraph.html" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="31,93,181,133"/>
-<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="33,5,179,45"/>
+<area shape="rect" id="node1" title=" " alt="" coords="17,255,219,295"/>
+<area shape="rect" id="node2" href="$de/dde/classtesseract__planning_1_1MotionPipelineTask.html" title=" " alt="" coords="5,181,231,207"/>
+<area shape="rect" id="node3" href="$d3/dac/classtesseract__planning_1_1TaskComposerGraph.html" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="43,93,193,133"/>
+<area shape="rect" id="node4" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="45,5,191,45"/>
 </map>

@@ -134,6 +134,7 @@ digraph "tesseract_examples/src/glass_upright_ompl_example.cpp"
   Node71 [label="tesseract_task_composer\l/task_composer_node_names.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/da7/task__composer__node__names_8h.html",tooltip="Contains default node names."];
   Node71 -> Node2 [color="steelblue1",style="solid"];
   Node71 -> Node6 [color="steelblue1",style="solid"];
+  Node71 -> Node19 [color="steelblue1",style="solid"];
   Node1 -> Node72 [color="steelblue1",style="solid"];
   Node72 [label="tesseract_task_composer\l/nodes/freespace_motion\l_pipeline_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d7a/freespace__motion__pipeline__task_8h.html",tooltip=" "];
   Node72 -> Node73 [color="steelblue1",style="solid"];

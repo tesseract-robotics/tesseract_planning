@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Tesseract Planning: tesseract_planning::MotionPlannerTask Class Reference</title>
+<title>Tesseract Planning: tesseract_planning::MotionPlannerTask&lt; MotionPlannerType &gt; Class Template Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -78,88 +78,59 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="../../d6/dd3/classtesseract__planning_1_1MotionPlannerTask-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">tesseract_planning::MotionPlannerTask Class Reference</div></div>
+  <div class="headertitle"><div class="title">tesseract_planning::MotionPlannerTask&lt; MotionPlannerType &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="../../db/dd9/motion__planner__task_8h_source.html">motion_planner_task.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d2/df3/motion__planner__task_8hpp_source.html">motion_planner_task.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for tesseract_planning::MotionPlannerTask:</div>
+Inheritance diagram for tesseract_planning::MotionPlannerTask&lt; MotionPlannerType &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../df/d1b/classtesseract__planning_1_1MotionPlannerTask__inherit__graph.png" border="0" usemap="#atesseract__planning_1_1MotionPlannerTask_inherit__map" alt="Inheritance graph"/></div>
-<map name="atesseract__planning_1_1MotionPlannerTask_inherit__map" id="atesseract__planning_1_1MotionPlannerTask_inherit__map">
-<area shape="rect" title=" " alt="" coords="9,181,149,221"/>
-<area shape="rect" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="6,93,151,133"/>
-<area shape="rect" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="5,5,152,45"/>
+<div class="center"><img src="../../df/d1b/classtesseract__planning_1_1MotionPlannerTask__inherit__graph.png" border="0" usemap="#atesseract__planning_1_1MotionPlannerTask_3_01MotionPlannerType_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="atesseract__planning_1_1MotionPlannerTask_3_01MotionPlannerType_01_4_inherit__map" id="atesseract__planning_1_1MotionPlannerTask_3_01MotionPlannerType_01_4_inherit__map">
+<area shape="rect" title=" " alt="" coords="393,163,548,217"/>
+<area shape="rect" href="../../d1/d6c/classtesseract__planning_1_1DescartesMotionPlannerTask.html" title=" " alt="" coords="609,5,808,60"/>
+<area shape="rect" href="../../df/de8/classtesseract__planning_1_1OMPLMotionPlannerTask.html" title=" " alt="" coords="619,84,798,139"/>
+<area shape="rect" href="../../d1/d1f/classtesseract__planning_1_1SimpleMotionPlannerTask.html" title=" " alt="" coords="619,163,799,217"/>
+<area shape="rect" href="../../da/d5f/classtesseract__planning_1_1TrajOptIfoptMotionPlannerTask.html" title=" " alt="" coords="596,241,821,296"/>
+<area shape="rect" href="../../d1/d2f/classtesseract__planning_1_1TrajOptMotionPlannerTask.html" title=" " alt="" coords="617,320,800,375"/>
+<area shape="rect" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="200,170,345,210"/>
+<area shape="rect" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="5,170,152,210"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for tesseract_planning::MotionPlannerTask:</div>
+Collaboration diagram for tesseract_planning::MotionPlannerTask&lt; MotionPlannerType &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/d97/classtesseract__planning_1_1MotionPlannerTask__coll__graph.png" border="0" usemap="#atesseract__planning_1_1MotionPlannerTask_coll__map" alt="Collaboration graph"/></div>
-<map name="atesseract__planning_1_1MotionPlannerTask_coll__map" id="atesseract__planning_1_1MotionPlannerTask_coll__map">
-<area shape="rect" title=" " alt="" coords="267,503,407,543"/>
-<area shape="rect" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="203,413,349,453"/>
-<area shape="rect" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="176,300,323,340"/>
-<area shape="rect" title=" " alt="" coords="174,95,253,120"/>
-<area shape="rect" title=" " alt="" coords="5,190,165,215"/>
-<area shape="rect" href="../../dd/d5f/classtesseract__planning_1_1MotionPlanner.html" title=" " alt="" coords="440,183,571,223"/>
-<area shape="rect" title=" " alt="" coords="151,5,275,45"/>
-<area shape="rect" title=" " alt="" coords="291,183,416,223"/>
-<area shape="rect" title=" " alt="" coords="367,364,579,389"/>
+<div class="center"><img src="../../dd/d97/classtesseract__planning_1_1MotionPlannerTask__coll__graph.png" border="0" usemap="#atesseract__planning_1_1MotionPlannerTask_3_01MotionPlannerType_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="atesseract__planning_1_1MotionPlannerTask_3_01MotionPlannerType_01_4_coll__map" id="atesseract__planning_1_1MotionPlannerTask_3_01MotionPlannerType_01_4_coll__map">
+<area shape="rect" title=" " alt="" coords="274,492,429,547"/>
+<area shape="rect" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="131,389,276,429"/>
+<area shape="rect" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="130,300,277,340"/>
+<area shape="rect" title=" " alt="" coords="28,95,107,120"/>
+<area shape="rect" title=" " alt="" coords="123,190,283,215"/>
+<area shape="rect" title=" " alt="" coords="5,5,129,45"/>
+<area shape="rect" title=" " alt="" coords="307,183,433,223"/>
+<area shape="rect" title=" " alt="" coords="300,389,501,429"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a4bd224449b2cf4e982ebbcfb028d909d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#a4bd224449b2cf4e982ebbcfb028d909d">Ptr</a> = std::shared_ptr&lt; <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a> &gt;</td></tr>
-<tr class="separator:a4bd224449b2cf4e982ebbcfb028d909d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75703ce8874c9a3070f61f863c3e21f9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#a75703ce8874c9a3070f61f863c3e21f9">ConstPtr</a> = std::shared_ptr&lt; const <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a> &gt;</td></tr>
-<tr class="separator:a75703ce8874c9a3070f61f863c3e21f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa330c0a878e25e8b28d8dadf3915348a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#aa330c0a878e25e8b28d8dadf3915348a">UPtr</a> = std::unique_ptr&lt; <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a> &gt;</td></tr>
-<tr class="separator:aa330c0a878e25e8b28d8dadf3915348a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee1bd2381b7e5e8063b2ad92f9eab07d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#aee1bd2381b7e5e8063b2ad92f9eab07d">ConstUPtr</a> = std::unique_ptr&lt; const <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a> &gt;</td></tr>
-<tr class="separator:aee1bd2381b7e5e8063b2ad92f9eab07d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_types_classtesseract__planning_1_1TaskComposerTask"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classtesseract__planning_1_1TaskComposerTask')"><img src="../../closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">tesseract_planning::TaskComposerTask</a></td></tr>
-<tr class="memitem:a457770945135b6b160510fda1afbf2db inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#a457770945135b6b160510fda1afbf2db">Ptr</a> = std::shared_ptr&lt; <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">TaskComposerTask</a> &gt;</td></tr>
-<tr class="separator:a457770945135b6b160510fda1afbf2db inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5505d9be93d0120c7fee0f3b1f06d10 inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#ae5505d9be93d0120c7fee0f3b1f06d10">ConstPtr</a> = std::shared_ptr&lt; const <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">TaskComposerTask</a> &gt;</td></tr>
-<tr class="separator:ae5505d9be93d0120c7fee0f3b1f06d10 inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a817c8cf9178237066196ae1b070cd44e inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#a817c8cf9178237066196ae1b070cd44e">UPtr</a> = std::unique_ptr&lt; <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">TaskComposerTask</a> &gt;</td></tr>
-<tr class="separator:a817c8cf9178237066196ae1b070cd44e inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb2128fb562b61c94c849f8181c8bb52 inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#afb2128fb562b61c94c849f8181c8bb52">ConstUPtr</a> = std::unique_ptr&lt; const <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">TaskComposerTask</a> &gt;</td></tr>
-<tr class="separator:afb2128fb562b61c94c849f8181c8bb52 inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfe95d32101794d3e3fdd48f5076c24e inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#acfe95d32101794d3e3fdd48f5076c24e">OptionalTaskComposerExecutor</a> = std::optional&lt; std::reference_wrapper&lt; <a class="el" href="../../d2/d86/classtesseract__planning_1_1TaskComposerExecutor.html">TaskComposerExecutor</a> &gt; &gt;</td></tr>
-<tr class="memdesc:acfe95d32101794d3e3fdd48f5076c24e inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="mdescLeft">&#160;</td><td class="mdescRight">Most task will not require a executor so making it optional.  <a href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#acfe95d32101794d3e3fdd48f5076c24e">More...</a><br /></td></tr>
-<tr class="separator:acfe95d32101794d3e3fdd48f5076c24e inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_types_classtesseract__planning_1_1TaskComposerNode"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classtesseract__planning_1_1TaskComposerNode')"><img src="../../closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">tesseract_planning::TaskComposerNode</a></td></tr>
-<tr class="memitem:afa21bcbdb14758703e68761c425b2df6 inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#afa21bcbdb14758703e68761c425b2df6">Ptr</a> = std::shared_ptr&lt; <a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">TaskComposerNode</a> &gt;</td></tr>
-<tr class="separator:afa21bcbdb14758703e68761c425b2df6 inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addafbf5ce4de929f61528800dfe03129 inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#addafbf5ce4de929f61528800dfe03129">ConstPtr</a> = std::shared_ptr&lt; const <a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">TaskComposerNode</a> &gt;</td></tr>
-<tr class="separator:addafbf5ce4de929f61528800dfe03129 inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeee363b2e1325a896f640091c2673dff inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#aeee363b2e1325a896f640091c2673dff">UPtr</a> = std::unique_ptr&lt; <a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">TaskComposerNode</a> &gt;</td></tr>
-<tr class="separator:aeee363b2e1325a896f640091c2673dff inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cca773a6bd1be40ce8c67426240a061 inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a6cca773a6bd1be40ce8c67426240a061">ConstUPtr</a> = std::unique_ptr&lt; const <a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">TaskComposerNode</a> &gt;</td></tr>
-<tr class="separator:a6cca773a6bd1be40ce8c67426240a061 inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ada85b10a163a60f1e689fe86c3ab9b6a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#ada85b10a163a60f1e689fe86c3ab9b6a">MotionPlannerTask</a> ()=default</td></tr>
-<tr class="separator:ada85b10a163a60f1e689fe86c3ab9b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32d959bb9c6a9c3b3dbd2744c8258d61"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#a32d959bb9c6a9c3b3dbd2744c8258d61">MotionPlannerTask</a> (<a class="el" href="../../dd/d5f/classtesseract__planning_1_1MotionPlanner.html#a5b4a8c1043a08c4dd022240333a5ee36">MotionPlanner::Ptr</a> planner, std::string input_key, std::string output_key, bool format_result_as_input=true, bool is_conditional=true)</td></tr>
-<tr class="separator:a32d959bb9c6a9c3b3dbd2744c8258d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8c1dc005749534d77c7f61d1d22ac01"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#ad8c1dc005749534d77c7f61d1d22ac01">~MotionPlannerTask</a> () override=default</td></tr>
-<tr class="separator:ad8c1dc005749534d77c7f61d1d22ac01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac582d70d9f59a29026a8f6723d769e90"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#ac582d70d9f59a29026a8f6723d769e90">operator==</a> (const <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a> &amp;rhs) const</td></tr>
-<tr class="separator:ac582d70d9f59a29026a8f6723d769e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a026441d88e942d0658367379c7eb0986"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#a026441d88e942d0658367379c7eb0986">operator!=</a> (const <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a> &amp;rhs) const</td></tr>
-<tr class="separator:a026441d88e942d0658367379c7eb0986"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a556eafcfe33a085a657236f55dc823ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#a556eafcfe33a085a657236f55dc823ee">MotionPlannerTask</a> ()=default</td></tr>
+<tr class="separator:a556eafcfe33a085a657236f55dc823ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9576aebb0b167936cb2faf84c3bbb1b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#ab9576aebb0b167936cb2faf84c3bbb1b">MotionPlannerTask</a> (std::string input_key, std::string output_key, bool format_result_as_input, bool is_conditional, std::string name)</td></tr>
+<tr class="separator:ab9576aebb0b167936cb2faf84c3bbb1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a933468ab4a7f141ae9c7e3a96ddd5269"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#a933468ab4a7f141ae9c7e3a96ddd5269">~MotionPlannerTask</a> () override=default</td></tr>
+<tr class="separator:a933468ab4a7f141ae9c7e3a96ddd5269"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae970b8d0d89e03e70482918055390e63"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#ae970b8d0d89e03e70482918055390e63">operator==</a> (const <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a> &amp;rhs) const</td></tr>
+<tr class="separator:ae970b8d0d89e03e70482918055390e63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaac2dad24985f0f290bd2778ebf875fd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#aaac2dad24985f0f290bd2778ebf875fd">operator!=</a> (const <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a> &amp;rhs) const</td></tr>
+<tr class="separator:aaac2dad24985f0f290bd2778ebf875fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classtesseract__planning_1_1TaskComposerTask"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classtesseract__planning_1_1TaskComposerTask')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">tesseract_planning::TaskComposerTask</a></td></tr>
 <tr class="memitem:a5975d7482fa62633d2bdd7ac2620acc7 inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#a5975d7482fa62633d2bdd7ac2620acc7">TaskComposerTask</a> ()=default</td></tr>
 <tr class="separator:a5975d7482fa62633d2bdd7ac2620acc7 inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -236,11 +207,11 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a64840fb193ef099b70bf8f4caf8e8ba3"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
-<tr class="memitem:a64840fb193ef099b70bf8f4caf8e8ba3"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#a64840fb193ef099b70bf8f4caf8e8ba3">serialize</a> (Archive &amp;ar, const unsigned int version)</td></tr>
-<tr class="separator:a64840fb193ef099b70bf8f4caf8e8ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a895b4c7de7e09c06c601ca7c8383fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/de5/classtesseract__planning_1_1TaskComposerNodeInfo.html#a69ff72adefb9a929b3665014da4a2466">TaskComposerNodeInfo::UPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#a5a895b4c7de7e09c06c601ca7c8383fc">runImpl</a> (<a class="el" href="../../db/d39/structtesseract__planning_1_1TaskComposerInput.html">TaskComposerInput</a> &amp;input, <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#acfe95d32101794d3e3fdd48f5076c24e">OptionalTaskComposerExecutor</a> executor=std::nullopt) const override</td></tr>
-<tr class="separator:a5a895b4c7de7e09c06c601ca7c8383fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abeecb0b3af97a216d414a501327fe63c"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
+<tr class="memitem:abeecb0b3af97a216d414a501327fe63c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#abeecb0b3af97a216d414a501327fe63c">serialize</a> (Archive &amp;ar, const unsigned int)</td></tr>
+<tr class="separator:abeecb0b3af97a216d414a501327fe63c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa253a4fe8ad62c8589db7c5287985cc6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/de5/classtesseract__planning_1_1TaskComposerNodeInfo.html#a69ff72adefb9a929b3665014da4a2466">TaskComposerNodeInfo::UPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#aa253a4fe8ad62c8589db7c5287985cc6">runImpl</a> (<a class="el" href="../../db/d39/structtesseract__planning_1_1TaskComposerInput.html">TaskComposerInput</a> &amp;input, <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#acfe95d32101794d3e3fdd48f5076c24e">OptionalTaskComposerExecutor</a>=std::nullopt) const override</td></tr>
+<tr class="separator:aa253a4fe8ad62c8589db7c5287985cc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classtesseract__planning_1_1TaskComposerTask"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classtesseract__planning_1_1TaskComposerTask')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">tesseract_planning::TaskComposerTask</a></td></tr>
 <tr class="memitem:a25c46c1f1728789da93564ca6be71ee7 inherit pro_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
 <tr class="memitem:a25c46c1f1728789da93564ca6be71ee7 inherit pro_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#a25c46c1f1728789da93564ca6be71ee7">serialize</a> (Archive &amp;ar, const unsigned int version)</td></tr>
@@ -254,10 +225,10 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a78d786978a45a6d1d56a8429a8d1e323"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d5f/classtesseract__planning_1_1MotionPlanner.html#a5b4a8c1043a08c4dd022240333a5ee36">MotionPlanner::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#a78d786978a45a6d1d56a8429a8d1e323">planner_</a></td></tr>
-<tr class="separator:a78d786978a45a6d1d56a8429a8d1e323"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2dea671da499e54cbdb76191dd7197d5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#a2dea671da499e54cbdb76191dd7197d5">format_result_as_input_</a> { true }</td></tr>
-<tr class="separator:a2dea671da499e54cbdb76191dd7197d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4344955046bca4efe7f5cc37d33063b"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; MotionPlannerType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#ad4344955046bca4efe7f5cc37d33063b">planner_</a></td></tr>
+<tr class="separator:ad4344955046bca4efe7f5cc37d33063b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe499d1606a36cde90dccb363859f4dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#afe499d1606a36cde90dccb363859f4dc">format_result_as_input_</a> { true }</td></tr>
+<tr class="separator:afe499d1606a36cde90dccb363859f4dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classtesseract__planning_1_1TaskComposerTask"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classtesseract__planning_1_1TaskComposerTask')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">tesseract_planning::TaskComposerTask</a></td></tr>
 <tr class="memitem:a900838f8d6622bf3dc7f0856154083a7 inherit pro_attribs_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#a900838f8d6622bf3dc7f0856154083a7">is_conditional_</a> { true }</td></tr>
 <tr class="separator:a900838f8d6622bf3dc7f0856154083a7 inherit pro_attribs_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -299,80 +270,46 @@ Friends</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_classtesseract__planning_1_1TaskComposerTask"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classtesseract__planning_1_1TaskComposerTask')"><img src="../../closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">tesseract_planning::TaskComposerTask</a></td></tr>
+<tr class="memitem:a457770945135b6b160510fda1afbf2db inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#a457770945135b6b160510fda1afbf2db">Ptr</a> = std::shared_ptr&lt; <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">TaskComposerTask</a> &gt;</td></tr>
+<tr class="separator:a457770945135b6b160510fda1afbf2db inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5505d9be93d0120c7fee0f3b1f06d10 inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#ae5505d9be93d0120c7fee0f3b1f06d10">ConstPtr</a> = std::shared_ptr&lt; const <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">TaskComposerTask</a> &gt;</td></tr>
+<tr class="separator:ae5505d9be93d0120c7fee0f3b1f06d10 inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a817c8cf9178237066196ae1b070cd44e inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#a817c8cf9178237066196ae1b070cd44e">UPtr</a> = std::unique_ptr&lt; <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">TaskComposerTask</a> &gt;</td></tr>
+<tr class="separator:a817c8cf9178237066196ae1b070cd44e inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb2128fb562b61c94c849f8181c8bb52 inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#afb2128fb562b61c94c849f8181c8bb52">ConstUPtr</a> = std::unique_ptr&lt; const <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">TaskComposerTask</a> &gt;</td></tr>
+<tr class="separator:afb2128fb562b61c94c849f8181c8bb52 inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfe95d32101794d3e3fdd48f5076c24e inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#acfe95d32101794d3e3fdd48f5076c24e">OptionalTaskComposerExecutor</a> = std::optional&lt; std::reference_wrapper&lt; <a class="el" href="../../d2/d86/classtesseract__planning_1_1TaskComposerExecutor.html">TaskComposerExecutor</a> &gt; &gt;</td></tr>
+<tr class="memdesc:acfe95d32101794d3e3fdd48f5076c24e inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="mdescLeft">&#160;</td><td class="mdescRight">Most task will not require a executor so making it optional.  <a href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#acfe95d32101794d3e3fdd48f5076c24e">More...</a><br /></td></tr>
+<tr class="separator:acfe95d32101794d3e3fdd48f5076c24e inherit pub_types_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_classtesseract__planning_1_1TaskComposerNode"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classtesseract__planning_1_1TaskComposerNode')"><img src="../../closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">tesseract_planning::TaskComposerNode</a></td></tr>
+<tr class="memitem:afa21bcbdb14758703e68761c425b2df6 inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#afa21bcbdb14758703e68761c425b2df6">Ptr</a> = std::shared_ptr&lt; <a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">TaskComposerNode</a> &gt;</td></tr>
+<tr class="separator:afa21bcbdb14758703e68761c425b2df6 inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addafbf5ce4de929f61528800dfe03129 inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#addafbf5ce4de929f61528800dfe03129">ConstPtr</a> = std::shared_ptr&lt; const <a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">TaskComposerNode</a> &gt;</td></tr>
+<tr class="separator:addafbf5ce4de929f61528800dfe03129 inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeee363b2e1325a896f640091c2673dff inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#aeee363b2e1325a896f640091c2673dff">UPtr</a> = std::unique_ptr&lt; <a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">TaskComposerNode</a> &gt;</td></tr>
+<tr class="separator:aeee363b2e1325a896f640091c2673dff inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cca773a6bd1be40ce8c67426240a061 inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a6cca773a6bd1be40ce8c67426240a061">ConstUPtr</a> = std::unique_ptr&lt; const <a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">TaskComposerNode</a> &gt;</td></tr>
+<tr class="separator:a6cca773a6bd1be40ce8c67426240a061 inherit pub_types_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_static_methods_classtesseract__planning_1_1TaskComposerNode"><td colspan="2" onclick="javascript:toggleInherit('pro_static_methods_classtesseract__planning_1_1TaskComposerNode')"><img src="../../closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">tesseract_planning::TaskComposerNode</a></td></tr>
 <tr class="memitem:abf736b9f7575070e42779ec252850d48 inherit pro_static_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#abf736b9f7575070e42779ec252850d48">toString</a> (const boost::uuids::uuid &amp;u, const std::string &amp;prefix=&quot;&quot;)</td></tr>
 <tr class="memdesc:abf736b9f7575070e42779ec252850d48 inherit pro_static_methods_classtesseract__planning_1_1TaskComposerNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will create a UUID string with no hyphens used when creating dot graph.  <a href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#abf736b9f7575070e42779ec252850d48">More...</a><br /></td></tr>
 <tr class="separator:abf736b9f7575070e42779ec252850d48 inherit pro_static_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a75703ce8874c9a3070f61f863c3e21f9" name="a75703ce8874c9a3070f61f863c3e21f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75703ce8874c9a3070f61f863c3e21f9">&#9670;&#160;</a></span>ConstPtr</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#a75703ce8874c9a3070f61f863c3e21f9">tesseract_planning::MotionPlannerTask::ConstPtr</a> =  std::shared_ptr&lt;const <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aee1bd2381b7e5e8063b2ad92f9eab07d" name="aee1bd2381b7e5e8063b2ad92f9eab07d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee1bd2381b7e5e8063b2ad92f9eab07d">&#9670;&#160;</a></span>ConstUPtr</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#aee1bd2381b7e5e8063b2ad92f9eab07d">tesseract_planning::MotionPlannerTask::ConstUPtr</a> =  std::unique_ptr&lt;const <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4bd224449b2cf4e982ebbcfb028d909d" name="a4bd224449b2cf4e982ebbcfb028d909d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4bd224449b2cf4e982ebbcfb028d909d">&#9670;&#160;</a></span>Ptr</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#a4bd224449b2cf4e982ebbcfb028d909d">tesseract_planning::MotionPlannerTask::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa330c0a878e25e8b28d8dadf3915348a" name="aa330c0a878e25e8b28d8dadf3915348a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa330c0a878e25e8b28d8dadf3915348a">&#9670;&#160;</a></span>UPtr</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html#aa330c0a878e25e8b28d8dadf3915348a">tesseract_planning::MotionPlannerTask::UPtr</a> =  std::unique_ptr&lt;<a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ada85b10a163a60f1e689fe86c3ab9b6a" name="ada85b10a163a60f1e689fe86c3ab9b6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada85b10a163a60f1e689fe86c3ab9b6a">&#9670;&#160;</a></span>MotionPlannerTask() <span class="overload">[1/2]</span></h2>
+<a id="a556eafcfe33a085a657236f55dc823ee" name="a556eafcfe33a085a657236f55dc823ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a556eafcfe33a085a657236f55dc823ee">&#9670;&#160;</a></span>MotionPlannerTask() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename MotionPlannerType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tesseract_planning::MotionPlannerTask::MotionPlannerTask </td>
+          <td class="memname"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">tesseract_planning::MotionPlannerTask</a>&lt; MotionPlannerType &gt;::MotionPlannerTask </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -387,21 +324,20 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a32d959bb9c6a9c3b3dbd2744c8258d61" name="a32d959bb9c6a9c3b3dbd2744c8258d61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32d959bb9c6a9c3b3dbd2744c8258d61">&#9670;&#160;</a></span>MotionPlannerTask() <span class="overload">[2/2]</span></h2>
+<a id="ab9576aebb0b167936cb2faf84c3bbb1b" name="ab9576aebb0b167936cb2faf84c3bbb1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9576aebb0b167936cb2faf84c3bbb1b">&#9670;&#160;</a></span>MotionPlannerTask() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename MotionPlannerType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tesseract_planning::MotionPlannerTask::MotionPlannerTask </td>
+          <td class="memname"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">tesseract_planning::MotionPlannerTask</a>&lt; MotionPlannerType &gt;::MotionPlannerTask </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dd/d5f/classtesseract__planning_1_1MotionPlanner.html#a5b4a8c1043a08c4dd022240333a5ee36">MotionPlanner::Ptr</a>&#160;</td>
-          <td class="paramname"><em>planner</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>input_key</em>, </td>
         </tr>
@@ -415,13 +351,19 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>format_result_as_input</em> = <code>true</code>, </td>
+          <td class="paramname"><em>format_result_as_input</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>is_conditional</em> = <code>true</code>&#160;</td>
+          <td class="paramname"><em>is_conditional</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -429,21 +371,28 @@ Additional Inherited Members</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ad8c1dc005749534d77c7f61d1d22ac01" name="ad8c1dc005749534d77c7f61d1d22ac01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8c1dc005749534d77c7f61d1d22ac01">&#9670;&#160;</a></span>~MotionPlannerTask()</h2>
+<a id="a933468ab4a7f141ae9c7e3a96ddd5269" name="a933468ab4a7f141ae9c7e3a96ddd5269"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a933468ab4a7f141ae9c7e3a96ddd5269">&#9670;&#160;</a></span>~MotionPlannerTask()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename MotionPlannerType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tesseract_planning::MotionPlannerTask::~MotionPlannerTask </td>
+          <td class="memname"><a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">tesseract_planning::MotionPlannerTask</a>&lt; MotionPlannerType &gt;::~<a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -459,53 +408,75 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a026441d88e942d0658367379c7eb0986" name="a026441d88e942d0658367379c7eb0986"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a026441d88e942d0658367379c7eb0986">&#9670;&#160;</a></span>operator!=()</h2>
+<a id="aaac2dad24985f0f290bd2778ebf875fd" name="aaac2dad24985f0f290bd2778ebf875fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaac2dad24985f0f290bd2778ebf875fd">&#9670;&#160;</a></span>operator!=()</h2>
 
 <div class="memitem">
 <div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tesseract_planning::MotionPlannerTask::operator!= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac582d70d9f59a29026a8f6723d769e90" name="ac582d70d9f59a29026a8f6723d769e90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac582d70d9f59a29026a8f6723d769e90">&#9670;&#160;</a></span>operator==()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tesseract_planning::MotionPlannerTask::operator== </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5a895b4c7de7e09c06c601ca7c8383fc" name="a5a895b4c7de7e09c06c601ca7c8383fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a895b4c7de7e09c06c601ca7c8383fc">&#9670;&#160;</a></span>runImpl()</h2>
-
-<div class="memitem">
-<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MotionPlannerType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../da/de5/classtesseract__planning_1_1TaskComposerNodeInfo.html#a69ff72adefb9a929b3665014da4a2466">TaskComposerNodeInfo::UPtr</a> tesseract_planning::MotionPlannerTask::runImpl </td>
+          <td class="memname">bool <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">tesseract_planning::MotionPlannerTask</a>&lt; MotionPlannerType &gt;::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a>&lt; MotionPlannerType &gt; &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae970b8d0d89e03e70482918055390e63" name="ae970b8d0d89e03e70482918055390e63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae970b8d0d89e03e70482918055390e63">&#9670;&#160;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MotionPlannerType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">tesseract_planning::MotionPlannerTask</a>&lt; MotionPlannerType &gt;::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">MotionPlannerTask</a>&lt; MotionPlannerType &gt; &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa253a4fe8ad62c8589db7c5287985cc6" name="aa253a4fe8ad62c8589db7c5287985cc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa253a4fe8ad62c8589db7c5287985cc6">&#9670;&#160;</a></span>runImpl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MotionPlannerType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../da/de5/classtesseract__planning_1_1TaskComposerNodeInfo.html#a69ff72adefb9a929b3665014da4a2466">TaskComposerNodeInfo::UPtr</a> <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">tesseract_planning::MotionPlannerTask</a>&lt; MotionPlannerType &gt;::runImpl </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../db/d39/structtesseract__planning_1_1TaskComposerInput.html">TaskComposerInput</a> &amp;&#160;</td>
           <td class="paramname"><em>input</em>, </td>
@@ -514,7 +485,7 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#acfe95d32101794d3e3fdd48f5076c24e">OptionalTaskComposerExecutor</a>&#160;</td>
-          <td class="paramname"><em>executor</em> = <code>std::nullopt</code>&#160;</td>
+          <td class="paramname"> = <code>std::nullopt</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -524,7 +495,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -533,11 +504,13 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a64840fb193ef099b70bf8f4caf8e8ba3" name="a64840fb193ef099b70bf8f4caf8e8ba3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64840fb193ef099b70bf8f4caf8e8ba3">&#9670;&#160;</a></span>serialize()</h2>
+<a id="abeecb0b3af97a216d414a501327fe63c" name="abeecb0b3af97a216d414a501327fe63c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abeecb0b3af97a216d414a501327fe63c">&#9670;&#160;</a></span>serialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename MotionPlannerType &gt; </div>
 <div class="memtemplate">
 template&lt;class Archive &gt; </div>
 <table class="mlabels">
@@ -545,7 +518,7 @@ template&lt;class Archive &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void tesseract_planning::MotionPlannerTask::serialize </td>
+          <td class="memname">void <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">tesseract_planning::MotionPlannerTask</a>&lt; MotionPlannerType &gt;::serialize </td>
           <td>(</td>
           <td class="paramtype">Archive &amp;&#160;</td>
           <td class="paramname"><em>ar</em>, </td>
@@ -554,7 +527,7 @@ template&lt;class Archive &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const unsigned int&#160;</td>
-          <td class="paramname"><em>version</em>&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -564,7 +537,7 @@ template&lt;class Archive &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -577,6 +550,8 @@ template&lt;class Archive &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename MotionPlannerType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -599,6 +574,8 @@ template&lt;class Archive &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename MotionPlannerType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -617,17 +594,19 @@ template&lt;class Archive &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a2dea671da499e54cbdb76191dd7197d5" name="a2dea671da499e54cbdb76191dd7197d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2dea671da499e54cbdb76191dd7197d5">&#9670;&#160;</a></span>format_result_as_input_</h2>
+<a id="afe499d1606a36cde90dccb363859f4dc" name="afe499d1606a36cde90dccb363859f4dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe499d1606a36cde90dccb363859f4dc">&#9670;&#160;</a></span>format_result_as_input_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename MotionPlannerType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::MotionPlannerTask::format_result_as_input_ { true }</td>
+          <td class="memname">bool <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">tesseract_planning::MotionPlannerTask</a>&lt; MotionPlannerType &gt;::format_result_as_input_ { true }</td>
         </tr>
       </table>
   </td>
@@ -639,17 +618,19 @@ template&lt;class Archive &gt; </div>
 
 </div>
 </div>
-<a id="a78d786978a45a6d1d56a8429a8d1e323" name="a78d786978a45a6d1d56a8429a8d1e323"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78d786978a45a6d1d56a8429a8d1e323">&#9670;&#160;</a></span>planner_</h2>
+<a id="ad4344955046bca4efe7f5cc37d33063b" name="ad4344955046bca4efe7f5cc37d33063b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4344955046bca4efe7f5cc37d33063b">&#9670;&#160;</a></span>planner_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename MotionPlannerType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../dd/d5f/classtesseract__planning_1_1MotionPlanner.html#a5b4a8c1043a08c4dd022240333a5ee36">MotionPlanner::Ptr</a> tesseract_planning::MotionPlannerTask::planner_</td>
+          <td class="memname">std::shared_ptr&lt;MotionPlannerType&gt; <a class="el" href="../../d0/d05/classtesseract__planning_1_1MotionPlannerTask.html">tesseract_planning::MotionPlannerTask</a>&lt; MotionPlannerType &gt;::planner_</td>
         </tr>
       </table>
   </td>
@@ -661,14 +642,13 @@ template&lt;class Archive &gt; </div>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>tesseract_task_composer/include/tesseract_task_composer/nodes/<a class="el" href="../../db/dd9/motion__planner__task_8h_source.html">motion_planner_task.h</a></li>
-<li>tesseract_task_composer/src/nodes/<a class="el" href="../../d3/da7/motion__planner__task_8cpp.html">motion_planner_task.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>tesseract_task_composer/include/tesseract_task_composer/nodes/<a class="el" href="../../d2/df3/motion__planner__task_8hpp_source.html">motion_planner_task.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 3 2023 15:20:53 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+Generated on Fri Feb 17 2023 03:20:29 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
 </small></address>
 </body>
 </html>

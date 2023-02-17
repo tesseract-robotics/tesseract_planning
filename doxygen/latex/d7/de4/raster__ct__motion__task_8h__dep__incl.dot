@@ -6,9 +6,16 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/nodes/raster_ct
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   Node1 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/raster_ct\l_motion_task.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Raster motion task with cartesian transitions."];
   Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
-  Node2 [label="tesseract_task_composer\l/src/nodes/raster_ct_global\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/d2e/raster__ct__global__pipeline__task_8cpp.html",tooltip=" "];
-  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
-  Node3 [label="tesseract_task_composer\l/src/nodes/raster_ct_motion\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d01/raster__ct__motion__task_8cpp.html",tooltip="Raster motion planning task with cartesian transitions."];
-  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
-  Node4 [label="tesseract_task_composer\l/src/nodes/raster_ct_pipeline\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d61/raster__ct__pipeline__task_8cpp.html",tooltip=" "];
+  Node2 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/raster_ct\l_global_pipeline_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/d09/raster__ct__global__pipeline__task_8h.html",tooltip="Plans raster paths with cartesian transitions."];
+  Node2 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="tesseract_task_composer\l/src/nodes/raster_ct_global\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/d2e/raster__ct__global__pipeline__task_8cpp.html",tooltip=" "];
+  Node2 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="tesseract_task_composer\l/src/task_composer_utils.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d3a/task__composer__utils_8cpp.html",tooltip="A task composer utils."];
+  Node1 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/raster_ct\l_pipeline_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d1/dc3/raster__ct__pipeline__task_8h.html",tooltip="Plans raster paths with cartesian transitions."];
+  Node5 -> Node6 [dir="back",color="steelblue1",style="solid"];
+  Node6 [label="tesseract_task_composer\l/src/nodes/raster_ct_pipeline\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d61/raster__ct__pipeline__task_8cpp.html",tooltip=" "];
+  Node5 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node1 -> Node7 [dir="back",color="steelblue1",style="solid"];
+  Node7 [label="tesseract_task_composer\l/src/nodes/raster_ct_motion\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d01/raster__ct__motion__task_8cpp.html",tooltip="Raster motion planning task with cartesian transitions."];
 }

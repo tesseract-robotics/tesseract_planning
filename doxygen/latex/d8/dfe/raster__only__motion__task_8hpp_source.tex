@@ -1,0 +1,254 @@
+\hypertarget{raster__only__motion__task_8hpp_source}{}\doxysection{raster\+\_\+only\+\_\+motion\+\_\+task.\+hpp}
+\label{raster__only__motion__task_8hpp_source}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/raster\_only\_motion\_task.hpp@{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/raster\_only\_motion\_task.hpp}}
+\mbox{\hyperlink{raster__only__motion__task_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{28 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <console\_bridge/console.h>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <boost/serialization/string.hpp>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <tesseract\_common/timer.h>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_RASTER\_ONLY\_MOTION\_TASK\_HPP}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_RASTER\_ONLY\_MOTION\_TASK\_HPP}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__task_8h}{tesseract\_task\_composer/task\_composer\_task.h}}>}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <tesseract\_common/any\_poly.h>}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__future_8h}{tesseract\_task\_composer/task\_composer\_future.h}}>}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__executor_8h}{tesseract\_task\_composer/task\_composer\_executor.h}}>}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{start__task_8h}{tesseract\_task\_composer/nodes/start\_task.h}}>}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{update__start__and__end__state__task_8h}{tesseract\_task\_composer/nodes/update\_start\_and\_end\_state\_task.h}}>}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{update__end__state__task_8h}{tesseract\_task\_composer/nodes/update\_end\_state\_task.h}}>}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{update__start__state__task_8h}{tesseract\_task\_composer/nodes/update\_start\_state\_task.h}}>}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{composite__instruction_8h}{tesseract\_command\_language/composite\_instruction.h}}>}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{63 \textcolor{keyword}{template} <\textcolor{keyword}{typename} RasterTaskType, \textcolor{keyword}{typename} TransitionTaskType>}
+\DoxyCodeLine{64 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{RasterOnlyMotionTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}}
+\DoxyCodeLine{65 \{}
+\DoxyCodeLine{66 \textcolor{keyword}{public}:}
+\DoxyCodeLine{67   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{class\_type}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{RasterOnlyMotionTask<RasterTaskType, TransitionTaskType>}};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69   \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a7b7111837b46d35ce184ac3104f60f5a}{RasterOnlyMotionTask}}() = \textcolor{keywordflow}{default};  \textcolor{comment}{// Required for serialization}}
+\DoxyCodeLine{70   \textcolor{comment}{// NOLINTNEXTLINE(performance-\/unnecessary-\/value-\/param)}}
+\DoxyCodeLine{71   \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a654222e792e35a749b10cde213ed9ca7}{RasterOnlyMotionTask}}(std::string input\_key, std::string output\_key, \textcolor{keywordtype}{bool} is\_conditional, std::string name)}
+\DoxyCodeLine{72     : \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}(is\_conditional, std::move(name))}
+\DoxyCodeLine{73   \{}
+\DoxyCodeLine{74     \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a245528c5410fbab11660af81688f8d46}{input\_keys\_}}.push\_back(std::move(input\_key));}
+\DoxyCodeLine{75     \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a6e7e482b144b120f2c91e2d3f8c07001}{output\_keys\_}}.push\_back(std::move(output\_key));}
+\DoxyCodeLine{76   \}}
+\DoxyCodeLine{77   \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_abdf527d2ac742d14313a409b3894e45b}{\string~RasterOnlyMotionTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{78   \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a5969aa00693a1a877ae586ac5628048c}{RasterOnlyMotionTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{class\_type}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{79   \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{RasterOnlyMotionTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_aa562fd33e4d1a27bbeeb58765891808a}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{class\_type}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{80   \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0302d3561f0b3975439b9a148ceb6eb8}{RasterOnlyMotionTask}}(\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{class\_type}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{81   \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{RasterOnlyMotionTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ae4172c8ae9e59131d3fc21300ff38f27}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{class\_type}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad0b21344cb8dcf62f46ef39ff248e5f0}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{class\_type}}\& rhs)\textcolor{keyword}{ const}}
+\DoxyCodeLine{84 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{85     \textcolor{keywordtype}{bool} equal = \textcolor{keyword}{true};}
+\DoxyCodeLine{86     equal \&= \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_a608b27c5ec6763f8b884d4fbb15f40be}{TaskComposerTask::operator==}}(rhs);}
+\DoxyCodeLine{87     \textcolor{keywordflow}{return} equal;}
+\DoxyCodeLine{88   \}}
+\DoxyCodeLine{89   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a814a56f480ee52fd235109ccd3c3af7f}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{class\_type}}\& rhs)\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} !\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad0b21344cb8dcf62f46ef39ff248e5f0}{operator==}}(rhs); \}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{92   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{93   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{96   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a4af5af6b9f24a380807f0efa06d7c89b}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{comment}{/*version*/})  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{97   \{}
+\DoxyCodeLine{98     ar\& BOOST\_SERIALIZATION\_BASE\_OBJECT\_NVP(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}});}
+\DoxyCodeLine{99   \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_aa36eb114eea5254323c23e7cd69cf763}{runImpl}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
+\DoxyCodeLine{102                                      \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{OptionalTaskComposerExecutor}} executor) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final}}
+\DoxyCodeLine{103   \{}
+\DoxyCodeLine{104     \textcolor{keyword}{auto} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}} = std::make\_unique<TaskComposerNodeInfo>(*\textcolor{keyword}{this});}
+\DoxyCodeLine{105     \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>return\_value = 0;}
+\DoxyCodeLine{106     \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>env = input.problem.env;}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108     \textcolor{keywordflow}{if} (input.isAborted())}
+\DoxyCodeLine{109     \{}
+\DoxyCodeLine{110       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message = \textcolor{stringliteral}{"{}Aborted"{}};}
+\DoxyCodeLine{111       \textcolor{keywordflow}{return} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}};}
+\DoxyCodeLine{112     \}}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114     tesseract\_common::Timer timer;}
+\DoxyCodeLine{115     timer.start();}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{118     \textcolor{comment}{// Check that inputs are valid}}
+\DoxyCodeLine{119     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{120     \textcolor{keyword}{auto} input\_data\_poly = input.data\_storage.getData(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a245528c5410fbab11660af81688f8d46}{input\_keys\_}}[0]);}
+\DoxyCodeLine{121     \textcolor{keywordflow}{try}}
+\DoxyCodeLine{122     \{}
+\DoxyCodeLine{123       \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a034deed1c880cc01f47e32fd9f5192bc}{checkTaskInput}}(input\_data\_poly);}
+\DoxyCodeLine{124     \}}
+\DoxyCodeLine{125     \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::exception\& e)}
+\DoxyCodeLine{126     \{}
+\DoxyCodeLine{127       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message = e.what();}
+\DoxyCodeLine{128       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>elapsed\_time = timer.elapsedSeconds();}
+\DoxyCodeLine{129       CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}\%s"{}}, \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message.c\_str());}
+\DoxyCodeLine{130       \textcolor{keywordflow}{return} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}};}
+\DoxyCodeLine{131     \}}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133     \textcolor{keyword}{auto}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} = input\_data\_poly.template as<CompositeInstruction>();}
+\DoxyCodeLine{134     \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{TaskComposerGraph}} task\_graph;}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136     tesseract\_common::ManipulatorInfo program\_manip\_info =}
+\DoxyCodeLine{137         \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}.getManipulatorInfo().getCombined(input.problem.manip\_info);}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139     \textcolor{keyword}{auto} start\_task = std::make\_unique<StartTask>();}
+\DoxyCodeLine{140     \textcolor{keyword}{auto} start\_uuid = task\_graph.\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_ad18db6bfc72762da18cdf4ab6218d233}{addNode}}(std::move(start\_task));}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{142     std::vector<std::pair<boost::uuids::uuid, std::string>> raster\_tasks;}
+\DoxyCodeLine{143     raster\_tasks.reserve(\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}.size());}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145     \textcolor{comment}{// Generate all of the raster tasks. They don't depend on anything}}
+\DoxyCodeLine{146     std::size\_t raster\_idx = 0;}
+\DoxyCodeLine{147     \textcolor{keywordflow}{for} (std::size\_t idx = 0; idx < \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}.size(); idx += 2)}
+\DoxyCodeLine{148     \{}
+\DoxyCodeLine{149       \textcolor{comment}{// Get Raster program}}
+\DoxyCodeLine{150       \textcolor{keyword}{auto} raster\_input = \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}[idx].template as<CompositeInstruction>();}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152       \textcolor{comment}{// Set the manipulator info}}
+\DoxyCodeLine{153       raster\_input.setManipulatorInfo(raster\_input.getManipulatorInfo().getCombined(program\_manip\_info));}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{155       \textcolor{comment}{// Insert Start Plan Instruction}}
+\DoxyCodeLine{156       \textcolor{keywordflow}{if} (idx > 0)}
+\DoxyCodeLine{157       \{}
+\DoxyCodeLine{158         \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& pre\_input\_instruction = \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}[idx -\/ 1];}
+\DoxyCodeLine{159         assert(pre\_input\_instruction.\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_a82a89780a2183a6554433454ef217688}{isCompositeInstruction}}());}
+\DoxyCodeLine{160         \textcolor{keyword}{const} \textcolor{keyword}{auto}\& tci = pre\_input\_instruction.as<\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}>();}
+\DoxyCodeLine{161         \textcolor{keyword}{const} \textcolor{keyword}{auto}* li = tci.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a76ecb424d3ec382d2d46e5511a785d89}{getLastMoveInstruction}}();}
+\DoxyCodeLine{162         assert(li != \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{163         raster\_input.insertMoveInstruction(raster\_input.begin(), *li);}
+\DoxyCodeLine{164       \}}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166       \textcolor{keyword}{auto} raster\_pipeline\_task = std::make\_unique<RasterTaskType>(\textcolor{stringliteral}{"{}Raster \#"{}} + std::to\_string(raster\_idx + 1) + \textcolor{stringliteral}{"{}: "{}} +}
+\DoxyCodeLine{167                                                                    raster\_input.getDescription());}
+\DoxyCodeLine{168       std::string raster\_pipeline\_key = raster\_pipeline\_task-\/>getUUIDString();}
+\DoxyCodeLine{169       \textcolor{keyword}{auto} raster\_pipeline\_uuid = task\_graph.\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_ad18db6bfc72762da18cdf4ab6218d233}{addNode}}(std::move(raster\_pipeline\_task));}
+\DoxyCodeLine{170       raster\_tasks.emplace\_back(raster\_pipeline\_uuid, raster\_pipeline\_key);}
+\DoxyCodeLine{171       input.data\_storage.setData(raster\_pipeline\_key, raster\_input);}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173       task\_graph.\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a6614bd23a1af29b8e1f79c85a8fae9dc}{addEdges}}(start\_uuid, \{ raster\_pipeline\_uuid \});}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{175       raster\_idx++;}
+\DoxyCodeLine{176     \}}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178     \textcolor{comment}{// Loop over all transitions}}
+\DoxyCodeLine{179     std::vector<std::string> transition\_keys;}
+\DoxyCodeLine{180     transition\_keys.reserve(\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}.size());}
+\DoxyCodeLine{181     std::size\_t transition\_idx = 0;}
+\DoxyCodeLine{182     \textcolor{keywordflow}{for} (std::size\_t idx = 1; idx < \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}.size() -\/ 1; idx += 2)}
+\DoxyCodeLine{183     \{}
+\DoxyCodeLine{184       \textcolor{comment}{// Get transition program}}
+\DoxyCodeLine{185       \textcolor{keyword}{auto} transition\_input = \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}[idx].template as<CompositeInstruction>();}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187       \textcolor{comment}{// Set the manipulator info}}
+\DoxyCodeLine{188       transition\_input.setManipulatorInfo(transition\_input.getManipulatorInfo().getCombined(program\_manip\_info));}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190       \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& pre\_input\_instruction = \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}[idx -\/ 1];}
+\DoxyCodeLine{191       assert(pre\_input\_instruction.\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_a82a89780a2183a6554433454ef217688}{isCompositeInstruction}}());}
+\DoxyCodeLine{192       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& tci = pre\_input\_instruction.as<\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}>();}
+\DoxyCodeLine{193       \textcolor{keyword}{const} \textcolor{keyword}{auto}* li = tci.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a76ecb424d3ec382d2d46e5511a785d89}{getLastMoveInstruction}}();}
+\DoxyCodeLine{194       assert(li != \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{195       transition\_input.insertMoveInstruction(transition\_input.begin(), *li);}
+\DoxyCodeLine{196 }
+\DoxyCodeLine{197       \textcolor{keyword}{auto} transition\_pipeline\_task = std::make\_unique<TransitionTaskType>(}
+\DoxyCodeLine{198           \textcolor{stringliteral}{"{}Transition \#"{}} + std::to\_string(transition\_idx + 1) + \textcolor{stringliteral}{"{}: "{}} + transition\_input.getDescription());}
+\DoxyCodeLine{199       std::string transition\_pipeline\_key = transition\_pipeline\_task-\/>getUUIDString();}
+\DoxyCodeLine{200       \textcolor{keyword}{auto} transition\_pipeline\_uuid = task\_graph.\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_ad18db6bfc72762da18cdf4ab6218d233}{addNode}}(std::move(transition\_pipeline\_task));}
+\DoxyCodeLine{201       transition\_keys.push\_back(transition\_pipeline\_key);}
+\DoxyCodeLine{202 }
+\DoxyCodeLine{203       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& prev = raster\_tasks[transition\_idx];}
+\DoxyCodeLine{204       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& next = raster\_tasks[transition\_idx + 1];}
+\DoxyCodeLine{205       \textcolor{keyword}{auto} transition\_mux\_task =}
+\DoxyCodeLine{206           std::make\_unique<UpdateStartAndEndStateTask>(prev.second, next.second, transition\_pipeline\_key, \textcolor{keyword}{false});}
+\DoxyCodeLine{207       std::string transition\_mux\_key = transition\_mux\_task-\/>getUUIDString();}
+\DoxyCodeLine{208       \textcolor{keyword}{auto} transition\_mux\_uuid = task\_graph.\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_ad18db6bfc72762da18cdf4ab6218d233}{addNode}}(std::move(transition\_mux\_task));}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{210       input.data\_storage.setData(transition\_mux\_key, transition\_input);}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212       task\_graph.\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a6614bd23a1af29b8e1f79c85a8fae9dc}{addEdges}}(transition\_mux\_uuid, \{ transition\_pipeline\_uuid \});}
+\DoxyCodeLine{213       task\_graph.\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a6614bd23a1af29b8e1f79c85a8fae9dc}{addEdges}}(prev.first, \{ transition\_mux\_uuid \});}
+\DoxyCodeLine{214       task\_graph.\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a6614bd23a1af29b8e1f79c85a8fae9dc}{addEdges}}(next.first, \{ transition\_mux\_uuid \});}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{216       transition\_idx++;}
+\DoxyCodeLine{217     \}}
+\DoxyCodeLine{218 }
+\DoxyCodeLine{219     \textcolor{comment}{// Debug remove}}
+\DoxyCodeLine{220     std::ofstream tc\_out\_data;}
+\DoxyCodeLine{221     tc\_out\_data.open(tesseract\_common::getTempPath() + \textcolor{stringliteral}{"{}task\_composer\_raster\_subgraph\_example.dot"{}});}
+\DoxyCodeLine{222     task\_graph.\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_afa0ced55a3ff2f3369d62b0269d875ef}{dump}}(tc\_out\_data);  \textcolor{comment}{// dump the graph including dynamic tasks}}
+\DoxyCodeLine{223     tc\_out\_data.close();}
+\DoxyCodeLine{224 }
+\DoxyCodeLine{225     \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture_ad8f9f27ba611e63ecd12ad1ad91a4b66}{TaskComposerFuture::UPtr}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a0083a709b2a6e456c7d620d4a1d72f7e}{future}} = executor.value().get().run(task\_graph, input);}
+\DoxyCodeLine{226     \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a0083a709b2a6e456c7d620d4a1d72f7e}{future}}-\/>wait();}
+\DoxyCodeLine{227 }
+\DoxyCodeLine{228     \textcolor{keywordflow}{if} (input.isAborted())}
+\DoxyCodeLine{229     \{}
+\DoxyCodeLine{230       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message = \textcolor{stringliteral}{"{}Raster only subgraph failed"{}};}
+\DoxyCodeLine{231       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>elapsed\_time = timer.elapsedSeconds();}
+\DoxyCodeLine{232       CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}\%s"{}}, \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message.c\_str());}
+\DoxyCodeLine{233       \textcolor{keywordflow}{return} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}};}
+\DoxyCodeLine{234     \}}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236     \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}.clear();}
+\DoxyCodeLine{237     \textcolor{keywordflow}{for} (std::size\_t i = 0; i < raster\_tasks.size(); ++i)}
+\DoxyCodeLine{238     \{}
+\DoxyCodeLine{239       \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} segment = input.data\_storage.getData(raster\_tasks[i].second).as<\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}>();}
+\DoxyCodeLine{240       \textcolor{keywordflow}{if} (i != 0)}
+\DoxyCodeLine{241         segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a3dbecfb1344339715c5e888fab2e0b2b}{erase}}(segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ad1f82d26751675eb7e23c386c256eceb}{begin}}());}
+\DoxyCodeLine{242 }
+\DoxyCodeLine{243       \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}.emplace\_back(segment);}
+\DoxyCodeLine{244 }
+\DoxyCodeLine{245       \textcolor{keywordflow}{if} (i < raster\_tasks.size() -\/ 1)}
+\DoxyCodeLine{246       \{}
+\DoxyCodeLine{247         \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} transition = input.data\_storage.getData(transition\_keys[i]).as<\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}>();}
+\DoxyCodeLine{248         transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a3dbecfb1344339715c5e888fab2e0b2b}{erase}}(transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ad1f82d26751675eb7e23c386c256eceb}{begin}}());}
+\DoxyCodeLine{249         \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}.emplace\_back(transition);}
+\DoxyCodeLine{250       \}}
+\DoxyCodeLine{251     \}}
+\DoxyCodeLine{252 }
+\DoxyCodeLine{253     input.data\_storage.setData(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a6e7e482b144b120f2c91e2d3f8c07001}{output\_keys\_}}[0], \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}});}
+\DoxyCodeLine{254 }
+\DoxyCodeLine{255     \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message = \textcolor{stringliteral}{"{}Successful"{}};}
+\DoxyCodeLine{256     \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>return\_value = 1;}
+\DoxyCodeLine{257     \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>elapsed\_time = timer.elapsedSeconds();}
+\DoxyCodeLine{258     \textcolor{keywordflow}{return} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}};}
+\DoxyCodeLine{259   \}}
+\DoxyCodeLine{260 }
+\DoxyCodeLine{261   \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a034deed1c880cc01f47e32fd9f5192bc}{checkTaskInput}}(\textcolor{keyword}{const} tesseract\_common::AnyPoly\& input)}
+\DoxyCodeLine{262   \{}
+\DoxyCodeLine{263     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{264     \textcolor{comment}{// Check Input}}
+\DoxyCodeLine{265     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{266     \textcolor{keywordflow}{if} (input.isNull())}
+\DoxyCodeLine{267       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}RasterOnlyMotionTask, input is null"{}});}
+\DoxyCodeLine{268 }
+\DoxyCodeLine{269     \textcolor{keywordflow}{if} (input.getType() != std::type\_index(\textcolor{keyword}{typeid}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}})))}
+\DoxyCodeLine{270       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}RasterOnlyMotionTask, input is not a composite instruction"{}});}
+\DoxyCodeLine{271 }
+\DoxyCodeLine{272     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& composite = input.as<\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}>();}
+\DoxyCodeLine{273 }
+\DoxyCodeLine{274     \textcolor{comment}{// Check rasters and transitions}}
+\DoxyCodeLine{275     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& i : composite)}
+\DoxyCodeLine{276     \{}
+\DoxyCodeLine{277       \textcolor{comment}{// Both rasters and transitions should be a composite}}
+\DoxyCodeLine{278       \textcolor{keywordflow}{if} (!i.isCompositeInstruction())}
+\DoxyCodeLine{279         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}RasterOnlyMotionTask, Both rasters and transitions should be a composite"{}});}
+\DoxyCodeLine{280     \}}
+\DoxyCodeLine{281   \}}
+\DoxyCodeLine{282 \};}
+\DoxyCodeLine{283 }
+\DoxyCodeLine{284 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{285 }
+\DoxyCodeLine{286 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_RASTER\_ONLY\_MOTION\_TASK\_HPP}}
+
+\end{DoxyCode}

@@ -28,7 +28,15 @@ digraph "tesseract_motion_planners/trajopt_ifopt/include/tesseract_motion_planne
   Node10 [label="tesseract_motion_planners\l/trajopt_ifopt/include\l/tesseract_motion_planners\l/trajopt_ifopt/trajopt_ifopt\l_motion_planner.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/d25/trajopt__ifopt__motion__planner_8h.html",tooltip=" "];
   Node10 -> Node7 [dir="back",color="steelblue1",style="solid"];
   Node10 -> Node11 [dir="back",color="steelblue1",style="solid"];
-  Node11 [label="tesseract_task_composer\l/src/nodes/trajopt_ifopt\l_motion_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d1e/trajopt__ifopt__motion__pipeline__task_8cpp.html",tooltip=" "];
-  Node1 -> Node12 [dir="back",color="steelblue1",style="solid"];
-  Node12 [label="tesseract_motion_planners\l/trajopt_ifopt/src/trajopt\l_ifopt_utils.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$da/dfd/trajopt__ifopt__utils_8cpp.html",tooltip=" "];
+  Node11 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/trajopt\l_ifopt_motion_planner_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d5/d8b/trajopt__ifopt__motion__planner__task_8h.html",tooltip="TrajOpt Ifopt motion planning pipeline."];
+  Node11 -> Node12 [dir="back",color="steelblue1",style="solid"];
+  Node12 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/trajopt\l_ifopt_motion_pipeline_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d10/trajopt__ifopt__motion__pipeline__task_8h.html",tooltip=" "];
+  Node12 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node12 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node12 -> Node13 [dir="back",color="steelblue1",style="solid"];
+  Node13 [label="tesseract_task_composer\l/src/nodes/trajopt_ifopt\l_motion_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d1e/trajopt__ifopt__motion__pipeline__task_8cpp.html",tooltip=" "];
+  Node11 -> Node14 [dir="back",color="steelblue1",style="solid"];
+  Node14 [label="tesseract_task_composer\l/src/nodes/trajopt_ifopt\l_motion_planner_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d5/d6b/trajopt__ifopt__motion__planner__task_8cpp.html",tooltip="TrajOpt Ifopt motion planning pipeline."];
+  Node1 -> Node15 [dir="back",color="steelblue1",style="solid"];
+  Node15 [label="tesseract_motion_planners\l/trajopt_ifopt/src/trajopt\l_ifopt_utils.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$da/dfd/trajopt__ifopt__utils_8cpp.html",tooltip=" "];
 }

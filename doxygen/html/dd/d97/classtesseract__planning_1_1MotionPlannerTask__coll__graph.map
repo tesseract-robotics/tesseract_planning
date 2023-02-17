@@ -1,11 +1,10 @@
-<map id="tesseract_planning::MotionPlannerTask" name="tesseract_planning::MotionPlannerTask">
-<area shape="rect" id="node1" title=" " alt="" coords="267,503,407,543"/>
-<area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="203,413,349,453"/>
-<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="176,300,323,340"/>
-<area shape="rect" id="node4" title=" " alt="" coords="174,95,253,120"/>
-<area shape="rect" id="node7" title=" " alt="" coords="5,190,165,215"/>
-<area shape="rect" id="node9" href="$dd/d5f/classtesseract__planning_1_1MotionPlanner.html" title=" " alt="" coords="440,183,571,223"/>
-<area shape="rect" id="node5" title=" " alt="" coords="151,5,275,45"/>
-<area shape="rect" id="node6" title=" " alt="" coords="291,183,416,223"/>
-<area shape="rect" id="node8" title=" " alt="" coords="367,364,579,389"/>
+<map id="tesseract_planning::MotionPlannerTask&lt; MotionPlannerType &gt;" name="tesseract_planning::MotionPlannerTask&lt; MotionPlannerType &gt;">
+<area shape="rect" id="node1" title=" " alt="" coords="274,492,429,547"/>
+<area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="131,389,276,429"/>
+<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="130,300,277,340"/>
+<area shape="rect" id="node4" title=" " alt="" coords="28,95,107,120"/>
+<area shape="rect" id="node7" title=" " alt="" coords="123,190,283,215"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,5,129,45"/>
+<area shape="rect" id="node6" title=" " alt="" coords="307,183,433,223"/>
+<area shape="rect" id="node8" title=" " alt="" coords="300,389,501,429"/>
 </map>

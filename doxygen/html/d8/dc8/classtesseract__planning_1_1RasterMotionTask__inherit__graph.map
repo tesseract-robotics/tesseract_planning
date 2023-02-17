@@ -1,0 +1,7 @@
+<map id="tesseract_planning::RasterMotionTask&lt; FreespaceTaskType, RasterTaskType, TransitionTaskType &gt;" name="tesseract_planning::RasterMotionTask&lt; FreespaceTaskType, RasterTaskType, TransitionTaskType &gt;">
+<area shape="rect" id="node1" title="The RasterCtMotionTask class." alt="" coords="393,67,611,137"/>
+<area shape="rect" id="node4" href="$dd/d32/classtesseract__planning_1_1RasterCtMotionTask.html" title=" " alt="" coords="659,5,871,89"/>
+<area shape="rect" id="node5" href="$d2/d6f/classtesseract__planning_1_1RasterFtMotionTask.html" title=" " alt="" coords="659,113,871,197"/>
+<area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="200,82,345,122"/>
+<area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="5,82,152,122"/>
+</map>
