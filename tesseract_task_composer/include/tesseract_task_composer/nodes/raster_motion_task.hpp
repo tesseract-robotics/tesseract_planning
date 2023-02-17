@@ -69,7 +69,7 @@ public:
 
   RasterMotionTask() = default;  // Required for serialization
   // NOLINTNEXTLINE(performance-unnecessary-value-param)
-  RasterMotionTask(std::string input_key, std::string output_key, bool is_conditional, std::string name)
+  RasterMotionTask(std::string input_key, std::string output_key, bool is_conditional, std::string name = "RasterMotionTask")
     : TaskComposerTask(is_conditional, std::move(name))
   {
     input_keys_.push_back(std::move(input_key));
