@@ -31,6 +31,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_motion_planners/default_planner_namespaces.h>
+
 namespace tesseract_planning::node_names
 {
 // Graph/Pipeline names
@@ -85,6 +87,16 @@ static const std::string RASTER_FT_O_G_PIPELINE_NAME = "RasterFtOnlyGlobalPipeli
 /** @brief Raster only pipeline performs global plan first then macro planning using cartesian pipeline for transitions
  */
 static const std::string RASTER_CT_O_G_PIPELINE_NAME = "RasterCtOnlyGlobalPipeline";
+
+// Motion Planner Task Names
+static const std::string DESCARTES_MOTION_PLANNER_TASK_NAME = profile_ns::DESCARTES_DEFAULT_NAMESPACE;
+static const std::string OMPL_MOTION_PLANNER_TASK_NAME = profile_ns::OMPL_DEFAULT_NAMESPACE;
+static const std::string SIMPLE_MOTION_PLANNER_TASK_NAME = profile_ns::SIMPLE_DEFAULT_NAMESPACE;
+static const std::string TRAJOPT_MOTION_PLANNER_TASK_NAME = profile_ns::TRAJOPT_DEFAULT_NAMESPACE;
+#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
+/** @brief TrajOpt IFOPT pipeline */
+static const std::string TRAJOPT_IFOPT_MOTION_PLANNER_TASK_NAME = profile_ns::TRAJOPT_IFOPT_DEFAULT_NAMESPACE;
+#endif
 
 // Task Names
 static const std::string CHECK_INPUT_TASK_NAME = "CheckInputTask";

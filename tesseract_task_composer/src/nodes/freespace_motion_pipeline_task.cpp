@@ -33,15 +33,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/nodes/freespace_motion_pipeline_task.h>
 
-#include <tesseract_task_composer/nodes/motion_planner_task.h>
+#include <tesseract_task_composer/nodes/ompl_motion_planner_task.h>
+#include <tesseract_task_composer/nodes/trajopt_motion_planner_task.h>
 #include <tesseract_task_composer/nodes/min_length_task.h>
 #include <tesseract_task_composer/nodes/discrete_contact_check_task.h>
 #include <tesseract_task_composer/nodes/iterative_spline_parameterization_task.h>
 #include <tesseract_task_composer/nodes/done_task.h>
 #include <tesseract_task_composer/nodes/error_task.h>
-
-#include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
-#include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
 
 namespace tesseract_planning
 {
@@ -72,14 +70,12 @@ void FreespaceMotionPipelineTask::ctor(std::string input_key, std::string output
   boost::uuids::uuid min_length_task = addNode(std::make_unique<MinLengthTask>(input_keys_[0], output_keys_[0]));
 
   // Setup Descartes
-  auto ompl_planner = std::make_shared<OMPLMotionPlanner>();
   boost::uuids::uuid ompl_planner_task =
-      addNode(std::make_unique<MotionPlannerTask>(ompl_planner, output_keys_[0], output_keys_[0]));
+      addNode(std::make_unique<OMPLMotionPlannerTask>(output_keys_[0], output_keys_[0]));
 
   // Setup TrajOpt
-  auto trajopt_planner = std::make_shared<TrajOptMotionPlanner>();
   boost::uuids::uuid trajopt_planner_task =
-      addNode(std::make_unique<MotionPlannerTask>(trajopt_planner, output_keys_[0], output_keys_[0], false));
+      addNode(std::make_unique<TrajOptMotionPlannerTask>(output_keys_[0], output_keys_[0], false));
 
   // Setup post collision check
   boost::uuids::uuid contact_check_task = addNode(std::make_unique<DiscreteContactCheckTask>(output_keys_[0]));

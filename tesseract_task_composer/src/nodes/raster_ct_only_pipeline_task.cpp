@@ -24,55 +24,25 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/timer.h>
-
-#include <tesseract_task_composer/nodes/simple_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/raster_ct_only_pipeline_task.h>
-#include <tesseract_task_composer/nodes/raster_ct_only_motion_task.h>
-#include <tesseract_task_composer/task_composer_future.h>
-#include <tesseract_task_composer/task_composer_executor.h>
-#include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning
 {
 RasterCtOnlyPipelineTask::RasterCtOnlyPipelineTask(std::string input_key, std::string output_key, std::string name)
-  : TaskComposerGraph(std::move(name))
+  : RasterCtOnlyPipelineTaskBase(std::move(input_key), std::move(output_key), std::move(name))
 {
-  input_keys_.push_back(std::move(input_key));
-  output_keys_.push_back(std::move(output_key));
-
-  // Simple Motion Pipeline
-  auto simple_task = std::make_unique<SimpleMotionPipelineTask>(input_keys_[0], output_keys_[0]);
-  auto simple_uuid = addNode(std::move(simple_task));
-
-  // Raster planner
-  auto raster_task = std::make_unique<RasterCtOnlyMotionTask>(output_keys_[0], output_keys_[0], false);
-  auto raster_uuid = addNode(std::move(raster_task));
-
-  addEdges(simple_uuid, { raster_uuid });
 }
-
-bool RasterCtOnlyPipelineTask::operator==(const RasterCtOnlyPipelineTask& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerGraph::operator==(rhs);
-  return equal;
-}
-bool RasterCtOnlyPipelineTask::operator!=(const RasterCtOnlyPipelineTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
 void RasterCtOnlyPipelineTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerGraph);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(RasterCtOnlyPipelineTaskBase);
 }
 
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterCtOnlyPipelineTaskBase)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterCtOnlyPipelineTaskBase)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterCtOnlyPipelineTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterCtOnlyPipelineTask)
