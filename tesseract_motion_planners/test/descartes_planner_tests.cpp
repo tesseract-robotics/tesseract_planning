@@ -55,9 +55,9 @@ using namespace tesseract_collision;
 using namespace tesseract_planning;
 using namespace tesseract_kinematics;
 using namespace descartes_light;
-using namespace tesseract_planning::profile_ns;
 
-const bool DEBUG = false;
+static const bool DEBUG = false;
+static const std::string DESCARTES_DEFAULT_NAMESPACE = "DescartesMotionPlannerTask";
 
 class TesseractPlanningDescartesUnit : public ::testing::Test
 {
@@ -122,7 +122,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   profiles->addProfile<DescartesPlanProfile<double>>(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner
-  DescartesMotionPlannerD single_descartes_planner;
+  DescartesMotionPlannerD single_descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
   plan_profile->num_threads = 1;
 
   // Create Planning Request
@@ -146,7 +146,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
       EXPECT_EQ(problem->edge_evaluators.size(), 10);
     }
 
-    DescartesMotionPlannerD descartes_planner;
+    DescartesMotionPlannerD descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
     plan_profile->num_threads = 4;
 
     PlannerResponse planner_response = descartes_planner.solve(request);
@@ -238,7 +238,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   profiles->addProfile<DescartesPlanProfile<double>>(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner
-  DescartesMotionPlannerD single_descartes_planner;
+  DescartesMotionPlannerD single_descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
   plan_profile->num_threads = 1;
 
   // Create Planning Request
@@ -260,7 +260,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
 
   for (int i = 0; i < 10; ++i)
   {
-    DescartesMotionPlannerD descartes_planner;
+    DescartesMotionPlannerD descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
     plan_profile->num_threads = 4;
 
     PlannerResponse planner_response = descartes_planner.solve(request);
@@ -348,7 +348,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   request.profiles = profiles;
 
   // Create Planner
-  DescartesMotionPlannerD single_descartes_planner;
+  DescartesMotionPlannerD single_descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
   plan_profile->num_threads = 1;
 
   // Test Problem size - TODO: Make dedicated unit test for DefaultDescartesProblemGenerator
@@ -364,7 +364,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
 
   for (int i = 0; i < 10; ++i)
   {
-    DescartesMotionPlannerD descartes_planner;
+    DescartesMotionPlannerD descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
     plan_profile->num_threads = 4;
 
     PlannerResponse planner_response = descartes_planner.solve(request);

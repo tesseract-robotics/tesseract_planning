@@ -56,7 +56,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_planning;
-using namespace tesseract_planning::profile_ns;
+
+const static std::string DESCARTES_DEFAULT_NAMESPACE = "DescartesMotionPlannerTask";
+const static std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
 
 int main(int /*argc*/, char** /*argv*/)
 {
@@ -159,7 +161,7 @@ int main(int /*argc*/, char** /*argv*/)
     request.profiles = profiles;
 
     // Solve Descartes Plan
-    DescartesMotionPlannerD descartes_planner;
+    DescartesMotionPlannerD descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
     PlannerResponse descartes_response = descartes_planner.solve(request);
     assert(descartes_response);
 
@@ -174,7 +176,7 @@ int main(int /*argc*/, char** /*argv*/)
     request.instructions = descartes_response.results;
 
     // Solve TrajOpt Plan
-    TrajOptMotionPlanner trajopt_planner;
+    TrajOptMotionPlanner trajopt_planner(TRAJOPT_DEFAULT_NAMESPACE);
     PlannerResponse trajopt_response = trajopt_planner.solve(request);
     assert(trajopt_response);
 

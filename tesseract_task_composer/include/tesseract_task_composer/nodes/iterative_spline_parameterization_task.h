@@ -32,11 +32,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
+
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization.h>
 
 namespace tesseract_planning
 {
+class TaskComposerPluginFactory;
 class IterativeSplineParameterizationTask : public TaskComposerTask
 {
 public:
@@ -45,13 +46,15 @@ public:
   using UPtr = std::unique_ptr<IterativeSplineParameterizationTask>;
   using ConstUPtr = std::unique_ptr<const IterativeSplineParameterizationTask>;
 
-  IterativeSplineParameterizationTask() = default;  // Required for serialization
-  IterativeSplineParameterizationTask(std::string input_key,
-                                      std::string output_key,
-                                      bool is_conditional = true,
-                                      bool add_points = true,
-                                      std::string name = node_names::ITERATIVE_SPLINE_PARAMETERIZATION_TASK_NAME);
-
+  IterativeSplineParameterizationTask();
+  explicit IterativeSplineParameterizationTask(std::string name,
+                                               std::string input_key,
+                                               std::string output_key,
+                                               bool is_conditional = true,
+                                               bool add_points = true);
+  explicit IterativeSplineParameterizationTask(std::string name,
+                                               const YAML::Node& config,
+                                               const TaskComposerPluginFactory& plugin_factory);
   ~IterativeSplineParameterizationTask() override = default;
   IterativeSplineParameterizationTask(const IterativeSplineParameterizationTask&) = delete;
   IterativeSplineParameterizationTask& operator=(const IterativeSplineParameterizationTask&) = delete;

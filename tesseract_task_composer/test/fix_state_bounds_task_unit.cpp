@@ -18,6 +18,8 @@ using namespace tesseract_planning;
 using namespace tesseract_environment;
 using tesseract_common::ManipulatorInfo;
 
+static const std::string FIX_STATE_BOUNDS_TASK_NAME = "FixStateBoundsTask";
+
 class FixStateBoundsTaskUnit : public ::testing::Test
 {
 protected:
@@ -88,7 +90,7 @@ void checkProgram(const Environment::Ptr& env,
   auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
 
   // Create task
-  FixStateBoundsTask task("input_program", "output_program");
+  FixStateBoundsTask task(FIX_STATE_BOUNDS_TASK_NAME, "input_program", "output_program");
 
   // Manual Check of program
   auto flattened = program.flatten(moveFilter);
@@ -143,8 +145,7 @@ TEST_F(FixStateBoundsTaskUnit, stateInBounds)  // NOLINT
   state_bounds_profile->upper_bounds_reduction = 1e-3;
 
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<FixStateBoundsProfile>(
-      tesseract_planning::node_names::FIX_STATE_BOUNDS_TASK_NAME, DEFAULT_PROFILE_KEY, state_bounds_profile);
+  profiles->addProfile<FixStateBoundsProfile>(FIX_STATE_BOUNDS_TASK_NAME, DEFAULT_PROFILE_KEY, state_bounds_profile);
 
   Eigen::VectorXd mid_state = joint_limits.col(0) + (joint_limits.col(1) - joint_limits.col(0)) / 2.;
   {  // All are valid

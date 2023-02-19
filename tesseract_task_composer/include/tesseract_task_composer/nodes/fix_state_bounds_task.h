@@ -32,12 +32,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
+class TaskComposerPluginFactory;
+
 /**
- * @brief This task modifies the const input instructions in order to push waypoints that are outside of their
+ * @brief This task modifies the input instructions in order to push waypoints that are outside of their
  * limits back within them.
  */
 class FixStateBoundsTask : public TaskComposerTask
@@ -48,11 +49,14 @@ public:
   using UPtr = std::unique_ptr<FixStateBoundsTask>;
   using ConstUPtr = std::unique_ptr<const FixStateBoundsTask>;
 
-  FixStateBoundsTask() = default;  // Required for serialization
-  FixStateBoundsTask(std::string input_key,
-                     std::string output_key,
-                     bool is_conditional = true,
-                     std::string name = node_names::FIX_STATE_BOUNDS_TASK_NAME);
+  FixStateBoundsTask();
+  explicit FixStateBoundsTask(std::string name,
+                              std::string input_key,
+                              std::string output_key,
+                              bool is_conditional = true);
+  explicit FixStateBoundsTask(std::string name,
+                              const YAML::Node& config,
+                              const TaskComposerPluginFactory& plugin_factory);
   ~FixStateBoundsTask() override = default;
   FixStateBoundsTask(const FixStateBoundsTask&) = delete;
   FixStateBoundsTask& operator=(const FixStateBoundsTask&) = delete;

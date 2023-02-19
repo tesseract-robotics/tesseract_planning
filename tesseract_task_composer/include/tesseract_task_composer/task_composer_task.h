@@ -49,8 +49,9 @@ public:
   /** @brief Most task will not require a executor so making it optional */
   using OptionalTaskComposerExecutor = std::optional<std::reference_wrapper<TaskComposerExecutor>>;
 
-  TaskComposerTask() = default;  // Required for serialization
-  TaskComposerTask(bool is_conditional, std::string name = "TaskComposerTask");
+  TaskComposerTask();
+  explicit TaskComposerTask(std::string name, bool is_conditional);
+  explicit TaskComposerTask(std::string name, const YAML::Node& config);
   ~TaskComposerTask() override = default;
   TaskComposerTask(const TaskComposerTask&) = delete;
   TaskComposerTask& operator=(const TaskComposerTask&) = delete;

@@ -60,6 +60,9 @@ public:
   TaskComposerNode(TaskComposerNode&&) = delete;
   TaskComposerNode& operator=(TaskComposerNode&&) = delete;
 
+  /** @brief Set the name of the node */
+  void setName(const std::string& name);
+
   /** @brief The name of the node */
   const std::string& getName() const;
 
@@ -84,11 +87,23 @@ public:
   /** @brief IDs of nodes (i.e. node) that should run before this node */
   const std::vector<boost::uuids::uuid>& getInboundEdges() const;
 
+  /** @brief Set the nodes input keys */
+  void setInputKeys(const std::vector<std::string>& input_keys);
+
   /** @brief The nodes input keys */
   const std::vector<std::string>& getInputKeys() const;
 
+  /** @brief Set the nodes input keys */
+  void setOutputKeys(const std::vector<std::string>& output_keys);
+
   /** @brief The nodes output keys */
   const std::vector<std::string>& getOutputKeys() const;
+
+  /** @brief Rename input keys */
+  virtual void renameInputKeys(const std::map<std::string, std::string>& input_keys);
+
+  /** @brief Rename output keys */
+  virtual void renameOutputKeys(const std::map<std::string, std::string>& output_keys);
 
   /** @brief dump the task to dot */
   virtual void dump(std::ostream& os) const;

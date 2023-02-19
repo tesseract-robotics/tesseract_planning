@@ -47,6 +47,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class TaskComposerPluginFactory;
+
 /** @brief Task Composer Node Factory class used by the TaskComposerServer for loading top level task to be called by
  * name */
 class TaskComposerNodeFactory
@@ -57,7 +59,9 @@ public:
 
   virtual ~TaskComposerNodeFactory() = default;
 
-  virtual TaskComposerNode::UPtr create(const std::string& name, const YAML::Node& config) const = 0;
+  virtual TaskComposerNode::UPtr create(const std::string& name,
+                                        const YAML::Node& config,
+                                        const TaskComposerPluginFactory& plugin_factory) const = 0;
 
 protected:
   static const std::string SECTION_NAME;
@@ -95,7 +99,7 @@ public:
    * @brief Load plugins from yaml node
    * @param config The config node
    */
-  TaskComposerPluginFactory(YAML::Node config);
+  TaskComposerPluginFactory(const YAML::Node& config);
 
   /**
    * @brief Load plugins from file path
@@ -108,6 +112,24 @@ public:
    * @param config The config string
    */
   TaskComposerPluginFactory(const std::string& config);
+
+  /**
+   * @brief Load plugins from yaml node
+   * @param config The config node
+   */
+  void loadConfig(const YAML::Node& config);
+
+  /**
+   * @brief Load plugins from file path
+   * @param config The config file path
+   */
+  void loadConfig(const tesseract_common::fs::path& config);
+
+  /**
+   * @brief Load plugins from string
+   * @param config The config string
+   */
+  void loadConfig(const std::string& config);
 
   /**
    * @brief Add location for the plugin loader to search
@@ -265,7 +287,7 @@ private:
   mutable std::map<std::string, TaskComposerExecutorFactory::Ptr> executor_factories_;
   mutable std::map<std::string, TaskComposerNodeFactory::Ptr> node_factories_;
   tesseract_common::PluginInfoContainer executor_plugin_info_;
-  tesseract_common::PluginInfoContainer node_plugin_info_;
+  tesseract_common::PluginInfoContainer task_plugin_info_;
   tesseract_common::PluginLoader plugin_loader_;
 };
 }  // namespace tesseract_planning

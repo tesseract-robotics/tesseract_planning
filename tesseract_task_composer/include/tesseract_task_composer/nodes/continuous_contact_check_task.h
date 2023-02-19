@@ -33,10 +33,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
 #include <tesseract_task_composer/task_composer_node_info.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
+class TaskComposerPluginFactory;
 class ContinuousContactCheckTask : public TaskComposerTask
 {
 public:
@@ -45,10 +45,12 @@ public:
   using UPtr = std::unique_ptr<ContinuousContactCheckTask>;
   using ConstUPtr = std::unique_ptr<const ContinuousContactCheckTask>;
 
-  ContinuousContactCheckTask() = default;  // Required for serialization
-  ContinuousContactCheckTask(std::string input_key,
-                             bool is_conditional = true,
-                             std::string name = node_names::CONTINUOUS_CONTACT_CHECK_TASK_NAME);
+  ContinuousContactCheckTask();
+  explicit ContinuousContactCheckTask(std::string name, std::string input_key, bool is_conditional = true);
+  explicit ContinuousContactCheckTask(std::string name,
+                                      const YAML::Node& config,
+                                      const TaskComposerPluginFactory& plugin_factory);
+
   ~ContinuousContactCheckTask() override = default;
   ContinuousContactCheckTask(const ContinuousContactCheckTask&) = delete;
   ContinuousContactCheckTask& operator=(const ContinuousContactCheckTask&) = delete;

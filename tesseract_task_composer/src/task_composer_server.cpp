@@ -28,6 +28,24 @@
 
 namespace tesseract_planning
 {
+void TaskComposerServer::loadConfig(const YAML::Node& config)
+{
+  plugin_factory_.loadConfig(config);
+  loadPlugins();
+}
+
+void TaskComposerServer::loadConfig(const tesseract_common::fs::path& config)
+{
+  plugin_factory_.loadConfig(config);
+  loadPlugins();
+}
+
+void TaskComposerServer::loadConfig(const std::string& config)
+{
+  plugin_factory_.loadConfig(config);
+  loadPlugins();
+}
+
 void TaskComposerServer::addExecutor(const TaskComposerExecutor::Ptr& executor)
 {
   executors_[executor->getName()] = executor;
@@ -139,5 +157,28 @@ long TaskComposerServer::getTaskCount(const std::string& name) const
     throw std::runtime_error("Executor with name '" + name + "' does not exist!");
 
   return it->second->getTaskCount();
+}
+
+void TaskComposerServer::loadPlugins()
+{
+  tesseract_common::PluginInfoMap executor_plugins = plugin_factory_.getTaskComposerExecutorPlugins();
+  for (const auto& executor_plugin : executor_plugins)
+  {
+    TaskComposerExecutor::UPtr e = plugin_factory_.createTaskComposerExecutor(executor_plugin.first);
+    if (e != nullptr)
+      addExecutor(std::move(e));
+    else
+      CONSOLE_BRIDGE_logError("TaskComposerServer, failed to create executor '%s'", executor_plugin.first.c_str());
+  }
+
+  tesseract_common::PluginInfoMap task_plugins = plugin_factory_.getTaskComposerNodePlugins();
+  for (const auto& task_plugin : task_plugins)
+  {
+    TaskComposerNode::UPtr t = plugin_factory_.createTaskComposerNode(task_plugin.first);
+    if (t != nullptr)
+      addTask(std::move(t));
+    else
+      CONSOLE_BRIDGE_logError("TaskComposerServer, failed to create task '%s'", task_plugin.first.c_str());
+  }
 }
 }  // namespace tesseract_planning

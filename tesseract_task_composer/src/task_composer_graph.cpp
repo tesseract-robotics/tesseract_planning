@@ -34,11 +34,117 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_graph.h>
+#include <tesseract_task_composer/task_composer_plugin_factory.h>
 
 namespace tesseract_planning
 {
 TaskComposerGraph::TaskComposerGraph(std::string name) : TaskComposerNode(std::move(name), TaskComposerNodeType::GRAPH)
 {
+}
+TaskComposerGraph::TaskComposerGraph(std::string name,
+                                     const YAML::Node& config,
+                                     const TaskComposerPluginFactory& plugin_factory)
+  : TaskComposerGraph(std::move(name))
+{
+  // Get input keys
+  if (YAML::Node n = config["inputs"])
+    input_keys_ = n.as<std::vector<std::string>>();
+
+  if (YAML::Node n = config["outputs"])
+    output_keys_ = n.as<std::vector<std::string>>();
+
+  std::unordered_map<std::string, boost::uuids::uuid> node_uuids;
+  YAML::Node nodes = config["nodes"];
+  if (!nodes.IsMap())
+    throw std::runtime_error("Task Composer Graph '" + name_ + "' 'nodes' entry is not a map");
+
+  for (auto node_it = nodes.begin(); node_it != nodes.end(); ++node_it)
+  {
+    auto node_name = node_it->first.as<std::string>();
+    if (YAML::Node fn = node_it->second["class"])
+    {
+      tesseract_common::PluginInfo plugin_info;
+      plugin_info.class_name = fn.as<std::string>();
+      if (YAML::Node cn = node_it->second["config"])
+        plugin_info.config = cn;
+
+      TaskComposerNode::UPtr task_node = plugin_factory.createTaskComposerNode(node_name, plugin_info);
+      if (task_node == nullptr)
+        throw std::runtime_error("Task Composer Graph '" + name_ + "' failed to create node '" + node_name + "'");
+
+      node_uuids[node_name] = addNode(std::move(task_node));
+    }
+    else if (YAML::Node tn = node_it->second["task"])
+    {
+      std::map<std::string, std::string> input_remapping;
+      std::map<std::string, std::string> output_remapping;
+
+      auto task_name = tn.as<std::string>();
+      if (YAML::Node n = tn["input_remapping"])
+        input_remapping = n.as<std::map<std::string, std::string>>();
+
+      if (YAML::Node n = tn["output_remapping"])
+        output_remapping = n.as<std::map<std::string, std::string>>();
+
+      TaskComposerNode::UPtr task_node = plugin_factory.createTaskComposerNode(task_name);
+      if (task_node == nullptr)
+        throw std::runtime_error("Task Composer Graph '" + name_ + "' failed to create task '" + task_name +
+                                     "' for node '" += node_name + "'");
+
+      task_node->setName(node_name);
+      if (!input_remapping.empty())
+        task_node->renameInputKeys(input_remapping);
+
+      if (!output_remapping.empty())
+        task_node->renameOutputKeys(output_remapping);
+
+      node_uuids[node_name] = addNode(std::move(task_node));
+    }
+    else
+    {
+      throw std::runtime_error("Task Composer Graph '" + name_ + "' node '" + node_name +
+                               "' missing 'class' or 'task' entry");
+    }
+  }
+
+  YAML::Node edges = config["edges"];
+  if (!edges.IsSequence())
+    throw std::runtime_error("Task Composer Graph '" + name_ + "' 'edges' entry is not a sequence");
+
+  for (auto edge_it = edges.begin(); edge_it != edges.end(); ++edge_it)
+  {
+    const YAML::Node& edge = *edge_it;
+
+    std::string source;
+    std::vector<std::string> destinations;
+    if (YAML::Node n = edge["source"])
+      source = n.as<std::string>();
+    else
+      throw std::runtime_error("Task Composer Graph '" + name_ + "' edge is missing 'source' entry");
+
+    if (YAML::Node n = edge["destinations"])
+      destinations = n.as<std::vector<std::string>>();
+    else
+      throw std::runtime_error("Task Composer Graph '" + name_ + "' edge is missing 'destinations' entry");
+
+    auto source_it = node_uuids.find(source);
+    if (source_it == node_uuids.end())
+      throw std::runtime_error("Task Composer Graph '" + name_ + "' failed to find source '" + source + "'");
+
+    std::vector<boost::uuids::uuid> destination_uuids;
+    destination_uuids.reserve(destinations.size());
+    for (const auto& destination : destinations)
+    {
+      auto destination_it = node_uuids.find(destination);
+      if (destination_it == node_uuids.end())
+        throw std::runtime_error("Task Composer Graph '" + name_ + "' failed to find destination '" + destination +
+                                 "'");
+
+      destination_uuids.push_back(destination_it->second);
+    }
+
+    addEdges(source_it->second, destination_uuids);
+  }
 }
 
 boost::uuids::uuid TaskComposerGraph::addNode(TaskComposerNode::UPtr task_node)
@@ -61,6 +167,24 @@ void TaskComposerGraph::addEdges(boost::uuids::uuid source, std::vector<boost::u
 std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr> TaskComposerGraph::getNodes() const
 {
   return std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr>{ nodes_.begin(), nodes_.end() };
+}
+
+void TaskComposerGraph::renameInputKeys(const std::map<std::string, std::string>& input_keys)
+{
+  for (const auto& key : input_keys)
+    std::replace(input_keys_.begin(), input_keys_.end(), key.first, key.second);
+
+  for (auto& node : nodes_)
+    node.second->renameInputKeys(input_keys);
+}
+
+void TaskComposerGraph::renameOutputKeys(const std::map<std::string, std::string>& output_keys)
+{
+  for (const auto& key : output_keys)
+    std::replace(output_keys_.begin(), output_keys_.end(), key.first, key.second);
+
+  for (auto& node : nodes_)
+    node.second->renameOutputKeys(output_keys);
 }
 
 void TaskComposerGraph::dump(std::ostream& os) const

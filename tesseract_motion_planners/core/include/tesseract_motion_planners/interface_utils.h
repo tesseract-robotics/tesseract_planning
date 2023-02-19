@@ -55,7 +55,7 @@ inline CompositeInstruction generateInterpolatedProgram(const CompositeInstructi
   request.env = env;
 
   // Set up planner
-  SimpleMotionPlanner planner;
+  SimpleMotionPlanner planner("SimpleMotionPlannerTask");
 
   auto profile = std::make_shared<SimplePlannerLVSNoIKPlanProfile>(state_longest_valid_segment_length,
                                                                    translation_longest_valid_segment_length,

@@ -57,6 +57,7 @@ target_link_libraries(
   tesseract::tesseract_motion_planners_core
   tesseract::tesseract_motion_planners_ompl
   tesseract::tesseract_motion_planners_trajopt
+  tesseract::tesseract_motion_planners_trajopt_ifopt
   trajopt::trajopt_sqp
   trajopt::trajopt_ifopt
   tesseract::tesseract_task_composer

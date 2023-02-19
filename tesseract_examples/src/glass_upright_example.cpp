@@ -40,14 +40,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 #include <tesseract_task_composer/task_composer_problem.h>
 #include <tesseract_task_composer/task_composer_input.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
-#include <tesseract_task_composer/nodes/trajopt_motion_pipeline_task.h>
-#include <tesseract_task_composer/nodes/trajopt_ifopt_motion_pipeline_task.h>
-#include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
+
+#include <tesseract_task_composer/task_composer_plugin_factory.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
 #include <tesseract_motion_planners/core/utils.h>
-#include <tesseract_motion_planners/default_planner_namespaces.h>
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
@@ -62,6 +59,9 @@ using namespace tesseract_collision;
 using namespace tesseract_visualization;
 using namespace tesseract_planning;
 using tesseract_common::ManipulatorInfo;
+
+static const std::string TRAJOPT_IFOPT_DEFAULT_NAMESPACE = "TrajOptIfoptMotionPlannerTask";
+static const std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
 
 namespace tesseract_examples
 {
@@ -143,6 +143,11 @@ bool GlassUprightExample::run()
   // Solve Trajectory
   CONSOLE_BRIDGE_logInform("glass upright plan example");
 
+  // Create Task Composer Plugin Factory
+  const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
+  tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
+  TaskComposerPluginFactory factory(config_path);
+
   // Create Program
   CompositeInstruction program(
       "UPRIGHT", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
@@ -167,7 +172,7 @@ bool GlassUprightExample::run()
   program.print("Program: ");
 
   // Create Executor
-  auto executor = std::make_unique<TaskflowTaskComposerExecutor>(5);
+  auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
@@ -185,8 +190,7 @@ bool GlassUprightExample::run()
     composite_profile->smooth_accelerations = false;
     composite_profile->smooth_jerks = false;
     composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
-    profiles->addProfile<TrajOptIfoptCompositeProfile>(
-        profile_ns::TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "UPRIGHT", composite_profile);
+    profiles->addProfile<TrajOptIfoptCompositeProfile>(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "UPRIGHT", composite_profile);
 
     auto plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
     plan_profile->joint_coeff = Eigen::VectorXd::Ones(7);
@@ -194,7 +198,7 @@ bool GlassUprightExample::run()
     plan_profile->cartesian_coeff(0) = 0;
     plan_profile->cartesian_coeff(1) = 0;
     plan_profile->cartesian_coeff(2) = 0;
-    profiles->addProfile<TrajOptIfoptPlanProfile>(profile_ns::TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "UPRIGHT", plan_profile);
+    profiles->addProfile<TrajOptIfoptPlanProfile>(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "UPRIGHT", plan_profile);
   }
   else
   {
@@ -213,7 +217,7 @@ bool GlassUprightExample::run()
     composite_profile->smooth_accelerations = false;
     composite_profile->smooth_jerks = false;
     composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
-    profiles->addProfile<TrajOptCompositeProfile>(profile_ns::TRAJOPT_DEFAULT_NAMESPACE, "UPRIGHT", composite_profile);
+    profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "UPRIGHT", composite_profile);
 
     auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
     plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 5);
@@ -222,12 +226,18 @@ bool GlassUprightExample::run()
     plan_profile->cartesian_coeff(2) = 0;
 
     // Add profile to Dictionary
-    profiles->addProfile<TrajOptPlanProfile>(profile_ns::TRAJOPT_DEFAULT_NAMESPACE, "UPRIGHT", plan_profile);
+    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "UPRIGHT", plan_profile);
   }
+
+  // Create task
+  const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";
+  TaskComposerNode::UPtr task = factory.createTaskComposerNode(task_name);
+  const std::string input_key = task->getInputKeys().front();
+  const std::string output_key = task->getOutputKeys().front();
 
   // Create Task Input Data
   TaskComposerDataStorage input_data;
-  input_data.setData("input_program", program);
+  input_data.setData(input_key, program);
 
   // Create Task Composer Problem
   TaskComposerProblem problem(env_, input_data);
@@ -239,18 +249,9 @@ bool GlassUprightExample::run()
   tesseract_common::Timer stopwatch;
   stopwatch.start();
   TaskComposerInput input(problem, profiles);
-  if (ifopt_)
-  {
-    TrajOptIfoptMotionPipelineTask task("input_program", "output_program");
-    TaskComposerFuture::UPtr future = executor->run(task, input);
-    future->wait();
-  }
-  else
-  {
-    TrajOptMotionPipelineTask task("input_program", "output_program");
-    TaskComposerFuture::UPtr future = executor->run(task, input);
-    future->wait();
-  }
+  TaskComposerFuture::UPtr future = executor->run(*task, input);
+  future->wait();
+
   stopwatch.stop();
   CONSOLE_BRIDGE_logInform("Planning took %f seconds.", stopwatch.elapsedSeconds());
 
@@ -258,7 +259,7 @@ bool GlassUprightExample::run()
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    auto ci = input.data_storage.getData("output_program").as<CompositeInstruction>();
+    auto ci = input.data_storage.getData(output_key).as<CompositeInstruction>();
     tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();

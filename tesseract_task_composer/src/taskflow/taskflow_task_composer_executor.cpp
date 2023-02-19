@@ -31,7 +31,7 @@
 namespace tesseract_planning
 {
 TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(size_t num_threads)
-  : TaskComposerExecutor("TaskflowTaskComposerExecutor")
+  : TaskComposerExecutor("TaskflowExecutor")
   , num_threads_(num_threads)
   , executor_(std::make_unique<tf::Executor>(num_threads_))
 {
@@ -41,6 +41,29 @@ TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(std::string name, siz
   , num_threads_(num_threads)
   , executor_(std::make_unique<tf::Executor>(num_threads_))
 {
+}
+
+TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(std::string name, const YAML::Node& config)
+  : TaskComposerExecutor(std::move(name)), num_threads_(std::thread::hardware_concurrency())
+{
+  try
+  {
+    if (YAML::Node n = config["threads"])
+    {
+      auto t = n.as<int>();
+      if (t > 0)
+        num_threads_ = static_cast<std::size_t>(t);
+      else
+        throw std::runtime_error("TaskflowTaskComposerExecutor: entry 'threads' must be greater than zero");
+    }
+
+    executor_ = std::make_unique<tf::Executor>(num_threads_);
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("TaskflowTaskComposerExecutor: Failed to parse yaml config data! Details: " +
+                             std::string(e.what()));
+  }
 }
 
 TaskflowTaskComposerExecutor::~TaskflowTaskComposerExecutor() = default;

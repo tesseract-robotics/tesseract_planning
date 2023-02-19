@@ -41,10 +41,25 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-ContinuousContactCheckTask::ContinuousContactCheckTask(std::string input_key, bool is_conditional, std::string name)
-  : TaskComposerTask(is_conditional, std::move(name))
+ContinuousContactCheckTask::ContinuousContactCheckTask() : TaskComposerTask("ContinuousContactCheckTask", true) {}
+
+ContinuousContactCheckTask::ContinuousContactCheckTask(std::string name, std::string input_key, bool is_conditional)
+  : TaskComposerTask(std::move(name), is_conditional)
 {
   input_keys_.push_back(std::move(input_key));
+}
+
+ContinuousContactCheckTask::ContinuousContactCheckTask(std::string name,
+                                                       const YAML::Node& config,
+                                                       const TaskComposerPluginFactory& /*plugin_factory*/)
+  : TaskComposerTask(std::move(name), config)
+{
+  if (input_keys_.empty())
+    throw std::runtime_error("ContinuousContactCheckTask, config missing 'inputs' entry");
+
+  if (input_keys_.size() > 1)
+    throw std::runtime_error("ContinuousContactCheckTask, config 'inputs' entry currently only supports one input "
+                             "key");
 }
 
 TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput& input,

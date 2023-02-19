@@ -52,8 +52,9 @@ public:
   using UPtr = std::unique_ptr<TaskflowTaskComposerExecutor>;
   using ConstUPtr = std::unique_ptr<const TaskflowTaskComposerExecutor>;
 
-  TaskflowTaskComposerExecutor(std::string name = "TaskflowTaskComposerExecutor",
+  TaskflowTaskComposerExecutor(std::string name = "TaskflowExecutor",
                                size_t num_threads = std::thread::hardware_concurrency());
+  TaskflowTaskComposerExecutor(std::string name, const YAML::Node& config);
   TaskflowTaskComposerExecutor(size_t num_threads);
   ~TaskflowTaskComposerExecutor() override;
   TaskflowTaskComposerExecutor(const TaskflowTaskComposerExecutor&) = delete;
@@ -100,6 +101,6 @@ protected:
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskflowTaskComposerExecutor, "TaskflowTaskComposerExecutor")
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskflowTaskComposerExecutor, "TaskflowExecutor")
 
 #endif  // TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_EXECUTOR_H

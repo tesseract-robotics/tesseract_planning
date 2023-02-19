@@ -1,6 +1,6 @@
 /**
  * @file min_length_task.h
- * @brief Task for processing the seed so it meets a minimum length. Planners like trajopt need
+ * @brief Task for processing the input data so it meets a minimum length. Planners like trajopt need
  * at least 10 states in the trajectory to perform velocity, acceleration and jerk smoothing.
  *
  * @author Levi Armstrong
@@ -33,11 +33,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
+
 #include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning
 {
+class TaskComposerPluginFactory;
 class MinLengthTask : public TaskComposerTask
 {
 public:
@@ -46,11 +47,9 @@ public:
   using UPtr = std::unique_ptr<MinLengthTask>;
   using ConstUPtr = std::unique_ptr<const MinLengthTask>;
 
-  MinLengthTask() = default;  // Required for serialization
-  MinLengthTask(std::string input_key,
-                std::string output_key,
-                bool is_conditional = false,
-                std::string name = node_names::MIN_LENGTH_TASK_NAME);
+  MinLengthTask();
+  explicit MinLengthTask(std::string name, std::string input_key, std::string output_key, bool is_conditional = false);
+  explicit MinLengthTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~MinLengthTask() override = default;
   MinLengthTask(const MinLengthTask&) = delete;
   MinLengthTask& operator=(const MinLengthTask&) = delete;

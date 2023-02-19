@@ -37,10 +37,26 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-ProfileSwitchTask::ProfileSwitchTask(std::string input_key, bool is_conditional, std::string name)
-  : TaskComposerTask(is_conditional, std::move(name))
+ProfileSwitchTask::ProfileSwitchTask() : TaskComposerTask("ProfileSwitchTask", true) {}
+ProfileSwitchTask::ProfileSwitchTask(std::string name, std::string input_key, bool is_conditional)
+  : TaskComposerTask(std::move(name), is_conditional)
 {
   input_keys_.push_back(std::move(input_key));
+}
+
+ProfileSwitchTask::ProfileSwitchTask(std::string name,
+                                     const YAML::Node& config,
+                                     const TaskComposerPluginFactory& /*plugin_factory*/)
+  : TaskComposerTask(std::move(name), config)
+{
+  if (input_keys_.empty())
+    throw std::runtime_error("ProfileSwitchTask, config missing 'inputs' entry");
+
+  if (input_keys_.size() > 1)
+    throw std::runtime_error("ProfileSwitchTask, config 'inputs' entry currently only supports one input key");
+
+  if (!output_keys_.empty())
+    throw std::runtime_error("ProfileSwitchTask, does not support 'outputs' entry");
 }
 
 TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,

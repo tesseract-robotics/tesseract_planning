@@ -37,6 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class TaskComposerPluginFactory;
 /**
  * @brief This class facilitates the composition of an arbitrary taskflow graph.
  * Tasks are nodes in the graph connected to each other in a configurable order by directed edges
@@ -50,6 +51,7 @@ public:
   using ConstUPtr = std::unique_ptr<const TaskComposerGraph>;
 
   TaskComposerGraph(std::string name = "TaskComposerGraph");
+  TaskComposerGraph(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~TaskComposerGraph() override = default;
   TaskComposerGraph(const TaskComposerGraph&) = delete;
   TaskComposerGraph& operator=(const TaskComposerGraph&) = delete;
@@ -77,6 +79,10 @@ public:
 
   /** @brief Get the nodes associated with the pipeline */
   std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr> getNodes() const;
+
+  void renameInputKeys(const std::map<std::string, std::string>& input_keys) override;
+
+  void renameOutputKeys(const std::map<std::string, std::string>& output_keys) override;
 
   void dump(std::ostream& os) const override;
 

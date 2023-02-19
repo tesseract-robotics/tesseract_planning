@@ -33,13 +33,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
 #include <tesseract_task_composer/task_composer_node_info.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
+
 #include <tesseract_task_composer/profiles/fix_state_collision_profile.h>
 
 namespace tesseract_planning
 {
+class TaskComposerPluginFactory;
 /**
- * @brief This task modifies the const input instructions in order to push waypoints that are in collision out of
+ * @brief This task modifies the input instructions in order to push waypoints that are in collision out of
  * collision.
  *
  * First it uses TrajOpt to correct the waypoint. If that fails, it reverts to random sampling
@@ -52,12 +53,14 @@ public:
   using UPtr = std::unique_ptr<FixStateCollisionTask>;
   using ConstUPtr = std::unique_ptr<const FixStateCollisionTask>;
 
-  FixStateCollisionTask() = default;  // Required for serialization
-  FixStateCollisionTask(std::string input_key,
-                        std::string output_key,
-                        bool is_conditional = true,
-                        std::string name = node_names::FIX_STATE_COLLISION_TASK_NAME);
-
+  FixStateCollisionTask();
+  explicit FixStateCollisionTask(std::string name,
+                                 std::string input_key,
+                                 std::string output_key,
+                                 bool is_conditional = true);
+  explicit FixStateCollisionTask(std::string name,
+                                 const YAML::Node& config,
+                                 const TaskComposerPluginFactory& plugin_factory);
   ~FixStateCollisionTask() override = default;
   FixStateCollisionTask(const FixStateCollisionTask&) = delete;
   FixStateCollisionTask& operator=(const FixStateCollisionTask&) = delete;

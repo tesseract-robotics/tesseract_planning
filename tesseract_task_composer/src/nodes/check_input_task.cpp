@@ -38,15 +38,26 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-CheckInputTask::CheckInputTask(std::vector<std::string> input_keys, bool is_conditional, std::string name)
-  : TaskComposerTask(is_conditional, std::move(name))
+CheckInputTask::CheckInputTask() : TaskComposerTask("CheckInputTask", true) {}
+
+CheckInputTask::CheckInputTask(std::string name, std::vector<std::string> input_keys, bool is_conditional)
+  : TaskComposerTask(std::move(name), is_conditional)
 {
   input_keys_ = std::move(input_keys);
 }
 
-CheckInputTask::CheckInputTask(std::string input_key, bool is_conditional, std::string name)
-  : CheckInputTask(std::vector<std::string>({ std::move(input_key) }), is_conditional, std::move(name))
+CheckInputTask::CheckInputTask(std::string name, std::string input_key, bool is_conditional)
+  : CheckInputTask(std::move(name), std::vector<std::string>({ std::move(input_key) }), is_conditional)
 {
+}
+
+CheckInputTask::CheckInputTask(std::string name,
+                               const YAML::Node& config,
+                               const TaskComposerPluginFactory& /*plugin_factory*/)
+  : TaskComposerTask(std::move(name), config)
+{
+  if (input_keys_.empty())
+    throw std::runtime_error("CheckInputTask, config missing 'inputs' entry");
 }
 
 TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,

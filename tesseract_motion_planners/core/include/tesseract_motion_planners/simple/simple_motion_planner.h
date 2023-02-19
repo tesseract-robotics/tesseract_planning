@@ -33,7 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/default_planner_namespaces.h>
 #include <tesseract_motion_planners/core/planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
@@ -53,7 +52,7 @@ public:
   using ConstPtr = std::shared_ptr<const SimpleMotionPlanner>;
 
   /** @brief Construct a basic planner */
-  SimpleMotionPlanner(std::string name = profile_ns::SIMPLE_DEFAULT_NAMESPACE);
+  SimpleMotionPlanner(std::string name);
   ~SimpleMotionPlanner() override = default;
   SimpleMotionPlanner(const SimpleMotionPlanner&) = delete;
   SimpleMotionPlanner& operator=(const SimpleMotionPlanner&) = delete;
