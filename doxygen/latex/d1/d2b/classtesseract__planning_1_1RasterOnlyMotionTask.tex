@@ -1,59 +1,73 @@
-\hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask}{}\doxysection{tesseract\+\_\+planning\+::Raster\+Only\+Motion\+Task\texorpdfstring{$<$}{<} Raster\+Task\+Type, Transition\+Task\+Type \texorpdfstring{$>$}{>} Class Template Reference}
-\label{classtesseract__planning_1_1RasterOnlyMotionTask}\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
+\hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask}{}\doxysection{tesseract\+\_\+planning\+::Raster\+Only\+Motion\+Task Class Reference}
+\label{classtesseract__planning_1_1RasterOnlyMotionTask}\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
 
 
-The \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyMotionTask}{Raster\+Ct\+Only\+Motion\+Task}} class.  
-
-
-
-
-{\ttfamily \#include $<$raster\+\_\+only\+\_\+motion\+\_\+task.\+hpp$>$}
+The Raster\+Ct\+Only\+Motion\+Task class.  
 
 
 
-Inheritance diagram for tesseract\+\_\+planning\+::Raster\+Only\+Motion\+Task\texorpdfstring{$<$}{<} Raster\+Task\+Type, Transition\+Task\+Type \texorpdfstring{$>$}{>}\+:
+
+{\ttfamily \#include $<$raster\+\_\+only\+\_\+motion\+\_\+task.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Raster\+Only\+Motion\+Task\+:
 % FIG 0
 
 
-Collaboration diagram for tesseract\+\_\+planning\+::Raster\+Only\+Motion\+Task\texorpdfstring{$<$}{<} Raster\+Task\+Type, Transition\+Task\+Type \texorpdfstring{$>$}{>}\+:
+Collaboration diagram for tesseract\+\_\+planning\+::Raster\+Only\+Motion\+Task\+:
 % FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1RasterOnlyMotionTask_1_1TaskFactoryResults}{Task\+Factory\+Results}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}{class\+\_\+type}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$
+using \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}{Task\+Factory}} = std\+::function$<$ \mbox{\hyperlink{structtesseract__planning_1_1RasterOnlyMotionTask_1_1TaskFactoryResults}{Task\+Factory\+Results}}(const std\+::string \&name, std\+::size\+\_\+t index)$>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a7b7111837b46d35ce184ac3104f60f5a}{Raster\+Only\+Motion\+Task}} ()=default
+\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a71427f04ed18614a7e11b401054971f1}{Raster\+Only\+Motion\+Task}} ()
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a654222e792e35a749b10cde213ed9ca7}{Raster\+Only\+Motion\+Task}} (std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional, std\+::string name)
+\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ae18bf82a3cf6f8ce012b951c49294589}{Raster\+Only\+Motion\+Task}} (std\+::string name, std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional, \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}{Task\+Factory}} raster\+\_\+task\+\_\+factory, \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}{Task\+Factory}} transition\+\_\+task\+\_\+factory)
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_abdf527d2ac742d14313a409b3894e45b}{$\sim$\+Raster\+Only\+Motion\+Task}} () override=default
+\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_abf5e31c98b907fe6f08c7985c08701c2}{Raster\+Only\+Motion\+Task}} (std\+::string name, const YAML\+::\+Node \&config, const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&plugin\+\_\+factory)
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a5969aa00693a1a877ae586ac5628048c}{Raster\+Only\+Motion\+Task}} (const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}{class\+\_\+type}} \&)=delete
+\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a3e9900d6a7289cc11c244bc6415269b7}{$\sim$\+Raster\+Only\+Motion\+Task}} () override=default
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \& \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_aa562fd33e4d1a27bbeeb58765891808a}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}{class\+\_\+type}} \&)=delete
+\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_aed8cf7e193f9ee731b028a4c6061c489}{Raster\+Only\+Motion\+Task}} (const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \&)=delete
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0302d3561f0b3975439b9a148ceb6eb8}{Raster\+Only\+Motion\+Task}} (\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}{class\+\_\+type}} \&\&)=delete
+\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \& \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a99623c95db8a991f739deae63c0ce0da}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \&)=delete
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \& \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ae4172c8ae9e59131d3fc21300ff38f27}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}{class\+\_\+type}} \&\&)=delete
+\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ada884ddaee05cfce3e18d8ab11c1a45b}{Raster\+Only\+Motion\+Task}} (\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \&\&)=delete
 \item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad0b21344cb8dcf62f46ef39ff248e5f0}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}{class\+\_\+type}} \&rhs) const
+\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \& \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a52b63621e1adda879a1675996d5ff872}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \&\&)=delete
 \item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a814a56f480ee52fd235109ccd3c3af7f}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}{class\+\_\+type}} \&rhs) const
+bool \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_adfe27180b585f60a1f9f6a42a7f51bcf}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \&rhs) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ab7def84746ece99242d99e8da64c13c3}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \&rhs) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a4af5af6b9f24a380807f0efa06d7c89b}{serialize}} (Archive \&ar, const unsigned int)
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a4086de17ff81f40dc41fb84ad64200f3}{serialize}} (Archive \&ar, const unsigned int)
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{Task\+Composer\+Node\+Info\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_aa36eb114eea5254323c23e7cd69cf763}{run\+Impl}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&input, \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{Optional\+Task\+Composer\+Executor}} executor) const override final
+\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{Task\+Composer\+Node\+Info\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a24d4b70adf2bcee1f5fd08a8260e56f2}{run\+Impl}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&input, \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{Optional\+Task\+Composer\+Executor}} executor) const override final
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a034deed1c880cc01f47e32fd9f5192bc}{check\+Task\+Input}} (const tesseract\+\_\+common\+::\+Any\+Poly \&input)
+static void \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_adbaae040e764d573e672a9da454e2703}{check\+Task\+Input}} (const tesseract\+\_\+common\+::\+Any\+Poly \&input)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}{Task\+Factory}} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a19e8beed9b9d306a08158b417439c40d}{raster\+\_\+task\+\_\+factory\+\_\+}}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}{Task\+Factory}} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad37d8dcbffaf38ac565762abb678bfd4}{transition\+\_\+task\+\_\+factory\+\_\+}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -62,140 +76,144 @@ class \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a74c50fc
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$typename Raster\+Task\+Type, typename Transition\+Task\+Type$>$\newline
-class tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$}
-The \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyMotionTask}{Raster\+Ct\+Only\+Motion\+Task}} class. 
+The Raster\+Ct\+Only\+Motion\+Task class. 
 
 The required format is below.
 
 Composite \{ Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment \} 
 
 \doxysubsection{Member Typedef Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!class\_type@{class\_type}}
-\index{class\_type@{class\_type}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
-\doxysubsubsection{\texorpdfstring{class\_type}{class\_type}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-using \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$\+::class\+\_\+type =  \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}}$<$Raster\+Task\+Type, Transition\+Task\+Type$>$}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}\label{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!TaskFactory@{TaskFactory}}
+\index{TaskFactory@{TaskFactory}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
+\doxysubsubsection{\texorpdfstring{TaskFactory}{TaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::\+Task\+Factory}} =  std\+::function$<$\mbox{\hyperlink{structtesseract__planning_1_1RasterOnlyMotionTask_1_1TaskFactoryResults}{Task\+Factory\+Results}}(const std\+::string\& name, std\+::size\+\_\+t index)$>$}
 
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a7b7111837b46d35ce184ac3104f60f5a}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a7b7111837b46d35ce184ac3104f60f5a}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!RasterOnlyMotionTask@{RasterOnlyMotionTask}}
-\index{RasterOnlyMotionTask@{RasterOnlyMotionTask}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
-\doxysubsubsection{\texorpdfstring{RasterOnlyMotionTask()}{RasterOnlyMotionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$\+::\+Raster\+Only\+Motion\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a71427f04ed18614a7e11b401054971f1}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a71427f04ed18614a7e11b401054971f1}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!RasterOnlyMotionTask@{RasterOnlyMotionTask}}
+\index{RasterOnlyMotionTask@{RasterOnlyMotionTask}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
+\doxysubsubsection{\texorpdfstring{RasterOnlyMotionTask()}{RasterOnlyMotionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::\+Raster\+Only\+Motion\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a654222e792e35a749b10cde213ed9ca7}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a654222e792e35a749b10cde213ed9ca7}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!RasterOnlyMotionTask@{RasterOnlyMotionTask}}
-\index{RasterOnlyMotionTask@{RasterOnlyMotionTask}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
-\doxysubsubsection{\texorpdfstring{RasterOnlyMotionTask()}{RasterOnlyMotionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$\+::\+Raster\+Only\+Motion\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional,  }\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_ae18bf82a3cf6f8ce012b951c49294589}\label{classtesseract__planning_1_1RasterOnlyMotionTask_ae18bf82a3cf6f8ce012b951c49294589}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!RasterOnlyMotionTask@{RasterOnlyMotionTask}}
+\index{RasterOnlyMotionTask@{RasterOnlyMotionTask}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
+\doxysubsubsection{\texorpdfstring{RasterOnlyMotionTask()}{RasterOnlyMotionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::\+Raster\+Only\+Motion\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}{Task\+Factory}}}]{raster\+\_\+task\+\_\+factory,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}{Task\+Factory}}}]{transition\+\_\+task\+\_\+factory }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_abdf527d2ac742d14313a409b3894e45b}\label{classtesseract__planning_1_1RasterOnlyMotionTask_abdf527d2ac742d14313a409b3894e45b}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!````~RasterOnlyMotionTask@{$\sim$RasterOnlyMotionTask}}
-\index{````~RasterOnlyMotionTask@{$\sim$RasterOnlyMotionTask}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_abf5e31c98b907fe6f08c7985c08701c2}\label{classtesseract__planning_1_1RasterOnlyMotionTask_abf5e31c98b907fe6f08c7985c08701c2}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!RasterOnlyMotionTask@{RasterOnlyMotionTask}}
+\index{RasterOnlyMotionTask@{RasterOnlyMotionTask}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
+\doxysubsubsection{\texorpdfstring{RasterOnlyMotionTask()}{RasterOnlyMotionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::\+Raster\+Only\+Motion\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{const YAML\+::\+Node \&}]{config,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&}]{plugin\+\_\+factory }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a3e9900d6a7289cc11c244bc6415269b7}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a3e9900d6a7289cc11c244bc6415269b7}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!````~RasterOnlyMotionTask@{$\sim$RasterOnlyMotionTask}}
+\index{````~RasterOnlyMotionTask@{$\sim$RasterOnlyMotionTask}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
 \doxysubsubsection{\texorpdfstring{$\sim$RasterOnlyMotionTask()}{~RasterOnlyMotionTask()}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$\+::$\sim$\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::$\sim$\+Raster\+Only\+Motion\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a5969aa00693a1a877ae586ac5628048c}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a5969aa00693a1a877ae586ac5628048c}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!RasterOnlyMotionTask@{RasterOnlyMotionTask}}
-\index{RasterOnlyMotionTask@{RasterOnlyMotionTask}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
-\doxysubsubsection{\texorpdfstring{RasterOnlyMotionTask()}{RasterOnlyMotionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$\+::\+Raster\+Only\+Motion\+Task (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}{class\+\_\+type}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_aed8cf7e193f9ee731b028a4c6061c489}\label{classtesseract__planning_1_1RasterOnlyMotionTask_aed8cf7e193f9ee731b028a4c6061c489}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!RasterOnlyMotionTask@{RasterOnlyMotionTask}}
+\index{RasterOnlyMotionTask@{RasterOnlyMotionTask}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
+\doxysubsubsection{\texorpdfstring{RasterOnlyMotionTask()}{RasterOnlyMotionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::\+Raster\+Only\+Motion\+Task (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a0302d3561f0b3975439b9a148ceb6eb8}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a0302d3561f0b3975439b9a148ceb6eb8}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!RasterOnlyMotionTask@{RasterOnlyMotionTask}}
-\index{RasterOnlyMotionTask@{RasterOnlyMotionTask}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
-\doxysubsubsection{\texorpdfstring{RasterOnlyMotionTask()}{RasterOnlyMotionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$\+::\+Raster\+Only\+Motion\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}{class\+\_\+type}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_ada884ddaee05cfce3e18d8ab11c1a45b}\label{classtesseract__planning_1_1RasterOnlyMotionTask_ada884ddaee05cfce3e18d8ab11c1a45b}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!RasterOnlyMotionTask@{RasterOnlyMotionTask}}
+\index{RasterOnlyMotionTask@{RasterOnlyMotionTask}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
+\doxysubsubsection{\texorpdfstring{RasterOnlyMotionTask()}{RasterOnlyMotionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::\+Raster\+Only\+Motion\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a034deed1c880cc01f47e32fd9f5192bc}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a034deed1c880cc01f47e32fd9f5192bc}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!checkTaskInput@{checkTaskInput}}
-\index{checkTaskInput@{checkTaskInput}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_adbaae040e764d573e672a9da454e2703}\label{classtesseract__planning_1_1RasterOnlyMotionTask_adbaae040e764d573e672a9da454e2703}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!checkTaskInput@{checkTaskInput}}
+\index{checkTaskInput@{checkTaskInput}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
 \doxysubsubsection{\texorpdfstring{checkTaskInput()}{checkTaskInput()}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-static void \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$\+::check\+Task\+Input (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+common\+::\+Any\+Poly \&}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [protected]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::check\+Task\+Input (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+common\+::\+Any\+Poly \&}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a814a56f480ee52fd235109ccd3c3af7f}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a814a56f480ee52fd235109ccd3c3af7f}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!operator"!=@{operator"!=}}
-\index{operator"!=@{operator"!=}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_ab7def84746ece99242d99e8da64c13c3}\label{classtesseract__planning_1_1RasterOnlyMotionTask_ab7def84746ece99242d99e8da64c13c3}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
 \doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-bool \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}{class\+\_\+type}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \&}]{rhs }\end{DoxyParamCaption}) const}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_ae4172c8ae9e59131d3fc21300ff38f27}\label{classtesseract__planning_1_1RasterOnlyMotionTask_ae4172c8ae9e59131d3fc21300ff38f27}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!operator=@{operator=}}
-\index{operator=@{operator=}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a99623c95db8a991f739deae63c0ce0da}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a99623c95db8a991f739deae63c0ce0da}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \& \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}{class\+\_\+type}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \& tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_aa562fd33e4d1a27bbeeb58765891808a}\label{classtesseract__planning_1_1RasterOnlyMotionTask_aa562fd33e4d1a27bbeeb58765891808a}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!operator=@{operator=}}
-\index{operator=@{operator=}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a52b63621e1adda879a1675996d5ff872}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a52b63621e1adda879a1675996d5ff872}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \& \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}{class\+\_\+type}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \& tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_ad0b21344cb8dcf62f46ef39ff248e5f0}\label{classtesseract__planning_1_1RasterOnlyMotionTask_ad0b21344cb8dcf62f46ef39ff248e5f0}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!operator==@{operator==}}
-\index{operator==@{operator==}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_adfe27180b585f60a1f9f6a42a7f51bcf}\label{classtesseract__planning_1_1RasterOnlyMotionTask_adfe27180b585f60a1f9f6a42a7f51bcf}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
 \doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-bool \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a0d48ade3ac1f7f383e0ab4f57eaa3aba}{class\+\_\+type}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} \&}]{rhs }\end{DoxyParamCaption}) const}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_aa36eb114eea5254323c23e7cd69cf763}\label{classtesseract__planning_1_1RasterOnlyMotionTask_aa36eb114eea5254323c23e7cd69cf763}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!runImpl@{runImpl}}
-\index{runImpl@{runImpl}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a24d4b70adf2bcee1f5fd08a8260e56f2}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a24d4b70adf2bcee1f5fd08a8260e56f2}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!runImpl@{runImpl}}
+\index{runImpl@{runImpl}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
 \doxysubsubsection{\texorpdfstring{runImpl()}{runImpl()}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{Task\+Composer\+Node\+Info\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$\+::run\+Impl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&}]{input,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{Optional\+Task\+Composer\+Executor}}}]{executor }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{Task\+Composer\+Node\+Info\+::\+UPtr}} tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::run\+Impl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&}]{input,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{Optional\+Task\+Composer\+Executor}}}]{executor }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
 
 
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_ac9d9332efa22cad525458796c3f19c3f}{tesseract\+\_\+planning\+::\+Task\+Composer\+Task}}.
 
-\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a4af5af6b9f24a380807f0efa06d7c89b}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a4af5af6b9f24a380807f0efa06d7c89b}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!serialize@{serialize}}
-\index{serialize@{serialize}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a4086de17ff81f40dc41fb84ad64200f3}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a4086de17ff81f40dc41fb84ad64200f3}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
 \doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-template$<$class Archive $>$ \\
-void \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task}}$<$ Raster\+Task\+Type, Transition\+Task\+Type $>$\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
 \doxysubsection{Friends And Related Function Documentation}
 \mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{classtesseract__planning_1_1RasterOnlyMotionTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!boost::serialization::access@{boost::serialization::access}}
-\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
 \doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a74c50fcc25e72cb9703ee14d7e71dcd8}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a74c50fcc25e72cb9703ee14d7e71dcd8}} 
-\index{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}!tesseract\_common::Serialization@{tesseract\_common::Serialization}}
-\index{tesseract\_common::Serialization@{tesseract\_common::Serialization}!tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$@{tesseract\_planning::RasterOnlyMotionTask$<$ RasterTaskType, TransitionTaskType $>$}}
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!tesseract\_common::Serialization@{tesseract\_common::Serialization}}
+\index{tesseract\_common::Serialization@{tesseract\_common::Serialization}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
 \doxysubsubsection{\texorpdfstring{tesseract\_common::Serialization}{tesseract\_common::Serialization}}
-{\footnotesize\ttfamily template$<$typename Raster\+Task\+Type , typename Transition\+Task\+Type $>$ \\
-friend class tesseract\+\_\+common\+::\+Serialization\hspace{0.3cm}{\ttfamily [friend]}}
+{\footnotesize\ttfamily friend class tesseract\+\_\+common\+::\+Serialization\hspace{0.3cm}{\ttfamily [friend]}}
 
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_a19e8beed9b9d306a08158b417439c40d}\label{classtesseract__planning_1_1RasterOnlyMotionTask_a19e8beed9b9d306a08158b417439c40d}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!raster\_task\_factory\_@{raster\_task\_factory\_}}
+\index{raster\_task\_factory\_@{raster\_task\_factory\_}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
+\doxysubsubsection{\texorpdfstring{raster\_task\_factory\_}{raster\_task\_factory\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}{Task\+Factory}} tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::raster\+\_\+task\+\_\+factory\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterOnlyMotionTask_ad37d8dcbffaf38ac565762abb678bfd4}\label{classtesseract__planning_1_1RasterOnlyMotionTask_ad37d8dcbffaf38ac565762abb678bfd4}} 
+\index{tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}!transition\_task\_factory\_@{transition\_task\_factory\_}}
+\index{transition\_task\_factory\_@{transition\_task\_factory\_}!tesseract\_planning::RasterOnlyMotionTask@{tesseract\_planning::RasterOnlyMotionTask}}
+\doxysubsubsection{\texorpdfstring{transition\_task\_factory\_}{transition\_task\_factory\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}{Task\+Factory}} tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+::transition\+\_\+task\+\_\+factory\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-tesseract\+\_\+task\+\_\+composer/include/tesseract\+\_\+task\+\_\+composer/nodes/\mbox{\hyperlink{raster__only__motion__task_8hpp}{raster\+\_\+only\+\_\+motion\+\_\+task.\+hpp}}\end{DoxyCompactItemize}
+tesseract\+\_\+task\+\_\+composer/include/tesseract\+\_\+task\+\_\+composer/nodes/\mbox{\hyperlink{raster__only__motion__task_8h}{raster\+\_\+only\+\_\+motion\+\_\+task.\+h}}\item 
+tesseract\+\_\+task\+\_\+composer/src/nodes/\mbox{\hyperlink{raster__only__motion__task_8cpp}{raster\+\_\+only\+\_\+motion\+\_\+task.\+cpp}}\end{DoxyCompactItemize}

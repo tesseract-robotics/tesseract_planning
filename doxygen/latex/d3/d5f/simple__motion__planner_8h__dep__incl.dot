@@ -30,12 +30,8 @@ digraph "tesseract_motion_planners/core/include/tesseract_motion_planners/simple
   Node1 -> Node13 [dir="back",color="steelblue1",style="solid"];
   Node13 [label="tesseract_motion_planners\l/test/simple_planner_lvs\l_interpolation.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/ddc/simple__planner__lvs__interpolation_8cpp.html",tooltip=" "];
   Node1 -> Node14 [dir="back",color="steelblue1",style="solid"];
-  Node14 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/simple_motion\l_planner_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d06/simple__motion__planner__task_8h.html",tooltip="simple motion planning pipeline"];
-  Node14 -> Node15 [dir="back",color="steelblue1",style="solid"];
-  Node15 [label="tesseract_task_composer\l/src/nodes/simple_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/de9/simple__motion__pipeline__task_8cpp.html",tooltip=" "];
-  Node14 -> Node16 [dir="back",color="steelblue1",style="solid"];
-  Node16 [label="tesseract_task_composer\l/src/nodes/simple_motion\l_planner_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/d0f/simple__motion__planner__task_8cpp.html",tooltip=" "];
-  Node1 -> Node17 [dir="back",color="steelblue1",style="solid"];
-  Node17 [label="tesseract_task_composer\l/src/nodes/min_length\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/d1c/min__length__task_8cpp.html",tooltip="Task for processing the seed so it meets a minimum length. Planners like trajopt need at least 10 sta..."];
+  Node14 [label="tesseract_task_composer\l/src/nodes/min_length\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/d1c/min__length__task_8cpp.html",tooltip="Task for processing the seed so it meets a minimum length. Planners like trajopt need at least 10 sta..."];
+  Node1 -> Node15 [dir="back",color="steelblue1",style="solid"];
+  Node15 [label="tesseract_task_composer\l/src/task_composer_task\l_plugin_factory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/de0/task__composer__task__plugin__factory_8cpp.html",tooltip="A task in the pipeline."];
   Node1 -> Node9 [dir="back",color="steelblue1",style="solid"];
 }

@@ -1,5 +1,5 @@
 <map id="tesseract_planning::FixStateCollisionTask" name="tesseract_planning::FixStateCollisionTask">
-<area shape="rect" id="node1" title="This task modifies the const input instructions in order to push waypoints that are in collision out ..." alt="" coords="5,181,160,221"/>
+<area shape="rect" id="node1" title="This task modifies the input instructions in order to push waypoints that are in collision out of col..." alt="" coords="5,181,160,221"/>
 <area shape="rect" id="node2" href="$d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="10,93,155,133"/>
 <area shape="rect" id="node3" href="$de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="9,5,156,45"/>
 </map>

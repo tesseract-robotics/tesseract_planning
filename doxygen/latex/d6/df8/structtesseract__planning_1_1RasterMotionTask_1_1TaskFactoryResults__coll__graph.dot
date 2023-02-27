@@ -1,0 +1,22 @@
+digraph "tesseract_planning::RasterMotionTask::TaskFactoryResults"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="tesseract_planning\l::RasterMotionTask::\lTaskFactoryResults",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" node" ];
+  Node2 [label="std::unique_ptr\< TaskComposer\lNode \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node2 [dir="back",color="darkorchid3",style="dashed",label=" ptr" ];
+  Node3 [label="tesseract_planning\l::TaskComposerNode",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$de/d23/classtesseract__planning_1_1TaskComposerNode.html",tooltip="Represents a node the pipeline to be executed."];
+  Node4 -> Node3 [dir="back",color="darkorchid3",style="dashed",label=" name_\nuuid_str_" ];
+  Node4 [label="std::string",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="std::basic_string\<\l Char \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node6 -> Node3 [dir="back",color="darkorchid3",style="dashed",label=" inbound_edges_\noutbound_edges_" ];
+  Node6 [label="std::vector\< boost\l::uuids::uuid \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node7 -> Node3 [dir="back",color="darkorchid3",style="dashed",label=" input_keys_\noutput_keys_" ];
+  Node7 [label="std::vector\< std::string \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node7 [dir="back",color="darkorchid3",style="dashed",label=" elements" ];
+  Node4 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" input_key\noutput_key" ];
+}

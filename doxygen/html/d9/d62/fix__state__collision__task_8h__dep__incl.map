@@ -1,6 +1,7 @@
 <map id="tesseract_task_composer/include/tesseract_task_composer/nodes/fix_state_collision_task.h" name="tesseract_task_composer/include/tesseract_task_composer/nodes/fix_state_collision_task.h">
-<area shape="rect" id="node1" title="Task that pushes plan instructions to be out of collision." alt="" coords="217,5,394,75"/>
+<area shape="rect" id="node1" title="Task that pushes plan instructions to be out of collision." alt="" coords="314,5,491,75"/>
 <area shape="rect" id="node2" href="$d1/d25/fix__state__collision__task_8cpp.html" title=" " alt="" coords="5,123,195,177"/>
-<area shape="rect" id="node3" href="$dc/d6a/fix__state__collision__task__unit_8cpp.html" title=" " alt="" coords="219,123,391,177"/>
-<area shape="rect" id="node4" href="$d6/da6/tesseract__task__composer__serialization__unit_8cpp.html" title=" " alt="" coords="416,123,619,177"/>
+<area shape="rect" id="node3" href="$dc/de0/task__composer__task__plugin__factory_8cpp.html" title="A task in the pipeline." alt="" coords="219,123,391,177"/>
+<area shape="rect" id="node4" href="$dc/d6a/fix__state__collision__task__unit_8cpp.html" title=" " alt="" coords="415,123,587,177"/>
+<area shape="rect" id="node5" href="$d6/da6/tesseract__task__composer__serialization__unit_8cpp.html" title=" " alt="" coords="612,123,815,177"/>
 </map>

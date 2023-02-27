@@ -26,9 +26,11 @@ using \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask_a898
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask_ad92df615138d598d0956b2651ddd774c}{Discrete\+Contact\+Check\+Task}} ()=default
+\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask_aebfffd2b55346b06bd287a9ef0d07ba1}{Discrete\+Contact\+Check\+Task}} ()
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask_a4281268ad4a7881df02c83cac9e9d45b}{Discrete\+Contact\+Check\+Task}} (std\+::string input\+\_\+key, bool is\+\_\+conditional=true, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a85ee9f4d98e8b48cfd38e1adb9ff0f56}{node\+\_\+names\+::\+DISCRETE\+\_\+\+CONTACT\+\_\+\+CHECK\+\_\+\+TASK\+\_\+\+NAME}})
+\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask_a3532627ce8d7e4f0c0144d1b247b93e9}{Discrete\+Contact\+Check\+Task}} (std\+::string name, std\+::string input\+\_\+key, bool is\+\_\+conditional=true)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask_ad89037a2cc15cd51893239ccf3e6012f}{Discrete\+Contact\+Check\+Task}} (std\+::string name, const YAML\+::\+Node \&config, const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&plugin\+\_\+factory)
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask_afc42ea1db4cdf77a1b1e78cdd19bcdbf}{$\sim$\+Discrete\+Contact\+Check\+Task}} () override=default
 \item 
@@ -89,17 +91,23 @@ class \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask_ac98
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTask_ad92df615138d598d0956b2651ddd774c}\label{classtesseract__planning_1_1DiscreteContactCheckTask_ad92df615138d598d0956b2651ddd774c}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTask_aebfffd2b55346b06bd287a9ef0d07ba1}\label{classtesseract__planning_1_1DiscreteContactCheckTask_aebfffd2b55346b06bd287a9ef0d07ba1}} 
 \index{tesseract\_planning::DiscreteContactCheckTask@{tesseract\_planning::DiscreteContactCheckTask}!DiscreteContactCheckTask@{DiscreteContactCheckTask}}
 \index{DiscreteContactCheckTask@{DiscreteContactCheckTask}!tesseract\_planning::DiscreteContactCheckTask@{tesseract\_planning::DiscreteContactCheckTask}}
-\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTask()}{DiscreteContactCheckTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+::\+Discrete\+Contact\+Check\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTask()}{DiscreteContactCheckTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+::\+Discrete\+Contact\+Check\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTask_a4281268ad4a7881df02c83cac9e9d45b}\label{classtesseract__planning_1_1DiscreteContactCheckTask_a4281268ad4a7881df02c83cac9e9d45b}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTask_a3532627ce8d7e4f0c0144d1b247b93e9}\label{classtesseract__planning_1_1DiscreteContactCheckTask_a3532627ce8d7e4f0c0144d1b247b93e9}} 
 \index{tesseract\_planning::DiscreteContactCheckTask@{tesseract\_planning::DiscreteContactCheckTask}!DiscreteContactCheckTask@{DiscreteContactCheckTask}}
 \index{DiscreteContactCheckTask@{DiscreteContactCheckTask}!tesseract\_planning::DiscreteContactCheckTask@{tesseract\_planning::DiscreteContactCheckTask}}
-\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTask()}{DiscreteContactCheckTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+::\+Discrete\+Contact\+Check\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true},  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a85ee9f4d98e8b48cfd38e1adb9ff0f56}{node\+\_\+names\+::\+DISCRETE\+\_\+\+CONTACT\+\_\+\+CHECK\+\_\+\+TASK\+\_\+\+NAME}}} }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTask()}{DiscreteContactCheckTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+::\+Discrete\+Contact\+Check\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::string}]{input\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTask_ad89037a2cc15cd51893239ccf3e6012f}\label{classtesseract__planning_1_1DiscreteContactCheckTask_ad89037a2cc15cd51893239ccf3e6012f}} 
+\index{tesseract\_planning::DiscreteContactCheckTask@{tesseract\_planning::DiscreteContactCheckTask}!DiscreteContactCheckTask@{DiscreteContactCheckTask}}
+\index{DiscreteContactCheckTask@{DiscreteContactCheckTask}!tesseract\_planning::DiscreteContactCheckTask@{tesseract\_planning::DiscreteContactCheckTask}}
+\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTask()}{DiscreteContactCheckTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+::\+Discrete\+Contact\+Check\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{const YAML\+::\+Node \&}]{config,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&}]{plugin\+\_\+factory }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTask_afc42ea1db4cdf77a1b1e78cdd19bcdbf}\label{classtesseract__planning_1_1DiscreteContactCheckTask_afc42ea1db4cdf77a1b1e78cdd19bcdbf}} 
 \index{tesseract\_planning::DiscreteContactCheckTask@{tesseract\_planning::DiscreteContactCheckTask}!````~DiscreteContactCheckTask@{$\sim$DiscreteContactCheckTask}}
@@ -110,13 +118,13 @@ class \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask_ac98
 \mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTask_a9f7d2e992708d34ea9ac89267fc50e65}\label{classtesseract__planning_1_1DiscreteContactCheckTask_a9f7d2e992708d34ea9ac89267fc50e65}} 
 \index{tesseract\_planning::DiscreteContactCheckTask@{tesseract\_planning::DiscreteContactCheckTask}!DiscreteContactCheckTask@{DiscreteContactCheckTask}}
 \index{DiscreteContactCheckTask@{DiscreteContactCheckTask}!tesseract\_planning::DiscreteContactCheckTask@{tesseract\_planning::DiscreteContactCheckTask}}
-\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTask()}{DiscreteContactCheckTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTask()}{DiscreteContactCheckTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+::\+Discrete\+Contact\+Check\+Task (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask}{Discrete\+Contact\+Check\+Task}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTask_a26ea26912c2b35fa18e6e6f71ed74053}\label{classtesseract__planning_1_1DiscreteContactCheckTask_a26ea26912c2b35fa18e6e6f71ed74053}} 
 \index{tesseract\_planning::DiscreteContactCheckTask@{tesseract\_planning::DiscreteContactCheckTask}!DiscreteContactCheckTask@{DiscreteContactCheckTask}}
 \index{DiscreteContactCheckTask@{DiscreteContactCheckTask}!tesseract\_planning::DiscreteContactCheckTask@{tesseract\_planning::DiscreteContactCheckTask}}
-\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTask()}{DiscreteContactCheckTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTask()}{DiscreteContactCheckTask()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+::\+Discrete\+Contact\+Check\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask}{Discrete\+Contact\+Check\+Task}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 

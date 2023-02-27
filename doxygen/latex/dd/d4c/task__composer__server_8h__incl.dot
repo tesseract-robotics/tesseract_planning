@@ -138,4 +138,15 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/task_composer_s
   Node34 -> Node22 [color="steelblue1",style="solid"];
   Node4 -> Node21 [color="steelblue1",style="solid"];
   Node4 -> Node22 [color="steelblue1",style="solid"];
+  Node1 -> Node37 [color="steelblue1",style="solid"];
+  Node37 [label="tesseract_task_composer\l/task_composer_plugin\l_factory.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$da/d42/task__composer__plugin__factory_8h.html",tooltip="A plugin factory for producing a task composer."];
+  Node37 -> Node2 [color="steelblue1",style="solid"];
+  Node37 -> Node6 [color="steelblue1",style="solid"];
+  Node37 -> Node24 [color="steelblue1",style="solid"];
+  Node37 -> Node38 [color="steelblue1",style="solid"];
+  Node38 [label="yaml-cpp/yaml.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node37 -> Node8 [color="steelblue1",style="solid"];
+  Node37 -> Node4 [color="steelblue1",style="solid"];
+  Node37 -> Node39 [color="steelblue1",style="solid"];
+  Node39 [label="tesseract_common/plugin\l_loader.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
 }

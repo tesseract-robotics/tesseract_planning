@@ -4,7 +4,7 @@ digraph "tesseract_planning::FixStateCollisionTask"
   bgcolor="transparent";
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
-  Node1 [label="tesseract_planning\l::FixStateCollisionTask",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="This task modifies the const input instructions in order to push waypoints that are in collision out ..."];
+  Node1 [label="tesseract_planning\l::FixStateCollisionTask",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="This task modifies the input instructions in order to push waypoints that are in collision out of col..."];
   Node2 -> Node1 [dir="back",color="steelblue1",style="solid"];
   Node2 [label="tesseract_planning\l::TaskComposerTask",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d8/def/classtesseract__planning_1_1TaskComposerTask.html",tooltip=" "];
   Node3 -> Node2 [dir="back",color="steelblue1",style="solid"];

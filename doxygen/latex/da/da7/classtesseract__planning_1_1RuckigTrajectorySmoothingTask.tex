@@ -26,9 +26,11 @@ using \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTask
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a6e54cfc9220b6cc91b59dca441480c30}{Ruckig\+Trajectory\+Smoothing\+Task}} ()=default
+\mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a98f6500e6b21cf7df7680feee2dc8a32}{Ruckig\+Trajectory\+Smoothing\+Task}} ()
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a36e12867402c360e2d3a9becd14d996f}{Ruckig\+Trajectory\+Smoothing\+Task}} (std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional=true, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a6f625ed50c8078ee3560f2b2ba4084b6}{node\+\_\+names\+::\+RUCKIG\+\_\+\+TRAJECTORY\+\_\+\+SMOOTHING\+\_\+\+TASK\+\_\+\+NAME}})
+\mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_afea324b37d17899160380dcfe4c97495}{Ruckig\+Trajectory\+Smoothing\+Task}} (std\+::string name, std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional=true)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a2f5300194fa124e7f66326ee62cb44c6}{Ruckig\+Trajectory\+Smoothing\+Task}} (std\+::string name, const YAML\+::\+Node \&config, const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&plugin\+\_\+factory)
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a2d4621173a5e04c6d67001eb0d0e8596}{$\sim$\+Ruckig\+Trajectory\+Smoothing\+Task}} () override=default
 \item 
@@ -89,17 +91,23 @@ class \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTask
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a6e54cfc9220b6cc91b59dca441480c30}\label{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a6e54cfc9220b6cc91b59dca441480c30}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a98f6500e6b21cf7df7680feee2dc8a32}\label{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a98f6500e6b21cf7df7680feee2dc8a32}} 
 \index{tesseract\_planning::RuckigTrajectorySmoothingTask@{tesseract\_planning::RuckigTrajectorySmoothingTask}!RuckigTrajectorySmoothingTask@{RuckigTrajectorySmoothingTask}}
 \index{RuckigTrajectorySmoothingTask@{RuckigTrajectorySmoothingTask}!tesseract\_planning::RuckigTrajectorySmoothingTask@{tesseract\_planning::RuckigTrajectorySmoothingTask}}
-\doxysubsubsection{\texorpdfstring{RuckigTrajectorySmoothingTask()}{RuckigTrajectorySmoothingTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Ruckig\+Trajectory\+Smoothing\+Task\+::\+Ruckig\+Trajectory\+Smoothing\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+\doxysubsubsection{\texorpdfstring{RuckigTrajectorySmoothingTask()}{RuckigTrajectorySmoothingTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Ruckig\+Trajectory\+Smoothing\+Task\+::\+Ruckig\+Trajectory\+Smoothing\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a36e12867402c360e2d3a9becd14d996f}\label{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a36e12867402c360e2d3a9becd14d996f}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_afea324b37d17899160380dcfe4c97495}\label{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_afea324b37d17899160380dcfe4c97495}} 
 \index{tesseract\_planning::RuckigTrajectorySmoothingTask@{tesseract\_planning::RuckigTrajectorySmoothingTask}!RuckigTrajectorySmoothingTask@{RuckigTrajectorySmoothingTask}}
 \index{RuckigTrajectorySmoothingTask@{RuckigTrajectorySmoothingTask}!tesseract\_planning::RuckigTrajectorySmoothingTask@{tesseract\_planning::RuckigTrajectorySmoothingTask}}
-\doxysubsubsection{\texorpdfstring{RuckigTrajectorySmoothingTask()}{RuckigTrajectorySmoothingTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Ruckig\+Trajectory\+Smoothing\+Task\+::\+Ruckig\+Trajectory\+Smoothing\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true},  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a6f625ed50c8078ee3560f2b2ba4084b6}{node\+\_\+names\+::\+RUCKIG\+\_\+\+TRAJECTORY\+\_\+\+SMOOTHING\+\_\+\+TASK\+\_\+\+NAME}}} }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{RuckigTrajectorySmoothingTask()}{RuckigTrajectorySmoothingTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Ruckig\+Trajectory\+Smoothing\+Task\+::\+Ruckig\+Trajectory\+Smoothing\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a2f5300194fa124e7f66326ee62cb44c6}\label{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a2f5300194fa124e7f66326ee62cb44c6}} 
+\index{tesseract\_planning::RuckigTrajectorySmoothingTask@{tesseract\_planning::RuckigTrajectorySmoothingTask}!RuckigTrajectorySmoothingTask@{RuckigTrajectorySmoothingTask}}
+\index{RuckigTrajectorySmoothingTask@{RuckigTrajectorySmoothingTask}!tesseract\_planning::RuckigTrajectorySmoothingTask@{tesseract\_planning::RuckigTrajectorySmoothingTask}}
+\doxysubsubsection{\texorpdfstring{RuckigTrajectorySmoothingTask()}{RuckigTrajectorySmoothingTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Ruckig\+Trajectory\+Smoothing\+Task\+::\+Ruckig\+Trajectory\+Smoothing\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{const YAML\+::\+Node \&}]{config,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&}]{plugin\+\_\+factory }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a2d4621173a5e04c6d67001eb0d0e8596}\label{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a2d4621173a5e04c6d67001eb0d0e8596}} 
 \index{tesseract\_planning::RuckigTrajectorySmoothingTask@{tesseract\_planning::RuckigTrajectorySmoothingTask}!````~RuckigTrajectorySmoothingTask@{$\sim$RuckigTrajectorySmoothingTask}}
@@ -110,13 +118,13 @@ class \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTask
 \mbox{\Hypertarget{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_ae01e723789d890118a77de354c0826f8}\label{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_ae01e723789d890118a77de354c0826f8}} 
 \index{tesseract\_planning::RuckigTrajectorySmoothingTask@{tesseract\_planning::RuckigTrajectorySmoothingTask}!RuckigTrajectorySmoothingTask@{RuckigTrajectorySmoothingTask}}
 \index{RuckigTrajectorySmoothingTask@{RuckigTrajectorySmoothingTask}!tesseract\_planning::RuckigTrajectorySmoothingTask@{tesseract\_planning::RuckigTrajectorySmoothingTask}}
-\doxysubsubsection{\texorpdfstring{RuckigTrajectorySmoothingTask()}{RuckigTrajectorySmoothingTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+\doxysubsubsection{\texorpdfstring{RuckigTrajectorySmoothingTask()}{RuckigTrajectorySmoothingTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Ruckig\+Trajectory\+Smoothing\+Task\+::\+Ruckig\+Trajectory\+Smoothing\+Task (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTask}{Ruckig\+Trajectory\+Smoothing\+Task}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a8750477f6e7ef11e764115746e1fed88}\label{classtesseract__planning_1_1RuckigTrajectorySmoothingTask_a8750477f6e7ef11e764115746e1fed88}} 
 \index{tesseract\_planning::RuckigTrajectorySmoothingTask@{tesseract\_planning::RuckigTrajectorySmoothingTask}!RuckigTrajectorySmoothingTask@{RuckigTrajectorySmoothingTask}}
 \index{RuckigTrajectorySmoothingTask@{RuckigTrajectorySmoothingTask}!tesseract\_planning::RuckigTrajectorySmoothingTask@{tesseract\_planning::RuckigTrajectorySmoothingTask}}
-\doxysubsubsection{\texorpdfstring{RuckigTrajectorySmoothingTask()}{RuckigTrajectorySmoothingTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+\doxysubsubsection{\texorpdfstring{RuckigTrajectorySmoothingTask()}{RuckigTrajectorySmoothingTask()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Ruckig\+Trajectory\+Smoothing\+Task\+::\+Ruckig\+Trajectory\+Smoothing\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTask}{Ruckig\+Trajectory\+Smoothing\+Task}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 

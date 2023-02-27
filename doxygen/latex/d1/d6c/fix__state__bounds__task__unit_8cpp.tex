@@ -26,7 +26,7 @@ class \mbox{\hyperlink{classFixStateBoundsTaskUnit}{Fix\+State\+Bounds\+Task\+Un
 \item 
 void \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_afc65e7a7ccc06bd107fabca1df74812e}{check\+Program}} (const Environment\+::\+Ptr \&\mbox{\hyperlink{basic__cartesian__example__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}}, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&\mbox{\hyperlink{ompl__planner__tests_8cpp_aa0c9c5fd2281440db1e2dd97fc3358f7}{manip}}, const Eigen\+::\+Vector\+Xd \&\mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}, const Eigen\+::\+Vector\+Xd \&goal\+\_\+state, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}} $>$ \&\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a5ca76ba80aa9d3a8fe819937ee1a0560}{Fix\+State\+Bounds\+Profile\+::\+Settings}} setting, bool pre\+\_\+check\+\_\+return, int expected\+\_\+return)
 \item 
-\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a45e6937e3889e6f245438bc79c6e0515}{add\+Profile$<$ Fix\+State\+Bounds\+Profile $>$}} (\mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a50bf0d4e3e555c74597f9995e18e4914}{tesseract\+\_\+planning\+::node\+\_\+names\+::\+FIX\+\_\+\+STATE\+\_\+\+BOUNDS\+\_\+\+TASK\+\_\+\+NAME}}, DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}})
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_ade375aeeeb0b9beb1ccbe3d5108e1e5d}{add\+Profile$<$ Fix\+State\+Bounds\+Profile $>$}} (\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_aaf43ed9bd9fe8ac1df572a9133c2fb03}{FIX\+\_\+\+STATE\+\_\+\+BOUNDS\+\_\+\+TASK\+\_\+\+NAME}}, DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}})
 \item 
 \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a02a4dbfe4f379a6fd1b538592a09bbda}{check\+Program}} (env\+\_\+, manip\+\_\+, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a466884a547c242b89565748375870d24}{mid\+\_\+state}}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}}, Settings\+::\+ALL, true, 1)
 \item 
@@ -73,6 +73,8 @@ int \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a3c04138a5bfe5d72780bb7
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
+static const std\+::string \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_aaf43ed9bd9fe8ac1df572a9133c2fb03}{FIX\+\_\+\+STATE\+\_\+\+BOUNDS\+\_\+\+TASK\+\_\+\+NAME}} = \char`\"{}Fix\+State\+Bounds\+Task\char`\"{}
+\item 
 auto \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a6d60373e976cb81b4852bcd9864a54b5}{joint\+\_\+limits}} = env\+\_\+-\/$>$get\+Joint\+Group(\mbox{\hyperlink{ompl__planner__tests_8cpp_a061d54ee4d7fda9875195a5ed606df49}{manip\+\_\+.\+manipulator}})-\/$>$get\+Limits().joint\+\_\+limits
 \item 
 auto \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile}{Fix\+State\+Bounds\+Profile}}$>$()
@@ -94,11 +96,11 @@ Eigen\+::\+Vector\+Xd \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a14d9
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a45e6937e3889e6f245438bc79c6e0515}\label{fix__state__bounds__task__unit_8cpp_a45e6937e3889e6f245438bc79c6e0515}} 
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_ade375aeeeb0b9beb1ccbe3d5108e1e5d}\label{fix__state__bounds__task__unit_8cpp_ade375aeeeb0b9beb1ccbe3d5108e1e5d}} 
 \index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!addProfile$<$ FixStateBoundsProfile $>$@{addProfile$<$ FixStateBoundsProfile $>$}}
 \index{addProfile$<$ FixStateBoundsProfile $>$@{addProfile$<$ FixStateBoundsProfile $>$}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{addProfile$<$ FixStateBoundsProfile $>$()}{addProfile< FixStateBoundsProfile >()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile}{Fix\+State\+Bounds\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a50bf0d4e3e555c74597f9995e18e4914}{tesseract\+\_\+planning\+::node\+\_\+names\+::\+FIX\+\_\+\+STATE\+\_\+\+BOUNDS\+\_\+\+TASK\+\_\+\+NAME}}}]{,  }\item[{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile}{Fix\+State\+Bounds\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_aaf43ed9bd9fe8ac1df572a9133c2fb03}{FIX\+\_\+\+STATE\+\_\+\+BOUNDS\+\_\+\+TASK\+\_\+\+NAME}}}]{,  }\item[{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}]{,  }\item[{\mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a05a9a4814d42dd9f80407292e87234ae}{state\+\_\+bounds\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_afc65e7a7ccc06bd107fabca1df74812e}\label{fix__state__bounds__task__unit_8cpp_afc65e7a7ccc06bd107fabca1df74812e}} 
 \index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!checkProgram@{checkProgram}}
@@ -246,6 +248,12 @@ Eigen\+::\+Vector\+Xd \mbox{\hyperlink{fix__state__bounds__task__unit_8cpp_a14d9
 \index{end\_state@{end\_state}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{end\_state}{end\_state}}
 {\footnotesize\ttfamily Eigen\+::\+Vector\+Xd end\+\_\+state = joint\+\_\+limits.\+col(1).array() + .\+6}
+
+\mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_aaf43ed9bd9fe8ac1df572a9133c2fb03}\label{fix__state__bounds__task__unit_8cpp_aaf43ed9bd9fe8ac1df572a9133c2fb03}} 
+\index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!FIX\_STATE\_BOUNDS\_TASK\_NAME@{FIX\_STATE\_BOUNDS\_TASK\_NAME}}
+\index{FIX\_STATE\_BOUNDS\_TASK\_NAME@{FIX\_STATE\_BOUNDS\_TASK\_NAME}!fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{FIX\_STATE\_BOUNDS\_TASK\_NAME}{FIX\_STATE\_BOUNDS\_TASK\_NAME}}
+{\footnotesize\ttfamily const std\+::string FIX\+\_\+\+STATE\+\_\+\+BOUNDS\+\_\+\+TASK\+\_\+\+NAME = \char`\"{}Fix\+State\+Bounds\+Task\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
 
 \mbox{\Hypertarget{fix__state__bounds__task__unit_8cpp_a6d60373e976cb81b4852bcd9864a54b5}\label{fix__state__bounds__task__unit_8cpp_a6d60373e976cb81b4852bcd9864a54b5}} 
 \index{fix\_state\_bounds\_task\_unit.cpp@{fix\_state\_bounds\_task\_unit.cpp}!joint\_limits@{joint\_limits}}

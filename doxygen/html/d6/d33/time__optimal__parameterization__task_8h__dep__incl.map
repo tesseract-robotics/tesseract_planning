@@ -1,4 +1,5 @@
 <map id="tesseract_task_composer/include/tesseract_task_composer/nodes/time_optimal_parameterization_task.h" name="tesseract_task_composer/include/tesseract_task_composer/nodes/time_optimal_parameterization_task.h">
-<area shape="rect" id="node1" title="Perform TOTG." alt="" coords="5,5,208,75"/>
-<area shape="rect" id="node2" href="$d4/df4/time__optimal__parameterization__task_8cpp.html" title=" " alt="" coords="17,123,197,177"/>
+<area shape="rect" id="node1" title="Perform TOTG." alt="" coords="94,5,297,75"/>
+<area shape="rect" id="node2" href="$d4/df4/time__optimal__parameterization__task_8cpp.html" title=" " alt="" coords="5,123,185,177"/>
+<area shape="rect" id="node3" href="$dc/de0/task__composer__task__plugin__factory_8cpp.html" title="A task in the pipeline." alt="" coords="209,123,381,177"/>
 </map>

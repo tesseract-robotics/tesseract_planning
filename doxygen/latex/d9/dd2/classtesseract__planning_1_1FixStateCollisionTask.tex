@@ -2,7 +2,7 @@
 \label{classtesseract__planning_1_1FixStateCollisionTask}\index{tesseract\_planning::FixStateCollisionTask@{tesseract\_planning::FixStateCollisionTask}}
 
 
-This task modifies the const input instructions in order to push waypoints that are in collision out of collision.  
+This task modifies the input instructions in order to push waypoints that are in collision out of collision.  
 
 
 
@@ -31,9 +31,11 @@ using \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask_a520835
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask_adc9cf0585255da5dce81c3ccf25a2579}{Fix\+State\+Collision\+Task}} ()=default
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask_a14adc360e0e23188e6b445097ac8dc7a}{Fix\+State\+Collision\+Task}} ()
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask_a099200440f8da4c74b875abcde102253}{Fix\+State\+Collision\+Task}} (std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional=true, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1node__names_add0e4719ed35872a817cec9fbd8426f9}{node\+\_\+names\+::\+FIX\+\_\+\+STATE\+\_\+\+COLLISION\+\_\+\+TASK\+\_\+\+NAME}})
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask_a69f81e4e98542fb40fe552e036b9a77a}{Fix\+State\+Collision\+Task}} (std\+::string name, std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional=true)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask_a60290067e05520d1025ebf3ba77c1914}{Fix\+State\+Collision\+Task}} (std\+::string name, const YAML\+::\+Node \&config, const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&plugin\+\_\+factory)
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask_a318c474a21da4218aee39fcd941e8a2e}{$\sim$\+Fix\+State\+Collision\+Task}} () override=default
 \item 
@@ -67,7 +69,7 @@ class \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask_ac98d07
 
 
 \doxysubsection{Detailed Description}
-This task modifies the const input instructions in order to push waypoints that are in collision out of collision. 
+This task modifies the input instructions in order to push waypoints that are in collision out of collision. 
 
 First it uses Traj\+Opt to correct the waypoint. If that fails, it reverts to random sampling 
 
@@ -99,17 +101,23 @@ First it uses Traj\+Opt to correct the waypoint. If that fails, it reverts to ra
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTask_adc9cf0585255da5dce81c3ccf25a2579}\label{classtesseract__planning_1_1FixStateCollisionTask_adc9cf0585255da5dce81c3ccf25a2579}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTask_a14adc360e0e23188e6b445097ac8dc7a}\label{classtesseract__planning_1_1FixStateCollisionTask_a14adc360e0e23188e6b445097ac8dc7a}} 
 \index{tesseract\_planning::FixStateCollisionTask@{tesseract\_planning::FixStateCollisionTask}!FixStateCollisionTask@{FixStateCollisionTask}}
 \index{FixStateCollisionTask@{FixStateCollisionTask}!tesseract\_planning::FixStateCollisionTask@{tesseract\_planning::FixStateCollisionTask}}
-\doxysubsubsection{\texorpdfstring{FixStateCollisionTask()}{FixStateCollisionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+::\+Fix\+State\+Collision\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+\doxysubsubsection{\texorpdfstring{FixStateCollisionTask()}{FixStateCollisionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+::\+Fix\+State\+Collision\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTask_a099200440f8da4c74b875abcde102253}\label{classtesseract__planning_1_1FixStateCollisionTask_a099200440f8da4c74b875abcde102253}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTask_a69f81e4e98542fb40fe552e036b9a77a}\label{classtesseract__planning_1_1FixStateCollisionTask_a69f81e4e98542fb40fe552e036b9a77a}} 
 \index{tesseract\_planning::FixStateCollisionTask@{tesseract\_planning::FixStateCollisionTask}!FixStateCollisionTask@{FixStateCollisionTask}}
 \index{FixStateCollisionTask@{FixStateCollisionTask}!tesseract\_planning::FixStateCollisionTask@{tesseract\_planning::FixStateCollisionTask}}
-\doxysubsubsection{\texorpdfstring{FixStateCollisionTask()}{FixStateCollisionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+::\+Fix\+State\+Collision\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true},  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_add0e4719ed35872a817cec9fbd8426f9}{node\+\_\+names\+::\+FIX\+\_\+\+STATE\+\_\+\+COLLISION\+\_\+\+TASK\+\_\+\+NAME}}} }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{FixStateCollisionTask()}{FixStateCollisionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+::\+Fix\+State\+Collision\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTask_a60290067e05520d1025ebf3ba77c1914}\label{classtesseract__planning_1_1FixStateCollisionTask_a60290067e05520d1025ebf3ba77c1914}} 
+\index{tesseract\_planning::FixStateCollisionTask@{tesseract\_planning::FixStateCollisionTask}!FixStateCollisionTask@{FixStateCollisionTask}}
+\index{FixStateCollisionTask@{FixStateCollisionTask}!tesseract\_planning::FixStateCollisionTask@{tesseract\_planning::FixStateCollisionTask}}
+\doxysubsubsection{\texorpdfstring{FixStateCollisionTask()}{FixStateCollisionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+::\+Fix\+State\+Collision\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{const YAML\+::\+Node \&}]{config,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&}]{plugin\+\_\+factory }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTask_a318c474a21da4218aee39fcd941e8a2e}\label{classtesseract__planning_1_1FixStateCollisionTask_a318c474a21da4218aee39fcd941e8a2e}} 
 \index{tesseract\_planning::FixStateCollisionTask@{tesseract\_planning::FixStateCollisionTask}!````~FixStateCollisionTask@{$\sim$FixStateCollisionTask}}
@@ -120,13 +128,13 @@ First it uses Traj\+Opt to correct the waypoint. If that fails, it reverts to ra
 \mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTask_a6ed92ea34f627da7dce6f3ef36db3c0f}\label{classtesseract__planning_1_1FixStateCollisionTask_a6ed92ea34f627da7dce6f3ef36db3c0f}} 
 \index{tesseract\_planning::FixStateCollisionTask@{tesseract\_planning::FixStateCollisionTask}!FixStateCollisionTask@{FixStateCollisionTask}}
 \index{FixStateCollisionTask@{FixStateCollisionTask}!tesseract\_planning::FixStateCollisionTask@{tesseract\_planning::FixStateCollisionTask}}
-\doxysubsubsection{\texorpdfstring{FixStateCollisionTask()}{FixStateCollisionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+\doxysubsubsection{\texorpdfstring{FixStateCollisionTask()}{FixStateCollisionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+::\+Fix\+State\+Collision\+Task (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask}{Fix\+State\+Collision\+Task}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTask_a9f24f314c9b98cbd895a2815200d30f9}\label{classtesseract__planning_1_1FixStateCollisionTask_a9f24f314c9b98cbd895a2815200d30f9}} 
 \index{tesseract\_planning::FixStateCollisionTask@{tesseract\_planning::FixStateCollisionTask}!FixStateCollisionTask@{FixStateCollisionTask}}
 \index{FixStateCollisionTask@{FixStateCollisionTask}!tesseract\_planning::FixStateCollisionTask@{tesseract\_planning::FixStateCollisionTask}}
-\doxysubsubsection{\texorpdfstring{FixStateCollisionTask()}{FixStateCollisionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+\doxysubsubsection{\texorpdfstring{FixStateCollisionTask()}{FixStateCollisionTask()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+::\+Fix\+State\+Collision\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask}{Fix\+State\+Collision\+Task}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 

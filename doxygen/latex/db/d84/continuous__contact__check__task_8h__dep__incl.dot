@@ -8,5 +8,7 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/nodes/continuou
   Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
   Node2 [label="tesseract_task_composer\l/src/nodes/continuous\l_contact_check_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/da7/continuous__contact__check__task_8cpp.html",tooltip="Continuous collision check trajectory."];
   Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
-  Node3 [label="tesseract_task_composer\l/test/tesseract_task_composer\l_serialization_unit.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/da6/tesseract__task__composer__serialization__unit_8cpp.html",tooltip=" "];
+  Node3 [label="tesseract_task_composer\l/src/task_composer_task\l_plugin_factory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/de0/task__composer__task__plugin__factory_8cpp.html",tooltip="A task in the pipeline."];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="tesseract_task_composer\l/test/tesseract_task_composer\l_serialization_unit.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/da6/tesseract__task__composer__serialization__unit_8cpp.html",tooltip=" "];
 }

@@ -26,9 +26,11 @@ using \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTa
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTask_a82b88877a17839efdd060dfaa77cbb3d}{Time\+Optimal\+Parameterization\+Task}} ()=default
+\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTask_a487848779afe95be33583136b14a7f94}{Time\+Optimal\+Parameterization\+Task}} ()
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTask_ad00820c01e7bdb9e403bfbf9f2fb039e}{Time\+Optimal\+Parameterization\+Task}} (std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional=true, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a80c5ac5334db10de9acd8770536175bb}{node\+\_\+names\+::\+TIME\+\_\+\+OPTIMAL\+\_\+\+PARAMETERIZATION\+\_\+\+TASK\+\_\+\+NAME}})
+\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTask_a7efbff4e883ade4fe29b432d9c1adc4e}{Time\+Optimal\+Parameterization\+Task}} (std\+::string name, std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional=true)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTask_ada19c8ca9de2fd3cb53e63412a11d75c}{Time\+Optimal\+Parameterization\+Task}} (std\+::string name, const YAML\+::\+Node \&config, const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&)
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTask_acac14acb122ae1c10360503018797fbd}{$\sim$\+Time\+Optimal\+Parameterization\+Task}} () override=default
 \item 
@@ -94,17 +96,23 @@ class \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTa
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalParameterizationTask_a82b88877a17839efdd060dfaa77cbb3d}\label{classtesseract__planning_1_1TimeOptimalParameterizationTask_a82b88877a17839efdd060dfaa77cbb3d}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalParameterizationTask_a487848779afe95be33583136b14a7f94}\label{classtesseract__planning_1_1TimeOptimalParameterizationTask_a487848779afe95be33583136b14a7f94}} 
 \index{tesseract\_planning::TimeOptimalParameterizationTask@{tesseract\_planning::TimeOptimalParameterizationTask}!TimeOptimalParameterizationTask@{TimeOptimalParameterizationTask}}
 \index{TimeOptimalParameterizationTask@{TimeOptimalParameterizationTask}!tesseract\_planning::TimeOptimalParameterizationTask@{tesseract\_planning::TimeOptimalParameterizationTask}}
-\doxysubsubsection{\texorpdfstring{TimeOptimalParameterizationTask()}{TimeOptimalParameterizationTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Task\+::\+Time\+Optimal\+Parameterization\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+\doxysubsubsection{\texorpdfstring{TimeOptimalParameterizationTask()}{TimeOptimalParameterizationTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Task\+::\+Time\+Optimal\+Parameterization\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalParameterizationTask_ad00820c01e7bdb9e403bfbf9f2fb039e}\label{classtesseract__planning_1_1TimeOptimalParameterizationTask_ad00820c01e7bdb9e403bfbf9f2fb039e}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalParameterizationTask_a7efbff4e883ade4fe29b432d9c1adc4e}\label{classtesseract__planning_1_1TimeOptimalParameterizationTask_a7efbff4e883ade4fe29b432d9c1adc4e}} 
 \index{tesseract\_planning::TimeOptimalParameterizationTask@{tesseract\_planning::TimeOptimalParameterizationTask}!TimeOptimalParameterizationTask@{TimeOptimalParameterizationTask}}
 \index{TimeOptimalParameterizationTask@{TimeOptimalParameterizationTask}!tesseract\_planning::TimeOptimalParameterizationTask@{tesseract\_planning::TimeOptimalParameterizationTask}}
-\doxysubsubsection{\texorpdfstring{TimeOptimalParameterizationTask()}{TimeOptimalParameterizationTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Task\+::\+Time\+Optimal\+Parameterization\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true},  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a80c5ac5334db10de9acd8770536175bb}{node\+\_\+names\+::\+TIME\+\_\+\+OPTIMAL\+\_\+\+PARAMETERIZATION\+\_\+\+TASK\+\_\+\+NAME}}} }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{TimeOptimalParameterizationTask()}{TimeOptimalParameterizationTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Task\+::\+Time\+Optimal\+Parameterization\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalParameterizationTask_ada19c8ca9de2fd3cb53e63412a11d75c}\label{classtesseract__planning_1_1TimeOptimalParameterizationTask_ada19c8ca9de2fd3cb53e63412a11d75c}} 
+\index{tesseract\_planning::TimeOptimalParameterizationTask@{tesseract\_planning::TimeOptimalParameterizationTask}!TimeOptimalParameterizationTask@{TimeOptimalParameterizationTask}}
+\index{TimeOptimalParameterizationTask@{TimeOptimalParameterizationTask}!tesseract\_planning::TimeOptimalParameterizationTask@{tesseract\_planning::TimeOptimalParameterizationTask}}
+\doxysubsubsection{\texorpdfstring{TimeOptimalParameterizationTask()}{TimeOptimalParameterizationTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Task\+::\+Time\+Optimal\+Parameterization\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{const YAML\+::\+Node \&}]{config,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalParameterizationTask_acac14acb122ae1c10360503018797fbd}\label{classtesseract__planning_1_1TimeOptimalParameterizationTask_acac14acb122ae1c10360503018797fbd}} 
 \index{tesseract\_planning::TimeOptimalParameterizationTask@{tesseract\_planning::TimeOptimalParameterizationTask}!````~TimeOptimalParameterizationTask@{$\sim$TimeOptimalParameterizationTask}}
@@ -115,13 +123,13 @@ class \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTa
 \mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalParameterizationTask_a8395965f0f852dc789c6f4ee8a8dacae}\label{classtesseract__planning_1_1TimeOptimalParameterizationTask_a8395965f0f852dc789c6f4ee8a8dacae}} 
 \index{tesseract\_planning::TimeOptimalParameterizationTask@{tesseract\_planning::TimeOptimalParameterizationTask}!TimeOptimalParameterizationTask@{TimeOptimalParameterizationTask}}
 \index{TimeOptimalParameterizationTask@{TimeOptimalParameterizationTask}!tesseract\_planning::TimeOptimalParameterizationTask@{tesseract\_planning::TimeOptimalParameterizationTask}}
-\doxysubsubsection{\texorpdfstring{TimeOptimalParameterizationTask()}{TimeOptimalParameterizationTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+\doxysubsubsection{\texorpdfstring{TimeOptimalParameterizationTask()}{TimeOptimalParameterizationTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Task\+::\+Time\+Optimal\+Parameterization\+Task (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTask}{Time\+Optimal\+Parameterization\+Task}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalParameterizationTask_a8a6bd90f7858a77696ef848ad480584f}\label{classtesseract__planning_1_1TimeOptimalParameterizationTask_a8a6bd90f7858a77696ef848ad480584f}} 
 \index{tesseract\_planning::TimeOptimalParameterizationTask@{tesseract\_planning::TimeOptimalParameterizationTask}!TimeOptimalParameterizationTask@{TimeOptimalParameterizationTask}}
 \index{TimeOptimalParameterizationTask@{TimeOptimalParameterizationTask}!tesseract\_planning::TimeOptimalParameterizationTask@{tesseract\_planning::TimeOptimalParameterizationTask}}
-\doxysubsubsection{\texorpdfstring{TimeOptimalParameterizationTask()}{TimeOptimalParameterizationTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+\doxysubsubsection{\texorpdfstring{TimeOptimalParameterizationTask()}{TimeOptimalParameterizationTask()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Task\+::\+Time\+Optimal\+Parameterization\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTask}{Time\+Optimal\+Parameterization\+Task}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 

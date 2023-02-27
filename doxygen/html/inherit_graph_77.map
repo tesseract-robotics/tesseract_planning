@@ -1,4 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$da/d8c/classtesseract__planning_1_1TrajOptIfoptCompositeProfile.html" title=" " alt="" coords="5,13,200,53"/>
-<area shape="rect" id="node2" href="$d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html" title=" " alt="" coords="248,5,448,60"/>
+<area shape="rect" id="node1" href="$d5/d52/classtesseract__planning_1_1TrajectoryContainer.html" title="A generic container that the time parameterization classes use." alt="" coords="5,37,145,77"/>
+<area shape="rect" id="node2" href="$d5/dc6/classtesseract__planning_1_1InstructionsTrajectory.html" title=" " alt="" coords="214,5,367,45"/>
+<area shape="rect" id="node3" href="$d3/dd9/classtesseract__planning_1_1TesseractCommonTrajectory.html" title=" " alt="" coords="193,69,388,109"/>
 </map>

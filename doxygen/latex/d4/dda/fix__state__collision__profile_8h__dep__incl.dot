@@ -10,7 +10,9 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/profiles/fix_st
   Node2 -> Node3 [dir="back",color="steelblue1",style="solid"];
   Node3 [label="tesseract_task_composer\l/src/nodes/fix_state_collision\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d1/d25/fix__state__collision__task_8cpp.html",tooltip=" "];
   Node2 -> Node4 [dir="back",color="steelblue1",style="solid"];
-  Node4 [label="tesseract_task_composer\l/test/fix_state_collision\l_task_unit.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d6a/fix__state__collision__task__unit_8cpp.html",tooltip=" "];
+  Node4 [label="tesseract_task_composer\l/src/task_composer_task\l_plugin_factory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/de0/task__composer__task__plugin__factory_8cpp.html",tooltip="A task in the pipeline."];
   Node2 -> Node5 [dir="back",color="steelblue1",style="solid"];
-  Node5 [label="tesseract_task_composer\l/test/tesseract_task_composer\l_serialization_unit.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/da6/tesseract__task__composer__serialization__unit_8cpp.html",tooltip=" "];
+  Node5 [label="tesseract_task_composer\l/test/fix_state_collision\l_task_unit.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d6a/fix__state__collision__task__unit_8cpp.html",tooltip=" "];
+  Node2 -> Node6 [dir="back",color="steelblue1",style="solid"];
+  Node6 [label="tesseract_task_composer\l/test/tesseract_task_composer\l_serialization_unit.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/da6/tesseract__task__composer__serialization__unit_8cpp.html",tooltip=" "];
 }

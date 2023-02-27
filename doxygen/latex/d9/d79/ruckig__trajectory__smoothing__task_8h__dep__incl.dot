@@ -7,4 +7,6 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/nodes/ruckig_tr
   Node1 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/ruckig_trajectory\l_smoothing_task.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Leveraging Ruckig to smooth trajectory."];
   Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
   Node2 [label="tesseract_task_composer\l/src/nodes/ruckig_trajectory\l_smoothing_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/d36/ruckig__trajectory__smoothing__task_8cpp.html",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="tesseract_task_composer\l/src/task_composer_task\l_plugin_factory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/de0/task__composer__task__plugin__factory_8cpp.html",tooltip="A task in the pipeline."];
 }

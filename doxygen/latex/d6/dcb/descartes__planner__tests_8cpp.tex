@@ -39,7 +39,7 @@ class \mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\
 \item 
 \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} \mbox{\hyperlink{descartes__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}{append\+Move\+Instruction}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a42efaf78a1c46b95e0b8c0fb79f395ed}{plan\+\_\+f1}})
 \item 
-\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{descartes__planner__tests_8cpp_ad3a58ddf21c298bd3a28e278ec5334fc}{add\+Profile$<$ Descartes\+Plan\+Profile$<$ double $>$ $>$}} (DESCARTES\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}})
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{descartes__planner__tests_8cpp_ad3a58ddf21c298bd3a28e278ec5334fc}{add\+Profile$<$ Descartes\+Plan\+Profile$<$ double $>$ $>$}} (\mbox{\hyperlink{chain__example_8cpp_a2f7cf2e25c8949354e2d02805b2a065d}{DESCARTES\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}})
 \item 
 \mbox{\hyperlink{descartes__planner__tests_8cpp_aedf1ea67d0861e399ea290886f4033ab}{for}} (int i=0;i$<$ 10;++i)
 \item 
@@ -58,7 +58,9 @@ int \mbox{\hyperlink{descartes__planner__tests_8cpp_a3c04138a5bfe5d72780bb7e82a1
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-const bool \mbox{\hyperlink{descartes__planner__tests_8cpp_a9c4ab189c2f018bc7ccc8ba4f6e04b9d}{DEBUG}} = false
+static const bool \mbox{\hyperlink{descartes__planner__tests_8cpp_a9c4ab189c2f018bc7ccc8ba4f6e04b9d}{DEBUG}} = false
+\item 
+static const std\+::string \mbox{\hyperlink{descartes__planner__tests_8cpp_a2f7cf2e25c8949354e2d02805b2a065d}{DESCARTES\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}} = \char`\"{}Descartes\+Motion\+Planner\+Task\char`\"{}
 \item 
 tesseract\+\_\+kinematics\+::\+Kinematic\+Group\+::\+Ptr \mbox{\hyperlink{descartes__planner__tests_8cpp_afdd9d9bd327d0f63e53b3cf04a038fc6}{kin\+\_\+group}}
 \item 
@@ -80,7 +82,7 @@ auto \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312
 \item 
 auto \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}$>$()
 \item 
-\mbox{\hyperlink{namespacetesseract__planning_a879c4c0c1f66689c9d1d2dca01757155}{Descartes\+Motion\+PlannerD}} \mbox{\hyperlink{descartes__planner__tests_8cpp_a7197a46a14009103802cddf7475a9f6f}{single\+\_\+descartes\+\_\+planner}}
+\mbox{\hyperlink{namespacetesseract__planning_a879c4c0c1f66689c9d1d2dca01757155}{Descartes\+Motion\+PlannerD}} \mbox{\hyperlink{descartes__planner__tests_8cpp_a0145f7baf3a432d7c8e38b8fd6e217d7}{single\+\_\+descartes\+\_\+planner}} (\mbox{\hyperlink{chain__example_8cpp_a2f7cf2e25c8949354e2d02805b2a065d}{DESCARTES\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}})
 \item 
 \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}} \mbox{\hyperlink{descartes__planner__tests_8cpp_acd769fd0d2150922b2277aff5f993f19}{num\+\_\+threads}} = 1
 \item 
@@ -117,7 +119,7 @@ September 16, 2019
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000150}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000149}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -139,7 +141,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!addProfile$<$ DescartesPlanProfile$<$ double $>$ $>$@{addProfile$<$ DescartesPlanProfile$<$ double $>$ $>$}}
 \index{addProfile$<$ DescartesPlanProfile$<$ double $>$ $>$@{addProfile$<$ DescartesPlanProfile$<$ double $>$ $>$}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{addProfile$<$ DescartesPlanProfile$<$ double $>$ $>$()}{addProfile< DescartesPlanProfile< double > >()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ double $>$ $>$ (\begin{DoxyParamCaption}\item[{DESCARTES\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ double $>$ $>$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{chain__example_8cpp_a2f7cf2e25c8949354e2d02805b2a065d}{DESCARTES\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{descartes__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}\label{descartes__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}} 
 \index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!appendMoveInstruction@{appendMoveInstruction}}
@@ -214,7 +216,13 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!DEBUG@{DEBUG}}
 \index{DEBUG@{DEBUG}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{DEBUG}{DEBUG}}
-{\footnotesize\ttfamily const bool DEBUG = false}
+{\footnotesize\ttfamily const bool DEBUG = false\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a2f7cf2e25c8949354e2d02805b2a065d}\label{descartes__planner__tests_8cpp_a2f7cf2e25c8949354e2d02805b2a065d}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!DESCARTES\_DEFAULT\_NAMESPACE@{DESCARTES\_DEFAULT\_NAMESPACE}}
+\index{DESCARTES\_DEFAULT\_NAMESPACE@{DESCARTES\_DEFAULT\_NAMESPACE}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{DESCARTES\_DEFAULT\_NAMESPACE}{DESCARTES\_DEFAULT\_NAMESPACE}}
+{\footnotesize\ttfamily const std\+::string DESCARTES\+\_\+\+DEFAULT\+\_\+\+NAMESPACE = \char`\"{}Descartes\+Motion\+Planner\+Task\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
 
 \mbox{\Hypertarget{descartes__planner__tests_8cpp_a54234c02ffbccadf4c2f2e571e0a18ff}\label{descartes__planner__tests_8cpp_a54234c02ffbccadf4c2f2e571e0a18ff}} 
 \index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!enable\_edge\_collision@{enable\_edge\_collision}}
@@ -312,11 +320,11 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{request}{request}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} request}
 
-\mbox{\Hypertarget{descartes__planner__tests_8cpp_a7197a46a14009103802cddf7475a9f6f}\label{descartes__planner__tests_8cpp_a7197a46a14009103802cddf7475a9f6f}} 
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a0145f7baf3a432d7c8e38b8fd6e217d7}\label{descartes__planner__tests_8cpp_a0145f7baf3a432d7c8e38b8fd6e217d7}} 
 \index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!single\_descartes\_planner@{single\_descartes\_planner}}
 \index{single\_descartes\_planner@{single\_descartes\_planner}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{single\_descartes\_planner}{single\_descartes\_planner}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a879c4c0c1f66689c9d1d2dca01757155}{Descartes\+Motion\+PlannerD}} single\+\_\+descartes\+\_\+planner}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a879c4c0c1f66689c9d1d2dca01757155}{Descartes\+Motion\+PlannerD}} single\+\_\+descartes\+\_\+planner (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{chain__example_8cpp_a2f7cf2e25c8949354e2d02805b2a065d}{DESCARTES\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{descartes__planner__tests_8cpp_adf1c959fd746acdeae35cbf40fa9a17f}\label{descartes__planner__tests_8cpp_adf1c959fd746acdeae35cbf40fa9a17f}} 
 \index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!single\_planner\_response@{single\_planner\_response}}

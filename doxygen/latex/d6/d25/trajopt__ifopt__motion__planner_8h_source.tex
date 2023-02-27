@@ -12,37 +12,36 @@
 \DoxyCodeLine{32 \textcolor{preprocessor}{\#include <trajopt\_sqp/sqp\_callback.h>}}
 \DoxyCodeLine{33 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
 \DoxyCodeLine{34 }
-\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__planner__namespaces_8h}{tesseract\_motion\_planners/default\_planner\_namespaces.h}}>}}
-\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{planner_8h}{tesseract\_motion\_planners/core/planner.h}}>}}
-\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{trajopt__ifopt__profile_8h}{tesseract\_motion\_planners/trajopt\_ifopt/profile/trajopt\_ifopt\_profile.h}}>}}
-\DoxyCodeLine{38 }
-\DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{40 \{}
-\DoxyCodeLine{41 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}}
-\DoxyCodeLine{42 \{}
-\DoxyCodeLine{43 \textcolor{keyword}{public}:}
-\DoxyCodeLine{45   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_ad4c7bebbeb575190675682bb9da8d0f7}{profile\_ns::TRAJOPT\_IFOPT\_DEFAULT\_NAMESPACE}});}
-\DoxyCodeLine{46 }
-\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ac0452fd821a97dd92c374905a2a40f5e}{\string~TrajOptIfoptMotionPlanner}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ac4675666ce73b213870e856d1191ffa3}{TrajOptIfoptMotionPlanner}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a5fcc93e625ccaa33e0f3e282871eea8e}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a7db515cae7c5c1b4c34099b569f94fe8}{TrajOptIfoptMotionPlanner}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a2fbfe2932a36185b851db556ee9160e0}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{54   std::vector<trajopt\_sqp::SQPCallback::Ptr> \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa8c103e093c4dcb6ee452f4db4a5b79c}{callbacks}};}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{56   \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a8571318009fac584c15542ee8b2e4f04}{solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}) \textcolor{keyword}{const override};}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ad8b5ef60c1c201b78186f231749df74d}{terminate}}() \textcolor{keyword}{override};}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{60   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a67fe43bcd925997b52ae5cad310bfa24}{clear}}() \textcolor{keyword}{override};}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{MotionPlanner::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_adf6b8132dc0ec281f9c186ed389c2342}{clone}}() \textcolor{keyword}{const override};}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{64   \textcolor{keyword}{virtual} std::shared\_ptr<TrajOptIfoptProblem> \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a110527b1475e5b5f8622997825e29e35}{createProblem}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}) \textcolor{keyword}{const};}
-\DoxyCodeLine{65 \};}
-\DoxyCodeLine{66 }
-\DoxyCodeLine{67 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{68 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PLANNING\_TRAJOPT\_IFOPT\_PLANNER\_H}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{planner_8h}{tesseract\_motion\_planners/core/planner.h}}>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{trajopt__ifopt__profile_8h}{tesseract\_motion\_planners/trajopt\_ifopt/profile/trajopt\_ifopt\_profile.h}}>}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{public}:}
+\DoxyCodeLine{44   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}(std::string name);}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ac0452fd821a97dd92c374905a2a40f5e}{\string~TrajOptIfoptMotionPlanner}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ac4675666ce73b213870e856d1191ffa3}{TrajOptIfoptMotionPlanner}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a5fcc93e625ccaa33e0f3e282871eea8e}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a7db515cae7c5c1b4c34099b569f94fe8}{TrajOptIfoptMotionPlanner}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a2fbfe2932a36185b851db556ee9160e0}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{TrajOptIfoptMotionPlanner}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{53   std::vector<trajopt\_sqp::SQPCallback::Ptr> \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa8c103e093c4dcb6ee452f4db4a5b79c}{callbacks}};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55   \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a8571318009fac584c15542ee8b2e4f04}{solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}) \textcolor{keyword}{const override};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ad8b5ef60c1c201b78186f231749df74d}{terminate}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a67fe43bcd925997b52ae5cad310bfa24}{clear}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{MotionPlanner::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_adf6b8132dc0ec281f9c186ed389c2342}{clone}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63   \textcolor{keyword}{virtual} std::shared\_ptr<TrajOptIfoptProblem> \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a110527b1475e5b5f8622997825e29e35}{createProblem}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}) \textcolor{keyword}{const};}
+\DoxyCodeLine{64 \};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PLANNING\_TRAJOPT\_IFOPT\_PLANNER\_H}}
 
 \end{DoxyCode}

@@ -1,0 +1,320 @@
+\hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp}{}\doxysection{tesseract\+\_\+task\+\_\+composer/test/tesseract\+\_\+task\+\_\+composer\+\_\+plugin\+\_\+factories\+\_\+unit.cpp File Reference}
+\label{tesseract__task__composer__plugin__factories__unit_8cpp}\index{tesseract\_task\_composer/test/tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer/test/tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+plugin\+\_\+factory.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/types.\+h$>$}\newline
+Include dependency graph for tesseract\+\_\+task\+\_\+composer\+\_\+plugin\+\_\+factories\+\_\+unit.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a71ec576de45df117644801fad32cde03}{run\+Task\+Composer\+Factory\+Test}} (const \mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a4d455efceee21e97d8e21ee40e9b4a20}{tesseract\+\_\+common\+::fs\+::path}} \&config\+\_\+path)
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a2876f1cca4935709348c3eee7e864ed0}{run\+Task\+Composer\+Factory\+Test}} (config\+\_\+path)
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a74b8610d0e14f402011fd3936545dfe8}{run\+Task\+Composer\+Factory\+Test}} (\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_aa673099dd3ef16bad59f3479d24bda8b}{export\+\_\+config\+\_\+path}})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_aaddf2bce1b27f05a09c279a49fa77d71}{EXPECT\+\_\+\+FALSE}} (factory.\+get\+Search\+Paths().empty())
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_ad582fb7d64bebee1e5978a099a5d59c1}{EXPECT\+\_\+\+EQ}} (factory.\+get\+Search\+Paths().size(), 1)
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a73a03b07d49c6192c33de1212c3bfde0}{EXPECT\+\_\+\+EQ}} (factory.\+get\+Task\+Composer\+Executor\+Plugins().size(), 0)
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a9dd1e19576fb30c52585b909886b2f17}{EXPECT\+\_\+\+ANY\+\_\+\+THROW}} (factory.\+get\+Default\+Task\+Composer\+Executor\+Plugin())
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_ad186218797f4a156e19a7fcddc35c4bf}{EXPECT\+\_\+\+FALSE}} (factory.\+has\+Task\+Composer\+Executor\+Plugins())
+\item 
+factory \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_ac61d3536faa3230340516c5ef6391994}{add\+Search\+Path}} (\char`\"{}/usr/local/lib\char`\"{})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a773a24925fd40a0c17de0b45cc2df597}{EXPECT\+\_\+\+EQ}} (factory.\+get\+Search\+Paths().size(), 2)
+\item 
+factory \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a68e1631993f23d34b38746fba8a589d0}{add\+Search\+Library}} (\char`\"{}tesseract\+\_\+collision\char`\"{})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_ae1b849e0344ca986c0a821a1d2e9fa1d}{EXPECT\+\_\+\+TRUE}} (map.\+find(\char`\"{}Not\+Found\char`\"{})==map.\+end())
+\item 
+factory \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_abd7aa6647ca7b773e9b3b3956251897d}{add\+Task\+Composer\+Executor\+Plugin}} (\char`\"{}Test\+Task\+Composer\+Executor\char`\"{}, \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_ae40c83f984192e54ccc972b090e8f401}{pi}})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a0b2910f5529a33860126bd6539ef4d24}{EXPECT\+\_\+\+TRUE}} (factory.\+has\+Task\+Composer\+Executor\+Plugins())
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a4b90eb913b15050f8f993aaafcf1f247}{EXPECT\+\_\+\+TRUE}} (map.\+find(\char`\"{}Test\+Task\+Composer\+Executor\char`\"{}) !=map.\+end())
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a54de1678dfbcb5541df5037ac6105153}{EXPECT\+\_\+\+EQ}} (factory.\+get\+Default\+Task\+Composer\+Executor\+Plugin(), \char`\"{}Test\+Task\+Composer\+Executor\char`\"{})
+\item 
+factory \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_af5bea30c9a47e6592aae9dfa01139bd8}{add\+Task\+Composer\+Executor\+Plugin}} (\char`\"{}Test2\+Task\+Composer\+Executor\char`\"{}, \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a75c8712e5104a3560e539877b5af5ef7}{pi2}})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a723f3d235ee52bb6f83524afc6df1377}{EXPECT\+\_\+\+TRUE}} (map.\+find(\char`\"{}Test2\+Task\+Composer\+Executor\char`\"{}) !=map.\+end())
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_aae103bdd09501cb699d95d41962d672e}{EXPECT\+\_\+\+EQ}} (factory.\+get\+Default\+Task\+Composer\+Executor\+Plugin(), \char`\"{}Test2\+Task\+Composer\+Executor\char`\"{})
+\item 
+factory \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a9aae3508d667cc77c88f3757c80fcdbe}{set\+Default\+Task\+Composer\+Executor\+Plugin}} (\char`\"{}Test2\+Task\+Composer\+Executor\char`\"{})
+\item 
+factory \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a0b2f6a1b86e3b1c9ba582a327be05b91}{remove\+Task\+Composer\+Executor\+Plugin}} (\char`\"{}Test\+Task\+Composer\+Executor\char`\"{})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a63e76bc5c265ecd4e509b2aad9632c01}{EXPECT\+\_\+\+ANY\+\_\+\+THROW}} (\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a0b2f6a1b86e3b1c9ba582a327be05b91}{factory.\+remove\+Task\+Composer\+Executor\+Plugin}}(\char`\"{}Does\+Not\+Exist\char`\"{}))
+\item 
+factory \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a50bee8597c9f9981911c7a28975cd99a}{add\+Task\+Composer\+Node\+Plugin}} (\char`\"{}Test\+Task\+Composer\+Node\char`\"{}, \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_ae40c83f984192e54ccc972b090e8f401}{pi}})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a9cab493c574eee8ce9af1dc709008f01}{EXPECT\+\_\+\+TRUE}} (map.\+find(\char`\"{}Test\+Task\+Composer\+Node\char`\"{}) !=map.\+end())
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a44646f3f8310a27a9c1d7530ded543c8}{EXPECT\+\_\+\+EQ}} (factory.\+get\+Default\+Task\+Composer\+Node\+Plugin(), \char`\"{}Test\+Task\+Composer\+Node\char`\"{})
+\item 
+factory \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a34470c5ca5e2307bd521c387b0f8414c}{add\+Task\+Composer\+Node\+Plugin}} (\char`\"{}Test2\+Task\+Composer\+Node\char`\"{}, \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a75c8712e5104a3560e539877b5af5ef7}{pi2}})
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_ab80461a6d5f5029baa8b15b38028ddf5}{EXPECT\+\_\+\+TRUE}} (map.\+find(\char`\"{}Test2\+Task\+Composer\+Node\char`\"{}) !=map.\+end())
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a7c478a49f71ee5c597bf0292b802a54b}{EXPECT\+\_\+\+EQ}} (factory.\+get\+Default\+Task\+Composer\+Node\+Plugin(), \char`\"{}Test2\+Task\+Composer\+Node\char`\"{})
+\item 
+factory \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a289456714c7d01ba935b060e0fbb31bd}{set\+Default\+Task\+Composer\+Node\+Plugin}} (\char`\"{}Test2\+Task\+Composer\+Node\char`\"{})
+\item 
+factory \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a9a05dbdada9f130c8e60142df6115507}{remove\+Task\+Composer\+Node\+Plugin}} (\char`\"{}Test\+Task\+Composer\+Node\char`\"{})
+\item 
+int \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_aa673099dd3ef16bad59f3479d24bda8b}{export\+\_\+config\+\_\+path}}
+\item 
+tesseract\+\_\+common\+::\+Plugin\+Info \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_ae40c83f984192e54ccc972b090e8f401}{pi}}
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_ae40c83f984192e54ccc972b090e8f401}{pi}} \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a2315948cd202088c6c2dcb883484535f}{class\+\_\+name}} = \char`\"{}Test\+Task\+Composer\+Executor\+Factory\char`\"{}
+\item 
+\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a9ec9dda576db2a36c42c1c3af155d07c}{map}} = factory.\+get\+Task\+Composer\+Executor\+Plugins()
+\item 
+tesseract\+\_\+common\+::\+Plugin\+Info \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a75c8712e5104a3560e539877b5af5ef7}{pi2}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a68e1631993f23d34b38746fba8a589d0}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a68e1631993f23d34b38746fba8a589d0}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!addSearchLibrary@{addSearchLibrary}}
+\index{addSearchLibrary@{addSearchLibrary}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addSearchLibrary()}{addSearchLibrary()}}
+{\footnotesize\ttfamily factory add\+Search\+Library (\begin{DoxyParamCaption}\item[{\char`\"{}tesseract\+\_\+collision\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_ac61d3536faa3230340516c5ef6391994}\label{tesseract__task__composer__plugin__factories__unit_8cpp_ac61d3536faa3230340516c5ef6391994}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!addSearchPath@{addSearchPath}}
+\index{addSearchPath@{addSearchPath}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addSearchPath()}{addSearchPath()}}
+{\footnotesize\ttfamily factory add\+Search\+Path (\begin{DoxyParamCaption}\item[{\char`\"{}/usr/local/lib\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_af5bea30c9a47e6592aae9dfa01139bd8}\label{tesseract__task__composer__plugin__factories__unit_8cpp_af5bea30c9a47e6592aae9dfa01139bd8}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!addTaskComposerExecutorPlugin@{addTaskComposerExecutorPlugin}}
+\index{addTaskComposerExecutorPlugin@{addTaskComposerExecutorPlugin}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addTaskComposerExecutorPlugin()}{addTaskComposerExecutorPlugin()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily factory add\+Task\+Composer\+Executor\+Plugin (\begin{DoxyParamCaption}\item[{\char`\"{}Test2\+Task\+Composer\+Executor\char`\"{}}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a75c8712e5104a3560e539877b5af5ef7}{pi2}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_abd7aa6647ca7b773e9b3b3956251897d}\label{tesseract__task__composer__plugin__factories__unit_8cpp_abd7aa6647ca7b773e9b3b3956251897d}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!addTaskComposerExecutorPlugin@{addTaskComposerExecutorPlugin}}
+\index{addTaskComposerExecutorPlugin@{addTaskComposerExecutorPlugin}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addTaskComposerExecutorPlugin()}{addTaskComposerExecutorPlugin()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily factory add\+Task\+Composer\+Executor\+Plugin (\begin{DoxyParamCaption}\item[{\char`\"{}Test\+Task\+Composer\+Executor\char`\"{}}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_ae40c83f984192e54ccc972b090e8f401}{pi}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a34470c5ca5e2307bd521c387b0f8414c}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a34470c5ca5e2307bd521c387b0f8414c}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!addTaskComposerNodePlugin@{addTaskComposerNodePlugin}}
+\index{addTaskComposerNodePlugin@{addTaskComposerNodePlugin}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addTaskComposerNodePlugin()}{addTaskComposerNodePlugin()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily factory add\+Task\+Composer\+Node\+Plugin (\begin{DoxyParamCaption}\item[{\char`\"{}Test2\+Task\+Composer\+Node\char`\"{}}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a75c8712e5104a3560e539877b5af5ef7}{pi2}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a50bee8597c9f9981911c7a28975cd99a}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a50bee8597c9f9981911c7a28975cd99a}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!addTaskComposerNodePlugin@{addTaskComposerNodePlugin}}
+\index{addTaskComposerNodePlugin@{addTaskComposerNodePlugin}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{addTaskComposerNodePlugin()}{addTaskComposerNodePlugin()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily factory add\+Task\+Composer\+Node\+Plugin (\begin{DoxyParamCaption}\item[{\char`\"{}Test\+Task\+Composer\+Node\char`\"{}}]{,  }\item[{\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_ae40c83f984192e54ccc972b090e8f401}{pi}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a9dd1e19576fb30c52585b909886b2f17}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a9dd1e19576fb30c52585b909886b2f17}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}}
+\index{EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_ANY\_THROW()}{EXPECT\_ANY\_THROW()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+ANY\+\_\+\+THROW (\begin{DoxyParamCaption}\item[{factory.}]{get\+Default\+Task\+Composer\+Executor\+Plugin() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a63e76bc5c265ecd4e509b2aad9632c01}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a63e76bc5c265ecd4e509b2aad9632c01}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}}
+\index{EXPECT\_ANY\_THROW@{EXPECT\_ANY\_THROW}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_ANY\_THROW()}{EXPECT\_ANY\_THROW()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+ANY\+\_\+\+THROW (\begin{DoxyParamCaption}\item[{factory.}]{remove\+Task\+Composer\+Executor\+Plugin\char`\"{}\+Does\+Not\+Exist\char`\"{} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_aae103bdd09501cb699d95d41962d672e}\label{tesseract__task__composer__plugin__factories__unit_8cpp_aae103bdd09501cb699d95d41962d672e}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [1/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{factory.}]{get\+Default\+Task\+Composer\+Executor\+Plugin(),  }\item[{\char`\"{}Test2\+Task\+Composer\+Executor\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a54de1678dfbcb5541df5037ac6105153}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a54de1678dfbcb5541df5037ac6105153}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [2/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{factory.}]{get\+Default\+Task\+Composer\+Executor\+Plugin(),  }\item[{\char`\"{}Test\+Task\+Composer\+Executor\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a7c478a49f71ee5c597bf0292b802a54b}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a7c478a49f71ee5c597bf0292b802a54b}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [3/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{factory.}]{get\+Default\+Task\+Composer\+Node\+Plugin(),  }\item[{\char`\"{}Test2\+Task\+Composer\+Node\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a44646f3f8310a27a9c1d7530ded543c8}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a44646f3f8310a27a9c1d7530ded543c8}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [4/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{factory.}]{get\+Default\+Task\+Composer\+Node\+Plugin(),  }\item[{\char`\"{}Test\+Task\+Composer\+Node\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_ad582fb7d64bebee1e5978a099a5d59c1}\label{tesseract__task__composer__plugin__factories__unit_8cpp_ad582fb7d64bebee1e5978a099a5d59c1}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [5/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{factory.}]{get\+Search\+Paths).\+size(,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a773a24925fd40a0c17de0b45cc2df597}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a773a24925fd40a0c17de0b45cc2df597}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [6/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{factory.}]{get\+Search\+Paths).\+size(,  }\item[{2}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a73a03b07d49c6192c33de1212c3bfde0}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a73a03b07d49c6192c33de1212c3bfde0}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_EQ@{EXPECT\_EQ}}
+\index{EXPECT\_EQ@{EXPECT\_EQ}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_EQ()}{EXPECT\_EQ()}\hspace{0.1cm}{\footnotesize\ttfamily [7/7]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+EQ (\begin{DoxyParamCaption}\item[{factory.}]{get\+Task\+Composer\+Executor\+Plugins).\+size(,  }\item[{0}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_aaddf2bce1b27f05a09c279a49fa77d71}\label{tesseract__task__composer__plugin__factories__unit_8cpp_aaddf2bce1b27f05a09c279a49fa77d71}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{factory.}]{get\+Search\+Paths).\+empty( }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_ad186218797f4a156e19a7fcddc35c4bf}\label{tesseract__task__composer__plugin__factories__unit_8cpp_ad186218797f4a156e19a7fcddc35c4bf}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_FALSE@{EXPECT\_FALSE}}
+\index{EXPECT\_FALSE@{EXPECT\_FALSE}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FALSE()}{EXPECT\_FALSE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+FALSE (\begin{DoxyParamCaption}\item[{factory.}]{has\+Task\+Composer\+Executor\+Plugins() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a0b2910f5529a33860126bd6539ef4d24}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a0b2910f5529a33860126bd6539ef4d24}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{factory.}]{has\+Task\+Composer\+Executor\+Plugins() }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_ae1b849e0344ca986c0a821a1d2e9fa1d}\label{tesseract__task__composer__plugin__factories__unit_8cpp_ae1b849e0344ca986c0a821a1d2e9fa1d}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{map.}]{find\char`\"{}\+Not\+Found\char`\"{} = {\ttfamily =map.end()} }\end{DoxyParamCaption})}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    tesseract\_common::PluginInfoMap \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a9ec9dda576db2a36c42c1c3af155d07c}{map}} = factory.getTaskComposerNodePlugins()}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a723f3d235ee52bb6f83524afc6df1377}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a723f3d235ee52bb6f83524afc6df1377}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{map.\+find(\char`\"{}Test2\+Task\+Composer\+Executor\char`\"{}) !}]{ = {\ttfamily map.end()} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_ab80461a6d5f5029baa8b15b38028ddf5}\label{tesseract__task__composer__plugin__factories__unit_8cpp_ab80461a6d5f5029baa8b15b38028ddf5}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{map.\+find(\char`\"{}Test2\+Task\+Composer\+Node\char`\"{}) !}]{ = {\ttfamily map.end()} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a4b90eb913b15050f8f993aaafcf1f247}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a4b90eb913b15050f8f993aaafcf1f247}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{map.\+find(\char`\"{}Test\+Task\+Composer\+Executor\char`\"{}) !}]{ = {\ttfamily map.end()} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a9cab493c574eee8ce9af1dc709008f01}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a9cab493c574eee8ce9af1dc709008f01}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!EXPECT\_TRUE@{EXPECT\_TRUE}}
+\index{EXPECT\_TRUE@{EXPECT\_TRUE}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TRUE()}{EXPECT\_TRUE()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily EXPECT\+\_\+\+TRUE (\begin{DoxyParamCaption}\item[{map.\+find(\char`\"{}Test\+Task\+Composer\+Node\char`\"{}) !}]{ = {\ttfamily map.end()} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!main@{main}}
+\index{main@{main}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a0b2f6a1b86e3b1c9ba582a327be05b91}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a0b2f6a1b86e3b1c9ba582a327be05b91}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!removeTaskComposerExecutorPlugin@{removeTaskComposerExecutorPlugin}}
+\index{removeTaskComposerExecutorPlugin@{removeTaskComposerExecutorPlugin}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{removeTaskComposerExecutorPlugin()}{removeTaskComposerExecutorPlugin()}}
+{\footnotesize\ttfamily factory remove\+Task\+Composer\+Executor\+Plugin (\begin{DoxyParamCaption}\item[{\char`\"{}Test\+Task\+Composer\+Executor\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a9a05dbdada9f130c8e60142df6115507}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a9a05dbdada9f130c8e60142df6115507}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!removeTaskComposerNodePlugin@{removeTaskComposerNodePlugin}}
+\index{removeTaskComposerNodePlugin@{removeTaskComposerNodePlugin}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{removeTaskComposerNodePlugin()}{removeTaskComposerNodePlugin()}}
+{\footnotesize\ttfamily factory remove\+Task\+Composer\+Node\+Plugin (\begin{DoxyParamCaption}\item[{\char`\"{}Test\+Task\+Composer\+Node\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a2876f1cca4935709348c3eee7e864ed0}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a2876f1cca4935709348c3eee7e864ed0}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!runTaskComposerFactoryTest@{runTaskComposerFactoryTest}}
+\index{runTaskComposerFactoryTest@{runTaskComposerFactoryTest}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{runTaskComposerFactoryTest()}{runTaskComposerFactoryTest()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily run\+Task\+Composer\+Factory\+Test (\begin{DoxyParamCaption}\item[{config\+\_\+path}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a71ec576de45df117644801fad32cde03}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a71ec576de45df117644801fad32cde03}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!runTaskComposerFactoryTest@{runTaskComposerFactoryTest}}
+\index{runTaskComposerFactoryTest@{runTaskComposerFactoryTest}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{runTaskComposerFactoryTest()}{runTaskComposerFactoryTest()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void run\+Task\+Composer\+Factory\+Test (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a4d455efceee21e97d8e21ee40e9b4a20}{tesseract\+\_\+common\+::fs\+::path}} \&}]{config\+\_\+path }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a74b8610d0e14f402011fd3936545dfe8}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a74b8610d0e14f402011fd3936545dfe8}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!runTaskComposerFactoryTest@{runTaskComposerFactoryTest}}
+\index{runTaskComposerFactoryTest@{runTaskComposerFactoryTest}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{runTaskComposerFactoryTest()}{runTaskComposerFactoryTest()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily run\+Task\+Composer\+Factory\+Test (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_aa673099dd3ef16bad59f3479d24bda8b}{export\+\_\+config\+\_\+path}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a9aae3508d667cc77c88f3757c80fcdbe}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a9aae3508d667cc77c88f3757c80fcdbe}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!setDefaultTaskComposerExecutorPlugin@{setDefaultTaskComposerExecutorPlugin}}
+\index{setDefaultTaskComposerExecutorPlugin@{setDefaultTaskComposerExecutorPlugin}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setDefaultTaskComposerExecutorPlugin()}{setDefaultTaskComposerExecutorPlugin()}}
+{\footnotesize\ttfamily factory set\+Default\+Task\+Composer\+Executor\+Plugin (\begin{DoxyParamCaption}\item[{\char`\"{}Test2\+Task\+Composer\+Executor\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a289456714c7d01ba935b060e0fbb31bd}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a289456714c7d01ba935b060e0fbb31bd}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!setDefaultTaskComposerNodePlugin@{setDefaultTaskComposerNodePlugin}}
+\index{setDefaultTaskComposerNodePlugin@{setDefaultTaskComposerNodePlugin}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setDefaultTaskComposerNodePlugin()}{setDefaultTaskComposerNodePlugin()}}
+{\footnotesize\ttfamily factory set\+Default\+Task\+Composer\+Node\+Plugin (\begin{DoxyParamCaption}\item[{\char`\"{}Test2\+Task\+Composer\+Node\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a2315948cd202088c6c2dcb883484535f}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a2315948cd202088c6c2dcb883484535f}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!class\_name@{class\_name}}
+\index{class\_name@{class\_name}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{class\_name}{class\_name}}
+{\footnotesize\ttfamily \mbox{\hyperlink{tesseract__task__composer__plugin__factories__unit_8cpp_a75c8712e5104a3560e539877b5af5ef7}{pi2}} class\+\_\+name = \char`\"{}Test\+Task\+Composer\+Executor\+Factory\char`\"{}}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_aa673099dd3ef16bad59f3479d24bda8b}\label{tesseract__task__composer__plugin__factories__unit_8cpp_aa673099dd3ef16bad59f3479d24bda8b}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!export\_config\_path@{export\_config\_path}}
+\index{export\_config\_path@{export\_config\_path}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{export\_config\_path}{export\_config\_path}}
+{\footnotesize\ttfamily auto export\+\_\+config\+\_\+path}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= tesseract\_common::fs::path(tesseract\_common::getTempPath()) / \textcolor{stringliteral}{"{}task\_composer\_plugins\_"{}}}
+\DoxyCodeLine{                                                                                          \textcolor{stringliteral}{"{}export.yaml"{}}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a9ec9dda576db2a36c42c1c3af155d07c}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a9ec9dda576db2a36c42c1c3af155d07c}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!map@{map}}
+\index{map@{map}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{map}{map}}
+{\footnotesize\ttfamily map = factory.\+get\+Task\+Composer\+Executor\+Plugins()}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_ae40c83f984192e54ccc972b090e8f401}\label{tesseract__task__composer__plugin__factories__unit_8cpp_ae40c83f984192e54ccc972b090e8f401}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!pi@{pi}}
+\index{pi@{pi}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{pi}{pi}}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Plugin\+Info pi}
+
+\mbox{\Hypertarget{tesseract__task__composer__plugin__factories__unit_8cpp_a75c8712e5104a3560e539877b5af5ef7}\label{tesseract__task__composer__plugin__factories__unit_8cpp_a75c8712e5104a3560e539877b5af5ef7}} 
+\index{tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}!pi2@{pi2}}
+\index{pi2@{pi2}!tesseract\_task\_composer\_plugin\_factories\_unit.cpp@{tesseract\_task\_composer\_plugin\_factories\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{pi2}{pi2}}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Plugin\+Info pi2}
+

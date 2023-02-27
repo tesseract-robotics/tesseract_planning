@@ -87,7 +87,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>This task modifies the const input instructions in order to push waypoints that are in collision out of collision.  
+<p>This task modifies the input instructions in order to push waypoints that are in collision out of collision.  
  <a href="../../d9/dd2/classtesseract__planning_1_1FixStateCollisionTask.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d6/db0/fix__state__collision__task_8h_source.html">fix_state_collision_task.h</a>&gt;</code></p>
@@ -96,7 +96,7 @@ Inheritance diagram for tesseract_planning::FixStateCollisionTask:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/d9b/classtesseract__planning_1_1FixStateCollisionTask__inherit__graph.png" border="0" usemap="#atesseract__planning_1_1FixStateCollisionTask_inherit__map" alt="Inheritance graph"/></div>
 <map name="atesseract__planning_1_1FixStateCollisionTask_inherit__map" id="atesseract__planning_1_1FixStateCollisionTask_inherit__map">
-<area shape="rect" title="This task modifies the const input instructions in order to push waypoints that are in collision out ..." alt="" coords="5,181,160,221"/>
+<area shape="rect" title="This task modifies the input instructions in order to push waypoints that are in collision out of col..." alt="" coords="5,181,160,221"/>
 <area shape="rect" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="10,93,155,133"/>
 <area shape="rect" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="9,5,156,45"/>
 </map>
@@ -106,7 +106,7 @@ Collaboration diagram for tesseract_planning::FixStateCollisionTask:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d7d/classtesseract__planning_1_1FixStateCollisionTask__coll__graph.png" border="0" usemap="#atesseract__planning_1_1FixStateCollisionTask_coll__map" alt="Collaboration graph"/></div>
 <map name="atesseract__planning_1_1FixStateCollisionTask_coll__map" id="atesseract__planning_1_1FixStateCollisionTask_coll__map">
-<area shape="rect" title="This task modifies the const input instructions in order to push waypoints that are in collision out ..." alt="" coords="126,479,281,519"/>
+<area shape="rect" title="This task modifies the input instructions in order to push waypoints that are in collision out of col..." alt="" coords="126,479,281,519"/>
 <area shape="rect" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html" title=" " alt="" coords="131,389,276,429"/>
 <area shape="rect" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html" title="Represents a node the pipeline to be executed." alt="" coords="130,300,277,340"/>
 <area shape="rect" title=" " alt="" coords="28,95,107,120"/>
@@ -150,10 +150,12 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adc9cf0585255da5dce81c3ccf25a2579"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/classtesseract__planning_1_1FixStateCollisionTask.html#adc9cf0585255da5dce81c3ccf25a2579">FixStateCollisionTask</a> ()=default</td></tr>
-<tr class="separator:adc9cf0585255da5dce81c3ccf25a2579"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a099200440f8da4c74b875abcde102253"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/classtesseract__planning_1_1FixStateCollisionTask.html#a099200440f8da4c74b875abcde102253">FixStateCollisionTask</a> (std::string input_key, std::string output_key, bool is_conditional=true, std::string name=<a class="el" href="../../dd/d72/namespacetesseract__planning_1_1node__names.html#add0e4719ed35872a817cec9fbd8426f9">node_names::FIX_STATE_COLLISION_TASK_NAME</a>)</td></tr>
-<tr class="separator:a099200440f8da4c74b875abcde102253"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14adc360e0e23188e6b445097ac8dc7a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/classtesseract__planning_1_1FixStateCollisionTask.html#a14adc360e0e23188e6b445097ac8dc7a">FixStateCollisionTask</a> ()</td></tr>
+<tr class="separator:a14adc360e0e23188e6b445097ac8dc7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69f81e4e98542fb40fe552e036b9a77a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/classtesseract__planning_1_1FixStateCollisionTask.html#a69f81e4e98542fb40fe552e036b9a77a">FixStateCollisionTask</a> (std::string name, std::string input_key, std::string output_key, bool is_conditional=true)</td></tr>
+<tr class="separator:a69f81e4e98542fb40fe552e036b9a77a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60290067e05520d1025ebf3ba77c1914"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/classtesseract__planning_1_1FixStateCollisionTask.html#a60290067e05520d1025ebf3ba77c1914">FixStateCollisionTask</a> (std::string name, const YAML::Node &amp;config, const <a class="el" href="../../d7/d2f/classtesseract__planning_1_1TaskComposerPluginFactory.html">TaskComposerPluginFactory</a> &amp;plugin_factory)</td></tr>
+<tr class="separator:a60290067e05520d1025ebf3ba77c1914"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a318c474a21da4218aee39fcd941e8a2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/classtesseract__planning_1_1FixStateCollisionTask.html#a318c474a21da4218aee39fcd941e8a2e">~FixStateCollisionTask</a> () override=default</td></tr>
 <tr class="separator:a318c474a21da4218aee39fcd941e8a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ed92ea34f627da7dce6f3ef36db3c0f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/classtesseract__planning_1_1FixStateCollisionTask.html#a6ed92ea34f627da7dce6f3ef36db3c0f">FixStateCollisionTask</a> (const <a class="el" href="../../d9/dd2/classtesseract__planning_1_1FixStateCollisionTask.html">FixStateCollisionTask</a> &amp;)=delete</td></tr>
@@ -169,10 +171,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a94534d8291ada863509889500eff9ace"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/classtesseract__planning_1_1FixStateCollisionTask.html#a94534d8291ada863509889500eff9ace">operator!=</a> (const <a class="el" href="../../d9/dd2/classtesseract__planning_1_1FixStateCollisionTask.html">FixStateCollisionTask</a> &amp;rhs) const</td></tr>
 <tr class="separator:a94534d8291ada863509889500eff9ace"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classtesseract__planning_1_1TaskComposerTask"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classtesseract__planning_1_1TaskComposerTask')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">tesseract_planning::TaskComposerTask</a></td></tr>
-<tr class="memitem:a5975d7482fa62633d2bdd7ac2620acc7 inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#a5975d7482fa62633d2bdd7ac2620acc7">TaskComposerTask</a> ()=default</td></tr>
-<tr class="separator:a5975d7482fa62633d2bdd7ac2620acc7 inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47b6c854f6ffd3d9a08c9edbd8b6ca47 inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#a47b6c854f6ffd3d9a08c9edbd8b6ca47">TaskComposerTask</a> (bool is_conditional, std::string name=&quot;TaskComposerTask&quot;)</td></tr>
-<tr class="separator:a47b6c854f6ffd3d9a08c9edbd8b6ca47 inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a665aa6a8aacecea893e32c03c4da8670 inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#a665aa6a8aacecea893e32c03c4da8670">TaskComposerTask</a> ()</td></tr>
+<tr class="separator:a665aa6a8aacecea893e32c03c4da8670 inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbc3fbf99661298a053972c244489a5d inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#abbc3fbf99661298a053972c244489a5d">TaskComposerTask</a> (std::string name, bool is_conditional)</td></tr>
+<tr class="separator:abbc3fbf99661298a053972c244489a5d inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88fefb420cd736a832d666583be34b92 inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#a88fefb420cd736a832d666583be34b92">TaskComposerTask</a> (std::string name, const YAML::Node &amp;config)</td></tr>
+<tr class="separator:a88fefb420cd736a832d666583be34b92 inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2de9911c30a7d92dc54e5a82c2415708 inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#a2de9911c30a7d92dc54e5a82c2415708">~TaskComposerTask</a> () override=default</td></tr>
 <tr class="separator:a2de9911c30a7d92dc54e5a82c2415708 inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c48cfd3bbffdbda2e353c6ee5fb5e16 inherit pub_methods_classtesseract__planning_1_1TaskComposerTask"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html#a3c48cfd3bbffdbda2e353c6ee5fb5e16">TaskComposerTask</a> (const <a class="el" href="../../d8/def/classtesseract__planning_1_1TaskComposerTask.html">TaskComposerTask</a> &amp;)=delete</td></tr>
@@ -207,6 +211,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a993b1e4bbf90cfadfc8d60c65f372f4a inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19b9b58eb63b9d1c867cf8b8d06e8167 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">TaskComposerNode</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a19b9b58eb63b9d1c867cf8b8d06e8167">operator=</a> (<a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">TaskComposerNode</a> &amp;&amp;)=delete</td></tr>
 <tr class="separator:a19b9b58eb63b9d1c867cf8b8d06e8167 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4398c5869335c76c57b1dcacef69d44 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#ae4398c5869335c76c57b1dcacef69d44">setName</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:ae4398c5869335c76c57b1dcacef69d44 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name of the node.  <a href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#ae4398c5869335c76c57b1dcacef69d44">More...</a><br /></td></tr>
+<tr class="separator:ae4398c5869335c76c57b1dcacef69d44 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2539b62ed74a2e27c3df81c8ee1b95b6 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a2539b62ed74a2e27c3df81c8ee1b95b6">getName</a> () const</td></tr>
 <tr class="memdesc:a2539b62ed74a2e27c3df81c8ee1b95b6 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the node.  <a href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a2539b62ed74a2e27c3df81c8ee1b95b6">More...</a><br /></td></tr>
 <tr class="separator:a2539b62ed74a2e27c3df81c8ee1b95b6 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -228,12 +235,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2ed520fe2e44d685cab3bfdc3e391f2a inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; boost::uuids::uuid &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a2ed520fe2e44d685cab3bfdc3e391f2a">getInboundEdges</a> () const</td></tr>
 <tr class="memdesc:a2ed520fe2e44d685cab3bfdc3e391f2a inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">IDs of nodes (i.e. node) that should run before this node.  <a href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a2ed520fe2e44d685cab3bfdc3e391f2a">More...</a><br /></td></tr>
 <tr class="separator:a2ed520fe2e44d685cab3bfdc3e391f2a inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f81d163bb2171b2efb86732216aaa05 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a1f81d163bb2171b2efb86732216aaa05">setInputKeys</a> (const std::vector&lt; std::string &gt; &amp;input_keys)</td></tr>
+<tr class="memdesc:a1f81d163bb2171b2efb86732216aaa05 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the nodes input keys.  <a href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a1f81d163bb2171b2efb86732216aaa05">More...</a><br /></td></tr>
+<tr class="separator:a1f81d163bb2171b2efb86732216aaa05 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5424e09a2cced38a6829d4a4e4c8eef inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#aa5424e09a2cced38a6829d4a4e4c8eef">getInputKeys</a> () const</td></tr>
 <tr class="memdesc:aa5424e09a2cced38a6829d4a4e4c8eef inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">The nodes input keys.  <a href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#aa5424e09a2cced38a6829d4a4e4c8eef">More...</a><br /></td></tr>
 <tr class="separator:aa5424e09a2cced38a6829d4a4e4c8eef inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedcf326be89fa74f6004dd0efd81ad1c inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#aedcf326be89fa74f6004dd0efd81ad1c">setOutputKeys</a> (const std::vector&lt; std::string &gt; &amp;output_keys)</td></tr>
+<tr class="memdesc:aedcf326be89fa74f6004dd0efd81ad1c inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the nodes input keys.  <a href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#aedcf326be89fa74f6004dd0efd81ad1c">More...</a><br /></td></tr>
+<tr class="separator:aedcf326be89fa74f6004dd0efd81ad1c inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63dd8a26b3918dfbe3d56cab74cf04ce inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a63dd8a26b3918dfbe3d56cab74cf04ce">getOutputKeys</a> () const</td></tr>
 <tr class="memdesc:a63dd8a26b3918dfbe3d56cab74cf04ce inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">The nodes output keys.  <a href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a63dd8a26b3918dfbe3d56cab74cf04ce">More...</a><br /></td></tr>
 <tr class="separator:a63dd8a26b3918dfbe3d56cab74cf04ce inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a031aeadd78557ad8aff226f1d2be07e4 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a031aeadd78557ad8aff226f1d2be07e4">renameInputKeys</a> (const std::map&lt; std::string, std::string &gt; &amp;input_keys)</td></tr>
+<tr class="memdesc:a031aeadd78557ad8aff226f1d2be07e4 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rename input keys.  <a href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a031aeadd78557ad8aff226f1d2be07e4">More...</a><br /></td></tr>
+<tr class="separator:a031aeadd78557ad8aff226f1d2be07e4 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f9a59f87a51f6a315e970d3efc45043 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a5f9a59f87a51f6a315e970d3efc45043">renameOutputKeys</a> (const std::map&lt; std::string, std::string &gt; &amp;output_keys)</td></tr>
+<tr class="memdesc:a5f9a59f87a51f6a315e970d3efc45043 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rename output keys.  <a href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a5f9a59f87a51f6a315e970d3efc45043">More...</a><br /></td></tr>
+<tr class="separator:a5f9a59f87a51f6a315e970d3efc45043 inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9ece5f656eb0bd433cb922bb32cb55d inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#ab9ece5f656eb0bd433cb922bb32cb55d">dump</a> (std::ostream &amp;os) const</td></tr>
 <tr class="memdesc:ab9ece5f656eb0bd433cb922bb32cb55d inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">dump the task to dot  <a href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#ab9ece5f656eb0bd433cb922bb32cb55d">More...</a><br /></td></tr>
 <tr class="separator:ab9ece5f656eb0bd433cb922bb32cb55d inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -306,7 +325,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a6e7e482b144b120f2c91e2d3f8c07001 inherit pro_attribs_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >This task modifies the const input instructions in order to push waypoints that are in collision out of collision. </p>
+<div class="textblock"><p >This task modifies the input instructions in order to push waypoints that are in collision out of collision. </p>
 <p >First it uses TrajOpt to correct the waypoint. If that fails, it reverts to random sampling </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a16de563d8f8cda853bc4d294ce68e689" name="a16de563d8f8cda853bc4d294ce68e689"></a>
@@ -366,8 +385,25 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="adc9cf0585255da5dce81c3ccf25a2579" name="adc9cf0585255da5dce81c3ccf25a2579"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc9cf0585255da5dce81c3ccf25a2579">&#9670;&#160;</a></span>FixStateCollisionTask() <span class="overload">[1/4]</span></h2>
+<a id="a14adc360e0e23188e6b445097ac8dc7a" name="a14adc360e0e23188e6b445097ac8dc7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14adc360e0e23188e6b445097ac8dc7a">&#9670;&#160;</a></span>FixStateCollisionTask() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_planning::FixStateCollisionTask::FixStateCollisionTask </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a69f81e4e98542fb40fe552e036b9a77a" name="a69f81e4e98542fb40fe552e036b9a77a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69f81e4e98542fb40fe552e036b9a77a">&#9670;&#160;</a></span>FixStateCollisionTask() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -378,28 +414,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">tesseract_planning::FixStateCollisionTask::FixStateCollisionTask </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a099200440f8da4c74b875abcde102253" name="a099200440f8da4c74b875abcde102253"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a099200440f8da4c74b875abcde102253">&#9670;&#160;</a></span>FixStateCollisionTask() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">tesseract_planning::FixStateCollisionTask::FixStateCollisionTask </td>
-          <td>(</td>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>input_key</em>, </td>
         </tr>
@@ -413,13 +433,7 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>is_conditional</em> = <code>true</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>name</em> = <code><a class="el" href="../../dd/d72/namespacetesseract__planning_1_1node__names.html#add0e4719ed35872a817cec9fbd8426f9">node_names::FIX_STATE_COLLISION_TASK_NAME</a></code>&#160;</td>
+          <td class="paramname"><em>is_conditional</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -427,6 +441,53 @@ Additional Inherited Members</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a60290067e05520d1025ebf3ba77c1914" name="a60290067e05520d1025ebf3ba77c1914"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60290067e05520d1025ebf3ba77c1914">&#9670;&#160;</a></span>FixStateCollisionTask() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_planning::FixStateCollisionTask::FixStateCollisionTask </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const YAML::Node &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d7/d2f/classtesseract__planning_1_1TaskComposerPluginFactory.html">TaskComposerPluginFactory</a> &amp;&#160;</td>
+          <td class="paramname"><em>plugin_factory</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -457,7 +518,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a6ed92ea34f627da7dce6f3ef36db3c0f" name="a6ed92ea34f627da7dce6f3ef36db3c0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ed92ea34f627da7dce6f3ef36db3c0f">&#9670;&#160;</a></span>FixStateCollisionTask() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ed92ea34f627da7dce6f3ef36db3c0f">&#9670;&#160;</a></span>FixStateCollisionTask() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -483,7 +544,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a9f24f314c9b98cbd895a2815200d30f9" name="a9f24f314c9b98cbd895a2815200d30f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f24f314c9b98cbd895a2815200d30f9">&#9670;&#160;</a></span>FixStateCollisionTask() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f24f314c9b98cbd895a2815200d30f9">&#9670;&#160;</a></span>FixStateCollisionTask() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -725,7 +786,7 @@ template&lt;class Archive &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 17 2023 03:20:29 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+Generated on Mon Feb 27 2023 21:05:56 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
 </small></address>
 </body>
 </html>

@@ -33,6 +33,8 @@ using \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a7a09fbd1eb
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a1adfe56bcd16a431f4222bd78a941a8a}{Task\+Composer\+Graph}} (std\+::string name=\char`\"{}Task\+Composer\+Graph\char`\"{})
 \item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a9213605002f9f285a4157255cb92f4f0}{Task\+Composer\+Graph}} (std\+::string name, const YAML\+::\+Node \&config, const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&plugin\+\_\+factory)
+\item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_ae00bdc3bd4a743d4d50674c60577d68c}{$\sim$\+Task\+Composer\+Graph}} () override=default
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a4f85c99a16c90bd4b4cb88f142a720e9}{Task\+Composer\+Graph}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{Task\+Composer\+Graph}} \&)=delete
@@ -49,6 +51,10 @@ void \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a6614bd23a1a
 \begin{DoxyCompactList}\small\item\em Adds directed edges from a source node to destination nodes in the taskflow graph. \end{DoxyCompactList}\item 
 std\+::map$<$ boost\+::uuids\+::uuid, \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_addafbf5ce4de929f61528800dfe03129}{Task\+Composer\+Node\+::\+Const\+Ptr}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a4c774bad2e0c5dde9edc7dc02c09e2c7}{get\+Nodes}} () const
 \begin{DoxyCompactList}\small\item\em Get the nodes associated with the pipeline. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a1185243a2cdf682d2c881ba3aa8133be}{rename\+Input\+Keys}} (const std\+::map$<$ std\+::string, std\+::string $>$ \&input\+\_\+keys) override
+\begin{DoxyCompactList}\small\item\em Rename input keys. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_a562b1c0da613cbd2b4f5fb82acf3bcdc}{rename\+Output\+Keys}} (const std\+::map$<$ std\+::string, std\+::string $>$ \&output\+\_\+keys) override
+\begin{DoxyCompactList}\small\item\em Rename output keys. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_afa0ced55a3ff2f3369d62b0269d875ef}{dump}} (std\+::ostream \&os) const override
 \begin{DoxyCompactList}\small\item\em dump the task to dot \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph_ac0adef99b48acf5edbeb66e7cdabdd9e}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{Task\+Composer\+Graph}} \&rhs) const
@@ -111,8 +117,14 @@ This class facilitates the composition of an arbitrary taskflow graph. Tasks are
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerGraph_a1adfe56bcd16a431f4222bd78a941a8a}\label{classtesseract__planning_1_1TaskComposerGraph_a1adfe56bcd16a431f4222bd78a941a8a}} 
 \index{tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}!TaskComposerGraph@{TaskComposerGraph}}
 \index{TaskComposerGraph@{TaskComposerGraph}!tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}}
-\doxysubsubsection{\texorpdfstring{TaskComposerGraph()}{TaskComposerGraph()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+\doxysubsubsection{\texorpdfstring{TaskComposerGraph()}{TaskComposerGraph()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Graph\+::\+Task\+Composer\+Graph (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \char`\"{}TaskComposerGraph\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerGraph_a9213605002f9f285a4157255cb92f4f0}\label{classtesseract__planning_1_1TaskComposerGraph_a9213605002f9f285a4157255cb92f4f0}} 
+\index{tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}!TaskComposerGraph@{TaskComposerGraph}}
+\index{TaskComposerGraph@{TaskComposerGraph}!tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}}
+\doxysubsubsection{\texorpdfstring{TaskComposerGraph()}{TaskComposerGraph()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Graph\+::\+Task\+Composer\+Graph (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{const YAML\+::\+Node \&}]{config,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&}]{plugin\+\_\+factory }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerGraph_ae00bdc3bd4a743d4d50674c60577d68c}\label{classtesseract__planning_1_1TaskComposerGraph_ae00bdc3bd4a743d4d50674c60577d68c}} 
 \index{tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}!````~TaskComposerGraph@{$\sim$TaskComposerGraph}}
@@ -123,13 +135,13 @@ This class facilitates the composition of an arbitrary taskflow graph. Tasks are
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerGraph_a4f85c99a16c90bd4b4cb88f142a720e9}\label{classtesseract__planning_1_1TaskComposerGraph_a4f85c99a16c90bd4b4cb88f142a720e9}} 
 \index{tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}!TaskComposerGraph@{TaskComposerGraph}}
 \index{TaskComposerGraph@{TaskComposerGraph}!tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}}
-\doxysubsubsection{\texorpdfstring{TaskComposerGraph()}{TaskComposerGraph()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+\doxysubsubsection{\texorpdfstring{TaskComposerGraph()}{TaskComposerGraph()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Graph\+::\+Task\+Composer\+Graph (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{Task\+Composer\+Graph}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerGraph_af3f617c86540d612be8fb59733655508}\label{classtesseract__planning_1_1TaskComposerGraph_af3f617c86540d612be8fb59733655508}} 
 \index{tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}!TaskComposerGraph@{TaskComposerGraph}}
 \index{TaskComposerGraph@{TaskComposerGraph}!tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}}
-\doxysubsubsection{\texorpdfstring{TaskComposerGraph()}{TaskComposerGraph()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+\doxysubsubsection{\texorpdfstring{TaskComposerGraph()}{TaskComposerGraph()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Graph\+::\+Task\+Composer\+Graph (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{Task\+Composer\+Graph}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 
@@ -218,6 +230,34 @@ Get the nodes associated with the pipeline.
 \index{operator==@{operator==}!tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}}
 \doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Task\+Composer\+Graph\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{Task\+Composer\+Graph}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerGraph_a1185243a2cdf682d2c881ba3aa8133be}\label{classtesseract__planning_1_1TaskComposerGraph_a1185243a2cdf682d2c881ba3aa8133be}} 
+\index{tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}!renameInputKeys@{renameInputKeys}}
+\index{renameInputKeys@{renameInputKeys}!tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}}
+\doxysubsubsection{\texorpdfstring{renameInputKeys()}{renameInputKeys()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Task\+Composer\+Graph\+::rename\+Input\+Keys (\begin{DoxyParamCaption}\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{input\+\_\+keys }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Rename input keys. 
+
+
+
+Reimplemented from \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a031aeadd78557ad8aff226f1d2be07e4}{tesseract\+\_\+planning\+::\+Task\+Composer\+Node}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerGraph_a562b1c0da613cbd2b4f5fb82acf3bcdc}\label{classtesseract__planning_1_1TaskComposerGraph_a562b1c0da613cbd2b4f5fb82acf3bcdc}} 
+\index{tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}!renameOutputKeys@{renameOutputKeys}}
+\index{renameOutputKeys@{renameOutputKeys}!tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}}
+\doxysubsubsection{\texorpdfstring{renameOutputKeys()}{renameOutputKeys()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Task\+Composer\+Graph\+::rename\+Output\+Keys (\begin{DoxyParamCaption}\item[{const std\+::map$<$ std\+::string, std\+::string $>$ \&}]{output\+\_\+keys }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Rename output keys. 
+
+
+
+Reimplemented from \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a5f9a59f87a51f6a315e970d3efc45043}{tesseract\+\_\+planning\+::\+Task\+Composer\+Node}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerGraph_a5c9784ba3fa9454b5f35a6445aabe04f}\label{classtesseract__planning_1_1TaskComposerGraph_a5c9784ba3fa9454b5f35a6445aabe04f}} 
 \index{tesseract\_planning::TaskComposerGraph@{tesseract\_planning::TaskComposerGraph}!serialize@{serialize}}

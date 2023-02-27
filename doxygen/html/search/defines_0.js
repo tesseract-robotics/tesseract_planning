@@ -17,7 +17,8 @@ var searchData=
   ['tesseract_5fstate_5fwaypoint_5fexport_14',['TESSERACT_STATE_WAYPOINT_EXPORT',['../d7/d22/state__waypoint__poly_8h.html#a3243108006099abf5a90277e33a34eda',1,'state_waypoint_poly.h']]],
   ['tesseract_5fstate_5fwaypoint_5fexport_5fimplement_15',['TESSERACT_STATE_WAYPOINT_EXPORT_IMPLEMENT',['../d7/d22/state__waypoint__poly_8h.html#ae3149fdeb4d4a3a904aaa18550d29777',1,'state_waypoint_poly.h']]],
   ['tesseract_5fstate_5fwaypoint_5fexport_5fkey_16',['TESSERACT_STATE_WAYPOINT_EXPORT_KEY',['../d7/d22/state__waypoint__poly_8h.html#a8fd1144f4e91f0ac90c073120172afa8',1,'state_waypoint_poly.h']]],
-  ['tesseract_5fwaypoint_5fexport_17',['TESSERACT_WAYPOINT_EXPORT',['../d3/dc4/waypoint__poly_8h.html#a9e9eddae9e5a1f2bf5c27bc4db11c774',1,'waypoint_poly.h']]],
-  ['tesseract_5fwaypoint_5fexport_5fimplement_18',['TESSERACT_WAYPOINT_EXPORT_IMPLEMENT',['../d3/dc4/waypoint__poly_8h.html#a58125b44bed0fd40b9d476f146b49959',1,'waypoint_poly.h']]],
-  ['tesseract_5fwaypoint_5fexport_5fkey_19',['TESSERACT_WAYPOINT_EXPORT_KEY',['../d3/dc4/waypoint__poly_8h.html#a0da884b648f0ad59d58613085d694a41',1,'waypoint_poly.h']]]
+  ['tesseract_5ftask_5fcomposer_5fraster_5fmotion_5ftask_5fhpp_17',['TESSERACT_TASK_COMPOSER_RASTER_MOTION_TASK_HPP',['../d4/d89/raster__motion__task_8cpp.html#a414582d698171afc47037cf58643bc93',1,'raster_motion_task.cpp']]],
+  ['tesseract_5fwaypoint_5fexport_18',['TESSERACT_WAYPOINT_EXPORT',['../d3/dc4/waypoint__poly_8h.html#a9e9eddae9e5a1f2bf5c27bc4db11c774',1,'waypoint_poly.h']]],
+  ['tesseract_5fwaypoint_5fexport_5fimplement_19',['TESSERACT_WAYPOINT_EXPORT_IMPLEMENT',['../d3/dc4/waypoint__poly_8h.html#a58125b44bed0fd40b9d476f146b49959',1,'waypoint_poly.h']]],
+  ['tesseract_5fwaypoint_5fexport_5fkey_20',['TESSERACT_WAYPOINT_EXPORT_KEY',['../d3/dc4/waypoint__poly_8h.html#a0da884b648f0ad59d58613085d694a41',1,'waypoint_poly.h']]]
 ];

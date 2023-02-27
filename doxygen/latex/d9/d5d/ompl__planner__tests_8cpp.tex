@@ -72,7 +72,7 @@ static void \mbox{\hyperlink{ompl__planner__tests_8cpp_a533082e77d10c35b9e73f7f6
 \item 
 \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}} collision\+\_\+check\+\_\+config \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_abc286e89ab9076f99b157213be209a4d}{contact\+\_\+manager\+\_\+config}} margin\+\_\+data \mbox{\hyperlink{ompl__planner__tests_8cpp_af824365b0ecc90fbd3b010ab964768c7}{set\+Default\+Collision\+Margin}} (0.\+025)
 \item 
-\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a7360213b5634162112d495e4d23ec803}{add\+Profile$<$ OMPLPlan\+Profile $>$}} (OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}})
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a7360213b5634162112d495e4d23ec803}{add\+Profile$<$ OMPLPlan\+Profile $>$}} (\mbox{\hyperlink{freespace__hybrid__example_8cpp_a8926f8facf8bb84b469412046babbead}{OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}})
 \item 
 \mbox{\hyperlink{ompl__planner__tests_8cpp_a9a8d3215612252e79883310cf424727d}{if}} (!\mbox{\hyperlink{ompl__planner__tests_8cpp_a0b6e062fd49cdb031cbfb666c6b058f6}{planner\+\_\+response}})
 \item 
@@ -110,6 +110,8 @@ static const int \mbox{\hyperlink{ompl__planner__tests_8cpp_a4c0d5cbc910bbc8cac6
 static const std\+::vector$<$ double $>$ \mbox{\hyperlink{ompl__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}} = \{ -\/0.\+5, 0.\+5, 0.\+0, -\/1.\+3348, 0.\+0, 1.\+4959, 0.\+0 \}
 \item 
 static const std\+::vector$<$ double $>$ \mbox{\hyperlink{ompl__planner__tests_8cpp_a33df652be8e68c853b03222aed100f68}{end\+\_\+state}} = \{ 0.\+5, 0.\+5, 0.\+0, -\/1.\+3348, 0.\+0, 1.\+4959, 0.\+0 \}
+\item 
+static const std\+::string \mbox{\hyperlink{ompl__planner__tests_8cpp_a8926f8facf8bb84b469412046babbead}{OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}} = \char`\"{}OMPLMotion\+Planner\+Task\char`\"{}
 \item 
 auto \mbox{\hyperlink{ompl__planner__tests_8cpp_ac23cdf7d517ef4adf22863d54c6c9c65}{locator}} = std\+::make\+\_\+shared$<$tesseract\+\_\+common\+::\+Tesseract\+Support\+Resource\+Locator$>$()
 \item 
@@ -167,7 +169,7 @@ auto \mbox{\hyperlink{ompl__planner__tests_8cpp_ab3ea9ac41306fc1bf44dd5c18d49463
 \item 
 \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a5083a6bcf9f46da48634a2146d75ca2f}{env\+\_\+state}} = \mbox{\hyperlink{descartes__planner__tests_8cpp_aa286b62ffc5f362a9629f912c3421781}{cur\+\_\+state}}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner}{OMPLMotion\+Planner}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a402162d7e9e0f6584f1e5d4e4b218722}{ompl\+\_\+planner}}
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner}{OMPLMotion\+Planner}} \mbox{\hyperlink{ompl__planner__tests_8cpp_ab3707b36efb4491f32e42799c124bbad}{ompl\+\_\+planner}} (\mbox{\hyperlink{freespace__hybrid__example_8cpp_a8926f8facf8bb84b469412046babbead}{OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}})
 \item 
 \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \mbox{\hyperlink{ompl__planner__tests_8cpp_a0b6e062fd49cdb031cbfb666c6b058f6}{planner\+\_\+response}} = ompl\+\_\+planner.\+solve(\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}})
 \item 
@@ -206,7 +208,7 @@ September 16, 2019
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000152}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000151}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -243,7 +245,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!addProfile$<$ OMPLPlanProfile $>$@{addProfile$<$ OMPLPlanProfile $>$}}
 \index{addProfile$<$ OMPLPlanProfile $>$@{addProfile$<$ OMPLPlanProfile $>$}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{addProfile$<$ OMPLPlanProfile $>$()}{addProfile< OMPLPlanProfile >()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{freespace__hybrid__example_8cpp_a8926f8facf8bb84b469412046babbead}{OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}\label{ompl__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!appendMoveInstruction@{appendMoveInstruction}}
@@ -526,11 +528,17 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{max\_solutions}{max\_solutions}}
 {\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}} max\+\_\+solutions = 2}
 
-\mbox{\Hypertarget{ompl__planner__tests_8cpp_a402162d7e9e0f6584f1e5d4e4b218722}\label{ompl__planner__tests_8cpp_a402162d7e9e0f6584f1e5d4e4b218722}} 
+\mbox{\Hypertarget{ompl__planner__tests_8cpp_a8926f8facf8bb84b469412046babbead}\label{ompl__planner__tests_8cpp_a8926f8facf8bb84b469412046babbead}} 
+\index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!OMPL\_DEFAULT\_NAMESPACE@{OMPL\_DEFAULT\_NAMESPACE}}
+\index{OMPL\_DEFAULT\_NAMESPACE@{OMPL\_DEFAULT\_NAMESPACE}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{OMPL\_DEFAULT\_NAMESPACE}{OMPL\_DEFAULT\_NAMESPACE}}
+{\footnotesize\ttfamily const std\+::string OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE = \char`\"{}OMPLMotion\+Planner\+Task\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{ompl__planner__tests_8cpp_ab3707b36efb4491f32e42799c124bbad}\label{ompl__planner__tests_8cpp_ab3707b36efb4491f32e42799c124bbad}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!ompl\_planner@{ompl\_planner}}
 \index{ompl\_planner@{ompl\_planner}!ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{ompl\_planner}{ompl\_planner}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner}{OMPLMotion\+Planner}} ompl\+\_\+planner}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner}{OMPLMotion\+Planner}} ompl\+\_\+planner(\mbox{\hyperlink{freespace__hybrid__example_8cpp_a8926f8facf8bb84b469412046babbead}{OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}) (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{freespace__hybrid__example_8cpp_a8926f8facf8bb84b469412046babbead}{OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{ompl__planner__tests_8cpp_aeda11542cd9af6d9eb49c630c0ab977a}\label{ompl__planner__tests_8cpp_aeda11542cd9af6d9eb49c630c0ab977a}} 
 \index{ompl\_planner\_tests.cpp@{ompl\_planner\_tests.cpp}!optimize@{optimize}}

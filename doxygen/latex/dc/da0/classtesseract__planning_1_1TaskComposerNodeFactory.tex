@@ -11,8 +11,12 @@ Task Composer Node Factory class used by the \mbox{\hyperlink{classtesseract__pl
 
 
 
-Collaboration diagram for tesseract\+\_\+planning\+::Task\+Composer\+Node\+Factory\+:
+Inheritance diagram for tesseract\+\_\+planning\+::Task\+Composer\+Node\+Factory\+:
 % FIG 0
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Task\+Composer\+Node\+Factory\+:
+% FIG 1
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -25,7 +29,7 @@ using \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeFactory_ab85d
 \item 
 virtual \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeFactory_a6347e6176865dba3e39b83659631c21f}{$\sim$\+Task\+Composer\+Node\+Factory}} ()=default
 \item 
-virtual \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_aeee363b2e1325a896f640091c2673dff}{Task\+Composer\+Node\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeFactory_aba162719094ae5bafc0da59ee171efd9}{create}} (const std\+::string \&name, const YAML\+::\+Node \&config) const =0
+virtual \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_aeee363b2e1325a896f640091c2673dff}{Task\+Composer\+Node\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeFactory_a4065918a2b3a1680fb75f3b8b58a2c45}{create}} (const std\+::string \&name, const YAML\+::\+Node \&config, const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&plugin\+\_\+factory) const =0
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -67,11 +71,15 @@ Task Composer Node Factory class used by the \mbox{\hyperlink{classtesseract__pl
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerNodeFactory_aba162719094ae5bafc0da59ee171efd9}\label{classtesseract__planning_1_1TaskComposerNodeFactory_aba162719094ae5bafc0da59ee171efd9}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerNodeFactory_a4065918a2b3a1680fb75f3b8b58a2c45}\label{classtesseract__planning_1_1TaskComposerNodeFactory_a4065918a2b3a1680fb75f3b8b58a2c45}} 
 \index{tesseract\_planning::TaskComposerNodeFactory@{tesseract\_planning::TaskComposerNodeFactory}!create@{create}}
 \index{create@{create}!tesseract\_planning::TaskComposerNodeFactory@{tesseract\_planning::TaskComposerNodeFactory}}
 \doxysubsubsection{\texorpdfstring{create()}{create()}}
-{\footnotesize\ttfamily virtual \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_aeee363b2e1325a896f640091c2673dff}{Task\+Composer\+Node\+::\+UPtr}} tesseract\+\_\+planning\+::\+Task\+Composer\+Node\+Factory\+::create (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const YAML\+::\+Node \&}]{config }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_aeee363b2e1325a896f640091c2673dff}{Task\+Composer\+Node\+::\+UPtr}} tesseract\+\_\+planning\+::\+Task\+Composer\+Node\+Factory\+::create (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const YAML\+::\+Node \&}]{config,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&}]{plugin\+\_\+factory }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory_abab69ad16e1608d05ddccc8fd786d1ad}{tesseract\+\_\+planning\+::\+Task\+Composer\+Task\+Factory$<$ Task\+Type $>$}}.
 
 
 

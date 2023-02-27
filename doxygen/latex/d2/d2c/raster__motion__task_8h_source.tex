@@ -1,0 +1,76 @@
+\hypertarget{raster__motion__task_8h_source}{}\doxysection{raster\+\_\+motion\+\_\+task.\+h}
+\label{raster__motion__task_8h_source}\index{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/raster\_motion\_task.h@{tesseract\_task\_composer/include/tesseract\_task\_composer/nodes/raster\_motion\_task.h}}
+\mbox{\hyperlink{raster__motion__task_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_TASK\_COMPOSER\_RASTER\_MOTION\_TASK\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_TASK\_COMPOSER\_RASTER\_MOTION\_TASK\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <console\_bridge/console.h>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <boost/serialization/string.hpp>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__task_8h}{tesseract\_task\_composer/task\_composer\_task.h}}>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <tesseract\_common/any\_poly.h>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{class }TaskComposerPluginFactory;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{59 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{RasterMotionTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}}
+\DoxyCodeLine{60 \{}
+\DoxyCodeLine{61 \textcolor{keyword}{public}:}
+\DoxyCodeLine{62   \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1RasterMotionTask_1_1TaskFactoryResults}{TaskFactoryResults}}}
+\DoxyCodeLine{63   \{}
+\DoxyCodeLine{64     \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_aeee363b2e1325a896f640091c2673dff}{TaskComposerNode::UPtr}} \mbox{\hyperlink{structtesseract__planning_1_1RasterMotionTask_1_1TaskFactoryResults_a446d2e4528517ddd8719b323d09479d0}{node}};}
+\DoxyCodeLine{65     std::string \mbox{\hyperlink{structtesseract__planning_1_1RasterMotionTask_1_1TaskFactoryResults_a9f83bbf6fd9b106c8bc735e937103559}{input\_key}};}
+\DoxyCodeLine{66     std::string \mbox{\hyperlink{structtesseract__planning_1_1RasterMotionTask_1_1TaskFactoryResults_afaeb34e90b5a439e2ca5ba2143e68bea}{output\_key}};}
+\DoxyCodeLine{67   \};}
+\DoxyCodeLine{68   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a7be3db55ac0b46d904b2b9f14f15fccb}{TaskFactory}} = std::function<\mbox{\hyperlink{structtesseract__planning_1_1RasterMotionTask_1_1TaskFactoryResults}{TaskFactoryResults}}(\textcolor{keyword}{const} std::string\& name, std::size\_t index)>;}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a1c49d4062d4b7c1ca6b50f5ff286efd2}{RasterMotionTask}}();}
+\DoxyCodeLine{71   \textcolor{keyword}{explicit} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a1c49d4062d4b7c1ca6b50f5ff286efd2}{RasterMotionTask}}(std::string name,}
+\DoxyCodeLine{72                             std::string input\_key,}
+\DoxyCodeLine{73                             std::string output\_key,}
+\DoxyCodeLine{74                             \textcolor{keywordtype}{bool} is\_conditional,}
+\DoxyCodeLine{75                             \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a7be3db55ac0b46d904b2b9f14f15fccb}{TaskFactory}} freespace\_task\_factory,}
+\DoxyCodeLine{76                             \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a7be3db55ac0b46d904b2b9f14f15fccb}{TaskFactory}} raster\_task\_factory,}
+\DoxyCodeLine{77                             \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a7be3db55ac0b46d904b2b9f14f15fccb}{TaskFactory}} transition\_task\_factory);}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79   \textcolor{keyword}{explicit} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a1c49d4062d4b7c1ca6b50f5ff286efd2}{RasterMotionTask}}(std::string name,}
+\DoxyCodeLine{80                             \textcolor{keyword}{const} YAML::Node\& config,}
+\DoxyCodeLine{81                             \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{TaskComposerPluginFactory}}\& plugin\_factory);}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83   \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_af1b7ce8d532372c24d49ac379d1f4ece}{\string~RasterMotionTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{84   \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_aca53c5f3e346b4cb4057a303e99cede3}{RasterMotionTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{RasterMotionTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{85   \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{RasterMotionTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a0baab1b5f6a176803ed7576ea65716bd}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{RasterMotionTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{86   \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_af7916a69405e637501cc30091544fa6a}{RasterMotionTask}}(\mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{RasterMotionTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{87   \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{RasterMotionTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a90f00c75891ec9cf972f43c79a23bf0e}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{RasterMotionTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a3cd98dc5d503afce82893d7f4750d8f2}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{RasterMotionTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{90   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_ab10348c1ba3c28f1a485ceef34e32c06}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{RasterMotionTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{93   \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a7be3db55ac0b46d904b2b9f14f15fccb}{TaskFactory}} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a75353273df7b009d3003b88c7b513872}{freespace\_task\_factory\_}};}
+\DoxyCodeLine{94   \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a7be3db55ac0b46d904b2b9f14f15fccb}{TaskFactory}} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_aa629ff8572cb73141a93cfbb60603be7}{raster\_task\_factory\_}};}
+\DoxyCodeLine{95   \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a7be3db55ac0b46d904b2b9f14f15fccb}{TaskFactory}} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a56a8f38468d7dd3fd8a5cb55a1ec25eb}{transition\_task\_factory\_}};}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{98   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{101   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a48ed052dc061d52b1e3d54807a9da639}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{comment}{/*version*/});  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103   \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_afa7a8638438853c8ab0dde71f5f07eac}{checkTaskInput}}(\textcolor{keyword}{const} tesseract\_common::AnyPoly\& input);}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a584499c30a70580efbfa18affab9a956}{runImpl}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
+\DoxyCodeLine{106                                      \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{OptionalTaskComposerExecutor}} executor) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{107 \};}
+\DoxyCodeLine{108 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_RASTER\_MOTION\_TASK\_H}}
+
+\end{DoxyCode}

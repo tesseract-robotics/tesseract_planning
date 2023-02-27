@@ -26,11 +26,13 @@ using \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask_a71814a3c96abb
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask_a0b5745f656383679eb08c56fff74e589}{Check\+Input\+Task}} ()=default
+\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask_a228bd557c8ad892fea9cdfc2192ab2bd}{Check\+Input\+Task}} ()
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask_a72bf0c3493439033d4a4e880a0565da5}{Check\+Input\+Task}} (std\+::string input\+\_\+key, bool is\+\_\+conditional=true, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a9b7c01126d36338d1ebe35c631a25847}{node\+\_\+names\+::\+CHECK\+\_\+\+INPUT\+\_\+\+TASK\+\_\+\+NAME}})
+\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask_a4c8c75b5c6c713a5cdb8330caa8b1866}{Check\+Input\+Task}} (std\+::string name, std\+::string input\+\_\+key, bool is\+\_\+conditional=true)
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask_a100fa6e983a00521e4a90a2a73c04fbb}{Check\+Input\+Task}} (std\+::vector$<$ std\+::string $>$ input\+\_\+keys, bool is\+\_\+conditional=true, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a9b7c01126d36338d1ebe35c631a25847}{node\+\_\+names\+::\+CHECK\+\_\+\+INPUT\+\_\+\+TASK\+\_\+\+NAME}})
+\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask_a6eb873e4bbb505f3d5bc95e56fcd59f9}{Check\+Input\+Task}} (std\+::string name, std\+::vector$<$ std\+::string $>$ input\+\_\+keys, bool is\+\_\+conditional=true)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask_a5cc373e7cbd96c922a0261c6d13a5559}{Check\+Input\+Task}} (std\+::string name, const YAML\+::\+Node \&config, const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&plugin\+\_\+factory)
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask_adedb6b886b887c40d6a3ae7000528933}{$\sim$\+Check\+Input\+Task}} () override=default
 \item 
@@ -91,23 +93,29 @@ class \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask_ac98d07dd8f7b7
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTask_a0b5745f656383679eb08c56fff74e589}\label{classtesseract__planning_1_1CheckInputTask_a0b5745f656383679eb08c56fff74e589}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTask_a228bd557c8ad892fea9cdfc2192ab2bd}\label{classtesseract__planning_1_1CheckInputTask_a228bd557c8ad892fea9cdfc2192ab2bd}} 
 \index{tesseract\_planning::CheckInputTask@{tesseract\_planning::CheckInputTask}!CheckInputTask@{CheckInputTask}}
 \index{CheckInputTask@{CheckInputTask}!tesseract\_planning::CheckInputTask@{tesseract\_planning::CheckInputTask}}
-\doxysubsubsection{\texorpdfstring{CheckInputTask()}{CheckInputTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+::\+Check\+Input\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+\doxysubsubsection{\texorpdfstring{CheckInputTask()}{CheckInputTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+::\+Check\+Input\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTask_a72bf0c3493439033d4a4e880a0565da5}\label{classtesseract__planning_1_1CheckInputTask_a72bf0c3493439033d4a4e880a0565da5}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTask_a4c8c75b5c6c713a5cdb8330caa8b1866}\label{classtesseract__planning_1_1CheckInputTask_a4c8c75b5c6c713a5cdb8330caa8b1866}} 
 \index{tesseract\_planning::CheckInputTask@{tesseract\_planning::CheckInputTask}!CheckInputTask@{CheckInputTask}}
 \index{CheckInputTask@{CheckInputTask}!tesseract\_planning::CheckInputTask@{tesseract\_planning::CheckInputTask}}
-\doxysubsubsection{\texorpdfstring{CheckInputTask()}{CheckInputTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+::\+Check\+Input\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true},  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a9b7c01126d36338d1ebe35c631a25847}{node\+\_\+names\+::\+CHECK\+\_\+\+INPUT\+\_\+\+TASK\+\_\+\+NAME}}} }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{CheckInputTask()}{CheckInputTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+::\+Check\+Input\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::string}]{input\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTask_a100fa6e983a00521e4a90a2a73c04fbb}\label{classtesseract__planning_1_1CheckInputTask_a100fa6e983a00521e4a90a2a73c04fbb}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTask_a6eb873e4bbb505f3d5bc95e56fcd59f9}\label{classtesseract__planning_1_1CheckInputTask_a6eb873e4bbb505f3d5bc95e56fcd59f9}} 
 \index{tesseract\_planning::CheckInputTask@{tesseract\_planning::CheckInputTask}!CheckInputTask@{CheckInputTask}}
 \index{CheckInputTask@{CheckInputTask}!tesseract\_planning::CheckInputTask@{tesseract\_planning::CheckInputTask}}
-\doxysubsubsection{\texorpdfstring{CheckInputTask()}{CheckInputTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+::\+Check\+Input\+Task (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{input\+\_\+keys,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true},  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a9b7c01126d36338d1ebe35c631a25847}{node\+\_\+names\+::\+CHECK\+\_\+\+INPUT\+\_\+\+TASK\+\_\+\+NAME}}} }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{CheckInputTask()}{CheckInputTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+::\+Check\+Input\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::vector$<$ std\+::string $>$}]{input\+\_\+keys,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTask_a5cc373e7cbd96c922a0261c6d13a5559}\label{classtesseract__planning_1_1CheckInputTask_a5cc373e7cbd96c922a0261c6d13a5559}} 
+\index{tesseract\_planning::CheckInputTask@{tesseract\_planning::CheckInputTask}!CheckInputTask@{CheckInputTask}}
+\index{CheckInputTask@{CheckInputTask}!tesseract\_planning::CheckInputTask@{tesseract\_planning::CheckInputTask}}
+\doxysubsubsection{\texorpdfstring{CheckInputTask()}{CheckInputTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+::\+Check\+Input\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{const YAML\+::\+Node \&}]{config,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&}]{plugin\+\_\+factory }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTask_adedb6b886b887c40d6a3ae7000528933}\label{classtesseract__planning_1_1CheckInputTask_adedb6b886b887c40d6a3ae7000528933}} 
 \index{tesseract\_planning::CheckInputTask@{tesseract\_planning::CheckInputTask}!````~CheckInputTask@{$\sim$CheckInputTask}}
@@ -118,13 +126,13 @@ class \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask_ac98d07dd8f7b7
 \mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTask_aebe06cd6de68133048972e6aca6e7e52}\label{classtesseract__planning_1_1CheckInputTask_aebe06cd6de68133048972e6aca6e7e52}} 
 \index{tesseract\_planning::CheckInputTask@{tesseract\_planning::CheckInputTask}!CheckInputTask@{CheckInputTask}}
 \index{CheckInputTask@{CheckInputTask}!tesseract\_planning::CheckInputTask@{tesseract\_planning::CheckInputTask}}
-\doxysubsubsection{\texorpdfstring{CheckInputTask()}{CheckInputTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+\doxysubsubsection{\texorpdfstring{CheckInputTask()}{CheckInputTask()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+::\+Check\+Input\+Task (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask}{Check\+Input\+Task}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTask_a229a43b142140debe5e5417851401b0e}\label{classtesseract__planning_1_1CheckInputTask_a229a43b142140debe5e5417851401b0e}} 
 \index{tesseract\_planning::CheckInputTask@{tesseract\_planning::CheckInputTask}!CheckInputTask@{CheckInputTask}}
 \index{CheckInputTask@{CheckInputTask}!tesseract\_planning::CheckInputTask@{tesseract\_planning::CheckInputTask}}
-\doxysubsubsection{\texorpdfstring{CheckInputTask()}{CheckInputTask()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+\doxysubsubsection{\texorpdfstring{CheckInputTask()}{CheckInputTask()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+::\+Check\+Input\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask}{Check\+Input\+Task}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 

@@ -1,52 +1,52 @@
 <map id="tesseract_command_language/include/tesseract_command_language/profile_dictionary.h" name="tesseract_command_language/include/tesseract_command_language/profile_dictionary.h">
-<area shape="rect" id="node1" title="This is a profile dictionary for storing all profiles." alt="" coords="5487,5,5686,60"/>
-<area shape="rect" id="node2" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2292,211,2515,265"/>
-<area shape="rect" id="node8" href="$d0/d87/car__seat__example_8cpp.html" title="Car seat example implementation." alt="" coords="5239,555,5416,595"/>
-<area shape="rect" id="node9" href="$d1/dda/freespace__hybrid__example_8cpp.html" title=" " alt="" coords="5508,548,5654,603"/>
+<area shape="rect" id="node1" title="This is a profile dictionary for storing all profiles." alt="" coords="5431,5,5630,60"/>
+<area shape="rect" id="node2" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2236,211,2459,265"/>
+<area shape="rect" id="node8" href="$d0/d87/car__seat__example_8cpp.html" title="Car seat example implementation." alt="" coords="5183,555,5360,595"/>
+<area shape="rect" id="node9" href="$d1/dda/freespace__hybrid__example_8cpp.html" title=" " alt="" coords="5452,548,5598,603"/>
 <area shape="rect" id="node28" href="$da/de3/planner__utils_8h.html" title=" " alt="" coords="804,431,982,500"/>
-<area shape="rect" id="node32" href="$d6/da6/tesseract__task__composer__serialization__unit_8cpp.html" title=" " alt="" coords="5872,548,6074,603"/>
-<area shape="rect" id="node44" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="3916,321,4115,375"/>
+<area shape="rect" id="node32" href="$d6/da6/tesseract__task__composer__serialization__unit_8cpp.html" title=" " alt="" coords="5816,548,6018,603"/>
+<area shape="rect" id="node44" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="3860,321,4059,375"/>
 <area shape="rect" id="node47" href="$dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="254,108,505,163"/>
-<area shape="rect" id="node48" href="$d0/dfe/profile__dictionary__tests_8cpp.html" title=" " alt="" coords="6341,108,6520,163"/>
-<area shape="rect" id="node49" href="$db/ddf/task__composer__input_8h.html" title="The input data structure to the pipeline." alt="" coords="5061,431,5240,500"/>
-<area shape="rect" id="node50" href="$d7/d6d/task__composer__problem_8h.html" title="A task composer server problem." alt="" coords="5213,313,5392,383"/>
-<area shape="rect" id="node3" href="$d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h.html" title=" " alt="" coords="2731,321,2930,375"/>
-<area shape="rect" id="node6" href="$d8/df6/tesseract__command__language_2test_2utils__test_8cpp.html" title=" " alt="" coords="2934,445,3132,485"/>
-<area shape="rect" id="node7" href="$da/d69/basic__cartesian__example_8cpp.html" title=" " alt="" coords="2937,548,3076,603"/>
-<area shape="rect" id="node10" href="$d1/d33/freespace__ompl__example_8cpp.html" title="An example of a feespace motion planning with OMPL." alt="" coords="3711,548,3851,603"/>
-<area shape="rect" id="node11" href="$dc/da1/glass__upright__example_8cpp.html" title="Glass upright example implementation." alt="" coords="4668,555,4872,595"/>
-<area shape="rect" id="node12" href="$d9/d6a/pick__and__place__example_8cpp.html" title="Pick and place implementation." alt="" coords="5062,548,5201,603"/>
-<area shape="rect" id="node13" href="$d3/d7e/puzzle__piece__auxillary__axes__example_8cpp.html" title="Puzzle piece auxillary axes implementation." alt="" coords="3235,548,3410,603"/>
-<area shape="rect" id="node14" href="$dd/d8f/puzzle__piece__example_8cpp.html" title="Puzzle piece example implementation." alt="" coords="4230,555,4431,595"/>
-<area shape="rect" id="node15" href="$d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="2464,438,2655,493"/>
-<area shape="rect" id="node16" href="$dc/d28/simple__motion__planner_8cpp.html" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="1528,548,1706,603"/>
-<area shape="rect" id="node19" href="$db/d0c/trajopt__planner__tests_8cpp.html" title=" " alt="" coords="2446,555,2644,595"/>
+<area shape="rect" id="node48" href="$d0/dfe/profile__dictionary__tests_8cpp.html" title=" " alt="" coords="6285,108,6464,163"/>
+<area shape="rect" id="node49" href="$db/ddf/task__composer__input_8h.html" title="The input data structure to the pipeline." alt="" coords="5005,431,5184,500"/>
+<area shape="rect" id="node50" href="$d7/d6d/task__composer__problem_8h.html" title="A task composer server problem." alt="" coords="5157,313,5336,383"/>
+<area shape="rect" id="node3" href="$d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h.html" title=" " alt="" coords="2675,321,2874,375"/>
+<area shape="rect" id="node6" href="$d8/df6/tesseract__command__language_2test_2utils__test_8cpp.html" title=" " alt="" coords="2878,445,3076,485"/>
+<area shape="rect" id="node7" href="$da/d69/basic__cartesian__example_8cpp.html" title=" " alt="" coords="2881,548,3020,603"/>
+<area shape="rect" id="node10" href="$d1/d33/freespace__ompl__example_8cpp.html" title="An example of a feespace motion planning with OMPL." alt="" coords="3655,548,3795,603"/>
+<area shape="rect" id="node11" href="$dc/da1/glass__upright__example_8cpp.html" title="Glass upright example implementation." alt="" coords="4539,555,4743,595"/>
+<area shape="rect" id="node12" href="$d9/d6a/pick__and__place__example_8cpp.html" title="Pick and place implementation." alt="" coords="4933,548,5072,603"/>
+<area shape="rect" id="node13" href="$d3/d7e/puzzle__piece__auxillary__axes__example_8cpp.html" title="Puzzle piece auxillary axes implementation." alt="" coords="3179,548,3354,603"/>
+<area shape="rect" id="node14" href="$dd/d8f/puzzle__piece__example_8cpp.html" title="Puzzle piece example implementation." alt="" coords="4136,555,4338,595"/>
+<area shape="rect" id="node15" href="$d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="2408,438,2599,493"/>
+<area shape="rect" id="node16" href="$dc/d28/simple__motion__planner_8cpp.html" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="1504,548,1682,603"/>
+<area shape="rect" id="node19" href="$db/d0c/trajopt__planner__tests_8cpp.html" title=" " alt="" coords="2390,555,2588,595"/>
 <area shape="rect" id="node20" href="$d6/da7/continuous__contact__check__task_8cpp.html" title="Continuous collision check trajectory." alt="" coords="630,548,802,603"/>
 <area shape="rect" id="node21" href="$df/d36/discrete__contact__check__task_8cpp.html" title="Discrete collision check trajectory." alt="" coords="826,548,1008,603"/>
 <area shape="rect" id="node22" href="$d4/df4/time__optimal__parameterization__task_8cpp.html" title=" " alt="" coords="383,548,563,603"/>
-<area shape="rect" id="node23" href="$db/d22/composite__instruction_8cpp.html" title=" " alt="" coords="3678,445,3876,485"/>
+<area shape="rect" id="node23" href="$db/d22/composite__instruction_8cpp.html" title=" " alt="" coords="3622,445,3820,485"/>
 <area shape="rect" id="node24" href="$d5/d10/instruction__poly_8cpp.html" title=" " alt="" coords="92,328,291,368"/>
-<area shape="rect" id="node25" href="$d6/d5a/serialization_8cpp.html" title=" " alt="" coords="4731,328,4930,368"/>
-<area shape="rect" id="node26" href="$d3/d08/interpolation_8h.html" title="Provides interpolation utils." alt="" coords="1645,438,1882,493"/>
-<area shape="rect" id="node27" href="$d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="2304,321,2503,375"/>
+<area shape="rect" id="node25" href="$d6/d5a/serialization_8cpp.html" title=" " alt="" coords="4675,328,4874,368"/>
+<area shape="rect" id="node26" href="$d3/d08/interpolation_8h.html" title="Provides interpolation utils." alt="" coords="1589,438,1826,493"/>
+<area shape="rect" id="node27" href="$d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="2248,321,2447,375"/>
 <area shape="rect" id="node29" href="$d8/dfa/iterative__spline__parameterization__task_8cpp.html" title="Perform iterative spline time parameterization." alt="" coords="1032,548,1212,603"/>
-<area shape="rect" id="node30" href="$d6/d36/ruckig__trajectory__smoothing__task_8cpp.html" title=" " alt="" coords="1279,548,1462,603"/>
-<area shape="rect" id="node31" href="$d2/d98/freespace__example__program_8h.html" title=" " alt="" coords="5770,438,5968,493"/>
-<area shape="rect" id="node33" href="$db/d2d/raster__example__program_8h.html" title="Example raster paths." alt="" coords="5992,438,6165,493"/>
-<area shape="rect" id="node34" href="$d3/d6c/min__length__task_8h.html" title="Task for processing the seed so it meets a minimum length. Planners like trajopt need at least 10 sta..." alt="" coords="4954,321,5189,375"/>
-<area shape="rect" id="node35" href="$d3/db0/raster__motion__task_8hpp.html" title="Raster motion task with transitions." alt="" coords="804,313,1012,383"/>
-<area shape="rect" id="node36" href="$d8/dfe/raster__only__motion__task_8hpp.html" title=" " alt="" coords="1036,313,1228,383"/>
-<area shape="rect" id="node37" href="$d9/d9a/upsample__trajectory__task_8h.html" title=" " alt="" coords="1252,313,1438,383"/>
-<area shape="rect" id="node38" href="$d1/d48/update__end__state__task_8cpp.html" title=" " alt="" coords="1462,321,1634,375"/>
-<area shape="rect" id="node39" href="$d7/d0f/update__start__and__end__state__task_8cpp.html" title=" " alt="" coords="1658,321,1830,375"/>
-<area shape="rect" id="node40" href="$d2/df3/update__start__state__task_8cpp.html" title=" " alt="" coords="1854,321,2026,375"/>
+<area shape="rect" id="node30" href="$d6/d36/ruckig__trajectory__smoothing__task_8cpp.html" title=" " alt="" coords="1287,548,1470,603"/>
+<area shape="rect" id="node31" href="$d2/d98/freespace__example__program_8h.html" title=" " alt="" coords="5714,438,5912,493"/>
+<area shape="rect" id="node33" href="$db/d2d/raster__example__program_8h.html" title="Example raster paths." alt="" coords="5936,438,6109,493"/>
+<area shape="rect" id="node34" href="$d3/d6c/min__length__task_8h.html" title="Task for processing the input data so it meets a minimum length. Planners like trajopt need at least ..." alt="" coords="4898,321,5133,375"/>
+<area shape="rect" id="node35" href="$d9/d9a/upsample__trajectory__task_8h.html" title=" " alt="" coords="804,313,990,383"/>
+<area shape="rect" id="node36" href="$d4/d89/raster__motion__task_8cpp.html" title="Raster motion task with transitions." alt="" coords="1014,321,1186,375"/>
+<area shape="rect" id="node37" href="$d3/d6b/raster__only__motion__task_8cpp.html" title=" " alt="" coords="1210,321,1382,375"/>
+<area shape="rect" id="node38" href="$d1/d48/update__end__state__task_8cpp.html" title=" " alt="" coords="1406,321,1578,375"/>
+<area shape="rect" id="node39" href="$d7/d0f/update__start__and__end__state__task_8cpp.html" title=" " alt="" coords="1602,321,1774,375"/>
+<area shape="rect" id="node40" href="$d2/df3/update__start__state__task_8cpp.html" title=" " alt="" coords="1798,321,1970,375"/>
 <area shape="rect" id="node41" href="$d2/d7a/instructions__trajectory_8h.html" title="Trajectory Container implementation for command language instructions." alt="" coords="1160,431,1384,500"/>
 <area shape="rect" id="node42" href="$dd/dd8/tesseract__time__parameterization_2core_2include_2tesseract__time__parameterization_2core_2utils_8h.html" title="Time parameterization utils." alt="" coords="468,321,678,375"/>
 <area shape="rect" id="node43" href="$d6/d54/time__optimal__trajectory__generation_8h.html" title=" " alt="" coords="182,431,393,500"/>
-<area shape="rect" id="node4" href="$de/df3/tesseract__command__language_2test_2serialize__test_8cpp.html" title=" " alt="" coords="3403,445,3602,485"/>
-<area shape="rect" id="node5" href="$d1/dbe/type__erasure__benchmark_8cpp.html" title=" " alt="" coords="3157,445,3378,485"/>
-<area shape="rect" id="node17" href="$d2/de8/chain__example_8cpp.html" title="Chained motion planning example." alt="" coords="2228,555,2422,595"/>
-<area shape="rect" id="node18" href="$d4/d82/freespace__example_8cpp.html" title="Freespace motion planning example." alt="" coords="1982,555,2204,595"/>
-<area shape="rect" id="node45" href="$d8/d1d/move__instruction_8cpp.html" title=" " alt="" coords="4155,445,4354,485"/>
-<area shape="rect" id="node46" href="$d8/d1d/move__instruction__unit_8cpp.html" title="Contains unit tests for MoveInstruction." alt="" coords="4378,445,4581,485"/>
+<area shape="rect" id="node4" href="$de/df3/tesseract__command__language_2test_2serialize__test_8cpp.html" title=" " alt="" coords="3347,445,3546,485"/>
+<area shape="rect" id="node5" href="$d1/dbe/type__erasure__benchmark_8cpp.html" title=" " alt="" coords="3101,445,3322,485"/>
+<area shape="rect" id="node17" href="$d2/de8/chain__example_8cpp.html" title="Chained motion planning example." alt="" coords="2172,555,2366,595"/>
+<area shape="rect" id="node18" href="$d4/d82/freespace__example_8cpp.html" title="Freespace motion planning example." alt="" coords="1926,555,2148,595"/>
+<area shape="rect" id="node45" href="$d8/d1d/move__instruction_8cpp.html" title=" " alt="" coords="4099,445,4298,485"/>
+<area shape="rect" id="node46" href="$d8/d1d/move__instruction__unit_8cpp.html" title="Contains unit tests for MoveInstruction." alt="" coords="4322,445,4525,485"/>
 </map>

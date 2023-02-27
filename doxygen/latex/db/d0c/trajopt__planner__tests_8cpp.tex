@@ -45,9 +45,9 @@ namespace \mbox{\hyperlink{namespacetesseract__tests}{tesseract\+\_\+tests}}
 \item 
 \mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}} \mbox{\hyperlink{trajopt__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}{append\+Move\+Instruction}} (\mbox{\hyperlink{descartes__planner__tests_8cpp_a42efaf78a1c46b95e0b8c0fb79f395ed}{plan\+\_\+f1}})
 \item 
-\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{trajopt__planner__tests_8cpp_a87f229efc35349bfde65f2a52072644e}{add\+Profile$<$ Traj\+Opt\+Plan\+Profile $>$}} (TRAJOPT\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}})
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{trajopt__planner__tests_8cpp_a87f229efc35349bfde65f2a52072644e}{add\+Profile$<$ Traj\+Opt\+Plan\+Profile $>$}} (\mbox{\hyperlink{basic__cartesian__example_8cpp_aa787e5ed28bd385091840a6d523ddc33}{TRAJOPT\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}})
 \item 
-\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{trajopt__planner__tests_8cpp_a50535687c8355dc0d3f7f78f1adbb964}{add\+Profile$<$ Traj\+Opt\+Composite\+Profile $>$}} (TRAJOPT\+\_\+\+DEFAULT\+\_\+\+NAMESPACE, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, \mbox{\hyperlink{trajopt__planner__tests_8cpp_ab5ca2bc3543c598ab7780590481d7d34}{composite\+\_\+profile}})
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} \mbox{\hyperlink{trajopt__planner__tests_8cpp_a50535687c8355dc0d3f7f78f1adbb964}{add\+Profile$<$ Traj\+Opt\+Composite\+Profile $>$}} (\mbox{\hyperlink{basic__cartesian__example_8cpp_aa787e5ed28bd385091840a6d523ddc33}{TRAJOPT\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}, \char`\"{}TEST\+\_\+\+PROFILE\char`\"{}, \mbox{\hyperlink{trajopt__planner__tests_8cpp_ab5ca2bc3543c598ab7780590481d7d34}{composite\+\_\+profile}})
 \item 
 \mbox{\hyperlink{trajopt__planner__tests_8cpp_a8ee4cbc175f5cc0c9e86c60efc3f84e6}{for}} (uint8\+\_\+t byte=0;byte$<$ 16;byte++)
 \item 
@@ -80,6 +80,8 @@ int \mbox{\hyperlink{trajopt__planner__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e
 \item 
 TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP const int \mbox{\hyperlink{trajopt__planner__tests_8cpp_a4d6c526d87c61a326efd3362c55c44be}{NUM\+\_\+\+STEPS}} = 7
 \item 
+static const std\+::string \mbox{\hyperlink{trajopt__planner__tests_8cpp_aa787e5ed28bd385091840a6d523ddc33}{TRAJOPT\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}} = \char`\"{}Traj\+Opt\+Motion\+Planner\+Task\char`\"{}
+\item 
 std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{trajopt__planner__tests_8cpp_a8ea19d9e5b230904d87203a86e4b7258}{joint\+\_\+names}} = \mbox{\hyperlink{ompl__planner__tests_8cpp_a553a400a0c81f57e4dd2d27aefef9b9c}{joint\+\_\+group}}-\/$>$get\+Joint\+Names()
 \item 
 auto \mbox{\hyperlink{trajopt__planner__tests_8cpp_aa286b62ffc5f362a9629f912c3421781}{cur\+\_\+state}} = env\+\_\+-\/$>$get\+State()
@@ -100,7 +102,7 @@ auto \mbox{\hyperlink{trajopt__planner__tests_8cpp_ab5ca2bc3543c598ab7780590481d
 \item 
 auto \mbox{\hyperlink{trajopt__planner__tests_8cpp_ab3ea9ac41306fc1bf44dd5c18d494630}{profiles}} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}$>$()
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{Traj\+Opt\+Motion\+Planner}} \mbox{\hyperlink{trajopt__planner__tests_8cpp_ad08f29ffb2e06eb094eabdf96cff01c1}{test\+\_\+planner}}
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{Traj\+Opt\+Motion\+Planner}} \mbox{\hyperlink{trajopt__planner__tests_8cpp_afae7e79e9a295703faabec2fb7cb0466}{test\+\_\+planner}} (\mbox{\hyperlink{basic__cartesian__example_8cpp_aa787e5ed28bd385091840a6d523ddc33}{TRAJOPT\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}})
 \item 
 \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \mbox{\hyperlink{trajopt__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}
 \item 
@@ -127,13 +129,13 @@ auto \mbox{\hyperlink{trajopt__planner__tests_8cpp_a553a400a0c81f57e4dd2d27aefef
 \index{trajopt\_planner\_tests.cpp@{trajopt\_planner\_tests.cpp}!addProfile$<$ TrajOptCompositeProfile $>$@{addProfile$<$ TrajOptCompositeProfile $>$}}
 \index{addProfile$<$ TrajOptCompositeProfile $>$@{addProfile$<$ TrajOptCompositeProfile $>$}!trajopt\_planner\_tests.cpp@{trajopt\_planner\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{addProfile$<$ TrajOptCompositeProfile $>$()}{addProfile< TrajOptCompositeProfile >()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptCompositeProfile}{Traj\+Opt\+Composite\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{TRAJOPT\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{\mbox{\hyperlink{trajopt__planner__tests_8cpp_ab5ca2bc3543c598ab7780590481d7d34}{composite\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptCompositeProfile}{Traj\+Opt\+Composite\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{basic__cartesian__example_8cpp_aa787e5ed28bd385091840a6d523ddc33}{TRAJOPT\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{\mbox{\hyperlink{trajopt__planner__tests_8cpp_ab5ca2bc3543c598ab7780590481d7d34}{composite\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{trajopt__planner__tests_8cpp_a87f229efc35349bfde65f2a52072644e}\label{trajopt__planner__tests_8cpp_a87f229efc35349bfde65f2a52072644e}} 
 \index{trajopt\_planner\_tests.cpp@{trajopt\_planner\_tests.cpp}!addProfile$<$ TrajOptPlanProfile $>$@{addProfile$<$ TrajOptPlanProfile $>$}}
 \index{addProfile$<$ TrajOptPlanProfile $>$@{addProfile$<$ TrajOptPlanProfile $>$}!trajopt\_planner\_tests.cpp@{trajopt\_planner\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{addProfile$<$ TrajOptPlanProfile $>$()}{addProfile< TrajOptPlanProfile >()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile}{Traj\+Opt\+Plan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{TRAJOPT\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a13750846d267dd5648a15c858593c1cb}{profiles}} add\+Profile$<$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile}{Traj\+Opt\+Plan\+Profile}} $>$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{basic__cartesian__example_8cpp_aa787e5ed28bd385091840a6d523ddc33}{TRAJOPT\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}}]{,  }\item[{\char`\"{}TEST\+\_\+\+PROFILE\char`\"{}}]{,  }\item[{\mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}}}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{trajopt__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}\label{trajopt__planner__tests_8cpp_ad5b42cff8131fdf2af422b9b998a605d}} 
 \index{trajopt\_planner\_tests.cpp@{trajopt\_planner\_tests.cpp}!appendMoveInstruction@{appendMoveInstruction}}
@@ -358,11 +360,17 @@ Last updated\+: July 15, 2019 Matthew Powelson \mbox{\Hypertarget{trajopt__plann
 \doxysubsubsection{\texorpdfstring{term\_type}{term\_type}}
 {\footnotesize\ttfamily \mbox{\hyperlink{descartes__planner__tests_8cpp_a2260143fdec592c8776e571312efa55e}{plan\+\_\+profile}} term\+\_\+type = trajopt\+::\+Term\+Type\+::\+TT\+\_\+\+COST}
 
-\mbox{\Hypertarget{trajopt__planner__tests_8cpp_ad08f29ffb2e06eb094eabdf96cff01c1}\label{trajopt__planner__tests_8cpp_ad08f29ffb2e06eb094eabdf96cff01c1}} 
+\mbox{\Hypertarget{trajopt__planner__tests_8cpp_afae7e79e9a295703faabec2fb7cb0466}\label{trajopt__planner__tests_8cpp_afae7e79e9a295703faabec2fb7cb0466}} 
 \index{trajopt\_planner\_tests.cpp@{trajopt\_planner\_tests.cpp}!test\_planner@{test\_planner}}
 \index{test\_planner@{test\_planner}!trajopt\_planner\_tests.cpp@{trajopt\_planner\_tests.cpp}}
 \doxysubsubsection{\texorpdfstring{test\_planner}{test\_planner}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{Traj\+Opt\+Motion\+Planner}} test\+\_\+planner}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{Traj\+Opt\+Motion\+Planner}} test\+\_\+planner (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{basic__cartesian__example_8cpp_aa787e5ed28bd385091840a6d523ddc33}{TRAJOPT\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{trajopt__planner__tests_8cpp_aa787e5ed28bd385091840a6d523ddc33}\label{trajopt__planner__tests_8cpp_aa787e5ed28bd385091840a6d523ddc33}} 
+\index{trajopt\_planner\_tests.cpp@{trajopt\_planner\_tests.cpp}!TRAJOPT\_DEFAULT\_NAMESPACE@{TRAJOPT\_DEFAULT\_NAMESPACE}}
+\index{TRAJOPT\_DEFAULT\_NAMESPACE@{TRAJOPT\_DEFAULT\_NAMESPACE}!trajopt\_planner\_tests.cpp@{trajopt\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{TRAJOPT\_DEFAULT\_NAMESPACE}{TRAJOPT\_DEFAULT\_NAMESPACE}}
+{\footnotesize\ttfamily const std\+::string TRAJOPT\+\_\+\+DEFAULT\+\_\+\+NAMESPACE = \char`\"{}Traj\+Opt\+Motion\+Planner\+Task\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
 
 \mbox{\Hypertarget{trajopt__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}\label{trajopt__planner__tests_8cpp_ae64db9b4e6bc99309ba972a308668172}} 
 \index{trajopt\_planner\_tests.cpp@{trajopt\_planner\_tests.cpp}!wp1@{wp1}}

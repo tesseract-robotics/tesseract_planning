@@ -12,47 +12,51 @@
 \DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
 \DoxyCodeLine{33 }
 \DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__task_8h}{tesseract\_task\_composer/task\_composer\_task.h}}>}}
-\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__node__names_8h}{tesseract\_task\_composer/task\_composer\_node\_names.h}}>}}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{38 \{}
-\DoxyCodeLine{43 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}}
-\DoxyCodeLine{44 \{}
-\DoxyCodeLine{45 \textcolor{keyword}{public}:}
-\DoxyCodeLine{46   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a47dab75907ed7dd7efcbeafd81c42ab9}{Ptr}} = std::shared\_ptr<FixStateBoundsTask>;}
-\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a22ab5ac3159f5d478bff93df0624d39d}{ConstPtr}} = std::shared\_ptr<const FixStateBoundsTask>;}
-\DoxyCodeLine{48   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_aabde856ac142c6f8dac43f8a1c582253}{UPtr}} = std::unique\_ptr<FixStateBoundsTask>;}
-\DoxyCodeLine{49   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a2ecb029d55dbb69ffa829a608f31a41c}{ConstUPtr}} = std::unique\_ptr<const FixStateBoundsTask>;}
-\DoxyCodeLine{50 }
-\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a8f0ca22edd88cebf71f26ef8cc99948f}{FixStateBoundsTask}}() = \textcolor{keywordflow}{default};  \textcolor{comment}{// Required for serialization}}
-\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a8f0ca22edd88cebf71f26ef8cc99948f}{FixStateBoundsTask}}(std::string input\_key,}
-\DoxyCodeLine{53                      std::string output\_key,}
-\DoxyCodeLine{54                      \textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{true},}
-\DoxyCodeLine{55                      std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a50bf0d4e3e555c74597f9995e18e4914}{node\_names::FIX\_STATE\_BOUNDS\_TASK\_NAME}});}
-\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_af3bb699c90bae8cbb31e9ae2c13cd345}{\string~FixStateBoundsTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_ab19333697df62c36ab6677164e6987ff}{FixStateBoundsTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_aa6b85f6675cf256d38af6249773c853b}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{59   \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a05334266976643a4ec718e953ca285c5}{FixStateBoundsTask}}(\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{60   \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a209635d7eab0e02bf29fdc220c52856b}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_aa550a4b26cb2b3921d01cfbe4b0bd8fc}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{63   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_ad0a9871ac56d988be93a6af0d5d1bf88}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{65 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{66   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
-\DoxyCodeLine{67   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{68   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{69   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a9df04258b676f0c8bfa86aaf0e29b10e}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a163e8a2e2b6fe484c25e63ff886691a9}{runImpl}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
-\DoxyCodeLine{72                                      \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{OptionalTaskComposerExecutor}} executor = std::nullopt) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
-\DoxyCodeLine{73 \};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38 \textcolor{keyword}{class }TaskComposerPluginFactory;}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{44 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{public}:}
+\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a47dab75907ed7dd7efcbeafd81c42ab9}{Ptr}} = std::shared\_ptr<FixStateBoundsTask>;}
+\DoxyCodeLine{48   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a22ab5ac3159f5d478bff93df0624d39d}{ConstPtr}} = std::shared\_ptr<const FixStateBoundsTask>;}
+\DoxyCodeLine{49   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_aabde856ac142c6f8dac43f8a1c582253}{UPtr}} = std::unique\_ptr<FixStateBoundsTask>;}
+\DoxyCodeLine{50   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a2ecb029d55dbb69ffa829a608f31a41c}{ConstUPtr}} = std::unique\_ptr<const FixStateBoundsTask>;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a7266cd85f1bd9fa3598de87ba90f99ec}{FixStateBoundsTask}}();}
+\DoxyCodeLine{53   \textcolor{keyword}{explicit} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a7266cd85f1bd9fa3598de87ba90f99ec}{FixStateBoundsTask}}(std::string name,}
+\DoxyCodeLine{54                               std::string input\_key,}
+\DoxyCodeLine{55                               std::string output\_key,}
+\DoxyCodeLine{56                               \textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{true});}
+\DoxyCodeLine{57   \textcolor{keyword}{explicit} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a7266cd85f1bd9fa3598de87ba90f99ec}{FixStateBoundsTask}}(std::string name,}
+\DoxyCodeLine{58                               \textcolor{keyword}{const} YAML::Node\& config,}
+\DoxyCodeLine{59                               \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{TaskComposerPluginFactory}}\& plugin\_factory);}
+\DoxyCodeLine{60   \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_af3bb699c90bae8cbb31e9ae2c13cd345}{\string~FixStateBoundsTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{61   \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_ab19333697df62c36ab6677164e6987ff}{FixStateBoundsTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{62   \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_aa6b85f6675cf256d38af6249773c853b}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{63   \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a05334266976643a4ec718e953ca285c5}{FixStateBoundsTask}}(\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{64   \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a209635d7eab0e02bf29fdc220c52856b}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_aa550a4b26cb2b3921d01cfbe4b0bd8fc}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{67   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_ad0a9871ac56d988be93a6af0d5d1bf88}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{FixStateBoundsTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{70   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{71   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{72   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{73   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a9df04258b676f0c8bfa86aaf0e29b10e}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
 \DoxyCodeLine{74 }
-\DoxyCodeLine{75 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{76 }
-\DoxyCodeLine{77 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
-\DoxyCodeLine{78 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
-\DoxyCodeLine{79 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{tesseract\_planning::FixStateBoundsTask}}, \textcolor{stringliteral}{"{}FixStateBoundsTask"{}})}
-\DoxyCodeLine{80 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_FIX\_STATE\_BOUNDS\_TASK\_H}}
+\DoxyCodeLine{75   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask_a163e8a2e2b6fe484c25e63ff886691a9}{runImpl}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
+\DoxyCodeLine{76                                      \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{OptionalTaskComposerExecutor}} executor = std::nullopt) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{77 \};}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{83 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{tesseract\_planning::FixStateBoundsTask}}, \textcolor{stringliteral}{"{}FixStateBoundsTask"{}})}
+\DoxyCodeLine{84 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_FIX\_STATE\_BOUNDS\_TASK\_H}}
 
 \end{DoxyCode}

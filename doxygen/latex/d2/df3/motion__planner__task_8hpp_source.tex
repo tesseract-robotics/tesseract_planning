@@ -18,127 +18,158 @@
 \DoxyCodeLine{38 }
 \DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
 \DoxyCodeLine{40 \{}
-\DoxyCodeLine{41 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MotionPlannerType>}
-\DoxyCodeLine{42 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{MotionPlannerTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}}
-\DoxyCodeLine{43 \{}
-\DoxyCodeLine{44 \textcolor{keyword}{public}:}
-\DoxyCodeLine{45   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_a556eafcfe33a085a657236f55dc823ee}{MotionPlannerTask}}() = \textcolor{keywordflow}{default};  \textcolor{comment}{// Required for serialization}}
-\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ab9576aebb0b167936cb2faf84c3bbb1b}{MotionPlannerTask}}(std::string input\_key,}
-\DoxyCodeLine{47                     std::string output\_key,}
-\DoxyCodeLine{48                     \textcolor{keywordtype}{bool} format\_result\_as\_input,}
-\DoxyCodeLine{49                     \textcolor{keywordtype}{bool} is\_conditional,}
-\DoxyCodeLine{50                     std::string name)  \textcolor{comment}{// NOLINT(performance-\/unnecessary-\/value-\/param)}}
-\DoxyCodeLine{51     : \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}(is\_conditional, std::move(name))}
-\DoxyCodeLine{52     , \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ad4344955046bca4efe7f5cc37d33063b}{planner\_}}(std::make\_shared<MotionPlannerType>(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a4262ec220082fadf23a4dc9b9cbc5af6}{name\_}}))}
-\DoxyCodeLine{53     , \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_afe499d1606a36cde90dccb363859f4dc}{format\_result\_as\_input\_}}(format\_result\_as\_input)}
-\DoxyCodeLine{54   \{}
-\DoxyCodeLine{55     \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a245528c5410fbab11660af81688f8d46}{input\_keys\_}}.push\_back(std::move(input\_key));}
-\DoxyCodeLine{56     \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a6e7e482b144b120f2c91e2d3f8c07001}{output\_keys\_}}.push\_back(std::move(output\_key));}
-\DoxyCodeLine{57   \}}
-\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_a933468ab4a7f141ae9c7e3a96ddd5269}{\string~MotionPlannerTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{60   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ae970b8d0d89e03e70482918055390e63}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{MotionPlannerTask}}\& rhs)\textcolor{keyword}{ const}}
-\DoxyCodeLine{61 \textcolor{keyword}{  }\{}
-\DoxyCodeLine{62     \textcolor{keywordtype}{bool} equal = \textcolor{keyword}{true};}
-\DoxyCodeLine{63     equal \&= (\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_afe499d1606a36cde90dccb363859f4dc}{format\_result\_as\_input\_}} == rhs.\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_afe499d1606a36cde90dccb363859f4dc}{format\_result\_as\_input\_}});}
-\DoxyCodeLine{64     equal \&= \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_a608b27c5ec6763f8b884d4fbb15f40be}{TaskComposerTask::operator==}}(rhs);}
-\DoxyCodeLine{65     \textcolor{keywordflow}{return} equal;}
-\DoxyCodeLine{66   \}}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{68   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_aaac2dad24985f0f290bd2778ebf875fd}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{MotionPlannerTask}}\& rhs)\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} !\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ae970b8d0d89e03e70482918055390e63}{operator==}}(rhs); \}}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{70 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{71   std::shared\_ptr<MotionPlannerType> \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ad4344955046bca4efe7f5cc37d33063b}{planner\_}};}
-\DoxyCodeLine{72   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_afe499d1606a36cde90dccb363859f4dc}{format\_result\_as\_input\_}}\{ \textcolor{keyword}{true} \};}
-\DoxyCodeLine{73 }
-\DoxyCodeLine{74   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
-\DoxyCodeLine{75   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{76   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{77   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_abeecb0b3af97a216d414a501327fe63c}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{comment}{/*version*/})  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{78   \{}
-\DoxyCodeLine{79     ar\& BOOST\_SERIALIZATION\_NVP(\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_afe499d1606a36cde90dccb363859f4dc}{format\_result\_as\_input\_}});}
-\DoxyCodeLine{80     ar\& BOOST\_SERIALIZATION\_BASE\_OBJECT\_NVP(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}});}
-\DoxyCodeLine{81   \}}
-\DoxyCodeLine{82 }
-\DoxyCodeLine{83   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_aa253a4fe8ad62c8589db7c5287985cc6}{runImpl}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
-\DoxyCodeLine{84                                      \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{OptionalTaskComposerExecutor}} \textcolor{comment}{/*executor*/} = std::nullopt)\textcolor{keyword}{ const override}}
-\DoxyCodeLine{85 \textcolor{keyword}{  }\{}
-\DoxyCodeLine{86     \textcolor{keyword}{auto} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}} = std::make\_unique<TaskComposerNodeInfo>(*\textcolor{keyword}{this});}
-\DoxyCodeLine{87     \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>return\_value = 0;}
-\DoxyCodeLine{88     \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>env = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a53863bb1b69a1696e2065bfb92d85c5d}{env}};}
-\DoxyCodeLine{89 }
-\DoxyCodeLine{90     \textcolor{keywordflow}{if} (input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a9d92c7d36560f57b36fb4c9b5586a991}{isAborted}}())}
-\DoxyCodeLine{91     \{}
-\DoxyCodeLine{92       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message = \textcolor{stringliteral}{"{}Aborted"{}};}
-\DoxyCodeLine{93       \textcolor{keywordflow}{return} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}};}
-\DoxyCodeLine{94     \}}
-\DoxyCodeLine{95 }
-\DoxyCodeLine{96     tesseract\_common::Timer timer;}
-\DoxyCodeLine{97     timer.start();}
+\DoxyCodeLine{41 \textcolor{keyword}{class }TaskComposerPluginFactory;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MotionPlannerType>}
+\DoxyCodeLine{44 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{MotionPlannerTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{public}:}
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ae641aafe952dae83a68dfdec52f76c96}{MotionPlannerTask}}() : \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}(\textcolor{stringliteral}{"{}MotionPlannerTask"{}}, true) \{\}}
+\DoxyCodeLine{48   \textcolor{keyword}{explicit} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_a80b36740f08d50c0599d5d5d91335076}{MotionPlannerTask}}(std::string name,  \textcolor{comment}{// NOLINT(performance-\/unnecessary-\/value-\/param)}}
+\DoxyCodeLine{49                              std::string input\_key,}
+\DoxyCodeLine{50                              std::string output\_key,}
+\DoxyCodeLine{51                              \textcolor{keywordtype}{bool} format\_result\_as\_input,}
+\DoxyCodeLine{52                              \textcolor{keywordtype}{bool} is\_conditional)}
+\DoxyCodeLine{53     : \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}(std::move(name), is\_conditional)}
+\DoxyCodeLine{54     , \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ad4344955046bca4efe7f5cc37d33063b}{planner\_}}(std::make\_shared<MotionPlannerType>(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a4262ec220082fadf23a4dc9b9cbc5af6}{name\_}}))}
+\DoxyCodeLine{55     , \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_afe499d1606a36cde90dccb363859f4dc}{format\_result\_as\_input\_}}(format\_result\_as\_input)}
+\DoxyCodeLine{56   \{}
+\DoxyCodeLine{57     \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a245528c5410fbab11660af81688f8d46}{input\_keys\_}}.push\_back(std::move(input\_key));}
+\DoxyCodeLine{58     \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a6e7e482b144b120f2c91e2d3f8c07001}{output\_keys\_}}.push\_back(std::move(output\_key));}
+\DoxyCodeLine{59   \}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61   \textcolor{keyword}{explicit} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_a610f2fd81c5b899f90a1fad6ce064de6}{MotionPlannerTask}}(std::string name,  \textcolor{comment}{// NOLINT(performance-\/unnecessary-\/value-\/param)}}
+\DoxyCodeLine{62                              \textcolor{keyword}{const} YAML::Node\& config,}
+\DoxyCodeLine{63                              \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{TaskComposerPluginFactory}}\& \textcolor{comment}{/*plugin\_factory*/})}
+\DoxyCodeLine{64     : \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}(std::move(name), config), \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ad4344955046bca4efe7f5cc37d33063b}{planner\_}}(std::make\_shared<MotionPlannerType>(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a4262ec220082fadf23a4dc9b9cbc5af6}{name\_}}))}
+\DoxyCodeLine{65   \{}
+\DoxyCodeLine{66     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a245528c5410fbab11660af81688f8d46}{input\_keys\_}}.empty())}
+\DoxyCodeLine{67       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}MotionPlannerTask, config missing 'inputs' entry"{}});}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a245528c5410fbab11660af81688f8d46}{input\_keys\_}}.size() > 1)}
+\DoxyCodeLine{70       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}MotionPlannerTask, config 'inputs' entry currently only supports one input key"{}});}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a6e7e482b144b120f2c91e2d3f8c07001}{output\_keys\_}}.empty())}
+\DoxyCodeLine{73       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}MotionPlannerTask, config missing 'outputs' entry"{}});}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a6e7e482b144b120f2c91e2d3f8c07001}{output\_keys\_}}.size() > 1)}
+\DoxyCodeLine{76       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}MotionPlannerTask, config 'outputs' entry currently only supports one output key"{}});}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78     \textcolor{keywordflow}{try}}
+\DoxyCodeLine{79     \{}
+\DoxyCodeLine{80       \textcolor{keywordflow}{if} (YAML::Node n = config[\textcolor{stringliteral}{"{}format\_result\_as\_input"{}}])}
+\DoxyCodeLine{81         \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_afe499d1606a36cde90dccb363859f4dc}{format\_result\_as\_input\_}} = n.as<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{82     \}}
+\DoxyCodeLine{83     \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::exception\& e)}
+\DoxyCodeLine{84     \{}
+\DoxyCodeLine{85       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}MotionPlannerTask: Failed to parse yaml config data! Details: "{}} +}
+\DoxyCodeLine{86                                std::string(e.what()));}
+\DoxyCodeLine{87     \}}
+\DoxyCodeLine{88   \}}
+\DoxyCodeLine{89   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_a933468ab4a7f141ae9c7e3a96ddd5269}{\string~MotionPlannerTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ae970b8d0d89e03e70482918055390e63}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{MotionPlannerTask}}\& rhs)\textcolor{keyword}{ const}}
+\DoxyCodeLine{92 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{93     \textcolor{keywordtype}{bool} equal = \textcolor{keyword}{true};}
+\DoxyCodeLine{94     equal \&= (\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_afe499d1606a36cde90dccb363859f4dc}{format\_result\_as\_input\_}} == rhs.\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_afe499d1606a36cde90dccb363859f4dc}{format\_result\_as\_input\_}});}
+\DoxyCodeLine{95     equal \&= \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_a608b27c5ec6763f8b884d4fbb15f40be}{TaskComposerTask::operator==}}(rhs);}
+\DoxyCodeLine{96     \textcolor{keywordflow}{return} equal;}
+\DoxyCodeLine{97   \}}
 \DoxyCodeLine{98 }
-\DoxyCodeLine{99     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{100     \textcolor{comment}{// Check that inputs are valid}}
-\DoxyCodeLine{101     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{102     \textcolor{keyword}{auto} input\_data\_poly = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aec2a20706c00bedd0b6491c0992980ff}{data\_storage}}.\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_aa0f70e10286a1e419cd6960954370160}{getData}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a245528c5410fbab11660af81688f8d46}{input\_keys\_}}[0]);}
-\DoxyCodeLine{103     \textcolor{keywordflow}{if} (input\_data\_poly.isNull() || input\_data\_poly.getType() != std::type\_index(\textcolor{keyword}{typeid}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}})))}
-\DoxyCodeLine{104     \{}
-\DoxyCodeLine{105       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message = \textcolor{stringliteral}{"{}Input instructions to MotionPlannerTask: "{}} + \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a4262ec220082fadf23a4dc9b9cbc5af6}{name\_}} + \textcolor{stringliteral}{"{} must be a composite instruction"{}};}
-\DoxyCodeLine{106       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>elapsed\_time = timer.elapsedSeconds();}
-\DoxyCodeLine{107       CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}\%s"{}}, \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message.c\_str());}
-\DoxyCodeLine{108       \textcolor{keywordflow}{return} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}};}
-\DoxyCodeLine{109     \}}
-\DoxyCodeLine{110 }
-\DoxyCodeLine{111     \textcolor{comment}{// Make a non-\/const copy of the input instructions to update the start/end}}
-\DoxyCodeLine{112     \textcolor{keyword}{auto}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}} = input\_data\_poly.template as<CompositeInstruction>();}
-\DoxyCodeLine{113     assert(!(input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a3c5c6c6f91f340c2f34564f122aa9d95}{manip\_info}}.empty() \&\& \mbox{\hyperlink{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}}.getManipulatorInfo().empty()));}
-\DoxyCodeLine{114     \mbox{\hyperlink{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}}.setManipulatorInfo(\mbox{\hyperlink{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}}.getManipulatorInfo().getCombined(input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a3c5c6c6f91f340c2f34564f122aa9d95}{manip\_info}}));}
-\DoxyCodeLine{115 }
-\DoxyCodeLine{116     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{117     \textcolor{comment}{// Fill out request}}
-\DoxyCodeLine{118     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{119     \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}} \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}};}
-\DoxyCodeLine{120     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.env\_state = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a53863bb1b69a1696e2065bfb92d85c5d}{env}}-\/>getState();}
-\DoxyCodeLine{121     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.env = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a53863bb1b69a1696e2065bfb92d85c5d}{env}};}
-\DoxyCodeLine{122     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.instructions = \mbox{\hyperlink{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}};}
-\DoxyCodeLine{123     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.profiles = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a5301e65f67484aef2c98ac10a8ac50ac}{profiles}};}
-\DoxyCodeLine{124     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.plan\_profile\_remapping = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a18afaccf114de59584102fb410b83aff}{move\_profile\_remapping}};}
-\DoxyCodeLine{125     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.composite\_profile\_remapping = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a108c9a4f9298c171d6da8659897c3ccd}{composite\_profile\_remapping}};}
-\DoxyCodeLine{126     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.format\_result\_as\_input = \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_afe499d1606a36cde90dccb363859f4dc}{format\_result\_as\_input\_}};}
-\DoxyCodeLine{127 }
-\DoxyCodeLine{128     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{129     \textcolor{comment}{// Fill out response}}
+\DoxyCodeLine{99   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_aaac2dad24985f0f290bd2778ebf875fd}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{MotionPlannerTask}}\& rhs)\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} !\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ae970b8d0d89e03e70482918055390e63}{operator==}}(rhs); \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{102   std::shared\_ptr<MotionPlannerType> \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ad4344955046bca4efe7f5cc37d33063b}{planner\_}};}
+\DoxyCodeLine{103   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_afe499d1606a36cde90dccb363859f4dc}{format\_result\_as\_input\_}}\{ \textcolor{keyword}{true} \};}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{106   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{107   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{108   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_abeecb0b3af97a216d414a501327fe63c}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{comment}{/*version*/})  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{109   \{}
+\DoxyCodeLine{110     ar\& BOOST\_SERIALIZATION\_NVP(\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_afe499d1606a36cde90dccb363859f4dc}{format\_result\_as\_input\_}});}
+\DoxyCodeLine{111     ar\& BOOST\_SERIALIZATION\_BASE\_OBJECT\_NVP(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}});}
+\DoxyCodeLine{112   \}}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_aa253a4fe8ad62c8589db7c5287985cc6}{runImpl}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
+\DoxyCodeLine{115                                      \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{OptionalTaskComposerExecutor}} \textcolor{comment}{/*executor*/} = std::nullopt)\textcolor{keyword}{ const override}}
+\DoxyCodeLine{116 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{117     \textcolor{keyword}{auto} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}} = std::make\_unique<TaskComposerNodeInfo>(*\textcolor{keyword}{this});}
+\DoxyCodeLine{118     \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>return\_value = 0;}
+\DoxyCodeLine{119     \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>env = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a53863bb1b69a1696e2065bfb92d85c5d}{env}};}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121     \textcolor{keywordflow}{if} (input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a9d92c7d36560f57b36fb4c9b5586a991}{isAborted}}())}
+\DoxyCodeLine{122     \{}
+\DoxyCodeLine{123       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message = \textcolor{stringliteral}{"{}Aborted"{}};}
+\DoxyCodeLine{124       \textcolor{keywordflow}{return} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}};}
+\DoxyCodeLine{125     \}}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127     tesseract\_common::Timer timer;}
+\DoxyCodeLine{128     timer.start();}
+\DoxyCodeLine{129 }
 \DoxyCodeLine{130     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{131     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.verbose = \textcolor{keyword}{false};}
-\DoxyCodeLine{132     \textcolor{keywordflow}{if} (console\_bridge::getLogLevel() == console\_bridge::LogLevel::CONSOLE\_BRIDGE\_LOG\_DEBUG)}
-\DoxyCodeLine{133       \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.verbose = \textcolor{keyword}{true};}
-\DoxyCodeLine{134     \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}} = \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ad4344955046bca4efe7f5cc37d33063b}{planner\_}}-\/>solve(\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}});}
-\DoxyCodeLine{135 }
-\DoxyCodeLine{136     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{137     \textcolor{comment}{// Verify Success}}
-\DoxyCodeLine{138     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{139     \textcolor{keywordflow}{if} (\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}})}
-\DoxyCodeLine{140     \{}
-\DoxyCodeLine{141       input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aec2a20706c00bedd0b6491c0992980ff}{data\_storage}}.\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a66160148f9c4f6e7bc9a3b678a9b1f65}{setData}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a6e7e482b144b120f2c91e2d3f8c07001}{output\_keys\_}}[0], \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}}.results);}
-\DoxyCodeLine{142 }
-\DoxyCodeLine{143       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>return\_value = 1;}
-\DoxyCodeLine{144       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message = \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}}.message;}
-\DoxyCodeLine{145       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>elapsed\_time = timer.elapsedSeconds();}
-\DoxyCodeLine{146       CONSOLE\_BRIDGE\_logDebug(\textcolor{stringliteral}{"{}Motion Planner process succeeded"{}});}
-\DoxyCodeLine{147       \textcolor{keywordflow}{return} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}};}
-\DoxyCodeLine{148     \}}
-\DoxyCodeLine{149 }
-\DoxyCodeLine{150     \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a1d789c72ae877903646b21ba96678f38}{CONSOLE\_BRIDGE\_logInform}}(\textcolor{stringliteral}{"{}\%s motion planning failed (\%s) for process input: \%s"{}},}
-\DoxyCodeLine{151                              \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ad4344955046bca4efe7f5cc37d33063b}{planner\_}}-\/>getName().c\_str(),}
-\DoxyCodeLine{152                              \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}}.message.c\_str(),}
-\DoxyCodeLine{153                              \mbox{\hyperlink{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}}.getDescription().c\_str());}
-\DoxyCodeLine{154     \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message = \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}}.message;}
-\DoxyCodeLine{155     \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>elapsed\_time = timer.elapsedSeconds();}
-\DoxyCodeLine{156     \textcolor{keywordflow}{return} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}};}
-\DoxyCodeLine{157   \}}
-\DoxyCodeLine{158 \};}
-\DoxyCodeLine{159 }
-\DoxyCodeLine{160 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{161 }
-\DoxyCodeLine{162 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_MOTION\_PLANNER\_TASK\_HPP}}
+\DoxyCodeLine{131     \textcolor{comment}{// Check that inputs are valid}}
+\DoxyCodeLine{132     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{133     \textcolor{keyword}{auto} input\_data\_poly = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aec2a20706c00bedd0b6491c0992980ff}{data\_storage}}.\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_aa0f70e10286a1e419cd6960954370160}{getData}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a245528c5410fbab11660af81688f8d46}{input\_keys\_}}[0]);}
+\DoxyCodeLine{134     \textcolor{keywordflow}{if} (input\_data\_poly.isNull() || input\_data\_poly.getType() != std::type\_index(\textcolor{keyword}{typeid}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}})))}
+\DoxyCodeLine{135     \{}
+\DoxyCodeLine{136       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message = \textcolor{stringliteral}{"{}Input instructions to MotionPlannerTask: "{}} + \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a4262ec220082fadf23a4dc9b9cbc5af6}{name\_}} + \textcolor{stringliteral}{"{} must be a composite instruction"{}};}
+\DoxyCodeLine{137       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>elapsed\_time = timer.elapsedSeconds();}
+\DoxyCodeLine{138       CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}\%s"{}}, \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message.c\_str());}
+\DoxyCodeLine{139       \textcolor{keywordflow}{return} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}};}
+\DoxyCodeLine{140     \}}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{142     \textcolor{comment}{// Make a non-\/const copy of the input instructions to update the start/end}}
+\DoxyCodeLine{143     \textcolor{keyword}{auto}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}} = input\_data\_poly.template as<CompositeInstruction>();}
+\DoxyCodeLine{144     assert(!(input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a3c5c6c6f91f340c2f34564f122aa9d95}{manip\_info}}.empty() \&\& \mbox{\hyperlink{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}}.getManipulatorInfo().empty()));}
+\DoxyCodeLine{145     \mbox{\hyperlink{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}}.setManipulatorInfo(\mbox{\hyperlink{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}}.getManipulatorInfo().getCombined(input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a3c5c6c6f91f340c2f34564f122aa9d95}{manip\_info}}));}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{147     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{148     \textcolor{comment}{// Fill out request}}
+\DoxyCodeLine{149     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{150     \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}} \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}};}
+\DoxyCodeLine{151     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.env\_state = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a53863bb1b69a1696e2065bfb92d85c5d}{env}}-\/>getState();}
+\DoxyCodeLine{152     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.env = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a53863bb1b69a1696e2065bfb92d85c5d}{env}};}
+\DoxyCodeLine{153     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.instructions = \mbox{\hyperlink{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}};}
+\DoxyCodeLine{154     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.profiles = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_a5301e65f67484aef2c98ac10a8ac50ac}{profiles}};}
+\DoxyCodeLine{155     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.plan\_profile\_remapping = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a18afaccf114de59584102fb410b83aff}{move\_profile\_remapping}};}
+\DoxyCodeLine{156     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.composite\_profile\_remapping = input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aadf6d1594254db0f15791fa532f2bd5e}{problem}}.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem_a108c9a4f9298c171d6da8659897c3ccd}{composite\_profile\_remapping}};}
+\DoxyCodeLine{157     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.format\_result\_as\_input = \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_afe499d1606a36cde90dccb363859f4dc}{format\_result\_as\_input\_}};}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{160     \textcolor{comment}{// Fill out response}}
+\DoxyCodeLine{161     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{162     \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.verbose = \textcolor{keyword}{false};}
+\DoxyCodeLine{163     \textcolor{keywordflow}{if} (console\_bridge::getLogLevel() == console\_bridge::LogLevel::CONSOLE\_BRIDGE\_LOG\_DEBUG)}
+\DoxyCodeLine{164       \mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}}.verbose = \textcolor{keyword}{true};}
+\DoxyCodeLine{165     \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}} = \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ad4344955046bca4efe7f5cc37d33063b}{planner\_}}-\/>solve(\mbox{\hyperlink{descartes__planner__tests_8cpp_abf1f9730cb985d80f279a7faa7e5f42a}{request}});}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{167     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{168     \textcolor{comment}{// Verify Success}}
+\DoxyCodeLine{169     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{170     \textcolor{keywordflow}{if} (\mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}})}
+\DoxyCodeLine{171     \{}
+\DoxyCodeLine{172       input.\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput_aec2a20706c00bedd0b6491c0992980ff}{data\_storage}}.\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerDataStorage_a66160148f9c4f6e7bc9a3b678a9b1f65}{setData}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_a6e7e482b144b120f2c91e2d3f8c07001}{output\_keys\_}}[0], \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}}.results);}
+\DoxyCodeLine{173 }
+\DoxyCodeLine{174       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>return\_value = 1;}
+\DoxyCodeLine{175       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message = \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}}.message;}
+\DoxyCodeLine{176       \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>elapsed\_time = timer.elapsedSeconds();}
+\DoxyCodeLine{177       CONSOLE\_BRIDGE\_logDebug(\textcolor{stringliteral}{"{}Motion Planner process succeeded"{}});}
+\DoxyCodeLine{178       \textcolor{keywordflow}{return} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}};}
+\DoxyCodeLine{179     \}}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181     \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a1d789c72ae877903646b21ba96678f38}{CONSOLE\_BRIDGE\_logInform}}(\textcolor{stringliteral}{"{}\%s motion planning failed (\%s) for process input: \%s"{}},}
+\DoxyCodeLine{182                              \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ad4344955046bca4efe7f5cc37d33063b}{planner\_}}-\/>getName().c\_str(),}
+\DoxyCodeLine{183                              \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}}.message.c\_str(),}
+\DoxyCodeLine{184                              \mbox{\hyperlink{descartes__planner__tests_8cpp_a540933d401a016e1bb8a7a67aeba9e19}{instructions}}.getDescription().c\_str());}
+\DoxyCodeLine{185     \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>message = \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a14985ebe95640870c914130042f11932}{response}}.message;}
+\DoxyCodeLine{186     \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}}-\/>elapsed\_time = timer.elapsedSeconds();}
+\DoxyCodeLine{187     \textcolor{keywordflow}{return} \mbox{\hyperlink{tesseract__task__composer__serialization__unit_8cpp_af01419e2d1fc5c89b47d6c77bd2a0648}{info}};}
+\DoxyCodeLine{188   \}}
+\DoxyCodeLine{189 \};}
+\DoxyCodeLine{190 }
+\DoxyCodeLine{191 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_MOTION\_PLANNER\_TASK\_HPP}}
 
 \end{DoxyCode}

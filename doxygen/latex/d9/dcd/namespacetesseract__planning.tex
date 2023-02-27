@@ -15,10 +15,6 @@ namespace \mbox{\hyperlink{namespacetesseract__planning_1_1detail__state__waypoi
 \item 
 namespace \mbox{\hyperlink{namespacetesseract__planning_1_1detail__waypoint}{detail\+\_\+waypoint}}
 \item 
-namespace \mbox{\hyperlink{namespacetesseract__planning_1_1node__names}{node\+\_\+names}}
-\item 
-namespace \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns}{profile\+\_\+ns}}
-\item 
 namespace \mbox{\hyperlink{namespacetesseract__planning_1_1totg}{totg}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Classes}
@@ -27,8 +23,6 @@ namespace \mbox{\hyperlink{namespacetesseract__planning_1_1totg}{totg}}
 struct \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{Bi\+TRRTConfigurator}}
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1\+Configurator}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{Cartesian\+Motion\+Pipeline\+Task}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}
 \item 
@@ -60,17 +54,9 @@ class \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluat
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{Descartes\+Default\+Plan\+Profile}}
 \item 
-class \mbox{\hyperlink{classtesseract__planning_1_1DescartesGlobalMotionPipelineTask}{Descartes\+Global\+Motion\+Pipeline\+Task}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator}{Descartes\+Joint\+Limits\+Vertex\+Evaluator}}
 \item 
-class \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPipelineTask}{Descartes\+Motion\+Pipeline\+Task}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{Descartes\+Motion\+Planner}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask}{Descartes\+Motion\+Planner\+Task}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1DescartesNPCMotionPipelineTask}{Descartes\+NPCMotion\+Pipeline\+Task}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}
 \item 
@@ -95,14 +81,12 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigu
 struct \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile}{Fix\+State\+Bounds\+Profile}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}}
-\begin{DoxyCompactList}\small\item\em This task modifies the const input instructions in order to push waypoints that are outside of their limits back within them. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em This task modifies the input instructions in order to push waypoints that are outside of their limits back within them. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask}{Fix\+State\+Collision\+Task}}
-\begin{DoxyCompactList}\small\item\em This task modifies the const input instructions in order to push waypoints that are in collision out of collision. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em This task modifies the input instructions in order to push waypoints that are in collision out of collision. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{Fix\+State\+Collision\+Task\+Info}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{Freespace\+Motion\+Pipeline\+Task}}
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{Instruction\+Poly}}
 \item 
@@ -132,8 +116,6 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1MinLengthProfile}{Min\+Leng
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1MinLengthTask}{Min\+Length\+Task}}
 \item 
-class \mbox{\hyperlink{classtesseract__planning_1_1MotionPipelineTask}{Motion\+Pipeline\+Task}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{Motion\+Planner}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}
@@ -144,12 +126,8 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}}
 \begin{DoxyCompactList}\small\item\em OMPL does not support the concept of multi waypoint planning like descartes and trajopt. Because of this every plan instruction will be its a seperate ompl motion plan and therefore planning information is relevent for this motion planner in the profile. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPipelineTask}{OMPLMotion\+Pipeline\+Task}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner}{OMPLMotion\+Planner}}
 \begin{DoxyCompactList}\small\item\em This planner is intended to provide an easy to use interface to OMPL for freespace planning. It is made to take a start and end point and automate the generation of the OMPL problem. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlannerTask}{OMPLMotion\+Planner\+Task}}
-\item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlanner\+Configurator}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}}
@@ -172,38 +150,10 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1ProfileSwitchProfile}{Profi
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTask}{Profile\+Switch\+Task}}
 \begin{DoxyCompactList}\small\item\em This task simply returns a value specified in the composite profile. This can be used to switch execution based on the profile. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterCtGlobalPipelineTask}{Raster\+Ct\+Global\+Pipeline\+Task}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyGlobalPipelineTask}{Raster\+Ct\+Only\+Global\+Pipeline\+Task}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyMotionTask}{Raster\+Ct\+Only\+Motion\+Task}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask}{Raster\+Ct\+Only\+Pipeline\+Task}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterCtPipelineTask}{Raster\+Ct\+Pipeline\+Task}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterFtGlobalPipelineTask}{Raster\+Ft\+Global\+Pipeline\+Task}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterFtMotionTask}{Raster\+Ft\+Motion\+Task}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterFtOnlyGlobalPipelineTask}{Raster\+Ft\+Only\+Global\+Pipeline\+Task}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterFtOnlyMotionTask}{Raster\+Ft\+Only\+Motion\+Task}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterFtOnlyPipelineTask}{Raster\+Ft\+Only\+Pipeline\+Task}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterFtPipelineTask}{Raster\+Ft\+Pipeline\+Task}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterGlobalPipelineTask}{Raster\+Global\+Pipeline\+Task}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{Raster\+Motion\+Task}}
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} class. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The Raster\+Ct\+Motion\+Task class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}}
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyMotionTask}{Raster\+Ct\+Only\+Motion\+Task}} class. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1RasterPipelineTask}{Raster\+Pipeline\+Task}}
-\item 
+\begin{DoxyCompactList}\small\item\em The Raster\+Ct\+Only\+Motion\+Task class. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnect\+Configurator}}
@@ -224,12 +174,8 @@ class \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{Set\+An
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction}{Set\+Tool\+Instruction}}
 \item 
-class \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}}
 \begin{DoxyCompactList}\small\item\em The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all of the Move\+Instructions and then calls the appropriate function from the profile. These functions do not depend on the seed, so this may be used to initialize the seed appropriately using e.\+g. linear interpolation. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerTask}{Simple\+Motion\+Planner\+Task}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{Simple\+Planner\+Composite\+Profile}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}}
@@ -262,6 +208,8 @@ class \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutor}{Task\+C
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutorFactory}{Task\+Composer\+Executor\+Factory}}
 \begin{DoxyCompactList}\small\item\em Task Composer Executor Factory class used by the \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerServer}{Task\+Composer\+Server}} for loading executors to be called by name. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutorFactoryImpl}{Task\+Composer\+Executor\+Factory\+Impl}}
+\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerFuture}{Task\+Composer\+Future}}
 \begin{DoxyCompactList}\small\item\em This contains the result for the task composer request. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{Task\+Composer\+Graph}}
@@ -283,6 +231,8 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerProblem}{Task\+
 class \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerServer}{Task\+Composer\+Server}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{Task\+Composer\+Task}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerExecutor}{Taskflow\+Task\+Composer\+Executor}}
 \item 
@@ -314,21 +264,13 @@ class \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeP
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptDefaultPlanProfile}{Traj\+Opt\+Ifopt\+Default\+Plan\+Profile}}
 \item 
-class \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPipelineTask}{Traj\+Opt\+Ifopt\+Motion\+Pipeline\+Task}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{Traj\+Opt\+Ifopt\+Motion\+Planner}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlannerTask}{Traj\+Opt\+Ifopt\+Motion\+Planner\+Task}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptPlanProfile}{Traj\+Opt\+Ifopt\+Plan\+Profile}}
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem}{Traj\+Opt\+Ifopt\+Problem}}
 \item 
-class \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPipelineTask}{Traj\+Opt\+Motion\+Pipeline\+Task}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{Traj\+Opt\+Motion\+Planner}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlannerTask}{Traj\+Opt\+Motion\+Planner\+Task}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile}{Traj\+Opt\+Plan\+Profile}}
 \item 
@@ -437,47 +379,53 @@ using \mbox{\hyperlink{namespacetesseract__planning_abede68600c57fb593dc36ee9efb
 \item 
 using \mbox{\hyperlink{namespacetesseract__planning_a1e9bf5e3f3e5c2fc319a1c0c5718313b}{Traj\+Opt\+Ifopt\+Plan\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptPlanProfile_a8883e97af7cd4253a9a99bc34e54a152}{Traj\+Opt\+Ifopt\+Plan\+Profile\+::\+Const\+Ptr}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_a3ee35f7ca753e47875c37573bf8c901b}{Descartes\+Motion\+Pipeline\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1MotionPipelineTask}{Motion\+Pipeline\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask}{Descartes\+Motion\+Planner\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask}{Discrete\+Contact\+Check\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTask}{Iterative\+Spline\+Parameterization\+Task}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_a719934b30ab574c2c9cfd6c7a07fa4ed}{Taskflow\+Task\+Composer\+Executor\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutorFactoryImpl}{Task\+Composer\+Executor\+Factory\+Impl}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerExecutor}{Taskflow\+Task\+Composer\+Executor}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_add77a1c2cf90418a96a2f442979b0e2e}{Descartes\+Motion\+Planner\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$ \mbox{\hyperlink{namespacetesseract__planning_a832be972a5b20462c236f612c94a9397}{Descartes\+Motion\+PlannerF}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_acb406c46e2643da9256f52fcb9e2e0b2}{Check\+Input\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask}{Check\+Input\+Task}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_a4ea89e8829301e5fd62ca45f3ca0a725}{OMPLMotion\+Pipeline\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1MotionPipelineTask}{Motion\+Pipeline\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlannerTask}{OMPLMotion\+Planner\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask}{Discrete\+Contact\+Check\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTask}{Iterative\+Spline\+Parameterization\+Task}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_acca2e716f27d703e401c27d11d519035}{Continuous\+Contact\+Check\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTask}{Continuous\+Contact\+Check\+Task}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_a52a2627adadbcddff074ac148bf9d79d}{OMPLMotion\+Planner\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner}{OMPLMotion\+Planner}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_a0315a3c803394f85e9a493502f341c16}{Discrete\+Contact\+Check\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask}{Discrete\+Contact\+Check\+Task}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_af6adccf0f9d84355be926a929b889a9b}{Raster\+Ct\+Global\+Pipeline\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterGlobalPipelineTask}{Raster\+Global\+Pipeline\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DescartesGlobalMotionPipelineTask}{Descartes\+Global\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} $>$
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__planning_1_1RasterGlobalPipelineTask}{Raster\+Global\+Pipeline\+Task}} class. \end{DoxyCompactList}\item 
-using \mbox{\hyperlink{namespacetesseract__planning_afaa8fac948276d5df2a0cbefe411ecac}{Raster\+Ct\+Motion\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{Raster\+Motion\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{Freespace\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{Cartesian\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{Cartesian\+Motion\+Pipeline\+Task}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_a95da550022380d0b59c43caae32ddf73}{Done\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1DoneTask}{Done\+Task}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_ae4425588ac8fb4063f1ee0706a8acf0d}{Raster\+Ct\+Only\+Global\+Pipeline\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterGlobalPipelineTask}{Raster\+Global\+Pipeline\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DescartesGlobalMotionPipelineTask}{Descartes\+Global\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyMotionTask}{Raster\+Ct\+Only\+Motion\+Task}} $>$
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyGlobalPipelineTask}{Raster\+Ct\+Only\+Global\+Pipeline\+Task}} class. \end{DoxyCompactList}\item 
-using \mbox{\hyperlink{namespacetesseract__planning_a004e1eb519193450aa444a0cfaaa8a34}{Raster\+Ct\+Only\+Motion\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{Cartesian\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{Cartesian\+Motion\+Pipeline\+Task}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_a015dc004ad02471db6622ff35f75086a}{Error\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask}{Error\+Task}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_a32361687c5344b5d5195553312229028}{Raster\+Ct\+Only\+Pipeline\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterPipelineTask}{Raster\+Pipeline\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyMotionTask}{Raster\+Ct\+Only\+Motion\+Task}} $>$
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask}{Raster\+Ct\+Only\+Pipeline\+Task}} class. \end{DoxyCompactList}\item 
-using \mbox{\hyperlink{namespacetesseract__planning_ad978c93638fb24d3cdbc281433323e9c}{Raster\+Ct\+Pipeline\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterPipelineTask}{Raster\+Pipeline\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}} $>$
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__planning_1_1RasterCtPipelineTask}{Raster\+Ct\+Pipeline\+Task}} class. \end{DoxyCompactList}\item 
-using \mbox{\hyperlink{namespacetesseract__planning_a4fc6b5e7c822a899f471ac1d97da5471}{Raster\+Ft\+Global\+Pipeline\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterGlobalPipelineTask}{Raster\+Global\+Pipeline\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DescartesGlobalMotionPipelineTask}{Descartes\+Global\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterFtMotionTask}{Raster\+Ft\+Motion\+Task}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_a06320f5d2852b1aa559aa919592caba3}{Fix\+State\+Bounds\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_a456d1a758052df285de37bc800696249}{Raster\+Ft\+Motion\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{Raster\+Motion\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{Freespace\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{Cartesian\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{Freespace\+Motion\+Pipeline\+Task}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_ad578ba7972c234aeaf261b84e6039144}{Fix\+State\+Collision\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask}{Fix\+State\+Collision\+Task}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_af7b690f97034d76ffb5c11e671d527d6}{Raster\+Ft\+Only\+Global\+Pipeline\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterGlobalPipelineTask}{Raster\+Global\+Pipeline\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DescartesGlobalMotionPipelineTask}{Descartes\+Global\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterFtOnlyMotionTask}{Raster\+Ft\+Only\+Motion\+Task}} $>$
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__planning_1_1RasterFtOnlyGlobalPipelineTask}{Raster\+Ft\+Only\+Global\+Pipeline\+Task}} class. \end{DoxyCompactList}\item 
-using \mbox{\hyperlink{namespacetesseract__planning_a4cc86182e66fa41183d29d245f50860e}{Raster\+Ft\+Only\+Motion\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{Cartesian\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{Freespace\+Motion\+Pipeline\+Task}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_a97fb496ffa517d725c1a52a9056e1af5}{Iterative\+Spline\+Parameterization\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTask}{Iterative\+Spline\+Parameterization\+Task}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_a97ea05b8e5c9d4a03b6914e7ee711b62}{Raster\+Ft\+Only\+Pipeline\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterPipelineTask}{Raster\+Pipeline\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterFtOnlyMotionTask}{Raster\+Ft\+Only\+Motion\+Task}} $>$
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__planning_1_1RasterFtOnlyPipelineTask}{Raster\+Ft\+Only\+Pipeline\+Task}} class. \end{DoxyCompactList}\item 
-using \mbox{\hyperlink{namespacetesseract__planning_ad3c20aa4c3fea07da63bf5938b66fc3d}{Raster\+Ft\+Pipeline\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1RasterPipelineTask}{Raster\+Pipeline\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterFtMotionTask}{Raster\+Ft\+Motion\+Task}} $>$
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__planning_1_1RasterFtPipelineTask}{Raster\+Ft\+Pipeline\+Task}} class. \end{DoxyCompactList}\item 
-using \mbox{\hyperlink{namespacetesseract__planning_ad487d60093c37cd55bce5a2d43d5de78}{Simple\+Motion\+Planner\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_a9a59e0c003aeeee1d3e0d28dcaa979b5}{Min\+Length\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1MinLengthTask}{Min\+Length\+Task}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_a11a19ba1ab58a951a5482779bbe738a5}{Traj\+Opt\+Ifopt\+Motion\+Pipeline\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1MotionPipelineTask}{Motion\+Pipeline\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlannerTask}{Traj\+Opt\+Ifopt\+Motion\+Planner\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask}{Discrete\+Contact\+Check\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTask}{Iterative\+Spline\+Parameterization\+Task}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_a9cf1b0af37dc27f0b08eeb5b9d0784b8}{Profile\+Switch\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTask}{Profile\+Switch\+Task}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_ae3cae54964cda0c1c23160772595ffb4}{Traj\+Opt\+Ifopt\+Motion\+Planner\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{Traj\+Opt\+Ifopt\+Motion\+Planner}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_ad1c48d3b4ba4bb1dbe289d3a3404fa12}{Ruckig\+Trajectory\+Smoothing\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTask}{Ruckig\+Trajectory\+Smoothing\+Task}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_a2886237e465abccfa453515c3cae726a}{Traj\+Opt\+Motion\+Pipeline\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1MotionPipelineTask}{Motion\+Pipeline\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlannerTask}{Traj\+Opt\+Motion\+Planner\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask}{Discrete\+Contact\+Check\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTask}{Iterative\+Spline\+Parameterization\+Task}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_a325f536b78a719b9a50869623489ddee}{Start\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1StartTask}{Start\+Task}} $>$
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_a9a9da2ba3bbe9dae5c3706b83bf56698}{Traj\+Opt\+Motion\+Planner\+Task\+Base}} = \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{Traj\+Opt\+Motion\+Planner}} $>$
+using \mbox{\hyperlink{namespacetesseract__planning_a52b74961210d66dc61bcc84a42d71c49}{Time\+Optimal\+Parameterization\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTask}{Time\+Optimal\+Parameterization\+Task}} $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a5354887ef54cb461dc96075d6ee8b988}{Upsample\+Trajectory\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{Upsample\+Trajectory\+Task}} $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_ab30d05906a1f81d5e02428fda0614ff0}{Raster\+Motion\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{Raster\+Motion\+Task}} $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_ac4ed124920acbec6295456767033f8a3}{Raster\+Only\+Motion\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}} $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a6b88aa7c444312042042ba79ea52e7af}{Descartes\+FMotion\+Planner\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$ \mbox{\hyperlink{namespacetesseract__planning_a832be972a5b20462c236f612c94a9397}{Descartes\+Motion\+PlannerF}} $>$ $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_af556fa8815081da68ed3d39f6406cbf7}{Descartes\+DMotion\+Planner\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$ \mbox{\hyperlink{namespacetesseract__planning_a879c4c0c1f66689c9d1d2dca01757155}{Descartes\+Motion\+PlannerD}} $>$ $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a9395924f018e1f5c4786ee91db314b07}{OMPLMotion\+Planner\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner}{OMPLMotion\+Planner}} $>$ $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_af5bc4ec469c4be909ac232ae1117e77f}{Traj\+Opt\+Motion\+Planner\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{Traj\+Opt\+Motion\+Planner}} $>$ $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a68c7cff0ecf6580b3b9c737960c13c25}{Simple\+Motion\+Planner\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}} $>$ $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a7af66b245e10826ba36c5b07923facab}{Traj\+Opt\+Ifopt\+Motion\+Planner\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{Traj\+Opt\+Ifopt\+Motion\+Planner}} $>$ $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_ac83628c7718ab95d0b295e590e307840}{Graph\+Task\+Factory}} = \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{Task\+Composer\+Graph}} $>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
@@ -848,8 +796,6 @@ bool \mbox{\hyperlink{namespacetesseract__planning_aa4d7a120157f2190d7d17c35ef82
 \begin{DoxyCompactList}\small\item\em Takes a waypoint and uses random sampling to find a position that is out of collision. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a564ab50e1f9ec0ffacf7241e12754c7a}{apply\+Correction\+Workflow}} (\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \&\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}}, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&\mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}})
 \item 
-void \mbox{\hyperlink{namespacetesseract__planning_aefb4dc5b6885a600250730843f9a194a}{load\+Default\+Task\+Composer\+Nodes}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerServer}{Task\+Composer\+Server}} \&server, const std\+::string \&input\+\_\+key, const std\+::string \&output\+\_\+key)
-\item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a037f2d1957d3b3c67dca95884cfcfff2}{apply\+Correction\+Workflow}} (\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \&\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}}, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{Task\+Composer\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&\mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}}, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&\mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}})
 \item 
 void \mbox{\hyperlink{namespacetesseract__planning_a8c98bef4d1dd9386473cc9c4eebaacd7}{Rescale\+Timings}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&\mbox{\hyperlink{descartes__planner__tests_8cpp_ab5a75a7fd217179774b21aaa94fccc66}{program}}, std\+::vector$<$ double $>$ scalings)
@@ -895,6 +841,18 @@ static const \mbox{\hyperlink{namespacetesseract__planning_a03ae53e9120c49cb2211
 \doxysubsubsection{\texorpdfstring{CartesianWaypointPolyBase}{CartesianWaypointPolyBase}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_aa3566b66783a0e8526c04c7e718ff89d}{tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+Base}} = typedef tesseract\+\_\+common\+::\+Type\+Erasure\+Base$<$\mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface}{detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface}}, \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInstance}{detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Instance}}$>$}
 
+\mbox{\Hypertarget{namespacetesseract__planning_acb406c46e2643da9256f52fcb9e2e0b2}\label{namespacetesseract__planning_acb406c46e2643da9256f52fcb9e2e0b2}} 
+\index{tesseract\_planning@{tesseract\_planning}!CheckInputTaskFactory@{CheckInputTaskFactory}}
+\index{CheckInputTaskFactory@{CheckInputTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{CheckInputTaskFactory}{CheckInputTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_acb406c46e2643da9256f52fcb9e2e0b2}{tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTask}{Check\+Input\+Task}}$>$}
+
+\mbox{\Hypertarget{namespacetesseract__planning_acca2e716f27d703e401c27d11d519035}\label{namespacetesseract__planning_acca2e716f27d703e401c27d11d519035}} 
+\index{tesseract\_planning@{tesseract\_planning}!ContinuousContactCheckTaskFactory@{ContinuousContactCheckTaskFactory}}
+\index{ContinuousContactCheckTaskFactory@{ContinuousContactCheckTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{ContinuousContactCheckTaskFactory}{ContinuousContactCheckTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_acca2e716f27d703e401c27d11d519035}{tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTask}{Continuous\+Contact\+Check\+Task}}$>$}
+
 \mbox{\Hypertarget{namespacetesseract__planning_ac129477d19fe3cf9eedfea77042a1633}\label{namespacetesseract__planning_ac129477d19fe3cf9eedfea77042a1633}} 
 \index{tesseract\_planning@{tesseract\_planning}!DescartesCollisionEdgeEvaluatorD@{DescartesCollisionEdgeEvaluatorD}}
 \index{DescartesCollisionEdgeEvaluatorD@{DescartesCollisionEdgeEvaluatorD}!tesseract\_planning@{tesseract\_planning}}
@@ -919,6 +877,12 @@ static const \mbox{\hyperlink{namespacetesseract__planning_a03ae53e9120c49cb2211
 \doxysubsubsection{\texorpdfstring{DescartesDefaultPlanProfileF}{DescartesDefaultPlanProfileF}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a204eccb187f6e542d5c48ebd8559e472}{tesseract\+\_\+planning\+::\+Descartes\+Default\+Plan\+ProfileF}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{Descartes\+Default\+Plan\+Profile}}$<$float$>$}
 
+\mbox{\Hypertarget{namespacetesseract__planning_af556fa8815081da68ed3d39f6406cbf7}\label{namespacetesseract__planning_af556fa8815081da68ed3d39f6406cbf7}} 
+\index{tesseract\_planning@{tesseract\_planning}!DescartesDMotionPlannerTaskFactory@{DescartesDMotionPlannerTaskFactory}}
+\index{DescartesDMotionPlannerTaskFactory@{DescartesDMotionPlannerTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{DescartesDMotionPlannerTaskFactory}{DescartesDMotionPlannerTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_af556fa8815081da68ed3d39f6406cbf7}{tesseract\+\_\+planning\+::\+Descartes\+DMotion\+Planner\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$\mbox{\hyperlink{namespacetesseract__planning_a879c4c0c1f66689c9d1d2dca01757155}{Descartes\+Motion\+PlannerD}}$>$ $>$}
+
 \mbox{\Hypertarget{namespacetesseract__planning_a13fa370562d132fa22c6d8faf4392b97}\label{namespacetesseract__planning_a13fa370562d132fa22c6d8faf4392b97}} 
 \index{tesseract\_planning@{tesseract\_planning}!DescartesEdgeEvaluatorAllocatorFn@{DescartesEdgeEvaluatorAllocatorFn}}
 \index{DescartesEdgeEvaluatorAllocatorFn@{DescartesEdgeEvaluatorAllocatorFn}!tesseract\_planning@{tesseract\_planning}}
@@ -930,11 +894,11 @@ using \mbox{\hyperlink{namespacetesseract__planning_a13fa370562d132fa22c6d8faf43
 
 This is used to create edge evaluator within tesseract, to allow thread safe creation of descartes edge evaluators. 
 
-\mbox{\Hypertarget{namespacetesseract__planning_a3ee35f7ca753e47875c37573bf8c901b}\label{namespacetesseract__planning_a3ee35f7ca753e47875c37573bf8c901b}} 
-\index{tesseract\_planning@{tesseract\_planning}!DescartesMotionPipelineTaskBase@{DescartesMotionPipelineTaskBase}}
-\index{DescartesMotionPipelineTaskBase@{DescartesMotionPipelineTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{DescartesMotionPipelineTaskBase}{DescartesMotionPipelineTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a3ee35f7ca753e47875c37573bf8c901b}{tesseract\+\_\+planning\+::\+Descartes\+Motion\+Pipeline\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1MotionPipelineTask}{Motion\+Pipeline\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerTask}{Descartes\+Motion\+Planner\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask}{Discrete\+Contact\+Check\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTask}{Iterative\+Spline\+Parameterization\+Task}}$>$}
+\mbox{\Hypertarget{namespacetesseract__planning_a6b88aa7c444312042042ba79ea52e7af}\label{namespacetesseract__planning_a6b88aa7c444312042042ba79ea52e7af}} 
+\index{tesseract\_planning@{tesseract\_planning}!DescartesFMotionPlannerTaskFactory@{DescartesFMotionPlannerTaskFactory}}
+\index{DescartesFMotionPlannerTaskFactory@{DescartesFMotionPlannerTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{DescartesFMotionPlannerTaskFactory}{DescartesFMotionPlannerTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a6b88aa7c444312042042ba79ea52e7af}{tesseract\+\_\+planning\+::\+Descartes\+FMotion\+Planner\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$\mbox{\hyperlink{namespacetesseract__planning_a832be972a5b20462c236f612c94a9397}{Descartes\+Motion\+PlannerF}}$>$ $>$}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a879c4c0c1f66689c9d1d2dca01757155}\label{namespacetesseract__planning_a879c4c0c1f66689c9d1d2dca01757155}} 
 \index{tesseract\_planning@{tesseract\_planning}!DescartesMotionPlannerD@{DescartesMotionPlannerD}}
@@ -947,12 +911,6 @@ This is used to create edge evaluator within tesseract, to allow thread safe cre
 \index{DescartesMotionPlannerF@{DescartesMotionPlannerF}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{DescartesMotionPlannerF}{DescartesMotionPlannerF}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a832be972a5b20462c236f612c94a9397}{tesseract\+\_\+planning\+::\+Descartes\+Motion\+PlannerF}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner}{Descartes\+Motion\+Planner}}$<$float$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_add77a1c2cf90418a96a2f442979b0e2e}\label{namespacetesseract__planning_add77a1c2cf90418a96a2f442979b0e2e}} 
-\index{tesseract\_planning@{tesseract\_planning}!DescartesMotionPlannerTaskBase@{DescartesMotionPlannerTaskBase}}
-\index{DescartesMotionPlannerTaskBase@{DescartesMotionPlannerTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{DescartesMotionPlannerTaskBase}{DescartesMotionPlannerTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_add77a1c2cf90418a96a2f442979b0e2e}{tesseract\+\_\+planning\+::\+Descartes\+Motion\+Planner\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$\mbox{\hyperlink{namespacetesseract__planning_a832be972a5b20462c236f612c94a9397}{Descartes\+Motion\+PlannerF}}$>$}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}\label{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}} 
 \index{tesseract\_planning@{tesseract\_planning}!DescartesPlanProfileMap@{DescartesPlanProfileMap}}
@@ -1019,7 +977,37 @@ using \mbox{\hyperlink{namespacetesseract__planning_a7a8351e5785986a6e075296e3bf
 
 This is used for tesseract descartes samplers that filters out invalid solutions. 
 
-Example\+: This would be used to filter out solution outside of custom joint limits. \mbox{\Hypertarget{namespacetesseract__planning_a03ae53e9120c49cb221163e1551aecb0}\label{namespacetesseract__planning_a03ae53e9120c49cb221163e1551aecb0}} 
+Example\+: This would be used to filter out solution outside of custom joint limits. \mbox{\Hypertarget{namespacetesseract__planning_a0315a3c803394f85e9a493502f341c16}\label{namespacetesseract__planning_a0315a3c803394f85e9a493502f341c16}} 
+\index{tesseract\_planning@{tesseract\_planning}!DiscreteContactCheckTaskFactory@{DiscreteContactCheckTaskFactory}}
+\index{DiscreteContactCheckTaskFactory@{DiscreteContactCheckTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTaskFactory}{DiscreteContactCheckTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a0315a3c803394f85e9a493502f341c16}{tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask}{Discrete\+Contact\+Check\+Task}}$>$}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a95da550022380d0b59c43caae32ddf73}\label{namespacetesseract__planning_a95da550022380d0b59c43caae32ddf73}} 
+\index{tesseract\_planning@{tesseract\_planning}!DoneTaskFactory@{DoneTaskFactory}}
+\index{DoneTaskFactory@{DoneTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{DoneTaskFactory}{DoneTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a95da550022380d0b59c43caae32ddf73}{tesseract\+\_\+planning\+::\+Done\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1DoneTask}{Done\+Task}}$>$}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a015dc004ad02471db6622ff35f75086a}\label{namespacetesseract__planning_a015dc004ad02471db6622ff35f75086a}} 
+\index{tesseract\_planning@{tesseract\_planning}!ErrorTaskFactory@{ErrorTaskFactory}}
+\index{ErrorTaskFactory@{ErrorTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{ErrorTaskFactory}{ErrorTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a015dc004ad02471db6622ff35f75086a}{tesseract\+\_\+planning\+::\+Error\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1ErrorTask}{Error\+Task}}$>$}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a06320f5d2852b1aa559aa919592caba3}\label{namespacetesseract__planning_a06320f5d2852b1aa559aa919592caba3}} 
+\index{tesseract\_planning@{tesseract\_planning}!FixStateBoundsTaskFactory@{FixStateBoundsTaskFactory}}
+\index{FixStateBoundsTaskFactory@{FixStateBoundsTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{FixStateBoundsTaskFactory}{FixStateBoundsTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a06320f5d2852b1aa559aa919592caba3}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTask}{Fix\+State\+Bounds\+Task}}$>$}
+
+\mbox{\Hypertarget{namespacetesseract__planning_ad578ba7972c234aeaf261b84e6039144}\label{namespacetesseract__planning_ad578ba7972c234aeaf261b84e6039144}} 
+\index{tesseract\_planning@{tesseract\_planning}!FixStateCollisionTaskFactory@{FixStateCollisionTaskFactory}}
+\index{FixStateCollisionTaskFactory@{FixStateCollisionTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{FixStateCollisionTaskFactory}{FixStateCollisionTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ad578ba7972c234aeaf261b84e6039144}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask}{Fix\+State\+Collision\+Task}}$>$}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a03ae53e9120c49cb221163e1551aecb0}\label{namespacetesseract__planning_a03ae53e9120c49cb221163e1551aecb0}} 
 \index{tesseract\_planning@{tesseract\_planning}!flattenFilterFn@{flattenFilterFn}}
 \index{flattenFilterFn@{flattenFilterFn}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{flattenFilterFn}{flattenFilterFn}}
@@ -1031,11 +1019,23 @@ This is used for filtering only what you want in the vector.
 
 The first parameter is the instruction consider, the second is it\textquotesingle{}s parent composite instruction, and the third indicates if the parent composite is the top most composite
 
-The filter should return true when the instruction passed should be included not throw. \mbox{\Hypertarget{namespacetesseract__planning_a888a5b82fb1015c9de8d7388e1ef0bcb}\label{namespacetesseract__planning_a888a5b82fb1015c9de8d7388e1ef0bcb}} 
+The filter should return true when the instruction passed should be included not throw. \mbox{\Hypertarget{namespacetesseract__planning_ac83628c7718ab95d0b295e590e307840}\label{namespacetesseract__planning_ac83628c7718ab95d0b295e590e307840}} 
+\index{tesseract\_planning@{tesseract\_planning}!GraphTaskFactory@{GraphTaskFactory}}
+\index{GraphTaskFactory@{GraphTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{GraphTaskFactory}{GraphTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ac83628c7718ab95d0b295e590e307840}{tesseract\+\_\+planning\+::\+Graph\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerGraph}{Task\+Composer\+Graph}}$>$}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a888a5b82fb1015c9de8d7388e1ef0bcb}\label{namespacetesseract__planning_a888a5b82fb1015c9de8d7388e1ef0bcb}} 
 \index{tesseract\_planning@{tesseract\_planning}!InstructionPolyBase@{InstructionPolyBase}}
 \index{InstructionPolyBase@{InstructionPolyBase}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{InstructionPolyBase}{InstructionPolyBase}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a888a5b82fb1015c9de8d7388e1ef0bcb}{tesseract\+\_\+planning\+::\+Instruction\+Poly\+Base}} = typedef tesseract\+\_\+common\+::\+Type\+Erasure\+Base$<$\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface}{detail\+\_\+instruction\+::\+Instruction\+Interface}}, \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance}{detail\+\_\+instruction\+::\+Instruction\+Instance}}$>$}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a97fb496ffa517d725c1a52a9056e1af5}\label{namespacetesseract__planning_a97fb496ffa517d725c1a52a9056e1af5}} 
+\index{tesseract\_planning@{tesseract\_planning}!IterativeSplineParameterizationTaskFactory@{IterativeSplineParameterizationTaskFactory}}
+\index{IterativeSplineParameterizationTaskFactory@{IterativeSplineParameterizationTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{IterativeSplineParameterizationTaskFactory}{IterativeSplineParameterizationTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a97fb496ffa517d725c1a52a9056e1af5}{tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTask}{Iterative\+Spline\+Parameterization\+Task}}$>$}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a4b67e25de24450d16e76f4711e9cba2d}\label{namespacetesseract__planning_a4b67e25de24450d16e76f4711e9cba2d}} 
 \index{tesseract\_planning@{tesseract\_planning}!JointWaypointPolyBase@{JointWaypointPolyBase}}
@@ -1055,6 +1055,12 @@ The filter should return true when the instruction passed should be included not
 \doxysubsubsection{\texorpdfstring{ManipulatorInfo}{ManipulatorInfo}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\+\_\+planning\+::\+Manipulator\+Info}} = typedef tesseract\+\_\+common\+::\+Manipulator\+Info}
 
+\mbox{\Hypertarget{namespacetesseract__planning_a9a59e0c003aeeee1d3e0d28dcaa979b5}\label{namespacetesseract__planning_a9a59e0c003aeeee1d3e0d28dcaa979b5}} 
+\index{tesseract\_planning@{tesseract\_planning}!MinLengthTaskFactory@{MinLengthTaskFactory}}
+\index{MinLengthTaskFactory@{MinLengthTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{MinLengthTaskFactory}{MinLengthTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a9a59e0c003aeeee1d3e0d28dcaa979b5}{tesseract\+\_\+planning\+::\+Min\+Length\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1MinLengthTask}{Min\+Length\+Task}}$>$}
+
 \mbox{\Hypertarget{namespacetesseract__planning_a49e2e11b198d0aa7480130b9f18021d5}\label{namespacetesseract__planning_a49e2e11b198d0aa7480130b9f18021d5}} 
 \index{tesseract\_planning@{tesseract\_planning}!MotionValidatorAllocator@{MotionValidatorAllocator}}
 \index{MotionValidatorAllocator@{MotionValidatorAllocator}!tesseract\_planning@{tesseract\_planning}}
@@ -1067,17 +1073,11 @@ The filter should return true when the instruction passed should be included not
 \doxysubsubsection{\texorpdfstring{MoveInstructionPolyBase}{MoveInstructionPolyBase}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a5f936ba77043575a1c18ccbf50f20b18}{tesseract\+\_\+planning\+::\+Move\+Instruction\+Poly\+Base}} = typedef tesseract\+\_\+common\+::\+Type\+Erasure\+Base$<$\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}{detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface}}, \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance}{detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Instance}}$>$}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a4ea89e8829301e5fd62ca45f3ca0a725}\label{namespacetesseract__planning_a4ea89e8829301e5fd62ca45f3ca0a725}} 
-\index{tesseract\_planning@{tesseract\_planning}!OMPLMotionPipelineTaskBase@{OMPLMotionPipelineTaskBase}}
-\index{OMPLMotionPipelineTaskBase@{OMPLMotionPipelineTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{OMPLMotionPipelineTaskBase}{OMPLMotionPipelineTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a4ea89e8829301e5fd62ca45f3ca0a725}{tesseract\+\_\+planning\+::\+OMPLMotion\+Pipeline\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1MotionPipelineTask}{Motion\+Pipeline\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlannerTask}{OMPLMotion\+Planner\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask}{Discrete\+Contact\+Check\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTask}{Iterative\+Spline\+Parameterization\+Task}}$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a52a2627adadbcddff074ac148bf9d79d}\label{namespacetesseract__planning_a52a2627adadbcddff074ac148bf9d79d}} 
-\index{tesseract\_planning@{tesseract\_planning}!OMPLMotionPlannerTaskBase@{OMPLMotionPlannerTaskBase}}
-\index{OMPLMotionPlannerTaskBase@{OMPLMotionPlannerTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{OMPLMotionPlannerTaskBase}{OMPLMotionPlannerTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a52a2627adadbcddff074ac148bf9d79d}{tesseract\+\_\+planning\+::\+OMPLMotion\+Planner\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner}{OMPLMotion\+Planner}}$>$}
+\mbox{\Hypertarget{namespacetesseract__planning_a9395924f018e1f5c4786ee91db314b07}\label{namespacetesseract__planning_a9395924f018e1f5c4786ee91db314b07}} 
+\index{tesseract\_planning@{tesseract\_planning}!OMPLMotionPlannerTaskFactory@{OMPLMotionPlannerTaskFactory}}
+\index{OMPLMotionPlannerTaskFactory@{OMPLMotionPlannerTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{OMPLMotionPlannerTaskFactory}{OMPLMotionPlannerTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a9395924f018e1f5c4786ee91db314b07}{tesseract\+\_\+planning\+::\+OMPLMotion\+Planner\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner}{OMPLMotion\+Planner}}$>$ $>$}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a0baf978812f03229209b3f8fe481788a}\label{namespacetesseract__planning_a0baf978812f03229209b3f8fe481788a}} 
 \index{tesseract\_planning@{tesseract\_planning}!OMPLPlanProfileMap@{OMPLPlanProfileMap}}
@@ -1119,125 +1119,35 @@ For example say you have a profile named Raster in your command language. Say yo
 
 This used to store specific profile mapping with the request
 
-For example say you have a profile named Raster in your command language. Say you have multiple Raster profiles for descartes \{Raster, Raster1, Raster2\}. This allows you to remap the meaning of Raster in the command language to say Raster2 for the specific planner Descartes by Map$<$\+Descartes, Map$<$\+Raster, Raster1$>$$>$. \mbox{\Hypertarget{namespacetesseract__planning_af6adccf0f9d84355be926a929b889a9b}\label{namespacetesseract__planning_af6adccf0f9d84355be926a929b889a9b}} 
-\index{tesseract\_planning@{tesseract\_planning}!RasterCtGlobalPipelineTaskBase@{RasterCtGlobalPipelineTaskBase}}
-\index{RasterCtGlobalPipelineTaskBase@{RasterCtGlobalPipelineTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{RasterCtGlobalPipelineTaskBase}{RasterCtGlobalPipelineTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_af6adccf0f9d84355be926a929b889a9b}{tesseract\+\_\+planning\+::\+Raster\+Ct\+Global\+Pipeline\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1RasterGlobalPipelineTask}{Raster\+Global\+Pipeline\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DescartesGlobalMotionPipelineTask}{Descartes\+Global\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}}$>$}
+For example say you have a profile named Raster in your command language. Say you have multiple Raster profiles for descartes \{Raster, Raster1, Raster2\}. This allows you to remap the meaning of Raster in the command language to say Raster2 for the specific planner Descartes by Map$<$\+Descartes, Map$<$\+Raster, Raster1$>$$>$. \mbox{\Hypertarget{namespacetesseract__planning_a9cf1b0af37dc27f0b08eeb5b9d0784b8}\label{namespacetesseract__planning_a9cf1b0af37dc27f0b08eeb5b9d0784b8}} 
+\index{tesseract\_planning@{tesseract\_planning}!ProfileSwitchTaskFactory@{ProfileSwitchTaskFactory}}
+\index{ProfileSwitchTaskFactory@{ProfileSwitchTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{ProfileSwitchTaskFactory}{ProfileSwitchTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a9cf1b0af37dc27f0b08eeb5b9d0784b8}{tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTask}{Profile\+Switch\+Task}}$>$}
 
+\mbox{\Hypertarget{namespacetesseract__planning_ab30d05906a1f81d5e02428fda0614ff0}\label{namespacetesseract__planning_ab30d05906a1f81d5e02428fda0614ff0}} 
+\index{tesseract\_planning@{tesseract\_planning}!RasterMotionTaskFactory@{RasterMotionTaskFactory}}
+\index{RasterMotionTaskFactory@{RasterMotionTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{RasterMotionTaskFactory}{RasterMotionTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ab30d05906a1f81d5e02428fda0614ff0}{tesseract\+\_\+planning\+::\+Raster\+Motion\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{Raster\+Motion\+Task}}$>$}
 
+\mbox{\Hypertarget{namespacetesseract__planning_ac4ed124920acbec6295456767033f8a3}\label{namespacetesseract__planning_ac4ed124920acbec6295456767033f8a3}} 
+\index{tesseract\_planning@{tesseract\_planning}!RasterOnlyMotionTaskFactory@{RasterOnlyMotionTaskFactory}}
+\index{RasterOnlyMotionTaskFactory@{RasterOnlyMotionTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{RasterOnlyMotionTaskFactory}{RasterOnlyMotionTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ac4ed124920acbec6295456767033f8a3}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}}$>$}
 
-The \mbox{\hyperlink{classtesseract__planning_1_1RasterGlobalPipelineTask}{Raster\+Global\+Pipeline\+Task}} class. 
+\mbox{\Hypertarget{namespacetesseract__planning_ad1c48d3b4ba4bb1dbe289d3a3404fa12}\label{namespacetesseract__planning_ad1c48d3b4ba4bb1dbe289d3a3404fa12}} 
+\index{tesseract\_planning@{tesseract\_planning}!RuckigTrajectorySmoothingTaskFactory@{RuckigTrajectorySmoothingTaskFactory}}
+\index{RuckigTrajectorySmoothingTaskFactory@{RuckigTrajectorySmoothingTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{RuckigTrajectorySmoothingTaskFactory}{RuckigTrajectorySmoothingTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ad1c48d3b4ba4bb1dbe289d3a3404fa12}{tesseract\+\_\+planning\+::\+Ruckig\+Trajectory\+Smoothing\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTask}{Ruckig\+Trajectory\+Smoothing\+Task}}$>$}
 
-The required format is below.
-
-Composite \{ Composite -\/ from start Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ to end \} \mbox{\Hypertarget{namespacetesseract__planning_afaa8fac948276d5df2a0cbefe411ecac}\label{namespacetesseract__planning_afaa8fac948276d5df2a0cbefe411ecac}} 
-\index{tesseract\_planning@{tesseract\_planning}!RasterCtMotionTaskBase@{RasterCtMotionTaskBase}}
-\index{RasterCtMotionTaskBase@{RasterCtMotionTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{RasterCtMotionTaskBase}{RasterCtMotionTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_afaa8fac948276d5df2a0cbefe411ecac}{tesseract\+\_\+planning\+::\+Raster\+Ct\+Motion\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{Raster\+Motion\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{Freespace\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{Cartesian\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{Cartesian\+Motion\+Pipeline\+Task}}$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_ae4425588ac8fb4063f1ee0706a8acf0d}\label{namespacetesseract__planning_ae4425588ac8fb4063f1ee0706a8acf0d}} 
-\index{tesseract\_planning@{tesseract\_planning}!RasterCtOnlyGlobalPipelineTaskBase@{RasterCtOnlyGlobalPipelineTaskBase}}
-\index{RasterCtOnlyGlobalPipelineTaskBase@{RasterCtOnlyGlobalPipelineTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{RasterCtOnlyGlobalPipelineTaskBase}{RasterCtOnlyGlobalPipelineTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ae4425588ac8fb4063f1ee0706a8acf0d}{tesseract\+\_\+planning\+::\+Raster\+Ct\+Only\+Global\+Pipeline\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1RasterGlobalPipelineTask}{Raster\+Global\+Pipeline\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DescartesGlobalMotionPipelineTask}{Descartes\+Global\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyMotionTask}{Raster\+Ct\+Only\+Motion\+Task}}$>$}
-
-
-
-The \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyGlobalPipelineTask}{Raster\+Ct\+Only\+Global\+Pipeline\+Task}} class. 
-
-The required format is below.
-
-Composite \{ Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment \} \mbox{\Hypertarget{namespacetesseract__planning_a004e1eb519193450aa444a0cfaaa8a34}\label{namespacetesseract__planning_a004e1eb519193450aa444a0cfaaa8a34}} 
-\index{tesseract\_planning@{tesseract\_planning}!RasterCtOnlyMotionTaskBase@{RasterCtOnlyMotionTaskBase}}
-\index{RasterCtOnlyMotionTaskBase@{RasterCtOnlyMotionTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{RasterCtOnlyMotionTaskBase}{RasterCtOnlyMotionTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a004e1eb519193450aa444a0cfaaa8a34}{tesseract\+\_\+planning\+::\+Raster\+Ct\+Only\+Motion\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{Cartesian\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{Cartesian\+Motion\+Pipeline\+Task}}$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a32361687c5344b5d5195553312229028}\label{namespacetesseract__planning_a32361687c5344b5d5195553312229028}} 
-\index{tesseract\_planning@{tesseract\_planning}!RasterCtOnlyPipelineTaskBase@{RasterCtOnlyPipelineTaskBase}}
-\index{RasterCtOnlyPipelineTaskBase@{RasterCtOnlyPipelineTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{RasterCtOnlyPipelineTaskBase}{RasterCtOnlyPipelineTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a32361687c5344b5d5195553312229028}{tesseract\+\_\+planning\+::\+Raster\+Ct\+Only\+Pipeline\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1RasterPipelineTask}{Raster\+Pipeline\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyMotionTask}{Raster\+Ct\+Only\+Motion\+Task}}$>$}
-
-
-
-The \mbox{\hyperlink{classtesseract__planning_1_1RasterCtOnlyPipelineTask}{Raster\+Ct\+Only\+Pipeline\+Task}} class. 
-
-The required format is below.
-
-Composite \{ Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment \} \mbox{\Hypertarget{namespacetesseract__planning_ad978c93638fb24d3cdbc281433323e9c}\label{namespacetesseract__planning_ad978c93638fb24d3cdbc281433323e9c}} 
-\index{tesseract\_planning@{tesseract\_planning}!RasterCtPipelineTaskBase@{RasterCtPipelineTaskBase}}
-\index{RasterCtPipelineTaskBase@{RasterCtPipelineTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{RasterCtPipelineTaskBase}{RasterCtPipelineTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ad978c93638fb24d3cdbc281433323e9c}{tesseract\+\_\+planning\+::\+Raster\+Ct\+Pipeline\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1RasterPipelineTask}{Raster\+Pipeline\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterCtMotionTask}{Raster\+Ct\+Motion\+Task}}$>$}
-
-
-
-The \mbox{\hyperlink{classtesseract__planning_1_1RasterCtPipelineTask}{Raster\+Ct\+Pipeline\+Task}} class. 
-
-The required format is below.
-
-Composite \{ Composite -\/ from start Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ to end \} \mbox{\Hypertarget{namespacetesseract__planning_a4fc6b5e7c822a899f471ac1d97da5471}\label{namespacetesseract__planning_a4fc6b5e7c822a899f471ac1d97da5471}} 
-\index{tesseract\_planning@{tesseract\_planning}!RasterFtGlobalPipelineTaskBase@{RasterFtGlobalPipelineTaskBase}}
-\index{RasterFtGlobalPipelineTaskBase@{RasterFtGlobalPipelineTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{RasterFtGlobalPipelineTaskBase}{RasterFtGlobalPipelineTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a4fc6b5e7c822a899f471ac1d97da5471}{tesseract\+\_\+planning\+::\+Raster\+Ft\+Global\+Pipeline\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1RasterGlobalPipelineTask}{Raster\+Global\+Pipeline\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DescartesGlobalMotionPipelineTask}{Descartes\+Global\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterFtMotionTask}{Raster\+Ft\+Motion\+Task}}$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a456d1a758052df285de37bc800696249}\label{namespacetesseract__planning_a456d1a758052df285de37bc800696249}} 
-\index{tesseract\_planning@{tesseract\_planning}!RasterFtMotionTaskBase@{RasterFtMotionTaskBase}}
-\index{RasterFtMotionTaskBase@{RasterFtMotionTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{RasterFtMotionTaskBase}{RasterFtMotionTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a456d1a758052df285de37bc800696249}{tesseract\+\_\+planning\+::\+Raster\+Ft\+Motion\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{Raster\+Motion\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{Freespace\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{Cartesian\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{Freespace\+Motion\+Pipeline\+Task}}$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_af7b690f97034d76ffb5c11e671d527d6}\label{namespacetesseract__planning_af7b690f97034d76ffb5c11e671d527d6}} 
-\index{tesseract\_planning@{tesseract\_planning}!RasterFtOnlyGlobalPipelineTaskBase@{RasterFtOnlyGlobalPipelineTaskBase}}
-\index{RasterFtOnlyGlobalPipelineTaskBase@{RasterFtOnlyGlobalPipelineTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{RasterFtOnlyGlobalPipelineTaskBase}{RasterFtOnlyGlobalPipelineTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_af7b690f97034d76ffb5c11e671d527d6}{tesseract\+\_\+planning\+::\+Raster\+Ft\+Only\+Global\+Pipeline\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1RasterGlobalPipelineTask}{Raster\+Global\+Pipeline\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DescartesGlobalMotionPipelineTask}{Descartes\+Global\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterFtOnlyMotionTask}{Raster\+Ft\+Only\+Motion\+Task}}$>$}
-
-
-
-The \mbox{\hyperlink{classtesseract__planning_1_1RasterFtOnlyGlobalPipelineTask}{Raster\+Ft\+Only\+Global\+Pipeline\+Task}} class. 
-
-The required format is below.
-
-Composite \{ Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment \} \mbox{\Hypertarget{namespacetesseract__planning_a4cc86182e66fa41183d29d245f50860e}\label{namespacetesseract__planning_a4cc86182e66fa41183d29d245f50860e}} 
-\index{tesseract\_planning@{tesseract\_planning}!RasterFtOnlyMotionTaskBase@{RasterFtOnlyMotionTaskBase}}
-\index{RasterFtOnlyMotionTaskBase@{RasterFtOnlyMotionTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{RasterFtOnlyMotionTaskBase}{RasterFtOnlyMotionTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a4cc86182e66fa41183d29d245f50860e}{tesseract\+\_\+planning\+::\+Raster\+Ft\+Only\+Motion\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{Raster\+Only\+Motion\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1CartesianMotionPipelineTask}{Cartesian\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1FreespaceMotionPipelineTask}{Freespace\+Motion\+Pipeline\+Task}}$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a97ea05b8e5c9d4a03b6914e7ee711b62}\label{namespacetesseract__planning_a97ea05b8e5c9d4a03b6914e7ee711b62}} 
-\index{tesseract\_planning@{tesseract\_planning}!RasterFtOnlyPipelineTaskBase@{RasterFtOnlyPipelineTaskBase}}
-\index{RasterFtOnlyPipelineTaskBase@{RasterFtOnlyPipelineTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{RasterFtOnlyPipelineTaskBase}{RasterFtOnlyPipelineTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a97ea05b8e5c9d4a03b6914e7ee711b62}{tesseract\+\_\+planning\+::\+Raster\+Ft\+Only\+Pipeline\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1RasterPipelineTask}{Raster\+Pipeline\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterFtOnlyMotionTask}{Raster\+Ft\+Only\+Motion\+Task}}$>$}
-
-
-
-The \mbox{\hyperlink{classtesseract__planning_1_1RasterFtOnlyPipelineTask}{Raster\+Ft\+Only\+Pipeline\+Task}} class. 
-
-The required format is below.
-
-Composite \{ Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment \} \mbox{\Hypertarget{namespacetesseract__planning_ad3c20aa4c3fea07da63bf5938b66fc3d}\label{namespacetesseract__planning_ad3c20aa4c3fea07da63bf5938b66fc3d}} 
-\index{tesseract\_planning@{tesseract\_planning}!RasterFtPipelineTaskBase@{RasterFtPipelineTaskBase}}
-\index{RasterFtPipelineTaskBase@{RasterFtPipelineTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{RasterFtPipelineTaskBase}{RasterFtPipelineTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ad3c20aa4c3fea07da63bf5938b66fc3d}{tesseract\+\_\+planning\+::\+Raster\+Ft\+Pipeline\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1RasterPipelineTask}{Raster\+Pipeline\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPipelineTask}{Simple\+Motion\+Pipeline\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterFtMotionTask}{Raster\+Ft\+Motion\+Task}}$>$}
-
-
-
-The \mbox{\hyperlink{classtesseract__planning_1_1RasterFtPipelineTask}{Raster\+Ft\+Pipeline\+Task}} class. 
-
-The required format is below.
-
-Composite \{ Composite -\/ from start Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ to end \} \mbox{\Hypertarget{namespacetesseract__planning_ad487d60093c37cd55bce5a2d43d5de78}\label{namespacetesseract__planning_ad487d60093c37cd55bce5a2d43d5de78}} 
-\index{tesseract\_planning@{tesseract\_planning}!SimpleMotionPlannerTaskBase@{SimpleMotionPlannerTaskBase}}
-\index{SimpleMotionPlannerTaskBase@{SimpleMotionPlannerTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{SimpleMotionPlannerTaskBase}{SimpleMotionPlannerTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ad487d60093c37cd55bce5a2d43d5de78}{tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}}$>$}
+\mbox{\Hypertarget{namespacetesseract__planning_a68c7cff0ecf6580b3b9c737960c13c25}\label{namespacetesseract__planning_a68c7cff0ecf6580b3b9c737960c13c25}} 
+\index{tesseract\_planning@{tesseract\_planning}!SimpleMotionPlannerTaskFactory@{SimpleMotionPlannerTaskFactory}}
+\index{SimpleMotionPlannerTaskFactory@{SimpleMotionPlannerTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{SimpleMotionPlannerTaskFactory}{SimpleMotionPlannerTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a68c7cff0ecf6580b3b9c737960c13c25}{tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}}$>$ $>$}
 
 \mbox{\Hypertarget{namespacetesseract__planning_ae2b7d23fdf0bef79f8646e6ae8bf2acf}\label{namespacetesseract__planning_ae2b7d23fdf0bef79f8646e6ae8bf2acf}} 
 \index{tesseract\_planning@{tesseract\_planning}!SimplePlannerCompositeProfileMap@{SimplePlannerCompositeProfileMap}}
@@ -1250,6 +1160,12 @@ Composite \{ Composite -\/ from start Composite -\/ Raster segment Composite -\/
 \index{SimplePlannerPlanProfileMap@{SimplePlannerPlanProfileMap}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{SimplePlannerPlanProfileMap}{SimplePlannerPlanProfileMap}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a44a3bd50194e415e51a5f2e2e5e1c5ec}{tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+Map}} = typedef std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ab3e9b839cfdea0466f7a4428502bd065}{Simple\+Planner\+Plan\+Profile\+::\+Const\+Ptr}}$>$}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a325f536b78a719b9a50869623489ddee}\label{namespacetesseract__planning_a325f536b78a719b9a50869623489ddee}} 
+\index{tesseract\_planning@{tesseract\_planning}!StartTaskFactory@{StartTaskFactory}}
+\index{StartTaskFactory@{StartTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{StartTaskFactory}{StartTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a325f536b78a719b9a50869623489ddee}{tesseract\+\_\+planning\+::\+Start\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1StartTask}{Start\+Task}}$>$}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a907f97222f0b1a6e7b79f05b9e7d450c}\label{namespacetesseract__planning_a907f97222f0b1a6e7b79f05b9e7d450c}} 
 \index{tesseract\_planning@{tesseract\_planning}!StateSamplerAllocator@{StateSamplerAllocator}}
@@ -1269,6 +1185,18 @@ Composite \{ Composite -\/ from start Composite -\/ Raster segment Composite -\/
 \doxysubsubsection{\texorpdfstring{StateWaypointPolyBase}{StateWaypointPolyBase}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ad000d7036e52bd6407cc1606d7d92a14}{tesseract\+\_\+planning\+::\+State\+Waypoint\+Poly\+Base}} = typedef tesseract\+\_\+common\+::\+Type\+Erasure\+Base$<$\mbox{\hyperlink{structtesseract__planning_1_1detail__state__waypoint_1_1StateWaypointInterface}{detail\+\_\+state\+\_\+waypoint\+::\+State\+Waypoint\+Interface}}, \mbox{\hyperlink{structtesseract__planning_1_1detail__state__waypoint_1_1StateWaypointInstance}{detail\+\_\+state\+\_\+waypoint\+::\+State\+Waypoint\+Instance}}$>$}
 
+\mbox{\Hypertarget{namespacetesseract__planning_a719934b30ab574c2c9cfd6c7a07fa4ed}\label{namespacetesseract__planning_a719934b30ab574c2c9cfd6c7a07fa4ed}} 
+\index{tesseract\_planning@{tesseract\_planning}!TaskflowTaskComposerExecutorFactory@{TaskflowTaskComposerExecutorFactory}}
+\index{TaskflowTaskComposerExecutorFactory@{TaskflowTaskComposerExecutorFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{TaskflowTaskComposerExecutorFactory}{TaskflowTaskComposerExecutorFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a719934b30ab574c2c9cfd6c7a07fa4ed}{tesseract\+\_\+planning\+::\+Taskflow\+Task\+Composer\+Executor\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerExecutorFactoryImpl}{Task\+Composer\+Executor\+Factory\+Impl}}$<$\mbox{\hyperlink{classtesseract__planning_1_1TaskflowTaskComposerExecutor}{Taskflow\+Task\+Composer\+Executor}}$>$}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a52b74961210d66dc61bcc84a42d71c49}\label{namespacetesseract__planning_a52b74961210d66dc61bcc84a42d71c49}} 
+\index{tesseract\_planning@{tesseract\_planning}!TimeOptimalParameterizationTaskFactory@{TimeOptimalParameterizationTaskFactory}}
+\index{TimeOptimalParameterizationTaskFactory@{TimeOptimalParameterizationTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{TimeOptimalParameterizationTaskFactory}{TimeOptimalParameterizationTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a52b74961210d66dc61bcc84a42d71c49}{tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTask}{Time\+Optimal\+Parameterization\+Task}}$>$}
+
 \mbox{\Hypertarget{namespacetesseract__planning_ab3cb92652402bb6903e4b0333bc02520}\label{namespacetesseract__planning_ab3cb92652402bb6903e4b0333bc02520}} 
 \index{tesseract\_planning@{tesseract\_planning}!TrajOptCompositeProfileMap@{TrajOptCompositeProfileMap}}
 \index{TrajOptCompositeProfileMap@{TrajOptCompositeProfileMap}!tesseract\_planning@{tesseract\_planning}}
@@ -1281,17 +1209,11 @@ Composite \{ Composite -\/ from start Composite -\/ Raster segment Composite -\/
 \doxysubsubsection{\texorpdfstring{TrajOptIfoptCompositeProfileMap}{TrajOptIfoptCompositeProfileMap}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_abede68600c57fb593dc36ee9efbd1b0b}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Composite\+Profile\+Map}} = typedef std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptCompositeProfile_a3ab4ba00e98cc381b14cf8ee3a38a819}{Traj\+Opt\+Ifopt\+Composite\+Profile\+::\+Const\+Ptr}}$>$}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a11a19ba1ab58a951a5482779bbe738a5}\label{namespacetesseract__planning_a11a19ba1ab58a951a5482779bbe738a5}} 
-\index{tesseract\_planning@{tesseract\_planning}!TrajOptIfoptMotionPipelineTaskBase@{TrajOptIfoptMotionPipelineTaskBase}}
-\index{TrajOptIfoptMotionPipelineTaskBase@{TrajOptIfoptMotionPipelineTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{TrajOptIfoptMotionPipelineTaskBase}{TrajOptIfoptMotionPipelineTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a11a19ba1ab58a951a5482779bbe738a5}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Motion\+Pipeline\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1MotionPipelineTask}{Motion\+Pipeline\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlannerTask}{Traj\+Opt\+Ifopt\+Motion\+Planner\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask}{Discrete\+Contact\+Check\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTask}{Iterative\+Spline\+Parameterization\+Task}}$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_ae3cae54964cda0c1c23160772595ffb4}\label{namespacetesseract__planning_ae3cae54964cda0c1c23160772595ffb4}} 
-\index{tesseract\_planning@{tesseract\_planning}!TrajOptIfoptMotionPlannerTaskBase@{TrajOptIfoptMotionPlannerTaskBase}}
-\index{TrajOptIfoptMotionPlannerTaskBase@{TrajOptIfoptMotionPlannerTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{TrajOptIfoptMotionPlannerTaskBase}{TrajOptIfoptMotionPlannerTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ae3cae54964cda0c1c23160772595ffb4}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Motion\+Planner\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{Traj\+Opt\+Ifopt\+Motion\+Planner}}$>$}
+\mbox{\Hypertarget{namespacetesseract__planning_a7af66b245e10826ba36c5b07923facab}\label{namespacetesseract__planning_a7af66b245e10826ba36c5b07923facab}} 
+\index{tesseract\_planning@{tesseract\_planning}!TrajOptIfoptMotionPlannerTaskFactory@{TrajOptIfoptMotionPlannerTaskFactory}}
+\index{TrajOptIfoptMotionPlannerTaskFactory@{TrajOptIfoptMotionPlannerTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{TrajOptIfoptMotionPlannerTaskFactory}{TrajOptIfoptMotionPlannerTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a7af66b245e10826ba36c5b07923facab}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Motion\+Planner\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner}{Traj\+Opt\+Ifopt\+Motion\+Planner}}$>$ $>$}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a1e9bf5e3f3e5c2fc319a1c0c5718313b}\label{namespacetesseract__planning_a1e9bf5e3f3e5c2fc319a1c0c5718313b}} 
 \index{tesseract\_planning@{tesseract\_planning}!TrajOptIfoptPlanProfileMap@{TrajOptIfoptPlanProfileMap}}
@@ -1299,17 +1221,11 @@ Composite \{ Composite -\/ from start Composite -\/ Raster segment Composite -\/
 \doxysubsubsection{\texorpdfstring{TrajOptIfoptPlanProfileMap}{TrajOptIfoptPlanProfileMap}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a1e9bf5e3f3e5c2fc319a1c0c5718313b}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Plan\+Profile\+Map}} = typedef std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptPlanProfile_a8883e97af7cd4253a9a99bc34e54a152}{Traj\+Opt\+Ifopt\+Plan\+Profile\+::\+Const\+Ptr}}$>$}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a2886237e465abccfa453515c3cae726a}\label{namespacetesseract__planning_a2886237e465abccfa453515c3cae726a}} 
-\index{tesseract\_planning@{tesseract\_planning}!TrajOptMotionPipelineTaskBase@{TrajOptMotionPipelineTaskBase}}
-\index{TrajOptMotionPipelineTaskBase@{TrajOptMotionPipelineTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{TrajOptMotionPipelineTaskBase}{TrajOptMotionPipelineTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a2886237e465abccfa453515c3cae726a}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Pipeline\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1MotionPipelineTask}{Motion\+Pipeline\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlannerTask}{Traj\+Opt\+Motion\+Planner\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTask}{Discrete\+Contact\+Check\+Task}}, \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTask}{Iterative\+Spline\+Parameterization\+Task}}$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a9a9da2ba3bbe9dae5c3706b83bf56698}\label{namespacetesseract__planning_a9a9da2ba3bbe9dae5c3706b83bf56698}} 
-\index{tesseract\_planning@{tesseract\_planning}!TrajOptMotionPlannerTaskBase@{TrajOptMotionPlannerTaskBase}}
-\index{TrajOptMotionPlannerTaskBase@{TrajOptMotionPlannerTaskBase}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{TrajOptMotionPlannerTaskBase}{TrajOptMotionPlannerTaskBase}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a9a9da2ba3bbe9dae5c3706b83bf56698}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+Task\+Base}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{Traj\+Opt\+Motion\+Planner}}$>$}
+\mbox{\Hypertarget{namespacetesseract__planning_af5bc4ec469c4be909ac232ae1117e77f}\label{namespacetesseract__planning_af5bc4ec469c4be909ac232ae1117e77f}} 
+\index{tesseract\_planning@{tesseract\_planning}!TrajOptMotionPlannerTaskFactory@{TrajOptMotionPlannerTaskFactory}}
+\index{TrajOptMotionPlannerTaskFactory@{TrajOptMotionPlannerTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{TrajOptMotionPlannerTaskFactory}{TrajOptMotionPlannerTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_af5bc4ec469c4be909ac232ae1117e77f}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{Motion\+Planner\+Task}}$<$\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner}{Traj\+Opt\+Motion\+Planner}}$>$ $>$}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a236fae69ae2291021feaa4f865803781}\label{namespacetesseract__planning_a236fae69ae2291021feaa4f865803781}} 
 \index{tesseract\_planning@{tesseract\_planning}!TrajOptPlanProfileMap@{TrajOptPlanProfileMap}}
@@ -1322,6 +1238,12 @@ Composite \{ Composite -\/ from start Composite -\/ Raster segment Composite -\/
 \index{TrajOptSolverProfileMap@{TrajOptSolverProfileMap}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{TrajOptSolverProfileMap}{TrajOptSolverProfileMap}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ab990993d1a2002f7e044ba3693f8b2d7}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Solver\+Profile\+Map}} = typedef std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1TrajOptSolverProfile_abc630e4bb744e18e3db4d72601cf20a3}{Traj\+Opt\+Solver\+Profile\+::\+Const\+Ptr}}$>$}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a5354887ef54cb461dc96075d6ee8b988}\label{namespacetesseract__planning_a5354887ef54cb461dc96075d6ee8b988}} 
+\index{tesseract\_planning@{tesseract\_planning}!UpsampleTrajectoryTaskFactory@{UpsampleTrajectoryTaskFactory}}
+\index{UpsampleTrajectoryTaskFactory@{UpsampleTrajectoryTaskFactory}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{UpsampleTrajectoryTaskFactory}{UpsampleTrajectoryTaskFactory}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a5354887ef54cb461dc96075d6ee8b988}{tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+Factory}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTaskFactory}{Task\+Composer\+Task\+Factory}}$<$\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{Upsample\+Trajectory\+Task}}$>$}
 
 \mbox{\Hypertarget{namespacetesseract__planning_abedb1dd50c00d7cc68eb78a77edb249e}\label{namespacetesseract__planning_abedb1dd50c00d7cc68eb78a77edb249e}} 
 \index{tesseract\_planning@{tesseract\_planning}!WaypointPolyBase@{WaypointPolyBase}}
@@ -3082,12 +3004,6 @@ Checks if a waypoint is.
 \begin{DoxyReturn}{Returns}
 True if the waypoit falls within the joint limits 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_aefb4dc5b6885a600250730843f9a194a}\label{namespacetesseract__planning_aefb4dc5b6885a600250730843f9a194a}} 
-\index{tesseract\_planning@{tesseract\_planning}!loadDefaultTaskComposerNodes@{loadDefaultTaskComposerNodes}}
-\index{loadDefaultTaskComposerNodes@{loadDefaultTaskComposerNodes}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{loadDefaultTaskComposerNodes()}{loadDefaultTaskComposerNodes()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::load\+Default\+Task\+Composer\+Nodes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerServer}{Task\+Composer\+Server}} \&}]{server,  }\item[{const std\+::string \&}]{input\+\_\+key,  }\item[{const std\+::string \&}]{output\+\_\+key }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_a7d7f5ca99b6c38d8925ffbdbb2710ff2}\label{namespacetesseract__planning_a7d7f5ca99b6c38d8925ffbdbb2710ff2}} 
 \index{tesseract\_planning@{tesseract\_planning}!moveFilter@{moveFilter}}
 \index{moveFilter@{moveFilter}!tesseract\_planning@{tesseract\_planning}}

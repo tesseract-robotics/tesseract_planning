@@ -31,9 +31,11 @@ using \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a46012
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a1f8385d1bb2f969a83ca54cc6116df30}{Upsample\+Trajectory\+Task}} ()=default
+\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a9d9bff286ff5409af45445e8f06596a4}{Upsample\+Trajectory\+Task}} ()
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_ae55f9cdb64cd61b29a689c64e0ee0303}{Upsample\+Trajectory\+Task}} (std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional=false, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ab2b90dc280e170c0be0de4628072516a}{node\+\_\+names\+::\+UPSAMPLE\+\_\+\+TRAJECTORY\+\_\+\+TASK\+\_\+\+NAME}})
+\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_ac91f81cc07710429dc75f61b8fd7f832}{Upsample\+Trajectory\+Task}} (std\+::string name, std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool is\+\_\+conditional=false)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_ae30bc323cbce96c395201a1a5896db15}{Upsample\+Trajectory\+Task}} (std\+::string name, const YAML\+::\+Node \&config, const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&plugin\+\_\+factory)
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_af3b5590ef3af8d997dfd92518505346f}{$\sim$\+Upsample\+Trajectory\+Task}} () override=default
 \item 
@@ -104,17 +106,23 @@ This is primarily useful to run before running time parameterization, because mo
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTask_a1f8385d1bb2f969a83ca54cc6116df30}\label{classtesseract__planning_1_1UpsampleTrajectoryTask_a1f8385d1bb2f969a83ca54cc6116df30}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTask_a9d9bff286ff5409af45445e8f06596a4}\label{classtesseract__planning_1_1UpsampleTrajectoryTask_a9d9bff286ff5409af45445e8f06596a4}} 
 \index{tesseract\_planning::UpsampleTrajectoryTask@{tesseract\_planning::UpsampleTrajectoryTask}!UpsampleTrajectoryTask@{UpsampleTrajectoryTask}}
 \index{UpsampleTrajectoryTask@{UpsampleTrajectoryTask}!tesseract\_planning::UpsampleTrajectoryTask@{tesseract\_planning::UpsampleTrajectoryTask}}
-\doxysubsubsection{\texorpdfstring{UpsampleTrajectoryTask()}{UpsampleTrajectoryTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+::\+Upsample\+Trajectory\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+\doxysubsubsection{\texorpdfstring{UpsampleTrajectoryTask()}{UpsampleTrajectoryTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+::\+Upsample\+Trajectory\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTask_ae55f9cdb64cd61b29a689c64e0ee0303}\label{classtesseract__planning_1_1UpsampleTrajectoryTask_ae55f9cdb64cd61b29a689c64e0ee0303}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTask_ac91f81cc07710429dc75f61b8fd7f832}\label{classtesseract__planning_1_1UpsampleTrajectoryTask_ac91f81cc07710429dc75f61b8fd7f832}} 
 \index{tesseract\_planning::UpsampleTrajectoryTask@{tesseract\_planning::UpsampleTrajectoryTask}!UpsampleTrajectoryTask@{UpsampleTrajectoryTask}}
 \index{UpsampleTrajectoryTask@{UpsampleTrajectoryTask}!tesseract\_planning::UpsampleTrajectoryTask@{tesseract\_planning::UpsampleTrajectoryTask}}
-\doxysubsubsection{\texorpdfstring{UpsampleTrajectoryTask()}{UpsampleTrajectoryTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+::\+Upsample\+Trajectory\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily false},  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ab2b90dc280e170c0be0de4628072516a}{node\+\_\+names\+::\+UPSAMPLE\+\_\+\+TRAJECTORY\+\_\+\+TASK\+\_\+\+NAME}}} }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{UpsampleTrajectoryTask()}{UpsampleTrajectoryTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+::\+Upsample\+Trajectory\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTask_ae30bc323cbce96c395201a1a5896db15}\label{classtesseract__planning_1_1UpsampleTrajectoryTask_ae30bc323cbce96c395201a1a5896db15}} 
+\index{tesseract\_planning::UpsampleTrajectoryTask@{tesseract\_planning::UpsampleTrajectoryTask}!UpsampleTrajectoryTask@{UpsampleTrajectoryTask}}
+\index{UpsampleTrajectoryTask@{UpsampleTrajectoryTask}!tesseract\_planning::UpsampleTrajectoryTask@{tesseract\_planning::UpsampleTrajectoryTask}}
+\doxysubsubsection{\texorpdfstring{UpsampleTrajectoryTask()}{UpsampleTrajectoryTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+::\+Upsample\+Trajectory\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{const YAML\+::\+Node \&}]{config,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&}]{plugin\+\_\+factory }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTask_af3b5590ef3af8d997dfd92518505346f}\label{classtesseract__planning_1_1UpsampleTrajectoryTask_af3b5590ef3af8d997dfd92518505346f}} 
 \index{tesseract\_planning::UpsampleTrajectoryTask@{tesseract\_planning::UpsampleTrajectoryTask}!````~UpsampleTrajectoryTask@{$\sim$UpsampleTrajectoryTask}}
@@ -125,13 +133,13 @@ This is primarily useful to run before running time parameterization, because mo
 \mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTask_aab5f9920b97130b582ddd7e9f9bc3389}\label{classtesseract__planning_1_1UpsampleTrajectoryTask_aab5f9920b97130b582ddd7e9f9bc3389}} 
 \index{tesseract\_planning::UpsampleTrajectoryTask@{tesseract\_planning::UpsampleTrajectoryTask}!UpsampleTrajectoryTask@{UpsampleTrajectoryTask}}
 \index{UpsampleTrajectoryTask@{UpsampleTrajectoryTask}!tesseract\_planning::UpsampleTrajectoryTask@{tesseract\_planning::UpsampleTrajectoryTask}}
-\doxysubsubsection{\texorpdfstring{UpsampleTrajectoryTask()}{UpsampleTrajectoryTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+\doxysubsubsection{\texorpdfstring{UpsampleTrajectoryTask()}{UpsampleTrajectoryTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+::\+Upsample\+Trajectory\+Task (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{Upsample\+Trajectory\+Task}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTask_a15287ef6f8a4a96f3d679eeb779d1c3a}\label{classtesseract__planning_1_1UpsampleTrajectoryTask_a15287ef6f8a4a96f3d679eeb779d1c3a}} 
 \index{tesseract\_planning::UpsampleTrajectoryTask@{tesseract\_planning::UpsampleTrajectoryTask}!UpsampleTrajectoryTask@{UpsampleTrajectoryTask}}
 \index{UpsampleTrajectoryTask@{UpsampleTrajectoryTask}!tesseract\_planning::UpsampleTrajectoryTask@{tesseract\_planning::UpsampleTrajectoryTask}}
-\doxysubsubsection{\texorpdfstring{UpsampleTrajectoryTask()}{UpsampleTrajectoryTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+\doxysubsubsection{\texorpdfstring{UpsampleTrajectoryTask()}{UpsampleTrajectoryTask()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+::\+Upsample\+Trajectory\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{Upsample\+Trajectory\+Task}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 

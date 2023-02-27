@@ -22,4 +22,14 @@ digraph "tesseract_planning::TaskComposerServer"
   Node8 -> Node7 [dir="back",color="darkorchid3",style="dashed",label=" elements" ];
   Node8 [label="std::unique_ptr\< T \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
   Node6 -> Node8 [dir="back",color="darkorchid3",style="dashed",label=" ptr" ];
+  Node9 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" plugin_factory_" ];
+  Node9 [label="tesseract_planning\l::TaskComposerPluginFactory",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d7/d2f/classtesseract__planning_1_1TaskComposerPluginFactory.html",tooltip=" "];
+  Node10 -> Node9 [dir="back",color="darkorchid3",style="dashed",label=" executor_factories_" ];
+  Node10 [label="std::map\< std::string,\l TaskComposerExecutorFactory\l::Ptr \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node10 [dir="back",color="darkorchid3",style="dashed",label=" keys" ];
+  Node5 -> Node10 [dir="back",color="darkorchid3",style="dashed",label=" elements" ];
+  Node11 -> Node9 [dir="back",color="darkorchid3",style="dashed",label=" node_factories_" ];
+  Node11 [label="std::map\< std::string,\l TaskComposerNodeFactory\l::Ptr \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node11 [dir="back",color="darkorchid3",style="dashed",label=" keys" ];
+  Node5 -> Node11 [dir="back",color="darkorchid3",style="dashed",label=" elements" ];
 }

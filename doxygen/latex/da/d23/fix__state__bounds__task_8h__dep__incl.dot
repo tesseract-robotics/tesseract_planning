@@ -8,5 +8,7 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/nodes/fix_state
   Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
   Node2 [label="tesseract_task_composer\l/src/nodes/fix_state_bounds\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/db6/fix__state__bounds__task_8cpp.html",tooltip="Task that changes the plan instructions to make push them back within joint limits."];
   Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
-  Node3 [label="tesseract_task_composer\l/test/fix_state_bounds\l_task_unit.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d1/d6c/fix__state__bounds__task__unit_8cpp.html",tooltip=" "];
+  Node3 [label="tesseract_task_composer\l/src/task_composer_task\l_plugin_factory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/de0/task__composer__task__plugin__factory_8cpp.html",tooltip="A task in the pipeline."];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="tesseract_task_composer\l/test/fix_state_bounds\l_task_unit.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d1/d6c/fix__state__bounds__task__unit_8cpp.html",tooltip=" "];
 }

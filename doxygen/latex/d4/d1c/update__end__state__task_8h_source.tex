@@ -12,29 +12,29 @@
 \DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
 \DoxyCodeLine{32 }
 \DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__task_8h}{tesseract\_task\_composer/task\_composer\_task.h}}>}}
-\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__node__names_8h}{tesseract\_task\_composer/task\_composer\_node\_names.h}}>}}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{37 \{}
-\DoxyCodeLine{38 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{UpdateEndStateTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}}
-\DoxyCodeLine{39 \{}
-\DoxyCodeLine{40 \textcolor{keyword}{public}:}
-\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_afba71c5a5619ecb59f57231d7010f192}{Ptr}} = std::shared\_ptr<UpdateEndStateTask>;}
-\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_adeba54be5e552e0f5e18ee3f4167a0f0}{ConstPtr}} = std::shared\_ptr<const UpdateEndStateTask>;}
-\DoxyCodeLine{43   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_aaeda85fa0f3a4a6d0c9c93d736d62dee}{UPtr}} = std::unique\_ptr<UpdateEndStateTask>;}
-\DoxyCodeLine{44   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_a874bf8a1da5a77884065887518bcc231}{ConstUPtr}} = std::unique\_ptr<const UpdateEndStateTask>;}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_ac21e13b95e7cb1e13bcdbfe228658c37}{UpdateEndStateTask}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_ac21e13b95e7cb1e13bcdbfe228658c37}{UpdateEndStateTask}}(std::string input\_next\_key,}
-\DoxyCodeLine{49                      std::string output\_key,}
-\DoxyCodeLine{50                      \textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{false},}
-\DoxyCodeLine{51                      std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a2d4079b8729d7dad317c84bd08f83f47}{node\_names::UPDATE\_END\_STATE\_TASK\_NAME}});}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_ac21e13b95e7cb1e13bcdbfe228658c37}{UpdateEndStateTask}}(std::string input\_key,}
-\DoxyCodeLine{54                      std::string input\_next\_key,}
-\DoxyCodeLine{55                      std::string output\_key,}
-\DoxyCodeLine{56                      \textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{false},}
-\DoxyCodeLine{57                      std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a2d4079b8729d7dad317c84bd08f83f47}{node\_names::UPDATE\_END\_STATE\_TASK\_NAME}});}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{UpdateEndStateTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39 \textcolor{keyword}{public}:}
+\DoxyCodeLine{40   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_afba71c5a5619ecb59f57231d7010f192}{Ptr}} = std::shared\_ptr<UpdateEndStateTask>;}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_adeba54be5e552e0f5e18ee3f4167a0f0}{ConstPtr}} = std::shared\_ptr<const UpdateEndStateTask>;}
+\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_aaeda85fa0f3a4a6d0c9c93d736d62dee}{UPtr}} = std::unique\_ptr<UpdateEndStateTask>;}
+\DoxyCodeLine{43   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_a874bf8a1da5a77884065887518bcc231}{ConstUPtr}} = std::unique\_ptr<const UpdateEndStateTask>;}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_ac21e13b95e7cb1e13bcdbfe228658c37}{UpdateEndStateTask}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{47   \textcolor{keyword}{explicit} \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_ac21e13b95e7cb1e13bcdbfe228658c37}{UpdateEndStateTask}}(std::string name,}
+\DoxyCodeLine{48                               std::string input\_next\_key,}
+\DoxyCodeLine{49                               std::string output\_key,}
+\DoxyCodeLine{50                               \textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{false});}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \textcolor{keyword}{explicit} \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_ac21e13b95e7cb1e13bcdbfe228658c37}{UpdateEndStateTask}}(std::string name,}
+\DoxyCodeLine{53                               std::string input\_key,}
+\DoxyCodeLine{54                               std::string input\_next\_key,}
+\DoxyCodeLine{55                               std::string output\_key,}
+\DoxyCodeLine{56                               \textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{false});}
+\DoxyCodeLine{57 }
 \DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_a295e61341cfc10b6f1d37c113fa1ebf2}{\string~UpdateEndStateTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{59 }
 \DoxyCodeLine{60   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask_aeab8a95e2a24e8f95370dfc7e5785994}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1UpdateEndStateTask}{UpdateEndStateTask}}\& rhs) \textcolor{keyword}{const};}

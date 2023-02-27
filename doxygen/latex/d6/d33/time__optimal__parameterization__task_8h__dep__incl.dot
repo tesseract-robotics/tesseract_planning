@@ -7,4 +7,6 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/nodes/time_opti
   Node1 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/time_optimal\l_parameterization_task.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Perform TOTG."];
   Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
   Node2 [label="tesseract_task_composer\l/src/nodes/time_optimal\l_parameterization_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/df4/time__optimal__parameterization__task_8cpp.html",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="tesseract_task_composer\l/src/task_composer_task\l_plugin_factory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/de0/task__composer__task__plugin__factory_8cpp.html",tooltip="A task in the pipeline."];
 }

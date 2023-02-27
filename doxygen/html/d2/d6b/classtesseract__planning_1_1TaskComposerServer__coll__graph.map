@@ -1,10 +1,13 @@
 <map id="tesseract_planning::TaskComposerServer" name="tesseract_planning::TaskComposerServer">
-<area shape="rect" id="node1" title=" " alt="" coords="737,53,892,93"/>
-<area shape="rect" id="node2" title=" " alt="" coords="439,5,623,60"/>
-<area shape="rect" id="node3" title=" " alt="" coords="225,17,304,43"/>
-<area shape="rect" id="node7" title=" " alt="" coords="439,84,623,139"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,10,129,50"/>
-<area shape="rect" id="node5" title=" " alt="" coords="196,79,333,104"/>
-<area shape="rect" id="node6" title=" " alt="" coords="48,93,87,119"/>
-<area shape="rect" id="node8" title=" " alt="" coords="197,128,333,153"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1144,156,1299,196"/>
+<area shape="rect" id="node2" title=" " alt="" coords="450,14,634,69"/>
+<area shape="rect" id="node3" title=" " alt="" coords="225,193,304,218"/>
+<area shape="rect" id="node7" title=" " alt="" coords="450,250,634,305"/>
+<area shape="rect" id="node10" title=" " alt="" coords="439,93,645,147"/>
+<area shape="rect" id="node11" title=" " alt="" coords="449,171,635,226"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,185,129,225"/>
+<area shape="rect" id="node5" title=" " alt="" coords="196,101,333,126"/>
+<area shape="rect" id="node6" title=" " alt="" coords="48,254,87,279"/>
+<area shape="rect" id="node8" title=" " alt="" coords="197,278,333,303"/>
+<area shape="rect" id="node9" href="$d7/d2f/classtesseract__planning_1_1TaskComposerPluginFactory.html" title=" " alt="" coords="811,156,1005,196"/>
 </map>

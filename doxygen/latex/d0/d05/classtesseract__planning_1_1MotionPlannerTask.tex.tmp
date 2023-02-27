@@ -15,9 +15,11 @@ Collaboration diagram for tesseract\+\_\+planning\+::Motion\+Planner\+Task\texor
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_a556eafcfe33a085a657236f55dc823ee}{Motion\+Planner\+Task}} ()=default
+\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ae641aafe952dae83a68dfdec52f76c96}{Motion\+Planner\+Task}} ()
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ab9576aebb0b167936cb2faf84c3bbb1b}{Motion\+Planner\+Task}} (std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool format\+\_\+result\+\_\+as\+\_\+input, bool is\+\_\+conditional, std\+::string name)
+\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_a80b36740f08d50c0599d5d5d91335076}{Motion\+Planner\+Task}} (std\+::string name, std\+::string input\+\_\+key, std\+::string output\+\_\+key, bool format\+\_\+result\+\_\+as\+\_\+input, bool is\+\_\+conditional)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_a610f2fd81c5b899f90a1fad6ce064de6}{Motion\+Planner\+Task}} (std\+::string name, const YAML\+::\+Node \&config, const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&)
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_a933468ab4a7f141ae9c7e3a96ddd5269}{$\sim$\+Motion\+Planner\+Task}} () override=default
 \item 
@@ -50,19 +52,26 @@ class \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask_ac98d07dd8f
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1MotionPlannerTask_a556eafcfe33a085a657236f55dc823ee}\label{classtesseract__planning_1_1MotionPlannerTask_a556eafcfe33a085a657236f55dc823ee}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1MotionPlannerTask_ae641aafe952dae83a68dfdec52f76c96}\label{classtesseract__planning_1_1MotionPlannerTask_ae641aafe952dae83a68dfdec52f76c96}} 
 \index{tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$@{tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$}!MotionPlannerTask@{MotionPlannerTask}}
 \index{MotionPlannerTask@{MotionPlannerTask}!tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$@{tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$}}
-\doxysubsubsection{\texorpdfstring{MotionPlannerTask()}{MotionPlannerTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{MotionPlannerTask()}{MotionPlannerTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily template$<$typename Motion\+Planner\+Type $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{tesseract\+\_\+planning\+::\+Motion\+Planner\+Task}}$<$ Motion\+Planner\+Type $>$\+::\+Motion\+Planner\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{tesseract\+\_\+planning\+::\+Motion\+Planner\+Task}}$<$ Motion\+Planner\+Type $>$\+::\+Motion\+Planner\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1MotionPlannerTask_ab9576aebb0b167936cb2faf84c3bbb1b}\label{classtesseract__planning_1_1MotionPlannerTask_ab9576aebb0b167936cb2faf84c3bbb1b}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1MotionPlannerTask_a80b36740f08d50c0599d5d5d91335076}\label{classtesseract__planning_1_1MotionPlannerTask_a80b36740f08d50c0599d5d5d91335076}} 
 \index{tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$@{tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$}!MotionPlannerTask@{MotionPlannerTask}}
 \index{MotionPlannerTask@{MotionPlannerTask}!tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$@{tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$}}
-\doxysubsubsection{\texorpdfstring{MotionPlannerTask()}{MotionPlannerTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsection{\texorpdfstring{MotionPlannerTask()}{MotionPlannerTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily template$<$typename Motion\+Planner\+Type $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{tesseract\+\_\+planning\+::\+Motion\+Planner\+Task}}$<$ Motion\+Planner\+Type $>$\+::\+Motion\+Planner\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{format\+\_\+result\+\_\+as\+\_\+input,  }\item[{bool}]{is\+\_\+conditional,  }\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{tesseract\+\_\+planning\+::\+Motion\+Planner\+Task}}$<$ Motion\+Planner\+Type $>$\+::\+Motion\+Planner\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::string}]{input\+\_\+key,  }\item[{std\+::string}]{output\+\_\+key,  }\item[{bool}]{format\+\_\+result\+\_\+as\+\_\+input,  }\item[{bool}]{is\+\_\+conditional }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1MotionPlannerTask_a610f2fd81c5b899f90a1fad6ce064de6}\label{classtesseract__planning_1_1MotionPlannerTask_a610f2fd81c5b899f90a1fad6ce064de6}} 
+\index{tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$@{tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$}!MotionPlannerTask@{MotionPlannerTask}}
+\index{MotionPlannerTask@{MotionPlannerTask}!tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$@{tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$}}
+\doxysubsubsection{\texorpdfstring{MotionPlannerTask()}{MotionPlannerTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename Motion\+Planner\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTask}{tesseract\+\_\+planning\+::\+Motion\+Planner\+Task}}$<$ Motion\+Planner\+Type $>$\+::\+Motion\+Planner\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{const YAML\+::\+Node \&}]{config,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1MotionPlannerTask_a933468ab4a7f141ae9c7e3a96ddd5269}\label{classtesseract__planning_1_1MotionPlannerTask_a933468ab4a7f141ae9c7e3a96ddd5269}} 
 \index{tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$@{tesseract\_planning::MotionPlannerTask$<$ MotionPlannerType $>$}!````~MotionPlannerTask@{$\sim$MotionPlannerTask}}

@@ -12,10 +12,10 @@
 \DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
 \DoxyCodeLine{32 }
 \DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__task_8h}{tesseract\_task\_composer/task\_composer\_task.h}}>}}
-\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__node__names_8h}{tesseract\_task\_composer/task\_composer\_node\_names.h}}>}}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{37 \{}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37 \textcolor{keyword}{class }TaskComposerPluginFactory;}
 \DoxyCodeLine{38 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1ErrorTask}{ErrorTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}}
 \DoxyCodeLine{39 \{}
 \DoxyCodeLine{40 \textcolor{keyword}{public}:}
@@ -24,28 +24,30 @@
 \DoxyCodeLine{43   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a3a7e10c1bd83ea39a7bf03496d88b222}{UPtr}} = std::unique\_ptr<ErrorTask>;}
 \DoxyCodeLine{44   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a42fab4d652421140af97b4c19aaa64aa}{ConstUPtr}} = std::unique\_ptr<const ErrorTask>;}
 \DoxyCodeLine{45 }
-\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask}{ErrorTask}}(\textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{false}, std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_a08eaf5fea53d70ad17922c7793015b65}{node\_names::ERROR\_TASK\_NAME}});}
-\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a9abb0cd2f19164971274f1dc872e4a16}{\string~ErrorTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{49   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a9b7ee148fb03fb769a5b03f9fae33365}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask}{ErrorTask}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{50   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a2cd5afce1d96ec8e7b60e0aace133c7d}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask}{ErrorTask}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{52 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{53   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
-\DoxyCodeLine{54   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{55   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{56   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a3e0565a60b63f4abd0b5a3dab59b9bdf}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a30bd71623fce6be7f9f53865e318b793}{runImpl}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
-\DoxyCodeLine{59                                      \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{OptionalTaskComposerExecutor}} executor = std::nullopt) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
-\DoxyCodeLine{60 \};}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_af5d63d97711481f4b42068c6c4bc289b}{ErrorTask}}();}
+\DoxyCodeLine{47   \textcolor{keyword}{explicit} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_af5d63d97711481f4b42068c6c4bc289b}{ErrorTask}}(std::string name, \textcolor{keywordtype}{bool} is\_conditional);}
+\DoxyCodeLine{48   \textcolor{keyword}{explicit} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_af5d63d97711481f4b42068c6c4bc289b}{ErrorTask}}(std::string name, \textcolor{keyword}{const} YAML::Node\& config, \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{TaskComposerPluginFactory}}\& plugin\_factory);}
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a9abb0cd2f19164971274f1dc872e4a16}{\string~ErrorTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a9b7ee148fb03fb769a5b03f9fae33365}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask}{ErrorTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{52   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a2cd5afce1d96ec8e7b60e0aace133c7d}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask}{ErrorTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{55   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{56   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{57   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{58   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a3e0565a60b63f4abd0b5a3dab59b9bdf}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1ErrorTask_a30bd71623fce6be7f9f53865e318b793}{runImpl}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
+\DoxyCodeLine{61                                      \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{OptionalTaskComposerExecutor}} executor = std::nullopt) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{62 \};}
 \DoxyCodeLine{63 }
-\DoxyCodeLine{64 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
-\DoxyCodeLine{65 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
-\DoxyCodeLine{66 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1ErrorTask}{tesseract\_planning::ErrorTask}}, \textcolor{stringliteral}{"{}ErrorTask"{}})}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{68 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_ERROR\_TASK\_H}}
+\DoxyCodeLine{64 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{68 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1ErrorTask}{tesseract\_planning::ErrorTask}}, \textcolor{stringliteral}{"{}ErrorTask"{}})}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_ERROR\_TASK\_H}}
 
 \end{DoxyCode}

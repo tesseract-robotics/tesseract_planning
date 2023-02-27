@@ -12,53 +12,57 @@
 \DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
 \DoxyCodeLine{32 }
 \DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__task_8h}{tesseract\_task\_composer/task\_composer\_task.h}}>}}
-\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__composer__node__names_8h}{tesseract\_task\_composer/task\_composer\_node\_names.h}}>}}
+\DoxyCodeLine{34 }
 \DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{composite__instruction_8h}{tesseract\_command\_language/composite\_instruction.h}}>}}
 \DoxyCodeLine{36 }
 \DoxyCodeLine{37 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
 \DoxyCodeLine{38 \{}
-\DoxyCodeLine{45 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}}
-\DoxyCodeLine{46 \{}
-\DoxyCodeLine{47 \textcolor{keyword}{public}:}
-\DoxyCodeLine{48   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_ac4a8e451406a097b86ab5c68f6482f30}{Ptr}} = std::shared\_ptr<UpsampleTrajectoryTask>;}
-\DoxyCodeLine{49   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a41faf292acad9772a765ad4b004dd85b}{ConstPtr}} = std::shared\_ptr<const UpsampleTrajectoryTask>;}
-\DoxyCodeLine{50   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a60546f45289f525dd9d10b46ba7fac73}{UPtr}} = std::unique\_ptr<UpsampleTrajectoryTask>;}
-\DoxyCodeLine{51   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a460129b3d6bb29cf3618788a8b06c8b9}{ConstUPtr}} = std::unique\_ptr<const UpsampleTrajectoryTask>;}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a1f8385d1bb2f969a83ca54cc6116df30}{UpsampleTrajectoryTask}}() = \textcolor{keywordflow}{default};  \textcolor{comment}{// Required for serialization}}
-\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a1f8385d1bb2f969a83ca54cc6116df30}{UpsampleTrajectoryTask}}(std::string input\_key,}
-\DoxyCodeLine{55                          std::string output\_key,}
-\DoxyCodeLine{56                          \textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{false},}
-\DoxyCodeLine{57                          std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_ab2b90dc280e170c0be0de4628072516a}{node\_names::UPSAMPLE\_TRAJECTORY\_TASK\_NAME}});}
-\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_af3b5590ef3af8d997dfd92518505346f}{\string~UpsampleTrajectoryTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{59   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_aab5f9920b97130b582ddd7e9f9bc3389}{UpsampleTrajectoryTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{60   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_ae52b026aa9fdfcd2a5ce0b11fd728d6e}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{61   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a15287ef6f8a4a96f3d679eeb779d1c3a}{UpsampleTrajectoryTask}}(\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{62   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a9070e76d20b58ea985f93ecc6d6c9c84}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{64   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a66ac4fb872596c039d7dd32e37cfdb8e}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{65   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a2c42483614c0ee2ee8c0dfad31ef97b1}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{66 }
-\DoxyCodeLine{67 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{68   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
-\DoxyCodeLine{69   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{70   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{71   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a1f894253ff44adcc7bc52f26b4d1f68e}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{73   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a0a0fec40df63388f8a3cca1f477f62cd}{upsample}}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite,}
-\DoxyCodeLine{74                 \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& current\_composite,}
-\DoxyCodeLine{75                 \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_a9933a5594170f08ed02d225c4dd638a5}{start\_instruction}},}
-\DoxyCodeLine{76                 \textcolor{keywordtype}{double} \mbox{\hyperlink{ompl__planner__tests_8cpp_ad4614839bb63e579d5ebd9c2324dca9f}{longest\_valid\_segment\_length}}) \textcolor{keyword}{const};}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{78   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a7667c24edbb2e7d62f6051d270bd4f1d}{runImpl}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
-\DoxyCodeLine{79                                      \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{OptionalTaskComposerExecutor}} executor = std::nullopt) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
-\DoxyCodeLine{80 \};}
+\DoxyCodeLine{39 \textcolor{keyword}{class }TaskComposerPluginFactory;}
+\DoxyCodeLine{46 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask}{TaskComposerTask}}}
+\DoxyCodeLine{47 \{}
+\DoxyCodeLine{48 \textcolor{keyword}{public}:}
+\DoxyCodeLine{49   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_ac4a8e451406a097b86ab5c68f6482f30}{Ptr}} = std::shared\_ptr<UpsampleTrajectoryTask>;}
+\DoxyCodeLine{50   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a41faf292acad9772a765ad4b004dd85b}{ConstPtr}} = std::shared\_ptr<const UpsampleTrajectoryTask>;}
+\DoxyCodeLine{51   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a60546f45289f525dd9d10b46ba7fac73}{UPtr}} = std::unique\_ptr<UpsampleTrajectoryTask>;}
+\DoxyCodeLine{52   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a460129b3d6bb29cf3618788a8b06c8b9}{ConstUPtr}} = std::unique\_ptr<const UpsampleTrajectoryTask>;}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a9d9bff286ff5409af45445e8f06596a4}{UpsampleTrajectoryTask}}();}
+\DoxyCodeLine{55   \textcolor{keyword}{explicit} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a9d9bff286ff5409af45445e8f06596a4}{UpsampleTrajectoryTask}}(std::string name,}
+\DoxyCodeLine{56                                   std::string input\_key,}
+\DoxyCodeLine{57                                   std::string output\_key,}
+\DoxyCodeLine{58                                   \textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{false});}
+\DoxyCodeLine{59   \textcolor{keyword}{explicit} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a9d9bff286ff5409af45445e8f06596a4}{UpsampleTrajectoryTask}}(std::string name,}
+\DoxyCodeLine{60                                   \textcolor{keyword}{const} YAML::Node\& config,}
+\DoxyCodeLine{61                                   \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{TaskComposerPluginFactory}}\& plugin\_factory);}
+\DoxyCodeLine{62   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_af3b5590ef3af8d997dfd92518505346f}{\string~UpsampleTrajectoryTask}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{63   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_aab5f9920b97130b582ddd7e9f9bc3389}{UpsampleTrajectoryTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{64   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_ae52b026aa9fdfcd2a5ce0b11fd728d6e}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{65   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a15287ef6f8a4a96f3d679eeb779d1c3a}{UpsampleTrajectoryTask}}(\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{66   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\& \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a9070e76d20b58ea985f93ecc6d6c9c84}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a66ac4fb872596c039d7dd32e37cfdb8e}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{69   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a2c42483614c0ee2ee8c0dfad31ef97b1}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{UpsampleTrajectoryTask}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{72   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{73   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{74   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{75   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a1f894253ff44adcc7bc52f26b4d1f68e}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a0a0fec40df63388f8a3cca1f477f62cd}{upsample}}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite,}
+\DoxyCodeLine{78                 \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& current\_composite,}
+\DoxyCodeLine{79                 \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& \mbox{\hyperlink{descartes__planner__tests_8cpp_a9933a5594170f08ed02d225c4dd638a5}{start\_instruction}},}
+\DoxyCodeLine{80                 \textcolor{keywordtype}{double} \mbox{\hyperlink{ompl__planner__tests_8cpp_ad4614839bb63e579d5ebd9c2324dca9f}{longest\_valid\_segment\_length}}) \textcolor{keyword}{const};}
 \DoxyCodeLine{81 }
-\DoxyCodeLine{82 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{83 }
-\DoxyCodeLine{84 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
-\DoxyCodeLine{85 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
-\DoxyCodeLine{86 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{tesseract\_planning::UpsampleTrajectoryTask}}, \textcolor{stringliteral}{"{}UpsampleTrajectoryTask"{}})}
-\DoxyCodeLine{87 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_UPSAMPLE\_TRAJECTORY\_TASK\_H}}
+\DoxyCodeLine{82   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask_a7667c24edbb2e7d62f6051d270bd4f1d}{runImpl}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
+\DoxyCodeLine{83                                      \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_acfe95d32101794d3e3fdd48f5076c24e}{OptionalTaskComposerExecutor}} executor = std::nullopt) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{84 \};}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{89 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{90 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTask}{tesseract\_planning::UpsampleTrajectoryTask}}, \textcolor{stringliteral}{"{}UpsampleTrajectoryTask"{}})}
+\DoxyCodeLine{91 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_UPSAMPLE\_TRAJECTORY\_TASK\_H}}
 
 \end{DoxyCode}

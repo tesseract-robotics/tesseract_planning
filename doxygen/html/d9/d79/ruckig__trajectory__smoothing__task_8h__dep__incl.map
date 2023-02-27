@@ -1,4 +1,5 @@
 <map id="tesseract_task_composer/include/tesseract_task_composer/nodes/ruckig_trajectory_smoothing_task.h" name="tesseract_task_composer/include/tesseract_task_composer/nodes/ruckig_trajectory_smoothing_task.h">
-<area shape="rect" id="node1" title="Leveraging Ruckig to smooth trajectory." alt="" coords="5,5,229,75"/>
-<area shape="rect" id="node2" href="$d6/d36/ruckig__trajectory__smoothing__task_8cpp.html" title=" " alt="" coords="26,123,209,177"/>
+<area shape="rect" id="node1" title="Leveraging Ruckig to smooth trajectory." alt="" coords="85,5,309,75"/>
+<area shape="rect" id="node2" href="$d6/d36/ruckig__trajectory__smoothing__task_8cpp.html" title=" " alt="" coords="5,123,188,177"/>
+<area shape="rect" id="node3" href="$dc/de0/task__composer__task__plugin__factory_8cpp.html" title="A task in the pipeline." alt="" coords="212,123,384,177"/>
 </map>

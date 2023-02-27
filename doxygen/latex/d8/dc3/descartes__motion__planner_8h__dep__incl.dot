@@ -16,19 +16,5 @@ digraph "tesseract_motion_planners/descartes/include/tesseract_motion_planners/d
   Node1 -> Node6 [dir="back",color="steelblue1",style="solid"];
   Node6 [label="tesseract_motion_planners\l/test/descartes_planner\l_tests.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/dcb/descartes__planner__tests_8cpp.html",tooltip="This contains unit test for the tesseract descartes planner."];
   Node1 -> Node7 [dir="back",color="steelblue1",style="solid"];
-  Node7 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/descartes\l_motion_planner_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d84/descartes__motion__planner__task_8h.html",tooltip="Descartes motion planning pipeline."];
-  Node7 -> Node8 [dir="back",color="steelblue1",style="solid"];
-  Node8 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/descartes\l_motion_pipeline_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/d01/descartes__motion__pipeline__task_8h.html",tooltip=" "];
-  Node8 -> Node9 [dir="back",color="steelblue1",style="solid"];
-  Node9 [label="tesseract_task_composer\l/src/nodes/descartes_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/daf/descartes__motion__pipeline__task_8cpp.html",tooltip=" "];
-  Node8 -> Node10 [dir="back",color="steelblue1",style="solid"];
-  Node10 [label="tesseract_task_composer\l/src/task_composer_utils.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d3a/task__composer__utils_8cpp.html",tooltip="A task composer utils."];
-  Node7 -> Node11 [dir="back",color="steelblue1",style="solid"];
-  Node11 [label="tesseract_task_composer\l/src/nodes/cartesian_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d06/cartesian__motion__pipeline__task_8cpp.html",tooltip=" "];
-  Node7 -> Node12 [dir="back",color="steelblue1",style="solid"];
-  Node12 [label="tesseract_task_composer\l/src/nodes/descartes_global\l_motion_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d24/descartes__global__motion__pipeline__task_8cpp.html",tooltip=" "];
-  Node7 -> Node13 [dir="back",color="steelblue1",style="solid"];
-  Node13 [label="tesseract_task_composer\l/src/nodes/descartes_motion\l_planner_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d0/dfd/descartes__motion__planner__task_8cpp.html",tooltip="Descartes motion planner task."];
-  Node7 -> Node14 [dir="back",color="steelblue1",style="solid"];
-  Node14 [label="tesseract_task_composer\l/src/nodes/descartes_npc\l_motion_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$da/d51/descartes__npc__motion__pipeline__task_8cpp.html",tooltip=" "];
+  Node7 [label="tesseract_task_composer\l/src/task_composer_task\l_plugin_factory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/de0/task__composer__task__plugin__factory_8cpp.html",tooltip="A task in the pipeline."];
 }

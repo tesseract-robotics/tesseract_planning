@@ -77,25 +77,5 @@ digraph "tesseract_motion_planners/trajopt/include/tesseract_motion_planners/tra
   Node24 -> Node13 [dir="back",color="steelblue1",style="solid"];
   Node24 -> Node17 [dir="back",color="steelblue1",style="solid"];
   Node24 -> Node25 [dir="back",color="steelblue1",style="solid"];
-  Node25 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/trajopt\l_motion_planner_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d0/dfc/trajopt__motion__planner__task_8h.html",tooltip="TrajOpt motion planning pipeline."];
-  Node25 -> Node26 [dir="back",color="steelblue1",style="solid"];
-  Node26 [label="tesseract_task_composer\l/include/tesseract_task\l_composer/nodes/trajopt\l_motion_pipeline_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$de/d7e/trajopt__motion__pipeline__task_8h.html",tooltip=" "];
-  Node26 -> Node3 [dir="back",color="steelblue1",style="solid"];
-  Node26 -> Node4 [dir="back",color="steelblue1",style="solid"];
-  Node26 -> Node5 [dir="back",color="steelblue1",style="solid"];
-  Node26 -> Node6 [dir="back",color="steelblue1",style="solid"];
-  Node26 -> Node7 [dir="back",color="steelblue1",style="solid"];
-  Node26 -> Node8 [dir="back",color="steelblue1",style="solid"];
-  Node26 -> Node27 [dir="back",color="steelblue1",style="solid"];
-  Node27 [label="tesseract_task_composer\l/examples/task_composer\l_trajopt_example.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$de/d6f/task__composer__trajopt__example_8cpp.html",tooltip=" "];
-  Node26 -> Node28 [dir="back",color="steelblue1",style="solid"];
-  Node28 [label="tesseract_task_composer\l/src/nodes/trajopt_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/dc8/trajopt__motion__pipeline__task_8cpp.html",tooltip=" "];
-  Node26 -> Node29 [dir="back",color="steelblue1",style="solid"];
-  Node29 [label="tesseract_task_composer\l/src/task_composer_utils.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d3a/task__composer__utils_8cpp.html",tooltip="A task composer utils."];
-  Node25 -> Node30 [dir="back",color="steelblue1",style="solid"];
-  Node30 [label="tesseract_task_composer\l/src/nodes/cartesian_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d06/cartesian__motion__pipeline__task_8cpp.html",tooltip=" "];
-  Node25 -> Node31 [dir="back",color="steelblue1",style="solid"];
-  Node31 [label="tesseract_task_composer\l/src/nodes/freespace_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d89/freespace__motion__pipeline__task_8cpp.html",tooltip=" "];
-  Node25 -> Node32 [dir="back",color="steelblue1",style="solid"];
-  Node32 [label="tesseract_task_composer\l/src/nodes/trajopt_motion\l_planner_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$da/dd7/trajopt__motion__planner__task_8cpp.html",tooltip="TrajOpt motion planner task."];
+  Node25 [label="tesseract_task_composer\l/src/task_composer_task\l_plugin_factory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/de0/task__composer__task__plugin__factory_8cpp.html",tooltip="A task in the pipeline."];
 }

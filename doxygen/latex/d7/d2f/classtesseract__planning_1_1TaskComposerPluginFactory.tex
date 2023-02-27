@@ -23,11 +23,17 @@ Collaboration diagram for tesseract\+\_\+planning\+::Task\+Composer\+Plugin\+Fac
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \& \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a06a36502370c9c14297a522326f9f982}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&\&)=default
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a998b3841b15ca096e41f970a41c53015}{Task\+Composer\+Plugin\+Factory}} (YAML\+::\+Node config)
+\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a11af051b5c59b3880fd06c7e915b0056}{Task\+Composer\+Plugin\+Factory}} (const YAML\+::\+Node \&config)
 \begin{DoxyCompactList}\small\item\em Load plugins from yaml node. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a53bd715f5ea21c5c8ce33241160d7ba3}{Task\+Composer\+Plugin\+Factory}} (const tesseract\+\_\+common\+::fs\+::path \&config)
 \begin{DoxyCompactList}\small\item\em Load plugins from file path. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a84e71611c59b3e704b4d5192aed41303}{Task\+Composer\+Plugin\+Factory}} (const std\+::string \&config)
+\begin{DoxyCompactList}\small\item\em Load plugins from string. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_afb27f78baa274a4ec986bd063e8ffc80}{load\+Config}} (const YAML\+::\+Node \&config)
+\begin{DoxyCompactList}\small\item\em Load plugins from yaml node. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_aa0c865409b293191c26db85ae1ba17d5}{load\+Config}} (const tesseract\+\_\+common\+::fs\+::path \&config)
+\begin{DoxyCompactList}\small\item\em Load plugins from file path. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a3113b1c09b9c36a008dd395bbf0f274f}{load\+Config}} (const std\+::string \&config)
 \begin{DoxyCompactList}\small\item\em Load plugins from string. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ac333056ac57ae783c6fbafa41bf64396}{add\+Search\+Path}} (const std\+::string \&\mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a4d455efceee21e97d8e21ee40e9b4a20}{path}})
 \begin{DoxyCompactList}\small\item\em Add location for the plugin loader to search. \end{DoxyCompactList}\item 
@@ -86,7 +92,7 @@ std\+::map$<$ std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1TaskCo
 \item 
 tesseract\+\_\+common\+::\+Plugin\+Info\+Container \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a87e9716b67fe53dd97a93da128db4716}{executor\+\_\+plugin\+\_\+info\+\_\+}}
 \item 
-tesseract\+\_\+common\+::\+Plugin\+Info\+Container \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_ab5b7ec4096fd5e77c3b6f83aa9f17e61}{node\+\_\+plugin\+\_\+info\+\_\+}}
+tesseract\+\_\+common\+::\+Plugin\+Info\+Container \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a1146168cd8a14a9b55049f9c7ccd0ac6}{task\+\_\+plugin\+\_\+info\+\_\+}}
 \item 
 tesseract\+\_\+common\+::\+Plugin\+Loader \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory_a6fe4ecfd554b7943e5143bc373e77a2a}{plugin\+\_\+loader\+\_\+}}
 \end{DoxyCompactItemize}
@@ -117,11 +123,11 @@ tesseract\+\_\+common\+::\+Plugin\+Loader \mbox{\hyperlink{classtesseract__plann
 \doxysubsubsection{\texorpdfstring{TaskComposerPluginFactory()}{TaskComposerPluginFactory()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Plugin\+Factory\+::\+Task\+Composer\+Plugin\+Factory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerPluginFactory_a998b3841b15ca096e41f970a41c53015}\label{classtesseract__planning_1_1TaskComposerPluginFactory_a998b3841b15ca096e41f970a41c53015}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerPluginFactory_a11af051b5c59b3880fd06c7e915b0056}\label{classtesseract__planning_1_1TaskComposerPluginFactory_a11af051b5c59b3880fd06c7e915b0056}} 
 \index{tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}!TaskComposerPluginFactory@{TaskComposerPluginFactory}}
 \index{TaskComposerPluginFactory@{TaskComposerPluginFactory}!tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}}
 \doxysubsubsection{\texorpdfstring{TaskComposerPluginFactory()}{TaskComposerPluginFactory()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Plugin\+Factory\+::\+Task\+Composer\+Plugin\+Factory (\begin{DoxyParamCaption}\item[{YAML\+::\+Node}]{config }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Composer\+Plugin\+Factory\+::\+Task\+Composer\+Plugin\+Factory (\begin{DoxyParamCaption}\item[{const YAML\+::\+Node \&}]{config }\end{DoxyParamCaption})}
 
 
 
@@ -430,6 +436,51 @@ Check if it has task composer node plugins.
 \begin{DoxyReturn}{Returns}
 True if task composer node Plugin\+Info\+Map is not empty, otherwise fale 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerPluginFactory_a3113b1c09b9c36a008dd395bbf0f274f}\label{classtesseract__planning_1_1TaskComposerPluginFactory_a3113b1c09b9c36a008dd395bbf0f274f}} 
+\index{tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}!loadConfig@{loadConfig}}
+\index{loadConfig@{loadConfig}!tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}}
+\doxysubsubsection{\texorpdfstring{loadConfig()}{loadConfig()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Task\+Composer\+Plugin\+Factory\+::load\+Config (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{config }\end{DoxyParamCaption})}
+
+
+
+Load plugins from string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em config} & The config string \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerPluginFactory_aa0c865409b293191c26db85ae1ba17d5}\label{classtesseract__planning_1_1TaskComposerPluginFactory_aa0c865409b293191c26db85ae1ba17d5}} 
+\index{tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}!loadConfig@{loadConfig}}
+\index{loadConfig@{loadConfig}!tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}}
+\doxysubsubsection{\texorpdfstring{loadConfig()}{loadConfig()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Task\+Composer\+Plugin\+Factory\+::load\+Config (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+common\+::fs\+::path \&}]{config }\end{DoxyParamCaption})}
+
+
+
+Load plugins from file path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em config} & The config file path \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerPluginFactory_afb27f78baa274a4ec986bd063e8ffc80}\label{classtesseract__planning_1_1TaskComposerPluginFactory_afb27f78baa274a4ec986bd063e8ffc80}} 
+\index{tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}!loadConfig@{loadConfig}}
+\index{loadConfig@{loadConfig}!tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}}
+\doxysubsubsection{\texorpdfstring{loadConfig()}{loadConfig()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Task\+Composer\+Plugin\+Factory\+::load\+Config (\begin{DoxyParamCaption}\item[{const YAML\+::\+Node \&}]{config }\end{DoxyParamCaption})}
+
+
+
+Load plugins from yaml node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em config} & The config node \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerPluginFactory_ad28a959dc35f95d1a62ec001de517613}\label{classtesseract__planning_1_1TaskComposerPluginFactory_ad28a959dc35f95d1a62ec001de517613}} 
 \index{tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}!operator=@{operator=}}
 \index{operator=@{operator=}!tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}}
@@ -538,17 +589,17 @@ Set a default task composer node.
 \doxysubsubsection{\texorpdfstring{node\_factories\_}{node\_factories\_}}
 {\footnotesize\ttfamily std\+::map$<$std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeFactory_ac45fabbe58853cb73b9dc577bce5b9cf}{Task\+Composer\+Node\+Factory\+::\+Ptr}}$>$ tesseract\+\_\+planning\+::\+Task\+Composer\+Plugin\+Factory\+::node\+\_\+factories\+\_\+\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [private]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerPluginFactory_ab5b7ec4096fd5e77c3b6f83aa9f17e61}\label{classtesseract__planning_1_1TaskComposerPluginFactory_ab5b7ec4096fd5e77c3b6f83aa9f17e61}} 
-\index{tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}!node\_plugin\_info\_@{node\_plugin\_info\_}}
-\index{node\_plugin\_info\_@{node\_plugin\_info\_}!tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}}
-\doxysubsubsection{\texorpdfstring{node\_plugin\_info\_}{node\_plugin\_info\_}}
-{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Plugin\+Info\+Container tesseract\+\_\+planning\+::\+Task\+Composer\+Plugin\+Factory\+::node\+\_\+plugin\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
-
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerPluginFactory_a6fe4ecfd554b7943e5143bc373e77a2a}\label{classtesseract__planning_1_1TaskComposerPluginFactory_a6fe4ecfd554b7943e5143bc373e77a2a}} 
 \index{tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}!plugin\_loader\_@{plugin\_loader\_}}
 \index{plugin\_loader\_@{plugin\_loader\_}!tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}}
 \doxysubsubsection{\texorpdfstring{plugin\_loader\_}{plugin\_loader\_}}
 {\footnotesize\ttfamily tesseract\+\_\+common\+::\+Plugin\+Loader tesseract\+\_\+planning\+::\+Task\+Composer\+Plugin\+Factory\+::plugin\+\_\+loader\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerPluginFactory_a1146168cd8a14a9b55049f9c7ccd0ac6}\label{classtesseract__planning_1_1TaskComposerPluginFactory_a1146168cd8a14a9b55049f9c7ccd0ac6}} 
+\index{tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}!task\_plugin\_info\_@{task\_plugin\_info\_}}
+\index{task\_plugin\_info\_@{task\_plugin\_info\_}!tesseract\_planning::TaskComposerPluginFactory@{tesseract\_planning::TaskComposerPluginFactory}}
+\doxysubsubsection{\texorpdfstring{task\_plugin\_info\_}{task\_plugin\_info\_}}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Plugin\+Info\+Container tesseract\+\_\+planning\+::\+Task\+Composer\+Plugin\+Factory\+::task\+\_\+plugin\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
 
 
 

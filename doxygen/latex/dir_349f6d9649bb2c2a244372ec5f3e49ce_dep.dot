@@ -14,7 +14,7 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/nodes"
   dir_d95fa72e1f80b7ab426a2222fe7ccfd9 [label="tesseract_time_parameterization", fillcolor="#edf0f7", color="red", style="filled", URL="dir_d95fa72e1f80b7ab426a2222fe7ccfd9.html",tooltip=""];
   dir_fa47c2fa9b13a12fc195f1b83854b816 [label="tesseract_command_language", fillcolor="#edf0f7", color="red", style="filled", URL="dir_fa47c2fa9b13a12fc195f1b83854b816.html",tooltip=""];
   dir_349f6d9649bb2c2a244372ec5f3e49ce->dir_3bbdff11a91f0745bcab499a76352edd [headlabel="1", labeldistance=1.5 headhref="dir_000024_000041.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_349f6d9649bb2c2a244372ec5f3e49ce->dir_ae3a79ad3cbc8e5dda6288dc4d617504 [headlabel="6", labeldistance=1.5 headhref="dir_000024_000064.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_349f6d9649bb2c2a244372ec5f3e49ce->dir_ae3a79ad3cbc8e5dda6288dc4d617504 [headlabel="1", labeldistance=1.5 headhref="dir_000024_000064.html" color="steelblue1" fontcolor="steelblue1"];
   dir_349f6d9649bb2c2a244372ec5f3e49ce->dir_d95fa72e1f80b7ab426a2222fe7ccfd9 [headlabel="1", labeldistance=1.5 headhref="dir_000024_000072.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_349f6d9649bb2c2a244372ec5f3e49ce->dir_fa47c2fa9b13a12fc195f1b83854b816 [headlabel="4", labeldistance=1.5 headhref="dir_000024_000060.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_349f6d9649bb2c2a244372ec5f3e49ce->dir_fa47c2fa9b13a12fc195f1b83854b816 [headlabel="2", labeldistance=1.5 headhref="dir_000024_000060.html" color="steelblue1" fontcolor="steelblue1"];
 }

@@ -8,6 +8,5 @@ var searchData=
   ['fixstatecollisiontaskinfo_5',['FixStateCollisionTaskInfo',['../db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html',1,'tesseract_planning']]],
   ['fixstatecollisiontaskunit_6',['FixStateCollisionTaskUnit',['../dc/d80/classFixStateCollisionTaskUnit.html',1,'']]],
   ['freespacehybridexample_7',['FreespaceHybridExample',['../d7/dac/classtesseract__examples_1_1FreespaceHybridExample.html',1,'tesseract_examples']]],
-  ['freespacemotionpipelinetask_8',['FreespaceMotionPipelineTask',['../dc/d45/classtesseract__planning_1_1FreespaceMotionPipelineTask.html',1,'tesseract_planning']]],
-  ['freespaceomplexample_9',['FreespaceOMPLExample',['../d4/d35/classtesseract__examples_1_1FreespaceOMPLExample.html',1,'tesseract_examples']]]
+  ['freespaceomplexample_8',['FreespaceOMPLExample',['../d4/d35/classtesseract__examples_1_1FreespaceOMPLExample.html',1,'tesseract_examples']]]
 ];

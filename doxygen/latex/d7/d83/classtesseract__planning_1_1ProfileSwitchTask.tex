@@ -31,9 +31,11 @@ using \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTask_a3dd82b8fce
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTask_ac8e80ad6add71e87b50ba5e48303c7f6}{Profile\+Switch\+Task}} ()=default
+\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTask_a587b50f9f58b91a2c221110a1f7d7e94}{Profile\+Switch\+Task}} ()
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTask_a806d278b83ff2fbd2dfc36cc4edb1d0f}{Profile\+Switch\+Task}} (std\+::string input\+\_\+key, bool is\+\_\+conditional=true, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1node__names_af3f167beb7741b9a45566d7cd177063f}{node\+\_\+names\+::\+PROFILE\+\_\+\+SWITCH\+\_\+\+TASK\+\_\+\+NAME}})
+\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTask_a90927b5019cf0c3d1d6865d1e711681b}{Profile\+Switch\+Task}} (std\+::string name, std\+::string input\+\_\+key, bool is\+\_\+conditional=true)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTask_ad9c3981a24242e233d2790ef870ab9f3}{Profile\+Switch\+Task}} (std\+::string name, const YAML\+::\+Node \&config, const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&plugin\+\_\+factory)
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTask_a6919f47bffa8bd6d75f2a21c30270173}{$\sim$\+Profile\+Switch\+Task}} () override=default
 \item 
@@ -97,17 +99,23 @@ This task simply returns a value specified in the composite profile. This can be
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTask_ac8e80ad6add71e87b50ba5e48303c7f6}\label{classtesseract__planning_1_1ProfileSwitchTask_ac8e80ad6add71e87b50ba5e48303c7f6}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTask_a587b50f9f58b91a2c221110a1f7d7e94}\label{classtesseract__planning_1_1ProfileSwitchTask_a587b50f9f58b91a2c221110a1f7d7e94}} 
 \index{tesseract\_planning::ProfileSwitchTask@{tesseract\_planning::ProfileSwitchTask}!ProfileSwitchTask@{ProfileSwitchTask}}
 \index{ProfileSwitchTask@{ProfileSwitchTask}!tesseract\_planning::ProfileSwitchTask@{tesseract\_planning::ProfileSwitchTask}}
-\doxysubsubsection{\texorpdfstring{ProfileSwitchTask()}{ProfileSwitchTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+::\+Profile\+Switch\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+\doxysubsubsection{\texorpdfstring{ProfileSwitchTask()}{ProfileSwitchTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+::\+Profile\+Switch\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTask_a806d278b83ff2fbd2dfc36cc4edb1d0f}\label{classtesseract__planning_1_1ProfileSwitchTask_a806d278b83ff2fbd2dfc36cc4edb1d0f}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTask_a90927b5019cf0c3d1d6865d1e711681b}\label{classtesseract__planning_1_1ProfileSwitchTask_a90927b5019cf0c3d1d6865d1e711681b}} 
 \index{tesseract\_planning::ProfileSwitchTask@{tesseract\_planning::ProfileSwitchTask}!ProfileSwitchTask@{ProfileSwitchTask}}
 \index{ProfileSwitchTask@{ProfileSwitchTask}!tesseract\_planning::ProfileSwitchTask@{tesseract\_planning::ProfileSwitchTask}}
-\doxysubsubsection{\texorpdfstring{ProfileSwitchTask()}{ProfileSwitchTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+::\+Profile\+Switch\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true},  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1node__names_af3f167beb7741b9a45566d7cd177063f}{node\+\_\+names\+::\+PROFILE\+\_\+\+SWITCH\+\_\+\+TASK\+\_\+\+NAME}}} }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{ProfileSwitchTask()}{ProfileSwitchTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+::\+Profile\+Switch\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::string}]{input\+\_\+key,  }\item[{bool}]{is\+\_\+conditional = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTask_ad9c3981a24242e233d2790ef870ab9f3}\label{classtesseract__planning_1_1ProfileSwitchTask_ad9c3981a24242e233d2790ef870ab9f3}} 
+\index{tesseract\_planning::ProfileSwitchTask@{tesseract\_planning::ProfileSwitchTask}!ProfileSwitchTask@{ProfileSwitchTask}}
+\index{ProfileSwitchTask@{ProfileSwitchTask}!tesseract\_planning::ProfileSwitchTask@{tesseract\_planning::ProfileSwitchTask}}
+\doxysubsubsection{\texorpdfstring{ProfileSwitchTask()}{ProfileSwitchTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+::\+Profile\+Switch\+Task (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{const YAML\+::\+Node \&}]{config,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerPluginFactory}{Task\+Composer\+Plugin\+Factory}} \&}]{plugin\+\_\+factory }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTask_a6919f47bffa8bd6d75f2a21c30270173}\label{classtesseract__planning_1_1ProfileSwitchTask_a6919f47bffa8bd6d75f2a21c30270173}} 
 \index{tesseract\_planning::ProfileSwitchTask@{tesseract\_planning::ProfileSwitchTask}!````~ProfileSwitchTask@{$\sim$ProfileSwitchTask}}
@@ -118,13 +126,13 @@ This task simply returns a value specified in the composite profile. This can be
 \mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTask_a645149d256ce145d21381f3a270e7b1b}\label{classtesseract__planning_1_1ProfileSwitchTask_a645149d256ce145d21381f3a270e7b1b}} 
 \index{tesseract\_planning::ProfileSwitchTask@{tesseract\_planning::ProfileSwitchTask}!ProfileSwitchTask@{ProfileSwitchTask}}
 \index{ProfileSwitchTask@{ProfileSwitchTask}!tesseract\_planning::ProfileSwitchTask@{tesseract\_planning::ProfileSwitchTask}}
-\doxysubsubsection{\texorpdfstring{ProfileSwitchTask()}{ProfileSwitchTask()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+\doxysubsubsection{\texorpdfstring{ProfileSwitchTask()}{ProfileSwitchTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+::\+Profile\+Switch\+Task (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTask}{Profile\+Switch\+Task}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTask_a59f57a77c413fc2bb5130db13801d103}\label{classtesseract__planning_1_1ProfileSwitchTask_a59f57a77c413fc2bb5130db13801d103}} 
 \index{tesseract\_planning::ProfileSwitchTask@{tesseract\_planning::ProfileSwitchTask}!ProfileSwitchTask@{ProfileSwitchTask}}
 \index{ProfileSwitchTask@{ProfileSwitchTask}!tesseract\_planning::ProfileSwitchTask@{tesseract\_planning::ProfileSwitchTask}}
-\doxysubsubsection{\texorpdfstring{ProfileSwitchTask()}{ProfileSwitchTask()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+\doxysubsubsection{\texorpdfstring{ProfileSwitchTask()}{ProfileSwitchTask()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+::\+Profile\+Switch\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTask}{Profile\+Switch\+Task}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 

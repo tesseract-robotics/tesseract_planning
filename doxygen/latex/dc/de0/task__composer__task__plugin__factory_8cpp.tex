@@ -1,0 +1,117 @@
+\hypertarget{task__composer__task__plugin__factory_8cpp}{}\doxysection{tesseract\+\_\+task\+\_\+composer/src/task\+\_\+composer\+\_\+task\+\_\+plugin\+\_\+factory.cpp File Reference}
+\label{task__composer__task__plugin__factory_8cpp}\index{tesseract\_task\_composer/src/task\_composer\_task\_plugin\_factory.cpp@{tesseract\_task\_composer/src/task\_composer\_task\_plugin\_factory.cpp}}
+
+
+A task in the pipeline.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+task\+\_\+plugin\+\_\+factory.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+graph.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/check\+\_\+input\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/continuous\+\_\+contact\+\_\+check\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/discrete\+\_\+contact\+\_\+check\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/done\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/error\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/fix\+\_\+state\+\_\+bounds\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/fix\+\_\+state\+\_\+collision\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/iterative\+\_\+spline\+\_\+parameterization\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/min\+\_\+length\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/profile\+\_\+switch\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/ruckig\+\_\+trajectory\+\_\+smoothing\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/start\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/time\+\_\+optimal\+\_\+parameterization\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/upsample\+\_\+trajectory\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/raster\+\_\+motion\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/raster\+\_\+only\+\_\+motion\+\_\+task.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/motion\+\_\+planner\+\_\+task.\+hpp$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/descartes\+\_\+motion\+\_\+planner.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+motion\+\_\+planner.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt/trajopt\+\_\+motion\+\_\+planner.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/simple\+\_\+motion\+\_\+planner.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt\+\_\+ifopt/trajopt\+\_\+ifopt\+\_\+motion\+\_\+planner.\+h$>$}\newline
+Include dependency graph for task\+\_\+composer\+\_\+task\+\_\+plugin\+\_\+factory.\+cpp\+:
+% FIG 0
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_acb406c46e2643da9256f52fcb9e2e0b2}{tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Check\+Input\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_acca2e716f27d703e401c27d11d519035}{tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Continuous\+Contact\+Check\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a0315a3c803394f85e9a493502f341c16}{tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Discrete\+Contact\+Check\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a95da550022380d0b59c43caae32ddf73}{tesseract\+\_\+planning\+::\+Done\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Done\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a015dc004ad02471db6622ff35f75086a}{tesseract\+\_\+planning\+::\+Error\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Error\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a06320f5d2852b1aa559aa919592caba3}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Fix\+State\+Bounds\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_ad578ba7972c234aeaf261b84e6039144}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Fix\+State\+Collision\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a97fb496ffa517d725c1a52a9056e1af5}{tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Iterative\+Spline\+Parameterization\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a9a59e0c003aeeee1d3e0d28dcaa979b5}{tesseract\+\_\+planning\+::\+Min\+Length\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Min\+Length\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a9cf1b0af37dc27f0b08eeb5b9d0784b8}{tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Profile\+Switch\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_ad1c48d3b4ba4bb1dbe289d3a3404fa12}{tesseract\+\_\+planning\+::\+Ruckig\+Trajectory\+Smoothing\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Ruckig\+Trajectory\+Smoothing\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a325f536b78a719b9a50869623489ddee}{tesseract\+\_\+planning\+::\+Start\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Start\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a52b74961210d66dc61bcc84a42d71c49}{tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Time\+Optimal\+Parameterization\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a5354887ef54cb461dc96075d6ee8b988}{tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Upsample\+Trajectory\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_ab30d05906a1f81d5e02428fda0614ff0}{tesseract\+\_\+planning\+::\+Raster\+Motion\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Raster\+Motion\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_ac4ed124920acbec6295456767033f8a3}{tesseract\+\_\+planning\+::\+Raster\+Only\+Motion\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Raster\+Only\+Motion\+Task $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a6b88aa7c444312042042ba79ea52e7af}{tesseract\+\_\+planning\+::\+Descartes\+FMotion\+Planner\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Motion\+Planner\+Task$<$ Descartes\+Motion\+PlannerF $>$ $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_af556fa8815081da68ed3d39f6406cbf7}{tesseract\+\_\+planning\+::\+Descartes\+DMotion\+Planner\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Motion\+Planner\+Task$<$ Descartes\+Motion\+PlannerD $>$ $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a9395924f018e1f5c4786ee91db314b07}{tesseract\+\_\+planning\+::\+OMPLMotion\+Planner\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Motion\+Planner\+Task$<$ OMPLMotion\+Planner $>$ $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_af5bc4ec469c4be909ac232ae1117e77f}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Motion\+Planner\+Task$<$ Traj\+Opt\+Motion\+Planner $>$ $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a68c7cff0ecf6580b3b9c737960c13c25}{tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Motion\+Planner\+Task$<$ Simple\+Motion\+Planner $>$ $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a7af66b245e10826ba36c5b07923facab}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Motion\+Planner\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Motion\+Planner\+Task$<$ Traj\+Opt\+Ifopt\+Motion\+Planner $>$ $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_ac83628c7718ab95d0b295e590e307840}{tesseract\+\_\+planning\+::\+Graph\+Task\+Factory}} = Task\+Composer\+Task\+Factory$<$ Task\+Composer\+Graph $>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A task in the pipeline. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+July 29. 2022 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000263}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2023, Levi Armstrong
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

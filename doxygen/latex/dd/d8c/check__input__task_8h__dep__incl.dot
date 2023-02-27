@@ -8,5 +8,5 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/nodes/check_inp
   Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
   Node2 [label="tesseract_task_composer\l/src/nodes/check_input\l_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/de4/check__input__task_8cpp.html",tooltip="Task for checking input data structure."];
   Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
-  Node3 [label="tesseract_task_composer\l/src/nodes/simple_motion\l_pipeline_task.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/de9/simple__motion__pipeline__task_8cpp.html",tooltip=" "];
+  Node3 [label="tesseract_task_composer\l/src/task_composer_task\l_plugin_factory.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/de0/task__composer__task__plugin__factory_8cpp.html",tooltip="A task in the pipeline."];
 }

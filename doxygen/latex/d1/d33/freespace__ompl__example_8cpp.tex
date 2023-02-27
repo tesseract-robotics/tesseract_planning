@@ -16,14 +16,11 @@ An example of a feespace motion planning with OMPL.
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/joint\+\_\+waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/move\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/default\+\_\+planner\+\_\+namespaces.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/profile/ompl\+\_\+default\+\_\+plan\+\_\+profile.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+problem.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+input.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+node\+\_\+names.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/nodes/freespace\+\_\+motion\+\_\+pipeline\+\_\+task.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/taskflow/taskflow\+\_\+task\+\_\+composer\+\_\+executor.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+task\+\_\+composer/task\+\_\+composer\+\_\+plugin\+\_\+factory.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+visualization/markers/toolpath\+\_\+marker.\+h$>$}\newline
 Include dependency graph for freespace\+\_\+ompl\+\_\+example.\+cpp\+:
 % FIG 0
@@ -31,6 +28,11 @@ Include dependency graph for freespace\+\_\+ompl\+\_\+example.\+cpp\+:
 \begin{DoxyCompactItemize}
 \item 
 namespace \mbox{\hyperlink{namespacetesseract__examples}{tesseract\+\_\+examples}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const std\+::string \mbox{\hyperlink{freespace__ompl__example_8cpp_a8926f8facf8bb84b469412046babbead}{OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}} = \char`\"{}OMPLMotion\+Planner\+Task\char`\"{}
 \end{DoxyCompactItemize}
 
 
@@ -89,3 +91,12 @@ Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\
 \begin{DoxyParagraph}{}
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
 \end{DoxyParagraph}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{freespace__ompl__example_8cpp_a8926f8facf8bb84b469412046babbead}\label{freespace__ompl__example_8cpp_a8926f8facf8bb84b469412046babbead}} 
+\index{freespace\_ompl\_example.cpp@{freespace\_ompl\_example.cpp}!OMPL\_DEFAULT\_NAMESPACE@{OMPL\_DEFAULT\_NAMESPACE}}
+\index{OMPL\_DEFAULT\_NAMESPACE@{OMPL\_DEFAULT\_NAMESPACE}!freespace\_ompl\_example.cpp@{freespace\_ompl\_example.cpp}}
+\doxysubsubsection{\texorpdfstring{OMPL\_DEFAULT\_NAMESPACE}{OMPL\_DEFAULT\_NAMESPACE}}
+{\footnotesize\ttfamily const std\+::string OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE = \char`\"{}OMPLMotion\+Planner\+Task\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
