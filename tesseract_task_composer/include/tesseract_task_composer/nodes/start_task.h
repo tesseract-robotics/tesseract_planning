@@ -31,10 +31,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
+class TaskComposerPluginFactory;
 class StartTask : public TaskComposerTask
 {
 public:
@@ -43,7 +43,8 @@ public:
   using UPtr = std::unique_ptr<StartTask>;
   using ConstUPtr = std::unique_ptr<const StartTask>;
 
-  StartTask(std::string name = node_names::START_TASK_NAME);
+  explicit StartTask(std::string name = "StartTask");
+  explicit StartTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~StartTask() override = default;
 
   bool operator==(const StartTask& rhs) const;

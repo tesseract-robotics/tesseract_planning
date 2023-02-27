@@ -41,15 +41,51 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-IterativeSplineParameterizationTask::IterativeSplineParameterizationTask(std::string input_key,
+IterativeSplineParameterizationTask::IterativeSplineParameterizationTask()
+  : TaskComposerTask("IterativeSplineParameterizationTask", true)
+{
+}
+IterativeSplineParameterizationTask::IterativeSplineParameterizationTask(std::string name,
+                                                                         std::string input_key,
                                                                          std::string output_key,
                                                                          bool is_conditional,
-                                                                         bool add_points,
-                                                                         std::string name)
-  : TaskComposerTask(is_conditional, std::move(name)), add_points_(add_points), solver_(add_points)
+                                                                         bool add_points)
+  : TaskComposerTask(std::move(name), is_conditional), add_points_(add_points), solver_(add_points)
 {
   input_keys_.push_back(std::move(input_key));
   output_keys_.push_back(std::move(output_key));
+}
+
+IterativeSplineParameterizationTask::IterativeSplineParameterizationTask(
+    std::string name,
+    const YAML::Node& config,
+    const TaskComposerPluginFactory& /*plugin_factory*/)
+  : TaskComposerTask(std::move(name), config)
+{
+  if (input_keys_.empty())
+    throw std::runtime_error("IterativeSplineParameterizationTask, config missing 'inputs' entry");
+
+  if (input_keys_.size() > 1)
+    throw std::runtime_error("IterativeSplineParameterizationTask, config 'inputs' entry currently only supports "
+                             "one input key");
+
+  if (output_keys_.empty())
+    throw std::runtime_error("IterativeSplineParameterizationTask, config missing 'outputs' entry");
+
+  if (output_keys_.size() > 1)
+    throw std::runtime_error("IterativeSplineParameterizationTask, config 'outputs' entry currently only supports "
+                             "one output key");
+
+  try
+  {
+    if (YAML::Node n = config["add_points"])
+      add_points_ = n.as<bool>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("IterativeSplineParameterizationTask: Failed to parse yaml config data! Details: " +
+                             std::string(e.what()));
+  }
 }
 
 TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComposerInput& input,

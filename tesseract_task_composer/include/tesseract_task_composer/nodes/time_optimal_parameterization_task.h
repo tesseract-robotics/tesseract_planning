@@ -33,10 +33,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
+class TaskComposerPluginFactory;
 class TimeOptimalParameterizationTask : public TaskComposerTask
 {
 public:
@@ -45,11 +45,14 @@ public:
   using UPtr = std::unique_ptr<TimeOptimalParameterizationTask>;
   using ConstUPtr = std::unique_ptr<const TimeOptimalParameterizationTask>;
 
-  TimeOptimalParameterizationTask() = default;  // Required for serialization
-  TimeOptimalParameterizationTask(std::string input_key,
-                                  std::string output_key,
-                                  bool is_conditional = true,
-                                  std::string name = node_names::TIME_OPTIMAL_PARAMETERIZATION_TASK_NAME);
+  TimeOptimalParameterizationTask();
+  explicit TimeOptimalParameterizationTask(std::string name,
+                                           std::string input_key,
+                                           std::string output_key,
+                                           bool is_conditional = true);
+  explicit TimeOptimalParameterizationTask(std::string name,
+                                           const YAML::Node& config,
+                                           const TaskComposerPluginFactory& /*plugin_factory*/);
   ~TimeOptimalParameterizationTask() override = default;
   TimeOptimalParameterizationTask(const TimeOptimalParameterizationTask&) = delete;
   TimeOptimalParameterizationTask& operator=(const TimeOptimalParameterizationTask&) = delete;

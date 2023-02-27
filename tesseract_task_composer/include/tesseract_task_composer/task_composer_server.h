@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_executor.h>
+#include <tesseract_task_composer/task_composer_plugin_factory.h>
 
 namespace tesseract_planning
 {
@@ -42,6 +43,24 @@ public:
   using ConstPtr = std::shared_ptr<const TaskComposerServer>;
   using UPtr = std::unique_ptr<TaskComposerServer>;
   using ConstUPtr = std::unique_ptr<const TaskComposerServer>;
+
+  /**
+   * @brief Load plugins from yaml node
+   * @param config The config node
+   */
+  void loadConfig(const YAML::Node& config);
+
+  /**
+   * @brief Load plugins from file path
+   * @param config The config file path
+   */
+  void loadConfig(const tesseract_common::fs::path& config);
+
+  /**
+   * @brief Load plugins from string
+   * @param config The config string
+   */
+  void loadConfig(const std::string& config);
 
   /**
    * @brief Add a executors (thread pool)
@@ -132,6 +151,9 @@ public:
 protected:
   std::unordered_map<std::string, TaskComposerExecutor::Ptr> executors_;
   std::unordered_map<std::string, TaskComposerNode::UPtr> tasks_;
+  TaskComposerPluginFactory plugin_factory_;
+
+  void loadPlugins();
 };
 }  // namespace tesseract_planning
 

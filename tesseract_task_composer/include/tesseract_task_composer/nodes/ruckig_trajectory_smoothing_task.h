@@ -30,10 +30,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
+class TaskComposerPluginFactory;
 class RuckigTrajectorySmoothingTask : public TaskComposerTask
 {
 public:
@@ -42,11 +42,14 @@ public:
   using UPtr = std::unique_ptr<RuckigTrajectorySmoothingTask>;
   using ConstUPtr = std::unique_ptr<const RuckigTrajectorySmoothingTask>;
 
-  RuckigTrajectorySmoothingTask() = default;  // Required for serialization
-  RuckigTrajectorySmoothingTask(std::string input_key,
-                                std::string output_key,
-                                bool is_conditional = true,
-                                std::string name = node_names::RUCKIG_TRAJECTORY_SMOOTHING_TASK_NAME);
+  RuckigTrajectorySmoothingTask();
+  explicit RuckigTrajectorySmoothingTask(std::string name,
+                                         std::string input_key,
+                                         std::string output_key,
+                                         bool is_conditional = true);
+  explicit RuckigTrajectorySmoothingTask(std::string name,
+                                         const YAML::Node& config,
+                                         const TaskComposerPluginFactory& plugin_factory);
   ~RuckigTrajectorySmoothingTask() override = default;
   RuckigTrajectorySmoothingTask(const RuckigTrajectorySmoothingTask&) = delete;
   RuckigTrajectorySmoothingTask& operator=(const RuckigTrajectorySmoothingTask&) = delete;

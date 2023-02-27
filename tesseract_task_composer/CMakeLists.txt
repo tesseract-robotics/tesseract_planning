@@ -67,54 +67,59 @@ add_library(
   src/task_composer_plugin_factory.cpp
   src/task_composer_problem.cpp
   src/task_composer_server.cpp
-  src/task_composer_task.cpp
-  src/task_composer_utils.cpp
-  src/nodes/cartesian_motion_pipeline_task.cpp
+  src/task_composer_task.cpp)
+target_link_libraries(
+  ${PROJECT_NAME}
+  PUBLIC console_bridge::console_bridge
+         tesseract::tesseract_common
+         tesseract::tesseract_command_language
+         tesseract::tesseract_environment
+         Boost::boost
+         Boost::serialization
+         yaml-cpp)
+target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
+target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
+target_compile_definitions(
+  ${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_DEFINITIONS}
+                         TESSERACT_TASK_COMPOSER_DIR="${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME}")
+target_compile_definitions(${PROJECT_NAME}
+                           PRIVATE TESSERACT_TASK_COMPOSER_PLUGIN_PATH="${TESSERACT_TASK_COMPOSER_PLUGIN_PATH}")
+target_clang_tidy(${PROJECT_NAME} ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
+target_cxx_version(${PROJECT_NAME} PUBLIC VERSION ${TESSERACT_CXX_VERSION})
+target_code_coverage(
+  ${PROJECT_NAME}
+  PRIVATE
+  ALL
+  EXCLUDE ${COVERAGE_EXCLUDE}
+  ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
+target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+                                                  "$<INSTALL_INTERFACE:include>")
+
+add_library(
+  ${PROJECT_NAME}_nodes
   src/nodes/check_input_task.cpp
   src/nodes/continuous_contact_check_task.cpp
-  src/nodes/descartes_global_motion_pipeline_task.cpp
-  src/nodes/descartes_motion_pipeline_task.cpp
-  src/nodes/descartes_motion_planner_task.cpp
-  src/nodes/descartes_npc_motion_pipeline_task.cpp
   src/nodes/discrete_contact_check_task.cpp
   src/nodes/done_task.cpp
   src/nodes/error_task.cpp
   src/nodes/fix_state_bounds_task.cpp
   src/nodes/fix_state_collision_task.cpp
-  src/nodes/freespace_motion_pipeline_task.cpp
   src/nodes/iterative_spline_parameterization_task.cpp
-  src/nodes/ompl_motion_pipeline_task.cpp
-  src/nodes/ompl_motion_planner_task.cpp
   src/nodes/profile_switch_task.cpp
-  src/nodes/raster_ct_global_pipeline_task.cpp
-  src/nodes/raster_ct_motion_task.cpp
-  src/nodes/raster_ct_only_global_pipeline_task.cpp
-  src/nodes/raster_ct_only_motion_task.cpp
-  src/nodes/raster_ct_only_pipeline_task.cpp
-  src/nodes/raster_ct_pipeline_task.cpp
-  src/nodes/raster_ft_global_pipeline_task.cpp
-  src/nodes/raster_ft_motion_task.cpp
-  src/nodes/raster_ft_only_global_pipeline_task.cpp
-  src/nodes/raster_ft_only_motion_task.cpp
-  src/nodes/raster_ft_only_pipeline_task.cpp
-  src/nodes/raster_ft_pipeline_task.cpp
+  src/nodes/raster_motion_task.cpp
+  src/nodes/raster_only_motion_task.cpp
   src/nodes/ruckig_trajectory_smoothing_task.cpp
   src/nodes/min_length_task.cpp
-  src/nodes/simple_motion_pipeline_task.cpp
-  src/nodes/simple_motion_planner_task.cpp
   src/nodes/start_task.cpp
   src/nodes/time_optimal_parameterization_task.cpp
-  src/nodes/trajopt_motion_pipeline_task.cpp
-  src/nodes/trajopt_motion_planner_task.cpp
   src/nodes/update_end_state_task.cpp
   src/nodes/update_start_and_end_state_task.cpp
   src/nodes/update_start_state_task.cpp
-  src/nodes/upsample_trajectory_task.cpp
-  src/taskflow/taskflow_task_composer_executor.cpp
-  src/taskflow/taskflow_task_composer_future.cpp)
+  src/nodes/upsample_trajectory_task.cpp)
 target_link_libraries(
-  ${PROJECT_NAME}
-  PUBLIC console_bridge::console_bridge
+  ${PROJECT_NAME}_nodes
+  PUBLIC ${PROJECT_NAME}
+         console_bridge::console_bridge
          tesseract::tesseract_common
          tesseract::tesseract_command_language
          tesseract::tesseract_motion_planners_core
@@ -129,30 +134,45 @@ target_link_libraries(
          trajopt::trajopt
          Boost::boost
          Boost::serialization
-         Taskflow::Taskflow
          yaml-cpp)
-target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
-target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
-target_compile_definitions(${PROJECT_NAME}
-                           PRIVATE TESSERACT_TASK_COMPOSER_PLUGIN_PATH="${TESSERACT_TASK_COMPOSER_PLUGIN_PATH}")
-target_clang_tidy(${PROJECT_NAME} ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
-target_cxx_version(${PROJECT_NAME} PUBLIC VERSION ${TESSERACT_CXX_VERSION})
+target_compile_options(${PROJECT_NAME}_nodes PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
+target_compile_options(${PROJECT_NAME}_nodes PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
+target_compile_definitions(${PROJECT_NAME}_nodes PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_clang_tidy(${PROJECT_NAME}_nodes ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
+target_cxx_version(${PROJECT_NAME}_nodes PUBLIC VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
-  ${PROJECT_NAME}
+  ${PROJECT_NAME}_nodes
   PRIVATE
   ALL
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
-target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-                                                  "$<INSTALL_INTERFACE:include>")
+target_include_directories(${PROJECT_NAME}_nodes PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+                                                        "$<INSTALL_INTERFACE:include>")
 
-if(TESSERACT_BUILD_TRAJOPT_IFOPT)
-  target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/nodes/trajopt_ifopt_motion_pipeline_task.cpp
-                                         ${CMAKE_CURRENT_SOURCE_DIR}/src/nodes/trajopt_ifopt_motion_planner_task.cpp)
-  target_link_libraries(${PROJECT_NAME} PUBLIC tesseract::tesseract_motion_planners_trajopt_ifopt)
-  target_compile_definitions(${PROJECT_NAME} PUBLIC TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT=1)
-endif()
+add_library(${PROJECT_NAME}_taskflow src/taskflow/taskflow_task_composer_executor.cpp
+                                     src/taskflow/taskflow_task_composer_future.cpp)
+target_link_libraries(
+  ${PROJECT_NAME}_taskflow
+  PUBLIC console_bridge::console_bridge
+         tesseract::tesseract_common
+         tesseract::tesseract_command_language
+         Boost::boost
+         Boost::serialization
+         Taskflow::Taskflow
+         yaml-cpp)
+target_compile_options(${PROJECT_NAME}_taskflow PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
+target_compile_options(${PROJECT_NAME}_taskflow PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
+target_compile_definitions(${PROJECT_NAME}_taskflow PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_clang_tidy(${PROJECT_NAME}_taskflow ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
+target_cxx_version(${PROJECT_NAME}_taskflow PUBLIC VERSION ${TESSERACT_CXX_VERSION})
+target_code_coverage(
+  ${PROJECT_NAME}_taskflow
+  PRIVATE
+  ALL
+  EXCLUDE ${COVERAGE_EXCLUDE}
+  ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
+target_include_directories(${PROJECT_NAME}_taskflow PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+                                                           "$<INSTALL_INTERFACE:include>")
 
 # Add compiler definition to core so it can find all plugins produced
 string(
@@ -162,9 +182,42 @@ string(
           "${TASK_COMPOSER_PLUGINS}")
 target_compile_definitions(${PROJECT_NAME} PRIVATE TESSERACT_TASK_COMPOSER_PLUGINS="${TASK_COMPOSER_PLUGINS}")
 
+# Create target for Bullet implementation
+add_library(${PROJECT_NAME}_factories src/task_composer_task_plugin_factory.cpp
+                                      src/task_composer_executor_plugin_factory.cpp)
+target_link_libraries(
+  ${PROJECT_NAME}_factories
+  PUBLIC ${PROJECT_NAME}
+         ${PROJECT_NAME}_nodes
+         ${PROJECT_NAME}_taskflow
+         tesseract::tesseract_motion_planners_simple
+         tesseract::tesseract_motion_planners_trajopt
+         tesseract::tesseract_motion_planners_ompl
+         tesseract::tesseract_motion_planners_descartes)
+target_compile_options(${PROJECT_NAME}_factories PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
+target_compile_options(${PROJECT_NAME}_factories PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
+target_compile_definitions(${PROJECT_NAME}_factories PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_cxx_version(${PROJECT_NAME}_factories PUBLIC VERSION ${TESSERACT_CXX_VERSION})
+target_clang_tidy(${PROJECT_NAME}_factories ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
+target_code_coverage(
+  ${PROJECT_NAME}_factories
+  PRIVATE
+  ALL
+  EXCLUDE ${COVERAGE_EXCLUDE}
+  ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
+target_include_directories(${PROJECT_NAME}_factories PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+                                                            "$<INSTALL_INTERFACE:include>")
+if(TESSERACT_BUILD_TRAJOPT_IFOPT)
+  target_link_libraries(${PROJECT_NAME}_factories PUBLIC tesseract::tesseract_motion_planners_trajopt_ifopt)
+  target_compile_definitions(${PROJECT_NAME}_factories PUBLIC TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT=1)
+endif()
+
 configure_package(
   NAMESPACE tesseract
   TARGETS ${PROJECT_NAME}
+          ${PROJECT_NAME}_nodes
+          ${PROJECT_NAME}_taskflow
+          ${PROJECT_NAME}_factories
           DEPENDENCIES
           "Boost COMPONENTS serialization"
           console_bridge
@@ -188,6 +241,8 @@ install(
 if(TESSERACT_ENABLE_EXAMPLES)
   add_subdirectory(examples)
 endif()
+
+install(DIRECTORY config/ DESTINATION share/${PROJECT_NAME}/config)
 
 if(TESSERACT_ENABLE_TESTING)
   enable_testing()

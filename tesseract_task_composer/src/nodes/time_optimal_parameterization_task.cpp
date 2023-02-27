@@ -43,14 +43,38 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string input_key,
+TimeOptimalParameterizationTask::TimeOptimalParameterizationTask()
+  : TaskComposerTask("TimeOptimalParameterizationTask", true)
+{
+}
+TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string name,
+                                                                 std::string input_key,
                                                                  std::string output_key,
-                                                                 bool is_conditional,
-                                                                 std::string name)
-  : TaskComposerTask(is_conditional, std::move(name))
+                                                                 bool is_conditional)
+  : TaskComposerTask(std::move(name), is_conditional)
 {
   input_keys_.push_back(std::move(input_key));
   output_keys_.push_back(std::move(output_key));
+}
+
+TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string name,
+                                                                 const YAML::Node& config,
+                                                                 const TaskComposerPluginFactory&)
+  : TaskComposerTask(std::move(name), config)
+{
+  if (input_keys_.empty())
+    throw std::runtime_error("TimeOptimalParameterizationTask, config missing 'inputs' entry");
+
+  if (input_keys_.size() > 1)
+    throw std::runtime_error("TimeOptimalParameterizationTask, config 'inputs' entry currently only supports one "
+                             "input key");
+
+  if (output_keys_.empty())
+    throw std::runtime_error("TimeOptimalParameterizationTask, config missing 'outputs' entry");
+
+  if (output_keys_.size() > 1)
+    throw std::runtime_error("TimeOptimalParameterizationTask, config 'outputs' entry currently only supports one "
+                             "output key");
 }
 
 TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposerInput& input,

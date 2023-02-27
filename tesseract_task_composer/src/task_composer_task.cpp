@@ -34,9 +34,43 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerTask::TaskComposerTask(bool is_conditional, std::string name)
+TaskComposerTask::TaskComposerTask() : TaskComposerNode("DoneTask", TaskComposerNodeType::TASK) {}
+
+TaskComposerTask::TaskComposerTask(std::string name, bool is_conditional)
   : TaskComposerNode(std::move(name), TaskComposerNodeType::TASK), is_conditional_(is_conditional)
 {
+}
+
+TaskComposerTask::TaskComposerTask(std::string name, const YAML::Node& config)
+  : TaskComposerNode(std::move(name), TaskComposerNodeType::TASK)
+{
+  try
+  {
+    if (YAML::Node n = config["conditional"])
+      is_conditional_ = n.as<bool>();
+    else
+      throw std::runtime_error("TaskComposerTask, config missing 'conditional' entry");
+
+    if (YAML::Node n = config["inputs"])
+    {
+      if (n.IsSequence())
+        input_keys_ = n.as<std::vector<std::string>>();
+      else
+        input_keys_ = { n.as<std::string>() };
+    }
+
+    if (YAML::Node n = config["outputs"])
+    {
+      if (n.IsSequence())
+        output_keys_ = n.as<std::vector<std::string>>();
+      else
+        output_keys_ = { n.as<std::string>() };
+    }
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("TaskComposerTask: Failed to parse yaml config data! Details: " + std::string(e.what()));
+  }
 }
 
 bool TaskComposerTask::isConditional() const { return is_conditional_; }

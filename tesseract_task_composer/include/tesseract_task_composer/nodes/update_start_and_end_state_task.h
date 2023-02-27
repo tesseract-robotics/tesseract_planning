@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
 
 namespace tesseract_planning
 {
@@ -45,18 +44,18 @@ public:
 
   UpdateStartAndEndStateTask() = default;
   /** @brief The input_key is the uuid string */
-  UpdateStartAndEndStateTask(std::string input_prev_key,
-                             std::string input_next_key,
-                             std::string output_key,
-                             bool is_conditional = false,
-                             std::string name = node_names::UPDATE_START_AND_END_STATE_TASK_NAME);
+  explicit UpdateStartAndEndStateTask(std::string name,
+                                      std::string input_prev_key,
+                                      std::string input_next_key,
+                                      std::string output_key,
+                                      bool is_conditional = false);
 
-  UpdateStartAndEndStateTask(std::string input_key,
-                             std::string input_prev_key,
-                             std::string input_next_key,
-                             std::string output_key,
-                             bool is_conditional = false,
-                             std::string name = node_names::UPDATE_START_AND_END_STATE_TASK_NAME);
+  explicit UpdateStartAndEndStateTask(std::string name,
+                                      std::string input_key,
+                                      std::string input_prev_key,
+                                      std::string input_next_key,
+                                      std::string output_key,
+                                      bool is_conditional = false);
   ~UpdateStartAndEndStateTask() override = default;
 
   bool operator==(const UpdateStartAndEndStateTask& rhs) const;

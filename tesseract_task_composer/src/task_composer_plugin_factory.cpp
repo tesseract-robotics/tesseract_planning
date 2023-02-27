@@ -48,7 +48,27 @@ TaskComposerPluginFactory::TaskComposerPluginFactory()
                boost::token_compress_on);
 }
 
-TaskComposerPluginFactory::TaskComposerPluginFactory(YAML::Node config) : TaskComposerPluginFactory()
+TaskComposerPluginFactory::TaskComposerPluginFactory(const YAML::Node& config) : TaskComposerPluginFactory()
+{
+  loadConfig(config);
+}
+
+TaskComposerPluginFactory::TaskComposerPluginFactory(const tesseract_common::fs::path& config)
+  : TaskComposerPluginFactory()
+{
+  loadConfig(config);
+}
+
+TaskComposerPluginFactory::TaskComposerPluginFactory(const std::string& config) : TaskComposerPluginFactory()
+{
+  loadConfig(config);
+}
+
+// This prevents it from being defined inline.
+// If not the forward declare of PluginLoader cause compiler error.
+TaskComposerPluginFactory::~TaskComposerPluginFactory() = default;
+
+void TaskComposerPluginFactory::loadConfig(const YAML::Node& config)
 {
   if (const YAML::Node& plugin_info = config[tesseract_common::TaskComposerPluginInfo::CONFIG_KEY])
   {
@@ -57,23 +77,16 @@ TaskComposerPluginFactory::TaskComposerPluginFactory(YAML::Node config) : TaskCo
     plugin_loader_.search_libraries.insert(tc_plugin_info.search_libraries.begin(),
                                            tc_plugin_info.search_libraries.end());
     executor_plugin_info_ = tc_plugin_info.executor_plugin_infos;
-    node_plugin_info_ = tc_plugin_info.node_plugin_infos;
+    task_plugin_info_ = tc_plugin_info.task_plugin_infos;
   }
 }
 
-TaskComposerPluginFactory::TaskComposerPluginFactory(const tesseract_common::fs::path& config)
-  : TaskComposerPluginFactory(YAML::LoadFile(config.string()))
+void TaskComposerPluginFactory::loadConfig(const tesseract_common::fs::path& config)
 {
+  loadConfig(YAML::LoadFile(config.string()));
 }
 
-TaskComposerPluginFactory::TaskComposerPluginFactory(const std::string& config)
-  : TaskComposerPluginFactory(YAML::Load(config))
-{
-}
-
-// This prevents it from being defined inline.
-// If not the forward declare of PluginLoader cause compiler error.
-TaskComposerPluginFactory::~TaskComposerPluginFactory() = default;
+void TaskComposerPluginFactory::loadConfig(const std::string& config) { loadConfig(YAML::Load(config)); }
 
 void TaskComposerPluginFactory::addSearchPath(const std::string& path) { plugin_loader_.search_paths.insert(path); }
 
@@ -144,49 +157,49 @@ std::string TaskComposerPluginFactory::getDefaultTaskComposerExecutorPlugin() co
 void TaskComposerPluginFactory::addTaskComposerNodePlugin(const std::string& name,
                                                           tesseract_common::PluginInfo plugin_info)
 {
-  node_plugin_info_.plugins[name] = std::move(plugin_info);
+  task_plugin_info_.plugins[name] = std::move(plugin_info);
 }
 
-bool TaskComposerPluginFactory::hasTaskComposerNodePlugins() const { return !node_plugin_info_.plugins.empty(); }
+bool TaskComposerPluginFactory::hasTaskComposerNodePlugins() const { return !task_plugin_info_.plugins.empty(); }
 
 tesseract_common::PluginInfoMap TaskComposerPluginFactory::getTaskComposerNodePlugins() const
 {
-  return node_plugin_info_.plugins;
+  return task_plugin_info_.plugins;
 }
 
 void TaskComposerPluginFactory::removeTaskComposerNodePlugin(const std::string& name)
 {
-  auto cm_it = node_plugin_info_.plugins.find(name);
-  if (cm_it == node_plugin_info_.plugins.end())
+  auto cm_it = task_plugin_info_.plugins.find(name);
+  if (cm_it == task_plugin_info_.plugins.end())
     throw std::runtime_error("TaskComposerPluginFactory, tried to remove task composer node '" + name +
                              "' that does not exist!");
 
-  node_plugin_info_.plugins.erase(cm_it);
+  task_plugin_info_.plugins.erase(cm_it);
 
-  if (node_plugin_info_.default_plugin == name)
-    node_plugin_info_.default_plugin.clear();
+  if (task_plugin_info_.default_plugin == name)
+    task_plugin_info_.default_plugin.clear();
 }
 
 void TaskComposerPluginFactory::setDefaultTaskComposerNodePlugin(const std::string& name)
 {
-  auto cm_it = node_plugin_info_.plugins.find(name);
-  if (cm_it == node_plugin_info_.plugins.end())
+  auto cm_it = task_plugin_info_.plugins.find(name);
+  if (cm_it == task_plugin_info_.plugins.end())
     throw std::runtime_error("TaskComposerPluginFactory, tried to set default task composer node '" + name +
                              "' that does not exist!");
 
-  node_plugin_info_.default_plugin = name;
+  task_plugin_info_.default_plugin = name;
 }
 
 std::string TaskComposerPluginFactory::getDefaultTaskComposerNodePlugin() const
 {
-  if (node_plugin_info_.plugins.empty())
+  if (task_plugin_info_.plugins.empty())
     throw std::runtime_error("TaskComposerPluginFactory, tried to get default task composer node but none "
                              "exist!");
 
-  if (node_plugin_info_.default_plugin.empty())
-    return node_plugin_info_.plugins.begin()->first;
+  if (task_plugin_info_.default_plugin.empty())
+    return task_plugin_info_.plugins.begin()->first;
 
-  return node_plugin_info_.default_plugin;
+  return task_plugin_info_.default_plugin;
 }
 
 TaskComposerExecutor::UPtr TaskComposerPluginFactory::createTaskComposerExecutor(const std::string& name) const
@@ -222,17 +235,17 @@ TaskComposerPluginFactory::createTaskComposerExecutor(const std::string& name,
     executor_factories_[plugin_info.class_name] = plugin;
     return plugin->create(name, plugin_info.config);
   }
-  catch (const std::exception&)
+  catch (const std::exception& e)
   {
-    CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s'", plugin_info.class_name.c_str());
+    CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s', Details: %s", plugin_info.class_name.c_str(), e.what());
     return nullptr;
   }
 }
 
 TaskComposerNode::UPtr TaskComposerPluginFactory::createTaskComposerNode(const std::string& name) const
 {
-  auto cm_it = node_plugin_info_.plugins.find(name);
-  if (cm_it == node_plugin_info_.plugins.end())
+  auto cm_it = task_plugin_info_.plugins.find(name);
+  if (cm_it == task_plugin_info_.plugins.end())
   {
     CONSOLE_BRIDGE_logWarn("TaskComposerPluginFactory, tried to get task composer node '%s' that does not "
                            "exist!",
@@ -251,7 +264,7 @@ TaskComposerPluginFactory::createTaskComposerNode(const std::string& name,
   {
     auto it = node_factories_.find(plugin_info.class_name);
     if (it != node_factories_.end())
-      return it->second->create(name, plugin_info.config);
+      return it->second->create(name, plugin_info.config, *this);
 
     auto plugin = plugin_loader_.instantiate<TaskComposerNodeFactory>(plugin_info.class_name);
     if (plugin == nullptr)
@@ -260,11 +273,11 @@ TaskComposerPluginFactory::createTaskComposerNode(const std::string& name,
       return nullptr;
     }
     node_factories_[plugin_info.class_name] = plugin;
-    return plugin->create(name, plugin_info.config);
+    return plugin->create(name, plugin_info.config, *this);
   }
-  catch (const std::exception&)
+  catch (const std::exception& e)
   {
-    CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s'", plugin_info.class_name.c_str());
+    CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s', Details: %s", plugin_info.class_name.c_str(), e.what());
     return nullptr;
   }
 }
@@ -282,7 +295,7 @@ YAML::Node TaskComposerPluginFactory::getConfig() const
   tc_plugins.search_paths = plugin_loader_.search_paths;
   tc_plugins.search_libraries = plugin_loader_.search_libraries;
   tc_plugins.executor_plugin_infos = executor_plugin_info_;
-  tc_plugins.node_plugin_infos = node_plugin_info_;
+  tc_plugins.task_plugin_infos = task_plugin_info_;
 
   YAML::Node config;
   config[tesseract_common::TaskComposerPluginInfo::CONFIG_KEY] = tc_plugins;

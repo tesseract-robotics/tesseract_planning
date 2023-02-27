@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <functional>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/default_planner_namespaces.h>
 #include <tesseract_motion_planners/core/planner.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
 
@@ -57,7 +56,7 @@ class OMPLMotionPlanner : public MotionPlanner
 {
 public:
   /** @brief Construct a planner */
-  OMPLMotionPlanner(std::string name = profile_ns::OMPL_DEFAULT_NAMESPACE);
+  OMPLMotionPlanner(std::string name);
 
   /**
    * @brief Sets up the OMPL problem then solves. It is intended to simplify setting up

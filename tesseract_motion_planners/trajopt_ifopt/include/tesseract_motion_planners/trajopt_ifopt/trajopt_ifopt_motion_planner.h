@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_sqp/sqp_callback.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/default_planner_namespaces.h>
 #include <tesseract_motion_planners/core/planner.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
 
@@ -42,7 +41,7 @@ class TrajOptIfoptMotionPlanner : public MotionPlanner
 {
 public:
   /** @brief Construct a basic planner */
-  TrajOptIfoptMotionPlanner(std::string name = profile_ns::TRAJOPT_IFOPT_DEFAULT_NAMESPACE);
+  TrajOptIfoptMotionPlanner(std::string name);
 
   ~TrajOptIfoptMotionPlanner() override = default;
   TrajOptIfoptMotionPlanner(const TrajOptIfoptMotionPlanner&) = delete;

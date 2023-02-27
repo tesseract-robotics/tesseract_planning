@@ -71,11 +71,11 @@ using namespace tesseract_environment;
 using namespace tesseract_geometry;
 using namespace tesseract_kinematics;
 using namespace tesseract_planning;
-using namespace tesseract_planning::profile_ns;
 
 const static int SEED = 1;
 const static std::vector<double> start_state = { -0.5, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
 const static std::vector<double> end_state = { 0.5, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
+static const std::string OMPL_DEFAULT_NAMESPACE = "OMPLMotionPlannerTask";
 
 static void addBox(tesseract_environment::Environment& env)
 {
@@ -107,7 +107,7 @@ public:
   OMPLTestFixture() : configurator(std::make_shared<Configurator>()) {}
   using ::testing::Test::Test;
   std::shared_ptr<Configurator> configurator;
-  OMPLMotionPlanner ompl_planner;
+  OMPLMotionPlanner ompl_planner{ OMPL_DEFAULT_NAMESPACE };
 };
 
 using Implementations = ::testing::Types<tesseract_planning::SBLConfigurator,
@@ -202,7 +202,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   request.profiles = profiles;
 
   // Create Planner and solve
-  OMPLMotionPlanner ompl_planner;
+  OMPLMotionPlanner ompl_planner(OMPL_DEFAULT_NAMESPACE);
   PlannerResponse planner_response = ompl_planner.solve(request);
 
   if (!planner_response)
@@ -364,7 +364,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   request.profiles = profiles;
 
   // Create Planner and solve
-  OMPLMotionPlanner ompl_planner;
+  OMPLMotionPlanner ompl_planner(OMPL_DEFAULT_NAMESPACE);
   PlannerResponse planner_response = ompl_planner.solve(request);
 
   if (!planner_response)
@@ -457,7 +457,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   request.profiles = profiles;
 
   // Create Planner and solve
-  OMPLMotionPlanner ompl_planner;
+  OMPLMotionPlanner ompl_planner(OMPL_DEFAULT_NAMESPACE);
   PlannerResponse planner_response = ompl_planner.solve(request);
 
   if (!planner_response)

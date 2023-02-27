@@ -31,11 +31,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
+
 #include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning
 {
+class TaskComposerPluginFactory;
 /**
  * @brief This is used to upsample the results trajectory based on the longest valid segment length.
  * @note This is primarily useful to run before running time parameterization, because motion planners
@@ -50,11 +51,14 @@ public:
   using UPtr = std::unique_ptr<UpsampleTrajectoryTask>;
   using ConstUPtr = std::unique_ptr<const UpsampleTrajectoryTask>;
 
-  UpsampleTrajectoryTask() = default;  // Required for serialization
-  UpsampleTrajectoryTask(std::string input_key,
-                         std::string output_key,
-                         bool is_conditional = false,
-                         std::string name = node_names::UPSAMPLE_TRAJECTORY_TASK_NAME);
+  UpsampleTrajectoryTask();
+  explicit UpsampleTrajectoryTask(std::string name,
+                                  std::string input_key,
+                                  std::string output_key,
+                                  bool is_conditional = false);
+  explicit UpsampleTrajectoryTask(std::string name,
+                                  const YAML::Node& config,
+                                  const TaskComposerPluginFactory& plugin_factory);
   ~UpsampleTrajectoryTask() override = default;
   UpsampleTrajectoryTask(const UpsampleTrajectoryTask&) = delete;
   UpsampleTrajectoryTask& operator=(const UpsampleTrajectoryTask&) = delete;

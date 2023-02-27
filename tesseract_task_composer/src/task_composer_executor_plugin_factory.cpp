@@ -1,13 +1,13 @@
 /**
- * @file task_composer_utils.h
- * @brief A task composer utils
+ * @file task_composer_executor_plugin_factory.h
+ * @brief A task in the pipeline
  *
  * @author Levi Armstrong
- * @date August 27, 2022
+ * @date July 29. 2022
  * @version TODO
  * @bug No known bugs
  *
- * @copyright Copyright (c) 2022, Levi Armstrong
+ * @copyright Copyright (c) 2023, Levi Armstrong
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -23,16 +23,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_UTILS_H
-#define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_UTILS_H
 
-#include <tesseract_task_composer/task_composer_server.h>
+#include <tesseract_task_composer/task_composer_executor_plugin_factory.h>
+#include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 
 namespace tesseract_planning
 {
-void loadDefaultTaskComposerNodes(TaskComposerServer& server,
-                                  const std::string& input_key,
-                                  const std::string& output_key);
+using TaskflowTaskComposerExecutorFactory = TaskComposerExecutorFactoryImpl<TaskflowTaskComposerExecutor>;
 }
 
-#endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_UTILS_H
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+TESSERACT_ADD_TASK_COMPOSER_EXECUTOR_PLUGIN(tesseract_planning::TaskflowTaskComposerExecutorFactory,
+                                            TaskflowTaskComposerExecutorFactory)

@@ -37,16 +37,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
-#include <tesseract_motion_planners/default_planner_namespaces.h>
+
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_task_composer/task_composer_problem.h>
 #include <tesseract_task_composer/task_composer_input.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
-#include <tesseract_task_composer/nodes/trajopt_motion_pipeline_task.h>
-#include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
+
+#include <tesseract_task_composer/task_composer_plugin_factory.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 #include <trajopt_sco/osqp_interface.hpp>
 
@@ -57,6 +56,8 @@ using namespace tesseract_collision;
 using namespace tesseract_visualization;
 using namespace tesseract_planning;
 using tesseract_common::ManipulatorInfo;
+
+static const std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
 
 namespace tesseract_examples
 {
@@ -168,6 +169,11 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   mi.working_frame = "part";
   mi.tcp_frame = "grinder_frame";
 
+  // Create Task Composer Plugin Factory
+  const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
+  tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
+  TaskComposerPluginFactory factory(config_path);
+
   // Create Program
   CompositeInstruction program("DEFAULT", CompositeInstructionOrder::ORDERED, mi);
 
@@ -187,7 +193,7 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   program.print("Program: ");
 
   // Create Executor
-  auto executor = std::make_unique<TaskflowTaskComposerExecutor>(5);
+  auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
   // Create TrajOpt Profile
   auto trajopt_plan_profile = std::make_shared<tesseract_planning::TrajOptDefaultPlanProfile>();
@@ -214,14 +220,18 @@ bool PuzzlePieceAuxillaryAxesExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>(profile_ns::TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(
-      profile_ns::TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
-  profiles->addProfile<TrajOptSolverProfile>(profile_ns::TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
+  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
+  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
+  profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
+
+  // Create task
+  TaskComposerNode::UPtr task = factory.createTaskComposerNode("TrajOptPipeline");
+  const std::string input_key = task->getInputKeys().front();
+  const std::string output_key = task->getOutputKeys().front();
 
   // Create Task Input Data
   TaskComposerDataStorage input_data;
-  input_data.setData("input_program", program);
+  input_data.setData(input_key, program);
 
   if (plotter_ != nullptr)
     plotter_->waitForInput();
@@ -231,15 +241,14 @@ bool PuzzlePieceAuxillaryAxesExample::run()
 
   // Solve task
   TaskComposerInput input(problem, profiles);
-  TrajOptMotionPipelineTask task("input_program", "output_program");
-  TaskComposerFuture::UPtr future = executor->run(task, input);
+  TaskComposerFuture::UPtr future = executor->run(*task, input);
   future->wait();
 
   // Plot Process Trajectory
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    auto ci = input.data_storage.getData("output_program").as<CompositeInstruction>();
+    auto ci = input.data_storage.getData(output_key).as<CompositeInstruction>();
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();
     plotter_->plotTrajectory(trajectory, *state_solver);

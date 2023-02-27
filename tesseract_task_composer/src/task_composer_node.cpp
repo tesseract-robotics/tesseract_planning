@@ -44,7 +44,7 @@ TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type)
   , uuid_str_(boost::uuids::to_string(uuid_))
 {
 }
-
+void TaskComposerNode::setName(const std::string& name) { name_ = name; }
 const std::string& TaskComposerNode::getName() const { return name_; }
 
 TaskComposerNodeType TaskComposerNode::getType() const { return type_; }
@@ -59,9 +59,25 @@ const std::vector<boost::uuids::uuid>& TaskComposerNode::getOutboundEdges() cons
 
 const std::vector<boost::uuids::uuid>& TaskComposerNode::getInboundEdges() const { return inbound_edges_; }
 
+void TaskComposerNode::setInputKeys(const std::vector<std::string>& input_keys) { input_keys_ = input_keys; }
+
 const std::vector<std::string>& TaskComposerNode::getInputKeys() const { return input_keys_; }
 
+void TaskComposerNode::setOutputKeys(const std::vector<std::string>& output_keys) { output_keys_ = output_keys; }
+
 const std::vector<std::string>& TaskComposerNode::getOutputKeys() const { return output_keys_; }
+
+void TaskComposerNode::renameInputKeys(const std::map<std::string, std::string>& input_keys)
+{
+  for (const auto& key : input_keys)
+    std::replace(input_keys_.begin(), input_keys_.end(), key.first, key.second);
+}
+
+void TaskComposerNode::renameOutputKeys(const std::map<std::string, std::string>& output_keys)
+{
+  for (const auto& key : output_keys)
+    std::replace(output_keys_.begin(), output_keys_.end(), key.first, key.second);
+}
 
 void TaskComposerNode::dump(std::ostream& os) const
 {

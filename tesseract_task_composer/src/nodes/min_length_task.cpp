@@ -43,11 +43,30 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-MinLengthTask::MinLengthTask(std::string input_key, std::string output_key, bool is_conditional, std::string name)
-  : TaskComposerTask(is_conditional, std::move(name))
+MinLengthTask::MinLengthTask() : TaskComposerTask("MinLengthTask", false) {}
+MinLengthTask::MinLengthTask(std::string name, std::string input_key, std::string output_key, bool is_conditional)
+  : TaskComposerTask(std::move(name), is_conditional)
 {
   input_keys_.push_back(std::move(input_key));
   output_keys_.push_back(std::move(output_key));
+}
+
+MinLengthTask::MinLengthTask(std::string name,
+                             const YAML::Node& config,
+                             const TaskComposerPluginFactory& /*plugin_factory*/)
+  : TaskComposerTask(std::move(name), config)
+{
+  if (input_keys_.empty())
+    throw std::runtime_error("FixStateBoundsTask, config missing 'inpus' entry");
+
+  if (input_keys_.size() > 1)
+    throw std::runtime_error("FixStateBoundsTask, config 'inputs' entry currently only supports one input key");
+
+  if (output_keys_.empty())
+    throw std::runtime_error("FixStateBoundsTask, config missing 'outputs' entry");
+
+  if (output_keys_.size() > 1)
+    throw std::runtime_error("FixStateBoundsTask, config 'outputs' entry currently only supports one output key");
 }
 
 TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerInput& input,
@@ -99,7 +118,7 @@ TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerInput& input,
     request.env = input.problem.env;
 
     // Set up planner
-    SimpleMotionPlanner planner;
+    SimpleMotionPlanner planner(name_);
 
     auto profile = std::make_shared<SimplePlannerFixedSizePlanProfile>(subdivisions, subdivisions);
 

@@ -8,7 +8,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/default_planner_namespaces.h>
 #include <tesseract_motion_planners/core/planner.h>
 #include <tesseract_motion_planners/descartes/descartes_problem.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_profile.h>
@@ -20,7 +19,7 @@ class DescartesMotionPlanner : public MotionPlanner
 {
 public:
   /** @brief Construct a basic planner */
-  DescartesMotionPlanner(std::string name = profile_ns::DESCARTES_DEFAULT_NAMESPACE);
+  DescartesMotionPlanner(std::string name);
   ~DescartesMotionPlanner() override = default;
   DescartesMotionPlanner(const DescartesMotionPlanner&) = delete;
   DescartesMotionPlanner& operator=(const DescartesMotionPlanner&) = delete;

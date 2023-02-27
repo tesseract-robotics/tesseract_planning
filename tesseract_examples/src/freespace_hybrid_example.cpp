@@ -38,14 +38,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/utils.h>
-#include <tesseract_motion_planners/default_planner_namespaces.h>
+
 #include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_task_composer/task_composer_problem.h>
 #include <tesseract_task_composer/task_composer_input.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
-#include <tesseract_task_composer/nodes/freespace_motion_pipeline_task.h>
-#include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
+
+#include <tesseract_task_composer/task_composer_plugin_factory.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
 using namespace tesseract_environment;
@@ -54,6 +53,8 @@ using namespace tesseract_collision;
 using namespace tesseract_visualization;
 using namespace tesseract_planning;
 using tesseract_common::ManipulatorInfo;
+
+static const std::string OMPL_DEFAULT_NAMESPACE = "OMPLMotionPlannerTask";
 
 namespace tesseract_examples
 {
@@ -129,6 +130,11 @@ bool FreespaceHybridExample::run()
 
   env_->setState(joint_names, joint_start_pos);
 
+  // Create Task Composer Plugin Factory
+  const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
+  tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
+  TaskComposerPluginFactory factory(config_path);
+
   // Create Program
   CompositeInstruction program(
       "FREESPACE", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
@@ -154,7 +160,7 @@ bool FreespaceHybridExample::run()
   CONSOLE_BRIDGE_logInform("freespace hybrid plan example");
 
   // Create Executor
-  auto executor = std::make_unique<TaskflowTaskComposerExecutor>(5);
+  auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
   // Create OMPL Profile
   auto ompl_profile = std::make_shared<OMPLDefaultPlanProfile>();
@@ -165,26 +171,30 @@ bool FreespaceHybridExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(profile_ns::OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
+  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
+
+  // Create task
+  TaskComposerNode::UPtr task = factory.createTaskComposerNode("FreespacePipeline");
+  const std::string input_key = task->getInputKeys().front();
+  const std::string output_key = task->getOutputKeys().front();
 
   // Create Task Input Data
   TaskComposerDataStorage input_data;
-  input_data.setData("input_program", program);
+  input_data.setData(input_key, program);
 
   // Create Task Composer Problem
   TaskComposerProblem problem(env_, input_data);
 
   // Solve task
   TaskComposerInput input(problem, profiles);
-  FreespaceMotionPipelineTask task("input_program", "output_program");
-  TaskComposerFuture::UPtr future = executor->run(task, input);
+  TaskComposerFuture::UPtr future = executor->run(*task, input);
   future->wait();
 
   // Plot Process Trajectory
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    auto ci = input.data_storage.getData("output_program").as<CompositeInstruction>();
+    auto ci = input.data_storage.getData(output_key).as<CompositeInstruction>();
     tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();

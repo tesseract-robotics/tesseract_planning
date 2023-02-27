@@ -34,7 +34,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-DoneTask::DoneTask(bool is_conditional, std::string name) : TaskComposerTask(is_conditional, std::move(name)) {}
+DoneTask::DoneTask() : TaskComposerTask("DoneTask", false) {}
+DoneTask::DoneTask(std::string name, bool is_conditional) : TaskComposerTask(std::move(name), is_conditional) {}
+DoneTask::DoneTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
+  : TaskComposerTask(std::move(name), config)
+{
+}
 
 TaskComposerNodeInfo::UPtr DoneTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {

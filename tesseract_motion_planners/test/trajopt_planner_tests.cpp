@@ -51,7 +51,8 @@ using namespace tesseract_environment;
 using namespace tesseract_scene_graph;
 using namespace tesseract_collision;
 using namespace tesseract_planning;
-using namespace tesseract_planning::profile_ns;
+
+static const std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
 
 class TesseractPlanningTrajoptUnit : public ::testing::Test
 {
@@ -142,7 +143,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
-  TrajOptMotionPlanner test_planner;
+  TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
 
   // Create Planning Request
   PlannerRequest request;
@@ -217,7 +218,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
-  TrajOptMotionPlanner test_planner;
+  TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
 
   // Create Planning Request
   PlannerRequest request;
@@ -297,7 +298,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
-  TrajOptMotionPlanner test_planner;
+  TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
 
   // Create Planning Request
   PlannerRequest request;
@@ -381,7 +382,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
-  TrajOptMotionPlanner test_planner;
+  TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
 
   // Create Planning Request
   PlannerRequest request;
@@ -465,7 +466,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
-  TrajOptMotionPlanner test_planner;
+  TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
 
   // Create Planning Request
   PlannerRequest request;
@@ -549,7 +550,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
-  TrajOptMotionPlanner test_planner;
+  TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
 
   // Create Planning Request
   PlannerRequest request;
@@ -631,7 +632,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
-  TrajOptMotionPlanner test_planner;
+  TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
 
   // Create Planning Request
   PlannerRequest request;
@@ -693,7 +694,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
-  TrajOptMotionPlanner test_planner;
+  TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
 
   // Create Planning Request
   PlannerRequest request;

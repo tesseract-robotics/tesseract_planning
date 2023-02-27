@@ -38,22 +38,53 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class TaskComposerPluginFactory;
+
 template <typename MotionPlannerType>
 class MotionPlannerTask : public TaskComposerTask
 {
 public:
-  MotionPlannerTask() = default;  // Required for serialization
-  MotionPlannerTask(std::string input_key,
-                    std::string output_key,
-                    bool format_result_as_input,
-                    bool is_conditional,
-                    std::string name)  // NOLINT(performance-unnecessary-value-param)
-    : TaskComposerTask(is_conditional, std::move(name))
+  MotionPlannerTask() : TaskComposerTask("MotionPlannerTask", true) {}
+  explicit MotionPlannerTask(std::string name,  // NOLINT(performance-unnecessary-value-param)
+                             std::string input_key,
+                             std::string output_key,
+                             bool format_result_as_input,
+                             bool is_conditional)
+    : TaskComposerTask(std::move(name), is_conditional)
     , planner_(std::make_shared<MotionPlannerType>(name_))
     , format_result_as_input_(format_result_as_input)
   {
     input_keys_.push_back(std::move(input_key));
     output_keys_.push_back(std::move(output_key));
+  }
+
+  explicit MotionPlannerTask(std::string name,  // NOLINT(performance-unnecessary-value-param)
+                             const YAML::Node& config,
+                             const TaskComposerPluginFactory& /*plugin_factory*/)
+    : TaskComposerTask(std::move(name), config), planner_(std::make_shared<MotionPlannerType>(name_))
+  {
+    if (input_keys_.empty())
+      throw std::runtime_error("MotionPlannerTask, config missing 'inputs' entry");
+
+    if (input_keys_.size() > 1)
+      throw std::runtime_error("MotionPlannerTask, config 'inputs' entry currently only supports one input key");
+
+    if (output_keys_.empty())
+      throw std::runtime_error("MotionPlannerTask, config missing 'outputs' entry");
+
+    if (output_keys_.size() > 1)
+      throw std::runtime_error("MotionPlannerTask, config 'outputs' entry currently only supports one output key");
+
+    try
+    {
+      if (YAML::Node n = config["format_result_as_input"])
+        format_result_as_input_ = n.as<bool>();
+    }
+    catch (const std::exception& e)
+    {
+      throw std::runtime_error("MotionPlannerTask: Failed to parse yaml config data! Details: " +
+                               std::string(e.what()));
+    }
   }
   ~MotionPlannerTask() override = default;
 

@@ -30,7 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/pick_and_place_example.h>
-#include <tesseract_motion_planners/default_planner_namespaces.h>
+
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
@@ -43,11 +43,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 #include <tesseract_task_composer/task_composer_problem.h>
 #include <tesseract_task_composer/task_composer_input.h>
-#include <tesseract_task_composer/task_composer_node_names.h>
-#include <tesseract_task_composer/nodes/trajopt_motion_pipeline_task.h>
-#include <tesseract_task_composer/nodes/discrete_contact_check_task.h>
+
+#include <tesseract_task_composer/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/profiles/contact_check_profile.h>
-#include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
 using namespace tesseract_environment;
@@ -63,7 +61,8 @@ const double OFFSET = 0.005;
 const std::string LINK_BOX_NAME = "box";
 const std::string LINK_BASE_NAME = "world";
 const std::string LINK_END_EFFECTOR_NAME = "iiwa_tool0";
-
+const std::string DISCRETE_CONTACT_CHECK_TASK_NAME = "DiscreteContactCheckTask";
+const std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
 namespace tesseract_examples
 {
 PickAndPlaceExample::PickAndPlaceExample(tesseract_environment::Environment::Ptr env,
@@ -146,6 +145,11 @@ bool PickAndPlaceExample::run()
   if (plotter_ != nullptr)
     plotter_->waitForInput();
 
+  // Create Task Composer Plugin Factory
+  const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
+  tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
+  TaskComposerPluginFactory factory(config_path);
+
   // Create Program
   CompositeInstruction pick_program("DEFAULT",
                                     CompositeInstructionOrder::ORDERED,
@@ -184,7 +188,7 @@ bool PickAndPlaceExample::run()
   pick_program.print("Program: ");
 
   // Create Executor
-  auto executor = std::make_unique<TaskflowTaskComposerExecutor>(5);
+  auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
   // Create TrajOpt Profile
   auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -207,29 +211,30 @@ bool PickAndPlaceExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>(profile_ns::TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(
-      profile_ns::TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
-  profiles->addProfile<TrajOptSolverProfile>(profile_ns::TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
+  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
+  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
+  profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
 
-  profiles->addProfile<ContactCheckProfile>(
-      node_names::DISCRETE_CONTACT_CHECK_TASK_NAME, "CARTESIAN", post_check_profile);
-  profiles->addProfile<ContactCheckProfile>(
-      node_names::DISCRETE_CONTACT_CHECK_TASK_NAME, "DEFAULT", post_check_profile);
+  profiles->addProfile<ContactCheckProfile>(DISCRETE_CONTACT_CHECK_TASK_NAME, "CARTESIAN", post_check_profile);
+  profiles->addProfile<ContactCheckProfile>(DISCRETE_CONTACT_CHECK_TASK_NAME, "DEFAULT", post_check_profile);
 
   CONSOLE_BRIDGE_logInform("Pick plan");
 
+  // Create task
+  TaskComposerNode::UPtr pick_task = factory.createTaskComposerNode("TrajOptPipeline");
+  const std::string pick_input_key = pick_task->getInputKeys().front();
+  const std::string pick_output_key = pick_task->getOutputKeys().front();
+
   // Create Task Input Data
   TaskComposerDataStorage pick_input_data;
-  pick_input_data.setData("input_program", pick_program);
+  pick_input_data.setData(pick_input_key, pick_program);
 
   // Create Task Composer Problem
   TaskComposerProblem pick_problem(env_, pick_input_data);
 
   // Solve task
   TaskComposerInput pick_input(pick_problem, profiles);
-  TrajOptMotionPipelineTask pick_task("input_program", "output_program");
-  TaskComposerFuture::UPtr pick_future = executor->run(pick_task, pick_input);
+  TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, pick_input);
   pick_future->wait();
 
   if (!pick_input.isSuccessful())
@@ -239,7 +244,7 @@ bool PickAndPlaceExample::run()
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    auto ci = pick_input.data_storage.getData("output_program").as<CompositeInstruction>();
+    auto ci = pick_input.data_storage.getData(pick_output_key).as<CompositeInstruction>();
     tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();
@@ -272,7 +277,7 @@ bool PickAndPlaceExample::run()
   env_->applyCommands(cmds);
 
   // Get the last move instruction
-  CompositeInstruction pick_composite = pick_input.data_storage.getData("output_program").as<CompositeInstruction>();
+  CompositeInstruction pick_composite = pick_input.data_storage.getData(pick_output_key).as<CompositeInstruction>();
   const MoveInstructionPoly* pick_final_state = pick_composite.getLastMoveInstruction();
 
   // Retreat to the approach pose
@@ -336,17 +341,21 @@ bool PickAndPlaceExample::run()
   // Print Diagnostics
   place_program.print("Program: ");
 
+  // Create task
+  TaskComposerNode::UPtr place_task = factory.createTaskComposerNode("TrajOptPipeline");
+  const std::string place_input_key = pick_task->getInputKeys().front();
+  const std::string place_output_key = pick_task->getOutputKeys().front();
+
   // Create Task Input Data
   TaskComposerDataStorage place_input_data;
-  place_input_data.setData("input_program", place_program);
+  place_input_data.setData(place_input_key, place_program);
 
   // Create Task Composer Problem
   TaskComposerProblem place_problem(env_, place_input_data);
 
   // Solve task
   TaskComposerInput place_input(place_problem, profiles);
-  TrajOptMotionPipelineTask place_task("input_program", "output_program");
-  TaskComposerFuture::UPtr place_future = executor->run(place_task, place_input);
+  TaskComposerFuture::UPtr place_future = executor->run(*place_task, place_input);
   place_future->wait();
 
   if (!place_input.isSuccessful())
@@ -356,7 +365,7 @@ bool PickAndPlaceExample::run()
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    auto ci = place_input.data_storage.getData("output_program").as<CompositeInstruction>();
+    auto ci = place_input.data_storage.getData(place_output_key).as<CompositeInstruction>();
     tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();
