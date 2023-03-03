@@ -2,6 +2,13 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remove composite start instruction
+* Add toJointTrajectory overload for InstructionPoly
+* Add uuid and parent_uuid to InstructionPoly (`#261 <https://github.com/tesseract-robotics/tesseract_planning/issues/261>`_)
+* Contributors: Levi Armstrong
+
 0.14.0 (2022-10-23)
 -------------------
 * Remove references to tesseract process managers package

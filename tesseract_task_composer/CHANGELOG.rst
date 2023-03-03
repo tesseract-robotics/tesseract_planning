@@ -2,6 +2,21 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update task composer to leverage plugins (`#282 <https://github.com/tesseract-robotics/tesseract_planning/issues/282>`_)
+* Use templates for raster task to reduce code duplications (`#279 <https://github.com/tesseract-robotics/tesseract_planning/issues/279>`_)
+* Add descartes no post check motion pipeline task
+* clean up update end state task
+* Fix descartes global motion pipeline task
+* Merge pull request `#269 <https://github.com/tesseract-robotics/tesseract_planning/issues/269>`_ from marip8/update/time-param-org
+  Added optional builds of time parameterization implementations
+* Created separate targets for each time parameterization implementation
+* Updated task composer package
+* Remove composite start instruction
+* Add uuid and parent_uuid to InstructionPoly (`#261 <https://github.com/tesseract-robotics/tesseract_planning/issues/261>`_)
+* Contributors: Levi Armstrong, Michael Ripperger
+
 0.14.0 (2022-10-23)
 -------------------
 * Add ompl to default tasks utility function

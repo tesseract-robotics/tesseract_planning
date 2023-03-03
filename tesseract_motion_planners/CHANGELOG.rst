@@ -2,6 +2,17 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update task composer to leverage plugins (`#282 <https://github.com/tesseract-robotics/tesseract_planning/issues/282>`_)
+* Fix TrajOpt IFOPT code coverage build
+* remove commented code from ompl motion planner
+* Fix descartes default plan profile
+* Fix descartes motion planner handling of unconstrained joint waypoints
+* Remove composite start instruction
+* Fix descartes collision edge evaluator
+* Contributors: Levi Armstrong, Michael Ripperger
+
 0.14.0 (2022-10-23)
 -------------------
 * Fix trajopt ifopt planner

@@ -2,6 +2,12 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update task composer to leverage plugins (`#282 <https://github.com/tesseract-robotics/tesseract_planning/issues/282>`_)
+* Remove composite start instruction
+* Contributors: Levi Armstrong
+
 0.14.0 (2022-10-23)
 -------------------
 * Update to use ModifyAllowedCollisionCommand
