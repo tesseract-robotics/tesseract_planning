@@ -38,6 +38,8 @@ std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1
 \begin{DoxyCompactList}\small\item\em Get the available executors (thread pool) names. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerServer_a388d757dbf64d1ce38c2b9b642d150b8}{add\+Task}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode_aeee363b2e1325a896f640091c2673dff}{Task\+Composer\+Node\+::\+UPtr}} \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a5db2ebb466c248635e199e98caf465eb}{task}})
 \begin{DoxyCompactList}\small\item\em Add a task. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode}{Task\+Composer\+Node}} \& \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerServer_a9f43ce2c1c816d3c48da574197cfe726}{get\+Task}} (const std\+::string \&name)
+\begin{DoxyCompactList}\small\item\em Get a task. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerServer_acee84e858aa3b5b2b99368aa54807155}{has\+Task}} (const std\+::string \&name) const
 \begin{DoxyCompactList}\small\item\em Check if task exists with the provided name. \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerServer_af08f15ab20548ad6f2d46d5af6a19054}{get\+Available\+Tasks}} () const
@@ -172,6 +174,21 @@ Get an executor by name.
 \begin{DoxyReturn}{Returns}
 The exector, if not found nullptr is returned 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerServer_a9f43ce2c1c816d3c48da574197cfe726}\label{classtesseract__planning_1_1TaskComposerServer_a9f43ce2c1c816d3c48da574197cfe726}} 
+\index{tesseract\_planning::TaskComposerServer@{tesseract\_planning::TaskComposerServer}!getTask@{getTask}}
+\index{getTask@{getTask}!tesseract\_planning::TaskComposerServer@{tesseract\_planning::TaskComposerServer}}
+\doxysubsubsection{\texorpdfstring{getTask()}{getTask()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNode}{Task\+Composer\+Node}} \& tesseract\+\_\+planning\+::\+Task\+Composer\+Server\+::get\+Task (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})}
+
+
+
+Get a task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The the name of task to retrieve \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskComposerServer_ad4e980200fa8448b87b11911e49e6071}\label{classtesseract__planning_1_1TaskComposerServer_ad4e980200fa8448b87b11911e49e6071}} 
 \index{tesseract\_planning::TaskComposerServer@{tesseract\_planning::TaskComposerServer}!getTaskCount@{getTaskCount}}
 \index{getTaskCount@{getTaskCount}!tesseract\_planning::TaskComposerServer@{tesseract\_planning::TaskComposerServer}}

@@ -797,10 +797,6 @@ Functions</h2></td></tr>
 <tr class="separator:a89dc348cbd8945867618baaf9a1b4162"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7de9f63151c4267c7bfd7b06145c1b75"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7de9f63151c4267c7bfd7b06145c1b75">formatProgramHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions, const tesseract_environment::Environment &amp;<a class="el" href="../../d2/d28/basic__cartesian__example__unit_8cpp.html#a96ce750ee22ecbf4d17cc6cf146d9514">env</a>, const tesseract_common::ManipulatorInfo &amp;manip_info, std::unordered_map&lt; std::string, std::vector&lt; std::string &gt; &gt; &amp;manip_joint_names)</td></tr>
 <tr class="separator:a7de9f63151c4267c7bfd7b06145c1b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2abbbef588cecfc66d9cb43932dd1c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae2abbbef588cecfc66d9cb43932dd1c8">getInterpolatedComposite</a> (const std::vector&lt; std::string &gt; &amp;<a class="el" href="../../d8/df6/tesseract__command__language_2test_2utils__test_8cpp.html#a5f85173ecc1ddcb342ebc27f28437f5c">joint_names</a>, const Eigen::MatrixXd &amp;states, const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;base_instruction)</td></tr>
-<tr class="separator:ae2abbbef588cecfc66d9cb43932dd1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a05110faf9c82aec63786b2cb8dc483"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8a05110faf9c82aec63786b2cb8dc483">getInterpolatedComposite</a> (const tesseract_common::VectorIsometry3d &amp;poses, const std::vector&lt; std::string &gt; &amp;<a class="el" href="../../d8/df6/tesseract__command__language_2test_2utils__test_8cpp.html#a5f85173ecc1ddcb342ebc27f28437f5c">joint_names</a>, const Eigen::MatrixXd &amp;states, const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;base_instruction)</td></tr>
-<tr class="separator:a8a05110faf9c82aec63786b2cb8dc483"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf2bb32372d00e42763932cdde163c01"><td class="memItemLeft" align="right" valign="top">tesseract_common::VectorIsometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adf2bb32372d00e42763932cdde163c01">sampleToolAxis</a> (const Eigen::Isometry3d &amp;tool_pose, double resolution, const Eigen::Vector3d &amp;axis)</td></tr>
 <tr class="memdesc:adf2bb32372d00e42763932cdde163c01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a tool pose create samples from [-PI, PI) around the provided axis.  <a href="../../d9/dcd/namespacetesseract__planning.html#adf2bb32372d00e42763932cdde163c01">More...</a><br /></td></tr>
 <tr class="separator:adf2bb32372d00e42763932cdde163c01"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -4897,9 +4893,7 @@ template&lt;typename ProfileType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The closest solution to the seed. This will be empty if a solution was not found during inverse kinematics </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000005">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000007">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000005">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000007">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed </dd></dl>
 
 </div>
 </div>
@@ -4946,83 +4940,7 @@ template&lt;typename ProfileType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The closest joint solution for the provided cartesian positions. If either are empty then it failed to solve inverse kinematics. </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000006">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000008">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed. </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000006">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000008">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed. </dd></dl>
-
-</div>
-</div>
-<a id="ae2abbbef588cecfc66d9cb43932dd1c8" name="ae2abbbef588cecfc66d9cb43932dd1c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2abbbef588cecfc66d9cb43932dd1c8">&#9670;&#160;</a></span>getInterpolatedComposite() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> tesseract_planning::getInterpolatedComposite </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>joint_names</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
-          <td class="paramname"><em>states</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8a05110faf9c82aec63786b2cb8dc483" name="a8a05110faf9c82aec63786b2cb8dc483"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a05110faf9c82aec63786b2cb8dc483">&#9670;&#160;</a></span>getInterpolatedComposite() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> tesseract_planning::getInterpolatedComposite </td>
-          <td>(</td>
-          <td class="paramtype">const tesseract_common::VectorIsometry3d &amp;&#160;</td>
-          <td class="paramname"><em>poses</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>joint_names</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
-          <td class="paramname"><em>states</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html">MoveInstructionPoly</a> &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -8634,7 +8552,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 3 2023 20:28:24 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+Generated on Wed Mar 8 2023 20:55:18 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
 </small></address>
 </body>
 </html>

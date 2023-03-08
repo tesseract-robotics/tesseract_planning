@@ -618,10 +618,6 @@ Eigen\+::\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_a89dc348cbd8
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a7de9f63151c4267c7bfd7b06145c1b75}{format\+Program\+Helper}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&\mbox{\hyperlink{basic__cartesian__example__unit_8cpp_a96ce750ee22ecbf4d17cc6cf146d9514}{env}}, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ std\+::string $>$ $>$ \&manip\+\_\+joint\+\_\+names)
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_ae2abbbef588cecfc66d9cb43932dd1c8}{get\+Interpolated\+Composite}} (const std\+::vector$<$ std\+::string $>$ \&\mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a5f85173ecc1ddcb342ebc27f28437f5c}{joint\+\_\+names}}, const Eigen\+::\+Matrix\+Xd \&states, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&base\+\_\+instruction)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a8a05110faf9c82aec63786b2cb8dc483}{get\+Interpolated\+Composite}} (const tesseract\+\_\+common\+::\+Vector\+Isometry3d \&poses, const std\+::vector$<$ std\+::string $>$ \&\mbox{\hyperlink{tesseract__command__language_2test_2utils__test_8cpp_a5f85173ecc1ddcb342ebc27f28437f5c}{joint\+\_\+names}}, const Eigen\+::\+Matrix\+Xd \&states, const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&base\+\_\+instruction)
-\item 
 tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_adf2bb32372d00e42763932cdde163c01}{sample\+Tool\+Axis}} (const Eigen\+::\+Isometry3d \&tool\+\_\+pose, double resolution, const Eigen\+::\+Vector3d \&axis)
 \begin{DoxyCompactList}\small\item\em Given a tool pose create samples from \mbox{[}-\/PI, PI) around the provided axis. \end{DoxyCompactList}\item 
 tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_a2e764ea5552076ce638ecc666d19f193}{sample\+Tool\+XAxis}} (const Eigen\+::\+Isometry3d \&tool\+\_\+pose, double resolution)
@@ -2116,15 +2112,7 @@ The closest solution to the seed. This will be empty if a solution was not found
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000007}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed \end{DoxyRefDesc}
-
-
-\begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000005}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed \end{DoxyRefDesc}
-
-
-\begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000007}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed \end{DoxyRefDesc}
 \mbox{\Hypertarget{namespacetesseract__planning_af6d0dfd4f3bf9af354959f93dc8dcaa4}\label{namespacetesseract__planning_af6d0dfd4f3bf9af354959f93dc8dcaa4}} 
 \index{tesseract\_planning@{tesseract\_planning}!getClosestJointSolution@{getClosestJointSolution}}
 \index{getClosestJointSolution@{getClosestJointSolution}!tesseract\_planning@{tesseract\_planning}}
@@ -2152,27 +2140,7 @@ The closest joint solution for the provided cartesian positions. If either are e
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000008}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed. \end{DoxyRefDesc}
-
-
-\begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000006}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed. \end{DoxyRefDesc}
-
-
-\begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000008}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed. \end{DoxyRefDesc}
-\mbox{\Hypertarget{namespacetesseract__planning_ae2abbbef588cecfc66d9cb43932dd1c8}\label{namespacetesseract__planning_ae2abbbef588cecfc66d9cb43932dd1c8}} 
-\index{tesseract\_planning@{tesseract\_planning}!getInterpolatedComposite@{getInterpolatedComposite}}
-\index{getInterpolatedComposite@{getInterpolatedComposite}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getInterpolatedComposite()}{getInterpolatedComposite()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::get\+Interpolated\+Composite (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::string $>$ \&}]{joint\+\_\+names,  }\item[{const Eigen\+::\+Matrix\+Xd \&}]{states,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{base\+\_\+instruction }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a8a05110faf9c82aec63786b2cb8dc483}\label{namespacetesseract__planning_a8a05110faf9c82aec63786b2cb8dc483}} 
-\index{tesseract\_planning@{tesseract\_planning}!getInterpolatedComposite@{getInterpolatedComposite}}
-\index{getInterpolatedComposite@{getInterpolatedComposite}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getInterpolatedComposite()}{getInterpolatedComposite()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::get\+Interpolated\+Composite (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+common\+::\+Vector\+Isometry3d \&}]{poses,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{joint\+\_\+names,  }\item[{const Eigen\+::\+Matrix\+Xd \&}]{states,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{Move\+Instruction\+Poly}} \&}]{base\+\_\+instruction }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_a3eb5693b1699344d8da461070c03da3a}\label{namespacetesseract__planning_a3eb5693b1699344d8da461070c03da3a}} 
 \index{tesseract\_planning@{tesseract\_planning}!getInterpolatedInstructions@{getInterpolatedInstructions}}
 \index{getInterpolatedInstructions@{getInterpolatedInstructions}!tesseract\_planning@{tesseract\_planning}}
