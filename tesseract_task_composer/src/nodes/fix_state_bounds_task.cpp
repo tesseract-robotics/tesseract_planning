@@ -127,15 +127,18 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
       MoveInstructionPoly* first_mi = ci.getFirstMoveInstruction();
       if (first_mi != nullptr)
       {
-        if (!isWithinJointLimits(first_mi->getWaypoint(), limits.joint_limits))
+        auto& wp = first_mi->getWaypoint();
+        if (wp.isStateWaypoint() || wp.isJointWaypoint())
         {
-          CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
-          if (!clampToJointLimits(
-                  first_mi->getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
+          if (!isWithinJointLimits(wp, limits.joint_limits))
           {
-            info->message = "Failed to clamp to joint limits";
-            info->elapsed_time = timer.elapsedSeconds();
-            return info;
+            CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
+            if (!clampToJointLimits(wp, limits.joint_limits, cur_composite_profile->max_deviation_global))
+            {
+              info->message = "Failed to clamp to joint limits";
+              info->elapsed_time = timer.elapsedSeconds();
+              return info;
+            }
           }
         }
       }
@@ -146,15 +149,18 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
       MoveInstructionPoly* last_mi = ci.getLastMoveInstruction();
       if (last_mi != nullptr)
       {
-        if (!isWithinJointLimits(last_mi->getWaypoint(), limits.joint_limits))
+        auto& wp = last_mi->getWaypoint();
+        if (wp.isStateWaypoint() || wp.isJointWaypoint())
         {
-          CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
-          if (!clampToJointLimits(
-                  last_mi->getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
+          if (!isWithinJointLimits(wp, limits.joint_limits))
           {
-            info->message = "Failed to clamp to joint limits";
-            info->elapsed_time = timer.elapsedSeconds();
-            return info;
+            CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
+            if (!clampToJointLimits(wp, limits.joint_limits, cur_composite_profile->max_deviation_global))
+            {
+              info->message = "Failed to clamp to joint limits";
+              info->elapsed_time = timer.elapsedSeconds();
+              return info;
+            }
           }
         }
       }
@@ -176,8 +182,9 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
       bool inside_limits = true;
       for (const auto& instruction : flattened)
       {
-        inside_limits &=
-            isWithinJointLimits(instruction.get().as<MoveInstructionPoly>().getWaypoint(), limits.joint_limits);
+        const auto& wp = instruction.get().as<MoveInstructionPoly>().getWaypoint();
+        if (wp.isStateWaypoint() || wp.isJointWaypoint())
+          inside_limits &= isWithinJointLimits(wp, limits.joint_limits);
       }
       if (inside_limits)
         break;
@@ -185,12 +192,15 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
       CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
       for (auto& instruction : flattened)
       {
-        auto& plan = instruction.get().as<MoveInstructionPoly>();
-        if (!clampToJointLimits(plan.getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
+        auto& wp = instruction.get().as<MoveInstructionPoly>().getWaypoint();
+        if (wp.isStateWaypoint() || wp.isJointWaypoint())
         {
-          info->message = "Failed to clamp to joint limits";
-          info->elapsed_time = timer.elapsedSeconds();
-          return info;
+          if (!clampToJointLimits(wp, limits.joint_limits, cur_composite_profile->max_deviation_global))
+          {
+            info->message = "Failed to clamp to joint limits";
+            info->elapsed_time = timer.elapsedSeconds();
+            return info;
+          }
         }
       }
     }
