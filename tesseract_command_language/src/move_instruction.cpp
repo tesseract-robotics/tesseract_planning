@@ -40,6 +40,24 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+MoveInstruction::MoveInstruction(WaypointPoly waypoint,
+                                 MoveInstructionType type,
+                                 std::string profile,
+                                 tesseract_common::ManipulatorInfo manipulator_info)
+  : uuid_(boost::uuids::random_generator()())
+  , move_type_(type)
+  , profile_(std::move(profile))
+  , waypoint_(std::move(waypoint))
+  , manipulator_info_(std::move(manipulator_info))
+{
+  if (!waypoint_.isCartesianWaypoint() && !waypoint_.isJointWaypoint() && !waypoint_.isStateWaypoint())
+    throw std::runtime_error("MoveIntruction only supports waypoint types: CartesianWaypointPoly, JointWaypointPoly "
+                             "and StateWaypointPoly");
+
+  if (move_type_ == MoveInstructionType::LINEAR || move_type_ == MoveInstructionType::CIRCULAR)
+    path_profile_ = profile_;
+}
+
 MoveInstruction::MoveInstruction(CartesianWaypointPoly waypoint,
                                  MoveInstructionType type,
                                  std::string profile,
@@ -80,6 +98,23 @@ MoveInstruction::MoveInstruction(StateWaypointPoly waypoint,
 {
   if (move_type_ == MoveInstructionType::LINEAR || move_type_ == MoveInstructionType::CIRCULAR)
     path_profile_ = profile_;
+}
+
+MoveInstruction::MoveInstruction(WaypointPoly waypoint,
+                                 MoveInstructionType type,
+                                 std::string profile,
+                                 std::string path_profile,
+                                 tesseract_common::ManipulatorInfo manipulator_info)
+  : uuid_(boost::uuids::random_generator()())
+  , move_type_(type)
+  , profile_(std::move(profile))
+  , path_profile_(std::move(path_profile))
+  , waypoint_(std::move(waypoint))
+  , manipulator_info_(std::move(manipulator_info))
+{
+  if (!waypoint_.isCartesianWaypoint() && !waypoint_.isJointWaypoint() && !waypoint_.isStateWaypoint())
+    throw std::runtime_error("MoveIntruction only supports waypoint types: CartesianWaypointPoly, JointWaypointPoly "
+                             "and StateWaypointPoly");
 }
 
 MoveInstruction::MoveInstruction(CartesianWaypointPoly waypoint,
