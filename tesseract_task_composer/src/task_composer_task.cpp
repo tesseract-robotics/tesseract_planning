@@ -77,7 +77,18 @@ bool TaskComposerTask::isConditional() const { return is_conditional_; }
 
 int TaskComposerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor executor) const
 {
-  TaskComposerNodeInfo::UPtr results = runImpl(input, executor);
+  TaskComposerNodeInfo::UPtr results;
+  try
+  {
+    results = runImpl(input, executor);
+  }
+  catch (const std::exception& e)
+  {
+    results = std::make_unique<TaskComposerNodeInfo>(*this);
+    results->return_value = 0;
+    results->message = "Exception thrown: " + std::string(e.what());
+  }
+
   int value = results->return_value;
   input.task_infos.addInfo(std::move(results));
   return value;
