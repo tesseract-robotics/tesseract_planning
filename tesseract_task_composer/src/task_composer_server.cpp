@@ -83,6 +83,15 @@ void TaskComposerServer::addTask(TaskComposerNode::UPtr task)
   tasks_[task->getName()] = std::move(task);
 }
 
+const TaskComposerNode& TaskComposerServer::getTask(const std::string& name)
+{
+  auto it = tasks_.find(name);
+  if (it == tasks_.end())
+    throw std::runtime_error("Task with name '" + name + "' does not exist!");
+
+  return *(it->second);
+}
+
 bool TaskComposerServer::hasTask(const std::string& name) const { return (tasks_.find(name) != tasks_.end()); }
 
 std::vector<std::string> TaskComposerServer::getAvailableTasks() const

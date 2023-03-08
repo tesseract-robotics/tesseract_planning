@@ -95,6 +95,12 @@ public:
   void addTask(TaskComposerNode::UPtr task);
 
   /**
+   * @brief Get a task
+   * @param name The the name of task to retrieve
+   */
+  const TaskComposerNode& getTask(const std::string& name);
+
+  /**
    * @brief Check if task exists with the provided name
    * @param name The name to search
    * @return True if it exists, otherwise false
