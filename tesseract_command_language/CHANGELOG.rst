@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Make MoveInstruction constructors explict and add one for WaypointPoly
+* Contributors: Levi Armstrong
+
 0.15.0 (2023-03-03)
 -------------------
 * Remove composite start instruction

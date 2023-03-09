@@ -2,6 +2,13 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add method for retrieving task from TaskComposerServer
+* Use try catch in TaskComposerTask run because exceptions are not propagated in multi threaded runs.
+* Update fix state bounds task to ignore cartesian waypoint types
+* Contributors: Levi Armstrong
+
 0.15.0 (2023-03-03)
 -------------------
 * Update task composer to leverage plugins (`#282 <https://github.com/tesseract-robotics/tesseract_planning/issues/282>`_)
