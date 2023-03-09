@@ -215,6 +215,12 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
                                  request,
                                  request.instructions.getManipulatorInfo());
 
+      // The data for the last instruction should be unchanged with exception to seed or tolerance joint state
+      assert(instruction_seed.back().getMoveType() == base_instruction.getMoveType());
+      assert(instruction_seed.back().getWaypoint().getType() == base_instruction.getWaypoint().getType());
+      assert(instruction_seed.back().getPathProfile() == base_instruction.getPathProfile());
+      assert(instruction_seed.back().getProfile() == base_instruction.getProfile());
+
       for (const auto& instr : instruction_seed)
         seed.push_back(instr);
 
