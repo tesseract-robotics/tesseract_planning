@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.15.1 (2023-03-09)
+-------------------
 * Add assert checks to simple planner
 * Remove old unused simple_planner_utils.cpp
 * Contributors: Levi Armstrong
