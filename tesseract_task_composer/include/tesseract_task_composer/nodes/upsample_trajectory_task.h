@@ -69,7 +69,7 @@ public:
   bool operator!=(const UpsampleTrajectoryTask& rhs) const;
 
 protected:
-  friend class tesseract_common::Serialization;
+  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
@@ -86,6 +86,5 @@ protected:
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::UpsampleTrajectoryTask, "UpsampleTrajectoryTask")
 #endif  // TESSERACT_TASK_COMPOSER_UPSAMPLE_TRAJECTORY_TASK_H

@@ -114,7 +114,7 @@ public:
 protected:
   friend class TaskComposerGraph;
   friend class TaskComposerNodeInfo;
-  friend class tesseract_common::Serialization;
+  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
 
   template <class Archive>
@@ -157,7 +157,6 @@ protected:
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerNode, "TaskComposerNode")
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_H

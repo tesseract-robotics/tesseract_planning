@@ -94,7 +94,7 @@ protected:
   TaskFactory raster_task_factory_;
   TaskFactory transition_task_factory_;
 
-  friend class tesseract_common::Serialization;
+  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
 
   template <class Archive>
@@ -106,5 +106,8 @@ protected:
                                      OptionalTaskComposerExecutor executor) const override final;
 };
 }  // namespace tesseract_planning
+
+#include <boost/serialization/export.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RasterMotionTask, "RasterMotionTask")
 
 #endif  // TESSERACT_TASK_COMPOSER_RASTER_MOTION_TASK_H

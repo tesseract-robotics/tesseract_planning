@@ -61,7 +61,7 @@ public:
   bool operator!=(const UpdateEndStateTask& rhs) const;
 
 protected:
-  friend class tesseract_common::Serialization;
+  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
@@ -73,7 +73,6 @@ protected:
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::UpdateEndStateTask, "UpdateEndStateTask")
 
 #endif  // TESSERACT_TASK_COMPOSER_UPDATE_END_STATE_TASK_H

@@ -52,7 +52,7 @@ public:
   bool operator!=(const TaskComposerGraph& rhs) const;
 
 protected:
-  friend class tesseract_common::Serialization;
+  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
 
   template <class Archive>

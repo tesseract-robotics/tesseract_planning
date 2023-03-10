@@ -92,7 +92,7 @@ public:
   bool operator!=(const TaskComposerFuture& rhs) const;
 
 private:
-  friend class tesseract_common::Serialization;
+  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
@@ -100,6 +100,5 @@ private:
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerFuture, "TaskComposerFuture")
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_FUTURE_H

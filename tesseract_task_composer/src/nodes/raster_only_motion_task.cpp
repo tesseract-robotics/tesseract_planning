@@ -407,3 +407,7 @@ void RasterOnlyMotionTask::checkTaskInput(const tesseract_common::AnyPoly& input
 }
 
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterOnlyMotionTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterOnlyMotionTask)
