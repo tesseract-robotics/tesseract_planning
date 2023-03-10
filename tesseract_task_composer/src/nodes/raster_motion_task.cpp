@@ -23,8 +23,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_RASTER_MOTION_TASK_HPP
-#define TESSERACT_TASK_COMPOSER_RASTER_MOTION_TASK_HPP
 
 #include <tesseract_task_composer/nodes/raster_motion_task.h>
 #include <tesseract_task_composer/nodes/start_task.h>
@@ -505,4 +503,6 @@ void RasterMotionTask::checkTaskInput(const tesseract_common::AnyPoly& input)
 
 }  // namespace tesseract_planning
 
-#endif  // TESSERACT_TASK_COMPOSER_RASTER_MOTION_TASK_HPP
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterMotionTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterMotionTask)

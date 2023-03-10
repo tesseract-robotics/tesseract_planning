@@ -91,7 +91,7 @@ public:
   bool operator!=(const TaskComposerDataStorage& rhs) const;
 
 protected:
-  friend class tesseract_common::Serialization;
+  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
 
   template <class Archive>
@@ -104,7 +104,6 @@ protected:
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerDataStorage, "TaskComposerDataStorage")
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_DATA_STORAGE_H

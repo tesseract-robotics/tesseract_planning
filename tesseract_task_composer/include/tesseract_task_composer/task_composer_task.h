@@ -68,7 +68,7 @@ public:
   void dump(std::ostream& os) const override;
 
 protected:
-  friend class tesseract_common::Serialization;
+  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
 
   template <class Archive>
@@ -83,7 +83,6 @@ protected:
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerTask, "TaskComposerTask")
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_TASK_H

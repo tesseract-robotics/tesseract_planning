@@ -74,7 +74,7 @@ public:
   bool operator!=(const TaskflowTaskComposerExecutor& rhs) const;
 
 protected:
-  friend class tesseract_common::Serialization;
+  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
 
   template <class Archive>

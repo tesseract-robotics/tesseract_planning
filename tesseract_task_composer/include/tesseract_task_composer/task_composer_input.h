@@ -97,7 +97,7 @@ struct TaskComposerInput
   bool operator!=(const TaskComposerInput& rhs) const;
 
 protected:
-  friend class tesseract_common::Serialization;
+  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
 
   TaskComposerInput() = default;  // Required for serialization
@@ -112,7 +112,6 @@ protected:
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerInput, "TaskComposerInput")
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_INPUT_H
