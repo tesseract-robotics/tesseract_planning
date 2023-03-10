@@ -1,4 +1,4 @@
-name: Unstable-Build
+name: Unstable
 
 on:
   push:
@@ -9,15 +9,15 @@ on:
     - cron: '0 5 * * *'
 
 jobs:
-  industrial_ci:
+  ci:
     name: Unstable
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro: [focal]
     env:
-      CI_NAME: Unstable-Build
-      ROS_DISTRO: noetic
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
-      PUSH_DOCKER_IMAGE: ${{ github.ref == 'refs/heads/master' || github.event_name == 'release' }}
 
     steps:
       - name: Checkout repository
@@ -43,10 +43,10 @@ jobs:
         continue-on-error: true
         uses: actions/cache@v1.1.0
         with:
-          path: ${{ env.CI_NAME }}/.ccache
-          key: ${{ env.CI_NAME }}-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+          path: ${{ matrix.distro }}/.ccache
+          key: ${{ matrix.distro }}-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
           restore-keys: |
-            ${{ env.CI_NAME }}-ccache-
+            ${{ matrix.distro }}-ccache-
 
       - name: Login to Github container registry
         uses: docker/login-action@v1
@@ -58,17 +58,13 @@ jobs:
       - name: Build repository
         uses: 'ros-industrial/industrial_ci@master'
         env:
-          OS_NAME: ubuntu
-          OS_CODE_NAME: focal
-          DOCKER_IMAGE: ${{ env.REGISTRY }}/tesseract-robotics/tesseract:${{ env.ROS_DISTRO }}-master
-          CCACHE_DIR: ${{ github.workspace }}/${{ env.CI_NAME }}/.ccache
-          ROS_REPO: main
-          UNDERLAY: /root//tesseract-robotics/tesseract_target_ws/install
+          ROS_DISTRO: false
+          DOCKER_IMAGE: ${{ env.REGISTRY }}/tesseract-robotics/tesseract:${{ matrix.distro }}-master
+          CCACHE_DIR: ${{ github.workspace }}/${{ matrix.distro }}/.ccache
+          UNDERLAY: /root/tesseract-robotics/tesseract_target_ws/install
           PREFIX: ${{ github.repository }}_
           UPSTREAM_WORKSPACE: dependencies.rosinstall
           UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
-          ROSDEP_SKIP_KEYS: "bullet fcl ompl orocos_kdl python-numpy ifopt python descartes_opw descartes_samplers descartes_light opw_kinematics ros_industrial_cmake_boilerplate iwyu taskflow"
+          ROSDEP_SKIP_KEYS: "fcl opw_kinematics ros_industrial_cmake_boilerplate iwyu octomap catkin"
           TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_TESTING=ON"
-          NOT_TEST_BUILD: true
           BEFORE_RUN_TARGET_TEST_EMBED: "ici_with_unset_variables source $BASEDIR/${PREFIX}target_ws/install/setup.bash"
-          AFTER_SCRIPT: 'catkin build -w $target_ws --verbose --make-args test'
