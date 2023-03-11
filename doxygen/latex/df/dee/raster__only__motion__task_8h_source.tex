@@ -54,7 +54,7 @@
 \DoxyCodeLine{87   \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}{TaskFactory}} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a19e8beed9b9d306a08158b417439c40d}{raster\_task\_factory\_}};}
 \DoxyCodeLine{88   \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad3f5d991aad62d081f45f5073cc37ad7}{TaskFactory}} \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ad37d8dcbffaf38ac565762abb678bfd4}{transition\_task\_factory\_}};}
 \DoxyCodeLine{89 }
-\DoxyCodeLine{90   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{90   \textcolor{keyword}{friend} \textcolor{keyword}{struct }\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\_common::Serialization}};}
 \DoxyCodeLine{91   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
 \DoxyCodeLine{92 }
 \DoxyCodeLine{93   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
@@ -68,6 +68,9 @@
 \DoxyCodeLine{101 }
 \DoxyCodeLine{102 \}  \textcolor{comment}{// namespace tesseract\_planning}}
 \DoxyCodeLine{103 }
-\DoxyCodeLine{104 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_RASTER\_ONLY\_MOTION\_TASK\_H}}
+\DoxyCodeLine{104 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{105 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyMotionTask}{tesseract\_planning::RasterOnlyMotionTask}}, \textcolor{stringliteral}{"{}RasterOnlyMotionTask"{}})}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_RASTER\_ONLY\_MOTION\_TASK\_H}}
 
 \end{DoxyCode}

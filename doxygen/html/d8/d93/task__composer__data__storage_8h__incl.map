@@ -1,10 +1,9 @@
 <map id="tesseract_task_composer/include/tesseract_task_composer/task_composer_data_storage.h" name="tesseract_task_composer/include/tesseract_task_composer/task_composer_data_storage.h">
-<area shape="rect" id="node1" title="Data storage used when executing the pipeline." alt="" coords="409,5,587,75"/>
+<area shape="rect" id="node1" title="Data storage used when executing the pipeline." alt="" coords="343,5,522,75"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,130,196,155"/>
 <area shape="rect" id="node3" title=" " alt="" coords="220,130,288,155"/>
 <area shape="rect" id="node4" title=" " alt="" coords="312,130,423,155"/>
 <area shape="rect" id="node5" title=" " alt="" coords="447,130,549,155"/>
 <area shape="rect" id="node6" title=" " alt="" coords="574,123,731,163"/>
 <area shape="rect" id="node7" title=" " alt="" coords="756,123,883,163"/>
-<area shape="rect" id="node8" title=" " alt="" coords="907,123,1033,163"/>
 </map>

@@ -92,45 +92,45 @@ $(function() {
 <code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../da/d71/task__composer__task_8h_source.html">tesseract_task_composer/task_composer_task.h</a>&gt;</code><br />
 <code>#include &lt;tesseract_common/any_poly.h&gt;</code><br />
+<code>#include &lt;boost/serialization/export.hpp&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for raster_motion_task.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/d32/raster__motion__task_8h__incl.png" border="0" usemap="#atesseract__task__composer_2include_2tesseract__task__composer_2nodes_2raster__motion__task_8h" alt=""/></div>
 <map name="atesseract__task__composer_2include_2tesseract__task__composer_2nodes_2raster__motion__task_8h" id="atesseract__task__composer_2include_2tesseract__task__composer_2nodes_2raster__motion__task_8h">
-<area shape="rect" title="Raster motion task with transitions." alt="" coords="1981,5,2231,60"/>
-<area shape="rect" title=" " alt="" coords="703,643,893,669"/>
-<area shape="rect" title=" " alt="" coords="2083,115,2251,141"/>
-<area shape="rect" title=" " alt="" coords="2276,108,2403,148"/>
-<area shape="rect" title=" " alt="" coords="2427,115,2505,141"/>
-<area shape="rect" href="../../da/d71/task__composer__task_8h.html" title="A task in the pipeline." alt="" coords="1753,108,1925,148"/>
-<area shape="rect" title=" " alt="" coords="1362,548,1519,588"/>
-<area shape="rect" title=" " alt="" coords="2552,643,2607,669"/>
-<area shape="rect" title=" " alt="" coords="1773,291,1831,317"/>
-<area shape="rect" title=" " alt="" coords="123,643,191,669"/>
-<area shape="rect" href="../../da/dbe/task__composer__node_8h.html" title="A node in the pipeline." alt="" coords="981,196,1153,236"/>
-<area shape="rect" title=" " alt="" coords="1613,636,1740,676"/>
-<area shape="rect" title=" " alt="" coords="1109,548,1236,588"/>
-<area shape="rect" title=" " alt="" coords="1747,555,1881,581"/>
-<area shape="rect" href="../../db/ddf/task__composer__input_8h.html" title="The input data structure to the pipeline." alt="" coords="981,284,1153,324"/>
-<area shape="rect" href="../../dc/dc5/task__composer__data__storage_8h.html" title="Data storage used when executing the pipeline." alt="" coords="648,460,855,500"/>
-<area shape="rect" title=" " alt="" coords="1037,379,1098,405"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="373,460,572,500"/>
-<area shape="rect" href="../../d7/d2c/task__composer__node__info_8h.html" title="Task composer node info." alt="" coords="1292,372,1480,412"/>
-<area shape="rect" href="../../d7/d6d/task__composer__problem_8h.html" title="A task composer server problem." alt="" coords="727,372,906,412"/>
-<area shape="rect" title=" " alt="" coords="295,555,338,581"/>
-<area shape="rect" title=" " alt="" coords="362,555,434,581"/>
-<area shape="rect" title=" " alt="" coords="1111,643,1187,669"/>
-<area shape="rect" title=" " alt="" coords="693,555,804,581"/>
-<area shape="rect" title=" " alt="" coords="459,555,516,581"/>
-<area shape="rect" title=" " alt="" coords="880,555,983,581"/>
-<area shape="rect" title=" " alt="" coords="1363,467,1409,493"/>
-<area shape="rect" title=" " alt="" coords="1031,460,1186,500"/>
-<area shape="rect" href="../../d1/db1/instruction__poly_8h.html" title=" " alt="" coords="2121,460,2320,500"/>
-<area shape="rect" title=" " alt="" coords="1781,636,1908,676"/>
-<area shape="rect" title=" " alt="" coords="1933,643,2103,669"/>
-<area shape="rect" href="../../d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="2059,548,2257,588"/>
-<area shape="rect" title=" " alt="" coords="2128,643,2343,669"/>
-<area shape="rect" title=" " alt="" coords="2367,636,2528,676"/>
+<area shape="rect" title="Raster motion task with transitions." alt="" coords="931,5,1181,60"/>
+<area shape="rect" title=" " alt="" coords="1511,643,1702,669"/>
+<area shape="rect" title=" " alt="" coords="673,115,841,141"/>
+<area shape="rect" title=" " alt="" coords="866,108,993,148"/>
+<area shape="rect" title=" " alt="" coords="1017,115,1095,141"/>
+<area shape="rect" href="../../da/d71/task__composer__task_8h.html" title="A task in the pipeline." alt="" coords="1119,108,1291,148"/>
+<area shape="rect" title=" " alt="" coords="2263,636,2420,676"/>
+<area shape="rect" title=" " alt="" coords="145,636,271,676"/>
+<area shape="rect" title=" " alt="" coords="378,643,433,669"/>
+<area shape="rect" title=" " alt="" coords="1869,291,1928,317"/>
+<area shape="rect" title=" " alt="" coords="1227,643,1295,669"/>
+<area shape="rect" href="../../da/dbe/task__composer__node_8h.html" title="A node in the pipeline." alt="" coords="1119,196,1291,236"/>
+<area shape="rect" title=" " alt="" coords="297,555,431,581"/>
+<area shape="rect" href="../../db/ddf/task__composer__input_8h.html" title="The input data structure to the pipeline." alt="" coords="1445,284,1617,324"/>
+<area shape="rect" href="../../dc/dc5/task__composer__data__storage_8h.html" title="Data storage used when executing the pipeline." alt="" coords="1721,548,1927,588"/>
+<area shape="rect" title=" " alt="" coords="1533,379,1595,405"/>
+<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2054,548,2253,588"/>
+<area shape="rect" href="../../d7/d2c/task__composer__node__info_8h.html" title="Task composer node info." alt="" coords="1243,372,1431,412"/>
+<area shape="rect" href="../../d7/d6d/task__composer__problem_8h.html" title="A task composer server problem." alt="" coords="1416,460,1595,500"/>
+<area shape="rect" title=" " alt="" coords="2017,643,2060,669"/>
+<area shape="rect" title=" " alt="" coords="2084,643,2156,669"/>
+<area shape="rect" title=" " alt="" coords="1342,643,1418,669"/>
+<area shape="rect" title=" " alt="" coords="1882,643,1993,669"/>
+<area shape="rect" title=" " alt="" coords="2181,643,2238,669"/>
+<area shape="rect" title=" " alt="" coords="1755,643,1858,669"/>
+<area shape="rect" title=" " alt="" coords="1243,467,1290,493"/>
+<area shape="rect" title=" " alt="" coords="1339,548,1493,588"/>
+<area shape="rect" href="../../d1/db1/instruction__poly_8h.html" title=" " alt="" coords="670,460,869,500"/>
+<area shape="rect" title=" " alt="" coords="457,636,583,676"/>
+<area shape="rect" title=" " alt="" coords="608,643,779,669"/>
+<area shape="rect" href="../../d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="710,548,909,588"/>
+<area shape="rect" title=" " alt="" coords="803,643,1018,669"/>
+<area shape="rect" title=" " alt="" coords="1042,636,1203,676"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -172,7 +172,7 @@ Namespaces</h2></td></tr>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 9 2023 20:02:57 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+Generated on Sat Mar 11 2023 03:34:22 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
 </small></address>
 </body>
 </html>

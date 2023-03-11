@@ -44,10 +44,7 @@ digraph "tesseract_task_composer/src/task_composer_problem.cpp"
   Node16 [label="tesseract_common/any\l_poly.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node15 -> Node17 [color="steelblue1",style="solid"];
   Node17 [label="boost/serialization\l/export.hpp",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
-  Node15 -> Node18 [color="steelblue1",style="solid"];
-  Node18 [label="boost/serialization\l/tracking.hpp",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node5 -> Node17 [color="steelblue1",style="solid"];
-  Node5 -> Node18 [color="steelblue1",style="solid"];
-  Node1 -> Node19 [color="steelblue1",style="solid"];
-  Node19 [label="tesseract_common/serialization.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node18 [color="steelblue1",style="solid"];
+  Node18 [label="tesseract_common/serialization.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
 }

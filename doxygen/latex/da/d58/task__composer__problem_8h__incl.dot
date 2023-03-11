@@ -37,8 +37,5 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/task_composer_p
   Node13 [label="tesseract_common/any\l_poly.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node12 -> Node14 [color="steelblue1",style="solid"];
   Node14 [label="boost/serialization\l/export.hpp",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
-  Node12 -> Node15 [color="steelblue1",style="solid"];
-  Node15 [label="boost/serialization\l/tracking.hpp",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node1 -> Node14 [color="steelblue1",style="solid"];
-  Node1 -> Node15 [color="steelblue1",style="solid"];
 }

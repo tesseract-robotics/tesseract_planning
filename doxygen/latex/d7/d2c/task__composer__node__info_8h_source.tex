@@ -66,7 +66,7 @@
 \DoxyCodeLine{98   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a971fd5475d6876334711d19d8ebcff47}{clone}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{99 }
 \DoxyCodeLine{100 \textcolor{keyword}{private}:}
-\DoxyCodeLine{101   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{101   \textcolor{keyword}{friend} \textcolor{keyword}{struct }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\_common::Serialization}};}
 \DoxyCodeLine{102   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
 \DoxyCodeLine{103   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
 \DoxyCodeLine{104   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_af57b84efe7c1e0261947f6c54aca8d5a}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
@@ -100,7 +100,7 @@
 \DoxyCodeLine{144   \textcolor{keywordtype}{bool} operator!=(const \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}\& rhs) const;}
 \DoxyCodeLine{145 }
 \DoxyCodeLine{146 private:}
-\DoxyCodeLine{147   friend class tesseract\_common::\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a74c50fcc25e72cb9703ee14d7e71dcd8}{Serialization}};}
+\DoxyCodeLine{147   friend struct tesseract\_common::\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a9d42ad7bb40288a7ac1aad8d76809fe7}{Serialization}};}
 \DoxyCodeLine{148   friend class boost::serialization::\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_ac98d07dd8f7b70e16ccb9a01abf56b9c}{access}};}
 \DoxyCodeLine{149   template <class Archive>}
 \DoxyCodeLine{150   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer_a9e3650f12f2c3654bd433ca1499b46c5}{serialize}}(Archive\& ar, const \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
@@ -111,10 +111,9 @@
 \DoxyCodeLine{155 \}  \textcolor{comment}{// namespace tesseract\_planning}}
 \DoxyCodeLine{156 }
 \DoxyCodeLine{157 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
-\DoxyCodeLine{158 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
-\DoxyCodeLine{159 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{tesseract\_planning::TaskComposerNodeInfo}}, \textcolor{stringliteral}{"{}TaskComposerNodeInfo"{}})}
-\DoxyCodeLine{160 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}, "{}\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}"{})}
-\DoxyCodeLine{161 }
-\DoxyCodeLine{162 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_NODE\_INFO\_H}}
+\DoxyCodeLine{158 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo}{tesseract\_planning::TaskComposerNodeInfo}}, \textcolor{stringliteral}{"{}TaskComposerNodeInfo"{}})}
+\DoxyCodeLine{159 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}, "{}\mbox{\hyperlink{structtesseract__planning_1_1TaskComposerNodeInfoContainer}{TaskComposerNodeInfoContainer}}"{})}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_TASK\_COMPOSER\_NODE\_INFO\_H}}
 
 \end{DoxyCode}

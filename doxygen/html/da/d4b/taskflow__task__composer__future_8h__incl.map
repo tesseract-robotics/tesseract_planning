@@ -1,11 +1,11 @@
 <map id="tesseract_task_composer/include/tesseract_task_composer/taskflow/taskflow_task_composer_future.h" name="tesseract_task_composer/include/tesseract_task_composer/taskflow/taskflow_task_composer_future.h">
-<area shape="rect" id="node1" title="A taskflow task composer future implementation." alt="" coords="683,5,874,75"/>
-<area shape="rect" id="node2" href="$dc/d59/task__composer__future_8h.html" title="A task composer future." alt="" coords="397,123,569,163"/>
-<area shape="rect" id="node8" title=" " alt="" coords="715,211,842,251"/>
-<area shape="rect" id="node9" title=" " alt="" coords="866,211,993,251"/>
-<area shape="rect" id="node3" title=" " alt="" coords="501,218,691,243"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,218,67,243"/>
-<area shape="rect" id="node5" title=" " alt="" coords="91,218,146,243"/>
-<area shape="rect" id="node6" title=" " alt="" coords="170,218,238,243"/>
-<area shape="rect" id="node7" title=" " alt="" coords="262,218,477,243"/>
+<area shape="rect" id="node1" title="A taskflow task composer future implementation." alt="" coords="565,5,756,75"/>
+<area shape="rect" id="node2" href="$dc/d59/task__composer__future_8h.html" title="A task composer future." alt="" coords="333,123,505,163"/>
+<area shape="rect" id="node8" title=" " alt="" coords="716,211,843,251"/>
+<area shape="rect" id="node9" title=" " alt="" coords="699,123,825,163"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,218,196,243"/>
+<area shape="rect" id="node4" title=" " alt="" coords="221,218,282,243"/>
+<area shape="rect" id="node5" title=" " alt="" coords="307,218,361,243"/>
+<area shape="rect" id="node6" title=" " alt="" coords="385,218,453,243"/>
+<area shape="rect" id="node7" title=" " alt="" coords="477,218,692,243"/>
 </map>

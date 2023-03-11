@@ -58,7 +58,7 @@
 \DoxyCodeLine{94   \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a7be3db55ac0b46d904b2b9f14f15fccb}{TaskFactory}} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_aa629ff8572cb73141a93cfbb60603be7}{raster\_task\_factory\_}};}
 \DoxyCodeLine{95   \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a7be3db55ac0b46d904b2b9f14f15fccb}{TaskFactory}} \mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a56a8f38468d7dd3fd8a5cb55a1ec25eb}{transition\_task\_factory\_}};}
 \DoxyCodeLine{96 }
-\DoxyCodeLine{97   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a74c50fcc25e72cb9703ee14d7e71dcd8}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{97   \textcolor{keyword}{friend} \textcolor{keyword}{struct }\mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\_common::Serialization}};}
 \DoxyCodeLine{98   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
 \DoxyCodeLine{99 }
 \DoxyCodeLine{100   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
@@ -71,6 +71,9 @@
 \DoxyCodeLine{107 \};}
 \DoxyCodeLine{108 \}  \textcolor{comment}{// namespace tesseract\_planning}}
 \DoxyCodeLine{109 }
-\DoxyCodeLine{110 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_RASTER\_MOTION\_TASK\_H}}
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{111 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1RasterMotionTask}{tesseract\_planning::RasterMotionTask}}, \textcolor{stringliteral}{"{}RasterMotionTask"{}})}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_RASTER\_MOTION\_TASK\_H}}
 
 \end{DoxyCode}

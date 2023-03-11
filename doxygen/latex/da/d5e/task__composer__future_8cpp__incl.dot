@@ -19,7 +19,5 @@ digraph "tesseract_task_composer/src/task_composer_future.cpp"
   Node7 [label="tesseract_common/serialization.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node2 -> Node8 [color="steelblue1",style="solid"];
   Node8 [label="boost/serialization\l/export.hpp",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
-  Node2 -> Node9 [color="steelblue1",style="solid"];
-  Node9 [label="boost/serialization\l/tracking.hpp",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node1 -> Node7 [color="steelblue1",style="solid"];
 }
