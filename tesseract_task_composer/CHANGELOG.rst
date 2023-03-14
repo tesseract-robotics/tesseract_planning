@@ -2,6 +2,11 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Clean up task composer serialization
+* Contributors: Levi Armstrong
+
 0.15.1 (2023-03-09)
 -------------------
 * Add method for retrieving task from TaskComposerServer
