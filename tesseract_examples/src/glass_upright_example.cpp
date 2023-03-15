@@ -52,6 +52,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 
+#include <tesseract_geometry/impl/sphere.h>
+
 using namespace trajopt;
 using namespace tesseract_environment;
 using namespace tesseract_scene_graph;
