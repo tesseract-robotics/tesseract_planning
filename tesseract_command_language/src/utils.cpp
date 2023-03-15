@@ -118,6 +118,15 @@ const Eigen::VectorXd& getJointPosition(const WaypointPoly& waypoint)
   if (waypoint.isStateWaypoint())
     return waypoint.as<StateWaypointPoly>().getPosition();
 
+  if (waypoint.isCartesianWaypoint())
+  {
+    const auto& cwp = waypoint.as<CartesianWaypointPoly>();
+    if (cwp.hasSeed())
+      return cwp.getSeed().position;
+
+    throw std::runtime_error("CartesianWaypoint does not have a seed.");
+  }
+
   throw std::runtime_error("Unsupported waypoint type.");
 }
 
@@ -128,6 +137,15 @@ const std::vector<std::string>& getJointNames(const WaypointPoly& waypoint)
 
   if (waypoint.isStateWaypoint())
     return waypoint.as<StateWaypointPoly>().getNames();
+
+  if (waypoint.isCartesianWaypoint())
+  {
+    const auto& cwp = waypoint.as<CartesianWaypointPoly>();
+    if (cwp.hasSeed())
+      return cwp.getSeed().joint_names;
+
+    throw std::runtime_error("CartesianWaypoint does not have a seed.");
+  }
 
   throw std::runtime_error("Unsupported waypoint type.");
 }
@@ -147,6 +165,15 @@ Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, co
     const auto& swp = waypoint.as<StateWaypointPoly>();
     jv = swp.getPosition();
     jn = swp.getNames();
+  }
+  else if (waypoint.isCartesianWaypoint())
+  {
+    const auto& cwp = waypoint.as<CartesianWaypointPoly>();
+    if (!cwp.hasSeed())
+      throw std::runtime_error("Cartesian waypoint does not have a seed.");
+
+    jv = cwp.getSeed().position;
+    jn = cwp.getSeed().joint_names;
   }
   else
   {
