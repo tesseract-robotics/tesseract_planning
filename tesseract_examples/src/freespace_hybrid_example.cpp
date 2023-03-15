@@ -47,6 +47,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/task_composer_plugin_factory.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
+#include <tesseract_geometry/impl/sphere.h>
+
 using namespace tesseract_environment;
 using namespace tesseract_scene_graph;
 using namespace tesseract_collision;

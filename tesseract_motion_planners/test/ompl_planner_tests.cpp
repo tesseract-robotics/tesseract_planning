@@ -65,6 +65,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
+#include <tesseract_geometry/impl/box.h>
+
 using namespace tesseract_scene_graph;
 using namespace tesseract_collision;
 using namespace tesseract_environment;

@@ -48,6 +48,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/profiles/contact_check_profile.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
+#include <tesseract_geometry/impl/box.h>
+
 using namespace tesseract_environment;
 using namespace tesseract_kinematics;
 using namespace tesseract_scene_graph;
