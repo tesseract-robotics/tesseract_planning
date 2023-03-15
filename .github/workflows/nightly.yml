@@ -44,7 +44,8 @@ jobs:
           restore-keys: |
             ${{ matrix.distro }}-ccache-
 
-      - uses: 'ros-industrial/industrial_ci@master'
+      - name: Build workspace
+        uses: 'marip8/industrial_ci@2f4c8ab919f0aafddd514e586325defabd2911ea'
         env:
           ROS_DISTRO: false
           DOCKER_IMAGE: ghcr.io/tesseract-robotics/tesseract:${{ matrix.distro }}-master

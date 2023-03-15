@@ -30,6 +30,7 @@ jobs:
               NOT_TEST_BUILD: true
               TARGET_CMAKE_ARGS: "-DTESSERACT_ENABLE_CLANG_TIDY=ON -DTESSERACT_ENABLE_TESTING=ON"
     env:
+      ROS_DISTRO: false
       DOCKER_IMAGE: ${{ env.REGISTRY }}/tesseract-robotics/tesseract:focal-master
       UNDERLAY: /root/tesseract-robotics/tesseract_target_ws/install
       PREFIX: ${{ github.repository }}_
@@ -74,5 +75,5 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build repository
-        uses: 'ros-industrial/industrial_ci@master'
+        uses: 'marip8/industrial_ci@2f4c8ab919f0aafddd514e586325defabd2911ea'
         env:  ${{ matrix.env }}

@@ -83,7 +83,7 @@ jobs:
           fi
 
       - name: Build repository
-        uses: 'ros-industrial/industrial_ci@master'
+        uses: 'marip8/industrial_ci@2f4c8ab919f0aafddd514e586325defabd2911ea'
         env:
           ROS_DISTRO: false
           DOCKER_IMAGE: ${{ env.REGISTRY }}/tesseract-robotics/tesseract:${{ matrix.distro }}-${{ env.TESSERACT_VERSION }}
