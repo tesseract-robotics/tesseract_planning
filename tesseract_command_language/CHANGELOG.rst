@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add support for cartesian waypoint type in getJointPosition and getJointNames
+* Contributors: Levi Armstrong
+
 0.15.2 (2023-03-14)
 -------------------
 

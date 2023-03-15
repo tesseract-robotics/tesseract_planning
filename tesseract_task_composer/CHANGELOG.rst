@@ -2,6 +2,9 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.15.2 (2023-03-14)
 -------------------
 * Clean up task composer serialization
