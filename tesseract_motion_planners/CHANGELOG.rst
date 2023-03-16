@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.15.4 (2023-03-16)
+-------------------
 * Update example to include geometry headers
 * Contributors: Levi Armstrong
 
