@@ -174,8 +174,6 @@ digraph "tesseract_examples/src/freespace_hybrid_example.cpp"
   Node64 -> Node3 [color="steelblue1",style="solid"];
   Node64 -> Node8 [color="steelblue1",style="solid"];
   Node64 -> Node10 [color="steelblue1",style="solid"];
-  Node64 -> Node65 [color="steelblue1",style="solid"];
-  Node65 [label="tesseract_kinematics\l/core/forward_kinematics.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node64 -> Node14 [color="steelblue1",style="solid"];
   Node64 -> Node12 [color="steelblue1",style="solid"];
   Node64 -> Node45 [color="steelblue1",style="solid"];
@@ -197,4 +195,6 @@ digraph "tesseract_examples/src/freespace_hybrid_example.cpp"
   Node73 -> Node5 [color="steelblue1",style="solid"];
   Node1 -> Node83 [color="steelblue1",style="solid"];
   Node83 [label="tesseract_visualization\l/markers/toolpath_marker.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node84 [color="steelblue1",style="solid"];
+  Node84 [label="tesseract_geometry\l/impl/sphere.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
 }

@@ -178,8 +178,6 @@ digraph "tesseract_examples/src/glass_upright_example.cpp"
   Node54 -> Node2 [color="steelblue1",style="solid"];
   Node54 -> Node6 [color="steelblue1",style="solid"];
   Node54 -> Node53 [color="steelblue1",style="solid"];
-  Node54 -> Node55 [color="steelblue1",style="solid"];
-  Node55 [label="yaml-cpp/yaml.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node1 -> Node64 [color="steelblue1",style="solid"];
   Node64 [label="tesseract_visualization\l/markers/toolpath_marker.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node1 -> Node65 [color="steelblue1",style="solid"];
@@ -216,4 +214,6 @@ digraph "tesseract_examples/src/glass_upright_example.cpp"
   Node84 [label="tesseract_motion_planners\l/trajopt/profile/trajopt\l_default_plan_profile.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d9/da2/trajopt__default__plan__profile_8h.html",tooltip=" "];
   Node84 -> Node2 [color="steelblue1",style="solid"];
   Node84 -> Node43 [color="steelblue1",style="solid"];
+  Node1 -> Node86 [color="steelblue1",style="solid"];
+  Node86 [label="tesseract_geometry\l/impl/sphere.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
 }

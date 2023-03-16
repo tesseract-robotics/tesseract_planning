@@ -164,8 +164,6 @@ digraph "tesseract_examples/src/basic_cartesian_example.cpp"
   Node54 [label="trajopt_ifopt/constraints\l/collision/discrete_collision\l_evaluators.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node53 -> Node55 [color="steelblue1",style="solid"];
   Node55 [label="trajopt_ifopt/constraints\l/collision/continuous_collision\l_evaluators.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
-  Node53 -> Node56 [color="steelblue1",style="solid"];
-  Node56 [label="trajopt_utils/utils.hpp",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node1 -> Node62 [color="steelblue1",style="solid"];
   Node62 [label="tesseract_motion_planners\l/trajopt/profile/trajopt\l_default_composite_profile.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d8/d8f/trajopt__default__composite__profile_8h.html",tooltip=" "];
   Node62 -> Node2 [color="steelblue1",style="solid"];
@@ -197,4 +195,6 @@ digraph "tesseract_examples/src/basic_cartesian_example.cpp"
   Node77 [label="tesseract_task_composer\l/task_composer_plugin\l_factory.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$da/d42/task__composer__plugin__factory_8h.html",tooltip="A plugin factory for producing a task composer."];
   Node77 -> Node2 [color="steelblue1",style="solid"];
   Node77 -> Node7 [color="steelblue1",style="solid"];
+  Node1 -> Node87 [color="steelblue1",style="solid"];
+  Node87 [label="tesseract_geometry\l/impl/octree.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
 }
