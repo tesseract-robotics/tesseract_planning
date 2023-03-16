@@ -2,6 +2,11 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update example to include geometry headers
+* Contributors: Levi Armstrong
+
 0.15.3 (2023-03-15)
 -------------------
 * Add support for cartesian waypoint type in getJointPosition and getJointNames

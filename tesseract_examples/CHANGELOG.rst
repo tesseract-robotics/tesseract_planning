@@ -2,6 +2,11 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update example to include geometry headers
+* Contributors: Levi Armstrong
+
 0.15.3 (2023-03-15)
 -------------------
 
