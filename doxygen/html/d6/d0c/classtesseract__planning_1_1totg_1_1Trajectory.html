@@ -81,7 +81,6 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d7/d39/classtesseract__planning_1_1totg_1_1Trajectory-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">tesseract_planning::totg::Trajectory Class Reference</div></div>
@@ -94,14 +93,15 @@ Collaboration diagram for tesseract_planning::totg::Trajectory:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d5c/classtesseract__planning_1_1totg_1_1Trajectory__coll__graph.png" border="0" usemap="#atesseract__planning_1_1totg_1_1Trajectory_coll__map" alt="Collaboration graph"/></div>
 <map name="atesseract__planning_1_1totg_1_1Trajectory_coll__map" id="atesseract__planning_1_1totg_1_1Trajectory_coll__map">
-<area shape="rect" title=" " alt="" coords="1212,117,1343,157"/>
-<area shape="rect" href="../../db/da0/classtesseract__planning_1_1totg_1_1Path.html" title=" " alt="" coords="852,72,983,112"/>
-<area shape="rect" title=" " alt="" coords="533,5,657,45"/>
-<area shape="rect" title=" " alt="" coords="513,70,677,125"/>
-<area shape="rect" title=" " alt="" coords="207,77,408,117"/>
-<area shape="rect" href="../../de/dc1/classtesseract__planning_1_1totg_1_1PathSegment.html" title=" " alt="" coords="5,77,140,117"/>
-<area shape="rect" title=" " alt="" coords="833,154,1001,209"/>
-<area shape="rect" href="../../d5/dd3/structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep.html" title=" " alt="" coords="530,154,661,209"/>
+<area shape="rect" title=" " alt="" coords="1212,147,1343,187"/>
+<area shape="rect" href="../../db/da0/classtesseract__planning_1_1totg_1_1Path.html" title=" " alt="" coords="852,91,983,131"/>
+<area shape="rect" title=" " alt="" coords="524,5,667,31"/>
+<area shape="rect" title=" " alt="" coords="533,55,657,95"/>
+<area shape="rect" title=" " alt="" coords="513,120,677,175"/>
+<area shape="rect" title=" " alt="" coords="207,127,408,167"/>
+<area shape="rect" href="../../de/dc1/classtesseract__planning_1_1totg_1_1PathSegment.html" title=" " alt="" coords="5,127,140,167"/>
+<area shape="rect" title=" " alt="" coords="833,192,1001,247"/>
+<area shape="rect" href="../../d5/dd3/structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep.html" title=" " alt="" coords="530,199,661,253"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -124,24 +124,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a148195f8e5d6faa3c46908bd7cd0f07d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dad/structtesseract__planning_1_1totg_1_1PathData.html">PathData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a148195f8e5d6faa3c46908bd7cd0f07d">getPathData</a> (double time) const</td></tr>
 <tr class="memdesc:a148195f8e5d6faa3c46908bd7cd0f07d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the path data for a given point in time.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a148195f8e5d6faa3c46908bd7cd0f07d">More...</a><br /></td></tr>
 <tr class="separator:a148195f8e5d6faa3c46908bd7cd0f07d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac62c6ac25c7bb74a661cc3a762ac104e"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#ac62c6ac25c7bb74a661cc3a762ac104e">getPosition</a> (double time) const</td></tr>
-<tr class="memdesc:ac62c6ac25c7bb74a661cc3a762ac104e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the position/configuration vector for a given point in time.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#ac62c6ac25c7bb74a661cc3a762ac104e">More...</a><br /></td></tr>
-<tr class="separator:ac62c6ac25c7bb74a661cc3a762ac104e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af771b4b9b78767499fdea297b9fbab1c"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#af771b4b9b78767499fdea297b9fbab1c">getVelocity</a> (double time) const</td></tr>
-<tr class="memdesc:af771b4b9b78767499fdea297b9fbab1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the velocity vector for a given point in time.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#af771b4b9b78767499fdea297b9fbab1c">More...</a><br /></td></tr>
-<tr class="separator:af771b4b9b78767499fdea297b9fbab1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1acebaa67669a12fa69dbf1d768ccea1"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a1acebaa67669a12fa69dbf1d768ccea1">getAcceleration</a> (double time) const</td></tr>
-<tr class="memdesc:a1acebaa67669a12fa69dbf1d768ccea1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the acceleration vector for a given point in time.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a1acebaa67669a12fa69dbf1d768ccea1">More...</a><br /></td></tr>
-<tr class="separator:a1acebaa67669a12fa69dbf1d768ccea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4f3648c196728cd55bd0397032eb312"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#ab4f3648c196728cd55bd0397032eb312">assignData</a> (<a class="el" href="../../d5/d52/classtesseract__planning_1_1TrajectoryContainer.html">TrajectoryContainer</a> &amp;<a class="el" href="../../dc/d4a/iterative__spline__tests_8cpp.html#a42770b019b3c810751d40ab5f2f25e20">trajectory</a>) const</td></tr>
-<tr class="memdesc:ab4f3648c196728cd55bd0397032eb312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign trajectory velocity acceleration and time.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#ab4f3648c196728cd55bd0397032eb312">More...</a><br /></td></tr>
-<tr class="separator:ab4f3648c196728cd55bd0397032eb312"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a372722cc961f573eec98a906c71e005d"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a372722cc961f573eec98a906c71e005d">getPosition</a> (const <a class="el" href="../../d6/dad/structtesseract__planning_1_1totg_1_1PathData.html">PathData</a> &amp;<a class="el" href="../../d9/d5d/ompl__planner__tests_8cpp.html#a1ac79e92f7645f205bdbfb90f97d6af6">data</a>) const</td></tr>
+<tr class="memdesc:a372722cc961f573eec98a906c71e005d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the position/configuration vector for a given point in time.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a372722cc961f573eec98a906c71e005d">More...</a><br /></td></tr>
+<tr class="separator:a372722cc961f573eec98a906c71e005d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a763c6f4a553648429712f63b90022732"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a763c6f4a553648429712f63b90022732">getVelocity</a> (const <a class="el" href="../../d6/dad/structtesseract__planning_1_1totg_1_1PathData.html">PathData</a> &amp;<a class="el" href="../../d9/d5d/ompl__planner__tests_8cpp.html#a1ac79e92f7645f205bdbfb90f97d6af6">data</a>) const</td></tr>
+<tr class="memdesc:a763c6f4a553648429712f63b90022732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the velocity vector for a given point in time.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a763c6f4a553648429712f63b90022732">More...</a><br /></td></tr>
+<tr class="separator:a763c6f4a553648429712f63b90022732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c8205f27baf88708e76a91cb7f79f17"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a1c8205f27baf88708e76a91cb7f79f17">getAcceleration</a> (const <a class="el" href="../../d6/dad/structtesseract__planning_1_1totg_1_1PathData.html">PathData</a> &amp;<a class="el" href="../../d9/d5d/ompl__planner__tests_8cpp.html#a1ac79e92f7645f205bdbfb90f97d6af6">data</a>) const</td></tr>
+<tr class="memdesc:a1c8205f27baf88708e76a91cb7f79f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the acceleration vector for a given point in time.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a1c8205f27baf88708e76a91cb7f79f17">More...</a><br /></td></tr>
+<tr class="separator:a1c8205f27baf88708e76a91cb7f79f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9126a9b670a1f525cf549456b59ebad3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a9126a9b670a1f525cf549456b59ebad3">getTime</a> (double pos) const</td></tr>
+<tr class="memdesc:a9126a9b670a1f525cf549456b59ebad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the time given a position on the trajectory  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a9126a9b670a1f525cf549456b59ebad3">More...</a><br /></td></tr>
+<tr class="separator:a9126a9b670a1f525cf549456b59ebad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d178868bebbee63e82f35e2834abe37"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a0d178868bebbee63e82f35e2834abe37">assignData</a> (<a class="el" href="../../d5/d52/classtesseract__planning_1_1TrajectoryContainer.html">TrajectoryContainer</a> &amp;<a class="el" href="../../dc/d4a/iterative__spline__tests_8cpp.html#a42770b019b3c810751d40ab5f2f25e20">trajectory</a>, const std::vector&lt; std::size_t &gt; &amp;mapping) const</td></tr>
+<tr class="memdesc:a0d178868bebbee63e82f35e2834abe37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign trajectory velocity acceleration and time.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a0d178868bebbee63e82f35e2834abe37">More...</a><br /></td></tr>
+<tr class="separator:a0d178868bebbee63e82f35e2834abe37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:aaaae4fa69790f3d709541adab634a8c1"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#aaaae4fa69790f3d709541adab634a8c1">calcDistanceToAll</a> (const Eigen::VectorXd &amp;p, const Eigen::VectorXd &amp;times) const</td></tr>
-<tr class="memdesc:aaaae4fa69790f3d709541adab634a8c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the distance form the provided state to all states in the TOTG trajectory at the provided time samples.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#aaaae4fa69790f3d709541adab634a8c1">More...</a><br /></td></tr>
-<tr class="separator:aaaae4fa69790f3d709541adab634a8c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bebe4cc6057d1c225744262942850ed"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a1bebe4cc6057d1c225744262942850ed">getNextSwitchingPoint</a> (double path_pos, <a class="el" href="../../d5/dd3/structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep.html">TrajectoryStep</a> &amp;next_switching_point, double &amp;before_acceleration, double &amp;after_acceleration)</td></tr>
 <tr class="separator:a1bebe4cc6057d1c225744262942850ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1226143d69b5c6d77a4e3ea546f33d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#ad1226143d69b5c6d77a4e3ea546f33d8">getNextAccelerationSwitchingPoint</a> (double path_pos, <a class="el" href="../../d5/dd3/structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep.html">TrajectoryStep</a> &amp;next_switching_point, double &amp;before_acceleration, double &amp;after_acceleration)</td></tr>
@@ -166,12 +166,8 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a91859c584e68e094902b4b0b8fe9957f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf40a03478a500b51d85a55582054d64"><td class="memItemLeft" align="right" valign="top">std::list&lt; <a class="el" href="../../d5/dd3/structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep.html">TrajectoryStep</a> &gt;::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#aaf40a03478a500b51d85a55582054d64">getTrajectorySegment</a> (double time) const</td></tr>
 <tr class="separator:aaf40a03478a500b51d85a55582054d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:a3259cbc41dd8396dad3b4804835d475d"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; Eigen::Index &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a3259cbc41dd8396dad3b4804835d475d">findLocalMinimums</a> (const Eigen::VectorXd &amp;x)</td></tr>
-<tr class="memdesc:a3259cbc41dd8396dad3b4804835d475d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find all of the minimum points in the provided data.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a3259cbc41dd8396dad3b4804835d475d">More...</a><br /></td></tr>
-<tr class="separator:a3259cbc41dd8396dad3b4804835d475d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e32b8219452af173e63b0c9155e4c3d"><td class="memItemLeft" align="right" valign="top">std::list&lt; <a class="el" href="../../d5/dd3/structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep.html">TrajectoryStep</a> &gt;::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a1e32b8219452af173e63b0c9155e4c3d">getTrajectorySegmentFromDist</a> (double pos) const</td></tr>
+<tr class="separator:a1e32b8219452af173e63b0c9155e4c3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -250,8 +246,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab4f3648c196728cd55bd0397032eb312" name="ab4f3648c196728cd55bd0397032eb312"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4f3648c196728cd55bd0397032eb312">&#9670;&#160;</a></span>assignData()</h2>
+<a id="a0d178868bebbee63e82f35e2834abe37" name="a0d178868bebbee63e82f35e2834abe37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d178868bebbee63e82f35e2834abe37">&#9670;&#160;</a></span>assignData()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -260,8 +256,18 @@ Private Attributes</h2></td></tr>
           <td class="memname">bool tesseract_planning::totg::Trajectory::assignData </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d5/d52/classtesseract__planning_1_1TrajectoryContainer.html">TrajectoryContainer</a> &amp;&#160;</td>
-          <td class="paramname"><em>trajectory</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"><em>trajectory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::size_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>mapping</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -271,89 +277,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aaaae4fa69790f3d709541adab634a8c1" name="aaaae4fa69790f3d709541adab634a8c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaae4fa69790f3d709541adab634a8c1">&#9670;&#160;</a></span>calcDistanceToAll()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::VectorXd tesseract_planning::totg::Trajectory::calcDistanceToAll </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>p</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>times</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Calculate the distance form the provided state to all states in the TOTG trajectory at the provided time samples. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">p</td><td>The state to calculate distance to all TOTG states at the provided times </td></tr>
-    <tr><td class="paramname">times</td><td>The time to pull states from the TOTG trajectory </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The distance from the provided state to all TOTG states at the provided times. </dd></dl>
-
-</div>
-</div>
-<a id="a3259cbc41dd8396dad3b4804835d475d" name="a3259cbc41dd8396dad3b4804835d475d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3259cbc41dd8396dad3b4804835d475d">&#9670;&#160;</a></span>findLocalMinimums()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; Eigen::Index &gt; tesseract_planning::totg::Trajectory::findLocalMinimums </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Find all of the minimum points in the provided data. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x</td><td>The data to search for local minimums </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The vector of indices for each local minimum in the provided data </dd></dl>
-
-</div>
-</div>
-<a id="a1acebaa67669a12fa69dbf1d768ccea1" name="a1acebaa67669a12fa69dbf1d768ccea1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1acebaa67669a12fa69dbf1d768ccea1">&#9670;&#160;</a></span>getAcceleration()</h2>
+<a id="a1c8205f27baf88708e76a91cb7f79f17" name="a1c8205f27baf88708e76a91cb7f79f17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c8205f27baf88708e76a91cb7f79f17">&#9670;&#160;</a></span>getAcceleration()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -361,8 +286,8 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">Eigen::VectorXd tesseract_planning::totg::Trajectory::getAcceleration </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>time</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dad/structtesseract__planning_1_1totg_1_1PathData.html">PathData</a> &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -691,8 +616,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ac62c6ac25c7bb74a661cc3a762ac104e" name="ac62c6ac25c7bb74a661cc3a762ac104e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac62c6ac25c7bb74a661cc3a762ac104e">&#9670;&#160;</a></span>getPosition()</h2>
+<a id="a372722cc961f573eec98a906c71e005d" name="a372722cc961f573eec98a906c71e005d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a372722cc961f573eec98a906c71e005d">&#9670;&#160;</a></span>getPosition()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -700,14 +625,34 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">Eigen::VectorXd tesseract_planning::totg::Trajectory::getPosition </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>time</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dad/structtesseract__planning_1_1totg_1_1PathData.html">PathData</a> &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Return the position/configuration vector for a given point in time. </p>
+
+</div>
+</div>
+<a id="a9126a9b670a1f525cf549456b59ebad3" name="a9126a9b670a1f525cf549456b59ebad3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9126a9b670a1f525cf549456b59ebad3">&#9670;&#160;</a></span>getTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double tesseract_planning::totg::Trajectory::getTime </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get the time given a position on the trajectory </p>
 
 </div>
 </div>
@@ -737,8 +682,34 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="af771b4b9b78767499fdea297b9fbab1c" name="af771b4b9b78767499fdea297b9fbab1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af771b4b9b78767499fdea297b9fbab1c">&#9670;&#160;</a></span>getVelocity()</h2>
+<a id="a1e32b8219452af173e63b0c9155e4c3d" name="a1e32b8219452af173e63b0c9155e4c3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e32b8219452af173e63b0c9155e4c3d">&#9670;&#160;</a></span>getTrajectorySegmentFromDist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::list&lt; <a class="el" href="../../d5/dd3/structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep.html">Trajectory::TrajectoryStep</a> &gt;::const_iterator tesseract_planning::totg::Trajectory::getTrajectorySegmentFromDist </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a763c6f4a553648429712f63b90022732" name="a763c6f4a553648429712f63b90022732"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a763c6f4a553648429712f63b90022732">&#9670;&#160;</a></span>getVelocity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -746,8 +717,8 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">Eigen::VectorXd tesseract_planning::totg::Trajectory::getVelocity </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>time</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dad/structtesseract__planning_1_1totg_1_1PathData.html">PathData</a> &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -1140,7 +1111,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 21 2023 17:43:00 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+Generated on Tue Mar 21 2023 22:01:24 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
 </small></address>
 </body>
 </html>

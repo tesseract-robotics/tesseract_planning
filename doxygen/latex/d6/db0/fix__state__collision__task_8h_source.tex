@@ -65,48 +65,50 @@
 \DoxyCodeLine{91   \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_a36c12ea85148401676f73d4f4fea7bcb}{FixStateCollisionTaskInfo}}() = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{92   \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_a36c12ea85148401676f73d4f4fea7bcb}{FixStateCollisionTaskInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask}{FixStateCollisionTask}}\& \mbox{\hyperlink{tesseract__task__composer__unit_8cpp_a5db2ebb466c248635e199e98caf465eb}{task}});}
 \DoxyCodeLine{93 }
-\DoxyCodeLine{94   std::vector<tesseract\_collision::ContactResultMap> \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_aa15f3ca76f3612599bf98f41f589caf2}{contact\_results}};}
+\DoxyCodeLine{94   \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerNodeInfo_a69ff72adefb9a929b3665014da4a2466}{TaskComposerNodeInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_aa556cb5e414b98fb6bd23cb006fb715b}{clone}}() \textcolor{keyword}{const override};}
 \DoxyCodeLine{95 }
-\DoxyCodeLine{96   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_aeece3514aa7d1e75a62fb2db9e928dd5}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{FixStateCollisionTaskInfo}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{97   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_a386093a98e789aa514e0870f4eb4627c}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{FixStateCollisionTaskInfo}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{98 }
-\DoxyCodeLine{99 \textcolor{keyword}{private}:}
-\DoxyCodeLine{100   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{101   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{102   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_ac684f7aef788ec9753178e63f1d1d43c}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{103 \};}
-\DoxyCodeLine{104 }
-\DoxyCodeLine{111 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_ab12bd6bdd9e4fba17d47373c9412717f}{stateInCollision}}(\textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& start\_pos,}
-\DoxyCodeLine{112                       \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info,}
-\DoxyCodeLine{113                       \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
-\DoxyCodeLine{114                       \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}},}
-\DoxyCodeLine{115                       tesseract\_collision::ContactResultMap\& \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}});}
-\DoxyCodeLine{116 }
-\DoxyCodeLine{123 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a87fcfa45dcf1f1f40151e128bee60d54}{waypointInCollision}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}},}
-\DoxyCodeLine{124                          \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info,}
-\DoxyCodeLine{125                          \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
-\DoxyCodeLine{126                          \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}},}
-\DoxyCodeLine{127                          tesseract\_collision::ContactResultMap\& \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}});}
-\DoxyCodeLine{128 }
-\DoxyCodeLine{136 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a6b534f8f22bbea4a0bcf4cdd548584b2}{moveWaypointFromCollisionTrajopt}}(\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}},}
-\DoxyCodeLine{137                                       \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info,}
-\DoxyCodeLine{138                                       \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
-\DoxyCodeLine{139                                       \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}});}
-\DoxyCodeLine{140 }
-\DoxyCodeLine{148 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_aa4d7a120157f2190d7d17c35ef82e077}{moveWaypointFromCollisionRandomSampler}}(\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}},}
-\DoxyCodeLine{149                                             \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info,}
-\DoxyCodeLine{150                                             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
-\DoxyCodeLine{151                                             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}});}
-\DoxyCodeLine{152 }
-\DoxyCodeLine{153 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a564ab50e1f9ec0ffacf7241e12754c7a}{applyCorrectionWorkflow}}(\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}},}
-\DoxyCodeLine{154                              \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info,}
-\DoxyCodeLine{155                              \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
-\DoxyCodeLine{156                              \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}});}
-\DoxyCodeLine{157 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{158 }
-\DoxyCodeLine{159 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
-\DoxyCodeLine{160 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask}{tesseract\_planning::FixStateCollisionTask}}, \textcolor{stringliteral}{"{}FixStateCollisionTask"{}})}
-\DoxyCodeLine{161 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::FixStateCollisionTaskInfo, "{}FixStateCollisionTaskInfo"{})}
-\DoxyCodeLine{162 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_FIX\_STATE\_COLLISION\_TASK\_H}}
+\DoxyCodeLine{96   std::vector<tesseract\_collision::ContactResultMap> \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_aa15f3ca76f3612599bf98f41f589caf2}{contact\_results}};}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_aeece3514aa7d1e75a62fb2db9e928dd5}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{FixStateCollisionTaskInfo}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{99   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_a386093a98e789aa514e0870f4eb4627c}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{FixStateCollisionTaskInfo}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{keyword}{private}:}
+\DoxyCodeLine{102   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{103   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{104   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_ac684f7aef788ec9753178e63f1d1d43c}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{105 \};}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{113 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_ab12bd6bdd9e4fba17d47373c9412717f}{stateInCollision}}(\textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& start\_pos,}
+\DoxyCodeLine{114                       \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info,}
+\DoxyCodeLine{115                       \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
+\DoxyCodeLine{116                       \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}},}
+\DoxyCodeLine{117                       tesseract\_collision::ContactResultMap\& \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}});}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{125 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a87fcfa45dcf1f1f40151e128bee60d54}{waypointInCollision}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}},}
+\DoxyCodeLine{126                          \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info,}
+\DoxyCodeLine{127                          \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
+\DoxyCodeLine{128                          \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}},}
+\DoxyCodeLine{129                          tesseract\_collision::ContactResultMap\& \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a4837fa9fc092f6e07b46656b7d366e2f}{contacts}});}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{138 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a6b534f8f22bbea4a0bcf4cdd548584b2}{moveWaypointFromCollisionTrajopt}}(\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}},}
+\DoxyCodeLine{139                                       \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info,}
+\DoxyCodeLine{140                                       \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
+\DoxyCodeLine{141                                       \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}});}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{150 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_aa4d7a120157f2190d7d17c35ef82e077}{moveWaypointFromCollisionRandomSampler}}(\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}},}
+\DoxyCodeLine{151                                             \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info,}
+\DoxyCodeLine{152                                             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
+\DoxyCodeLine{153                                             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}});}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{155 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a564ab50e1f9ec0ffacf7241e12754c7a}{applyCorrectionWorkflow}}(\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{fix__state__collision__task__unit_8cpp_a597b56c2c0087f5d0637de0567f0fd77}{waypoint}},}
+\DoxyCodeLine{156                              \textcolor{keyword}{const} tesseract\_common::ManipulatorInfo\& manip\_info,}
+\DoxyCodeLine{157                              \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskComposerInput}{TaskComposerInput}}\& input,}
+\DoxyCodeLine{158                              \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& \mbox{\hyperlink{profile__dictionary__tests_8cpp_abef2081b208ab62011ea9a1557a0be70}{profile}});}
+\DoxyCodeLine{159 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{162 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTask}{tesseract\_planning::FixStateCollisionTask}}, \textcolor{stringliteral}{"{}FixStateCollisionTask"{}})}
+\DoxyCodeLine{163 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::FixStateCollisionTaskInfo, "{}FixStateCollisionTaskInfo"{})}
+\DoxyCodeLine{164 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TASK\_COMPOSER\_FIX\_STATE\_COLLISION\_TASK\_H}}
 
 \end{DoxyCode}

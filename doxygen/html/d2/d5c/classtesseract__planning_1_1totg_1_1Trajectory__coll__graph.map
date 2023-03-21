@@ -1,10 +1,11 @@
 <map id="tesseract_planning::totg::Trajectory" name="tesseract_planning::totg::Trajectory">
-<area shape="rect" id="node1" title=" " alt="" coords="1212,117,1343,157"/>
-<area shape="rect" id="node2" href="$db/da0/classtesseract__planning_1_1totg_1_1Path.html" title=" " alt="" coords="852,72,983,112"/>
-<area shape="rect" id="node3" title=" " alt="" coords="533,5,657,45"/>
-<area shape="rect" id="node4" title=" " alt="" coords="513,70,677,125"/>
-<area shape="rect" id="node5" title=" " alt="" coords="207,77,408,117"/>
-<area shape="rect" id="node6" href="$de/dc1/classtesseract__planning_1_1totg_1_1PathSegment.html" title=" " alt="" coords="5,77,140,117"/>
-<area shape="rect" id="node7" title=" " alt="" coords="833,154,1001,209"/>
-<area shape="rect" id="node8" href="$d5/dd3/structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep.html" title=" " alt="" coords="530,154,661,209"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1212,147,1343,187"/>
+<area shape="rect" id="node2" href="$db/da0/classtesseract__planning_1_1totg_1_1Path.html" title=" " alt="" coords="852,91,983,131"/>
+<area shape="rect" id="node3" title=" " alt="" coords="524,5,667,31"/>
+<area shape="rect" id="node4" title=" " alt="" coords="533,55,657,95"/>
+<area shape="rect" id="node5" title=" " alt="" coords="513,120,677,175"/>
+<area shape="rect" id="node6" title=" " alt="" coords="207,127,408,167"/>
+<area shape="rect" id="node7" href="$de/dc1/classtesseract__planning_1_1totg_1_1PathSegment.html" title=" " alt="" coords="5,127,140,167"/>
+<area shape="rect" id="node8" title=" " alt="" coords="833,192,1001,247"/>
+<area shape="rect" id="node9" href="$d5/dd3/structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep.html" title=" " alt="" coords="530,199,661,253"/>
 </map>

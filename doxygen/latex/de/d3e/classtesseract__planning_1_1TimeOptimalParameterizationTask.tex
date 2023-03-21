@@ -46,11 +46,6 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTas
 \item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTask_a5e8ac55adc1de2d9bbee3ee71520cdf6}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTask}{Time\+Optimal\+Parameterization\+Task}} \&rhs) const
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-static \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTask_a3a82f666421f034b2b402e093db54c93}{unflatten}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&flattened\+\_\+input, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&pattern, double tolerance)
-\begin{DoxyCompactList}\small\item\em Unflattens a composite from TOTG back into the format of the input pattern. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -176,28 +171,6 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskComposerTask_ac9d933
 {\footnotesize\ttfamily template$<$class Archive $>$ \\
 void tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Task\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalParameterizationTask_a3a82f666421f034b2b402e093db54c93}\label{classtesseract__planning_1_1TimeOptimalParameterizationTask_a3a82f666421f034b2b402e093db54c93}} 
-\index{tesseract\_planning::TimeOptimalParameterizationTask@{tesseract\_planning::TimeOptimalParameterizationTask}!unflatten@{unflatten}}
-\index{unflatten@{unflatten}!tesseract\_planning::TimeOptimalParameterizationTask@{tesseract\_planning::TimeOptimalParameterizationTask}}
-\doxysubsubsection{\texorpdfstring{unflatten()}{unflatten()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Task\+::unflatten (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{flattened\+\_\+input,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{pattern,  }\item[{double}]{tolerance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Unflattens a composite from TOTG back into the format of the input pattern. 
-
-Note that this algorithm will tend to shift points slightly forward because of the tolerance. e.\+g., if the curve that represents a waypoint is actually at index 40 but index 38 is where the tolerance is first satisfied, index 39 and 40 will be placed in the next subcomposite 
-\begin{DoxyParams}{Parameters}
-{\em flattened\+\_\+input} & Composite from TOTG that is completely flat \\
-\hline
-{\em pattern} & Composite that was the input to TOTG. flattened\+\_\+input is compared to this to find the corresponding resampled points \\
-\hline
-{\em tolerance} & Tolerance passed to TOTG. Thi is used to determine which points correspond \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-The unflattened Composite. It should have the same subcomposite structure as pattern. 
-\end{DoxyReturn}
 
 
 \doxysubsection{Friends And Related Function Documentation}

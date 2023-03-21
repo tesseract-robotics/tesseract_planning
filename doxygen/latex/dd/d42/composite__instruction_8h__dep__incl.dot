@@ -143,6 +143,7 @@ digraph "tesseract_command_language/include/tesseract_command_language/composite
   Node90 [label="tesseract_time_parameterization\l/core/include/tesseract_time\l_parameterization/core/instructions\l_trajectory.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d2/d7a/instructions__trajectory_8h.html",tooltip="Trajectory Container implementation for command language instructions."];
   Node90 -> Node73 [dir="back",color="steelblue1",style="solid"];
   Node90 -> Node74 [dir="back",color="steelblue1",style="solid"];
+  Node90 -> Node47 [dir="back",color="steelblue1",style="solid"];
   Node1 -> Node94 [dir="back",color="steelblue1",style="solid"];
   Node94 [label="tesseract_time_parameterization\l/core/include/tesseract_time\l_parameterization/core/utils.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/dd8/tesseract__time__parameterization_2core_2include_2tesseract__time__parameterization_2core_2utils_8h.html",tooltip="Time parameterization utils."];
   Node94 -> Node47 [dir="back",color="steelblue1",style="solid"];

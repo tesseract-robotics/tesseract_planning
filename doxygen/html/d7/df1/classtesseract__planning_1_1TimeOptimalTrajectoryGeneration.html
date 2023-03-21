@@ -91,8 +91,6 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a98a79af492ed73331f8071f589d0c9a7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df1/classtesseract__planning_1_1TimeOptimalTrajectoryGeneration.html#a98a79af492ed73331f8071f589d0c9a7">TimeOptimalTrajectoryGeneration</a> (double path_tolerance=0.1, double resample_dt=0.1, double min_angle_change=0.001)</td></tr>
 <tr class="separator:a98a79af492ed73331f8071f589d0c9a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a808c675ec842305c839339e77f1103cf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df1/classtesseract__planning_1_1TimeOptimalTrajectoryGeneration.html#a808c675ec842305c839339e77f1103cf">computeTimeStamps</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;<a class="el" href="../../d6/dcb/descartes__planner__tests_8cpp.html#ab5a75a7fd217179774b21aaa94fccc66">program</a>, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;<a class="el" href="../../dc/d4a/iterative__spline__tests_8cpp.html#a4edd2e19f0e2c29472298acb4c9314bc">max_velocity</a>, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;<a class="el" href="../../dc/d4a/iterative__spline__tests_8cpp.html#ace361fc180c17eec994c8f5b4b5a260e">max_acceleration</a>, double max_velocity_scaling_factor=1.0, double max_acceleration_scaling_factor=1.0) const</td></tr>
-<tr class="separator:a808c675ec842305c839339e77f1103cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13e1d3725dbf8f3ff7d4bf2253e4ab8e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df1/classtesseract__planning_1_1TimeOptimalTrajectoryGeneration.html#a13e1d3725dbf8f3ff7d4bf2253e4ab8e">computeTimeStamps</a> (<a class="el" href="../../d5/d52/classtesseract__planning_1_1TrajectoryContainer.html">TrajectoryContainer</a> &amp;<a class="el" href="../../dc/d4a/iterative__spline__tests_8cpp.html#a42770b019b3c810751d40ab5f2f25e20">trajectory</a>, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;<a class="el" href="../../dc/d4a/iterative__spline__tests_8cpp.html#a4edd2e19f0e2c29472298acb4c9314bc">max_velocity</a>, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;<a class="el" href="../../dc/d4a/iterative__spline__tests_8cpp.html#ace361fc180c17eec994c8f5b4b5a260e">max_acceleration</a>, double max_velocity_scaling_factor=1.0, double max_acceleration_scaling_factor=1.0) const</td></tr>
 <tr class="separator:a13e1d3725dbf8f3ff7d4bf2253e4ab8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -141,55 +139,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a808c675ec842305c839339e77f1103cf" name="a808c675ec842305c839339e77f1103cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a808c675ec842305c839339e77f1103cf">&#9670;&#160;</a></span>computeTimeStamps() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tesseract_planning::TimeOptimalTrajectoryGeneration::computeTimeStamps </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>program</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>max_velocity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>max_acceleration</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>max_velocity_scaling_factor</em> = <code>1.0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>max_acceleration_scaling_factor</em> = <code>1.0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000035">Todo:</a></b></dt><dd>Figure out how to maintain the original seed structure of subcomposites </dd></dl>
-
-</div>
-</div>
 <a id="a13e1d3725dbf8f3ff7d4bf2253e4ab8e" name="a13e1d3725dbf8f3ff7d4bf2253e4ab8e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13e1d3725dbf8f3ff7d4bf2253e4ab8e">&#9670;&#160;</a></span>computeTimeStamps() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a13e1d3725dbf8f3ff7d4bf2253e4ab8e">&#9670;&#160;</a></span>computeTimeStamps()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -308,7 +259,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 21 2023 17:43:00 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+Generated on Tue Mar 21 2023 22:01:24 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
 </small></address>
 </body>
 </html>

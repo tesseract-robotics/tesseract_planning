@@ -104,6 +104,7 @@ digraph "tesseract_command_language/include/tesseract_command_language/poly/move
   Node91 [label="tesseract_time_parameterization\l/core/include/tesseract_time\l_parameterization/core/instructions\l_trajectory.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d2/d7a/instructions__trajectory_8h.html",tooltip="Trajectory Container implementation for command language instructions."];
   Node91 -> Node74 [dir="back",color="steelblue1",style="solid"];
   Node91 -> Node75 [dir="back",color="steelblue1",style="solid"];
+  Node91 -> Node48 [dir="back",color="steelblue1",style="solid"];
   Node91 -> Node94 [dir="back",color="steelblue1",style="solid"];
   Node94 [label="tesseract_time_parameterization\l/test/time_optimal_trajectory\l_generation_tests.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d1/d43/time__optimal__trajectory__generation__tests_8cpp.html",tooltip=" "];
   Node2 -> Node95 [dir="back",color="steelblue1",style="solid"];

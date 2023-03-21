@@ -34,6 +34,8 @@ Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_
 double \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a3f3443c58d31d31c6978295966ac22df}{get\+Next\+Switching\+Point}} (double s, bool \&discontinuity) const
 \item 
 std\+::list$<$ std\+::pair$<$ double, bool $>$ $>$ \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a6859e51ad90d1a9b151fffb82c0edf9b}{get\+Switching\+Points}} () const
+\item 
+const std\+::vector$<$ double $>$ \& \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_ae7b9f399fdea2d9edbfdb73cc6f46a3f}{get\+Mapping}} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
@@ -44,6 +46,8 @@ std\+::list$<$ std\+::pair$<$ double, bool $>$ $>$ \mbox{\hyperlink{classtessera
 \begin{DoxyCompactItemize}
 \item 
 double \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a74cf1fc1664eb074bd5d80f5f6b0dddc}{length\+\_\+}} \{ 0 \}
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a13eff050d0a13402458c40f1d320e817}{mapping\+\_\+}}
 \item 
 std\+::list$<$ std\+::pair$<$ double, bool $>$ $>$ \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_aeb698a4cc8682db0a5911d97f0d01db8}{switching\+\_\+points\+\_\+}}
 \item 
@@ -97,6 +101,12 @@ std\+::list$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planni
 \doxysubsubsection{\texorpdfstring{getLength()}{getLength()}}
 {\footnotesize\ttfamily double tesseract\+\_\+planning\+::totg\+::\+Path\+::get\+Length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Path_ae7b9f399fdea2d9edbfdb73cc6f46a3f}\label{classtesseract__planning_1_1totg_1_1Path_ae7b9f399fdea2d9edbfdb73cc6f46a3f}} 
+\index{tesseract\_planning::totg::Path@{tesseract\_planning::totg::Path}!getMapping@{getMapping}}
+\index{getMapping@{getMapping}!tesseract\_planning::totg::Path@{tesseract\_planning::totg::Path}}
+\doxysubsubsection{\texorpdfstring{getMapping()}{getMapping()}}
+{\footnotesize\ttfamily const std\+::vector$<$ double $>$ \& tesseract\+\_\+planning\+::totg\+::\+Path\+::get\+Mapping (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Path_a3f3443c58d31d31c6978295966ac22df}\label{classtesseract__planning_1_1totg_1_1Path_a3f3443c58d31d31c6978295966ac22df}} 
 \index{tesseract\_planning::totg::Path@{tesseract\_planning::totg::Path}!getNextSwitchingPoint@{getNextSwitchingPoint}}
 \index{getNextSwitchingPoint@{getNextSwitchingPoint}!tesseract\_planning::totg::Path@{tesseract\_planning::totg::Path}}
@@ -141,6 +151,12 @@ std\+::list$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planni
 \index{length\_@{length\_}!tesseract\_planning::totg::Path@{tesseract\_planning::totg::Path}}
 \doxysubsubsection{\texorpdfstring{length\_}{length\_}}
 {\footnotesize\ttfamily double tesseract\+\_\+planning\+::totg\+::\+Path\+::length\+\_\+ \{ 0 \}\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Path_a13eff050d0a13402458c40f1d320e817}\label{classtesseract__planning_1_1totg_1_1Path_a13eff050d0a13402458c40f1d320e817}} 
+\index{tesseract\_planning::totg::Path@{tesseract\_planning::totg::Path}!mapping\_@{mapping\_}}
+\index{mapping\_@{mapping\_}!tesseract\_planning::totg::Path@{tesseract\_planning::totg::Path}}
+\doxysubsubsection{\texorpdfstring{mapping\_}{mapping\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ tesseract\+\_\+planning\+::totg\+::\+Path\+::mapping\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Path_a529591f51c2567fcfec42529d49cf13b}\label{classtesseract__planning_1_1totg_1_1Path_a529591f51c2567fcfec42529d49cf13b}} 
 \index{tesseract\_planning::totg::Path@{tesseract\_planning::totg::Path}!path\_segments\_@{path\_segments\_}}

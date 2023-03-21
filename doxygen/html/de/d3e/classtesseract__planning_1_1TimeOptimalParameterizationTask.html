@@ -80,7 +80,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="../../d2/db2/classtesseract__planning_1_1TimeOptimalParameterizationTask-members.html">List of all members</a>  </div>
@@ -258,12 +257,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:acc6360c78b97ab4624d9e3549297790a inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a039aa3c411b6419df34319b2c87ea9cd inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html#a039aa3c411b6419df34319b2c87ea9cd">operator!=</a> (const <a class="el" href="../../de/d23/classtesseract__planning_1_1TaskComposerNode.html">TaskComposerNode</a> &amp;rhs) const</td></tr>
 <tr class="separator:a039aa3c411b6419df34319b2c87ea9cd inherit pub_methods_classtesseract__planning_1_1TaskComposerNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a3a82f666421f034b2b402e093db54c93"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3e/classtesseract__planning_1_1TimeOptimalParameterizationTask.html#a3a82f666421f034b2b402e093db54c93">unflatten</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;flattened_input, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, double tolerance)</td></tr>
-<tr class="memdesc:a3a82f666421f034b2b402e093db54c93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unflattens a composite from TOTG back into the format of the input pattern.  <a href="../../de/d3e/classtesseract__planning_1_1TimeOptimalParameterizationTask.html#a3a82f666421f034b2b402e093db54c93">More...</a><br /></td></tr>
-<tr class="separator:a3a82f666421f034b2b402e093db54c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -735,59 +728,6 @@ template&lt;class Archive &gt; </div>
 
 </div>
 </div>
-<a id="a3a82f666421f034b2b402e093db54c93" name="a3a82f666421f034b2b402e093db54c93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a82f666421f034b2b402e093db54c93">&#9670;&#160;</a></span>unflatten()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> tesseract_planning::TimeOptimalParameterizationTask::unflatten </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>flattened_input</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>pattern</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>tolerance</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Unflattens a composite from TOTG back into the format of the input pattern. </p>
-<p >Note that this algorithm will tend to shift points slightly forward because of the tolerance. e.g., if the curve that represents a waypoint is actually at index 40 but index 38 is where the tolerance is first satisfied, index 39 and 40 will be placed in the next subcomposite </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">flattened_input</td><td>Composite from TOTG that is completely flat </td></tr>
-    <tr><td class="paramname">pattern</td><td>Composite that was the input to TOTG. flattened_input is compared to this to find the corresponding resampled points </td></tr>
-    <tr><td class="paramname">tolerance</td><td>Tolerance passed to TOTG. Thi is used to determine which points correspond </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The unflattened Composite. It should have the same subcomposite structure as pattern. </dd></dl>
-
-</div>
-</div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
 <a id="ac98d07dd8f7b70e16ccb9a01abf56b9c" name="ac98d07dd8f7b70e16ccb9a01abf56b9c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac98d07dd8f7b70e16ccb9a01abf56b9c">&#9670;&#160;</a></span>boost::serialization::access</h2>
@@ -840,7 +780,7 @@ template&lt;class Archive &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 21 2023 17:43:00 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
+Generated on Tue Mar 21 2023 22:01:24 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
 </small></address>
 </body>
 </html>

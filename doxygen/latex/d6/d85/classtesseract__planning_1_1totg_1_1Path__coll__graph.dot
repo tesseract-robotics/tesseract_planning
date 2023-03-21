@@ -6,12 +6,14 @@ digraph "tesseract_planning::totg::Path"
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
   Node1 [label="tesseract_planning\l::totg::Path",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
-  Node2 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" switching_points_" ];
-  Node2 [label="std::list\< std::pair\l\< double, bool \> \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
-  Node3 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" path_segments_" ];
-  Node3 [label="std::list\< std::unique\l_ptr\< tesseract_planning\l::totg::PathSegment \> \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
-  Node4 -> Node3 [dir="back",color="darkorchid3",style="dashed",label=" elements" ];
-  Node4 [label="std::unique_ptr\< tesseract\l_planning::totg::PathSegment \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
-  Node5 -> Node4 [dir="back",color="darkorchid3",style="dashed",label=" ptr" ];
-  Node5 [label="tesseract_planning\l::totg::PathSegment",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$de/dc1/classtesseract__planning_1_1totg_1_1PathSegment.html",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" mapping_" ];
+  Node2 [label="std::vector\< double \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" switching_points_" ];
+  Node3 [label="std::list\< std::pair\l\< double, bool \> \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" path_segments_" ];
+  Node4 [label="std::list\< std::unique\l_ptr\< tesseract_planning\l::totg::PathSegment \> \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node4 [dir="back",color="darkorchid3",style="dashed",label=" elements" ];
+  Node5 [label="std::unique_ptr\< tesseract\l_planning::totg::PathSegment \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node6 -> Node5 [dir="back",color="darkorchid3",style="dashed",label=" ptr" ];
+  Node6 [label="tesseract_planning\l::totg::PathSegment",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$de/dc1/classtesseract__planning_1_1totg_1_1PathSegment.html",tooltip=" "];
 }

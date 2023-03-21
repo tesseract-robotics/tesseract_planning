@@ -24,19 +24,19 @@ double \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a3db1b8b1
 \begin{DoxyCompactList}\small\item\em Returns the optimal duration of the trajectory. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData}{Path\+Data}} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a148195f8e5d6faa3c46908bd7cd0f07d}{get\+Path\+Data}} (double time) const
 \begin{DoxyCompactList}\small\item\em Return the path data for a given point in time. \end{DoxyCompactList}\item 
-Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ac62c6ac25c7bb74a661cc3a762ac104e}{get\+Position}} (double time) const
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a372722cc961f573eec98a906c71e005d}{get\+Position}} (const \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData}{Path\+Data}} \&\mbox{\hyperlink{ompl__planner__tests_8cpp_a1ac79e92f7645f205bdbfb90f97d6af6}{data}}) const
 \begin{DoxyCompactList}\small\item\em Return the position/configuration vector for a given point in time. \end{DoxyCompactList}\item 
-Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_af771b4b9b78767499fdea297b9fbab1c}{get\+Velocity}} (double time) const
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a763c6f4a553648429712f63b90022732}{get\+Velocity}} (const \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData}{Path\+Data}} \&\mbox{\hyperlink{ompl__planner__tests_8cpp_a1ac79e92f7645f205bdbfb90f97d6af6}{data}}) const
 \begin{DoxyCompactList}\small\item\em Return the velocity vector for a given point in time. \end{DoxyCompactList}\item 
-Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a1acebaa67669a12fa69dbf1d768ccea1}{get\+Acceleration}} (double time) const
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a1c8205f27baf88708e76a91cb7f79f17}{get\+Acceleration}} (const \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData}{Path\+Data}} \&\mbox{\hyperlink{ompl__planner__tests_8cpp_a1ac79e92f7645f205bdbfb90f97d6af6}{data}}) const
 \begin{DoxyCompactList}\small\item\em Return the acceleration vector for a given point in time. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ab4f3648c196728cd55bd0397032eb312}{assign\+Data}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&\mbox{\hyperlink{iterative__spline__tests_8cpp_a42770b019b3c810751d40ab5f2f25e20}{trajectory}}) const
+double \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a9126a9b670a1f525cf549456b59ebad3}{get\+Time}} (double pos) const
+\begin{DoxyCompactList}\small\item\em get the time given a position on the trajectory \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a0d178868bebbee63e82f35e2834abe37}{assign\+Data}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&\mbox{\hyperlink{iterative__spline__tests_8cpp_a42770b019b3c810751d40ab5f2f25e20}{trajectory}}, const std\+::vector$<$ std\+::size\+\_\+t $>$ \&mapping) const
 \begin{DoxyCompactList}\small\item\em Assign trajectory velocity acceleration and time. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_aaaae4fa69790f3d709541adab634a8c1}{calc\+Distance\+To\+All}} (const Eigen\+::\+Vector\+Xd \&p, const Eigen\+::\+Vector\+Xd \&times) const
-\begin{DoxyCompactList}\small\item\em Calculate the distance form the provided state to all states in the TOTG trajectory at the provided time samples. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a1bebe4cc6057d1c225744262942850ed}{get\+Next\+Switching\+Point}} (double path\+\_\+pos, \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep}{Trajectory\+Step}} \&next\+\_\+switching\+\_\+point, double \&before\+\_\+acceleration, double \&after\+\_\+acceleration)
 \item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ad1226143d69b5c6d77a4e3ea546f33d8}{get\+Next\+Acceleration\+Switching\+Point}} (double path\+\_\+pos, \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep}{Trajectory\+Step}} \&next\+\_\+switching\+\_\+point, double \&before\+\_\+acceleration, double \&after\+\_\+acceleration)
@@ -60,12 +60,9 @@ double \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a3e1e5770
 double \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a91859c584e68e094902b4b0b8fe9957f}{get\+Velocity\+Max\+Path\+Velocity\+Deriv}} (double path\+\_\+pos)
 \item 
 std\+::list$<$ \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep}{Trajectory\+Step}} $>$\+::const\+\_\+iterator \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_aaf40a03478a500b51d85a55582054d64}{get\+Trajectory\+Segment}} (double time) const
-\end{DoxyCompactItemize}
-\doxysubsection*{Static Private Member Functions}
-\begin{DoxyCompactItemize}
 \item 
-static std\+::vector$<$ Eigen\+::\+Index $>$ \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a3259cbc41dd8396dad3b4804835d475d}{find\+Local\+Minimums}} (const Eigen\+::\+Vector\+Xd \&x)
-\begin{DoxyCompactList}\small\item\em Find all of the minimum points in the provided data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+std\+::list$<$ \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep}{Trajectory\+Step}} $>$\+::const\+\_\+iterator \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a1e32b8219452af173e63b0c9155e4c3d}{get\+Trajectory\+Segment\+From\+Dist}} (double pos) const
+\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -118,59 +115,21 @@ Generates a time-\/optimal trajectory.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_ab4f3648c196728cd55bd0397032eb312}\label{classtesseract__planning_1_1totg_1_1Trajectory_ab4f3648c196728cd55bd0397032eb312}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_a0d178868bebbee63e82f35e2834abe37}\label{classtesseract__planning_1_1totg_1_1Trajectory_a0d178868bebbee63e82f35e2834abe37}} 
 \index{tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}!assignData@{assignData}}
 \index{assignData@{assignData}!tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}}
 \doxysubsubsection{\texorpdfstring{assignData()}{assignData()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::assign\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&}]{trajectory }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::assign\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&}]{trajectory,  }\item[{const std\+::vector$<$ std\+::size\+\_\+t $>$ \&}]{mapping }\end{DoxyParamCaption}) const}
 
 
 
 Assign trajectory velocity acceleration and time. 
 
-This is brute force approach and should always return true \mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_aaaae4fa69790f3d709541adab634a8c1}\label{classtesseract__planning_1_1totg_1_1Trajectory_aaaae4fa69790f3d709541adab634a8c1}} 
-\index{tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}!calcDistanceToAll@{calcDistanceToAll}}
-\index{calcDistanceToAll@{calcDistanceToAll}!tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}}
-\doxysubsubsection{\texorpdfstring{calcDistanceToAll()}{calcDistanceToAll()}}
-{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::calc\+Distance\+To\+All (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{p,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{times }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Calculate the distance form the provided state to all states in the TOTG trajectory at the provided time samples. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em p} & The state to calculate distance to all TOTG states at the provided times \\
-\hline
-{\em times} & The time to pull states from the TOTG trajectory \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-The distance from the provided state to all TOTG states at the provided times. 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_a3259cbc41dd8396dad3b4804835d475d}\label{classtesseract__planning_1_1totg_1_1Trajectory_a3259cbc41dd8396dad3b4804835d475d}} 
-\index{tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}!findLocalMinimums@{findLocalMinimums}}
-\index{findLocalMinimums@{findLocalMinimums}!tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}}
-\doxysubsubsection{\texorpdfstring{findLocalMinimums()}{findLocalMinimums()}}
-{\footnotesize\ttfamily std\+::vector$<$ Eigen\+::\+Index $>$ tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::find\+Local\+Minimums (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
-
-
-
-Find all of the minimum points in the provided data. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em x} & The data to search for local minimums \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-The vector of indices for each local minimum in the provided data 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_a1acebaa67669a12fa69dbf1d768ccea1}\label{classtesseract__planning_1_1totg_1_1Trajectory_a1acebaa67669a12fa69dbf1d768ccea1}} 
+This is brute force approach and should always return true \mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_a1c8205f27baf88708e76a91cb7f79f17}\label{classtesseract__planning_1_1totg_1_1Trajectory_a1c8205f27baf88708e76a91cb7f79f17}} 
 \index{tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}!getAcceleration@{getAcceleration}}
 \index{getAcceleration@{getAcceleration}!tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}}
 \doxysubsubsection{\texorpdfstring{getAcceleration()}{getAcceleration()}}
-{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::get\+Acceleration (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::get\+Acceleration (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData}{Path\+Data}} \&}]{data }\end{DoxyParamCaption}) const}
 
 
 
@@ -238,15 +197,25 @@ Returns the optimal duration of the trajectory.
 
 Return the path data for a given point in time. 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_ac62c6ac25c7bb74a661cc3a762ac104e}\label{classtesseract__planning_1_1totg_1_1Trajectory_ac62c6ac25c7bb74a661cc3a762ac104e}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_a372722cc961f573eec98a906c71e005d}\label{classtesseract__planning_1_1totg_1_1Trajectory_a372722cc961f573eec98a906c71e005d}} 
 \index{tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}!getPosition@{getPosition}}
 \index{getPosition@{getPosition}!tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}}
 \doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
-{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::get\+Position (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::get\+Position (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData}{Path\+Data}} \&}]{data }\end{DoxyParamCaption}) const}
 
 
 
 Return the position/configuration vector for a given point in time. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_a9126a9b670a1f525cf549456b59ebad3}\label{classtesseract__planning_1_1totg_1_1Trajectory_a9126a9b670a1f525cf549456b59ebad3}} 
+\index{tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}!getTime@{getTime}}
+\index{getTime@{getTime}!tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}}
+\doxysubsubsection{\texorpdfstring{getTime()}{getTime()}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::get\+Time (\begin{DoxyParamCaption}\item[{double}]{pos }\end{DoxyParamCaption}) const}
+
+
+
+get the time given a position on the trajectory 
 
 \mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_aaf40a03478a500b51d85a55582054d64}\label{classtesseract__planning_1_1totg_1_1Trajectory_aaf40a03478a500b51d85a55582054d64}} 
 \index{tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}!getTrajectorySegment@{getTrajectorySegment}}
@@ -254,11 +223,17 @@ Return the position/configuration vector for a given point in time.
 \doxysubsubsection{\texorpdfstring{getTrajectorySegment()}{getTrajectorySegment()}}
 {\footnotesize\ttfamily std\+::list$<$ \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep}{Trajectory\+::\+Trajectory\+Step}} $>$\+::const\+\_\+iterator tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::get\+Trajectory\+Segment (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_af771b4b9b78767499fdea297b9fbab1c}\label{classtesseract__planning_1_1totg_1_1Trajectory_af771b4b9b78767499fdea297b9fbab1c}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_a1e32b8219452af173e63b0c9155e4c3d}\label{classtesseract__planning_1_1totg_1_1Trajectory_a1e32b8219452af173e63b0c9155e4c3d}} 
+\index{tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}!getTrajectorySegmentFromDist@{getTrajectorySegmentFromDist}}
+\index{getTrajectorySegmentFromDist@{getTrajectorySegmentFromDist}!tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}}
+\doxysubsubsection{\texorpdfstring{getTrajectorySegmentFromDist()}{getTrajectorySegmentFromDist()}}
+{\footnotesize\ttfamily std\+::list$<$ \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep}{Trajectory\+::\+Trajectory\+Step}} $>$\+::const\+\_\+iterator tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::get\+Trajectory\+Segment\+From\+Dist (\begin{DoxyParamCaption}\item[{double}]{pos }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_a763c6f4a553648429712f63b90022732}\label{classtesseract__planning_1_1totg_1_1Trajectory_a763c6f4a553648429712f63b90022732}} 
 \index{tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}!getVelocity@{getVelocity}}
 \index{getVelocity@{getVelocity}!tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}}
 \doxysubsubsection{\texorpdfstring{getVelocity()}{getVelocity()}}
-{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::get\+Velocity (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::get\+Velocity (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData}{Path\+Data}} \&}]{data }\end{DoxyParamCaption}) const}
 
 
 
