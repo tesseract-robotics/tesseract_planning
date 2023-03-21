@@ -54,9 +54,6 @@ constexpr double EPS = 0.000001;
 
 namespace tesseract_planning
 {
-static const flattenFilterFn programFlattenMoveInstructionFilter =
-    [](const InstructionPoly& i, const CompositeInstruction& /*composite*/) { return i.isMoveInstruction(); };
-
 TimeOptimalTrajectoryGeneration::TimeOptimalTrajectoryGeneration(double path_tolerance,
                                                                  double resample_dt,
                                                                  double min_angle_change)
@@ -64,198 +61,50 @@ TimeOptimalTrajectoryGeneration::TimeOptimalTrajectoryGeneration(double path_tol
 {
 }
 
-bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& program,
-                                                        const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-                                                        const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-                                                        double /*max_velocity_scaling_factor*/,
-                                                        double /*max_acceleration_scaling_factor*/) const
-{
-  if (program.empty())
-    return true;
-
-  //  // Validate velocity scaling
-  //  double velocity_scaling_factor = 1.0;
-  //  if (max_velocity_scaling_factor > 0.0 && max_velocity_scaling_factor <= 1.0)
-  //  {
-  //    velocity_scaling_factor = max_velocity_scaling_factor;
-  //  }
-  //  else if (max_velocity_scaling_factor == 0.0)
-  //  {
-  //    CONSOLE_BRIDGE_logDebug("A max_velocity_scaling_factor of 0.0 was specified, defaulting to %f instead.",
-  //                            velocity_scaling_factor);
-  //  }
-  //  else
-  //  {
-  //    CONSOLE_BRIDGE_logWarn("Invalid max_velocity_scaling_factor %f specified, defaulting to %f instead.",
-  //                           max_velocity_scaling_factor,
-  //                           velocity_scaling_factor);
-  //  }
-
-  //  // Validate acceleration scaling
-  //  double acceleration_scaling_factor = 1.0;
-  //  if (max_acceleration_scaling_factor > 0.0 && max_acceleration_scaling_factor <= 1.0)
-  //  {
-  //    acceleration_scaling_factor = max_acceleration_scaling_factor;
-  //  }
-  //  else if (max_acceleration_scaling_factor == 0.0)
-  //  {
-  //    CONSOLE_BRIDGE_logDebug("A max_acceleration_scaling_factor of 0.0 was specified, defaulting to %f instead.",
-  //                            acceleration_scaling_factor);
-  //  }
-  //  else
-  //  {
-  //    CONSOLE_BRIDGE_logWarn("Invalid max_acceleration_scaling_factor %f specified, defaulting to %f instead.",
-  //                           max_acceleration_scaling_factor,
-  //                           acceleration_scaling_factor);
-  //  }
-
-  // Validate limits
-  if (max_velocity.rows() != max_acceleration.rows())
-  {
-    CONSOLE_BRIDGE_logError("Invalid max_velocity or max_acceleration specified. They should be the same length");
-  }
-
-  // Flatten program
-  std::vector<std::reference_wrapper<InstructionPoly>> trajectory =
-      program.flatten(programFlattenMoveInstructionFilter);
-  const Eigen::Index num_joints = max_velocity.rows();
-  const std::size_t num_points = trajectory.size();
-
-  // This lib does not actually work properly when angles wrap around, so we need to unwind the path first
-  //  trajectory.unwind(); /// @todo
-
-  // Have to convert into Eigen data structs and remove repeated points
-  //  (https://github.com/tobiaskunz/trajectories/issues/3)
-  std::list<Eigen::VectorXd> points;
-  for (size_t p = 0; p < num_points; ++p)
-  {
-    auto& waypoint = trajectory[p].get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
-    bool diverse_point = (p == 0);
-
-    for (Eigen::Index j = 0; j < num_joints; j++)
-    {
-      if (p > 0 && std::abs(waypoint.getPosition()[j] - points.back()[j]) > min_angle_change_)
-        diverse_point = true;
-    }
-
-    if (diverse_point)
-      points.push_back(waypoint.getPosition());
-  }
-
-  // Return trajectory with only the first waypoint if there are not multiple diverse points
-  if (points.size() == 1)
-  {
-    CONSOLE_BRIDGE_logDebug("Trajectory is parameterized with 0.0 dynamics since it only contains a single distinct "
-                            "waypoint.");
-    for (auto& t : trajectory)
-    {
-      auto waypoint = t.get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
-      waypoint.setVelocity(Eigen::VectorXd::Zero(num_joints));
-      waypoint.setAcceleration(Eigen::VectorXd::Zero(num_joints));
-    }
-    return true;
-  }
-
-  // Append a dummy joint as a workaround to https://github.com/ros-industrial-consortium/tesseract_planning/issues/27
-  std::list<Eigen::VectorXd> new_points;
-  double dummy = 1.0;
-  for (auto& point : points)
-  {
-    Eigen::VectorXd new_point(point.size() + 1);
-    new_point << point, dummy;
-    new_points.push_back(new_point);
-    dummy += 1.0;
-  }
-
-  Eigen::VectorXd max_velocity_dummy_appended(max_velocity.size() + 1);
-  max_velocity_dummy_appended << max_velocity, std::numeric_limits<double>::max();
-  Eigen::VectorXd max_acceleration_dummy_appended(max_acceleration.size() + 1);
-  max_acceleration_dummy_appended << max_acceleration, std::numeric_limits<double>::max();
-
-  // Now actually call the algorithm
-  totg::Trajectory parameterized(
-      totg::Path(new_points, path_tolerance_), max_velocity_dummy_appended, max_acceleration_dummy_appended, 0.001);
-  if (!parameterized.isValid())
-  {
-    CONSOLE_BRIDGE_logError("Unable to parameterize trajectory.");
-    return false;
-  }
-
-  // Compute sample count
-  auto sample_count = static_cast<std::size_t>(std::ceil(parameterized.getDuration() / resample_dt_));
-
-  // Resample and fill in trajectory
-  auto input_instruction = trajectory.back().get().as<MoveInstructionPoly>();
-  CompositeInstruction new_program(program);
-  new_program.clear();
-
-  /// @todo Figure out how to maintain the original seed structure of subcomposites
-  for (size_t sample = 0; sample <= sample_count; ++sample)
-  {
-    // always sample the end of the trajectory as well
-    double t = std::min(parameterized.getDuration(), static_cast<double>(sample) * resample_dt_);
-    StateWaypointPoly wp(input_instruction.getWaypoint().as<StateWaypointPoly>());
-    wp.setPosition(parameterized.getPosition(t).topRows(num_joints));
-    wp.setVelocity(parameterized.getVelocity(t).topRows(num_joints));
-    wp.setAcceleration(parameterized.getAcceleration(t).topRows(num_joints));
-    wp.setTime(t);
-
-    // Note that meta information like MoveInstructionType, profile, and ManipulatorInfo will be set to that of the last
-    // instruction (last used since first will usually be MoveInstructionType::START)
-    MoveInstructionPoly output_instruction(input_instruction);
-    output_instruction.assignStateWaypoint(wp);
-
-    new_program.appendMoveInstruction(output_instruction);
-  }
-  program = new_program;
-
-  return true;
-}
-
 bool TimeOptimalTrajectoryGeneration::computeTimeStamps(TrajectoryContainer& trajectory,
                                                         const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
                                                         const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-                                                        double /*max_velocity_scaling_factor*/,
-                                                        double /*max_acceleration_scaling_factor*/) const
+                                                        double max_velocity_scaling_factor,
+                                                        double max_acceleration_scaling_factor) const
 {
   if (trajectory.empty())
     return true;
 
-  //  // Validate velocity scaling
-  //  double velocity_scaling_factor = 1.0;
-  //  if (max_velocity_scaling_factor > 0.0 && max_velocity_scaling_factor <= 1.0)
-  //  {
-  //    velocity_scaling_factor = max_velocity_scaling_factor;
-  //  }
-  //  else if (max_velocity_scaling_factor == 0.0)
-  //  {
-  //    CONSOLE_BRIDGE_logDebug("A max_velocity_scaling_factor of 0.0 was specified, defaulting to %f instead.",
-  //                            velocity_scaling_factor);
-  //  }
-  //  else
-  //  {
-  //    CONSOLE_BRIDGE_logWarn("Invalid max_velocity_scaling_factor %f specified, defaulting to %f instead.",
-  //                           max_velocity_scaling_factor,
-  //                           velocity_scaling_factor);
-  //  }
+  // Validate velocity scaling
+  double velocity_scaling_factor = 1.0;
+  if (max_velocity_scaling_factor > 0.0 && max_velocity_scaling_factor <= 1.0)
+  {
+    velocity_scaling_factor = max_velocity_scaling_factor;
+  }
+  else if (max_velocity_scaling_factor == 0.0)
+  {
+    CONSOLE_BRIDGE_logDebug("A max_velocity_scaling_factor of 0.0 was specified, defaulting to %f instead.",
+                            velocity_scaling_factor);
+  }
+  else
+  {
+    CONSOLE_BRIDGE_logWarn("Invalid max_velocity_scaling_factor %f specified, defaulting to %f instead.",
+                           max_velocity_scaling_factor,
+                           velocity_scaling_factor);
+  }
 
-  //  // Validate acceleration scaling
-  //  double acceleration_scaling_factor = 1.0;
-  //  if (max_acceleration_scaling_factor > 0.0 && max_acceleration_scaling_factor <= 1.0)
-  //  {
-  //    acceleration_scaling_factor = max_acceleration_scaling_factor;
-  //  }
-  //  else if (max_acceleration_scaling_factor == 0.0)
-  //  {
-  //    CONSOLE_BRIDGE_logDebug("A max_acceleration_scaling_factor of 0.0 was specified, defaulting to %f instead.",
-  //                            acceleration_scaling_factor);
-  //  }
-  //  else
-  //  {
-  //    CONSOLE_BRIDGE_logWarn("Invalid max_acceleration_scaling_factor %f specified, defaulting to %f instead.",
-  //                           max_acceleration_scaling_factor,
-  //                           acceleration_scaling_factor);
-  //  }
+  // Validate acceleration scaling
+  double acceleration_scaling_factor = 1.0;
+  if (max_acceleration_scaling_factor > 0.0 && max_acceleration_scaling_factor <= 1.0)
+  {
+    acceleration_scaling_factor = max_acceleration_scaling_factor;
+  }
+  else if (max_acceleration_scaling_factor == 0.0)
+  {
+    CONSOLE_BRIDGE_logDebug("A max_acceleration_scaling_factor of 0.0 was specified, defaulting to %f instead.",
+                            acceleration_scaling_factor);
+  }
+  else
+  {
+    CONSOLE_BRIDGE_logWarn("Invalid max_acceleration_scaling_factor %f specified, defaulting to %f instead.",
+                           max_acceleration_scaling_factor,
+                           acceleration_scaling_factor);
+  }
 
   // Validate limits
   if (max_velocity.rows() != max_acceleration.rows())
@@ -273,6 +122,7 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(TrajectoryContainer& tra
   // Have to convert into Eigen data structs and remove repeated points
   //  (https://github.com/tobiaskunz/trajectories/issues/3)
   std::list<Eigen::VectorXd> points;
+  std::vector<std::size_t> mapping;
   for (Eigen::Index p = 0; p < static_cast<Eigen::Index>(num_points); ++p)
   {
     const Eigen::VectorXd& position = trajectory.getPosition(p);
@@ -286,6 +136,9 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(TrajectoryContainer& tra
 
     if (diverse_point)
       points.push_back(position);
+
+    // Need to store the index mapping for assignData
+    mapping.push_back(points.size() - 1);
   }
 
   // Return trajectory with only the first waypoint if there are not multiple diverse points
@@ -313,9 +166,10 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(TrajectoryContainer& tra
   }
 
   Eigen::VectorXd max_velocity_dummy_appended(max_velocity.size() + 1);
-  max_velocity_dummy_appended << max_velocity, std::numeric_limits<double>::max();
+  max_velocity_dummy_appended << (max_velocity * velocity_scaling_factor), std::numeric_limits<double>::max();
   Eigen::VectorXd max_acceleration_dummy_appended(max_acceleration.size() + 1);
-  max_acceleration_dummy_appended << max_acceleration, std::numeric_limits<double>::max();
+  max_acceleration_dummy_appended << (max_acceleration * acceleration_scaling_factor),
+      std::numeric_limits<double>::max();
 
   // Now actually call the algorithm
   totg::Path path(new_points, path_tolerance_);
@@ -326,7 +180,7 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(TrajectoryContainer& tra
     return false;
   }
 
-  return parameterized.assignData(trajectory);
+  return parameterized.assignData(trajectory, mapping);
 }
 
 namespace totg
@@ -474,6 +328,9 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation)
   ++path_iterator2;
   std::list<Eigen::VectorXd>::const_iterator path_iterator3;
   Eigen::VectorXd start_config = *path_iterator1;
+  mapping_.reserve(path.size());
+  mapping_.push_back(0);
+  double l{ 0 };
   while (path_iterator2 != path.end())
   {
     path_iterator3 = path_iterator2;
@@ -488,19 +345,25 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation)
       if ((end_config - start_config).norm() > 0.000001)
       {
         path_segments_.push_back(std::make_unique<LinearPathSegment>(start_config, end_config));
+        l += path_segments_.back()->getLength();
       }
       start_config = blend_segment->getConfig(blend_segment->getLength());
 
+      mapping_.push_back(l + (blend_segment->getLength() / 2.0));
+      l += blend_segment->getLength();
       path_segments_.push_back(std::move(blend_segment));
     }
     else
     {
       path_segments_.push_back(std::make_unique<LinearPathSegment>(start_config, *path_iterator2));
+      l += path_segments_.back()->getLength();
+      mapping_.push_back(l);
       start_config = *path_iterator2;
     }
     path_iterator1 = path_iterator2;
     ++path_iterator2;
   }
+  assert(mapping_.size() == path.size());
 
   // Create list of switching point candidates, calculate total path length and
   // absolute positions of path segments
@@ -520,15 +383,15 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation)
   switching_points_.pop_back();
 }
 
-Path::Path(const Path& path) : length_(path.length_), switching_points_(path.switching_points_)
+Path::Path(const Path& path) : length_(path.length_), mapping_(path.mapping_), switching_points_(path.switching_points_)
 {
   for (const std::unique_ptr<PathSegment>& path_segment : path.path_segments_)
-  {
     path_segments_.emplace_back(path_segment->clone());
-  }
 }
 
 double Path::getLength() const { return length_; }
+
+const std::vector<double>& Path::getMapping() const { return mapping_; }
 
 PathSegment* Path::getPathSegment(double& s) const
 {
@@ -1071,141 +934,45 @@ bool Trajectory::isValid() const { return valid_; }
 
 double Trajectory::getDuration() const { return trajectory_.back().time_; }
 
-bool Trajectory::assignData(TrajectoryContainer& trajectory) const
+bool Trajectory::assignData(TrajectoryContainer& trajectory, const std::vector<std::size_t>& mapping) const
 {
-  // Store the path length from the start for each state in the trajectory
-  Eigen::VectorXd path_lengths = Eigen::VectorXd::Zero(trajectory.size());
-  double length = 0;
+  const auto& dist_mapping = path_.getMapping();
+  assert(dist_mapping.size() == mapping.size());
+
+  // Set Start
+  PathData path_data = getPathData(0);
+  Eigen::VectorXd uv = getVelocity(path_data).head(trajectory.dof());
+  Eigen::VectorXd ua = getAcceleration(path_data).head(trajectory.dof());
+  double time{ 0 };
+  trajectory.setData(0, uv, ua, time);
+
+  // Set intermidiate points
+  double prev_time{ 0 };
   for (Eigen::Index i = 1; i < trajectory.size(); ++i)
   {
-    length += (trajectory.getPosition(i) - trajectory.getPosition(i - 1)).norm();
-    path_lengths[i] = length;
-  }
+    std::size_t seg_idx = mapping[static_cast<std::size_t>(i)];
 
-  if (tesseract_common::almostEqualRelativeAndAbs(length, 0))
-    throw std::runtime_error("Tried to assign trajectory with length zero.");
+    time = getTime(dist_mapping.at(seg_idx));
+    if (time < prev_time)
+      time = prev_time + 1e-16;
 
-  // The length of the joint interpolated trajectory is not the same length
-  // of the TOTG path because it using cubic spline so this scales the joint
-  // interpolated path length matches the TOTG length.
-  const double scale = path_.getLength() / length;
-  path_lengths = scale * path_lengths;
-
-  const Eigen::Index num_samples = std::max(static_cast<Eigen::Index>(getDuration() / time_step_), trajectory.size());
-  Eigen::VectorXd times = Eigen::VectorXd::LinSpaced(num_samples, 0, getDuration());
-
-  // Store the path position at each of the sample times
-  Eigen::VectorXd x(num_samples);
-  for (Eigen::Index j = 0; j < num_samples; ++j)
-    x[j] = getPathData(times[j]).path_pos;
-
-  double prev_time{ 0 };
-  for (long i = 0; i < trajectory.size(); ++i)
-  {
-    Eigen::VectorXd uv;
-    Eigen::VectorXd ua;
-    double time{ 0 };
-
-    if (i == 0)
-    {
-      uv = getVelocity(0).head(trajectory.dof());
-      ua = getAcceleration(0).head(trajectory.dof());
-      time = 0;
-    }
-    else if (i == trajectory.size() - 1)
-    {
-      time = getDuration();
-      uv = getVelocity(time).head(trajectory.dof());
-      ua = getAcceleration(time).head(trajectory.dof());
-    }
-    else
-    {
-      const Eigen::VectorXd& p = trajectory.getPosition(i);
-      double path_length = path_lengths[i];
-
-      // calculate distance from this point to all other points in the trajectory
-      Eigen::VectorXd dists = calcDistanceToAll(p, times);
-
-      // Next find the local minimums
-      std::vector<Eigen::Index> minimums = findLocalMinimums(dists);
-
-      // Store the index for the minimum solution found in the TOTG trajectory which has
-      // the closest path length for the search state in the input trajectory.
-      double dist = std::numeric_limits<double>::max();
-      Eigen::Index index = 0;
-      for (const auto& minimum : minimums)
-      {
-        double d = std::abs(x[minimum] - path_length);
-        if (d < dist)
-        {
-          index = minimum;
-          dist = d;
-        }
-      }
-
-      time = times[index];
-      uv = getVelocity(time).head(trajectory.dof());
-      ua = getAcceleration(time).head(trajectory.dof());
-
-      if (time < prev_time)
-      {
-        CONSOLE_BRIDGE_logError("Time Optimal Trajectory 'assignData()' found time that is not strictly increasing, "
-                                "returing false!");
-        return false;
-      }
-    }
-    prev_time = time;
+    path_data = getPathData(time);
+    uv = getVelocity(path_data).head(trajectory.dof());
+    ua = getAcceleration(path_data).head(trajectory.dof());
     trajectory.setData(i, uv, ua, time);
+
+    prev_time = time;
   }
+
+  // Set end
+  time = getDuration();
+  path_data = getPathData(time);
+  uv = getVelocity(path_data).head(trajectory.dof());
+  ua = getAcceleration(path_data).head(trajectory.dof());
+  trajectory.setData((trajectory.size() - 1), uv, ua, time);
 
   assert(trajectory.isTimeStrictlyIncreasing());
   return true;
-}
-
-Eigen::VectorXd Trajectory::calcDistanceToAll(const Eigen::VectorXd& p, const Eigen::VectorXd& times) const
-{
-  // calculate distance from this point to all other points in the trajectory
-  Eigen::VectorXd dists(times.size());
-  for (Eigen::Index j = 0; j < times.size(); ++j)
-  {
-    dists[j] = (getPosition(times[j]).head(p.rows()) - p).norm();
-  }
-  return dists;
-}
-
-std::vector<Eigen::Index> Trajectory::findLocalMinimums(const Eigen::VectorXd& x)
-{
-  // calculate the numerical diff
-  Eigen::VectorXd ndiff(x.size() - 1);
-  for (Eigen::Index i = 0; i < x.size() - 1; ++i)
-    ndiff[i] = x[i + 1] - x[i];
-
-  std::vector<Eigen::Index> minimums;
-  bool is_neg = (ndiff[0] < 0);
-  for (Eigen::Index i = 0; i < x.size() - 1; ++i)
-  {
-    if (ndiff[i] < 0 && !is_neg)
-    {
-      is_neg = true;
-    }
-    else if (ndiff[i] > 0 && is_neg)
-    {
-      minimums.push_back(i + 1);
-      is_neg = false;
-    }
-  }
-
-  // If empty then it is either start or end so add them
-  // It intentionally stores the second and second to last because the start and end
-  // state are handled separately so intermediate states should never use the start
-  // or end as its minimum.
-  if (minimums.empty())
-  {
-    minimums.push_back(1);
-    minimums.push_back(x.size() - 2);
-  }
-
-  return minimums;
 }
 
 std::list<Trajectory::TrajectoryStep>::const_iterator Trajectory::getTrajectorySegment(double time) const
@@ -1227,6 +994,27 @@ std::list<Trajectory::TrajectoryStep>::const_iterator Trajectory::getTrajectoryS
   }
   cached_time_ = time;
   return cached_trajectory_segment_;
+}
+
+std::list<Trajectory::TrajectoryStep>::const_iterator Trajectory::getTrajectorySegmentFromDist(double pos) const
+{
+  if (pos >= trajectory_.back().path_pos_)
+  {
+    auto last = trajectory_.end();
+    last--;
+    return last;
+  }
+
+  if (pos < 0)
+    return trajectory_.begin();
+
+  for (auto it = trajectory_.begin(); it != trajectory_.end(); ++it)
+  {
+    if (pos < it->path_pos_)
+      return it;
+  }
+
+  throw std::runtime_error("Failed to find trajectory segment, this should not happen");
 }
 
 PathData Trajectory::getPathData(double time) const
@@ -1251,21 +1039,36 @@ PathData Trajectory::getPathData(double time) const
   return data;
 }
 
-Eigen::VectorXd Trajectory::getPosition(double time) const
+double Trajectory::getTime(double pos) const
 {
-  PathData data = getPathData(time);
-  return path_.getConfig(data.path_pos);
+  auto it = getTrajectorySegmentFromDist(pos);
+  assert(it != trajectory_.begin());
+
+  auto previous = it;
+  previous--;
+
+  double time_step = it->time_ - previous->time_;
+  const double acceleration =
+      2.0 * (it->path_pos_ - previous->path_pos_ - time_step * previous->path_vel_) / (time_step * time_step);
+
+  const double a = 0.5 * acceleration;
+  const double b = previous->path_vel_;
+  const double c = previous->path_pos_ - pos;
+
+  const double d = std::sqrt(std::pow(b, 2.0) - (4 * a * c));
+  const double dt = (-b + d) / (2.0 * a);
+  return (previous->time_ + dt);
 }
 
-Eigen::VectorXd Trajectory::getVelocity(double time) const
+Eigen::VectorXd Trajectory::getPosition(const PathData& data) const { return path_.getConfig(data.path_pos); }
+
+Eigen::VectorXd Trajectory::getVelocity(const PathData& data) const
 {
-  PathData data = getPathData(time);
   return path_.getTangent(data.path_pos) * data.path_vel;
 }
 
-Eigen::VectorXd Trajectory::getAcceleration(double time) const
+Eigen::VectorXd Trajectory::getAcceleration(const PathData& data) const
 {
-  PathData data = getPathData(time);
   Eigen::VectorXd path_acc =
       (path_.getTangent(data.path_pos) * data.path_vel - path_.getTangent(data.prev_path_pos) * data.prev_path_vel);
   double time_step = data.time - data.prev_time;

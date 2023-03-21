@@ -62,22 +62,6 @@ public:
   bool operator==(const TimeOptimalParameterizationTask& rhs) const;
   bool operator!=(const TimeOptimalParameterizationTask& rhs) const;
 
-  /**
-   * @brief Unflattens a composite from TOTG back into the format of the input pattern
-   *
-   * Note that this algorithm will tend to shift points slightly forward because of the tolerance. e.g., if the curve
-   * that represents a waypoint is actually at index 40 but index 38 is where the tolerance is first satisfied, index 39
-   * and 40 will be placed in the next subcomposite
-   * @param flattened_input Composite from TOTG that is completely flat
-   * @param pattern Composite that was the input to TOTG. flattened_input is compared to this to find the corresponding
-   * resampled points
-   * @param tolerance Tolerance passed to TOTG. Thi is used to determine which points correspond
-   * @return The unflattened Composite. It should have the same subcomposite structure as pattern.
-   */
-  static CompositeInstruction unflatten(const CompositeInstruction& flattened_input,
-                                        const CompositeInstruction& pattern,
-                                        double tolerance);
-
 protected:
   friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;

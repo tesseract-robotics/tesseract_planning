@@ -39,6 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation.h>
+#include <tesseract_time_parameterization/core/instructions_trajectory.h>
 #include <tesseract_time_parameterization/core/utils.h>
 
 namespace tesseract_planning
@@ -128,50 +129,19 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
     return info;
   }
 
-  double velocity_scaling_factor = cur_composite_profile->max_velocity_scaling_factor;
-  double acceleration_scaling_factor = cur_composite_profile->max_acceleration_scaling_factor;
-
-  // Loop over all sub-composites
-  bool use_move_profile = false;
-  std::vector<double> scaling_factors(ci.size(), velocity_scaling_factor);
-  for (std::size_t idx = 0; idx < ci.size(); idx++)
-  {
-    const auto& mi = ci.at(idx).as<CompositeInstruction>();
-    profile = mi.getProfile();
-
-    // Check for remapping of the plan profile
-    std::string remap = getProfileString(name_, profile, input.problem.move_profile_remapping);
-    auto cur_move_profile = getProfile<TimeOptimalParameterizationProfile>(
-        name_, remap, *input.profiles, std::make_shared<TimeOptimalParameterizationProfile>());
-    cur_move_profile = applyProfileOverrides(name_, remap, cur_move_profile, mi.getProfileOverrides());
-
-    // If there is a move profile associated with it, override the parameters
-    if (cur_move_profile)
-    {
-      use_move_profile = true;
-      scaling_factors[idx] = cur_move_profile->max_velocity_scaling_factor;
-    }
-  }
-
-  if (use_move_profile)
-  {
-    // Set these to 1 so we can do the scaling after the fact
-    velocity_scaling_factor = 1;
-    acceleration_scaling_factor = 1;
-  }
-
   // Solve using parameters
   TimeOptimalTrajectoryGeneration solver(cur_composite_profile->path_tolerance,
                                          cur_composite_profile->resample_dt,
                                          cur_composite_profile->min_angle_change);
 
   // Copy the Composite before passing in because it will get flattened and resampled
-  CompositeInstruction resampled(ci);
-  if (!solver.computeTimeStamps(resampled,
+  CompositeInstruction copy_ci(ci);
+  InstructionsTrajectory traj_wrapper(copy_ci);
+  if (!solver.computeTimeStamps(traj_wrapper,
                                 limits.velocity_limits,
                                 limits.acceleration_limits,
-                                velocity_scaling_factor,
-                                acceleration_scaling_factor))
+                                cur_composite_profile->max_velocity_scaling_factor,
+                                cur_composite_profile->max_acceleration_scaling_factor))
   {
     info->message = "Failed to perform TOTG for process input: " + ci.getDescription();
     info->elapsed_time = timer.elapsedSeconds();
@@ -179,103 +149,12 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
     return info;
   }
 
-  // Unflatten
-  if (cur_composite_profile->unflatten)
-  {
-    CompositeInstruction unflattened = unflatten(resampled, ci, cur_composite_profile->unflatten_tolerance);
-
-    // Rescale
-    if (use_move_profile)
-    {
-      RescaleTimings(unflattened, scaling_factors);
-    }
-
-    for (std::size_t idx = 0; idx < ci.size(); idx++)
-      ci[idx] = unflattened[idx];
-  }
-  else
-  {
-    if (use_move_profile)
-      CONSOLE_BRIDGE_logWarn("TOTG Move Profile specified but unflatten is not set in the composite profile. Move "
-                             "Profile will be ignored");
-
-    for (std::size_t idx = 0; idx < ci.size(); idx++)
-      ci[idx] = resampled[idx];
-  }
-
-  input.data_storage.setData(output_keys_[0], input_data_poly);
+  input.data_storage.setData(output_keys_[0], copy_ci);
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();
   CONSOLE_BRIDGE_logDebug("TOTG succeeded");
   return info;
-}
-
-CompositeInstruction TimeOptimalParameterizationTask::unflatten(const CompositeInstruction& flattened_input,
-                                                                const CompositeInstruction& pattern,
-                                                                double tolerance)
-{
-  CompositeInstruction unflattened(pattern);
-  for (auto& instr : unflattened)
-    instr.as<CompositeInstruction>().clear();
-
-  Eigen::VectorXd last_pt_in_input =
-      getJointPosition(pattern.at(0).as<CompositeInstruction>().back().as<MoveInstructionPoly>().getWaypoint());
-
-  double error = 0;
-  double prev_error = 1;
-  bool hit_tolerance = false;
-  bool error_increasing = false;
-
-  // Loop over the flattened composite adding the instructions to the appropriate subcomposite
-  for (std::size_t resample_idx = 0, original_idx = 0; resample_idx < flattened_input.size(); resample_idx++)
-  {
-    // If all joints are within the tolerance, then this point hopefully corresponds
-    if (flattened_input.at(resample_idx).isMoveInstruction())
-    {
-      // Get the current position to see if we should increment original_idx
-      const Eigen::VectorXd& current_pt =
-          getJointPosition(flattened_input.at(resample_idx).as<MoveInstructionPoly>().getWaypoint());
-      error = (last_pt_in_input - current_pt).cwiseAbs().maxCoeff();
-
-      // Check if we've hit the tolerance and if the error is still decreasing
-      if (error < tolerance)
-      {
-        hit_tolerance = true;
-      }
-      if (prev_error < error)
-      {
-        error_increasing = true;
-      }
-      prev_error = error;
-
-      // Wait until the tolerance has been satisfied and the error isn't decreasing anymore before switching composites
-      if (hit_tolerance && error_increasing)
-      {
-        if (original_idx < pattern.size() - 1)  // Keep from incrementing too far at the end of the last composite
-          original_idx++;
-        last_pt_in_input = getJointPosition(
-            pattern.at(original_idx).as<CompositeInstruction>().back().as<MoveInstructionPoly>().getWaypoint());
-
-        hit_tolerance = false;
-        error_increasing = false;
-      }
-    }
-
-    // Add flattened point to the subcomposite
-    unflattened[original_idx].as<CompositeInstruction>().push_back(flattened_input.at(resample_idx));
-
-    // Correct the meta information, taking information from the last element of each composite in the original
-    if (unflattened[original_idx].as<CompositeInstruction>().back().isMoveInstruction())
-    {
-      const auto& pattern_instr = pattern.at(original_idx).as<CompositeInstruction>().back().as<MoveInstructionPoly>();
-      unflattened[original_idx].as<CompositeInstruction>().back().as<MoveInstructionPoly>().setMoveType(
-          static_cast<MoveInstructionType>(pattern_instr.getMoveType()));
-      unflattened[original_idx].as<CompositeInstruction>().back().as<MoveInstructionPoly>().setProfile(
-          pattern_instr.getProfile());
-    }
-  }
-  return unflattened;
 }
 
 bool TimeOptimalParameterizationTask::operator==(const TimeOptimalParameterizationTask& rhs) const
