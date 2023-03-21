@@ -91,6 +91,8 @@ public:
   FixStateCollisionTaskInfo() = default;
   FixStateCollisionTaskInfo(const FixStateCollisionTask& task);
 
+  TaskComposerNodeInfo::UPtr clone() const override;
+
   std::vector<tesseract_collision::ContactResultMap> contact_results;
 
   bool operator==(const FixStateCollisionTaskInfo& rhs) const;

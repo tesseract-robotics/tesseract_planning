@@ -28,16 +28,18 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/map.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <trajopt/problem_description.hpp>
 #include <tesseract_common/timer.h>
 #include <tesseract_environment/utils.h>
 
-//#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_task_composer/nodes/fix_state_collision_task.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
+#include <tesseract_collision/core/serialization.h>
 
 namespace tesseract_planning
 {
@@ -622,6 +624,11 @@ void FixStateCollisionTask::serialize(Archive& ar, const unsigned int /*version*
 
 FixStateCollisionTaskInfo::FixStateCollisionTaskInfo(const FixStateCollisionTask& task) : TaskComposerNodeInfo(task) {}
 
+TaskComposerNodeInfo::UPtr FixStateCollisionTaskInfo::clone() const
+{
+  return std::make_unique<FixStateCollisionTaskInfo>(*this);
+}
+
 bool FixStateCollisionTaskInfo::operator==(const FixStateCollisionTaskInfo& rhs) const
 {
   bool equal = true;
@@ -634,8 +641,8 @@ bool FixStateCollisionTaskInfo::operator!=(const FixStateCollisionTaskInfo& rhs)
 template <class Archive>
 void FixStateCollisionTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  //  ar& BOOST_SERIALIZATION_NVP(contact_results);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
+  ar& BOOST_SERIALIZATION_NVP(contact_results);
 }
 }  // namespace tesseract_planning
 
