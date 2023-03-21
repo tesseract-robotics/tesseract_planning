@@ -28,6 +28,8 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/map.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
@@ -37,6 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
+#include <tesseract_collision/core/serialization.h>
 
 namespace tesseract_planning
 {
@@ -169,7 +172,7 @@ template <class Archive>
 void DiscreteContactCheckTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-  //  ar& BOOST_SERIALIZATION_NVP(contact_results);
+  ar& BOOST_SERIALIZATION_NVP(contact_results);
 }
 }  // namespace tesseract_planning
 
