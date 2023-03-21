@@ -54,6 +54,7 @@ using tesseract_planning::StateWaypointPoly;
 using tesseract_planning::TimeOptimalTrajectoryGeneration;
 using tesseract_planning::TrajectoryContainer;
 using tesseract_planning::totg::Path;
+using tesseract_planning::totg::PathData;
 using tesseract_planning::totg::Trajectory;
 
 TEST(time_optimal_trajectory_generation, test1)  // NOLINT
@@ -76,16 +77,20 @@ TEST(time_optimal_trajectory_generation, test1)  // NOLINT
   EXPECT_DOUBLE_EQ(40.080256821829849, trajectory.getDuration());
 
   // Test start matches
-  EXPECT_DOUBLE_EQ(1424.0, trajectory.getPosition(0.0)[0]);
-  EXPECT_DOUBLE_EQ(984.999694824219, trajectory.getPosition(0.0)[1]);
-  EXPECT_DOUBLE_EQ(2126.0, trajectory.getPosition(0.0)[2]);
-  EXPECT_DOUBLE_EQ(0.0, trajectory.getPosition(0.0)[3]);
+  PathData path_data = trajectory.getPathData(0);
+  Eigen::VectorXd position = trajectory.getPosition(path_data);
+  EXPECT_DOUBLE_EQ(1424.0, position[0]);
+  EXPECT_DOUBLE_EQ(984.999694824219, position[1]);
+  EXPECT_DOUBLE_EQ(2126.0, position[2]);
+  EXPECT_DOUBLE_EQ(0.0, position[3]);
 
   // Test end matches
-  EXPECT_DOUBLE_EQ(1423.0, trajectory.getPosition(trajectory.getDuration())[0]);
-  EXPECT_DOUBLE_EQ(985.000244140625, trajectory.getPosition(trajectory.getDuration())[1]);
-  EXPECT_DOUBLE_EQ(2126.0, trajectory.getPosition(trajectory.getDuration())[2]);
-  EXPECT_DOUBLE_EQ(0.0, trajectory.getPosition(trajectory.getDuration())[3]);
+  path_data = trajectory.getPathData(trajectory.getDuration());
+  position = trajectory.getPosition(path_data);
+  EXPECT_DOUBLE_EQ(1423.0, position[0]);
+  EXPECT_DOUBLE_EQ(985.000244140625, position[1]);
+  EXPECT_DOUBLE_EQ(2126.0, position[2]);
+  EXPECT_DOUBLE_EQ(0.0, position[3]);
 }
 
 TEST(time_optimal_trajectory_generation, test2)  // NOLINT
@@ -114,16 +119,20 @@ TEST(time_optimal_trajectory_generation, test2)  // NOLINT
   EXPECT_DOUBLE_EQ(1922.1418427445944, trajectory.getDuration());
 
   // Test start matches
-  EXPECT_DOUBLE_EQ(1427.0, trajectory.getPosition(0.0)[0]);
-  EXPECT_DOUBLE_EQ(368.0, trajectory.getPosition(0.0)[1]);
-  EXPECT_DOUBLE_EQ(690.0, trajectory.getPosition(0.0)[2]);
-  EXPECT_DOUBLE_EQ(90.0, trajectory.getPosition(0.0)[3]);
+  PathData path_data = trajectory.getPathData(0);
+  Eigen::VectorXd position = trajectory.getPosition(path_data);
+  EXPECT_DOUBLE_EQ(1427.0, position[0]);
+  EXPECT_DOUBLE_EQ(368.0, position[1]);
+  EXPECT_DOUBLE_EQ(690.0, position[2]);
+  EXPECT_DOUBLE_EQ(90.0, position[3]);
 
   // Test end matches
-  EXPECT_DOUBLE_EQ(452.5, trajectory.getPosition(trajectory.getDuration())[0]);
-  EXPECT_DOUBLE_EQ(533.0, trajectory.getPosition(trajectory.getDuration())[1]);
-  EXPECT_DOUBLE_EQ(951.0, trajectory.getPosition(trajectory.getDuration())[2]);
-  EXPECT_DOUBLE_EQ(90.0, trajectory.getPosition(trajectory.getDuration())[3]);
+  path_data = trajectory.getPathData(trajectory.getDuration());
+  position = trajectory.getPosition(path_data);
+  EXPECT_DOUBLE_EQ(452.5, position[0]);
+  EXPECT_DOUBLE_EQ(533.0, position[1]);
+  EXPECT_DOUBLE_EQ(951.0, position[2]);
+  EXPECT_DOUBLE_EQ(90.0, position[3]);
 }
 
 TEST(time_optimal_trajectory_generation, test3)  // NOLINT
@@ -152,16 +161,20 @@ TEST(time_optimal_trajectory_generation, test3)  // NOLINT
   EXPECT_DOUBLE_EQ(1919.5597888812974, trajectory.getDuration());
 
   // Test start matches
-  EXPECT_DOUBLE_EQ(1427.0, trajectory.getPosition(0.0)[0]);
-  EXPECT_DOUBLE_EQ(368.0, trajectory.getPosition(0.0)[1]);
-  EXPECT_DOUBLE_EQ(690.0, trajectory.getPosition(0.0)[2]);
-  EXPECT_DOUBLE_EQ(90.0, trajectory.getPosition(0.0)[3]);
+  PathData path_data = trajectory.getPathData(0);
+  Eigen::VectorXd position = trajectory.getPosition(path_data);
+  EXPECT_DOUBLE_EQ(1427.0, position[0]);
+  EXPECT_DOUBLE_EQ(368.0, position[1]);
+  EXPECT_DOUBLE_EQ(690.0, position[2]);
+  EXPECT_DOUBLE_EQ(90.0, position[3]);
 
   // Test end matches
-  EXPECT_DOUBLE_EQ(452.5, trajectory.getPosition(trajectory.getDuration())[0]);
-  EXPECT_DOUBLE_EQ(533.0, trajectory.getPosition(trajectory.getDuration())[1]);
-  EXPECT_DOUBLE_EQ(951.0, trajectory.getPosition(trajectory.getDuration())[2]);
-  EXPECT_DOUBLE_EQ(90.0, trajectory.getPosition(trajectory.getDuration())[3]);
+  path_data = trajectory.getPathData(trajectory.getDuration());
+  position = trajectory.getPosition(path_data);
+  EXPECT_DOUBLE_EQ(452.5, position[0]);
+  EXPECT_DOUBLE_EQ(533.0, position[1]);
+  EXPECT_DOUBLE_EQ(951.0, position[2]);
+  EXPECT_DOUBLE_EQ(90.0, position[3]);
 }
 
 // Test that totg algorithm doesn't give large acceleration
@@ -233,7 +246,8 @@ TEST(time_optimal_trajectory_generation, testLargeAccel)  // NOLINT
   {
     // always sample the end of the trajectory as well
     double t = std::min(parameterized.getDuration(), static_cast<double>(sample) * resample_dt);
-    Eigen::VectorXd acceleration = parameterized.getAcceleration(t);
+    PathData path_data = parameterized.getPathData(t);
+    Eigen::VectorXd acceleration = parameterized.getAcceleration(path_data);
 
     ASSERT_EQ(acceleration.size(), 6);
     for (std::size_t i = 0; i < 6; ++i)
@@ -310,8 +324,8 @@ TEST(time_optimal_trajectory_generation, testCommandLanguageInterface)  // NOLIN
   max_accelerations.setOnes();
 
   TimeOptimalTrajectoryGeneration solver(0.001, 0.1, 1e-3);
-
-  EXPECT_TRUE(solver.computeTimeStamps(program, max_velocities, max_accelerations, 1.0, 1.0));
+  InstructionsTrajectory traj_wrapper(program);
+  EXPECT_TRUE(solver.computeTimeStamps(traj_wrapper, max_velocities, max_accelerations, 1.0, 1.0));
 }
 
 // Initialize one-joint, straight-line trajectory

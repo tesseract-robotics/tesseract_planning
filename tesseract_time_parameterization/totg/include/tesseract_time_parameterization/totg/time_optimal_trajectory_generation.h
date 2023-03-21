@@ -57,12 +57,6 @@ public:
                                   double resample_dt = 0.1,
                                   double min_angle_change = 0.001);
 
-  bool computeTimeStamps(CompositeInstruction& program,
-                         const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-                         const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-                         double max_velocity_scaling_factor = 1.0,
-                         double max_acceleration_scaling_factor = 1.0) const;
-
   bool computeTimeStamps(TrajectoryContainer& trajectory,
                          const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
                          const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
@@ -118,10 +112,12 @@ public:
   Eigen::VectorXd getCurvature(double s) const;
   double getNextSwitchingPoint(double s, bool& discontinuity) const;
   std::list<std::pair<double, bool>> getSwitchingPoints() const;
+  const std::vector<double>& getMapping() const;
 
 private:
   PathSegment* getPathSegment(double& s) const;
   double length_{ 0 };
+  std::vector<double> mapping_;
   std::list<std::pair<double, bool>> switching_points_;
   std::list<std::unique_ptr<PathSegment>> path_segments_;
 };
@@ -167,17 +163,19 @@ public:
   /** @brief Return the path data for a given point in time */
   PathData getPathData(double time) const;
   /** @brief Return the position/configuration vector for a given point in time */
-  Eigen::VectorXd getPosition(double time) const;
+  Eigen::VectorXd getPosition(const PathData& data) const;
   /** @brief Return the velocity vector for a given point in time */
-  Eigen::VectorXd getVelocity(double time) const;
+  Eigen::VectorXd getVelocity(const PathData& data) const;
   /** @brief Return the acceleration vector for a given point in time */
-  Eigen::VectorXd getAcceleration(double time) const;
+  Eigen::VectorXd getAcceleration(const PathData& data) const;
+  /** @brief get the time given a position on the trajectory */
+  double getTime(double pos) const;
 
   /**
    * @brief Assign trajectory velocity acceleration and time
    * @details This is brute force approach and should always return true
    */
-  bool assignData(TrajectoryContainer& trajectory) const;
+  bool assignData(TrajectoryContainer& trajectory, const std::vector<std::size_t>& mapping) const;
 
 private:
   struct TrajectoryStep
@@ -192,22 +190,6 @@ private:
     double path_vel_{ 0 };
     double time_{ 0 };
   };
-
-  /**
-   * @brief Calculate the distance form the provided state to all states in the TOTG trajectory at the provided time
-   * samples
-   * @param p The state to calculate distance to all TOTG states at the provided times
-   * @param times The time to pull states from the TOTG trajectory
-   * @return The distance from the provided state to all TOTG states at the provided times.
-   */
-  Eigen::VectorXd calcDistanceToAll(const Eigen::VectorXd& p, const Eigen::VectorXd& times) const;
-
-  /**
-   * @brief Find all of the minimum points in the provided data
-   * @param x The data to search for local minimums
-   * @return The vector of indices for each local minimum in the provided data
-   */
-  static std::vector<Eigen::Index> findLocalMinimums(const Eigen::VectorXd& x);
 
   bool getNextSwitchingPoint(double path_pos,
                              TrajectoryStep& next_switching_point,
@@ -232,6 +214,7 @@ private:
   double getVelocityMaxPathVelocityDeriv(double path_pos);
 
   std::list<TrajectoryStep>::const_iterator getTrajectorySegment(double time) const;
+  std::list<TrajectoryStep>::const_iterator getTrajectorySegmentFromDist(double pos) const;
 
   Path path_;
   Eigen::VectorXd max_velocity_;
