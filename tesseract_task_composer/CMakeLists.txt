@@ -156,6 +156,7 @@ target_link_libraries(
   PUBLIC console_bridge::console_bridge
          tesseract::tesseract_common
          tesseract::tesseract_command_language
+         tesseract::tesseract_environment
          Boost::boost
          Boost::serialization
          Taskflow::Taskflow
