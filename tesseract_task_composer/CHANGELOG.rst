@@ -2,6 +2,13 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix TOTG assignData
+* Add fix_state_collision clone method and serialize contact results
+* Build fixes for Focal/Foxy and Jammy/Humble
+* Contributors: Levi Armstrong, Roelof Oomen
+
 0.15.4 (2023-03-16)
 -------------------
 

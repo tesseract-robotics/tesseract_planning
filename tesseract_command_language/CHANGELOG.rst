@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update toJointTrajectory to include cartesian waypoint if seed exists
+* Contributors: Levi Armstrong
+
 0.15.4 (2023-03-16)
 -------------------
 
