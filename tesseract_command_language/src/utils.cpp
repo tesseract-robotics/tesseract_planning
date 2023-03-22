@@ -105,6 +105,20 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
         last_time = current_time;
         trajectory.push_back(joint_state);
       }
+      else if (pi.getWaypoint().isCartesianWaypoint())
+      {
+        const auto& cwp = pi.getWaypoint().as<CartesianWaypointPoly>();
+        if (cwp.hasSeed())
+        {
+          tesseract_common::JointState joint_state = cwp.getSeed();
+          double dt = 1;
+          current_time = current_time + dt;
+          total_time += dt;
+          joint_state.time = total_time;
+          last_time = current_time;
+          trajectory.push_back(joint_state);
+        }
+      }
     }
   }
   return trajectory;
