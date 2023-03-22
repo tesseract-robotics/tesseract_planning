@@ -128,10 +128,14 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(TrajectoryContainer& tra
     const Eigen::VectorXd& position = trajectory.getPosition(p);
     bool diverse_point = (p == 0);
 
-    for (Eigen::Index j = 0; j < num_joints; j++)
+    if (p > 0)
     {
-      if (p > 0 && std::abs(position[j] - points.back()[j]) > min_angle_change_)
-        diverse_point = true;
+      const Eigen::VectorXd& prev_point = points.back();
+      for (Eigen::Index j = 0; j < num_joints; j++)
+      {
+        if (std::abs(position[j] - prev_point[j]) > min_angle_change_)
+          diverse_point = true;
+      }
     }
 
     if (diverse_point)
@@ -937,7 +941,7 @@ double Trajectory::getDuration() const { return trajectory_.back().time_; }
 bool Trajectory::assignData(TrajectoryContainer& trajectory, const std::vector<std::size_t>& mapping) const
 {
   const auto& dist_mapping = path_.getMapping();
-  assert(dist_mapping.size() == mapping.size());
+  assert(trajectory.size() == mapping.size());
 
   // Set Start
   PathData path_data = getPathData(0);
@@ -953,7 +957,7 @@ bool Trajectory::assignData(TrajectoryContainer& trajectory, const std::vector<s
     std::size_t seg_idx = mapping[static_cast<std::size_t>(i)];
 
     time = getTime(dist_mapping.at(seg_idx));
-    if (time < prev_time)
+    if (!(time > prev_time))
       time = prev_time + 1e-16;
 
     path_data = getPathData(time);
@@ -965,8 +969,7 @@ bool Trajectory::assignData(TrajectoryContainer& trajectory, const std::vector<s
   }
 
   // Set end
-  time = getDuration();
-  path_data = getPathData(time);
+  path_data = getPathData(prev_time);
   uv = getVelocity(path_data).head(trajectory.dof());
   ua = getAcceleration(path_data).head(trajectory.dof());
   trajectory.setData((trajectory.size() - 1), uv, ua, time);
@@ -1043,9 +1046,10 @@ double Trajectory::getTime(double pos) const
 {
   auto it = getTrajectorySegmentFromDist(pos);
   assert(it != trajectory_.begin());
-
   auto previous = it;
   previous--;
+
+  assert(pos >= previous->path_pos_ && pos <= it->path_pos_);
 
   double time_step = it->time_ - previous->time_;
   const double acceleration =
@@ -1055,8 +1059,10 @@ double Trajectory::getTime(double pos) const
   const double b = previous->path_vel_;
   const double c = previous->path_pos_ - pos;
 
-  const double d = std::sqrt(std::pow(b, 2.0) - (4 * a * c));
-  const double dt = (-b + d) / (2.0 * a);
+  const double d = std::pow(b, 2.0) - (4 * a * c);
+  const double e = ((d > 0) ? std::sqrt(d) : 0);
+  const double dt = (-b + e) / (2.0 * a);
+  assert(!(dt < 0));
   return (previous->time_ + dt);
 }
 
