@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.15.5 (2023-03-22)
+-------------------
 * Fix TOTG assignData
 * Add fix_state_collision clone method and serialize contact results
 * Build fixes for Focal/Foxy and Jammy/Humble

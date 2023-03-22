@@ -2,8 +2,8 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.15.5 (2023-03-22)
+-------------------
 * Fix numerical issue in totg
 * Fix TOTG assignData
 * Contributors: Levi Armstrong
