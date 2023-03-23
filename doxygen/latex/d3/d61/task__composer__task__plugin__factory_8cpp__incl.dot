@@ -142,6 +142,7 @@ digraph "tesseract_task_composer/src/task_composer_task_plugin_factory.cpp"
   Node67 -> Node4 [color="steelblue1",style="solid"];
   Node67 -> Node41 [color="steelblue1",style="solid"];
   Node67 -> Node35 [color="steelblue1",style="solid"];
+  Node67 -> Node24 [color="steelblue1",style="solid"];
   Node67 -> Node23 [color="steelblue1",style="solid"];
   Node1 -> Node68 [color="steelblue1",style="solid"];
   Node68 [label="tesseract_task_composer\l/nodes/upsample_trajectory\l_task.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d9a/upsample__trajectory__task_8h.html",tooltip=" "];

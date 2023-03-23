@@ -53,13 +53,11 @@ digraph "tesseract_task_composer/src/nodes/time_optimal_parameterization_task.cp
   Node17 -> Node21 [color="steelblue1",style="solid"];
   Node21 [label="boost/uuid/uuid.hpp",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node17 -> Node22 [color="steelblue1",style="solid"];
-  Node22 [label="tesseract_command_language\l/poly/waypoint_poly.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/dc4/waypoint__poly_8h.html",tooltip=" "];
+  Node22 [label="tesseract_command_language\l/poly/waypoint_poly.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d3/dc4/waypoint__poly_8h.html",tooltip=" "];
   Node22 -> Node2 [color="steelblue1",style="solid"];
   Node22 -> Node23 [color="steelblue1",style="solid"];
   Node23 [label="memory",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node22 -> Node9 [color="steelblue1",style="solid"];
-  Node22 -> Node24 [color="steelblue1",style="solid"];
-  Node24 [label="typeindex",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node22 -> Node18 [color="steelblue1",style="solid"];
   Node22 -> Node19 [color="steelblue1",style="solid"];
   Node22 -> Node20 [color="steelblue1",style="solid"];
@@ -125,7 +123,6 @@ digraph "tesseract_task_composer/src/nodes/time_optimal_parameterization_task.cp
   Node35 [label="any",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node34 -> Node36 [color="steelblue1",style="solid"];
   Node36 [label="iostream",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
-  Node34 -> Node24 [color="steelblue1",style="solid"];
   Node34 -> Node23 [color="steelblue1",style="solid"];
   Node29 -> Node40 [color="steelblue1",style="solid"];
   Node40 [label="tesseract_common/manipulator\l_info.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
@@ -149,6 +146,15 @@ digraph "tesseract_task_composer/src/nodes/time_optimal_parameterization_task.cp
   Node44 -> Node28 [color="steelblue1",style="solid"];
   Node44 -> Node23 [color="steelblue1",style="solid"];
   Node44 -> Node19 [color="steelblue1",style="solid"];
+  Node42 -> Node49 [color="steelblue1",style="solid"];
+  Node49 [label="tesseract_task_composer\l/task_composer_node_info.h",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d7/d2c/task__composer__node__info_8h.html",tooltip="Task composer node info."];
+  Node49 -> Node2 [color="steelblue1",style="solid"];
+  Node49 -> Node23 [color="steelblue1",style="solid"];
+  Node49 -> Node21 [color="steelblue1",style="solid"];
+  Node49 -> Node15 [color="steelblue1",style="solid"];
+  Node49 -> Node17 [color="steelblue1",style="solid"];
+  Node49 -> Node41 [color="steelblue1",style="solid"];
+  Node49 -> Node19 [color="steelblue1",style="solid"];
   Node42 -> Node19 [color="steelblue1",style="solid"];
   Node1 -> Node52 [color="steelblue1",style="solid"];
   Node52 [label="tesseract_task_composer\l/profiles/time_optimal\l_parameterization_profile.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d1/de8/time__optimal__parameterization__profile_8h.html",tooltip="Profile for TOTG process."];

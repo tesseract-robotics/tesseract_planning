@@ -1,52 +1,52 @@
 <map id="tesseract_task_composer/src/task_composer_task_plugin_factory.cpp" name="tesseract_task_composer/src/task_composer_task_plugin_factory.cpp">
-<area shape="rect" id="node1" title="A task in the pipeline." alt="" coords="2349,5,2521,60"/>
-<area shape="rect" id="node2" href="$dc/d62/task__composer__task__plugin__factory_8h.html" title="A task in the pipeline." alt="" coords="2445,108,2633,163"/>
-<area shape="rect" id="node10" href="$d4/d58/task__composer__graph_8h.html" title="A task graph." alt="" coords="2596,218,2768,258"/>
-<area shape="rect" id="node11" href="$d7/d32/check__input__task_8h.html" title="Task for checking input data structure." alt="" coords="2657,115,2835,155"/>
-<area shape="rect" id="node15" href="$d0/d58/continuous__contact__check__task_8h.html" title="Continuous Collision check trajectory task." alt="" coords="2242,108,2421,163"/>
-<area shape="rect" id="node18" href="$d1/d26/discrete__contact__check__task_8h.html" title="Discrete Collision check trajectory task." alt="" coords="2045,108,2217,163"/>
-<area shape="rect" id="node19" href="$d5/d86/done__task_8h.html" title=" " alt="" coords="397,115,569,155"/>
-<area shape="rect" id="node20" href="$d4/d4c/error__task_8h.html" title=" " alt="" coords="5,115,177,155"/>
+<area shape="rect" id="node1" title="A task in the pipeline." alt="" coords="2341,5,2513,60"/>
+<area shape="rect" id="node2" href="$dc/d62/task__composer__task__plugin__factory_8h.html" title="A task in the pipeline." alt="" coords="3475,108,3663,163"/>
+<area shape="rect" id="node10" href="$d4/d58/task__composer__graph_8h.html" title="A task graph." alt="" coords="4453,218,4625,258"/>
+<area shape="rect" id="node11" href="$d7/d32/check__input__task_8h.html" title="Task for checking input data structure." alt="" coords="1839,115,2016,155"/>
+<area shape="rect" id="node15" href="$d0/d58/continuous__contact__check__task_8h.html" title="Continuous Collision check trajectory task." alt="" coords="2041,108,2219,163"/>
+<area shape="rect" id="node18" href="$d1/d26/discrete__contact__check__task_8h.html" title="Discrete Collision check trajectory task." alt="" coords="2440,108,2612,163"/>
+<area shape="rect" id="node19" href="$d5/d86/done__task_8h.html" title=" " alt="" coords="985,115,1157,155"/>
+<area shape="rect" id="node20" href="$d4/d4c/error__task_8h.html" title=" " alt="" coords="397,115,569,155"/>
 <area shape="rect" id="node21" href="$dd/d8f/fix__state__bounds__task_8h.html" title="Task that pushes plan instructions back within joint limits." alt="" coords="201,108,373,163"/>
-<area shape="rect" id="node22" href="$d6/db0/fix__state__collision__task_8h.html" title="Task that pushes plan instructions to be out of collision." alt="" coords="2859,108,3031,163"/>
-<area shape="rect" id="node24" href="$d3/db1/iterative__spline__parameterization__task_8h.html" title="Perform iterative spline time parameterization." alt="" coords="1447,108,1619,163"/>
+<area shape="rect" id="node22" href="$d6/db0/fix__state__collision__task_8h.html" title="Task that pushes plan instructions to be out of collision." alt="" coords="2244,108,2416,163"/>
+<area shape="rect" id="node24" href="$d3/db1/iterative__spline__parameterization__task_8h.html" title="Perform iterative spline time parameterization." alt="" coords="593,108,765,163"/>
 <area shape="rect" id="node26" href="$d3/d6c/min__length__task_8h.html" title="Task for processing the input data so it meets a minimum length. Planners like trajopt need at least ..." alt="" coords="1643,115,1815,155"/>
-<area shape="rect" id="node28" href="$dd/d2f/profile__switch__task_8h.html" title="Task that returns a value based on the profile." alt="" coords="1055,108,1227,163"/>
-<area shape="rect" id="node29" href="$d4/d4d/ruckig__trajectory__smoothing__task_8h.html" title="Leveraging Ruckig to smooth trajectory." alt="" coords="1251,108,1423,163"/>
-<area shape="rect" id="node30" href="$d2/d48/start__task_8h.html" title=" " alt="" coords="593,115,765,155"/>
-<area shape="rect" id="node31" href="$d6/d94/time__optimal__parameterization__task_8h.html" title="Perform TOTG." alt="" coords="789,108,1031,163"/>
-<area shape="rect" id="node32" href="$d9/d9a/upsample__trajectory__task_8h.html" title=" " alt="" coords="1839,108,2021,163"/>
-<area shape="rect" id="node33" href="$d2/d2c/raster__motion__task_8h.html" title="Raster motion task with transitions." alt="" coords="3118,115,3305,155"/>
-<area shape="rect" id="node36" href="$df/dee/raster__only__motion__task_8h.html" title="Plans raster paths only." alt="" coords="3336,108,3511,163"/>
-<area shape="rect" id="node37" href="$d2/df3/motion__planner__task_8hpp.html" title=" " alt="" coords="3535,108,3707,163"/>
-<area shape="rect" id="node40" href="$d4/dd8/descartes__motion__planner_8h.html" title=" " alt="" coords="4677,108,4868,163"/>
-<area shape="rect" id="node46" href="$d2/dec/ompl__motion__planner_8h.html" title="Tesseract OMPL motion planner." alt="" coords="4153,115,4344,155"/>
-<area shape="rect" id="node48" href="$d0/ddc/trajopt__motion__planner_8h.html" title=" " alt="" coords="3747,108,3926,163"/>
-<area shape="rect" id="node49" href="$de/dd7/simple__motion__planner_8h.html" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="4369,115,4579,155"/>
-<area shape="rect" id="node50" href="$d6/d25/trajopt__ifopt__motion__planner_8h.html" title=" " alt="" coords="3950,108,4129,163"/>
-<area shape="rect" id="node3" href="$da/d42/task__composer__plugin__factory_8h.html" title="A plugin factory for producing a task composer." alt="" coords="1879,211,2051,265"/>
-<area shape="rect" id="node4" title=" " alt="" coords="2393,423,2584,449"/>
-<area shape="rect" id="node5" title=" " alt="" coords="2183,328,2237,353"/>
-<area shape="rect" id="node6" href="$da/dbe/task__composer__node_8h.html" title="A node in the pipeline." alt="" coords="2465,321,2637,361"/>
-<area shape="rect" id="node7" title=" " alt="" coords="4417,423,4485,449"/>
-<area shape="rect" id="node8" title=" " alt="" coords="3667,423,3726,449"/>
-<area shape="rect" id="node9" title=" " alt="" coords="1024,416,1151,456"/>
-<area shape="rect" id="node12" title=" " alt="" coords="1017,218,1144,258"/>
-<area shape="rect" id="node13" title=" " alt="" coords="3157,225,3236,251"/>
-<area shape="rect" id="node14" href="$da/d71/task__composer__task_8h.html" title="A task in the pipeline." alt="" coords="2297,218,2469,258"/>
-<area shape="rect" id="node16" href="$d7/d2c/task__composer__node__info_8h.html" title="Task composer node info." alt="" coords="2792,218,2980,258"/>
-<area shape="rect" id="node17" title=" " alt="" coords="3074,321,3231,361"/>
-<area shape="rect" id="node23" href="$d7/d96/fix__state__collision__profile_8h.html" title="Profile for process that pushes plan instructions to be out of collision." alt="" coords="3962,313,4135,368"/>
-<area shape="rect" id="node25" href="$d3/d2c/iterative__spline__parameterization_8h.html" title=" " alt="" coords="1455,321,1701,361"/>
-<area shape="rect" id="node27" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2075,218,2273,258"/>
-<area shape="rect" id="node34" title=" " alt="" coords="3514,225,3682,251"/>
-<area shape="rect" id="node35" title=" " alt="" coords="3363,218,3489,258"/>
-<area shape="rect" id="node38" title=" " alt="" coords="3858,225,4034,251"/>
-<area shape="rect" id="node39" href="$d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="4159,218,4338,258"/>
-<area shape="rect" id="node41" title=" " alt="" coords="4846,416,4985,456"/>
+<area shape="rect" id="node28" href="$dd/d2f/profile__switch__task_8h.html" title="Task that returns a value based on the profile." alt="" coords="1181,108,1353,163"/>
+<area shape="rect" id="node29" href="$d4/d4d/ruckig__trajectory__smoothing__task_8h.html" title="Leveraging Ruckig to smooth trajectory." alt="" coords="789,108,961,163"/>
+<area shape="rect" id="node30" href="$d2/d48/start__task_8h.html" title=" " alt="" coords="5,115,177,155"/>
+<area shape="rect" id="node31" href="$d6/d94/time__optimal__parameterization__task_8h.html" title="Perform TOTG." alt="" coords="1377,108,1619,163"/>
+<area shape="rect" id="node32" href="$d9/d9a/upsample__trajectory__task_8h.html" title=" " alt="" coords="2637,108,2818,163"/>
+<area shape="rect" id="node33" href="$d2/d2c/raster__motion__task_8h.html" title="Raster motion task with transitions." alt="" coords="3067,115,3254,155"/>
+<area shape="rect" id="node36" href="$df/dee/raster__only__motion__task_8h.html" title="Plans raster paths only." alt="" coords="2843,108,3017,163"/>
+<area shape="rect" id="node37" href="$d2/df3/motion__planner__task_8hpp.html" title=" " alt="" coords="3279,108,3451,163"/>
+<area shape="rect" id="node40" href="$d4/dd8/descartes__motion__planner_8h.html" title=" " alt="" coords="4733,108,4924,163"/>
+<area shape="rect" id="node46" href="$d2/dec/ompl__motion__planner_8h.html" title="Tesseract OMPL motion planner." alt="" coords="3687,115,3877,155"/>
+<area shape="rect" id="node48" href="$d0/ddc/trajopt__motion__planner_8h.html" title=" " alt="" coords="4137,108,4315,163"/>
+<area shape="rect" id="node49" href="$de/dd7/simple__motion__planner_8h.html" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="3902,115,4113,155"/>
+<area shape="rect" id="node50" href="$d6/d25/trajopt__ifopt__motion__planner_8h.html" title=" " alt="" coords="4339,108,4518,163"/>
+<area shape="rect" id="node3" href="$da/d42/task__composer__plugin__factory_8h.html" title="A plugin factory for producing a task composer." alt="" coords="3800,211,3972,265"/>
+<area shape="rect" id="node4" title=" " alt="" coords="2465,423,2656,449"/>
+<area shape="rect" id="node5" title=" " alt="" coords="3311,328,3365,353"/>
+<area shape="rect" id="node6" href="$da/dbe/task__composer__node_8h.html" title="A node in the pipeline." alt="" coords="3937,321,4109,361"/>
+<area shape="rect" id="node7" title=" " alt="" coords="4191,423,4259,449"/>
+<area shape="rect" id="node8" title=" " alt="" coords="3450,423,3509,449"/>
+<area shape="rect" id="node9" title=" " alt="" coords="1345,416,1472,456"/>
+<area shape="rect" id="node12" title=" " alt="" coords="1200,218,1327,258"/>
+<area shape="rect" id="node13" title=" " alt="" coords="3445,225,3524,251"/>
+<area shape="rect" id="node14" href="$da/d71/task__composer__task_8h.html" title="A task in the pipeline." alt="" coords="1656,218,1828,258"/>
+<area shape="rect" id="node16" href="$d7/d2c/task__composer__node__info_8h.html" title="Task composer node info." alt="" coords="2005,218,2193,258"/>
+<area shape="rect" id="node17" title=" " alt="" coords="3023,321,3181,361"/>
+<area shape="rect" id="node23" href="$d7/d96/fix__state__collision__profile_8h.html" title="Profile for process that pushes plan instructions to be out of collision." alt="" coords="2623,313,2797,368"/>
+<area shape="rect" id="node25" href="$d3/d2c/iterative__spline__parameterization_8h.html" title=" " alt="" coords="896,321,1143,361"/>
+<area shape="rect" id="node27" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2624,218,2823,258"/>
+<area shape="rect" id="node34" title=" " alt="" coords="3101,225,3269,251"/>
+<area shape="rect" id="node35" title=" " alt="" coords="2949,218,3076,258"/>
+<area shape="rect" id="node38" title=" " alt="" coords="3599,225,3775,251"/>
+<area shape="rect" id="node39" href="$d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="4149,218,4327,258"/>
+<area shape="rect" id="node41" title=" " alt="" coords="5201,416,5339,456"/>
 <area shape="rect" id="node42" title=" " alt="" coords="5023,416,5163,456"/>
-<area shape="rect" id="node43" title=" " alt="" coords="4666,328,4781,353"/>
-<area shape="rect" id="node44" href="$d0/d7d/descartes__problem_8h.html" title=" " alt="" coords="4805,321,5012,361"/>
-<area shape="rect" id="node45" href="$dd/db6/descartes__profile_8h.html" title=" " alt="" coords="4616,211,4799,265"/>
-<area shape="rect" id="node47" href="$d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="4159,321,4338,361"/>
+<area shape="rect" id="node43" title=" " alt="" coords="4691,328,4806,353"/>
+<area shape="rect" id="node44" href="$d0/d7d/descartes__problem_8h.html" title=" " alt="" coords="4983,321,5189,361"/>
+<area shape="rect" id="node45" href="$dd/db6/descartes__profile_8h.html" title=" " alt="" coords="4803,211,4985,265"/>
+<area shape="rect" id="node47" href="$d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="4337,321,4515,361"/>
 </map>

@@ -105,5 +105,6 @@ digraph "tesseract_task_composer/include/tesseract_task_composer/nodes/time_opti
   Node8 -> Node19 [color="steelblue1",style="solid"];
   Node8 -> Node21 [color="steelblue1",style="solid"];
   Node4 -> Node21 [color="steelblue1",style="solid"];
+  Node1 -> Node22 [color="steelblue1",style="solid"];
   Node1 -> Node21 [color="steelblue1",style="solid"];
 }
