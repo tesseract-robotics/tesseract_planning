@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
+#include <tesseract_task_composer/task_composer_node_info.h>
 
 namespace tesseract_planning
 {
@@ -72,8 +73,33 @@ protected:
                                      OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
+class TimeOptimalParameterizationTaskInfo : public TaskComposerNodeInfo
+{
+public:
+  using Ptr = std::shared_ptr<TimeOptimalParameterizationTaskInfo>;
+  using ConstPtr = std::shared_ptr<const TimeOptimalParameterizationTaskInfo>;
+  using UPtr = std::unique_ptr<TimeOptimalParameterizationTaskInfo>;
+  using ConstUPtr = std::unique_ptr<const TimeOptimalParameterizationTaskInfo>;
+
+  TimeOptimalParameterizationTaskInfo() = default;
+  TimeOptimalParameterizationTaskInfo(const TimeOptimalParameterizationTask& task);
+
+  TaskComposerNodeInfo::UPtr clone() const override;
+
+  bool operator==(const TimeOptimalParameterizationTaskInfo& rhs) const;
+  bool operator!=(const TimeOptimalParameterizationTaskInfo& rhs) const;
+
+  double max_velocity_scaling_factor{ 0 };
+  double max_acceleration_scaling_factor{ 0 };
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+};
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TimeOptimalParameterizationTask, "TimeOptimalParameterizationTask")
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TimeOptimalParameterizationTaskInfo, "TimeOptimalParameterizationTaskInfo")
 #endif  // TESSERACT_TASK_COMPOSER_TIME_OPTIMAL_TRAJECTORY_GENERATION_TASK_H
