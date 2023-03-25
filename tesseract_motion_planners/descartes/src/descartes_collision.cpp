@@ -60,8 +60,9 @@ bool DescartesCollision::validate(const Eigen::Ref<const Eigen::VectorXd>& pos)
 
   tesseract_collision::CollisionCheckConfig config(collision_check_config_);
   config.contact_request.type = tesseract_collision::ContactTestType::FIRST;
-  tesseract_collision::ContactResultMap results =
-      tesseract_environment::checkTrajectoryState(*contact_manager_, state, config);
+
+  tesseract_collision::ContactResultMap results;
+  tesseract_environment::checkTrajectoryState(results, *contact_manager_, state, config);
   return results.empty();
 }
 
@@ -73,8 +74,9 @@ double DescartesCollision::distance(const Eigen::Ref<const Eigen::VectorXd>& pos
 
   tesseract_collision::CollisionCheckConfig config(collision_check_config_);
   config.contact_request.type = tesseract_collision::ContactTestType::CLOSEST;
-  tesseract_collision::ContactResultMap results =
-      tesseract_environment::checkTrajectoryState(*contact_manager_, state, config);
+
+  tesseract_collision::ContactResultMap results;
+  tesseract_environment::checkTrajectoryState(results, *contact_manager_, state, config);
 
   if (results.empty())
     return contact_manager_->getCollisionMarginData().getMaxCollisionMargin();

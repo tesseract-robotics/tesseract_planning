@@ -323,7 +323,7 @@ TEST(time_optimal_trajectory_generation, testCommandLanguageInterface)  // NOLIN
   Eigen::VectorXd max_accelerations(6);
   max_accelerations.setOnes();
 
-  TimeOptimalTrajectoryGeneration solver(0.001, 0.1, 1e-3);
+  TimeOptimalTrajectoryGeneration solver(0.001, 1e-3);
   InstructionsTrajectory traj_wrapper(program);
   EXPECT_TRUE(solver.computeTimeStamps(traj_wrapper, max_velocities, max_accelerations, 1.0, 1.0));
 }
@@ -354,7 +354,7 @@ CompositeInstruction createStraightTrajectory()
 
 void runTrajectoryContainerInterfaceTest(double path_tolerance)
 {
-  TimeOptimalTrajectoryGeneration solver(path_tolerance, 0.1, 1e-3);
+  TimeOptimalTrajectoryGeneration solver(path_tolerance, 1e-3);
   CompositeInstruction program = createStraightTrajectory();
   Eigen::VectorXd max_velocity(6);
   max_velocity << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;

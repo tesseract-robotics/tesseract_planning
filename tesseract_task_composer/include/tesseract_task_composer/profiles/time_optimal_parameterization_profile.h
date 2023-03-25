@@ -43,12 +43,10 @@ struct TimeOptimalParameterizationProfile
   TimeOptimalParameterizationProfile(double max_velocity_scaling_factor,
                                      double max_acceleration_scaling_factor,
                                      double path_tolerance,
-                                     double resample_dt,
                                      double min_angle_change)
     : max_velocity_scaling_factor(max_velocity_scaling_factor)
     , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
     , path_tolerance(path_tolerance)
-    , resample_dt(resample_dt)
     , min_angle_change(min_angle_change)
   {
   }
@@ -61,9 +59,6 @@ struct TimeOptimalParameterizationProfile
 
   /** @brief path_tolerance. Default: 0.1*/
   double path_tolerance{ 0.1 };
-
-  /** @brief Timestep used to resample trajectory. Default: 0.1*/
-  double resample_dt{ 0.1 };
 
   /** @brief At least one joint must change by greater than this amount for the point to be added. Default: 0.001*/
   double min_angle_change{ 0.001 };

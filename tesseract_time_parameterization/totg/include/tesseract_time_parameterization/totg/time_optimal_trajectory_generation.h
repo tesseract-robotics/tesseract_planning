@@ -53,9 +53,7 @@ namespace tesseract_planning
 class TimeOptimalTrajectoryGeneration
 {
 public:
-  TimeOptimalTrajectoryGeneration(double path_tolerance = 0.1,
-                                  double resample_dt = 0.1,
-                                  double min_angle_change = 0.001);
+  TimeOptimalTrajectoryGeneration(double path_tolerance = 0.1, double min_angle_change = 0.001);
 
   bool computeTimeStamps(TrajectoryContainer& trajectory,
                          const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
@@ -64,9 +62,8 @@ public:
                          double max_acceleration_scaling_factor = 1.0) const;
 
 private:
-  const double path_tolerance_;
-  const double resample_dt_;
-  const double min_angle_change_;
+  double path_tolerance_;
+  double min_angle_change_;
 };
 
 namespace totg

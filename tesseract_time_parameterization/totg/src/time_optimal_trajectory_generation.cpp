@@ -54,10 +54,8 @@ constexpr double EPS = 0.000001;
 
 namespace tesseract_planning
 {
-TimeOptimalTrajectoryGeneration::TimeOptimalTrajectoryGeneration(double path_tolerance,
-                                                                 double resample_dt,
-                                                                 double min_angle_change)
-  : path_tolerance_(path_tolerance), resample_dt_(resample_dt), min_angle_change_(min_angle_change)
+TimeOptimalTrajectoryGeneration::TimeOptimalTrajectoryGeneration(double path_tolerance, double min_angle_change)
+  : path_tolerance_(path_tolerance), min_angle_change_(min_angle_change)
 {
 }
 

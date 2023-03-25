@@ -114,12 +114,6 @@ bool checkStateInCollision(OMPLProblem& prob,
   return (!contact_map.empty());
 }
 
-bool checkStateInCollision(OMPLProblem& prob, const Eigen::VectorXd& state)
-{
-  tesseract_collision::ContactResultMap contact_map;
-  return checkStateInCollision(prob, state, contact_map);
-}
-
 ompl::base::StateSamplerPtr allocWeightedRealVectorStateSampler(const ompl::base::StateSpace* space,
                                                                 const Eigen::VectorXd& weights,
                                                                 const Eigen::MatrixX2d& limits)
