@@ -47,10 +47,12 @@ jobs:
       - name: Build workspace
         uses: 'marip8/industrial_ci@2f4c8ab919f0aafddd514e586325defabd2911ea'
         env:
+          ADDITIONAL_DEBS: 'taskflow libompl-dev'
           ROS_DISTRO: false
           DOCKER_IMAGE: ghcr.io/tesseract-robotics/tesseract:${{ matrix.distro }}-master
-          ROSDEP_SKIP_KEYS: "fcl opw_kinematics ros_industrial_cmake_boilerplate iwyu octomap catkin"
+          ROSDEP_SKIP_KEYS: "fcl opw_kinematics ros_industrial_cmake_boilerplate iwyu octomap catkin ompl taskflow"
           CCACHE_DIR: ${{ github.workspace }}/${{ matrix.distro }}/.ccache
+          BEFORE_INIT: './.github/workflows/add_sources.sh'
           AFTER_INIT: ''
           UPSTREAM_WORKSPACE: 'dependencies.rosinstall'
           DOWNSTREAM_WORKSPACE: 'github:tesseract-robotics/tesseract_ros#master github:tesseract-robotics/tesseract_python#master'

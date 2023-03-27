@@ -58,14 +58,16 @@ jobs:
       - name: Build repository
         uses: 'marip8/industrial_ci@2f4c8ab919f0aafddd514e586325defabd2911ea'
         env:
+          ADDITIONAL_DEBS: 'taskflow libompl-dev'
           ROS_DISTRO: false
           DOCKER_IMAGE: ${{ env.REGISTRY }}/tesseract-robotics/tesseract:${{ matrix.distro }}-master
           CCACHE_DIR: ${{ github.workspace }}/${{ matrix.distro }}/.ccache
           UNDERLAY: /root/tesseract-robotics/tesseract_target_ws/install
           PREFIX: ${{ github.repository }}_
+          BEFORE_INIT: './.github/workflows/add_sources.sh'
           AFTER_INIT: ''
           UPSTREAM_WORKSPACE: dependencies.rosinstall
           UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
-          ROSDEP_SKIP_KEYS: "fcl opw_kinematics ros_industrial_cmake_boilerplate iwyu octomap catkin"
+          ROSDEP_SKIP_KEYS: "fcl opw_kinematics ros_industrial_cmake_boilerplate iwyu octomap catkin ompl taskflow"
           TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_TESTING=ON"
           BEFORE_RUN_TARGET_TEST_EMBED: "ici_with_unset_variables source $BASEDIR/${PREFIX}target_ws/install/setup.bash"

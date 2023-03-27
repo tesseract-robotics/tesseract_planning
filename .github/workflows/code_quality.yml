@@ -20,12 +20,13 @@ jobs:
         include:
           - job_type: codecov
             env:
+              ADDITIONAL_DEBS: 'taskflow libompl-dev'
               TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CODE_COVERAGE=ON"
               AFTER_SCRIPT: ''cd $target_ws && export MAKEFLAGS=ccov-all:${MAKEFLAGS:-} && colcon build --packages-select tesseract_command_language tesseract_motion_planners tesseract_task_composer tesseract_time_parameterization
                              && bash <(curl -s https://codecov.io/bash) -t ff5e009a-3bc9-47ca-9755-6223c7f9aee1 -s $target_ws/build -f *all-merged.info'
           - job_type: clang-tidy
             env:
-              ADDITIONAL_DEBS: 'clang-tidy'
+              ADDITIONAL_DEBS: 'clang-tidy taskflow libompl-dev'
               AFTER_SCRIPT: ""
               NOT_TEST_BUILD: true
               TARGET_CMAKE_ARGS: "-DTESSERACT_ENABLE_CLANG_TIDY=ON -DTESSERACT_ENABLE_TESTING=ON"
@@ -34,10 +35,11 @@ jobs:
       DOCKER_IMAGE: ${{ env.REGISTRY }}/tesseract-robotics/tesseract:focal-master
       UNDERLAY: /root/tesseract-robotics/tesseract_target_ws/install
       PREFIX: ${{ github.repository }}_
+      BEFORE_INIT: './.github/workflows/add_sources.sh'
       AFTER_INIT: ''
       UPSTREAM_WORKSPACE: 'dependencies.rosinstall'
       UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
-      ROSDEP_SKIP_KEYS: "fcl opw_kinematics ros_industrial_cmake_boilerplate iwyu octomap catkin"
+      ROSDEP_SKIP_KEYS: "fcl opw_kinematics ros_industrial_cmake_boilerplate iwyu octomap catkin ompl taskflow"
 
     steps:
       - name: Checkout repository
