@@ -54,7 +54,7 @@ jobs:
           CCACHE_DIR: ${{ github.workspace }}/${{ matrix.distro }}/.ccache
           BEFORE_INIT: './.github/workflows/add_sources.sh'
           AFTER_INIT: ''
-          UPSTREAM_WORKSPACE: 'dependencies.rosinstall'
+          UPSTREAM_WORKSPACE: 'dependencies.repos'
           DOWNSTREAM_WORKSPACE: 'github:tesseract-robotics/tesseract_ros#master github:tesseract-robotics/tesseract_python#master'
           UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
           TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
