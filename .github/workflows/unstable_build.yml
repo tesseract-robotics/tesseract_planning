@@ -68,6 +68,6 @@ jobs:
           AFTER_INIT: ''
           UPSTREAM_WORKSPACE: dependencies.rosinstall
           UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
-          ROSDEP_SKIP_KEYS: "fcl opw_kinematics ros_industrial_cmake_boilerplate iwyu octomap catkin ompl taskflow"
+          ROSDEP_SKIP_KEYS: "fcl opw_kinematics ros_industrial_cmake_boilerplate iwyu octomap catkin ompl taskflow descartes_light trajopt trajopt_ifopt trajopt_sco trajopt_sqp"
           TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_TESTING=ON"
           BEFORE_RUN_TARGET_TEST_EMBED: "ici_with_unset_variables source $BASEDIR/${PREFIX}target_ws/install/setup.bash"

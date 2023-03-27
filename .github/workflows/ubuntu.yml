@@ -95,7 +95,7 @@ jobs:
           AFTER_INIT: ''
           UPSTREAM_WORKSPACE: dependencies.rosinstall
           UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
-          ROSDEP_SKIP_KEYS: "fcl opw_kinematics ros_industrial_cmake_boilerplate iwyu octomap catkin ompl taskflow"
+          ROSDEP_SKIP_KEYS: "fcl opw_kinematics ros_industrial_cmake_boilerplate iwyu octomap catkin ompl taskflow descartes_light trajopt trajopt_ifopt trajopt_sco trajopt_sqp"
           TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DTESSERACT_ENABLE_TESTING=ON -DTESSERACT_WARNINGS_AS_ERRORS=OFF"
           DOCKER_COMMIT: ${{ steps.meta.outputs.tags }}
 
