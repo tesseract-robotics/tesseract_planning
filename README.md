@@ -127,7 +127,7 @@ See [issue #66](https://github.com/tesseract-robotics/tesseract/issues/66)
 ## Build Instructions
 
 1) Clone repository into your workspace
-2) Clone the repositories in the dependencies.rosinstall file using wstool or some other method (e.g. manually git cloning them)
+2) Clone the repositories in the dependencies.repos file using [vcstool](http://wiki.ros.org/vcstool) or some other method (e.g. manually git cloning them)
 3) Build the workspace using catkin tools, colcon, or a similar tool
 
 NOTE: To speed up clean build you may want to add tesseract_ext to an extended workspace.
