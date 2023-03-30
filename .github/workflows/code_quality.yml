@@ -21,7 +21,7 @@ jobs:
             env:
               ADDITIONAL_DEBS: 'taskflow libompl-dev'
               TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CODE_COVERAGE=ON"
-              AFTER_SCRIPT: ''cd $target_ws && export MAKEFLAGS=ccov-all:${MAKEFLAGS:-} && colcon build --packages-select tesseract_command_language tesseract_motion_planners tesseract_task_composer tesseract_time_parameterization
+              AFTER_SCRIPT: 'cd $target_ws && export MAKEFLAGS=ccov-all:${MAKEFLAGS:-} && colcon build --packages-select tesseract_command_language tesseract_motion_planners tesseract_task_composer tesseract_time_parameterization
                              && bash <(curl -s https://codecov.io/bash) -t ff5e009a-3bc9-47ca-9755-6223c7f9aee1 -s $target_ws/build -f *all-merged.info'
           - job_type: clang-tidy
             env:
