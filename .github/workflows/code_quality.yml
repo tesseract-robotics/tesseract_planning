@@ -13,6 +13,7 @@ jobs:
     name: ${{ matrix.job_type }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         job_type: [codecov, clang-tidy]
         include:
