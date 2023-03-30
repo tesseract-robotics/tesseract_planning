@@ -12,8 +12,6 @@ jobs:
   ci:
     name: ${{ matrix.job_type }}
     runs-on: ubuntu-latest
-    env:
-      REGISTRY: ghcr.io
     strategy:
       matrix:
         job_type: [codecov, clang-tidy]
@@ -31,6 +29,7 @@ jobs:
               NOT_TEST_BUILD: true
               TARGET_CMAKE_ARGS: "-DTESSERACT_ENABLE_CLANG_TIDY=ON -DTESSERACT_ENABLE_TESTING=ON"
     env:
+      REGISTRY: ghcr.io
       ROS_DISTRO: false
       DOCKER_IMAGE: ${{ env.REGISTRY }}/tesseract-robotics/tesseract:focal-master
       UNDERLAY: /root/tesseract-robotics/tesseract_target_ws/install
