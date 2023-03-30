@@ -136,6 +136,7 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
   for (auto& pc : problems)
   {
     auto& p = pc.problem;
+    p->simple_setup->setup();
     auto parallel_plan = std::make_shared<ompl::tools::ParallelPlan>(p->simple_setup->getProblemDefinition());
 
     for (const auto& planner : p->planners)
@@ -201,7 +202,6 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 
     if (p->simplify)
     {
-      p->simple_setup->setup();
       p->simple_setup->simplifySolution();
     }
     else
@@ -216,7 +216,6 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
       {
         // Now try to simplify the trajectory to get it under the requested number of output states
         // The interpolate function only executes if the current number of states is less than the requested
-        p->simple_setup->setup();
         p->simple_setup->simplifySolution();
         if (p->simple_setup->getSolutionPath().getStateCount() < num_output_states)
           p->simple_setup->getSolutionPath().interpolate(num_output_states);
