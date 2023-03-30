@@ -30,9 +30,8 @@ jobs:
               NOT_TEST_BUILD: true
               TARGET_CMAKE_ARGS: "-DTESSERACT_ENABLE_CLANG_TIDY=ON -DTESSERACT_ENABLE_TESTING=ON"
     env:
-      REGISTRY: ghcr.io
       ROS_DISTRO: false
-      DOCKER_IMAGE: ${{ env.REGISTRY }}/tesseract-robotics/tesseract:focal-master
+      DOCKER_IMAGE: ${{ ghcr.io }}/tesseract-robotics/tesseract:focal-master
       UNDERLAY: /root/tesseract-robotics/tesseract_target_ws/install
       PREFIX: ${{ github.repository }}_
       BEFORE_INIT: './.github/workflows/add_sources.sh'
@@ -73,7 +72,7 @@ jobs:
       - name: Login to Github container registry
         uses: docker/login-action@v1
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ${{ ghcr.io }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
