@@ -176,7 +176,7 @@ bool FreespaceOMPLExample::run()
   profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
 
   // Create task
-  TaskComposerNode::UPtr task = factory.createTaskComposerNode("FreespacePipeline");
+  TaskComposerNode::UPtr task = factory.createTaskComposerNode("OMPLPipeline");
   const std::string input_key = task->getInputKeys().front();
   const std::string output_key = task->getOutputKeys().front();
 
