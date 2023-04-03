@@ -131,7 +131,6 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
 
   // Solve using parameters
   TimeOptimalTrajectoryGeneration solver(cur_composite_profile->path_tolerance,
-                                         cur_composite_profile->resample_dt,
                                          cur_composite_profile->min_angle_change);
 
   // Store scaling factors

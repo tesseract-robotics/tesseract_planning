@@ -305,13 +305,13 @@ bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
 
   original_velocities.reserve(num_waypoints);
   original_accelerations.reserve(num_waypoints);
-  original_duration_from_previous.resize(trajectory.size());
+  original_duration_from_previous.resize(static_cast<Eigen::Index>(num_waypoints));
 
   original_velocities.push_back(trajectory.getVelocity(0));
   original_accelerations.push_back(trajectory.getAcceleration(0));
   original_duration_from_previous[0] = trajectory.getTimeFromStart(0);
   double previous_time = original_duration_from_previous[0];
-  for (Eigen::Index i = 1; i < trajectory.size(); ++i)
+  for (Eigen::Index i = 1; i < static_cast<Eigen::Index>(num_waypoints); ++i)
   {
     original_velocities.push_back(trajectory.getVelocity(i));
     original_accelerations.push_back(trajectory.getAcceleration(i));
@@ -327,8 +327,8 @@ bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
 
   // Smooth trajectory
   ruckig::Result ruckig_result{};
-  double duration_extension_factor = 1;
-  bool smoothing_complete = false;
+  double duration_extension_factor{ 1 };
+  bool smoothing_complete{ false };
   while ((duration_extension_factor < max_duration_extension_factor_) && !smoothing_complete)
   {
     for (Eigen::Index waypoint_idx = 0; waypoint_idx < num_waypoints - 1; ++waypoint_idx)
@@ -355,7 +355,9 @@ bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
         double time_from_start = original_duration_from_previous(0);
         for (Eigen::Index time_stretch_idx = 1; time_stretch_idx < num_waypoints; ++time_stretch_idx)
         {
-          double duration_from_previous = duration_extension_factor * original_duration_from_previous(time_stretch_idx);
+          assert(time_stretch_idx < original_duration_from_previous.rows());
+          const double duration_from_previous =
+              duration_extension_factor * original_duration_from_previous(time_stretch_idx);
           new_duration_from_previous(time_stretch_idx) = duration_from_previous;
           time_from_start += duration_from_previous;
 

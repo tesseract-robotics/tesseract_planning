@@ -84,14 +84,6 @@ bool checkStateInCollision(OMPLProblem& prob,
                            tesseract_collision::ContactResultMap& contact_map);
 
 /**
- * @brief For the provided problem check if the state is in collision
- * @param prob The OMPL Problem
- * @param state The joint state
- * @return True if in collision otherwise false
- */
-bool checkStateInCollision(OMPLProblem& prob, const Eigen::VectorXd& state);
-
-/**
  * @brief Default State sampler which uses the weights information to scale the sampled state. This is use full
  * when you state space has mixed units like meters and radian.
  * @param space The ompl state space.
