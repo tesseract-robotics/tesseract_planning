@@ -66,7 +66,7 @@ jobs:
           PREFIX: ${{ github.repository }}_
           BEFORE_INIT: './.github/workflows/add_sources.sh'
           AFTER_INIT: ''
-          UPSTREAM_WORKSPACE: dependencies.repos
+          UPSTREAM_WORKSPACE: dependencies_unstable.repos
           UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
           ROSDEP_SKIP_KEYS: "fcl opw_kinematics ros_industrial_cmake_boilerplate iwyu octomap catkin ompl taskflow descartes_light trajopt trajopt_ifopt trajopt_sco trajopt_sqp ruckig"
           TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_TESTING=ON"
