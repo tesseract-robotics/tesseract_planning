@@ -587,7 +587,7 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
   const auto dof = prob.manip->numJoints();
   tesseract_common::KinematicLimits limits = prob.manip->getLimits();
 
-  if (prob.state_space == OMPLProblemStateSpace::REAL_STATE_SPACE)
+  if (prob.state_space == OMPLProblemStateSpace::REAL_STATE_SPACE)  // NOLINT
   {
     Eigen::VectorXd solution = joint_waypoint;
 

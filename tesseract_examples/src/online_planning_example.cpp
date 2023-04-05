@@ -31,6 +31,7 @@
  */
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <Eigen/Dense>
 #include <console_bridge/console.h>
 
 #include <trajopt_sqp/ifopt_qp_problem.h>
@@ -124,7 +125,7 @@ void OnlinePlanningExample::toggleRealtime(bool enable)
 
 bool OnlinePlanningExample::run()
 {
-  if (plotter_ != nullptr)
+  if (plotter_ != nullptr)  // NOLINT
     plotter_->waitForInput("Press enter to setup the problem");
 
   setupProblem();
@@ -218,6 +219,7 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
                                                                          position_vars,
                                                                          position_vars_fixed,
                                                                          collision_config->max_num_cnt,
+                                                                         false,
                                                                          "LVSDiscreteCollision_" + std::to_string(i));
       //    nlp_->addCostSet(collision_constraint, trajopt_sqp::CostPenaltyType::HINGE);
       nlp_->addConstraintSet(collision_constraint);
@@ -232,8 +234,12 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
       auto collision_evaluator = std::make_shared<trajopt_ifopt::SingleTimestepCollisionEvaluator>(
           collision_cache, manip_, env_, collision_config, true);
 
-      auto collision_constraint = std::make_shared<trajopt_ifopt::DiscreteCollisionConstraint>(
-          collision_evaluator, vars[i], collision_config->max_num_cnt, "SingleTimestepCollision_" + std::to_string(i));
+      auto collision_constraint =
+          std::make_shared<trajopt_ifopt::DiscreteCollisionConstraint>(collision_evaluator,
+                                                                       vars[i],
+                                                                       collision_config->max_num_cnt,
+                                                                       false,
+                                                                       "SingleTimestepCollision_" + std::to_string(i));
       //    nlp_->addCostSet(collision_constraint, trajopt_sqp::CostPenaltyType::HINGE);
       nlp_->addConstraintSet(collision_constraint);
     }
@@ -312,7 +318,7 @@ bool OnlinePlanningExample::onlinePlan()
       Eigen::VectorXd time_state = Eigen::VectorXd::LinSpaced(steps_, dt, player_.trajectoryDuration());
       for (Eigen::Index t = 0; t < steps_; t++)
       {
-        tesseract_common::JointState state = player_.setCurrentDuration(time_state(t));
+        tesseract_common::JointState state = player_.setCurrentDuration(time_state(t));  // NOLINT
         init_trajectory.emplace_back(state.position.head(manip_->numJoints()));
       }
 

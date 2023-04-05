@@ -46,17 +46,17 @@ tesseract_common::VectorIsometry3d sampleToolAxis(const Eigen::Isometry3d& tool_
 
 tesseract_common::VectorIsometry3d sampleToolXAxis(const Eigen::Isometry3d& tool_pose, double resolution)
 {
-  return sampleToolAxis(tool_pose, resolution, Eigen::Vector3d::UnitX());
+  return sampleToolAxis(tool_pose, resolution, Eigen::Vector3d::UnitX());  // NOLINT
 }
 
 tesseract_common::VectorIsometry3d sampleToolYAxis(const Eigen::Isometry3d& tool_pose, double resolution)
 {
-  return sampleToolAxis(tool_pose, resolution, Eigen::Vector3d::UnitY());
+  return sampleToolAxis(tool_pose, resolution, Eigen::Vector3d::UnitY());  // NOLINT
 }
 
 tesseract_common::VectorIsometry3d sampleToolZAxis(const Eigen::Isometry3d& tool_pose, double resolution)
 {
-  return sampleToolAxis(tool_pose, resolution, Eigen::Vector3d::UnitZ());
+  return sampleToolAxis(tool_pose, resolution, Eigen::Vector3d::UnitZ());  // NOLINT
 }
 
 tesseract_common::VectorIsometry3d sampleFixed(const Eigen::Isometry3d& tool_pose)

@@ -182,7 +182,8 @@ createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::Const
                            const tesseract_environment::Environment::ConstPtr& env,
                            const tesseract_common::ManipulatorInfo& manip_info,
                            const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
-                           const std::vector<int>& fixed_indices)
+                           const std::vector<int>& fixed_indices,
+                           bool fixed_sparsity)
 {
   std::vector<ifopt::ConstraintSet::Ptr> constraints;
   if (config->type == tesseract_collision::CollisionEvaluatorType::NONE)
@@ -222,6 +223,7 @@ createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::Const
           collision_evaluator,
           vars[i],
           std::min(config->max_num_cnt, static_cast<int>(cp.size())),
+          fixed_sparsity,
           "DiscreteCollision_" + std::to_string(i)));
     }
   }
@@ -259,6 +261,7 @@ createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::Const
           position_vars,
           position_vars_fixed,
           std::min(config->max_num_cnt, static_cast<int>(cp.size())),
+          fixed_sparsity,
           "LVSDiscreteCollision_" + std::to_string(i)));
 
       time0_fixed = time1_fixed;
@@ -298,6 +301,7 @@ createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::Const
           position_vars,
           position_vars_fixed,
           std::min(config->max_num_cnt, static_cast<int>(cp.size())),
+          fixed_sparsity,
           "LVSDiscreteCollision_" + std::to_string(i)));
 
       time0_fixed = time1_fixed;
