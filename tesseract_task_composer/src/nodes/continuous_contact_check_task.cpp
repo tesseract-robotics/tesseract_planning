@@ -121,6 +121,11 @@ TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput
           CONSOLE_BRIDGE_logDebug(("timestep: " + std::to_string(i) + " Links: " + contact.link_names[0] + ", " +
                                    contact.link_names[1] + " Dist: " + std::to_string(contact.distance))
                                       .c_str());
+
+    // Save space
+    for (auto& contact_map : contacts)
+      contact_map.shrinkToFit();
+
     info->contact_results = contacts;
     info->return_value = 0;
     info->elapsed_time = timer.elapsedSeconds();

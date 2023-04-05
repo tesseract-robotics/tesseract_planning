@@ -85,6 +85,7 @@ PuzzlePieceExample::makePuzzleToolPoses(const tesseract_common::ResourceLocator:
     std::stringstream lineStream(line);
     std::string cell;
     Eigen::Matrix<double, 6, 1> xyzijk;
+    xyzijk.setZero();
     int i = -2;
     while (std::getline(lineStream, cell, ','))
     {

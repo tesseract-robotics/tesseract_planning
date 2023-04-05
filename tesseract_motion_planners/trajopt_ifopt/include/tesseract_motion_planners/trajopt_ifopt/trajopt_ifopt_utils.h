@@ -85,7 +85,8 @@ createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::Const
                            const tesseract_environment::Environment::ConstPtr& env,
                            const tesseract_common::ManipulatorInfo& manip_info,
                            const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
-                           const std::vector<int>& fixed_indices);
+                           const std::vector<int>& fixed_indices,
+                           bool fixed_sparsity = true);
 
 bool addCollisionConstraint(trajopt_sqp::QPProblem& nlp,
                             const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,

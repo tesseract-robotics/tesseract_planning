@@ -219,7 +219,7 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     manager->setCollisionObjectsTransform(state);
     manager->contactTest(collisions, profile.collision_check_config.contact_request);
 
-    for (auto& collision : collisions)
+    for (const auto& collision : collisions)
     {
       std::stringstream ss;
       ss << "Discrete collision detected between '" << collision.first.first << "' and '" << collision.first.second
@@ -292,7 +292,7 @@ bool applyCorrectionWorkflow(WaypointPoly& waypoint,
 {
   for (const auto& method : profile.correction_workflow)
   {
-    switch (method)
+    switch (method)  // NOLINT
     {
       case FixStateCollisionProfile::CorrectionMethod::NONE:
         return false;  // No correction and in collision, so return false
@@ -392,6 +392,10 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
           if (!applyCorrectionWorkflow(
                   first_mi->getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[0]))
           {
+            // Save space
+            for (auto& contact_map : info->contact_results)
+              contact_map.shrinkToFit();
+
             info->message = "Failed to correct state in collision";
             info->elapsed_time = timer.elapsedSeconds();
             return info;
@@ -413,6 +417,10 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
           if (!applyCorrectionWorkflow(
                   last_mi->getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[0]))
           {
+            // Save space
+            for (auto& contact_map : info->contact_results)
+              contact_map.shrinkToFit();
+
             info->message = "Failed to correct state in collision";
             info->elapsed_time = timer.elapsedSeconds();
             return info;
@@ -463,6 +471,10 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
           tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
           if (!applyCorrectionWorkflow(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]))
           {
+            // Save space
+            for (auto& contact_map : info->contact_results)
+              contact_map.shrinkToFit();
+
             info->message = "Failed to correct state in collision";
             info->elapsed_time = timer.elapsedSeconds();
             return info;
@@ -505,6 +517,10 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
           tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
           if (!applyCorrectionWorkflow(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]))
           {
+            // Save space
+            for (auto& contact_map : info->contact_results)
+              contact_map.shrinkToFit();
+
             info->message = "Failed to correct state in collision";
             info->elapsed_time = timer.elapsedSeconds();
             return info;
@@ -547,6 +563,10 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
           tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
           if (!applyCorrectionWorkflow(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]))
           {
+            // Save space
+            for (auto& contact_map : info->contact_results)
+              contact_map.shrinkToFit();
+
             info->message = "Failed to correct state in collision";
             info->elapsed_time = timer.elapsedSeconds();
             return info;
@@ -589,6 +609,10 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
           tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
           if (!applyCorrectionWorkflow(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]))
           {
+            // Save space
+            for (auto& contact_map : info->contact_results)
+              contact_map.shrinkToFit();
+
             info->message = "Failed to correct state in collision";
             info->elapsed_time = timer.elapsedSeconds();
             return info;
