@@ -529,3 +529,22 @@ This is used to upsample the results trajectory based on the longest valid segme
        conditional: false
        inputs: [input_data]
        outputs: [output_data]
+
+Format As Input Task
+^^^^^^^^^^^^^^^^^^^^
+
+This is used in the case where you run trajopt with collision as a cost and then you post check it for collision and it fails. Then you run trajopt with collision as a constraint but the output from trajopt with collision as a cost must be formated as input for trajopt with collision as a constraint planner.
+
+This will take the results stored in input_keys[1] and store it in the input_keys[0] program and save the results in the output key.
+
+ - input_keys[0]: The original input to motion planning
+ - input_keys[1]: The output of the first motion plan which failed collision checking
+
+.. code-block:: yaml
+
+   FormatAsInputTask:
+     class: FormatAsInputTaskFactory
+     config:
+       conditional: false
+       inputs: [input_pre_data, input_post_data]
+       outputs: [output_data]
