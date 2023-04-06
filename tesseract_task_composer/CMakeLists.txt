@@ -104,6 +104,7 @@ add_library(
   src/nodes/error_task.cpp
   src/nodes/fix_state_bounds_task.cpp
   src/nodes/fix_state_collision_task.cpp
+  src/nodes/format_as_input_task.cpp
   src/nodes/iterative_spline_parameterization_task.cpp
   src/nodes/profile_switch_task.cpp
   src/nodes/raster_motion_task.cpp

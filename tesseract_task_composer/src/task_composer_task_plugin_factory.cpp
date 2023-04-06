@@ -34,6 +34,7 @@
 #include <tesseract_task_composer/nodes/error_task.h>
 #include <tesseract_task_composer/nodes/fix_state_bounds_task.h>
 #include <tesseract_task_composer/nodes/fix_state_collision_task.h>
+#include <tesseract_task_composer/nodes/format_as_input_task.h>
 #include <tesseract_task_composer/nodes/iterative_spline_parameterization_task.h>
 #include <tesseract_task_composer/nodes/min_length_task.h>
 #include <tesseract_task_composer/nodes/profile_switch_task.h>
@@ -61,6 +62,7 @@ using DoneTaskFactory = TaskComposerTaskFactory<DoneTask>;
 using ErrorTaskFactory = TaskComposerTaskFactory<ErrorTask>;
 using FixStateBoundsTaskFactory = TaskComposerTaskFactory<FixStateBoundsTask>;
 using FixStateCollisionTaskFactory = TaskComposerTaskFactory<FixStateCollisionTask>;
+using FormatAsInputTaskFactory = TaskComposerTaskFactory<FormatAsInputTask>;
 using IterativeSplineParameterizationTaskFactory = TaskComposerTaskFactory<IterativeSplineParameterizationTask>;
 using MinLengthTaskFactory = TaskComposerTaskFactory<MinLengthTask>;
 using ProfileSwitchTaskFactory = TaskComposerTaskFactory<ProfileSwitchTask>;
@@ -98,6 +100,8 @@ TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::ErrorTaskFactory, Er
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::FixStateBoundsTaskFactory, FixStateBoundsTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::FixStateCollisionTaskFactory, FixStateCollisionTaskFactory)
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::FormatAsInputTaskFactory, FormatAsInputTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::IterativeSplineParameterizationTaskFactory,
                                         IterativeSplineParameterizationTaskFactory)
