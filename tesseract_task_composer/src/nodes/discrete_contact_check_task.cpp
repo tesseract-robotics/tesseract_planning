@@ -86,7 +86,7 @@ TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& 
   auto input_data_poly = input.data_storage.getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "Input seed to DiscreteContactCheckTask must be a composite instruction";
+    info->message = "Input to DiscreteContactCheckTask must be a composite instruction";
     info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;

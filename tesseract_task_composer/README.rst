@@ -32,8 +32,8 @@ This file allows you define Excutors and Tasks (aka Nodes).
        plugins:
          TaskflowExecutor:
            class: TaskflowTaskComposerExecutorFactory
-             config:
-               threads: 5
+           config:
+             threads: 5
      tasks:
        plugins:
          DescartesFPipeline:

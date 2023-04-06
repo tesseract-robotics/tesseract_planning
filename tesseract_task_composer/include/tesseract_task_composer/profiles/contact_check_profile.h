@@ -59,6 +59,7 @@ struct ContactCheckProfile
 
   virtual ~ContactCheckProfile() = default;
 
+  /** @brief The contact manager config */
   tesseract_collision::CollisionCheckConfig config;
 };
 }  // namespace tesseract_planning
