@@ -86,7 +86,7 @@ void TaskComposerPluginFactory::loadConfig(const tesseract_common::fs::path& con
   loadConfig(YAML::LoadFile(config.string()));
 }
 
-void TaskComposerPluginFactory::loadConfig(const std::string& config) { loadConfig(YAML::Load(config)); }
+void TaskComposerPluginFactory::loadConfig(const std::string& config) { loadConfig(YAML::LoadFile(config)); }
 
 void TaskComposerPluginFactory::addSearchPath(const std::string& path) { plugin_loader_.search_paths.insert(path); }
 
