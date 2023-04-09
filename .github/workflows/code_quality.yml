@@ -20,9 +20,8 @@ jobs:
           - job_type: codecov
             env:
               ADDITIONAL_DEBS: 'taskflow libompl-dev'
-              TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CODE_COVERAGE=ON"
-              AFTER_SCRIPT: 'cd $target_ws && export MAKEFLAGS=ccov-all:${MAKEFLAGS:-} && colcon build --packages-select tesseract_command_language tesseract_motion_planners tesseract_task_composer tesseract_time_parameterization
-                             && bash <(curl -s https://codecov.io/bash) -t ff5e009a-3bc9-47ca-9755-6223c7f9aee1 -s $target_ws/build -f *all-merged.info'
+              TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CODE_COVERAGE=ON -DTESSERACT_WARNINGS_AS_ERRORS=OFF"
+              AFTER_SCRIPT: 'ici_with_unset_variables source ${HOME}/${PREFIX}target_ws/install/setup.bash && cd ${HOME}/${PREFIX}target_ws && colcon build --cmake-target ccov-all --packages-select tesseract_command_language tesseract_motion_planners tesseract_task_composer tesseract_time_parameterization && cd src/tesseract_planning && git config --global --add safe.directory ${HOME}/${PREFIX}target_ws/src/tesseract_planning && bash <(curl -s https://codecov.io/bash) -t 6e7f085e-77c5-47fc-a4a9-c2dd5ef1d78d -s ${HOME}/${PREFIX}target_ws/build -f *all-merged.info'
           - job_type: clang-tidy
             env:
               ADDITIONAL_DEBS: 'clang-tidy taskflow libompl-dev'
