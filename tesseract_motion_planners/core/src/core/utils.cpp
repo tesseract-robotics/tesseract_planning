@@ -300,10 +300,15 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       config.type != tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
     throw std::runtime_error("contactCheckProgram was given an CollisionEvaluatorType that is inconsistent with the "
                              "ContactManager type (Continuous)");
-  manager.applyContactManagerConfig(config.contact_manager_config);
 
   // Flatten results
   std::vector<std::reference_wrapper<const InstructionPoly>> mi = program.flatten(moveFilter);
+
+  if (mi.size() < 2)
+    throw std::runtime_error("contactCheckProgram was given continuous contact manager with a trajectory that only has "
+                             "one state.");
+
+  manager.applyContactManagerConfig(config.contact_manager_config);
 
   contacts.clear();
   contacts.reserve(mi.size());
@@ -317,11 +322,16 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   {
     const auto& swp = mi.front().get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
     tesseract_scene_graph::SceneState state = state_solver.getState(swp.getNames(), swp.getPosition());
-    tesseract_environment::checkTrajectoryState(state_results, manager, state.link_transforms, config.contact_request);
+    sub_state_results.clear();
+    tesseract_environment::checkTrajectoryState(
+        sub_state_results, manager, state.link_transforms, config.contact_request);
 
-    if (!state_results.empty())
+    if (!sub_state_results.empty())
     {
       found = true;
+      // Always use addInterpolatedCollisionResults so cc_type is defined correctly
+      state_results.addInterpolatedCollisionResults(
+          sub_state_results, 0, 0, manager.getActiveCollisionObjects(), 0, false);
       if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
         printContinuousDebugInfo(swp.getNames(), swp.getPosition(), swp.getPosition(), 0, mi.size() - 1);
     }
@@ -333,11 +343,16 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   {
     const auto& swp = mi.back().get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
     tesseract_scene_graph::SceneState state = state_solver.getState(swp.getNames(), swp.getPosition());
-    tesseract_environment::checkTrajectoryState(state_results, manager, state.link_transforms, config.contact_request);
+    sub_state_results.clear();
+    tesseract_environment::checkTrajectoryState(
+        sub_state_results, manager, state.link_transforms, config.contact_request);
 
-    if (!state_results.empty())
+    if (!sub_state_results.empty())
     {
       found = true;
+      // Always use addInterpolatedCollisionResults so cc_type is defined correctly
+      state_results.addInterpolatedCollisionResults(
+          sub_state_results, 0, 0, manager.getActiveCollisionObjects(), 0, false);
       if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
         printContinuousDebugInfo(swp.getNames(), swp.getPosition(), swp.getPosition(), 0, mi.size() - 1);
     }
@@ -421,7 +436,10 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
         {
           if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_START ||
               config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
+          {
+            contacts.emplace_back(tesseract_collision::ContactResultMap{});
             continue;
+          }
         }
         if (iStep == (mi.size() - 2))
         {
@@ -453,13 +471,16 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   {
     std::size_t start_idx{ 0 };
     std::size_t end_idx(mi.size() - 1);
+    if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_START ||
+        config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
+    {
+      contacts.emplace_back(tesseract_collision::ContactResultMap{});
+      ++start_idx;
+    }
+
     if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_END ||
         config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
       --end_idx;
-
-    if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_START ||
-        config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
-      ++start_idx;
 
     for (std::size_t iStep = start_idx; iStep < end_idx; ++iStep)
     {
@@ -497,10 +518,13 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     throw std::runtime_error("contactCheckProgram was given an CollisionEvaluatorType that is inconsistent with the "
                              "ContactManager type (Discrete)");
 
-  manager.applyContactManagerConfig(config.contact_manager_config);
-
   // Flatten results
   std::vector<std::reference_wrapper<const InstructionPoly>> mi = program.flatten(moveFilter);
+
+  if (mi.empty())
+    throw std::runtime_error("contactCheckProgram was given continuous contact manager with empty trajectory.");
+
+  manager.applyContactManagerConfig(config.contact_manager_config);
 
   contacts.clear();
   contacts.reserve(mi.size());
@@ -514,11 +538,16 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   {
     const auto& swp = mi.front().get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
     tesseract_scene_graph::SceneState state = state_solver.getState(swp.getNames(), swp.getPosition());
-    tesseract_environment::checkTrajectoryState(state_results, manager, state.link_transforms, config.contact_request);
+    sub_state_results.clear();
+    tesseract_environment::checkTrajectoryState(
+        sub_state_results, manager, state.link_transforms, config.contact_request);
 
-    if (!state_results.empty())
+    if (!sub_state_results.empty())
     {
       found = true;
+      // Always use addInterpolatedCollisionResults so cc_type is defined correctly
+      state_results.addInterpolatedCollisionResults(
+          sub_state_results, 0, 0, manager.getActiveCollisionObjects(), 0, true);
       if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
         printDiscreteDebugInfo(swp.getNames(), swp.getPosition(), 0, mi.size() - 1);
     }
@@ -530,11 +559,16 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   {
     const auto& swp = mi.back().get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
     tesseract_scene_graph::SceneState state = state_solver.getState(swp.getNames(), swp.getPosition());
-    tesseract_environment::checkTrajectoryState(state_results, manager, state.link_transforms, config.contact_request);
+    sub_state_results.clear();
+    tesseract_environment::checkTrajectoryState(
+        sub_state_results, manager, state.link_transforms, config.contact_request);
 
-    if (!state_results.empty())
+    if (!sub_state_results.empty())
     {
       found = true;
+      // Always use addInterpolatedCollisionResults so cc_type is defined correctly
+      state_results.addInterpolatedCollisionResults(
+          sub_state_results, 0, 0, manager.getActiveCollisionObjects(), 0, true);
       if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
         printDiscreteDebugInfo(swp.getNames(), swp.getPosition(), 0, mi.size() - 1);
     }
@@ -542,33 +576,47 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     return found;
   }
 
+  if (mi.size() == 1)
+  {
+    if (config.check_program_mode != tesseract_collision::CollisionCheckProgramType::ALL)
+      return true;
+
+    auto sub_segment_last_index = static_cast<int>(mi.size() - 1);
+    state_results.clear();
+    const auto& swp = mi.front().get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+    tesseract_scene_graph::SceneState state = state_solver.getState(swp.getNames(), swp.getPosition());
+    sub_state_results.clear();
+    tesseract_environment::checkTrajectoryState(
+        sub_state_results, manager, state.link_transforms, config.contact_request);
+    double segment_dt = (sub_segment_last_index > 0) ? 1.0 / static_cast<double>(sub_segment_last_index) : 0.0;
+    state_results.addInterpolatedCollisionResults(
+        sub_state_results, 0, sub_segment_last_index, manager.getActiveCollisionObjects(), segment_dt, true);
+    contacts.push_back(state_results);
+    return (!state_results.empty());
+  }
+
   if (config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
   {
     assert(config.longest_valid_segment_length > 0);
 
-    for (std::size_t iStep = 0; iStep < mi.size(); ++iStep)
+    for (std::size_t iStep = 0; iStep < (mi.size() - 1); ++iStep)
     {
       state_results.clear();
 
       const auto& wp0 = mi.at(iStep).get().as<MoveInstructionPoly>().getWaypoint();
       const std::vector<std::string>& jn = getJointNames(wp0);
       const Eigen::VectorXd& p0 = getJointPosition(wp0);
-      const Eigen::VectorXd* p1{ nullptr };
 
-      double dist = -1;
-      if (iStep < mi.size() - 1)
-      {
-        const auto& wp1 = mi.at(iStep + 1).get().as<MoveInstructionPoly>().getWaypoint();
-        p1 = &(getJointPosition(wp1));
-        dist = (*p1 - p0).norm();
-      }
+      const auto& wp1 = mi.at(iStep + 1).get().as<MoveInstructionPoly>().getWaypoint();
+      const Eigen::VectorXd& p1 = getJointPosition(wp1);
+      const double dist = (p1 - p0).norm();
 
-      if (dist > 0 && dist > config.longest_valid_segment_length)
+      if (dist > config.longest_valid_segment_length)
       {
         auto cnt = static_cast<int>(std::ceil(dist / config.longest_valid_segment_length)) + 1;
         tesseract_common::TrajArray subtraj(cnt, p0.size());
         for (long iVar = 0; iVar < p0.size(); ++iVar)
-          subtraj.col(iVar) = Eigen::VectorXd::LinSpaced(cnt, p0(iVar), (*p1)(iVar));
+          subtraj.col(iVar) = Eigen::VectorXd::LinSpaced(cnt, p0(iVar), p1(iVar));
 
         auto sub_segment_last_index = static_cast<int>(subtraj.rows() - 1);
 
@@ -583,6 +631,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
         }
         if (iStep == (mi.size() - 2))
         {
+          // This is the last segment so check the last state
+          end_idx = subtraj.rows();
           if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_END ||
               config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
             --end_idx;
@@ -618,18 +668,69 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       }
       else
       {
+        // Special case when using LVS and only two states
+        if (iStep == 0 && mi.size() == 2)
+        {
+          if (config.check_program_mode != tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_START &&
+              config.check_program_mode != tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
+          {
+            tesseract_scene_graph::SceneState state = state_solver.getState(jn, p0);
+            sub_state_results.clear();
+            tesseract_environment::checkTrajectoryState(
+                sub_state_results, manager, state.link_transforms, config.contact_request);
+            if (!sub_state_results.empty())
+            {
+              found = true;
+              state_results.addInterpolatedCollisionResults(
+                  sub_state_results, 0, 0, manager.getActiveCollisionObjects(), 0, true);
+
+              if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
+                printDiscreteDebugInfo(jn, p0, iStep, (mi.size() - 1));
+            }
+
+            if (found && (config.contact_request.type == tesseract_collision::ContactTestType::FIRST))
+            {
+              contacts.push_back(state_results);
+              break;
+            }
+          }
+
+          if (config.check_program_mode != tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_END &&
+              config.check_program_mode != tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
+          {
+            tesseract_scene_graph::SceneState state = state_solver.getState(jn, p1);
+            sub_state_results.clear();
+            tesseract_environment::checkTrajectoryState(
+                sub_state_results, manager, state.link_transforms, config.contact_request);
+            if (!sub_state_results.empty())
+            {
+              found = true;
+              state_results.addInterpolatedCollisionResults(
+                  sub_state_results, 1, 1, manager.getActiveCollisionObjects(), 1, true);
+
+              if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
+                printDiscreteDebugInfo(jn, p1, iStep + 1, (mi.size() - 1));
+            }
+
+            if (found && (config.contact_request.type == tesseract_collision::ContactTestType::FIRST))
+            {
+              contacts.push_back(state_results);
+              break;
+            }
+          }
+
+          contacts.push_back(state_results);
+          break;
+        }
+
         if (iStep == 0)
         {
           if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_START ||
               config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
+          {
+            contacts.emplace_back(tesseract_collision::ContactResultMap{});
             continue;
-        }
-
-        if (iStep == (mi.size() - 1))
-        {
-          if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_END ||
-              config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
-            continue;
+          }
         }
 
         tesseract_scene_graph::SceneState state = state_solver.getState(jn, p0);
@@ -644,10 +745,44 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
           if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
             printDiscreteDebugInfo(jn, p0, iStep, (mi.size() - 1));
         }
-        contacts.push_back(state_results);
 
         if (found && (config.contact_request.type == tesseract_collision::ContactTestType::FIRST))
+        {
+          contacts.push_back(state_results);
           break;
+        }
+
+        // If last segment check the end state
+        if (iStep == (mi.size() - 2))
+        {
+          if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_END ||
+              config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
+          {
+            contacts.push_back(state_results);
+            continue;
+          }
+
+          tesseract_scene_graph::SceneState state = state_solver.getState(jn, p1);
+          sub_state_results.clear();
+          tesseract_environment::checkTrajectoryState(
+              sub_state_results, manager, state.link_transforms, config.contact_request);
+          if (!sub_state_results.empty())
+          {
+            found = true;
+            state_results.addInterpolatedCollisionResults(
+                sub_state_results, 1, 1, manager.getActiveCollisionObjects(), 1, true);
+            if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
+              printDiscreteDebugInfo(jn, p1, iStep + 1, (mi.size() - 1));
+          }
+
+          if (found && (config.contact_request.type == tesseract_collision::ContactTestType::FIRST))
+          {
+            contacts.push_back(state_results);
+            break;
+          }
+        }
+
+        contacts.push_back(state_results);
       }
     }
   }
@@ -658,7 +793,10 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
 
     if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_START ||
         config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
+    {
+      contacts.emplace_back(tesseract_collision::ContactResultMap{});
       ++start_idx;
+    }
 
     if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_END ||
         config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
