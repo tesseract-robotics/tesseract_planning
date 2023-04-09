@@ -6,13 +6,13 @@
 
 Platform             | CI Status
 ---------------------|:---------
-Linux (Focal)        | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/Focal-Build/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
-Linux (Bionic)       | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/Bionic-Build/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
-Linux (Unstable)     | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/Unstable-Build/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
-Windows              | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/Windows-Noetic-Build/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
-Lint  (Clang-Format) | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/Clang-Format/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
-Lint  (Clang-Tidy)   | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/Clang-Tidy/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
-Lint  (CodeCov)      | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/CodeCov/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
+Linux (Focal)        | [![Ubuntu](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/ubuntu.yml)
+Linux (Unstable)     | [![Unstable](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/unstable_build.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/unstable_build.yml)
+Windows              | [![Windows-Noetic-Build](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/windows_noetic_build.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/windows_noetic_build.yml)
+Lint  (Clang-Format) | [![Clang-Format](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/clang_format.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/clang_format.yml)
+Lint  (CMake-Format) | [![CMake-Format](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/cmake_format.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/cmake_format.yml)
+Lint  (Clang-Tidy)   | [![Code Quality](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/code_quality.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/code_quality.yml)
+Lint  (CodeCov)      | [![Code Quality](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/code_quality.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/code_quality.yml)
 
 [![Github Issues](https://img.shields.io/github/issues/tesseract-robotics/tesseract_planning.svg)](http://github.com/tesseract-robotics/tesseract_planning/issues)
 
@@ -27,10 +27,9 @@ This include packages related to both motion and process planning for the Tesser
 
 Dependency                       | Version
 ---------------------------------|---------
-ROS Industrial CMake Boilerplate | [![version](https://img.shields.io/badge/version-0.2.15-brightgreen)](https://github.com/ros-industrial/ros_industrial_cmake_boilerplate/tree/0.2.15)  
-Tesseract                        | [![version](https://img.shields.io/badge/version-0.9.9-brightgreen)](https://github.com/tesseract-robotics/tesseract/tree/0.9.9)  
+ROS Industrial CMake Boilerplate | [![version](https://img.shields.io/badge/version-0.4.5-brightgreen)](https://github.com/ros-industrial/ros_industrial_cmake_boilerplate/tree/0.4.5)  
 IFOPT                            | [![version](https://img.shields.io/badge/version-2.1.3-brightgreen)](https://github.com/ethz-adrl/ifopt/tree/2.1.3)  
-TrajOpt                          | [![version](https://img.shields.io/badge/version-0.2.5-brightgreen)](https://github.com/tesseract-robotics/trajopt/tree/0.2.5)  
+TrajOpt                          | [![version](https://img.shields.io/badge/version-0.5.0-brightgreen)](https://github.com/tesseract-robotics/trajopt/tree/0.5.0)  
 Descartes Light                  | [![version](https://img.shields.io/badge/version-0.3.0-brightgreen)](https://github.com/swri-robotics/descartes_light/tree/0.3.0)  
 
 ## Tesseract Setup Wizard and Visualization Tools
