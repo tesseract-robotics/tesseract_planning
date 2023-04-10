@@ -2,6 +2,14 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix clang-tidy errors
+* Fixing OMPL freespace example and a typo (`#299 <https://github.com/tesseract-robotics/tesseract_planning/issues/299>`_)
+  * Fix freespace OMPL example (was hybrid)
+  * Fix typo in iterative_spline_parameterization_profile file name
+* Contributors: Levi Armstrong, Roelof
+
 0.15.5 (2023-03-22)
 -------------------
 

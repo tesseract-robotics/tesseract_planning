@@ -2,6 +2,15 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update contactCheckProgram and copy unit tests from tesseract_environment
+* Update to leverage CollisionCheckProgramType in collision config
+* Fix clang-tidy errors
+* Update to support new contact results class (`#297 <https://github.com/tesseract-robotics/tesseract_planning/issues/297>`_)
+* This fixes crash in ompl::geometric::SimpleSetup::simplifySolution() (`#298 <https://github.com/tesseract-robotics/tesseract_planning/issues/298>`_)
+* Contributors: Levi Armstrong, afrixs
+
 0.15.5 (2023-03-22)
 -------------------
 
