@@ -95,6 +95,9 @@ const Eigen::VectorXd& StateWaypoint::getEffort() const { return effort; }
 void StateWaypoint::setTime(double time) { this->time = time; }
 double StateWaypoint::getTime() const { return time; }
 
+void StateWaypoint::setName(const std::string& name) { name_ = name; }
+const std::string& StateWaypoint::getName() const { return name_; }
+
 void StateWaypoint::print(const std::string& prefix) const
 {
   std::cout << prefix << "State WP: Pos=" << position.transpose() << std::endl;  // NOLINT
@@ -105,6 +108,7 @@ bool StateWaypoint::operator==(const StateWaypoint& rhs) const
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
+  equal &= (name_ == rhs.name_);
   equal &= tesseract_common::almostEqualRelativeAndAbs(position, rhs.position, max_diff);
   equal &= tesseract_common::isIdentical(joint_names, rhs.joint_names);
   return equal;
@@ -114,6 +118,7 @@ bool StateWaypoint::operator!=(const StateWaypoint& rhs) const { return !operato
 template <class Archive>
 void StateWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& BOOST_SERIALIZATION_NVP(name_);
   ar& boost::serialization::make_nvp("base", boost::serialization::base_object<tesseract_common::JointState>(*this));
 }
 
@@ -121,4 +126,4 @@ void StateWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypoint)
-TESSERACT_STATE_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::StateWaypoint);
+TESSERACT_STATE_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::StateWaypoint)

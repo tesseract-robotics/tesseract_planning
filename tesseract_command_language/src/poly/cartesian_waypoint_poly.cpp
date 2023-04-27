@@ -86,6 +86,9 @@ const tesseract_common::JointState& tesseract_planning::CartesianWaypointPoly::g
   return getInterface().getSeed();
 }
 
+void tesseract_planning::CartesianWaypointPoly::setName(const std::string& name) { getInterface().setName(name); }
+const std::string& tesseract_planning::CartesianWaypointPoly::getName() const { return getInterface().getName(); }
+
 void tesseract_planning::CartesianWaypointPoly::print(const std::string& prefix) const { getInterface().print(prefix); }
 
 bool tesseract_planning::CartesianWaypointPoly::hasSeed() const

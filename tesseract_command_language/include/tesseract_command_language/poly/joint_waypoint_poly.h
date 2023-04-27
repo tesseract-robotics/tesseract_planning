@@ -126,6 +126,8 @@ struct JointWaypointConcept  // NOLINT
     bool is_constrained = c.isConstrained();
     UNUSED(is_constrained);
 
+    c.setName("name");
+    c.getName();
     c.print();
     c.print("prefix_");
   }
@@ -154,6 +156,9 @@ struct JointWaypointInterface : tesseract_common::TypeErasureInterface
 
   virtual void setIsConstrained(bool value) = 0;
   virtual bool isConstrained() const = 0;
+
+  virtual void setName(const std::string& name) = 0;
+  virtual const std::string& getName() const = 0;
 
   virtual void print(const std::string& prefix) const = 0;
 
@@ -193,6 +198,8 @@ struct JointWaypointInstance : tesseract_common::TypeErasureInstance<T, JointWay
   void setIsConstrained(bool value) final { this->get().setIsConstrained(value); }
   bool isConstrained() const final { return this->get().isConstrained(); }
 
+  void setName(const std::string& name) final { this->get().setName(name); }
+  const std::string& getName() const final { return this->get().getName(); }
   void print(const std::string& prefix) const final { this->get().print(prefix); }
 
 private:
@@ -232,6 +239,9 @@ struct JointWaypointPoly : JointWaypointPolyBase
 
   void setIsConstrained(bool value);
   bool isConstrained() const;
+
+  void setName(const std::string& name);
+  const std::string& getName() const;
 
   void print(const std::string& prefix = "") const;
 

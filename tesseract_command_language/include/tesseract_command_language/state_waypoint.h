@@ -82,12 +82,17 @@ public:
   void setTime(double time);
   double getTime() const;
 
+  void setName(const std::string& name);
+  const std::string& getName() const;
+
   void print(const std::string& prefix = "") const;
 
   bool operator==(const StateWaypoint& rhs) const;
   bool operator!=(const StateWaypoint& rhs) const;
 
 private:
+  /** @brief The name of the waypoint */
+  std::string name_;
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT

@@ -136,6 +136,8 @@ tesseract_planning::MoveInstructionPoly tesseract_planning::MoveInstructionPoly:
   MoveInstructionPoly child(*this);
   child.setParentUUID(getUUID());
   child.regenerateUUID();
+  if (!getInterface().getWaypoint().getName().empty())
+    child.getWaypoint().setName(getInterface().getWaypoint().getName() + " (child)");
   return child;
 }
 

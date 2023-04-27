@@ -78,12 +78,17 @@ public:
   void setIsConstrained(bool value);
   bool isConstrained() const;
 
+  void setName(const std::string& name);
+  const std::string& getName() const;
+
   void print(const std::string& prefix = "") const;
 
   bool operator==(const JointWaypoint& rhs) const;
   bool operator!=(const JointWaypoint& rhs) const;
 
 protected:
+  /** @brief The name of the waypoint */
+  std::string name_;
   /** @brief The names of the joints */
   std::vector<std::string> names_;
   /** @brief The position of the joints */

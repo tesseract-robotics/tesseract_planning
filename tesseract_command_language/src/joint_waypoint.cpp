@@ -73,6 +73,9 @@ const Eigen::VectorXd& JointWaypoint::getLowerTolerance() const { return lower_t
 void JointWaypoint::setIsConstrained(bool value) { is_constrained_ = value; }
 bool JointWaypoint::isConstrained() const { return is_constrained_; }
 
+void JointWaypoint::setName(const std::string& name) { name_ = name; }
+const std::string& JointWaypoint::getName() const { return name_; }
+
 void JointWaypoint::print(const std::string& prefix) const
 {
   std::cout << prefix << "Joint WP: " << position_.transpose() << std::endl;  // NOLINT
@@ -83,6 +86,7 @@ bool JointWaypoint::operator==(const JointWaypoint& rhs) const
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
+  equal &= (name_ == rhs.name_);
   equal &= tesseract_common::isIdentical(names_, rhs.names_);
   equal &= tesseract_common::almostEqualRelativeAndAbs(position_, rhs.position_, max_diff);
   equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance_, rhs.lower_tolerance_, max_diff);
@@ -95,6 +99,7 @@ bool JointWaypoint::operator!=(const JointWaypoint& rhs) const { return !operato
 template <class Archive>
 void JointWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& BOOST_SERIALIZATION_NVP(name_);
   ar& BOOST_SERIALIZATION_NVP(names_);
   ar& BOOST_SERIALIZATION_NVP(position_);
   ar& BOOST_SERIALIZATION_NVP(upper_tolerance_);
