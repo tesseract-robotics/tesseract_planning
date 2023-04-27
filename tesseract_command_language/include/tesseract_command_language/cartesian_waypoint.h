@@ -66,12 +66,17 @@ public:
   tesseract_common::JointState& getSeed();
   const tesseract_common::JointState& getSeed() const;
 
+  void setName(const std::string& name);
+  const std::string& getName() const;
+
   void print(const std::string& prefix = "") const;
 
   bool operator==(const CartesianWaypoint& rhs) const;
   bool operator!=(const CartesianWaypoint& rhs) const;
 
 protected:
+  /** @brief The name of the waypoint */
+  std::string name_;
   /** @brief The Cartesian Waypoint */
   Eigen::Isometry3d transform_{ Eigen::Isometry3d::Identity() };
   /** @brief Distance below waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3

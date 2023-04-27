@@ -87,6 +87,8 @@ struct WaypointConcept  // NOLINT
     UNUSED(eq);
     UNUSED(neq);
 
+    c.setName("name");
+    c.getName();
     c.print();
     c.print("prefix_");
   }
@@ -97,6 +99,9 @@ private:
 
 struct WaypointInterface : tesseract_common::TypeErasureInterface
 {
+  virtual void setName(const std::string& name) = 0;
+  virtual const std::string& getName() const = 0;
+
   virtual void print(const std::string& prefix) const = 0;
 
 private:
@@ -115,6 +120,8 @@ struct WaypointInstance : tesseract_common::TypeErasureInstance<T, WaypointInter
 
   BOOST_CONCEPT_ASSERT((WaypointConcept<T>));
 
+  void setName(const std::string& name) final { this->get().setName(name); }
+  const std::string& getName() const final { return this->get().getName(); }
   void print(const std::string& prefix) const final { this->get().print(prefix); }
 
 private:
@@ -135,6 +142,9 @@ using WaypointPolyBase =
 struct WaypointPoly : WaypointPolyBase
 {
   using WaypointPolyBase::WaypointPolyBase;
+
+  void setName(const std::string& name);
+  const std::string& getName() const;
 
   void print(const std::string& prefix = "") const;
 

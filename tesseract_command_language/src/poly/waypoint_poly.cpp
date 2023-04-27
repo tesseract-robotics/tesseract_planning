@@ -16,6 +16,9 @@ void tesseract_planning::detail_waypoint::WaypointInterface::serialize(Archive& 
                                      boost::serialization::base_object<tesseract_common::TypeErasureInterface>(*this));
 }
 
+void tesseract_planning::WaypointPoly::setName(const std::string& name) { getInterface().setName(name); }
+const std::string& tesseract_planning::WaypointPoly::getName() const { return getInterface().getName(); }
+
 void tesseract_planning::WaypointPoly::print(const std::string& prefix) const { getInterface().print(prefix); }
 
 bool tesseract_planning::WaypointPoly::isCartesianWaypoint() const

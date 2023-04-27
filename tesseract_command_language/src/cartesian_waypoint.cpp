@@ -39,6 +39,9 @@ void tesseract_planning::CartesianWaypoint::setSeed(const tesseract_common::Join
 tesseract_common::JointState& tesseract_planning::CartesianWaypoint::getSeed() { return seed_; }
 const tesseract_common::JointState& tesseract_planning::CartesianWaypoint::getSeed() const { return seed_; }
 
+void tesseract_planning::CartesianWaypoint::setName(const std::string& name) { name_ = name; }
+const std::string& tesseract_planning::CartesianWaypoint::getName() const { return name_; }
+
 void tesseract_planning::CartesianWaypoint::print(const std::string& prefix) const
 {
   std::cout << prefix << "Cart WP: xyz=" << transform_.translation().x() << ", " << transform_.translation().y()
@@ -52,6 +55,7 @@ bool tesseract_planning::CartesianWaypoint::operator==(const CartesianWaypoint& 
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
+  equal &= (name_ == rhs.name_);
   equal &= transform_.isApprox(rhs.transform_);
   equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance_, rhs.lower_tolerance_, max_diff);
   equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance_, rhs.upper_tolerance_, max_diff);
@@ -63,6 +67,7 @@ bool tesseract_planning::CartesianWaypoint::operator!=(const CartesianWaypoint& 
 template <class Archive>
 void tesseract_planning::CartesianWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& BOOST_SERIALIZATION_NVP(name_);
   ar& BOOST_SERIALIZATION_NVP(transform_);
   ar& BOOST_SERIALIZATION_NVP(upper_tolerance_);
   ar& BOOST_SERIALIZATION_NVP(lower_tolerance_);

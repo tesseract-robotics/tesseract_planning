@@ -136,6 +136,8 @@ struct StateWaypointConcept  // NOLINT
     double time_copy = c.getTime();
     UNUSED(time_copy);
 
+    c.setName("name");
+    c.getName();
     c.print();
     c.print("prefix_");
   }
@@ -168,6 +170,9 @@ struct StateWaypointInterface : tesseract_common::TypeErasureInterface
 
   virtual void setTime(double time) = 0;
   virtual double getTime() const = 0;
+
+  virtual void setName(const std::string& name) = 0;
+  virtual const std::string& getName() const = 0;
 
   virtual void print(const std::string& prefix) const = 0;
 
@@ -211,6 +216,8 @@ struct StateWaypointInstance : tesseract_common::TypeErasureInstance<T, StateWay
   void setTime(double time) final { this->get().setTime(time); }
   double getTime() const final { return this->get().getTime(); }
 
+  void setName(const std::string& name) final { this->get().setName(name); }
+  const std::string& getName() const final { return this->get().getName(); }
   void print(const std::string& prefix) const final { this->get().print(prefix); }
 
 private:
@@ -253,6 +260,9 @@ struct StateWaypointPoly : StateWaypointPolyBase
 
   void setTime(double time);
   double getTime() const;
+
+  void setName(const std::string& name);
+  const std::string& getName() const;
 
   void print(const std::string& prefix = "") const;
 

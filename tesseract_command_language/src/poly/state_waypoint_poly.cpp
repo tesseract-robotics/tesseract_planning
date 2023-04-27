@@ -90,6 +90,9 @@ const Eigen::VectorXd& tesseract_planning::StateWaypointPoly::getEffort() const 
 void tesseract_planning::StateWaypointPoly::setTime(double time) { getInterface().setTime(time); }
 double tesseract_planning::StateWaypointPoly::getTime() const { return getInterface().getTime(); }
 
+void tesseract_planning::StateWaypointPoly::setName(const std::string& name) { getInterface().setName(name); }
+const std::string& tesseract_planning::StateWaypointPoly::getName() const { return getInterface().getName(); }
+
 void tesseract_planning::StateWaypointPoly::print(const std::string& prefix) const { getInterface().print(prefix); }
 
 template <class Archive>

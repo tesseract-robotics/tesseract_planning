@@ -122,6 +122,8 @@ struct CartesianWaypointConcept  // NOLINT
     const tesseract_common::JointState& seed_const_ref = c.getSeed();
     UNUSED(seed_const_ref);
 
+    c.setName("name");
+    c.getName();
     c.print();
     c.print("prefix_");
   }
@@ -147,6 +149,9 @@ struct CartesianWaypointInterface : tesseract_common::TypeErasureInterface
   virtual void setSeed(const tesseract_common::JointState& seed) = 0;
   virtual tesseract_common::JointState& getSeed() = 0;
   virtual const tesseract_common::JointState& getSeed() const = 0;
+
+  virtual void setName(const std::string& name) = 0;
+  virtual const std::string& getName() const = 0;
 
   virtual void print(const std::string& prefix) const = 0;
 
@@ -183,6 +188,8 @@ struct CartesianWaypointInstance : tesseract_common::TypeErasureInstance<T, Cart
   tesseract_common::JointState& getSeed() final { return this->get().getSeed(); }
   const tesseract_common::JointState& getSeed() const final { return this->get().getSeed(); }
 
+  void setName(const std::string& name) final { this->get().setName(name); }
+  const std::string& getName() const final { return this->get().getName(); }
   void print(const std::string& prefix) const final { this->get().print(prefix); }
 
 private:
@@ -219,6 +226,9 @@ struct CartesianWaypointPoly : CartesianWaypointPolyBase
   void setSeed(const tesseract_common::JointState& seed);
   tesseract_common::JointState& getSeed();
   const tesseract_common::JointState& getSeed() const;
+
+  void setName(const std::string& name);
+  const std::string& getName() const;
 
   void print(const std::string& prefix = "") const;
 
