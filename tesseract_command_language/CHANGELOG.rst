@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add name to waypoints
+* Contributors: Levi Armstrong
+
 0.16.1 (2023-04-11)
 -------------------
 
