@@ -153,6 +153,8 @@ TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerInput& input,
     }
   }
 
+  input.data_storage.setData(output_keys_[0], input_formatted_data_poly);
+
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();
