@@ -2,6 +2,11 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix FormatAsInputTask to store results
+* Contributors: Levi Armstrong
+
 0.16.2 (2023-04-28)
 -------------------
 
