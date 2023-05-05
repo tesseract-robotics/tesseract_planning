@@ -57,16 +57,16 @@ MinLengthTask::MinLengthTask(std::string name,
   : TaskComposerTask(std::move(name), config)
 {
   if (input_keys_.empty())
-    throw std::runtime_error("FixStateBoundsTask, config missing 'inpus' entry");
+    throw std::runtime_error("MinLengthTask, config missing 'inputs' entry");
 
   if (input_keys_.size() > 1)
-    throw std::runtime_error("FixStateBoundsTask, config 'inputs' entry currently only supports one input key");
+    throw std::runtime_error("MinLengthTask, config 'inputs' entry currently only supports one input key");
 
   if (output_keys_.empty())
-    throw std::runtime_error("FixStateBoundsTask, config missing 'outputs' entry");
+    throw std::runtime_error("MinLengthTask, config missing 'outputs' entry");
 
   if (output_keys_.size() > 1)
-    throw std::runtime_error("FixStateBoundsTask, config 'outputs' entry currently only supports one output key");
+    throw std::runtime_error("MinLengthTask, config 'outputs' entry currently only supports one output key");
 }
 
 TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerInput& input,
