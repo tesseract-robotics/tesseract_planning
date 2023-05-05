@@ -62,7 +62,7 @@ FixStateBoundsTask::FixStateBoundsTask(std::string name,
     throw std::runtime_error("FixStateBoundsTask, config 'inputs' entry currently only supports one input key");
 
   if (output_keys_.empty())
-    throw std::runtime_error("FixStateBoundsTask, config missing 'outpus' entry");
+    throw std::runtime_error("FixStateBoundsTask, config missing 'outputs' entry");
 
   if (output_keys_.size() > 1)
     throw std::runtime_error("FixStateBoundsTask, config 'outputs' entry currently only supports one output key");
