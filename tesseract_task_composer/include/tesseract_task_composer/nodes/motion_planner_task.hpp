@@ -182,6 +182,12 @@ protected:
                              planner_->getName().c_str(),
                              response.message.c_str(),
                              instructions.getDescription().c_str());
+
+    // If the output key is not the same as the input key the output data should be assigned the input data for error
+    // branching
+    if (output_keys_[0] != input_keys_[0])
+      input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
     info->message = response.message;
     info->elapsed_time = timer.elapsedSeconds();
     return info;

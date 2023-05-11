@@ -111,7 +111,9 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
 
   if (cur_composite_profile->mode == FixStateBoundsProfile::Settings::DISABLED)
   {
-    input.data_storage.setData(output_keys_[0], input_data_poly);
+    if (output_keys_[0] != input_keys_[0])
+      input.data_storage.setData(output_keys_[0], input_data_poly);
+
     info->message = "Successful, DISABLED";
     info->return_value = 1;
     info->elapsed_time = timer.elapsedSeconds();
@@ -135,6 +137,11 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
             CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
             if (!clampToJointLimits(wp, limits.joint_limits, cur_composite_profile->max_deviation_global))
             {
+              // If the output key is not the same as the input key the output data should be assigned the input data
+              // for error branching
+              if (output_keys_[0] != input_keys_[0])
+                input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
               info->message = "Failed to clamp to joint limits";
               info->elapsed_time = timer.elapsedSeconds();
               return info;
@@ -157,6 +164,11 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
             CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
             if (!clampToJointLimits(wp, limits.joint_limits, cur_composite_profile->max_deviation_global))
             {
+              // If the output key is not the same as the input key the output data should be assigned the input data
+              // for error branching
+              if (output_keys_[0] != input_keys_[0])
+                input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
               info->message = "Failed to clamp to joint limits";
               info->elapsed_time = timer.elapsedSeconds();
               return info;
@@ -171,7 +183,9 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
       auto flattened = ci.flatten(moveFilter);
       if (flattened.empty())
       {
-        input.data_storage.setData(output_keys_[0], input_data_poly);
+        if (output_keys_[0] != input_keys_[0])
+          input.data_storage.setData(output_keys_[0], input_data_poly);
+
         info->message = "FixStateBoundsTask found no MoveInstructions to process";
         info->return_value = 1;
         info->elapsed_time = timer.elapsedSeconds();
@@ -197,6 +211,11 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
         {
           if (!clampToJointLimits(wp, limits.joint_limits, cur_composite_profile->max_deviation_global))
           {
+            // If the output key is not the same as the input key the output data should be assigned the input data for
+            // error branching
+            if (output_keys_[0] != input_keys_[0])
+              input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
             info->message = "Failed to clamp to joint limits";
             info->elapsed_time = timer.elapsedSeconds();
             return info;
@@ -206,11 +225,14 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
     }
     break;
     case FixStateBoundsProfile::Settings::DISABLED:
-      input.data_storage.setData(output_keys_[0], input_data_poly);
+    {
+      if (output_keys_[0] != input_keys_[0])
+        input.data_storage.setData(output_keys_[0], input_data_poly);
       info->message = "Successful, DISABLED";
       info->return_value = 1;
       info->elapsed_time = timer.elapsedSeconds();
       return info;
+    }
   }
 
   input.data_storage.setData(output_keys_[0], input_data_poly);

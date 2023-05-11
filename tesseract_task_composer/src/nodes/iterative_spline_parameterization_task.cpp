@@ -132,6 +132,11 @@ TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComp
   auto flattened = ci.flatten(moveFilter);
   if (flattened.empty())
   {
+    // If the output key is not the same as the input key the output data should be assigned the input data for error
+    // branching
+    if (output_keys_[0] != input_keys_[0])
+      input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
     info->message = "Iterative spline time parameterization found no MoveInstructions to process";
     info->return_value = 1;
     info->elapsed_time = timer.elapsedSeconds();
@@ -172,6 +177,11 @@ TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComp
                        velocity_scaling_factors,
                        acceleration_scaling_factors))
   {
+    // If the output key is not the same as the input key the output data should be assigned the input data for error
+    // branching
+    if (output_keys_[0] != input_keys_[0])
+      input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
     info->message =
         "Failed to perform iterative spline time parameterization for process input: " + ci.getDescription();
     info->elapsed_time = timer.elapsedSeconds();

@@ -122,6 +122,11 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
   auto flattened = ci.flatten(moveFilter);
   if (flattened.empty())
   {
+    // If the output key is not the same as the input key the output data should be assigned the input data for error
+    // branching
+    if (output_keys_[0] != input_keys_[0])
+      input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
     info->message = "TOTG found no MoveInstructions to process";
     info->return_value = 1;
     info->elapsed_time = timer.elapsedSeconds();
@@ -146,6 +151,11 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
                                 cur_composite_profile->max_velocity_scaling_factor,
                                 cur_composite_profile->max_acceleration_scaling_factor))
   {
+    // If the output key is not the same as the input key the output data should be assigned the input data for error
+    // branching
+    if (output_keys_[0] != input_keys_[0])
+      input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
     info->message = "Failed to perform TOTG for process input: " + ci.getDescription();
     info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
