@@ -392,6 +392,11 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
           if (!applyCorrectionWorkflow(
                   first_mi->getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[0]))
           {
+            // If the output key is not the same as the input key the output data should be assigned the input data for
+            // error branching
+            if (output_keys_[0] != input_keys_[0])
+              input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
             // Save space
             for (auto& contact_map : info->contact_results)
               contact_map.shrinkToFit();
@@ -417,6 +422,11 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
           if (!applyCorrectionWorkflow(
                   last_mi->getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[0]))
           {
+            // If the output key is not the same as the input key the output data should be assigned the input data for
+            // error branching
+            if (output_keys_[0] != input_keys_[0])
+              input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
             // Save space
             for (auto& contact_map : info->contact_results)
               contact_map.shrinkToFit();
@@ -435,6 +445,9 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
       info->contact_results.resize(flattened.size());
       if (flattened.empty())
       {
+        if (output_keys_[0] != input_keys_[0])
+          input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
         info->message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
         CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
@@ -443,6 +456,9 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
 
       if (flattened.size() <= 2)
       {
+        if (output_keys_[0] != input_keys_[0])
+          input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
         info->message = "FixStateCollisionTask found no intermediate MoveInstructions to process";
         info->return_value = 1;
         CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
@@ -471,6 +487,11 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
           tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
           if (!applyCorrectionWorkflow(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]))
           {
+            // If the output key is not the same as the input key the output data should be assigned the input data for
+            // error branching
+            if (output_keys_[0] != input_keys_[0])
+              input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
             // Save space
             for (auto& contact_map : info->contact_results)
               contact_map.shrinkToFit();
@@ -489,6 +510,9 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
       info->contact_results.resize(flattened.size());
       if (flattened.empty())
       {
+        if (output_keys_[0] != input_keys_[0])
+          input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
         info->message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
         CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
@@ -517,6 +541,11 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
           tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
           if (!applyCorrectionWorkflow(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]))
           {
+            // If the output key is not the same as the input key the output data should be assigned the input data for
+            // error branching
+            if (output_keys_[0] != input_keys_[0])
+              input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
             // Save space
             for (auto& contact_map : info->contact_results)
               contact_map.shrinkToFit();
@@ -535,6 +564,9 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
       info->contact_results.resize(flattened.size());
       if (flattened.empty())
       {
+        if (output_keys_[0] != input_keys_[0])
+          input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
         info->message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
         CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
@@ -563,6 +595,11 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
           tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
           if (!applyCorrectionWorkflow(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]))
           {
+            // If the output key is not the same as the input key the output data should be assigned the input data for
+            // error branching
+            if (output_keys_[0] != input_keys_[0])
+              input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
             // Save space
             for (auto& contact_map : info->contact_results)
               contact_map.shrinkToFit();
@@ -581,6 +618,9 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
       info->contact_results.resize(flattened.size());
       if (flattened.size() <= 1)
       {
+        if (output_keys_[0] != input_keys_[0])
+          input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
         info->message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
         CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
@@ -609,6 +649,11 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
           tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
           if (!applyCorrectionWorkflow(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]))
           {
+            // If the output key is not the same as the input key the output data should be assigned the input data for
+            // error branching
+            if (output_keys_[0] != input_keys_[0])
+              input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
             // Save space
             for (auto& contact_map : info->contact_results)
               contact_map.shrinkToFit();
@@ -622,10 +667,15 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
     }
     break;
     case FixStateCollisionProfile::Settings::DISABLED:
+    {
+      if (output_keys_[0] != input_keys_[0])
+        input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
       info->message = "Successful, DISABLED";
       info->return_value = 1;
       info->elapsed_time = timer.elapsedSeconds();
       return info;
+    }
   }
 
   input.data_storage.setData(output_keys_[0], input_data_poly);
