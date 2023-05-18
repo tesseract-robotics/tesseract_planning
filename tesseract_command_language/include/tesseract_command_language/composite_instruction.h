@@ -97,8 +97,9 @@ public:
                        tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
 
   template <class InputIt>
-  CompositeInstruction(InputIt first, InputIt last) : container_(first, last)
+  CompositeInstruction(InputIt first, InputIt last) : CompositeInstruction()
   {
+    container_.insert(container_.begin(), first, last);
   }
 
   CompositeInstructionOrder getOrder() const;
