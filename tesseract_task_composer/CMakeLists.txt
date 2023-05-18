@@ -176,14 +176,6 @@ target_code_coverage(
 target_include_directories(${PROJECT_NAME}_taskflow PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                            "$<INSTALL_INTERFACE:include>")
 
-# Add compiler definition to core so it can find all plugins produced
-string(
-  REPLACE ";"
-          ":"
-          TASK_COMPOSER_PLUGINS_STRING
-          "${TASK_COMPOSER_PLUGINS}")
-target_compile_definitions(${PROJECT_NAME} PRIVATE TESSERACT_TASK_COMPOSER_PLUGINS="${TASK_COMPOSER_PLUGINS}")
-
 # Create target for Bullet implementation
 add_library(${PROJECT_NAME}_factories src/task_composer_task_plugin_factory.cpp
                                       src/task_composer_executor_plugin_factory.cpp)
@@ -213,6 +205,17 @@ if(TESSERACT_BUILD_TRAJOPT_IFOPT)
   target_link_libraries(${PROJECT_NAME}_factories PUBLIC tesseract::tesseract_motion_planners_trajopt_ifopt)
   target_compile_definitions(${PROJECT_NAME}_factories PUBLIC TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT=1)
 endif()
+
+# Add factory library so task_composer_factory can find these factories by defauult
+set(TASK_COMPOSER_PLUGINS ${TASK_COMPOSER_PLUGINS} "${PROJECT_NAME}_factories")
+
+# Add compiler definition to core so it can find all plugins produced
+string(
+  REPLACE ";"
+          ":"
+          TASK_COMPOSER_PLUGINS_STRING
+          "${TASK_COMPOSER_PLUGINS}")
+target_compile_definitions(${PROJECT_NAME} PRIVATE TESSERACT_TASK_COMPOSER_PLUGINS="${TASK_COMPOSER_PLUGINS_STRING}")
 
 configure_package(
   NAMESPACE tesseract
