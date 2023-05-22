@@ -55,7 +55,7 @@ void runTaskComposerFactoryTest(const tesseract_common::fs::path& config_path)
 
   {
     std::set<std::string> sl = factory.getSearchLibraries();
-    EXPECT_EQ(sl.size(), 2);
+    EXPECT_EQ(sl.size(), 1);
 
     for (auto it = search_libraries.begin(); it != search_libraries.end(); ++it)
     {

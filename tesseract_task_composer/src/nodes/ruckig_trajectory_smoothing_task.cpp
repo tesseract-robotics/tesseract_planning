@@ -119,6 +119,11 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
   auto flattened = ci.flatten(moveFilter);
   if (flattened.empty())
   {
+    // If the output key is not the same as the input key the output data should be assigned the input data for error
+    // branching
+    if (output_keys_[0] != input_keys_[0])
+      input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
     info->message = "Ruckig trajectory smoothing found no MoveInstructions to process";
     info->return_value = 1;
     info->elapsed_time = timer.elapsedSeconds();
@@ -164,6 +169,11 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
                       acceleration_scaling_factors,
                       jerk_scaling_factors))
   {
+    // If the output key is not the same as the input key the output data should be assigned the input data for error
+    // branching
+    if (output_keys_[0] != input_keys_[0])
+      input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+
     info->message = "Failed to perform ruckig trajectory smoothing for process input: %s" + ci.getDescription();
     info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
