@@ -154,7 +154,7 @@ add_library(${PROJECT_NAME}_taskflow src/taskflow/taskflow_task_composer_executo
                                      src/taskflow/taskflow_task_composer_future.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_taskflow
-  PUBLIC console_bridge::console_bridge
+  PUBLIC ${PROJECT_NAME} console_bridge::console_bridge
          tesseract::tesseract_common
          tesseract::tesseract_command_language
          tesseract::tesseract_environment
