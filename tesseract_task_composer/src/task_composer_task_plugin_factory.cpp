@@ -51,7 +51,9 @@
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 
+#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
+#endif
 
 namespace tesseract_planning
 {
@@ -78,7 +80,9 @@ using DescartesDMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlanner
 using OMPLMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<OMPLMotionPlanner>>;
 using TrajOptMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<TrajOptMotionPlanner>>;
 using SimpleMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<SimpleMotionPlanner>>;
+#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
 using TrajOptIfoptMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<TrajOptIfoptMotionPlanner>>;
+#endif
 
 using GraphTaskFactory = TaskComposerTaskFactory<TaskComposerGraph>;
 
@@ -139,9 +143,11 @@ TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::TrajOptMotionPlanner
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::SimpleMotionPlannerTaskFactory,
                                         SimpleMotionPlannerTaskFactory)
+#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::TrajOptIfoptMotionPlannerTaskFactory,
                                         TrajOptIfoptMotionPlannerTaskFactory)
+#endif
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::GraphTaskFactory, GraphTaskFactory)
