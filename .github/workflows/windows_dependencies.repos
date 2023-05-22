@@ -4,8 +4,8 @@
     version: 0.4.5
 - git:
     local-name: tesseract
-    uri: https://github.com/tesseract-robotics/tesseract.git
-    version: 0.16.3
+    uri: https://github.com/johnwason/tesseract.git
+    version: eigen_index_type
 - git:
     local-name: trajopt
     uri: https://github.com/tesseract-robotics/trajopt_ros.git
