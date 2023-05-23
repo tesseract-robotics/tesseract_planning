@@ -28,7 +28,12 @@ jobs:
     - name: vcpkg build
       uses: johnwason/vcpkg-action@v4
       with:
-        pkgs: fcl bullet3[multithreading,double-precision,rtti] octomap console-bridge eigen3 yaml-cpp benchmark tinyxml2 assimp orocos-kdl pcl lapack-reference boost-dll boost-filesystem boost-filesystem boost-serialization boost-program-options boost-graph urdfdom ccd[double-precision] gtest
+        pkgs: >- 
+          fcl bullet3[multithreading,double-precision,rtti] octomap 
+          console-bridge eigen3 yaml-cpp benchmark tinyxml2 assimp orocos-kdl pcl 
+          lapack-reference boost-dll boost-filesystem boost-serialization 
+          boost-program-options boost-graph urdfdom ccd[double-precision] gtest
+          ompl taskflow
         triplet: x64-windows-release
         extra-args: --clean-after-build
         token: ${{ github.token }}
@@ -54,7 +59,7 @@ jobs:
         set CMAKE_PREFIX_PATH=%GITHUB_WORKSPACE%\vcpkg\installed\x64-windows-release
         vcs import --input "${{ github.workspace }}/workspace/src/tesseract_planning/.github/workflows/windows_dependencies.repos" src/
         if %ERRORLEVEL% GEQ 1 exit 1
-        colcon build --event-handlers console_direct+ --cmake-args -G "Ninja" -DVCPKG_TARGET_TRIPLET=x64-windows-release -DCMAKE_BUILD_TYPE=Release -DTESSERACT_ENABLE_TESTING=ON
+        colcon build --event-handlers console_direct+ --cmake-args -G "Ninja" -DVCPKG_TARGET_TRIPLET=x64-windows-release -DCMAKE_BUILD_TYPE=Release -DTESSERACT_ENABLE_TESTING=ON -DBUILD_IPOPT=OFF -DBUILD_SNOPT=OFF
         if %ERRORLEVEL% GEQ 1 exit 1
 
     - name: run-test
