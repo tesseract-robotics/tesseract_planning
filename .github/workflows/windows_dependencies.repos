@@ -4,12 +4,12 @@
     version: 0.4.5
 - git:
     local-name: tesseract
-    uri: https://github.com/johnwason/tesseract.git
-    version: eigen_index_type
+    uri: https://github.com/tesseract-robotics/tesseract.git
+    version: master
 - git:
     local-name: trajopt
-    uri: https://github.com/tesseract-robotics/trajopt_ros.git
-    version: 0.5.1
+    uri: https://github.com/tesseract-robotics/trajopt.git
+    version: master
 - git:
     local-name: descartes_light
     uri: https://github.com/swri-robotics/descartes_light.git
