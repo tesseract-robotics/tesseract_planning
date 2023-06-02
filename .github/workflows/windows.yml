@@ -68,7 +68,7 @@ jobs:
       run: |
         call ./install/setup.bat
         set PATH=%PATH%;%GITHUB_WORKSPACE%\vcpkg\installed\x64-windows-release\bin
-        colcon test --event-handlers console_direct+ --return-code-on-test-failure
+        colcon test --event-handlers console_direct+ --return-code-on-test-failure  --packages-select tesseract_command_language tesseract_motion_planners tesseract_task_composer tesseract_time_parameterization
         if %ERRORLEVEL% GEQ 1 exit 1
         colcon test-result --verbose
         if %ERRORLEVEL% GEQ 1 exit 1
