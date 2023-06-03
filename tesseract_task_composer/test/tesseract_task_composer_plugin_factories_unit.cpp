@@ -71,8 +71,11 @@ void runTaskComposerFactoryTest(const tesseract_common::fs::path& config_path)
     TaskComposerExecutor::UPtr cm = factory.createTaskComposerExecutor(name);
     EXPECT_TRUE(cm != nullptr);
   }
-
+#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
   EXPECT_EQ(task_plugins.size(), 17);
+#else
+  EXPECT_EQ(task_plugins.size(), 16);
+#endif
   for (auto cm_it = task_plugins.begin(); cm_it != task_plugins.end(); ++cm_it)
   {
     auto name = cm_it->first.as<std::string>();
@@ -108,8 +111,15 @@ void runTaskComposerFactoryTest(const tesseract_common::fs::path& config_path)
 
 TEST(TesseractTaskComposerFactoryUnit, LoadAndExportPluginTest)  // NOLINT
 {
+#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
   tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
                                                                                     "task_composer_plugins.yaml");
+#else
+  tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
+                                                                                    "task_composer_plugins_no_trajopt_"
+                                                                                    "ifopt.yaml");
+#endif
+
   runTaskComposerFactoryTest(config_path);
 
   auto export_config_path = tesseract_common::fs::path(tesseract_common::getTempPath()) / "task_composer_plugins_"
