@@ -8,8 +8,8 @@
     version: master
 - git:
     local-name: trajopt
-    uri: https://github.com/tesseract-robotics/trajopt.git
-    version: master
+    uri: https://github.com/johnwason/trajopt_ros.git
+    version: win_ci_fix
 - git:
     local-name: descartes_light
     uri: https://github.com/swri-robotics/descartes_light.git

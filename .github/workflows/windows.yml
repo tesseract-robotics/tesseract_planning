@@ -38,6 +38,7 @@ jobs:
         extra-args: --clean-after-build
         token: ${{ github.token }}
         cache-key: ci-${{ matrix.os }}
+        revision: master
 
     - name: install-depends
       shell: cmd
