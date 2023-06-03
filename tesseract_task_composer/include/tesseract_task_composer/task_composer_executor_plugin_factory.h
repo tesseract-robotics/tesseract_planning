@@ -39,6 +39,9 @@ public:
     return std::make_unique<ExecutorType>(name, config);
   }
 };
+
+TESSERACT_PLUGIN_ANCHOR_DECL(TaskComposerExecutorFactoryAnchor)
+
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_EXECUTOR_PLUGIN_FACTORY_H

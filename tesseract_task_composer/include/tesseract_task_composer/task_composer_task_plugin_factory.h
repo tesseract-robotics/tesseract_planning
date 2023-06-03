@@ -41,5 +41,8 @@ public:
     return std::make_unique<TaskType>(name, config, plugin_factory);
   }
 };
+
+TESSERACT_PLUGIN_ANCHOR_DECL(TaskComposerTaskFactoryAnchor)
+
 }  // namespace tesseract_planning
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_TASK_PLUGIN_FACTORY_H

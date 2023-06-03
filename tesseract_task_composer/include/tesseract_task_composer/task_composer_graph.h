@@ -62,7 +62,7 @@ public:
    * @brief Add a node to the pipeline
    * @return The node ID which should be used with adding edges
    */
-  boost::uuids::uuid addNode(TaskComposerNode::UPtr task_node);
+  boost::uuids::uuid addNode(TaskComposerNode::UPtr&& task_node);
 
   /**
    * @brief Adds directed edges from a source node to destination nodes in the taskflow graph

@@ -147,7 +147,7 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
   }
 }
 
-boost::uuids::uuid TaskComposerGraph::addNode(TaskComposerNode::UPtr task_node)
+boost::uuids::uuid TaskComposerGraph::addNode(TaskComposerNode::UPtr&& task_node)
 {
   boost::uuids::uuid uuid = task_node->getUUID();
   task_node->parent_uuid_ = uuid_;

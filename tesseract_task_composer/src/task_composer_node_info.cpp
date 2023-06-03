@@ -124,7 +124,7 @@ TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(TaskComp
   return *this;
 }
 
-void TaskComposerNodeInfoContainer::addInfo(TaskComposerNodeInfo::UPtr info)
+void TaskComposerNodeInfoContainer::addInfo(TaskComposerNodeInfo::UPtr&& info)
 {
   std::unique_lock<std::shared_mutex> lock(mutex_);
   info_map_[info->uuid] = std::move(info);

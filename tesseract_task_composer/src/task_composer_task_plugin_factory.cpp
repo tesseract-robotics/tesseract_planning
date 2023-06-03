@@ -86,6 +86,8 @@ using TrajOptIfoptMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlann
 
 using GraphTaskFactory = TaskComposerTaskFactory<TaskComposerGraph>;
 
+TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerTaskFactoryAnchor)
+
 }  // namespace tesseract_planning
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)

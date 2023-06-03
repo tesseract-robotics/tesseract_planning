@@ -75,7 +75,7 @@ std::vector<std::string> TaskComposerServer::getAvailableExecutors() const
   return executors;
 }
 
-void TaskComposerServer::addTask(TaskComposerNode::UPtr task)
+void TaskComposerServer::addTask(TaskComposerNode::UPtr&& task)
 {
   if (tasks_.find(task->getName()) != tasks_.end())
     CONSOLE_BRIDGE_logDebug("Task %s already exist so replacing with new task.", task->getName().c_str());

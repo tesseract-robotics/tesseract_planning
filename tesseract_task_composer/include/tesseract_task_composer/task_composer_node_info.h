@@ -123,7 +123,7 @@ struct TaskComposerNodeInfoContainer
    * @brief Add info to the container
    * @param info The info to be added
    */
-  void addInfo(TaskComposerNodeInfo::UPtr info);
+  void addInfo(TaskComposerNodeInfo::UPtr&& info);
 
   /**
    * @brief Get node info provided the uuid
