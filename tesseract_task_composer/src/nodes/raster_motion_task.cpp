@@ -67,6 +67,7 @@ createTask(const std::string& name,
     {
       std::string name = task_name;
       name.append("_");
+      name.append(x);
       name.append(std::to_string(index));
       input_renaming[x] = name;
     }
@@ -81,6 +82,7 @@ createTask(const std::string& name,
     {
       std::string name = task_name;
       name.append("_");
+      name.append(x);
       name.append(std::to_string(index));
       output_renaming[x] = name;
     }
