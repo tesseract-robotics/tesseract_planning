@@ -84,7 +84,7 @@ createTask(const std::string& name,
       name.append("_");
       name.append(x);
       name.append(std::to_string(index));
-      output_renaming[x] = task_name + "_" + x + std::to_string(index);
+      output_renaming[x] = name;
     }
 
     tf_results.node->renameOutputKeys(output_renaming);
