@@ -353,14 +353,14 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
     transition_idx++;
   }
 
-  // Debug remove
-  std::ofstream tc_out_data;
-  tc_out_data.open(tesseract_common::getTempPath() + "task_composer_raster_subgraph_example.dot");
-  task_graph.dump(tc_out_data);  // dump the graph including dynamic tasks
-  tc_out_data.close();
-
   TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, input);
   future->wait();
+
+  auto info_map = input.task_infos.getInfoMap();
+
+  std::stringstream dot_graph;
+  task_graph.dump(dot_graph, info_map);  // dump the graph including dynamic tasks
+  info->dot_graph = dot_graph.str();
 
   if (input.isAborted())
   {

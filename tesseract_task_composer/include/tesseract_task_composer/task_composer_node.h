@@ -35,6 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_input.h>
 #include <tesseract_task_composer/task_composer_data_storage.h>
+#include <tesseract_task_composer/task_composer_node_info.h>
 
 namespace tesseract_planning
 {
@@ -106,7 +107,7 @@ public:
   virtual void renameOutputKeys(const std::map<std::string, std::string>& output_keys);
 
   /** @brief dump the task to dot */
-  virtual void dump(std::ostream& os) const;
+  virtual void dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& node_info = nullptr) const;
 
   bool operator==(const TaskComposerNode& rhs) const;
   bool operator!=(const TaskComposerNode& rhs) const;

@@ -94,23 +94,66 @@ int TaskComposerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
   return value;
 }
 
-void TaskComposerTask::dump(std::ostream& os) const
+void TaskComposerTask::dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& node_info) const
 {
   const std::string tmp = toString(uuid_, "node_");
-  if (is_conditional_)
-  {
-    os << std::endl
-       << tmp << " [shape=diamond, label=\"" << name_ << "\\n(" << uuid_str_
-       << ")\", color=black, fillcolor=aquamarine style=filled];\n";
 
-    for (std::size_t i = 0; i < outbound_edges_.size(); ++i)
-      os << tmp << " -> " << toString(outbound_edges_[i], "node_") << " [style=dashed, label=\"[" << std::to_string(i)
-         << "]\""
-         << "];\n";
+  std::string color;
+  int return_value = -1;
+
+  if (!node_info || !is_conditional_)
+  {
+    color = "white";
   }
   else
   {
-    os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")\", color=black];\n";
+    return_value = node_info->return_value;
+    if(node_info->return_value == 0 && outbound_edges_.size() > 1)
+    {
+      color = "red";
+    }
+    else if(node_info->return_value >= 1 || outbound_edges_.size() == 1)
+    {
+      color = "green";
+    }
+    else
+    {
+      color = "white";
+    }
+  }
+
+  if (is_conditional_)
+  {
+    os << std::endl
+       << tmp << " [shape=diamond, label=\"" << name_ << "\\n(" << uuid_str_ << ")";
+    if (node_info)
+    {
+      os << "\\nTime: " << std::fixed << std::setprecision(3) << node_info->elapsed_time << "s"
+         << "\\n`" << node_info->message << "`";
+    }
+    os << "\", color=black, fillcolor=" << color << ", style=filled];\n";
+
+    for (std::size_t i = 0; i < outbound_edges_.size(); ++i)
+    {
+      std::string line_type = "dashed";
+      if (return_value == static_cast<int>(i))
+      {
+        line_type = "bold";
+      }
+      os << tmp << " -> " << toString(outbound_edges_[i], "node_") << " [style=" << line_type <<", label=\"[" << std::to_string(i)
+         << "]\""
+         << "];\n";
+    }
+  }
+  else
+  {
+    os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")";
+    if (node_info)
+    {
+      os << "\\nTime: " << std::fixed << std::setprecision(3) << node_info->elapsed_time << "s"
+         << "\\n'" << node_info->message << "'";
+    }
+    os << "\", color=black, fillcolor=" << color << ", style=filled];\n";
 
     for (const auto& edge : outbound_edges_)
       os << tmp << " -> " << toString(edge, "node_") << ";\n";

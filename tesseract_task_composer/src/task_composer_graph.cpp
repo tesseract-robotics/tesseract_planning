@@ -187,14 +187,22 @@ void TaskComposerGraph::renameOutputKeys(const std::map<std::string, std::string
     node.second->renameOutputKeys(output_keys);
 }
 
-void TaskComposerGraph::dump(std::ostream& os) const
+void TaskComposerGraph::dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& node_info) const
 {
   os << "digraph TaskComposer {\n";
-  dumpHelper(os, *this);
+  std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> empty_map;
+  dumpHelper(os, *this, empty_map);
   os << "}\n";
 }
 
-void TaskComposerGraph::dumpHelper(std::ostream& os, const TaskComposerGraph& /*parent*/) const
+void TaskComposerGraph::dump(std::ostream& os, std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
+{
+  os << "digraph TaskComposer {\n";
+  dumpHelper(os, *this, results_map);
+  os << "}\n";
+}
+
+void TaskComposerGraph::dumpHelper(std::ostream& os, const TaskComposerGraph& /*parent*/, std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
 {
   std::ostringstream sub_graphs;
   const std::string tmp = toString(uuid_);
@@ -203,14 +211,22 @@ void TaskComposerGraph::dumpHelper(std::ostream& os, const TaskComposerGraph& /*
   {
     const auto& node = pair.second;
     if (node->getType() == TaskComposerNodeType::TASK)
-      node->dump(os);
+    {
+      auto it = results_map.find(node->uuid_);
+      if (it != results_map.end())
+        node->dump(os, it->second);
+      else
+      {
+        node->dump(os);
+      }
+    }
     else if (node->getType() == TaskComposerNodeType::GRAPH)
     {
       const std::string tmp = toString(node->uuid_, "node_");
       os << std::endl
          << tmp << " [shape=box3d, label=\"Subgraph: " << node->name_ << "\\n(" << node->uuid_str_
          << ")\", color=blue, margin=\"0.1\"];\n";
-      static_cast<const TaskComposerGraph&>(*node).dumpHelper(sub_graphs, *this);
+      static_cast<const TaskComposerGraph&>(*node).dumpHelper(sub_graphs, *this, results_map);
     }
   }
 

@@ -79,10 +79,34 @@ void TaskComposerNode::renameOutputKeys(const std::map<std::string, std::string>
     std::replace(output_keys_.begin(), output_keys_.end(), key.first, key.second);
 }
 
-void TaskComposerNode::dump(std::ostream& os) const
+void TaskComposerNode::dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& node_info) const
 {
   const std::string tmp = toString(uuid_, "node_");
-  os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")\", color=black];\n";
+
+  std::string color;
+
+  if (!node_info)
+  {
+    color = "white";
+  }
+  else
+  {
+    if(node_info->return_value == 0 && outbound_edges_.size() > 1)
+      color = "red";
+    else if(node_info->return_value == 1 || outbound_edges_.size() == 1)
+      color = "green";
+    else
+      color = "white";
+  }
+
+  os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")";
+  if (node_info)
+  {
+    os << "\\nTime: " << std::fixed << std::setprecision(3) << node_info->elapsed_time << "s"
+       << "\\n\"" << node_info->message << "\"";
+  }
+  os << "\", fillcolor=" << color << ", style=filled];\n";
+
   for (const auto& edge : outbound_edges_)
     os << tmp << " -> " << toString(edge, "node_") << ";\n";
 }

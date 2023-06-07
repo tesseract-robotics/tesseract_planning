@@ -446,6 +446,12 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
   TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, input);
   future->wait();
 
+  auto info_map = input.task_infos.getInfoMap();
+
+  std::stringstream dot_graph;
+  task_graph.dump(dot_graph, info_map);  // dump the graph including dynamic tasks
+  info->dot_graph = dot_graph.str();
+
   if (input.isAborted())
   {
     info->message = "Raster subgraph failed";

@@ -65,7 +65,7 @@ public:
 
   bool isConditional() const;
 
-  void dump(std::ostream& os) const override;
+  void dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& node_info = nullptr) const override;
 
 protected:
   friend struct tesseract_common::Serialization;

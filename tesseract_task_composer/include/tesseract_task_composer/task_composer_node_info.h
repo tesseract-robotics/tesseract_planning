@@ -92,6 +92,9 @@ public:
   /** @brief Time spent in this task in seconds*/
   double elapsed_time{ 0 };
 
+  /** @brief dot graph string for visualization*/
+  std::string dot_graph;
+
   bool operator==(const TaskComposerNodeInfo& rhs) const;
   bool operator!=(const TaskComposerNodeInfo& rhs) const;
 
