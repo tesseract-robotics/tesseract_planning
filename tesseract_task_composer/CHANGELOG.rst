@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.17.0 (2023-06-06)
+-------------------
 * Fix Key Naming Scheme in Raster Motion Task  (`#324 <https://github.com/tesseract-robotics/tesseract_planning/issues/324>`_)
   @marrts Great find and thanks for the fix.
 * Fix task composer cmake plugins variable

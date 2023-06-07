@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.17.0 (2023-06-06)
+-------------------
 * Fix serialization typo of CollisionCostConfig.safetymargin to BufferMargin (`#323 <https://github.com/tesseract-robotics/tesseract_planning/issues/323>`_)
 * Contributors: Roelof
 
