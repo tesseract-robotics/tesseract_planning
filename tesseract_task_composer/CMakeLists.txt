@@ -67,7 +67,8 @@ add_library(
   src/task_composer_plugin_factory.cpp
   src/task_composer_problem.cpp
   src/task_composer_server.cpp
-  src/task_composer_task.cpp)
+  src/task_composer_task.cpp
+  src/planning_task_composer_problem.cpp)
 target_link_libraries(
   ${PROJECT_NAME}
   PUBLIC console_bridge::console_bridge
@@ -111,6 +112,7 @@ add_library(
   src/nodes/raster_only_motion_task.cpp
   src/nodes/ruckig_trajectory_smoothing_task.cpp
   src/nodes/min_length_task.cpp
+  src/nodes/motion_planner_task_info.cpp
   src/nodes/start_task.cpp
   src/nodes/time_optimal_parameterization_task.cpp
   src/nodes/update_end_state_task.cpp

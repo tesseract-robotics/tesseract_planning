@@ -48,7 +48,6 @@ TaskComposerNodeInfo::UPtr DoneTask::runImpl(TaskComposerInput& input, OptionalT
     return info;
 
   info->color = "green";
-  info->env = input.problem.env;
   info->return_value = 1;
   info->message = "Successful";
   CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());

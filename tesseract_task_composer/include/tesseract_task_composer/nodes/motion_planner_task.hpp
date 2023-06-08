@@ -34,6 +34,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
 #include <tesseract_task_composer/task_composer_task.h>
+#include <tesseract_task_composer/nodes/motion_planner_task_info.h>
+#include <tesseract_task_composer/planning_task_composer_problem.h>
 #include <tesseract_motion_planners/core/planner.h>
 
 namespace tesseract_planning
@@ -137,19 +139,19 @@ protected:
 
     // Make a non-const copy of the input instructions to update the start/end
     auto& instructions = input_data_poly.template as<CompositeInstruction>();
-    assert(!(input.problem.manip_info.empty() && instructions.getManipulatorInfo().empty()));
-    instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input.problem.manip_info));
+    assert(!(problem.manip_info.empty() && instructions.getManipulatorInfo().empty()));
+    instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(problem.manip_info));
 
     // --------------------
     // Fill out request
     // --------------------
     PlannerRequest request;
-    request.env_state = input.problem.env->getState();
-    request.env = input.problem.env;
+    request.env_state = problem.env->getState();
+    request.env = problem.env;
     request.instructions = instructions;
     request.profiles = input.profiles;
-    request.plan_profile_remapping = input.problem.move_profile_remapping;
-    request.composite_profile_remapping = input.problem.composite_profile_remapping;
+    request.plan_profile_remapping = problem.move_profile_remapping;
+    request.composite_profile_remapping = problem.composite_profile_remapping;
     request.format_result_as_input = format_result_as_input_;
 
     // --------------------

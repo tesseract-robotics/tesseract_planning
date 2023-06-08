@@ -85,9 +85,9 @@ int main()
   task_data.setData("c", c);
   task_data.setData("d", d);
 
-  TaskComposerProblem task_problem(task_data);
+  auto task_problem = std::make_unique<TaskComposerProblem>(task_data);
 
-  auto task_input = std::make_shared<TaskComposerInput>(task_problem);
+  auto task_input = std::make_shared<TaskComposerInput>(std::move(task_problem));
 
   // result = a * (b + c) + d
   auto task1 = std::make_unique<AddTaskComposerNode>("b", "c", "task1_output");

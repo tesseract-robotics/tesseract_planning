@@ -29,6 +29,8 @@
 #include <tesseract_task_composer/nodes/update_start_and_end_state_task.h>
 #include <tesseract_task_composer/nodes/update_end_state_task.h>
 #include <tesseract_task_composer/nodes/update_start_state_task.h>
+#include <tesseract_task_composer/nodes/motion_planner_task_info.h>
+#include <tesseract_task_composer/planning_task_composer_problem.h>
 
 #include <tesseract_task_composer/task_composer_future.h>
 #include <tesseract_task_composer/task_composer_executor.h>
@@ -284,12 +286,15 @@ void RasterMotionTask::serialize(Archive& ar, const unsigned int /*version*/)  /
 TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
                                                      OptionalTaskComposerExecutor executor) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
+  // Get the problem
+  PlanningTaskComposerProblem& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+
+  auto info = std::make_unique<MotionPlannerTaskInfo>(*this, input);
   if (info->isAborted())
     return info;
 
   info->return_value = 0;
-  info->env = input.problem.env;
+  info->env = problem.env;
   tesseract_common::Timer timer;
   timer.start();
 
@@ -312,8 +317,7 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
   auto& program = input_data_poly.template as<CompositeInstruction>();
   TaskComposerGraph task_graph;
 
-  tesseract_common::ManipulatorInfo program_manip_info =
-      program.getManipulatorInfo().getCombined(input.problem.manip_info);
+  tesseract_common::ManipulatorInfo program_manip_info = program.getManipulatorInfo().getCombined(problem.manip_info);
 
   auto start_task = std::make_unique<StartTask>();
   auto start_uuid = task_graph.addNode(std::move(start_task));

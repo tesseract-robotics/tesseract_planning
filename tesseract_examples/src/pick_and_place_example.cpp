@@ -41,7 +41,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
-#include <tesseract_task_composer/task_composer_problem.h>
+#include <tesseract_task_composer/planning_task_composer_problem.h>
 #include <tesseract_task_composer/task_composer_input.h>
 
 #include <tesseract_task_composer/task_composer_plugin_factory.h>
@@ -232,10 +232,10 @@ bool PickAndPlaceExample::run()
   pick_input_data.setData(pick_input_key, pick_program);
 
   // Create Task Composer Problem
-  TaskComposerProblem pick_problem(env_, pick_input_data);
+  auto pick_problem = std::make_unique<PlanningTaskComposerProblem>(env_, pick_input_data);
 
   // Solve task
-  TaskComposerInput pick_input(pick_problem, profiles);
+  TaskComposerInput pick_input(std::move(pick_problem), profiles);
   TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, pick_input);
   pick_future->wait();
 
@@ -353,10 +353,10 @@ bool PickAndPlaceExample::run()
   place_input_data.setData(place_input_key, place_program);
 
   // Create Task Composer Problem
-  TaskComposerProblem place_problem(env_, place_input_data);
+  auto place_problem = std::make_unique<PlanningTaskComposerProblem>(env_, place_input_data);
 
   // Solve task
-  TaskComposerInput place_input(place_problem, profiles);
+  TaskComposerInput place_input(std::move(place_problem), profiles);
   TaskComposerFuture::UPtr place_future = executor->run(*place_task, place_input);
   place_future->wait();
 

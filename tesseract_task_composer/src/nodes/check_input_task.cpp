@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/nodes/check_input_task.h>
 #include <tesseract_task_composer/profiles/check_input_profile.h>
+#include <tesseract_task_composer/planning_task_composer_problem.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
@@ -63,6 +64,9 @@ CheckInputTask::CheckInputTask(std::string name,
 TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,
                                                    OptionalTaskComposerExecutor /*executor*/) const
 {
+  // Get the problem
+  PlanningTaskComposerProblem& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+
   auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
   if (info->isAborted())
     return info;
@@ -81,7 +85,7 @@ TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,
 
     const auto& ci = input_data_poly.as<CompositeInstruction>();
     std::string profile = ci.getProfile();
-    profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
+    profile = getProfileString(name_, profile, problem.composite_profile_remapping);
     auto cur_composite_profile =
         getProfile<CheckInputProfile>(name_, profile, *input.profiles, std::make_shared<CheckInputProfile>());
     cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
@@ -93,7 +97,6 @@ TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,
     }
   }
 
-  info->env = input.problem.env;
   info->color = "green";
   info->message = "Successful";
   info->return_value = 1;

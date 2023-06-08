@@ -53,7 +53,6 @@ TaskComposerNodeInfo::UPtr StartTask::runImpl(TaskComposerInput& input, Optional
   if (info->isAborted())
     return info;
 
-  info->env = input.problem.env;
   info->color = "green";
   info->message = "Successful";
   info->return_value = 1;

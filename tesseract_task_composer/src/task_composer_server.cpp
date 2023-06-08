@@ -110,9 +110,9 @@ TaskComposerFuture::UPtr TaskComposerServer::run(TaskComposerInput& task_input, 
   if (e_it == executors_.end())
     throw std::runtime_error("Executor with name '" + name + "' does not exist!");
 
-  auto t_it = tasks_.find(task_input.problem.name);
+  auto t_it = tasks_.find(task_input.problem->name);
   if (t_it == tasks_.end())
-    throw std::runtime_error("Task with name '" + task_input.problem.name + "' does not exist!");
+    throw std::runtime_error("Task with name '" + task_input.problem->name + "' does not exist!");
 
   return e_it->second->run(*t_it->second, task_input);
 }

@@ -30,12 +30,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/map.hpp>
+#include <boost/serialization/shared_ptr.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
 //#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_task_composer/nodes/discrete_contact_check_task.h>
 #include <tesseract_task_composer/profiles/contact_check_profile.h>
+#include <tesseract_task_composer/planning_task_composer_problem.h>
+
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
@@ -67,12 +70,15 @@ DiscreteContactCheckTask::DiscreteContactCheckTask(std::string name,
 TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& input,
                                                              OptionalTaskComposerExecutor /*executor*/) const
 {
+  // Get the problem
+  PlanningTaskComposerProblem& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+
   auto info = std::make_unique<DiscreteContactCheckTaskInfo>(*this, input);
   if (info->isAborted())
     return info;
 
   info->return_value = 0;
-  info->env = input.problem.env;
+  info->env = problem.env;
   tesseract_common::Timer timer;
   timer.start();
 
@@ -91,16 +97,16 @@ TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& 
   // Get Composite Profile
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
+  profile = getProfileString(name_, profile, problem.composite_profile_remapping);
   auto cur_composite_profile =
       getProfile<ContactCheckProfile>(name_, profile, *input.profiles, std::make_shared<ContactCheckProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   // Get state solver
-  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(input.problem.manip_info);
-  tesseract_kinematics::JointGroup::UPtr manip = input.problem.env->getJointGroup(manip_info.manipulator);
-  tesseract_scene_graph::StateSolver::UPtr state_solver = input.problem.env->getStateSolver();
-  tesseract_collision::DiscreteContactManager::Ptr manager = input.problem.env->getDiscreteContactManager();
+  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(problem.manip_info);
+  tesseract_kinematics::JointGroup::UPtr manip = problem.env->getJointGroup(manip_info.manipulator);
+  tesseract_scene_graph::StateSolver::UPtr state_solver = problem.env->getStateSolver();
+  tesseract_collision::DiscreteContactManager::Ptr manager = problem.env->getDiscreteContactManager();
 
   manager->setActiveCollisionObjects(manip->getActiveLinkNames());
   manager->applyContactManagerConfig(cur_composite_profile->config.contact_manager_config);
@@ -163,6 +169,7 @@ bool DiscreteContactCheckTaskInfo::operator==(const DiscreteContactCheckTaskInfo
 {
   bool equal = true;
   equal &= TaskComposerNodeInfo::operator==(rhs);
+  equal &= tesseract_common::pointersEqual(env, rhs.env);
   //  equal &= contact_results == rhs.contact_results;
   return equal;
 }
@@ -175,6 +182,7 @@ template <class Archive>
 void DiscreteContactCheckTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
+  ar& BOOST_SERIALIZATION_NVP(env);
   ar& BOOST_SERIALIZATION_NVP(contact_results);
 }
 }  // namespace tesseract_planning

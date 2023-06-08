@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/map.hpp>
+#include <boost/serialization/shared_ptr.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <trajopt/problem_description.hpp>
@@ -37,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/utils.h>
 
 #include <tesseract_task_composer/nodes/fix_state_collision_task.h>
+
 #include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_collision/core/serialization.h>
@@ -45,17 +47,17 @@ namespace tesseract_planning
 {
 bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
                       const tesseract_common::ManipulatorInfo& manip_info,
-                      const TaskComposerInput& input,
+                      const PlanningTaskComposerProblem& problem,
                       const FixStateCollisionProfile& profile,
                       tesseract_collision::ContactResultMap& contacts)
 {
   using namespace tesseract_collision;
   using namespace tesseract_environment;
 
-  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(input.problem.manip_info);
-  auto joint_group = input.problem.env->getJointGroup(mi.manipulator);
+  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(problem.manip_info);
+  auto joint_group = problem.env->getJointGroup(mi.manipulator);
 
-  DiscreteContactManager::Ptr manager = input.problem.env->getDiscreteContactManager();
+  DiscreteContactManager::Ptr manager = problem.env->getDiscreteContactManager();
   manager->setActiveCollisionObjects(joint_group->getActiveLinkNames());
   manager->applyContactManagerConfig(profile.collision_check_config.contact_manager_config);
 
@@ -87,7 +89,7 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
 
 bool waypointInCollision(const WaypointPoly& waypoint,
                          const tesseract_common::ManipulatorInfo& manip_info,
-                         const TaskComposerInput& input,
+                         const PlanningTaskComposerProblem& problem,
                          const FixStateCollisionProfile& profile,
                          tesseract_collision::ContactResultMap& contacts)
 {
@@ -109,12 +111,12 @@ bool waypointInCollision(const WaypointPoly& waypoint,
     return false;
   }
 
-  return stateInCollision(start_pos, manip_info, input, profile, contacts);
+  return stateInCollision(start_pos, manip_info, problem, profile, contacts);
 }
 
 bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
                                       const tesseract_common::ManipulatorInfo& manip_info,
-                                      const TaskComposerInput& input,
+                                      const PlanningTaskComposerProblem& problem,
                                       const FixStateCollisionProfile& profile)
 {
   using namespace trajopt;
@@ -139,9 +141,9 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
   auto num_jnts = static_cast<std::size_t>(start_pos.size());
 
   // Setup trajopt problem with basic info
-  ProblemConstructionInfo pci(input.problem.env);
+  ProblemConstructionInfo pci(problem.env);
   pci.basic_info.n_steps = 1;
-  pci.basic_info.manip = manip_info.getCombined(input.problem.manip_info).manipulator;
+  pci.basic_info.manip = manip_info.getCombined(problem.manip_info).manipulator;
   pci.basic_info.use_time = false;
 
   // Create Kinematic Object
@@ -237,7 +239,7 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
 
 bool moveWaypointFromCollisionRandomSampler(WaypointPoly& waypoint,
                                             const tesseract_common::ManipulatorInfo& manip_info,
-                                            const TaskComposerInput& input,
+                                            const PlanningTaskComposerProblem& problem,
                                             const FixStateCollisionProfile& profile)
 {
   if (waypoint.isCartesianWaypoint())
@@ -258,8 +260,8 @@ bool moveWaypointFromCollisionRandomSampler(WaypointPoly& waypoint,
     return false;
   }
 
-  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(input.problem.manip_info);
-  tesseract_kinematics::JointGroup::UPtr kin = input.problem.env->getJointGroup(mi.manipulator);
+  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(problem.manip_info);
+  tesseract_kinematics::JointGroup::UPtr kin = problem.env->getJointGroup(mi.manipulator);
   Eigen::MatrixXd limits = kin->getLimits().joint_limits;
   Eigen::VectorXd range = limits.col(1).array() - limits.col(0).array();
 
@@ -275,7 +277,7 @@ bool moveWaypointFromCollisionRandomSampler(WaypointPoly& waypoint,
     sampled_pos = sampled_pos.cwiseMin(limits.col(1));
 
     tesseract_collision::ContactResultMap contacts;
-    if (!stateInCollision(sampled_pos, manip_info, input, profile, contacts))
+    if (!stateInCollision(sampled_pos, manip_info, problem, profile, contacts))
     {
       return setJointPosition(waypoint, sampled_pos);
     }
@@ -286,7 +288,7 @@ bool moveWaypointFromCollisionRandomSampler(WaypointPoly& waypoint,
 
 bool applyCorrectionWorkflow(WaypointPoly& waypoint,
                              const tesseract_common::ManipulatorInfo& manip_info,
-                             const TaskComposerInput& input,
+                             const PlanningTaskComposerProblem& problem,
                              const FixStateCollisionProfile& profile,
                              tesseract_collision::ContactResultMap& contacts)
 {
@@ -297,17 +299,17 @@ bool applyCorrectionWorkflow(WaypointPoly& waypoint,
       case FixStateCollisionProfile::CorrectionMethod::NONE:
         return false;  // No correction and in collision, so return false
       case FixStateCollisionProfile::CorrectionMethod::TRAJOPT:
-        if (moveWaypointFromCollisionTrajopt(waypoint, manip_info, input, profile))
+        if (moveWaypointFromCollisionTrajopt(waypoint, manip_info, problem, profile))
           return true;
         break;
       case FixStateCollisionProfile::CorrectionMethod::RANDOM_SAMPLER:
-        if (moveWaypointFromCollisionRandomSampler(waypoint, manip_info, input, profile))
+        if (moveWaypointFromCollisionRandomSampler(waypoint, manip_info, problem, profile))
           return true;
         break;
     }
   }
   // If all methods have tried without returning, then correction failed
-  waypointInCollision(waypoint, manip_info, input, profile, contacts);  // NOLINT Not sure why clang-tidy errors here
+  waypointInCollision(waypoint, manip_info, problem, profile, contacts);  // NOLINT Not sure why clang-tidy errors here
   return false;
 }
 
@@ -343,12 +345,15 @@ FixStateCollisionTask::FixStateCollisionTask(std::string name,
 TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& input,
                                                           OptionalTaskComposerExecutor /*executor*/) const
 {
+  // Get the problem
+  PlanningTaskComposerProblem& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+
   auto info = std::make_unique<FixStateCollisionTaskInfo>(*this, input);
   if (info->isAborted())
     return info;
 
   info->return_value = 0;
-  info->env = input.problem.env;
+  info->env = problem.env;
   tesseract_common::Timer timer;
   timer.start();
 
@@ -368,7 +373,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
+  profile = getProfileString(name_, profile, problem.composite_profile_remapping);
   auto cur_composite_profile = getProfile<FixStateCollisionProfile>(
       name_, profile, *input.profiles, std::make_shared<FixStateCollisionProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
@@ -382,11 +387,11 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
       {
         info->contact_results.resize(1);
         tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(first_mi->getManipulatorInfo());
-        if (waypointInCollision(first_mi->getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[0]))
+        if (waypointInCollision(first_mi->getWaypoint(), mi, problem, *cur_composite_profile, info->contact_results[0]))
         {
           CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
           if (!applyCorrectionWorkflow(
-                  first_mi->getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[0]))
+                  first_mi->getWaypoint(), mi, problem, *cur_composite_profile, info->contact_results[0]))
           {
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
@@ -412,11 +417,11 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
       {
         info->contact_results.resize(1);
         tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(last_mi->getManipulatorInfo());
-        if (waypointInCollision(last_mi->getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[0]))
+        if (waypointInCollision(last_mi->getWaypoint(), mi, problem, *cur_composite_profile, info->contact_results[0]))
         {
           CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
           if (!applyCorrectionWorkflow(
-                  last_mi->getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[0]))
+                  last_mi->getWaypoint(), mi, problem, *cur_composite_profile, info->contact_results[0]))
           {
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
@@ -468,7 +473,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
         auto& plan = flattened[i].get().as<MoveInstructionPoly>();
         tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
         in_collision_vec[i] =
-            waypointInCollision(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]);
+            waypointInCollision(plan.getWaypoint(), mi, problem, *cur_composite_profile, info->contact_results[i]);
         in_collision |= in_collision_vec[i];
       }
       if (!in_collision)
@@ -481,7 +486,8 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
         {
           auto& plan = flattened[i].get().as<MoveInstructionPoly>();
           tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
-          if (!applyCorrectionWorkflow(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]))
+          if (!applyCorrectionWorkflow(
+                  plan.getWaypoint(), mi, problem, *cur_composite_profile, info->contact_results[i]))
           {
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
@@ -522,7 +528,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
         auto& plan = flattened[i].get().as<MoveInstructionPoly>();
         tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
         in_collision_vec[i] =
-            waypointInCollision(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]);
+            waypointInCollision(plan.getWaypoint(), mi, problem, *cur_composite_profile, info->contact_results[i]);
         in_collision |= in_collision_vec[i];
       }
       if (!in_collision)
@@ -535,7 +541,8 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
         {
           auto& plan = flattened[i].get().as<MoveInstructionPoly>();
           tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
-          if (!applyCorrectionWorkflow(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]))
+          if (!applyCorrectionWorkflow(
+                  plan.getWaypoint(), mi, problem, *cur_composite_profile, info->contact_results[i]))
           {
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
@@ -576,7 +583,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
         auto& plan = flattened[i].get().as<MoveInstructionPoly>();
         tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
         in_collision_vec[i] =
-            waypointInCollision(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]);
+            waypointInCollision(plan.getWaypoint(), mi, problem, *cur_composite_profile, info->contact_results[i]);
         in_collision |= in_collision_vec[i];
       }
       if (!in_collision)
@@ -589,7 +596,8 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
         {
           auto& plan = flattened[i].get().as<MoveInstructionPoly>();
           tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
-          if (!applyCorrectionWorkflow(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]))
+          if (!applyCorrectionWorkflow(
+                  plan.getWaypoint(), mi, problem, *cur_composite_profile, info->contact_results[i]))
           {
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
@@ -630,7 +638,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
         auto& plan = flattened[i].get().as<MoveInstructionPoly>();
         tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
         in_collision_vec[i] =
-            waypointInCollision(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]);
+            waypointInCollision(plan.getWaypoint(), mi, problem, *cur_composite_profile, info->contact_results[i]);
         in_collision |= in_collision_vec[i];
       }
       if (!in_collision)
@@ -643,7 +651,8 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
         {
           auto& plan = flattened[i].get().as<MoveInstructionPoly>();
           tesseract_common::ManipulatorInfo mi = ci.getManipulatorInfo().getCombined(plan.getManipulatorInfo());
-          if (!applyCorrectionWorkflow(plan.getWaypoint(), mi, input, *cur_composite_profile, info->contact_results[i]))
+          if (!applyCorrectionWorkflow(
+                  plan.getWaypoint(), mi, problem, *cur_composite_profile, info->contact_results[i]))
           {
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
@@ -712,6 +721,7 @@ bool FixStateCollisionTaskInfo::operator==(const FixStateCollisionTaskInfo& rhs)
 {
   bool equal = true;
   equal &= TaskComposerNodeInfo::operator==(rhs);
+  equal &= tesseract_common::pointersEqual(env, rhs.env);
   //  equal &= contact_results == rhs.contact_results;
   return equal;
 }
@@ -721,6 +731,7 @@ template <class Archive>
 void FixStateCollisionTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
+  ar& BOOST_SERIALIZATION_NVP(env);
   ar& BOOST_SERIALIZATION_NVP(contact_results);
 }
 }  // namespace tesseract_planning

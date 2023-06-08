@@ -84,8 +84,8 @@ public:
   /** @brief The output keys */
   std::vector<std::string> output_keys;
 
-  /** @brief The environment used */
-  tesseract_environment::Environment::ConstPtr env;
+  //  /** @brief The environment used */
+  //  tesseract_environment::Environment::ConstPtr env;
 
   /** @brief Store the results of the task */
   tesseract_common::AnyPoly results;
