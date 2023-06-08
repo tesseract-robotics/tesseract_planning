@@ -29,10 +29,10 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
+#include <boost/serialization/access.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_environment/environment.h>
-#include <tesseract_command_language/profile_dictionary.h>
+#include <tesseract_common/serialization.h>
 #include <tesseract_task_composer/task_composer_data_storage.h>
 
 namespace tesseract_planning
@@ -47,28 +47,6 @@ struct TaskComposerProblem
   TaskComposerProblem(std::string name = "unset");
   TaskComposerProblem(TaskComposerDataStorage input_data, std::string name = "unset");
 
-  TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
-                      tesseract_common::ManipulatorInfo manip_info,
-                      TaskComposerDataStorage input_data,
-                      std::string name = "unset");
-
-  TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
-                      tesseract_common::ManipulatorInfo manip_info,
-                      ProfileRemapping move_profile_remapping,
-                      ProfileRemapping composite_profile_remapping,
-                      TaskComposerDataStorage input_data,
-                      std::string name = "unset");
-
-  TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
-                      ProfileRemapping move_profile_remapping,
-                      ProfileRemapping composite_profile_remapping,
-                      TaskComposerDataStorage input_data,
-                      std::string name = "unset");
-
-  TaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
-                      TaskComposerDataStorage input_data,
-                      std::string name = "unset");
-
   TaskComposerProblem(const TaskComposerProblem&) = default;
   TaskComposerProblem& operator=(const TaskComposerProblem&) = default;
   TaskComposerProblem(TaskComposerProblem&&) = default;
@@ -77,24 +55,6 @@ struct TaskComposerProblem
 
   /** @brief The name of the task to be ran for this problem */
   std::string name;
-
-  /** @brief Tesseract associated with current state of the system */
-  tesseract_environment::Environment::ConstPtr env;
-
-  /** @brief Global Manipulator Information */
-  tesseract_common::ManipulatorInfo manip_info;
-
-  /**
-   * @brief This allows the remapping of the Move Profile identified in the command language to a specific profile for a
-   * given motion planner.
-   */
-  ProfileRemapping move_profile_remapping;
-
-  /**
-   * @brief This allows the remapping of the Composite Profile identified in the command language to a specific profile
-   * for a given motion planner.
-   */
-  ProfileRemapping composite_profile_remapping;
 
   /** @brief The location data is stored and retrieved during execution */
   TaskComposerDataStorage input_data;

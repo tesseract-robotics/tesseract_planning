@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_input.h>
+#include <tesseract_task_composer/planning_task_composer_problem.h>
 
 namespace tesseract_planning
 {
@@ -50,8 +51,11 @@ struct CheckInputProfile
    */
   virtual bool isValid(const TaskComposerInput& input) const
   {
+    // Get the problem
+    PlanningTaskComposerProblem& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+
     // Check Input
-    if (!input.problem.env)
+    if (!problem.env)
     {
       CONSOLE_BRIDGE_logError("Input env is a nullptr");
       return false;

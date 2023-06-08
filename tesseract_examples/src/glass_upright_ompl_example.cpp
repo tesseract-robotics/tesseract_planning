@@ -40,7 +40,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/config/utils.h>
 #include <tesseract_motion_planners/ompl/config/ompl_planner_constrained_config.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
-#include <tesseract_task_composer/task_composer_problem.h>
+#include <tesseract_task_composer/planning_task_composer_problem.h>
 #include <tesseract_task_composer/task_composer_input.h>
 
 #include <tesseract_task_composer/nodes/freespace_motion_pipeline_task.h>

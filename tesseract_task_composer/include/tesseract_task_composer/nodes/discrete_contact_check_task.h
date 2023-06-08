@@ -34,6 +34,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/task_composer_task.h>
 #include <tesseract_task_composer/task_composer_node_info.h>
 
+#include <tesseract_environment/environment.h>
+
 namespace tesseract_planning
 {
 class TaskComposerPluginFactory;
@@ -81,6 +83,7 @@ public:
   DiscreteContactCheckTaskInfo() = default;
   DiscreteContactCheckTaskInfo(const DiscreteContactCheckTask& task, const TaskComposerInput& input);
 
+  tesseract_environment::Environment::ConstPtr env;
   std::vector<tesseract_collision::ContactResultMap> contact_results;
 
   TaskComposerNodeInfo::UPtr clone() const override;

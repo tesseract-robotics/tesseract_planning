@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/nodes/profile_switch_task.h>
 #include <tesseract_task_composer/profiles/profile_switch_profile.h>
+#include <tesseract_task_composer/planning_task_composer_problem.h>
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
@@ -62,12 +63,14 @@ ProfileSwitchTask::ProfileSwitchTask(std::string name,
 TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,
                                                       OptionalTaskComposerExecutor /*executor*/) const
 {
+  // Get the problem
+  PlanningTaskComposerProblem& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+
   auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
   if (info->isAborted())
     return info;
 
   info->return_value = 0;
-  info->env = input.problem.env;
   tesseract_common::Timer timer;
   timer.start();
 
@@ -86,7 +89,7 @@ TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,
   // Get Composite Profile
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
+  profile = getProfileString(name_, profile, problem.composite_profile_remapping);
   auto cur_composite_profile =
       getProfile<ProfileSwitchProfile>(name_, profile, *input.profiles, std::make_shared<ProfileSwitchProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());

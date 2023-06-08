@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 //#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_task_composer/nodes/upsample_trajectory_task.h>
 #include <tesseract_task_composer/profiles/upsample_trajectory_profile.h>
+#include <tesseract_task_composer/planning_task_composer_problem.h>
 
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/core/interpolation.h>
@@ -73,12 +74,14 @@ UpsampleTrajectoryTask::UpsampleTrajectoryTask(std::string name,
 TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& input,
                                                            OptionalTaskComposerExecutor /*executor*/) const
 {
+  // Get the problem
+  PlanningTaskComposerProblem& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+
   auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
   if (info->isAborted())
     return info;
 
   info->return_value = 0;
-  info->env = input.problem.env;
   tesseract_common::Timer timer;
   timer.start();
 
@@ -95,7 +98,7 @@ TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& in
   // Get Composite Profile
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
+  profile = getProfileString(name_, profile, problem.composite_profile_remapping);
   auto cur_composite_profile = getProfile<UpsampleTrajectoryProfile>(
       name_, profile, *input.profiles, std::make_shared<UpsampleTrajectoryProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());

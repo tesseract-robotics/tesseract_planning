@@ -66,7 +66,6 @@ TaskComposerNodeInfo::UPtr UpdateEndStateTask::runImpl(TaskComposerInput& input,
     return info;
 
   info->return_value = 0;
-  info->env = input.problem.env;
   tesseract_common::Timer timer;
   timer.start();
 

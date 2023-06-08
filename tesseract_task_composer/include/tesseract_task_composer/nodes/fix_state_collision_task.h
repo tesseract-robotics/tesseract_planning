@@ -35,6 +35,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/task_composer_node_info.h>
 
 #include <tesseract_task_composer/profiles/fix_state_collision_profile.h>
+#include <tesseract_task_composer/planning_task_composer_problem.h>
+
+#include <tesseract_environment/environment.h>
 
 namespace tesseract_planning
 {
@@ -93,6 +96,7 @@ public:
 
   TaskComposerNodeInfo::UPtr clone() const override;
 
+  tesseract_environment::Environment::ConstPtr env;
   std::vector<tesseract_collision::ContactResultMap> contact_results;
 
   bool operator==(const FixStateCollisionTaskInfo& rhs) const;
@@ -107,54 +111,54 @@ private:
 /**
  * @brief Checks if a joint state is in collision
  * @param start_pos Vector that represents a joint state
- * @param input Process Input associated with waypoint. Needed for kinematics, etc.
+ * @param problem Process problem associated with waypoint. Needed for kinematics, etc.
  * @return True if in collision
  */
 bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
                       const tesseract_common::ManipulatorInfo& manip_info,
-                      const TaskComposerInput& input,
+                      const PlanningTaskComposerProblem& problem,
                       const FixStateCollisionProfile& profile,
                       tesseract_collision::ContactResultMap& contacts);
 
 /**
  * @brief Checks if a waypoint is in collision
  * @param waypoint Must be a waypoint for which getJointPosition will return a position
- * @param input Process Input associated with waypoint. Needed for kinematics, etc.
+ * @param problem Process problem associated with waypoint. Needed for kinematics, etc.
  * @return True if in collision
  */
 bool waypointInCollision(const WaypointPoly& waypoint,
                          const tesseract_common::ManipulatorInfo& manip_info,
-                         const TaskComposerInput& input,
+                         const PlanningTaskComposerProblem& problem,
                          const FixStateCollisionProfile& profile,
                          tesseract_collision::ContactResultMap& contacts);
 
 /**
  * @brief Takes a waypoint and uses a small trajopt problem to push it out of collision if necessary
  * @param waypoint Must be a waypoint for which getJointPosition will return a position
- * @param input Process Input associated with waypoint. Needed for kinematics, etc.
+ * @param problem Process problem associated with waypoint. Needed for kinematics, etc.
  * @param profile Profile containing needed params
  * @return True if successful
  */
 bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
                                       const tesseract_common::ManipulatorInfo& manip_info,
-                                      const TaskComposerInput& input,
+                                      const PlanningTaskComposerProblem& problem,
                                       const FixStateCollisionProfile& profile);
 
 /**
  * @brief Takes a waypoint and uses random sampling to find a position that is out of collision
  * @param waypoint Must be a waypoint for which getJointPosition will return a position
- * @param input Process Input associated with waypoint. Needed for kinematics, etc.
+ * @param problem Process problem associated with waypoint. Needed for kinematics, etc.
  * @param profile Profile containing needed params
  * @return True if successful
  */
 bool moveWaypointFromCollisionRandomSampler(WaypointPoly& waypoint,
                                             const tesseract_common::ManipulatorInfo& manip_info,
-                                            const TaskComposerInput& input,
+                                            const PlanningTaskComposerProblem& problem,
                                             const FixStateCollisionProfile& profile);
 
 bool applyCorrectionWorkflow(WaypointPoly& waypoint,
                              const tesseract_common::ManipulatorInfo& manip_info,
-                             const TaskComposerInput& input,
+                             const PlanningTaskComposerProblem& problem,
                              const FixStateCollisionProfile& profile);
 }  // namespace tesseract_planning
 

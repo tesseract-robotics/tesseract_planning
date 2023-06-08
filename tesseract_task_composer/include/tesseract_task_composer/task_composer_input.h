@@ -51,13 +51,13 @@ struct TaskComposerInput
   using UPtr = std::unique_ptr<TaskComposerInput>;
   using ConstUPtr = std::unique_ptr<const TaskComposerInput>;
 
-  TaskComposerInput(TaskComposerProblem problem, ProfileDictionary::ConstPtr profiles = nullptr);
+  TaskComposerInput(TaskComposerProblem::UPtr problem, ProfileDictionary::ConstPtr profiles = nullptr);
   TaskComposerInput& operator=(const TaskComposerInput&) = delete;
   TaskComposerInput& operator=(TaskComposerInput&&) = delete;
   virtual ~TaskComposerInput() = default;
 
   /** @brief The problem */
-  TaskComposerProblem problem;
+  TaskComposerProblem::UPtr problem;
 
   /** @brief The Profiles to use */
   ProfileDictionary::ConstPtr profiles;
@@ -112,7 +112,7 @@ protected:
   friend class boost::serialization::access;
 
   TaskComposerInput() = default;  // Required for serialization
-  TaskComposerInput(const TaskComposerInput&);
+                                  //  TaskComposerInput(const TaskComposerInput&);
   TaskComposerInput(TaskComposerInput&&) noexcept;
 
   template <class Archive>

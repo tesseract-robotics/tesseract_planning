@@ -9,12 +9,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/task_composer_graph.h>
 #include <tesseract_task_composer/task_composer_data_storage.h>
 #include <tesseract_task_composer/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/planning_task_composer_problem.h>
 
 #include <tesseract_common/types.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_visualization/visualization_loader.h>
-//#include <tesseract_process_managers/utils/task_info_statistics.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_planning;
@@ -62,7 +62,7 @@ int main()
   task_data.setData(input_key, program);
 
   // Create problem
-  TaskComposerProblem task_problem(env, task_data);
+  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env, task_data);
 
   // Create task input
   auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);

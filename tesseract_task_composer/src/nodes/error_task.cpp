@@ -49,7 +49,6 @@ TaskComposerNodeInfo::UPtr ErrorTask::runImpl(TaskComposerInput& input, Optional
 
   info->color = "red";
   info->return_value = 0;
-  info->env = input.problem.env;
   input.abort(uuid_);
   info->message = "Error";
   CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());

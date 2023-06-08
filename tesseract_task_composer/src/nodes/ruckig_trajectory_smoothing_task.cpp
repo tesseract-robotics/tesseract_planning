@@ -32,6 +32,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_task_composer/nodes/ruckig_trajectory_smoothing_task.h>
 #include <tesseract_task_composer/profiles/ruckig_trajectory_smoothing_profile.h>
+#include <tesseract_task_composer/planning_task_composer_problem.h>
+
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
@@ -75,12 +77,14 @@ RuckigTrajectorySmoothingTask::RuckigTrajectorySmoothingTask(std::string name,
 TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerInput& input,
                                                                   OptionalTaskComposerExecutor /*executor*/) const
 {
+  // Get the problem
+  PlanningTaskComposerProblem& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+
   auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
   if (info->isAborted())
     return info;
 
   info->return_value = 0;
-  info->env = input.problem.env;
   tesseract_common::Timer timer;
   timer.start();
 
@@ -98,12 +102,12 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
 
   auto& ci = input_data_poly.as<CompositeInstruction>();
   const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
-  auto joint_group = input.problem.env->getJointGroup(manip_info.manipulator);
+  auto joint_group = problem.env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, input.problem.composite_profile_remapping);
+  profile = getProfileString(name_, profile, problem.composite_profile_remapping);
   auto cur_composite_profile = getProfile<RuckigTrajectorySmoothingCompositeProfile>(
       name_, profile, *input.profiles, std::make_shared<RuckigTrajectorySmoothingCompositeProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
@@ -141,7 +145,7 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
     std::string move_profile = mi.getProfile();
 
     // Check for remapping of the plan profile
-    move_profile = getProfileString(name_, profile, input.problem.move_profile_remapping);
+    move_profile = getProfileString(name_, profile, problem.move_profile_remapping);
     auto cur_move_profile = getProfile<RuckigTrajectorySmoothingMoveProfile>(
         name_, move_profile, *input.profiles, std::make_shared<RuckigTrajectorySmoothingMoveProfile>());
     //    cur_move_profile = applyProfileOverrides(name_, profile, cur_move_profile, mi.profile_overrides);

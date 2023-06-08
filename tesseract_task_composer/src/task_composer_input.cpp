@@ -27,6 +27,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/shared_ptr.hpp>
+#include <boost/serialization/unique_ptr.hpp>
 #if (BOOST_VERSION >= 107400) && (BOOST_VERSION < 107500)
 #include <boost/serialization/library_version_type.hpp>
 #endif
@@ -39,8 +40,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerInput::TaskComposerInput(TaskComposerProblem problem, ProfileDictionary::ConstPtr profiles)
-  : problem(std::move(problem)), profiles(std::move(profiles)), data_storage(this->problem.input_data)
+TaskComposerInput::TaskComposerInput(TaskComposerProblem::UPtr problem, ProfileDictionary::ConstPtr profiles)
+  : problem(std::move(problem)), profiles(std::move(profiles)), data_storage(this->problem->input_data)
 {
 }
 
@@ -59,7 +60,7 @@ void TaskComposerInput::abort(const boost::uuids::uuid& calling_node)
 void TaskComposerInput::reset()
 {
   aborted_ = false;
-  data_storage = problem.input_data;
+  data_storage = problem->input_data;
   task_infos.clear();
 }
 
@@ -76,14 +77,14 @@ bool TaskComposerInput::operator==(const TaskComposerInput& rhs) const
 
 bool TaskComposerInput::operator!=(const TaskComposerInput& rhs) const { return !operator==(rhs); }
 
-TaskComposerInput::TaskComposerInput(const TaskComposerInput& rhs)
-  : problem(rhs.problem)
-  , profiles(rhs.profiles)
-  , data_storage(rhs.data_storage)
-  , task_infos(rhs.task_infos)
-  , aborted_(rhs.aborted_.load())
-{
-}
+// TaskComposerInput::TaskComposerInput(const TaskComposerInput& rhs)
+//  : problem(rhs.problem)
+//  , profiles(rhs.profiles)
+//  , data_storage(rhs.data_storage)
+//  , task_infos(rhs.task_infos)
+//  , aborted_(rhs.aborted_.load())
+//{
+//}
 
 TaskComposerInput::TaskComposerInput(TaskComposerInput&& rhs) noexcept
   : problem(std::move(rhs.problem))
