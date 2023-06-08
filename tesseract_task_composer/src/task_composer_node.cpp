@@ -91,9 +91,9 @@ void TaskComposerNode::dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& 
   }
   else
   {
-    if(node_info->return_value == 0 && outbound_edges_.size() > 1)
+    if (node_info->return_value == 0 && outbound_edges_.size() > 1)
       color = "red";
-    else if(node_info->return_value == 1 || outbound_edges_.size() == 1)
+    else if (node_info->return_value == 1 || outbound_edges_.size() == 1)
       color = "green";
     else
       color = "white";

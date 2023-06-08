@@ -99,7 +99,9 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  void dumpHelper(std::ostream& os, const TaskComposerGraph& parent, const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const;
+  void dumpHelper(std::ostream& os,
+                  const TaskComposerGraph& parent,
+                  const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const;
 
   std::map<boost::uuids::uuid, TaskComposerNode::Ptr> nodes_;
 };

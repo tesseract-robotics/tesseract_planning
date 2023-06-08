@@ -108,11 +108,11 @@ void TaskComposerTask::dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& 
   else
   {
     return_value = node_info->return_value;
-    if(node_info->return_value == 0 && outbound_edges_.size() > 1)
+    if (node_info->return_value == 0 && outbound_edges_.size() > 1)
     {
       color = "red";
     }
-    else if(node_info->return_value >= 1 || outbound_edges_.size() == 1)
+    else if (node_info->return_value >= 1 || outbound_edges_.size() == 1)
     {
       color = "green";
     }
@@ -124,8 +124,7 @@ void TaskComposerTask::dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& 
 
   if (is_conditional_)
   {
-    os << std::endl
-       << tmp << " [shape=diamond, label=\"" << name_ << "\\n(" << uuid_str_ << ")";
+    os << std::endl << tmp << " [shape=diamond, label=\"" << name_ << "\\n(" << uuid_str_ << ")";
     if (node_info)
     {
       os << "\\nTime: " << std::fixed << std::setprecision(3) << node_info->elapsed_time << "s"
@@ -140,8 +139,8 @@ void TaskComposerTask::dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& 
       {
         line_type = "bold";
       }
-      os << tmp << " -> " << toString(outbound_edges_[i], "node_") << " [style=" << line_type <<", label=\"[" << std::to_string(i)
-         << "]\""
+      os << tmp << " -> " << toString(outbound_edges_[i], "node_") << " [style=" << line_type << ", label=\"["
+         << std::to_string(i) << "]\""
          << "];\n";
     }
   }

@@ -195,14 +195,17 @@ void TaskComposerGraph::dump(std::ostream& os, const TaskComposerNodeInfo::UPtr&
   os << "}\n";
 }
 
-void TaskComposerGraph::dump(std::ostream& os, const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
+void TaskComposerGraph::dump(std::ostream& os,
+                             const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
 {
   os << "digraph TaskComposer {\n";
   dumpHelper(os, *this, results_map);
   os << "}\n";
 }
 
-void TaskComposerGraph::dumpHelper(std::ostream& os, const TaskComposerGraph& /*parent*/, const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
+void TaskComposerGraph::dumpHelper(std::ostream& os,
+                                   const TaskComposerGraph& /*parent*/,
+                                   const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
 {
   std::ostringstream sub_graphs;
   const std::string tmp = toString(uuid_);
