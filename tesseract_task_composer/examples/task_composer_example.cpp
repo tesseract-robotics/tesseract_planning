@@ -1,10 +1,10 @@
 
 #include <iostream>
 #include <tesseract_common/utils.h>
-#include <tesseract_task_composer/task_composer_graph.h>
-#include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_problem.h>
-#include <tesseract_task_composer/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/core/task_composer_graph.h>
+#include <tesseract_task_composer/core/task_composer_task.h>
+#include <tesseract_task_composer/core/task_composer_problem.h>
+#include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 
 using namespace tesseract_planning;

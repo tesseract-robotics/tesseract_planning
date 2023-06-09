@@ -5,9 +5,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
 #include <tesseract_environment/environment.h>
-#include <tesseract_task_composer/profiles/fix_state_bounds_profile.h>
-#include <tesseract_task_composer/nodes/fix_state_bounds_task.h>
-#include <tesseract_task_composer/task_composer_input.h>
+#include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
+#include <tesseract_task_composer/planning/nodes/fix_state_bounds_task.h>
+#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
+#include <tesseract_task_composer/core/task_composer_input.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -84,10 +85,10 @@ void checkProgram(const Environment::Ptr& env,
   task_data.setData("input_program", program);
 
   // Create problem
-  TaskComposerProblem task_problem(env, task_data);
+  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env, task_data, profiles);
 
   // Create input
-  auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
+  auto task_input = std::make_shared<TaskComposerInput>(std::move(task_problem));
 
   // Create task
   FixStateBoundsTask task(FIX_STATE_BOUNDS_TASK_NAME, "input_program", "output_program");

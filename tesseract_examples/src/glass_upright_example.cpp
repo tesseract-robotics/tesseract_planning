@@ -38,10 +38,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
-#include <tesseract_task_composer/planning_task_composer_problem.h>
-#include <tesseract_task_composer/task_composer_input.h>
-
-#include <tesseract_task_composer/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
+#include <tesseract_task_composer/core/task_composer_input.h>
+#include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
 #include <tesseract_motion_planners/core/utils.h>
@@ -242,7 +241,7 @@ bool GlassUprightExample::run()
   input_data.setData(input_key, program);
 
   // Create Task Composer Problem
-  auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, input_data);
+  auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, input_data, profiles);
 
   if (plotter_ != nullptr && plotter_->isConnected())
     plotter_->waitForInput("Hit Enter to solve for trajectory.");
@@ -250,7 +249,7 @@ bool GlassUprightExample::run()
   // Solve process plan
   tesseract_common::Timer stopwatch;
   stopwatch.start();
-  TaskComposerInput input(std::move(problem), profiles);
+  TaskComposerInput input(std::move(problem));
   TaskComposerFuture::UPtr future = executor->run(*task, input);
   future->wait();
 

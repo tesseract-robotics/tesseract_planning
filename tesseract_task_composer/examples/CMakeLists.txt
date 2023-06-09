@@ -5,10 +5,11 @@ find_package(Taskflow REQUIRED)
 add_executable(${PROJECT_NAME}_example task_composer_example.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_example
-  ${PROJECT_NAME}
-  console_bridge::console_bridge
-  tesseract::tesseract_environment
-  tesseract::tesseract_support)
+  PRIVATE ${PROJECT_NAME}
+          ${PROJECT_NAME}_taskflow
+          console_bridge::console_bridge
+          tesseract::tesseract_environment
+          tesseract::tesseract_support)
 target_compile_options(${PROJECT_NAME}_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                        ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
@@ -20,11 +21,13 @@ list(APPEND Examples ${PROJECT_NAME}_example)
 add_executable(${PROJECT_NAME}_trajopt_example task_composer_trajopt_example.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_trajopt_example
-  ${PROJECT_NAME}
-  console_bridge::console_bridge
-  tesseract::tesseract_environment
-  tesseract::tesseract_visualization
-  tesseract::tesseract_support)
+  PRIVATE ${PROJECT_NAME}
+          ${PROJECT_NAME}_planning
+          ${PROJECT_NAME}_taskflow
+          console_bridge::console_bridge
+          tesseract::tesseract_environment
+          tesseract::tesseract_visualization
+          tesseract::tesseract_support)
 target_compile_options(${PROJECT_NAME}_trajopt_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_trajopt_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
@@ -36,11 +39,13 @@ list(APPEND Examples ${PROJECT_NAME}_trajopt_example)
 add_executable(${PROJECT_NAME}_raster_example task_composer_raster_example.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_raster_example
-  ${PROJECT_NAME}
-  console_bridge::console_bridge
-  tesseract::tesseract_environment
-  tesseract::tesseract_visualization
-  tesseract::tesseract_support)
+  PRIVATE ${PROJECT_NAME}
+          ${PROJECT_NAME}_planning
+          ${PROJECT_NAME}_taskflow
+          console_bridge::console_bridge
+          tesseract::tesseract_environment
+          tesseract::tesseract_visualization
+          tesseract::tesseract_support)
 target_compile_options(${PROJECT_NAME}_raster_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                               ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_raster_example PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})

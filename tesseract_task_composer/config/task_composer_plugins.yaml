@@ -3,6 +3,8 @@ task_composer_plugins:
     - /usr/local/lib
   search_libraries:
     - tesseract_task_composer_factories
+    - tesseract_task_composer_planning_factories
+    - tesseract_task_composer_taskflow_factories
   executors:
     default: TaskflowExecutor
     plugins:
