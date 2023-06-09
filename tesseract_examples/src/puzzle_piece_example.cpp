@@ -42,10 +42,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
-#include <tesseract_task_composer/planning_task_composer_problem.h>
-#include <tesseract_task_composer/task_composer_input.h>
-
-#include <tesseract_task_composer/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
+#include <tesseract_task_composer/core/task_composer_input.h>
+#include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
 using namespace trajopt;
@@ -228,10 +227,10 @@ bool PuzzlePieceExample::run()
     plotter_->waitForInput();
 
   // Create Task Composer Problem
-  auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, input_data);
+  auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, input_data, profiles);
 
   // Solve task
-  TaskComposerInput input(std::move(problem), profiles);
+  TaskComposerInput input(std::move(problem));
   TaskComposerFuture::UPtr future = executor->run(*task, input);
   future->wait();
 
