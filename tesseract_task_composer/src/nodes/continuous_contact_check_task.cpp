@@ -128,7 +128,7 @@ TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput
     return info;
   }
 
-  info->successful = true;
+  info->color = "green";
   info->message = "Continuous contact check succeeded";
   CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
   info->return_value = 1;

@@ -35,6 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_input.h>
+#include <tesseract_task_composer/task_composer_node.h>
 
 namespace tesseract_planning
 {
@@ -47,7 +48,13 @@ bool TaskComposerInput::isAborted() const { return aborted_; }
 
 bool TaskComposerInput::isSuccessful() const { return !aborted_; }
 
-void TaskComposerInput::abort() { aborted_ = true; }
+void TaskComposerInput::abort(const boost::uuids::uuid& calling_node)
+{
+  if (!calling_node.is_nil())
+    task_infos.setAborted(calling_node);
+
+  aborted_ = true;
+}
 
 void TaskComposerInput::reset()
 {

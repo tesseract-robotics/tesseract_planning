@@ -206,10 +206,12 @@ std::string TaskComposerGraph::dump(std::ostream& os,
     }
     else if (node->getType() == TaskComposerNodeType::GRAPH)
     {
+      auto it = results_map.find(node->getUUID());
+      std::string color = (it == results_map.end()) ? "blue" : it->second->color;
       const std::string tmp = toString(node->uuid_, "node_");
       os << std::endl
          << tmp << " [shape=box3d, label=\"Subgraph: " << node->name_ << "\\n(" << node->uuid_str_
-         << ")\", color=blue, margin=\"0.1\"];\n";
+         << ")\", margin=\"0.1\", color=" << color << "];\n";
       node->dump(sub_graphs, this, results_map);
     }
   }

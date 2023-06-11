@@ -66,6 +66,12 @@ public:
   /** @brief The task uuid */
   boost::uuids::uuid uuid{};
 
+  /**
+   * @brief The parent uuid
+   * @details This is set when the node is added to a graph
+   */
+  boost::uuids::uuid parent_uuid{};
+
   /** @brief The nodes inbound edges */
   std::vector<boost::uuids::uuid> inbound_edges;
 
@@ -87,18 +93,14 @@ public:
   /** @brief Value returned from the Task on completion */
   int return_value{ -1 };
 
-  /**
-   * @brief Indicate if successful
-   * @details The return value is user defined so cannot be used to know if successful or not so this is used to know if
-   * the node was successful
-   */
-  bool successful{ false };
-
   /** @brief Status message */
   std::string message;
 
   /** @brief Time spent in this task in seconds*/
   double elapsed_time{ 0 };
+
+  /** @brief The DOT Graph color to fill with */
+  std::string color{ "red" };
 
   /**
    *  @brief dot graph string for visualization
@@ -153,20 +155,17 @@ struct TaskComposerNodeInfoContainer
    */
   void addInfo(TaskComposerNodeInfo::UPtr info);
 
-  /**
-   * @brief Get node info provided the uuid
-   * @param key The uuid to retrieve the node info for
-   * @return The node info if the
-   */
-  const TaskComposerNodeInfo& getInfo(boost::uuids::uuid key) const;
-
   /** @brief Get a copy of the task_info_map_ in case it gets resized*/
   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> getInfoMap() const;
 
+  /**
+   * @brief Called if aborted
+   * @details This is set if abort is called in input
+   */
+  void setAborted(const boost::uuids::uuid& node_uuid);
+
   /** @brief Clear the contents */
   void clear();
-
-  const TaskComposerNodeInfo& operator[](boost::uuids::uuid key) const;
 
   bool operator==(const TaskComposerNodeInfoContainer& rhs) const;
   bool operator!=(const TaskComposerNodeInfoContainer& rhs) const;
@@ -178,7 +177,11 @@ private:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   mutable std::shared_mutex mutex_;
+  boost::uuids::uuid aborting_node_{};
   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> info_map_;
+
+  void updateParents(std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& info_map,
+                     const boost::uuids::uuid& uuid) const;
 };
 }  // namespace tesseract_planning
 

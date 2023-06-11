@@ -126,7 +126,7 @@ TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& 
     return info;
   }
 
-  info->successful = true;
+  info->color = "green";
   info->message = "Discrete contact check succeeded";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();

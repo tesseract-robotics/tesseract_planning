@@ -185,7 +185,7 @@ TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComp
     return info;
   }
 
-  info->successful = true;
+  info->color = "green";
   info->message = "Successful";
   input.data_storage.setData(output_keys_[0], input_data_poly);
   info->return_value = 1;

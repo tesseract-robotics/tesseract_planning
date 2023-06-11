@@ -168,7 +168,7 @@ protected:
       input.data_storage.setData(output_keys_[0], response.results);
 
       info->return_value = 1;
-      info->successful = true;
+      info->color = "green";
       info->message = response.message;
       info->elapsed_time = timer.elapsedSeconds();
       CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");

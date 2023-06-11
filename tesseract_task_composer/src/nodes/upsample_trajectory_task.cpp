@@ -108,7 +108,7 @@ TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& in
   upsample(new_results, ci, start_instruction, cur_composite_profile->longest_valid_segment_length);
   input.data_storage.setData(output_keys_[0], new_results);
 
-  info->successful = true;
+  info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();

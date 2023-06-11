@@ -102,7 +102,7 @@ TaskComposerNodeInfo::UPtr UpdateStartStateTask::runImpl(TaskComposerInput& inpu
   // Store results
   input.data_storage.setData(output_keys_[0], input_data_poly);
 
-  info->successful = true;
+  info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();

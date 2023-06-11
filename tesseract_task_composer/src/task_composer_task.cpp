@@ -85,7 +85,7 @@ int TaskComposerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
   catch (const std::exception& e)
   {
     results = std::make_unique<TaskComposerNodeInfo>(*this, input);
-    results->successful = false;
+    results->color = "red";
     results->message = "Exception thrown: " + std::string(e.what());
     results->return_value = 0;
   }
@@ -110,7 +110,7 @@ std::string TaskComposerTask::dump(std::ostream& os,
   {
     return_value = it->second->return_value;
     if (!it->second->isAborted())
-      color = (it->second->successful) ? "green" : "red";
+      color = it->second->color;
   }
 
   if (is_conditional_)

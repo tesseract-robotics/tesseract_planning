@@ -94,7 +94,7 @@ TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,
   // Return the value specified in the profile
   CONSOLE_BRIDGE_logDebug("ProfileSwitchProfile returning %d", cur_composite_profile->return_value);
 
-  info->successful = true;
+  info->color = "green";
   info->message = "Successful";
   info->return_value = cur_composite_profile->return_value;
   info->elapsed_time = timer.elapsedSeconds();

@@ -485,7 +485,7 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
 
   input.data_storage.setData(output_keys_[0], program);
 
-  info->successful = true;
+  info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();

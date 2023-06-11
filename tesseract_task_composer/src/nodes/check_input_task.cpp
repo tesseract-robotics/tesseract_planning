@@ -94,7 +94,7 @@ TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,
   }
 
   info->env = input.problem.env;
-  info->successful = true;
+  info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
   return info;

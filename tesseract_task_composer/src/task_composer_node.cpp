@@ -88,7 +88,7 @@ std::string TaskComposerNode::dump(std::ostream& os,
   std::string color{ "white" };
   auto it = results_map.find(uuid_);
   if (it != results_map.end() && !it->second->isAborted())
-    color = (it->second->successful) ? "green" : "red";
+    color = it->second->color;
 
   os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")";
   if (it != results_map.end())
