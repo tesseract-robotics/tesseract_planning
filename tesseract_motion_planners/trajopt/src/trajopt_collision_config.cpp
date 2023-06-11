@@ -40,7 +40,7 @@ CollisionCostConfig::CollisionCostConfig(const tinyxml2::XMLElement& xml_element
   const tinyxml2::XMLElement* enabled_element = xml_element.FirstChildElement("Enabled");
   const tinyxml2::XMLElement* use_weighted_sum_element = xml_element.FirstChildElement("UseWeightedSum");
   const tinyxml2::XMLElement* type_element = xml_element.FirstChildElement("CollisionEvaluator");
-  const tinyxml2::XMLElement* buffer_margin_element = xml_element.FirstChildElement("BufferMargin");
+  const tinyxml2::XMLElement* safety_margin_element = xml_element.FirstChildElement("SafetyMargin");
   const tinyxml2::XMLElement* safety_margin_buffer_element = xml_element.FirstChildElement("SafetyMarginBuffer");
   const tinyxml2::XMLElement* coeff_element = xml_element.FirstChildElement("Coefficient");
 
@@ -68,17 +68,17 @@ CollisionCostConfig::CollisionCostConfig(const tinyxml2::XMLElement& xml_element
     type = static_cast<trajopt::CollisionEvaluatorType>(coll_type);
   }
 
-  if (buffer_margin_element != nullptr)
+  if (safety_margin_element != nullptr)
   {
-    std::string buffer_margin_string;
-    status = tesseract_common::QueryStringText(buffer_margin_element, buffer_margin_string);
+    std::string safety_margin_string;
+    status = tesseract_common::QueryStringText(safety_margin_element, safety_margin_string);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("CollisionCostConfig: Error parsing BufferMargin string");
+      throw std::runtime_error("CollisionCostConfig: Error parsing SafetyMargin string");
 
-    if (!tesseract_common::isNumeric(buffer_margin_string))
-      throw std::runtime_error("CollisionCostConfig: BufferMargin is not a numeric values.");
+    if (!tesseract_common::isNumeric(safety_margin_string))
+      throw std::runtime_error("CollisionCostConfig: SafetyMargin is not a numeric values.");
 
-    tesseract_common::toNumeric<double>(buffer_margin_string, safety_margin);
+    tesseract_common::toNumeric<double>(safety_margin_string, safety_margin);
   }
 
   if (safety_margin_buffer_element != nullptr)
@@ -124,9 +124,9 @@ tinyxml2::XMLElement* CollisionCostConfig::toXML(tinyxml2::XMLDocument& doc) con
   xml_type->SetAttribute("type", std::to_string(static_cast<int>(type)).c_str());
   xml_coll_cost_config->InsertEndChild(xml_type);
 
-  tinyxml2::XMLElement* xml_buffer_margin = doc.NewElement("BufferMargin");
-  xml_buffer_margin->SetText(safety_margin);
-  xml_coll_cost_config->InsertEndChild(xml_buffer_margin);
+  tinyxml2::XMLElement* xml_safety_margin = doc.NewElement("SafetyMargin");
+  xml_safety_margin->SetText(safety_margin);
+  xml_coll_cost_config->InsertEndChild(xml_safety_margin);
 
   tinyxml2::XMLElement* xml_safety_margin_buffer = doc.NewElement("SafetyMarginBuffer");
   xml_safety_margin_buffer->SetText(safety_margin_buffer);

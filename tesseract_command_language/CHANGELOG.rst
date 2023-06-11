@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.17.0 (2023-06-06)
+-------------------
+* Fix composite instruction iterator construction to call default constructor
+* Contributors: Levi Armstrong
+
 0.16.3 (2023-05-03)
 -------------------
 

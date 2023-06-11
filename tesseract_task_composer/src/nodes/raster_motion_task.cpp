@@ -64,7 +64,13 @@ createTask(const std::string& name,
   {
     std::map<std::string, std::string> input_renaming;
     for (const auto& x : input_indexing)
-      input_renaming[x] = x + std::to_string(index);
+    {
+      std::string name = task_name;
+      name.append("_");
+      name.append(x);
+      name.append(std::to_string(index));
+      input_renaming[x] = name;
+    }
 
     tf_results.node->renameInputKeys(input_renaming);
   }
@@ -73,7 +79,13 @@ createTask(const std::string& name,
   {
     std::map<std::string, std::string> output_renaming;
     for (const auto& x : output_indexing)
-      output_renaming[x] = x + std::to_string(index);
+    {
+      std::string name = task_name;
+      name.append("_");
+      name.append(x);
+      name.append(std::to_string(index));
+      output_renaming[x] = name;
+    }
 
     tf_results.node->renameOutputKeys(output_renaming);
   }
