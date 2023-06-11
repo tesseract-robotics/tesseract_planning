@@ -41,7 +41,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 class TaskComposerNode;
-class TaskComposerInput;
+struct TaskComposerInput;
 
 /** Stores information about a node */
 class TaskComposerNodeInfo
