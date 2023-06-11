@@ -65,7 +65,9 @@ public:
 
   bool isConditional() const;
 
-  void dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& node_info = nullptr) const override;
+  std::string dump(std::ostream& os,
+                   const TaskComposerNode* parent = nullptr,
+                   const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map = {}) const override;
 
 protected:
   friend struct tesseract_common::Serialization;

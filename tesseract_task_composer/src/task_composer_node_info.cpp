@@ -37,13 +37,23 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/task_composer_node.h>
+#include <tesseract_task_composer/task_composer_input.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
-TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node)
-  : name(node.name_), uuid(node.uuid_), inbound_edges(node.inbound_edges_), outbound_edges(node.outbound_edges_)
+TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node, const TaskComposerInput& input)
+  : name(node.name_)
+  , uuid(node.uuid_)
+  , inbound_edges(node.inbound_edges_)
+  , outbound_edges(node.outbound_edges_)
+  , aborted_(input.isAborted())
 {
+  if (aborted_)
+  {
+    return_value = 0;
+    message = "Aborted";
+  }
 }
 
 bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
@@ -55,6 +65,7 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= uuid == rhs.uuid;
   equal &= results == rhs.results;
   equal &= return_value == rhs.return_value;
+  equal &= successful == rhs.successful;
   equal &= message == rhs.message;
   equal &= env == rhs.env;
   equal &= tesseract_common::almostEqualRelativeAndAbs(elapsed_time, rhs.elapsed_time, max_diff);
@@ -62,10 +73,13 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= tesseract_common::isIdentical(outbound_edges, rhs.outbound_edges, true);
   equal &= tesseract_common::isIdentical(input_keys, rhs.input_keys, false);
   equal &= tesseract_common::isIdentical(output_keys, rhs.output_keys, false);
+  equal &= aborted_ == rhs.aborted_;
   return equal;
 }
 
 bool TaskComposerNodeInfo::operator!=(const TaskComposerNodeInfo& rhs) const { return !operator==(rhs); }
+
+bool TaskComposerNodeInfo::isAborted() const { return aborted_; }
 
 TaskComposerNodeInfo::UPtr TaskComposerNodeInfo::clone() const { return std::make_unique<TaskComposerNodeInfo>(*this); }
 
@@ -76,6 +90,7 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("uuid", uuid);
   ar& boost::serialization::make_nvp("results", results);
   ar& boost::serialization::make_nvp("return_value", return_value);
+  ar& boost::serialization::make_nvp("successful", successful);
   ar& boost::serialization::make_nvp("message", message);
   ar& boost::serialization::make_nvp("environment", env);
   ar& boost::serialization::make_nvp("elapsed_time", elapsed_time);
@@ -83,6 +98,7 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("outbound_edges", outbound_edges);
   ar& boost::serialization::make_nvp("input_keys", input_keys);
   ar& boost::serialization::make_nvp("output_keys", output_keys);
+  ar& boost::serialization::make_nvp("aborted", aborted_);
 }
 
 TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(const TaskComposerNodeInfoContainer& other)

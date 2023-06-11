@@ -284,16 +284,12 @@ void RasterMotionTask::serialize(Archive& ar, const unsigned int /*version*/)  /
 TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
                                                      OptionalTaskComposerExecutor executor) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
+  if (info->isAborted())
+    return info;
+
   info->return_value = 0;
   info->env = input.problem.env;
-
-  if (input.isAborted())
-  {
-    info->message = "Aborted";
-    return info;
-  }
-
   tesseract_common::Timer timer;
   timer.start();
 
@@ -448,9 +444,15 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
 
   auto info_map = input.task_infos.getInfoMap();
 
-  std::stringstream dot_graph;
-  task_graph.dump(dot_graph, info_map);  // dump the graph including dynamic tasks
-  info->dot_graph = dot_graph.str();
+  if (input.dotgraph)
+  {
+    std::stringstream dot_graph;
+    dot_graph << "subgraph cluster_" << toString(uuid_) << " {\n color=black;\n label = \"" << name_ << "\\n("
+              << uuid_str_ << ")\";\n";
+    task_graph.dump(dot_graph, this, info_map);  // dump the graph including dynamic tasks
+    dot_graph << "}\n";
+    info->dotgraph = dot_graph.str();
+  }
 
   if (input.isAborted())
   {
@@ -483,6 +485,7 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
 
   input.data_storage.setData(output_keys_[0], program);
 
+  info->successful = true;
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();

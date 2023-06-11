@@ -72,16 +72,12 @@ FormatAsInputTask::FormatAsInputTask(std::string name,
 TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerInput& input,
                                                       OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
+  if (info->isAborted())
+    return info;
+
   info->return_value = 0;
   info->env = input.problem.env;
-
-  if (input.isAborted())
-  {
-    info->message = "Aborted";
-    return info;
-  }
-
   tesseract_common::Timer timer;
   timer.start();
 
@@ -155,6 +151,7 @@ TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerInput& input,
 
   input.data_storage.setData(output_keys_[0], input_formatted_data_poly);
 
+  info->successful = true;
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();

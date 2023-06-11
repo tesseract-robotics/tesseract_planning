@@ -67,16 +67,12 @@ ContinuousContactCheckTask::ContinuousContactCheckTask(std::string name,
 TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput& input,
                                                                OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<ContinuousContactCheckTaskInfo>(*this);
+  auto info = std::make_unique<ContinuousContactCheckTaskInfo>(*this, input);
+  if (info->isAborted())
+    return info;
+
   info->return_value = 0;
   info->env = input.problem.env;
-
-  if (input.isAborted())
-  {
-    info->message = "Aborted";
-    return info;
-  }
-
   tesseract_common::Timer timer;
   timer.start();
 
@@ -132,6 +128,7 @@ TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput
     return info;
   }
 
+  info->successful = true;
   info->message = "Continuous contact check succeeded";
   CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
   info->return_value = 1;
@@ -153,8 +150,9 @@ void ContinuousContactCheckTask::serialize(Archive& ar, const unsigned int /*ver
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-ContinuousContactCheckTaskInfo::ContinuousContactCheckTaskInfo(const ContinuousContactCheckTask& task)
-  : TaskComposerNodeInfo(task)
+ContinuousContactCheckTaskInfo::ContinuousContactCheckTaskInfo(const ContinuousContactCheckTask& task,
+                                                               const TaskComposerInput& input)
+  : TaskComposerNodeInfo(task, input)
 {
 }
 

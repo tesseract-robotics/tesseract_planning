@@ -187,26 +187,13 @@ void TaskComposerGraph::renameOutputKeys(const std::map<std::string, std::string
     node.second->renameOutputKeys(output_keys);
 }
 
-void TaskComposerGraph::dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& node_info) const
+std::string TaskComposerGraph::dump(std::ostream& os,
+                                    const TaskComposerNode* parent,
+                                    const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
 {
-  os << "digraph TaskComposer {\n";
-  std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> empty_map;
-  dumpHelper(os, *this, empty_map);
-  os << "}\n";
-}
+  if (parent == nullptr)
+    os << "digraph TaskComposer {\n";
 
-void TaskComposerGraph::dump(std::ostream& os,
-                             const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
-{
-  os << "digraph TaskComposer {\n";
-  dumpHelper(os, *this, results_map);
-  os << "}\n";
-}
-
-void TaskComposerGraph::dumpHelper(std::ostream& os,
-                                   const TaskComposerGraph& /*parent*/,
-                                   const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
-{
   std::ostringstream sub_graphs;
   const std::string tmp = toString(uuid_);
   os << "subgraph cluster_" << tmp << " {\n color=black;\n label = \"" << name_ << "\\n(" << uuid_str_ << ")\";";
@@ -215,13 +202,7 @@ void TaskComposerGraph::dumpHelper(std::ostream& os,
     const auto& node = pair.second;
     if (node->getType() == TaskComposerNodeType::TASK)
     {
-      auto it = results_map.find(node->uuid_);
-      if (it != results_map.end())
-        node->dump(os, it->second);
-      else
-      {
-        node->dump(os);
-      }
+      sub_graphs << node->dump(os, this, results_map);
     }
     else if (node->getType() == TaskComposerNodeType::GRAPH)
     {
@@ -229,7 +210,7 @@ void TaskComposerGraph::dumpHelper(std::ostream& os,
       os << std::endl
          << tmp << " [shape=box3d, label=\"Subgraph: " << node->name_ << "\\n(" << node->uuid_str_
          << ")\", color=blue, margin=\"0.1\"];\n";
-      static_cast<const TaskComposerGraph&>(*node).dumpHelper(sub_graphs, *this, results_map);
+      node->dump(sub_graphs, this, results_map);
     }
   }
 
@@ -242,6 +223,12 @@ void TaskComposerGraph::dumpHelper(std::ostream& os,
 
   // Dump subgraphs outside this subgraph
   os << sub_graphs.str();
+
+  // Close out digraph or subgraph
+  if (parent == nullptr)
+    os << "}\n";
+
+  return {};
 }
 
 bool TaskComposerGraph::operator==(const TaskComposerGraph& rhs) const

@@ -41,6 +41,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 class TaskComposerNode;
+class TaskComposerInput;
 
 /** Stores information about a node */
 class TaskComposerNodeInfo
@@ -52,7 +53,7 @@ public:
   using ConstUPtr = std::unique_ptr<const TaskComposerNodeInfo>;
 
   TaskComposerNodeInfo() = default;  // Required for serialization
-  TaskComposerNodeInfo(const TaskComposerNode& node);
+  TaskComposerNodeInfo(const TaskComposerNode& node, const TaskComposerInput& input);
   virtual ~TaskComposerNodeInfo() = default;
   TaskComposerNodeInfo(const TaskComposerNodeInfo&) = default;
   TaskComposerNodeInfo& operator=(const TaskComposerNodeInfo&) = default;
@@ -84,7 +85,14 @@ public:
   tesseract_common::AnyPoly results;
 
   /** @brief Value returned from the Task on completion */
-  int return_value{ std::numeric_limits<int>::lowest() };
+  int return_value{ -1 };
+
+  /**
+   * @brief Indicate if successful
+   * @details The return value is user defined so cannot be used to know if successful or not so this is used to know if
+   * the node was successful
+   */
+  bool successful{ false };
 
   /** @brief Status message */
   std::string message;
@@ -92,17 +100,34 @@ public:
   /** @brief Time spent in this task in seconds*/
   double elapsed_time{ 0 };
 
-  /** @brief dot graph string for visualization*/
-  std::string dot_graph;
+  /**
+   *  @brief dot graph string for visualization
+   *  @brief This should only be populated if node generates dynamic nodes
+   */
+  std::string dotgraph;
 
   bool operator==(const TaskComposerNodeInfo& rhs) const;
   bool operator!=(const TaskComposerNodeInfo& rhs) const;
 
+  /**
+   * @brief Check if task was not ran because process was aborted
+   * @return True if aborted otherwise false;
+   */
+  bool isAborted() const;
+
+  /**
+   * @brief This should perform a deep copy
+   * @return A clone
+   */
   virtual TaskComposerNodeInfo::UPtr clone() const;
 
 private:
   friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
+
+  /** @brief Indicate if task was not ran because input abort flag was enabled */
+  bool aborted_{ false };
+
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };

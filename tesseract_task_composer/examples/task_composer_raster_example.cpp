@@ -66,17 +66,18 @@ int main()
 
   // Create task input
   auto task_input = std::make_shared<TaskComposerInput>(task_problem, profiles);
-
-  // Save dot graph
-  std::ofstream tc_out_data;
-  tc_out_data.open(tesseract_common::getTempPath() + "task_composer_raster_example.dot");
-  task->dump(tc_out_data);  // dump the graph including dynamic tasks
-  tc_out_data.close();
+  task_input->dotgraph = true;
 
   // Solve raster plan
   auto task_executor = factory.createTaskComposerExecutor("TaskflowExecutor");
   TaskComposerFuture::UPtr future = task_executor->run(*task, *task_input);
   future->wait();
+
+  // Save dot graph
+  std::ofstream tc_out_data;
+  tc_out_data.open(tesseract_common::getTempPath() + "task_composer_raster_example.dot");
+  task->dump(tc_out_data, nullptr, task_input->task_infos.getInfoMap());
+  tc_out_data.close();
 
   // Plot Process Trajectory
   auto output_program = task_input->data_storage.getData(output_key).as<CompositeInstruction>();

@@ -49,18 +49,14 @@ StartTask::StartTask(std::string name, const YAML::Node& config, const TaskCompo
 }
 TaskComposerNodeInfo::UPtr StartTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->return_value = 0;
-  info->env = input.problem.env;
-
-  if (input.isAborted())
-  {
-    info->message = "Aborted";
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
+  if (info->isAborted())
     return info;
-  }
 
-  info->return_value = 1;
+  info->env = input.problem.env;
+  info->successful = true;
   info->message = "Successful";
+  info->return_value = 1;
   return info;
 }
 

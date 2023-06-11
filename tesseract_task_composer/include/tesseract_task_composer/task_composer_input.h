@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_task_composer/task_composer_data_storage.h>
+#include <tesseract_task_composer/task_composer_dotgraph_logger.h>
 #include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/task_composer_problem.h>
 
@@ -70,6 +71,9 @@ struct TaskComposerInput
 
   /** @brief The location where task info is stored during execution */
   TaskComposerNodeInfoContainer task_infos;
+
+  /** @brief Indicate if dotgraph should be provided */
+  bool dotgraph{ false };
 
   /**
    * @brief Check if process has been aborted

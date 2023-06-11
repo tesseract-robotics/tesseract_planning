@@ -67,16 +67,12 @@ DiscreteContactCheckTask::DiscreteContactCheckTask(std::string name,
 TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& input,
                                                              OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<DiscreteContactCheckTaskInfo>(*this);
+  auto info = std::make_unique<DiscreteContactCheckTaskInfo>(*this, input);
+  if (info->isAborted())
+    return info;
+
   info->return_value = 0;
   info->env = input.problem.env;
-
-  if (input.isAborted())
-  {
-    info->message = "Aborted";
-    return info;
-  }
-
   tesseract_common::Timer timer;
   timer.start();
 
@@ -130,6 +126,7 @@ TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& 
     return info;
   }
 
+  info->successful = true;
   info->message = "Discrete contact check succeeded";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();
@@ -151,8 +148,9 @@ void DiscreteContactCheckTask::serialize(Archive& ar, const unsigned int /*versi
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-DiscreteContactCheckTaskInfo::DiscreteContactCheckTaskInfo(const DiscreteContactCheckTask& task)
-  : TaskComposerNodeInfo(task)
+DiscreteContactCheckTaskInfo::DiscreteContactCheckTaskInfo(const DiscreteContactCheckTask& task,
+                                                           const TaskComposerInput& input)
+  : TaskComposerNodeInfo(task, input)
 {
 }
 

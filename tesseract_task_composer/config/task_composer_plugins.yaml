@@ -52,7 +52,7 @@ task_composer_plugins:
                 outputs: [output_data]
           edges:
             - source: MinLengthTask
-              destinations: [DescartesMotionPlannerTask]
+              destinations: [ErrorTask, DescartesMotionPlannerTask]
             - source: DescartesMotionPlannerTask
               destinations: [ErrorTask, DiscreteContactCheckTask]
             - source: DiscreteContactCheckTask
@@ -99,7 +99,7 @@ task_composer_plugins:
                 outputs: [output_data]
           edges:
             - source: MinLengthTask
-              destinations: [DescartesMotionPlannerTask]
+              destinations: [ErrorTask, DescartesMotionPlannerTask]
             - source: DescartesMotionPlannerTask
               destinations: [ErrorTask, DiscreteContactCheckTask]
             - source: DiscreteContactCheckTask
@@ -141,7 +141,7 @@ task_composer_plugins:
                 outputs: [output_data]
           edges:
             - source: MinLengthTask
-              destinations: [DescartesMotionPlannerTask]
+              destinations: [ErrorTask, DescartesMotionPlannerTask]
             - source: DescartesMotionPlannerTask
               destinations: [ErrorTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
@@ -181,7 +181,7 @@ task_composer_plugins:
                 outputs: [output_data]
           edges:
             - source: MinLengthTask
-              destinations: [DescartesMotionPlannerTask]
+              destinations: [ErrorTask, DescartesMotionPlannerTask]
             - source: DescartesMotionPlannerTask
               destinations: [ErrorTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
@@ -226,7 +226,7 @@ task_composer_plugins:
                 outputs: [output_data]
           edges:
             - source: MinLengthTask
-              destinations: [OMPLMotionPlannerTask]
+              destinations: [ErrorTask, OMPLMotionPlannerTask]
             - source: OMPLMotionPlannerTask
               destinations: [ErrorTask, DiscreteContactCheckTask]
             - source: DiscreteContactCheckTask
@@ -273,7 +273,7 @@ task_composer_plugins:
                 outputs: [output_data]
           edges:
             - source: MinLengthTask
-              destinations: [TrajOptMotionPlannerTask]
+              destinations: [ErrorTask, TrajOptMotionPlannerTask]
             - source: TrajOptMotionPlannerTask
               destinations: [ErrorTask, DiscreteContactCheckTask]
             - source: DiscreteContactCheckTask
@@ -320,7 +320,7 @@ task_composer_plugins:
                 outputs: [output_data]
           edges:
             - source: MinLengthTask
-              destinations: [TrajOptIfoptMotionPlannerTask]
+              destinations: [ErrorTask, TrajOptIfoptMotionPlannerTask]
             - source: TrajOptIfoptMotionPlannerTask
               destinations: [ErrorTask, DiscreteContactCheckTask]
             - source: DiscreteContactCheckTask
@@ -374,7 +374,7 @@ task_composer_plugins:
                 outputs: [output_data]
           edges:
             - source: MinLengthTask
-              destinations: [DescartesMotionPlannerTask]
+              destinations: [ErrorTask, DescartesMotionPlannerTask]
             - source: DescartesMotionPlannerTask
               destinations: [ErrorTask, TrajOptMotionPlannerTask]
             - source: TrajOptMotionPlannerTask
@@ -430,7 +430,7 @@ task_composer_plugins:
                 outputs: [output_data]
           edges:
             - source: MinLengthTask
-              destinations: [OMPLMotionPlannerTask]
+              destinations: [ErrorTask, OMPLMotionPlannerTask]
             - source: OMPLMotionPlannerTask
               destinations: [ErrorTask, TrajOptMotionPlannerTask]
             - source: TrajOptMotionPlannerTask

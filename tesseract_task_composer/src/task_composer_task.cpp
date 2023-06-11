@@ -84,61 +84,48 @@ int TaskComposerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
   }
   catch (const std::exception& e)
   {
-    results = std::make_unique<TaskComposerNodeInfo>(*this);
-    results->return_value = 0;
+    results = std::make_unique<TaskComposerNodeInfo>(*this, input);
+    results->successful = false;
     results->message = "Exception thrown: " + std::string(e.what());
+    results->return_value = 0;
   }
 
   int value = results->return_value;
+  assert(value >= 0);
   input.task_infos.addInfo(std::move(results));
   return value;
 }
 
-void TaskComposerTask::dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& node_info) const
+std::string TaskComposerTask::dump(std::ostream& os,
+                                   const TaskComposerNode* /*parent*/,
+                                   const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
 {
   const std::string tmp = toString(uuid_, "node_");
 
-  std::string color;
+  std::string color{ "white" };
   int return_value = -1;
 
-  if (!node_info || !is_conditional_)
+  auto it = results_map.find(uuid_);
+  if (it != results_map.end())
   {
-    color = "white";
-  }
-  else
-  {
-    return_value = node_info->return_value;
-    if (node_info->return_value == 0 && outbound_edges_.size() > 1)
-    {
-      color = "red";
-    }
-    else if (node_info->return_value >= 1 || outbound_edges_.size() == 1)
-    {
-      color = "green";
-    }
-    else
-    {
-      color = "white";
-    }
+    return_value = it->second->return_value;
+    if (!it->second->isAborted())
+      color = (it->second->successful) ? "green" : "red";
   }
 
   if (is_conditional_)
   {
     os << std::endl << tmp << " [shape=diamond, label=\"" << name_ << "\\n(" << uuid_str_ << ")";
-    if (node_info)
+    if (it != results_map.end())
     {
-      os << "\\nTime: " << std::fixed << std::setprecision(3) << node_info->elapsed_time << "s"
-         << "\\n`" << node_info->message << "`";
+      os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s"
+         << "\\n`" << it->second->message << "`";
     }
     os << "\", color=black, fillcolor=" << color << ", style=filled];\n";
 
     for (std::size_t i = 0; i < outbound_edges_.size(); ++i)
     {
-      std::string line_type = "dashed";
-      if (return_value == static_cast<int>(i))
-      {
-        line_type = "bold";
-      }
+      std::string line_type = (return_value == static_cast<int>(i)) ? "bold" : "dashed";
       os << tmp << " -> " << toString(outbound_edges_[i], "node_") << " [style=" << line_type << ", label=\"["
          << std::to_string(i) << "]\""
          << "];\n";
@@ -147,16 +134,21 @@ void TaskComposerTask::dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& 
   else
   {
     os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")";
-    if (node_info)
+    if (it != results_map.end())
     {
-      os << "\\nTime: " << std::fixed << std::setprecision(3) << node_info->elapsed_time << "s"
-         << "\\n'" << node_info->message << "'";
+      os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s"
+         << "\\n'" << it->second->message << "'";
     }
     os << "\", color=black, fillcolor=" << color << ", style=filled];\n";
 
     for (const auto& edge : outbound_edges_)
       os << tmp << " -> " << toString(edge, "node_") << ";\n";
   }
+
+  if (it == results_map.end())
+    return {};
+
+  return it->second->dotgraph;
 }
 
 bool TaskComposerTask::operator==(const TaskComposerTask& rhs) const

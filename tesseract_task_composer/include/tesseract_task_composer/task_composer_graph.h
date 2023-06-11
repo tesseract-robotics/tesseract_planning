@@ -85,9 +85,9 @@ public:
 
   void renameOutputKeys(const std::map<std::string, std::string>& output_keys) override;
 
-  void dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& node_info = nullptr) const override;
-
-  void dump(std::ostream& os, const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const;
+  std::string dump(std::ostream& os,
+                   const TaskComposerNode* parent = nullptr,
+                   const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map = {}) const override;
 
   bool operator==(const TaskComposerGraph& rhs) const;
   bool operator!=(const TaskComposerGraph& rhs) const;
@@ -98,10 +98,6 @@ protected:
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
-  void dumpHelper(std::ostream& os,
-                  const TaskComposerGraph& parent,
-                  const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const;
 
   std::map<boost::uuids::uuid, TaskComposerNode::Ptr> nodes_;
 };

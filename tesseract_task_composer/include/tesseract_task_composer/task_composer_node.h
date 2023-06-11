@@ -106,8 +106,13 @@ public:
   /** @brief Rename output keys */
   virtual void renameOutputKeys(const std::map<std::string, std::string>& output_keys);
 
-  /** @brief dump the task to dot */
-  virtual void dump(std::ostream& os, const TaskComposerNodeInfo::UPtr& node_info = nullptr) const;
+  /**
+   * @brief dump the task to dot
+   * @brief Return additional subgraphs which should get appended if needed
+   */
+  virtual std::string dump(std::ostream& os,
+                           const TaskComposerNode* parent = nullptr,
+                           const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map = {}) const;
 
   bool operator==(const TaskComposerNode& rhs) const;
   bool operator!=(const TaskComposerNode& rhs) const;
