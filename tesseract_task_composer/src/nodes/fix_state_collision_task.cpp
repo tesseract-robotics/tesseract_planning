@@ -343,16 +343,12 @@ FixStateCollisionTask::FixStateCollisionTask(std::string name,
 TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& input,
                                                           OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<FixStateCollisionTaskInfo>(*this);
+  auto info = std::make_unique<FixStateCollisionTaskInfo>(*this, input);
+  if (info->isAborted())
+    return info;
+
   info->return_value = 0;
   info->env = input.problem.env;
-
-  if (input.isAborted())
-  {
-    info->message = "Aborted";
-    return info;
-  }
-
   tesseract_common::Timer timer;
   timer.start();
 
@@ -679,6 +675,8 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
   }
 
   input.data_storage.setData(output_keys_[0], input_data_poly);
+
+  info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();
@@ -700,7 +698,10 @@ void FixStateCollisionTask::serialize(Archive& ar, const unsigned int /*version*
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-FixStateCollisionTaskInfo::FixStateCollisionTaskInfo(const FixStateCollisionTask& task) : TaskComposerNodeInfo(task) {}
+FixStateCollisionTaskInfo::FixStateCollisionTaskInfo(const FixStateCollisionTask& task, const TaskComposerInput& input)
+  : TaskComposerNodeInfo(task, input)
+{
+}
 
 TaskComposerNodeInfo::UPtr FixStateCollisionTaskInfo::clone() const
 {

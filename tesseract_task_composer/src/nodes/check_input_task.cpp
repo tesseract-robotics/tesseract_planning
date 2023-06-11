@@ -63,16 +63,12 @@ CheckInputTask::CheckInputTask(std::string name,
 TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,
                                                    OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->return_value = 0;
-
-  if (input.isAborted())
-  {
-    info->message = "Aborted";
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
+  if (info->isAborted())
     return info;
-  }
 
   // Get Composite Profile
+  info->return_value = 0;
   for (const auto& key : input_keys_)
   {
     auto input_data_poly = input.data_storage.getData(key);
@@ -98,6 +94,7 @@ TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,
   }
 
   info->env = input.problem.env;
+  info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
   return info;

@@ -43,16 +43,12 @@ DoneTask::DoneTask(std::string name, const YAML::Node& config, const TaskCompose
 
 TaskComposerNodeInfo::UPtr DoneTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->return_value = 0;
-  info->env = input.problem.env;
-
-  if (input.isAborted())
-  {
-    info->message = "Aborted";
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
+  if (info->isAborted())
     return info;
-  }
 
+  info->color = "green";
+  info->env = input.problem.env;
   info->return_value = 1;
   info->message = "Successful";
   CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());

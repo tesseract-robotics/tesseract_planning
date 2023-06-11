@@ -71,6 +71,9 @@ struct TaskComposerInput
   /** @brief The location where task info is stored during execution */
   TaskComposerNodeInfoContainer task_infos;
 
+  /** @brief Indicate if dotgraph should be provided */
+  bool dotgraph{ false };
+
   /**
    * @brief Check if process has been aborted
    * @details This accesses the internal process interface class
@@ -86,9 +89,17 @@ struct TaskComposerInput
 
   /**
    * @brief Abort the process input
+   * @note If calling within a node you must provide the uuid
    * @details This accesses the internal process interface class to abort the process
    */
-  void abort();
+  void abort(const boost::uuids::uuid& calling_node = boost::uuids::uuid{});
+
+  /**
+   * @brief Abort the process input
+   * @note This method should be used if calling abort from within an node
+   * @param caller The node calling abort
+   */
+  void abort(const TaskComposerNode& caller);
 
   /** @brief Reset abort and data storage to constructed state */
   void reset();

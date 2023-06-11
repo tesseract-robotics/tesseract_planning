@@ -187,15 +187,13 @@ void TaskComposerGraph::renameOutputKeys(const std::map<std::string, std::string
     node.second->renameOutputKeys(output_keys);
 }
 
-void TaskComposerGraph::dump(std::ostream& os) const
+std::string TaskComposerGraph::dump(std::ostream& os,
+                                    const TaskComposerNode* parent,
+                                    const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
 {
-  os << "digraph TaskComposer {\n";
-  dumpHelper(os, *this);
-  os << "}\n";
-}
+  if (parent == nullptr)
+    os << "digraph TaskComposer {\n";
 
-void TaskComposerGraph::dumpHelper(std::ostream& os, const TaskComposerGraph& /*parent*/) const
-{
   std::ostringstream sub_graphs;
   const std::string tmp = toString(uuid_);
   os << "subgraph cluster_" << tmp << " {\n color=black;\n label = \"" << name_ << "\\n(" << uuid_str_ << ")\";";
@@ -203,14 +201,18 @@ void TaskComposerGraph::dumpHelper(std::ostream& os, const TaskComposerGraph& /*
   {
     const auto& node = pair.second;
     if (node->getType() == TaskComposerNodeType::TASK)
-      node->dump(os);
+    {
+      sub_graphs << node->dump(os, this, results_map);
+    }
     else if (node->getType() == TaskComposerNodeType::GRAPH)
     {
+      auto it = results_map.find(node->getUUID());
+      std::string color = (it == results_map.end()) ? "blue" : it->second->color;
       const std::string tmp = toString(node->uuid_, "node_");
       os << std::endl
          << tmp << " [shape=box3d, label=\"Subgraph: " << node->name_ << "\\n(" << node->uuid_str_
-         << ")\", color=blue, margin=\"0.1\"];\n";
-      static_cast<const TaskComposerGraph&>(*node).dumpHelper(sub_graphs, *this);
+         << ")\", margin=\"0.1\", color=" << color << "];\n";
+      node->dump(sub_graphs, this, results_map);
     }
   }
 
@@ -223,6 +225,12 @@ void TaskComposerGraph::dumpHelper(std::ostream& os, const TaskComposerGraph& /*
 
   // Dump subgraphs outside this subgraph
   os << sub_graphs.str();
+
+  // Close out digraph or subgraph
+  if (parent == nullptr)
+    os << "}\n";
+
+  return {};
 }
 
 bool TaskComposerGraph::operator==(const TaskComposerGraph& rhs) const

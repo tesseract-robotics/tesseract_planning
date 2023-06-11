@@ -81,16 +81,12 @@ TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string nam
 TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposerInput& input,
                                                                     OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TimeOptimalParameterizationTaskInfo>(*this);
+  auto info = std::make_unique<TimeOptimalParameterizationTaskInfo>(*this, input);
+  if (info->isAborted())
+    return info;
+
   info->return_value = 0;
   info->env = input.problem.env;
-
-  if (input.isAborted())
-  {
-    info->message = "Aborted";
-    return info;
-  }
-
   tesseract_common::Timer timer;
   timer.start();
 
@@ -163,6 +159,8 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
   }
 
   input.data_storage.setData(output_keys_[0], copy_ci);
+
+  info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();
@@ -187,8 +185,9 @@ void TimeOptimalParameterizationTask::serialize(Archive& ar, const unsigned int 
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-TimeOptimalParameterizationTaskInfo::TimeOptimalParameterizationTaskInfo(const TimeOptimalParameterizationTask& task)
-  : TaskComposerNodeInfo(task)
+TimeOptimalParameterizationTaskInfo::TimeOptimalParameterizationTaskInfo(const TimeOptimalParameterizationTask& task,
+                                                                         const TaskComposerInput& input)
+  : TaskComposerNodeInfo(task, input)
 {
 }
 

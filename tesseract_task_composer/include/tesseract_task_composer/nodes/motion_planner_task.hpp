@@ -114,16 +114,12 @@ protected:
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
                                      OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override
   {
-    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+    auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
+    if (info->isAborted())
+      return info;
+
     info->return_value = 0;
     info->env = input.problem.env;
-
-    if (input.isAborted())
-    {
-      info->message = "Aborted";
-      return info;
-    }
-
     tesseract_common::Timer timer;
     timer.start();
 
@@ -172,6 +168,7 @@ protected:
       input.data_storage.setData(output_keys_[0], response.results);
 
       info->return_value = 1;
+      info->color = "green";
       info->message = response.message;
       info->elapsed_time = timer.elapsedSeconds();
       CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");

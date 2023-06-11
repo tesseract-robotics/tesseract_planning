@@ -79,12 +79,32 @@ void TaskComposerNode::renameOutputKeys(const std::map<std::string, std::string>
     std::replace(output_keys_.begin(), output_keys_.end(), key.first, key.second);
 }
 
-void TaskComposerNode::dump(std::ostream& os) const
+std::string TaskComposerNode::dump(std::ostream& os,
+                                   const TaskComposerNode* /*parent*/,
+                                   const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
 {
   const std::string tmp = toString(uuid_, "node_");
-  os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")\", color=black];\n";
+
+  std::string color{ "white" };
+  auto it = results_map.find(uuid_);
+  if (it != results_map.end() && !it->second->isAborted())
+    color = it->second->color;
+
+  os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")";
+  if (it != results_map.end())
+  {
+    os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s"
+       << "\\n\"" << it->second->message << "\"";
+  }
+  os << "\", fillcolor=" << color << ", style=filled];\n";
+
   for (const auto& edge : outbound_edges_)
     os << tmp << " -> " << toString(edge, "node_") << ";\n";
+
+  if (it == results_map.end())
+    return {};
+
+  return it->second->dotgraph;
 }
 
 bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const

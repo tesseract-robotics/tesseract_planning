@@ -62,16 +62,12 @@ ProfileSwitchTask::ProfileSwitchTask(std::string name,
 TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,
                                                       OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
+  if (info->isAborted())
+    return info;
+
   info->return_value = 0;
   info->env = input.problem.env;
-
-  if (input.isAborted())
-  {
-    info->message = "Aborted";
-    return info;
-  }
-
   tesseract_common::Timer timer;
   timer.start();
 
@@ -98,6 +94,7 @@ TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,
   // Return the value specified in the profile
   CONSOLE_BRIDGE_logDebug("ProfileSwitchProfile returning %d", cur_composite_profile->return_value);
 
+  info->color = "green";
   info->message = "Successful";
   info->return_value = cur_composite_profile->return_value;
   info->elapsed_time = timer.elapsedSeconds();

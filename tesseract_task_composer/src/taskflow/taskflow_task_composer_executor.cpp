@@ -165,6 +165,12 @@ TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_gr
     else if (pair.second->getType() == TaskComposerNodeType::GRAPH)
     {
       const auto& graph = static_cast<const TaskComposerGraph&>(*pair.second);
+
+      // Must add a Node Info object for the graph
+      auto info = std::make_unique<TaskComposerNodeInfo>(graph, task_input);
+      info->color = "green";
+      task_input.task_infos.addInfo(std::move(info));
+
       auto sub_tf_container = convertToTaskflow(graph, task_input, task_executor);
       tasks[pair.first] = tf_container->front()->composed_of(*sub_tf_container->front());
       tf_container->insert(tf_container->end(),

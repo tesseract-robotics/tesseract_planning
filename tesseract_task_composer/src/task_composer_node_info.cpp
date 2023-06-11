@@ -37,13 +37,25 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/task_composer_node.h>
+#include <tesseract_task_composer/task_composer_input.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
-TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node)
-  : name(node.name_), uuid(node.uuid_), inbound_edges(node.inbound_edges_), outbound_edges(node.outbound_edges_)
+TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node, const TaskComposerInput& input)
+  : name(node.name_)
+  , uuid(node.uuid_)
+  , parent_uuid(node.parent_uuid_)
+  , inbound_edges(node.inbound_edges_)
+  , outbound_edges(node.outbound_edges_)
+  , aborted_(input.isAborted())
 {
+  if (aborted_)
+  {
+    return_value = 0;
+    color = "white";
+    message = "Aborted";
+  }
 }
 
 bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
@@ -53,6 +65,7 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   bool equal = true;
   equal &= name == rhs.name;
   equal &= uuid == rhs.uuid;
+  equal &= parent_uuid == rhs.parent_uuid;
   equal &= results == rhs.results;
   equal &= return_value == rhs.return_value;
   equal &= message == rhs.message;
@@ -62,10 +75,15 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= tesseract_common::isIdentical(outbound_edges, rhs.outbound_edges, true);
   equal &= tesseract_common::isIdentical(input_keys, rhs.input_keys, false);
   equal &= tesseract_common::isIdentical(output_keys, rhs.output_keys, false);
+  equal &= color == rhs.color;
+  equal &= dotgraph == rhs.dotgraph;
+  equal &= aborted_ == rhs.aborted_;
   return equal;
 }
 
 bool TaskComposerNodeInfo::operator!=(const TaskComposerNodeInfo& rhs) const { return !operator==(rhs); }
+
+bool TaskComposerNodeInfo::isAborted() const { return aborted_; }
 
 TaskComposerNodeInfo::UPtr TaskComposerNodeInfo::clone() const { return std::make_unique<TaskComposerNodeInfo>(*this); }
 
@@ -74,6 +92,7 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
 {
   ar& boost::serialization::make_nvp("name", name);
   ar& boost::serialization::make_nvp("uuid", uuid);
+  ar& boost::serialization::make_nvp("parent_uuid", parent_uuid);
   ar& boost::serialization::make_nvp("results", results);
   ar& boost::serialization::make_nvp("return_value", return_value);
   ar& boost::serialization::make_nvp("message", message);
@@ -83,6 +102,9 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("outbound_edges", outbound_edges);
   ar& boost::serialization::make_nvp("input_keys", input_keys);
   ar& boost::serialization::make_nvp("output_keys", output_keys);
+  ar& boost::serialization::make_nvp("color", color);
+  ar& boost::serialization::make_nvp("dotgraph", dotgraph);
+  ar& boost::serialization::make_nvp("aborted", aborted_);
 }
 
 TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(const TaskComposerNodeInfoContainer& other)
@@ -130,22 +152,18 @@ void TaskComposerNodeInfoContainer::addInfo(TaskComposerNodeInfo::UPtr info)
   info_map_[info->uuid] = std::move(info);
 }
 
-const TaskComposerNodeInfo& TaskComposerNodeInfoContainer::getInfo(boost::uuids::uuid key) const
+void TaskComposerNodeInfoContainer::setAborted(const boost::uuids::uuid& node_uuid)
 {
-  std::shared_lock<std::shared_mutex> lock(mutex_);
-  return *info_map_.at(key);
+  assert(!node_uuid.is_nil());
+  std::unique_lock<std::shared_mutex> lock(mutex_);
+  aborting_node_ = node_uuid;
 }
 
 void TaskComposerNodeInfoContainer::clear()
 {
   std::unique_lock<std::shared_mutex> lock(mutex_);
-  return info_map_.clear();
-}
-
-const TaskComposerNodeInfo& TaskComposerNodeInfoContainer::operator[](boost::uuids::uuid key) const
-{
-  std::shared_lock<std::shared_mutex> lock(mutex_);
-  return *info_map_.at(key);
+  aborting_node_ = boost::uuids::uuid{};
+  info_map_.clear();
 }
 
 std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> TaskComposerNodeInfoContainer::getInfoMap() const
@@ -154,7 +172,30 @@ std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> TaskComposerNodeInfoCon
   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> copy;
   for (const auto& pair : info_map_)
     copy[pair.first] = pair.second->clone();
+
+  if (!aborting_node_.is_nil())
+    updateParents(copy, aborting_node_);
+
   return copy;
+}
+
+void TaskComposerNodeInfoContainer::updateParents(std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& info_map,
+                                                  const boost::uuids::uuid& uuid) const
+{
+  auto it = info_map.find(uuid);
+  if (it == info_map.end())
+    return;
+
+  if (it->second->parent_uuid.is_nil())
+    return;
+
+  auto parent_it = info_map.find(it->second->parent_uuid);
+  if (parent_it == info_map.end())
+    return;
+
+  parent_it->second->color = it->second->color;
+
+  updateParents(info_map, it->second->parent_uuid);
 }
 
 bool TaskComposerNodeInfoContainer::operator==(const TaskComposerNodeInfoContainer& rhs) const

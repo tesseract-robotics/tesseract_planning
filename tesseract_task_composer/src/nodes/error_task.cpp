@@ -43,17 +43,14 @@ ErrorTask::ErrorTask(std::string name, const YAML::Node& config, const TaskCompo
 
 TaskComposerNodeInfo::UPtr ErrorTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
+  if (info->isAborted())
+    return info;
+
+  info->color = "red";
   info->return_value = 0;
   info->env = input.problem.env;
-
-  if (input.isAborted())
-  {
-    info->message = "Aborted";
-    return info;
-  }
-
-  input.abort();
+  input.abort(uuid_);
   info->message = "Error";
   CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
   return info;

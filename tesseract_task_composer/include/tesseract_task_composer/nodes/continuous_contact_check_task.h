@@ -79,7 +79,7 @@ public:
   using ConstUPtr = std::unique_ptr<const ContinuousContactCheckTaskInfo>;
 
   ContinuousContactCheckTaskInfo() = default;
-  ContinuousContactCheckTaskInfo(const ContinuousContactCheckTask& task);
+  ContinuousContactCheckTaskInfo(const ContinuousContactCheckTask& task, const TaskComposerInput& input);
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;
 
