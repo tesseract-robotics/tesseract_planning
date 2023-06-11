@@ -33,7 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_task_composer/task_composer_data_storage.h>
-#include <tesseract_task_composer/task_composer_dotgraph_logger.h>
 #include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/task_composer_problem.h>
 
