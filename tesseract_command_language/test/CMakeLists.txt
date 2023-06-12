@@ -31,99 +31,21 @@ endif()
 include(GoogleTest)
 
 # Waypoint Tests
-add_executable(${PROJECT_NAME}_waypoint_unit waypoint_unit.cpp)
-target_link_libraries(${PROJECT_NAME}_waypoint_unit PRIVATE GTest::GTest GTest::Main ${PROJECT_NAME})
-target_compile_options(${PROJECT_NAME}_waypoint_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
-                                                             ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_clang_tidy(${PROJECT_NAME}_waypoint_unit ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
-target_cxx_version(${PROJECT_NAME}_waypoint_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
+add_executable(${PROJECT_NAME}_unit command_language_unit.cpp)
+target_link_libraries(${PROJECT_NAME}_unit PRIVATE GTest::GTest GTest::Main ${PROJECT_NAME})
+target_compile_options(${PROJECT_NAME}_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
+                                                    ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
+target_clang_tidy(${PROJECT_NAME}_unit ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
+target_cxx_version(${PROJECT_NAME}_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
-  ${PROJECT_NAME}_waypoint_unit
+  ${PROJECT_NAME}_unit
   PRIVATE
   ALL
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
-add_gtest_discover_tests(${PROJECT_NAME}_waypoint_unit)
-add_dependencies(run_tests ${PROJECT_NAME}_waypoint_unit)
-add_dependencies(${PROJECT_NAME}_waypoint_unit ${PROJECT_NAME})
-
-# CartesianWaypoint Tests
-add_executable(${PROJECT_NAME}_cartesian_waypoint_unit cartesian_waypoint_unit.cpp)
-target_link_libraries(${PROJECT_NAME}_cartesian_waypoint_unit PRIVATE GTest::GTest GTest::Main ${PROJECT_NAME})
-target_compile_options(${PROJECT_NAME}_cartesian_waypoint_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
-                                                                       ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_clang_tidy(${PROJECT_NAME}_cartesian_waypoint_unit ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
-target_cxx_version(${PROJECT_NAME}_cartesian_waypoint_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
-target_code_coverage(
-  ${PROJECT_NAME}_cartesian_waypoint_unit
-  PRIVATE
-  ALL
-  EXCLUDE ${COVERAGE_EXCLUDE}
-  ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
-add_gtest_discover_tests(${PROJECT_NAME}_cartesian_waypoint_unit)
-add_dependencies(run_tests ${PROJECT_NAME}_cartesian_waypoint_unit)
-add_dependencies(${PROJECT_NAME}_cartesian_waypoint_unit ${PROJECT_NAME})
-
-# JointWaypoint Tests
-add_executable(${PROJECT_NAME}_joint_waypoint_unit joint_waypoint_unit.cpp)
-target_link_libraries(
-  ${PROJECT_NAME}_joint_waypoint_unit
-  PRIVATE GTest::GTest
-          GTest::Main
-          Eigen3::Eigen
-          ${PROJECT_NAME})
-target_compile_options(${PROJECT_NAME}_joint_waypoint_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
-                                                                   ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_clang_tidy(${PROJECT_NAME}_joint_waypoint_unit ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
-target_cxx_version(${PROJECT_NAME}_joint_waypoint_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
-target_code_coverage(
-  ${PROJECT_NAME}_joint_waypoint_unit
-  PRIVATE
-  ALL
-  EXCLUDE ${COVERAGE_EXCLUDE}
-  ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
-add_gtest_discover_tests(${PROJECT_NAME}_joint_waypoint_unit)
-add_dependencies(run_tests ${PROJECT_NAME}_joint_waypoint_unit)
-add_dependencies(${PROJECT_NAME}_joint_waypoint_unit ${PROJECT_NAME})
-
-# State Waypoint Tests
-add_executable(${PROJECT_NAME}_state_waypoint_unit state_waypoint_unit.cpp)
-target_link_libraries(${PROJECT_NAME}_state_waypoint_unit PRIVATE GTest::GTest GTest::Main ${PROJECT_NAME})
-target_compile_options(${PROJECT_NAME}_state_waypoint_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
-                                                                   ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_clang_tidy(${PROJECT_NAME}_state_waypoint_unit ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
-target_cxx_version(${PROJECT_NAME}_state_waypoint_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
-target_code_coverage(
-  ${PROJECT_NAME}_state_waypoint_unit
-  PRIVATE
-  ALL
-  EXCLUDE ${COVERAGE_EXCLUDE}
-  ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
-add_gtest_discover_tests(${PROJECT_NAME}_state_waypoint_unit)
-add_dependencies(run_tests ${PROJECT_NAME}_state_waypoint_unit)
-add_dependencies(${PROJECT_NAME}_state_waypoint_unit ${PROJECT_NAME})
-
-# MoveInstruction Tests
-add_executable(${PROJECT_NAME}_move_instruction_unit move_instruction_unit.cpp)
-target_link_libraries(
-  ${PROJECT_NAME}_move_instruction_unit
-  PRIVATE GTest::GTest
-          GTest::Main
-          Eigen3::Eigen
-          ${PROJECT_NAME})
-target_compile_options(${PROJECT_NAME}_move_instruction_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
-                                                                     ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_clang_tidy(${PROJECT_NAME}_move_instruction_unit ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
-target_cxx_version(${PROJECT_NAME}_move_instruction_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
-target_code_coverage(
-  ${PROJECT_NAME}_move_instruction_unit
-  PRIVATE
-  ALL
-  EXCLUDE ${COVERAGE_EXCLUDE}
-  ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
-add_gtest_discover_tests(${PROJECT_NAME}_move_instruction_unit)
-add_dependencies(run_tests ${PROJECT_NAME}_move_instruction_unit)
-add_dependencies(${PROJECT_NAME}_move_instruction_unit ${PROJECT_NAME})
+add_gtest_discover_tests(${PROJECT_NAME}_unit)
+add_dependencies(run_tests ${PROJECT_NAME}_unit)
+add_dependencies(${PROJECT_NAME}_unit ${PROJECT_NAME})
 
 # Serialize Tests
 add_executable(${PROJECT_NAME}_serialize_unit serialize_test.cpp)
