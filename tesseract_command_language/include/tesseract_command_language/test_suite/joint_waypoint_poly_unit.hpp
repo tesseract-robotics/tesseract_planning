@@ -52,14 +52,14 @@ void runJointWaypointTest()
     EXPECT_TRUE(wp.getPosition().rows() == 0);
     EXPECT_TRUE(wp.getUpperTolerance().rows() == 0);
     EXPECT_TRUE(wp.getLowerTolerance().rows() == 0);
-    EXPECT_TRUE(wp.isConstrained());
+    EXPECT_FALSE(wp.isConstrained());
   }
 
   {  // Test is constrained
     JointWaypointPoly wp{ T() };
-    EXPECT_TRUE(wp.isConstrained());
-    wp.setIsConstrained(false);
     EXPECT_FALSE(wp.isConstrained());
+    wp.setIsConstrained(true);
+    EXPECT_TRUE(wp.isConstrained());
   }
 
   {  // Set/Get Names

@@ -61,7 +61,7 @@ void runWaypointSerializationTest(const WaypointPoly& waypoint)
   const std::string filepath = tesseract_common::getTempPath() + "waypoint_poly_boost.xml";
   tesseract_common::Serialization::toArchiveFileXML<WaypointPoly>(waypoint, filepath);
   auto nwp = tesseract_common::Serialization::fromArchiveFileXML<WaypointPoly>(filepath);
-  EXPECT_TRUE(waypoint == nwp.as<WaypointPoly>());
+  EXPECT_TRUE(waypoint == nwp);
 }
 }  // namespace tesseract_planning::test_suite
 

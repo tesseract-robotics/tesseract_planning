@@ -45,16 +45,17 @@ void runInstructionInterfaceTest()
 {
   InstructionPoly inst{ T() };
   auto uuid = inst.getUUID();
-  EXPECT_FALSE(uuid.is_nil());
+  EXPECT_TRUE(uuid.is_nil());
   EXPECT_TRUE(inst.getParentUUID().is_nil());
 
   inst.regenerateUUID();
-  EXPECT_FALSE(inst.getUUID().is_nil());
+  auto reg_uuid = inst.getUUID();
+  EXPECT_FALSE(reg_uuid.is_nil());
   EXPECT_NE(inst.getUUID(), uuid);
 
-  inst.setParentUUID(uuid);
+  inst.setParentUUID(reg_uuid);
   EXPECT_FALSE(inst.getParentUUID().is_nil());
-  EXPECT_EQ(inst.getParentUUID(), uuid);
+  EXPECT_EQ(inst.getParentUUID(), reg_uuid);
 
   const std::string desc{ "tesseract_planning::test_suite::Instruction::Description" };
   EXPECT_NE(inst.getDescription(), desc);
@@ -82,7 +83,7 @@ void runInstructionSerializationTest(const InstructionPoly& inst)
   const std::string filepath = tesseract_common::getTempPath() + "instruction_poly_boost.xml";
   tesseract_common::Serialization::toArchiveFileXML<InstructionPoly>(inst, filepath);
   auto ninst = tesseract_common::Serialization::fromArchiveFileXML<InstructionPoly>(filepath);
-  EXPECT_TRUE(inst == ninst.as<InstructionPoly>());
+  EXPECT_TRUE(inst == ninst);
 }
 }  // namespace tesseract_planning::test_suite
 
