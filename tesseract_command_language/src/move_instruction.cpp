@@ -230,8 +230,9 @@ bool MoveInstruction::operator==(const MoveInstruction& rhs) const
   /** @todo Add profiles overrides when serialization is supported for profiles */
   return equal;
 }
-
+// LCOV_EXCL_START
 bool MoveInstruction::operator!=(const MoveInstruction& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
 void MoveInstruction::serialize(Archive& ar, const unsigned int /*version*/)

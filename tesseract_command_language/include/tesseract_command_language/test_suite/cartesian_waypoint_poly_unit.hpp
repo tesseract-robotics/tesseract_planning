@@ -59,6 +59,7 @@ void runCartesianWaypointTest()
     EXPECT_TRUE(std::as_const(wp).getUpperTolerance().rows() == 0);
     EXPECT_TRUE(std::as_const(wp).getLowerTolerance().rows() == 0);
     EXPECT_FALSE(wp.hasSeed());
+    EXPECT_FALSE(wp.isToleranced());
   }
 
   {   // Set/Get Transform
@@ -67,6 +68,17 @@ void runCartesianWaypointTest()
   pose.translation() = Eigen::Vector3d(1, 2, 3);
   CartesianWaypointPoly wp{ T(pose) };
   EXPECT_TRUE(wp.getTransform().isApprox(pose));
+  EXPECT_FALSE(wp.isToleranced());
+}
+
+{  // Test construction providing pose
+  Eigen::Isometry3d pose{ Eigen::Isometry3d::Identity() };
+  pose.translation() = Eigen::Vector3d(1, 2, 3);
+  CartesianWaypointPoly wp{ T(pose, Eigen::VectorXd::Constant(3, -5), Eigen::VectorXd::Constant(3, 5)) };
+  EXPECT_TRUE(wp.getTransform().isApprox(pose));
+  EXPECT_TRUE(wp.getLowerTolerance().isApprox(Eigen::VectorXd::Constant(3, -5)));
+  EXPECT_TRUE(wp.getUpperTolerance().isApprox(Eigen::VectorXd::Constant(3, 5)));
+  EXPECT_TRUE(wp.isToleranced());
 }
 
 {  // Test set pose
@@ -75,6 +87,7 @@ void runCartesianWaypointTest()
   CartesianWaypointPoly wp{ T() };
   wp.setTransform(pose);
   EXPECT_TRUE(wp.getTransform().isApprox(pose));
+  EXPECT_FALSE(wp.isToleranced());
 }
 
 {  // Test assigning pose
@@ -83,6 +96,7 @@ void runCartesianWaypointTest()
   CartesianWaypointPoly wp{ T() };
   wp.getTransform() = pose;
   EXPECT_TRUE(std::as_const(wp).getTransform().isApprox(pose));
+  EXPECT_FALSE(wp.isToleranced());
 }
 }  // namespace tesseract_planning::test_suite
 
@@ -107,9 +121,8 @@ void runCartesianWaypointTest()
   EXPECT_FALSE(wp.isToleranced());
 }
 
-{   // Test Equality and Serialization
-  { // Equal
-    CartesianWaypointPoly wp1{ T(Eigen::Isometry3d::Identity()) };
+{ // Test Equality and Serialization
+  { CartesianWaypointPoly wp1{ T(Eigen::Isometry3d::Identity()) };
 CartesianWaypointPoly wp2(wp1);  // NOLINT
 EXPECT_TRUE(wp1 == wp2);
 EXPECT_TRUE(wp2 == wp1);

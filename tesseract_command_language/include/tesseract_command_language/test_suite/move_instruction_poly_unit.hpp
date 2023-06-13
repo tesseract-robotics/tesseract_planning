@@ -102,6 +102,11 @@ void runMoveInstructionConstructorTest()
     EXPECT_TRUE(instr.getParentUUID().is_nil());
     EXPECT_TRUE(instr.isCircular());
 
+    MoveInstructionPoly copy{ instr };
+    EXPECT_TRUE(instr == copy);
+    EXPECT_TRUE(instr == copy);
+    EXPECT_FALSE(instr != copy);
+
     InstructionPoly base = instr;
     EXPECT_TRUE(base.isMoveInstruction());
     EXPECT_FALSE(base.isCompositeInstruction());
@@ -127,6 +132,11 @@ void runMoveInstructionConstructorTest()
     EXPECT_TRUE(instr.getParentUUID().is_nil());
     EXPECT_TRUE(instr.isFreespace());
 
+    MoveInstructionPoly copy{ instr };
+    EXPECT_TRUE(instr == copy);
+    EXPECT_TRUE(instr == copy);
+    EXPECT_FALSE(instr != copy);
+
     InstructionPoly base = instr;
     EXPECT_TRUE(base.isMoveInstruction());
     EXPECT_FALSE(base.isCompositeInstruction());
@@ -151,6 +161,11 @@ void runMoveInstructionConstructorTest()
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
     EXPECT_TRUE(instr.isLinear());
+
+    MoveInstructionPoly copy{ instr };
+    EXPECT_TRUE(instr == copy);
+    EXPECT_TRUE(instr == copy);
+    EXPECT_FALSE(instr != copy);
 
     InstructionPoly base = instr;
     EXPECT_TRUE(base.isMoveInstruction());
@@ -178,6 +193,11 @@ void runMoveInstructionConstructorTest()
     EXPECT_TRUE(instr.getParentUUID().is_nil());
     EXPECT_TRUE(instr.isCircular());
 
+    MoveInstructionPoly copy{ instr };
+    EXPECT_TRUE(instr == copy);
+    EXPECT_TRUE(instr == copy);
+    EXPECT_FALSE(instr != copy);
+
     InstructionPoly base = instr;
     EXPECT_TRUE(base.isMoveInstruction());
     EXPECT_FALSE(base.isCompositeInstruction());
@@ -203,6 +223,11 @@ void runMoveInstructionConstructorTest()
     EXPECT_TRUE(instr.getParentUUID().is_nil());
     EXPECT_TRUE(instr.isFreespace());
 
+    MoveInstructionPoly copy{ instr };
+    EXPECT_TRUE(instr == copy);
+    EXPECT_TRUE(instr == copy);
+    EXPECT_FALSE(instr != copy);
+
     InstructionPoly base = instr;
     EXPECT_TRUE(base.isMoveInstruction());
     EXPECT_FALSE(base.isCompositeInstruction());
@@ -227,6 +252,11 @@ void runMoveInstructionConstructorTest()
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
     EXPECT_TRUE(instr.isLinear());
+
+    MoveInstructionPoly copy{ instr };
+    EXPECT_TRUE(instr == copy);
+    EXPECT_TRUE(instr == copy);
+    EXPECT_FALSE(instr != copy);
 
     InstructionPoly base = instr;
     EXPECT_TRUE(base.isMoveInstruction());
@@ -254,6 +284,11 @@ void runMoveInstructionConstructorTest()
     EXPECT_TRUE(instr.getParentUUID().is_nil());
     EXPECT_TRUE(instr.isCircular());
 
+    MoveInstructionPoly copy{ instr };
+    EXPECT_TRUE(instr == copy);
+    EXPECT_TRUE(instr == copy);
+    EXPECT_FALSE(instr != copy);
+
     InstructionPoly base = instr;
     EXPECT_TRUE(base.isMoveInstruction());
     EXPECT_FALSE(base.isCompositeInstruction());
@@ -279,6 +314,11 @@ void runMoveInstructionConstructorTest()
     EXPECT_TRUE(instr.getParentUUID().is_nil());
     EXPECT_TRUE(instr.isFreespace());
 
+    MoveInstructionPoly copy{ instr };
+    EXPECT_TRUE(instr == copy);
+    EXPECT_TRUE(instr == copy);
+    EXPECT_FALSE(instr != copy);
+
     InstructionPoly base = instr;
     EXPECT_TRUE(base.isMoveInstruction());
     EXPECT_FALSE(base.isCompositeInstruction());
@@ -303,6 +343,11 @@ void runMoveInstructionConstructorTest()
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
     EXPECT_TRUE(instr.isLinear());
+
+    MoveInstructionPoly copy{ instr };
+    EXPECT_TRUE(instr == copy);
+    EXPECT_TRUE(instr == copy);
+    EXPECT_FALSE(instr != copy);
 
     InstructionPoly base = instr;
     EXPECT_TRUE(base.isMoveInstruction());

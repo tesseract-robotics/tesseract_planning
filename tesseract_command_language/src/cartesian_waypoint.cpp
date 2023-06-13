@@ -62,7 +62,9 @@ bool tesseract_planning::CartesianWaypoint::operator==(const CartesianWaypoint& 
   equal &= (seed_ == rhs.seed_);
   return equal;
 }
+// LCOV_EXCL_START
 bool tesseract_planning::CartesianWaypoint::operator!=(const CartesianWaypoint& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
 void tesseract_planning::CartesianWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
