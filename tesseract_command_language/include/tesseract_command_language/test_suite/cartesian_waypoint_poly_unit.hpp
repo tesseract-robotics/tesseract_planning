@@ -37,9 +37,16 @@ void runCartesianWaypointTest()
   runWaypointInterfaceTest<T>();
 
   {  // Cartesian WaypointPoly Interface Test
+    const std::string name{ "tesseract_planning::test_suite::WaypointPoly" };
     CartesianWaypointPoly wp{ T() };
     EXPECT_FALSE(wp.isNull());
+    EXPECT_NE(name, wp.getName());
+    wp.setName(name);
+    EXPECT_EQ(name, wp.getName());
+    EXPECT_NO_THROW(wp.print());
+    EXPECT_NO_THROW(wp.print("test_"));
     EXPECT_TRUE(wp.getType() == std::type_index(typeid(T)));
+
     WaypointPoly base = wp;
     EXPECT_TRUE(base.isCartesianWaypoint());
     EXPECT_FALSE(base.isJointWaypoint());
@@ -49,8 +56,8 @@ void runCartesianWaypointTest()
   {  // Test default construction
     CartesianWaypointPoly wp{ T() };
     EXPECT_TRUE(wp.getTransform().isApprox(Eigen::Isometry3d::Identity()));
-    EXPECT_TRUE(wp.getUpperTolerance().rows() == 0);
-    EXPECT_TRUE(wp.getLowerTolerance().rows() == 0);
+    EXPECT_TRUE(std::as_const(wp).getUpperTolerance().rows() == 0);
+    EXPECT_TRUE(std::as_const(wp).getLowerTolerance().rows() == 0);
     EXPECT_FALSE(wp.hasSeed());
   }
 
@@ -75,7 +82,7 @@ void runCartesianWaypointTest()
   pose.translation() = Eigen::Vector3d(1, 2, 3);
   CartesianWaypointPoly wp{ T() };
   wp.getTransform() = pose;
-  EXPECT_TRUE(wp.getTransform().isApprox(pose));
+  EXPECT_TRUE(std::as_const(wp).getTransform().isApprox(pose));
 }
 }  // namespace tesseract_planning::test_suite
 
@@ -176,7 +183,7 @@ runWaypointSerializationTest(wp1);
   {  // Test default construction pose
     CartesianWaypointPoly wp{ T() };
     EXPECT_FALSE(wp.hasSeed());
-    EXPECT_FALSE(wp.getSeed() == seed_state);
+    EXPECT_FALSE(std::as_const(wp).getSeed() == seed_state);
   }
 
   {  // Test assigning pose
@@ -184,7 +191,7 @@ runWaypointSerializationTest(wp1);
     EXPECT_FALSE(wp.hasSeed());
     wp.setSeed(seed_state);
     EXPECT_TRUE(wp.hasSeed());
-    EXPECT_TRUE(wp.getSeed() == seed_state);
+    EXPECT_TRUE(std::as_const(wp).getSeed() == seed_state);
   }
 
   {  // Test assigning pose
@@ -192,7 +199,7 @@ runWaypointSerializationTest(wp1);
     EXPECT_FALSE(wp.hasSeed());
     wp.getSeed() = seed_state;
     EXPECT_TRUE(wp.hasSeed());
-    EXPECT_TRUE(wp.getSeed() == seed_state);
+    EXPECT_TRUE(std::as_const(wp).getSeed() == seed_state);
   }
 
   {  // Test clear seed

@@ -38,6 +38,40 @@ namespace tesseract_planning::test_suite
 namespace details
 {
 template <typename T>
+void runMoveInstructionInterfaceTest()
+{
+  MoveInstructionPoly inst{ T() };
+  auto uuid = inst.getUUID();
+  EXPECT_TRUE(uuid.is_nil());
+  EXPECT_TRUE(inst.getParentUUID().is_nil());
+
+  inst.regenerateUUID();
+  auto reg_uuid = inst.getUUID();
+  EXPECT_FALSE(reg_uuid.is_nil());
+  EXPECT_NE(inst.getUUID(), uuid);
+
+  inst.setParentUUID(reg_uuid);
+  EXPECT_FALSE(inst.getParentUUID().is_nil());
+  EXPECT_EQ(inst.getParentUUID(), reg_uuid);
+
+  const std::string desc{ "tesseract_planning::test_suite::MoveInstruction::Description" };
+  EXPECT_NE(inst.getDescription(), desc);
+  inst.setDescription(desc);
+  EXPECT_EQ(inst.getDescription(), desc);
+
+  EXPECT_NO_THROW(inst.print());
+  EXPECT_NO_THROW(inst.print("test_"));
+
+  InstructionPoly assign = inst;
+  EXPECT_TRUE(assign == inst);
+  EXPECT_TRUE(assign.getUUID() == inst.getUUID());
+
+  InstructionPoly copy(inst);
+  EXPECT_TRUE(copy == inst);
+  EXPECT_TRUE(assign.getUUID() == inst.getUUID());
+}
+
+template <typename T>
 void runMoveInstructionConstructorTest()
 {
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
@@ -53,8 +87,11 @@ void runMoveInstructionConstructorTest()
   {
     MoveInstructionPoly instr{ T(swp, MoveInstructionType::CIRCULAR) };
     EXPECT_FALSE(instr.isNull());
+    EXPECT_FALSE(instr.isChild());
     EXPECT_TRUE(instr.getType() == std::type_index(typeid(T)));
     EXPECT_EQ(instr.getWaypoint(), swp);
+    EXPECT_TRUE(instr.getWaypoint().isStateWaypoint());
+    EXPECT_TRUE(instr.getManipulatorInfo().empty());
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::CIRCULAR);
     EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
     EXPECT_EQ(instr.getPathProfile(), DEFAULT_PROFILE_KEY);
@@ -75,8 +112,11 @@ void runMoveInstructionConstructorTest()
   {
     MoveInstructionPoly instr{ T(jwp, MoveInstructionType::FREESPACE) };
     EXPECT_FALSE(instr.isNull());
+    EXPECT_FALSE(instr.isChild());
     EXPECT_TRUE(instr.getType() == std::type_index(typeid(T)));
     EXPECT_EQ(instr.getWaypoint(), jwp);
+    EXPECT_TRUE(instr.getWaypoint().isJointWaypoint());
+    EXPECT_TRUE(instr.getManipulatorInfo().empty());
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::FREESPACE);
     EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
     EXPECT_TRUE(instr.getPathProfile().empty());
@@ -97,8 +137,11 @@ void runMoveInstructionConstructorTest()
   {
     MoveInstructionPoly instr{ T(cwp, MoveInstructionType::LINEAR) };
     EXPECT_FALSE(instr.isNull());
+    EXPECT_FALSE(instr.isChild());
     EXPECT_TRUE(instr.getType() == std::type_index(typeid(T)));
     EXPECT_EQ(instr.getWaypoint(), cwp);
+    EXPECT_TRUE(instr.getWaypoint().isCartesianWaypoint());
+    EXPECT_TRUE(instr.getManipulatorInfo().empty());
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::LINEAR);
     EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
     EXPECT_EQ(instr.getPathProfile(), DEFAULT_PROFILE_KEY);
@@ -120,8 +163,11 @@ void runMoveInstructionConstructorTest()
   {
     MoveInstructionPoly instr{ T(swp, MoveInstructionType::CIRCULAR, "TEST_PROFILE") };
     EXPECT_FALSE(instr.isNull());
+    EXPECT_FALSE(instr.isChild());
     EXPECT_TRUE(instr.getType() == std::type_index(typeid(T)));
     EXPECT_EQ(instr.getWaypoint(), swp);
+    EXPECT_TRUE(instr.getWaypoint().isStateWaypoint());
+    EXPECT_TRUE(instr.getManipulatorInfo().empty());
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::CIRCULAR);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PROFILE");
@@ -142,8 +188,11 @@ void runMoveInstructionConstructorTest()
   {
     MoveInstructionPoly instr{ T(jwp, MoveInstructionType::FREESPACE, "TEST_PROFILE") };
     EXPECT_FALSE(instr.isNull());
+    EXPECT_FALSE(instr.isChild());
     EXPECT_TRUE(instr.getType() == std::type_index(typeid(T)));
     EXPECT_EQ(instr.getWaypoint(), jwp);
+    EXPECT_TRUE(instr.getWaypoint().isJointWaypoint());
+    EXPECT_TRUE(instr.getManipulatorInfo().empty());
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::FREESPACE);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_TRUE(instr.getPathProfile().empty());
@@ -164,8 +213,11 @@ void runMoveInstructionConstructorTest()
   {
     MoveInstructionPoly instr{ T(cwp, MoveInstructionType::LINEAR, "TEST_PROFILE") };
     EXPECT_FALSE(instr.isNull());
+    EXPECT_FALSE(instr.isChild());
     EXPECT_TRUE(instr.getType() == std::type_index(typeid(T)));
     EXPECT_EQ(instr.getWaypoint(), cwp);
+    EXPECT_TRUE(instr.getWaypoint().isCartesianWaypoint());
+    EXPECT_TRUE(instr.getManipulatorInfo().empty());
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::LINEAR);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PROFILE");
@@ -187,8 +239,11 @@ void runMoveInstructionConstructorTest()
   {
     MoveInstructionPoly instr{ T(swp, MoveInstructionType::CIRCULAR, "TEST_PROFILE", "TEST_PATH_PROFILE") };
     EXPECT_FALSE(instr.isNull());
+    EXPECT_FALSE(instr.isChild());
     EXPECT_TRUE(instr.getType() == std::type_index(typeid(T)));
     EXPECT_EQ(instr.getWaypoint(), swp);
+    EXPECT_TRUE(instr.getWaypoint().isStateWaypoint());
+    EXPECT_TRUE(instr.getManipulatorInfo().empty());
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::CIRCULAR);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
@@ -209,8 +264,11 @@ void runMoveInstructionConstructorTest()
   {
     MoveInstructionPoly instr{ T(jwp, MoveInstructionType::FREESPACE, "TEST_PROFILE", "TEST_PATH_PROFILE") };
     EXPECT_FALSE(instr.isNull());
+    EXPECT_FALSE(instr.isChild());
     EXPECT_TRUE(instr.getType() == std::type_index(typeid(T)));
     EXPECT_EQ(instr.getWaypoint(), jwp);
+    EXPECT_TRUE(instr.getWaypoint().isJointWaypoint());
+    EXPECT_TRUE(instr.getManipulatorInfo().empty());
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::FREESPACE);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
@@ -231,8 +289,11 @@ void runMoveInstructionConstructorTest()
   {
     MoveInstructionPoly instr{ T(cwp, MoveInstructionType::LINEAR, "TEST_PROFILE", "TEST_PATH_PROFILE") };
     EXPECT_FALSE(instr.isNull());
+    EXPECT_FALSE(instr.isChild());
     EXPECT_TRUE(instr.getType() == std::type_index(typeid(T)));
     EXPECT_EQ(instr.getWaypoint(), cwp);
+    EXPECT_TRUE(instr.getWaypoint().isCartesianWaypoint());
+    EXPECT_TRUE(instr.getManipulatorInfo().empty());
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::LINEAR);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
@@ -290,6 +351,51 @@ void runMoveInstructionSettersTest()
 
   instr.setPathProfile("TEST_PATH_PROFILE");
   EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
+
+  auto profiles = std::make_shared<ProfileDictionary>();
+  instr.setProfileOverrides(profiles);
+  EXPECT_TRUE(instr.getProfileOverrides() == profiles);
+
+  auto path_profiles = std::make_shared<ProfileDictionary>();
+  instr.setPathProfileOverrides(path_profiles);
+  EXPECT_TRUE(instr.getPathProfileOverrides() == path_profiles);
+
+  EXPECT_TRUE(instr.getManipulatorInfo().empty());
+  tesseract_common::ManipulatorInfo manip_info("manip", "base_link", "tool0");
+  instr.setManipulatorInfo(manip_info);
+  EXPECT_FALSE(instr.getManipulatorInfo().empty());
+  EXPECT_TRUE(instr.getManipulatorInfo() == manip_info);
+
+  tesseract_common::ManipulatorInfo manip_info2("manip2", "base_link2", "tool02");
+  instr.getManipulatorInfo() = manip_info2;
+  EXPECT_FALSE(instr.getManipulatorInfo().empty());
+  EXPECT_TRUE(instr.getManipulatorInfo() == manip_info2);
+  EXPECT_FALSE(instr.getManipulatorInfo() == manip_info);
+
+  StateWaypointPoly cswp = instr.createStateWaypoint();
+  EXPECT_TRUE(cswp.getType() == swp.getType());
+
+  JointWaypointPoly cjwp = instr.createJointWaypoint();
+  EXPECT_TRUE(cjwp.getType() == jwp.getType());
+
+  CartesianWaypointPoly ccwp = instr.createCartesianWaypoint();
+  EXPECT_TRUE(ccwp.getType() == cwp.getType());
+
+  MoveInstructionPoly child = instr.createChild();
+  EXPECT_TRUE(child.getType() == std::type_index(typeid(T)));
+  EXPECT_TRUE(child.getUUID() != instr.getUUID());
+  EXPECT_TRUE(child.getParentUUID() == instr.getUUID());
+  EXPECT_TRUE(child.getManipulatorInfo() == instr.getManipulatorInfo());
+  EXPECT_TRUE(child.getProfile() == instr.getProfile());
+  EXPECT_TRUE(child.getPathProfile() == instr.getPathProfile());
+  EXPECT_TRUE(child.getProfileOverrides() == instr.getProfileOverrides());
+  EXPECT_TRUE(child.getPathProfileOverrides() == instr.getPathProfileOverrides());
+  EXPECT_TRUE(child.getMoveType() == instr.getMoveType());
+  EXPECT_TRUE(child.getWaypoint() == instr.getWaypoint());
+
+  instr.getWaypoint().setName("CWP");
+  MoveInstructionPoly child2 = instr.createChild();
+  EXPECT_TRUE(child2.getWaypoint().getType() == instr.getWaypoint().getType());
 }
 
 }  // namespace details
@@ -299,6 +405,7 @@ void runMoveInstructionTest()
 {
   runInstructionInterfaceTest<T>();
 
+  details::runMoveInstructionInterfaceTest<T>();
   details::runMoveInstructionConstructorTest<T>();
   details::runMoveInstructionSettersTest<T>();
 }

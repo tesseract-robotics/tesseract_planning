@@ -37,8 +37,14 @@ void runJointWaypointTest()
   runWaypointInterfaceTest<T>();
 
   {  // WaypointPoly Interface Test
+    const std::string name{ "tesseract_planning::test_suite::WaypointPoly" };
     JointWaypointPoly wp{ T() };
     EXPECT_FALSE(wp.isNull());
+    EXPECT_NE(name, wp.getName());
+    wp.setName(name);
+    EXPECT_EQ(name, wp.getName());
+    EXPECT_NO_THROW(wp.print());
+    EXPECT_NO_THROW(wp.print("test_"));
     EXPECT_TRUE(wp.getType() == std::type_index(typeid(T)));
     WaypointPoly base = wp;
     EXPECT_FALSE(base.isCartesianWaypoint());
@@ -50,8 +56,8 @@ void runJointWaypointTest()
     JointWaypointPoly wp{ T() };
     EXPECT_TRUE(wp.getNames().empty());
     EXPECT_TRUE(wp.getPosition().rows() == 0);
-    EXPECT_TRUE(wp.getUpperTolerance().rows() == 0);
-    EXPECT_TRUE(wp.getLowerTolerance().rows() == 0);
+    EXPECT_TRUE(std::as_const(wp).getUpperTolerance().rows() == 0);
+    EXPECT_TRUE(std::as_const(wp).getLowerTolerance().rows() == 0);
     EXPECT_FALSE(wp.isConstrained());
   }
 
@@ -73,7 +79,7 @@ void runJointWaypointTest()
     {  // Test assigning
       JointWaypointPoly wp{ T() };
       wp.getNames() = names;
-      EXPECT_TRUE(wp.getNames() == names);
+      EXPECT_TRUE(std::as_const(wp).getNames() == names);
     }
   }
 
@@ -91,7 +97,7 @@ void runJointWaypointTest()
     {  // Test assigning
       JointWaypointPoly wp{ T() };
       wp.getPosition() = positions;
-      EXPECT_TRUE(wp.getPosition().isApprox(positions));
+      EXPECT_TRUE(std::as_const(wp).getPosition().isApprox(positions));
     }
   }
 

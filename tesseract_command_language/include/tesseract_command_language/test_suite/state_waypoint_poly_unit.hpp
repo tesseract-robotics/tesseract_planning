@@ -37,8 +37,14 @@ void runStateWaypointTest()
   runWaypointInterfaceTest<T>();
 
   {  // WaypointPoly Interface Test
+    const std::string name{ "tesseract_planning::test_suite::WaypointPoly" };
     StateWaypointPoly wp{ T() };
     EXPECT_FALSE(wp.isNull());
+    EXPECT_NE(name, wp.getName());
+    wp.setName(name);
+    EXPECT_EQ(name, wp.getName());
+    EXPECT_NO_THROW(wp.print());
+    EXPECT_NO_THROW(wp.print("test_"));
     EXPECT_TRUE(wp.getType() == std::type_index(typeid(T)));
     WaypointPoly base = wp;
     EXPECT_FALSE(base.isCartesianWaypoint());
@@ -67,7 +73,7 @@ void runStateWaypointTest()
     {  // Test assigning
       StateWaypointPoly wp{ T() };
       wp.getNames() = names;
-      EXPECT_TRUE(wp.getNames() == names);
+      EXPECT_TRUE(std::as_const(wp).getNames() == names);
     }
   }
 
@@ -85,7 +91,7 @@ void runStateWaypointTest()
     {  // Test assigning
       StateWaypointPoly wp{ T() };
       wp.getPosition() = data;
-      EXPECT_TRUE(wp.getPosition().isApprox(data));
+      EXPECT_TRUE(std::as_const(wp).getPosition().isApprox(data));
     }
   }
 
@@ -103,7 +109,7 @@ void runStateWaypointTest()
     {  // Test assigning
       StateWaypointPoly wp{ T() };
       wp.getVelocity() = data;
-      EXPECT_TRUE(wp.getVelocity().isApprox(data));
+      EXPECT_TRUE(std::as_const(wp).getVelocity().isApprox(data));
     }
   }
 
@@ -121,7 +127,7 @@ void runStateWaypointTest()
     {  // Test assigning
       StateWaypointPoly wp{ T() };
       wp.getAcceleration() = data;
-      EXPECT_TRUE(wp.getAcceleration().isApprox(data));
+      EXPECT_TRUE(std::as_const(wp).getAcceleration().isApprox(data));
     }
   }
 
@@ -139,7 +145,7 @@ void runStateWaypointTest()
     {  // Test assigning
       StateWaypointPoly wp{ T() };
       wp.getEffort() = data;
-      EXPECT_TRUE(wp.getEffort().isApprox(data));
+      EXPECT_TRUE(std::as_const(wp).getEffort().isApprox(data));
     }
   }
 
