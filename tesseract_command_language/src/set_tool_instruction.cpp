@@ -66,8 +66,9 @@ bool SetToolInstruction::operator==(const SetToolInstruction& rhs) const
 
   return equal;
 }
-
+// LCOV_EXCL_START
 bool SetToolInstruction::operator!=(const SetToolInstruction& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
 void SetToolInstruction::serialize(Archive& ar, const unsigned int /*version*/)

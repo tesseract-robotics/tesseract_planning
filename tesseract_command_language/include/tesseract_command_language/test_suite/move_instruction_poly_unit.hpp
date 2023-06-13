@@ -85,6 +85,36 @@ void runMoveInstructionConstructorTest()
 
   // Minimum arguments
   {
+    MoveInstructionPoly instr{ T(WaypointPoly{ swp }, MoveInstructionType::CIRCULAR) };
+    EXPECT_FALSE(instr.isNull());
+    EXPECT_FALSE(instr.isChild());
+    EXPECT_TRUE(instr.getType() == std::type_index(typeid(T)));
+    EXPECT_EQ(instr.getWaypoint(), swp);
+    EXPECT_TRUE(instr.getWaypoint().isStateWaypoint());
+    EXPECT_TRUE(instr.getManipulatorInfo().empty());
+    EXPECT_EQ(instr.getMoveType(), MoveInstructionType::CIRCULAR);
+    EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
+    EXPECT_EQ(instr.getPathProfile(), DEFAULT_PROFILE_KEY);
+    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_FALSE(instr.getDescription().empty());
+    EXPECT_FALSE(instr.getUUID().is_nil());
+    EXPECT_TRUE(instr.getParentUUID().is_nil());
+    EXPECT_TRUE(instr.isCircular());
+
+    MoveInstructionPoly copy{ instr };
+    EXPECT_TRUE(instr == copy);
+    EXPECT_TRUE(instr == copy);
+    EXPECT_FALSE(instr != copy);
+
+    InstructionPoly base = instr;
+    EXPECT_TRUE(base.isMoveInstruction());
+    EXPECT_FALSE(base.isCompositeInstruction());
+
+    runInstructionSerializationTest(instr);
+  }
+
+  {
     MoveInstructionPoly instr{ T(swp, MoveInstructionType::CIRCULAR) };
     EXPECT_FALSE(instr.isNull());
     EXPECT_FALSE(instr.isChild());
@@ -206,6 +236,36 @@ void runMoveInstructionConstructorTest()
   }
 
   {
+    MoveInstructionPoly instr{ T(WaypointPoly{ jwp }, MoveInstructionType::FREESPACE, "TEST_PROFILE") };
+    EXPECT_FALSE(instr.isNull());
+    EXPECT_FALSE(instr.isChild());
+    EXPECT_TRUE(instr.getType() == std::type_index(typeid(T)));
+    EXPECT_EQ(instr.getWaypoint(), jwp);
+    EXPECT_TRUE(instr.getWaypoint().isJointWaypoint());
+    EXPECT_TRUE(instr.getManipulatorInfo().empty());
+    EXPECT_EQ(instr.getMoveType(), MoveInstructionType::FREESPACE);
+    EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
+    EXPECT_TRUE(instr.getPathProfile().empty());
+    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_FALSE(instr.getDescription().empty());
+    EXPECT_FALSE(instr.getUUID().is_nil());
+    EXPECT_TRUE(instr.getParentUUID().is_nil());
+    EXPECT_TRUE(instr.isFreespace());
+
+    MoveInstructionPoly copy{ instr };
+    EXPECT_TRUE(instr == copy);
+    EXPECT_TRUE(instr == copy);
+    EXPECT_FALSE(instr != copy);
+
+    InstructionPoly base = instr;
+    EXPECT_TRUE(base.isMoveInstruction());
+    EXPECT_FALSE(base.isCompositeInstruction());
+
+    runInstructionSerializationTest(instr);
+  }
+
+  {
     MoveInstructionPoly instr{ T(jwp, MoveInstructionType::FREESPACE, "TEST_PROFILE") };
     EXPECT_FALSE(instr.isNull());
     EXPECT_FALSE(instr.isChild());
@@ -313,6 +373,37 @@ void runMoveInstructionConstructorTest()
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
     EXPECT_TRUE(instr.isFreespace());
+
+    MoveInstructionPoly copy{ instr };
+    EXPECT_TRUE(instr == copy);
+    EXPECT_TRUE(instr == copy);
+    EXPECT_FALSE(instr != copy);
+
+    InstructionPoly base = instr;
+    EXPECT_TRUE(base.isMoveInstruction());
+    EXPECT_FALSE(base.isCompositeInstruction());
+
+    runInstructionSerializationTest(instr);
+  }
+
+  {
+    MoveInstructionPoly instr{ T(
+        WaypointPoly{ cwp }, MoveInstructionType::LINEAR, "TEST_PROFILE", "TEST_PATH_PROFILE") };
+    EXPECT_FALSE(instr.isNull());
+    EXPECT_FALSE(instr.isChild());
+    EXPECT_TRUE(instr.getType() == std::type_index(typeid(T)));
+    EXPECT_EQ(instr.getWaypoint(), cwp);
+    EXPECT_TRUE(instr.getWaypoint().isCartesianWaypoint());
+    EXPECT_TRUE(instr.getManipulatorInfo().empty());
+    EXPECT_EQ(instr.getMoveType(), MoveInstructionType::LINEAR);
+    EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
+    EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
+    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_FALSE(instr.getDescription().empty());
+    EXPECT_FALSE(instr.getUUID().is_nil());
+    EXPECT_TRUE(instr.getParentUUID().is_nil());
+    EXPECT_TRUE(instr.isLinear());
 
     MoveInstructionPoly copy{ instr };
     EXPECT_TRUE(instr == copy);

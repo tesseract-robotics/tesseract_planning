@@ -31,20 +31,6 @@
 
 namespace tesseract_planning
 {
-bool isCommentInstruction(const InstructionPoly& instruction)
-{
-  UNUSED(instruction);
-  // TODO: Implement CommentInstruction
-  return false;
-}
-
-bool isVariableInstruction(const InstructionPoly& instruction)
-{
-  UNUSED(instruction);
-  // TODO: Implement VariableInstruction
-  return false;
-}
-
 bool isSetAnalogInstruction(const InstructionPoly& instruction)
 {
   return (instruction.getType() == std::type_index(typeid(SetAnalogInstruction)));

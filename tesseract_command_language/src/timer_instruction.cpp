@@ -83,8 +83,9 @@ bool TimerInstruction::operator==(const TimerInstruction& rhs) const
 
   return equal;
 }
-
+// LCOV_EXCL_START
 bool TimerInstruction::operator!=(const TimerInstruction& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
 void TimerInstruction::serialize(Archive& ar, const unsigned int /*version*/)

@@ -41,11 +41,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning::test_suite
 {
 template <typename T>
-void runInstructionInterfaceTest()
+void runInstructionInterfaceTest(bool expect_uuid_null = true)
 {
   InstructionPoly inst{ T() };
   auto uuid = inst.getUUID();
-  EXPECT_TRUE(uuid.is_nil());
+  EXPECT_EQ(uuid.is_nil(), expect_uuid_null);
   EXPECT_TRUE(inst.getParentUUID().is_nil());
 
   inst.regenerateUUID();
