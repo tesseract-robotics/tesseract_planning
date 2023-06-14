@@ -44,6 +44,8 @@
 #include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_command_language/wait_instruction.h>
 
+#include "command_language_test_program.hpp"
+
 using namespace tesseract_planning;
 using tesseract_common::ManipulatorInfo;
 
@@ -384,146 +386,9 @@ TEST(TesseractCommandLanguageUnit, WaitInstructionTests)  // NOLINT
   }
 }
 
-CompositeInstruction getProgram(std::string profile,
-                                CompositeInstructionOrder order,
-                                tesseract_common::ManipulatorInfo manipulator_info)
+bool notMoveFilter(const InstructionPoly& instruction, const CompositeInstruction& /*composite*/)
 {
-  CompositeInstruction program(profile, order, manipulator_info);
-
-  // Start Joint Position for the program
-  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
-  StateWaypointPoly wp0{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
-  MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
-  start_instruction.setDescription("Start Instruction");
-
-  // Define raster poses
-  CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  CartesianWaypointPoly wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.1, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  CartesianWaypointPoly wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.0, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  CartesianWaypointPoly wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.1, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  CartesianWaypointPoly wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.2, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  JointWaypointPoly wp7 = JointWaypoint(joint_names, Eigen::VectorXd::Ones(6));
-
-  // Define raster move instruction
-  MoveInstruction plan_c0(wp2, MoveInstructionType::LINEAR, "RASTER");
-  MoveInstruction plan_c1(wp3, MoveInstructionType::LINEAR, "RASTER", "RASTER");
-  MoveInstruction plan_c2(wp4, MoveInstructionType::LINEAR, "RASTER");
-  MoveInstruction plan_c3(wp5, MoveInstructionType::LINEAR, "RASTER", "RASTER");
-  MoveInstruction plan_c4(wp6, MoveInstructionType::LINEAR, "RASTER");
-  MoveInstruction plan_c5(wp7, MoveInstructionType::LINEAR, "RASTER", "RASTER");
-
-  MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
-  plan_f0.setDescription("from_start_plan");
-  CompositeInstruction from_start;
-  from_start.setDescription("from_start");
-  from_start.appendMoveInstruction(start_instruction);
-  from_start.appendMoveInstruction(plan_f0);
-  program.push_back(from_start);
-
-  {
-    CompositeInstruction raster_segment;
-    raster_segment.setDescription("raster_segment");
-    raster_segment.appendMoveInstruction(plan_c0);
-    raster_segment.appendMoveInstruction(plan_c1);
-    raster_segment.appendMoveInstruction(plan_c2);
-    raster_segment.appendMoveInstruction(plan_c3);
-    raster_segment.appendMoveInstruction(plan_c4);
-    raster_segment.appendMoveInstruction(plan_c5);
-    program.push_back(raster_segment);
-  }
-
-  {
-    MoveInstruction plan_f1(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
-    plan_f1.setDescription("transition_from_end_plan");
-    CompositeInstruction transition_from_end;
-    transition_from_end.setDescription("transition_from_end");
-    transition_from_end.appendMoveInstruction(plan_f1);
-    CompositeInstruction transition_from_start;
-    transition_from_start.setDescription("transition_from_start");
-    transition_from_start.appendMoveInstruction(plan_f1);
-
-    CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
-    transitions.setDescription("transitions");
-    transitions.push_back(transition_from_start);
-    transitions.push_back(transition_from_end);
-    program.push_back(transitions);
-  }
-
-  {
-    CompositeInstruction raster_segment;
-    raster_segment.setDescription("raster_segment");
-    raster_segment.appendMoveInstruction(plan_c0);
-    raster_segment.appendMoveInstruction(plan_c1);
-    raster_segment.appendMoveInstruction(plan_c2);
-    raster_segment.appendMoveInstruction(plan_c3);
-    raster_segment.appendMoveInstruction(plan_c4);
-    raster_segment.appendMoveInstruction(plan_c5);
-    program.push_back(raster_segment);
-  }
-
-  {
-    MoveInstruction plan_f1(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
-    plan_f1.setDescription("transition_from_end_plan");
-    CompositeInstruction transition_from_end;
-    transition_from_end.setDescription("transition_from_end");
-    transition_from_end.appendMoveInstruction(plan_f1);
-    CompositeInstruction transition_from_start;
-    transition_from_start.setDescription("transition_from_start");
-    transition_from_start.appendMoveInstruction(plan_f1);
-
-    CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
-    transitions.setDescription("transitions");
-    transitions.push_back(transition_from_start);
-    transitions.push_back(transition_from_end);
-    program.push_back(transitions);
-  }
-
-  {
-    CompositeInstruction raster_segment;
-    raster_segment.setDescription("raster_segment");
-    raster_segment.appendMoveInstruction(plan_c0);
-    raster_segment.appendMoveInstruction(plan_c1);
-    raster_segment.appendMoveInstruction(plan_c2);
-    raster_segment.appendMoveInstruction(plan_c3);
-    raster_segment.appendMoveInstruction(plan_c4);
-    raster_segment.appendMoveInstruction(plan_c5);
-    program.push_back(raster_segment);
-  }
-
-  MoveInstruction plan_f2(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
-  plan_f2.setDescription("to_end_plan");
-  CompositeInstruction to_end;
-  to_end.setDescription("to_end");
-  to_end.appendMoveInstruction(plan_f2);
-  program.push_back(to_end);
-
-  // Add a wait instruction
-  WaitInstruction wait_instruction_time(1.5);
-  program.push_back(wait_instruction_time);
-
-  WaitInstruction wait_instruction_io(WaitInstructionType::DIGITAL_INPUT_LOW, 10);
-  program.push_back(wait_instruction_io);
-
-  // Add a timer instruction
-  TimerInstruction timer_instruction(TimerInstructionType::DIGITAL_OUTPUT_LOW, 3.1, 5);
-  program.push_back(timer_instruction);
-
-  // Add a set tool instruction
-  SetToolInstruction set_tool_instruction(5);
-  program.push_back(set_tool_instruction);
-
-  // Add a set tool instruction
-  SetAnalogInstruction set_analog_instruction("R", 0, 1.5);
-  program.push_back(set_analog_instruction);
-
-  return program;
+  return !instruction.isMoveInstruction();
 }
 
 TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
@@ -535,12 +400,13 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   std::string profile{ "raster_program" };
   ManipulatorInfo manip_info("manipulator", "world", "tool0");
   CompositeInstructionOrder order{ CompositeInstructionOrder::ORDERED };
-  T instr = getProgram(profile, order, manip_info);
+  T instr = getTestProgram(profile, order, manip_info);
   EXPECT_FALSE(instr.getUUID().is_nil());
   EXPECT_TRUE(instr.getParentUUID().is_nil());
   EXPECT_EQ(instr.getProfile(), profile);
   EXPECT_EQ(instr.getProfileOverrides(), nullptr);
   EXPECT_EQ(instr.getManipulatorInfo(), manip_info);
+  EXPECT_EQ(std::as_const(instr).getManipulatorInfo(), manip_info);
   EXPECT_EQ(instr.getOrder(), order);
   EXPECT_NE(instr.size(), instr.getInstructionCount());  // Because of nested composites
   EXPECT_EQ(instr.size(), instr.getInstructions().size());
@@ -560,6 +426,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_NE(instr.getLastMoveInstruction(), nullptr);
   EXPECT_NE(std::as_const(instr).getLastMoveInstruction(), nullptr);
   EXPECT_EQ(std::as_const(instr).getLastMoveInstruction(), instr.getLastMoveInstruction());
+
   InstructionPoly poly{ instr };
   test_suite::runInstructionSerializationTest(poly);
 
@@ -603,6 +470,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_EQ(assign_program.getProfile(), profile);
   EXPECT_EQ(assign_program.getProfileOverrides(), nullptr);
   EXPECT_EQ(assign_program.getManipulatorInfo(), manip_info);
+  EXPECT_EQ(std::as_const(assign_program).getManipulatorInfo(), manip_info);
   EXPECT_EQ(assign_program.getOrder(), order);
   EXPECT_NE(assign_program.size(), assign_program.getInstructionCount());  // Because of nested composites
   EXPECT_EQ(assign_program.size(), assign_program.getInstructions().size());
@@ -636,6 +504,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_EQ(copy_program.getProfile(), profile);
   EXPECT_EQ(copy_program.getProfileOverrides(), nullptr);
   EXPECT_EQ(copy_program.getManipulatorInfo(), manip_info);
+  EXPECT_EQ(std::as_const(copy_program).getManipulatorInfo(), manip_info);
   EXPECT_EQ(copy_program.getOrder(), order);
   EXPECT_NE(copy_program.size(), copy_program.getInstructionCount());  // Because of nested composites
   EXPECT_EQ(copy_program.size(), copy_program.getInstructions().size());
@@ -669,6 +538,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_EQ(empty_program.getProfile(), profile);
   EXPECT_EQ(empty_program.getProfileOverrides(), nullptr);
   EXPECT_EQ(empty_program.getManipulatorInfo(), manip_info);
+  EXPECT_EQ(std::as_const(empty_program).getManipulatorInfo(), manip_info);
   EXPECT_EQ(empty_program.getOrder(), order);
   EXPECT_EQ(empty_program.size(), empty_program.getInstructionCount());
   EXPECT_EQ(empty_program.size(), empty_program.getInstructions().size());
@@ -696,6 +566,44 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_FALSE(empty_program == instr);
   EXPECT_TRUE(empty_program != instr);
 
+  auto profile_overrides = std::make_shared<ProfileDictionary>();
+  T set_program;
+  set_program.setProfile(profile);
+  set_program.setManipulatorInfo(manip_info);
+  set_program.setProfileOverrides(profile_overrides);
+  EXPECT_FALSE(set_program.getUUID().is_nil());
+  EXPECT_TRUE(set_program.getParentUUID().is_nil());
+  EXPECT_EQ(set_program.getProfile(), profile);
+  EXPECT_EQ(set_program.getProfileOverrides(), profile_overrides);
+  EXPECT_EQ(set_program.getManipulatorInfo(), manip_info);
+  EXPECT_EQ(std::as_const(set_program).getManipulatorInfo(), manip_info);
+  EXPECT_EQ(set_program.getOrder(), order);
+  EXPECT_EQ(set_program.size(), set_program.getInstructionCount());
+  EXPECT_EQ(set_program.size(), set_program.getInstructions().size());
+  EXPECT_EQ(set_program.size(), std::as_const(set_program).getInstructions().size());
+  EXPECT_EQ(set_program.size(), 0);
+  EXPECT_EQ(set_program.getInstructionCount(), 0);
+  EXPECT_EQ(set_program.getFirstInstruction(), nullptr);
+  EXPECT_EQ(std::as_const(set_program).getFirstInstruction(), nullptr);
+  EXPECT_EQ(std::as_const(set_program).getFirstInstruction(), set_program.getFirstInstruction());
+  EXPECT_EQ(set_program.getLastInstruction(), nullptr);
+  EXPECT_EQ(std::as_const(set_program).getLastInstruction(), nullptr);
+  EXPECT_EQ(std::as_const(set_program).getLastInstruction(), set_program.getLastInstruction());
+  EXPECT_EQ(set_program.getMoveInstructionCount(), 0);
+  EXPECT_EQ(set_program.getFirstMoveInstruction(), nullptr);
+  EXPECT_EQ(std::as_const(set_program).getFirstMoveInstruction(), nullptr);
+  EXPECT_EQ(std::as_const(set_program).getFirstMoveInstruction(), set_program.getFirstMoveInstruction());
+  EXPECT_EQ(set_program.getLastMoveInstruction(), nullptr);
+  EXPECT_EQ(std::as_const(set_program).getLastMoveInstruction(), nullptr);
+  EXPECT_EQ(std::as_const(set_program).getLastMoveInstruction(), set_program.getLastMoveInstruction());
+  poly = set_program;
+  test_suite::runInstructionSerializationTest(poly);
+
+  // Not Equal
+  EXPECT_FALSE(instr == set_program);
+  EXPECT_FALSE(set_program == instr);
+  EXPECT_TRUE(set_program != instr);
+
   // Clear
   T clear_program{ instr };
   clear_program.clear();
@@ -704,6 +612,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_EQ(clear_program.getProfile(), profile);
   EXPECT_EQ(clear_program.getProfileOverrides(), nullptr);
   EXPECT_EQ(clear_program.getManipulatorInfo(), manip_info);
+  EXPECT_EQ(std::as_const(clear_program).getManipulatorInfo(), manip_info);
   EXPECT_EQ(clear_program.getOrder(), order);
   EXPECT_EQ(clear_program.size(), clear_program.getInstructionCount());
   EXPECT_EQ(clear_program.size(), clear_program.getInstructions().size());
@@ -731,6 +640,26 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_FALSE(clear_program == instr);
   EXPECT_TRUE(clear_program != instr);
 
+  // Filters
+  EXPECT_EQ(instr.getInstructionCount(moveFilter, false), 0);
+  EXPECT_EQ(instr.getFirstInstruction(moveFilter, false), nullptr);
+  EXPECT_EQ(std::as_const(instr).getFirstInstruction(moveFilter, false), nullptr);
+  EXPECT_EQ(std::as_const(instr).getFirstInstruction(moveFilter, false), instr.getFirstInstruction(moveFilter, false));
+  EXPECT_EQ(instr.getLastInstruction(moveFilter, false), nullptr);
+  EXPECT_EQ(std::as_const(instr).getLastInstruction(moveFilter, false), nullptr);
+  EXPECT_EQ(std::as_const(instr).getLastInstruction(moveFilter, false), instr.getLastInstruction(moveFilter, false));
+
+  EXPECT_EQ(instr.getInstructionCount(notMoveFilter, false), 12);
+  EXPECT_NE(instr.getFirstInstruction(notMoveFilter, false), nullptr);
+  EXPECT_NE(std::as_const(instr).getFirstInstruction(notMoveFilter, false), nullptr);
+  EXPECT_EQ(std::as_const(instr).getFirstInstruction(notMoveFilter, false),
+            instr.getFirstInstruction(notMoveFilter, false));
+  EXPECT_NE(instr.getLastInstruction(notMoveFilter, false), nullptr);
+  EXPECT_NE(std::as_const(instr).getLastInstruction(notMoveFilter, false), nullptr);
+  EXPECT_EQ(std::as_const(instr).getLastInstruction(notMoveFilter, false),
+            instr.getLastInstruction(notMoveFilter, false));
+
+  // Flatten
   auto mis = instr.flatten(moveFilter);
   T insert_mi_program(profile, order, manip_info);
   for (const auto& mi : mis)

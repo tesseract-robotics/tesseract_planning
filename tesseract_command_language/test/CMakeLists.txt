@@ -48,7 +48,7 @@ add_dependencies(run_tests ${PROJECT_NAME}_unit)
 add_dependencies(${PROJECT_NAME}_unit ${PROJECT_NAME})
 
 # Utils Tests
-add_executable(${PROJECT_NAME}_utils_unit utils_test.cpp)
+add_executable(${PROJECT_NAME}_utils_unit command_language_utils_unit.cpp)
 target_link_libraries(${PROJECT_NAME}_utils_unit PRIVATE GTest::GTest GTest::Main ${PROJECT_NAME})
 target_compile_options(${PROJECT_NAME}_utils_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                           ${TESSERACT_COMPILE_OPTIONS_PUBLIC})

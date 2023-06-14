@@ -233,6 +233,15 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPo
     jv = &(swp.getPosition());
     jn = &(swp.getNames());
   }
+  else if (waypoint.isCartesianWaypoint())
+  {
+    auto& cwp = waypoint.as<CartesianWaypointPoly>();
+    if (!cwp.hasSeed())
+      throw std::runtime_error("Cartesian waypoint does not have a seed.");
+
+    jv = &(cwp.getSeed().position);
+    jn = &(cwp.getSeed().joint_names);
+  }
   else
   {
     throw std::runtime_error("Unsupported waypoint type.");
@@ -288,6 +297,8 @@ bool setJointPosition(WaypointPoly& waypoint, const Eigen::Ref<const Eigen::Vect
     waypoint.as<JointWaypointPoly>().setPosition(position);
   else if (waypoint.isStateWaypoint())
     waypoint.as<StateWaypointPoly>().setPosition(position);
+  else if (waypoint.isCartesianWaypoint() && waypoint.as<CartesianWaypointPoly>().hasSeed())
+    waypoint.as<CartesianWaypointPoly>().getSeed().position = position;
   else
     return false;
 
@@ -332,28 +343,6 @@ bool clampToJointLimits(WaypointPoly& wp,
   throw std::runtime_error("clampToJointLimits, invalid waypoint type!");
 }
 
-void generateSkeletonSeedHelper(CompositeInstruction& composite_instructions)
-{
-  for (auto& i : composite_instructions.getInstructions())
-  {
-    if (i.isCompositeInstruction())
-    {
-      generateSkeletonSeedHelper(i.as<CompositeInstruction>());
-    }
-    else if (i.isMoveInstruction())
-    {
-      CompositeInstruction ci;
-      const auto& pi = i.as<MoveInstructionPoly>();
-      ci.setProfile(pi.getProfile());
-      ci.setDescription(pi.getDescription());
-      ci.setManipulatorInfo(pi.getManipulatorInfo());
-      ci.setProfileOverrides(pi.getProfileOverrides());
-
-      i = ci;
-    }
-  }
-}
-
 bool toDelimitedFile(const CompositeInstruction& composite_instructions, const std::string& file_path, char separator)
 {
   static const Eigen::IOFormat eigen_format(
@@ -380,13 +369,6 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
 
   myfile.close();
   return true;
-}
-
-CompositeInstruction generateSkeletonSeed(const CompositeInstruction& composite_instructions)
-{
-  CompositeInstruction seed = composite_instructions;
-  generateSkeletonSeedHelper(seed);
-  return seed;
 }
 
 }  // namespace tesseract_planning
