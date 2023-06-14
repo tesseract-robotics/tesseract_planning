@@ -84,8 +84,9 @@ bool WaitInstruction::operator==(const WaitInstruction& rhs) const
 
   return equal;
 }
-
+// LCOV_EXCL_START
 bool WaitInstruction::operator!=(const WaitInstruction& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
 void WaitInstruction::serialize(Archive& ar, const unsigned int /*version*/)

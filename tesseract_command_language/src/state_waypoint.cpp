@@ -113,7 +113,9 @@ bool StateWaypoint::operator==(const StateWaypoint& rhs) const
   equal &= tesseract_common::isIdentical(joint_names, rhs.joint_names);
   return equal;
 }
+// LCOV_EXCL_START
 bool StateWaypoint::operator!=(const StateWaypoint& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
 void StateWaypoint::serialize(Archive& ar, const unsigned int /*version*/)

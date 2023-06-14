@@ -1,74 +1,51 @@
-/**
- * @file serialize_test.cpp
- * @brief
- *
- * @author Levi Armstrong
- * @date August 20, 2020
- * @version TODO
- * @bug No known bugs
- *
- * @copyright Copyright (c) 2020, Southwest Research Institute
- *
- * @par License
- * Software License Agreement (Apache License)
- * @par
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- * @par
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <gtest/gtest.h>
-#include <boost/archive/xml_oarchive.hpp>
-#include <boost/archive/xml_iarchive.hpp>
-#include <fstream>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#ifndef TESSERACT_COMMAND_LANGUAGE_COMMAND_LANGUAGE_TEST_PROGRAM_HPP
+#define TESSERACT_COMMAND_LANGUAGE_COMMAND_LANGUAGE_TEST_PROGRAM_HPP
 
-#include <tesseract_common/serialization.h>
-#include <tesseract_common/any_poly.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/wait_instruction.h>
-#include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_command_language/set_analog_instruction.h>
 #include <tesseract_command_language/set_tool_instruction.h>
-#include <tesseract_command_language/utils.h>
-#include <tesseract_common/utils.h>
+#include <tesseract_command_language/timer_instruction.h>
+#include <tesseract_command_language/wait_instruction.h>
 
-using namespace tesseract_planning;
-using tesseract_common::ManipulatorInfo;
-
-CompositeInstruction getProgram()
+namespace tesseract_planning
 {
-  CompositeInstruction program(
-      "raster_program", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "world", "tool0"));
+inline CompositeInstruction getTestProgram(std::string profile,
+                                           CompositeInstructionOrder order,
+                                           tesseract_common::ManipulatorInfo manipulator_info)
+{
+  CompositeInstruction program(std::move(profile), order, std::move(manipulator_info));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
   StateWaypointPoly wp0{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+  JointWaypointPoly wp00{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
+  MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
+  end_instruction.setDescription("End Instruction");
+
+  tesseract_common::JointState seed_state;
+  seed_state.joint_names = joint_names;
+  seed_state.position = Eigen::VectorXd::Zero(6);
 
   // Define raster poses
   CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
                                                 Eigen::Quaterniond(0, 0, -1.0, 0));
+  wp1.setSeed(seed_state);
   CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
                                                 Eigen::Quaterniond(0, 0, -1.0, 0));
   CartesianWaypointPoly wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.1, 0.8) *
                                                 Eigen::Quaterniond(0, 0, -1.0, 0));
+  wp3.setSeed(seed_state);
   CartesianWaypointPoly wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.0, 0.8) *
                                                 Eigen::Quaterniond(0, 0, -1.0, 0));
   CartesianWaypointPoly wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.1, 0.8) *
                                                 Eigen::Quaterniond(0, 0, -1.0, 0));
+  wp5.setSeed(seed_state);
   CartesianWaypointPoly wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.2, 0.8) *
                                                 Eigen::Quaterniond(0, 0, -1.0, 0));
   JointWaypointPoly wp7 = JointWaypoint(joint_names, Eigen::VectorXd::Ones(6));
@@ -159,11 +136,9 @@ CompositeInstruction getProgram()
     program.push_back(raster_segment);
   }
 
-  MoveInstruction plan_f2(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
-  plan_f2.setDescription("to_end_plan");
   CompositeInstruction to_end;
   to_end.setDescription("to_end");
-  to_end.appendMoveInstruction(plan_f2);
+  to_end.appendMoveInstruction(end_instruction);
   program.push_back(to_end);
 
   // Add a wait instruction
@@ -187,37 +162,5 @@ CompositeInstruction getProgram()
 
   return program;
 }
-
-TEST(TesseractCommandLanguageSerializeUnit, serializationCompositeInstruction)  // NOLINT
-{
-  InstructionPoly program = getProgram();
-  {  // Archive program to file
-    std::string file_path = tesseract_common::getTempPath() + "composite_instruction_boost.xml";
-    EXPECT_TRUE(tesseract_common::Serialization::toArchiveFileXML<InstructionPoly>(program, file_path));
-    auto nprogram = tesseract_common::Serialization::fromArchiveFileXML<InstructionPoly>(file_path);
-    EXPECT_TRUE(program == nprogram);
-  }
-
-  {  // Archive program to string
-    std::string program_string =
-        tesseract_common::Serialization::toArchiveStringXML<InstructionPoly>(program, "program");
-    EXPECT_FALSE(program_string.empty());
-    auto nprogram = tesseract_common::Serialization::fromArchiveStringXML<InstructionPoly>(program_string);
-    EXPECT_TRUE(program == nprogram);
-  }
-}
-
-TEST(TesseractCommandLanguageSerializeUnit, TypeErasureInTypeErasure)  // NOLINT
-{
-  tesseract_planning::InstructionPoly instruction{ SetToolInstruction(5) };
-  tesseract_common::AnyPoly any_type;
-  any_type = instruction;
-  EXPECT_EQ(any_type.getType(), std::type_index(typeid(tesseract_planning::InstructionPoly)));
-}
-
-int main(int argc, char** argv)
-{
-  testing::InitGoogleTest(&argc, argv);
-
-  return RUN_ALL_TESTS();
-}
+}  // namespace tesseract_planning
+#endif  // TESSERACT_COMMAND_LANGUAGE_COMMAND_LANGUAGE_TEST_PROGRAM_HPP

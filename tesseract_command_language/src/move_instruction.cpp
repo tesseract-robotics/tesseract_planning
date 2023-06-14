@@ -206,8 +206,12 @@ void MoveInstruction::setDescription(const std::string& description) { descripti
 
 void MoveInstruction::print(const std::string& prefix) const
 {
-  std::cout << prefix + "Move Instruction, Move Type: " << static_cast<int>(move_type_) << ", ";
-  getWaypoint().print();
+  std::cout << prefix + "Move Instruction, Move Type: " << static_cast<int>(move_type_);
+  if (!getWaypoint().isNull())
+  {
+    std::cout << ", ";
+    getWaypoint().print();
+  }
   std::cout << ", Description: " << getDescription() << std::endl;
 }
 
@@ -226,8 +230,9 @@ bool MoveInstruction::operator==(const MoveInstruction& rhs) const
   /** @todo Add profiles overrides when serialization is supported for profiles */
   return equal;
 }
-
+// LCOV_EXCL_START
 bool MoveInstruction::operator!=(const MoveInstruction& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
 void MoveInstruction::serialize(Archive& ar, const unsigned int /*version*/)
