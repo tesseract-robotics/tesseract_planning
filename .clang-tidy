@@ -33,7 +33,7 @@ Checks: >
     -readability-function-cognitive-complexity,
     -readability-use-anyofallof,
     -readability-identifier-length,
-    -readability-suspicious-call-argument
+    -readability-suspicious-call-argument,
     -readability-function-size
 WarningsAsErrors: >
     -*,
@@ -69,7 +69,7 @@ WarningsAsErrors: >
     -readability-function-cognitive-complexity
     -readability-use-anyofallof,
     -readability-identifier-length,
-    -readability-suspicious-call-argument
+    -readability-suspicious-call-argument,
     -readability-function-size
 HeaderFilterRegex: '.*'
 AnalyzeTemporaryDtors: false
