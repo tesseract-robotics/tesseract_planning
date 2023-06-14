@@ -56,7 +56,7 @@ void runWaypointInterfaceTest()
  * @brief This will test the serialization of any waypoint implementation
  * @param waypoint The waypoint to test serialization
  */
-void runWaypointSerializationTest(const WaypointPoly& waypoint)
+inline void runWaypointSerializationTest(const WaypointPoly& waypoint)
 {
   const std::string filepath = tesseract_common::getTempPath() + "waypoint_poly_boost.xml";
   tesseract_common::Serialization::toArchiveFileXML<WaypointPoly>(waypoint, filepath);

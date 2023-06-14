@@ -13,11 +13,11 @@
 
 namespace tesseract_planning
 {
-CompositeInstruction getTestProgram(std::string profile,
-                                    CompositeInstructionOrder order,
-                                    tesseract_common::ManipulatorInfo manipulator_info)
+inline CompositeInstruction getTestProgram(std::string profile,
+                                           CompositeInstructionOrder order,
+                                           tesseract_common::ManipulatorInfo manipulator_info)
 {
-  CompositeInstruction program(profile, order, manipulator_info);
+  CompositeInstruction program(std::move(profile), order, std::move(manipulator_info));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };

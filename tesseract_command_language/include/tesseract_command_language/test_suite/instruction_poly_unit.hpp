@@ -78,7 +78,7 @@ void runInstructionInterfaceTest(bool expect_uuid_null = true)
  * @brief This will test the serialization of any waypoint implementation
  * @param waypoint The waypoint to test serialization
  */
-void runInstructionSerializationTest(const InstructionPoly& inst)
+inline void runInstructionSerializationTest(const InstructionPoly& inst)
 {
   const std::string filepath = tesseract_common::getTempPath() + "instruction_poly_boost.xml";
   tesseract_common::Serialization::toArchiveFileXML<InstructionPoly>(inst, filepath);
