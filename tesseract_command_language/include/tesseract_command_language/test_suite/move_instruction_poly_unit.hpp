@@ -59,8 +59,8 @@ void runMoveInstructionInterfaceTest()
   inst.setDescription(desc);
   EXPECT_EQ(inst.getDescription(), desc);
 
-  EXPECT_NO_THROW(inst.print());
-  EXPECT_NO_THROW(inst.print("test_"));
+  EXPECT_NO_THROW(inst.print());         // NOLINT
+  EXPECT_NO_THROW(inst.print("test_"));  // NOLINT
 
   InstructionPoly assign = inst;
   EXPECT_TRUE(assign == inst);

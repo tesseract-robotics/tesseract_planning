@@ -48,8 +48,8 @@ void runWaypointInterfaceTest()
   EXPECT_NE(name, waypoint.getName());
   waypoint.setName(name);
   EXPECT_EQ(name, waypoint.getName());
-  EXPECT_NO_THROW(waypoint.print());
-  EXPECT_NO_THROW(waypoint.print("test_"));
+  EXPECT_NO_THROW(waypoint.print());         // NOLINT
+  EXPECT_NO_THROW(waypoint.print("test_"));  // NOLINT
 }
 
 /**
