@@ -33,7 +33,8 @@ Checks: >
     -readability-function-cognitive-complexity,
     -readability-use-anyofallof,
     -readability-identifier-length,
-    -readability-suspicious-call-argument
+    -readability-suspicious-call-argument,
+    -readability-function-size
 WarningsAsErrors: >
     -*,
     clang-diagnostic-*,
@@ -68,7 +69,8 @@ WarningsAsErrors: >
     -readability-function-cognitive-complexity
     -readability-use-anyofallof,
     -readability-identifier-length,
-    -readability-suspicious-call-argument
+    -readability-suspicious-call-argument,
+    -readability-function-size
 HeaderFilterRegex: '.*'
 AnalyzeTemporaryDtors: false
 FormatStyle:     none

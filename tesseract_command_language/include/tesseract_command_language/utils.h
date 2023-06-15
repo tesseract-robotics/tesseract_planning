@@ -64,6 +64,14 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
 const Eigen::VectorXd& getJointPosition(const WaypointPoly& waypoint);
 
 /**
+ * @brief This prevent implicit cast to WaypointPoly
+ * @details Since we are returning by reference if the type passed is converted
+ * to a WaypointPoly then the object return is referencing a temporary value.
+ */
+template <class T>
+const Eigen::VectorXd& getJointPosition(const T&) = delete;
+
+/**
  * @brief Gets joint names from waypoints that contain that information.
  *
  * Throws if waypoint does not directly contain that information
@@ -72,6 +80,14 @@ const Eigen::VectorXd& getJointPosition(const WaypointPoly& waypoint);
  * @return The joint names
  */
 const std::vector<std::string>& getJointNames(const WaypointPoly& waypoint);
+
+/**
+ * @brief This prevent implicit cast to WaypointPoly
+ * @details Since we are returning by reference if the type passed is converted
+ * to a WaypointPoly then the object return is referencing a temporary value.
+ */
+template <class T>
+const std::vector<std::string>& getJointNames(const T&) = delete;
 
 /**
  * @brief Get the joint positions ordered by the provided joint names
@@ -102,6 +118,14 @@ Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, co
 bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPoly& waypoint);
 
 /**
+ * @brief This prevent implicit cast to WaypointPoly
+ * @details Since we are returning by reference if the type passed is converted
+ * to a WaypointPoly then the object return is referencing a temporary value.
+ */
+template <class T>
+bool formatJointPosition(const std::vector<std::string>&, T&) = delete;
+
+/**
  * @brief Check the waypoints joint order against the provided joint names
  *
  * Throws if waypoint does not directly contain that information
@@ -124,12 +148,28 @@ bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const
 bool setJointPosition(WaypointPoly& waypoint, const Eigen::Ref<const Eigen::VectorXd>& position);
 
 /**
+ * @brief This prevent implicit cast to WaypointPoly
+ * @details Since we are returning by reference if the type passed is converted
+ * to a WaypointPoly then the object return is referencing a temporary value.
+ */
+template <class T>
+bool setJointPosition(T& waypoint, const Eigen::Ref<const Eigen::VectorXd>&) = delete;
+
+/**
  * @brief Checks if a waypoint is
  * @param wp Waypoint to be checked. Only checks if a JointPosition or State waypoint (otherwise returns true)
  * @param limits Matrix2d of limits with first column being lower limits and second column being upper limits
  * @return True if the waypoit falls within the joint limits
  */
 bool isWithinJointLimits(const WaypointPoly& wp, const Eigen::Ref<const Eigen::MatrixX2d>& limits);
+
+/**
+ * @brief This prevent implicit cast to WaypointPoly
+ * @details Since we are returning by reference if the type passed is converted
+ * to a WaypointPoly then the object return is referencing a temporary value.
+ */
+template <class T>
+bool isWithinJointLimits(const T&, const Eigen::Ref<const Eigen::MatrixX2d>&) = delete;
 
 /**
  * @brief Clamps a waypoint to be within joint limits
@@ -142,6 +182,17 @@ bool isWithinJointLimits(const WaypointPoly& wp, const Eigen::Ref<const Eigen::M
 bool clampToJointLimits(WaypointPoly& wp,
                         const Eigen::Ref<const Eigen::MatrixX2d>& limits,
                         double max_deviation = (std::numeric_limits<double>::max)());
+
+/**
+ * @brief This prevent implicit cast to WaypointPoly
+ * @details Since we are returning by reference if the type passed is converted
+ * to a WaypointPoly then the object return is referencing a temporary value.
+ */
+template <class T>
+bool clampToJointLimits(T&,
+                        const Eigen::Ref<const Eigen::MatrixX2d>&,
+                        double max_deviation = (std::numeric_limits<double>::max)()) = delete;
+
 #endif
 
 /**
@@ -156,11 +207,14 @@ bool clampToJointLimits(WaypointPoly& wp,
                         const Eigen::Ref<const Eigen::VectorXd>& max_deviation);
 
 /**
- * @brief This creates a seed by looping over and replacing every plan instruction with a composite instruction
- * @param instructions
- * @return
+ * @brief This prevent implicit cast to WaypointPoly
+ * @details Since we are returning by reference if the type passed is converted
+ * to a WaypointPoly then the object return is referencing a temporary value.
  */
-CompositeInstruction generateSkeletonSeed(const CompositeInstruction& composite_instructions);
+template <class T>
+bool clampToJointLimits(WaypointPoly&,
+                        const Eigen::Ref<const Eigen::MatrixX2d>&,
+                        const Eigen::Ref<const Eigen::VectorXd>&) = delete;
 
 /**
  * @brief Convert a CompositeInstruction to delimited formate file by extracting all MoveInstructions

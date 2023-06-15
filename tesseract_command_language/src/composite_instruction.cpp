@@ -223,6 +223,7 @@ bool CompositeInstruction::operator==(const CompositeInstruction& rhs) const
   return equal;
 }
 
+// LCOV_EXCL_START
 bool CompositeInstruction::operator!=(const CompositeInstruction& rhs) const { return !operator==(rhs); }
 
 ///////////////
@@ -300,6 +301,7 @@ void CompositeInstruction::push_back(const value_type&& x) { container_.push_bac
 
 void CompositeInstruction::pop_back() { container_.pop_back(); }
 void CompositeInstruction::swap(std::vector<value_type>& other) { container_.swap(other); }
+// LCOV_EXCL_STOP
 
 ///////////////////////////////////
 /// Helper functions

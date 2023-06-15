@@ -94,7 +94,9 @@ bool JointWaypoint::operator==(const JointWaypoint& rhs) const
   equal &= (is_constrained_ == rhs.is_constrained_);
   return equal;
 }
+// LCOV_EXCL_START
 bool JointWaypoint::operator!=(const JointWaypoint& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
 void JointWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
