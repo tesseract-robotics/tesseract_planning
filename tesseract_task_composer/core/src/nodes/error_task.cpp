@@ -39,6 +39,15 @@ ErrorTask::ErrorTask(std::string name, bool is_conditional) : TaskComposerTask(s
 ErrorTask::ErrorTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), config)
 {
+  try
+  {
+    if (YAML::Node n = config["trigger_abort"])
+      trigger_abort_ = n.as<bool>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("ErrorTask: Failed to parse yaml config data! Details: " + std::string(e.what()));
+  }
 }
 
 TaskComposerNodeInfo::UPtr ErrorTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
@@ -49,9 +58,11 @@ TaskComposerNodeInfo::UPtr ErrorTask::runImpl(TaskComposerInput& input, Optional
 
   info->color = "red";
   info->return_value = 0;
-  input.abort(uuid_);
   info->message = "Error";
   CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
+  if (trigger_abort_)
+    input.abort(uuid_);
+
   return info;
 }
 

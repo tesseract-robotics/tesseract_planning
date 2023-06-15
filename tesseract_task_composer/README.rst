@@ -454,6 +454,7 @@ The final task that is called in a task graph if error occurs
      class: ErrorTaskFactory
      config:
        conditional: false
+       trigger_abort: true
     
 Fix State Bounds Task
 ^^^^^^^^^^^^^^^^^^^^^

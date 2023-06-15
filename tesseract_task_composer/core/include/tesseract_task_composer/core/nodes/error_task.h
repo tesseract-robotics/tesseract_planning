@@ -57,6 +57,8 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
+  bool trigger_abort_{ true };
+
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
                                      OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
