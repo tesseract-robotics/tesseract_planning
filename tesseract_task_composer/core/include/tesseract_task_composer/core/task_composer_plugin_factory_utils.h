@@ -42,8 +42,6 @@ public:
   }
 };
 
-TESSERACT_PLUGIN_ANCHOR_DECL(TaskComposerTaskFactoryAnchor)
-
 template <typename ExecutorType>
 class TaskComposerExecutorFactoryImpl : public TaskComposerExecutorFactory
 {

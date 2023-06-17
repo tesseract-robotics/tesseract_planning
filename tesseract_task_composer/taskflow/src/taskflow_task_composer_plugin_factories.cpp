@@ -27,11 +27,11 @@
 #include <tesseract_task_composer/core/task_composer_plugin_factory_utils.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 
+#include <tesseract_task_composer/taskflow/factories/taskflow_task_composer_plugin_factories.h>
 namespace tesseract_planning
 {
 using TaskflowTaskComposerExecutorFactory = TaskComposerExecutorFactoryImpl<TaskflowTaskComposerExecutor>;
-
-TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerExecutorFactoryAnchor)
+TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerTaskflowFactoriesAnchor);
 }
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)

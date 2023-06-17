@@ -39,7 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerInput::TaskComposerInput(TaskComposerProblem::UPtr problem)
+TaskComposerInput::TaskComposerInput(TaskComposerProblem::UPtr&& problem)
   : problem(std::move(problem)), data_storage(this->problem->input_data)
 {
 }

@@ -40,7 +40,6 @@ void TaskComposerFuture::serialize(Archive& /*ar*/, const unsigned int /*version
 {
 }
 
-TESSERACT_PLUGIN_ANCHOR_DECL(TaskComposerExecutorFactoryAnchor)
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>

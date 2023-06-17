@@ -50,7 +50,7 @@ struct TaskComposerInput
   using UPtr = std::unique_ptr<TaskComposerInput>;
   using ConstUPtr = std::unique_ptr<const TaskComposerInput>;
 
-  TaskComposerInput(TaskComposerProblem::UPtr problem);
+  TaskComposerInput(TaskComposerProblem::UPtr&& problem);
   TaskComposerInput(const TaskComposerInput&) = delete;
   TaskComposerInput& operator=(const TaskComposerInput&) = delete;
   TaskComposerInput& operator=(TaskComposerInput&&) = delete;
@@ -89,7 +89,7 @@ struct TaskComposerInput
    * @note If calling within a node you must provide the uuid
    * @details This accesses the internal process interface class to abort the process
    */
-  void abort(const boost::uuids::uuid& calling_node = boost::uuids::uuid{});
+  void abort(const boost::uuids::uuid& calling_node = boost::uuids::uuid());
 
   /**
    * @brief Abort the process input
