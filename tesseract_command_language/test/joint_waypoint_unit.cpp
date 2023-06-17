@@ -73,9 +73,9 @@ TEST(TesseractCommandLanguageJointWaypointUnit, boostSerialization)  // NOLINT
   JointWaypointPoly jw{ JointWaypoint(joint_names, joint_values) };
 
   WaypointPoly wp = jw;
-  tesseract_common::Serialization::toArchiveFileXML<WaypointPoly>(wp, "/tmp/joint_waypoint_boost.xml");
+  tesseract_common::Serialization::toArchiveFileXML<WaypointPoly>(wp, tesseract_common::getTempPath() + "joint_waypoint_boost.xml");
 
-  auto nwp = tesseract_common::Serialization::fromArchiveFileXML<WaypointPoly>("/tmp/joint_waypoint_boost.xml");
+  auto nwp = tesseract_common::Serialization::fromArchiveFileXML<WaypointPoly>(tesseract_common::getTempPath() + "joint_waypoint_boost.xml");
 
   EXPECT_TRUE(jw == nwp.as<JointWaypointPoly>());
 }

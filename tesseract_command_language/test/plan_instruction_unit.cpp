@@ -172,9 +172,9 @@ TEST(TesseractCommandLanguagePlanInstructionUnit, boostSerialization)  // NOLINT
   instr.setPathProfile("TEST_PATH_PROFILE");
   instr.setDescription("This is a test.");
 
-  tesseract_common::Serialization::toArchiveFileXML<Instruction>(instr, "/tmp/plan_instruction_boost.xml");
+  tesseract_common::Serialization::toArchiveFileXML<Instruction>(instr, tesseract_common::getTempPath() + "plan_instruction_boost.xml");
 
-  auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<Instruction>("/tmp/plan_instruction_boost.xml")
+  auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<Instruction>(tesseract_common::getTempPath() + "plan_instruction_boost.xml")
                     .as<PlanInstruction>();
 
   EXPECT_TRUE(instr == ninstr);

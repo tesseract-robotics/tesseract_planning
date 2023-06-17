@@ -50,8 +50,8 @@ TEST(TesseractCommandLanguageWaypointUnit, boostSerialization)  // NOLINT
   EXPECT_FALSE(null_wp.isJointWaypoint());
   EXPECT_FALSE(null_wp.isStateWaypoint());
 
-  tesseract_common::Serialization::toArchiveFileXML<WaypointPoly>(null_wp, "/tmp/waypoint_null_boost.xml");
-  auto nnull_wp = tesseract_common::Serialization::fromArchiveFileXML<WaypointPoly>("/tmp/waypoint_null_boost.xml");
+  tesseract_common::Serialization::toArchiveFileXML<WaypointPoly>(null_wp, tesseract_common::getTempPath() + "waypoint_null_boost.xml");
+  auto nnull_wp = tesseract_common::Serialization::fromArchiveFileXML<WaypointPoly>(tesseract_common::getTempPath() + "waypoint_null_boost.xml");
 
   EXPECT_TRUE(nnull_wp.isNull());
   EXPECT_FALSE(null_wp.isCartesianWaypoint());

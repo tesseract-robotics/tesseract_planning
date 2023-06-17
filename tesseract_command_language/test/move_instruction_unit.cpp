@@ -226,9 +226,9 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, boostSerialization)  // NOLINT
   instr.setDescription("This is a test.");
   boost::uuids::uuid uuid = instr.getUUID();
 
-  tesseract_common::Serialization::toArchiveFileXML<MoveInstruction>(instr, "/tmp/move_instruction_boost.xml");
+  tesseract_common::Serialization::toArchiveFileXML<MoveInstruction>(instr, tesseract_common::getTempPath() + "move_instruction_boost.xml");
 
-  auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<MoveInstruction>("/tmp/move_instruction_boost.xml");
+  auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<MoveInstruction>(tesseract_common::getTempPath() + "move_instruction_boost.xml");
 
   EXPECT_TRUE(ninstr == instr);
   EXPECT_EQ(ninstr.getWaypoint(), swp);
@@ -254,9 +254,9 @@ TEST(TesseractCommandLanguageMoveInstructionPolyUnit, boostSerialization)  // NO
 
   MoveInstructionPoly instr_poly(instr);
 
-  tesseract_common::Serialization::toArchiveFileXML<MoveInstructionPoly>(instr_poly, "/tmp/move_instruction_boost.xml");
+  tesseract_common::Serialization::toArchiveFileXML<MoveInstructionPoly>(instr_poly, tesseract_common::getTempPath() + "move_instruction_boost.xml");
 
-  auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<MoveInstructionPoly>("/tmp/"
+  auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<MoveInstructionPoly>(tesseract_common::getTempPath() + 
                                                                                          "move_instruction_boost.xml");
   EXPECT_TRUE(ninstr == instr_poly);
   EXPECT_EQ(ninstr.getWaypoint(), swp);
@@ -272,9 +272,9 @@ TEST(TesseractCommandLanguageMoveInstructionPolyUnit, boostSerialization)  // NO
   boost::uuids::uuid child_uuid = child_instr_poly.getUUID();
 
   tesseract_common::Serialization::toArchiveFileXML<MoveInstructionPoly>(child_instr_poly,
-                                                                         "/tmp/child_move_instruction_boost.xml");
+                                                                         tesseract_common::getTempPath() + "child_move_instruction_boost.xml");
 
-  auto child_ninstr = tesseract_common::Serialization::fromArchiveFileXML<MoveInstructionPoly>("/tmp/"
+  auto child_ninstr = tesseract_common::Serialization::fromArchiveFileXML<MoveInstructionPoly>(tesseract_common::getTempPath() + 
                                                                                                "child_move_instruction_"
                                                                                                "boost.xml");
   EXPECT_TRUE(child_ninstr == instr_poly);
