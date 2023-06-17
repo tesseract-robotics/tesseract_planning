@@ -30,10 +30,6 @@ namespace tesseract_planning
 {
 struct InstructionPoly;
 
-bool isCommentInstruction(const InstructionPoly& instruction);
-
-bool isVariableInstruction(const InstructionPoly& instruction);
-
 bool isSetAnalogInstruction(const InstructionPoly& instruction);
 
 bool isSetToolInstruction(const InstructionPoly& instruction);

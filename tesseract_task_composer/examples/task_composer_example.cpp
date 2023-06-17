@@ -1,10 +1,10 @@
 
 #include <iostream>
 #include <tesseract_common/utils.h>
-#include <tesseract_task_composer/task_composer_graph.h>
-#include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_problem.h>
-#include <tesseract_task_composer/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/core/task_composer_graph.h>
+#include <tesseract_task_composer/core/task_composer_task.h>
+#include <tesseract_task_composer/core/task_composer_problem.h>
+#include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 
 using namespace tesseract_planning;
@@ -23,7 +23,10 @@ public:
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
                                      OptionalTaskComposerExecutor /*executor*/) const override final
   {
-    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+    auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
+    if (info->isAborted())
+      return info;
+
     info->return_value = 0;
     std::cout << name_ << std::endl;
     double result =
@@ -52,7 +55,10 @@ public:
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
                                      OptionalTaskComposerExecutor /*executor*/) const override final
   {
-    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+    auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
+    if (info->isAborted())
+      return info;
+
     info->return_value = 0;
     std::cout << name_ << std::endl;
     double result =
@@ -79,9 +85,9 @@ int main()
   task_data.setData("c", c);
   task_data.setData("d", d);
 
-  TaskComposerProblem task_problem(task_data);
+  auto task_problem = std::make_unique<TaskComposerProblem>(task_data);
 
-  auto task_input = std::make_shared<TaskComposerInput>(task_problem);
+  auto task_input = std::make_shared<TaskComposerInput>(std::move(task_problem));
 
   // result = a * (b + c) + d
   auto task1 = std::make_unique<AddTaskComposerNode>("b", "c", "task1_output");

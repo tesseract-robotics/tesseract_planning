@@ -48,10 +48,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 
-#include <tesseract_task_composer/task_composer_problem.h>
-#include <tesseract_task_composer/task_composer_input.h>
-
-#include <tesseract_task_composer/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
+#include <tesseract_task_composer/core/task_composer_input.h>
+#include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
 #include <tesseract_geometry/impl/octree.h>
 
@@ -249,7 +248,7 @@ bool BasicCartesianExample::run()
   input_data.setData(input_key, program);
 
   // Create Task Composer Problem
-  TaskComposerProblem problem(env_, input_data);
+  auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, input_data, profiles);
 
   if (plotter_ != nullptr && plotter_->isConnected())
     plotter_->waitForInput("Hit Enter to solve for trajectory.");
@@ -257,7 +256,7 @@ bool BasicCartesianExample::run()
   // Solve task
   tesseract_common::Timer stopwatch;
   stopwatch.start();
-  TaskComposerInput input(problem, profiles);
+  TaskComposerInput input(std::move(problem));
   TaskComposerFuture::UPtr future = executor->run(*task, input);
   future->wait();
 

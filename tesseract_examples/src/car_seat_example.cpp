@@ -41,9 +41,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/utils.h>
-#include <tesseract_task_composer/task_composer_problem.h>
-#include <tesseract_task_composer/task_composer_input.h>
-#include <tesseract_task_composer/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
+#include <tesseract_task_composer/core/task_composer_input.h>
+#include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
@@ -306,10 +306,10 @@ bool CarSeatExample::run()
     input_data.setData(input_key, program);
 
     // Create Task Composer Problem
-    TaskComposerProblem problem(env_, input_data);
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, input_data, profiles);
 
     // Solve task
-    TaskComposerInput input(problem, profiles);
+    TaskComposerInput input(std::move(problem));
     TaskComposerFuture::UPtr future = executor->run(*task, input);
     future->wait();
 
@@ -395,10 +395,10 @@ bool CarSeatExample::run()
     input_data.setData(input_key, program);
 
     // Create Task Composer Problem
-    TaskComposerProblem problem(env_, input_data);
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, input_data, profiles);
 
     // Solve task
-    TaskComposerInput input(problem, profiles);
+    TaskComposerInput input(std::move(problem));
     TaskComposerFuture::UPtr future = executor->run(*task, input);
     future->wait();
 

@@ -28,7 +28,7 @@ target_link_libraries(
   PRIVATE GTest::GTest
           GTest::Main
           tesseract::tesseract_support
-          ${PROJECT_NAME}_nodes
+          ${PROJECT_NAME}_planning_nodes
           ${TESSERACT_TCMALLOC_LIB})
 target_include_directories(${PROJECT_NAME}_fix_state_bounds_task_unit
                            PUBLIC "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/examples>")
@@ -50,7 +50,7 @@ target_link_libraries(
   PRIVATE GTest::GTest
           GTest::Main
           tesseract::tesseract_support
-          ${PROJECT_NAME}_nodes
+          ${PROJECT_NAME}_planning_nodes
           ${TESSERACT_TCMALLOC_LIB})
 target_include_directories(${PROJECT_NAME}_fix_state_collision_task_unit
                            PUBLIC "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/examples>")

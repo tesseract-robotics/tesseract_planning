@@ -76,8 +76,9 @@ bool SetAnalogInstruction::operator==(const SetAnalogInstruction& rhs) const
   equal &= (tesseract_common::almostEqualRelativeAndAbs(value_, rhs.value_, max_diff));
   return equal;
 }
-
+// LCOV_EXCL_START
 bool SetAnalogInstruction::operator!=(const SetAnalogInstruction& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
 void SetAnalogInstruction::serialize(Archive& ar, const unsigned int /*version*/)

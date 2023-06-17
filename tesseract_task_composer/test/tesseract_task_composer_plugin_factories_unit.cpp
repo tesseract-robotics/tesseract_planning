@@ -28,8 +28,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/core/task_composer_plugin_factory.h>
+#include <tesseract_common/utils.h>
 #include <tesseract_common/types.h>
+
 using namespace tesseract_planning;
 
 void runTaskComposerFactoryTest(const tesseract_common::fs::path& config_path)
@@ -55,7 +57,7 @@ void runTaskComposerFactoryTest(const tesseract_common::fs::path& config_path)
 
   {
     std::set<std::string> sl = factory.getSearchLibraries();
-    EXPECT_EQ(sl.size(), 1);
+    EXPECT_EQ(sl.size(), 3);
 
     for (auto it = search_libraries.begin(); it != search_libraries.end(); ++it)
     {
@@ -134,7 +136,7 @@ TEST(TesseractTaskComposerFactoryUnit, PluginFactorAPIUnit)  // NOLINT
   EXPECT_FALSE(factory.getSearchPaths().empty());
   EXPECT_EQ(factory.getSearchPaths().size(), 1);
   EXPECT_FALSE(factory.getSearchLibraries().empty());
-  EXPECT_EQ(factory.getSearchLibraries().size(), 1);
+  EXPECT_EQ(factory.getSearchLibraries().size(), 3);
   EXPECT_EQ(factory.getTaskComposerExecutorPlugins().size(), 0);
   EXPECT_EQ(factory.getTaskComposerNodePlugins().size(), 0);
   EXPECT_ANY_THROW(factory.getDefaultTaskComposerExecutorPlugin());  // NOLINT
@@ -144,11 +146,11 @@ TEST(TesseractTaskComposerFactoryUnit, PluginFactorAPIUnit)  // NOLINT
 
   factory.addSearchPath("/usr/local/lib");
   EXPECT_EQ(factory.getSearchPaths().size(), 2);
-  EXPECT_EQ(factory.getSearchLibraries().size(), 1);
+  EXPECT_EQ(factory.getSearchLibraries().size(), 3);
 
   factory.addSearchLibrary("tesseract_collision");
   EXPECT_EQ(factory.getSearchPaths().size(), 2);
-  EXPECT_EQ(factory.getSearchLibraries().size(), 2);
+  EXPECT_EQ(factory.getSearchLibraries().size(), 4);
 
   {
     tesseract_common::PluginInfoMap map = factory.getTaskComposerExecutorPlugins();
