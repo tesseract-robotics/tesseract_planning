@@ -106,19 +106,24 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
     util::gLogLevel = util::LevelWarn;
 
   // Create optimizer
-  sco::BasicTrustRegionSQP opt(problem);
-  opt.setParameters(pci->opt_info);
+  sco::BasicTrustRegionSQP::Ptr opt;
+  if (pci->opt_info.num_threads > 1)
+    opt = std::make_shared<sco::BasicTrustRegionSQPMultiThreaded>(problem);
+  else
+    opt = std::make_shared<sco::BasicTrustRegionSQP>(problem);
+
+  opt->setParameters(pci->opt_info);
 
   // Add all callbacks
   for (const sco::Optimizer::Callback& callback : pci->callbacks)
-    opt.addCallback(callback);
+    opt->addCallback(callback);
 
   // Initialize
-  opt.initialize(trajToDblVec(problem->GetInitTraj()));
+  opt->initialize(trajToDblVec(problem->GetInitTraj()));
 
   // Optimize
-  opt.optimize();
-  if (opt.results().status != sco::OptStatus::OPT_CONVERGED)
+  opt->optimize();
+  if (opt->results().status != sco::OptStatus::OPT_CONVERGED)
   {
     response.successful = false;
     response.message = ERROR_FAILED_TO_FIND_VALID_SOLUTION;
@@ -129,7 +134,7 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
   const Eigen::MatrixX2d joint_limits = problem->GetKin()->getLimits().joint_limits;
 
   // Get the results
-  tesseract_common::TrajArray traj = getTraj(opt.x(), problem->GetVars());
+  tesseract_common::TrajArray traj = getTraj(opt->x(), problem->GetVars());
 
   // Enforce limits
   for (Eigen::Index i = 0; i < traj.rows(); i++)
