@@ -317,8 +317,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   {
     // Grab the first waypoint to get the joint names
     const auto& swp = mi.front().get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
-    traj_contacts =
-        std::make_unique<tesseract_collision::ContactTrajectoryResults>(swp.getNames(), static_cast<int>(program.size()));
+    traj_contacts = std::make_unique<tesseract_collision::ContactTrajectoryResults>(swp.getNames(),
+                                                                                    static_cast<int>(program.size()));
   }
 
   contacts.clear();
@@ -493,7 +493,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
         {
           step_contacts = std::make_unique<tesseract_collision::ContactTrajectoryStepResults>(
               static_cast<int>(iStep + 1), swp0.getPosition(), swp1.getPosition(), 1);
-          substep_contacts = std::make_unique<tesseract_collision::ContactTrajectorySubstepResults>(1, swp0.getPosition(), swp1.getPosition());
+          substep_contacts = std::make_unique<tesseract_collision::ContactTrajectorySubstepResults>(
+              1, swp0.getPosition(), swp1.getPosition());
         }
 
         tesseract_environment::checkTrajectorySegment(
@@ -538,7 +539,6 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
 
     for (std::size_t iStep = start_idx; iStep < end_idx; ++iStep)
     {
-
       state_results.clear();
 
       const auto& swp0 = mi.at(iStep).get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
@@ -550,9 +550,10 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       tesseract_collision::ContactTrajectorySubstepResults::UPtr substep_contacts;
       if (debug_logging)
       {
-        step_contacts = std::make_unique<tesseract_collision::ContactTrajectoryStepResults>(static_cast<int>(iStep + 1),
-                                                                                            swp0.getPosition(), swp1.getPosition(), 1);
-        substep_contacts = std::make_unique<tesseract_collision::ContactTrajectorySubstepResults>(1, swp0.getPosition(), swp1.getPosition());
+        step_contacts = std::make_unique<tesseract_collision::ContactTrajectoryStepResults>(
+            static_cast<int>(iStep + 1), swp0.getPosition(), swp1.getPosition(), 1);
+        substep_contacts = std::make_unique<tesseract_collision::ContactTrajectorySubstepResults>(
+            1, swp0.getPosition(), swp1.getPosition());
       }
 
       tesseract_environment::checkTrajectorySegment(
@@ -612,8 +613,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   {
     // Grab the first waypoint to get the joint names
     const auto& swp = mi.front().get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
-    traj_contacts =
-        std::make_unique<tesseract_collision::ContactTrajectoryResults>(swp.getNames(), static_cast<int>(program.size()));
+    traj_contacts = std::make_unique<tesseract_collision::ContactTrajectoryResults>(swp.getNames(),
+                                                                                    static_cast<int>(program.size()));
   }
 
   contacts.clear();
@@ -806,8 +807,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
         tesseract_collision::ContactTrajectorySubstepResults::UPtr substep_contacts;
         if (debug_logging)
         {
-          step_contacts =
-              std::make_unique<tesseract_collision::ContactTrajectoryStepResults>(iStep + 1, p0);
+          step_contacts = std::make_unique<tesseract_collision::ContactTrajectoryStepResults>(iStep + 1, p0);
           substep_contacts = std::make_unique<tesseract_collision::ContactTrajectorySubstepResults>(1, p0);
         }
 
@@ -976,8 +976,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       tesseract_collision::ContactTrajectorySubstepResults::UPtr substep_contacts;
       if (debug_logging)
       {
-        step_contacts = std::make_unique<tesseract_collision::ContactTrajectoryStepResults>(static_cast<int>(iStep + 1),
-                                                                                            p0);
+        step_contacts =
+            std::make_unique<tesseract_collision::ContactTrajectoryStepResults>(static_cast<int>(iStep + 1), p0);
         substep_contacts = std::make_unique<tesseract_collision::ContactTrajectorySubstepResults>(1, p0);
       }
 
