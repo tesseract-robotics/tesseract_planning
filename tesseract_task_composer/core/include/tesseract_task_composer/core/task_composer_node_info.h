@@ -159,6 +159,12 @@ struct TaskComposerNodeInfoContainer
    */
   void setAborted(const boost::uuids::uuid& node_uuid);
 
+  /**
+   * @brief Get the aborting node
+   * @return Null if not set, otherwise nodes uuid
+   */
+  boost::uuids::uuid getAbortingNode() const;
+
   /** @brief Clear the contents */
   void clear();
 

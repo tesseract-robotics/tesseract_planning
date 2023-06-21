@@ -66,7 +66,11 @@ void TaskComposerInput::reset()
 bool TaskComposerInput::operator==(const TaskComposerInput& rhs) const
 {
   bool equal = true;
-  equal &= problem == rhs.problem;
+  if (problem != nullptr && rhs.problem != nullptr)
+    equal &= (*problem == *rhs.problem);
+  else
+    equal &= (problem == nullptr && rhs.problem == nullptr);
+
   equal &= data_storage == rhs.data_storage;
   equal &= task_infos == rhs.task_infos;
   equal &= aborted_ == rhs.aborted_;

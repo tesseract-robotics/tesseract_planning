@@ -156,6 +156,12 @@ void TaskComposerNodeInfoContainer::setAborted(const boost::uuids::uuid& node_uu
   aborting_node_ = node_uuid;
 }
 
+boost::uuids::uuid TaskComposerNodeInfoContainer::getAbortingNode() const
+{
+  std::unique_lock<std::shared_mutex> lock(mutex_);
+  return aborting_node_;
+}
+
 void TaskComposerNodeInfoContainer::clear()
 {
   std::unique_lock<std::shared_mutex> lock(mutex_);
