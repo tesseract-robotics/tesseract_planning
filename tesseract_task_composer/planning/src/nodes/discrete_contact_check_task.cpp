@@ -116,12 +116,6 @@ TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& 
   {
     info->message = "Results are not contact free for process input: " + ci.getDescription();
     CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
-    for (std::size_t i = 0; i < contacts.size(); i++)
-      for (const auto& contact_vec : contacts[i])
-        for (const auto& contact : contact_vec.second)
-          CONSOLE_BRIDGE_logDebug(("timestep: " + std::to_string(i) + " Links: " + contact.link_names[0] + ", " +
-                                   contact.link_names[1] + " Dist: " + std::to_string(contact.distance))
-                                      .c_str());
 
     // Save space
     for (auto& contact_map : contacts)
