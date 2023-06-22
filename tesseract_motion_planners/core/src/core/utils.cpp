@@ -423,7 +423,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
           if (debug_logging)
           {
             substep_contacts = std::make_unique<tesseract_collision::ContactTrajectorySubstepResults>(
-                static_cast<int>(iSubStep), subtraj.row(iSubStep));
+                static_cast<int>(iSubStep) + 1, subtraj.row(iSubStep));
           }
 
           tesseract_scene_graph::SceneState state0 = state_solver.getState(swp0.getNames(), subtraj.row(iSubStep));
@@ -764,7 +764,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
           if (debug_logging)
           {
             substep_contacts = std::make_unique<tesseract_collision::ContactTrajectorySubstepResults>(
-                static_cast<int>(iSubStep), subtraj.row(iSubStep));
+                static_cast<int>(iSubStep) + 1, subtraj.row(iSubStep));
           }
 
           tesseract_scene_graph::SceneState state = state_solver.getState(jn, subtraj.row(iSubStep));
