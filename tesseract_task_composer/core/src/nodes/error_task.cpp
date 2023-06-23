@@ -43,10 +43,7 @@ ErrorTask::ErrorTask(std::string name, const YAML::Node& config, const TaskCompo
 
 TaskComposerNodeInfo::UPtr ErrorTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
-  if (info->isAborted())
-    return info;
-
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->color = "red";
   info->return_value = 0;
   input.abort(uuid_);
@@ -55,12 +52,7 @@ TaskComposerNodeInfo::UPtr ErrorTask::runImpl(TaskComposerInput& input, Optional
   return info;
 }
 
-bool ErrorTask::operator==(const ErrorTask& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
-}
+bool ErrorTask::operator==(const ErrorTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
 bool ErrorTask::operator!=(const ErrorTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>

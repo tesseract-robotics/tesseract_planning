@@ -23,10 +23,7 @@ public:
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
                                      OptionalTaskComposerExecutor /*executor*/) const override final
   {
-    auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
-    if (info->isAborted())
-      return info;
-
+    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
     info->return_value = 0;
     std::cout << name_ << std::endl;
     double result =
@@ -55,10 +52,7 @@ public:
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
                                      OptionalTaskComposerExecutor /*executor*/) const override final
   {
-    auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
-    if (info->isAborted())
-      return info;
-
+    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
     info->return_value = 0;
     std::cout << name_ << std::endl;
     double result =

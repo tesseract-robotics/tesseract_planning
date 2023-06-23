@@ -37,13 +37,45 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type)
+TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type, bool conditional)
   : name_(std::move(name))
   , type_(type)
   , uuid_(boost::uuids::random_generator()())
   , uuid_str_(boost::uuids::to_string(uuid_))
+  , conditional_(conditional)
 {
 }
+
+TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type, const YAML::Node& config)
+  : TaskComposerNode::TaskComposerNode(std::move(name), type)
+{
+  try
+  {
+    if (YAML::Node n = config["conditional"])
+      conditional_ = n.as<bool>();
+
+    if (YAML::Node n = config["inputs"])
+    {
+      if (n.IsSequence())
+        input_keys_ = n.as<std::vector<std::string>>();
+      else
+        input_keys_ = { n.as<std::string>() };
+    }
+
+    if (YAML::Node n = config["outputs"])
+    {
+      if (n.IsSequence())
+        output_keys_ = n.as<std::vector<std::string>>();
+      else
+        output_keys_ = { n.as<std::string>() };
+    }
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("TaskComposerNode: Failed to parse yaml config data! Details: " + std::string(e.what()));
+  }
+}
+
 void TaskComposerNode::setName(const std::string& name) { name_ = name; }
 const std::string& TaskComposerNode::getName() const { return name_; }
 
@@ -54,6 +86,8 @@ const boost::uuids::uuid& TaskComposerNode::getUUID() const { return uuid_; }
 const std::string& TaskComposerNode::getUUIDString() const { return uuid_str_; }
 
 const boost::uuids::uuid& TaskComposerNode::getParentUUID() const { return parent_uuid_; }
+
+bool TaskComposerNode::isConditional() const { return conditional_; }
 
 const std::vector<boost::uuids::uuid>& TaskComposerNode::getOutboundEdges() const { return outbound_edges_; }
 
@@ -79,6 +113,8 @@ void TaskComposerNode::renameOutputKeys(const std::map<std::string, std::string>
     std::replace(output_keys_.begin(), output_keys_.end(), key.first, key.second);
 }
 
+void TaskComposerNode::setConditional(bool enable) { conditional_ = enable; }
+
 std::string TaskComposerNode::dump(std::ostream& os,
                                    const TaskComposerNode* /*parent*/,
                                    const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
@@ -86,20 +122,47 @@ std::string TaskComposerNode::dump(std::ostream& os,
   const std::string tmp = toString(uuid_, "node_");
 
   std::string color{ "white" };
-  auto it = results_map.find(uuid_);
-  if (it != results_map.end() && !it->second->isAborted())
-    color = it->second->color;
+  int return_value = -1;
 
-  os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")";
+  auto it = results_map.find(uuid_);
   if (it != results_map.end())
   {
-    os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s"
-       << "\\n\"" << it->second->message << "\"";
+    return_value = it->second->return_value;
+    if (!it->second->isAborted())
+      color = it->second->color;
   }
-  os << "\", fillcolor=" << color << ", style=filled];\n";
 
-  for (const auto& edge : outbound_edges_)
-    os << tmp << " -> " << toString(edge, "node_") << ";\n";
+  if (conditional_)
+  {
+    os << std::endl << tmp << " [shape=diamond, label=\"" << name_ << "\\n(" << uuid_str_ << ")";
+    if (it != results_map.end())
+    {
+      os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s"
+         << "\\n`" << it->second->message << "`";
+    }
+    os << "\", color=black, fillcolor=" << color << ", style=filled];\n";
+
+    for (std::size_t i = 0; i < outbound_edges_.size(); ++i)
+    {
+      std::string line_type = (return_value == static_cast<int>(i)) ? "bold" : "dashed";
+      os << tmp << " -> " << toString(outbound_edges_[i], "node_") << " [style=" << line_type << ", label=\"["
+         << std::to_string(i) << "]\""
+         << "];\n";
+    }
+  }
+  else
+  {
+    os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")";
+    if (it != results_map.end())
+    {
+      os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s"
+         << "\\n'" << it->second->message << "'";
+    }
+    os << "\", color=black, fillcolor=" << color << ", style=filled];\n";
+
+    for (const auto& edge : outbound_edges_)
+      os << tmp << " -> " << toString(edge, "node_") << ";\n";
+  }
 
   if (it == results_map.end())
     return {};
@@ -119,6 +182,7 @@ bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
   equal &= inbound_edges_ == rhs.inbound_edges_;
   equal &= input_keys_ == rhs.input_keys_;
   equal &= output_keys_ == rhs.output_keys_;
+  equal &= conditional_ == rhs.conditional_;
   return equal;
 }
 bool TaskComposerNode::operator!=(const TaskComposerNode& rhs) const { return !operator==(rhs); }
@@ -135,6 +199,7 @@ void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("inbound_edges", inbound_edges_);
   ar& boost::serialization::make_nvp("input_keys", input_keys_);
   ar& boost::serialization::make_nvp("output_keys", output_keys_);
+  ar& boost::serialization::make_nvp("conditional", conditional_);
 }
 
 std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::string& prefix)

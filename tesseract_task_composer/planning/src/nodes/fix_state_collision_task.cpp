@@ -345,9 +345,7 @@ FixStateCollisionTask::FixStateCollisionTask(std::string name,
 TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& input,
                                                           OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<FixStateCollisionTaskInfo>(*this, input);
-  if (info->isAborted())
-    return info;
+  auto info = std::make_unique<FixStateCollisionTaskInfo>(*this);
 
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
@@ -707,10 +705,7 @@ void FixStateCollisionTask::serialize(Archive& ar, const unsigned int /*version*
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-FixStateCollisionTaskInfo::FixStateCollisionTaskInfo(const FixStateCollisionTask& task, const TaskComposerInput& input)
-  : TaskComposerNodeInfo(task, input)
-{
-}
+FixStateCollisionTaskInfo::FixStateCollisionTaskInfo(const FixStateCollisionTask& task) : TaskComposerNodeInfo(task) {}
 
 TaskComposerNodeInfo::UPtr FixStateCollisionTaskInfo::clone() const
 {

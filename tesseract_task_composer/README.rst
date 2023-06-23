@@ -83,6 +83,7 @@ This file allows you define Excutors and Tasks (aka Nodes).
                  destinations: [ErrorTask, IterativeSplineParameterizationTask]
                - source: IterativeSplineParameterizationTask
                  destinations: [ErrorTask, DoneTask]
+             terminals: [ErrorTask, DoneTask]
    
 Task Composer Executors Plugins
 -------------------------------
@@ -117,7 +118,7 @@ Define the graph nodes and edges as shown in the config below.
 .. code-block:: yaml
 
    CartesianPipeline:
-     class: GraphTaskFactory
+     class: PipelineTaskFactory
      config:
        inputs: [input_data]
        outputs: [output_data]
@@ -172,6 +173,7 @@ Define the graph nodes and edges as shown in the config below.
            destinations: [ErrorTask, IterativeSplineParameterizationTask]
          - source: IterativeSplineParameterizationTask
            destinations: [ErrorTask, DoneTask]
+       terminals: [ErrorTask, DoneTask]
 
 Leveraging a perviously defined task.
 
@@ -182,7 +184,7 @@ Also in most case the tasks inputs and sometimes the outputs must be renamed. Th
 .. code-block:: yaml
 
    UsePreviouslyDefinedTaskPipeline:
-     class: GraphTaskFactory
+     class: PipelineTaskFactory
      config:
        inputs: [input_data]
        outputs: [output_data]
@@ -194,14 +196,17 @@ Also in most case the tasks inputs and sometimes the outputs must be renamed. Th
              inputs: [input_data]
              outputs: [output_data]
          CartesianPipelineTask:
-            task: CartesianPipeline
-            input_remapping:
-              input_data: output_data
-            output_remapping:
-              output_data: output_data
+            task:
+              name: CartesianPipeline
+              conditional: false
+              input_remapping:
+                input_data: output_data
+              output_remapping:
+                output_data: output_data
        edges:
          - source: MinLengthTask
            destinations: [CartesianPipelineTask]
+       terminals: [CartesianPipelineTask]
 
 Descartes Motion Planner Task
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -454,7 +459,19 @@ The final task that is called in a task graph if error occurs
      class: ErrorTaskFactory
      config:
        conditional: false
-    
+
+Error Task
+^^^^^^^^^^
+
+The task that is called if you want to abort everything
+
+.. code-block:: yaml
+
+   AbortTask:
+     class: AbortTaskFactory
+     config:
+       conditional: false
+
 Fix State Bounds Task
 ^^^^^^^^^^^^^^^^^^^^^
 

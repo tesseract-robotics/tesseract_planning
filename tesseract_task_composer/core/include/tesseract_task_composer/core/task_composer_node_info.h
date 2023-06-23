@@ -39,7 +39,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 class TaskComposerNode;
-struct TaskComposerInput;
 
 /** Stores information about a node */
 class TaskComposerNodeInfo
@@ -51,7 +50,7 @@ public:
   using ConstUPtr = std::unique_ptr<const TaskComposerNodeInfo>;
 
   TaskComposerNodeInfo() = default;  // Required for serialization
-  TaskComposerNodeInfo(const TaskComposerNode& node, const TaskComposerInput& input);
+  TaskComposerNodeInfo(const TaskComposerNode& node);
   virtual ~TaskComposerNodeInfo() = default;
   TaskComposerNodeInfo(const TaskComposerNodeInfo&) = default;
   TaskComposerNodeInfo& operator=(const TaskComposerNodeInfo&) = default;
@@ -121,6 +120,8 @@ public:
 private:
   friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
+  friend class TaskComposerTask;
+  friend class TaskComposerPipeline;
 
   /** @brief Indicate if task was not ran because input abort flag was enabled */
   bool aborted_{ false };
@@ -150,6 +151,13 @@ struct TaskComposerNodeInfoContainer
    */
   void addInfo(TaskComposerNodeInfo::UPtr info);
 
+  /**
+   * @brief Get info for the provided key
+   * @param key The key to retrieve info for
+   * @return If key does not exist nullptr, otherwise a clone of the info
+   */
+  TaskComposerNodeInfo::UPtr getInfo(const boost::uuids::uuid& key) const;
+
   /** @brief Get a copy of the task_info_map_ in case it gets resized*/
   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> getInfoMap() const;
 
@@ -158,6 +166,12 @@ struct TaskComposerNodeInfoContainer
    * @details This is set if abort is called in input
    */
   void setAborted(const boost::uuids::uuid& node_uuid);
+
+  /**
+   * @brief Get the aborting node
+   * @return Null if not set, otherwise nodes uuid
+   */
+  boost::uuids::uuid getAbortingNode() const;
 
   /** @brief Clear the contents */
   void clear();

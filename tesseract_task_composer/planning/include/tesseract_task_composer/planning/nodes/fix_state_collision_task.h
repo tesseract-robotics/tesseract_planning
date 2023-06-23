@@ -94,7 +94,7 @@ public:
   using ConstUPtr = std::unique_ptr<const FixStateCollisionTaskInfo>;
 
   FixStateCollisionTaskInfo() = default;
-  FixStateCollisionTaskInfo(const FixStateCollisionTask& task, const TaskComposerInput& input);
+  FixStateCollisionTaskInfo(const FixStateCollisionTask& task);
 
   TaskComposerNodeInfo::UPtr clone() const override;
 

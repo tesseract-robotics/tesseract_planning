@@ -32,9 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_executor.h>
-#include <tesseract_task_composer/core/task_composer_graph.h>
-#include <tesseract_task_composer/core/task_composer_task.h>
-#include <tesseract_task_composer/core/task_composer_input.h>
 
 namespace tf
 {
@@ -64,6 +61,8 @@ public:
 
   TaskComposerFuture::UPtr run(const TaskComposerGraph& task_graph, TaskComposerInput& task_input) override final;
 
+  TaskComposerFuture::UPtr run(const TaskComposerPipeline& task_pipeline, TaskComposerInput& task_input) override final;
+
   TaskComposerFuture::UPtr run(const TaskComposerTask& task, TaskComposerInput& task_input) override final;
 
   long getWorkerCount() const override final;
@@ -91,6 +90,11 @@ protected:
 
   static std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
   convertToTaskflow(const TaskComposerGraph& task_graph,
+                    TaskComposerInput& task_input,
+                    TaskComposerExecutor& task_executor);
+
+  static std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
+  convertToTaskflow(const TaskComposerPipeline& task_pipeline,
                     TaskComposerInput& task_input,
                     TaskComposerExecutor& task_executor);
 

@@ -41,6 +41,7 @@ namespace tesseract_planning
 enum class TaskComposerNodeType
 {
   TASK,
+  PIPELINE,
   GRAPH
 };
 
@@ -53,7 +54,10 @@ public:
   using UPtr = std::unique_ptr<TaskComposerNode>;
   using ConstUPtr = std::unique_ptr<const TaskComposerNode>;
 
-  TaskComposerNode(std::string name = "TaskComposerNode", TaskComposerNodeType type = TaskComposerNodeType::TASK);
+  TaskComposerNode(std::string name = "TaskComposerNode",
+                   TaskComposerNodeType type = TaskComposerNodeType::TASK,
+                   bool conditional = false);
+  explicit TaskComposerNode(std::string name, TaskComposerNodeType type, const YAML::Node& config);
   virtual ~TaskComposerNode() = default;
   TaskComposerNode(const TaskComposerNode&) = delete;
   TaskComposerNode& operator=(const TaskComposerNode&) = delete;
@@ -81,6 +85,12 @@ public:
    */
   const boost::uuids::uuid& getParentUUID() const;
 
+  /**
+   * @brief Check if node is conditional
+   * @return
+   */
+  bool isConditional() const;
+
   /** @brief IDs of nodes (i.e. node) that should run after this node */
   const std::vector<boost::uuids::uuid>& getOutboundEdges() const;
 
@@ -104,6 +114,9 @@ public:
 
   /** @brief Rename output keys */
   virtual void renameOutputKeys(const std::map<std::string, std::string>& output_keys);
+
+  /** @brief Set if conditional */
+  virtual void setConditional(bool enable);
 
   /**
    * @brief dump the task to dot
@@ -154,6 +167,9 @@ protected:
 
   /** @brief The nodes output keys */
   std::vector<std::string> output_keys_;
+
+  /** @brief Indicate if node is conditional */
+  bool conditional_{ false };
 
   /** @brief This will create a UUID string with no hyphens used when creating dot graph */
   static std::string toString(const boost::uuids::uuid& u, const std::string& prefix = "");

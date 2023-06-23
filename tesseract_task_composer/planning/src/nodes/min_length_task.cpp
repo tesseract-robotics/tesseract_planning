@@ -73,9 +73,7 @@ MinLengthTask::MinLengthTask(std::string name,
 TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerInput& input,
                                                   OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
-  if (info->isAborted())
-    return info;
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
 
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);

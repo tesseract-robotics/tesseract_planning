@@ -42,6 +42,9 @@ TaskComposerFuture::UPtr TaskComposerExecutor::run(const TaskComposerNode& node,
   if (node.getType() == TaskComposerNodeType::TASK)
     return run(static_cast<const TaskComposerTask&>(node), task_input);
 
+  if (node.getType() == TaskComposerNodeType::PIPELINE)
+    return run(static_cast<const TaskComposerPipeline&>(node), task_input);
+
   if (node.getType() == TaskComposerNodeType::GRAPH)
     return run(static_cast<const TaskComposerGraph&>(node), task_input);
 

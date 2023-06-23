@@ -34,10 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-MotionPlannerTaskInfo::MotionPlannerTaskInfo(const TaskComposerTask& task, const TaskComposerInput& input)
-  : TaskComposerNodeInfo(task, input)
-{
-}
+MotionPlannerTaskInfo::MotionPlannerTaskInfo(const TaskComposerTask& task) : TaskComposerNodeInfo(task) {}
 
 TaskComposerNodeInfo::UPtr MotionPlannerTaskInfo::clone() const
 {

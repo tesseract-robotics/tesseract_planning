@@ -15,8 +15,9 @@ task_composer_plugins:
   tasks:
     plugins:
       DescartesFPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -61,9 +62,11 @@ task_composer_plugins:
               destinations: [ErrorTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       DescartesDPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -108,9 +111,11 @@ task_composer_plugins:
               destinations: [ErrorTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       DescartesFNPCPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -148,9 +153,11 @@ task_composer_plugins:
               destinations: [ErrorTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       DescartesDNPCPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -188,9 +195,11 @@ task_composer_plugins:
               destinations: [ErrorTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       OMPLPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -235,9 +244,11 @@ task_composer_plugins:
               destinations: [ErrorTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       TrajOptPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -282,9 +293,11 @@ task_composer_plugins:
               destinations: [ErrorTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       TrajOptIfoptPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -329,9 +342,11 @@ task_composer_plugins:
               destinations: [ErrorTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       CartesianPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -385,9 +400,11 @@ task_composer_plugins:
               destinations: [ErrorTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       FreespacePipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -441,9 +458,11 @@ task_composer_plugins:
               destinations: [ErrorTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       RasterFtPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -491,9 +510,11 @@ task_composer_plugins:
               destinations: [ErrorTask, RasterMotionTask]
             - source: RasterMotionTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       RasterCtPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -541,9 +562,11 @@ task_composer_plugins:
               destinations: [ErrorTask, RasterMotionTask]
             - source: RasterMotionTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       RasterFtOnlyPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -585,9 +608,11 @@ task_composer_plugins:
               destinations: [ErrorTask, RasterMotionTask]
             - source: RasterMotionTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       RasterCtOnlyPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -629,9 +654,11 @@ task_composer_plugins:
               destinations: [ErrorTask, RasterMotionTask]
             - source: RasterMotionTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       RasterFtGlobalPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -688,9 +715,11 @@ task_composer_plugins:
               destinations: [ErrorTask, RasterMotionTask]
             - source: RasterMotionTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       RasterCtGlobalPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -747,9 +776,11 @@ task_composer_plugins:
               destinations: [ErrorTask, RasterMotionTask]
             - source: RasterMotionTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       RasterFtOnlyGlobalPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -800,9 +831,11 @@ task_composer_plugins:
               destinations: [ErrorTask, RasterMotionTask]
             - source: RasterMotionTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
       RasterCtOnlyGlobalPipeline:
-        class: GraphTaskFactory
+        class: PipelineTaskFactory
         config:
+          conditional: true
           inputs: [input_data]
           outputs: [output_data]
           nodes:
@@ -853,3 +886,4 @@ task_composer_plugins:
               destinations: [ErrorTask, RasterMotionTask]
             - source: RasterMotionTask
               destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
