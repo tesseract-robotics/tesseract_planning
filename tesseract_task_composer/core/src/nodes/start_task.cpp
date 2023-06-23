@@ -38,7 +38,7 @@ StartTask::StartTask(std::string name) : TaskComposerTask(std::move(name), false
 StartTask::StartTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), config)
 {
-  if (is_conditional_)
+  if (conditional_)
     throw std::runtime_error("StartTask, config is_conditional should not be true");
 
   if (!input_keys_.empty())

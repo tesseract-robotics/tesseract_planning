@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_graph.h>
+#include <tesseract_task_composer/core/task_composer_pipeline.h>
 #include <tesseract_task_composer/core/task_composer_task.h>
 #include <tesseract_task_composer/core/task_composer_input.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
@@ -68,6 +69,14 @@ public:
    * @return The future associated with execution
    */
   virtual TaskComposerFuture::UPtr run(const TaskComposerGraph& task_graph, TaskComposerInput& task_input) = 0;
+
+  /**
+   * @brief Execute the provided task pipeline
+   * @param task_pipeline The task pipeline to execute
+   * @param task_input The task input provided to every task
+   * @return The future associated with execution
+   */
+  virtual TaskComposerFuture::UPtr run(const TaskComposerPipeline& task_pipeline, TaskComposerInput& task_input) = 0;
 
   /**
    * @brief Execute the provided task

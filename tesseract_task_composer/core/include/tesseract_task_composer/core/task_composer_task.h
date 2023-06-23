@@ -50,8 +50,8 @@ public:
   /** @brief Most task will not require a executor so making it optional */
   using OptionalTaskComposerExecutor = std::optional<std::reference_wrapper<TaskComposerExecutor>>;
 
-  TaskComposerTask();
-  explicit TaskComposerTask(std::string name, bool is_conditional);
+  explicit TaskComposerTask(std::string name = "TaskComposerTask");
+  explicit TaskComposerTask(std::string name, bool conditional);
   explicit TaskComposerTask(std::string name, const YAML::Node& config);
   ~TaskComposerTask() override = default;
   TaskComposerTask(const TaskComposerTask&) = delete;
@@ -64,20 +64,12 @@ public:
 
   int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const;
 
-  bool isConditional() const;
-
-  std::string dump(std::ostream& os,
-                   const TaskComposerNode* parent = nullptr,
-                   const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map = {}) const override;
-
 protected:
   friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
-  bool is_conditional_{ true };
 
   virtual TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
                                              OptionalTaskComposerExecutor executor = std::nullopt) const = 0;

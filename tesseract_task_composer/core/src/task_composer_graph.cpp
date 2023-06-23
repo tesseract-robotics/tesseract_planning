@@ -28,6 +28,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/map.hpp>
+#include <boost/serialization/vector.hpp>
 #include <boost/serialization/shared_ptr.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
@@ -38,21 +39,33 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerGraph::TaskComposerGraph(std::string name) : TaskComposerNode(std::move(name), TaskComposerNodeType::GRAPH)
+TaskComposerGraph::TaskComposerGraph(std::string name)
+  : TaskComposerGraph(std::move(name), TaskComposerNodeType::GRAPH, false)
+{
+  if (conditional_)
+    throw std::runtime_error("TaskComposerGraph, conditional should not be true");
+}
+
+TaskComposerGraph::TaskComposerGraph(std::string name, TaskComposerNodeType type, bool conditional)
+  : TaskComposerNode(std::move(name), type, conditional)
 {
 }
+
 TaskComposerGraph::TaskComposerGraph(std::string name,
                                      const YAML::Node& config,
                                      const TaskComposerPluginFactory& plugin_factory)
-  : TaskComposerGraph(std::move(name))
+  : TaskComposerGraph(std::move(name), TaskComposerNodeType::GRAPH, config, plugin_factory)
 {
-  // Get input keys
-  if (YAML::Node n = config["inputs"])
-    input_keys_ = n.as<std::vector<std::string>>();
+  if (conditional_)
+    throw std::runtime_error("TaskComposerGraph, conditional should not be true");
+}
 
-  if (YAML::Node n = config["outputs"])
-    output_keys_ = n.as<std::vector<std::string>>();
-
+TaskComposerGraph::TaskComposerGraph(std::string name,
+                                     TaskComposerNodeType type,
+                                     const YAML::Node& config,
+                                     const TaskComposerPluginFactory& plugin_factory)
+  : TaskComposerNode(std::move(name), type, config)
+{
   std::unordered_map<std::string, boost::uuids::uuid> node_uuids;
   YAML::Node nodes = config["nodes"];
   if (!nodes.IsMap())
@@ -145,6 +158,25 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
 
     addEdges(source_it->second, destination_uuids);
   }
+
+  if (YAML::Node n = config["terminals"])
+  {
+    auto terminals = n.as<std::vector<std::string>>();
+    terminals_.clear();
+    terminals_.reserve(terminals.size());
+    for (const auto& terminal : terminals)
+    {
+      auto terminal_it = node_uuids.find(terminal);
+      if (terminal_it == node_uuids.end())
+        throw std::runtime_error("Task Composer Graph '" + name_ + "' failed to find terminal '" + terminal + "'");
+
+      terminals_.push_back(terminal_it->second);
+    }
+  }
+  else
+  {
+    throw std::runtime_error("Task Composer Graph '" + name_ + "' is missing 'terminals' entry");
+  }
 }
 
 boost::uuids::uuid TaskComposerGraph::addNode(TaskComposerNode::UPtr task_node)
@@ -168,6 +200,23 @@ std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr> TaskComposerGraph::getN
 {
   return std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr>{ nodes_.begin(), nodes_.end() };
 }
+
+void TaskComposerGraph::setTerminals(std::vector<boost::uuids::uuid> terminals)
+{
+  for (const auto& terminal : terminals)
+  {
+    auto it = nodes_.find(terminal);
+    if (it == nodes_.end())
+      throw std::runtime_error("TaskComposerGraph, terminal node does not exist!");
+
+    if (!it->second->getOutboundEdges().empty())
+      throw std::runtime_error("TaskComposerGraph, terminal node has outbound edges!");
+  }
+
+  terminals_ = std::move(terminals);
+}
+
+std::vector<boost::uuids::uuid> TaskComposerGraph::getTerminals() const { return terminals_; }
 
 void TaskComposerGraph::renameInputKeys(const std::map<std::string, std::string>& input_keys)
 {
@@ -204,10 +253,10 @@ std::string TaskComposerGraph::dump(std::ostream& os,
     {
       sub_graphs << node->dump(os, this, results_map);
     }
-    else if (node->getType() == TaskComposerNodeType::GRAPH)
+    else if (node->getType() == TaskComposerNodeType::GRAPH || node->getType() == TaskComposerNodeType::PIPELINE)
     {
       auto it = results_map.find(node->getUUID());
-      std::string color = (it == results_map.end()) ? "blue" : it->second->color;
+      std::string color = (it != results_map.end() && it->second->color != "white") ? it->second->color : "blue";
       const std::string tmp = toString(node->uuid_, "node_");
       os << std::endl
          << tmp << " [shape=box3d, label=\"Subgraph: " << node->name_ << "\\n(" << node->uuid_str_
@@ -216,9 +265,39 @@ std::string TaskComposerGraph::dump(std::ostream& os,
     }
   }
 
-  for (const auto& edge : outbound_edges_)
+  if (type_ == TaskComposerNodeType::PIPELINE)
   {
-    os << "node_" << tmp << " -> " << toString(edge, "node_") << ";\n";
+    const auto& pipeline = static_cast<const TaskComposerPipeline&>(*this);
+    if (pipeline.isConditional())
+    {
+      int return_value = -1;
+
+      auto it = results_map.find(uuid_);
+      if (it != results_map.end())
+        return_value = it->second->return_value;
+
+      for (std::size_t i = 0; i < outbound_edges_.size(); ++i)
+      {
+        std::string line_type = (return_value == static_cast<int>(i)) ? "bold" : "dashed";
+        os << "node_" << tmp << " -> " << toString(outbound_edges_[i], "node_") << " [style=" << line_type
+           << ", label=\"[" << std::to_string(i) << "]\""
+           << "];\n";
+      }
+    }
+    else
+    {
+      for (const auto& edge : outbound_edges_)
+      {
+        os << "node_" << tmp << " -> " << toString(edge, "node_") << ";\n";
+      }
+    }
+  }
+  else
+  {
+    for (const auto& edge : outbound_edges_)
+    {
+      os << "node_" << tmp << " -> " << toString(edge, "node_") << ";\n";
+    }
   }
 
   os << "}\n";
@@ -242,11 +321,12 @@ bool TaskComposerGraph::operator==(const TaskComposerGraph& rhs) const
     for (const auto& pair : nodes_)
     {
       auto it = rhs.nodes_.find(pair.first);
-      equal &= (it == rhs.nodes_.end());
+      equal &= (it != rhs.nodes_.end());
       if (equal)
         equal &= (*(pair.second) == *(it->second));
     }
   }
+  equal &= (terminals_ == rhs.terminals_);
   equal &= TaskComposerNode::operator==(rhs);
   return equal;
 }
@@ -256,6 +336,7 @@ template <class Archive>
 void TaskComposerGraph::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& boost::serialization::make_nvp("nodes", nodes_);
+  ar& boost::serialization::make_nvp("terminals", terminals_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
 }
 

@@ -1,5 +1,5 @@
-#ifndef TESSERACT_TAKS_COMPOSER_SERIALIZATION_UTILS_HPP
-#define TESSERACT_TAKS_COMPOSER_SERIALIZATION_UTILS_HPP
+#ifndef TESSERACT_TASK_COMPOSER_SERIALIZATION_UTILS_HPP
+#define TESSERACT_TASK_COMPOSER_SERIALIZATION_UTILS_HPP
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -21,7 +21,7 @@ inline void runSerializationTest(const T& input, const std::string& file_name)
   const std::string filepath = tesseract_common::getTempPath() + file_name + ".xml";
   tesseract_common::Serialization::toArchiveFileXML<T>(input, filepath);
   auto ninput = tesseract_common::Serialization::fromArchiveFileXML<T>(filepath);
-  EXPECT_TRUE(input == ninput);
+  EXPECT_FALSE(input != ninput);
 }
 
 template <typename T>
@@ -30,7 +30,7 @@ inline void runSerializationPointerTest(const T& input, const std::string& file_
   const std::string filepath = tesseract_common::getTempPath() + file_name + ".xml";
   tesseract_common::Serialization::toArchiveFileXML<T>(input, filepath);
   auto ninput = tesseract_common::Serialization::fromArchiveFileXML<T>(filepath);
-  EXPECT_TRUE(*input == *ninput);
+  EXPECT_FALSE(*input != *ninput);
 }
 }  // namespace tesseract_planning::test_suite
-#endif  // TESSERACT_TAKS_COMPOSER_SERIALIZATION_UTILS_HPP
+#endif  // TESSERACT_TASK_COMPOSER_SERIALIZATION_UTILS_HPP

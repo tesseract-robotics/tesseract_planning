@@ -80,6 +80,15 @@ public:
   /** @brief Get the nodes associated with the pipeline */
   std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr> getNodes() const;
 
+  /**
+   *  @brief Set the terminals nodes
+   *  @details must be called after all nodes and edges are setup.
+   */
+  void setTerminals(std::vector<boost::uuids::uuid> terminals);
+
+  /** @brief Get the terminal nodes for the pipeline */
+  std::vector<boost::uuids::uuid> getTerminals() const;
+
   void renameInputKeys(const std::map<std::string, std::string>& input_keys) override;
 
   void renameOutputKeys(const std::map<std::string, std::string>& output_keys) override;
@@ -95,10 +104,18 @@ protected:
   friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
 
+  // These are protected and used by PIPELINE
+  TaskComposerGraph(std::string name, TaskComposerNodeType type, bool conditional);
+  TaskComposerGraph(std::string name,
+                    TaskComposerNodeType type,
+                    const YAML::Node& config,
+                    const TaskComposerPluginFactory& plugin_factory);
+
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   std::map<boost::uuids::uuid, TaskComposerNode::Ptr> nodes_;
+  std::vector<boost::uuids::uuid> terminals_;
 };
 
 }  // namespace tesseract_planning

@@ -1,6 +1,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
+#include <yaml-cpp/yaml.h>
 #include <sstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/joint_state.h>
@@ -8,7 +9,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
-#include "serialization_utils.hpp"
+#include <tesseract_task_composer/core/task_composer_task.h>
+#include <tesseract_task_composer/core/task_composer_pipeline.h>
+
+#include <tesseract_task_composer/core/test_suite/task_composer_node_info_unit.hpp>
+#include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
+
+#include <tesseract_task_composer/core/nodes/done_task.h>
+#include <tesseract_task_composer/core/nodes/error_task.h>
+#include <tesseract_task_composer/core/nodes/start_task.h>
 
 TESSERACT_ANY_EXPORT(tesseract_common, JointState)
 
@@ -22,6 +31,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDataStorageTests)  // NOLINT
   tesseract_common::JointState js(joint_names, joint_values);
   TaskComposerDataStorage data;
   EXPECT_FALSE(data.hasKey(key));
+  EXPECT_TRUE(data.getData(key).isNull());
 
   // Test Add
   data.setData(key, js);
@@ -35,13 +45,27 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDataStorageTests)  // NOLINT
   EXPECT_TRUE(copy.getData().size() == 1);
   EXPECT_TRUE(copy.getData(key).as<tesseract_common::JointState>() == js);
 
+  // Test Assign
+  TaskComposerDataStorage assign;
+  assign = data;
+  EXPECT_TRUE(assign.hasKey(key));
+  EXPECT_TRUE(assign.getData().size() == 1);
+  EXPECT_TRUE(assign.getData(key).as<tesseract_common::JointState>() == js);
+
+  // Test Assign Move
+  TaskComposerDataStorage move_assign;
+  move_assign = std::move(data);
+  EXPECT_TRUE(move_assign.hasKey(key));
+  EXPECT_TRUE(move_assign.getData().size() == 1);
+  EXPECT_TRUE(move_assign.getData(key).as<tesseract_common::JointState>() == js);
+
   // Serialization
-  tesseract_planning::test_suite::runSerializationTest<TaskComposerDataStorage>(data, "TaskComposerDataStorageTests");
+  test_suite::runSerializationTest<TaskComposerDataStorage>(move_assign, "TaskComposerDataStorageTests");
 
   // Test Remove
-  data.removeData(key);
-  EXPECT_FALSE(data.hasKey(key));
-  EXPECT_TRUE(data.getData().empty());
+  move_assign.removeData(key);
+  EXPECT_FALSE(move_assign.hasKey(key));
+  EXPECT_TRUE(move_assign.getData().empty());
 }
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerInputTests)  // NOLINT
@@ -60,7 +84,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerInputTests)  // NOLINT
   EXPECT_EQ(input->task_infos.getInfoMap().size(), 1);
 
   // Serialization
-  tesseract_planning::test_suite::runSerializationPointerTest(input, "TaskComposerInputTests");
+  test_suite::runSerializationPointerTest(input, "TaskComposerInputTests");
 
   input->reset();
   EXPECT_TRUE(input->problem != nullptr);
@@ -76,104 +100,13 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerProblemTests)  // NOLINT
   EXPECT_EQ(problem->name, "unset");
 
   // Serialization
-  tesseract_planning::test_suite::runSerializationPointerTest(problem, "TaskComposerProblemTests");
+  test_suite::runSerializationPointerTest(problem, "TaskComposerProblemTests");
 
   auto problem2 = std::make_unique<TaskComposerProblem>("TaskComposerProblemTests");
   EXPECT_EQ(problem2->name, "TaskComposerProblemTests");
 
   auto problem3 = std::make_unique<TaskComposerProblem>(TaskComposerDataStorage(), "TaskComposerProblemTests");
   EXPECT_EQ(problem3->name, "TaskComposerProblemTests");
-}
-
-TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
-{
-  auto node = std::make_unique<TaskComposerNode>();
-  // Default
-  EXPECT_EQ(node->getName(), "TaskComposerNode");
-  EXPECT_EQ(node->getType(), tesseract_planning::TaskComposerNodeType::TASK);
-  EXPECT_FALSE(node->getUUID().is_nil());
-  EXPECT_FALSE(node->getUUIDString().empty());
-  EXPECT_TRUE(node->getParentUUID().is_nil());
-  EXPECT_TRUE(node->getOutboundEdges().empty());
-  EXPECT_TRUE(node->getInboundEdges().empty());
-  EXPECT_TRUE(node->getInputKeys().empty());
-  EXPECT_TRUE(node->getOutputKeys().empty());
-
-  // Setters
-  std::string name{ "TaskComposerNodeTests" };
-  std::vector<std::string> input_keys{ "I1", "I2" };
-  std::vector<std::string> output_keys{ "O1", "O2" };
-  node->setName(name);
-  node->setInputKeys(input_keys);
-  node->setOutputKeys(output_keys);
-  EXPECT_EQ(node->getName(), name);
-  EXPECT_EQ(node->getInputKeys(), input_keys);
-  EXPECT_EQ(node->getOutputKeys(), output_keys);
-
-  // Utils
-  std::stringstream os;
-  std::map<std::string, std::string> rename_input_keys{ { "I1", "I3" }, { "I2", "I4" } };
-  std::map<std::string, std::string> rename_output_keys{ { "O1", "O3" }, { "O2", "O4" } };
-  node->renameInputKeys(rename_input_keys);
-  node->renameOutputKeys(rename_output_keys);
-  EXPECT_EQ(node->getInputKeys(), std::vector<std::string>({ "I3", "I4" }));
-  EXPECT_EQ(node->getOutputKeys(), std::vector<std::string>({ "O3", "O4" }));
-  EXPECT_NO_THROW(node->dump(os));
-
-  // Serialization
-  tesseract_planning::test_suite::runSerializationPointerTest(node, "TaskComposerNodeTests");
-}
-
-TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoTests)  // NOLINT
-{
-  {  // Default
-    TaskComposerNodeInfo node_info;
-    EXPECT_EQ(node_info.return_value, -1);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(node_info.elapsed_time, 0));
-    EXPECT_TRUE(node_info.uuid.is_nil());
-    EXPECT_TRUE(node_info.parent_uuid.is_nil());
-    EXPECT_EQ(node_info.color, "red");
-    EXPECT_FALSE(node_info.isAborted());
-    EXPECT_EQ(node_info, *(node_info.clone()));
-
-    // Serialization
-    tesseract_planning::test_suite::runSerializationTest<TaskComposerNodeInfo>(node_info, "TaskComposerNodeInfoTests");
-  }
-
-  {  // Constructor
-    TaskComposerNode node;
-    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
-    TaskComposerNodeInfo node_info(node, input);
-    EXPECT_EQ(node_info.return_value, -1);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(node_info.elapsed_time, 0));
-    EXPECT_FALSE(node_info.uuid.is_nil());
-    EXPECT_EQ(node_info.uuid, node.getUUID());
-    EXPECT_EQ(node_info.parent_uuid, node.getParentUUID());
-    EXPECT_EQ(node_info.color, "red");
-    EXPECT_FALSE(node_info.isAborted());
-    EXPECT_EQ(node_info, *(node_info.clone()));
-
-    // Serialization
-    tesseract_planning::test_suite::runSerializationTest<TaskComposerNodeInfo>(node_info, "TaskComposerNodeInfoTests");
-  }
-
-  {  // Aborted
-    TaskComposerNode node;
-    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
-    input.abort(node.getUUID());
-    TaskComposerNodeInfo node_info(node, input);
-    EXPECT_EQ(node_info.return_value, 0);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(node_info.elapsed_time, 0));
-    EXPECT_FALSE(node_info.uuid.is_nil());
-    EXPECT_EQ(node_info.uuid, node.getUUID());
-    EXPECT_EQ(node_info.parent_uuid, node.getParentUUID());
-    EXPECT_EQ(node_info.color, "white");
-    EXPECT_TRUE(node_info.isAborted());
-    EXPECT_EQ(node_info, *(node_info.clone()));
-
-    // Serialization
-    tesseract_planning::test_suite::runSerializationTest<TaskComposerNodeInfo>(node_info, "TaskComposerNodeInfoTests");
-  }
 }
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoContainerTests)  // NOLINT
@@ -186,13 +119,941 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoContainerTests)  // NOLI
   EXPECT_TRUE(node_info_container->getInfoMap().empty());
   node_info_container->addInfo(std::move(node_info));
   EXPECT_EQ(node_info_container->getInfoMap().size(), 1);
+  EXPECT_TRUE(node_info_container->getInfo(node.getUUID()) != nullptr);
 
   // Serialization
-  tesseract_planning::test_suite::runSerializationPointerTest(node_info_container,
-                                                              "TaskComposerNodeInfoContainerTests");
+  test_suite::runSerializationPointerTest(node_info_container, "TaskComposerNodeInfoContainerTests");
 
-  node_info_container->clear();
-  EXPECT_TRUE(node_info_container->getInfoMap().empty());
+  // Copy
+  auto copy_node_info_container = std::make_unique<TaskComposerNodeInfoContainer>(*node_info_container);
+  EXPECT_EQ(copy_node_info_container->getInfoMap().size(), 1);
+  EXPECT_TRUE(copy_node_info_container->getInfo(node.getUUID()) != nullptr);
+
+  // Move
+  auto move_node_info_container = std::make_unique<TaskComposerNodeInfoContainer>(std::move(*node_info_container));
+  EXPECT_EQ(move_node_info_container->getInfoMap().size(), 1);
+  EXPECT_TRUE(move_node_info_container->getInfo(node.getUUID()) != nullptr);
+
+  move_node_info_container->clear();
+  EXPECT_TRUE(move_node_info_container->getInfoMap().empty());
+  EXPECT_TRUE(move_node_info_container->getInfo(node.getUUID()) == nullptr);
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
+{
+  std::stringstream os;
+  auto node = std::make_unique<TaskComposerNode>();
+  // Default
+  EXPECT_EQ(node->getName(), "TaskComposerNode");
+  EXPECT_EQ(node->getType(), TaskComposerNodeType::TASK);
+  EXPECT_FALSE(node->getUUID().is_nil());
+  EXPECT_FALSE(node->getUUIDString().empty());
+  EXPECT_TRUE(node->getParentUUID().is_nil());
+  EXPECT_TRUE(node->getOutboundEdges().empty());
+  EXPECT_TRUE(node->getInboundEdges().empty());
+  EXPECT_TRUE(node->getInputKeys().empty());
+  EXPECT_TRUE(node->getOutputKeys().empty());
+  EXPECT_FALSE(node->isConditional());
+  EXPECT_NO_THROW(node->dump(os));
+
+  // Setters
+  std::string name{ "TaskComposerNodeTests" };
+  std::vector<std::string> input_keys{ "I1", "I2" };
+  std::vector<std::string> output_keys{ "O1", "O2" };
+  node->setName(name);
+  node->setInputKeys(input_keys);
+  node->setOutputKeys(output_keys);
+  node->setConditional(true);
+  EXPECT_EQ(node->getName(), name);
+  EXPECT_EQ(node->getInputKeys(), input_keys);
+  EXPECT_EQ(node->getOutputKeys(), output_keys);
+  EXPECT_EQ(node->isConditional(), true);
+  EXPECT_NO_THROW(node->dump(os));
+
+  // Utils
+  std::map<std::string, std::string> rename_input_keys{ { "I1", "I3" }, { "I2", "I4" } };
+  std::map<std::string, std::string> rename_output_keys{ { "O1", "O3" }, { "O2", "O4" } };
+  node->renameInputKeys(rename_input_keys);
+  node->renameOutputKeys(rename_output_keys);
+  EXPECT_EQ(node->getInputKeys(), std::vector<std::string>({ "I3", "I4" }));
+  EXPECT_EQ(node->getOutputKeys(), std::vector<std::string>({ "O3", "O4" }));
+  EXPECT_NO_THROW(node->dump(os));
+
+  // Serialization
+  test_suite::runSerializationPointerTest(node, "TaskComposerNodeTests");
+
+  {
+    std::string str = R"(config:
+                           inputs: input_data
+                           outputs: output_data)";
+    YAML::Node config = YAML::Load(str);
+    auto task = std::make_unique<TaskComposerNode>(name, TaskComposerNodeType::TASK, config["config"]);
+    EXPECT_EQ(task->getName(), name);
+    EXPECT_EQ(task->getType(), TaskComposerNodeType::TASK);
+    EXPECT_EQ(task->getInputKeys().size(), 1);
+    EXPECT_EQ(task->getOutputKeys().size(), 1);
+    EXPECT_EQ(task->getInputKeys().front(), "input_data");
+    EXPECT_EQ(task->getOutputKeys().front(), "output_data");
+    EXPECT_EQ(task->isConditional(), false);
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerNodeTests");
+  }
+
+  {
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: input_data
+                           outputs: output_data)";
+    YAML::Node config = YAML::Load(str);
+    auto task = std::make_unique<TaskComposerNode>(name, TaskComposerNodeType::TASK, config["config"]);
+    EXPECT_EQ(task->getName(), name);
+    EXPECT_EQ(task->getType(), TaskComposerNodeType::TASK);
+    EXPECT_EQ(task->getInputKeys().size(), 1);
+    EXPECT_EQ(task->getOutputKeys().size(), 1);
+    EXPECT_EQ(task->getInputKeys().front(), "input_data");
+    EXPECT_EQ(task->getOutputKeys().front(), "output_data");
+    EXPECT_EQ(task->isConditional(), true);
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerNodeTests");
+  }
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoTests)  // NOLINT
+{
+  test_suite::runTaskComposerNodeInfoTest<TaskComposerNodeInfo>();
+}
+
+class TestTask : public TaskComposerTask
+{
+public:
+  using TaskComposerTask::TaskComposerTask;
+
+  bool throw_exception{ false };
+  bool set_abort{ false };
+  int return_value{ 0 };
+
+  bool operator==(const TestTask& rhs) const
+  {
+    bool equal = true;
+    equal &= (throw_exception == rhs.throw_exception);
+    equal &= (set_abort == rhs.set_abort);
+    equal &= (return_value == rhs.return_value);
+    equal &= TaskComposerTask::operator==(rhs);
+    return equal;
+  }
+  bool operator!=(const TestTask& rhs) const { return !operator==(rhs); }
+
+protected:
+  friend struct tesseract_common::Serialization;
+  friend class boost::serialization::access;
+
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/)
+  {
+    ar& BOOST_SERIALIZATION_NVP(throw_exception);
+    ar& BOOST_SERIALIZATION_NVP(set_abort);
+    ar& BOOST_SERIALIZATION_NVP(return_value);
+    ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
+  }
+
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                     OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const
+  {
+    if (throw_exception)
+      throw std::runtime_error("TestTask, failure");
+
+    auto node_info = std::make_unique<TaskComposerNodeInfo>(*this, input);
+    if (conditional_)
+      node_info->color = (return_value == 0) ? "red" : "green";
+    else
+      node_info->color = "green";
+    node_info->return_value = return_value;
+
+    if (set_abort)
+    {
+      node_info->color = "red";
+      input.abort(uuid_);
+    }
+
+    return node_info;
+  }
+};
+
+#include <tesseract_common/serialization.h>
+#include <boost/serialization/export.hpp>
+BOOST_CLASS_EXPORT_KEY2(TestTask, "TestTask")
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(TestTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(TestTask)
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
+{
+  std::string name = "TaskComposerTaskTests";
+  {  // Not Conditional
+    auto task = std::make_unique<TestTask>(name, false);
+    EXPECT_EQ(task->getName(), name);
+    EXPECT_FALSE(task->isConditional());
+    EXPECT_TRUE(task->getInputKeys().empty());
+    EXPECT_TRUE(task->getOutputKeys().empty());
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(task->run(input), 0);
+    EXPECT_TRUE(input.isSuccessful());
+    EXPECT_FALSE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 0);
+
+    std::stringstream os;
+    EXPECT_NO_THROW(task->dump(os));
+    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
+  }
+
+  {  // Conditional
+    auto task = std::make_unique<TestTask>(name, true);
+    task->return_value = 1;
+    EXPECT_EQ(task->getName(), name);
+    EXPECT_TRUE(task->isConditional());
+    EXPECT_TRUE(task->getInputKeys().empty());
+    EXPECT_TRUE(task->getOutputKeys().empty());
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(task->run(input), 1);
+    EXPECT_TRUE(input.isSuccessful());
+    EXPECT_FALSE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 1);
+
+    std::stringstream os;
+    EXPECT_NO_THROW(task->dump(os));
+    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
+  }
+
+  {
+    std::string str = R"(config:
+                           conditional: false
+                           inputs: input_data
+                           outputs: output_data)";
+    YAML::Node config = YAML::Load(str);
+    auto task = std::make_unique<TestTask>(name, config["config"]);
+    EXPECT_EQ(task->getName(), name);
+    EXPECT_FALSE(task->isConditional());
+    EXPECT_EQ(task->getInputKeys().size(), 1);
+    EXPECT_EQ(task->getOutputKeys().size(), 1);
+    EXPECT_EQ(task->getInputKeys().front(), "input_data");
+    EXPECT_EQ(task->getOutputKeys().front(), "output_data");
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(task->run(input), 0);
+    EXPECT_TRUE(input.isSuccessful());
+    EXPECT_FALSE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 0);
+
+    std::stringstream os;
+    EXPECT_NO_THROW(task->dump(os));
+    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
+  }
+
+  {
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    auto task = std::make_unique<TestTask>(name, config["config"]);
+    task->return_value = 1;
+    EXPECT_EQ(task->getName(), name);
+    EXPECT_TRUE(task->isConditional());
+    EXPECT_EQ(task->getInputKeys().size(), 1);
+    EXPECT_EQ(task->getOutputKeys().size(), 1);
+    EXPECT_EQ(task->getInputKeys().front(), "input_data");
+    EXPECT_EQ(task->getOutputKeys().front(), "output_data");
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(task->run(input), 1);
+    EXPECT_TRUE(input.isSuccessful());
+    EXPECT_FALSE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 1);
+
+    std::stringstream os;
+    EXPECT_NO_THROW(task->dump(os));
+    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
+  }
+
+  {  // Failure due to exception during run
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    auto task = std::make_unique<TestTask>(name, config["config"]);
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+
+    task->throw_exception = true;
+    EXPECT_EQ(task->run(input), 0);
+    EXPECT_TRUE(input.isSuccessful());
+    EXPECT_FALSE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 0);
+  }
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
+{
+  std::string name = "TaskComposerPipelineTests";
+  std::string name1 = "TaskComposerPipelineTests1";
+  std::string name2 = "TaskComposerPipelineTests2";
+  std::string name3 = "TaskComposerPipelineTests3";
+  std::string name4 = "TaskComposerPipelineTests4";
+  {  // Not Conditional
+    auto task1 = std::make_unique<TestTask>(name1, false);
+    auto task2 = std::make_unique<TestTask>(name2, false);
+    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto task4 = std::make_unique<TestTask>(name4, false);
+    auto pipeline = std::make_unique<TaskComposerPipeline>(name);
+    boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
+    boost::uuids::uuid uuid2 = pipeline->addNode(std::move(task2));
+    boost::uuids::uuid uuid3 = pipeline->addNode(std::move(task3));
+    boost::uuids::uuid uuid4 = pipeline->addNode(std::move(task4));
+    pipeline->addEdges(uuid1, { uuid2 });
+    pipeline->addEdges(uuid2, { uuid3 });
+    pipeline->addEdges(uuid3, { uuid4 });
+    pipeline->setTerminals({ uuid4 });
+    auto nodes_map = pipeline->getNodes();
+    EXPECT_EQ(pipeline->getName(), name);
+    EXPECT_TRUE(pipeline->isConditional());
+    EXPECT_EQ(pipeline->getTerminals(), std::vector<boost::uuids::uuid>({ uuid4 }));
+    EXPECT_EQ(nodes_map.at(uuid1)->getInboundEdges().size(), 0);
+    EXPECT_EQ(nodes_map.at(uuid1)->getOutboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid1)->getOutboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid2)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid2)->getInboundEdges().front(), uuid1);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().front(), uuid3);
+    EXPECT_EQ(nodes_map.at(uuid3)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid3)->getInboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid3)->getOutboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid3)->getOutboundEdges().front(), uuid4);
+    EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().front(), uuid3);
+    EXPECT_EQ(nodes_map.at(uuid4)->getOutboundEdges().size(), 0);
+
+    // Serialization
+    test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(pipeline->run(input), 0);
+    EXPECT_TRUE(input.isSuccessful());
+    EXPECT_FALSE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 5);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(pipeline->getUUID())->return_value, 0);
+
+    std::ofstream os1;
+    os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test1a.dot");
+    EXPECT_NO_THROW(pipeline->dump(os1));
+    os1.close();
+
+    std::ofstream os2;
+    os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test1b.dot");
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    os2.close();
+  }
+
+  {  // Conditional
+    auto task1 = std::make_unique<TestTask>(name1, false);
+    auto task2 = std::make_unique<TestTask>(name2, true);
+    task2->return_value = 1;
+    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto task4 = std::make_unique<TestTask>(name4, false);
+    task4->return_value = 1;
+    auto pipeline = std::make_unique<TaskComposerPipeline>(name);
+    boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
+    boost::uuids::uuid uuid2 = pipeline->addNode(std::move(task2));
+    boost::uuids::uuid uuid3 = pipeline->addNode(std::move(task3));
+    boost::uuids::uuid uuid4 = pipeline->addNode(std::move(task4));
+    pipeline->addEdges(uuid1, { uuid2 });
+    pipeline->addEdges(uuid2, { uuid3, uuid4 });
+    pipeline->setTerminals({ uuid3, uuid4 });
+    auto nodes_map = pipeline->getNodes();
+    EXPECT_EQ(pipeline->getName(), name);
+    EXPECT_TRUE(pipeline->isConditional());
+    EXPECT_EQ(pipeline->getTerminals(), std::vector<boost::uuids::uuid>({ uuid3, uuid4 }));
+    EXPECT_EQ(nodes_map.at(uuid1)->getInboundEdges().size(), 0);
+    EXPECT_EQ(nodes_map.at(uuid1)->getOutboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid1)->getOutboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid2)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid2)->getInboundEdges().front(), uuid1);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().size(), 2);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().front(), uuid3);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().back(), uuid4);
+    EXPECT_EQ(nodes_map.at(uuid3)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid3)->getInboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid3)->getOutboundEdges().size(), 0);
+    EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid4)->getOutboundEdges().size(), 0);
+
+    // Serialization
+    test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(pipeline->run(input), 1);
+    EXPECT_TRUE(input.isSuccessful());
+    EXPECT_FALSE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 4);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(pipeline->getUUID())->return_value, 1);
+
+    std::ofstream os1;
+    os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test2a.dot");
+    EXPECT_NO_THROW(pipeline->dump(os1));
+    os1.close();
+
+    std::ofstream os2;
+    os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test2b.dot");
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    os2.close();
+  }
+
+  {  // Throw exception
+    auto task1 = std::make_unique<TestTask>(name1, false);
+    auto task2 = std::make_unique<TestTask>(name2, true);
+    task2->return_value = 0;
+    task2->throw_exception = true;
+    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto task4 = std::make_unique<TestTask>(name4, false);
+    task4->return_value = 1;
+    auto pipeline = std::make_unique<TaskComposerPipeline>(name);
+    boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
+    boost::uuids::uuid uuid2 = pipeline->addNode(std::move(task2));
+    boost::uuids::uuid uuid3 = pipeline->addNode(std::move(task3));
+    boost::uuids::uuid uuid4 = pipeline->addNode(std::move(task4));
+    pipeline->addEdges(uuid1, { uuid2 });
+    pipeline->addEdges(uuid2, { uuid3, uuid4 });
+    pipeline->setTerminals({ uuid3, uuid4 });
+    auto nodes_map = pipeline->getNodes();
+    EXPECT_EQ(pipeline->getName(), name);
+    EXPECT_TRUE(pipeline->isConditional());
+    EXPECT_EQ(pipeline->getTerminals(), std::vector<boost::uuids::uuid>({ uuid3, uuid4 }));
+    EXPECT_EQ(nodes_map.at(uuid1)->getInboundEdges().size(), 0);
+    EXPECT_EQ(nodes_map.at(uuid1)->getOutboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid1)->getOutboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid2)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid2)->getInboundEdges().front(), uuid1);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().size(), 2);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().front(), uuid3);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().back(), uuid4);
+    EXPECT_EQ(nodes_map.at(uuid3)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid3)->getInboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid3)->getOutboundEdges().size(), 0);
+    EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid4)->getOutboundEdges().size(), 0);
+
+    // Serialization
+    test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(pipeline->run(input), 0);
+    EXPECT_TRUE(input.isSuccessful());
+    EXPECT_FALSE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 4);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(pipeline->getUUID())->return_value, 0);
+
+    std::ofstream os1;
+    os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test3a.dot");
+    EXPECT_NO_THROW(pipeline->dump(os1));
+    os1.close();
+
+    std::ofstream os2;
+    os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test3b.dot");
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    os2.close();
+  }
+
+  {  // Set Abort
+    auto task1 = std::make_unique<TestTask>(name1, false);
+    auto task2 = std::make_unique<TestTask>(name2, true);
+    task2->return_value = 0;
+    task2->set_abort = true;
+    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto task4 = std::make_unique<TestTask>(name4, false);
+    task4->return_value = 1;
+    auto pipeline = std::make_unique<TaskComposerPipeline>(name);
+    boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
+    boost::uuids::uuid uuid2 = pipeline->addNode(std::move(task2));
+    boost::uuids::uuid uuid3 = pipeline->addNode(std::move(task3));
+    boost::uuids::uuid uuid4 = pipeline->addNode(std::move(task4));
+    pipeline->addEdges(uuid1, { uuid2 });
+    pipeline->addEdges(uuid2, { uuid3, uuid4 });
+    pipeline->setTerminals({ uuid3, uuid4 });
+    auto nodes_map = pipeline->getNodes();
+    EXPECT_EQ(pipeline->getName(), name);
+    EXPECT_TRUE(pipeline->isConditional());
+    EXPECT_EQ(pipeline->getTerminals(), std::vector<boost::uuids::uuid>({ uuid3, uuid4 }));
+    EXPECT_EQ(nodes_map.at(uuid1)->getInboundEdges().size(), 0);
+    EXPECT_EQ(nodes_map.at(uuid1)->getOutboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid1)->getOutboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid2)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid2)->getInboundEdges().front(), uuid1);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().size(), 2);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().front(), uuid3);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().back(), uuid4);
+    EXPECT_EQ(nodes_map.at(uuid3)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid3)->getInboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid3)->getOutboundEdges().size(), 0);
+    EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid4)->getOutboundEdges().size(), 0);
+
+    // Serialization
+    test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(pipeline->run(input), 0);
+    EXPECT_FALSE(input.isSuccessful());
+    EXPECT_TRUE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 4);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(pipeline->getUUID())->return_value, 0);
+
+    std::ofstream os1;
+    os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test4a.dot");
+    EXPECT_NO_THROW(pipeline->dump(os1));
+    os1.close();
+
+    std::ofstream os2;
+    os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test4b.dot");
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    os2.close();
+  }
+
+  {  // Nested Pipeline Not Conditional
+    auto task1 = std::make_unique<TestTask>(name1, false);
+    auto task2 = std::make_unique<TestTask>(name2, true);
+    task2->return_value = 1;
+    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto task4 = std::make_unique<TestTask>(name4, false);
+    task4->return_value = 1;
+    auto pipeline1 = std::make_unique<TaskComposerPipeline>(name + "_1", false);
+    boost::uuids::uuid uuid1 = pipeline1->addNode(std::move(task1));
+    boost::uuids::uuid uuid2 = pipeline1->addNode(std::move(task2));
+    boost::uuids::uuid uuid3 = pipeline1->addNode(std::move(task3));
+    boost::uuids::uuid uuid4 = pipeline1->addNode(std::move(task4));
+    pipeline1->addEdges(uuid1, { uuid2 });
+    pipeline1->addEdges(uuid2, { uuid3, uuid4 });
+    pipeline1->setTerminals({ uuid3, uuid4 });
+
+    auto task5 = std::make_unique<TestTask>(name1, false);
+    auto task6 = std::make_unique<TestTask>(name2, true);
+    task6->return_value = 1;
+    auto task7 = std::make_unique<TestTask>(name3, false);
+    auto task8 = std::make_unique<TestTask>(name4, false);
+    task8->return_value = 1;
+    auto pipeline2 = std::make_unique<TaskComposerPipeline>(name + "_2", false);
+    boost::uuids::uuid uuid5 = pipeline2->addNode(std::move(task5));
+    boost::uuids::uuid uuid6 = pipeline2->addNode(std::move(task6));
+    boost::uuids::uuid uuid7 = pipeline2->addNode(std::move(task7));
+    boost::uuids::uuid uuid8 = pipeline2->addNode(std::move(task8));
+    pipeline2->addEdges(uuid5, { uuid6 });
+    pipeline2->addEdges(uuid6, { uuid7, uuid8 });
+    pipeline2->setTerminals({ uuid7, uuid8 });
+
+    auto pipeline3 = std::make_unique<TaskComposerPipeline>(name + "_3");
+    boost::uuids::uuid uuid9 = pipeline3->addNode(std::move(pipeline1));
+    boost::uuids::uuid uuid10 = pipeline3->addNode(std::move(pipeline2));
+    pipeline3->addEdges(uuid9, { uuid10 });
+    pipeline3->setTerminals({ uuid10 });
+
+    // Serialization
+    test_suite::runSerializationPointerTest(pipeline3, "TaskComposerPipelineTests");
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(pipeline3->run(input), 0);
+    EXPECT_TRUE(input.isSuccessful());
+    EXPECT_FALSE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 9);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(pipeline3->getUUID())->return_value, 0);
+
+    std::ofstream os1;
+    os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test5a.dot");
+    EXPECT_NO_THROW(pipeline3->dump(os1));
+    os1.close();
+
+    std::ofstream os2;
+    os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test5b.dot");
+    EXPECT_NO_THROW(pipeline3->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    os2.close();
+  }
+
+  {  // Nested Pipeline Conditional
+    auto task1 = std::make_unique<TestTask>(name1, false);
+    auto task2 = std::make_unique<TestTask>(name2, true);
+    task2->return_value = 1;
+    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto task4 = std::make_unique<TestTask>(name4, false);
+    task4->return_value = 1;
+    auto pipeline1 = std::make_unique<TaskComposerPipeline>(name + "_1", true);
+    boost::uuids::uuid uuid1 = pipeline1->addNode(std::move(task1));
+    boost::uuids::uuid uuid2 = pipeline1->addNode(std::move(task2));
+    boost::uuids::uuid uuid3 = pipeline1->addNode(std::move(task3));
+    boost::uuids::uuid uuid4 = pipeline1->addNode(std::move(task4));
+    pipeline1->addEdges(uuid1, { uuid2 });
+    pipeline1->addEdges(uuid2, { uuid3, uuid4 });
+    pipeline1->setTerminals({ uuid3, uuid4 });
+
+    auto task5 = std::make_unique<TestTask>(name1, false);
+    auto task6 = std::make_unique<TestTask>(name2, true);
+    task6->return_value = 1;
+    auto task7 = std::make_unique<TestTask>(name3, false);
+    auto task8 = std::make_unique<TestTask>(name4, false);
+    task8->return_value = 1;
+    auto pipeline2 = std::make_unique<TaskComposerPipeline>(name + "_2", false);
+    boost::uuids::uuid uuid5 = pipeline2->addNode(std::move(task5));
+    boost::uuids::uuid uuid6 = pipeline2->addNode(std::move(task6));
+    boost::uuids::uuid uuid7 = pipeline2->addNode(std::move(task7));
+    boost::uuids::uuid uuid8 = pipeline2->addNode(std::move(task8));
+    pipeline2->addEdges(uuid5, { uuid6 });
+    pipeline2->addEdges(uuid6, { uuid7, uuid8 });
+    pipeline2->setTerminals({ uuid7, uuid8 });
+
+    auto pipeline3 = std::make_unique<TaskComposerPipeline>(name + "_3");
+    auto task11 = std::make_unique<TestTask>(name1, false);
+    boost::uuids::uuid uuid9 = pipeline3->addNode(std::move(pipeline1));
+    boost::uuids::uuid uuid10 = pipeline3->addNode(std::move(pipeline2));
+    boost::uuids::uuid uuid11 = pipeline3->addNode(std::move(task11));
+    pipeline3->addEdges(uuid9, { uuid11, uuid10 });
+    pipeline3->setTerminals({ uuid11, uuid10 });
+
+    // Serialization
+    test_suite::runSerializationPointerTest(pipeline3, "TaskComposerPipelineTests");
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(pipeline3->run(input), 1);
+    EXPECT_TRUE(input.isSuccessful());
+    EXPECT_FALSE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 9);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(pipeline3->getUUID())->return_value, 1);
+
+    std::ofstream os1;
+    os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test6a.dot");
+    EXPECT_NO_THROW(pipeline3->dump(os1));
+    os1.close();
+
+    std::ofstream os2;
+    os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test6b.dot");
+    EXPECT_NO_THROW(pipeline3->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    os2.close();
+  }
+
+  {  // Nested Pipeline Abort
+    auto task1 = std::make_unique<TestTask>(name1, false);
+    auto task2 = std::make_unique<TestTask>(name2, true);
+    task2->return_value = 1;
+    task2->set_abort = true;
+    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto task4 = std::make_unique<TestTask>(name4, false);
+    task4->return_value = 1;
+    auto pipeline1 = std::make_unique<TaskComposerPipeline>(name + "_1", true);
+    boost::uuids::uuid uuid1 = pipeline1->addNode(std::move(task1));
+    boost::uuids::uuid uuid2 = pipeline1->addNode(std::move(task2));
+    boost::uuids::uuid uuid3 = pipeline1->addNode(std::move(task3));
+    boost::uuids::uuid uuid4 = pipeline1->addNode(std::move(task4));
+    pipeline1->addEdges(uuid1, { uuid2 });
+    pipeline1->addEdges(uuid2, { uuid3, uuid4 });
+    pipeline1->setTerminals({ uuid3, uuid4 });
+
+    auto task5 = std::make_unique<TestTask>(name1, false);
+    auto task6 = std::make_unique<TestTask>(name2, true);
+    task6->return_value = 1;
+    auto task7 = std::make_unique<TestTask>(name3, false);
+    auto task8 = std::make_unique<TestTask>(name4, false);
+    task8->return_value = 1;
+    auto pipeline2 = std::make_unique<TaskComposerPipeline>(name + "_2", false);
+    boost::uuids::uuid uuid5 = pipeline2->addNode(std::move(task5));
+    boost::uuids::uuid uuid6 = pipeline2->addNode(std::move(task6));
+    boost::uuids::uuid uuid7 = pipeline2->addNode(std::move(task7));
+    boost::uuids::uuid uuid8 = pipeline2->addNode(std::move(task8));
+    pipeline2->addEdges(uuid5, { uuid6 });
+    pipeline2->addEdges(uuid6, { uuid7, uuid8 });
+    pipeline2->setTerminals({ uuid7, uuid8 });
+
+    auto pipeline3 = std::make_unique<TaskComposerPipeline>(name + "_3");
+    auto task11 = std::make_unique<TestTask>(name1, false);
+    boost::uuids::uuid uuid9 = pipeline3->addNode(std::move(pipeline1));
+    boost::uuids::uuid uuid10 = pipeline3->addNode(std::move(pipeline2));
+    boost::uuids::uuid uuid11 = pipeline3->addNode(std::move(task11));
+    pipeline3->addEdges(uuid9, { uuid11, uuid10 });
+    pipeline3->setTerminals({ uuid11, uuid10 });
+
+    // Serialization
+    test_suite::runSerializationPointerTest(pipeline3, "TaskComposerPipelineTests");
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(pipeline3->run(input), 1);
+    EXPECT_FALSE(input.isSuccessful());
+    EXPECT_TRUE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 6);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(pipeline3->getUUID())->return_value, 1);
+
+    std::ofstream os1;
+    os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test7a.dot");
+    EXPECT_NO_THROW(pipeline3->dump(os1));
+    os1.close();
+
+    std::ofstream os2;
+    os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test7b.dot");
+    EXPECT_NO_THROW(pipeline3->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    os2.close();
+  }
+
+  // This section tests failures
+
+  {  // Missing terminals
+    auto task1 = std::make_unique<TestTask>(name1, false);
+    auto task2 = std::make_unique<TestTask>(name2, true);
+    task2->return_value = 1;
+    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto task4 = std::make_unique<TestTask>(name4, false);
+    task4->return_value = 1;
+    auto pipeline = std::make_unique<TaskComposerPipeline>(name);
+    boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
+    boost::uuids::uuid uuid2 = pipeline->addNode(std::move(task2));
+    boost::uuids::uuid uuid3 = pipeline->addNode(std::move(task3));
+    boost::uuids::uuid uuid4 = pipeline->addNode(std::move(task4));
+    pipeline->addEdges(uuid1, { uuid2 });
+    pipeline->addEdges(uuid2, { uuid3, uuid4 });
+    auto nodes_map = pipeline->getNodes();
+    EXPECT_EQ(pipeline->getName(), name);
+    EXPECT_TRUE(pipeline->isConditional());
+    EXPECT_NE(pipeline->getTerminals(), std::vector<boost::uuids::uuid>({ uuid3, uuid4 }));
+    EXPECT_EQ(nodes_map.at(uuid1)->getInboundEdges().size(), 0);
+    EXPECT_EQ(nodes_map.at(uuid1)->getOutboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid1)->getOutboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid2)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid2)->getInboundEdges().front(), uuid1);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().size(), 2);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().front(), uuid3);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutboundEdges().back(), uuid4);
+    EXPECT_EQ(nodes_map.at(uuid3)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid3)->getInboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid3)->getOutboundEdges().size(), 0);
+    EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().size(), 1);
+    EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().front(), uuid2);
+    EXPECT_EQ(nodes_map.at(uuid4)->getOutboundEdges().size(), 0);
+
+    // Serialization
+    test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(pipeline->run(input), 0);
+    EXPECT_TRUE(input.isSuccessful());
+    EXPECT_FALSE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(pipeline->getUUID())->return_value, 0);
+
+    std::ofstream os1;
+    os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test8a.dot");
+    EXPECT_NO_THROW(pipeline->dump(os1));
+    os1.close();
+
+    std::ofstream os2;
+    os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test8b.dot");
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    os2.close();
+  }
+
+  {  // No root
+    auto task1 = std::make_unique<TestTask>(name1, false);
+    auto task2 = std::make_unique<TestTask>(name2, false);
+    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto pipeline = std::make_unique<TaskComposerPipeline>(name);
+    boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
+    boost::uuids::uuid uuid2 = pipeline->addNode(std::move(task2));
+    boost::uuids::uuid uuid3 = pipeline->addNode(std::move(task3));
+    pipeline->setTerminals({ uuid3 });
+    pipeline->addEdges(uuid1, { uuid2 });
+    pipeline->addEdges(uuid2, { uuid3 });
+    pipeline->addEdges(uuid3, { uuid1 });
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(pipeline->run(input), 0);
+    EXPECT_TRUE(input.isSuccessful());
+    EXPECT_FALSE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(pipeline->getUUID())->return_value, 0);
+
+    std::ofstream os1;
+    os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test9a.dot");
+    EXPECT_NO_THROW(pipeline->dump(os1));
+    os1.close();
+
+    std::ofstream os2;
+    os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test9b.dot");
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    os2.close();
+  }
+
+  {  // Non conditional with multiple out edgets
+    auto task1 = std::make_unique<TestTask>(name1, false);
+    auto task2 = std::make_unique<TestTask>(name2, false);
+    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto pipeline = std::make_unique<TaskComposerPipeline>(name);
+    boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
+    boost::uuids::uuid uuid2 = pipeline->addNode(std::move(task2));
+    boost::uuids::uuid uuid3 = pipeline->addNode(std::move(task3));
+    pipeline->addEdges(uuid1, { uuid2 });
+    pipeline->addEdges(uuid1, { uuid3 });
+    pipeline->setTerminals({ uuid2, uuid3 });
+
+    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+    EXPECT_EQ(pipeline->run(input), 0);
+    EXPECT_TRUE(input.isSuccessful());
+    EXPECT_FALSE(input.isAborted());
+    EXPECT_EQ(input.task_infos.getInfoMap().size(), 2);
+    EXPECT_EQ(input.task_infos.getInfoMap().at(pipeline->getUUID())->return_value, 0);
+
+    std::ofstream os1;
+    os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test10a.dot");
+    EXPECT_NO_THROW(pipeline->dump(os1));
+    os1.close();
+
+    std::ofstream os2;
+    os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test10b.dot");
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    os2.close();
+  }
+
+  {  // Set invalid terminal
+    auto task1 = std::make_unique<TestTask>(name1, false);
+    auto task2 = std::make_unique<TestTask>(name2, false);
+    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto pipeline = std::make_unique<TaskComposerPipeline>(name);
+    boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
+    boost::uuids::uuid uuid2 = pipeline->addNode(std::move(task2));
+    boost::uuids::uuid uuid3 = pipeline->addNode(std::move(task3));
+    pipeline->addEdges(uuid1, { uuid2 });
+    pipeline->addEdges(uuid2, { uuid3 });
+    pipeline->addEdges(uuid3, { uuid1 });
+    EXPECT_ANY_THROW(pipeline->setTerminals({ uuid3 }));  // NOLINT
+  }
+
+  //  { // Conditional
+  //    auto task = std::make_unique<TestTask>(name, true);
+  //    EXPECT_EQ(task->getName(), name);
+  //    EXPECT_TRUE(task->isConditional());
+  //    EXPECT_TRUE(task->getInputKeys().empty());
+  //    EXPECT_TRUE(task->getOutputKeys().empty());
+
+  //    // Serialization
+  //    test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
+
+  //    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+  //    EXPECT_EQ(task->run(input), 1);
+  //    EXPECT_TRUE(input.isSuccessful());
+  //    EXPECT_FALSE(input.isAborted());
+  //    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
+  //    EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 1);
+
+  //    std::stringstream os;
+  //    EXPECT_NO_THROW(task->dump(os));
+  //    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
+  //  }
+
+  //  {
+  //    std::string str = R"(config:
+  //                           conditional: false
+  //                           inputs: input_data
+  //                           outputs: output_data)";
+  //    YAML::Node config = YAML::Load(str);
+  //    auto task = std::make_unique<TestTask>(name, config["config"]);
+  //    EXPECT_EQ(task->getName(), name);
+  //    EXPECT_FALSE(task->isConditional());
+  //    EXPECT_EQ(task->getInputKeys().size(), 1);
+  //    EXPECT_EQ(task->getOutputKeys().size(), 1);
+  //    EXPECT_EQ(task->getInputKeys().front(), "input_data");
+  //    EXPECT_EQ(task->getOutputKeys().front(), "output_data");
+
+  //    // Serialization
+  //    test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
+
+  //    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+  //    EXPECT_EQ(task->run(input), 1);
+  //    EXPECT_TRUE(input.isSuccessful());
+  //    EXPECT_FALSE(input.isAborted());
+  //    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
+  //    EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 1);
+
+  //    std::stringstream os;
+  //    EXPECT_NO_THROW(task->dump(os));
+  //    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
+  //  }
+
+  //  {
+  //    std::string str = R"(config:
+  //                           conditional: true
+  //                           inputs: [input_data]
+  //                           outputs: [output_data])";
+  //    YAML::Node config = YAML::Load(str);
+  //    auto task = std::make_unique<TestTask>(name, config["config"]);
+  //    EXPECT_EQ(task->getName(), name);
+  //    EXPECT_TRUE(task->isConditional());
+  //    EXPECT_EQ(task->getInputKeys().size(), 1);
+  //    EXPECT_EQ(task->getOutputKeys().size(), 1);
+  //    EXPECT_EQ(task->getInputKeys().front(), "input_data");
+  //    EXPECT_EQ(task->getOutputKeys().front(), "output_data");
+
+  //    // Serialization
+  //    test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
+
+  //    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+  //    EXPECT_EQ(task->run(input), 1);
+  //    EXPECT_TRUE(input.isSuccessful());
+  //    EXPECT_FALSE(input.isAborted());
+  //    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
+  //    EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 1);
+
+  //    std::stringstream os;
+  //    EXPECT_NO_THROW(task->dump(os));
+  //    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
+  //  }
+
+  //  { // Failure due to exception during run
+  //    std::string str = R"(config:
+  //                           conditional: true
+  //                           inputs: [input_data]
+  //                           outputs: [output_data])";
+  //    YAML::Node config = YAML::Load(str);
+  //    auto task = std::make_unique<TestTask>(name, config["config"]);
+  //    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+
+  //    task->throw_exception = true;
+  //    EXPECT_EQ(task->run(input), 0);
+  //    EXPECT_TRUE(input.isSuccessful());
+  //    EXPECT_FALSE(input.isAborted());
+  //    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
+  //    EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 0);
+  //  }
+
+  //  { // Failure missing is_conditional
+  //    std::string str = R"(config:
+  //                           inputs: [input_data]
+  //                           outputs: [output_data])";
+  //    YAML::Node config = YAML::Load(str);
+  //    EXPECT_ANY_THROW(std::make_unique<TestTask>(name, config["config"])); // NOLINT
+  //  }
 }
 
 int main(int argc, char** argv)

@@ -150,6 +150,13 @@ struct TaskComposerNodeInfoContainer
    */
   void addInfo(TaskComposerNodeInfo::UPtr info);
 
+  /**
+   * @brief Get info for the provided key
+   * @param key The key to retrieve info for
+   * @return If key does not exist nullptr, otherwise a clone of the info
+   */
+  TaskComposerNodeInfo::UPtr getInfo(const boost::uuids::uuid& key) const;
+
   /** @brief Get a copy of the task_info_map_ in case it gets resized*/
   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> getInfoMap() const;
 

@@ -149,6 +149,16 @@ void TaskComposerNodeInfoContainer::addInfo(TaskComposerNodeInfo::UPtr info)
   info_map_[info->uuid] = std::move(info);
 }
 
+TaskComposerNodeInfo::UPtr TaskComposerNodeInfoContainer::getInfo(const boost::uuids::uuid& key) const
+{
+  std::unique_lock<std::shared_mutex> lock(mutex_);
+  auto it = info_map_.find(key);
+  if (it == info_map_.end())
+    return nullptr;
+
+  return it->second->clone();
+}
+
 void TaskComposerNodeInfoContainer::setAborted(const boost::uuids::uuid& node_uuid)
 {
   assert(!node_uuid.is_nil());
