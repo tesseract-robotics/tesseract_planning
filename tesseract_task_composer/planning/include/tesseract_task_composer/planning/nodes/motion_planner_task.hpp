@@ -116,9 +116,7 @@ protected:
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
                                      OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override
   {
-    auto info = std::make_unique<MotionPlannerTaskInfo>(*this, input);
-    if (info->isAborted())
-      return info;
+    auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
 
     // Get the problem
     auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);

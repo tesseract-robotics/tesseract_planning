@@ -39,7 +39,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 class TaskComposerNode;
-struct TaskComposerInput;
 
 /** Stores information about a node */
 class TaskComposerNodeInfo
@@ -51,7 +50,7 @@ public:
   using ConstUPtr = std::unique_ptr<const TaskComposerNodeInfo>;
 
   TaskComposerNodeInfo() = default;  // Required for serialization
-  TaskComposerNodeInfo(const TaskComposerNode& node, const TaskComposerInput& input);
+  TaskComposerNodeInfo(const TaskComposerNode& node);
   virtual ~TaskComposerNodeInfo() = default;
   TaskComposerNodeInfo(const TaskComposerNodeInfo&) = default;
   TaskComposerNodeInfo& operator=(const TaskComposerNodeInfo&) = default;
@@ -121,6 +120,8 @@ public:
 private:
   friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
+  friend class TaskComposerTask;
+  friend class TaskComposerPipeline;
 
   /** @brief Indicate if task was not ran because input abort flag was enabled */
   bool aborted_{ false };

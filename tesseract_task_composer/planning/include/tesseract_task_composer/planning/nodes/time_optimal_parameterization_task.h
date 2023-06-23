@@ -82,7 +82,7 @@ public:
   using ConstUPtr = std::unique_ptr<const TimeOptimalParameterizationTaskInfo>;
 
   TimeOptimalParameterizationTaskInfo() = default;
-  TimeOptimalParameterizationTaskInfo(const TimeOptimalParameterizationTask& task, const TaskComposerInput& input);
+  TimeOptimalParameterizationTaskInfo(const TimeOptimalParameterizationTask& task);
 
   TaskComposerNodeInfo::UPtr clone() const override;
 

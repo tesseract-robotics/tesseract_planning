@@ -70,9 +70,7 @@ DiscreteContactCheckTask::DiscreteContactCheckTask(std::string name,
 TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& input,
                                                              OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<DiscreteContactCheckTaskInfo>(*this, input);
-  if (info->isAborted())
-    return info;
+  auto info = std::make_unique<DiscreteContactCheckTaskInfo>(*this);
 
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
@@ -148,9 +146,8 @@ void DiscreteContactCheckTask::serialize(Archive& ar, const unsigned int /*versi
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-DiscreteContactCheckTaskInfo::DiscreteContactCheckTaskInfo(const DiscreteContactCheckTask& task,
-                                                           const TaskComposerInput& input)
-  : TaskComposerNodeInfo(task, input)
+DiscreteContactCheckTaskInfo::DiscreteContactCheckTaskInfo(const DiscreteContactCheckTask& task)
+  : TaskComposerNodeInfo(task)
 {
 }
 

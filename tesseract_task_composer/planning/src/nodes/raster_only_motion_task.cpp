@@ -239,9 +239,7 @@ void RasterOnlyMotionTask::serialize(Archive& ar, const unsigned int /*version*/
 TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& input,
                                                          OptionalTaskComposerExecutor executor) const
 {
-  auto info = std::make_unique<MotionPlannerTaskInfo>(*this, input);
-  if (info->isAborted())
-    return info;
+  auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
 
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);

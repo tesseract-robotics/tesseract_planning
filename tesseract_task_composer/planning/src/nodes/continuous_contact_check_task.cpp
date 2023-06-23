@@ -70,9 +70,7 @@ ContinuousContactCheckTask::ContinuousContactCheckTask(std::string name,
 TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput& input,
                                                                OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<ContinuousContactCheckTaskInfo>(*this, input);
-  if (info->isAborted())
-    return info;
+  auto info = std::make_unique<ContinuousContactCheckTaskInfo>(*this);
 
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
@@ -150,9 +148,8 @@ void ContinuousContactCheckTask::serialize(Archive& ar, const unsigned int /*ver
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-ContinuousContactCheckTaskInfo::ContinuousContactCheckTaskInfo(const ContinuousContactCheckTask& task,
-                                                               const TaskComposerInput& input)
-  : TaskComposerNodeInfo(task, input)
+ContinuousContactCheckTaskInfo::ContinuousContactCheckTaskInfo(const ContinuousContactCheckTask& task)
+  : TaskComposerNodeInfo(task)
 {
 }
 

@@ -42,10 +42,7 @@ AbortTask::AbortTask(std::string name, const YAML::Node& config, const TaskCompo
 
 TaskComposerNodeInfo::UPtr AbortTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
-  if (info->isAborted())
-    return info;
-
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->color = "red";
   info->return_value = 0;
   info->message = "Aborted";

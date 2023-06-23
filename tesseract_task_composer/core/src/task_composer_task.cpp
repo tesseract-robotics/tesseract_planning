@@ -47,6 +47,17 @@ TaskComposerTask::TaskComposerTask(std::string name, const YAML::Node& config)
 
 int TaskComposerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor executor) const
 {
+  if (input.isAborted())
+  {
+    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+    info->return_value = 0;
+    info->color = "white";
+    info->message = "Aborted";
+    info->aborted_ = true;
+    input.task_infos.addInfo(std::move(info));
+    return 0;
+  }
+
   TaskComposerNodeInfo::UPtr results;
   try
   {
@@ -54,7 +65,7 @@ int TaskComposerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
   }
   catch (const std::exception& e)
   {
-    results = std::make_unique<TaskComposerNodeInfo>(*this, input);
+    results = std::make_unique<TaskComposerNodeInfo>(*this);
     results->color = "red";
     results->message = "Exception thrown: " + std::string(e.what());
     results->return_value = 0;

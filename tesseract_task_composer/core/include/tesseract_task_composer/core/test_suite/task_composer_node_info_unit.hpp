@@ -57,8 +57,7 @@ void runTaskComposerNodeInfoTest()
 
   {  // Constructor
     TaskComposerNode node;
-    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
-    T node_info(node, input);
+    T node_info(node);
     EXPECT_EQ(node_info.return_value, -1);
     EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(node_info.elapsed_time, 0));
     EXPECT_FALSE(node_info.uuid.is_nil());
@@ -66,24 +65,6 @@ void runTaskComposerNodeInfoTest()
     EXPECT_EQ(node_info.parent_uuid, node.getParentUUID());
     EXPECT_EQ(node_info.color, "red");
     EXPECT_FALSE(node_info.isAborted());
-    EXPECT_EQ(node_info, *(node_info.clone()));
-
-    // Serialization
-    test_suite::runSerializationTest<T>(node_info, "TaskComposerNodeInfoTests");
-  }
-
-  {  // Aborted
-    TaskComposerNode node;
-    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
-    input.abort(node.getUUID());
-    T node_info(node, input);
-    EXPECT_EQ(node_info.return_value, 0);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(node_info.elapsed_time, 0));
-    EXPECT_FALSE(node_info.uuid.is_nil());
-    EXPECT_EQ(node_info.uuid, node.getUUID());
-    EXPECT_EQ(node_info.parent_uuid, node.getParentUUID());
-    EXPECT_EQ(node_info.color, "white");
-    EXPECT_TRUE(node_info.isAborted());
     EXPECT_EQ(node_info, *(node_info.clone()));
 
     // Serialization

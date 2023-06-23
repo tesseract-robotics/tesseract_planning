@@ -41,20 +41,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node, const TaskComposerInput& input)
+TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node)
   : name(node.name_)
   , uuid(node.uuid_)
   , parent_uuid(node.parent_uuid_)
   , inbound_edges(node.inbound_edges_)
   , outbound_edges(node.outbound_edges_)
-  , aborted_(input.isAborted())
 {
-  if (aborted_)
-  {
-    return_value = 0;
-    color = "white";
-    message = "Aborted";
-  }
 }
 
 bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const

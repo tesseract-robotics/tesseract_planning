@@ -49,6 +49,17 @@ TaskComposerPipeline::TaskComposerPipeline(std::string name,
 
 int TaskComposerPipeline::run(TaskComposerInput& input, OptionalTaskComposerExecutor executor) const
 {
+  if (input.isAborted())
+  {
+    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+    info->return_value = 0;
+    info->color = "white";
+    info->message = "Aborted";
+    info->aborted_ = true;
+    input.task_infos.addInfo(std::move(info));
+    return 0;
+  }
+
   TaskComposerNodeInfo::UPtr results;
   try
   {
@@ -56,7 +67,7 @@ int TaskComposerPipeline::run(TaskComposerInput& input, OptionalTaskComposerExec
   }
   catch (const std::exception& e)
   {
-    results = std::make_unique<TaskComposerNodeInfo>(*this, input);
+    results = std::make_unique<TaskComposerNodeInfo>(*this);
     results->color = "red";
     results->message = "Exception thrown: " + std::string(e.what());
     results->return_value = 0;
@@ -71,10 +82,6 @@ int TaskComposerPipeline::run(TaskComposerInput& input, OptionalTaskComposerExec
 TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(TaskComposerInput& input,
                                                          OptionalTaskComposerExecutor executor) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
-  if (info->isAborted())
-    return info;
-
   if (terminals_.empty())
     throw std::runtime_error("TaskComposerPipeline, with name '" + name_ + "' does not have terminals!");
 
@@ -98,6 +105,7 @@ TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(TaskComposerInput& inpu
     auto node_info = input.task_infos.getInfo(terminals_[i]);
     if (node_info != nullptr)
     {
+      auto info = std::make_unique<TaskComposerNodeInfo>(*this);
       info->return_value = static_cast<int>(i);
       info->color = node_info->color;
       info->message = node_info->message;

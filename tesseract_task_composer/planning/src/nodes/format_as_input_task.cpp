@@ -72,9 +72,7 @@ FormatAsInputTask::FormatAsInputTask(std::string name,
 TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerInput& input,
                                                       OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
-  if (info->isAborted())
-    return info;
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
 
   info->return_value = 0;
   tesseract_common::Timer timer;

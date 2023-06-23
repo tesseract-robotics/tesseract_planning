@@ -195,7 +195,7 @@ TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_gr
       const auto& graph = static_cast<const TaskComposerGraph&>(*pair.second);
 
       // Must add a Node Info object for the graph
-      auto info = std::make_unique<TaskComposerNodeInfo>(graph, task_input);
+      auto info = std::make_unique<TaskComposerNodeInfo>(graph);
       info->color = "green";
       task_input.task_infos.addInfo(std::move(info));
 

@@ -15,7 +15,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/test_suite/task_composer_node_info_unit.hpp>
 #include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
-#include <tesseract_task_composer/core/test_suite/task_composer_task_unit.hpp>
 
 #include <tesseract_task_composer/core/nodes/abort_task.h>
 #include <tesseract_task_composer/core/nodes/done_task.h>
@@ -79,7 +78,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerInputTests)  // NOLINT
   EXPECT_FALSE(input->isAborted());
   EXPECT_TRUE(input->isSuccessful());
   EXPECT_TRUE(input->task_infos.getInfoMap().empty());
-  input->task_infos.addInfo(std::make_unique<TaskComposerNodeInfo>(node, *input));
+  input->task_infos.addInfo(std::make_unique<TaskComposerNodeInfo>(node));
   input->abort(node.getUUID());
   EXPECT_EQ(input->task_infos.getAbortingNode(), node.getUUID());
   EXPECT_TRUE(input->isAborted());
@@ -115,8 +114,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerProblemTests)  // NOLINT
 TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoContainerTests)  // NOLINT
 {
   TaskComposerNode node;
-  TaskComposerInput input(std::make_unique<TaskComposerProblem>());
-  auto node_info = std::make_unique<TaskComposerNodeInfo>(node, input);
+  auto node_info = std::make_unique<TaskComposerNodeInfo>(node);
 
   auto node_info_container = std::make_unique<TaskComposerNodeInfoContainer>();
   EXPECT_TRUE(node_info_container->getInfoMap().empty());
@@ -267,7 +265,7 @@ protected:
     if (throw_exception)
       throw std::runtime_error("TestTask, failure");
 
-    auto node_info = std::make_unique<TaskComposerNodeInfo>(*this, input);
+    auto node_info = std::make_unique<TaskComposerNodeInfo>(*this);
     if (conditional_)
       node_info->color = (return_value == 0) ? "red" : "green";
     else
@@ -1542,11 +1540,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerAbortTaskTests)  // NOLINT
     test_suite::runSerializationPointerTest(task, "TaskComposerAbortTaskTests");
   }
 
-  {  // Run abort test
-    AbortTask task;
-    test_suite::runTaskComposerTaskAbortTest(task);
-  }
-
   {  // Test run method
     auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
     AbortTask task;
@@ -1593,11 +1586,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerErrorTaskTests)  // NOLINT
     test_suite::runSerializationPointerTest(task, "TaskComposerErrorTaskTests");
   }
 
-  {  // Run abort test
-    ErrorTask task;
-    test_suite::runTaskComposerTaskAbortTest(task);
-  }
-
   {  // Test run method
     auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
     ErrorTask task;
@@ -1642,11 +1630,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDoneTaskTests)  // NOLINT
 
     // Serialization
     test_suite::runSerializationPointerTest(task, "TaskComposerDoneTaskTests");
-  }
-
-  {  // Run abort test
-    DoneTask task;
-    test_suite::runTaskComposerTaskAbortTest(task);
   }
 
   {  // Test run method
@@ -1714,11 +1697,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerStartTaskTests)  // NOLINT
 
     // Serialization
     test_suite::runSerializationPointerTest(task, "TaskComposerDoneTaskTests");
-  }
-
-  {  // Run abort test
-    DoneTask task;
-    test_suite::runTaskComposerTaskAbortTest(task);
   }
 
   {  // Test run method
