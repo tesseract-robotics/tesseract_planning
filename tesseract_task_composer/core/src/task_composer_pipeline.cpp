@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerPipeline::TaskComposerPipeline(std::string name) : TaskComposerPipeline(name, true) {}
+TaskComposerPipeline::TaskComposerPipeline(std::string name) : TaskComposerPipeline(std::move(name), true) {}
 TaskComposerPipeline::TaskComposerPipeline(std::string name, bool conditional)
   : TaskComposerGraph(std::move(name), TaskComposerNodeType::PIPELINE, conditional)
 {

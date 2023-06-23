@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
-void runTaskComposerFactoryTest(TaskComposerPluginFactory factory, YAML::Node plugin_config)
+void runTaskComposerFactoryTest(TaskComposerPluginFactory& factory, YAML::Node plugin_config)
 {
   const YAML::Node& plugin_info = plugin_config[tesseract_common::TaskComposerPluginInfo::CONFIG_KEY];
   const YAML::Node& search_paths = plugin_info["search_paths"];

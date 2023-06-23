@@ -157,7 +157,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
   EXPECT_TRUE(node->getInputKeys().empty());
   EXPECT_TRUE(node->getOutputKeys().empty());
   EXPECT_FALSE(node->isConditional());
-  EXPECT_NO_THROW(node->dump(os));
+  EXPECT_NO_THROW(node->dump(os));  // NOLINT
 
   // Setters
   std::string name{ "TaskComposerNodeTests" };
@@ -171,7 +171,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
   EXPECT_EQ(node->getInputKeys(), input_keys);
   EXPECT_EQ(node->getOutputKeys(), output_keys);
   EXPECT_EQ(node->isConditional(), true);
-  EXPECT_NO_THROW(node->dump(os));
+  EXPECT_NO_THROW(node->dump(os));  // NOLINT
 
   // Utils
   std::map<std::string, std::string> rename_input_keys{ { "I1", "I3" }, { "I2", "I4" } };
@@ -180,7 +180,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
   node->renameOutputKeys(rename_output_keys);
   EXPECT_EQ(node->getInputKeys(), std::vector<std::string>({ "I3", "I4" }));
   EXPECT_EQ(node->getOutputKeys(), std::vector<std::string>({ "O3", "O4" }));
-  EXPECT_NO_THROW(node->dump(os));
+  EXPECT_NO_THROW(node->dump(os));  // NOLINT
 
   // Serialization
   test_suite::runSerializationPointerTest(node, "TaskComposerNodeTests");
@@ -262,7 +262,7 @@ protected:
   }
 
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
-                                     OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const
+                                     OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override final
   {
     if (throw_exception)
       throw std::runtime_error("TestTask, failure");
@@ -311,8 +311,8 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
     EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 0);
 
     std::stringstream os;
-    EXPECT_NO_THROW(task->dump(os));
-    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(task->dump(os));                                          // NOLINT
+    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));  // NOLINT
   }
 
   {  // Conditional
@@ -334,8 +334,8 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
     EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 1);
 
     std::stringstream os;
-    EXPECT_NO_THROW(task->dump(os));
-    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(task->dump(os));                                          // NOLINT
+    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));  // NOLINT
   }
 
   {
@@ -363,8 +363,8 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
     EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 0);
 
     std::stringstream os;
-    EXPECT_NO_THROW(task->dump(os));
-    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(task->dump(os));                                          // NOLINT
+    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));  // NOLINT
   }
 
   {
@@ -393,8 +393,8 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
     EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 1);
 
     std::stringstream os;
-    EXPECT_NO_THROW(task->dump(os));
-    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(task->dump(os));                                          // NOLINT
+    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));  // NOLINT
   }
 
   {  // Failure due to exception during run
@@ -499,12 +499,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
 
     std::ofstream os1;
     os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test1a.dot");
-    EXPECT_NO_THROW(pipeline->dump(os1));
+    EXPECT_NO_THROW(pipeline->dump(os1));  // NOLINT
     os1.close();
 
     std::ofstream os2;
     os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test1b.dot");
-    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));  // NOLINT
     os2.close();
   }
 
@@ -554,12 +554,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
 
     std::ofstream os1;
     os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test2a.dot");
-    EXPECT_NO_THROW(pipeline->dump(os1));
+    EXPECT_NO_THROW(pipeline->dump(os1));  // NOLINT
     os1.close();
 
     std::ofstream os2;
     os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test2b.dot");
-    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));  // NOLINT
     os2.close();
   }
 
@@ -610,12 +610,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
 
     std::ofstream os1;
     os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test3a.dot");
-    EXPECT_NO_THROW(pipeline->dump(os1));
+    EXPECT_NO_THROW(pipeline->dump(os1));  // NOLINT
     os1.close();
 
     std::ofstream os2;
     os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test3b.dot");
-    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));  // NOLINT
     os2.close();
   }
 
@@ -666,12 +666,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
 
     std::ofstream os1;
     os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test4a.dot");
-    EXPECT_NO_THROW(pipeline->dump(os1));
+    EXPECT_NO_THROW(pipeline->dump(os1));  // NOLINT
     os1.close();
 
     std::ofstream os2;
     os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test4b.dot");
-    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));  // NOLINT
     os2.close();
   }
 
@@ -724,12 +724,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
 
     std::ofstream os1;
     os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test5a.dot");
-    EXPECT_NO_THROW(pipeline3->dump(os1));
+    EXPECT_NO_THROW(pipeline3->dump(os1));  // NOLINT
     os1.close();
 
     std::ofstream os2;
     os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test5b.dot");
-    EXPECT_NO_THROW(pipeline3->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(pipeline3->dump(os2, nullptr, input.task_infos.getInfoMap()));  // NOLINT
     os2.close();
   }
 
@@ -784,12 +784,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
 
     std::ofstream os1;
     os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test6a.dot");
-    EXPECT_NO_THROW(pipeline3->dump(os1));
+    EXPECT_NO_THROW(pipeline3->dump(os1));  // NOLINT
     os1.close();
 
     std::ofstream os2;
     os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test6b.dot");
-    EXPECT_NO_THROW(pipeline3->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(pipeline3->dump(os2, nullptr, input.task_infos.getInfoMap()));  // NOLINT
     os2.close();
   }
 
@@ -845,12 +845,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
 
     std::ofstream os1;
     os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test7a.dot");
-    EXPECT_NO_THROW(pipeline3->dump(os1));
+    EXPECT_NO_THROW(pipeline3->dump(os1));  // NOLINT
     os1.close();
 
     std::ofstream os2;
     os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test7b.dot");
-    EXPECT_NO_THROW(pipeline3->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(pipeline3->dump(os2, nullptr, input.task_infos.getInfoMap()));  // NOLINT
     os2.close();
   }
 
@@ -1014,12 +1014,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
 
     std::ofstream os1;
     os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test8a.dot");
-    EXPECT_NO_THROW(pipeline->dump(os1));
+    EXPECT_NO_THROW(pipeline->dump(os1));  // NOLINT
     os1.close();
 
     std::ofstream os2;
     os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test8b.dot");
-    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));  // NOLINT
     os2.close();
   }
 
@@ -1045,12 +1045,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
 
     std::ofstream os1;
     os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test9a.dot");
-    EXPECT_NO_THROW(pipeline->dump(os1));
+    EXPECT_NO_THROW(pipeline->dump(os1));  // NOLINT
     os1.close();
 
     std::ofstream os2;
     os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test9b.dot");
-    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));  // NOLINT
     os2.close();
   }
 
@@ -1075,12 +1075,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
 
     std::ofstream os1;
     os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_test10a.dot");
-    EXPECT_NO_THROW(pipeline->dump(os1));
+    EXPECT_NO_THROW(pipeline->dump(os1));  // NOLINT
     os1.close();
 
     std::ofstream os2;
     os2.open(tesseract_common::getTempPath() + "task_composer_pipeline_test10b.dot");
-    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));
+    EXPECT_NO_THROW(pipeline->dump(os2, nullptr, input.task_infos.getInfoMap()));  // NOLINT
     os2.close();
   }
 
@@ -1687,7 +1687,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerStartTaskTests)  // NOLINT
     std::string str = R"(config:
                            conditional: true)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<StartTask>("abc", config["config"], factory));
+    EXPECT_ANY_THROW(std::make_unique<StartTask>("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -1697,7 +1697,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerStartTaskTests)  // NOLINT
                            inputs: [input_data]
                            ouputs: [output_data])";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<StartTask>("abc", config["config"], factory));
+    EXPECT_ANY_THROW(std::make_unique<StartTask>("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Construction failure
@@ -1706,7 +1706,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerStartTaskTests)  // NOLINT
                            conditional: false
                            outputs: [output_data])";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(std::make_unique<StartTask>("abc", config["config"], factory));
+    EXPECT_ANY_THROW(std::make_unique<StartTask>("abc", config["config"], factory));  // NOLINT
   }
 
   {  // Serialization

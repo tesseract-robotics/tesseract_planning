@@ -47,7 +47,7 @@ TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type, 
 }
 
 TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type, const YAML::Node& config)
-  : TaskComposerNode::TaskComposerNode(name, type)
+  : TaskComposerNode::TaskComposerNode(std::move(name), type)
 {
   try
   {
