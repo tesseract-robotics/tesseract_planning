@@ -77,8 +77,15 @@ public:
    */
   void addEdges(boost::uuids::uuid source, std::vector<boost::uuids::uuid> destinations);
 
-  /** @brief Get the nodes associated with the pipeline */
+  /** @brief Get the nodes associated with the pipeline mapped by uuid */
   std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr> getNodes() const;
+
+  /**
+   * @brief Get a node by name
+   * @param name The name of the node to search for
+   * @return The node with the name, otherwise nullptr
+   */
+  TaskComposerNode::ConstPtr getNodeByName(const std::string& name) const;
 
   /**
    *  @brief Set the terminals nodes

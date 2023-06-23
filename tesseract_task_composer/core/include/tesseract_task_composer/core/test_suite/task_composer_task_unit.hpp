@@ -31,16 +31,23 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
-#include <tesseract_task_composer/core/test_suite/task_composer_node_unit.hpp>
-#include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
 
 namespace tesseract_planning::test_suite
 {
 template <typename T>
-void runTaskComposerTaskTest()
+void runTaskComposerTaskAbortTest(T& task)
 {
-  T task;
-  runTaskComposerNodeTest<T>(type);
+  auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
+  input->abort();
+  EXPECT_EQ(task.run(*input), 0);
+  auto node_info = input->task_infos.getInfo(task.getUUID());
+  EXPECT_EQ(node_info->color, "white");
+  EXPECT_EQ(node_info->return_value, 0);
+  EXPECT_EQ(node_info->message, "Aborted");
+  EXPECT_EQ(node_info->isAborted(), true);
+  EXPECT_EQ(input->isAborted(), true);
+  EXPECT_EQ(input->isSuccessful(), false);
+  EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
 }
 }  // namespace tesseract_planning::test_suite
 

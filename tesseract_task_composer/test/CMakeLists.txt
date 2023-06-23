@@ -98,7 +98,12 @@ add_dependencies(${PROJECT_NAME}_plugin_factories_unit ${PROJECT_NAME})
 
 # Core Tests
 add_executable(${PROJECT_NAME}_core_unit ${PROJECT_NAME}_core_unit.cpp)
-target_link_libraries(${PROJECT_NAME}_core_unit PRIVATE GTest::GTest GTest::Main ${PROJECT_NAME})
+target_link_libraries(
+  ${PROJECT_NAME}_core_unit
+  PRIVATE GTest::GTest
+          GTest::Main
+          ${PROJECT_NAME}
+          ${PROJECT_NAME}_nodes)
 target_include_directories(${PROJECT_NAME}_core_unit PUBLIC "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/examples>")
 target_compile_options(${PROJECT_NAME}_core_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                          ${TESSERACT_COMPILE_OPTIONS_PUBLIC})

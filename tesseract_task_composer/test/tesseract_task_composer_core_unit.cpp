@@ -11,10 +11,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_task.h>
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
+#include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
 #include <tesseract_task_composer/core/test_suite/task_composer_node_info_unit.hpp>
 #include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
+#include <tesseract_task_composer/core/test_suite/task_composer_task_unit.hpp>
 
+#include <tesseract_task_composer/core/nodes/abort_task.h>
 #include <tesseract_task_composer/core/nodes/done_task.h>
 #include <tesseract_task_composer/core/nodes/error_task.h>
 #include <tesseract_task_composer/core/nodes/start_task.h>
@@ -419,11 +422,25 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   std::string name2 = "TaskComposerPipelineTests2";
   std::string name3 = "TaskComposerPipelineTests3";
   std::string name4 = "TaskComposerPipelineTests4";
+  std::vector<std::string> input_keys{ "input_data" };
+  std::vector<std::string> output_keys{ "output_data" };
+  std::map<std::string, std::string> rename_input_keys{ { "input_data", "id" }, { "output_data", "od" } };
+  std::map<std::string, std::string> rename_output_keys{ { "output_data", "od" } };
+  std::vector<std::string> new_input_keys{ "id" };
+  std::vector<std::string> new_output_keys{ "od" };
   {  // Not Conditional
     auto task1 = std::make_unique<TestTask>(name1, false);
     auto task2 = std::make_unique<TestTask>(name2, false);
     auto task3 = std::make_unique<TestTask>(name3, false);
     auto task4 = std::make_unique<TestTask>(name4, false);
+    task1->setInputKeys(input_keys);
+    task1->setOutputKeys(output_keys);
+    task2->setInputKeys(output_keys);
+    task2->setOutputKeys(output_keys);
+    task3->setInputKeys(output_keys);
+    task3->setOutputKeys(output_keys);
+    task4->setInputKeys(output_keys);
+    task4->setOutputKeys(output_keys);
     auto pipeline = std::make_unique<TaskComposerPipeline>(name);
     boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
     boost::uuids::uuid uuid2 = pipeline->addNode(std::move(task2));
@@ -451,6 +468,24 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().size(), 1);
     EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().front(), uuid3);
     EXPECT_EQ(nodes_map.at(uuid4)->getOutboundEdges().size(), 0);
+    EXPECT_EQ(nodes_map.at(uuid1)->getInputKeys(), input_keys);
+    EXPECT_EQ(nodes_map.at(uuid1)->getOutputKeys(), output_keys);
+    EXPECT_EQ(nodes_map.at(uuid2)->getInputKeys(), output_keys);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutputKeys(), output_keys);
+    EXPECT_EQ(nodes_map.at(uuid3)->getInputKeys(), output_keys);
+    EXPECT_EQ(nodes_map.at(uuid3)->getOutputKeys(), output_keys);
+    EXPECT_EQ(nodes_map.at(uuid4)->getInputKeys(), output_keys);
+    EXPECT_EQ(nodes_map.at(uuid4)->getOutputKeys(), output_keys);
+    pipeline->renameInputKeys(rename_input_keys);
+    pipeline->renameOutputKeys(rename_output_keys);
+    EXPECT_EQ(nodes_map.at(uuid1)->getInputKeys(), new_input_keys);
+    EXPECT_EQ(nodes_map.at(uuid1)->getOutputKeys(), new_output_keys);
+    EXPECT_EQ(nodes_map.at(uuid2)->getInputKeys(), new_output_keys);
+    EXPECT_EQ(nodes_map.at(uuid2)->getOutputKeys(), new_output_keys);
+    EXPECT_EQ(nodes_map.at(uuid3)->getInputKeys(), new_output_keys);
+    EXPECT_EQ(nodes_map.at(uuid3)->getOutputKeys(), new_output_keys);
+    EXPECT_EQ(nodes_map.at(uuid4)->getInputKeys(), new_output_keys);
+    EXPECT_EQ(nodes_map.at(uuid4)->getOutputKeys(), new_output_keys);
 
     // Serialization
     test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
@@ -819,6 +854,119 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     os2.close();
   }
 
+  // This section test yaml parsing
+
+  {
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: input_data
+                           outputs: output_data
+                           nodes:
+                             StartTask:
+                               class: StartTaskFactory
+                               config:
+                                 conditional: false
+                             DoneTask:
+                               class: DoneTaskFactory
+                               config:
+                                 conditional: false
+                           edges:
+                             - source: StartTask
+                               destinations: [DoneTask]
+                           terminals: [DoneTask])";
+    YAML::Node config = YAML::Load(str);
+    auto pipeline = std::make_unique<TaskComposerPipeline>(name, config["config"], factory);
+    EXPECT_TRUE(pipeline->isConditional());
+    EXPECT_EQ(pipeline->getTerminals().size(), 1);
+    auto task1 = pipeline->getNodeByName("StartTask");
+    auto task2 = pipeline->getNodeByName("DoneTask");
+    EXPECT_EQ(pipeline->getNodeByName("DoestNotExist"), nullptr);
+    EXPECT_EQ(pipeline->getTerminals(), std::vector<boost::uuids::uuid>({ task2->getUUID() }));
+    EXPECT_EQ(task1->getInboundEdges().size(), 0);
+    EXPECT_EQ(task1->getOutboundEdges().size(), 1);
+    EXPECT_EQ(task1->getOutboundEdges().front(), task2->getUUID());
+    EXPECT_EQ(task2->getInboundEdges().size(), 1);
+    EXPECT_EQ(task2->getInboundEdges().front(), task1->getUUID());
+    EXPECT_EQ(task2->getOutboundEdges().size(), 0);
+  }
+
+  {
+    std::string str = R"(task_composer_plugins:
+                           search_paths:
+                             - /usr/local/lib
+                           search_libraries:
+                             - tesseract_task_composer_factories
+                           tasks:
+                             plugins:
+                               TestPipeline:
+                                 class: PipelineTaskFactory
+                                 config:
+                                   conditional: true
+                                   inputs: input_data
+                                   outputs: output_data
+                                   nodes:
+                                     StartTask:
+                                       class: StartTaskFactory
+                                       config:
+                                         conditional: false
+                                     DoneTask:
+                                       class: DoneTaskFactory
+                                       config:
+                                         conditional: false
+                                   edges:
+                                     - source: StartTask
+                                       destinations: [DoneTask]
+                                   terminals: [DoneTask])";
+
+    TaskComposerPluginFactory factory(str);
+
+    std::string str2 = R"(config:
+                            conditional: true
+                            inputs: input_data
+                            outputs: output_data
+                            nodes:
+                              StartTask:
+                                task:
+                                  name: TestPipeline
+                                  conditional: false
+                                  input_remapping:
+                                    input_data: output_data
+                                  output_remapping:
+                                    output_data: input_data
+                              DoneTask:
+                                class: DoneTaskFactory
+                                config:
+                                  conditional: false
+                              ErrorTask:
+                                class: ErrorTaskFactory
+                                config:
+                                  conditional: false
+                            edges:
+                              - source: StartTask
+                                destinations: [ErrorTask, DoneTask]
+                            terminals: [ErrorTask, DoneTask])";
+    YAML::Node config = YAML::Load(str2);
+    auto pipeline = std::make_unique<TaskComposerPipeline>(name, config["config"], factory);
+    EXPECT_TRUE(pipeline->isConditional());
+    EXPECT_EQ(pipeline->getTerminals().size(), 2);
+    auto task1 = pipeline->getNodeByName("StartTask");
+    auto task2 = pipeline->getNodeByName("ErrorTask");
+    auto task3 = pipeline->getNodeByName("DoneTask");
+    EXPECT_EQ(pipeline->getNodeByName("DoestNotExist"), nullptr);
+    EXPECT_EQ(pipeline->getTerminals(), std::vector<boost::uuids::uuid>({ task2->getUUID(), task3->getUUID() }));
+    EXPECT_EQ(task1->getInboundEdges().size(), 0);
+    EXPECT_EQ(task1->getOutboundEdges().size(), 2);
+    EXPECT_EQ(task1->getOutboundEdges().front(), task2->getUUID());
+    EXPECT_EQ(task1->getOutboundEdges().back(), task3->getUUID());
+    EXPECT_EQ(task2->getInboundEdges().size(), 1);
+    EXPECT_EQ(task2->getInboundEdges().front(), task1->getUUID());
+    EXPECT_EQ(task2->getOutboundEdges().size(), 0);
+    EXPECT_EQ(task3->getInboundEdges().size(), 1);
+    EXPECT_EQ(task3->getInboundEdges().front(), task1->getUUID());
+    EXPECT_EQ(task3->getOutboundEdges().size(), 0);
+  }
+
   // This section tests failures
 
   {  // Missing terminals
@@ -947,113 +1095,645 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     pipeline->addEdges(uuid1, { uuid2 });
     pipeline->addEdges(uuid2, { uuid3 });
     pipeline->addEdges(uuid3, { uuid1 });
-    EXPECT_ANY_THROW(pipeline->setTerminals({ uuid3 }));  // NOLINT
+    EXPECT_ANY_THROW(pipeline->setTerminals({ uuid3 }));                 // NOLINT
+    EXPECT_ANY_THROW(pipeline->setTerminals({ boost::uuids::uuid{} }));  // NOLINT
   }
 
-  //  { // Conditional
-  //    auto task = std::make_unique<TestTask>(name, true);
-  //    EXPECT_EQ(task->getName(), name);
-  //    EXPECT_TRUE(task->isConditional());
-  //    EXPECT_TRUE(task->getInputKeys().empty());
-  //    EXPECT_TRUE(task->getOutputKeys().empty());
+  {  // Edges is not a sequence failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: input_data
+                           outputs: output_data
+                           nodes:
+                             StartTask:
+                               class: StartTaskFactory
+                               config:
+                                 conditional: false
+                             DoneTask:
+                               class: DoneTaskFactory
+                               config:
+                                 conditional: false
+                           edges:
+                             source: StartTask
+                             destinations: [DoneTask]
+                           terminals: [DoneTask])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
 
-  //    // Serialization
-  //    test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
+  {  // Edges source is missing
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: input_data
+                           outputs: output_data
+                           nodes:
+                             StartTask:
+                               class: StartTaskFactory
+                               config:
+                                 conditional: false
+                             DoneTask:
+                               class: DoneTaskFactory
+                               config:
+                                 conditional: false
+                           edges:
+                             - destinations: [DoneTask]
+                           terminals: [DoneTask])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
 
-  //    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
-  //    EXPECT_EQ(task->run(input), 1);
-  //    EXPECT_TRUE(input.isSuccessful());
-  //    EXPECT_FALSE(input.isAborted());
-  //    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
-  //    EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 1);
+  {  // Edges destination is missing
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: input_data
+                           outputs: output_data
+                           nodes:
+                             StartTask:
+                               class: StartTaskFactory
+                               config:
+                                 conditional: false
+                             DoneTask:
+                               class: DoneTaskFactory
+                               config:
+                                 conditional: false
+                           edges:
+                             - source: StartTask
+                           terminals: [DoneTask])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
 
-  //    std::stringstream os;
-  //    EXPECT_NO_THROW(task->dump(os));
-  //    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
-  //  }
+  {  // Edges source node name invalid
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: input_data
+                           outputs: output_data
+                           nodes:
+                             StartTask:
+                               class: StartTaskFactory
+                               config:
+                                 conditional: false
+                             DoneTask:
+                               class: DoneTaskFactory
+                               config:
+                                 conditional: false
+                           edges:
+                             - source: DoesNotExist
+                               destinations: [DoneTask]
+                           terminals: [DoneTask])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
 
-  //  {
-  //    std::string str = R"(config:
-  //                           conditional: false
-  //                           inputs: input_data
-  //                           outputs: output_data)";
-  //    YAML::Node config = YAML::Load(str);
-  //    auto task = std::make_unique<TestTask>(name, config["config"]);
-  //    EXPECT_EQ(task->getName(), name);
-  //    EXPECT_FALSE(task->isConditional());
-  //    EXPECT_EQ(task->getInputKeys().size(), 1);
-  //    EXPECT_EQ(task->getOutputKeys().size(), 1);
-  //    EXPECT_EQ(task->getInputKeys().front(), "input_data");
-  //    EXPECT_EQ(task->getOutputKeys().front(), "output_data");
+  {  // Edges destination node name invalid
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: input_data
+                           outputs: output_data
+                           nodes:
+                             StartTask:
+                               class: StartTaskFactory
+                               config:
+                                 conditional: false
+                             DoneTask:
+                               class: DoneTaskFactory
+                               config:
+                                 conditional: false
+                           edges:
+                             - source: StartTask
+                               destinations: [DoesNotExist]
+                           terminals: [DoneTask])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
 
-  //    // Serialization
-  //    test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
+  {  // terminals is missing
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: input_data
+                           outputs: output_data
+                           nodes:
+                             StartTask:
+                               class: StartTaskFactory
+                               config:
+                                 conditional: false
+                             DoneTask:
+                               class: DoneTaskFactory
+                               config:
+                                 conditional: false
+                           edges:
+                             - source: StartTask
+                               destinations: [DoneTask])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
 
-  //    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
-  //    EXPECT_EQ(task->run(input), 1);
-  //    EXPECT_TRUE(input.isSuccessful());
-  //    EXPECT_FALSE(input.isAborted());
-  //    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
-  //    EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 1);
+  {  // terminals invalid entry
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: input_data
+                           outputs: output_data
+                           nodes:
+                             StartTask:
+                               class: StartTaskFactory
+                               config:
+                                 conditional: false
+                             DoneTask:
+                               class: DoneTaskFactory
+                               config:
+                                 conditional: false
+                           edges:
+                             - source: StartTask
+                               destinations: [DoneTask]
+                           terminals: [DoesNotExist])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
 
-  //    std::stringstream os;
-  //    EXPECT_NO_THROW(task->dump(os));
-  //    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
-  //  }
+  {  // Node is not a map
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: input_data
+                           outputs: output_data
+                           nodes:
+                             - StartTask:
+                                 class: DoesNotExist
+                                 config:
+                                   conditional: false
+                             - DoneTask:
+                                 class: DoneTaskFactory
+                                 config:
+                                   conditional: false
+                           edges:
+                             - source: StartTask
+                               destinations: [DoneTask]
+                           terminals: [DoneTask])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
 
-  //  {
-  //    std::string str = R"(config:
-  //                           conditional: true
-  //                           inputs: [input_data]
-  //                           outputs: [output_data])";
-  //    YAML::Node config = YAML::Load(str);
-  //    auto task = std::make_unique<TestTask>(name, config["config"]);
-  //    EXPECT_EQ(task->getName(), name);
-  //    EXPECT_TRUE(task->isConditional());
-  //    EXPECT_EQ(task->getInputKeys().size(), 1);
-  //    EXPECT_EQ(task->getOutputKeys().size(), 1);
-  //    EXPECT_EQ(task->getInputKeys().front(), "input_data");
-  //    EXPECT_EQ(task->getOutputKeys().front(), "output_data");
+  {  // Node missing class or task entry
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: input_data
+                           outputs: output_data
+                           nodes:
+                             StartTask:
+                               config:
+                                 conditional: false
+                             DoneTask:
+                               class: DoneTaskFactory
+                               config:
+                                 conditional: false
+                           edges:
+                             - source: StartTask
+                               destinations: [DoneTask]
+                           terminals: [DoneTask])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
 
-  //    // Serialization
-  //    test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
+  {  // Node class does not exist
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: input_data
+                           outputs: output_data
+                           nodes:
+                             StartTask:
+                               class: DoesNotExist
+                               config:
+                                 conditional: false
+                             DoneTask:
+                               class: DoneTaskFactory
+                               config:
+                                 conditional: false
+                           edges:
+                             - source: StartTask
+                               destinations: [DoneTask]
+                           terminals: [DoneTask])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
+}
 
-  //    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
-  //    EXPECT_EQ(task->run(input), 1);
-  //    EXPECT_TRUE(input.isSuccessful());
-  //    EXPECT_FALSE(input.isAborted());
-  //    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
-  //    EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 1);
+// Graph is mostly tested through the Pipeline tests becasue they can be run
+TEST(TesseractTaskComposerCoreUnit, TaskComposerGraphTests)  // NOLINT
+{
+  std::string name{ "TaskComposerGraphTests" };
+  auto graph = std::make_unique<TaskComposerGraph>(name);
+  EXPECT_EQ(graph->getName(), name);
+  EXPECT_EQ(graph->getType(), TaskComposerNodeType::GRAPH);
+  EXPECT_EQ(graph->isConditional(), false);
 
-  //    std::stringstream os;
-  //    EXPECT_NO_THROW(task->dump(os));
-  //    EXPECT_NO_THROW(task->dump(os, nullptr, input.task_infos.getInfoMap()));
-  //  }
+  {
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: false
+                           inputs: input_data
+                           outputs: output_data
+                           nodes:
+                             StartTask:
+                               class: StartTaskFactory
+                               config:
+                                 conditional: false
+                             DoneTask:
+                               class: DoneTaskFactory
+                               config:
+                                 conditional: false
+                           edges:
+                             - source: StartTask
+                               destinations: [DoneTask]
+                           terminals: [DoneTask])";
+    YAML::Node config = YAML::Load(str);
+    auto pipeline = std::make_unique<TaskComposerGraph>(name, config["config"], factory);
+    EXPECT_FALSE(pipeline->isConditional());
+    EXPECT_EQ(pipeline->getTerminals().size(), 1);
+    auto task1 = pipeline->getNodeByName("StartTask");
+    auto task2 = pipeline->getNodeByName("DoneTask");
+    EXPECT_EQ(pipeline->getNodeByName("DoestNotExist"), nullptr);
+    EXPECT_EQ(pipeline->getTerminals(), std::vector<boost::uuids::uuid>({ task2->getUUID() }));
+    EXPECT_EQ(task1->getInboundEdges().size(), 0);
+    EXPECT_EQ(task1->getOutboundEdges().size(), 1);
+    EXPECT_EQ(task1->getOutboundEdges().front(), task2->getUUID());
+    EXPECT_EQ(task2->getInboundEdges().size(), 1);
+    EXPECT_EQ(task2->getInboundEdges().front(), task1->getUUID());
+    EXPECT_EQ(task2->getOutboundEdges().size(), 0);
+  }
 
-  //  { // Failure due to exception during run
-  //    std::string str = R"(config:
-  //                           conditional: true
-  //                           inputs: [input_data]
-  //                           outputs: [output_data])";
-  //    YAML::Node config = YAML::Load(str);
-  //    auto task = std::make_unique<TestTask>(name, config["config"]);
-  //    TaskComposerInput input(std::make_unique<TaskComposerProblem>());
+  {  // Failure conditional graph is currently not supported
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: input_data
+                           outputs: output_data
+                           nodes:
+                             StartTask:
+                               class: StartTaskFactory
+                               config:
+                                 conditional: false
+                             DoneTask:
+                               class: DoneTaskFactory
+                               config:
+                                 conditional: false
+                           edges:
+                             - source: StartTask
+                               destinations: [DoneTask]
+                           terminals: [DoneTask])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerGraph>(name, config["config"], factory));  // NOLINT
+  }
 
-  //    task->throw_exception = true;
-  //    EXPECT_EQ(task->run(input), 0);
-  //    EXPECT_TRUE(input.isSuccessful());
-  //    EXPECT_FALSE(input.isAborted());
-  //    EXPECT_EQ(input.task_infos.getInfoMap().size(), 1);
-  //    EXPECT_EQ(input.task_infos.getInfoMap().at(task->getUUID())->return_value, 0);
-  //  }
+  {  // Task missing name entry
+    std::string str = R"(task_composer_plugins:
+                           search_paths:
+                             - /usr/local/lib
+                           search_libraries:
+                             - tesseract_task_composer_factories
+                           tasks:
+                             plugins:
+                               TestPipeline:
+                                 class: PipelineTaskFactory
+                                 config:
+                                   conditional: true
+                                   inputs: input_data
+                                   outputs: output_data
+                                   nodes:
+                                     StartTask:
+                                       class: StartTaskFactory
+                                       config:
+                                         conditional: false
+                                     DoneTask:
+                                       class: DoneTaskFactory
+                                       config:
+                                         conditional: false
+                                   edges:
+                                     - source: StartTask
+                                       destinations: [DoneTask]
+                                   terminals: [DoneTask])";
 
-  //  { // Failure missing is_conditional
-  //    std::string str = R"(config:
-  //                           inputs: [input_data]
-  //                           outputs: [output_data])";
-  //    YAML::Node config = YAML::Load(str);
-  //    EXPECT_ANY_THROW(std::make_unique<TestTask>(name, config["config"])); // NOLINT
-  //  }
+    TaskComposerPluginFactory factory(str);
+
+    std::string str2 = R"(config:
+                            conditional: true
+                            inputs: input_data
+                            outputs: output_data
+                            nodes:
+                              StartTask:
+                                task:
+                                  conditional: false
+                                  input_remapping:
+                                    input_data: output_data
+                                  output_remapping:
+                                    output_data: input_data
+                              DoneTask:
+                                class: DoneTaskFactory
+                                config:
+                                  conditional: false
+                              ErrorTask:
+                                class: ErrorTaskFactory
+                                config:
+                                  conditional: false
+                            edges:
+                              - source: StartTask
+                                destinations: [ErrorTask, DoneTask]
+                            terminals: [ErrorTask, DoneTask])";
+    YAML::Node config = YAML::Load(str2);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
+
+  {  // Task name does not exist
+    std::string str = R"(task_composer_plugins:
+                           search_paths:
+                             - /usr/local/lib
+                           search_libraries:
+                             - tesseract_task_composer_factories
+                           tasks:
+                             plugins:
+                               TestPipeline:
+                                 class: PipelineTaskFactory
+                                 config:
+                                   conditional: true
+                                   inputs: input_data
+                                   outputs: output_data
+                                   nodes:
+                                     StartTask:
+                                       class: StartTaskFactory
+                                       config:
+                                         conditional: false
+                                     DoneTask:
+                                       class: DoneTaskFactory
+                                       config:
+                                         conditional: false
+                                   edges:
+                                     - source: StartTask
+                                       destinations: [DoneTask]
+                                   terminals: [DoneTask])";
+
+    TaskComposerPluginFactory factory(str);
+
+    std::string str2 = R"(config:
+                            conditional: true
+                            inputs: input_data
+                            outputs: output_data
+                            nodes:
+                              StartTask:
+                                task:
+                                  name: DoesNotExist
+                                  conditional: false
+                                  input_remapping:
+                                    input_data: output_data
+                                  output_remapping:
+                                    output_data: input_data
+                              DoneTask:
+                                class: DoneTaskFactory
+                                config:
+                                  conditional: false
+                              ErrorTask:
+                                class: ErrorTaskFactory
+                                config:
+                                  conditional: false
+                            edges:
+                              - source: StartTask
+                                destinations: [ErrorTask, DoneTask]
+                            terminals: [ErrorTask, DoneTask])";
+    YAML::Node config = YAML::Load(str2);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerAbortTaskTests)  // NOLINT
+{
+  {  // Construction
+    AbortTask task;
+    EXPECT_EQ(task.getName(), "AbortTask");
+    EXPECT_EQ(task.isConditional(), false);
+  }
+
+  {  // Construction
+    AbortTask task("abc", true);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    AbortTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<AbortTask>("abc", true);
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerAbortTaskTests");
+  }
+
+  {  // Run abort test
+    AbortTask task;
+    test_suite::runTaskComposerTaskAbortTest(task);
+  }
+
+  {  // Test run method
+    auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
+    AbortTask task;
+    EXPECT_EQ(task.run(*input), 0);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->message, "Aborted");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), true);
+    EXPECT_EQ(input->isSuccessful(), false);
+    EXPECT_EQ(input->task_infos.getAbortingNode(), task.getUUID());
+  }
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerErrorTaskTests)  // NOLINT
+{
+  {  // Construction
+    ErrorTask task;
+    EXPECT_EQ(task.getName(), "ErrorTask");
+    EXPECT_EQ(task.isConditional(), false);
+  }
+
+  {  // Construction
+    ErrorTask task("abc", true);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    ErrorTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<ErrorTask>("abc", true);
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerErrorTaskTests");
+  }
+
+  {  // Run abort test
+    ErrorTask task;
+    test_suite::runTaskComposerTaskAbortTest(task);
+  }
+
+  {  // Test run method
+    auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
+    ErrorTask task;
+    EXPECT_EQ(task.run(*input), 0);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->message, "Error");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), true);
+    EXPECT_EQ(input->isSuccessful(), false);
+    EXPECT_EQ(input->task_infos.getAbortingNode(), task.getUUID());
+  }
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerDoneTaskTests)  // NOLINT
+{
+  {  // Construction
+    DoneTask task;
+    EXPECT_EQ(task.getName(), "DoneTask");
+    EXPECT_EQ(task.isConditional(), false);
+  }
+
+  {  // Construction
+    DoneTask task("abc", true);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    DoneTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<DoneTask>("abc", true);
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerDoneTaskTests");
+  }
+
+  {  // Run abort test
+    DoneTask task;
+    test_suite::runTaskComposerTaskAbortTest(task);
+  }
+
+  {  // Test run method
+    auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
+    DoneTask task;
+    EXPECT_EQ(task.run(*input), 1);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->message, "Successful");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerStartTaskTests)  // NOLINT
+{
+  {  // Construction
+    StartTask task;
+    EXPECT_EQ(task.getName(), "StartTask");
+    EXPECT_EQ(task.isConditional(), false);
+  }
+
+  {  // Construction
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: false)";
+    YAML::Node config = YAML::Load(str);
+    StartTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), false);
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<StartTask>("abc", config["config"], factory));
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: false
+                           inputs: [input_data]
+                           ouputs: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<StartTask>("abc", config["config"], factory));
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: false
+                           outputs: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<StartTask>("abc", config["config"], factory));
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<StartTask>("abc");
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerDoneTaskTests");
+  }
+
+  {  // Run abort test
+    DoneTask task;
+    test_suite::runTaskComposerTaskAbortTest(task);
+  }
+
+  {  // Test run method
+    auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
+    StartTask task;
+    EXPECT_EQ(task.run(*input), 1);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->message, "Successful");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
 }
 
 int main(int argc, char** argv)

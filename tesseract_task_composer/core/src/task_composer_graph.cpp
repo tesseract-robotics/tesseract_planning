@@ -42,8 +42,6 @@ namespace tesseract_planning
 TaskComposerGraph::TaskComposerGraph(std::string name)
   : TaskComposerGraph(std::move(name), TaskComposerNodeType::GRAPH, false)
 {
-  if (conditional_)
-    throw std::runtime_error("TaskComposerGraph, conditional should not be true");
 }
 
 TaskComposerGraph::TaskComposerGraph(std::string name, TaskComposerNodeType type, bool conditional)
@@ -89,15 +87,11 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
     }
     else if (YAML::Node tn = node_it->second["task"])
     {
-      std::map<std::string, std::string> input_remapping;
-      std::map<std::string, std::string> output_remapping;
-
-      auto task_name = tn.as<std::string>();
-      if (YAML::Node n = tn["input_remapping"])
-        input_remapping = n.as<std::map<std::string, std::string>>();
-
-      if (YAML::Node n = tn["output_remapping"])
-        output_remapping = n.as<std::map<std::string, std::string>>();
+      std::string task_name;
+      if (YAML::Node n = tn["name"])
+        task_name = n.as<std::string>();
+      else
+        throw std::runtime_error("Task Composer Graph '" + name_ + "' missing 'name' entry!");
 
       TaskComposerNode::UPtr task_node = plugin_factory.createTaskComposerNode(task_name);
       if (task_node == nullptr)
@@ -105,11 +99,15 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
                                      "' for node '" += node_name + "'");
 
       task_node->setName(node_name);
-      if (!input_remapping.empty())
-        task_node->renameInputKeys(input_remapping);
 
-      if (!output_remapping.empty())
-        task_node->renameOutputKeys(output_remapping);
+      if (YAML::Node n = tn["conditional"])
+        task_node->setConditional(n.as<bool>());
+
+      if (YAML::Node n = tn["input_remapping"])
+        task_node->renameInputKeys(n.as<std::map<std::string, std::string>>());
+
+      if (YAML::Node n = tn["output_remapping"])
+        task_node->renameOutputKeys(n.as<std::map<std::string, std::string>>());
 
       node_uuids[node_name] = addNode(std::move(task_node));
     }
@@ -199,6 +197,17 @@ void TaskComposerGraph::addEdges(boost::uuids::uuid source, std::vector<boost::u
 std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr> TaskComposerGraph::getNodes() const
 {
   return std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr>{ nodes_.begin(), nodes_.end() };
+}
+
+TaskComposerNode::ConstPtr TaskComposerGraph::getNodeByName(const std::string& name) const
+{
+  for (const auto& pair : nodes_)
+  {
+    if (pair.second->getName() == name)
+      return pair.second;
+  }
+
+  return nullptr;
 }
 
 void TaskComposerGraph::setTerminals(std::vector<boost::uuids::uuid> terminals)

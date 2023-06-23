@@ -1,12 +1,12 @@
 /**
- * @file start_task.h
+ * @file abort_task.cpp
  *
  * @author Levi Armstrong
- * @date August 5, 2022
+ * @date June 22, 2023
  * @version TODO
  * @bug No known bugs
  *
- * @copyright Copyright (c) 2022, Levi Armstrong
+ * @copyright Copyright (c) 2023, Levi Armstrong
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -22,7 +22,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
@@ -30,40 +29,36 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
-#include <tesseract_task_composer/core/nodes/start_task.h>
+#include <tesseract_task_composer/core/nodes/abort_task.h>
 
 namespace tesseract_planning
 {
-StartTask::StartTask(std::string name) : TaskComposerTask(std::move(name), false) {}
-StartTask::StartTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
+AbortTask::AbortTask() : TaskComposerTask("AbortTask", false) {}
+AbortTask::AbortTask(std::string name, bool is_conditional) : TaskComposerTask(std::move(name), is_conditional) {}
+AbortTask::AbortTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), config)
 {
-  if (conditional_)
-    throw std::runtime_error("StartTask, config is_conditional should not be true");
-
-  if (!input_keys_.empty())
-    throw std::runtime_error("StartTask, config does not support 'inputs' entry");
-
-  if (!output_keys_.empty())
-    throw std::runtime_error("StartTask, config does not support 'outputs' entry");
 }
-TaskComposerNodeInfo::UPtr StartTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+
+TaskComposerNodeInfo::UPtr AbortTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
   if (info->isAborted())
     return info;
 
-  info->color = "green";
-  info->message = "Successful";
-  info->return_value = 1;
+  info->color = "red";
+  info->return_value = 0;
+  info->message = "Aborted";
+  input.abort(uuid_);
+  CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
   return info;
 }
 
-bool StartTask::operator==(const StartTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
-bool StartTask::operator!=(const StartTask& rhs) const { return !operator==(rhs); }
+bool AbortTask::operator==(const AbortTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
+bool AbortTask::operator!=(const AbortTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
-void StartTask::serialize(Archive& ar, const unsigned int /*version*/)
+void AbortTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
@@ -71,5 +66,5 @@ void StartTask::serialize(Archive& ar, const unsigned int /*version*/)
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StartTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StartTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::AbortTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::AbortTask)

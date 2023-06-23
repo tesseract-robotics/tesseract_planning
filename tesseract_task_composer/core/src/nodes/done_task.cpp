@@ -54,12 +54,7 @@ TaskComposerNodeInfo::UPtr DoneTask::runImpl(TaskComposerInput& input, OptionalT
   return info;
 }
 
-bool DoneTask::operator==(const DoneTask& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
-}
+bool DoneTask::operator==(const DoneTask& rhs) const { return TaskComposerTask::operator==(rhs); }
 bool DoneTask::operator!=(const DoneTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>

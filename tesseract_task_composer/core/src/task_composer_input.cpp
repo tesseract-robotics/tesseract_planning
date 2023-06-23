@@ -79,13 +79,13 @@ bool TaskComposerInput::operator==(const TaskComposerInput& rhs) const
 
 bool TaskComposerInput::operator!=(const TaskComposerInput& rhs) const { return !operator==(rhs); }
 
-TaskComposerInput::TaskComposerInput(TaskComposerInput&& rhs) noexcept
-  : problem(std::move(rhs.problem))
-  , data_storage(std::move(rhs.data_storage))
-  , task_infos(std::move(rhs.task_infos))
-  , aborted_(rhs.aborted_.load())
-{
-}
+// TaskComposerInput::TaskComposerInput(TaskComposerInput&& rhs) noexcept
+//  : problem(std::move(rhs.problem))
+//  , data_storage(std::move(rhs.data_storage))
+//  , task_infos(std::move(rhs.task_infos))
+//  , aborted_(rhs.aborted_.load())
+//{
+//}
 
 template <class Archive>
 void TaskComposerInput::serialize(Archive& ar, const unsigned int /*version*/)

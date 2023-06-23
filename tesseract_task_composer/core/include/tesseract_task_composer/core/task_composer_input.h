@@ -109,7 +109,7 @@ protected:
   friend class boost::serialization::access;
 
   TaskComposerInput() = default;  // Required for serialization
-  TaskComposerInput(TaskComposerInput&&) noexcept;
+                                  //  TaskComposerInput(TaskComposerInput&&) noexcept;
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT

@@ -55,12 +55,7 @@ TaskComposerNodeInfo::UPtr ErrorTask::runImpl(TaskComposerInput& input, Optional
   return info;
 }
 
-bool ErrorTask::operator==(const ErrorTask& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
-}
+bool ErrorTask::operator==(const ErrorTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
 bool ErrorTask::operator!=(const ErrorTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>

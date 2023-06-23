@@ -37,7 +37,12 @@ target_code_coverage(
 target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                   "$<INSTALL_INTERFACE:include>")
 
-add_library(${PROJECT_NAME}_nodes src/nodes/done_task.cpp src/nodes/error_task.cpp src/nodes/start_task.cpp)
+add_library(
+  ${PROJECT_NAME}_nodes
+  src/nodes/abort_task.cpp
+  src/nodes/done_task.cpp
+  src/nodes/error_task.cpp
+  src/nodes/start_task.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_nodes
   PUBLIC ${PROJECT_NAME}
