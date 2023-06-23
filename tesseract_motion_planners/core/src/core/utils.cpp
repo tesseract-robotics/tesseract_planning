@@ -423,7 +423,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
           if (debug_logging)
           {
             substep_contacts = std::make_unique<tesseract_collision::ContactTrajectorySubstepResults>(
-                static_cast<int>(iSubStep) + 1, subtraj.row(iSubStep));
+                static_cast<int>(iSubStep) + 1, subtraj.row(iSubStep), subtraj.row(iSubStep + 1));
           }
 
           tesseract_scene_graph::SceneState state0 = state_solver.getState(swp0.getNames(), subtraj.row(iSubStep));
@@ -805,10 +805,12 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       {
         tesseract_collision::ContactTrajectoryStepResults::UPtr step_contacts;
         tesseract_collision::ContactTrajectorySubstepResults::UPtr substep_contacts;
+        tesseract_collision::ContactTrajectorySubstepResults::UPtr end_substep_contacts;
         if (debug_logging)
         {
           step_contacts = std::make_unique<tesseract_collision::ContactTrajectoryStepResults>(iStep + 1, p0);
           substep_contacts = std::make_unique<tesseract_collision::ContactTrajectorySubstepResults>(1, p0);
+          end_substep_contacts = std::make_unique<tesseract_collision::ContactTrajectorySubstepResults>(2, p1);
         }
 
         if (iStep == 0 && mi.size() == 2)
@@ -853,8 +855,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
               found = true;
               if (debug_logging)
               {
-                substep_contacts->contacts = sub_state_results;
-                step_contacts->substeps[0] = *substep_contacts;
+                end_substep_contacts->contacts = sub_state_results;
+                step_contacts->substeps[1] = *end_substep_contacts;
                 traj_contacts->steps[static_cast<size_t>(iStep)] = *step_contacts;
               }
               state_results.addInterpolatedCollisionResults(
@@ -924,8 +926,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
             found = true;
             if (debug_logging)
             {
-              substep_contacts->contacts = sub_state_results;
-              step_contacts->substeps[0] = *substep_contacts;
+              end_substep_contacts->contacts = sub_state_results;
+              step_contacts->substeps[1] = *end_substep_contacts;
               traj_contacts->steps[static_cast<size_t>(iStep)] = *step_contacts;
             }
             state_results.addInterpolatedCollisionResults(
