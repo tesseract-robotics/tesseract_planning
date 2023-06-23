@@ -471,7 +471,7 @@ The task that is called if you want to abort everything
      class: AbortTaskFactory
      config:
        conditional: false
-    
+
 Fix State Bounds Task
 ^^^^^^^^^^^^^^^^^^^^^
 
