@@ -50,7 +50,7 @@ struct TaskComposerInput
   using UPtr = std::unique_ptr<TaskComposerInput>;
   using ConstUPtr = std::unique_ptr<const TaskComposerInput>;
 
-  TaskComposerInput(TaskComposerProblem::UPtr&& problem);
+  TaskComposerInput(TaskComposerProblem::UPtr problem);
   TaskComposerInput(const TaskComposerInput&) = delete;
   TaskComposerInput& operator=(const TaskComposerInput&) = delete;
   TaskComposerInput& operator=(TaskComposerInput&&) = delete;

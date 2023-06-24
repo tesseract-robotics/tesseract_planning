@@ -92,7 +92,7 @@ public:
    * @brief Add a task
    * @param task The task to add
    */
-  void addTask(TaskComposerNode::UPtr&& task);
+  void addTask(TaskComposerNode::UPtr task);
 
   /**
    * @brief Get a task

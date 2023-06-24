@@ -148,7 +148,7 @@ struct TaskComposerNodeInfoContainer
    * @brief Add info to the container
    * @param info The info to be added
    */
-  void addInfo(TaskComposerNodeInfo::UPtr&& info);
+  void addInfo(TaskComposerNodeInfo::UPtr info);
 
   /** @brief Get a copy of the task_info_map_ in case it gets resized*/
   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> getInfoMap() const;
