@@ -146,7 +146,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
   auto node = std::make_unique<TaskComposerNode>();
   // Default
   EXPECT_EQ(node->getName(), "TaskComposerNode");
-  EXPECT_EQ(node->getType(), TaskComposerNodeType::TASK);
+  EXPECT_EQ(node->getType(), TaskComposerNodeType::NODE);
   EXPECT_FALSE(node->getUUID().is_nil());
   EXPECT_FALSE(node->getUUIDString().empty());
   EXPECT_TRUE(node->getParentUUID().is_nil());

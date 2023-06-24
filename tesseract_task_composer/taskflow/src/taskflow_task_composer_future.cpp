@@ -24,18 +24,6 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/nvp.hpp>
-#if (BOOST_VERSION >= 107400) && (BOOST_VERSION < 107500)
-#include <boost/serialization/library_version_type.hpp>
-#endif
-#include <boost/serialization/unordered_map.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/unique_ptr.hpp>
-#include <boost/serialization/shared_ptr.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_future.h>
 
 namespace tesseract_planning
@@ -83,25 +71,4 @@ TaskComposerFuture::UPtr TaskflowTaskComposerFuture::copy() const
   return clone;
 }
 
-bool TaskflowTaskComposerFuture::operator==(const tesseract_planning::TaskflowTaskComposerFuture& rhs) const
-{
-  bool equal = true;
-  equal &= future_.valid() == rhs.future_.valid();
-  return equal;
-}
-
-bool TaskflowTaskComposerFuture::operator!=(const tesseract_planning::TaskflowTaskComposerFuture& rhs) const
-{
-  return !operator==(rhs);
-}
-
-template <class Archive>
-void TaskflowTaskComposerFuture::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerFuture);
-}
-
 }  // namespace tesseract_planning
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskflowTaskComposerFuture)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskflowTaskComposerFuture)

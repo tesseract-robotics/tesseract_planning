@@ -40,6 +40,7 @@ namespace tesseract_planning
 {
 enum class TaskComposerNodeType
 {
+  NODE,
   TASK,
   PIPELINE,
   GRAPH
@@ -55,7 +56,7 @@ public:
   using ConstUPtr = std::unique_ptr<const TaskComposerNode>;
 
   TaskComposerNode(std::string name = "TaskComposerNode",
-                   TaskComposerNodeType type = TaskComposerNodeType::TASK,
+                   TaskComposerNodeType type = TaskComposerNodeType::NODE,
                    bool conditional = false);
   explicit TaskComposerNode(std::string name, TaskComposerNodeType type, const YAML::Node& config);
   virtual ~TaskComposerNode() = default;

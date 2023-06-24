@@ -2,7 +2,6 @@ add_library(
   ${PROJECT_NAME}
   src/task_composer_data_storage.cpp
   src/task_composer_executor.cpp
-  src/task_composer_future.cpp
   src/task_composer_graph.cpp
   src/task_composer_input.cpp
   src/task_composer_node.cpp
