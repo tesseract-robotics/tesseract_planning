@@ -1,9 +1,8 @@
 /**
- * @file motion_planner_task_info.h
- * @brief Task Composer motion planner task info
+ * @file abort_task.h
  *
  * @author Levi Armstrong
- * @date June 8. 2023
+ * @date June 22, 2023
  * @version TODO
  * @bug No known bugs
  *
@@ -23,8 +22,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_MOTION_PLANNER_TASK_INFO_H
-#define TESSERACT_TASK_COMPOSER_MOTION_PLANNER_TASK_INFO_H
+#ifndef TESSERACT_TASK_COMPOSER_ABORT_TASK_H
+#define TESSERACT_TASK_COMPOSER_ABORT_TASK_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -32,36 +31,39 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
-#include <tesseract_task_composer/core/task_composer_node_info.h>
-
-#include <tesseract_environment/environment.h>
 
 namespace tesseract_planning
 {
-class MotionPlannerTaskInfo : public TaskComposerNodeInfo
+class TaskComposerPluginFactory;
+class AbortTask : public TaskComposerTask
 {
 public:
-  using Ptr = std::shared_ptr<MotionPlannerTaskInfo>;
-  using ConstPtr = std::shared_ptr<const MotionPlannerTaskInfo>;
-  using UPtr = std::unique_ptr<MotionPlannerTaskInfo>;
-  using ConstUPtr = std::unique_ptr<const MotionPlannerTaskInfo>;
+  using Ptr = std::shared_ptr<AbortTask>;
+  using ConstPtr = std::shared_ptr<const AbortTask>;
+  using UPtr = std::unique_ptr<AbortTask>;
+  using ConstUPtr = std::unique_ptr<const AbortTask>;
 
-  MotionPlannerTaskInfo() = default;
-  MotionPlannerTaskInfo(const TaskComposerTask& task);
+  AbortTask();
+  explicit AbortTask(std::string name, bool conditional);
+  explicit AbortTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
+  ~AbortTask() override = default;
 
-  tesseract_environment::Environment::ConstPtr env;
+  bool operator==(const AbortTask& rhs) const;
+  bool operator!=(const AbortTask& rhs) const;
 
-  TaskComposerNodeInfo::UPtr clone() const override;
-
-  bool operator==(const MotionPlannerTaskInfo& rhs) const;
-  bool operator!=(const MotionPlannerTaskInfo& rhs) const;
-
-private:
+protected:
+  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                     OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
 }  // namespace tesseract_planning
 
-#endif  // TESSERACT_TASK_COMPOSER_MOTION_PLANNER_TASK_INFO_H
+#include <boost/serialization/export.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::AbortTask, "AbortTask")
+
+#endif  // TESSERACT_TASK_COMPOSER_ABORT_TASK_H

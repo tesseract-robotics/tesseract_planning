@@ -83,9 +83,7 @@ TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string nam
 TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposerInput& input,
                                                                     OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TimeOptimalParameterizationTaskInfo>(*this, input);
-  if (info->isAborted())
-    return info;
+  auto info = std::make_unique<TimeOptimalParameterizationTaskInfo>(*this);
 
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
@@ -189,9 +187,8 @@ void TimeOptimalParameterizationTask::serialize(Archive& ar, const unsigned int 
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-TimeOptimalParameterizationTaskInfo::TimeOptimalParameterizationTaskInfo(const TimeOptimalParameterizationTask& task,
-                                                                         const TaskComposerInput& input)
-  : TaskComposerNodeInfo(task, input)
+TimeOptimalParameterizationTaskInfo::TimeOptimalParameterizationTaskInfo(const TimeOptimalParameterizationTask& task)
+  : TaskComposerNodeInfo(task)
 {
 }
 

@@ -82,6 +82,20 @@ TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerGra
   return std::make_unique<TaskflowTaskComposerFuture>(f, std::move(taskflow));
 }
 
+TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerPipeline& task_pipeline,
+                                                           TaskComposerInput& task_input)
+{
+  auto taskflow = convertToTaskflow(task_pipeline, task_input, *this);
+  std::shared_future<void> f = executor_->run(*(taskflow->front()));
+
+  //  std::ofstream out_data;
+  //  out_data.open(tesseract_common::getTempPath() + "task_composer_example.dot");
+  //  taskflow.top->dump(out_data);  // dump the graph including dynamic tasks
+  //  out_data.close();
+
+  return std::make_unique<TaskflowTaskComposerFuture>(f, std::move(taskflow));
+}
+
 TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerTask& task, TaskComposerInput& task_input)
 {
   auto taskflow = convertToTaskflow(task, task_input, *this);
@@ -162,12 +176,26 @@ TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_gr
                                 ->emplace([task, &task_input, &task_executor] { task->run(task_input, task_executor); })
                                 .name(pair.second->getName());
     }
+    if (pair.second->getType() == TaskComposerNodeType::PIPELINE)
+    {
+      auto pipeline = std::static_pointer_cast<const TaskComposerPipeline>(pair.second);
+      if (edges.size() > 1 && pipeline->isConditional())
+        tasks[pair.first] =
+            tf_container->front()
+                ->emplace([pipeline, &task_input, &task_executor] { return pipeline->run(task_input, task_executor); })
+                .name(pair.second->getName());
+      else
+        tasks[pair.first] =
+            tf_container->front()
+                ->emplace([pipeline, &task_input, &task_executor] { pipeline->run(task_input, task_executor); })
+                .name(pair.second->getName());
+    }
     else if (pair.second->getType() == TaskComposerNodeType::GRAPH)
     {
       const auto& graph = static_cast<const TaskComposerGraph&>(*pair.second);
 
       // Must add a Node Info object for the graph
-      auto info = std::make_unique<TaskComposerNodeInfo>(graph, task_input);
+      auto info = std::make_unique<TaskComposerNodeInfo>(graph);
       info->color = "green";
       task_input.task_infos.addInfo(std::move(info));
 
@@ -189,6 +217,19 @@ TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_gr
       tasks[pair.first].precede(tasks[e]);
   }
 
+  return tf_container;
+}
+
+std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
+TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerPipeline& task_pipeline,
+                                                TaskComposerInput& task_input,
+                                                TaskComposerExecutor& task_executor)
+{
+  auto tf_container = std::make_shared<std::vector<std::unique_ptr<tf::Taskflow>>>();
+  tf_container->emplace_back(std::make_unique<tf::Taskflow>(task_pipeline.getName()));
+  tf_container->front()
+      ->emplace([&task_pipeline, &task_input, &task_executor] { return task_pipeline.run(task_input, task_executor); })
+      .name(task_pipeline.getName());
   return tf_container;
 }
 

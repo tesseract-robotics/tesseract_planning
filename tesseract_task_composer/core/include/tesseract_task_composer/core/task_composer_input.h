@@ -52,6 +52,7 @@ struct TaskComposerInput
 
   TaskComposerInput(TaskComposerProblem::UPtr problem);
   TaskComposerInput(const TaskComposerInput&) = delete;
+  TaskComposerInput(TaskComposerInput&&) noexcept = delete;
   TaskComposerInput& operator=(const TaskComposerInput&) = delete;
   TaskComposerInput& operator=(TaskComposerInput&&) = delete;
   virtual ~TaskComposerInput() = default;
@@ -109,7 +110,7 @@ protected:
   friend class boost::serialization::access;
 
   TaskComposerInput() = default;  // Required for serialization
-  TaskComposerInput(TaskComposerInput&&) noexcept;
+                                  //  TaskComposerInput(TaskComposerInput&&) noexcept;
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
