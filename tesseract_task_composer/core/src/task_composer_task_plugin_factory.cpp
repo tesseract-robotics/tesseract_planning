@@ -33,6 +33,8 @@
 #include <tesseract_task_composer/core/nodes/error_task.h>
 #include <tesseract_task_composer/core/nodes/start_task.h>
 
+#include <tesseract_task_composer/core/factories/task_composer_task_plugin_factory.h>
+
 namespace tesseract_planning
 {
 using AbortTaskFactory = TaskComposerTaskFactory<AbortTask>;
@@ -41,6 +43,8 @@ using ErrorTaskFactory = TaskComposerTaskFactory<ErrorTask>;
 using StartTaskFactory = TaskComposerTaskFactory<StartTask>;
 using GraphTaskFactory = TaskComposerTaskFactory<TaskComposerGraph>;
 using PipelineTaskFactory = TaskComposerTaskFactory<TaskComposerPipeline>;
+
+TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerTaskFactoryAnchor);
 }  // namespace tesseract_planning
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
