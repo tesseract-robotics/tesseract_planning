@@ -1,13 +1,12 @@
-﻿/**
- * @file raster_example_program.h
- * @brief Example raster paths
+/**
+ * @file test_programs.h
  *
  * @author Levi Armstrong
- * @date August 28, 2020
+ * @date June 26, 2023
  * @version TODO
  * @bug No known bugs
  *
- * @copyright Copyright (c) 2020, Southwest Research Institute
+ * @copyright Copyright (c) 2023, Levi Armstrong
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -23,8 +22,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_RASTER_EXAMPLE_PROGRAM_H
-#define TESSERACT_TASK_COMPOSER_RASTER_EXAMPLE_PROGRAM_H
+#ifndef TESSERACT_TASK_COMPOSER_TEST_PROGRAMS_HPP
+#define TESSERACT_TASK_COMPOSER_TEST_PROGRAMS_HPP
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -35,9 +34,124 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_command_language/move_instruction.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-namespace tesseract_planning
+namespace tesseract_planning::test_suite
 {
 using tesseract_common::ManipulatorInfo;
+
+inline CompositeInstruction freespaceExampleProgramIIWA(
+    const Eigen::Isometry3d& goal = Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.2, 0.2, 1.0),
+    const std::string& composite_profile = DEFAULT_PROFILE_KEY,
+    const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
+{
+  CompositeInstruction program(
+      composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+
+  // Start Joint Position for the program
+  std::vector<std::string> joint_names = { "joint_a1", "joint_a2", "joint_a3", "joint_a4",
+                                           "joint_a5", "joint_a6", "joint_a7" };
+  StateWaypointPoly wp1{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
+  start_instruction.setDescription("Start Instruction");
+
+  // Define target pose
+  CartesianWaypointPoly wp2{ CartesianWaypoint(goal) };
+  MoveInstruction plan_f0(wp2, MoveInstructionType::FREESPACE, freespace_profile);
+  plan_f0.setDescription("freespace_motion");
+  program.appendMoveInstruction(start_instruction);
+  program.appendMoveInstruction(plan_f0);
+
+  JointWaypointPoly wp3{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  MoveInstruction plan_f1(wp3, MoveInstructionType::FREESPACE);
+  program.appendMoveInstruction(plan_f1);
+
+  return program;
+}
+
+inline CompositeInstruction freespaceExampleProgramABB(
+    const Eigen::Isometry3d& goal = Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.2, 0.2, 1.0),
+    const std::string& composite_profile = DEFAULT_PROFILE_KEY,
+    const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
+{
+  CompositeInstruction program(
+      composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+
+  // Start Joint Position for the program
+  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
+  StateWaypointPoly wp1{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+  MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
+  start_instruction.setDescription("Start Instruction");
+
+  // Define target pose
+  CartesianWaypointPoly wp2{ CartesianWaypoint(goal) };
+  MoveInstruction plan_f0(wp2, MoveInstructionType::FREESPACE, freespace_profile);
+  plan_f0.setDescription("freespace_motion");
+  program.appendMoveInstruction(start_instruction);
+  program.appendMoveInstruction(plan_f0);
+
+  JointWaypointPoly wp3{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+  MoveInstruction plan_f1(wp3, MoveInstructionType::FREESPACE);
+  program.appendMoveInstruction(plan_f1);
+
+  return program;
+}
+
+inline CompositeInstruction
+jointInterpolatedExampleSolutionIIWA(const std::string& composite_profile = DEFAULT_PROFILE_KEY,
+                                     const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
+{
+  CompositeInstruction program(
+      composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+
+  // Start Joint Position for the program
+  std::vector<std::string> joint_names = { "joint_a1", "joint_a2", "joint_a3", "joint_a4",
+                                           "joint_a5", "joint_a6", "joint_a7" };
+  Eigen::VectorXd start_state = Eigen::VectorXd::Zero(7);
+  start_state(0) = -M_PI_4;
+  StateWaypointPoly wp1{ StateWaypoint(joint_names, start_state) };
+  MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
+  start_instruction.setDescription("Start Instruction");
+
+  Eigen::VectorXd end_state = Eigen::VectorXd::Zero(7);
+  end_state(0) = M_PI_4;
+  StateWaypointPoly wp2{ StateWaypoint(joint_names, end_state) };
+  MoveInstruction end_instruction(wp2, MoveInstructionType::FREESPACE);
+  end_instruction.setDescription("End Instruction");
+
+  program.appendMoveInstruction(start_instruction);
+  program.appendMoveInstruction(end_instruction);
+
+  return program;
+}
+
+inline CompositeInstruction
+jointInterpolateExampleProgramABB(const std::string& composite_profile = DEFAULT_PROFILE_KEY,
+                                  const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
+{
+  CompositeInstruction program(
+      composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+
+  // Start Joint Position for the program
+  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
+  Eigen::VectorXd start_state = Eigen::VectorXd::Zero(6);
+  start_state(0) = -M_PI_4;
+  StateWaypointPoly wp1{ StateWaypoint(joint_names, start_state) };
+  MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
+  start_instruction.setDescription("Start Instruction");
+
+  Eigen::VectorXd end_state = Eigen::VectorXd::Zero(6);
+  end_state(0) = M_PI_4;
+  StateWaypointPoly wp2{ StateWaypoint(joint_names, end_state) };
+  MoveInstruction end_instruction(wp2, MoveInstructionType::FREESPACE);
+  end_instruction.setDescription("End Instruction");
+
+  program.appendMoveInstruction(start_instruction);
+  program.appendMoveInstruction(end_instruction);
+
+  return program;
+
+  return program;
+}
+
 inline CompositeInstruction rasterExampleProgram(const std::string& freespace_profile = DEFAULT_PROFILE_KEY,
                                                  const std::string& process_profile = "PROCESS")
 {
@@ -224,7 +338,6 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
 
   return program;
 }
+}  // namespace tesseract_planning::test_suite
 
-}  // namespace tesseract_planning
-
-#endif
+#endif  // TESSERACT_TASK_COMPOSER_TEST_PROGRAMS_HPP

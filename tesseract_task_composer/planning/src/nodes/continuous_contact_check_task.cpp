@@ -97,8 +97,9 @@ TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   std::string profile = ci.getProfile();
   profile = getProfileString(name_, profile, problem.composite_profile_remapping);
-  auto cur_composite_profile =
-      getProfile<ContactCheckProfile>(name_, profile, *problem.profiles, std::make_shared<ContactCheckProfile>());
+  auto default_profile = std::make_shared<ContactCheckProfile>();
+  default_profile->config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+  auto cur_composite_profile = getProfile<ContactCheckProfile>(name_, profile, *problem.profiles, default_profile);
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   // Get state solver
