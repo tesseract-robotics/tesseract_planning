@@ -31,7 +31,7 @@
 
 namespace tesseract_planning
 {
-TESSERACT_PLUGIN_ANCHOR_DECL(TaskComposerTaskflowFactoriesAnchor);
+TESSERACT_PLUGIN_ANCHOR_DECL(TaskComposerTaskflowFactoriesAnchor)
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_PLUGIN_FACTORIES_H
