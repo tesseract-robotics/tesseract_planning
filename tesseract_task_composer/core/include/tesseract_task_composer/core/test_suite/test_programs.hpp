@@ -96,7 +96,8 @@ inline CompositeInstruction freespaceExampleProgramABB(
 }
 
 inline CompositeInstruction
-jointInterpolatedExampleSolutionIIWA(const std::string& composite_profile = DEFAULT_PROFILE_KEY,
+jointInterpolatedExampleSolutionIIWA(bool use_joint_waypoint = false,
+                                     const std::string& composite_profile = DEFAULT_PROFILE_KEY,
                                      const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
   CompositeInstruction program(
@@ -107,24 +108,42 @@ jointInterpolatedExampleSolutionIIWA(const std::string& composite_profile = DEFA
                                            "joint_a5", "joint_a6", "joint_a7" };
   Eigen::VectorXd start_state = Eigen::VectorXd::Zero(7);
   start_state(0) = -M_PI_4;
-  StateWaypointPoly wp1{ StateWaypoint(joint_names, start_state) };
-  MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
-  start_instruction.setDescription("Start Instruction");
-
   Eigen::VectorXd end_state = Eigen::VectorXd::Zero(7);
   end_state(0) = M_PI_4;
-  StateWaypointPoly wp2{ StateWaypoint(joint_names, end_state) };
-  MoveInstruction end_instruction(wp2, MoveInstructionType::FREESPACE);
-  end_instruction.setDescription("End Instruction");
 
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(end_instruction);
+  if (use_joint_waypoint)
+  {
+    JointWaypointPoly wp1{ JointWaypoint(joint_names, start_state) };
+    MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
+    start_instruction.setDescription("Start Instruction");
+
+    JointWaypointPoly wp2{ JointWaypoint(joint_names, end_state) };
+    MoveInstruction end_instruction(wp2, MoveInstructionType::FREESPACE);
+    end_instruction.setDescription("End Instruction");
+
+    program.appendMoveInstruction(start_instruction);
+    program.appendMoveInstruction(end_instruction);
+  }
+  else
+  {
+    StateWaypointPoly wp1{ StateWaypoint(joint_names, start_state) };
+    MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
+    start_instruction.setDescription("Start Instruction");
+
+    StateWaypointPoly wp2{ StateWaypoint(joint_names, end_state) };
+    MoveInstruction end_instruction(wp2, MoveInstructionType::FREESPACE);
+    end_instruction.setDescription("End Instruction");
+
+    program.appendMoveInstruction(start_instruction);
+    program.appendMoveInstruction(end_instruction);
+  }
 
   return program;
 }
 
 inline CompositeInstruction
-jointInterpolateExampleProgramABB(const std::string& composite_profile = DEFAULT_PROFILE_KEY,
+jointInterpolateExampleProgramABB(bool use_joint_waypoint = false,
+                                  const std::string& composite_profile = DEFAULT_PROFILE_KEY,
                                   const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
   CompositeInstruction program(
@@ -134,20 +153,35 @@ jointInterpolateExampleProgramABB(const std::string& composite_profile = DEFAULT
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
   Eigen::VectorXd start_state = Eigen::VectorXd::Zero(6);
   start_state(0) = -M_PI_4;
-  StateWaypointPoly wp1{ StateWaypoint(joint_names, start_state) };
-  MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
-  start_instruction.setDescription("Start Instruction");
-
   Eigen::VectorXd end_state = Eigen::VectorXd::Zero(6);
   end_state(0) = M_PI_4;
-  StateWaypointPoly wp2{ StateWaypoint(joint_names, end_state) };
-  MoveInstruction end_instruction(wp2, MoveInstructionType::FREESPACE);
-  end_instruction.setDescription("End Instruction");
 
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(end_instruction);
+  if (use_joint_waypoint)
+  {
+    JointWaypointPoly wp1{ JointWaypoint(joint_names, start_state) };
+    MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
+    start_instruction.setDescription("Start Instruction");
 
-  return program;
+    JointWaypointPoly wp2{ JointWaypoint(joint_names, end_state) };
+    MoveInstruction end_instruction(wp2, MoveInstructionType::FREESPACE);
+    end_instruction.setDescription("End Instruction");
+
+    program.appendMoveInstruction(start_instruction);
+    program.appendMoveInstruction(end_instruction);
+  }
+  else
+  {
+    StateWaypointPoly wp1{ StateWaypoint(joint_names, start_state) };
+    MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
+    start_instruction.setDescription("Start Instruction");
+
+    StateWaypointPoly wp2{ StateWaypoint(joint_names, end_state) };
+    MoveInstruction end_instruction(wp2, MoveInstructionType::FREESPACE);
+    end_instruction.setDescription("End Instruction");
+
+    program.appendMoveInstruction(start_instruction);
+    program.appendMoveInstruction(end_instruction);
+  }
 
   return program;
 }
