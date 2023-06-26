@@ -24,6 +24,7 @@
  * limitations under the License.
  */
 
+#include <tesseract_task_composer/planning/planning_task_composer_plugin_factories.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory_utils.h>
 
 #include <tesseract_task_composer/planning/nodes/check_input_task.h>
@@ -41,7 +42,6 @@
 #include <tesseract_task_composer/planning/nodes/raster_motion_task.h>
 #include <tesseract_task_composer/planning/nodes/raster_only_motion_task.h>
 #include <tesseract_task_composer/planning/nodes/motion_planner_task.hpp>
-#include <tesseract_task_composer/planning/factories/planning_task_composer_plugin_factories.h>
 
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
@@ -78,7 +78,8 @@ using SimpleMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask
 using TrajOptIfoptMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<TrajOptIfoptMotionPlanner>>;
 #endif
 
-TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerPlanningFactoriesAnchor);
+TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerPlanningFactoriesAnchor)
+
 }  // namespace tesseract_planning
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)

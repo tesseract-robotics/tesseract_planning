@@ -110,14 +110,15 @@ void runTaskComposerFactoryTest(TaskComposerPluginFactory& factory, YAML::Node p
 
 TEST(TesseractTaskComposerFactoryUnit, LoadAndExportPluginTest)  // NOLINT
 {
-{  // File Path Construction
+  {  // File Path Construction
 #ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
-  tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
-                                                                                    "task_composer_plugins.yaml");
+    tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
+                                                                                      "task_composer_plugins.yaml");
 #else
-  tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
-                                                                                    "task_composer_plugins_no_trajopt_"
-                                                                                    "ifopt.yaml");
+    tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
+                                                                                      "task_composer_plugins_no_"
+                                                                                      "trajopt_"
+                                                                                      "ifopt.yaml");
 #endif
     TaskComposerPluginFactory factory(config_path);
     YAML::Node plugin_config = YAML::LoadFile(config_path.string());
