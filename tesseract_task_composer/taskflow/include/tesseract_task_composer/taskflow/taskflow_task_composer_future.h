@@ -26,6 +26,12 @@
 #ifndef TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_FUTURE_H
 #define TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_FUTURE_H
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <memory>
+#include <vector>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_task_composer/core/task_composer_future.h>
 
 namespace tf
@@ -63,15 +69,7 @@ public:
 
   TaskComposerFuture::UPtr copy() const override final;
 
-  bool operator==(const TaskflowTaskComposerFuture& rhs) const;
-  bool operator!=(const TaskflowTaskComposerFuture& rhs) const;
-
 private:
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
   /** @brief This is the future return from taskflow executor.run */
   std::shared_future<void> future_;
 
@@ -80,7 +78,4 @@ private:
 };
 }  // namespace tesseract_planning
 
-#include <boost/serialization/export.hpp>
-#include <boost/serialization/tracking.hpp>
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskflowTaskComposerFuture, "TaskflowTaskComposerFuture")
 #endif  // TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_FUTURE_H

@@ -59,11 +59,7 @@ public:
   TaskflowTaskComposerExecutor(TaskflowTaskComposerExecutor&&) = delete;
   TaskflowTaskComposerExecutor& operator=(TaskflowTaskComposerExecutor&&) = delete;
 
-  TaskComposerFuture::UPtr run(const TaskComposerGraph& task_graph, TaskComposerInput& task_input) override final;
-
-  TaskComposerFuture::UPtr run(const TaskComposerPipeline& task_pipeline, TaskComposerInput& task_input) override final;
-
-  TaskComposerFuture::UPtr run(const TaskComposerTask& task, TaskComposerInput& task_input) override final;
+  TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerInput& task_input) override final;
 
   long getWorkerCount() const override final;
 

@@ -55,36 +55,11 @@ public:
 
   /**
    * @brief Execute the provided node
-   * @details It will call one of the pure virtual methods below based on the node type
    * @param node The node to execute
    * @param task_input The task input provided to every task
    * @return The future associated with execution
    */
-  virtual TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerInput& task_input);
-
-  /**
-   * @brief Execute the provided task graph
-   * @param task_graph The task graph to execute
-   * @param task_input The task input provided to every task
-   * @return The future associated with execution
-   */
-  virtual TaskComposerFuture::UPtr run(const TaskComposerGraph& task_graph, TaskComposerInput& task_input) = 0;
-
-  /**
-   * @brief Execute the provided task pipeline
-   * @param task_pipeline The task pipeline to execute
-   * @param task_input The task input provided to every task
-   * @return The future associated with execution
-   */
-  virtual TaskComposerFuture::UPtr run(const TaskComposerPipeline& task_pipeline, TaskComposerInput& task_input) = 0;
-
-  /**
-   * @brief Execute the provided task
-   * @param task_graph The task to execute
-   * @param task_input The task input provided to task
-   * @return The future associated with execution
-   */
-  virtual TaskComposerFuture::UPtr run(const TaskComposerTask& task, TaskComposerInput& task_input) = 0;
+  virtual TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerInput& task_input) = 0;
 
   /** @brief Queries the number of workers (example: number of threads) */
   virtual long getWorkerCount() const = 0;

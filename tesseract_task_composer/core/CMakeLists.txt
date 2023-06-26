@@ -2,7 +2,6 @@ add_library(
   ${PROJECT_NAME}
   src/task_composer_data_storage.cpp
   src/task_composer_executor.cpp
-  src/task_composer_future.cpp
   src/task_composer_graph.cpp
   src/task_composer_input.cpp
   src/task_composer_node.cpp
@@ -42,7 +41,8 @@ add_library(
   src/nodes/abort_task.cpp
   src/nodes/done_task.cpp
   src/nodes/error_task.cpp
-  src/nodes/start_task.cpp)
+  src/nodes/start_task.cpp
+  src/test_suite/test_task.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_nodes
   PUBLIC ${PROJECT_NAME}

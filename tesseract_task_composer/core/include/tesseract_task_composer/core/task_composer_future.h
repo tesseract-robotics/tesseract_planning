@@ -33,8 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/serialization.h>
-
 namespace tesseract_planning
 {
 /**
@@ -87,18 +85,7 @@ public:
    * @return A copy, for example to allow access from multiple thread
    */
   virtual TaskComposerFuture::UPtr copy() const = 0;
-
-  bool operator==(const TaskComposerFuture& rhs) const;
-  bool operator!=(const TaskComposerFuture& rhs) const;
-
-private:
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
 
-#include <boost/serialization/export.hpp>
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerFuture, "TaskComposerFuture")
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_FUTURE_H

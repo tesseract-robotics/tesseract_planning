@@ -20,6 +20,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/nodes/done_task.h>
 #include <tesseract_task_composer/core/nodes/error_task.h>
 #include <tesseract_task_composer/core/nodes/start_task.h>
+#include <tesseract_task_composer/core/test_suite/test_task.h>
 
 TESSERACT_ANY_EXPORT(tesseract_common, JointState)
 
@@ -146,7 +147,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
   auto node = std::make_unique<TaskComposerNode>();
   // Default
   EXPECT_EQ(node->getName(), "TaskComposerNode");
-  EXPECT_EQ(node->getType(), TaskComposerNodeType::TASK);
+  EXPECT_EQ(node->getType(), TaskComposerNodeType::NODE);
   EXPECT_FALSE(node->getUUID().is_nil());
   EXPECT_FALSE(node->getUUIDString().empty());
   EXPECT_TRUE(node->getParentUUID().is_nil());
@@ -226,73 +227,11 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoTests)  // NOLINT
   test_suite::runTaskComposerNodeInfoTest<TaskComposerNodeInfo>();
 }
 
-class TestTask : public TaskComposerTask
-{
-public:
-  using TaskComposerTask::TaskComposerTask;
-
-  bool throw_exception{ false };
-  bool set_abort{ false };
-  int return_value{ 0 };
-
-  bool operator==(const TestTask& rhs) const
-  {
-    bool equal = true;
-    equal &= (throw_exception == rhs.throw_exception);
-    equal &= (set_abort == rhs.set_abort);
-    equal &= (return_value == rhs.return_value);
-    equal &= TaskComposerTask::operator==(rhs);
-    return equal;
-  }
-  bool operator!=(const TestTask& rhs) const { return !operator==(rhs); }
-
-protected:
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)
-  {
-    ar& BOOST_SERIALIZATION_NVP(throw_exception);
-    ar& BOOST_SERIALIZATION_NVP(set_abort);
-    ar& BOOST_SERIALIZATION_NVP(return_value);
-    ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-  }
-
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
-                                     OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override final
-  {
-    if (throw_exception)
-      throw std::runtime_error("TestTask, failure");
-
-    auto node_info = std::make_unique<TaskComposerNodeInfo>(*this);
-    if (conditional_)
-      node_info->color = (return_value == 0) ? "red" : "green";
-    else
-      node_info->color = "green";
-    node_info->return_value = return_value;
-
-    if (set_abort)
-    {
-      node_info->color = "red";
-      input.abort(uuid_);
-    }
-
-    return node_info;
-  }
-};
-
-#include <tesseract_common/serialization.h>
-#include <boost/serialization/export.hpp>
-BOOST_CLASS_EXPORT_KEY2(TestTask, "TestTask")
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(TestTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(TestTask)
-
 TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
 {
   std::string name = "TaskComposerTaskTests";
   {  // Not Conditional
-    auto task = std::make_unique<TestTask>(name, false);
+    auto task = std::make_unique<test_suite::TestTask>(name, false);
     EXPECT_EQ(task->getName(), name);
     EXPECT_FALSE(task->isConditional());
     EXPECT_TRUE(task->getInputKeys().empty());
@@ -314,7 +253,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
   }
 
   {  // Conditional
-    auto task = std::make_unique<TestTask>(name, true);
+    auto task = std::make_unique<test_suite::TestTask>(name, true);
     task->return_value = 1;
     EXPECT_EQ(task->getName(), name);
     EXPECT_TRUE(task->isConditional());
@@ -337,12 +276,13 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
   }
 
   {
+    TaskComposerPluginFactory factory;
     std::string str = R"(config:
                            conditional: false
                            inputs: input_data
                            outputs: output_data)";
     YAML::Node config = YAML::Load(str);
-    auto task = std::make_unique<TestTask>(name, config["config"]);
+    auto task = std::make_unique<test_suite::TestTask>(name, config["config"], factory);
     EXPECT_EQ(task->getName(), name);
     EXPECT_FALSE(task->isConditional());
     EXPECT_EQ(task->getInputKeys().size(), 1);
@@ -366,12 +306,13 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
   }
 
   {
+    TaskComposerPluginFactory factory;
     std::string str = R"(config:
                            conditional: true
                            inputs: [input_data]
                            outputs: [output_data])";
     YAML::Node config = YAML::Load(str);
-    auto task = std::make_unique<TestTask>(name, config["config"]);
+    auto task = std::make_unique<test_suite::TestTask>(name, config["config"], factory);
     task->return_value = 1;
     EXPECT_EQ(task->getName(), name);
     EXPECT_TRUE(task->isConditional());
@@ -396,12 +337,13 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
   }
 
   {  // Failure due to exception during run
+    TaskComposerPluginFactory factory;
     std::string str = R"(config:
                            conditional: true
                            inputs: [input_data]
                            outputs: [output_data])";
     YAML::Node config = YAML::Load(str);
-    auto task = std::make_unique<TestTask>(name, config["config"]);
+    auto task = std::make_unique<test_suite::TestTask>(name, config["config"], factory);
     TaskComposerInput input(std::make_unique<TaskComposerProblem>());
 
     task->throw_exception = true;
@@ -427,10 +369,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   std::vector<std::string> new_input_keys{ "id" };
   std::vector<std::string> new_output_keys{ "od" };
   {  // Not Conditional
-    auto task1 = std::make_unique<TestTask>(name1, false);
-    auto task2 = std::make_unique<TestTask>(name2, false);
-    auto task3 = std::make_unique<TestTask>(name3, false);
-    auto task4 = std::make_unique<TestTask>(name4, false);
+    auto task1 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task2 = std::make_unique<test_suite::TestTask>(name2, false);
+    auto task3 = std::make_unique<test_suite::TestTask>(name3, false);
+    auto task4 = std::make_unique<test_suite::TestTask>(name4, false);
     task1->setInputKeys(input_keys);
     task1->setOutputKeys(output_keys);
     task2->setInputKeys(output_keys);
@@ -507,11 +449,11 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   }
 
   {  // Conditional
-    auto task1 = std::make_unique<TestTask>(name1, false);
-    auto task2 = std::make_unique<TestTask>(name2, true);
+    auto task1 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task2 = std::make_unique<test_suite::TestTask>(name2, true);
     task2->return_value = 1;
-    auto task3 = std::make_unique<TestTask>(name3, false);
-    auto task4 = std::make_unique<TestTask>(name4, false);
+    auto task3 = std::make_unique<test_suite::TestTask>(name3, false);
+    auto task4 = std::make_unique<test_suite::TestTask>(name4, false);
     task4->return_value = 1;
     auto pipeline = std::make_unique<TaskComposerPipeline>(name);
     boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
@@ -562,12 +504,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   }
 
   {  // Throw exception
-    auto task1 = std::make_unique<TestTask>(name1, false);
-    auto task2 = std::make_unique<TestTask>(name2, true);
+    auto task1 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task2 = std::make_unique<test_suite::TestTask>(name2, true);
     task2->return_value = 0;
     task2->throw_exception = true;
-    auto task3 = std::make_unique<TestTask>(name3, false);
-    auto task4 = std::make_unique<TestTask>(name4, false);
+    auto task3 = std::make_unique<test_suite::TestTask>(name3, false);
+    auto task4 = std::make_unique<test_suite::TestTask>(name4, false);
     task4->return_value = 1;
     auto pipeline = std::make_unique<TaskComposerPipeline>(name);
     boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
@@ -618,12 +560,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   }
 
   {  // Set Abort
-    auto task1 = std::make_unique<TestTask>(name1, false);
-    auto task2 = std::make_unique<TestTask>(name2, true);
+    auto task1 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task2 = std::make_unique<test_suite::TestTask>(name2, true);
     task2->return_value = 0;
     task2->set_abort = true;
-    auto task3 = std::make_unique<TestTask>(name3, false);
-    auto task4 = std::make_unique<TestTask>(name4, false);
+    auto task3 = std::make_unique<test_suite::TestTask>(name3, false);
+    auto task4 = std::make_unique<test_suite::TestTask>(name4, false);
     task4->return_value = 1;
     auto pipeline = std::make_unique<TaskComposerPipeline>(name);
     boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
@@ -674,11 +616,11 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   }
 
   {  // Nested Pipeline Not Conditional
-    auto task1 = std::make_unique<TestTask>(name1, false);
-    auto task2 = std::make_unique<TestTask>(name2, true);
+    auto task1 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task2 = std::make_unique<test_suite::TestTask>(name2, true);
     task2->return_value = 1;
-    auto task3 = std::make_unique<TestTask>(name3, false);
-    auto task4 = std::make_unique<TestTask>(name4, false);
+    auto task3 = std::make_unique<test_suite::TestTask>(name3, false);
+    auto task4 = std::make_unique<test_suite::TestTask>(name4, false);
     task4->return_value = 1;
     auto pipeline1 = std::make_unique<TaskComposerPipeline>(name + "_1", false);
     boost::uuids::uuid uuid1 = pipeline1->addNode(std::move(task1));
@@ -689,11 +631,11 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     pipeline1->addEdges(uuid2, { uuid3, uuid4 });
     pipeline1->setTerminals({ uuid3, uuid4 });
 
-    auto task5 = std::make_unique<TestTask>(name1, false);
-    auto task6 = std::make_unique<TestTask>(name2, true);
+    auto task5 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task6 = std::make_unique<test_suite::TestTask>(name2, true);
     task6->return_value = 1;
-    auto task7 = std::make_unique<TestTask>(name3, false);
-    auto task8 = std::make_unique<TestTask>(name4, false);
+    auto task7 = std::make_unique<test_suite::TestTask>(name3, false);
+    auto task8 = std::make_unique<test_suite::TestTask>(name4, false);
     task8->return_value = 1;
     auto pipeline2 = std::make_unique<TaskComposerPipeline>(name + "_2", false);
     boost::uuids::uuid uuid5 = pipeline2->addNode(std::move(task5));
@@ -732,11 +674,11 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   }
 
   {  // Nested Pipeline Conditional
-    auto task1 = std::make_unique<TestTask>(name1, false);
-    auto task2 = std::make_unique<TestTask>(name2, true);
+    auto task1 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task2 = std::make_unique<test_suite::TestTask>(name2, true);
     task2->return_value = 1;
-    auto task3 = std::make_unique<TestTask>(name3, false);
-    auto task4 = std::make_unique<TestTask>(name4, false);
+    auto task3 = std::make_unique<test_suite::TestTask>(name3, false);
+    auto task4 = std::make_unique<test_suite::TestTask>(name4, false);
     task4->return_value = 1;
     auto pipeline1 = std::make_unique<TaskComposerPipeline>(name + "_1", true);
     boost::uuids::uuid uuid1 = pipeline1->addNode(std::move(task1));
@@ -747,11 +689,11 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     pipeline1->addEdges(uuid2, { uuid3, uuid4 });
     pipeline1->setTerminals({ uuid3, uuid4 });
 
-    auto task5 = std::make_unique<TestTask>(name1, false);
-    auto task6 = std::make_unique<TestTask>(name2, true);
+    auto task5 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task6 = std::make_unique<test_suite::TestTask>(name2, true);
     task6->return_value = 1;
-    auto task7 = std::make_unique<TestTask>(name3, false);
-    auto task8 = std::make_unique<TestTask>(name4, false);
+    auto task7 = std::make_unique<test_suite::TestTask>(name3, false);
+    auto task8 = std::make_unique<test_suite::TestTask>(name4, false);
     task8->return_value = 1;
     auto pipeline2 = std::make_unique<TaskComposerPipeline>(name + "_2", false);
     boost::uuids::uuid uuid5 = pipeline2->addNode(std::move(task5));
@@ -763,7 +705,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     pipeline2->setTerminals({ uuid7, uuid8 });
 
     auto pipeline3 = std::make_unique<TaskComposerPipeline>(name + "_3");
-    auto task11 = std::make_unique<TestTask>(name1, false);
+    auto task11 = std::make_unique<test_suite::TestTask>(name1, false);
     boost::uuids::uuid uuid9 = pipeline3->addNode(std::move(pipeline1));
     boost::uuids::uuid uuid10 = pipeline3->addNode(std::move(pipeline2));
     boost::uuids::uuid uuid11 = pipeline3->addNode(std::move(task11));
@@ -792,12 +734,12 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   }
 
   {  // Nested Pipeline Abort
-    auto task1 = std::make_unique<TestTask>(name1, false);
-    auto task2 = std::make_unique<TestTask>(name2, true);
+    auto task1 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task2 = std::make_unique<test_suite::TestTask>(name2, true);
     task2->return_value = 1;
     task2->set_abort = true;
-    auto task3 = std::make_unique<TestTask>(name3, false);
-    auto task4 = std::make_unique<TestTask>(name4, false);
+    auto task3 = std::make_unique<test_suite::TestTask>(name3, false);
+    auto task4 = std::make_unique<test_suite::TestTask>(name4, false);
     task4->return_value = 1;
     auto pipeline1 = std::make_unique<TaskComposerPipeline>(name + "_1", true);
     boost::uuids::uuid uuid1 = pipeline1->addNode(std::move(task1));
@@ -808,11 +750,11 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     pipeline1->addEdges(uuid2, { uuid3, uuid4 });
     pipeline1->setTerminals({ uuid3, uuid4 });
 
-    auto task5 = std::make_unique<TestTask>(name1, false);
-    auto task6 = std::make_unique<TestTask>(name2, true);
+    auto task5 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task6 = std::make_unique<test_suite::TestTask>(name2, true);
     task6->return_value = 1;
-    auto task7 = std::make_unique<TestTask>(name3, false);
-    auto task8 = std::make_unique<TestTask>(name4, false);
+    auto task7 = std::make_unique<test_suite::TestTask>(name3, false);
+    auto task8 = std::make_unique<test_suite::TestTask>(name4, false);
     task8->return_value = 1;
     auto pipeline2 = std::make_unique<TaskComposerPipeline>(name + "_2", false);
     boost::uuids::uuid uuid5 = pipeline2->addNode(std::move(task5));
@@ -824,7 +766,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     pipeline2->setTerminals({ uuid7, uuid8 });
 
     auto pipeline3 = std::make_unique<TaskComposerPipeline>(name + "_3");
-    auto task11 = std::make_unique<TestTask>(name1, false);
+    auto task11 = std::make_unique<test_suite::TestTask>(name1, false);
     boost::uuids::uuid uuid9 = pipeline3->addNode(std::move(pipeline1));
     boost::uuids::uuid uuid10 = pipeline3->addNode(std::move(pipeline2));
     boost::uuids::uuid uuid11 = pipeline3->addNode(std::move(task11));
@@ -968,11 +910,11 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   // This section tests failures
 
   {  // Missing terminals
-    auto task1 = std::make_unique<TestTask>(name1, false);
-    auto task2 = std::make_unique<TestTask>(name2, true);
+    auto task1 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task2 = std::make_unique<test_suite::TestTask>(name2, true);
     task2->return_value = 1;
-    auto task3 = std::make_unique<TestTask>(name3, false);
-    auto task4 = std::make_unique<TestTask>(name4, false);
+    auto task3 = std::make_unique<test_suite::TestTask>(name3, false);
+    auto task4 = std::make_unique<test_suite::TestTask>(name4, false);
     task4->return_value = 1;
     auto pipeline = std::make_unique<TaskComposerPipeline>(name);
     boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
@@ -1022,9 +964,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   }
 
   {  // No root
-    auto task1 = std::make_unique<TestTask>(name1, false);
-    auto task2 = std::make_unique<TestTask>(name2, false);
-    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto task1 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task2 = std::make_unique<test_suite::TestTask>(name2, false);
+    auto task3 = std::make_unique<test_suite::TestTask>(name3, false);
     auto pipeline = std::make_unique<TaskComposerPipeline>(name);
     boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
     boost::uuids::uuid uuid2 = pipeline->addNode(std::move(task2));
@@ -1053,9 +995,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   }
 
   {  // Non conditional with multiple out edgets
-    auto task1 = std::make_unique<TestTask>(name1, false);
-    auto task2 = std::make_unique<TestTask>(name2, false);
-    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto task1 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task2 = std::make_unique<test_suite::TestTask>(name2, false);
+    auto task3 = std::make_unique<test_suite::TestTask>(name3, false);
     auto pipeline = std::make_unique<TaskComposerPipeline>(name);
     boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
     boost::uuids::uuid uuid2 = pipeline->addNode(std::move(task2));
@@ -1083,9 +1025,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   }
 
   {  // Set invalid terminal
-    auto task1 = std::make_unique<TestTask>(name1, false);
-    auto task2 = std::make_unique<TestTask>(name2, false);
-    auto task3 = std::make_unique<TestTask>(name3, false);
+    auto task1 = std::make_unique<test_suite::TestTask>(name1, false);
+    auto task2 = std::make_unique<test_suite::TestTask>(name2, false);
+    auto task3 = std::make_unique<test_suite::TestTask>(name3, false);
     auto pipeline = std::make_unique<TaskComposerPipeline>(name);
     boost::uuids::uuid uuid1 = pipeline->addNode(std::move(task1));
     boost::uuids::uuid uuid2 = pipeline->addNode(std::move(task2));

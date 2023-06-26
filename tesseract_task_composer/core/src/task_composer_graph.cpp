@@ -339,7 +339,10 @@ bool TaskComposerGraph::operator==(const TaskComposerGraph& rhs) const
   equal &= TaskComposerNode::operator==(rhs);
   return equal;
 }
+
+// LCOV_EXCL_START
 bool TaskComposerGraph::operator!=(const TaskComposerGraph& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
 void TaskComposerGraph::serialize(Archive& ar, const unsigned int /*version*/)
