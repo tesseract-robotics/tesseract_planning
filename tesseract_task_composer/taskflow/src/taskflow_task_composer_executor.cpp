@@ -68,44 +68,24 @@ TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(std::string name, con
 
 TaskflowTaskComposerExecutor::~TaskflowTaskComposerExecutor() = default;
 
-TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerGraph& task_graph,
-                                                           TaskComposerInput& task_input)
+TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerNode& node, TaskComposerInput& task_input)
 {
-  auto taskflow = convertToTaskflow(task_graph, task_input, *this);
-  std::shared_future<void> f = executor_->run(*(taskflow->front()));
+  std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>> taskflow;
+  if (node.getType() == TaskComposerNodeType::TASK)
+    taskflow = convertToTaskflow(static_cast<const TaskComposerTask&>(node), task_input, *this);
+  else if (node.getType() == TaskComposerNodeType::PIPELINE)
+    taskflow = convertToTaskflow(static_cast<const TaskComposerPipeline&>(node), task_input, *this);
+  else if (node.getType() == TaskComposerNodeType::GRAPH)
+    taskflow = convertToTaskflow(static_cast<const TaskComposerGraph&>(node), task_input, *this);
+  else
+    throw std::runtime_error("TaskComposerExecutor, unsupported node type!");
 
   //  std::ofstream out_data;
   //  out_data.open(tesseract_common::getTempPath() + "task_composer_example.dot");
   //  taskflow.top->dump(out_data);  // dump the graph including dynamic tasks
   //  out_data.close();
 
-  return std::make_unique<TaskflowTaskComposerFuture>(f, std::move(taskflow));
-}
-
-TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerPipeline& task_pipeline,
-                                                           TaskComposerInput& task_input)
-{
-  auto taskflow = convertToTaskflow(task_pipeline, task_input, *this);
   std::shared_future<void> f = executor_->run(*(taskflow->front()));
-
-  //  std::ofstream out_data;
-  //  out_data.open(tesseract_common::getTempPath() + "task_composer_example.dot");
-  //  taskflow.top->dump(out_data);  // dump the graph including dynamic tasks
-  //  out_data.close();
-
-  return std::make_unique<TaskflowTaskComposerFuture>(f, std::move(taskflow));
-}
-
-TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerTask& task, TaskComposerInput& task_input)
-{
-  auto taskflow = convertToTaskflow(task, task_input, *this);
-  std::shared_future<void> f = executor_->run(*(taskflow->front()));
-
-  //  std::ofstream out_data;
-  //  out_data.open(tesseract_common::getTempPath() + "task_composer_example.dot");
-  //  taskflow.top->dump(out_data);  // dump the graph including dynamic tasks
-  //  out_data.close();
-
   return std::make_unique<TaskflowTaskComposerFuture>(f, std::move(taskflow));
 }
 
@@ -117,7 +97,6 @@ bool TaskflowTaskComposerExecutor::operator==(const TaskflowTaskComposerExecutor
 {
   bool equal = true;
   equal &= (num_threads_ == rhs.num_threads_);
-  equal &= (executor_ == rhs.executor_);
   equal &= TaskComposerExecutor::operator==(rhs);
   return equal;
 }
@@ -157,6 +136,11 @@ TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_gr
   auto tf_container = std::make_shared<std::vector<std::unique_ptr<tf::Taskflow>>>();
   tf_container->emplace_back(std::make_unique<tf::Taskflow>(task_graph.getName()));
 
+  // Must add a Node Info object for the graph
+  auto info = std::make_unique<TaskComposerNodeInfo>(task_graph);
+  info->color = "green";
+  task_input.task_infos.addInfo(std::move(info));
+
   // Generate process tasks for each node
   std::map<boost::uuids::uuid, tf::Task> tasks;
   const auto& nodes = task_graph.getNodes();
@@ -176,7 +160,7 @@ TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_gr
                                 ->emplace([task, &task_input, &task_executor] { task->run(task_input, task_executor); })
                                 .name(pair.second->getName());
     }
-    if (pair.second->getType() == TaskComposerNodeType::PIPELINE)
+    else if (pair.second->getType() == TaskComposerNodeType::PIPELINE)
     {
       auto pipeline = std::static_pointer_cast<const TaskComposerPipeline>(pair.second);
       if (edges.size() > 1 && pipeline->isConditional())
@@ -193,12 +177,6 @@ TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_gr
     else if (pair.second->getType() == TaskComposerNodeType::GRAPH)
     {
       const auto& graph = static_cast<const TaskComposerGraph&>(*pair.second);
-
-      // Must add a Node Info object for the graph
-      auto info = std::make_unique<TaskComposerNodeInfo>(graph);
-      info->color = "green";
-      task_input.task_infos.addInfo(std::move(info));
-
       auto sub_tf_container = convertToTaskflow(graph, task_input, task_executor);
       tasks[pair.first] = tf_container->front()->composed_of(*sub_tf_container->front());
       tf_container->insert(tf_container->end(),

@@ -78,7 +78,10 @@ int TaskComposerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
 }
 
 bool TaskComposerTask::operator==(const TaskComposerTask& rhs) const { return (TaskComposerNode::operator==(rhs)); }
+
+// LCOV_EXCL_START
 bool TaskComposerTask::operator!=(const TaskComposerTask& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
 void TaskComposerTask::serialize(Archive& ar, const unsigned int /*version*/)
