@@ -39,7 +39,9 @@ const std::string& TaskComposerExecutor::getName() const { return name_; }
 
 bool TaskComposerExecutor::operator==(const TaskComposerExecutor& rhs) const { return (name_ == rhs.name_); }
 
+// LCOV_EXCL_START
 bool TaskComposerExecutor::operator!=(const TaskComposerExecutor& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
 void TaskComposerExecutor::serialize(Archive& ar, const unsigned int /*version*/)

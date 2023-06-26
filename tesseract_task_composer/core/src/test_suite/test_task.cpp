@@ -33,6 +33,7 @@ TestTask::TestTask(std::string name, bool is_conditional) : TaskComposerTask(std
 TestTask::TestTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), config)
 {
+  // LCOV_EXCL_START
   try
   {
     if (YAML::Node n = config["throw_exception"])
@@ -48,6 +49,7 @@ TestTask::TestTask(std::string name, const YAML::Node& config, const TaskCompose
   {
     throw std::runtime_error("TestTask: Failed to parse yaml config data! Details: " + std::string(e.what()));
   }
+  // LCOV_EXCL_STOP
 }
 
 bool TestTask::operator==(const TestTask& rhs) const
