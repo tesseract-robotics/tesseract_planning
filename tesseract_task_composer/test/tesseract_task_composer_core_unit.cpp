@@ -5,12 +5,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <sstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/joint_state.h>
+#include <tesseract_common/utils.h>
 
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_task.h>
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
+#include <tesseract_task_composer/core/task_composer_server.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
 #include <tesseract_task_composer/core/test_suite/task_composer_node_info_unit.hpp>
@@ -1653,6 +1655,168 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerStartTaskTests)  // NOLINT
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerServerTests)  // NOLINT
+{
+  std::string str = R"(task_composer_plugins:
+                         search_paths:
+                           - /usr/local/lib
+                         search_libraries:
+                           - tesseract_task_composer_factories
+                           - tesseract_task_composer_taskflow_factories
+                         executors:
+                           default: TaskflowExecutor
+                           plugins:
+                             TaskflowExecutor:
+                               class: TaskflowTaskComposerExecutorFactory
+                               config:
+                                 threads: 5
+                         tasks:
+                           plugins:
+                             TestPipeline:
+                               class: PipelineTaskFactory
+                               config:
+                                 conditional: true
+                                 inputs: input_data
+                                 outputs: output_data
+                                 nodes:
+                                   StartTask:
+                                     class: StartTaskFactory
+                                     config:
+                                       conditional: false
+                                   TestTask:
+                                     class: TestTaskFactory
+                                     config:
+                                       conditional: true
+                                       return_value: 1
+                                   DoneTask:
+                                     class: DoneTaskFactory
+                                     config:
+                                       conditional: false
+                                   AbortTask:
+                                     class: DoneTaskFactory
+                                     config:
+                                       conditional: false
+                                 edges:
+                                   - source: StartTask
+                                     destinations: [TestTask]
+                                   - source: TestTask
+                                     destinations: [AbortTask, DoneTask]
+                                 terminals: [AbortTask, DoneTask]
+                             TestGraph:
+                               class: GraphTaskFactory
+                               config:
+                                 conditional: false
+                                 inputs: input_data
+                                 outputs: output_data
+                                 nodes:
+                                   StartTask:
+                                     class: StartTaskFactory
+                                     config:
+                                       conditional: false
+                                   TestTask:
+                                     class: TestTaskFactory
+                                     config:
+                                       conditional: true
+                                       return_value: 1
+                                   DoneTask:
+                                     class: DoneTaskFactory
+                                     config:
+                                       conditional: false
+                                   AbortTask:
+                                     class: DoneTaskFactory
+                                     config:
+                                       conditional: false
+                                 edges:
+                                   - source: StartTask
+                                     destinations: [TestTask]
+                                   - source: TestTask
+                                     destinations: [AbortTask, DoneTask]
+                                 terminals: [AbortTask, DoneTask])";
+
+  auto runTest = [](TaskComposerServer& server) {
+    std::vector<std::string> tasks{ "TestPipeline", "TestGraph" };
+    std::vector<std::string> executors{ "TaskflowExecutor" };
+    EXPECT_TRUE(tesseract_common::isIdentical(server.getAvailableTasks(), tasks, false));
+    EXPECT_TRUE(server.hasTask("TestPipeline"));
+    EXPECT_TRUE(server.hasTask("TestGraph"));
+    EXPECT_NO_THROW(server.getTask("TestPipeline"));   // NOLINT
+    EXPECT_NO_THROW(server.getTask("TestGraph"));      // NOLINT
+    EXPECT_ANY_THROW(server.getTask("DoesNotExist"));  // NOLINT
+    EXPECT_TRUE(tesseract_common::isIdentical(server.getAvailableExecutors(), executors, false));
+    EXPECT_TRUE(server.hasExecutor("TaskflowExecutor"));
+    EXPECT_NO_THROW(server.getExecutor("TaskflowExecutor"));  // NOLINT
+    EXPECT_ANY_THROW(server.getExecutor("DoesNotExist"));     // NOLINT
+    EXPECT_EQ(server.getWorkerCount("TaskflowExecutor"), 5);
+    EXPECT_EQ(server.getTaskCount("TaskflowExecutor"), 0);
+    EXPECT_ANY_THROW(server.getWorkerCount("DoesNotExist"));  // NOLINT
+    EXPECT_ANY_THROW(server.getTaskCount("DoesNotExist"));    // NOLINT
+
+    {  // Run method using TaskComposerInput
+      auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
+      input->problem->name = "TestPipeline";
+      auto future = server.run(*input, "TaskflowExecutor");
+      future->wait();
+
+      EXPECT_EQ(input->isAborted(), false);
+      EXPECT_EQ(input->isSuccessful(), true);
+      EXPECT_EQ(input->task_infos.getInfoMap().size(), 4);
+      EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+    }
+
+    {  // Run method using Pipeline
+      auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
+      input->problem->name = "TestPipeline";
+      const auto& pipeline = server.getTask("TestPipeline");
+      auto future = server.run(pipeline, *input, "TaskflowExecutor");
+      future->wait();
+
+      EXPECT_EQ(input->isAborted(), false);
+      EXPECT_EQ(input->isSuccessful(), true);
+      EXPECT_EQ(input->task_infos.getInfoMap().size(), 4);
+      EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+    }
+
+    {  // Failures, executor does not exist
+      auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
+      input->problem->name = "TestPipeline";
+      EXPECT_ANY_THROW(server.run(*input, "DoesNotExist"));  // NOLINT
+    }
+
+    {  // Failures, task does not exist
+      auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
+      input->problem->name = "DoesNotExist";
+      EXPECT_ANY_THROW(server.run(*input, "TaskflowExecutor"));  // NOLINT
+    }
+  };
+
+  {  // String Constructor
+    TaskComposerServer server;
+    server.loadConfig(str);
+    runTest(server);
+  }
+
+  {  // YAML::Node Constructor
+    TaskComposerServer server;
+    YAML::Node config = YAML::Load(str);
+    server.loadConfig(config);
+    runTest(server);
+  }
+
+  {  // File Path Constructor
+    YAML::Node config = YAML::Load(str);
+    tesseract_common::fs::path file_path{ tesseract_common::getTempPath() + "TaskComposerServerTests.yaml" };
+
+    {
+      std::ofstream fout(file_path.string());
+      fout << config;
+    }
+
+    TaskComposerServer server;
+    server.loadConfig(file_path);
+    runTest(server);
   }
 }
 
