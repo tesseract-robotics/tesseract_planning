@@ -59,7 +59,7 @@ protected:
   friend class boost::serialization::access;
 
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/);
+  void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
 
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
                                      OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override final;
