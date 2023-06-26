@@ -128,28 +128,6 @@ TaskComposerFuture::UPtr TaskComposerServer::run(const TaskComposerNode& node,
   return it->second->run(node, task_input);
 }
 
-TaskComposerFuture::UPtr TaskComposerServer::run(const TaskComposerGraph& task_graph,
-                                                 TaskComposerInput& task_input,
-                                                 const std::string& name)
-{
-  auto it = executors_.find(name);
-  if (it == executors_.end())
-    throw std::runtime_error("Executor with name '" + name + "' does not exist!");
-
-  return it->second->run(task_graph, task_input);
-}
-
-TaskComposerFuture::UPtr TaskComposerServer::run(const TaskComposerTask& task,
-                                                 TaskComposerInput& task_input,
-                                                 const std::string& name)
-{
-  auto it = executors_.find(name);
-  if (it == executors_.end())
-    throw std::runtime_error("Executor with name '" + name + "' does not exist!");
-
-  return it->second->run(task, task_input);
-}
-
 long TaskComposerServer::getWorkerCount(const std::string& name) const
 {
   auto it = executors_.find(name);

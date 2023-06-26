@@ -130,24 +130,6 @@ public:
    */
   TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerInput& task_input, const std::string& name);
 
-  /**
-   * @brief Execute the provided task graph
-   * @param task_graph The task graph to execute
-   * @param task_input The task input provided to every task
-   * @return The future associated with execution
-   */
-  TaskComposerFuture::UPtr run(const TaskComposerGraph& task_graph,
-                               TaskComposerInput& task_input,
-                               const std::string& name);
-
-  /**
-   * @brief Execute the provided task
-   * @param task_graph The task to execute
-   * @param task_input The task input provided to task
-   * @return The future associated with execution
-   */
-  TaskComposerFuture::UPtr run(const TaskComposerTask& task, TaskComposerInput& task_input, const std::string& name);
-
   /** @brief Queries the number of workers (example: number of threads) */
   long getWorkerCount(const std::string& name) const;
 
