@@ -90,7 +90,7 @@ struct TaskComposerInput
    * @note If calling within a node you must provide the uuid
    * @details This accesses the internal process interface class to abort the process
    */
-  void abort(const boost::uuids::uuid& calling_node = boost::uuids::uuid{});
+  void abort(const boost::uuids::uuid& calling_node = boost::uuids::uuid());
 
   /**
    * @brief Abort the process input

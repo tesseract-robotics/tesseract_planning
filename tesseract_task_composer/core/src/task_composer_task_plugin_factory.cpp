@@ -24,6 +24,7 @@
  * limitations under the License.
  */
 
+#include <tesseract_task_composer/core/task_composer_task_plugin_factory.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory_utils.h>
 #include <tesseract_task_composer/core/task_composer_graph.h>
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
@@ -42,6 +43,8 @@ using ErrorTaskFactory = TaskComposerTaskFactory<ErrorTask>;
 using StartTaskFactory = TaskComposerTaskFactory<StartTask>;
 using GraphTaskFactory = TaskComposerTaskFactory<TaskComposerGraph>;
 using PipelineTaskFactory = TaskComposerTaskFactory<TaskComposerPipeline>;
+
+TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerTaskFactoryAnchor)
 
 }  // namespace tesseract_planning
 

@@ -95,6 +95,9 @@ target_code_coverage(
 add_gtest_discover_tests(${PROJECT_NAME}_plugin_factories_unit)
 add_dependencies(run_tests ${PROJECT_NAME}_plugin_factories_unit)
 add_dependencies(${PROJECT_NAME}_plugin_factories_unit ${PROJECT_NAME})
+if(TESSERACT_BUILD_TRAJOPT_IFOPT)
+  target_compile_definitions(${PROJECT_NAME}_plugin_factories_unit PUBLIC TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT=1)
+endif()
 
 # Core Tests
 add_executable(${PROJECT_NAME}_core_unit ${PROJECT_NAME}_core_unit.cpp)
