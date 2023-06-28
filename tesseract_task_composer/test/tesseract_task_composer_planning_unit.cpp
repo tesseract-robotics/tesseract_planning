@@ -1629,8 +1629,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     std::string str = R"(config:
                            conditional: true)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(
-        std::make_unique<IterativeSplineParameterizationTask>("abc", config["config"], factory));  // NOLINT
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(std::make_unique<IterativeSplineParameterizationTask>("abc", config["config"], factory));
   }
 
   {  // Construction failure
@@ -1639,8 +1639,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
                            conditional: true
                            inputs: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(
-        std::make_unique<IterativeSplineParameterizationTask>("abc", config["config"], factory));  // NOLINT
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(std::make_unique<IterativeSplineParameterizationTask>("abc", config["config"], factory));
   }
 
   {  // Construction failure
@@ -1649,8 +1649,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
                            conditional: true
                            inputs: [input_data])";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(
-        std::make_unique<IterativeSplineParameterizationTask>("abc", config["config"], factory));  // NOLINT
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(std::make_unique<IterativeSplineParameterizationTask>("abc", config["config"], factory));
   }
 
   {  // Construction failure
@@ -1660,8 +1660,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
                            inputs: [input_data]
                            outputs: [output_data, output_data2])";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(
-        std::make_unique<IterativeSplineParameterizationTask>("abc", config["config"], factory));  // NOLINT
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(std::make_unique<IterativeSplineParameterizationTask>("abc", config["config"], factory));
   }
 
   {  // Construction failure
@@ -1673,8 +1673,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
                            add_points:
                              value: true)";
     YAML::Node config = YAML::Load(str);
-    EXPECT_ANY_THROW(
-        std::make_unique<IterativeSplineParameterizationTask>("abc", config["config"], factory));  // NOLINT
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(std::make_unique<IterativeSplineParameterizationTask>("abc", config["config"], factory));
   }
 
   {  // Serialization
