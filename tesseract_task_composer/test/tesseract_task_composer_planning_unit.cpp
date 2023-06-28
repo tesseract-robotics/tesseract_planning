@@ -70,10 +70,83 @@ protected:
     env_ = env;
 
     manip_.manipulator = "manipulator";
+    manip_.working_frame = "base_link";
+    manip_.tcp_frame = "tool0";
   }
 };
 
-TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerCheckInputTaskTests)  // NOLINT
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningProblemTests)  // NOLINT
+{
+  {  // Construction
+    PlanningTaskComposerProblem problem;
+    EXPECT_EQ(problem.name, "unset");
+  }
+
+  {  // Construction
+    auto profiles = std::make_shared<ProfileDictionary>();
+    TaskComposerDataStorage data;
+    data.setData("input_data", test_suite::freespaceExampleProgramABB());
+    PlanningTaskComposerProblem problem(data, profiles, "abc");
+    EXPECT_EQ(problem.name, "abc");
+    EXPECT_TRUE(problem.env == nullptr);
+    EXPECT_TRUE(problem.manip_info.empty());
+    EXPECT_TRUE(problem.move_profile_remapping.empty());
+    EXPECT_TRUE(problem.composite_profile_remapping.empty());
+    EXPECT_TRUE(problem.profiles != nullptr);
+    EXPECT_TRUE(problem.input_data.hasKey("input_data"));
+  }
+
+  {  // Construction
+    auto profiles = std::make_shared<ProfileDictionary>();
+    TaskComposerDataStorage data;
+    data.setData("input_data", test_suite::freespaceExampleProgramABB());
+    PlanningTaskComposerProblem problem(env_, manip_, data, profiles, "abc");
+    EXPECT_EQ(problem.name, "abc");
+    EXPECT_TRUE(problem.env != nullptr);
+    EXPECT_FALSE(problem.manip_info.empty());
+    EXPECT_TRUE(problem.move_profile_remapping.empty());
+    EXPECT_TRUE(problem.composite_profile_remapping.empty());
+    EXPECT_TRUE(problem.profiles != nullptr);
+    EXPECT_TRUE(problem.input_data.hasKey("input_data"));
+  }
+
+  {  // Construction
+    auto profiles = std::make_shared<ProfileDictionary>();
+    TaskComposerDataStorage data;
+    data.setData("input_data", test_suite::freespaceExampleProgramABB());
+    PlanningTaskComposerProblem problem(env_, manip_, ProfileRemapping(), ProfileRemapping(), data, profiles, "abc");
+    EXPECT_EQ(problem.name, "abc");
+    EXPECT_TRUE(problem.env != nullptr);
+    EXPECT_FALSE(problem.manip_info.empty());
+    EXPECT_TRUE(problem.move_profile_remapping.empty());
+    EXPECT_TRUE(problem.composite_profile_remapping.empty());
+    EXPECT_TRUE(problem.profiles != nullptr);
+    EXPECT_TRUE(problem.input_data.hasKey("input_data"));
+  }
+
+  {  // Construction
+    auto profiles = std::make_shared<ProfileDictionary>();
+    TaskComposerDataStorage data;
+    data.setData("input_data", test_suite::freespaceExampleProgramABB());
+    PlanningTaskComposerProblem problem(env_, ProfileRemapping(), ProfileRemapping(), data, profiles, "abc");
+    EXPECT_EQ(problem.name, "abc");
+    EXPECT_TRUE(problem.env != nullptr);
+    EXPECT_TRUE(problem.manip_info.empty());
+    EXPECT_TRUE(problem.move_profile_remapping.empty());
+    EXPECT_TRUE(problem.composite_profile_remapping.empty());
+    EXPECT_TRUE(problem.profiles != nullptr);
+    EXPECT_TRUE(problem.input_data.hasKey("input_data"));
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<PlanningTaskComposerProblem>();
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerCheckInputTaskTests");
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningTaskComposerProblemTests)  // NOLINT
 {
   {  // Construction
     CheckInputTask task;
