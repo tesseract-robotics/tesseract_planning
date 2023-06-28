@@ -48,7 +48,7 @@ public:
   using ConstUPtr = std::unique_ptr<const MinLengthTask>;
 
   MinLengthTask();
-  explicit MinLengthTask(std::string name, std::string input_key, std::string output_key, bool is_conditional = false);
+  explicit MinLengthTask(std::string name, std::string input_key, std::string output_key, bool conditional = false);
   explicit MinLengthTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~MinLengthTask() override = default;
   MinLengthTask(const MinLengthTask&) = delete;

@@ -48,7 +48,7 @@ public:
   using ConstUPtr = std::unique_ptr<const DiscreteContactCheckTask>;
 
   DiscreteContactCheckTask();
-  explicit DiscreteContactCheckTask(std::string name, std::string input_key, bool is_conditional = true);
+  explicit DiscreteContactCheckTask(std::string name, std::string input_key, bool conditional = true);
   explicit DiscreteContactCheckTask(std::string name,
                                     const YAML::Node& config,
                                     const TaskComposerPluginFactory& plugin_factory);

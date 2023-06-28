@@ -46,8 +46,8 @@ public:
   using ConstUPtr = std::unique_ptr<const CheckInputTask>;
 
   CheckInputTask();
-  explicit CheckInputTask(std::string name, std::string input_key, bool is_conditional = true);
-  explicit CheckInputTask(std::string name, std::vector<std::string> input_keys, bool is_conditional = true);
+  explicit CheckInputTask(std::string name, std::string input_key, bool conditional = true);
+  explicit CheckInputTask(std::string name, std::vector<std::string> input_keys, bool conditional = true);
   explicit CheckInputTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
 
   ~CheckInputTask() override = default;

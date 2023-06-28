@@ -12,6 +12,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/nodes/discrete_contact_check_task.h>
 #include <tesseract_task_composer/planning/nodes/format_as_input_task.h>
 #include <tesseract_task_composer/planning/nodes/min_length_task.h>
+#include <tesseract_task_composer/planning/nodes/fix_state_bounds_task.h>
+#include <tesseract_task_composer/planning/nodes/fix_state_collision_task.h>
 #include <tesseract_task_composer/planning/nodes/profile_switch_task.h>
 #include <tesseract_task_composer/planning/nodes/update_end_state_task.h>
 #include <tesseract_task_composer/planning/nodes/update_start_and_end_state_task.h>
@@ -21,6 +23,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/nodes/time_optimal_parameterization_task.h>
 #include <tesseract_task_composer/planning/nodes/ruckig_trajectory_smoothing_task.h>
 #include <tesseract_task_composer/planning/nodes/motion_planner_task.hpp>
+#include <tesseract_task_composer/planning/nodes/raster_motion_task.h>
+#include <tesseract_task_composer/planning/nodes/raster_only_motion_task.h>
 
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
 
@@ -40,6 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/types.h>
 #include <tesseract_common/resource_locator.h>
 #include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/joint_state.h>
 
 #include <tesseract_environment/environment.h>
 
@@ -48,19 +53,20 @@ using namespace tesseract_planning;
 class TesseractTaskComposerPlanningUnit : public ::testing::Test
 {
 protected:
+  tesseract_common::GeneralResourceLocator::Ptr locator_;
   tesseract_environment::Environment::Ptr env_;
   tesseract_common::ManipulatorInfo manip_;
 
   void SetUp() override
   {
-    auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
+    locator_ = std::make_shared<tesseract_common::GeneralResourceLocator>();
     auto env = std::make_shared<tesseract_environment::Environment>();
 
     tesseract_common::fs::path urdf_path(
-        locator->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
+        locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
     tesseract_common::fs::path srdf_path(
-        locator->locateResource("package://tesseract_support/urdf/abb_irb2400.srdf")->getFilePath());
-    EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
+        locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.srdf")->getFilePath());
+    EXPECT_TRUE(env->init(urdf_path, srdf_path, locator_));
     env_ = env;
 
     manip_.manipulator = "manipulator";
@@ -128,6 +134,26 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerCheckInputTaskTests)  // N
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->message, "Successful");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure
+    auto profiles = std::make_shared<ProfileDictionary>();
+    TaskComposerDataStorage data;
+    data.setData("input_data", test_suite::freespaceExampleProgramABB());
+    auto problem =
+        std::make_unique<PlanningTaskComposerProblem>(env_, manip_, data, profiles, "TaskComposerCheckInputTaskTests");
+    problem->env = nullptr;
+    auto input = std::make_unique<TaskComposerInput>(std::move(problem));
+    CheckInputTask task("TaskComposerCheckInputTaskTests", "input_data", true);
+    EXPECT_EQ(task.run(*input), 0);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
@@ -723,6 +749,222 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, data, profiles, "abc");
     auto input = std::make_unique<TaskComposerInput>(std::move(problem));
     MinLengthTask task("abc", "input_data", "output_data", true);
+    EXPECT_EQ(task.run(*input), 0);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  // NOLINT
+{
+  {  // Construction
+    FixStateBoundsTask task;
+    EXPECT_EQ(task.getName(), "FixStateBoundsTask");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    FixStateBoundsTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+    EXPECT_EQ(task.getInputKeys().size(), 1);
+    EXPECT_EQ(task.getInputKeys().front(), "input_data");
+    EXPECT_EQ(task.getOutputKeys().size(), 1);
+    EXPECT_EQ(task.getOutputKeys().front(), "output_data");
+    EXPECT_EQ(task.getOutboundEdges().size(), 0);
+    EXPECT_EQ(task.getInboundEdges().size(), 0);
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FixStateBoundsTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data, output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FixStateBoundsTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FixStateBoundsTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data, output_data2])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FixStateBoundsTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<FixStateBoundsTask>();
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerFixStateBoundsTaskTests");
+  }
+
+  {  // Test run method
+    auto profiles = std::make_shared<ProfileDictionary>();
+    TaskComposerDataStorage data;
+    data.setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, data, profiles, "abc");
+    auto input = std::make_unique<TaskComposerInput>(std::move(problem));
+    FixStateBoundsTask task("abc", "input_data", "output_data", true);
+    EXPECT_EQ(task.run(*input), 1);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->data_storage.hasKey("output_data"));
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure missing input data
+    auto profiles = std::make_shared<ProfileDictionary>();
+    TaskComposerDataStorage data;
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, data, profiles, "abc");
+    auto input = std::make_unique<TaskComposerInput>(std::move(problem));
+    FixStateBoundsTask task("abc", "input_data", "output_data", true);
+    EXPECT_EQ(task.run(*input), 0);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests)  // NOLINT
+{
+  {  // Construction
+    FixStateCollisionTask task;
+    EXPECT_EQ(task.getName(), "FixStateCollisionTask");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    FixStateCollisionTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+    EXPECT_EQ(task.getInputKeys().size(), 1);
+    EXPECT_EQ(task.getInputKeys().front(), "input_data");
+    EXPECT_EQ(task.getOutputKeys().size(), 1);
+    EXPECT_EQ(task.getOutputKeys().front(), "output_data");
+    EXPECT_EQ(task.getOutboundEdges().size(), 0);
+    EXPECT_EQ(task.getInboundEdges().size(), 0);
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FixStateCollisionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data, output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FixStateCollisionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FixStateCollisionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data, output_data2])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FixStateCollisionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<FixStateCollisionTask>();
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerFixStateCollisionTaskTests");
+  }
+
+  {  // Test run method
+    auto profiles = std::make_shared<ProfileDictionary>();
+    TaskComposerDataStorage data;
+    data.setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, data, profiles, "abc");
+    auto input = std::make_unique<TaskComposerInput>(std::move(problem));
+    FixStateCollisionTask task("abc", "input_data", "output_data", true);
+    EXPECT_EQ(task.run(*input), 1);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->data_storage.hasKey("output_data"));
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+
+    // Serialization
+    test_suite::runSerializationTest(dynamic_cast<const FixStateCollisionTaskInfo&>(*node_info),
+                                     "TaskComposerFixStateCollisionNodeInfoTests");
+  }
+
+  {  // Failure missing input data
+    auto profiles = std::make_shared<ProfileDictionary>();
+    TaskComposerDataStorage data;
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, data, profiles, "abc");
+    auto input = std::make_unique<TaskComposerInput>(std::move(problem));
+    FixStateCollisionTask task("abc", "input_data", "output_data", true);
     EXPECT_EQ(task.run(*input), 0);
     auto node_info = input->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
@@ -1834,6 +2076,806 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, data, profiles, "abc");
     auto input = std::make_unique<TaskComposerInput>(std::move(problem));
     MotionPlannerTask<TrajOptMotionPlanner> task("abc", "input_data", "output_data", false, true);
+    EXPECT_EQ(task.run(*input), 0);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  // NOLINT
+{
+  tesseract_common::fs::path config_path(
+      locator_->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
+  TaskComposerPluginFactory factory(config_path);
+
+  {  // Construction
+    RasterMotionTask task;
+    EXPECT_EQ(task.getName(), "RasterMotionTask");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    RasterMotionTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+    EXPECT_EQ(task.getInputKeys().size(), 1);
+    EXPECT_EQ(task.getInputKeys().front(), "input_data");
+    EXPECT_EQ(task.getOutputKeys().size(), 1);
+    EXPECT_EQ(task.getOutputKeys().front(), "output_data");
+    EXPECT_EQ(task.getOutboundEdges().size(), 0);
+    EXPECT_EQ(task.getInboundEdges().size(), 0);
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data, input_data2])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data, output_data2])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           raster:
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           raster:
+                             task: CartesianPipeline)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline
+                             input_indexing: [input_data])";
+    YAML::Node config = YAML::Load(str);
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<RasterMotionTask>();
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerRasterMotionTaskTests");
+  }
+
+  {  // Test run method
+    // Create raster task
+    TaskComposerNode::UPtr task = factory.createTaskComposerNode("RasterFtPipeline");
+    const std::string input_key = task->getInputKeys().front();
+    const std::string output_key = task->getOutputKeys().front();
+
+    // Define profiles
+    auto profiles = std::make_shared<ProfileDictionary>();
+
+    // Create data storage
+    TaskComposerDataStorage data;
+    data.setData(input_key, test_suite::rasterExampleProgram());
+
+    // Create problem
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, data, profiles);
+
+    // Create task input
+    auto input = std::make_shared<TaskComposerInput>(std::move(problem));
+    input->dotgraph = true;
+
+    // Solve raster plan
+    auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
+    TaskComposerFuture::UPtr future = executor->run(*task, *input);
+    future->wait();
+
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->data_storage.hasKey(output_key));
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure missing input data
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    RasterMotionTask task("abc", config["config"], factory);
+
+    // Create data storage
+    TaskComposerDataStorage data;
+
+    // Create problem
+    auto profiles = std::make_shared<ProfileDictionary>();
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, data, profiles);
+    auto input = std::make_shared<TaskComposerInput>(std::move(problem));
+    EXPECT_EQ(task.run(*input), 0);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure null input data
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    RasterMotionTask task("abc", config["config"], factory);
+
+    // Create data storage
+    TaskComposerDataStorage data;
+    data.setData("input_data", tesseract_common::AnyPoly());
+
+    // Create problem
+    auto profiles = std::make_shared<ProfileDictionary>();
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, data, profiles);
+    auto input = std::make_shared<TaskComposerInput>(std::move(problem));
+    EXPECT_EQ(task.run(*input), 0);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure input data is not composite
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    RasterMotionTask task("abc", config["config"], factory);
+
+    // Create data storage
+    TaskComposerDataStorage data;
+    data.setData("input_data", tesseract_common::AnyPoly(tesseract_common::JointState()));
+
+    // Create problem
+    auto profiles = std::make_shared<ProfileDictionary>();
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, data, profiles);
+    auto input = std::make_shared<TaskComposerInput>(std::move(problem));
+    EXPECT_EQ(task.run(*input), 0);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure input data is not composite
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           freespace:
+                             task: FreespacePipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    RasterMotionTask task("abc", config["config"], factory);
+
+    // Create data storage
+    TaskComposerDataStorage data;
+    data.setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
+
+    // Create problem
+    auto profiles = std::make_shared<ProfileDictionary>();
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, data, profiles);
+    auto input = std::make_shared<TaskComposerInput>(std::move(problem));
+    EXPECT_EQ(task.run(*input), 0);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)  // NOLINT
+{
+  tesseract_common::fs::path config_path(
+      locator_->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
+  TaskComposerPluginFactory factory(config_path);
+
+  {  // Construction
+    RasterOnlyMotionTask task;
+    EXPECT_EQ(task.getName(), "RasterOnlyMotionTask");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    RasterOnlyMotionTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+    EXPECT_EQ(task.getInputKeys().size(), 1);
+    EXPECT_EQ(task.getInputKeys().front(), "input_data");
+    EXPECT_EQ(task.getOutputKeys().size(), 1);
+    EXPECT_EQ(task.getOutputKeys().front(), "output_data");
+    EXPECT_EQ(task.getOutboundEdges().size(), 0);
+    EXPECT_EQ(task.getInboundEdges().size(), 0);
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data, input_data2])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data, output_data2])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           raster:
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           raster:
+                             task: CartesianPipeline)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline
+                             input_indexing: [input_data])";
+    YAML::Node config = YAML::Load(str);
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<RasterOnlyMotionTask>();
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerRasterOnlyMotionTaskTests");
+  }
+
+  {  // Test run method
+    // Create raster task
+    TaskComposerNode::UPtr task = factory.createTaskComposerNode("RasterFtOnlyPipeline");
+    const std::string input_key = task->getInputKeys().front();
+    const std::string output_key = task->getOutputKeys().front();
+
+    // Define profiles
+    auto profiles = std::make_shared<ProfileDictionary>();
+
+    // Create data storage
+    TaskComposerDataStorage data;
+    data.setData(input_key, test_suite::rasterOnlyExampleProgram());
+
+    // Create problem
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, data, profiles);
+
+    // Create task input
+    auto input = std::make_shared<TaskComposerInput>(std::move(problem));
+    input->dotgraph = true;
+
+    // Solve raster plan
+    auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
+    TaskComposerFuture::UPtr future = executor->run(*task, *input);
+    future->wait();
+
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->data_storage.hasKey(output_key));
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure missing input data
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    RasterOnlyMotionTask task("abc", config["config"], factory);
+
+    // Create data storage
+    TaskComposerDataStorage data;
+
+    // Create problem
+    auto profiles = std::make_shared<ProfileDictionary>();
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, data, profiles);
+    auto input = std::make_shared<TaskComposerInput>(std::move(problem));
+    EXPECT_EQ(task.run(*input), 0);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure null input data
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    RasterOnlyMotionTask task("abc", config["config"], factory);
+
+    // Create data storage
+    TaskComposerDataStorage data;
+    data.setData("input_data", tesseract_common::AnyPoly());
+
+    // Create problem
+    auto profiles = std::make_shared<ProfileDictionary>();
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, data, profiles);
+    auto input = std::make_shared<TaskComposerInput>(std::move(problem));
+    EXPECT_EQ(task.run(*input), 0);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure input data is not composite
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    RasterOnlyMotionTask task("abc", config["config"], factory);
+
+    // Create data storage
+    TaskComposerDataStorage data;
+    data.setData("input_data", tesseract_common::AnyPoly(tesseract_common::JointState()));
+
+    // Create problem
+    auto profiles = std::make_shared<ProfileDictionary>();
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, data, profiles);
+    auto input = std::make_shared<TaskComposerInput>(std::move(problem));
+    EXPECT_EQ(task.run(*input), 0);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure input data is not composite
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data]
+                           raster:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data]
+                           transition:
+                             task: CartesianPipeline
+                             input_indexing: [input_data]
+                             output_indexing: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    RasterOnlyMotionTask task("abc", config["config"], factory);
+
+    // Create data storage
+    TaskComposerDataStorage data;
+    data.setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
+
+    // Create problem
+    auto profiles = std::make_shared<ProfileDictionary>();
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, data, profiles);
+    auto input = std::make_shared<TaskComposerInput>(std::move(problem));
     EXPECT_EQ(task.run(*input), 0);
     auto node_info = input->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");

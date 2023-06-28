@@ -62,7 +62,7 @@ public:
   explicit FormatAsInputTask(std::string name,
                              const std::array<std::string, 2>& input_keys,
                              std::string output_key,
-                             bool is_conditional = true);
+                             bool conditional = true);
   explicit FormatAsInputTask(std::string name,
                              const YAML::Node& config,
                              const TaskComposerPluginFactory& plugin_factory);

@@ -62,7 +62,7 @@ public:
   explicit FixStateCollisionTask(std::string name,
                                  std::string input_key,
                                  std::string output_key,
-                                 bool is_conditional = true);
+                                 bool conditional = true);
   explicit FixStateCollisionTask(std::string name,
                                  const YAML::Node& config,
                                  const TaskComposerPluginFactory& plugin_factory);

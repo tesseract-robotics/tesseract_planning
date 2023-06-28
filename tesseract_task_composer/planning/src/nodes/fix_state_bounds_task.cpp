@@ -243,12 +243,7 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
   return info;
 }
 
-bool FixStateBoundsTask::operator==(const FixStateBoundsTask& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
-}
+bool FixStateBoundsTask::operator==(const FixStateBoundsTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
 bool FixStateBoundsTask::operator!=(const FixStateBoundsTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
