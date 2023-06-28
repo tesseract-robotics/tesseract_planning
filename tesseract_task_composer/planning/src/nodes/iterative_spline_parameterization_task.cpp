@@ -134,6 +134,7 @@ TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComp
     if (output_keys_[0] != input_keys_[0])
       input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
 
+    info->color = "green";
     info->message = "Iterative spline time parameterization found no MoveInstructions to process";
     info->return_value = 1;
     info->elapsed_time = timer.elapsedSeconds();

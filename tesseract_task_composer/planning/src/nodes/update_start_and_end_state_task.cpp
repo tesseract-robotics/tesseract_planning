@@ -39,8 +39,8 @@ UpdateStartAndEndStateTask::UpdateStartAndEndStateTask(std::string name,
                                                        std::string input_prev_key,
                                                        std::string input_next_key,
                                                        std::string output_key,
-                                                       bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+                                                       bool conditional)
+  : TaskComposerTask(std::move(name), conditional)
 {
   input_keys_.push_back(uuid_str_);
   input_keys_.push_back(std::move(input_prev_key));
@@ -53,8 +53,8 @@ UpdateStartAndEndStateTask::UpdateStartAndEndStateTask(std::string name,
                                                        std::string input_prev_key,
                                                        std::string input_next_key,
                                                        std::string output_key,
-                                                       bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+                                                       bool conditional)
+  : TaskComposerTask(std::move(name), conditional)
 {
   input_keys_.push_back(std::move(input_key));
   input_keys_.push_back(std::move(input_prev_key));
@@ -108,18 +108,27 @@ TaskComposerNodeInfo::UPtr UpdateStartAndEndStateTask::runImpl(TaskComposerInput
   auto& instructions = input_data_poly.as<CompositeInstruction>();
   const auto* prev_last_move = input_prev_data_poly.as<CompositeInstruction>().getLastMoveInstruction();
   const auto* next_start_move = input_next_data_poly.as<CompositeInstruction>().getFirstMoveInstruction();
+  auto* first_move_instruction = instructions.getFirstMoveInstruction();
+  auto* last_move_instruction = instructions.getLastMoveInstruction();
+  /** @todo Should the waypoint profile be updated to the path profile if it exists? **/
 
   // Update start instruction
-  instructions.at(0) = (*prev_last_move);
+  if (prev_last_move->getWaypoint().isCartesianWaypoint())
+    first_move_instruction->assignCartesianWaypoint(prev_last_move->getWaypoint().as<CartesianWaypointPoly>());
+  else if (prev_last_move->getWaypoint().isJointWaypoint())
+    first_move_instruction->assignJointWaypoint(prev_last_move->getWaypoint().as<JointWaypointPoly>());
+  else if (prev_last_move->getWaypoint().isStateWaypoint())
+    first_move_instruction->assignStateWaypoint(prev_last_move->getWaypoint().as<StateWaypointPoly>());
+  else
+    throw std::runtime_error("Invalid waypoint type");
 
   // Update end instruction
   if (next_start_move->getWaypoint().isCartesianWaypoint())
-    instructions.getLastMoveInstruction()->assignCartesianWaypoint(
-        next_start_move->getWaypoint().as<CartesianWaypointPoly>());
+    last_move_instruction->assignCartesianWaypoint(next_start_move->getWaypoint().as<CartesianWaypointPoly>());
   else if (next_start_move->getWaypoint().isJointWaypoint())
-    instructions.getLastMoveInstruction()->assignJointWaypoint(next_start_move->getWaypoint().as<JointWaypointPoly>());
+    last_move_instruction->assignJointWaypoint(next_start_move->getWaypoint().as<JointWaypointPoly>());
   else if (next_start_move->getWaypoint().isStateWaypoint())
-    instructions.getLastMoveInstruction()->assignStateWaypoint(next_start_move->getWaypoint().as<StateWaypointPoly>());
+    last_move_instruction->assignStateWaypoint(next_start_move->getWaypoint().as<StateWaypointPoly>());
   else
     throw std::runtime_error("Invalid waypoint type");
 
