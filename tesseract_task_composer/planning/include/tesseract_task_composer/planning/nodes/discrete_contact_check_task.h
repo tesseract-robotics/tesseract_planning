@@ -48,7 +48,7 @@ public:
   using ConstUPtr = std::unique_ptr<const DiscreteContactCheckTask>;
 
   DiscreteContactCheckTask();
-  explicit DiscreteContactCheckTask(std::string name, std::string input_key, bool is_conditional = true);
+  explicit DiscreteContactCheckTask(std::string name, std::string input_key, bool conditional = true);
   explicit DiscreteContactCheckTask(std::string name,
                                     const YAML::Node& config,
                                     const TaskComposerPluginFactory& plugin_factory);
@@ -81,7 +81,7 @@ public:
   using ConstUPtr = std::unique_ptr<const DiscreteContactCheckTaskInfo>;
 
   DiscreteContactCheckTaskInfo() = default;
-  DiscreteContactCheckTaskInfo(const DiscreteContactCheckTask& task, const TaskComposerInput& input);
+  DiscreteContactCheckTaskInfo(const DiscreteContactCheckTask& task);
 
   tesseract_environment::Environment::ConstPtr env;
   std::vector<tesseract_collision::ContactResultMap> contact_results;

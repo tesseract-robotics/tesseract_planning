@@ -4,11 +4,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include "raster_example_program.h"
-
 #include <tesseract_task_composer/core/task_composer_graph.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/core/test_suite/test_programs.hpp>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
 #include <tesseract_common/types.h>
@@ -54,7 +53,7 @@ int main()
   auto profiles = std::make_shared<ProfileDictionary>();
 
   // Define the program
-  CompositeInstruction program = rasterExampleProgram();
+  CompositeInstruction program = test_suite::rasterExampleProgram();
   program.print();
 
   // Create data storage

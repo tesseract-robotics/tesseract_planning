@@ -4,6 +4,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
+#include <tesseract_common/manipulator_info.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_collision_task.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
@@ -12,7 +13,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
-#include "freespace_example_program.h"
+#include <tesseract_task_composer/core/test_suite/test_programs.hpp>
 
 using namespace tesseract_kinematics;
 using namespace tesseract_environment;
@@ -24,7 +25,7 @@ class FixStateCollisionTaskUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
-  ManipulatorInfo manip_;
+  tesseract_common::ManipulatorInfo manip_;
 
   void SetUp() override
   {
@@ -42,7 +43,7 @@ protected:
 
 TEST_F(FixStateCollisionTaskUnit, StateInCollisionTest)  // NOLINT
 {
-  CompositeInstruction program = freespaceExampleProgramABB();
+  CompositeInstruction program = test_suite::freespaceExampleProgramABB();
 
   // Create data storage
   TaskComposerDataStorage task_data;
@@ -85,7 +86,7 @@ TEST_F(FixStateCollisionTaskUnit, StateInCollisionTest)  // NOLINT
 
 TEST_F(FixStateCollisionTaskUnit, WaypointInCollisionTest)  // NOLINT
 {
-  CompositeInstruction program = freespaceExampleProgramABB();
+  CompositeInstruction program = test_suite::freespaceExampleProgramABB();
 
   // Create data storage
   TaskComposerDataStorage task_data;
@@ -136,7 +137,7 @@ TEST_F(FixStateCollisionTaskUnit, WaypointInCollisionTest)  // NOLINT
 
 TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionRandomSamplerTest)  // NOLINT
 {
-  CompositeInstruction program = freespaceExampleProgramABB();
+  CompositeInstruction program = test_suite::freespaceExampleProgramABB();
 
   // Create data storage
   TaskComposerDataStorage task_data;
@@ -172,7 +173,7 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionRandomSamplerTest)  /
 
 TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionTrajoptTest)  // NOLINT
 {
-  CompositeInstruction program = freespaceExampleProgramABB();
+  CompositeInstruction program = test_suite::freespaceExampleProgramABB();
 
   // Create data storage
   TaskComposerDataStorage task_data;

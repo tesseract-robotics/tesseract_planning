@@ -70,9 +70,7 @@ ContinuousContactCheckTask::ContinuousContactCheckTask(std::string name,
 TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput& input,
                                                                OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<ContinuousContactCheckTaskInfo>(*this, input);
-  if (info->isAborted())
-    return info;
+  auto info = std::make_unique<ContinuousContactCheckTaskInfo>(*this);
 
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
@@ -99,8 +97,9 @@ TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   std::string profile = ci.getProfile();
   profile = getProfileString(name_, profile, problem.composite_profile_remapping);
-  auto cur_composite_profile =
-      getProfile<ContactCheckProfile>(name_, profile, *problem.profiles, std::make_shared<ContactCheckProfile>());
+  auto default_profile = std::make_shared<ContactCheckProfile>();
+  default_profile->config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+  auto cur_composite_profile = getProfile<ContactCheckProfile>(name_, profile, *problem.profiles, default_profile);
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   // Get state solver
@@ -117,12 +116,6 @@ TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput
   {
     info->message = "Results are not contact free for process input: " + ci.getDescription();
     CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
-    for (std::size_t i = 0; i < contacts.size(); i++)
-      for (const auto& contact_vec : contacts[i])
-        for (const auto& contact : contact_vec.second)
-          CONSOLE_BRIDGE_logDebug(("timestep: " + std::to_string(i) + " Links: " + contact.link_names[0] + ", " +
-                                   contact.link_names[1] + " Dist: " + std::to_string(contact.distance))
-                                      .c_str());
 
     // Save space
     for (auto& contact_map : contacts)
@@ -156,9 +149,8 @@ void ContinuousContactCheckTask::serialize(Archive& ar, const unsigned int /*ver
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-ContinuousContactCheckTaskInfo::ContinuousContactCheckTaskInfo(const ContinuousContactCheckTask& task,
-                                                               const TaskComposerInput& input)
-  : TaskComposerNodeInfo(task, input)
+ContinuousContactCheckTaskInfo::ContinuousContactCheckTaskInfo(const ContinuousContactCheckTask& task)
+  : TaskComposerNodeInfo(task)
 {
 }
 

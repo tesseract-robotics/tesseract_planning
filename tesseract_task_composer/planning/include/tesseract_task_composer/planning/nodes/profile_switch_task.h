@@ -47,7 +47,7 @@ public:
   using ConstUPtr = std::unique_ptr<const ProfileSwitchTask>;
 
   ProfileSwitchTask();
-  explicit ProfileSwitchTask(std::string name, std::string input_key, bool is_conditional = true);
+  explicit ProfileSwitchTask(std::string name, std::string input_key, bool conditional = true);
   explicit ProfileSwitchTask(std::string name,
                              const YAML::Node& config,
                              const TaskComposerPluginFactory& plugin_factory);

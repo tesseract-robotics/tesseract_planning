@@ -105,11 +105,11 @@ RasterMotionTask::RasterMotionTask() : TaskComposerTask("RasterMotionTask", true
 RasterMotionTask::RasterMotionTask(std::string name,
                                    std::string input_key,
                                    std::string output_key,
-                                   bool is_conditional,
+                                   bool conditional,
                                    TaskFactory freespace_task_factory,
                                    TaskFactory raster_task_factory,
                                    TaskFactory transition_task_factory)
-  : TaskComposerTask(std::move(name), is_conditional)
+  : TaskComposerTask(std::move(name), conditional)
   , freespace_task_factory_(std::move(freespace_task_factory))
   , raster_task_factory_(std::move(raster_task_factory))
   , transition_task_factory_(std::move(transition_task_factory))
@@ -268,13 +268,7 @@ RasterMotionTask::RasterMotionTask(std::string name,
   }
 }
 
-bool RasterMotionTask::operator==(const RasterMotionTask& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
-}
-
+bool RasterMotionTask::operator==(const RasterMotionTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
 bool RasterMotionTask::operator!=(const RasterMotionTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
@@ -286,9 +280,7 @@ void RasterMotionTask::serialize(Archive& ar, const unsigned int /*version*/)  /
 TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
                                                      OptionalTaskComposerExecutor executor) const
 {
-  auto info = std::make_unique<MotionPlannerTaskInfo>(*this, input);
-  if (info->isAborted())
-    return info;
+  auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
 
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);

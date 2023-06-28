@@ -73,17 +73,13 @@ MinLengthTask::MinLengthTask(std::string name,
 TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerInput& input,
                                                   OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
-  if (info->isAborted())
-    return info;
-
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
 
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
   tesseract_common::Timer timer;
   timer.start();
-  //  saveInputs(*info, input);
 
   // Check that inputs are valid
   auto input_data_poly = input.data_storage.getData(input_keys_[0]);
@@ -106,9 +102,8 @@ TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerInput& input,
 
   if (cnt < cur_composite_profile->min_length)
   {
-    auto subdivisions =
-        static_cast<int>(std::ceil(static_cast<double>(cur_composite_profile->min_length) / static_cast<double>(cnt))) +
-        1;
+    auto subdivisions = static_cast<int>(
+        std::ceil(static_cast<double>(cur_composite_profile->min_length) / static_cast<double>(cnt - 1)));
 
     // Fill out request and response
     PlannerRequest request;

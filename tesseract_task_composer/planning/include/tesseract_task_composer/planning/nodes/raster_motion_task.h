@@ -71,7 +71,7 @@ public:
   explicit RasterMotionTask(std::string name,
                             std::string input_key,
                             std::string output_key,
-                            bool is_conditional,
+                            bool conditional,
                             TaskFactory freespace_task_factory,
                             TaskFactory raster_task_factory,
                             TaskFactory transition_task_factory);

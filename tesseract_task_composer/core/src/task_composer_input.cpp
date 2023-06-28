@@ -66,7 +66,11 @@ void TaskComposerInput::reset()
 bool TaskComposerInput::operator==(const TaskComposerInput& rhs) const
 {
   bool equal = true;
-  equal &= problem == rhs.problem;
+  if (problem != nullptr && rhs.problem != nullptr)
+    equal &= (*problem == *rhs.problem);
+  else
+    equal &= (problem == nullptr && rhs.problem == nullptr);
+
   equal &= data_storage == rhs.data_storage;
   equal &= task_infos == rhs.task_infos;
   equal &= aborted_ == rhs.aborted_;
@@ -74,14 +78,6 @@ bool TaskComposerInput::operator==(const TaskComposerInput& rhs) const
 }
 
 bool TaskComposerInput::operator!=(const TaskComposerInput& rhs) const { return !operator==(rhs); }
-
-TaskComposerInput::TaskComposerInput(TaskComposerInput&& rhs) noexcept
-  : problem(std::move(rhs.problem))
-  , data_storage(std::move(rhs.data_storage))
-  , task_infos(std::move(rhs.task_infos))
-  , aborted_(rhs.aborted_.load())
-{
-}
 
 template <class Archive>
 void TaskComposerInput::serialize(Archive& ar, const unsigned int /*version*/)

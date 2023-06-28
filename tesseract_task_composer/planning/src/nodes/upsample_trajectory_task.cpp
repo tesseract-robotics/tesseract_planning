@@ -45,8 +45,8 @@ UpsampleTrajectoryTask::UpsampleTrajectoryTask() : TaskComposerTask("UpsampleTra
 UpsampleTrajectoryTask::UpsampleTrajectoryTask(std::string name,
                                                std::string input_key,
                                                std::string output_key,
-                                               bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+                                               bool conditional)
+  : TaskComposerTask(std::move(name), conditional)
 {
   input_keys_.push_back(std::move(input_key));
   output_keys_.push_back(std::move(output_key));
@@ -74,9 +74,7 @@ UpsampleTrajectoryTask::UpsampleTrajectoryTask(std::string name,
 TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& input,
                                                            OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
-  if (info->isAborted())
-    return info;
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
 
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
@@ -125,7 +123,6 @@ void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
 {
   for (const InstructionPoly& i : current_composite)
   {
-    assert(!i.isMoveInstruction());
     if (i.isCompositeInstruction())
     {
       const auto& cc = i.as<CompositeInstruction>();
@@ -186,9 +183,7 @@ void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
 
 bool UpsampleTrajectoryTask::operator==(const UpsampleTrajectoryTask& rhs) const
 {
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
+  return (TaskComposerTask::operator==(rhs));
 }
 bool UpsampleTrajectoryTask::operator!=(const UpsampleTrajectoryTask& rhs) const { return !operator==(rhs); }
 

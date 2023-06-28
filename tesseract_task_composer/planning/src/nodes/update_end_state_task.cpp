@@ -38,8 +38,8 @@ namespace tesseract_planning
 UpdateEndStateTask::UpdateEndStateTask(std::string name,
                                        std::string input_next_key,
                                        std::string output_key,
-                                       bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+                                       bool conditional)
+  : TaskComposerTask(std::move(name), conditional)
 {
   input_keys_.push_back(uuid_str_);
   input_keys_.push_back(std::move(input_next_key));
@@ -50,8 +50,8 @@ UpdateEndStateTask::UpdateEndStateTask(std::string name,
                                        std::string input_key,
                                        std::string input_next_key,
                                        std::string output_key,
-                                       bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+                                       bool conditional)
+  : TaskComposerTask(std::move(name), conditional)
 {
   input_keys_.push_back(std::move(input_key));
   input_keys_.push_back(std::move(input_next_key));
@@ -61,10 +61,7 @@ UpdateEndStateTask::UpdateEndStateTask(std::string name,
 TaskComposerNodeInfo::UPtr UpdateEndStateTask::runImpl(TaskComposerInput& input,
                                                        OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
-  if (info->isAborted())
-    return info;
-
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
   tesseract_common::Timer timer;
   timer.start();

@@ -34,11 +34,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
-void runTaskComposerFactoryTest(const tesseract_common::fs::path& config_path)
+void runTaskComposerFactoryTest(TaskComposerPluginFactory& factory, YAML::Node plugin_config)
 {
-  TaskComposerPluginFactory factory(config_path);
-  YAML::Node plugin_config = YAML::LoadFile(config_path.string());
-
   const YAML::Node& plugin_info = plugin_config[tesseract_common::TaskComposerPluginInfo::CONFIG_KEY];
   const YAML::Node& search_paths = plugin_info["search_paths"];
   const YAML::Node& search_libraries = plugin_info["search_libraries"];
@@ -73,8 +70,11 @@ void runTaskComposerFactoryTest(const tesseract_common::fs::path& config_path)
     TaskComposerExecutor::UPtr cm = factory.createTaskComposerExecutor(name);
     EXPECT_TRUE(cm != nullptr);
   }
-
+#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
   EXPECT_EQ(task_plugins.size(), 17);
+#else
+  EXPECT_EQ(task_plugins.size(), 16);
+#endif
   for (auto cm_it = task_plugins.begin(); cm_it != task_plugins.end(); ++cm_it)
   {
     auto name = cm_it->first.as<std::string>();
@@ -110,14 +110,53 @@ void runTaskComposerFactoryTest(const tesseract_common::fs::path& config_path)
 
 TEST(TesseractTaskComposerFactoryUnit, LoadAndExportPluginTest)  // NOLINT
 {
-  tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
-                                                                                    "task_composer_plugins.yaml");
-  runTaskComposerFactoryTest(config_path);
+  {  // File Path Construction
+#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
+    tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
+                                                                                      "task_composer_plugins.yaml");
+#else
+    tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
+                                                                                      "task_composer_plugins_no_"
+                                                                                      "trajopt_"
+                                                                                      "ifopt.yaml");
+#endif
+    TaskComposerPluginFactory factory(config_path);
+    YAML::Node plugin_config = YAML::LoadFile(config_path.string());
+    runTaskComposerFactoryTest(factory, plugin_config);
 
-  auto export_config_path = tesseract_common::fs::path(tesseract_common::getTempPath()) / "task_composer_plugins_"
-                                                                                          "export.yaml";
+    auto export_config_path = tesseract_common::fs::path(tesseract_common::getTempPath()) / "task_composer_plugins_"
+                                                                                            "export.yaml";
+    TaskComposerPluginFactory check_factory(export_config_path);
+    runTaskComposerFactoryTest(check_factory, plugin_config);
+  }
 
-  runTaskComposerFactoryTest(export_config_path);
+  {  // String Constructor
+    tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
+                                                                                      "task_composer_plugins.yaml");
+
+    TaskComposerPluginFactory factory(tesseract_common::fileToString(config_path));
+    YAML::Node plugin_config = YAML::LoadFile(config_path.string());
+    runTaskComposerFactoryTest(factory, plugin_config);
+
+    auto export_config_path = tesseract_common::fs::path(tesseract_common::getTempPath()) / "task_composer_plugins_"
+                                                                                            "export.yaml";
+    TaskComposerPluginFactory check_factory(export_config_path);
+    runTaskComposerFactoryTest(check_factory, plugin_config);
+  }
+
+  {  // YAML Node Constructor
+    tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
+                                                                                      "task_composer_plugins.yaml");
+
+    YAML::Node plugin_config = YAML::LoadFile(config_path.string());
+    TaskComposerPluginFactory factory(plugin_config);
+    runTaskComposerFactoryTest(factory, plugin_config);
+
+    auto export_config_path = tesseract_common::fs::path(tesseract_common::getTempPath()) / "task_composer_plugins_"
+                                                                                            "export.yaml";
+    TaskComposerPluginFactory check_factory(export_config_path);
+    runTaskComposerFactoryTest(check_factory, plugin_config);
+  }
 }
 
 TEST(TesseractTaskComposerFactoryUnit, PluginFactorAPIUnit)  // NOLINT

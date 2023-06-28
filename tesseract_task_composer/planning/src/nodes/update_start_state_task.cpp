@@ -38,8 +38,8 @@ namespace tesseract_planning
 UpdateStartStateTask::UpdateStartStateTask(std::string name,
                                            std::string input_prev_key,
                                            std::string output_key,
-                                           bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+                                           bool conditional)
+  : TaskComposerTask(std::move(name), conditional)
 {
   input_keys_.push_back(uuid_str_);
   input_keys_.push_back(std::move(input_prev_key));
@@ -50,8 +50,8 @@ UpdateStartStateTask::UpdateStartStateTask(std::string name,
                                            std::string input_key,
                                            std::string input_prev_key,
                                            std::string output_key,
-                                           bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+                                           bool conditional)
+  : TaskComposerTask(std::move(name), conditional)
 {
   input_keys_.push_back(std::move(input_key));
   input_keys_.push_back(std::move(input_prev_key));
@@ -61,10 +61,7 @@ UpdateStartStateTask::UpdateStartStateTask(std::string name,
 TaskComposerNodeInfo::UPtr UpdateStartStateTask::runImpl(TaskComposerInput& input,
                                                          OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
-  if (info->isAborted())
-    return info;
-
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
   tesseract_common::Timer timer;
   timer.start();
@@ -93,10 +90,19 @@ TaskComposerNodeInfo::UPtr UpdateStartStateTask::runImpl(TaskComposerInput& inpu
 
   // Make a non-const copy of the input instructions to update the start/end
   auto& instructions = input_data_poly.as<CompositeInstruction>();
-  const auto* prev_last_move = input_prev_data_poly.as<CompositeInstruction>().getLastMoveInstruction();
+  auto* first_move_instruction = instructions.getFirstMoveInstruction();
+  /** @todo Should the waypoint profile be updated to the path profile if it exists? **/
 
   // Update start instruction
-  instructions.at(0) = (*prev_last_move);
+  const auto* prev_last_move = input_prev_data_poly.as<CompositeInstruction>().getLastMoveInstruction();
+  if (prev_last_move->getWaypoint().isCartesianWaypoint())
+    first_move_instruction->assignCartesianWaypoint(prev_last_move->getWaypoint().as<CartesianWaypointPoly>());
+  else if (prev_last_move->getWaypoint().isJointWaypoint())
+    first_move_instruction->assignJointWaypoint(prev_last_move->getWaypoint().as<JointWaypointPoly>());
+  else if (prev_last_move->getWaypoint().isStateWaypoint())
+    first_move_instruction->assignStateWaypoint(prev_last_move->getWaypoint().as<StateWaypointPoly>());
+  else
+    throw std::runtime_error("Invalid waypoint type");
 
   // Store results
   input.data_storage.setData(output_keys_[0], input_data_poly);

@@ -50,7 +50,7 @@ public:
   explicit IterativeSplineParameterizationTask(std::string name,
                                                std::string input_key,
                                                std::string output_key,
-                                               bool is_conditional = true,
+                                               bool conditional = true,
                                                bool add_points = true);
   explicit IterativeSplineParameterizationTask(std::string name,
                                                const YAML::Node& config,

@@ -48,7 +48,7 @@ public:
   using ConstUPtr = std::unique_ptr<const ContinuousContactCheckTask>;
 
   ContinuousContactCheckTask();
-  explicit ContinuousContactCheckTask(std::string name, std::string input_key, bool is_conditional = true);
+  explicit ContinuousContactCheckTask(std::string name, std::string input_key, bool conditional = true);
   explicit ContinuousContactCheckTask(std::string name,
                                       const YAML::Node& config,
                                       const TaskComposerPluginFactory& plugin_factory);
@@ -81,7 +81,7 @@ public:
   using ConstUPtr = std::unique_ptr<const ContinuousContactCheckTaskInfo>;
 
   ContinuousContactCheckTaskInfo() = default;
-  ContinuousContactCheckTaskInfo(const ContinuousContactCheckTask& task, const TaskComposerInput& input);
+  ContinuousContactCheckTaskInfo(const ContinuousContactCheckTask& task);
 
   tesseract_environment::Environment::ConstPtr env;
   std::vector<tesseract_collision::ContactResultMap> contact_results;

@@ -41,20 +41,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node, const TaskComposerInput& input)
+TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node)
   : name(node.name_)
   , uuid(node.uuid_)
   , parent_uuid(node.parent_uuid_)
   , inbound_edges(node.inbound_edges_)
   , outbound_edges(node.outbound_edges_)
-  , aborted_(input.isAborted())
 {
-  if (aborted_)
-  {
-    return_value = 0;
-    color = "white";
-    message = "Aborted";
-  }
 }
 
 bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
@@ -149,11 +142,27 @@ void TaskComposerNodeInfoContainer::addInfo(TaskComposerNodeInfo::UPtr info)
   info_map_[info->uuid] = std::move(info);
 }
 
+TaskComposerNodeInfo::UPtr TaskComposerNodeInfoContainer::getInfo(const boost::uuids::uuid& key) const
+{
+  std::unique_lock<std::shared_mutex> lock(mutex_);
+  auto it = info_map_.find(key);
+  if (it == info_map_.end())
+    return nullptr;
+
+  return it->second->clone();
+}
+
 void TaskComposerNodeInfoContainer::setAborted(const boost::uuids::uuid& node_uuid)
 {
   assert(!node_uuid.is_nil());
   std::unique_lock<std::shared_mutex> lock(mutex_);
   aborting_node_ = node_uuid;
+}
+
+boost::uuids::uuid TaskComposerNodeInfoContainer::getAbortingNode() const
+{
+  std::unique_lock<std::shared_mutex> lock(mutex_);
+  return aborting_node_;
 }
 
 void TaskComposerNodeInfoContainer::clear()

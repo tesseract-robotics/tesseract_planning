@@ -44,16 +44,13 @@ public:
 
   UpdateStartStateTask() = default;
   /** @brief The input_key is the uuid string */
-  explicit UpdateStartStateTask(std::string name,
-                                std::string input_prev_key,
-                                std::string output_key,
-                                bool is_conditional = false);
+  explicit UpdateStartStateTask(std::string name, std::string input_prev_key, std::string output_key, bool conditional);
 
   explicit UpdateStartStateTask(std::string name,
                                 std::string input_key,
                                 std::string input_prev_key,
                                 std::string output_key,
-                                bool is_conditional = false);
+                                bool conditional);
   ~UpdateStartStateTask() override = default;
 
   bool operator==(const UpdateStartStateTask& rhs) const;

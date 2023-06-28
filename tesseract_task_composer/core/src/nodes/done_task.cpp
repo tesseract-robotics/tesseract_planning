@@ -41,12 +41,10 @@ DoneTask::DoneTask(std::string name, const YAML::Node& config, const TaskCompose
 {
 }
 
-TaskComposerNodeInfo::UPtr DoneTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr DoneTask::runImpl(TaskComposerInput& /*input*/,
+                                             OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
-  if (info->isAborted())
-    return info;
-
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->color = "green";
   info->return_value = 1;
   info->message = "Successful";
@@ -54,12 +52,7 @@ TaskComposerNodeInfo::UPtr DoneTask::runImpl(TaskComposerInput& input, OptionalT
   return info;
 }
 
-bool DoneTask::operator==(const DoneTask& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
-}
+bool DoneTask::operator==(const DoneTask& rhs) const { return TaskComposerTask::operator==(rhs); }
 bool DoneTask::operator!=(const DoneTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>

@@ -47,7 +47,7 @@ public:
   using ConstUPtr = std::unique_ptr<const MotionPlannerTaskInfo>;
 
   MotionPlannerTaskInfo() = default;
-  MotionPlannerTaskInfo(const TaskComposerTask& task, const TaskComposerInput& input);
+  MotionPlannerTaskInfo(const TaskComposerTask& task);
 
   tesseract_environment::Environment::ConstPtr env;
 

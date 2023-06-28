@@ -62,7 +62,7 @@ public:
   explicit FixStateCollisionTask(std::string name,
                                  std::string input_key,
                                  std::string output_key,
-                                 bool is_conditional = true);
+                                 bool conditional = true);
   explicit FixStateCollisionTask(std::string name,
                                  const YAML::Node& config,
                                  const TaskComposerPluginFactory& plugin_factory);
@@ -94,7 +94,7 @@ public:
   using ConstUPtr = std::unique_ptr<const FixStateCollisionTaskInfo>;
 
   FixStateCollisionTaskInfo() = default;
-  FixStateCollisionTaskInfo(const FixStateCollisionTask& task, const TaskComposerInput& input);
+  FixStateCollisionTaskInfo(const FixStateCollisionTask& task);
 
   TaskComposerNodeInfo::UPtr clone() const override;
 

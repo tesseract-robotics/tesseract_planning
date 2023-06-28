@@ -38,7 +38,7 @@ StartTask::StartTask(std::string name) : TaskComposerTask(std::move(name), false
 StartTask::StartTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), config)
 {
-  if (is_conditional_)
+  if (conditional_)
     throw std::runtime_error("StartTask, config is_conditional should not be true");
 
   if (!input_keys_.empty())
@@ -47,24 +47,17 @@ StartTask::StartTask(std::string name, const YAML::Node& config, const TaskCompo
   if (!output_keys_.empty())
     throw std::runtime_error("StartTask, config does not support 'outputs' entry");
 }
-TaskComposerNodeInfo::UPtr StartTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr StartTask::runImpl(TaskComposerInput& /*input*/,
+                                              OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this, input);
-  if (info->isAborted())
-    return info;
-
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
   return info;
 }
 
-bool StartTask::operator==(const StartTask& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
-}
+bool StartTask::operator==(const StartTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
 bool StartTask::operator!=(const StartTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>

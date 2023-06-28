@@ -44,16 +44,13 @@ public:
 
   UpdateEndStateTask() = default;
   /** @brief The input_key is the uuid string */
-  explicit UpdateEndStateTask(std::string name,
-                              std::string input_next_key,
-                              std::string output_key,
-                              bool is_conditional = false);
+  explicit UpdateEndStateTask(std::string name, std::string input_next_key, std::string output_key, bool conditional);
 
   explicit UpdateEndStateTask(std::string name,
                               std::string input_key,
                               std::string input_next_key,
                               std::string output_key,
-                              bool is_conditional = false);
+                              bool conditional);
 
   ~UpdateEndStateTask() override = default;
 

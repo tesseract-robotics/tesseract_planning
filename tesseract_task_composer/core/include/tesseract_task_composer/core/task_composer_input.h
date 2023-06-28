@@ -52,6 +52,7 @@ struct TaskComposerInput
 
   TaskComposerInput(TaskComposerProblem::UPtr problem);
   TaskComposerInput(const TaskComposerInput&) = delete;
+  TaskComposerInput(TaskComposerInput&&) noexcept = delete;
   TaskComposerInput& operator=(const TaskComposerInput&) = delete;
   TaskComposerInput& operator=(TaskComposerInput&&) = delete;
   virtual ~TaskComposerInput() = default;
@@ -89,7 +90,7 @@ struct TaskComposerInput
    * @note If calling within a node you must provide the uuid
    * @details This accesses the internal process interface class to abort the process
    */
-  void abort(const boost::uuids::uuid& calling_node = boost::uuids::uuid{});
+  void abort(const boost::uuids::uuid& calling_node = boost::uuids::uuid());
 
   /**
    * @brief Abort the process input
@@ -109,7 +110,6 @@ protected:
   friend class boost::serialization::access;
 
   TaskComposerInput() = default;  // Required for serialization
-  TaskComposerInput(TaskComposerInput&&) noexcept;
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
