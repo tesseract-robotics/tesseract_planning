@@ -51,8 +51,8 @@ public:
                              std::string input_key,
                              std::string output_key,
                              bool format_result_as_input,
-                             bool is_conditional)
-    : TaskComposerTask(std::move(name), is_conditional)
+                             bool conditional)
+    : TaskComposerTask(std::move(name), conditional)
     , planner_(std::make_shared<MotionPlannerType>(name_))
     , format_result_as_input_(format_result_as_input)
   {

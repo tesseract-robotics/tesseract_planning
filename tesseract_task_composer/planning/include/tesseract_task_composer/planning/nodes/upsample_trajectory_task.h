@@ -55,7 +55,7 @@ public:
   explicit UpsampleTrajectoryTask(std::string name,
                                   std::string input_key,
                                   std::string output_key,
-                                  bool is_conditional = false);
+                                  bool conditional = false);
   explicit UpsampleTrajectoryTask(std::string name,
                                   const YAML::Node& config,
                                   const TaskComposerPluginFactory& plugin_factory);

@@ -48,14 +48,14 @@ public:
                                       std::string input_prev_key,
                                       std::string input_next_key,
                                       std::string output_key,
-                                      bool is_conditional = false);
+                                      bool conditional);
 
   explicit UpdateStartAndEndStateTask(std::string name,
                                       std::string input_key,
                                       std::string input_prev_key,
                                       std::string input_next_key,
                                       std::string output_key,
-                                      bool is_conditional = false);
+                                      bool conditional);
   ~UpdateStartAndEndStateTask() override = default;
 
   bool operator==(const UpdateStartAndEndStateTask& rhs) const;

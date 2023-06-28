@@ -50,10 +50,7 @@ public:
   using ConstUPtr = std::unique_ptr<const FixStateBoundsTask>;
 
   FixStateBoundsTask();
-  explicit FixStateBoundsTask(std::string name,
-                              std::string input_key,
-                              std::string output_key,
-                              bool is_conditional = true);
+  explicit FixStateBoundsTask(std::string name, std::string input_key, std::string output_key, bool conditional = true);
   explicit FixStateBoundsTask(std::string name,
                               const YAML::Node& config,
                               const TaskComposerPluginFactory& plugin_factory);

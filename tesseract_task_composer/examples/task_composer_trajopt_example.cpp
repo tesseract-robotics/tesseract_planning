@@ -8,6 +8,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_graph.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/core/test_suite/test_programs.hpp>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
 #include <tesseract_common/types.h>
@@ -15,8 +16,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 #include <tesseract_visualization/visualization_loader.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
-
-#include "freespace_example_program.h"
 
 using namespace tesseract_planning;
 
@@ -55,7 +54,7 @@ int main()
   auto profiles = std::make_shared<ProfileDictionary>();
 
   // Define the program
-  CompositeInstruction program = freespaceExampleProgramIIWA();
+  CompositeInstruction program = test_suite::freespaceExampleProgramIIWA();
   program.print();
 
   TaskComposerDataStorage task_data;

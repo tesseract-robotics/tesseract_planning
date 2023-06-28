@@ -38,8 +38,8 @@ namespace tesseract_planning
 UpdateEndStateTask::UpdateEndStateTask(std::string name,
                                        std::string input_next_key,
                                        std::string output_key,
-                                       bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+                                       bool conditional)
+  : TaskComposerTask(std::move(name), conditional)
 {
   input_keys_.push_back(uuid_str_);
   input_keys_.push_back(std::move(input_next_key));
@@ -50,8 +50,8 @@ UpdateEndStateTask::UpdateEndStateTask(std::string name,
                                        std::string input_key,
                                        std::string input_next_key,
                                        std::string output_key,
-                                       bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+                                       bool conditional)
+  : TaskComposerTask(std::move(name), conditional)
 {
   input_keys_.push_back(std::move(input_key));
   input_keys_.push_back(std::move(input_next_key));

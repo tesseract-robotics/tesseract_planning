@@ -78,7 +78,9 @@ using SimpleMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask
 using TrajOptIfoptMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<TrajOptIfoptMotionPlanner>>;
 #endif
 
+// LCOV_EXCL_START
 TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerPlanningFactoriesAnchor)
+// LCOV_EXCL_STOP
 
 }  // namespace tesseract_planning
 

@@ -31,7 +31,9 @@
 
 namespace tesseract_planning
 {
+// LCOV_EXCL_START
 TESSERACT_PLUGIN_ANCHOR_DECL(TaskComposerTaskFactoryAnchor)
+// LCOV_EXCL_STOP
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_TASK_COMPOSER_CHECK_INPUT_TASK_COMPOSER_PLUGIN_FACTORIES_H
