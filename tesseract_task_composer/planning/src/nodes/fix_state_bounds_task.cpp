@@ -107,17 +107,6 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
       getProfile<FixStateBoundsProfile>(name_, profile, *problem.profiles, std::make_shared<FixStateBoundsProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
 
-  if (cur_composite_profile->mode == FixStateBoundsProfile::Settings::DISABLED)
-  {
-    if (output_keys_[0] != input_keys_[0])
-      input.data_storage.setData(output_keys_[0], input_data_poly);
-
-    info->message = "Successful, DISABLED";
-    info->return_value = 1;
-    info->elapsed_time = timer.elapsedSeconds();
-    return info;
-  }
-
   limits.joint_limits.col(0) = limits.joint_limits.col(0).array() + cur_composite_profile->lower_bounds_reduction;
   limits.joint_limits.col(1) = limits.joint_limits.col(1).array() - cur_composite_profile->upper_bounds_reduction;
   switch (cur_composite_profile->mode)
@@ -184,6 +173,7 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
         if (output_keys_[0] != input_keys_[0])
           input.data_storage.setData(output_keys_[0], input_data_poly);
 
+        info->color = "green";
         info->message = "FixStateBoundsTask found no MoveInstructions to process";
         info->return_value = 1;
         info->elapsed_time = timer.elapsedSeconds();
@@ -226,6 +216,7 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
     {
       if (output_keys_[0] != input_keys_[0])
         input.data_storage.setData(output_keys_[0], input_data_poly);
+      info->color = "green";
       info->message = "Successful, DISABLED";
       info->return_value = 1;
       info->elapsed_time = timer.elapsedSeconds();

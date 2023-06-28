@@ -922,6 +922,27 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 
+  {  // Test run method empty composite
+    auto profiles = std::make_shared<ProfileDictionary>();
+    TaskComposerDataStorage data;
+    auto program = test_suite::jointInterpolateExampleProgramABB(true);
+    program.clear();
+    data.setData("input_data", program);
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, data, profiles, "abc");
+    auto input = std::make_unique<TaskComposerInput>(std::move(problem));
+    FixStateBoundsTask task("abc", "input_data", "output_data", true);
+    EXPECT_EQ(task.run(*input), 1);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->data_storage.hasKey("output_data"));
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
   {  // Failure missing input data
     auto profiles = std::make_shared<ProfileDictionary>();
     TaskComposerDataStorage data;
