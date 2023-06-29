@@ -148,21 +148,28 @@ RasterMotionTask::RasterMotionTask(std::string name,
     else
       throw std::runtime_error("RasterMotionTask, entry 'freespace' missing 'task' entry");
 
-    if (YAML::Node n = freespace_config["input_remapping"])
-      input_remapping = n.as<std::map<std::string, std::string>>();
+    if (YAML::Node task_config = freespace_config["config"])
+    {
+      if (YAML::Node n = task_config["input_remapping"])
+        input_remapping = n.as<std::map<std::string, std::string>>();
 
-    if (YAML::Node n = freespace_config["output_remapping"])
-      output_remapping = n.as<std::map<std::string, std::string>>();
+      if (YAML::Node n = task_config["output_remapping"])
+        output_remapping = n.as<std::map<std::string, std::string>>();
 
-    if (YAML::Node n = freespace_config["input_indexing"])
-      input_indexing = n.as<std::vector<std::string>>();
+      if (YAML::Node n = task_config["input_indexing"])
+        input_indexing = n.as<std::vector<std::string>>();
+      else
+        throw std::runtime_error("RasterMotionTask, entry 'freespace' missing 'input_indexing' entry");
+
+      if (YAML::Node n = task_config["output_indexing"])
+        output_indexing = n.as<std::vector<std::string>>();
+      else
+        throw std::runtime_error("RasterMotionTask, entry 'freespace' missing 'output_indexing' entry");
+    }
     else
-      throw std::runtime_error("RasterMotionTask, entry 'freespace' missing 'input_indexing' entry");
-
-    if (YAML::Node n = freespace_config["output_indexing"])
-      output_indexing = n.as<std::vector<std::string>>();
-    else
-      throw std::runtime_error("RasterMotionTask, entry 'freespace' missing 'output_indexing' entry");
+    {
+      throw std::runtime_error("RasterMotionTask, entry 'freespace' missing 'config' entry");
+    }
 
     freespace_task_factory_ = [task_name,
                                input_remapping,
@@ -192,21 +199,28 @@ RasterMotionTask::RasterMotionTask(std::string name,
     else
       throw std::runtime_error("RasterMotionTask, entry 'raster' missing 'task' entry");
 
-    if (YAML::Node n = raster_config["input_remapping"])
-      input_remapping = n.as<std::map<std::string, std::string>>();
+    if (YAML::Node task_config = raster_config["config"])
+    {
+      if (YAML::Node n = task_config["input_remapping"])
+        input_remapping = n.as<std::map<std::string, std::string>>();
 
-    if (YAML::Node n = raster_config["output_remapping"])
-      output_remapping = n.as<std::map<std::string, std::string>>();
+      if (YAML::Node n = task_config["output_remapping"])
+        output_remapping = n.as<std::map<std::string, std::string>>();
 
-    if (YAML::Node n = raster_config["input_indexing"])
-      input_indexing = n.as<std::vector<std::string>>();
+      if (YAML::Node n = task_config["input_indexing"])
+        input_indexing = n.as<std::vector<std::string>>();
+      else
+        throw std::runtime_error("RasterMotionTask, entry 'raster' missing 'input_indexing' entry");
+
+      if (YAML::Node n = task_config["output_indexing"])
+        output_indexing = n.as<std::vector<std::string>>();
+      else
+        throw std::runtime_error("RasterMotionTask, entry 'raster' missing 'output_indexing' entry");
+    }
     else
-      throw std::runtime_error("RasterMotionTask, entry 'raster' missing 'input_indexing' entry");
-
-    if (YAML::Node n = raster_config["output_indexing"])
-      output_indexing = n.as<std::vector<std::string>>();
-    else
-      throw std::runtime_error("RasterMotionTask, entry 'raster' missing 'output_indexing' entry");
+    {
+      throw std::runtime_error("RasterMotionTask, entry 'raster' missing 'config' entry");
+    }
 
     raster_task_factory_ = [task_name,
                             input_remapping,
@@ -236,21 +250,28 @@ RasterMotionTask::RasterMotionTask(std::string name,
     else
       throw std::runtime_error("RasterMotionTask, entry 'transition' missing 'task' entry");
 
-    if (YAML::Node n = transition_config["input_remapping"])
-      input_remapping = n.as<std::map<std::string, std::string>>();
+    if (YAML::Node task_config = transition_config["config"])
+    {
+      if (YAML::Node n = task_config["input_remapping"])
+        input_remapping = n.as<std::map<std::string, std::string>>();
 
-    if (YAML::Node n = transition_config["output_remapping"])
-      output_remapping = n.as<std::map<std::string, std::string>>();
+      if (YAML::Node n = task_config["output_remapping"])
+        output_remapping = n.as<std::map<std::string, std::string>>();
 
-    if (YAML::Node n = transition_config["input_indexing"])
-      input_indexing = n.as<std::vector<std::string>>();
+      if (YAML::Node n = task_config["input_indexing"])
+        input_indexing = n.as<std::vector<std::string>>();
+      else
+        throw std::runtime_error("RasterMotionTask, entry 'transition' missing 'input_indexing' entry");
+
+      if (YAML::Node n = task_config["output_indexing"])
+        output_indexing = n.as<std::vector<std::string>>();
+      else
+        throw std::runtime_error("RasterMotionTask, entry 'transition' missing 'output_indexing' entry");
+    }
     else
-      throw std::runtime_error("RasterMotionTask, entry 'transition' missing 'input_indexing' entry");
-
-    if (YAML::Node n = transition_config["output_indexing"])
-      output_indexing = n.as<std::vector<std::string>>();
-    else
-      throw std::runtime_error("RasterMotionTask, entry 'transition' missing 'output_indexing' entry");
+    {
+      throw std::runtime_error("RasterMotionTask, entry 'transition' missing 'config' entry");
+    }
 
     transition_task_factory_ = [task_name,
                                 input_remapping,
