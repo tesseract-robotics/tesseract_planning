@@ -150,8 +150,8 @@ void runTaskComposerExecutorTest()
                             outputs: output_data
                             nodes:
                               StartTask:
-                                task:
-                                  name: TestPipeline
+                                task: TestPipeline
+                                config:
                                   conditional: false
                                   input_remapping:
                                     input_data: output_data
@@ -215,8 +215,8 @@ void runTaskComposerExecutorTest()
                             outputs: output_data
                             nodes:
                               StartTask:
-                                task:
-                                  name: TestPipeline
+                                task: TestPipeline
+                                config:
                                   conditional: false
                                   input_remapping:
                                     input_data: output_data
@@ -280,8 +280,8 @@ void runTaskComposerExecutorTest()
                             outputs: output_data
                             nodes:
                               StartTask:
-                                task:
-                                  name: TestPipeline
+                                task: TestPipeline
+                                config:
                                   conditional: true
                                   input_remapping:
                                     input_data: output_data
@@ -354,8 +354,8 @@ void runTaskComposerExecutorTest()
                             outputs: output_data
                             nodes:
                               StartTask:
-                                task:
-                                  name: TestGraph
+                                task: TestGraph
+                                config:
                                   conditional: false
                                   input_remapping:
                                     input_data: output_data
