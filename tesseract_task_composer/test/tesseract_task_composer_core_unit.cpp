@@ -869,8 +869,8 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
                             outputs: output_data
                             nodes:
                               StartTask:
-                                task:
-                                  name: TestPipeline
+                                task: TestPipeline
+                                config:
                                   conditional: false
                                   input_remapping:
                                     input_data: output_data
@@ -1429,8 +1429,8 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerGraphTests)  // NOLINT
                             outputs: output_data
                             nodes:
                               StartTask:
-                                task:
-                                  name: DoesNotExist
+                                task: DoesNotExist
+                                config:
                                   conditional: false
                                   input_remapping:
                                     input_data: output_data
@@ -1539,9 +1539,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerErrorTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->message, "Error");
     EXPECT_EQ(node_info->isAborted(), false);
-    EXPECT_EQ(input->isAborted(), true);
-    EXPECT_EQ(input->isSuccessful(), false);
-    EXPECT_EQ(input->task_infos.getAbortingNode(), task.getUUID());
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 }
 

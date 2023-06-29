@@ -71,9 +71,9 @@ void runTaskComposerFactoryTest(TaskComposerPluginFactory& factory, YAML::Node p
     EXPECT_TRUE(cm != nullptr);
   }
 #ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
-  EXPECT_EQ(task_plugins.size(), 17);
+  EXPECT_EQ(task_plugins.size(), 34);
 #else
-  EXPECT_EQ(task_plugins.size(), 16);
+  EXPECT_EQ(task_plugins.size(), 32);
 #endif
   for (auto cm_it = task_plugins.begin(); cm_it != task_plugins.end(); ++cm_it)
   {

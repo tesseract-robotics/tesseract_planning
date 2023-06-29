@@ -87,12 +87,7 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
     }
     else if (YAML::Node tn = node_it->second["task"])
     {
-      std::string task_name;
-      if (YAML::Node n = tn["name"])
-        task_name = n.as<std::string>();
-      else
-        throw std::runtime_error("Task Composer Graph '" + name_ + "' missing 'name' entry!");
-
+      auto task_name = tn.as<std::string>();
       TaskComposerNode::UPtr task_node = plugin_factory.createTaskComposerNode(task_name);
       if (task_node == nullptr)
         throw std::runtime_error("Task Composer Graph '" + name_ + "' failed to create task '" + task_name +
@@ -100,14 +95,17 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
 
       task_node->setName(node_name);
 
-      if (YAML::Node n = tn["conditional"])
-        task_node->setConditional(n.as<bool>());
+      if (YAML::Node tc = node_it->second["config"])
+      {
+        if (YAML::Node n = tc["conditional"])
+          task_node->setConditional(n.as<bool>());
 
-      if (YAML::Node n = tn["input_remapping"])
-        task_node->renameInputKeys(n.as<std::map<std::string, std::string>>());
+        if (YAML::Node n = tc["input_remapping"])
+          task_node->renameInputKeys(n.as<std::map<std::string, std::string>>());
 
-      if (YAML::Node n = tn["output_remapping"])
-        task_node->renameOutputKeys(n.as<std::map<std::string, std::string>>());
+        if (YAML::Node n = tc["output_remapping"])
+          task_node->renameOutputKeys(n.as<std::map<std::string, std::string>>());
+      }
 
       node_uuids[node_name] = addNode(std::move(task_node));
     }

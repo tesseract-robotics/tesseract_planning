@@ -41,12 +41,12 @@ ErrorTask::ErrorTask(std::string name, const YAML::Node& config, const TaskCompo
 {
 }
 
-TaskComposerNodeInfo::UPtr ErrorTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr ErrorTask::runImpl(TaskComposerInput& /*input*/,
+                                              OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->color = "red";
   info->return_value = 0;
-  input.abort(uuid_);
   info->message = "Error";
   CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
   return info;

@@ -196,8 +196,8 @@ Also in most case the tasks inputs and sometimes the outputs must be renamed. Th
              inputs: [input_data]
              outputs: [output_data]
          CartesianPipelineTask:
-            task:
-              name: CartesianPipeline
+            task: CartesianPipeline
+            config:
               conditional: false
               input_remapping:
                 input_data: output_data
