@@ -696,22 +696,25 @@ task_composer_plugins:
                 outputs: [output_data]
                 freespace:
                   task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
                   task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -771,22 +774,25 @@ task_composer_plugins:
                 outputs: [output_data]
                 freespace:
                   task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -846,16 +852,18 @@ task_composer_plugins:
                 outputs: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
                   task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -915,16 +923,18 @@ task_composer_plugins:
                 outputs: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -991,22 +1001,25 @@ task_composer_plugins:
                 outputs: [output_data]
                 freespace:
                   task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
                   task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -1075,22 +1088,25 @@ task_composer_plugins:
                 outputs: [output_data]
                 freespace:
                   task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -1159,16 +1175,18 @@ task_composer_plugins:
                 outputs: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
                   task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -1237,16 +1255,18 @@ task_composer_plugins:
                 outputs: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]

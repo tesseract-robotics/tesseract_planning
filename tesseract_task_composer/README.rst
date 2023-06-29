@@ -341,8 +341,8 @@ Perform trajectory smoothing leveraging Ruckig. Time parameterization must be ra
        inputs: [input_data]
        outputs: [output_data]
 
-Raster Only Motion Task
-^^^^^^^^^^^^^^^^^^^^^^^
+Raster Motion Task
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: yaml
 
@@ -354,22 +354,25 @@ Raster Only Motion Task
        outputs: [output_data]
        freespace:
          task: FreespacePipeline
-         input_remapping:
-           input_data: output_data
-         input_indexing: [output_data]
-         output_indexing: [output_data]
+         config:
+           input_remapping:
+             input_data: output_data
+           input_indexing: [output_data]
+           output_indexing: [output_data]
        raster:
          task: CartesianPipeline
-         input_remapping:
-           input_data: output_data
-         input_indexing: [output_data]
-         output_indexing: [output_data]
+         config:
+           input_remapping:
+             input_data: output_data
+           input_indexing: [output_data]
+           output_indexing: [output_data]
        transition:
          task: FreespacePipeline
-         input_remapping:
-           input_data: output_data
-         input_indexing: [output_data]
-         output_indexing: [output_data]
+         config:
+           input_remapping:
+             input_data: output_data
+           input_indexing: [output_data]
+           output_indexing: [output_data]
 
 Raster Only Motion Task
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -384,16 +387,18 @@ Raster Only Motion Task
        outputs: [output_data]
        raster:
          task: CartesianPipeline
-         input_remapping:
-           input_data: output_data
-         input_indexing: [output_data]
-         output_indexing: [output_data]
+         config:
+           input_remapping:
+             input_data: output_data
+           input_indexing: [output_data]
+           output_indexing: [output_data]
        transition:
          task: FreespacePipeline
-         input_remapping:
-           input_data: output_data
-         input_indexing: [output_data]
-         output_indexing: [output_data]
+         config:
+           input_remapping:
+             input_data: output_data
+           input_indexing: [output_data]
+           output_indexing: [output_data]
 
 
 Check Input Task
