@@ -190,7 +190,7 @@ trajopt::TermInfo::Ptr createCollisionTermInfo(int start_index,
 trajopt::TermInfo::Ptr
 createSmoothVelocityTermInfo(int start_index, int end_index, int n_joints, double coeff, trajopt::TermType type)
 {
-  if ((end_index - start_index) < 2)
+  if ((end_index - start_index) < 1)
     throw std::runtime_error("TrajOpt JointVelTermInfo requires at least two states!");
 
   std::shared_ptr<trajopt::JointVelTermInfo> jv = std::make_shared<trajopt::JointVelTermInfo>();
@@ -208,7 +208,7 @@ trajopt::TermInfo::Ptr createSmoothVelocityTermInfo(int start_index,
                                                     const Eigen::Ref<const Eigen::VectorXd>& coeff,
                                                     trajopt::TermType type)
 {
-  if ((end_index - start_index) < 2)
+  if ((end_index - start_index) < 1)
     throw std::runtime_error("TrajOpt JointVelTermInfo requires at least two states!");
 
   std::shared_ptr<trajopt::JointVelTermInfo> jv = std::make_shared<trajopt::JointVelTermInfo>();
@@ -224,7 +224,7 @@ trajopt::TermInfo::Ptr createSmoothVelocityTermInfo(int start_index,
 trajopt::TermInfo::Ptr
 createSmoothAccelerationTermInfo(int start_index, int end_index, int n_joints, double coeff, trajopt::TermType type)
 {
-  if ((end_index - start_index) < 3)
+  if ((end_index - start_index) < 2)
     throw std::runtime_error("TrajOpt JointAccTermInfo requires at least three states!");
 
   std::shared_ptr<trajopt::JointAccTermInfo> ja = std::make_shared<trajopt::JointAccTermInfo>();
@@ -242,7 +242,7 @@ trajopt::TermInfo::Ptr createSmoothAccelerationTermInfo(int start_index,
                                                         const Eigen::Ref<const Eigen::VectorXd>& coeff,
                                                         trajopt::TermType type)
 {
-  if ((end_index - start_index) < 3)
+  if ((end_index - start_index) < 2)
     throw std::runtime_error("TrajOpt JointAccTermInfo requires at least three states!");
 
   std::shared_ptr<trajopt::JointAccTermInfo> ja = std::make_shared<trajopt::JointAccTermInfo>();
@@ -258,7 +258,7 @@ trajopt::TermInfo::Ptr createSmoothAccelerationTermInfo(int start_index,
 trajopt::TermInfo::Ptr
 createSmoothJerkTermInfo(int start_index, int end_index, int n_joints, double coeff, trajopt::TermType type)
 {
-  if ((end_index - start_index) < 5)
+  if ((end_index - start_index) < 4)
     throw std::runtime_error("TrajOpt JointJerkTermInfo requires at least five states!");
 
   std::shared_ptr<trajopt::JointJerkTermInfo> jj = std::make_shared<trajopt::JointJerkTermInfo>();
@@ -276,7 +276,7 @@ trajopt::TermInfo::Ptr createSmoothJerkTermInfo(int start_index,
                                                 const Eigen::Ref<const Eigen::VectorXd>& coeff,
                                                 trajopt::TermType type)
 {
-  if ((end_index - start_index) < 5)
+  if ((end_index - start_index) < 4)
     throw std::runtime_error("TrajOpt JointJerkTermInfo requires at least five states!");
 
   std::shared_ptr<trajopt::JointJerkTermInfo> jj = std::make_shared<trajopt::JointJerkTermInfo>();
