@@ -33,8 +33,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <trajopt/plot_callback.hpp>
 #include <trajopt/file_write_callback.hpp>
 #include <trajopt/problem_description.hpp>
-#include <trajopt_utils/config.hpp>
-#include <trajopt_utils/logging.hpp>
+#include <trajopt_common/config.hpp>
+#include <trajopt_common/logging.hpp>
 #include <tesseract_motion_planners/ompl/config/ompl_planner_freespace_config.h>
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/trajopt/config/utils.h>
@@ -71,7 +71,7 @@ public:
     , tcp_link_(std::move(tcp_link))
     , plotter_(plotter)
   {
-    util::gLogLevel = util::LevelError;
+    trajopt_common::gLogLevel = trajopt_common::LevelError;
   }
 
   ~TrajOptGlassUprightConstraint() override = default;
@@ -260,7 +260,7 @@ bool GlassUprightOMPLExample::run()
   //  plotter->plotScene();
 
   // Set Log Level
-  util::gLogLevel = util::LevelError;
+  trajopt_common::gLogLevel = trajopt_common::LevelError;
 
   // Setup Problem
   tesseract_motion_planners::OMPLMotionPlanner ompl_planner;
