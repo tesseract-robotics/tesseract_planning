@@ -23,7 +23,7 @@ jobs:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
       PUSH_DOCKER_IMAGE: ${{ github.ref == 'refs/heads/master' || github.event_name == 'release' }}
-      TESSERACT_VERSION: 0.17
+      TESSERACT_VERSION: 0.18
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1

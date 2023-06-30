@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 #include <trajopt_ifopt/constraints/collision/discrete_collision_evaluators.h>
 #include <trajopt_ifopt/constraints/collision/continuous_collision_evaluators.h>
-#include <trajopt_utils/utils.hpp>
+#include <trajopt_common/utils.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
@@ -86,9 +86,9 @@ public:
   double longest_valid_segment_length = 0.5;
 
   /** @brief Special link collision cost distances */
-  util::SafetyMarginData::Ptr special_collision_cost{ nullptr };
+  trajopt_common::SafetyMarginData::Ptr special_collision_cost{ nullptr };
   /** @brief Special link collision constraint distances */
-  util::SafetyMarginData::Ptr special_collision_constraint{ nullptr };
+  trajopt_common::SafetyMarginData::Ptr special_collision_constraint{ nullptr };
 
   void apply(TrajOptIfoptProblem& problem,
              int start_index,

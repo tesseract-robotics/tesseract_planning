@@ -54,7 +54,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_motion_planners/ompl/config/ompl_planner_constrained_config.h>
 #include <trajopt/problem_description.hpp>
-#include <trajopt_utils/logging.hpp>
+#include <trajopt_common/logging.hpp>
 
 using namespace tesseract;
 using namespace tesseract_scene_graph;
