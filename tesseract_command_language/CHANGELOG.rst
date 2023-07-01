@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add test suite to command language and improve code coverage (`#331 <https://github.com/tesseract-robotics/tesseract_planning/issues/331>`_)
+* Contributors: Levi Armstrong
+
 0.17.0 (2023-06-06)
 -------------------
 * Fix composite instruction iterator construction to call default constructor

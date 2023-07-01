@@ -2,6 +2,27 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update task_composer_plugins_no_trajopt_ifopt.yaml
+* Restruct Raster yaml config to have same look as everything else
+* Leverage AbortTask and make ErrorTask not abort
+* Remove unused file
+* Upgrade to TrajOpt 0.6.0
+* Add task composer planning unit tests (`#341 <https://github.com/tesseract-robotics/tesseract_planning/issues/341>`_)
+* Fixes for Python wrappers (`#329 <https://github.com/tesseract-robotics/tesseract_planning/issues/329>`_)
+* Add TaskComposerServer unit tests
+* Add task composer taskflow unit tests (`#339 <https://github.com/tesseract-robotics/tesseract_planning/issues/339>`_)
+* Add TaskComposerPipeline and improve task composer code coverage (`#337 <https://github.com/tesseract-robotics/tesseract_planning/issues/337>`_)
+* Added trajectory logger printout to trajectory checker (`#338 <https://github.com/tesseract-robotics/tesseract_planning/issues/338>`_)
+* Added an extra needed #include for 22.04 builds (`#332 <https://github.com/tesseract-robotics/tesseract_planning/issues/332>`_)
+  Co-authored-by: Levi Armstrong <levi.armstrong@gmail.com>
+* Restructure tesseract_task_composer like other plugin based packages
+* Add PlanningTaskComposerProblem
+* Added ability to colorize dotgraphs with planning results (`#327 <https://github.com/tesseract-robotics/tesseract_planning/issues/327>`_)
+  Co-authored-by: Levi Armstrong <levi.armstrong@gmail.com>
+* Contributors: John Wason, Levi Armstrong, Tyler Marr
+
 0.17.0 (2023-06-06)
 -------------------
 * Fix Key Naming Scheme in Raster Motion Task  (`#324 <https://github.com/tesseract-robotics/tesseract_planning/issues/324>`_)
