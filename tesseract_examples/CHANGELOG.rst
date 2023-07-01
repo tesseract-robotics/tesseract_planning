@@ -2,8 +2,8 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.18.0 (2023-06-30)
+-------------------
 * Upgrade to TrajOpt 0.6.0
 * Fixes for Python wrappers (`#329 <https://github.com/tesseract-robotics/tesseract_planning/issues/329>`_)
 * Add TrajOpt multi threaded support

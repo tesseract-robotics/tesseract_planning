@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.18.0 (2023-06-30)
+-------------------
 * Upgrade to TrajOpt 0.6.0
 * Fixed actual term number check being 1 more than stated number (`#333 <https://github.com/tesseract-robotics/tesseract_planning/issues/333>`_)
 * Added trajectory logger printout to trajectory checker (`#338 <https://github.com/tesseract-robotics/tesseract_planning/issues/338>`_)

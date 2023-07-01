@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.18.0 (2023-06-30)
+-------------------
 * Update task_composer_plugins_no_trajopt_ifopt.yaml
 * Restruct Raster yaml config to have same look as everything else
 * Leverage AbortTask and make ErrorTask not abort
