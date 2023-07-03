@@ -2,6 +2,9 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.18.0 (2023-06-30)
+-------------------
+
 0.17.0 (2023-06-06)
 -------------------
 * Fix incorrect include path in tesseract_common_trajectory.h

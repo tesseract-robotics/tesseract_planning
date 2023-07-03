@@ -94,9 +94,9 @@ public:
   double longest_valid_segment_length = 0.1;
 
   /**@brief Special link collision cost distances */
-  util::SafetyMarginData::Ptr special_collision_cost{ nullptr };
+  trajopt_common::SafetyMarginData::Ptr special_collision_cost{ nullptr };
   /**@brief Special link collision constraint distances */
-  util::SafetyMarginData::Ptr special_collision_constraint{ nullptr };
+  trajopt_common::SafetyMarginData::Ptr special_collision_constraint{ nullptr };
 
   void apply(trajopt::ProblemConstructionInfo& pci,
              int start_index,

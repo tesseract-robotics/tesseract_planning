@@ -14,7 +14,7 @@ task_composer_plugins:
           threads: 5
   tasks:
     plugins:
-      DescartesFPipeline:
+      DescartesFTask:
         class: PipelineTaskFactory
         config:
           conditional: true
@@ -37,6 +37,78 @@ task_composer_plugins:
                 outputs: [output_data]
             DescartesMotionPlannerTask:
               class: DescartesFMotionPlannerTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+                format_result_as_input: false
+            DiscreteContactCheckTask:
+              class: DiscreteContactCheckTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+            IterativeSplineParameterizationTask:
+              class: IterativeSplineParameterizationTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+          edges:
+            - source: MinLengthTask
+              destinations: [ErrorTask, DescartesMotionPlannerTask]
+            - source: DescartesMotionPlannerTask
+              destinations: [ErrorTask, DiscreteContactCheckTask]
+            - source: DiscreteContactCheckTask
+              destinations: [ErrorTask, IterativeSplineParameterizationTask]
+            - source: IterativeSplineParameterizationTask
+              destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
+      DescartesFPipeline:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: DescartesFTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      DescartesDTask:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            ErrorTask:
+              class: ErrorTaskFactory
+              config:
+                conditional: false
+            MinLengthTask:
+              class: MinLengthTaskFactory
+              config:
+                conditional: true
+                inputs: [input_data]
+                outputs: [output_data]
+            DescartesMotionPlannerTask:
+              class: DescartesDMotionPlannerTaskFactory
               config:
                 conditional: true
                 inputs: [output_data]
@@ -74,45 +146,19 @@ task_composer_plugins:
               class: DoneTaskFactory
               config:
                 conditional: false
-            ErrorTask:
-              class: ErrorTaskFactory
+            AbortTask:
+              class: AbortTaskFactory
               config:
                 conditional: false
-            MinLengthTask:
-              class: MinLengthTaskFactory
+            MotionPlanningTask:
+              task: DescartesDTask
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
-            DescartesMotionPlannerTask:
-              class: DescartesDMotionPlannerTaskFactory
-              config:
-                conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
-                format_result_as_input: false
-            DiscreteContactCheckTask:
-              class: DiscreteContactCheckTaskFactory
-              config:
-                conditional: true
-                inputs: [output_data]
-            IterativeSplineParameterizationTask:
-              class: IterativeSplineParameterizationTaskFactory
-              config:
-                conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
           edges:
-            - source: MinLengthTask
-              destinations: [ErrorTask, DescartesMotionPlannerTask]
-            - source: DescartesMotionPlannerTask
-              destinations: [ErrorTask, DiscreteContactCheckTask]
-            - source: DiscreteContactCheckTask
-              destinations: [ErrorTask, IterativeSplineParameterizationTask]
-            - source: IterativeSplineParameterizationTask
-              destinations: [ErrorTask, DoneTask]
-          terminals: [ErrorTask, DoneTask]
-      DescartesFNPCPipeline:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      DescartesFNPCTask:
         class: PipelineTaskFactory
         config:
           conditional: true
@@ -154,7 +200,30 @@ task_composer_plugins:
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
           terminals: [ErrorTask, DoneTask]
-      DescartesDNPCPipeline:
+      DescartesFNPCPipeline:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: DescartesFNPCTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      DescartesDNPCTask:
         class: PipelineTaskFactory
         config:
           conditional: true
@@ -196,7 +265,30 @@ task_composer_plugins:
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
           terminals: [ErrorTask, DoneTask]
-      OMPLPipeline:
+      DescartesDNPCPipeline:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: DescartesDNPCTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      OMPLTask:
         class: PipelineTaskFactory
         config:
           conditional: true
@@ -245,7 +337,30 @@ task_composer_plugins:
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
           terminals: [ErrorTask, DoneTask]
-      TrajOptPipeline:
+      OMPLPipeline:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: OMPLTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      TrajOptTask:
         class: PipelineTaskFactory
         config:
           conditional: true
@@ -294,7 +409,30 @@ task_composer_plugins:
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
           terminals: [ErrorTask, DoneTask]
-      TrajOptIfoptPipeline:
+      TrajOptPipeline:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: TrajOptTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      TrajOptIfoptTask:
         class: PipelineTaskFactory
         config:
           conditional: true
@@ -343,7 +481,30 @@ task_composer_plugins:
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
           terminals: [ErrorTask, DoneTask]
-      CartesianPipeline:
+      TrajOptIfoptPipeline:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: TrajOptIfoptTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      CartesianTask:
         class: PipelineTaskFactory
         config:
           conditional: true
@@ -401,7 +562,30 @@ task_composer_plugins:
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
           terminals: [ErrorTask, DoneTask]
-      FreespacePipeline:
+      CartesianPipeline:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: CartesianTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      FreespaceTask:
         class: PipelineTaskFactory
         config:
           conditional: true
@@ -459,7 +643,30 @@ task_composer_plugins:
             - source: IterativeSplineParameterizationTask
               destinations: [ErrorTask, DoneTask]
           terminals: [ErrorTask, DoneTask]
-      RasterFtPipeline:
+      FreespacePipeline:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: FreespaceTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      RasterFtTask:
         class: PipelineTaskFactory
         config:
           conditional: true
@@ -489,22 +696,103 @@ task_composer_plugins:
                 outputs: [output_data]
                 freespace:
                   task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
                   task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
+          edges:
+            - source: SimpleMotionPlannerTask
+              destinations: [ErrorTask, RasterMotionTask]
+            - source: RasterMotionTask
+              destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
+      RasterFtPipeline:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: RasterFtTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      RasterCtTask:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            ErrorTask:
+              class: ErrorTaskFactory
+              config:
+                conditional: false
+            SimpleMotionPlannerTask:
+              class: SimpleMotionPlannerTaskFactory
+              config:
+                conditional: true
+                inputs: [input_data]
+                outputs: [output_data]
+                format_result_as_input: true
+            RasterMotionTask:
+              class: RasterMotionTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+                freespace:
+                  task: FreespacePipeline
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
+                raster:
+                  task: CartesianPipeline
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
+                transition:
+                  task: CartesianPipeline
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -522,6 +810,29 @@ task_composer_plugins:
               class: DoneTaskFactory
               config:
                 conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: RasterCtTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      RasterFtOnlyTask:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
             ErrorTask:
               class: ErrorTaskFactory
               config:
@@ -534,29 +845,25 @@ task_composer_plugins:
                 outputs: [output_data]
                 format_result_as_input: true
             RasterMotionTask:
-              class: RasterMotionTaskFactory
+              class: RasterOnlyMotionTaskFactory
               config:
                 conditional: true
                 inputs: [output_data]
                 outputs: [output_data]
-                freespace:
-                  task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
-                  task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  task: FreespacePipeline
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -574,42 +881,19 @@ task_composer_plugins:
               class: DoneTaskFactory
               config:
                 conditional: false
-            ErrorTask:
-              class: ErrorTaskFactory
+            AbortTask:
+              class: AbortTaskFactory
               config:
                 conditional: false
-            SimpleMotionPlannerTask:
-              class: SimpleMotionPlannerTaskFactory
+            MotionPlanningTask:
+              task: RasterFtOnlyTask
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
-                format_result_as_input: true
-            RasterMotionTask:
-              class: RasterOnlyMotionTaskFactory
-              config:
-                conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
-                raster:
-                  task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
-                transition:
-                  task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
           edges:
-            - source: SimpleMotionPlannerTask
-              destinations: [ErrorTask, RasterMotionTask]
-            - source: RasterMotionTask
-              destinations: [ErrorTask, DoneTask]
-          terminals: [ErrorTask, DoneTask]
-      RasterCtOnlyPipeline:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      RasterCtOnlyTask:
         class: PipelineTaskFactory
         config:
           conditional: true
@@ -639,23 +923,48 @@ task_composer_plugins:
                 outputs: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
             - source: RasterMotionTask
               destinations: [ErrorTask, DoneTask]
           terminals: [ErrorTask, DoneTask]
-      RasterFtGlobalPipeline:
+      RasterCtOnlyPipeline:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: RasterCtOnlyTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      RasterFtGlobalTask:
         class: PipelineTaskFactory
         config:
           conditional: true
@@ -692,22 +1001,112 @@ task_composer_plugins:
                 outputs: [output_data]
                 freespace:
                   task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
                   task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
+          edges:
+            - source: SimpleMotionPlannerTask
+              destinations: [ErrorTask, DescartesMotionPlannerTask]
+            - source: DescartesMotionPlannerTask
+              destinations: [ErrorTask, RasterMotionTask]
+            - source: RasterMotionTask
+              destinations: [ErrorTask, DoneTask]
+          terminals: [ErrorTask, DoneTask]
+      RasterFtGlobalPipeline:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: RasterFtGlobalTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      RasterCtGlobalTask:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            ErrorTask:
+              class: ErrorTaskFactory
+              config:
+                conditional: false
+            SimpleMotionPlannerTask:
+              class: SimpleMotionPlannerTaskFactory
+              config:
+                conditional: true
+                inputs: [input_data]
+                outputs: [output_data]
+                format_result_as_input: true
+            DescartesMotionPlannerTask:
+              class: DescartesFMotionPlannerTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+                format_result_as_input: true
+            RasterMotionTask:
+              class: RasterMotionTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+                freespace:
+                  task: FreespacePipeline
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
+                raster:
+                  task: CartesianPipeline
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
+                transition:
+                  task: CartesianPipeline
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -727,6 +1126,29 @@ task_composer_plugins:
               class: DoneTaskFactory
               config:
                 conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: RasterCtGlobalTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      RasterFtOnlyGlobalTask:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
             ErrorTask:
               class: ErrorTaskFactory
               config:
@@ -746,29 +1168,25 @@ task_composer_plugins:
                 outputs: [output_data]
                 format_result_as_input: true
             RasterMotionTask:
-              class: RasterMotionTaskFactory
+              class: RasterOnlyMotionTaskFactory
               config:
                 conditional: true
                 inputs: [output_data]
                 outputs: [output_data]
-                freespace:
-                  task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
-                  task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  task: FreespacePipeline
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -788,51 +1206,19 @@ task_composer_plugins:
               class: DoneTaskFactory
               config:
                 conditional: false
-            ErrorTask:
-              class: ErrorTaskFactory
+            AbortTask:
+              class: AbortTaskFactory
               config:
                 conditional: false
-            SimpleMotionPlannerTask:
-              class: SimpleMotionPlannerTaskFactory
+            MotionPlanningTask:
+              task: RasterFtOnlyGlobalTask
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
-                format_result_as_input: true
-            DescartesMotionPlannerTask:
-              class: DescartesFMotionPlannerTaskFactory
-              config:
-                conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
-                format_result_as_input: true
-            RasterMotionTask:
-              class: RasterOnlyMotionTaskFactory
-              config:
-                conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
-                raster:
-                  task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
-                transition:
-                  task: FreespacePipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
           edges:
-            - source: SimpleMotionPlannerTask
-              destinations: [ErrorTask, DescartesMotionPlannerTask]
-            - source: DescartesMotionPlannerTask
-              destinations: [ErrorTask, RasterMotionTask]
-            - source: RasterMotionTask
-              destinations: [ErrorTask, DoneTask]
-          terminals: [ErrorTask, DoneTask]
-      RasterCtOnlyGlobalPipeline:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]
+      RasterCtOnlyGlobalTask:
         class: PipelineTaskFactory
         config:
           conditional: true
@@ -869,16 +1255,18 @@ task_composer_plugins:
                 outputs: [output_data]
                 raster:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
                 transition:
                   task: CartesianPipeline
-                  input_remapping:
-                    input_data: output_data
-                  input_indexing: [output_data]
-                  output_indexing: [output_data]
+                  config:
+                    input_remapping:
+                      input_data: output_data
+                    input_indexing: [output_data]
+                    output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -887,3 +1275,26 @@ task_composer_plugins:
             - source: RasterMotionTask
               destinations: [ErrorTask, DoneTask]
           terminals: [ErrorTask, DoneTask]
+      RasterCtOnlyGlobalPipeline:
+        class: PipelineTaskFactory
+        config:
+          conditional: true
+          inputs: [input_data]
+          outputs: [output_data]
+          nodes:
+            DoneTask:
+              class: DoneTaskFactory
+              config:
+                conditional: false
+            AbortTask:
+              class: AbortTaskFactory
+              config:
+                conditional: false
+            MotionPlanningTask:
+              task: RasterCtOnlyGlobalTask
+              config:
+                conditional: true
+          edges:
+            - source: MotionPlanningTask
+              destinations: [AbortTask, DoneTask]
+          terminals: [AbortTask, DoneTask]

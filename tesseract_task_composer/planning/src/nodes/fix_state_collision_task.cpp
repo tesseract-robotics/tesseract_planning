@@ -181,7 +181,7 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     collision->evaluator_type = trajopt::CollisionEvaluatorType::SINGLE_TIMESTEP;
     collision->first_step = 0;
     collision->last_step = 0;
-    collision->info = util::createSafetyMarginDataVector(
+    collision->info = trajopt_common::createSafetyMarginDataVector(
         pci.basic_info.n_steps,
         profile.collision_check_config.contact_manager_config.margin_data.getMaxCollisionMargin(),
         1);
@@ -196,7 +196,7 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     collision->evaluator_type = trajopt::CollisionEvaluatorType::SINGLE_TIMESTEP;
     collision->first_step = 0;
     collision->last_step = 0;
-    collision->info = util::createSafetyMarginDataVector(
+    collision->info = trajopt_common::createSafetyMarginDataVector(
         pci.basic_info.n_steps,
         profile.collision_check_config.contact_manager_config.margin_data.getMaxCollisionMargin(),
         20);

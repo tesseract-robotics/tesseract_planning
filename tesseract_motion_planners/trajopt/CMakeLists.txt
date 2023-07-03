@@ -16,7 +16,7 @@ target_link_libraries(
   ${PROJECT_NAME}_trajopt
   PUBLIC ${PROJECT_NAME}_core
          trajopt::trajopt
-         trajopt::trajopt_utils
+         trajopt::trajopt_common
          trajopt::trajopt_sco
          Boost::boost
          Eigen3::Eigen)

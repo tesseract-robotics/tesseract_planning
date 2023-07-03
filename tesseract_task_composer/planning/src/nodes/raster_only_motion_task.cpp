@@ -146,21 +146,28 @@ RasterOnlyMotionTask::RasterOnlyMotionTask(std::string name,
     else
       throw std::runtime_error("RasterOnlyMotionTask, entry 'raster' missing 'task' entry");
 
-    if (YAML::Node n = raster_config["input_remapping"])
-      input_remapping = n.as<std::map<std::string, std::string>>();
+    if (YAML::Node task_config = raster_config["config"])
+    {
+      if (YAML::Node n = task_config["input_remapping"])
+        input_remapping = n.as<std::map<std::string, std::string>>();
 
-    if (YAML::Node n = raster_config["output_remapping"])
-      output_remapping = n.as<std::map<std::string, std::string>>();
+      if (YAML::Node n = task_config["output_remapping"])
+        output_remapping = n.as<std::map<std::string, std::string>>();
 
-    if (YAML::Node n = raster_config["input_indexing"])
-      input_indexing = n.as<std::vector<std::string>>();
+      if (YAML::Node n = task_config["input_indexing"])
+        input_indexing = n.as<std::vector<std::string>>();
+      else
+        throw std::runtime_error("RasterOnlyMotionTask, entry 'raster' missing 'input_indexing' entry");
+
+      if (YAML::Node n = task_config["output_indexing"])
+        output_indexing = n.as<std::vector<std::string>>();
+      else
+        throw std::runtime_error("RasterOnlyMotionTask, entry 'raster' missing 'output_indexing' entry");
+    }
     else
-      throw std::runtime_error("RasterOnlyMotionTask, entry 'raster' missing 'input_indexing' entry");
-
-    if (YAML::Node n = raster_config["output_indexing"])
-      output_indexing = n.as<std::vector<std::string>>();
-    else
-      throw std::runtime_error("RasterOnlyMotionTask, entry 'raster' missing 'output_indexing' entry");
+    {
+      throw std::runtime_error("RasterOnlyMotionTask, entry 'raster' missing 'config' entry");
+    }
 
     raster_task_factory_ = [task_name,
                             input_remapping,
@@ -190,21 +197,28 @@ RasterOnlyMotionTask::RasterOnlyMotionTask(std::string name,
     else
       throw std::runtime_error("RasterOnlyMotionTask, entry 'transition' missing 'task' entry");
 
-    if (YAML::Node n = transition_config["input_remapping"])
-      input_remapping = n.as<std::map<std::string, std::string>>();
+    if (YAML::Node task_config = transition_config["config"])
+    {
+      if (YAML::Node n = task_config["input_remapping"])
+        input_remapping = n.as<std::map<std::string, std::string>>();
 
-    if (YAML::Node n = transition_config["output_remapping"])
-      output_remapping = n.as<std::map<std::string, std::string>>();
+      if (YAML::Node n = task_config["output_remapping"])
+        output_remapping = n.as<std::map<std::string, std::string>>();
 
-    if (YAML::Node n = transition_config["input_indexing"])
-      input_indexing = n.as<std::vector<std::string>>();
+      if (YAML::Node n = task_config["input_indexing"])
+        input_indexing = n.as<std::vector<std::string>>();
+      else
+        throw std::runtime_error("RasterOnlyMotionTask, entry 'transition' missing 'input_indexing' entry");
+
+      if (YAML::Node n = task_config["output_indexing"])
+        output_indexing = n.as<std::vector<std::string>>();
+      else
+        throw std::runtime_error("RasterOnlyMotionTask, entry 'transition' missing 'output_indexing' entry");
+    }
     else
-      throw std::runtime_error("RasterOnlyMotionTask, entry 'transition' missing 'input_indexing' entry");
-
-    if (YAML::Node n = transition_config["output_indexing"])
-      output_indexing = n.as<std::vector<std::string>>();
-    else
-      throw std::runtime_error("RasterOnlyMotionTask, entry 'transition' missing 'output_indexing' entry");
+    {
+      throw std::runtime_error("RasterOnlyMotionTask, entry 'transition' missing 'config' entry");
+    }
 
     transition_task_factory_ = [task_name,
                                 input_remapping,
@@ -224,9 +238,7 @@ RasterOnlyMotionTask::RasterOnlyMotionTask(std::string name,
 
 bool RasterOnlyMotionTask::operator==(const RasterOnlyMotionTask& rhs) const
 {
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
+  return (TaskComposerTask::operator==(rhs));
 }
 bool RasterOnlyMotionTask::operator!=(const RasterOnlyMotionTask& rhs) const { return !operator==(rhs); }
 

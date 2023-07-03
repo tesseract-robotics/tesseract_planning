@@ -28,8 +28,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <trajopt/plot_callback.hpp>
 #include <trajopt/problem_description.hpp>
-#include <trajopt_utils/config.hpp>
-#include <trajopt_utils/logging.hpp>
+#include <trajopt_common/config.hpp>
+#include <trajopt_common/logging.hpp>
 #include <trajopt_sco/optimizers.hpp>
 #include <trajopt_sco/sco_common.hpp>
 #include <tesseract_environment/utils.h>
@@ -101,9 +101,9 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
 
   // Set Log Level
   if (request.verbose)
-    util::gLogLevel = util::LevelInfo;
+    trajopt_common::gLogLevel = trajopt_common::LevelInfo;
   else
-    util::gLogLevel = util::LevelWarn;
+    trajopt_common::gLogLevel = trajopt_common::LevelWarn;
 
   // Create optimizer
   sco::BasicTrustRegionSQP::Ptr opt;
