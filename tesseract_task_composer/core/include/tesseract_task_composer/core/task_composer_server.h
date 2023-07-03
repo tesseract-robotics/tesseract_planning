@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_executor.h>
+#include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
 namespace tesseract_planning
@@ -137,9 +138,9 @@ public:
   long getTaskCount(const std::string& name) const;
 
 protected:
+  TaskComposerPluginFactory plugin_factory_;
   std::unordered_map<std::string, TaskComposerExecutor::Ptr> executors_;
   std::unordered_map<std::string, TaskComposerNode::UPtr> tasks_;
-  TaskComposerPluginFactory plugin_factory_;
 
   void loadPlugins();
 };
