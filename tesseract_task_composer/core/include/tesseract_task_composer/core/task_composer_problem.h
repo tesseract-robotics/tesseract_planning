@@ -59,6 +59,12 @@ struct TaskComposerProblem
   /** @brief The location data is stored and retrieved during execution */
   TaskComposerDataStorage input_data;
 
+  /**
+   * @brief Clone the planning problem
+   * @return A clone of the planning problem
+   */
+  virtual TaskComposerProblem::UPtr clone() const;
+
   bool operator==(const TaskComposerProblem& rhs) const;
   bool operator!=(const TaskComposerProblem& rhs) const;
 

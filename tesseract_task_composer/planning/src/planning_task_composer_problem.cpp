@@ -96,6 +96,11 @@ PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::
 {
 }
 
+TaskComposerProblem::UPtr PlanningTaskComposerProblem::clone() const
+{
+  return std::make_unique<PlanningTaskComposerProblem>(*this);
+}
+
 bool PlanningTaskComposerProblem::operator==(const PlanningTaskComposerProblem& rhs) const
 {
   bool equal = true;

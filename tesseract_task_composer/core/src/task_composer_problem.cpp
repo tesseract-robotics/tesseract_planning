@@ -44,6 +44,8 @@ TaskComposerProblem::TaskComposerProblem(TaskComposerDataStorage input_data, std
 {
 }
 
+TaskComposerProblem::UPtr TaskComposerProblem::clone() const { return std::make_unique<TaskComposerProblem>(*this); }
+
 bool TaskComposerProblem::operator==(const TaskComposerProblem& rhs) const
 {
   bool equal = true;

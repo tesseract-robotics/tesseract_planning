@@ -112,6 +112,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerProblemTests)  // NOLINT
 
   auto problem3 = std::make_unique<TaskComposerProblem>(TaskComposerDataStorage(), "TaskComposerProblemTests");
   EXPECT_EQ(problem3->name, "TaskComposerProblemTests");
+
+  auto problem_clone = problem3->clone();
+  EXPECT_EQ(*problem3, *problem_clone);
 }
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoContainerTests)  // NOLINT

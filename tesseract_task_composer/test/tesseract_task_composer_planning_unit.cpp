@@ -94,6 +94,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningProblemTests)  // 
     EXPECT_TRUE(problem.composite_profile_remapping.empty());
     EXPECT_TRUE(problem.profiles != nullptr);
     EXPECT_TRUE(problem.input_data.hasKey("input_data"));
+
+    // Test clone
+    auto clone = problem.clone();
+    auto& problem_clone = dynamic_cast<PlanningTaskComposerProblem&>(*clone);
+    EXPECT_EQ(problem_clone, problem);
   }
 
   {  // Construction
@@ -108,6 +113,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningProblemTests)  // 
     EXPECT_TRUE(problem.composite_profile_remapping.empty());
     EXPECT_TRUE(problem.profiles != nullptr);
     EXPECT_TRUE(problem.input_data.hasKey("input_data"));
+
+    // Test clone
+    auto clone = problem.clone();
+    auto& problem_clone = dynamic_cast<PlanningTaskComposerProblem&>(*clone);
+    EXPECT_EQ(problem_clone, problem);
   }
 
   {  // Construction
@@ -122,6 +132,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningProblemTests)  // 
     EXPECT_TRUE(problem.composite_profile_remapping.empty());
     EXPECT_TRUE(problem.profiles != nullptr);
     EXPECT_TRUE(problem.input_data.hasKey("input_data"));
+
+    // Test clone
+    auto clone = problem.clone();
+    auto& problem_clone = dynamic_cast<PlanningTaskComposerProblem&>(*clone);
+    EXPECT_EQ(problem_clone, problem);
   }
 
   {  // Construction
@@ -136,6 +151,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningProblemTests)  // 
     EXPECT_TRUE(problem.composite_profile_remapping.empty());
     EXPECT_TRUE(problem.profiles != nullptr);
     EXPECT_TRUE(problem.input_data.hasKey("input_data"));
+
+    // Test clone
+    auto clone = problem.clone();
+    auto& problem_clone = dynamic_cast<PlanningTaskComposerProblem&>(*clone);
+    EXPECT_EQ(problem_clone, problem);
   }
 
   {  // Serialization
