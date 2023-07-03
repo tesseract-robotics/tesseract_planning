@@ -57,6 +57,13 @@ CompositeInstruction::CompositeInstruction(std::string profile,
 }
 
 const boost::uuids::uuid& CompositeInstruction::getUUID() const { return uuid_; }
+void CompositeInstruction::setUUID(const boost::uuids::uuid& uuid)
+{
+  if (uuid.is_nil())
+    throw std::runtime_error("CompositeInstruction, tried to set uuid to null!");
+
+  uuid_ = uuid;
+}
 void CompositeInstruction::regenerateUUID() { uuid_ = boost::uuids::random_generator()(); }
 
 const boost::uuids::uuid& CompositeInstruction::getParentUUID() const { return parent_uuid_; }

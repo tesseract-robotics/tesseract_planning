@@ -16,6 +16,8 @@ void tesseract_planning::detail_move_instruction::MoveInstructionInterface::seri
 
 const boost::uuids::uuid& tesseract_planning::MoveInstructionPoly::getUUID() const { return getInterface().getUUID(); }
 
+void tesseract_planning::MoveInstructionPoly::setUUID(const boost::uuids::uuid& uuid) { getInterface().setUUID(uuid); }
+
 void tesseract_planning::MoveInstructionPoly::regenerateUUID() { getInterface().regenerateUUID(); }
 
 const boost::uuids::uuid& tesseract_planning::MoveInstructionPoly::getParentUUID() const

@@ -17,6 +17,8 @@ void tesseract_planning::detail_instruction::InstructionInterface::serialize(Arc
 
 const boost::uuids::uuid& tesseract_planning::InstructionPoly::getUUID() const { return getInterface().getUUID(); }
 
+void tesseract_planning::InstructionPoly::setUUID(const boost::uuids::uuid& uuid) { getInterface().setUUID(uuid); }
+
 void tesseract_planning::InstructionPoly::regenerateUUID() { getInterface().regenerateUUID(); }
 
 const boost::uuids::uuid& tesseract_planning::InstructionPoly::getParentUUID() const

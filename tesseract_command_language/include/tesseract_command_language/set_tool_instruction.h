@@ -42,6 +42,7 @@ public:
   SetToolInstruction(int tool_id);
 
   const boost::uuids::uuid& getUUID() const;
+  void setUUID(const boost::uuids::uuid& uuid);
   void regenerateUUID();
 
   const boost::uuids::uuid& getParentUUID() const;

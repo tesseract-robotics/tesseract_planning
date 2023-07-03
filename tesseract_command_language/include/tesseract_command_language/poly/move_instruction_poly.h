@@ -106,8 +106,8 @@ struct MoveInstructionConcept  // NOLINT
     UNUSED(neq);
 
     const auto& uuid = c.getUUID();
-    UNUSED(uuid);
 
+    c.setUUID(uuid);
     c.regenerateUUID();
     c.setParentUUID(uuid);
 
@@ -167,6 +167,7 @@ private:
 struct MoveInstructionInterface : tesseract_common::TypeErasureInterface
 {
   virtual const boost::uuids::uuid& getUUID() const = 0;
+  virtual void setUUID(const boost::uuids::uuid& uuid) = 0;
   virtual void regenerateUUID() = 0;
 
   virtual const boost::uuids::uuid& getParentUUID() const = 0;
@@ -224,6 +225,7 @@ struct MoveInstructionInstance : tesseract_common::TypeErasureInstance<T, MoveIn
   BOOST_CONCEPT_ASSERT((MoveInstructionConcept<T>));
 
   const boost::uuids::uuid& getUUID() const final { return this->get().getUUID(); }
+  void setUUID(const boost::uuids::uuid& uuid) final { this->get().setUUID(uuid); }
   void regenerateUUID() final { this->get().regenerateUUID(); }
 
   const boost::uuids::uuid& getParentUUID() const final { return this->get().getParentUUID(); }
@@ -295,6 +297,7 @@ struct MoveInstructionPoly : MoveInstructionPolyBase
   using MoveInstructionPolyBase::MoveInstructionPolyBase;
 
   const boost::uuids::uuid& getUUID() const;
+  void setUUID(const boost::uuids::uuid& uuid);
   void regenerateUUID();
 
   const boost::uuids::uuid& getParentUUID() const;

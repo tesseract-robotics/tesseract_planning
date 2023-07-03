@@ -160,6 +160,13 @@ MoveInstruction::MoveInstruction(StateWaypointPoly waypoint,
 }
 
 const boost::uuids::uuid& MoveInstruction::getUUID() const { return uuid_; }
+void MoveInstruction::setUUID(const boost::uuids::uuid& uuid)
+{
+  if (uuid.is_nil())
+    throw std::runtime_error("MoveInstruction, tried to set uuid to null!");
+
+  uuid_ = uuid;
+}
 void MoveInstruction::regenerateUUID() { uuid_ = boost::uuids::random_generator()(); }
 
 const boost::uuids::uuid& MoveInstruction::getParentUUID() const { return parent_uuid_; }

@@ -46,6 +46,13 @@ WaitInstruction::WaitInstruction(WaitInstructionType type, int io) : wait_type_(
 }
 
 const boost::uuids::uuid& WaitInstruction::getUUID() const { return uuid_; }
+void WaitInstruction::setUUID(const boost::uuids::uuid& uuid)
+{
+  if (uuid.is_nil())
+    throw std::runtime_error("WaitInstruction, tried to set uuid to null!");
+
+  uuid_ = uuid;
+}
 void WaitInstruction::regenerateUUID() { uuid_ = boost::uuids::random_generator()(); }
 
 const boost::uuids::uuid& WaitInstruction::getParentUUID() const { return parent_uuid_; }
