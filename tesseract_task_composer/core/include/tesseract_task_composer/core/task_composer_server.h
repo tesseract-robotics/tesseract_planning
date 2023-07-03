@@ -44,6 +44,14 @@ public:
   using UPtr = std::unique_ptr<TaskComposerServer>;
   using ConstUPtr = std::unique_ptr<const TaskComposerServer>;
 
+  TaskComposerServer() = default;
+  TaskComposerServer(const TaskComposerServer&) = delete;
+  TaskComposerServer& operator=(const TaskComposerServer&) = delete;
+  TaskComposerServer(TaskComposerServer&&) = delete;
+  TaskComposerServer& operator=(TaskComposerServer&&) = delete;
+  virtual ~TaskComposerServer();
+
+
   /**
    * @brief Load plugins from yaml node
    * @param config The config node
@@ -135,8 +143,6 @@ public:
 
   /** @brief Queries the number of running tasks at the time of this call */
   long getTaskCount(const std::string& name) const;
-
-  virtual ~TaskComposerServer();
 
 protected:
   std::unordered_map<std::string, TaskComposerExecutor::Ptr> executors_;
