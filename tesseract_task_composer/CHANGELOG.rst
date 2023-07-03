@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.18.1 (2023-07-03)
+-------------------
 * Fix TaskComposerServer destruction
 * Contributors: Levi Armstrong
 
