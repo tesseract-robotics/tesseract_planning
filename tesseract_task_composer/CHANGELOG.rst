@@ -2,6 +2,11 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix TaskComposerServer destruction
+* Contributors: Levi Armstrong
+
 0.18.0 (2023-06-30)
 -------------------
 * Update task_composer_plugins_no_trajopt_ifopt.yaml

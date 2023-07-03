@@ -2,6 +2,9 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.18.0 (2023-06-30)
 -------------------
 * Add test suite to command language and improve code coverage (`#331 <https://github.com/tesseract-robotics/tesseract_planning/issues/331>`_)

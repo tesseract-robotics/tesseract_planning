@@ -2,6 +2,9 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.18.0 (2023-06-30)
 -------------------
 * Upgrade to TrajOpt 0.6.0
