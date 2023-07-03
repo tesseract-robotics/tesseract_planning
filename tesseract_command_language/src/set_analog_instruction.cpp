@@ -44,6 +44,13 @@ SetAnalogInstruction::SetAnalogInstruction(std::string key, int index, double va
 }
 
 const boost::uuids::uuid& SetAnalogInstruction::getUUID() const { return uuid_; }
+void SetAnalogInstruction::setUUID(const boost::uuids::uuid& uuid)
+{
+  if (uuid.is_nil())
+    throw std::runtime_error("SetAnalogInstruction, tried to set uuid to null!");
+
+  uuid_ = uuid;
+}
 void SetAnalogInstruction::regenerateUUID() { uuid_ = boost::uuids::random_generator()(); }
 
 const boost::uuids::uuid& SetAnalogInstruction::getParentUUID() const { return parent_uuid_; }

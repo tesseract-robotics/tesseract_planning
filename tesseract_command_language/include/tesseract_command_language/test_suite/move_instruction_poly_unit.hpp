@@ -45,6 +45,14 @@ void runMoveInstructionInterfaceTest()
   EXPECT_TRUE(uuid.is_nil());
   EXPECT_TRUE(inst.getParentUUID().is_nil());
 
+  auto set_uuid = boost::uuids::random_generator()();
+  inst.setUUID(set_uuid);
+  EXPECT_FALSE(inst.getUUID().is_nil());
+  EXPECT_EQ(inst.getUUID(), set_uuid);
+  EXPECT_ANY_THROW(inst.setUUID(boost::uuids::uuid{}));  // NOLINT
+  EXPECT_FALSE(inst.getUUID().is_nil());
+  EXPECT_EQ(inst.getUUID(), set_uuid);
+
   inst.regenerateUUID();
   auto reg_uuid = inst.getUUID();
   EXPECT_FALSE(reg_uuid.is_nil());

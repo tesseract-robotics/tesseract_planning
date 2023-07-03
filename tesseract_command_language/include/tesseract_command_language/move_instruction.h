@@ -118,6 +118,7 @@ public:
                            tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
 
   const boost::uuids::uuid& getUUID() const;
+  void setUUID(const boost::uuids::uuid& uuid);
   void regenerateUUID();
 
   const boost::uuids::uuid& getParentUUID() const;

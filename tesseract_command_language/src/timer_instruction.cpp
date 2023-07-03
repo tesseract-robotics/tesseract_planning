@@ -44,6 +44,13 @@ TimerInstruction::TimerInstruction(TimerInstructionType type, double time, int i
 }
 
 const boost::uuids::uuid& TimerInstruction::getUUID() const { return uuid_; }
+void TimerInstruction::setUUID(const boost::uuids::uuid& uuid)
+{
+  if (uuid.is_nil())
+    throw std::runtime_error("TimerInstruction, tried to set uuid to null!");
+
+  uuid_ = uuid;
+}
 void TimerInstruction::regenerateUUID() { uuid_ = boost::uuids::random_generator()(); }
 
 const boost::uuids::uuid& TimerInstruction::getParentUUID() const { return parent_uuid_; }

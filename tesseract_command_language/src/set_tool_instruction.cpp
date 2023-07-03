@@ -42,6 +42,13 @@ namespace tesseract_planning
 SetToolInstruction::SetToolInstruction(int tool_id) : uuid_(boost::uuids::random_generator()()), tool_id_(tool_id) {}
 
 const boost::uuids::uuid& SetToolInstruction::getUUID() const { return uuid_; }
+void SetToolInstruction::setUUID(const boost::uuids::uuid& uuid)
+{
+  if (uuid.is_nil())
+    throw std::runtime_error("SetToolInstruction, tried to set uuid to null!");
+
+  uuid_ = uuid;
+}
 void SetToolInstruction::regenerateUUID() { uuid_ = boost::uuids::random_generator()(); }
 
 const boost::uuids::uuid& SetToolInstruction::getParentUUID() const { return parent_uuid_; }

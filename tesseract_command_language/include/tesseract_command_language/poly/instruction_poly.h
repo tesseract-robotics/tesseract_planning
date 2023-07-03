@@ -88,8 +88,8 @@ struct InstructionConcept  // NOLINT
     UNUSED(neq);
 
     const auto& uuid = c.getUUID();
-    UNUSED(uuid);
 
+    c.setUUID(uuid);
     c.regenerateUUID();
     c.setParentUUID(uuid);
 
@@ -111,6 +111,7 @@ private:
 struct InstructionInterface : tesseract_common::TypeErasureInterface
 {
   virtual const boost::uuids::uuid& getUUID() const = 0;
+  virtual void setUUID(const boost::uuids::uuid& uuid) = 0;
   virtual void regenerateUUID() = 0;
 
   virtual const boost::uuids::uuid& getParentUUID() const = 0;
@@ -140,6 +141,7 @@ struct InstructionInstance : tesseract_common::TypeErasureInstance<T, Instructio
   BOOST_CONCEPT_ASSERT((InstructionConcept<T>));
 
   const boost::uuids::uuid& getUUID() const final { return this->get().getUUID(); }
+  void setUUID(const boost::uuids::uuid& uuid) final { this->get().setUUID(uuid); }
   void regenerateUUID() final { this->get().regenerateUUID(); }
 
   const boost::uuids::uuid& getParentUUID() const final { return this->get().getParentUUID(); }
@@ -171,6 +173,7 @@ struct InstructionPoly : InstructionPolyBase
   using InstructionPolyBase::InstructionPolyBase;
 
   const boost::uuids::uuid& getUUID() const;
+  void setUUID(const boost::uuids::uuid& uuid);
   void regenerateUUID();
 
   const boost::uuids::uuid& getParentUUID() const;

@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 #include <boost/archive/xml_oarchive.hpp>
 #include <boost/archive/xml_iarchive.hpp>
+#include <boost/uuid/random_generator.hpp>
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -47,6 +48,14 @@ void runInstructionInterfaceTest(bool expect_uuid_null = true)
   auto uuid = inst.getUUID();
   EXPECT_EQ(uuid.is_nil(), expect_uuid_null);
   EXPECT_TRUE(inst.getParentUUID().is_nil());
+
+  auto set_uuid = boost::uuids::random_generator()();
+  inst.setUUID(set_uuid);
+  EXPECT_FALSE(inst.getUUID().is_nil());
+  EXPECT_EQ(inst.getUUID(), set_uuid);
+  EXPECT_ANY_THROW(inst.setUUID(boost::uuids::uuid{}));  // NOLINT
+  EXPECT_FALSE(inst.getUUID().is_nil());
+  EXPECT_EQ(inst.getUUID(), set_uuid);
 
   inst.regenerateUUID();
   auto reg_uuid = inst.getUUID();
