@@ -103,6 +103,8 @@ struct PlanningTaskComposerProblem : public TaskComposerProblem
    */
   ProfileRemapping composite_profile_remapping;
 
+  TaskComposerProblem::UPtr clone() const override;
+
   bool operator==(const PlanningTaskComposerProblem& rhs) const;
   bool operator!=(const PlanningTaskComposerProblem& rhs) const;
 
