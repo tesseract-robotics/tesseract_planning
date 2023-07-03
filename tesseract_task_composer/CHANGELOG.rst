@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.18.2 (2023-07-03)
+-------------------
 * Add clone method to TaskComposerProblem
 * Contributors: Levi Armstrong
 
