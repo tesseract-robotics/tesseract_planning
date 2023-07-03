@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add InstructionPoly setUUID method with tests
+* Contributors: Levi Armstrong
+
 0.18.1 (2023-07-03)
 -------------------
 
