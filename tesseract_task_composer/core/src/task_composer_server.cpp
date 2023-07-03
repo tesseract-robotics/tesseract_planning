@@ -168,4 +168,11 @@ void TaskComposerServer::loadPlugins()
       CONSOLE_BRIDGE_logError("TaskComposerServer, failed to create task '%s'", task_plugin.first.c_str());
   }
 }
+
+TaskComposerServer::~TaskComposerServer()
+{
+  executors_.clear();
+  tasks_.clear();
+}
+
 }  // namespace tesseract_planning

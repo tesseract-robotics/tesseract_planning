@@ -136,6 +136,8 @@ public:
   /** @brief Queries the number of running tasks at the time of this call */
   long getTaskCount(const std::string& name) const;
 
+  virtual ~TaskComposerServer();
+
 protected:
   std::unordered_map<std::string, TaskComposerExecutor::Ptr> executors_;
   std::unordered_map<std::string, TaskComposerNode::UPtr> tasks_;
