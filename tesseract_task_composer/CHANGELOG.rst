@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.18.3 (2023-07-04)
+-------------------
 * Fix MotionPlannerTaskInfo serialization
 * Contributors: Levi Armstrong
 
