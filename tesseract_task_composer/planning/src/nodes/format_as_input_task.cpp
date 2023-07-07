@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/timer.h>
 
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_task_composer/planning/nodes/format_as_input_task.h>
@@ -73,10 +72,7 @@ TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerInput& input,
                                                       OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-
   info->return_value = 0;
-  tesseract_common::Timer timer;
-  timer.start();
 
   // --------------------
   // Check that inputs are valid
@@ -86,7 +82,6 @@ TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerInput& input,
       input_formatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input[0] instruction to FormatAsInputTask must be a composite instruction";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -96,7 +91,6 @@ TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerInput& input,
       input_unformatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input[1] instruction to FormatAsInputTask must be a composite instruction";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -111,7 +105,6 @@ TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerInput& input,
   if (mi_formatted_data.size() != mi_unformatted_data.size())
   {
     info->message = "FormatAsInputTask, input programs are not same size";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -151,16 +144,10 @@ TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerInput& input,
   info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
-  info->elapsed_time = timer.elapsedSeconds();
   return info;
 }
 
-bool FormatAsInputTask::operator==(const FormatAsInputTask& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
-}
+bool FormatAsInputTask::operator==(const FormatAsInputTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
 bool FormatAsInputTask::operator!=(const FormatAsInputTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>

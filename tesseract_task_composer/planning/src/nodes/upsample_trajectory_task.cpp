@@ -28,9 +28,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/timer.h>
 
-//#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_task_composer/planning/nodes/upsample_trajectory_task.h>
 #include <tesseract_task_composer/planning/profiles/upsample_trajectory_profile.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
@@ -74,21 +72,17 @@ UpsampleTrajectoryTask::UpsampleTrajectoryTask(std::string name,
 TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& input,
                                                            OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
 
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
-  tesseract_common::Timer timer;
-  timer.start();
 
   // Check that inputs are valid
   auto input_data_poly = input.data_storage.getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input seed to UpsampleTrajectoryTask must be a composite instruction";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -112,7 +106,6 @@ TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& in
   info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
-  info->elapsed_time = timer.elapsedSeconds();
   return info;
 }
 

@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/shared_ptr.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/timer.h>
 
 //#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_task_composer/planning/nodes/discrete_contact_check_task.h>
@@ -70,15 +69,12 @@ DiscreteContactCheckTask::DiscreteContactCheckTask(std::string name,
 TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& input,
                                                              OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<DiscreteContactCheckTaskInfo>(*this);
-
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
 
+  auto info = std::make_unique<DiscreteContactCheckTaskInfo>(*this);
   info->return_value = 0;
   info->env = problem.env;
-  tesseract_common::Timer timer;
-  timer.start();
 
   // --------------------
   // Check that inputs are valid
@@ -87,7 +83,6 @@ TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& 
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input to DiscreteContactCheckTask must be a composite instruction";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -120,23 +115,19 @@ TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& 
       contact_map.shrinkToFit();
 
     info->contact_results = contacts;
-    info->elapsed_time = timer.elapsedSeconds();
     return info;
   }
 
   info->color = "green";
   info->message = "Discrete contact check succeeded";
   info->return_value = 1;
-  info->elapsed_time = timer.elapsedSeconds();
   CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
   return info;
 }
 
 bool DiscreteContactCheckTask::operator==(const DiscreteContactCheckTask& rhs) const
 {
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
+  return (TaskComposerTask::operator==(rhs));
 }
 bool DiscreteContactCheckTask::operator!=(const DiscreteContactCheckTask& rhs) const { return !operator==(rhs); }
 
