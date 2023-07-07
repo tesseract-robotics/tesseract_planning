@@ -28,7 +28,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/timer.h>
 
 #include <tesseract_task_composer/planning/nodes/update_start_state_task.h>
 #include <tesseract_command_language/composite_instruction.h>
@@ -63,8 +62,6 @@ TaskComposerNodeInfo::UPtr UpdateStartStateTask::runImpl(TaskComposerInput& inpu
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
-  tesseract_common::Timer timer;
-  timer.start();
 
   auto input_data_poly = input.data_storage.getData(input_keys_[0]);
   auto input_prev_data_poly = input.data_storage.getData(input_keys_[1]);
@@ -75,7 +72,6 @@ TaskComposerNodeInfo::UPtr UpdateStartStateTask::runImpl(TaskComposerInput& inpu
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "UpdateStartStateTask: Input data for key '" + input_keys_[0] + "' must be a composite instruction";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -83,7 +79,6 @@ TaskComposerNodeInfo::UPtr UpdateStartStateTask::runImpl(TaskComposerInput& inpu
   if (input_prev_data_poly.isNull() || input_prev_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "UpdateStartStateTask: Input data for key '" + input_keys_[1] + "' must be a composite instruction";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -110,15 +105,12 @@ TaskComposerNodeInfo::UPtr UpdateStartStateTask::runImpl(TaskComposerInput& inpu
   info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
-  info->elapsed_time = timer.elapsedSeconds();
   return info;
 }
 
 bool UpdateStartStateTask::operator==(const UpdateStartStateTask& rhs) const
 {
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
+  return (TaskComposerTask::operator==(rhs));
 }
 bool UpdateStartStateTask::operator!=(const UpdateStartStateTask& rhs) const { return !operator==(rhs); }
 

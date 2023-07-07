@@ -38,8 +38,6 @@
 
 #include <tesseract_command_language/composite_instruction.h>
 
-#include <tesseract_common/timer.h>
-
 namespace
 {
 tesseract_planning::RasterOnlyMotionTask::TaskFactoryResults
@@ -251,15 +249,12 @@ void RasterOnlyMotionTask::serialize(Archive& ar, const unsigned int /*version*/
 TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& input,
                                                          OptionalTaskComposerExecutor executor) const
 {
-  auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
-
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
 
+  auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
   info->return_value = 0;
   info->env = problem.env;
-  tesseract_common::Timer timer;
-  timer.start();
 
   // --------------------
   // Check that inputs are valid
@@ -272,7 +267,6 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
   catch (const std::exception& e)
   {
     info->message = e.what();
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -381,7 +375,6 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
   if (input.isAborted())
   {
     info->message = "Raster only subgraph failed";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -409,7 +402,6 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
   info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
-  info->elapsed_time = timer.elapsedSeconds();
   return info;
 }
 

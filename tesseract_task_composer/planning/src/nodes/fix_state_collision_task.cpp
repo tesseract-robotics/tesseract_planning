@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <trajopt/problem_description.hpp>
-#include <tesseract_common/timer.h>
+
 #include <tesseract_environment/utils.h>
 
 #include <tesseract_task_composer/planning/nodes/fix_state_collision_task.h>
@@ -345,15 +345,12 @@ FixStateCollisionTask::FixStateCollisionTask(std::string name,
 TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& input,
                                                           OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<FixStateCollisionTaskInfo>(*this);
-
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
 
+  auto info = std::make_unique<FixStateCollisionTaskInfo>(*this);
   info->return_value = 0;
   info->env = problem.env;
-  tesseract_common::Timer timer;
-  timer.start();
 
   // --------------------
   // Check that inputs are valid
@@ -362,7 +359,6 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input to FixStateCollision must be a composite instruction";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -401,7 +397,6 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
               contact_map.shrinkToFit();
 
             info->message = "Failed to correct state in collision";
-            info->elapsed_time = timer.elapsedSeconds();
             return info;
           }
         }
@@ -431,7 +426,6 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
               contact_map.shrinkToFit();
 
             info->message = "Failed to correct state in collision";
-            info->elapsed_time = timer.elapsedSeconds();
             return info;
           }
         }
@@ -497,7 +491,6 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
               contact_map.shrinkToFit();
 
             info->message = "Failed to correct state in collision";
-            info->elapsed_time = timer.elapsedSeconds();
             return info;
           }
         }
@@ -552,7 +545,6 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
               contact_map.shrinkToFit();
 
             info->message = "Failed to correct state in collision";
-            info->elapsed_time = timer.elapsedSeconds();
             return info;
           }
         }
@@ -607,7 +599,6 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
               contact_map.shrinkToFit();
 
             info->message = "Failed to correct state in collision";
-            info->elapsed_time = timer.elapsedSeconds();
             return info;
           }
         }
@@ -662,7 +653,6 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
               contact_map.shrinkToFit();
 
             info->message = "Failed to correct state in collision";
-            info->elapsed_time = timer.elapsedSeconds();
             return info;
           }
         }
@@ -676,7 +666,6 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
 
       info->message = "Successful, DISABLED";
       info->return_value = 1;
-      info->elapsed_time = timer.elapsedSeconds();
       return info;
     }
   }
@@ -686,16 +675,13 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
   info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
-  info->elapsed_time = timer.elapsedSeconds();
   CONSOLE_BRIDGE_logDebug("FixStateCollisionTask succeeded");
   return info;
 }
 
 bool FixStateCollisionTask::operator==(const FixStateCollisionTask& rhs) const
 {
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
+  return (TaskComposerTask::operator==(rhs));
 }
 bool FixStateCollisionTask::operator!=(const FixStateCollisionTask& rhs) const { return !operator==(rhs); }
 

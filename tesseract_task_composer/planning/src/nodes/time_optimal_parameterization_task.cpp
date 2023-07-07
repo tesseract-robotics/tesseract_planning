@@ -30,7 +30,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/timer.h>
 
 #include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_task_composer/planning/nodes/time_optimal_parameterization_task.h>
@@ -83,14 +82,11 @@ TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string nam
 TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposerInput& input,
                                                                     OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TimeOptimalParameterizationTaskInfo>(*this);
-
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
 
+  auto info = std::make_unique<TimeOptimalParameterizationTaskInfo>(*this);
   info->return_value = 0;
-  tesseract_common::Timer timer;
-  timer.start();
 
   // --------------------
   // Check that inputs are valid
@@ -99,7 +95,6 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input results to TOTG must be a composite instruction";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -128,7 +123,6 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
     info->color = "green";
     info->message = "TOTG found no MoveInstructions to process";
     info->return_value = 1;
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
     return info;
   }
@@ -156,7 +150,6 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
       input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
 
     info->message = "Failed to perform TOTG for process input: " + ci.getDescription();
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
     return info;
   }
@@ -166,16 +159,13 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
   info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
-  info->elapsed_time = timer.elapsedSeconds();
   CONSOLE_BRIDGE_logDebug("TOTG succeeded");
   return info;
 }
 
 bool TimeOptimalParameterizationTask::operator==(const TimeOptimalParameterizationTask& rhs) const
 {
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
+  return (TaskComposerTask::operator==(rhs));
 }
 bool TimeOptimalParameterizationTask::operator!=(const TimeOptimalParameterizationTask& rhs) const
 {

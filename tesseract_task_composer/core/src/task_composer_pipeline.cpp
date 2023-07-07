@@ -28,6 +28,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#include <tesseract_common/timer.h>
 
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
@@ -60,7 +61,9 @@ int TaskComposerPipeline::run(TaskComposerInput& input, OptionalTaskComposerExec
     return 0;
   }
 
+  tesseract_common::Timer timer;
   TaskComposerNodeInfo::UPtr results;
+  timer.start();
   try
   {
     results = runImpl(input, executor);
@@ -72,6 +75,8 @@ int TaskComposerPipeline::run(TaskComposerInput& input, OptionalTaskComposerExec
     results->message = "Exception thrown: " + std::string(e.what());
     results->return_value = 0;
   }
+  timer.stop();
+  results->elapsed_time = timer.elapsedSeconds();
 
   int value = results->return_value;
   assert(value >= 0);

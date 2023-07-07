@@ -29,7 +29,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/timer.h>
 
 //#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_bounds_task.h>
@@ -73,14 +72,11 @@ FixStateBoundsTask::FixStateBoundsTask(std::string name,
 TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
                                                        OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
 
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
-  tesseract_common::Timer timer;
-  timer.start();
 
   // --------------------
   // Check that inputs are valid
@@ -89,7 +85,6 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input instruction to FixStateBounds must be a composite instruction";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -130,7 +125,6 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
                 input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
 
               info->message = "Failed to clamp to joint limits";
-              info->elapsed_time = timer.elapsedSeconds();
               return info;
             }
           }
@@ -157,7 +151,6 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
                 input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
 
               info->message = "Failed to clamp to joint limits";
-              info->elapsed_time = timer.elapsedSeconds();
               return info;
             }
           }
@@ -176,7 +169,6 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
         info->color = "green";
         info->message = "FixStateBoundsTask found no MoveInstructions to process";
         info->return_value = 1;
-        info->elapsed_time = timer.elapsedSeconds();
         CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
         return info;
       }
@@ -205,7 +197,6 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
               input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
 
             info->message = "Failed to clamp to joint limits";
-            info->elapsed_time = timer.elapsedSeconds();
             return info;
           }
         }
@@ -219,7 +210,6 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
       info->color = "green";
       info->message = "Successful, DISABLED";
       info->return_value = 1;
-      info->elapsed_time = timer.elapsedSeconds();
       return info;
     }
   }
@@ -229,7 +219,6 @@ TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerInput& input,
   info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
-  info->elapsed_time = timer.elapsedSeconds();
   CONSOLE_BRIDGE_logDebug("FixStateBoundsTask succeeded");
   return info;
 }
