@@ -78,7 +78,8 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDataStorageTests)  // NOLINT
     remap[key] = "remap_" + key;
 
     // Test Remap Copy
-    TaskComposerDataStorage remap_copy{ data };
+    TaskComposerDataStorage remap_copy;
+    remap_copy.setData(key, js);
     EXPECT_TRUE(remap_copy.hasKey(key));
     EXPECT_TRUE(remap_copy.remapData(remap, true));
     EXPECT_TRUE(remap_copy.hasKey(key));
@@ -86,27 +87,30 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDataStorageTests)  // NOLINT
     EXPECT_EQ(remap_copy.getData(key), remap_copy.getData("remap_" + key));
 
     // Test Remap Move
-    TaskComposerDataStorage remap_move{ data };
+    TaskComposerDataStorage remap_move;
+    remap_move.setData(key, js);
     EXPECT_TRUE(remap_move.hasKey(key));
-    EXPECT_TRUE(remap_copy.remapData(remap));
+    EXPECT_TRUE(remap_move.remapData(remap));
     EXPECT_FALSE(remap_move.hasKey(key));
     EXPECT_TRUE(remap_move.hasKey("remap_" + key));
-    EXPECT_EQ(remap_copy.getData("remap_" + key).as<tesseract_common::JointState>(), js);
+    EXPECT_EQ(remap_move.getData("remap_" + key).as<tesseract_common::JointState>(), js);
   }
 
   {  // Test Remap Failure
     std::map<std::string, std::string> remap;
     remap["does_not_exist"] = "remap_" + key;
-    TaskComposerDataStorage remap_copy{ data };
+    TaskComposerDataStorage remap_copy;
+    remap_copy.setData(key, js);
     EXPECT_TRUE(remap_copy.hasKey(key));
     EXPECT_FALSE(remap_copy.remapData(remap, true));
     EXPECT_TRUE(remap_copy.hasKey(key));
     EXPECT_FALSE(remap_copy.hasKey("remap_" + key));
 
     // Test Remap Move
-    TaskComposerDataStorage remap_move{ data };
+    TaskComposerDataStorage remap_move;
+    remap_move.setData(key, js);
     EXPECT_TRUE(remap_move.hasKey(key));
-    EXPECT_FALSE(remap_copy.remapData(remap));
+    EXPECT_FALSE(remap_move.remapData(remap));
     EXPECT_TRUE(remap_move.hasKey(key));
     EXPECT_FALSE(remap_move.hasKey("remap_" + key));
   }
@@ -1665,7 +1669,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
   {  // Serialization
     std::map<std::string, std::string> remap;
     remap["test"] = "test2";
-    auto task = std::make_unique<DoneTask>("abc", remap, false, true);
+    auto task = std::make_unique<RemapTask>("abc", remap, false, true);
 
     // Serialization
     test_suite::runSerializationPointerTest(task, "TaskComposerDoneTaskTests");

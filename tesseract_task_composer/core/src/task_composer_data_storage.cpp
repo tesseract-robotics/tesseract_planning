@@ -109,7 +109,7 @@ bool TaskComposerDataStorage::remapData(const std::map<std::string, std::string>
     for (const auto& pair : remapping)
     {
       auto it = data_.find(pair.first);
-      if (it == data_.end())
+      if (it != data_.end())
       {
         data_[pair.second] = it->second;
       }
