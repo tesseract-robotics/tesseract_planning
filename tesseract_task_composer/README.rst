@@ -175,7 +175,8 @@ Define the graph nodes and edges as shown in the config below.
            destinations: [ErrorTask, DoneTask]
        terminals: [ErrorTask, DoneTask]
 
-Leveraging a perviously defined task.
+Leveraging a perviously defined task
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When using a perviously defined task it is referenced using `task:` instead of `class:`. 
 
@@ -465,7 +466,7 @@ The final task that is called in a task graph if error occurs
      config:
        conditional: false
 
-Error Task
+Abort Task
 ^^^^^^^^^^
 
 The task that is called if you want to abort everything
@@ -476,6 +477,22 @@ The task that is called if you want to abort everything
      class: AbortTaskFactory
      config:
        conditional: false
+
+Remap Task
+^^^^^^^^^^
+
+Remap data from one key to another, by copying or moving the data.
+
+.. code-block:: yaml
+
+   RemapTask:
+     class: RemapTaskFactory
+     config:
+       conditional: false
+       copy: true
+       remap:
+         key1: remap_key1
+         key2: remap_key2
 
 Fix State Bounds Task
 ^^^^^^^^^^^^^^^^^^^^^

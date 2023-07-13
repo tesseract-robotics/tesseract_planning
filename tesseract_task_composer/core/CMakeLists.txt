@@ -41,6 +41,7 @@ add_library(
   src/nodes/abort_task.cpp
   src/nodes/done_task.cpp
   src/nodes/error_task.cpp
+  src/nodes/remap_task.cpp
   src/nodes/start_task.cpp
   src/test_suite/test_task.cpp)
 target_link_libraries(

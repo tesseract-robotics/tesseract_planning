@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #endif
 #include <boost/serialization/unordered_map.hpp>
 #include <mutex>
+#include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
@@ -97,6 +98,48 @@ std::unordered_map<std::string, tesseract_common::AnyPoly> TaskComposerDataStora
 {
   std::shared_lock lock(mutex_);
   return data_;
+}
+
+bool TaskComposerDataStorage::remapData(const std::map<std::string, std::string>& remapping, bool copy)
+{
+  std::unique_lock lock(mutex_);
+
+  if (copy)
+  {
+    for (const auto& pair : remapping)
+    {
+      auto it = data_.find(pair.first);
+      if (it == data_.end())
+      {
+        data_[pair.second] = it->second;
+      }
+      else
+      {
+        CONSOLE_BRIDGE_logError(
+            "TaskComposerDataStorage, unable to remap data '%s' to '%s'", pair.first.c_str(), pair.second.c_str());
+        return false;
+      }
+    }
+  }
+  else
+  {
+    for (const auto& pair : remapping)
+    {
+      if (auto nh = data_.extract(pair.first); !nh.empty())
+      {
+        nh.key() = pair.second;
+        data_.insert(std::move(nh));
+      }
+      else
+      {
+        CONSOLE_BRIDGE_logError(
+            "TaskComposerDataStorage, unable to remap data '%s' to '%s'", pair.first.c_str(), pair.second.c_str());
+        return false;
+      }
+    }
+  }
+
+  return true;
 }
 
 bool TaskComposerDataStorage::operator==(const TaskComposerDataStorage& rhs) const
