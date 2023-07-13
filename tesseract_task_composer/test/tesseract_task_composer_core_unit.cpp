@@ -1795,13 +1795,13 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
 
     str = R"(config:
                conditional: true
-               input_keys: [input_data])";
+               inputs: [input_data])";
     config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RemapTask>("abc", config["config"], factory));  // NOLINT
 
     str = R"(config:
                conditional: true
-               output_keys: [output_data])";
+               outputs: [output_data])";
     config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RemapTask>("abc", config["config"], factory));  // NOLINT
   }
