@@ -1739,7 +1739,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
                              joint_state: remap_joint_state)";
     YAML::Node config = YAML::Load(str);
 
-    RemapTask task("RemapTaskTest", config, factory);
+    RemapTask task("RemapTaskTest", config["config"], factory);
     EXPECT_EQ(task.run(*input), 1);
     EXPECT_TRUE(input->data_storage.hasKey(key));
     EXPECT_TRUE(input->data_storage.hasKey(remap_key));
@@ -1767,7 +1767,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
                              joint_state: remap_joint_state)";
     YAML::Node config = YAML::Load(str);
 
-    RemapTask task("RemapTaskTest", config, factory);
+    RemapTask task("RemapTaskTest", config["config"], factory);
     EXPECT_EQ(task.run(*input), 1);
     EXPECT_FALSE(input->data_storage.hasKey(key));
     EXPECT_TRUE(input->data_storage.hasKey(remap_key));
@@ -1795,13 +1795,13 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
 
     str = R"(config:
                conditional: true
-                input_keys: [input_data])";
+               input_keys: [input_data])";
     config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RemapTask>("abc", config["config"], factory));  // NOLINT
 
     str = R"(config:
                conditional: true
-                output_keys: [output_data])";
+               output_keys: [output_data])";
     config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RemapTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -1815,7 +1815,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     remap["does_not_exits"] = remap_key;
 
     RemapTask task("RemapTaskTest", remap, true, true);
-    EXPECT_EQ(task.run(*input), 1);
+    EXPECT_EQ(task.run(*input), 0);
     EXPECT_TRUE(input->data_storage.hasKey(key));
     EXPECT_FALSE(input->data_storage.hasKey(remap_key));
     auto node_info = input->task_infos.getInfo(task.getUUID());
@@ -1837,7 +1837,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     remap["does_not_exits"] = remap_key;
 
     RemapTask task("RemapTaskTest", remap, false, true);
-    EXPECT_EQ(task.run(*input), 1);
+    EXPECT_EQ(task.run(*input), 0);
     EXPECT_TRUE(input->data_storage.hasKey(key));
     EXPECT_FALSE(input->data_storage.hasKey(remap_key));
     auto node_info = input->task_infos.getInfo(task.getUUID());

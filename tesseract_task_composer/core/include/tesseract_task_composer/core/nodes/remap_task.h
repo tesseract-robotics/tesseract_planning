@@ -47,7 +47,7 @@ public:
 
   RemapTask();
   explicit RemapTask(std::string name,
-                     const std::map<std::string, std::string>& remap,
+                     std::map<std::string, std::string> remap,
                      bool copy = false,
                      bool is_conditional = false);
   explicit RemapTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);

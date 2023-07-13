@@ -34,9 +34,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 RemapTask::RemapTask() : TaskComposerTask("RemapTask", false) {}
-RemapTask::RemapTask(std::string name, const std::map<std::string, std::string>& remap, bool copy, bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional), remap_(remap), copy_(copy)
+RemapTask::RemapTask(std::string name, std::map<std::string, std::string> remap, bool copy, bool is_conditional)
+  : TaskComposerTask(std::move(name), is_conditional), remap_(std::move(remap)), copy_(copy)
 {
+  if (remap_.empty())
+    throw std::runtime_error("RemapTask, remap should not be empty!");
 }
 RemapTask::RemapTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), config)
