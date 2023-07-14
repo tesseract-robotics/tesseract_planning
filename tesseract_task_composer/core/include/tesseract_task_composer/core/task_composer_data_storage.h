@@ -87,6 +87,14 @@ public:
    */
   std::unordered_map<std::string, tesseract_common::AnyPoly> getData() const;
 
+  /**
+   * @brief Remap data from one key to another
+   * @param remapping The key value pairs to remap data from the first to the second
+   * @param copy Default behavior is not move the data, but if copy is desired set this to true
+   * @return True if successful, otherwise false
+   */
+  bool remapData(const std::map<std::string, std::string>& remapping, bool copy = false);
+
   bool operator==(const TaskComposerDataStorage& rhs) const;
   bool operator!=(const TaskComposerDataStorage& rhs) const;
 
