@@ -135,6 +135,25 @@ std::string TaskComposerNode::dump(std::ostream& os,
   if (conditional_)
   {
     os << std::endl << tmp << " [shape=diamond, label=\"" << name_ << "\\n(" << uuid_str_ << ")";
+
+    os << "\\n Inputs: [";
+    for (std::size_t i = 0; i < input_keys_.size(); ++i)
+    {
+      os << input_keys_[i];
+      if (i < input_keys_.size() - 1)
+        os << ", ";
+    }
+    os << "]";
+
+    os << "\\n Outputs: [";
+    for (std::size_t i = 0; i < output_keys_.size(); ++i)
+    {
+      os << output_keys_[i];
+      if (i < output_keys_.size() - 1)
+        os << ", ";
+    }
+    os << "]";
+
     if (it != results_map.end())
     {
       os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s"
@@ -153,6 +172,25 @@ std::string TaskComposerNode::dump(std::ostream& os,
   else
   {
     os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")";
+
+    os << "\\n Inputs: [";
+    for (std::size_t i = 0; i < input_keys_.size(); ++i)
+    {
+      os << input_keys_[i];
+      if (i < input_keys_.size() - 1)
+        os << ", ";
+    }
+    os << "]";
+
+    os << "\\n Outputs: [";
+    for (std::size_t i = 0; i < output_keys_.size(); ++i)
+    {
+      os << output_keys_[i];
+      if (i < output_keys_.size() - 1)
+        os << ", ";
+    }
+    os << "]";
+
     if (it != results_map.end())
     {
       os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s"

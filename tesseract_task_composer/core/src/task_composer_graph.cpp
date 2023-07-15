@@ -252,7 +252,25 @@ std::string TaskComposerGraph::dump(std::ostream& os,
 
   std::ostringstream sub_graphs;
   const std::string tmp = toString(uuid_);
-  os << "subgraph cluster_" << tmp << " {\n color=black;\n label = \"" << name_ << "\\n(" << uuid_str_ << ")\";";
+  os << "subgraph cluster_" << tmp << " {\n color=black;\n label = \"" << name_ << "\\n(" << uuid_str_ << ")";
+  os << "\\n Inputs: [";
+  for (std::size_t i = 0; i < input_keys_.size(); ++i)
+  {
+    os << input_keys_[i];
+    if (i < input_keys_.size() - 1)
+      os << ", ";
+  }
+  os << "]";
+
+  os << "\\n Outputs: [";
+  for (std::size_t i = 0; i < output_keys_.size(); ++i)
+  {
+    os << output_keys_[i];
+    if (i < output_keys_.size() - 1)
+      os << ", ";
+  }
+  os << "]";
+  os << "\";";
   for (const auto& pair : nodes_)
   {
     const auto& node = pair.second;
@@ -265,9 +283,26 @@ std::string TaskComposerGraph::dump(std::ostream& os,
       auto it = results_map.find(node->getUUID());
       std::string color = (it != results_map.end() && it->second->color != "white") ? it->second->color : "blue";
       const std::string tmp = toString(node->uuid_, "node_");
-      os << std::endl
-         << tmp << " [shape=box3d, label=\"Subgraph: " << node->name_ << "\\n(" << node->uuid_str_
-         << ")\", margin=\"0.1\", color=" << color << "];\n";
+      const std::vector<std::string>& input_keys = node->getInputKeys();
+      const std::vector<std::string>& output_keys = node->getOutputKeys();
+      os << std::endl << tmp << " [shape=box3d, label=\"Subgraph: " << node->name_ << "\\n(" << node->uuid_str_ << ")";
+      os << "\\n Inputs: [";
+      for (std::size_t i = 0; i < input_keys.size(); ++i)
+      {
+        os << input_keys[i];
+        if (i < input_keys.size() - 1)
+          os << ", ";
+      }
+      os << "]";
+
+      os << "\\n Outputs: [";
+      for (std::size_t i = 0; i < output_keys.size(); ++i)
+      {
+        os << output_keys[i];
+        if (i < output_keys.size() - 1)
+          os << ", ";
+      }
+      os << "]\", margin=\"0.1\", color=" << color << "];\n";  // NOLINT
       node->dump(sub_graphs, this, results_map);
     }
   }
