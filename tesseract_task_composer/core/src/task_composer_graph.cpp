@@ -253,7 +253,6 @@ std::string TaskComposerGraph::dump(std::ostream& os,
   std::ostringstream sub_graphs;
   const std::string tmp = toString(uuid_);
   os << "subgraph cluster_" << tmp << " {\n color=black;\n label = \"" << name_ << "\\n(" << uuid_str_ << ")";
-  os << "\\n Conditional: " << ((conditional_) ? "True" : "False");
   os << "\\n Inputs: [";
   for (std::size_t i = 0; i < input_keys_.size(); ++i)
   {
@@ -271,6 +270,13 @@ std::string TaskComposerGraph::dump(std::ostream& os,
       os << ", ";
   }
   os << "]";
+  os << "\\n Conditional: " << ((conditional_) ? "True" : "False");
+  if (getType() == TaskComposerNodeType::PIPELINE)
+  {
+    auto it = results_map.find(getUUID());
+    if (it != results_map.end())
+      os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s";
+  }
   os << "\";";
   for (const auto& pair : nodes_)
   {
@@ -287,7 +293,6 @@ std::string TaskComposerGraph::dump(std::ostream& os,
       const std::vector<std::string>& input_keys = node->getInputKeys();
       const std::vector<std::string>& output_keys = node->getOutputKeys();
       os << std::endl << tmp << " [shape=box3d, label=\"Subgraph: " << node->name_ << "\\n(" << node->uuid_str_ << ")";
-      os << "\\n Conditional: " << ((node->isConditional()) ? "True" : "False");
       os << "\\n Inputs: [";
       for (std::size_t i = 0; i < input_keys.size(); ++i)
       {
@@ -304,7 +309,13 @@ std::string TaskComposerGraph::dump(std::ostream& os,
         if (i < output_keys.size() - 1)
           os << ", ";
       }
-      os << "]\", margin=\"0.1\", color=" << color << "];\n";  // NOLINT
+      os << "]";
+
+      os << "\\n Conditional: " << ((node->isConditional()) ? "True" : "False");
+      if (node->getType() == TaskComposerNodeType::PIPELINE && (it != results_map.end()))
+        os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s";
+
+      os << "\", margin=\"0.1\", color=" << color << "];\n";  // NOLINT
       node->dump(sub_graphs, this, results_map);
     }
   }

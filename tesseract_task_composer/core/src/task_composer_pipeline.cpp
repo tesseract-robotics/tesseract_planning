@@ -90,6 +90,8 @@ TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(TaskComposerInput& inpu
   if (terminals_.empty())
     throw std::runtime_error("TaskComposerPipeline, with name '" + name_ + "' does not have terminals!");
 
+  tesseract_common::Timer timer;
+  timer.start();
   boost::uuids::uuid root_node{};
   for (const auto& pair : nodes_)
   {
@@ -110,10 +112,12 @@ TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(TaskComposerInput& inpu
     auto node_info = input.task_infos.getInfo(terminals_[i]);
     if (node_info != nullptr)
     {
+      timer.stop();
       auto info = std::make_unique<TaskComposerNodeInfo>(*this);
       info->return_value = static_cast<int>(i);
       info->color = node_info->color;
       info->message = node_info->message;
+      info->elapsed_time = timer.elapsedSeconds();
       return info;
     }
   }
