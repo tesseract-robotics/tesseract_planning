@@ -253,6 +253,7 @@ std::string TaskComposerGraph::dump(std::ostream& os,
   std::ostringstream sub_graphs;
   const std::string tmp = toString(uuid_);
   os << "subgraph cluster_" << tmp << " {\n color=black;\n label = \"" << name_ << "\\n(" << uuid_str_ << ")";
+  os << "\\n Conditional: " << ((conditional_) ? "True" : "False");
   os << "\\n Inputs: [";
   for (std::size_t i = 0; i < input_keys_.size(); ++i)
   {
@@ -286,6 +287,7 @@ std::string TaskComposerGraph::dump(std::ostream& os,
       const std::vector<std::string>& input_keys = node->getInputKeys();
       const std::vector<std::string>& output_keys = node->getOutputKeys();
       os << std::endl << tmp << " [shape=box3d, label=\"Subgraph: " << node->name_ << "\\n(" << node->uuid_str_ << ")";
+      os << "\\n Conditional: " << ((node->isConditional()) ? "True" : "False");
       os << "\\n Inputs: [";
       for (std::size_t i = 0; i < input_keys.size(); ++i)
       {
