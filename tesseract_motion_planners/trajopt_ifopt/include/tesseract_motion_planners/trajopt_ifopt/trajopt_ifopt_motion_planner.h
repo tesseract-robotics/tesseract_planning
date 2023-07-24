@@ -49,14 +49,11 @@ public:
   TrajOptIfoptMotionPlanner(TrajOptIfoptMotionPlanner&&) = delete;
   TrajOptIfoptMotionPlanner& operator=(TrajOptIfoptMotionPlanner&&) = delete;
 
-  /** @brief Callback functions called on each iteration of the optimization (Optional) */
-  std::vector<trajopt_sqp::SQPCallback::Ptr> callbacks;
-
   PlannerResponse solve(const PlannerRequest& request) const override;
 
   bool terminate() override;
 
-  void clear() override;
+  void clear() override{};
 
   MotionPlanner::Ptr clone() const override;
 

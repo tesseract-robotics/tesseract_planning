@@ -36,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
@@ -56,8 +57,6 @@ bool TrajOptIfoptMotionPlanner::terminate()
   CONSOLE_BRIDGE_logWarn("Termination of ongoing optimization is not implemented yet");
   return false;
 }
-
-void TrajOptIfoptMotionPlanner::clear() { callbacks.clear(); }
 
 MotionPlanner::Ptr TrajOptIfoptMotionPlanner::clone() const
 {
@@ -109,8 +108,10 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   qp_solver->solver_.settings()->setAbsoluteTolerance(1e-4);
   qp_solver->solver_.settings()->setRelativeTolerance(1e-6);
 
+  solver.params = problem->opt_info;
+
   // Add all callbacks
-  for (const trajopt_sqp::SQPCallback::Ptr& callback : callbacks)
+  for (const trajopt_sqp::SQPCallback::Ptr& callback : problem->callbacks)
   {
     solver.registerCallback(callback);
   }
@@ -217,14 +218,14 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
   // Apply Solver parameters
   std::string profile = request.instructions.getProfile();
   ProfileDictionary::ConstPtr profile_overrides = request.instructions.getProfileOverrides();
-  profile = getProfileString(name_, profile, PlannerProfileRemapping());
-  //  TrajOptSolverProfile::ConstPtr solver_profile =
-  //      getProfile<TrajOptSolverProfile>(profile, solver_profiles, std::make_shared<TrajOptDefaultSolverProfile>());
-  //  solver_profile = applyProfileOverrides(name, solver_profile, profile_overrides);
-  //  if (!solver_profile)
-  //    throw std::runtime_error("TrajOptSolverConfig: Invalid profile");
+  profile = getProfileString(name_, profile, request.plan_profile_remapping);
+  TrajOptIfoptSolverProfile::ConstPtr solver_profile = getProfile<TrajOptIfoptSolverProfile>(
+      name_, profile, *request.profiles, std::make_shared<TrajOptIfoptDefaultSolverProfile>());
+  solver_profile = applyProfileOverrides(name_, profile, solver_profile, profile_overrides);
+  if (!solver_profile)
+    throw std::runtime_error("TrajOptIfoptMotionPlanner: Invalid profile");
 
-  //  solver_profile->apply(*pci);
+  solver_profile->apply(*problem);
 
   // Get kinematics information
   tesseract_environment::Environment::ConstPtr env = request.env;
