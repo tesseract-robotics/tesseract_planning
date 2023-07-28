@@ -24,7 +24,7 @@
  * limitations under the License.
  */
 
-#include <tesseract_time_parameterization/tesseract_common_trajectory.h>
+#include <tesseract_time_parameterization/core/tesseract_common_trajectory.h>
 
 namespace tesseract_planning
 {
