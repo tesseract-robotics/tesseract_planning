@@ -30,7 +30,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/timer.h>
 
 #include <tesseract_task_composer/planning/nodes/check_input_task.h>
 #include <tesseract_task_composer/planning/profiles/check_input_profile.h>
@@ -101,12 +100,7 @@ TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,
   return info;
 }
 
-bool CheckInputTask::operator==(const CheckInputTask& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
-}
+bool CheckInputTask::operator==(const CheckInputTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
 bool CheckInputTask::operator!=(const CheckInputTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>

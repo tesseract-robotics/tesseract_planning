@@ -29,7 +29,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/timer.h>
 
 #include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_task_composer/planning/nodes/iterative_spline_parameterization_task.h>
@@ -92,14 +91,11 @@ IterativeSplineParameterizationTask::IterativeSplineParameterizationTask(
 TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComposerInput& input,
                                                                         OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
 
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
-  tesseract_common::Timer timer;
-  timer.start();
 
   // --------------------
   // Check that inputs are valid
@@ -108,7 +104,6 @@ TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComp
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input results to iterative spline parameterization must be a composite instruction";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -137,7 +132,6 @@ TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComp
     info->color = "green";
     info->message = "Iterative spline time parameterization found no MoveInstructions to process";
     info->return_value = 1;
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
     return info;
   }
@@ -182,7 +176,6 @@ TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComp
 
     info->message =
         "Failed to perform iterative spline time parameterization for process input: " + ci.getDescription();
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
     return info;
   }
@@ -191,7 +184,6 @@ TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComp
   info->message = "Successful";
   input.data_storage.setData(output_keys_[0], input_data_poly);
   info->return_value = 1;
-  info->elapsed_time = timer.elapsedSeconds();
   CONSOLE_BRIDGE_logDebug("Iterative spline time parameterization succeeded");
   return info;
 }

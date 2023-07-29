@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/access.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/timer.h>
 
 #include <tesseract_task_composer/core/task_composer_task.h>
 #include <tesseract_task_composer/planning/nodes/motion_planner_task_info.h>
@@ -116,15 +115,12 @@ protected:
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
                                      OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override
   {
-    auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
-
     // Get the problem
     auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
 
+    auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
     info->return_value = 0;
     info->env = problem.env;
-    tesseract_common::Timer timer;
-    timer.start();
 
     // --------------------
     // Check that inputs are valid
@@ -133,7 +129,6 @@ protected:
     if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
     {
       info->message = "Input instructions to MotionPlannerTask: " + name_ + " must be a composite instruction";
-      info->elapsed_time = timer.elapsedSeconds();
       CONSOLE_BRIDGE_logError("%s", info->message.c_str());
       return info;
     }
@@ -173,7 +168,6 @@ protected:
       info->return_value = 1;
       info->color = "green";
       info->message = response.message;
-      info->elapsed_time = timer.elapsedSeconds();
       CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
       return info;
     }
@@ -189,7 +183,6 @@ protected:
       input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
 
     info->message = response.message;
-    info->elapsed_time = timer.elapsedSeconds();
     return info;
   }
 };

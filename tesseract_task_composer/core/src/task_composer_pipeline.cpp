@@ -28,6 +28,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#include <tesseract_common/timer.h>
 
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
@@ -60,7 +61,9 @@ int TaskComposerPipeline::run(TaskComposerInput& input, OptionalTaskComposerExec
     return 0;
   }
 
+  tesseract_common::Timer timer;
   TaskComposerNodeInfo::UPtr results;
+  timer.start();
   try
   {
     results = runImpl(input, executor);
@@ -72,6 +75,8 @@ int TaskComposerPipeline::run(TaskComposerInput& input, OptionalTaskComposerExec
     results->message = "Exception thrown: " + std::string(e.what());
     results->return_value = 0;
   }
+  timer.stop();
+  results->elapsed_time = timer.elapsedSeconds();
 
   int value = results->return_value;
   assert(value >= 0);
@@ -85,6 +90,8 @@ TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(TaskComposerInput& inpu
   if (terminals_.empty())
     throw std::runtime_error("TaskComposerPipeline, with name '" + name_ + "' does not have terminals!");
 
+  tesseract_common::Timer timer;
+  timer.start();
   boost::uuids::uuid root_node{};
   for (const auto& pair : nodes_)
   {
@@ -105,10 +112,12 @@ TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(TaskComposerInput& inpu
     auto node_info = input.task_infos.getInfo(terminals_[i]);
     if (node_info != nullptr)
     {
+      timer.stop();
       auto info = std::make_unique<TaskComposerNodeInfo>(*this);
       info->return_value = static_cast<int>(i);
       info->color = node_info->color;
       info->message = node_info->message;
+      info->elapsed_time = timer.elapsedSeconds();
       return info;
     }
   }

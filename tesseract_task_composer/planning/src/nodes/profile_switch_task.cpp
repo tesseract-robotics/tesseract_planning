@@ -27,7 +27,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/timer.h>
 
 #include <tesseract_task_composer/planning/nodes/profile_switch_task.h>
 #include <tesseract_task_composer/planning/profiles/profile_switch_profile.h>
@@ -64,14 +63,11 @@ ProfileSwitchTask::ProfileSwitchTask(std::string name,
 TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,
                                                       OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
 
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
-  tesseract_common::Timer timer;
-  timer.start();
 
   // --------------------
   // Check that inputs are valid
@@ -80,7 +76,6 @@ TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input instruction to ProfileSwitch must be a composite instruction";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -99,16 +94,10 @@ TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,
   info->color = "green";
   info->message = "Successful";
   info->return_value = cur_composite_profile->return_value;
-  info->elapsed_time = timer.elapsedSeconds();
   return info;
 }
 
-bool ProfileSwitchTask::operator==(const ProfileSwitchTask& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
-}
+bool ProfileSwitchTask::operator==(const ProfileSwitchTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
 bool ProfileSwitchTask::operator!=(const ProfileSwitchTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>

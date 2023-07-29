@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/shared_ptr.hpp>
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/timer.h>
 
 //#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_task_composer/planning/nodes/continuous_contact_check_task.h>
@@ -70,15 +69,12 @@ ContinuousContactCheckTask::ContinuousContactCheckTask(std::string name,
 TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput& input,
                                                                OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<ContinuousContactCheckTaskInfo>(*this);
-
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
 
+  auto info = std::make_unique<ContinuousContactCheckTaskInfo>(*this);
   info->return_value = 0;
   info->env = problem.env;
-  tesseract_common::Timer timer;
-  timer.start();
 
   // --------------------
   // Check that inputs are valid
@@ -89,7 +85,6 @@ TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput
     info->message = "Input seed to ContinuousContactCheckTask must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     info->return_value = 0;
-    info->elapsed_time = timer.elapsedSeconds();
     return info;
   }
 
@@ -123,7 +118,6 @@ TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput
 
     info->contact_results = contacts;
     info->return_value = 0;
-    info->elapsed_time = timer.elapsedSeconds();
     return info;
   }
 
@@ -131,15 +125,12 @@ TaskComposerNodeInfo::UPtr ContinuousContactCheckTask::runImpl(TaskComposerInput
   info->message = "Continuous contact check succeeded";
   CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
   info->return_value = 1;
-  info->elapsed_time = timer.elapsedSeconds();
   return info;
 }
 
 bool ContinuousContactCheckTask::operator==(const ContinuousContactCheckTask& rhs) const
 {
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
+  return (TaskComposerTask::operator==(rhs));
 }
 bool ContinuousContactCheckTask::operator!=(const ContinuousContactCheckTask& rhs) const { return !operator==(rhs); }
 

@@ -2,6 +2,11 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.18.4 (2023-07-07)
+-------------------
+* Move task composer elapse timing to base classes
+* Contributors: Levi Armstrong
+
 0.18.3 (2023-07-04)
 -------------------
 * Fix MotionPlannerTaskInfo serialization

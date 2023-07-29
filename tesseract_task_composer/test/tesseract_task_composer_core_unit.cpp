@@ -21,6 +21,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/nodes/abort_task.h>
 #include <tesseract_task_composer/core/nodes/done_task.h>
 #include <tesseract_task_composer/core/nodes/error_task.h>
+#include <tesseract_task_composer/core/nodes/remap_task.h>
 #include <tesseract_task_composer/core/nodes/start_task.h>
 #include <tesseract_task_composer/core/test_suite/test_task.h>
 
@@ -71,6 +72,48 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDataStorageTests)  // NOLINT
   move_assign.removeData(key);
   EXPECT_FALSE(move_assign.hasKey(key));
   EXPECT_TRUE(move_assign.getData().empty());
+
+  {  // Test Remap
+    std::map<std::string, std::string> remap;
+    remap[key] = "remap_" + key;
+
+    // Test Remap Copy
+    TaskComposerDataStorage remap_copy;
+    remap_copy.setData(key, js);
+    EXPECT_TRUE(remap_copy.hasKey(key));
+    EXPECT_TRUE(remap_copy.remapData(remap, true));
+    EXPECT_TRUE(remap_copy.hasKey(key));
+    EXPECT_TRUE(remap_copy.hasKey("remap_" + key));
+    EXPECT_EQ(remap_copy.getData(key), remap_copy.getData("remap_" + key));
+
+    // Test Remap Move
+    TaskComposerDataStorage remap_move;
+    remap_move.setData(key, js);
+    EXPECT_TRUE(remap_move.hasKey(key));
+    EXPECT_TRUE(remap_move.remapData(remap));
+    EXPECT_FALSE(remap_move.hasKey(key));
+    EXPECT_TRUE(remap_move.hasKey("remap_" + key));
+    EXPECT_EQ(remap_move.getData("remap_" + key).as<tesseract_common::JointState>(), js);
+  }
+
+  {  // Test Remap Failure
+    std::map<std::string, std::string> remap;
+    remap["does_not_exist"] = "remap_" + key;
+    TaskComposerDataStorage remap_copy;
+    remap_copy.setData(key, js);
+    EXPECT_TRUE(remap_copy.hasKey(key));
+    EXPECT_FALSE(remap_copy.remapData(remap, true));
+    EXPECT_TRUE(remap_copy.hasKey(key));
+    EXPECT_FALSE(remap_copy.hasKey("remap_" + key));
+
+    // Test Remap Move
+    TaskComposerDataStorage remap_move;
+    remap_move.setData(key, js);
+    EXPECT_TRUE(remap_move.hasKey(key));
+    EXPECT_FALSE(remap_move.remapData(remap));
+    EXPECT_TRUE(remap_move.hasKey(key));
+    EXPECT_FALSE(remap_move.hasKey("remap_" + key));
+  }
 }
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerInputTests)  // NOLINT
@@ -1587,6 +1630,220 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDoneTaskTests)  // NOLINT
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->message, "Successful");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
+{
+  {  // Construction
+    RemapTask task;
+    EXPECT_EQ(task.getName(), "RemapTask");
+    EXPECT_EQ(task.isConditional(), false);
+  }
+
+  {  // Construction
+    std::map<std::string, std::string> remap;
+    remap["test"] = "test2";
+    RemapTask task("abc", remap, false, true);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           copy: true
+                           remap:
+                             test: test2)";
+    YAML::Node config = YAML::Load(str);
+    RemapTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Serialization
+    std::map<std::string, std::string> remap;
+    remap["test"] = "test2";
+    auto task = std::make_unique<RemapTask>("abc", remap, false, true);
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerDoneTaskTests");
+  }
+
+  std::string key = "joint_state";
+  std::string remap_key = "remap_joint_state";
+  std::vector<std::string> joint_names{ "joint_1", "joint_2" };
+  Eigen::Vector2d joint_values(5, 10);
+  tesseract_common::JointState js(joint_names, joint_values);
+  {  // Test run method copy
+    auto problem = std::make_unique<TaskComposerProblem>();
+    problem->input_data.setData(key, js);
+    auto input = std::make_unique<TaskComposerInput>(std::move(problem));
+
+    std::map<std::string, std::string> remap;
+    remap[key] = remap_key;
+
+    RemapTask task("RemapTaskTest", remap, true, true);
+    EXPECT_EQ(task.run(*input), 1);
+    EXPECT_TRUE(input->data_storage.hasKey(key));
+    EXPECT_TRUE(input->data_storage.hasKey(remap_key));
+    EXPECT_EQ(input->data_storage.getData(key), input->data_storage.getData(remap_key));
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->message, "Successful");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Test run method move
+    auto problem = std::make_unique<TaskComposerProblem>();
+    problem->input_data.setData(key, js);
+    auto input = std::make_unique<TaskComposerInput>(std::move(problem));
+
+    std::map<std::string, std::string> remap;
+    remap[key] = remap_key;
+
+    RemapTask task("RemapTaskTest", remap, false, true);
+    EXPECT_EQ(task.run(*input), 1);
+    EXPECT_FALSE(input->data_storage.hasKey(key));
+    EXPECT_TRUE(input->data_storage.hasKey(remap_key));
+    EXPECT_EQ(input->data_storage.getData(remap_key).as<tesseract_common::JointState>(), js);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->message, "Successful");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Test run method copy with config
+    auto problem = std::make_unique<TaskComposerProblem>();
+    problem->input_data.setData(key, js);
+    auto input = std::make_unique<TaskComposerInput>(std::move(problem));
+
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           copy: true
+                           remap:
+                             joint_state: remap_joint_state)";
+    YAML::Node config = YAML::Load(str);
+
+    RemapTask task("RemapTaskTest", config["config"], factory);
+    EXPECT_EQ(task.run(*input), 1);
+    EXPECT_TRUE(input->data_storage.hasKey(key));
+    EXPECT_TRUE(input->data_storage.hasKey(remap_key));
+    EXPECT_EQ(input->data_storage.getData(key), input->data_storage.getData(remap_key));
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->message, "Successful");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Test run method move with config
+    auto problem = std::make_unique<TaskComposerProblem>();
+    problem->input_data.setData(key, js);
+    auto input = std::make_unique<TaskComposerInput>(std::move(problem));
+
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           copy: false
+                           remap:
+                             joint_state: remap_joint_state)";
+    YAML::Node config = YAML::Load(str);
+
+    RemapTask task("RemapTaskTest", config["config"], factory);
+    EXPECT_EQ(task.run(*input), 1);
+    EXPECT_FALSE(input->data_storage.hasKey(key));
+    EXPECT_TRUE(input->data_storage.hasKey(remap_key));
+    EXPECT_EQ(input->data_storage.getData(remap_key).as<tesseract_common::JointState>(), js);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->message, "Successful");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failures
+    std::map<std::string, std::string> remap;
+    EXPECT_ANY_THROW(std::make_unique<RemapTask>("abc", remap));  // NOLINT
+
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           copy: true)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RemapTask>("abc", config["config"], factory));  // NOLINT
+
+    str = R"(config:
+               conditional: true
+               inputs: [input_data])";
+    config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RemapTask>("abc", config["config"], factory));  // NOLINT
+
+    str = R"(config:
+               conditional: true
+               outputs: [output_data])";
+    config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<RemapTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Test run method copy failure
+    auto problem = std::make_unique<TaskComposerProblem>();
+    problem->input_data.setData(key, js);
+    auto input = std::make_unique<TaskComposerInput>(std::move(problem));
+
+    std::map<std::string, std::string> remap;
+    remap["does_not_exits"] = remap_key;
+
+    RemapTask task("RemapTaskTest", remap, true, true);
+    EXPECT_EQ(task.run(*input), 0);
+    EXPECT_TRUE(input->data_storage.hasKey(key));
+    EXPECT_FALSE(input->data_storage.hasKey(remap_key));
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_FALSE(node_info->message.empty());
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Test run method copy failure
+    auto problem = std::make_unique<TaskComposerProblem>();
+    problem->input_data.setData(key, js);
+    auto input = std::make_unique<TaskComposerInput>(std::move(problem));
+
+    std::map<std::string, std::string> remap;
+    remap["does_not_exits"] = remap_key;
+
+    RemapTask task("RemapTaskTest", remap, false, true);
+    EXPECT_EQ(task.run(*input), 0);
+    EXPECT_TRUE(input->data_storage.hasKey(key));
+    EXPECT_FALSE(input->data_storage.hasKey(remap_key));
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_FALSE(node_info->message.empty());
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);

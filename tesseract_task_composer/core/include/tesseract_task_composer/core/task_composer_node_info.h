@@ -90,7 +90,10 @@ public:
   /** @brief Status message */
   std::string message;
 
-  /** @brief Time spent in this task in seconds*/
+  /**
+   * @brief Time spent in this task in seconds
+   * @details This is managed by core components so implementation do not need to calculate this
+   */
   double elapsed_time{ 0 };
 
   /** @brief The DOT Graph color to fill with */

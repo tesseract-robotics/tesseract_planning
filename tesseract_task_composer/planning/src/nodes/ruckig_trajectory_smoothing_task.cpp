@@ -27,7 +27,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_common/timer.h>
 
 #include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_task_composer/planning/nodes/ruckig_trajectory_smoothing_task.h>
@@ -77,14 +76,11 @@ RuckigTrajectorySmoothingTask::RuckigTrajectorySmoothingTask(std::string name,
 TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerInput& input,
                                                                   OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
 
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
-  tesseract_common::Timer timer;
-  timer.start();
 
   // --------------------
   // Check that inputs are valid
@@ -93,7 +89,6 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input results to ruckig trajectory smoothing must be a composite instruction";
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     return info;
   }
@@ -125,7 +120,6 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
     info->color = "green";
     info->message = "Ruckig trajectory smoothing found no MoveInstructions to process";
     info->return_value = 1;
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
     return info;
   }
@@ -174,7 +168,6 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
       input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
 
     info->message = "Failed to perform ruckig trajectory smoothing for process input: %s" + ci.getDescription();
-    info->elapsed_time = timer.elapsedSeconds();
     CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
     return info;
   }
@@ -184,16 +177,13 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerIn
   info->color = "green";
   info->message = "Successful";
   info->return_value = 1;
-  info->elapsed_time = timer.elapsedSeconds();
   CONSOLE_BRIDGE_logDebug("Ruckig trajectory smoothing succeeded");
   return info;
 }
 
 bool RuckigTrajectorySmoothingTask::operator==(const RuckigTrajectorySmoothingTask& rhs) const
 {
-  bool equal = true;
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
+  return (TaskComposerTask::operator==(rhs));
 }
 bool RuckigTrajectorySmoothingTask::operator!=(const RuckigTrajectorySmoothingTask& rhs) const
 {

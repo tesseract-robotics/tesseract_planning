@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
+#include <tesseract_common/timer.h>
 
 namespace tesseract_planning
 {
@@ -58,7 +59,9 @@ int TaskComposerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
     return 0;
   }
 
+  tesseract_common::Timer timer;
   TaskComposerNodeInfo::UPtr results;
+  timer.start();
   try
   {
     results = runImpl(input, executor);
@@ -70,6 +73,8 @@ int TaskComposerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
     results->message = "Exception thrown: " + std::string(e.what());
     results->return_value = 0;
   }
+  timer.stop();
+  results->elapsed_time = timer.elapsedSeconds();
 
   int value = results->return_value;
   assert(value >= 0);
