@@ -43,6 +43,7 @@ add_library(
   src/nodes/error_task.cpp
   src/nodes/remap_task.cpp
   src/nodes/start_task.cpp
+  src/nodes/sync_task.cpp
   src/test_suite/test_task.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_nodes
