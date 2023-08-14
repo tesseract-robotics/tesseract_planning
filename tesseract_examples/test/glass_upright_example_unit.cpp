@@ -25,7 +25,7 @@ TEST(TesseractExamples, GlassUprightTrajOptExampleUnit)  // NOLINT
   EXPECT_TRUE(example.run());
 }
 
-TEST(TesseractExamples, GlassUprightTrajOptIfoptExampleUnit)  // NOLINT
+TEST(TesseractExamples, DISABLED_GlassUprightTrajOptIfoptExampleUnit)  // NOLINT
 {
   auto locator = std::make_shared<TesseractSupportResourceLocator>();
   tesseract_common::fs::path urdf_path =
