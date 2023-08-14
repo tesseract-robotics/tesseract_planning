@@ -478,6 +478,18 @@ The task that is called if you want to abort everything
      config:
        conditional: false
 
+Sync Task
+^^^^^^^^^
+
+The task is used to create a syncronization point within a task graph
+
+.. code-block:: yaml
+
+   SyncTask:
+     class: SyncTaskFactory
+     config:
+       conditional: false
+
 Remap Task
 ^^^^^^^^^^
 

@@ -53,6 +53,8 @@ int TaskComposerPipeline::run(TaskComposerInput& input, OptionalTaskComposerExec
   if (input.isAborted())
   {
     auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+    info->input_keys = input_keys_;
+    info->output_keys = output_keys_;
     info->return_value = 0;
     info->color = "white";
     info->message = "Aborted";
@@ -76,6 +78,8 @@ int TaskComposerPipeline::run(TaskComposerInput& input, OptionalTaskComposerExec
     results->return_value = 0;
   }
   timer.stop();
+  results->input_keys = input_keys_;
+  results->output_keys = output_keys_;
   results->elapsed_time = timer.elapsedSeconds();
 
   int value = results->return_value;
@@ -114,6 +118,8 @@ TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(TaskComposerInput& inpu
     {
       timer.stop();
       auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+      info->input_keys = input_keys_;
+      info->output_keys = output_keys_;
       info->return_value = static_cast<int>(i);
       info->color = node_info->color;
       info->message = node_info->message;

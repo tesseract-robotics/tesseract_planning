@@ -23,6 +23,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/nodes/error_task.h>
 #include <tesseract_task_composer/core/nodes/remap_task.h>
 #include <tesseract_task_composer/core/nodes/start_task.h>
+#include <tesseract_task_composer/core/nodes/sync_task.h>
 #include <tesseract_task_composer/core/test_suite/test_task.h>
 
 TESSERACT_ANY_EXPORT(tesseract_common, JointState)
@@ -1900,12 +1901,79 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerStartTaskTests)  // NOLINT
     auto task = std::make_unique<StartTask>("abc");
 
     // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerDoneTaskTests");
+    test_suite::runSerializationPointerTest(task, "TaskComposerStartTaskTests");
   }
 
   {  // Test run method
     auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
     StartTask task;
+    EXPECT_EQ(task.run(*input), 1);
+    auto node_info = input->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->message, "Successful");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(input->isAborted(), false);
+    EXPECT_EQ(input->isSuccessful(), true);
+    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerSyncTaskTests)  // NOLINT
+{
+  {  // Construction
+    SyncTask task;
+    EXPECT_EQ(task.getName(), "SyncTask");
+    EXPECT_EQ(task.isConditional(), false);
+  }
+
+  {  // Construction
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: false)";
+    YAML::Node config = YAML::Load(str);
+    SyncTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), false);
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<SyncTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: false
+                           inputs: [input_data]
+                           ouputs: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<SyncTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: false
+                           outputs: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<SyncTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<SyncTask>("abc");
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerSyncTaskTests");
+  }
+
+  {  // Test run method
+    auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
+    SyncTask task;
     EXPECT_EQ(task.run(*input), 1);
     auto node_info = input->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");

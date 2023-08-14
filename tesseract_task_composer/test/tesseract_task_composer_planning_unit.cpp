@@ -4,6 +4,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
 #include <sstream>
 #include <memory>
+#include <boost/algorithm/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
@@ -2564,10 +2565,69 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     TaskComposerFuture::UPtr future = executor->run(*task, *input);
     future->wait();
 
+    std::ofstream os1;
+    os1.open(tesseract_common::getTempPath() + "TaskComposerRasterMotionTaskTests.dot");
+    EXPECT_NO_THROW(task->dump(os1, nullptr, input->task_infos.getInfoMap()));  // NOLINT
+    os1.close();
+
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
     EXPECT_TRUE(input->data_storage.hasKey(output_key));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+    auto info_map = input->task_infos.getInfoMap();
+    EXPECT_EQ(info_map.size(), 94);
+
+    // Make sure keys are unique
+    std::vector<std::string> raster_input_keys;
+    std::vector<std::string> raster_output_keys;
+    std::vector<std::string> update_input_keys;
+    std::vector<std::string> update_output_keys;
+    std::vector<std::string> transition_input_keys;
+    std::vector<std::string> transition_output_keys;
+    for (const auto& info : info_map)
+    {
+      std::cout << info.second->name << std::endl;
+      if (boost::algorithm::starts_with(info.second->name, "Raster #"))
+      {
+        auto it1 = std::find(raster_input_keys.begin(), raster_input_keys.end(), info.second->input_keys.at(0));
+        ASSERT_TRUE(it1 == raster_input_keys.end());
+        raster_input_keys.push_back(info.second->input_keys.at(0));
+
+        auto it2 = std::find(raster_output_keys.begin(), raster_output_keys.end(), info.second->output_keys.at(0));
+        ASSERT_TRUE(it2 == raster_output_keys.end());
+        raster_output_keys.push_back(info.second->output_keys.at(0));
+      }
+      else if (info.second->name == "UpdateStartAndEndStateTask" || info.second->name == "UpdateStartStateTask" ||
+               info.second->name == "UpdateEndStateTask")
+      {
+        auto it1 = std::find(update_input_keys.begin(), update_input_keys.end(), info.second->input_keys.at(0));
+        ASSERT_TRUE(it1 == update_input_keys.end());
+        update_input_keys.push_back(info.second->input_keys.at(0));
+
+        auto it2 = std::find(update_output_keys.begin(), update_output_keys.end(), info.second->output_keys.at(0));
+        ASSERT_TRUE(it2 == update_output_keys.end());
+        update_output_keys.push_back(info.second->output_keys.at(0));
+      }
+      else if (boost::algorithm::starts_with(info.second->name, "Transition #") ||
+               boost::algorithm::starts_with(info.second->name, "From Start") ||
+               boost::algorithm::starts_with(info.second->name, "To End"))
+      {
+        auto it1 = std::find(transition_input_keys.begin(), transition_input_keys.end(), info.second->input_keys.at(0));
+        ASSERT_TRUE(it1 == transition_input_keys.end());
+        transition_input_keys.push_back(info.second->input_keys.at(0));
+
+        auto it2 =
+            std::find(transition_output_keys.begin(), transition_output_keys.end(), info.second->output_keys.at(0));
+        ASSERT_TRUE(it2 == transition_output_keys.end());
+        transition_output_keys.push_back(info.second->output_keys.at(0));
+      }
+    }
+    EXPECT_FALSE(raster_input_keys.empty());
+    EXPECT_FALSE(raster_output_keys.empty());
+    EXPECT_FALSE(update_input_keys.empty());
+    EXPECT_FALSE(update_output_keys.empty());
+    EXPECT_FALSE(transition_input_keys.empty());
+    EXPECT_FALSE(transition_output_keys.empty());
   }
 
   {  // Failure missing input data
@@ -2986,10 +3046,68 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     TaskComposerFuture::UPtr future = executor->run(*task, *input);
     future->wait();
 
+    std::ofstream os1;
+    os1.open(tesseract_common::getTempPath() + "TaskComposerRasterOnlyMotionTaskTests.dot");
+    EXPECT_NO_THROW(task->dump(os1, nullptr, input->task_infos.getInfoMap()));  // NOLINT
+    os1.close();
+
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
     EXPECT_TRUE(input->data_storage.hasKey(output_key));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+    auto info_map = input->task_infos.getInfoMap();
+    EXPECT_EQ(info_map.size(), 74);
+
+    // Make sure keys are unique
+    std::vector<std::string> raster_input_keys;
+    std::vector<std::string> raster_output_keys;
+    std::vector<std::string> update_input_keys;
+    std::vector<std::string> update_output_keys;
+    std::vector<std::string> transition_input_keys;
+    std::vector<std::string> transition_output_keys;
+    for (const auto& info : info_map)
+    {
+      if (boost::algorithm::starts_with(info.second->name, "Raster #"))
+      {
+        auto it1 = std::find(raster_input_keys.begin(), raster_input_keys.end(), info.second->input_keys.at(0));
+        ASSERT_TRUE(it1 == raster_input_keys.end());
+        raster_input_keys.push_back(info.second->input_keys.at(0));
+
+        auto it2 = std::find(raster_output_keys.begin(), raster_output_keys.end(), info.second->output_keys.at(0));
+        ASSERT_TRUE(it2 == raster_output_keys.end());
+        raster_output_keys.push_back(info.second->output_keys.at(0));
+      }
+      else if (info.second->name == "UpdateStartAndEndStateTask" || info.second->name == "UpdateStartStateTask" ||
+               info.second->name == "UpdateEndStateTask")
+      {
+        auto it1 = std::find(update_input_keys.begin(), update_input_keys.end(), info.second->input_keys.at(0));
+        ASSERT_TRUE(it1 == update_input_keys.end());
+        update_input_keys.push_back(info.second->input_keys.at(0));
+
+        auto it2 = std::find(update_output_keys.begin(), update_output_keys.end(), info.second->output_keys.at(0));
+        ASSERT_TRUE(it2 == update_output_keys.end());
+        update_output_keys.push_back(info.second->output_keys.at(0));
+      }
+      else if (boost::algorithm::starts_with(info.second->name, "Transition #") ||
+               boost::algorithm::starts_with(info.second->name, "From Start") ||
+               boost::algorithm::starts_with(info.second->name, "To End"))
+      {
+        auto it1 = std::find(transition_input_keys.begin(), transition_input_keys.end(), info.second->input_keys.at(0));
+        ASSERT_TRUE(it1 == transition_input_keys.end());
+        transition_input_keys.push_back(info.second->input_keys.at(0));
+
+        auto it2 =
+            std::find(transition_output_keys.begin(), transition_output_keys.end(), info.second->output_keys.at(0));
+        ASSERT_TRUE(it2 == transition_output_keys.end());
+        transition_output_keys.push_back(info.second->output_keys.at(0));
+      }
+    }
+    EXPECT_FALSE(raster_input_keys.empty());
+    EXPECT_FALSE(raster_output_keys.empty());
+    EXPECT_FALSE(update_input_keys.empty());
+    EXPECT_FALSE(update_output_keys.empty());
+    EXPECT_FALSE(transition_input_keys.empty());
+    EXPECT_FALSE(transition_output_keys.empty());
   }
 
   {  // Failure missing input data

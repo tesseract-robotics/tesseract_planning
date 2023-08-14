@@ -51,6 +51,8 @@ int TaskComposerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
   if (input.isAborted())
   {
     auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+    info->input_keys = input_keys_;
+    info->output_keys = output_keys_;
     info->return_value = 0;
     info->color = "white";
     info->message = "Aborted";
@@ -74,6 +76,8 @@ int TaskComposerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
     results->return_value = 0;
   }
   timer.stop();
+  results->input_keys = input_keys_;
+  results->output_keys = output_keys_;
   results->elapsed_time = timer.elapsedSeconds();
 
   int value = results->return_value;
