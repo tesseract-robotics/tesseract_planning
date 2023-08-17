@@ -45,6 +45,13 @@ tesseract_variables()
 
 add_subdirectory(core)
 
+# Simple
+option(TESSERACT_BUILD_SIMPLE "Build the simple planner" ON)
+if(TESSERACT_BUILD_SIMPLE)
+  message("Building Simple Planner")
+  add_subdirectory(simple)
+endif()
+
 # OMPL
 option(TESSERACT_BUILD_OMPL "Build the OMPL planner" ON)
 if(TESSERACT_BUILD_OMPL)
