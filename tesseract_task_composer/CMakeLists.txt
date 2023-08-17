@@ -45,8 +45,6 @@ else()
   set(TESSERACT_TASK_COMPOSER_PLUGIN_PATH ${CMAKE_INSTALL_PREFIX}/lib)
 endif()
 
-option(TESSERACT_BUILD_TRAJOPT_IFOPT "Build the Trajopt IFOPT planner" ON)
-
 # Variable for task composer plugins
 set(TASK_COMPOSER_PLUGINS "")
 
