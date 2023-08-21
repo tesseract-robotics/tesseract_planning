@@ -326,6 +326,7 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
 
   tesseract_common::ManipulatorInfo program_manip_info = program.getManipulatorInfo().getCombined(problem.manip_info);
 
+  // Start Task
   auto start_task = std::make_unique<StartTask>();
   auto start_uuid = task_graph.addNode(std::move(start_task));
 
@@ -352,6 +353,7 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
 
     const std::string task_name = "Raster #" + std::to_string(raster_idx + 1) + ": " + raster_input.getDescription();
     auto raster_results = raster_task_factory_(task_name, raster_idx + 1);
+    raster_results.node->setConditional(false);
     auto raster_uuid = task_graph.addNode(std::move(raster_results.node));
     raster_tasks.emplace_back(raster_uuid, std::make_pair(raster_results.input_key, raster_results.output_key));
     input.data_storage.setData(raster_results.input_key, raster_input);
@@ -384,6 +386,7 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
     const std::string task_name =
         "Transition #" + std::to_string(transition_idx + 1) + ": " + transition_input.getDescription();
     auto transition_results = transition_task_factory_(task_name, transition_idx + 1);
+    transition_results.node->setConditional(false);
     auto transition_uuid = task_graph.addNode(std::move(transition_results.node));
     transition_keys.emplace_back(std::make_pair(transition_results.input_key, transition_results.output_key));
 
@@ -391,12 +394,15 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
     const auto& next = raster_tasks[transition_idx + 1];
     const auto& prev_output = prev.second.second;
     const auto& next_output = next.second.second;
-    auto transition_mux_task = std::make_unique<UpdateStartAndEndStateTask>(
-        "UpdateStartAndEndStateTask", prev_output, next_output, transition_results.input_key, false);
-    std::string transition_mux_key = transition_mux_task->getUUIDString();
+    auto transition_mux_task = std::make_unique<UpdateStartAndEndStateTask>("UpdateStartAndEndStateTask",
+                                                                            transition_results.input_key,
+                                                                            prev_output,
+                                                                            next_output,
+                                                                            transition_results.output_key,
+                                                                            false);
     auto transition_mux_uuid = task_graph.addNode(std::move(transition_mux_task));
 
-    input.data_storage.setData(transition_mux_key, transition_input);
+    input.data_storage.setData(transition_results.input_key, transition_input);
 
     task_graph.addEdges(transition_mux_uuid, { transition_uuid });
     task_graph.addEdges(prev.first, { transition_mux_uuid });
@@ -409,23 +415,24 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
   auto from_start_input = program[0].template as<CompositeInstruction>();
   from_start_input.setManipulatorInfo(from_start_input.getManipulatorInfo().getCombined(program_manip_info));
 
-  auto from_start_results = freespace_task_factory_("From Start: " + from_start_input.getDescription(), 1);
+  auto from_start_results = freespace_task_factory_("From Start: " + from_start_input.getDescription(), 0);
   auto from_start_pipeline_uuid = task_graph.addNode(std::move(from_start_results.node));
 
   const auto& first_raster_output_key = raster_tasks[0].second.second;
-  auto update_end_state_task = std::make_unique<UpdateEndStateTask>(
-      "UpdateEndStateTask", first_raster_output_key, from_start_results.input_key, false);
-  std::string update_end_state_key = update_end_state_task->getUUIDString();
+  auto update_end_state_task = std::make_unique<UpdateEndStateTask>("UpdateEndStateTask",
+                                                                    from_start_results.input_key,
+                                                                    first_raster_output_key,
+                                                                    from_start_results.output_key,
+                                                                    false);
   auto update_end_state_uuid = task_graph.addNode(std::move(update_end_state_task));
 
-  input.data_storage.setData(update_end_state_key, from_start_input);
+  input.data_storage.setData(from_start_results.input_key, from_start_input);
 
   task_graph.addEdges(update_end_state_uuid, { from_start_pipeline_uuid });
   task_graph.addEdges(raster_tasks[0].first, { update_end_state_uuid });
 
   // Plan to_end - preceded by the last raster
   auto to_end_input = program.back().template as<CompositeInstruction>();
-
   to_end_input.setManipulatorInfo(to_end_input.getManipulatorInfo().getCombined(program_manip_info));
 
   // Get Start Plan Instruction
@@ -436,16 +443,15 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerInput& input,
   assert(li != nullptr);
   to_end_input.insertMoveInstruction(to_end_input.begin(), *li);
 
-  auto to_end_results = freespace_task_factory_("To End: " + to_end_input.getDescription(), 2);
+  auto to_end_results = freespace_task_factory_("To End: " + to_end_input.getDescription(), program.size());
   auto to_end_pipeline_uuid = task_graph.addNode(std::move(to_end_results.node));
 
   const auto& last_raster_output_key = raster_tasks.back().second.second;
   auto update_start_state_task = std::make_unique<UpdateStartStateTask>(
-      "UpdateStartStateTask", last_raster_output_key, to_end_results.input_key, false);
-  std::string update_start_state_key = update_start_state_task->getUUIDString();
+      "UpdateStartStateTask", to_end_results.input_key, last_raster_output_key, to_end_results.output_key, false);
   auto update_start_state_uuid = task_graph.addNode(std::move(update_start_state_task));
 
-  input.data_storage.setData(update_start_state_key, to_end_input);
+  input.data_storage.setData(to_end_results.input_key, to_end_input);
 
   task_graph.addEdges(update_start_state_uuid, { to_end_pipeline_uuid });
   task_graph.addEdges(raster_tasks.back().first, { update_start_state_uuid });

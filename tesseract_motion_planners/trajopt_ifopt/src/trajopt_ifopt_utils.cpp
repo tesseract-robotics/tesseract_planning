@@ -269,6 +269,13 @@ createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::Const
   }
   else
   {
+    const std::string prefix = (config->type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS) ? "LVSCont"
+                                                                                                               "inuousC"
+                                                                                                               "ollisio"
+                                                                                                               "n_" :
+                                                                                                               "Continu"
+                                                                                                               "ousColl"
+                                                                                                               "ision_";
     bool time0_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), 0) != fixed_indices.end());
     for (std::size_t i = 1; i < vars.size(); ++i)
     {
@@ -302,7 +309,7 @@ createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::Const
           position_vars_fixed,
           std::min(config->max_num_cnt, static_cast<int>(cp.size())),
           fixed_sparsity,
-          "LVSDiscreteCollision_" + std::to_string(i)));
+          prefix + std::to_string(i)));
 
       time0_fixed = time1_fixed;
     }

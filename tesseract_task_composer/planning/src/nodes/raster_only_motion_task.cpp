@@ -276,6 +276,7 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
 
   tesseract_common::ManipulatorInfo program_manip_info = program.getManipulatorInfo().getCombined(problem.manip_info);
 
+  // Start Task
   auto start_task = std::make_unique<StartTask>();
   auto start_uuid = task_graph.addNode(std::move(start_task));
 
@@ -305,6 +306,7 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
 
     const std::string task_name = "Raster #" + std::to_string(raster_idx + 1) + ": " + raster_input.getDescription();
     auto raster_results = raster_task_factory_(task_name, raster_idx + 1);
+    raster_results.node->setConditional(false);
     auto raster_uuid = task_graph.addNode(std::move(raster_results.node));
     raster_tasks.emplace_back(raster_uuid, std::make_pair(raster_results.input_key, raster_results.output_key));
     input.data_storage.setData(raster_results.input_key, raster_input);
@@ -336,6 +338,7 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
     const std::string task_name =
         "Transition #" + std::to_string(transition_idx + 1) + ": " + transition_input.getDescription();
     auto transition_results = transition_task_factory_(task_name, transition_idx + 1);
+    transition_results.node->setConditional(false);
     auto transition_uuid = task_graph.addNode(std::move(transition_results.node));
     transition_keys.emplace_back(std::make_pair(transition_results.input_key, transition_results.output_key));
 
@@ -343,12 +346,15 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
     const auto& next = raster_tasks[transition_idx + 1];
     const auto& prev_output = prev.second.second;
     const auto& next_output = next.second.second;
-    auto transition_mux_task = std::make_unique<UpdateStartAndEndStateTask>(
-        "UpdateStartAndEndStateTask", prev_output, next_output, transition_results.input_key, false);
-    std::string transition_mux_key = transition_mux_task->getUUIDString();
+    auto transition_mux_task = std::make_unique<UpdateStartAndEndStateTask>("UpdateStartAndEndStateTask",
+                                                                            transition_results.input_key,
+                                                                            prev_output,
+                                                                            next_output,
+                                                                            transition_results.output_key,
+                                                                            false);
     auto transition_mux_uuid = task_graph.addNode(std::move(transition_mux_task));
 
-    input.data_storage.setData(transition_mux_key, transition_input);
+    input.data_storage.setData(transition_results.input_key, transition_input);
 
     task_graph.addEdges(transition_mux_uuid, { transition_uuid });
     task_graph.addEdges(prev.first, { transition_mux_uuid });
