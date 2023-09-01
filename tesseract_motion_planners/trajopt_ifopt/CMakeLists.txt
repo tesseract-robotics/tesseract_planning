@@ -7,7 +7,8 @@ add_library(
   src/trajopt_ifopt_motion_planner.cpp
   src/trajopt_ifopt_utils.cpp
   src/profile/trajopt_ifopt_default_plan_profile.cpp
-  src/profile/trajopt_ifopt_default_composite_profile.cpp)
+  src/profile/trajopt_ifopt_default_composite_profile.cpp
+  src/profile/trajopt_ifopt_default_solver_profile.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_trajopt_ifopt
   PUBLIC ${PROJECT_NAME}_core

@@ -94,6 +94,25 @@ public:
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 };
 
+class TrajOptIfoptSolverProfile
+{
+public:
+  using Ptr = std::shared_ptr<TrajOptIfoptSolverProfile>;
+  using ConstPtr = std::shared_ptr<const TrajOptIfoptSolverProfile>;
+
+  TrajOptIfoptSolverProfile() = default;
+  virtual ~TrajOptIfoptSolverProfile() = default;
+  TrajOptIfoptSolverProfile(const TrajOptIfoptSolverProfile&) = default;
+  TrajOptIfoptSolverProfile& operator=(const TrajOptIfoptSolverProfile&) = default;
+  TrajOptIfoptSolverProfile(TrajOptIfoptSolverProfile&&) = default;
+  TrajOptIfoptSolverProfile& operator=(TrajOptIfoptSolverProfile&&) = default;
+
+  virtual void apply(TrajOptIfoptProblem& problem) const = 0;
+
+  virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
+};
+
+using TrajOptIfoptSolverProfileMap = std::unordered_map<std::string, TrajOptIfoptSolverProfile::ConstPtr>;
 using TrajOptIfoptCompositeProfileMap = std::unordered_map<std::string, TrajOptIfoptCompositeProfile::ConstPtr>;
 using TrajOptIfoptPlanProfileMap = std::unordered_map<std::string, TrajOptIfoptPlanProfile::ConstPtr>;
 
