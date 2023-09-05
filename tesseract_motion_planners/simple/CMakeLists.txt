@@ -1,8 +1,6 @@
-find_package(tesseract_environment REQUIRED)
-find_package(tesseract_command_language REQUIRED)
-
 add_library(
   ${PROJECT_NAME}_simple
+  src/interpolation.cpp
   src/simple_motion_planner.cpp
   src/profile/simple_planner_lvs_plan_profile.cpp
   src/profile/simple_planner_lvs_no_ik_plan_profile.cpp
@@ -25,7 +23,24 @@ target_include_directories(${PROJECT_NAME}_simple PUBLIC "$<BUILD_INTERFACE:${CM
 add_dependencies(${PROJECT_NAME}_simple ${PROJECT_NAME}_core)
 
 # Mark cpp header files for installation
-install(DIRECTORY include/${PROJECT_NAME} DESTINATION include)
+install(DIRECTORY include/${PROJECT_NAME} DESTINATION include COMPONENT simple)
 
-# Install targets
-install_targets(TARGETS ${PROJECT_NAME}_simple)
+# Testing
+if(TESSERACT_ENABLE_TESTING)
+  add_subdirectory(test)
+endif()
+
+# Configure Components
+configure_component(
+  COMPONENT simple
+  NAMESPACE tesseract
+  TARGETS ${PROJECT_NAME}_simple
+  DEPENDENCIES "tesseract_motion_planners COMPONENTS core" tesseract_environment tesseract_command_language)
+
+if(TESSERACT_PACKAGE)
+  cpack_component(
+    COMPONENT simple
+    VERSION ${pkg_extracted_version}
+    DESCRIPTION "Tesseract motion planners simple components"
+    COMPONENT_DEPENDS core)
+endif()

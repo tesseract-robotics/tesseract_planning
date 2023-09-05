@@ -1,7 +1,7 @@
 find_package(tesseract_support REQUIRED)
 find_package(tesseract_visualization REQUIRED)
 
-if(TESSERACT_BUILD_DESCARTES AND TESSERACT_BUILD_TRAJOPT)
+if(TESSERACT_BUILD_SIMPLE AND TESSERACT_BUILD_DESCARTES AND TESSERACT_BUILD_TRAJOPT)
   message("Building chain example")
   add_executable(${PROJECT_NAME}_chain_example chain_example.cpp)
   target_link_libraries(
@@ -20,7 +20,7 @@ if(TESSERACT_BUILD_DESCARTES AND TESSERACT_BUILD_TRAJOPT)
   install(TARGETS ${PROJECT_NAME}_chain_example DESTINATION bin)
 endif()
 
-if(TESSERACT_BUILD_DESCARTES AND TESSERACT_BUILD_TRAJOPT)
+if(TESSERACT_BUILD_SIMPLE AND TESSERACT_BUILD_DESCARTES AND TESSERACT_BUILD_TRAJOPT)
   message("Building raster example")
   add_executable(${PROJECT_NAME}_raster_example raster_example.cpp)
   target_link_libraries(
@@ -39,7 +39,7 @@ if(TESSERACT_BUILD_DESCARTES AND TESSERACT_BUILD_TRAJOPT)
   install(TARGETS ${PROJECT_NAME}_raster_example DESTINATION bin)
 endif()
 
-if(TESSERACT_BUILD_OMPL AND TESSERACT_BUILD_TRAJOPT)
+if(TESSERACT_BUILD_SIMPLE AND TESSERACT_BUILD_OMPL AND TESSERACT_BUILD_TRAJOPT)
   message("Building freespace example")
   add_executable(${PROJECT_NAME}_freespace_example freespace_example.cpp)
   target_link_libraries(

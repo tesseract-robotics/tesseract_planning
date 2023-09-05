@@ -1,0 +1,677 @@
+---
+"$schema": http://json-schema.org/draft-06/schema#
+"$ref": "#/definitions/Welcome5"
+definitions:
+  Welcome5:
+    type: object
+    additionalProperties: false
+    properties:
+      task_composer_plugins:
+        "$ref": "#/definitions/TaskComposerPlugins"
+    required:
+    - task_composer_plugins
+    title: Welcome5
+  TaskComposerPlugins:
+    type: object
+    additionalProperties: false
+    properties:
+      search_paths:
+        type: array
+        items:
+          type: string
+      search_libraries:
+        type: array
+        items:
+          type: string
+      executors:
+        "$ref": "#/definitions/Executors"
+      tasks:
+        "$ref": "#/definitions/Tasks"
+    required:
+    - executors
+    - search_libraries
+    - search_paths
+    - tasks
+    title: TaskComposerPlugins
+  Executors:
+    type: object
+    additionalProperties: false
+    properties:
+      default:
+        type: string
+      plugins:
+        "$ref": "#/definitions/ExecutorsPlugins"
+    required:
+    - default
+    - plugins
+    title: Executors
+  ExecutorsPlugins:
+    type: object
+    additionalProperties: false
+    properties:
+      TaskflowExecutor:
+        "$ref": "#/definitions/TaskflowExecutor"
+    required:
+    - TaskflowExecutor
+    title: ExecutorsPlugins
+  TaskflowExecutor:
+    type: object
+    additionalProperties: false
+    properties:
+      class:
+        type: string
+      config:
+        "$ref": "#/definitions/TaskflowExecutorConfig"
+    required:
+    - class
+    - config
+    title: TaskflowExecutor
+  TaskflowExecutorConfig:
+    type: object
+    additionalProperties: false
+    properties:
+      threads:
+        type: integer
+    required:
+    - threads
+    title: TaskflowExecutorConfig
+  Tasks:
+    type: object
+    additionalProperties: false
+    properties:
+      plugins:
+        "$ref": "#/definitions/TasksPlugins"
+    required:
+    - plugins
+    title: Tasks
+  TasksPlugins:
+    type: object
+    additionalProperties: false
+    properties:
+      DescartesFTask:
+        "$ref": "#/definitions/CartesianTaskClass"
+      DescartesFPipeline:
+        "$ref": "#/definitions/Pipeline"
+      DescartesDTask:
+        "$ref": "#/definitions/CartesianTaskClass"
+      DescartesDPipeline:
+        "$ref": "#/definitions/Pipeline"
+      DescartesFNPCTask:
+        "$ref": "#/definitions/DescartesNpcTask"
+      DescartesFNPCPipeline:
+        "$ref": "#/definitions/Pipeline"
+      DescartesDNPCTask:
+        "$ref": "#/definitions/DescartesNpcTask"
+      DescartesDNPCPipeline:
+        "$ref": "#/definitions/Pipeline"
+      OMPLTask:
+        "$ref": "#/definitions/CartesianTaskClass"
+      OMPLPipeline:
+        "$ref": "#/definitions/Pipeline"
+      TrajOptTask:
+        "$ref": "#/definitions/CartesianTaskClass"
+      TrajOptPipeline:
+        "$ref": "#/definitions/Pipeline"
+      TrajOptIfoptTask:
+        "$ref": "#/definitions/CartesianTaskClass"
+      TrajOptIfoptPipeline:
+        "$ref": "#/definitions/Pipeline"
+      CartesianTask:
+        "$ref": "#/definitions/CartesianTaskClass"
+      CartesianPipeline:
+        "$ref": "#/definitions/Pipeline"
+      FreespaceTask:
+        "$ref": "#/definitions/CartesianTaskClass"
+      FreespacePipeline:
+        "$ref": "#/definitions/Pipeline"
+      RasterFtTask:
+        "$ref": "#/definitions/RasterTask"
+      RasterFtPipeline:
+        "$ref": "#/definitions/Pipeline"
+      RasterCtTask:
+        "$ref": "#/definitions/RasterTask"
+      RasterCtPipeline:
+        "$ref": "#/definitions/Pipeline"
+      RasterFtOnlyTask:
+        "$ref": "#/definitions/RasterTask"
+      RasterFtOnlyPipeline:
+        "$ref": "#/definitions/Pipeline"
+      RasterCtOnlyTask:
+        "$ref": "#/definitions/RasterTask"
+      RasterCtOnlyPipeline:
+        "$ref": "#/definitions/Pipeline"
+      RasterFtGlobalTask:
+        "$ref": "#/definitions/RasterTask"
+      RasterFtGlobalPipeline:
+        "$ref": "#/definitions/Pipeline"
+      RasterCtGlobalTask:
+        "$ref": "#/definitions/RasterTask"
+      RasterCtGlobalPipeline:
+        "$ref": "#/definitions/Pipeline"
+      RasterFtOnlyGlobalTask:
+        "$ref": "#/definitions/RasterTask"
+      RasterFtOnlyGlobalPipeline:
+        "$ref": "#/definitions/Pipeline"
+      RasterCtOnlyGlobalTask:
+        "$ref": "#/definitions/RasterTask"
+      RasterCtOnlyGlobalPipeline:
+        "$ref": "#/definitions/Pipeline"
+    required:
+    - CartesianPipeline
+    - CartesianTask
+    - DescartesDNPCPipeline
+    - DescartesDNPCTask
+    - DescartesDPipeline
+    - DescartesDTask
+    - DescartesFNPCPipeline
+    - DescartesFNPCTask
+    - DescartesFPipeline
+    - DescartesFTask
+    - FreespacePipeline
+    - FreespaceTask
+    - OMPLPipeline
+    - OMPLTask
+    - RasterCtGlobalPipeline
+    - RasterCtGlobalTask
+    - RasterCtOnlyGlobalPipeline
+    - RasterCtOnlyGlobalTask
+    - RasterCtOnlyPipeline
+    - RasterCtOnlyTask
+    - RasterCtPipeline
+    - RasterCtTask
+    - RasterFtGlobalPipeline
+    - RasterFtGlobalTask
+    - RasterFtOnlyGlobalPipeline
+    - RasterFtOnlyGlobalTask
+    - RasterFtOnlyPipeline
+    - RasterFtOnlyTask
+    - RasterFtPipeline
+    - RasterFtTask
+    - TrajOptIfoptPipeline
+    - TrajOptIfoptTask
+    - TrajOptPipeline
+    - TrajOptTask
+    title: TasksPlugins
+  Pipeline:
+    type: object
+    additionalProperties: false
+    properties:
+      class:
+        "$ref": "#/definitions/CartesianPipelineClass"
+      config:
+        "$ref": "#/definitions/CartesianPipelineConfig"
+    required:
+    - class
+    - config
+    title: Pipeline
+  CartesianPipelineConfig:
+    type: object
+    additionalProperties: false
+    properties:
+      conditional:
+        type: boolean
+      inputs:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+      outputs:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+      nodes:
+        "$ref": "#/definitions/PurpleNodes"
+      edges:
+        type: array
+        items:
+          "$ref": "#/definitions/Edge"
+      terminals:
+        type: array
+        items:
+          "$ref": "#/definitions/Terminal"
+    required:
+    - conditional
+    - edges
+    - inputs
+    - nodes
+    - outputs
+    - terminals
+    title: CartesianPipelineConfig
+  Edge:
+    type: object
+    additionalProperties: false
+    properties:
+      source:
+        type: string
+      destinations:
+        type: array
+        items:
+          "$ref": "#/definitions/Terminal"
+    required:
+    - destinations
+    - source
+    title: Edge
+  PurpleNodes:
+    type: object
+    additionalProperties: false
+    properties:
+      DoneTask:
+        "$ref": "#/definitions/AbortTaskClass"
+      AbortTask:
+        "$ref": "#/definitions/AbortTaskClass"
+      MotionPlanningTask:
+        "$ref": "#/definitions/MotionPlanningTask"
+    required:
+    - AbortTask
+    - DoneTask
+    - MotionPlanningTask
+    title: PurpleNodes
+  AbortTaskClass:
+    type: object
+    additionalProperties: false
+    properties:
+      class:
+        "$ref": "#/definitions/DoneTaskClass"
+      config:
+        "$ref": "#/definitions/AbortTaskConfig"
+    required:
+    - class
+    - config
+    title: AbortTaskClass
+  AbortTaskConfig:
+    type: object
+    additionalProperties: false
+    properties:
+      conditional:
+        type: boolean
+    required:
+    - conditional
+    title: AbortTaskConfig
+  MotionPlanningTask:
+    type: object
+    additionalProperties: false
+    properties:
+      task:
+        type: string
+      config:
+        "$ref": "#/definitions/AbortTaskConfig"
+    required:
+    - config
+    - task
+    title: MotionPlanningTask
+  CartesianTaskClass:
+    type: object
+    additionalProperties: false
+    properties:
+      class:
+        "$ref": "#/definitions/CartesianPipelineClass"
+      config:
+        "$ref": "#/definitions/CartesianTaskConfig"
+    required:
+    - class
+    - config
+    title: CartesianTaskClass
+  CartesianTaskConfig:
+    type: object
+    additionalProperties: false
+    properties:
+      conditional:
+        type: boolean
+      inputs:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+      outputs:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+      nodes:
+        "$ref": "#/definitions/FluffyNodes"
+      edges:
+        type: array
+        items:
+          "$ref": "#/definitions/Edge"
+      terminals:
+        type: array
+        items:
+          "$ref": "#/definitions/Terminal"
+    required:
+    - conditional
+    - edges
+    - inputs
+    - nodes
+    - outputs
+    - terminals
+    title: CartesianTaskConfig
+  FluffyNodes:
+    type: object
+    additionalProperties: false
+    properties:
+      DoneTask:
+        "$ref": "#/definitions/AbortTaskClass"
+      ErrorTask:
+        "$ref": "#/definitions/AbortTaskClass"
+      MinLengthTask:
+        "$ref": "#/definitions/DescartesMotionPlannerTaskClass"
+      DescartesMotionPlannerTask:
+        "$ref": "#/definitions/DescartesMotionPlannerTaskClass"
+      TrajOptMotionPlannerTask:
+        "$ref": "#/definitions/DescartesMotionPlannerTaskClass"
+      DiscreteContactCheckTask:
+        "$ref": "#/definitions/DiscreteContactCheckTask"
+      IterativeSplineParameterizationTask:
+        "$ref": "#/definitions/DescartesMotionPlannerTaskClass"
+      OMPLMotionPlannerTask:
+        "$ref": "#/definitions/DescartesMotionPlannerTaskClass"
+      TrajOptIfoptMotionPlannerTask:
+        "$ref": "#/definitions/DescartesMotionPlannerTaskClass"
+    required:
+    - DoneTask
+    - ErrorTask
+    - IterativeSplineParameterizationTask
+    - MinLengthTask
+    title: FluffyNodes
+  DescartesMotionPlannerTaskClass:
+    type: object
+    additionalProperties: false
+    properties:
+      class:
+        type: string
+      config:
+        "$ref": "#/definitions/DescartesMotionPlannerTaskConfig"
+    required:
+    - class
+    - config
+    title: DescartesMotionPlannerTaskClass
+  DescartesMotionPlannerTaskConfig:
+    type: object
+    additionalProperties: false
+    properties:
+      conditional:
+        type: boolean
+      inputs:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+      outputs:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+      format_result_as_input:
+        type: boolean
+    required:
+    - conditional
+    - inputs
+    - outputs
+    title: DescartesMotionPlannerTaskConfig
+  DiscreteContactCheckTask:
+    type: object
+    additionalProperties: false
+    properties:
+      class:
+        type: string
+      config:
+        "$ref": "#/definitions/DiscreteContactCheckTaskConfig"
+    required:
+    - class
+    - config
+    title: DiscreteContactCheckTask
+  DiscreteContactCheckTaskConfig:
+    type: object
+    additionalProperties: false
+    properties:
+      conditional:
+        type: boolean
+      inputs:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+    required:
+    - conditional
+    - inputs
+    title: DiscreteContactCheckTaskConfig
+  DescartesNpcTask:
+    type: object
+    additionalProperties: false
+    properties:
+      class:
+        "$ref": "#/definitions/CartesianPipelineClass"
+      config:
+        "$ref": "#/definitions/DescartesDNPCTaskConfig"
+    required:
+    - class
+    - config
+    title: DescartesNpcTask
+  DescartesDNPCTaskConfig:
+    type: object
+    additionalProperties: false
+    properties:
+      conditional:
+        type: boolean
+      inputs:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+      outputs:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+      nodes:
+        "$ref": "#/definitions/TentacledNodes"
+      edges:
+        type: array
+        items:
+          "$ref": "#/definitions/Edge"
+      terminals:
+        type: array
+        items:
+          "$ref": "#/definitions/Terminal"
+    required:
+    - conditional
+    - edges
+    - inputs
+    - nodes
+    - outputs
+    - terminals
+    title: DescartesDNPCTaskConfig
+  TentacledNodes:
+    type: object
+    additionalProperties: false
+    properties:
+      DoneTask:
+        "$ref": "#/definitions/AbortTaskClass"
+      ErrorTask:
+        "$ref": "#/definitions/AbortTaskClass"
+      MinLengthTask:
+        "$ref": "#/definitions/DescartesMotionPlannerTaskClass"
+      DescartesMotionPlannerTask:
+        "$ref": "#/definitions/DescartesMotionPlannerTaskClass"
+      IterativeSplineParameterizationTask:
+        "$ref": "#/definitions/DescartesMotionPlannerTaskClass"
+    required:
+    - DescartesMotionPlannerTask
+    - DoneTask
+    - ErrorTask
+    - IterativeSplineParameterizationTask
+    - MinLengthTask
+    title: TentacledNodes
+  RasterTask:
+    type: object
+    additionalProperties: false
+    properties:
+      class:
+        "$ref": "#/definitions/CartesianPipelineClass"
+      config:
+        "$ref": "#/definitions/RasterCTGlobalTaskConfig"
+    required:
+    - class
+    - config
+    title: RasterTask
+  RasterCTGlobalTaskConfig:
+    type: object
+    additionalProperties: false
+    properties:
+      conditional:
+        type: boolean
+      inputs:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+      outputs:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+      nodes:
+        "$ref": "#/definitions/StickyNodes"
+      edges:
+        type: array
+        items:
+          "$ref": "#/definitions/Edge"
+      terminals:
+        type: array
+        items:
+          "$ref": "#/definitions/Terminal"
+    required:
+    - conditional
+    - edges
+    - inputs
+    - nodes
+    - outputs
+    - terminals
+    title: RasterCTGlobalTaskConfig
+  StickyNodes:
+    type: object
+    additionalProperties: false
+    properties:
+      DoneTask:
+        "$ref": "#/definitions/AbortTaskClass"
+      ErrorTask:
+        "$ref": "#/definitions/AbortTaskClass"
+      SimpleMotionPlannerTask:
+        "$ref": "#/definitions/DescartesMotionPlannerTaskClass"
+      DescartesMotionPlannerTask:
+        "$ref": "#/definitions/DescartesMotionPlannerTaskClass"
+      RasterMotionTask:
+        "$ref": "#/definitions/RasterMotionTask"
+    required:
+    - DoneTask
+    - ErrorTask
+    - RasterMotionTask
+    - SimpleMotionPlannerTask
+    title: StickyNodes
+  RasterMotionTask:
+    type: object
+    additionalProperties: false
+    properties:
+      class:
+        type: string
+      config:
+        "$ref": "#/definitions/RasterMotionTaskConfig"
+    required:
+    - class
+    - config
+    title: RasterMotionTask
+  RasterMotionTaskConfig:
+    type: object
+    additionalProperties: false
+    properties:
+      conditional:
+        type: boolean
+      inputs:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+      outputs:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+      freespace:
+        "$ref": "#/definitions/Freespace"
+      raster:
+        "$ref": "#/definitions/Freespace"
+      transition:
+        "$ref": "#/definitions/Freespace"
+    required:
+    - conditional
+    - inputs
+    - outputs
+    - raster
+    - transition
+    title: RasterMotionTaskConfig
+  Freespace:
+    type: object
+    additionalProperties: false
+    properties:
+      task:
+        "$ref": "#/definitions/Task"
+      config:
+        "$ref": "#/definitions/FreespaceConfig"
+    required:
+    - config
+    - task
+    title: Freespace
+  FreespaceConfig:
+    type: object
+    additionalProperties: false
+    properties:
+      input_remapping:
+        "$ref": "#/definitions/InputRemapping"
+      input_indexing:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+      output_indexing:
+        type: array
+        items:
+          "$ref": "#/definitions/Input"
+    required:
+    - input_indexing
+    - input_remapping
+    - output_indexing
+    title: FreespaceConfig
+  InputRemapping:
+    type: object
+    additionalProperties: false
+    properties:
+      input_data:
+        "$ref": "#/definitions/Input"
+    required:
+    - input_data
+    title: InputRemapping
+  CartesianPipelineClass:
+    type: string
+    enum:
+    - PipelineTaskFactory
+    title: CartesianPipelineClass
+  Terminal:
+    type: string
+    enum:
+    - AbortTask
+    - DoneTask
+    - ErrorTask
+    - DescartesMotionPlannerTask
+    - TrajOptMotionPlannerTask
+    - DiscreteContactCheckTask
+    - IterativeSplineParameterizationTask
+    - OMPLMotionPlannerTask
+    - RasterMotionTask
+    - TrajOptIfoptMotionPlannerTask
+    title: Terminal
+  Input:
+    type: string
+    enum:
+    - input_data
+    - output_data
+    title: Input
+  DoneTaskClass:
+    type: string
+    enum:
+    - AbortTaskFactory
+    - DoneTaskFactory
+    - ErrorTaskFactory
+    title: DoneTaskClass
+  Task:
+    type: string
+    enum:
+    - FreespacePipeline
+    - CartesianPipeline
+    title: Task

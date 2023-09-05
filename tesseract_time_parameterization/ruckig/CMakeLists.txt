@@ -17,7 +17,26 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 
 # Mark cpp header files for installation
-install(DIRECTORY include/${PROJECT_NAME} DESTINATION include)
+install(DIRECTORY include/${PROJECT_NAME} DESTINATION include COMPONENT ruckig)
 
-# Install targets
-install_targets(TARGETS ${PROJECT_NAME}_ruckig)
+# Testing
+if(TESSERACT_ENABLE_TESTING)
+  add_subdirectory(test)
+endif()
+
+# Configure Components
+configure_component(
+  COMPONENT ruckig
+  NAMESPACE tesseract
+  TARGETS ${PROJECT_NAME}_ruckig
+  DEPENDENCIES "tesseract_time_parameterization COMPONENTS core" ruckig)
+
+if(TESSERACT_PACKAGE)
+  cpack_component(
+    COMPONENT ruckig
+    VERSION ${pkg_extracted_version}
+    DESCRIPTION "Tesseract time parameterization ruckig components"
+    COMPONENT_DEPENDS core
+    LINUX_DEPENDS "ruckig | ${TESSERACT_PACKAGE_PREFIX}ruckig"
+    WINDOWS_DEPENDS "ruckig | ${TESSERACT_PACKAGE_PREFIX}ruckig")
+endif()

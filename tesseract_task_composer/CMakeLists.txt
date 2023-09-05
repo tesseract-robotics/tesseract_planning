@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.0)
+cmake_minimum_required(VERSION 3.15.0)
 
 # Extract package name and version
 find_package(ros_industrial_cmake_boilerplate REQUIRED)
@@ -27,6 +27,9 @@ else()
   endif()
 endif()
 
+# Load variable for clang tidy args, compiler options and cxx version
+tesseract_variables()
+
 initialize_code_coverage()
 set(COVERAGE_EXCLUDE
     /usr/*
@@ -35,9 +38,6 @@ set(COVERAGE_EXCLUDE
     /*/gtest/*)
 add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE})
 
-# Load variable for clang tidy args, compiler options and cxx version
-tesseract_variables()
-
 # Define compile-time default variables
 if(MSVC)
   set(TESSERACT_TASK_COMPOSER_PLUGIN_PATH ${CMAKE_INSTALL_PREFIX}/bin)
@@ -45,18 +45,18 @@ else()
   set(TESSERACT_TASK_COMPOSER_PLUGIN_PATH ${CMAKE_INSTALL_PREFIX}/lib)
 endif()
 
-option(TESSERACT_BUILD_TRAJOPT_IFOPT "Build the Trajopt IFOPT planner" ON)
-
 # Variable for task composer plugins
 set(TASK_COMPOSER_PLUGINS "")
 
 # Core
+set(SUPPORTED_COMPONENTS core)
 add_subdirectory(core)
 
 # Planning Tasks
 option(TESSERACT_BUILD_TASK_COMPOSER_PLANNING "Build task composer planning components" ON)
 if(TESSERACT_BUILD_TASK_COMPOSER_PLANNING)
   message("Build task composer planning components")
+  list(APPEND SUPPORTED_COMPONENTS planning)
   add_subdirectory(planning)
 endif()
 
@@ -64,6 +64,7 @@ endif()
 option(TESSERACT_BUILD_TASK_COMPOSER_TASKFLOW "Build task composer taskflow components" ON)
 if(TESSERACT_BUILD_TASK_COMPOSER_TASKFLOW)
   message("Build task composer taskflow components")
+  list(APPEND SUPPORTED_COMPONENTS taskflow)
   add_subdirectory(taskflow)
 endif()
 
@@ -75,29 +76,40 @@ string(
           "${TASK_COMPOSER_PLUGINS}")
 target_compile_definitions(${PROJECT_NAME} PRIVATE TESSERACT_TASK_COMPOSER_PLUGINS="${TASK_COMPOSER_PLUGINS_STRING}")
 
-# Testing
-if(TESSERACT_ENABLE_TESTING AND TESSERACT_BUILD_TASK_COMPOSER_PLANNING AND TESSERACT_BUILD_TASK_COMPOSER_TASKFLOW)
-  enable_testing()
-  add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
-  add_subdirectory(test)
-endif()
-
 # Examples
 if(TESSERACT_ENABLE_EXAMPLES)
   add_subdirectory(examples)
 endif()
 
-configure_package(NAMESPACE tesseract)
+install(DIRECTORY config/ DESTINATION share/${PROJECT_NAME}/config COMPONENT core)
 
-install(DIRECTORY config/ DESTINATION share/${PROJECT_NAME}/config)
+# Testing
+if(TESSERACT_ENABLE_TESTING)
+  find_gtest()
+  enable_testing()
+  add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
+  add_subdirectory(test)
+endif()
+
+# Package configuration
+configure_package(COMPONENT core SUPPORTED_COMPONENTS ${SUPPORTED_COMPONENTS})
 
 if(TESSERACT_PACKAGE)
-  tesseract_cpack(
+  cpack_component_package(
     VERSION ${pkg_extracted_version}
-    MAINTAINER <https://github.com/ros-industrial-consortium/tesseract>
+    MAINTAINER_NAME ${pkg_extracted_maintainer_name}
+    MAINTAINER_EMAIL ${pkg_extracted_maintainer_email}
     DESCRIPTION ${pkg_extracted_description}
     LICENSE_FILE ${CMAKE_CURRENT_LIST_DIR}/../LICENSE
     README_FILE ${CMAKE_CURRENT_LIST_DIR}/../README.md
-    LINUX_DEPENDS "libconsole-bridge-dev" "libboost-serialization-dev" "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
-    WINDOWS_DEPENDS "console-bridge" "boost-serialization" "${TESSERACT_PACKAGE_PREFIX}tesseract-common")
+    COMPONENT_DEPENDS ${SUPPORTED_COMPONENTS})
+
+  if(UNIX AND TESSERACT_PACKAGE_SOURCE)
+    cpack_debian_source_package(
+      CHANGLELOG ${CMAKE_CURRENT_LIST_DIR}/CHANGELOG.rst
+      UPLOAD ${TESSERACT_PACKAGE_SOURCE_UPLOAD}
+      DPUT_HOST ${TESSERACT_PACKAGE_SOURCE_DPUT_HOST}
+      DEBIAN_INCREMENT ${TESSERACT_PACKAGE_SOURCE_DEBIAN_INCREMENT}
+      DISTRIBUTIONS ${TESSERACT_PACKAGE_SOURCE_DISTRIBUTIONS})
+  endif()
 endif()

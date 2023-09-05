@@ -15,7 +15,24 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 
 # Mark cpp header files for installation
-install(DIRECTORY include/${PROJECT_NAME} DESTINATION include)
+install(DIRECTORY include/${PROJECT_NAME} DESTINATION include COMPONENT totg)
 
-# Install targets
-install_targets(TARGETS ${PROJECT_NAME}_totg)
+# Testing
+if(TESSERACT_ENABLE_TESTING)
+  add_subdirectory(test)
+endif()
+
+# Configure Components
+configure_component(
+  COMPONENT totg
+  NAMESPACE tesseract
+  TARGETS ${PROJECT_NAME}_totg
+  DEPENDENCIES "tesseract_time_parameterization COMPONENTS core")
+
+if(TESSERACT_PACKAGE)
+  cpack_component(
+    COMPONENT totg
+    VERSION ${pkg_extracted_version}
+    DESCRIPTION "Tesseract time parameterization TOTG components"
+    COMPONENT_DEPENDS core)
+endif()

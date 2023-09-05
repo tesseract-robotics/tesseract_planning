@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.0)
+cmake_minimum_required(VERSION 3.15.0)
 
 # Extract package name and version
 find_package(ros_industrial_cmake_boilerplate REQUIRED)
@@ -7,13 +7,20 @@ project(${pkg_extracted_name} VERSION ${pkg_extracted_version} LANGUAGES CXX)
 
 find_package(tesseract_environment REQUIRED)
 find_package(tesseract_command_language REQUIRED)
-find_package(tesseract_motion_planners REQUIRED)
 find_package(tesseract_task_composer REQUIRED)
-find_package(tesseract_collision REQUIRED)
 find_package(tesseract_common REQUIRED)
 find_package(tesseract_support REQUIRED)
 find_package(trajopt_sqp REQUIRED)
 find_package(trajopt_ifopt REQUIRED)
+find_package(
+  tesseract_motion_planners REQUIRED
+  COMPONENTS core simple
+  OPTIONAL_COMPONENTS
+    descartes
+    ompl
+    trajopt
+    trajopt_ifopt)
+find_package(tesseract_collision REQUIRED COMPONENTS core)
 find_package(
   PCL REQUIRED
   COMPONENTS core
@@ -141,17 +148,17 @@ configure_package(
           ${PROJECT_NAME}_puzzle_piece_auxillary_axes_example
           ${PROJECT_NAME}_puzzle_piece_example
           ${PROJECT_NAME}_scene_graph_example
-          DEPENDENCIES
-          tesseract_environment
-          tesseract_command_language
-          tesseract_motion_planners
-          tesseract_task_composer
-          tesseract_collision
-          tesseract_common
-          tesseract_support
-          trajopt_sqp
-          trajopt_ifopt
-          "PCL REQUIRED COMPONENTS core features filters io segmentation surface")
+  DEPENDENCIES
+    tesseract_environment
+    tesseract_command_language
+    tesseract_motion_planners
+    tesseract_task_composer
+    tesseract_collision
+    tesseract_common
+    tesseract_support
+    trajopt_sqp
+    trajopt_ifopt
+    "PCL REQUIRED COMPONENTS core features filters io segmentation surface")
 
 if(TESSERACT_ENABLE_TESTING)
   enable_testing()

@@ -54,10 +54,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
+#include <tesseract_motion_planners/ompl/serialize.h>
+#include <tesseract_motion_planners/ompl/deserialize.h>
 
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
-#include <tesseract_motion_planners/interface_utils.h>
+#include <tesseract_motion_planners/simple/interpolation.h>
 
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -100,6 +102,39 @@ static void addBox(tesseract_environment::Environment& env)
   joint_1.type = JointType::FIXED;
 
   env.applyCommand(std::make_shared<AddLinkCommand>(link_1, joint_1));
+}
+
+TEST(TesseractPlanningOMPLSerializeUnit, SerializeOMPLDefaultPlanToXml)  // NOLINT
+{
+  // Write program to file
+  OMPLDefaultPlanProfile plan_profile;
+  plan_profile.simplify = true;
+  plan_profile.planners.push_back(std::make_shared<const SBLConfigurator>());
+  plan_profile.planners.push_back(std::make_shared<const ESTConfigurator>());
+  plan_profile.planners.push_back(std::make_shared<const LBKPIECE1Configurator>());
+  plan_profile.planners.push_back(std::make_shared<const BKPIECE1Configurator>());
+  plan_profile.planners.push_back(std::make_shared<const KPIECE1Configurator>());
+  plan_profile.planners.push_back(std::make_shared<const BiTRRTConfigurator>());
+  plan_profile.planners.push_back(std::make_shared<const RRTConfigurator>());
+  plan_profile.planners.push_back(std::make_shared<const RRTConnectConfigurator>());
+  plan_profile.planners.push_back(std::make_shared<const RRTstarConfigurator>());
+  plan_profile.planners.push_back(std::make_shared<const TRRTConfigurator>());
+  plan_profile.planners.push_back(std::make_shared<const PRMConfigurator>());
+  plan_profile.planners.push_back(std::make_shared<const PRMstarConfigurator>());
+  plan_profile.planners.push_back(std::make_shared<const LazyPRMstarConfigurator>());
+  plan_profile.planners.push_back(std::make_shared<const SPARSConfigurator>());
+
+  EXPECT_TRUE(toXMLFile(plan_profile, tesseract_common::getTempPath() + "ompl_default_plan_example_input.xml"));
+
+  // Import file
+  OMPLDefaultPlanProfile imported_plan_profile = omplPlanFromXMLFile(tesseract_common::getTempPath() + "ompl_default_"
+                                                                                                       "plan_example_"
+                                                                                                       "input.xml");
+
+  // Re-write file and compare changed from default term
+  EXPECT_TRUE(
+      toXMLFile(imported_plan_profile, tesseract_common::getTempPath() + "ompl_default_plan_example_input2.xml"));
+  EXPECT_TRUE(plan_profile.simplify == imported_plan_profile.simplify);
 }
 
 template <typename Configurator>

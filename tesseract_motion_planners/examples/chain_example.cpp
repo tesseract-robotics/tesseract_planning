@@ -46,7 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
-#include <tesseract_motion_planners/interface_utils.h>
+#include <tesseract_motion_planners/simple/interpolation.h>
 
 #include <tesseract_visualization/visualization_loader.h>
 #include <tesseract_command_language/joint_waypoint.h>

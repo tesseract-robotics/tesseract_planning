@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
 #include <tesseract_motion_planners/core/utils.h>
-#include <tesseract_motion_planners/core/interpolation.h>
+#include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
