@@ -90,12 +90,28 @@ set(TASK_COMPOSER_PLUGINS ${TASK_COMPOSER_PLUGINS} "${PROJECT_NAME}_factories" P
 install(
   DIRECTORY include/${PROJECT_NAME}/core
   DESTINATION include/${PROJECT_NAME}
+  COMPONENT core
   FILES_MATCHING
   PATTERN "*.h"
   PATTERN "*.hpp")
 
-install_targets(
-  TARGETS
-  ${PROJECT_NAME}
-  ${PROJECT_NAME}_nodes
-  ${PROJECT_NAME}_factories)
+# Configure Components
+configure_component(
+  COMPONENT core
+  NAMESPACE tesseract
+  TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_nodes ${PROJECT_NAME}_factories
+  DEPENDENCIES
+    console_bridge
+    tesseract_common
+    "Boost REQUIRED COMPONENTS serialization"
+    yaml-cpp
+  CFG_EXTRAS cmake/core-extras.cmake)
+
+if(TESSERACT_PACKAGE)
+  cpack_component(
+    COMPONENT core
+    VERSION ${pkg_extracted_version}
+    DESCRIPTION "Tesseract task composer core components"
+    LINUX_DEPENDS "libconsole-bridge-dev" "libyaml-cpp-dev" "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
+    WINDOWS_DEPENDS "console-bridge" "yaml-cpp" "${TESSERACT_PACKAGE_PREFIX}tesseract-common")
+endif()

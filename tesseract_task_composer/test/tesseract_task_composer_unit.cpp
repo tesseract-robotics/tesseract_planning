@@ -29,7 +29,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include "raster_example_program.h"
 #include "freespace_example_program.h"
 
-using namespace tesseract_kinematics;
 using namespace tesseract_environment;
 using namespace tesseract_scene_graph;
 using namespace tesseract_planning;

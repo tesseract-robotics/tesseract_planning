@@ -12,6 +12,7 @@ add_library(
 target_link_libraries(
   ${PROJECT_NAME}_trajopt_ifopt
   PUBLIC ${PROJECT_NAME}_core
+         ${PROJECT_NAME}_simple
          trajopt::trajopt_ifopt
          trajopt::trajopt_sqp
          Boost::boost
@@ -31,7 +32,21 @@ target_include_directories(${PROJECT_NAME}_trajopt_ifopt PUBLIC "$<BUILD_INTERFA
                                                                 "$<INSTALL_INTERFACE:include>")
 
 # Mark cpp header files for installation
-install(DIRECTORY include/${PROJECT_NAME} DESTINATION include)
+install(DIRECTORY include/${PROJECT_NAME} DESTINATION include COMPONENT trajopt_ifopt)
 
-# Install targets
-install_targets(TARGETS ${PROJECT_NAME}_trajopt_ifopt)
+# Configure Components
+configure_component(
+  COMPONENT trajopt_ifopt
+  NAMESPACE tesseract
+  TARGETS ${PROJECT_NAME}_trajopt_ifopt
+  DEPENDENCIES "tesseract_motion_planners COMPONENTS core simple" trajopt_ifopt trajopt_sqp)
+
+if(TESSERACT_PACKAGE)
+  cpack_component(
+    COMPONENT trajopt_ifopt
+    VERSION ${pkg_extracted_version}
+    DESCRIPTION "Tesseract motion planners trajopt_ifopt components"
+    COMPONENT_DEPENDS core simple
+    LINUX_DEPENDS ${TESSERACT_PACKAGE_PREFIX}trajopt-ifopt ${TESSERACT_PACKAGE_PREFIX}trajopt-sqp
+    WINDOWS_DEPENDS ${TESSERACT_PACKAGE_PREFIX}trajopt-ifopt ${TESSERACT_PACKAGE_PREFIX}trajopt-sqp)
+endif()

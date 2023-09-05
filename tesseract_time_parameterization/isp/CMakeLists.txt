@@ -15,7 +15,24 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 
 # Mark cpp header files for installation
-install(DIRECTORY include/${PROJECT_NAME} DESTINATION include)
+install(DIRECTORY include/${PROJECT_NAME} DESTINATION include COMPONENT isp)
 
-# Install targets
-install_targets(TARGETS ${PROJECT_NAME}_isp)
+# Testing
+if(TESSERACT_ENABLE_TESTING)
+  add_subdirectory(test)
+endif()
+
+# Configure Components
+configure_component(
+  COMPONENT isp
+  NAMESPACE tesseract
+  TARGETS ${PROJECT_NAME}_isp
+  DEPENDENCIES "tesseract_time_parameterization COMPONENTS core")
+
+if(TESSERACT_PACKAGE)
+  cpack_component(
+    COMPONENT isp
+    VERSION ${pkg_extracted_version}
+    DESCRIPTION "Tesseract time parameterization ISP components"
+    COMPONENT_DEPENDS core)
+endif()

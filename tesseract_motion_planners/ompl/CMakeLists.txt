@@ -24,6 +24,7 @@ add_library(${PROJECT_NAME}_ompl ${OMPL_SRC})
 target_link_libraries(
   ${PROJECT_NAME}_ompl
   PUBLIC ${PROJECT_NAME}_core
+         ${PROJECT_NAME}_simple
          ${OMPL_LIBRARIES}
          Boost::boost
          ${CMAKE_THREAD_LIBS_INIT})
@@ -46,7 +47,26 @@ if(OMPL_VERSION VERSION_LESS "1.4.0")
 endif()
 
 # Mark cpp header files for installation
-install(DIRECTORY include/${PROJECT_NAME} DESTINATION include)
+install(DIRECTORY include/${PROJECT_NAME} DESTINATION include COMPONENT ompl)
 
-# Install targets
-install_targets(TARGETS ${PROJECT_NAME}_ompl)
+# Testing
+if(TESSERACT_ENABLE_TESTING)
+  add_subdirectory(test)
+endif()
+
+# Configure Components
+configure_component(
+  COMPONENT ompl
+  NAMESPACE tesseract
+  TARGETS ${PROJECT_NAME}_ompl
+  DEPENDENCIES "tesseract_motion_planners COMPONENTS core simple" ompl)
+
+if(TESSERACT_PACKAGE)
+  cpack_component(
+    COMPONENT ompl
+    VERSION ${pkg_extracted_version}
+    DESCRIPTION "Tesseract motion planners ompl components"
+    COMPONENT_DEPENDS core simple
+    LINUX_DEPENDS "libompl-dev"
+    WINDOWS_DEPENDS "ompl")
+endif()

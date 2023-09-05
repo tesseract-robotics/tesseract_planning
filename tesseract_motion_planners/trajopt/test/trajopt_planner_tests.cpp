@@ -40,8 +40,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
+#include <tesseract_motion_planners/trajopt/serialize.h>
+#include <tesseract_motion_planners/trajopt/deserialize.h>
+
 #include <tesseract_motion_planners/core/utils.h>
-#include <tesseract_motion_planners/interface_utils.h>
+#include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 const int NUM_STEPS = 7;
@@ -714,6 +717,58 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   EXPECT_TRUE((tesseract_tests::vectorContainsType<sco::Cost::Ptr, trajopt::JointPosEqCost>(problem->getCosts())));
   EXPECT_FALSE(
       (tesseract_tests::vectorContainsType<sco::Cost::Ptr, trajopt::TrajOptCostFromErrFunc>(problem->getCosts())));
+}
+
+TEST(TesseractPlanningTrajoptSerializeUnit, SerializeTrajoptDefaultCompositeToXml)  // NOLINT
+{
+  // Write program to file
+  TrajOptDefaultCompositeProfile comp_profile;
+  CollisionCostConfig collision_cost_config;
+  comp_profile.collision_cost_config = collision_cost_config;
+
+  CollisionConstraintConfig collision_constraint_config;
+  comp_profile.collision_constraint_config = collision_constraint_config;
+
+  comp_profile.velocity_coeff = Eigen::VectorXd::Ones(6) * 10;
+  comp_profile.acceleration_coeff = Eigen::VectorXd::Ones(6) * 10;
+  comp_profile.jerk_coeff = Eigen::VectorXd::Ones(6) * 10;
+
+  comp_profile.smooth_velocities = false;
+
+  EXPECT_TRUE(toXMLFile(comp_profile, tesseract_common::getTempPath() + "trajopt_default_composite_example_input.xml"));
+
+  // Import file
+  TrajOptDefaultCompositeProfile imported_comp_profile =
+      trajOptCompositeFromXMLFile(tesseract_common::getTempPath() + "trajopt_default_composite_example_input.xml");
+
+  // Re-write file and compare changed from default term
+  EXPECT_TRUE(toXMLFile(imported_comp_profile,
+                        tesseract_common::getTempPath() + "trajopt_default_composite_example_input2.xml"));
+  EXPECT_TRUE(comp_profile.smooth_velocities == imported_comp_profile.smooth_velocities);
+}
+
+TEST(TesseractPlanningTrajoptSerializeUnit, SerializeTrajoptDefaultPlanToXml)  // NOLINT
+{
+  // Write program to file
+  TrajOptDefaultPlanProfile plan_profile;
+  plan_profile.cartesian_coeff = Eigen::VectorXd::Ones(6) * 10;
+  plan_profile.joint_coeff = Eigen::VectorXd::Ones(6) * 9;
+  plan_profile.term_type = trajopt::TermType::TT_COST;
+
+  EXPECT_TRUE(toXMLFile(plan_profile, tesseract_common::getTempPath() + "trajopt_default_plan_example_input.xml"));
+
+  // Import file
+  TrajOptDefaultPlanProfile imported_plan_profile = trajOptPlanFromXMLFile(tesseract_common::getTempPath() + "trajopt_"
+                                                                                                             "default_"
+                                                                                                             "plan_"
+                                                                                                             "example_"
+                                                                                                             "input."
+                                                                                                             "xml");
+
+  // Re-write file and compare changed from default term
+  EXPECT_TRUE(
+      toXMLFile(imported_plan_profile, tesseract_common::getTempPath() + "trajopt_default_plan_example_input2.xml"));
+  EXPECT_TRUE(plan_profile.term_type == imported_plan_profile.term_type);
 }
 
 int main(int argc, char** argv)

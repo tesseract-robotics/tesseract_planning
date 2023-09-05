@@ -1,5 +1,6 @@
 find_package(tesseract_environment REQUIRED)
 find_package(tesseract_visualization REQUIRED)
+find_package(tesseract_support REQUIRED)
 find_package(Taskflow REQUIRED)
 
 add_executable(${PROJECT_NAME}_example task_composer_example.cpp)

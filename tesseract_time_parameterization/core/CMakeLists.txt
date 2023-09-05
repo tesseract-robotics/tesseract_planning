@@ -20,7 +20,33 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 
 # Mark header files for installation
-install(DIRECTORY include/${PROJECT_NAME} DESTINATION include)
+install(DIRECTORY include/${PROJECT_NAME} DESTINATION include COMPONENT core)
 
-# Install targets
-install_targets(TARGETS ${PROJECT_NAME}_core)
+# Configure Components
+configure_component(
+  COMPONENT core
+  NAMESPACE tesseract
+  TARGETS ${PROJECT_NAME}_core
+  DEPENDENCIES
+    tesseract_common
+    tesseract_command_language
+    console_bridge
+    Eigen3
+  CFG_EXTRAS cmake/core-extras.cmake)
+
+if(TESSERACT_PACKAGE)
+  cpack_component(
+    COMPONENT core
+    VERSION ${pkg_extracted_version}
+    DESCRIPTION "Tesseract motion planners core components"
+    LINUX_DEPENDS
+      "libconsole-bridge-dev"
+      "libeigen3-dev"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language"
+    WINDOWS_DEPENDS
+      "console-bridge"
+      "Eigen3"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language")
+endif()

@@ -44,9 +44,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
+#include <tesseract_motion_planners/descartes/serialize.h>
+#include <tesseract_motion_planners/descartes/deserialize.h>
+
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
-#include <tesseract_motion_planners/interface_utils.h>
+#include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_environment;
@@ -80,6 +83,24 @@ protected:
     manip.working_frame = "base_link";
   }
 };
+
+TEST(TesseractPlanningDescartesSerializeUnit, SerializeDescartesDefaultPlanToXml)  // NOLINT
+{
+  // Write program to file
+  DescartesDefaultPlanProfile<double> plan_profile;
+  plan_profile.enable_edge_collision = true;
+
+  EXPECT_TRUE(toXMLFile(plan_profile, tesseract_common::getTempPath() + "descartes_default_plan_example_input.xml"));
+
+  // Import file
+  DescartesDefaultPlanProfile<double> imported_plan_profile =
+      descartesPlanFromXMLFile(tesseract_common::getTempPath() + "descartes_default_plan_example_input.xml");
+
+  // Re-write file and compare changed from default term
+  EXPECT_TRUE(
+      toXMLFile(imported_plan_profile, tesseract_common::getTempPath() + "descartes_default_plan_example_input2.xml"));
+  EXPECT_TRUE(plan_profile.enable_edge_collision == imported_plan_profile.enable_edge_collision);
+}
 
 TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
 {

@@ -1,5 +1,5 @@
-find_package(descartes_light REQUIRED)
-find_package(tesseract_collision REQUIRED)
+find_package(descartes_light REQUIRED COMPONENTS core)
+find_package(tesseract_collision REQUIRED COMPONENTS core)
 
 # Descartes Planner
 add_library(
@@ -15,6 +15,7 @@ add_library(
 target_link_libraries(
   ${PROJECT_NAME}_descartes
   PUBLIC ${PROJECT_NAME}_core
+         ${PROJECT_NAME}_simple
          tesseract::tesseract_collision_core
          descartes::descartes_light
          Boost::boost
@@ -34,7 +35,29 @@ target_include_directories(${PROJECT_NAME}_descartes PUBLIC "$<BUILD_INTERFACE:$
                                                             "$<INSTALL_INTERFACE:include>")
 
 # Mark cpp header files for installation
-install(DIRECTORY include/${PROJECT_NAME} DESTINATION include)
+install(DIRECTORY include/${PROJECT_NAME} DESTINATION include COMPONENT descartes)
 
-# Install targets
-install_targets(TARGETS ${PROJECT_NAME}_descartes)
+# Testing
+if(TESSERACT_ENABLE_TESTING)
+  add_subdirectory(test)
+endif()
+
+# Configure Components
+configure_component(
+  COMPONENT descartes
+  NAMESPACE tesseract
+  TARGETS ${PROJECT_NAME}_descartes
+  DEPENDENCIES "tesseract_motion_planners COMPONENTS core simple" "descartes_light REQUIRED COMPONENTS core"
+               "tesseract_collision COMPONENTS core")
+
+if(TESSERACT_PACKAGE)
+  cpack_component(
+    COMPONENT descartes
+    VERSION ${pkg_extracted_version}
+    DESCRIPTION "Tesseract motion planners descartes components"
+    COMPONENT_DEPENDS core simple
+    LINUX_DEPENDS "${TESSERACT_PACKAGE_PREFIX}tesseract-collision-core"
+                  "${TESSERACT_PACKAGE_PREFIX}tesseract-descartes-core"
+    WINDOWS_DEPENDS "${TESSERACT_PACKAGE_PREFIX}tesseract-collision-core"
+                    "${TESSERACT_PACKAGE_PREFIX}tesseract-descartes-core")
+endif()

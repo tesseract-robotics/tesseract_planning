@@ -33,24 +33,14 @@
 #include <tesseract_task_composer/planning/nodes/fix_state_bounds_task.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_collision_task.h>
 #include <tesseract_task_composer/planning/nodes/format_as_input_task.h>
-#include <tesseract_task_composer/planning/nodes/iterative_spline_parameterization_task.h>
 #include <tesseract_task_composer/planning/nodes/min_length_task.h>
 #include <tesseract_task_composer/planning/nodes/profile_switch_task.h>
-#include <tesseract_task_composer/planning/nodes/ruckig_trajectory_smoothing_task.h>
-#include <tesseract_task_composer/planning/nodes/time_optimal_parameterization_task.h>
 #include <tesseract_task_composer/planning/nodes/upsample_trajectory_task.h>
 #include <tesseract_task_composer/planning/nodes/raster_motion_task.h>
 #include <tesseract_task_composer/planning/nodes/raster_only_motion_task.h>
 #include <tesseract_task_composer/planning/nodes/motion_planner_task.hpp>
 
-#include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
-#include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
-#include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
-
-#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
-#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
-#endif
 
 namespace tesseract_planning
 {
@@ -60,23 +50,12 @@ using DiscreteContactCheckTaskFactory = TaskComposerTaskFactory<DiscreteContactC
 using FixStateBoundsTaskFactory = TaskComposerTaskFactory<FixStateBoundsTask>;
 using FixStateCollisionTaskFactory = TaskComposerTaskFactory<FixStateCollisionTask>;
 using FormatAsInputTaskFactory = TaskComposerTaskFactory<FormatAsInputTask>;
-using IterativeSplineParameterizationTaskFactory = TaskComposerTaskFactory<IterativeSplineParameterizationTask>;
 using MinLengthTaskFactory = TaskComposerTaskFactory<MinLengthTask>;
 using ProfileSwitchTaskFactory = TaskComposerTaskFactory<ProfileSwitchTask>;
-using RuckigTrajectorySmoothingTaskFactory = TaskComposerTaskFactory<RuckigTrajectorySmoothingTask>;
-using TimeOptimalParameterizationTaskFactory = TaskComposerTaskFactory<TimeOptimalParameterizationTask>;
 using UpsampleTrajectoryTaskFactory = TaskComposerTaskFactory<UpsampleTrajectoryTask>;
 using RasterMotionTaskFactory = TaskComposerTaskFactory<RasterMotionTask>;
 using RasterOnlyMotionTaskFactory = TaskComposerTaskFactory<RasterOnlyMotionTask>;
-
-using DescartesFMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<DescartesMotionPlannerF>>;
-using DescartesDMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<DescartesMotionPlannerD>>;
-using OMPLMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<OMPLMotionPlanner>>;
-using TrajOptMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<TrajOptMotionPlanner>>;
 using SimpleMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<SimpleMotionPlanner>>;
-#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
-using TrajOptIfoptMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<TrajOptIfoptMotionPlanner>>;
-#endif
 
 // LCOV_EXCL_START
 TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerPlanningFactoriesAnchor)
@@ -99,18 +78,9 @@ TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::FixStateCollisionTas
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::FormatAsInputTaskFactory, FormatAsInputTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::IterativeSplineParameterizationTaskFactory,
-                                        IterativeSplineParameterizationTaskFactory)
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::MinLengthTaskFactory, MinLengthTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::ProfileSwitchTaskFactory, ProfileSwitchTaskFactory)
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::RuckigTrajectorySmoothingTaskFactory,
-                                        RuckigTrajectorySmoothingTaskFactory)
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::TimeOptimalParameterizationTaskFactory,
-                                        TimeOptimalParameterizationTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::UpsampleTrajectoryTaskFactory,
                                         UpsampleTrajectoryTaskFactory)
@@ -118,23 +88,6 @@ TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::UpsampleTrajectoryTa
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::RasterMotionTaskFactory, RasterMotionTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::RasterOnlyMotionTaskFactory, RasterOnlyMotionTaskFactory)
-
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::DescartesFMotionPlannerTaskFactory,
-                                        DescartesFMotionPlannerTaskFactory)
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::DescartesDMotionPlannerTaskFactory,
-                                        DescartesDMotionPlannerTaskFactory)
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::OMPLMotionPlannerTaskFactory, OMPLMotionPlannerTaskFactory)
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::TrajOptMotionPlannerTaskFactory,
-                                        TrajOptMotionPlannerTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::SimpleMotionPlannerTaskFactory,
                                         SimpleMotionPlannerTaskFactory)
-#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::TrajOptIfoptMotionPlannerTaskFactory,
-                                        TrajOptIfoptMotionPlannerTaskFactory)
-#endif

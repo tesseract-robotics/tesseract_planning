@@ -488,6 +488,15 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
                                                        const KinematicGroupInstructionInfo& info2,
                                                        const Eigen::VectorXd& seed);
 
+/** @brief Provided for backwards compatibility */
+CompositeInstruction generateInterpolatedProgram(const CompositeInstruction& instructions,
+                                                 const tesseract_scene_graph::SceneState& current_state,
+                                                 const tesseract_environment::Environment::ConstPtr& env,
+                                                 double state_longest_valid_segment_length = 5 * M_PI / 180,
+                                                 double translation_longest_valid_segment_length = 0.15,
+                                                 double rotation_longest_valid_segment_length = 5 * M_PI / 180,
+                                                 int min_steps = 1);
+
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_MOTION_PLANNERS_INTERPOLATION_H

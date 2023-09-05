@@ -49,9 +49,25 @@ set(TASK_COMPOSER_PLUGINS ${TASK_COMPOSER_PLUGINS} "${PROJECT_NAME}_taskflow_fac
 install(
   DIRECTORY include/${PROJECT_NAME}/taskflow
   DESTINATION include/${PROJECT_NAME}
+  COMPONENT taskflow
   FILES_MATCHING
   PATTERN "*.h"
   PATTERN "*.hpp"
   PATTERN ".svn" EXCLUDE)
 
-install_targets(TARGETS ${PROJECT_NAME}_taskflow ${PROJECT_NAME}_taskflow_factories)
+# Configure Components
+configure_component(
+  COMPONENT taskflow
+  NAMESPACE tesseract
+  TARGETS ${PROJECT_NAME}_taskflow ${PROJECT_NAME}_taskflow_factories
+  DEPENDENCIES "tesseract_task_composer COMPONENTS core" Taskflow)
+
+if(TESSERACT_PACKAGE)
+  cpack_component(
+    COMPONENT taskflow
+    VERSION ${pkg_extracted_version}
+    DESCRIPTION "Tesseract task composer taskflow components"
+    COMPONENT_DEPENDS core
+    LINUX_DEPENDS "taskflow | ${TESSERACT_PACKAGE_PREFIX}taskflow"
+    WINDOWS_DEPENDS "taskflow | ${TESSERACT_PACKAGE_PREFIX}taskflow")
+endif()
