@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update to leverage cmake components
+* Contributors: Levi Armstrong
+
 0.18.4 (2023-07-07)
 -------------------
 

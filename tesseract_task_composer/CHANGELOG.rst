@@ -2,6 +2,16 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update to leverage cmake components
+* Fix Raster and RasterOnly Tasks
+* Add elapsed time for pipelines and include in dot graph
+* Add conditional to subgraph in dot graph output
+* Add input and output keys to dot graph
+* Add Remap Task (`#351 <https://github.com/tesseract-robotics/tesseract_planning/issues/351>`_)
+* Contributors: Levi Armstrong
+
 0.18.4 (2023-07-07)
 -------------------
 * Move task composer elapse timing to base classes

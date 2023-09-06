@@ -2,6 +2,12 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update to leverage cmake components
+* Disable GlassUprightTrajOptIfoptExampleUnit Test
+* Contributors: Levi Armstrong
+
 0.18.4 (2023-07-07)
 -------------------
 

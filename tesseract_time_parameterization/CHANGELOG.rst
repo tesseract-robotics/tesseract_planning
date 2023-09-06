@@ -2,6 +2,13 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update to leverage cmake components
+* Fixed issue where tesseract_common_trajectory.cpp wasn't getting built (`#356 <https://github.com/tesseract-robotics/tesseract_planning/issues/356>`_)
+  Co-authored-by: Levi Armstrong <levi.armstrong@gmail.com>
+* Contributors: Levi Armstrong, Tyler Marr
+
 0.18.4 (2023-07-07)
 -------------------
 

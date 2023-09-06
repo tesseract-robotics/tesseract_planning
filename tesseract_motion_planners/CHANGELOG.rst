@@ -2,6 +2,14 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update to leverage cmake components
+* Initial support for a TrajOptIfoptSolverProfile (`#354 <https://github.com/tesseract-robotics/tesseract_planning/issues/354>`_)
+* Moved simple planner into own sub-directory
+* Fix TrajOpt Ifopt collision cost and constraint naming
+* Contributors: Levi Armstrong, Michael Ripperger, Roelof
+
 0.18.4 (2023-07-07)
 -------------------
 
