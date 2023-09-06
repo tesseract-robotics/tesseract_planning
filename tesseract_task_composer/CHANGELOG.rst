@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.19.0 (2023-09-05)
+-------------------
 * Update to leverage cmake components
 * Fix Raster and RasterOnly Tasks
 * Add elapsed time for pipelines and include in dot graph

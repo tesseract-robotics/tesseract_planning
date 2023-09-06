@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.19.0 (2023-09-05)
+-------------------
 * Update to leverage cmake components
 * Initial support for a TrajOptIfoptSolverProfile (`#354 <https://github.com/tesseract-robotics/tesseract_planning/issues/354>`_)
 * Moved simple planner into own sub-directory
