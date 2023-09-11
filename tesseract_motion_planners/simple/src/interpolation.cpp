@@ -114,7 +114,7 @@ KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructi
     throw std::runtime_error("InstructionInfo, working frame is empty!");
 
   // Get Previous Instruction Kinematics
-  manip = request.env->getKinematicGroup(mi.manipulator);
+  manip = request.env->getKinematicGroup(mi.manipulator, mi.manipulator_ik_solver);
 
   // Get Previous Instruction TCP and Working Frame
   working_frame = mi.working_frame;
