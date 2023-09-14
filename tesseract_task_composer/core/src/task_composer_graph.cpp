@@ -132,7 +132,15 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
       throw std::runtime_error("Task Composer Graph '" + name_ + "' edge is missing 'source' entry");
 
     if (YAML::Node n = edge["destinations"])
-      destinations = n.as<std::vector<std::string>>();
+    {
+      if (n.IsSequence())
+        destinations = n.as<std::vector<std::string>>();
+      else if (n.IsScalar())
+        destinations.push_back(n.as<std::string>());
+      else
+        throw std::runtime_error("Task Composer Graph '" + name_ +
+                                 "' entry 'destinations' must be a scalar or sequence");
+    }
     else
       throw std::runtime_error("Task Composer Graph '" + name_ + "' edge is missing 'destinations' entry");
 
