@@ -34,7 +34,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_graph.h>
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
 #include <tesseract_task_composer/core/task_composer_task.h>
-#include <tesseract_task_composer/core/task_composer_input.h>
+#include <tesseract_task_composer/core/task_composer_problem.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
 
 namespace tesseract_planning
@@ -56,10 +57,19 @@ public:
   /**
    * @brief Execute the provided node
    * @param node The node to execute
-   * @param task_input The task input provided to every task
+   * @param problem The problem
    * @return The future associated with execution
    */
-  virtual TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerInput& task_input) = 0;
+  TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerProblem::UPtr problem);
+
+  /**
+   * @brief Execute provided node provide the cotext
+   * @details This should only be used for dynamic tasking
+   * @param node The node to execute
+   * @param context The context
+   * @return The future associated with execution
+   */
+  virtual TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerContext::Ptr context) = 0;
 
   /** @brief Queries the number of workers (example: number of threads) */
   virtual long getWorkerCount() const = 0;

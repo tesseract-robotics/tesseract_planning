@@ -62,7 +62,7 @@ public:
   bool operator==(const TaskComposerTask& rhs) const;
   bool operator!=(const TaskComposerTask& rhs) const;
 
-  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const;
+  int run(const TaskComposerContext::Ptr& context, OptionalTaskComposerExecutor executor = std::nullopt) const;
 
 protected:
   friend struct tesseract_common::Serialization;
@@ -71,7 +71,7 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  virtual TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+  virtual TaskComposerNodeInfo::UPtr runImpl(const TaskComposerContext::Ptr& context,
                                              OptionalTaskComposerExecutor executor = std::nullopt) const = 0;
 };
 

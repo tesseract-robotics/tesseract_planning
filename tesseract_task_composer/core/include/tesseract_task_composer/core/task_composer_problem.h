@@ -59,6 +59,9 @@ struct TaskComposerProblem
   /** @brief The location data is stored and retrieved during execution */
   TaskComposerDataStorage input_data;
 
+  /** @brief Indicate if dotgraph should be provided */
+  bool dotgraph{ false };
+
   /**
    * @brief Clone the planning problem
    * @return A clone of the planning problem

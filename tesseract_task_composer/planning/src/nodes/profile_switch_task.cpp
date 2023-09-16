@@ -60,11 +60,11 @@ ProfileSwitchTask::ProfileSwitchTask(std::string name,
     throw std::runtime_error("ProfileSwitchTask, does not support 'outputs' entry");
 }
 
-TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,
+TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(const TaskComposerContext::Ptr& context,
                                                       OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get the problem
-  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(context->getProblem());
 
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
@@ -72,7 +72,7 @@ TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerInput& input,
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
+  auto input_data_poly = context->getDataStorage().getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input instruction to ProfileSwitch must be a composite instruction";

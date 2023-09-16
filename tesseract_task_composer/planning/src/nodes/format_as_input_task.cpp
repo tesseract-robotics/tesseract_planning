@@ -68,7 +68,7 @@ FormatAsInputTask::FormatAsInputTask(std::string name,
     throw std::runtime_error("FormatAsInputTask, config 'outputs' entry requires one output key");
 }
 
-TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerInput& input,
+TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(const TaskComposerContext::Ptr& context,
                                                       OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
@@ -77,7 +77,7 @@ TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerInput& input,
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_formatted_data_poly = input.data_storage.getData(input_keys_[0]);
+  auto input_formatted_data_poly = context->getDataStorage().getData(input_keys_[0]);
   if (input_formatted_data_poly.isNull() ||
       input_formatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
@@ -86,7 +86,7 @@ TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerInput& input,
     return info;
   }
 
-  auto input_unformatted_data_poly = input.data_storage.getData(input_keys_[1]);
+  auto input_unformatted_data_poly = context->getDataStorage().getData(input_keys_[1]);
   if (input_unformatted_data_poly.isNull() ||
       input_unformatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
@@ -139,7 +139,7 @@ TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerInput& input,
     }
   }
 
-  input.data_storage.setData(output_keys_[0], input_formatted_data_poly);
+  context->getDataStorage().setData(output_keys_[0], input_formatted_data_poly);
 
   info->color = "green";
   info->message = "Successful";

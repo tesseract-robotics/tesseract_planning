@@ -61,15 +61,15 @@ UpdateStartAndEndStateTask::UpdateStartAndEndStateTask(std::string name,
   output_keys_.push_back(std::move(output_key));
 }
 
-TaskComposerNodeInfo::UPtr UpdateStartAndEndStateTask::runImpl(TaskComposerInput& input,
+TaskComposerNodeInfo::UPtr UpdateStartAndEndStateTask::runImpl(const TaskComposerContext::Ptr& context,
                                                                OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
 
-  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
-  auto input_prev_data_poly = input.data_storage.getData(input_keys_[1]);
-  auto input_next_data_poly = input.data_storage.getData(input_keys_[2]);
+  auto input_data_poly = context->getDataStorage().getData(input_keys_[0]);
+  auto input_prev_data_poly = context->getDataStorage().getData(input_keys_[1]);
+  auto input_next_data_poly = context->getDataStorage().getData(input_keys_[2]);
 
   // --------------------
   // Check that inputs are valid
@@ -127,7 +127,7 @@ TaskComposerNodeInfo::UPtr UpdateStartAndEndStateTask::runImpl(TaskComposerInput
     throw std::runtime_error("Invalid waypoint type");
 
   // Store results
-  input.data_storage.setData(output_keys_[0], input_data_poly);
+  context->getDataStorage().setData(output_keys_[0], input_data_poly);
 
   info->color = "green";
   info->message = "Successful";

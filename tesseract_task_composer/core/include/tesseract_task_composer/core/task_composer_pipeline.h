@@ -63,7 +63,7 @@ public:
   TaskComposerPipeline(TaskComposerPipeline&&) = delete;
   TaskComposerPipeline& operator=(TaskComposerPipeline&&) = delete;
 
-  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const;
+  int run(const TaskComposerContext::Ptr& context, OptionalTaskComposerExecutor executor = std::nullopt) const;
 
   bool operator==(const TaskComposerPipeline& rhs) const;
   bool operator!=(const TaskComposerPipeline& rhs) const;
@@ -75,11 +75,11 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+  TaskComposerNodeInfo::UPtr runImpl(const TaskComposerContext::Ptr& context,
                                      OptionalTaskComposerExecutor executor = std::nullopt) const;
 
   void runRecursive(const TaskComposerNode& node,
-                    TaskComposerInput& input,
+                    const TaskComposerContext::Ptr& context,
                     OptionalTaskComposerExecutor executor = std::nullopt) const;
 };
 

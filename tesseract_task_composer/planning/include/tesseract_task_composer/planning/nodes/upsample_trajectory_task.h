@@ -79,7 +79,7 @@ protected:
                 InstructionPoly& start_instruction,
                 double longest_valid_segment_length) const;
 
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+  TaskComposerNodeInfo::UPtr runImpl(const TaskComposerContext::Ptr& context,
                                      OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 

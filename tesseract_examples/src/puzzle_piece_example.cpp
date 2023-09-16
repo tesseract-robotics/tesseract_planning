@@ -44,7 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
-#include <tesseract_task_composer/core/task_composer_input.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
@@ -234,8 +234,7 @@ bool PuzzlePieceExample::run()
   // Solve task
   tesseract_common::Timer stopwatch;
   stopwatch.start();
-  TaskComposerInput input(std::move(problem));
-  TaskComposerFuture::UPtr future = executor->run(*task, input);
+  TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem));
   future->wait();
 
   stopwatch.stop();
@@ -245,13 +244,13 @@ bool PuzzlePieceExample::run()
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    auto ci = input.data_storage.getData(output_key).as<CompositeInstruction>();
+    auto ci = future->context->getDataStorage().getData(output_key).as<CompositeInstruction>();
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();
     plotter_->plotTrajectory(trajectory, *state_solver);
   }
 
   CONSOLE_BRIDGE_logInform("Final trajectory is collision free");
-  return input.isSuccessful();
+  return future->context->isSuccessful();
 }
 }  // namespace tesseract_examples

@@ -59,7 +59,7 @@ public:
   TaskflowTaskComposerExecutor(TaskflowTaskComposerExecutor&&) = delete;
   TaskflowTaskComposerExecutor& operator=(TaskflowTaskComposerExecutor&&) = delete;
 
-  TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerInput& task_input) override final;
+  TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerContext::Ptr context) override final;
 
   long getWorkerCount() const override final;
 
@@ -86,16 +86,18 @@ protected:
 
   static std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
   convertToTaskflow(const TaskComposerGraph& task_graph,
-                    TaskComposerInput& task_input,
+                    const TaskComposerContext::Ptr& task_context,
                     TaskComposerExecutor& task_executor);
 
   static std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
   convertToTaskflow(const TaskComposerPipeline& task_pipeline,
-                    TaskComposerInput& task_input,
+                    const TaskComposerContext::Ptr& task_context,
                     TaskComposerExecutor& task_executor);
 
   static std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
-  convertToTaskflow(const TaskComposerTask& task, TaskComposerInput& task_input, TaskComposerExecutor& task_executor);
+  convertToTaskflow(const TaskComposerTask& task,
+                    const TaskComposerContext::Ptr& task_context,
+                    TaskComposerExecutor& task_executor);
 };
 }  // namespace tesseract_planning
 

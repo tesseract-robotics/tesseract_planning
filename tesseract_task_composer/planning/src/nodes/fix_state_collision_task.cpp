@@ -342,11 +342,11 @@ FixStateCollisionTask::FixStateCollisionTask(std::string name,
     throw std::runtime_error("FixStateCollisionTask, config 'outputs' entry currently only supports one output key");
 }
 
-TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& input,
+TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(const TaskComposerContext::Ptr& context,
                                                           OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get the problem
-  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(context->getProblem());
 
   auto info = std::make_unique<FixStateCollisionTaskInfo>(*this);
   info->return_value = 0;
@@ -355,7 +355,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
+  auto input_data_poly = context->getDataStorage().getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input to FixStateCollision must be a composite instruction";
@@ -390,7 +390,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
             if (output_keys_[0] != input_keys_[0])
-              input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+              context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
 
             // Save space
             for (auto& contact_map : info->contact_results)
@@ -419,7 +419,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
             if (output_keys_[0] != input_keys_[0])
-              input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+              context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
 
             // Save space
             for (auto& contact_map : info->contact_results)
@@ -439,7 +439,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
       if (flattened.empty())
       {
         if (output_keys_[0] != input_keys_[0])
-          input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+          context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
 
         info->message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
@@ -450,7 +450,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
       if (flattened.size() <= 2)
       {
         if (output_keys_[0] != input_keys_[0])
-          input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+          context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
 
         info->message = "FixStateCollisionTask found no intermediate MoveInstructions to process";
         info->return_value = 1;
@@ -484,7 +484,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
             if (output_keys_[0] != input_keys_[0])
-              input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+              context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
 
             // Save space
             for (auto& contact_map : info->contact_results)
@@ -504,7 +504,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
       if (flattened.empty())
       {
         if (output_keys_[0] != input_keys_[0])
-          input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+          context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
 
         info->message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
@@ -538,7 +538,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
             if (output_keys_[0] != input_keys_[0])
-              input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+              context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
 
             // Save space
             for (auto& contact_map : info->contact_results)
@@ -558,7 +558,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
       if (flattened.empty())
       {
         if (output_keys_[0] != input_keys_[0])
-          input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+          context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
 
         info->message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
@@ -592,7 +592,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
             if (output_keys_[0] != input_keys_[0])
-              input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+              context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
 
             // Save space
             for (auto& contact_map : info->contact_results)
@@ -612,7 +612,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
       if (flattened.size() <= 1)
       {
         if (output_keys_[0] != input_keys_[0])
-          input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+          context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
 
         info->message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
@@ -646,7 +646,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
             if (output_keys_[0] != input_keys_[0])
-              input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+              context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
 
             // Save space
             for (auto& contact_map : info->contact_results)
@@ -662,7 +662,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
     case FixStateCollisionProfile::Settings::DISABLED:
     {
       if (output_keys_[0] != input_keys_[0])
-        input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+        context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
 
       info->message = "Successful, DISABLED";
       info->return_value = 1;
@@ -670,7 +670,7 @@ TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& inp
     }
   }
 
-  input.data_storage.setData(output_keys_[0], input_data_poly);
+  context->getDataStorage().setData(output_keys_[0], input_data_poly);
 
   info->color = "green";
   info->message = "Successful";

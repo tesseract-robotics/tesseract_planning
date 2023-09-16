@@ -1,6 +1,6 @@
 /**
- * @file task_composer_input.h
- * @brief The input data structure to the pipeline
+ * @file task_composer_context.h
+ * @brief The context data structure to the pipeline
  *
  * @author Levi Armstrong
  * @date July 29. 2022
@@ -23,12 +23,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_INPUT_H
-#define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_INPUT_H
+#ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_CONTEXT_H
+#define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_CONTEXT_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <atomic>
+#include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
@@ -43,34 +44,35 @@ namespace tesseract_planning
  * Note that it does not have ownership of any of its members (except the pointer). This means that if a TaskInput
  * spawns a child that is a subset, it does not have to remain in scope as the references will still be valid
  */
-struct TaskComposerInput
+struct TaskComposerContext
 {
-  using Ptr = std::shared_ptr<TaskComposerInput>;
-  using ConstPtr = std::shared_ptr<const TaskComposerInput>;
-  using UPtr = std::unique_ptr<TaskComposerInput>;
-  using ConstUPtr = std::unique_ptr<const TaskComposerInput>;
+  using Ptr = std::shared_ptr<TaskComposerContext>;
+  using ConstPtr = std::shared_ptr<const TaskComposerContext>;
+  using UPtr = std::unique_ptr<TaskComposerContext>;
+  using ConstUPtr = std::unique_ptr<const TaskComposerContext>;
 
-  TaskComposerInput(TaskComposerProblem::UPtr problem);
-  TaskComposerInput(const TaskComposerInput&) = delete;
-  TaskComposerInput(TaskComposerInput&&) noexcept = delete;
-  TaskComposerInput& operator=(const TaskComposerInput&) = delete;
-  TaskComposerInput& operator=(TaskComposerInput&&) = delete;
-  virtual ~TaskComposerInput() = default;
+  TaskComposerContext() = default;  // Required for serialization
+  TaskComposerContext(TaskComposerProblem::UPtr problem);
+  TaskComposerContext(const TaskComposerContext&) = delete;
+  TaskComposerContext(TaskComposerContext&&) noexcept = delete;
+  TaskComposerContext& operator=(const TaskComposerContext&) = delete;
+  TaskComposerContext& operator=(TaskComposerContext&&) = delete;
+  virtual ~TaskComposerContext() = default;
 
   /** @brief The problem */
-  TaskComposerProblem::UPtr problem;
+  TaskComposerProblem& getProblem();
+  const TaskComposerProblem& getProblem() const;
 
   /**
    * @brief The location data is stored and retrieved during execution
    * @details The problem input data is copied into this structure when constructed
    */
-  TaskComposerDataStorage data_storage;
+  TaskComposerDataStorage& getDataStorage();
+  const TaskComposerDataStorage& getDataStorage() const;
 
   /** @brief The location where task info is stored during execution */
-  TaskComposerNodeInfoContainer task_infos;
-
-  /** @brief Indicate if dotgraph should be provided */
-  bool dotgraph{ false };
+  TaskComposerNodeInfoContainer& getTaskInfos();
+  const TaskComposerNodeInfoContainer& getTaskInfos() const;
 
   /**
    * @brief Check if process has been aborted
@@ -102,23 +104,41 @@ struct TaskComposerInput
   /** @brief Reset abort and data storage to constructed state */
   void reset();
 
-  bool operator==(const TaskComposerInput& rhs) const;
-  bool operator!=(const TaskComposerInput& rhs) const;
+  /**
+   * @brief Create a child context which is used for dynamic tasking
+   * @details
+   *   - Everything is shared between the parent and the child except abort_ and task_infos_.
+   *   - Task infos should be merged into the parent by the developer
+   */
+  TaskComposerContext::UPtr createChild();
+
+  bool operator==(const TaskComposerContext& rhs) const;
+  bool operator!=(const TaskComposerContext& rhs) const;
 
 protected:
   friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
 
-  TaskComposerInput() = default;  // Required for serialization
-
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  /** @brief The problem */
+  TaskComposerProblem::Ptr problem_;
+
+  /**
+   * @brief The location data is stored and retrieved during execution
+   * @details The problem input data is copied into this structure when constructed
+   */
+  TaskComposerDataStorage::Ptr data_storage_;
+
+  /** @brief The location where task info is stored during execution */
+  TaskComposerNodeInfoContainer task_infos_;
 
   mutable std::atomic<bool> aborted_{ false };
 };
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerInput, "TaskComposerInput")
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerContext, "TaskComposerContext")
 
-#endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_INPUT_H
+#endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_CONTEXT_H

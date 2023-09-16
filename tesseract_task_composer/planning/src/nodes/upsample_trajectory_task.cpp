@@ -69,17 +69,17 @@ UpsampleTrajectoryTask::UpsampleTrajectoryTask(std::string name,
                              "key");
 }
 
-TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& input,
+TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(const TaskComposerContext::Ptr& context,
                                                            OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get the problem
-  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(context->getProblem());
 
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
 
   // Check that inputs are valid
-  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
+  auto input_data_poly = context->getDataStorage().getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input seed to UpsampleTrajectoryTask must be a composite instruction";
@@ -101,7 +101,7 @@ TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& in
   new_results.clear();
 
   upsample(new_results, ci, start_instruction, cur_composite_profile->longest_valid_segment_length);
-  input.data_storage.setData(output_keys_[0], new_results);
+  context->getDataStorage().setData(output_keys_[0], new_results);
 
   info->color = "green";
   info->message = "Successful";

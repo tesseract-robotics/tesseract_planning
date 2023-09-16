@@ -93,7 +93,7 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
 
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+  TaskComposerNodeInfo::UPtr runImpl(const TaskComposerContext::Ptr& context,
                                      OptionalTaskComposerExecutor executor) const override final;
 
   static void checkTaskInput(const tesseract_common::AnyPoly& input);

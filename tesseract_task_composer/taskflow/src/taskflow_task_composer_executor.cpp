@@ -69,15 +69,16 @@ TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(std::string name, con
 
 TaskflowTaskComposerExecutor::~TaskflowTaskComposerExecutor() = default;
 
-TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerNode& node, TaskComposerInput& task_input)
+TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerNode& node,
+                                                           TaskComposerContext::Ptr context)
 {
   std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>> taskflow;
   if (node.getType() == TaskComposerNodeType::TASK)
-    taskflow = convertToTaskflow(static_cast<const TaskComposerTask&>(node), task_input, *this);
+    taskflow = convertToTaskflow(static_cast<const TaskComposerTask&>(node), context, *this);
   else if (node.getType() == TaskComposerNodeType::PIPELINE)
-    taskflow = convertToTaskflow(static_cast<const TaskComposerPipeline&>(node), task_input, *this);
+    taskflow = convertToTaskflow(static_cast<const TaskComposerPipeline&>(node), context, *this);
   else if (node.getType() == TaskComposerNodeType::GRAPH)
-    taskflow = convertToTaskflow(static_cast<const TaskComposerGraph&>(node), task_input, *this);
+    taskflow = convertToTaskflow(static_cast<const TaskComposerGraph&>(node), context, *this);
   else
     throw std::runtime_error("TaskComposerExecutor, unsupported node type!");
 
@@ -90,7 +91,7 @@ TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerNod
 #endif
 
   std::shared_future<void> f = executor_->run(*(taskflow->front()));
-  return std::make_unique<TaskflowTaskComposerFuture>(f, std::move(taskflow));
+  return std::make_unique<TaskflowTaskComposerFuture>(f, std::move(taskflow), std::move(context));
 }
 
 long TaskflowTaskComposerExecutor::getWorkerCount() const { return static_cast<long>(executor_->num_workers()); }
@@ -134,7 +135,7 @@ void TaskflowTaskComposerExecutor::serialize(Archive& ar, const unsigned int ver
 
 std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
 TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_graph,
-                                                TaskComposerInput& task_input,
+                                                const TaskComposerContext::Ptr& task_context,
                                                 TaskComposerExecutor& task_executor)
 {
   auto tf_container = std::make_shared<std::vector<std::unique_ptr<tf::Taskflow>>>();
@@ -145,7 +146,7 @@ TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_gr
   info->color = "green";
   info->input_keys = task_graph.getInputKeys();
   info->output_keys = task_graph.getOutputKeys();
-  task_input.task_infos.addInfo(std::move(info));
+  task_context->getTaskInfos().addInfo(std::move(info));
 
   // Generate process tasks for each node
   std::map<boost::uuids::uuid, tf::Task> tasks;
@@ -159,31 +160,33 @@ TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_gr
       if (edges.size() > 1 && task->isConditional())
         tasks[pair.first] =
             tf_container->front()
-                ->emplace([task, &task_input, &task_executor] { return task->run(task_input, task_executor); })
+                ->emplace([task, task_context, &task_executor] { return task->run(task_context, task_executor); })
                 .name(pair.second->getName());
       else
-        tasks[pair.first] = tf_container->front()
-                                ->emplace([task, &task_input, &task_executor] { task->run(task_input, task_executor); })
-                                .name(pair.second->getName());
+        tasks[pair.first] =
+            tf_container->front()
+                ->emplace([task, task_context, &task_executor] { task->run(task_context, task_executor); })
+                .name(pair.second->getName());
     }
     else if (pair.second->getType() == TaskComposerNodeType::PIPELINE)
     {
       auto pipeline = std::static_pointer_cast<const TaskComposerPipeline>(pair.second);
       if (edges.size() > 1 && pipeline->isConditional())
-        tasks[pair.first] =
-            tf_container->front()
-                ->emplace([pipeline, &task_input, &task_executor] { return pipeline->run(task_input, task_executor); })
-                .name(pair.second->getName());
+        tasks[pair.first] = tf_container->front()
+                                ->emplace([pipeline, task_context, &task_executor] {
+                                  return pipeline->run(task_context, task_executor);
+                                })
+                                .name(pair.second->getName());
       else
         tasks[pair.first] =
             tf_container->front()
-                ->emplace([pipeline, &task_input, &task_executor] { pipeline->run(task_input, task_executor); })
+                ->emplace([pipeline, task_context, &task_executor] { pipeline->run(task_context, task_executor); })
                 .name(pair.second->getName());
     }
     else if (pair.second->getType() == TaskComposerNodeType::GRAPH)
     {
       const auto& graph = static_cast<const TaskComposerGraph&>(*pair.second);
-      auto sub_tf_container = convertToTaskflow(graph, task_input, task_executor);
+      auto sub_tf_container = convertToTaskflow(graph, task_context, task_executor);
       tasks[pair.first] = tf_container->front()->composed_of(*sub_tf_container->front());
       tf_container->insert(tf_container->end(),
                            std::make_move_iterator(sub_tf_container->begin()),
@@ -206,26 +209,27 @@ TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_gr
 
 std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
 TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerPipeline& task_pipeline,
-                                                TaskComposerInput& task_input,
+                                                const TaskComposerContext::Ptr& task_context,
                                                 TaskComposerExecutor& task_executor)
 {
   auto tf_container = std::make_shared<std::vector<std::unique_ptr<tf::Taskflow>>>();
   tf_container->emplace_back(std::make_unique<tf::Taskflow>(task_pipeline.getName()));
   tf_container->front()
-      ->emplace([&task_pipeline, &task_input, &task_executor] { return task_pipeline.run(task_input, task_executor); })
+      ->emplace(
+          [&task_pipeline, task_context, &task_executor] { return task_pipeline.run(task_context, task_executor); })
       .name(task_pipeline.getName());
   return tf_container;
 }
 
 std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
 TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerTask& task,
-                                                TaskComposerInput& task_input,
+                                                const TaskComposerContext::Ptr& task_context,
                                                 TaskComposerExecutor& task_executor)
 {
   auto tf_container = std::make_shared<std::vector<std::unique_ptr<tf::Taskflow>>>();
   tf_container->emplace_back(std::make_unique<tf::Taskflow>(task.getName()));
   tf_container->front()
-      ->emplace([&task, &task_input, &task_executor] { return task.run(task_input, task_executor); })
+      ->emplace([&task, task_context, &task_executor] { return task.run(task_context, task_executor); })
       .name(task.getName());
   return tf_container;
 }

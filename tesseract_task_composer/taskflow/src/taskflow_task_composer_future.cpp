@@ -30,8 +30,9 @@ namespace tesseract_planning
 {
 TaskflowTaskComposerFuture::TaskflowTaskComposerFuture(
     std::shared_future<void> future,
-    std::shared_ptr<const std::vector<std::unique_ptr<tf::Taskflow>>> container)
-  : future_(std::move(future)), container_(std::move(container))
+    std::shared_ptr<const std::vector<std::unique_ptr<tf::Taskflow>>> container,
+    TaskComposerContext::Ptr context)
+  : TaskComposerFuture(std::move(context)), future_(std::move(future)), container_(std::move(container))
 {
 }
 
@@ -41,6 +42,7 @@ void TaskflowTaskComposerFuture::clear()
 {
   future_ = std::shared_future<void>();
   container_ = nullptr;
+  context = nullptr;
 }
 
 bool TaskflowTaskComposerFuture::valid() const { return future_.valid(); }
@@ -65,10 +67,11 @@ TaskflowTaskComposerFuture::waitUntil(const std::chrono::time_point<std::chrono:
 
 TaskComposerFuture::UPtr TaskflowTaskComposerFuture::copy() const
 {
-  auto clone = std::make_unique<TaskflowTaskComposerFuture>();
-  clone->future_ = future_;
-  clone->container_ = container_;
-  return clone;
+  return std::make_unique<TaskflowTaskComposerFuture>(*this);
+  //  clone->future_ = future_;
+  //  clone->container_ = container_;
+  //  clone->context = context;
+  //  return clone;
 }
 
 }  // namespace tesseract_planning

@@ -51,6 +51,7 @@ bool TaskComposerProblem::operator==(const TaskComposerProblem& rhs) const
   bool equal = true;
   equal &= name == rhs.name;
   equal &= input_data == rhs.input_data;
+  equal &= dotgraph == rhs.dotgraph;
   return equal;
 }
 
@@ -61,6 +62,7 @@ void TaskComposerProblem::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& boost::serialization::make_nvp("name", name);
   ar& boost::serialization::make_nvp("input_data", input_data);
+  ar& boost::serialization::make_nvp("dotgraph", dotgraph);
 }
 
 }  // namespace tesseract_planning

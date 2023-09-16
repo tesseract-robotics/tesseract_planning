@@ -246,11 +246,11 @@ void RasterOnlyMotionTask::serialize(Archive& ar, const unsigned int /*version*/
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& input,
+TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(const TaskComposerContext::Ptr& context,
                                                          OptionalTaskComposerExecutor executor) const
 {
   // Get the problem
-  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(context->getProblem());
 
   auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
   info->return_value = 0;
@@ -259,7 +259,7 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
+  auto input_data_poly = context->getDataStorage().getData(input_keys_[0]);
   try
   {
     checkTaskInput(input_data_poly);
@@ -309,7 +309,7 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
     raster_results.node->setConditional(false);
     auto raster_uuid = task_graph.addNode(std::move(raster_results.node));
     raster_tasks.emplace_back(raster_uuid, std::make_pair(raster_results.input_key, raster_results.output_key));
-    input.data_storage.setData(raster_results.input_key, raster_input);
+    context->getDataStorage().setData(raster_results.input_key, raster_input);
 
     task_graph.addEdges(start_uuid, { raster_uuid });
 
@@ -354,7 +354,7 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
                                                                             false);
     auto transition_mux_uuid = task_graph.addNode(std::move(transition_mux_task));
 
-    input.data_storage.setData(transition_results.input_key, transition_input);
+    context->getDataStorage().setData(transition_results.input_key, transition_input);
 
     task_graph.addEdges(transition_mux_uuid, { transition_uuid });
     task_graph.addEdges(prev.first, { transition_mux_uuid });
@@ -363,12 +363,12 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
     transition_idx++;
   }
 
-  TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, input);
+  TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, context);
   future->wait();
 
-  auto info_map = input.task_infos.getInfoMap();
+  auto info_map = context->getTaskInfos().getInfoMap();
 
-  if (input.dotgraph)
+  if (context->getProblem().dotgraph)
   {
     std::stringstream dot_graph;
     dot_graph << "subgraph cluster_" << toString(uuid_) << " {\n color=black;\n label = \"" << name_ << "\\n("
@@ -378,7 +378,7 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
     info->dotgraph = dot_graph.str();
   }
 
-  if (input.isAborted())
+  if (context->isAborted())
   {
     info->message = "Raster only subgraph failed";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
@@ -388,7 +388,8 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
   program.clear();
   for (std::size_t i = 0; i < raster_tasks.size(); ++i)
   {
-    CompositeInstruction segment = input.data_storage.getData(raster_tasks[i].second.second).as<CompositeInstruction>();
+    CompositeInstruction segment =
+        context->getDataStorage().getData(raster_tasks[i].second.second).as<CompositeInstruction>();
     if (i != 0)
       segment.erase(segment.begin());
 
@@ -397,13 +398,13 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& inpu
     if (i < raster_tasks.size() - 1)
     {
       CompositeInstruction transition =
-          input.data_storage.getData(transition_keys[i].second).as<CompositeInstruction>();
+          context->getDataStorage().getData(transition_keys[i].second).as<CompositeInstruction>();
       transition.erase(transition.begin());
       program.emplace_back(transition);
     }
   }
 
-  input.data_storage.setData(output_keys_[0], program);
+  context->getDataStorage().setData(output_keys_[0], program);
 
   info->color = "green";
   info->message = "Successful";

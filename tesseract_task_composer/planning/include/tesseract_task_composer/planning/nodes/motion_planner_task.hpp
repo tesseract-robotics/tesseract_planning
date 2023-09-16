@@ -112,11 +112,11 @@ protected:
     ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
   }
 
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+  TaskComposerNodeInfo::UPtr runImpl(const TaskComposerContext::Ptr& context,
                                      OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override
   {
     // Get the problem
-    auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+    auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(context->getProblem());
 
     auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
     info->return_value = 0;
@@ -125,7 +125,7 @@ protected:
     // --------------------
     // Check that inputs are valid
     // --------------------
-    auto input_data_poly = input.data_storage.getData(input_keys_[0]);
+    auto input_data_poly = context->getDataStorage().getData(input_keys_[0]);
     if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
     {
       info->message = "Input instructions to MotionPlannerTask: " + name_ + " must be a composite instruction";
@@ -163,7 +163,7 @@ protected:
     // --------------------
     if (response)
     {
-      input.data_storage.setData(output_keys_[0], response.results);
+      context->getDataStorage().setData(output_keys_[0], response.results);
 
       info->return_value = 1;
       info->color = "green";
@@ -180,7 +180,7 @@ protected:
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
     if (output_keys_[0] != input_keys_[0])
-      input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+      context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
 
     info->message = response.message;
     return info;

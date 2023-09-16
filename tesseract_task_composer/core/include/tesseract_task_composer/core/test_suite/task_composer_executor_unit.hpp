@@ -42,13 +42,13 @@ void runTaskComposerExecutorTest()
 {
   {  // task
     auto task = std::make_unique<DoneTask>("DoneTask");
-    auto executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
+    tesseract_planning::TaskComposerExecutor::UPtr executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
     EXPECT_EQ(executor->getName(), "TaskComposerExecutorTests");
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
-    auto future = executor->run(*task, *input);
+    auto problem = std::make_unique<TaskComposerProblem>();
+    auto future = executor->run(*task, std::move(problem));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -61,10 +61,10 @@ void runTaskComposerExecutorTest()
     EXPECT_TRUE(copy_future->ready());
 
     EXPECT_FALSE(task->isConditional());
-    EXPECT_EQ(input->isAborted(), false);
-    EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_EQ(input->task_infos.getInfoMap().size(), 1);
-    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->isAborted(), false);
+    EXPECT_EQ(future->context->isSuccessful(), true);
+    EXPECT_EQ(future->context->getTaskInfos().getInfoMap().size(), 1);
+    EXPECT_TRUE(future->context->getTaskInfos().getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
@@ -167,13 +167,13 @@ void runTaskComposerExecutorTest()
                             terminals: [DoneTask])";
     YAML::Node config = YAML::Load(str2);
     auto pipeline = std::make_unique<TaskComposerPipeline>("Pipeline", config["config"], factory);
-    auto executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
+    tesseract_planning::TaskComposerExecutor::UPtr executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
     EXPECT_EQ(executor->getName(), "TaskComposerExecutorTests");
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
-    auto future = executor->run(*pipeline, *input);
+    auto problem = std::make_unique<TaskComposerProblem>();
+    auto future = executor->run(*pipeline, std::move(problem));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -196,10 +196,10 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task2->getInboundEdges().size(), 1);
     EXPECT_EQ(task2->getInboundEdges().front(), task1->getUUID());
     EXPECT_EQ(task2->getOutboundEdges().size(), 0);
-    EXPECT_EQ(input->isAborted(), false);
-    EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_EQ(input->task_infos.getInfoMap().size(), 6);
-    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->isAborted(), false);
+    EXPECT_EQ(future->context->isSuccessful(), true);
+    EXPECT_EQ(future->context->getTaskInfos().getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->getTaskInfos().getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
@@ -232,13 +232,13 @@ void runTaskComposerExecutorTest()
                             terminals: [DoneTask])";
     YAML::Node config = YAML::Load(str2);
     auto graph = std::make_unique<TaskComposerGraph>("Graph", config["config"], factory);
-    auto executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
+    tesseract_planning::TaskComposerExecutor::UPtr executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
     EXPECT_EQ(executor->getName(), "TaskComposerExecutorTests");
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
-    auto future = executor->run(*graph, *input);
+    auto problem = std::make_unique<TaskComposerProblem>();
+    auto future = executor->run(*graph, std::move(problem));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -261,10 +261,10 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task2->getInboundEdges().size(), 1);
     EXPECT_EQ(task2->getInboundEdges().front(), task1->getUUID());
     EXPECT_EQ(task2->getOutboundEdges().size(), 0);
-    EXPECT_EQ(input->isAborted(), false);
-    EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_EQ(input->task_infos.getInfoMap().size(), 6);
-    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->isAborted(), false);
+    EXPECT_EQ(future->context->isSuccessful(), true);
+    EXPECT_EQ(future->context->getTaskInfos().getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->getTaskInfos().getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
@@ -301,13 +301,13 @@ void runTaskComposerExecutorTest()
                             terminals: [AbortTask, DoneTask])";
     YAML::Node config = YAML::Load(str2);
     auto graph = std::make_unique<TaskComposerGraph>("Graph", config["config"], factory);
-    auto executor = std::make_unique<T>(3);
+    tesseract_planning::TaskComposerExecutor::UPtr executor = std::make_unique<T>(3);
     EXPECT_FALSE(executor->getName().empty());
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
-    auto future = executor->run(*graph, *input);
+    auto problem = std::make_unique<TaskComposerProblem>();
+    auto future = executor->run(*graph, std::move(problem));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -335,10 +335,10 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task3->getInboundEdges().size(), 1);
     EXPECT_EQ(task3->getInboundEdges().front(), task1->getUUID());
     EXPECT_EQ(task3->getOutboundEdges().size(), 0);
-    EXPECT_EQ(input->isAborted(), false);
-    EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_EQ(input->task_infos.getInfoMap().size(), 6);
-    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->isAborted(), false);
+    EXPECT_EQ(future->context->isSuccessful(), true);
+    EXPECT_EQ(future->context->getTaskInfos().getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->getTaskInfos().getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
@@ -371,13 +371,13 @@ void runTaskComposerExecutorTest()
                             terminals: [DoneTask])";
     YAML::Node config = YAML::Load(str2);
     auto graph = std::make_unique<TaskComposerGraph>("Graph", config["config"], factory);
-    auto executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
+    tesseract_planning::TaskComposerExecutor::UPtr executor = std::make_unique<T>("TaskComposerExecutorTests", 3);
     EXPECT_EQ(executor->getName(), "TaskComposerExecutorTests");
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto input = std::make_unique<TaskComposerInput>(std::make_unique<TaskComposerProblem>());
-    auto future = executor->run(*graph, *input);
+    auto problem = std::make_unique<TaskComposerProblem>();
+    auto future = executor->run(*graph, std::move(problem));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -400,10 +400,10 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task2->getInboundEdges().size(), 1);
     EXPECT_EQ(task2->getInboundEdges().front(), task1->getUUID());
     EXPECT_EQ(task2->getOutboundEdges().size(), 0);
-    EXPECT_EQ(input->isAborted(), false);
-    EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_EQ(input->task_infos.getInfoMap().size(), 6);
-    EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->isAborted(), false);
+    EXPECT_EQ(future->context->isSuccessful(), true);
+    EXPECT_EQ(future->context->getTaskInfos().getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->getTaskInfos().getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
