@@ -26,6 +26,7 @@
 
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_future.h>
+#include <tesseract_common/utils.h>
 #include <taskflow/taskflow.hpp>
 
 namespace tesseract_planning
@@ -80,10 +81,13 @@ TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerNod
   else
     throw std::runtime_error("TaskComposerExecutor, unsupported node type!");
 
-  //  std::ofstream out_data;
-  //  out_data.open(tesseract_common::getTempPath() + "task_composer_example.dot");
-  //  taskflow.top->dump(out_data);  // dump the graph including dynamic tasks
-  //  out_data.close();
+#ifndef NDEBUG
+  std::ofstream out_data;
+  out_data.open(tesseract_common::getTempPath() + "taskflow_task_executor_" + tesseract_common::getTimestampString() +
+                ".dot");
+  taskflow->front()->dump(out_data);  // dump the graph including dynamic tasks
+  out_data.close();
+#endif
 
   std::shared_future<void> f = executor_->run(*(taskflow->front()));
   return std::make_unique<TaskflowTaskComposerFuture>(f, std::move(taskflow));
