@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_environment/utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -162,9 +163,14 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
         }
         else if (start_waypoint.isCartesianWaypoint())
         {
-          /** @todo Update to run IK to find solution closest to start */
-          start_waypoint.as<CartesianWaypointPoly>().setSeed(tesseract_common::JointState(
-              manip->getJointNames(), request.env_state.getJointValues(manip->getJointNames())));
+          if (!start_waypoint.as<CartesianWaypointPoly>().hasSeed())
+          {
+            // Run IK to find solution closest to start
+            KinematicGroupInstructionInfo info(prev_instruction, request, request.instructions.getManipulatorInfo());
+            auto start_seed = getClosestJointSolution(info, request.env_state.getJointValues(manip->getJointNames()));
+            start_waypoint.as<CartesianWaypointPoly>().setSeed(
+                tesseract_common::JointState(manip->getJointNames(), start_seed));
+          }
         }
         else
         {
