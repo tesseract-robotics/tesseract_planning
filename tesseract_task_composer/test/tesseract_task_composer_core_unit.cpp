@@ -168,10 +168,14 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoContainerTests)  // NOLI
   auto node_info = std::make_unique<TaskComposerNodeInfo>(node);
 
   auto node_info_container = std::make_unique<TaskComposerNodeInfoContainer>();
+  EXPECT_TRUE(node_info_container->getAbortingNode().is_nil());
   EXPECT_TRUE(node_info_container->getInfoMap().empty());
+  auto aborted_uuid = node.getUUID();
   node_info_container->addInfo(std::move(node_info));
+  node_info_container->setAborted(aborted_uuid);
   EXPECT_EQ(node_info_container->getInfoMap().size(), 1);
   EXPECT_TRUE(node_info_container->getInfo(node.getUUID()) != nullptr);
+  EXPECT_TRUE(node_info_container->getAbortingNode() == aborted_uuid);
 
   // Serialization
   test_suite::runSerializationPointerTest(node_info_container, "TaskComposerNodeInfoContainerTests");
@@ -180,15 +184,18 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoContainerTests)  // NOLI
   auto copy_node_info_container = std::make_unique<TaskComposerNodeInfoContainer>(*node_info_container);
   EXPECT_EQ(copy_node_info_container->getInfoMap().size(), 1);
   EXPECT_TRUE(copy_node_info_container->getInfo(node.getUUID()) != nullptr);
+  EXPECT_TRUE(copy_node_info_container->getAbortingNode() == aborted_uuid);
 
   // Move
   auto move_node_info_container = std::make_unique<TaskComposerNodeInfoContainer>(std::move(*node_info_container));
   EXPECT_EQ(move_node_info_container->getInfoMap().size(), 1);
   EXPECT_TRUE(move_node_info_container->getInfo(node.getUUID()) != nullptr);
+  EXPECT_TRUE(move_node_info_container->getAbortingNode() == aborted_uuid);
 
   move_node_info_container->clear();
   EXPECT_TRUE(move_node_info_container->getInfoMap().empty());
   EXPECT_TRUE(move_node_info_container->getInfo(node.getUUID()) == nullptr);
+  EXPECT_TRUE(move_node_info_container->getAbortingNode().is_nil());
 }
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
