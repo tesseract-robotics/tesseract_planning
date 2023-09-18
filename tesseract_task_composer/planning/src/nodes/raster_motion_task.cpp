@@ -459,10 +459,12 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerContext& contex
   TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, context.problem, context.data_storage);
   future->wait();
 
-  /** @todo Need to merge child context into parent */
+  // Merge child context data into parent context
+  context.task_infos.mergeInfoMap(future->context->task_infos);
+  if (future->context->isAborted())
+    context.abort(future->context->task_infos.getAbortingNode());
 
   auto info_map = context.task_infos.getInfoMap();
-
   if (context.problem->dotgraph)
   {
     std::stringstream dot_graph;
