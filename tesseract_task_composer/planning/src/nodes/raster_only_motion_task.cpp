@@ -367,7 +367,7 @@ TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerContext& co
   future->wait();
 
   // Merge child context data into parent context
-  context.task_infos.mergeInfoMap(future->context->task_infos);
+  context.task_infos.mergeInfoMap(std::move(future->context->task_infos));
   if (future->context->isAborted())
     context.abort(future->context->task_infos.getAbortingNode());
 
