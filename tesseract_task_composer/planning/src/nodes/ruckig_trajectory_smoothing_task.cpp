@@ -73,11 +73,11 @@ RuckigTrajectorySmoothingTask::RuckigTrajectorySmoothingTask(std::string name,
                              "output key");
 }
 
-TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(const TaskComposerContext::Ptr& context,
+TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context,
                                                                   OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get the problem
-  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(context->getProblem());
+  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
 
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
@@ -85,7 +85,7 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(const TaskComp
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = context->getDataStorage().getData(input_keys_[0]);
+  auto input_data_poly = context.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input results to ruckig trajectory smoothing must be a composite instruction";
@@ -115,7 +115,7 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(const TaskComp
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
     if (output_keys_[0] != input_keys_[0])
-      context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
+      context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
     info->color = "green";
     info->message = "Ruckig trajectory smoothing found no MoveInstructions to process";
@@ -165,14 +165,14 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(const TaskComp
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
     if (output_keys_[0] != input_keys_[0])
-      context->getDataStorage().setData(output_keys_[0], context->getDataStorage().getData(input_keys_[0]));
+      context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
     info->message = "Failed to perform ruckig trajectory smoothing for process input: %s" + ci.getDescription();
     CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
     return info;
   }
 
-  context->getDataStorage().setData(output_keys_[0], input_data_poly);
+  context.data_storage->setData(output_keys_[0], input_data_poly);
 
   info->color = "green";
   info->message = "Successful";

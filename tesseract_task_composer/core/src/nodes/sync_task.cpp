@@ -46,7 +46,7 @@ SyncTask::SyncTask(std::string name, const YAML::Node& config, const TaskCompose
   if (!output_keys_.empty())
     throw std::runtime_error("SyncTask, config does not support 'outputs' entry");
 }
-TaskComposerNodeInfo::UPtr SyncTask::runImpl(const TaskComposerContext::Ptr& /*context*/,
+TaskComposerNodeInfo::UPtr SyncTask::runImpl(TaskComposerContext& /*context*/,
                                              OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);

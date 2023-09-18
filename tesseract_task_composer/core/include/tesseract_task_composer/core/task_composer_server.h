@@ -120,7 +120,9 @@ public:
    * @param name The name of the executor to use
    * @return The future associated with execution
    */
-  TaskComposerFuture::UPtr run(TaskComposerProblem::UPtr problem, const std::string& name);
+  TaskComposerFuture::UPtr run(TaskComposerProblem::Ptr problem,
+                               TaskComposerDataStorage::Ptr data_storage,
+                               const std::string& name);
 
   /**
    * @brief Execute the provided node
@@ -130,7 +132,8 @@ public:
    * @return The future associated with execution
    */
   TaskComposerFuture::UPtr run(const TaskComposerNode& node,
-                               TaskComposerProblem::UPtr problem,
+                               TaskComposerProblem::Ptr problem,
+                               TaskComposerDataStorage::Ptr data_storage,
                                const std::string& name);
 
   /** @brief Queries the number of workers (example: number of threads) */

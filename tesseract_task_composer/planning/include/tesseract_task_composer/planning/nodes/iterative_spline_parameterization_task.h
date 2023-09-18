@@ -73,7 +73,7 @@ protected:
   bool add_points_{ true };
   IterativeSplineParameterization solver_;
 
-  TaskComposerNodeInfo::UPtr runImpl(const TaskComposerContext::Ptr& context,
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
                                      OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 

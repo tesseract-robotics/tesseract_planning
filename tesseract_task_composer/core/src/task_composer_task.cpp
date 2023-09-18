@@ -46,9 +46,9 @@ TaskComposerTask::TaskComposerTask(std::string name, const YAML::Node& config)
 {
 }
 
-int TaskComposerTask::run(const TaskComposerContext::Ptr& context, OptionalTaskComposerExecutor executor) const
+int TaskComposerTask::run(TaskComposerContext& context, OptionalTaskComposerExecutor executor) const
 {
-  if (context->isAborted())
+  if (context.isAborted())
   {
     auto info = std::make_unique<TaskComposerNodeInfo>(*this);
     info->input_keys = input_keys_;
@@ -57,7 +57,7 @@ int TaskComposerTask::run(const TaskComposerContext::Ptr& context, OptionalTaskC
     info->color = "white";
     info->message = "Aborted";
     info->aborted_ = true;
-    context->getTaskInfos().addInfo(std::move(info));
+    context.task_infos.addInfo(std::move(info));
     return 0;
   }
 
@@ -82,7 +82,7 @@ int TaskComposerTask::run(const TaskComposerContext::Ptr& context, OptionalTaskC
 
   int value = results->return_value;
   assert(value >= 0);
-  context->getTaskInfos().addInfo(std::move(results));
+  context.task_infos.addInfo(std::move(results));
   return value;
 }
 

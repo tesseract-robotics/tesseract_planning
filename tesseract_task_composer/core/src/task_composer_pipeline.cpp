@@ -48,9 +48,9 @@ TaskComposerPipeline::TaskComposerPipeline(std::string name,
 {
 }
 
-int TaskComposerPipeline::run(const TaskComposerContext::Ptr& context, OptionalTaskComposerExecutor executor) const
+int TaskComposerPipeline::run(TaskComposerContext& context, OptionalTaskComposerExecutor executor) const
 {
-  if (context->isAborted())
+  if (context.isAborted())
   {
     auto info = std::make_unique<TaskComposerNodeInfo>(*this);
     info->input_keys = input_keys_;
@@ -59,7 +59,7 @@ int TaskComposerPipeline::run(const TaskComposerContext::Ptr& context, OptionalT
     info->color = "white";
     info->message = "Aborted";
     info->aborted_ = true;
-    context->getTaskInfos().addInfo(std::move(info));
+    context.task_infos.addInfo(std::move(info));
     return 0;
   }
 
@@ -84,11 +84,11 @@ int TaskComposerPipeline::run(const TaskComposerContext::Ptr& context, OptionalT
 
   int value = results->return_value;
   assert(value >= 0);
-  context->getTaskInfos().addInfo(std::move(results));
+  context.task_infos.addInfo(std::move(results));
   return value;
 }
 
-TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(const TaskComposerContext::Ptr& context,
+TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(TaskComposerContext& context,
                                                          OptionalTaskComposerExecutor executor) const
 {
   if (terminals_.empty())
@@ -113,7 +113,7 @@ TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(const TaskComposerConte
 
   for (std::size_t i = 0; i < terminals_.size(); ++i)
   {
-    auto node_info = context->getTaskInfos().getInfo(terminals_[i]);
+    auto node_info = context.task_infos.getInfo(terminals_[i]);
     if (node_info != nullptr)
     {
       timer.stop();
@@ -133,7 +133,7 @@ TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(const TaskComposerConte
 }
 
 void TaskComposerPipeline::runRecursive(const TaskComposerNode& node,
-                                        const TaskComposerContext::Ptr& context,
+                                        TaskComposerContext& context,
                                         OptionalTaskComposerExecutor executor) const
 {
   if (node.getType() == TaskComposerNodeType::GRAPH)

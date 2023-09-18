@@ -45,11 +45,11 @@ TEST_F(FixStateCollisionTaskUnit, StateInCollisionTest)  // NOLINT
   CompositeInstruction program = test_suite::freespaceExampleProgramABB();
 
   // Create data storage
-  TaskComposerDataStorage task_data;
-  task_data.setData("input_program", program);
+  auto task_data = std::make_unique<TaskComposerDataStorage>();
+  task_data->setData("input_program", program);
 
   // Create problem
-  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env_, task_data);
+  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env_);
 
   FixStateCollisionProfile profile;
 
@@ -88,11 +88,11 @@ TEST_F(FixStateCollisionTaskUnit, WaypointInCollisionTest)  // NOLINT
   CompositeInstruction program = test_suite::freespaceExampleProgramABB();
 
   // Create data storage
-  TaskComposerDataStorage task_data;
-  task_data.setData("input_program", program);
+  auto task_data = std::make_unique<TaskComposerDataStorage>();
+  task_data->setData("input_program", program);
 
   // Create problem
-  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env_, task_data);
+  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env_);
 
   FixStateCollisionProfile profile;
 
@@ -139,11 +139,11 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionRandomSamplerTest)  /
   CompositeInstruction program = test_suite::freespaceExampleProgramABB();
 
   // Create data storage
-  TaskComposerDataStorage task_data;
-  task_data.setData("input_program", program);
+  auto task_data = std::make_shared<TaskComposerDataStorage>();
+  task_data->setData("input_program", program);
 
   // Create problem
-  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env_, task_data);
+  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env_);
 
   FixStateCollisionProfile profile;
 
@@ -175,11 +175,11 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionTrajoptTest)  // NOLI
   CompositeInstruction program = test_suite::freespaceExampleProgramABB();
 
   // Create data storage
-  TaskComposerDataStorage task_data;
-  task_data.setData("input_program", program);
+  auto task_data = std::make_shared<TaskComposerDataStorage>();
+  task_data->setData("input_program", program);
 
   // Create problem
-  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env_, task_data);
+  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env_);
 
   FixStateCollisionProfile profile;
 

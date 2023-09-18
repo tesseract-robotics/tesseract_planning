@@ -58,18 +58,12 @@ public:
    * @brief Execute the provided node
    * @param node The node to execute
    * @param problem The problem
+   * @param data_storage The data storage object to leverage
    * @return The future associated with execution
    */
-  TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerProblem::UPtr problem);
-
-  /**
-   * @brief Execute provided node provide the cotext
-   * @details This should only be used for dynamic tasking
-   * @param node The node to execute
-   * @param context The context
-   * @return The future associated with execution
-   */
-  virtual TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerContext::Ptr context) = 0;
+  TaskComposerFuture::UPtr run(const TaskComposerNode& node,
+                               TaskComposerProblem::Ptr problem,
+                               TaskComposerDataStorage::Ptr data_storage);
 
   /** @brief Queries the number of workers (example: number of threads) */
   virtual long getWorkerCount() const = 0;
@@ -88,6 +82,15 @@ protected:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   std::string name_;
+
+  /**
+   * @brief Execute provided node provide the cotext
+   * @details This should only be used for dynamic tasking
+   * @param node The node to execute
+   * @param context The context
+   * @return The future associated with execution
+   */
+  virtual TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerContext::Ptr context) = 0;
 };
 }  // namespace tesseract_planning
 

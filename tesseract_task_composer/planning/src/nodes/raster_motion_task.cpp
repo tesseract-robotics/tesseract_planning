@@ -296,11 +296,11 @@ void RasterMotionTask::serialize(Archive& ar, const unsigned int /*version*/)  /
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(const TaskComposerContext::Ptr& context,
+TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(TaskComposerContext& context,
                                                      OptionalTaskComposerExecutor executor) const
 {
   // Get the problem
-  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(context->getProblem());
+  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
 
   auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
   info->return_value = 0;
@@ -309,7 +309,7 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(const TaskComposerContext::
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = context->getDataStorage().getData(input_keys_[0]);
+  auto input_data_poly = context.data_storage->getData(input_keys_[0]);
   try
   {
     checkTaskInput(input_data_poly);
@@ -356,7 +356,7 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(const TaskComposerContext::
     raster_results.node->setConditional(false);
     auto raster_uuid = task_graph.addNode(std::move(raster_results.node));
     raster_tasks.emplace_back(raster_uuid, std::make_pair(raster_results.input_key, raster_results.output_key));
-    context->getDataStorage().setData(raster_results.input_key, raster_input);
+    context.data_storage->setData(raster_results.input_key, raster_input);
 
     task_graph.addEdges(start_uuid, { raster_uuid });
 
@@ -402,7 +402,7 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(const TaskComposerContext::
                                                                             false);
     auto transition_mux_uuid = task_graph.addNode(std::move(transition_mux_task));
 
-    context->getDataStorage().setData(transition_results.input_key, transition_input);
+    context.data_storage->setData(transition_results.input_key, transition_input);
 
     task_graph.addEdges(transition_mux_uuid, { transition_uuid });
     task_graph.addEdges(prev.first, { transition_mux_uuid });
@@ -426,7 +426,7 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(const TaskComposerContext::
                                                                     false);
   auto update_end_state_uuid = task_graph.addNode(std::move(update_end_state_task));
 
-  context->getDataStorage().setData(from_start_results.input_key, from_start_input);
+  context.data_storage->setData(from_start_results.input_key, from_start_input);
 
   task_graph.addEdges(update_end_state_uuid, { from_start_pipeline_uuid });
   task_graph.addEdges(raster_tasks[0].first, { update_end_state_uuid });
@@ -451,17 +451,19 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(const TaskComposerContext::
       "UpdateStartStateTask", to_end_results.input_key, last_raster_output_key, to_end_results.output_key, false);
   auto update_start_state_uuid = task_graph.addNode(std::move(update_start_state_task));
 
-  context->getDataStorage().setData(to_end_results.input_key, to_end_input);
+  context.data_storage->setData(to_end_results.input_key, to_end_input);
 
   task_graph.addEdges(update_start_state_uuid, { to_end_pipeline_uuid });
   task_graph.addEdges(raster_tasks.back().first, { update_start_state_uuid });
 
-  TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, context);
+  TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, context.problem, context.data_storage);
   future->wait();
 
-  auto info_map = context->getTaskInfos().getInfoMap();
+  /** @todo Need to merge child context into parent */
 
-  if (context->getProblem().dotgraph)
+  auto info_map = context.task_infos.getInfoMap();
+
+  if (context.problem->dotgraph)
   {
     std::stringstream dot_graph;
     dot_graph << "subgraph cluster_" << toString(uuid_) << " {\n color=black;\n label = \"" << name_ << "\\n("
@@ -471,7 +473,7 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(const TaskComposerContext::
     info->dotgraph = dot_graph.str();
   }
 
-  if (context->isAborted())
+  if (context.isAborted())
   {
     info->message = "Raster subgraph failed";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
@@ -479,28 +481,27 @@ TaskComposerNodeInfo::UPtr RasterMotionTask::runImpl(const TaskComposerContext::
   }
 
   program.clear();
-  program.emplace_back(context->getDataStorage().getData(from_start_results.output_key).as<CompositeInstruction>());
+  program.emplace_back(context.data_storage->getData(from_start_results.output_key).as<CompositeInstruction>());
   for (std::size_t i = 0; i < raster_tasks.size(); ++i)
   {
     const auto& raster_output_key = raster_tasks[i].second.second;
-    CompositeInstruction segment = context->getDataStorage().getData(raster_output_key).as<CompositeInstruction>();
+    CompositeInstruction segment = context.data_storage->getData(raster_output_key).as<CompositeInstruction>();
     segment.erase(segment.begin());
     program.emplace_back(segment);
 
     if (i < raster_tasks.size() - 1)
     {
       const auto& transition_output_key = transition_keys[i].second;
-      CompositeInstruction transition =
-          context->getDataStorage().getData(transition_output_key).as<CompositeInstruction>();
+      CompositeInstruction transition = context.data_storage->getData(transition_output_key).as<CompositeInstruction>();
       transition.erase(transition.begin());
       program.emplace_back(transition);
     }
   }
-  CompositeInstruction to_end = context->getDataStorage().getData(to_end_results.output_key).as<CompositeInstruction>();
+  CompositeInstruction to_end = context.data_storage->getData(to_end_results.output_key).as<CompositeInstruction>();
   to_end.erase(to_end.begin());
   program.emplace_back(to_end);
 
-  context->getDataStorage().setData(output_keys_[0], program);
+  context.data_storage->setData(output_keys_[0], program);
 
   info->color = "green";
   info->message = "Successful";

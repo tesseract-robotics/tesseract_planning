@@ -251,7 +251,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningTaskComposerProble
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->getTaskInfos().getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
   }
 
   {  // Failure
@@ -604,7 +604,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_EQ(input->getDataStorage().getData("output_data2"), data.getData("input_data"));
+    EXPECT_EQ(input->data_storage->getData("output_data2"), data.getData("input_data"));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 
@@ -637,7 +637,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_EQ(input->getDataStorage().getData("output_data2"), data.getData("input_data"));
+    EXPECT_EQ(input->data_storage->getData("output_data2"), data.getData("input_data"));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 
@@ -665,7 +665,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_EQ(input->getDataStorage().getData("output_data2"), data.getData("input_data"));
+    EXPECT_EQ(input->data_storage->getData("output_data2"), data.getData("input_data"));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 
@@ -686,7 +686,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_EQ(input->getDataStorage().getData("output_data2"), data.getData("input_data"));
+    EXPECT_EQ(input->data_storage->getData("output_data2"), data.getData("input_data"));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 
@@ -833,7 +833,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_GE(input->getDataStorage().getData("output_data").as<CompositeInstruction>().size(), 10);
+    EXPECT_GE(input->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 
@@ -939,7 +939,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_TRUE(input->getDataStorage().hasKey("output_data"));
+    EXPECT_TRUE(input->data_storage->hasKey("output_data"));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 
@@ -960,7 +960,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_TRUE(input->getDataStorage().hasKey("output_data"));
+    EXPECT_TRUE(input->data_storage->hasKey("output_data"));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 
@@ -1066,7 +1066,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_TRUE(input->getDataStorage().hasKey("output_data"));
+    EXPECT_TRUE(input->data_storage->hasKey("output_data"));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
 
     // Serialization
@@ -1247,7 +1247,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    auto output_program = input->getDataStorage().getData("output_data").as<CompositeInstruction>();
+    auto output_program = input->data_storage->getData("output_data").as<CompositeInstruction>();
     EXPECT_EQ(output_program.back().getUUID(), input_program.back().getUUID());
     EXPECT_EQ(output_program.back().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint(), true);
     EXPECT_EQ(getJointPosition(output_program.back().as<MoveInstructionPoly>().getWaypoint()),
@@ -1352,7 +1352,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    auto output_program = input->getDataStorage().getData("output_data").as<CompositeInstruction>();
+    auto output_program = input->data_storage->getData("output_data").as<CompositeInstruction>();
     EXPECT_EQ(output_program.front().getUUID(), input_program.front().getUUID());
     EXPECT_EQ(output_program.front().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint(), true);
     EXPECT_EQ(getJointPosition(output_program.front().as<MoveInstructionPoly>().getWaypoint()),
@@ -1466,7 +1466,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    auto output_program = input->getDataStorage().getData("output_data").as<CompositeInstruction>();
+    auto output_program = input->data_storage->getData("output_data").as<CompositeInstruction>();
     EXPECT_EQ(output_program.front().getUUID(), input_program.front().getUUID());
     EXPECT_EQ(output_program.front().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint(), true);
     EXPECT_EQ(getJointPosition(output_program.front().as<MoveInstructionPoly>().getWaypoint()),
@@ -1617,7 +1617,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_EQ(input->getDataStorage().getData("output_data").as<CompositeInstruction>().size(), 17);
+    EXPECT_EQ(input->data_storage->getData("output_data").as<CompositeInstruction>().size(), 17);
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 
@@ -1736,8 +1736,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
       auto context = std::make_unique<TaskComposerContext>(std::move(problem));
       UpsampleTrajectoryTask task("abc", "input_data", "output_data", true);
       EXPECT_EQ(task.run(*input), 1);
-      data.setData("input_data", input->getDataStorage().getData("output_data"));
-      EXPECT_EQ(input->getDataStorage().getData("output_data").as<CompositeInstruction>().size(), 17);
+      data.setData("input_data", input->data_storage->getData("output_data"));
+      EXPECT_EQ(input->data_storage->getData("output_data").as<CompositeInstruction>().size(), 17);
     }
     auto profiles = std::make_shared<ProfileDictionary>();
     auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, data, profiles, "abc");
@@ -1751,7 +1751,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_EQ(input->getDataStorage().getData("output_data").as<CompositeInstruction>().size(), 17);
+    EXPECT_EQ(input->data_storage->getData("output_data").as<CompositeInstruction>().size(), 17);
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 
@@ -1772,7 +1772,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_TRUE(input->getDataStorage().hasKey("output_data"));
+    EXPECT_TRUE(input->data_storage->hasKey("output_data"));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 
@@ -1873,8 +1873,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
       auto context = std::make_unique<TaskComposerContext>(std::move(problem));
       UpsampleTrajectoryTask task("abc", "input_data", "output_data", true);
       EXPECT_EQ(task.run(*input), 1);
-      data.setData("input_data", input->getDataStorage().getData("output_data"));
-      EXPECT_EQ(input->getDataStorage().getData("output_data").as<CompositeInstruction>().size(), 17);
+      data.setData("input_data", input->data_storage->getData("output_data"));
+      EXPECT_EQ(input->data_storage->getData("output_data").as<CompositeInstruction>().size(), 17);
     }
     auto profiles = std::make_shared<ProfileDictionary>();
     auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, data, profiles, "abc");
@@ -1888,7 +1888,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_EQ(input->getDataStorage().getData("output_data").as<CompositeInstruction>().size(), 17);
+    EXPECT_EQ(input->data_storage->getData("output_data").as<CompositeInstruction>().size(), 17);
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
 
     // Serialization
@@ -1913,7 +1913,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_TRUE(input->getDataStorage().hasKey("output_data"));
+    EXPECT_TRUE(input->data_storage->hasKey("output_data"));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 
@@ -2014,15 +2014,15 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
       auto context = std::make_unique<TaskComposerContext>(std::move(problem));
       UpsampleTrajectoryTask task("abc", "input_data", "output_data", true);
       EXPECT_EQ(task.run(*input), 1);
-      data.setData("input_data", input->getDataStorage().getData("output_data"));
-      EXPECT_EQ(input->getDataStorage().getData("output_data").as<CompositeInstruction>().size(), 17);
+      data.setData("input_data", input->data_storage->getData("output_data"));
+      EXPECT_EQ(input->data_storage->getData("output_data").as<CompositeInstruction>().size(), 17);
 
       auto problem2 = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, data, profiles, "abc");
       auto context2 = std::make_unique<TaskComposerContext>(std::move(problem2));
       TimeOptimalParameterizationTask task2("abc", "input_data", "output_data", true);
       EXPECT_EQ(task2.run(*context2), 1);
-      data.setData("input_data", context2->getDataStorage().getData("output_data"));
-      EXPECT_EQ(context2->getDataStorage().getData("output_data").as<CompositeInstruction>().size(), 17);
+      data.setData("input_data", context2->data_storage->getData("output_data"));
+      EXPECT_EQ(context2->data_storage->getData("output_data").as<CompositeInstruction>().size(), 17);
     }
     auto profiles = std::make_shared<ProfileDictionary>();
     auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, data, profiles, "abc");
@@ -2036,8 +2036,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_EQ(context->getDataStorage().getData("output_data").as<CompositeInstruction>().size(), 17);
-    EXPECT_TRUE(context->getTaskInfos().getAbortingNode().is_nil());
+    EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 17);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
   }
 
   {  // Test run method
@@ -2057,7 +2057,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_TRUE(input->getDataStorage().hasKey("output_data"));
+    EXPECT_TRUE(input->data_storage->hasKey("output_data"));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
   }
 
@@ -2162,8 +2162,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
       auto context = std::make_unique<TaskComposerContext>(std::move(problem));
       MinLengthTask task("abc", "input_data", "output_data", true);
       EXPECT_EQ(task.run(*input), 1);
-      data.setData("input_data", input->getDataStorage().getData("output_data"));
-      EXPECT_GE(input->getDataStorage().getData("output_data").as<CompositeInstruction>().size(), 10);
+      data.setData("input_data", input->data_storage->getData("output_data"));
+      EXPECT_GE(input->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
     }
     auto profiles = std::make_shared<ProfileDictionary>();
     auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, data, profiles, "abc");
@@ -2177,7 +2177,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_GE(input->getDataStorage().getData("output_data").as<CompositeInstruction>().size(), 10);
+    EXPECT_GE(input->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
 
     // Serialization
@@ -2572,7 +2572,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
 
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_TRUE(input->getDataStorage().hasKey(output_key));
+    EXPECT_TRUE(input->data_storage->hasKey(output_key));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
     auto info_map = input->task_infos.getInfoMap();
     EXPECT_EQ(info_map.size(), 94);
@@ -3053,7 +3053,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
 
     EXPECT_EQ(input->isAborted(), false);
     EXPECT_EQ(input->isSuccessful(), true);
-    EXPECT_TRUE(input->getDataStorage().hasKey(output_key));
+    EXPECT_TRUE(input->data_storage->hasKey(output_key));
     EXPECT_TRUE(input->task_infos.getAbortingNode().is_nil());
     auto info_map = input->task_infos.getInfoMap();
     EXPECT_EQ(info_map.size(), 74);

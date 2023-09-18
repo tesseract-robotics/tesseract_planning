@@ -52,7 +52,7 @@ struct CheckInputProfile
   virtual bool isValid(const TaskComposerContext& context) const
   {
     // Get the problem
-    const auto& problem = dynamic_cast<const PlanningTaskComposerProblem&>(context.getProblem());
+    const auto& problem = dynamic_cast<const PlanningTaskComposerProblem&>(*context.problem);
 
     // Check Input
     if (!problem.env)

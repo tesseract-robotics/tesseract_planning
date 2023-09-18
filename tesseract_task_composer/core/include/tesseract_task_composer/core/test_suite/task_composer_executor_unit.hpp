@@ -48,7 +48,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getTaskCount(), 0);
 
     auto problem = std::make_unique<TaskComposerProblem>();
-    auto future = executor->run(*task, std::move(problem));
+    auto data_storage = std::make_unique<TaskComposerDataStorage>();
+    auto future = executor->run(*task, std::move(problem), std::move(data_storage));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -63,8 +64,8 @@ void runTaskComposerExecutorTest()
     EXPECT_FALSE(task->isConditional());
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->getTaskInfos().getInfoMap().size(), 1);
-    EXPECT_TRUE(future->context->getTaskInfos().getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 1);
+    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
@@ -173,7 +174,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getTaskCount(), 0);
 
     auto problem = std::make_unique<TaskComposerProblem>();
-    auto future = executor->run(*pipeline, std::move(problem));
+    auto data_storage = std::make_unique<TaskComposerDataStorage>();
+    auto future = executor->run(*pipeline, std::move(problem), std::move(data_storage));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -198,8 +200,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task2->getOutboundEdges().size(), 0);
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->getTaskInfos().getInfoMap().size(), 6);
-    EXPECT_TRUE(future->context->getTaskInfos().getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
@@ -238,7 +240,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getTaskCount(), 0);
 
     auto problem = std::make_unique<TaskComposerProblem>();
-    auto future = executor->run(*graph, std::move(problem));
+    auto data_storage = std::make_unique<TaskComposerDataStorage>();
+    auto future = executor->run(*graph, std::move(problem), std::move(data_storage));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -263,8 +266,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task2->getOutboundEdges().size(), 0);
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->getTaskInfos().getInfoMap().size(), 6);
-    EXPECT_TRUE(future->context->getTaskInfos().getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
@@ -307,7 +310,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getTaskCount(), 0);
 
     auto problem = std::make_unique<TaskComposerProblem>();
-    auto future = executor->run(*graph, std::move(problem));
+    auto data_storage = std::make_unique<TaskComposerDataStorage>();
+    auto future = executor->run(*graph, std::move(problem), std::move(data_storage));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -337,8 +341,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task3->getOutboundEdges().size(), 0);
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->getTaskInfos().getInfoMap().size(), 6);
-    EXPECT_TRUE(future->context->getTaskInfos().getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
@@ -377,7 +381,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getTaskCount(), 0);
 
     auto problem = std::make_unique<TaskComposerProblem>();
-    auto future = executor->run(*graph, std::move(problem));
+    auto data_storage = std::make_unique<TaskComposerDataStorage>();
+    auto future = executor->run(*graph, std::move(problem), std::move(data_storage));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -402,8 +407,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task2->getOutboundEdges().size(), 0);
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->getTaskInfos().getInfoMap().size(), 6);
-    EXPECT_TRUE(future->context->getTaskInfos().getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());

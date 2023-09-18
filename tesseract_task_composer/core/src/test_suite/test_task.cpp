@@ -72,7 +72,7 @@ void TestTask::serialize(Archive& ar, const unsigned int /*version*/)
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-TaskComposerNodeInfo::UPtr TestTask::runImpl(const TaskComposerContext::Ptr& context,
+TaskComposerNodeInfo::UPtr TestTask::runImpl(TaskComposerContext& context,
                                              OptionalTaskComposerExecutor /*executor*/) const
 {
   if (throw_exception)
@@ -88,7 +88,7 @@ TaskComposerNodeInfo::UPtr TestTask::runImpl(const TaskComposerContext::Ptr& con
   if (set_abort)
   {
     node_info->color = "red";
-    context->abort(uuid_);
+    context.abort(uuid_);
   }
 
   return node_info;

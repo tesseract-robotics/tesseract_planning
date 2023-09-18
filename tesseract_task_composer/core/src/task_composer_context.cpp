@@ -39,19 +39,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerContext::TaskComposerContext(TaskComposerProblem::UPtr problem)
-  : problem_(std::move(problem)), data_storage_(std::make_shared<TaskComposerDataStorage>(this->problem_->input_data))
+TaskComposerContext::TaskComposerContext(tesseract_planning::TaskComposerProblem::Ptr problem,
+                                         TaskComposerDataStorage::Ptr data_storage)
+  : problem(std::move(problem)), data_storage(std::move(data_storage))
 {
 }
-
-TaskComposerProblem& TaskComposerContext::getProblem() { return *problem_; }
-const TaskComposerProblem& TaskComposerContext::getProblem() const { return *problem_; }
-
-TaskComposerDataStorage& TaskComposerContext::getDataStorage() { return *data_storage_; }
-const TaskComposerDataStorage& TaskComposerContext::getDataStorage() const { return *data_storage_; }
-
-TaskComposerNodeInfoContainer& TaskComposerContext::getTaskInfos() { return task_infos_; }
-const TaskComposerNodeInfoContainer& TaskComposerContext::getTaskInfos() const { return task_infos_; }
 
 bool TaskComposerContext::isAborted() const { return aborted_; }
 
@@ -60,41 +52,25 @@ bool TaskComposerContext::isSuccessful() const { return !aborted_; }
 void TaskComposerContext::abort(const boost::uuids::uuid& calling_node)
 {
   if (!calling_node.is_nil())
-    task_infos_.setAborted(calling_node);
+    task_infos.setAborted(calling_node);
 
   aborted_ = true;
-}
-
-void TaskComposerContext::reset()
-{
-  aborted_ = false;
-  data_storage_ = std::make_shared<TaskComposerDataStorage>(problem_->input_data);
-  task_infos_.clear();
-}
-
-/** @brief Create a copy */
-TaskComposerContext::UPtr TaskComposerContext::createChild()
-{
-  auto child = std::make_unique<TaskComposerContext>();
-  child->problem_ = problem_;
-  child->data_storage_ = data_storage_;
-  return child;
 }
 
 bool TaskComposerContext::operator==(const TaskComposerContext& rhs) const
 {
   bool equal = true;
-  if (problem_ != nullptr && rhs.problem_ != nullptr)
-    equal &= (*problem_ == *rhs.problem_);
+  if (problem != nullptr && rhs.problem != nullptr)
+    equal &= (*problem == *rhs.problem);
   else
-    equal &= (problem_ == nullptr && rhs.problem_ == nullptr);
+    equal &= (problem == nullptr && rhs.problem == nullptr);
 
-  if (data_storage_ != nullptr && rhs.data_storage_ != nullptr)
-    equal &= (*data_storage_ == *rhs.data_storage_);
+  if (data_storage != nullptr && rhs.data_storage != nullptr)
+    equal &= (*data_storage == *rhs.data_storage);
   else
-    equal &= (data_storage_ == nullptr && rhs.data_storage_ == nullptr);
+    equal &= (data_storage == nullptr && rhs.data_storage == nullptr);
 
-  equal &= task_infos_ == rhs.task_infos_;
+  equal &= task_infos == rhs.task_infos;
   equal &= aborted_ == rhs.aborted_;
   return equal;
 }
@@ -104,9 +80,9 @@ bool TaskComposerContext::operator!=(const TaskComposerContext& rhs) const { ret
 template <class Archive>
 void TaskComposerContext::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& boost::serialization::make_nvp("problem", problem_);
-  ar& boost::serialization::make_nvp("data_storage", data_storage_);
-  ar& boost::serialization::make_nvp("task_infos", task_infos_);
+  ar& boost::serialization::make_nvp("problem", problem);
+  ar& boost::serialization::make_nvp("data_storage", data_storage);
+  ar& boost::serialization::make_nvp("task_infos", task_infos);
   ar& boost::serialization::make_nvp("aborted", aborted_);
 }
 

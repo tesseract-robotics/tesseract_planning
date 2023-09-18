@@ -57,26 +57,26 @@ int main()
   program.print();
 
   // Create data storage
-  TaskComposerDataStorage task_data;
-  task_data.setData(input_key, program);
+  auto task_data = std::make_unique<TaskComposerDataStorage>();
+  task_data->setData(input_key, program);
 
   // Create problem
-  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env, task_data, profiles);
+  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env, profiles);
   task_problem->dotgraph = true;
 
   // Solve raster plan
   auto task_executor = factory.createTaskComposerExecutor("TaskflowExecutor");
-  TaskComposerFuture::UPtr future = task_executor->run(*task, std::move(task_problem));
+  TaskComposerFuture::UPtr future = task_executor->run(*task, std::move(task_problem), std::move(task_data));
   future->wait();
 
   // Save dot graph
   std::ofstream tc_out_data;
   tc_out_data.open(tesseract_common::getTempPath() + "task_composer_raster_example.dot");
-  task->dump(tc_out_data, nullptr, future->context->getTaskInfos().getInfoMap());
+  task->dump(tc_out_data, nullptr, future->context->task_infos.getInfoMap());
   tc_out_data.close();
 
   // Plot Process Trajectory
-  auto output_program = future->context->getDataStorage().getData(output_key).as<CompositeInstruction>();
+  auto output_program = future->context->data_storage->getData(output_key).as<CompositeInstruction>();
   if (plotter != nullptr && plotter->isConnected())
   {
     plotter->waitForInput();

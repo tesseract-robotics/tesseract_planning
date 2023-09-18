@@ -46,13 +46,10 @@ struct PlanningTaskComposerProblem : public TaskComposerProblem
   using ConstUPtr = std::unique_ptr<const PlanningTaskComposerProblem>;
 
   PlanningTaskComposerProblem(std::string name = "unset");
-  PlanningTaskComposerProblem(TaskComposerDataStorage input_data,
-                              ProfileDictionary::ConstPtr profiles = nullptr,
-                              std::string name = "unset");
+  PlanningTaskComposerProblem(ProfileDictionary::ConstPtr profiles, std::string name = "unset");
 
   PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
                               tesseract_common::ManipulatorInfo manip_info,
-                              TaskComposerDataStorage input_data,
                               ProfileDictionary::ConstPtr profiles = nullptr,
                               std::string name = "unset");
 
@@ -60,19 +57,16 @@ struct PlanningTaskComposerProblem : public TaskComposerProblem
                               tesseract_common::ManipulatorInfo manip_info,
                               ProfileRemapping move_profile_remapping,
                               ProfileRemapping composite_profile_remapping,
-                              TaskComposerDataStorage input_data,
                               ProfileDictionary::ConstPtr profiles = nullptr,
                               std::string name = "unset");
 
   PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
                               ProfileRemapping move_profile_remapping,
                               ProfileRemapping composite_profile_remapping,
-                              TaskComposerDataStorage input_data,
                               ProfileDictionary::ConstPtr profiles = nullptr,
                               std::string name = "unset");
 
   PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
-                              TaskComposerDataStorage input_data,
                               ProfileDictionary::ConstPtr profiles = nullptr,
                               std::string name = "unset");
 

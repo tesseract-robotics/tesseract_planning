@@ -39,19 +39,16 @@ namespace tesseract_planning
 {
 PlanningTaskComposerProblem::PlanningTaskComposerProblem(std::string name) : TaskComposerProblem(std::move(name)) {}
 
-PlanningTaskComposerProblem::PlanningTaskComposerProblem(TaskComposerDataStorage input_data,
-                                                         ProfileDictionary::ConstPtr profiles,
-                                                         std::string name)
-  : TaskComposerProblem(std::move(input_data), std::move(name)), profiles(std::move(profiles))
+PlanningTaskComposerProblem::PlanningTaskComposerProblem(ProfileDictionary::ConstPtr profiles, std::string name)
+  : TaskComposerProblem(std::move(name)), profiles(std::move(profiles))
 {
 }
 
 PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
                                                          tesseract_common::ManipulatorInfo manip_info,
-                                                         TaskComposerDataStorage input_data,
                                                          ProfileDictionary::ConstPtr profiles,
                                                          std::string name)
-  : TaskComposerProblem(std::move(input_data), std::move(name))
+  : TaskComposerProblem(std::move(name))
   , env(std::move(env))
   , manip_info(std::move(manip_info))
   , profiles(std::move(profiles))
@@ -62,10 +59,9 @@ PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::
                                                          tesseract_common::ManipulatorInfo manip_info,
                                                          ProfileRemapping move_profile_remapping,
                                                          ProfileRemapping composite_profile_remapping,
-                                                         TaskComposerDataStorage input_data,
                                                          ProfileDictionary::ConstPtr profiles,
                                                          std::string name)
-  : TaskComposerProblem(std::move(input_data), std::move(name))
+  : TaskComposerProblem(std::move(name))
   , env(std::move(env))
   , manip_info(std::move(manip_info))
   , profiles(std::move(profiles))
@@ -77,10 +73,9 @@ PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::
 PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
                                                          ProfileRemapping move_profile_remapping,
                                                          ProfileRemapping composite_profile_remapping,
-                                                         TaskComposerDataStorage input_data,
                                                          ProfileDictionary::ConstPtr profiles,
                                                          std::string name)
-  : TaskComposerProblem(std::move(input_data), std::move(name))
+  : TaskComposerProblem(std::move(name))
   , env(std::move(env))
   , profiles(std::move(profiles))
   , move_profile_remapping(std::move(move_profile_remapping))
@@ -89,10 +84,9 @@ PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::
 }
 
 PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
-                                                         TaskComposerDataStorage input_data,
                                                          ProfileDictionary::ConstPtr profiles,
                                                          std::string name)
-  : TaskComposerProblem(std::move(input_data), std::move(name)), env(std::move(env)), profiles(std::move(profiles))
+  : TaskComposerProblem(std::move(name)), env(std::move(env)), profiles(std::move(profiles))
 {
 }
 

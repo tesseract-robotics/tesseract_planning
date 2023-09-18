@@ -46,7 +46,7 @@ StartTask::StartTask(std::string name, const YAML::Node& config, const TaskCompo
   if (!output_keys_.empty())
     throw std::runtime_error("StartTask, config does not support 'outputs' entry");
 }
-TaskComposerNodeInfo::UPtr StartTask::runImpl(const TaskComposerContext::Ptr& /*context*/,
+TaskComposerNodeInfo::UPtr StartTask::runImpl(TaskComposerContext& /*context*/,
                                               OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);

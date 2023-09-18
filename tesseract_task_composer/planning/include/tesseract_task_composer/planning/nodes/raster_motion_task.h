@@ -102,7 +102,7 @@ protected:
 
   static void checkTaskInput(const tesseract_common::AnyPoly& input);
 
-  TaskComposerNodeInfo::UPtr runImpl(const TaskComposerContext::Ptr& context,
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
                                      OptionalTaskComposerExecutor executor) const override final;
 };
 }  // namespace tesseract_planning

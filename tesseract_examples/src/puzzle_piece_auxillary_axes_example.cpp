@@ -230,24 +230,24 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   const std::string output_key = task->getOutputKeys().front();
 
   // Create Task Input Data
-  TaskComposerDataStorage input_data;
-  input_data.setData(input_key, program);
+  auto input_data = std::make_unique<TaskComposerDataStorage>();
+  input_data->setData(input_key, program);
 
   if (plotter_ != nullptr)
     plotter_->waitForInput();
 
   // Create Task Composer Problem
-  auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, input_data, profiles);
+  auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
 
   // Solve task
-  TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem));
+  TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem), std::move(input_data));
   future->wait();
 
   // Plot Process Trajectory
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    auto ci = future->context->getDataStorage().getData(output_key).as<CompositeInstruction>();
+    auto ci = future->context->data_storage->getData(output_key).as<CompositeInstruction>();
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();
     plotter_->plotTrajectory(trajectory, *state_solver);

@@ -58,11 +58,11 @@ RemapTask::RemapTask(std::string name, const YAML::Node& config, const TaskCompo
     copy_ = n.as<bool>();
 }
 
-TaskComposerNodeInfo::UPtr RemapTask::runImpl(const TaskComposerContext::Ptr& context,
+TaskComposerNodeInfo::UPtr RemapTask::runImpl(TaskComposerContext& context,
                                               OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  if (context->getDataStorage().remapData(remap_, copy_))
+  if (context.data_storage->remapData(remap_, copy_))
   {
     info->color = "green";
     info->return_value = 1;

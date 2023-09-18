@@ -39,14 +39,14 @@ AbortTask::AbortTask(std::string name, const YAML::Node& config, const TaskCompo
 {
 }
 
-TaskComposerNodeInfo::UPtr AbortTask::runImpl(const TaskComposerContext::Ptr& context,
+TaskComposerNodeInfo::UPtr AbortTask::runImpl(TaskComposerContext& context,
                                               OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->color = "red";
   info->return_value = 0;
   info->message = "Aborted";
-  context->abort(uuid_);
+  context.abort(uuid_);
   CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
   return info;
 }

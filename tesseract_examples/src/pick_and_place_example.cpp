@@ -227,14 +227,14 @@ bool PickAndPlaceExample::run()
   const std::string pick_output_key = pick_task->getOutputKeys().front();
 
   // Create Task Input Data
-  TaskComposerDataStorage pick_input_data;
-  pick_input_data.setData(pick_input_key, pick_program);
+  auto pick_input_data = std::make_unique<TaskComposerDataStorage>();
+  pick_input_data->setData(pick_input_key, pick_program);
 
   // Create Task Composer Problem
-  auto pick_problem = std::make_unique<PlanningTaskComposerProblem>(env_, pick_input_data, profiles);
+  auto pick_problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
 
   // Solve task
-  TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, std::move(pick_problem));
+  TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, std::move(pick_problem), std::move(pick_input_data));
   pick_future->wait();
 
   if (!pick_future->context->isSuccessful())
@@ -244,7 +244,7 @@ bool PickAndPlaceExample::run()
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    auto ci = pick_future->context->getDataStorage().getData(pick_output_key).as<CompositeInstruction>();
+    auto ci = pick_future->context->data_storage->getData(pick_output_key).as<CompositeInstruction>();
     tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();
@@ -278,7 +278,7 @@ bool PickAndPlaceExample::run()
 
   // Get the last move instruction
   CompositeInstruction pick_composite =
-      pick_future->context->getDataStorage().getData(pick_output_key).as<CompositeInstruction>();
+      pick_future->context->data_storage->getData(pick_output_key).as<CompositeInstruction>();
   const MoveInstructionPoly* pick_final_state = pick_composite.getLastMoveInstruction();
 
   // Retreat to the approach pose
@@ -348,14 +348,15 @@ bool PickAndPlaceExample::run()
   const std::string place_output_key = pick_task->getOutputKeys().front();
 
   // Create Task Input Data
-  TaskComposerDataStorage place_input_data;
-  place_input_data.setData(place_input_key, place_program);
+  auto place_input_data = std::make_unique<TaskComposerDataStorage>();
+  place_input_data->setData(place_input_key, place_program);
 
   // Create Task Composer Problem
-  auto place_problem = std::make_unique<PlanningTaskComposerProblem>(env_, place_input_data, profiles);
+  auto place_problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
 
   // Solve task
-  TaskComposerFuture::UPtr place_future = executor->run(*place_task, std::move(place_problem));
+  TaskComposerFuture::UPtr place_future =
+      executor->run(*place_task, std::move(place_problem), std::move(place_input_data));
   place_future->wait();
 
   if (!place_future->context->isSuccessful())
@@ -365,7 +366,7 @@ bool PickAndPlaceExample::run()
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    auto ci = place_future->context->getDataStorage().getData(place_output_key).as<CompositeInstruction>();
+    auto ci = place_future->context->data_storage->getData(place_output_key).as<CompositeInstruction>();
     tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();

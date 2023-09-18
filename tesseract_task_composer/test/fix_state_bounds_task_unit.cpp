@@ -81,14 +81,14 @@ void checkProgram(const Environment::Ptr& env,
   CompositeInstruction program = createProgram(start_state, goal_state, DEFAULT_PROFILE_KEY);
 
   // Create data storage
-  TaskComposerDataStorage task_data;
-  task_data.setData("input_program", program);
+  auto task_data = std::make_unique<TaskComposerDataStorage>();
+  task_data->setData("input_program", program);
 
   // Create problem
-  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env, task_data, profiles);
+  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env, profiles);
 
   // Create context
-  auto task_context = std::make_shared<TaskComposerContext>(std::move(task_problem));
+  auto task_context = std::make_shared<TaskComposerContext>(std::move(task_problem), std::move(task_data));
 
   // Create task
   FixStateBoundsTask task(FIX_STATE_BOUNDS_TASK_NAME, "input_program", "output_program");
@@ -100,11 +100,11 @@ void checkProgram(const Environment::Ptr& env,
     inside_limits &= isWithinJointLimits(instruction.get().as<MoveInstructionPoly>().getWaypoint(), joint_limits);
   EXPECT_EQ(inside_limits, pre_check_return);
 
-  EXPECT_EQ(task.run(task_context), expected_return);
+  EXPECT_EQ(task.run(*task_context), expected_return);
 
   if (expected_return == 1)
   {
-    auto task_program = task_context->getDataStorage().getData("output_program").as<CompositeInstruction>();
+    auto task_program = task_context->data_storage->getData("output_program").as<CompositeInstruction>();
     auto task_flattened = task_program.flatten(moveFilter);
 
     switch (setting)

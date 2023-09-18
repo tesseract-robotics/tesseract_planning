@@ -104,7 +104,9 @@ std::vector<std::string> TaskComposerServer::getAvailableTasks() const
   return tasks;
 }
 
-TaskComposerFuture::UPtr TaskComposerServer::run(TaskComposerProblem::UPtr problem, const std::string& name)
+TaskComposerFuture::UPtr TaskComposerServer::run(TaskComposerProblem::Ptr problem,
+                                                 TaskComposerDataStorage::Ptr data_storage,
+                                                 const std::string& name)
 {
   auto e_it = executors_.find(name);
   if (e_it == executors_.end())
@@ -114,18 +116,19 @@ TaskComposerFuture::UPtr TaskComposerServer::run(TaskComposerProblem::UPtr probl
   if (t_it == tasks_.end())
     throw std::runtime_error("Task with name '" + problem->name + "' does not exist!");
 
-  return e_it->second->run(*t_it->second, std::move(problem));
+  return e_it->second->run(*t_it->second, std::move(problem), std::move(data_storage));
 }
 
 TaskComposerFuture::UPtr TaskComposerServer::run(const TaskComposerNode& node,
-                                                 TaskComposerProblem::UPtr problem,
+                                                 TaskComposerProblem::Ptr problem,
+                                                 TaskComposerDataStorage::Ptr data_storage,
                                                  const std::string& name)
 {
   auto it = executors_.find(name);
   if (it == executors_.end())
     throw std::runtime_error("Executor with name '" + name + "' does not exist!");
 
-  return it->second->run(node, std::move(problem));
+  return it->second->run(node, std::move(problem), std::move(data_storage));
 }
 
 long TaskComposerServer::getWorkerCount(const std::string& name) const

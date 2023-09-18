@@ -37,9 +37,11 @@ TaskComposerExecutor::TaskComposerExecutor(std::string name) : name_(std::move(n
 
 const std::string& TaskComposerExecutor::getName() const { return name_; }
 
-TaskComposerFuture::UPtr TaskComposerExecutor::run(const TaskComposerNode& node, TaskComposerProblem::UPtr problem)
+TaskComposerFuture::UPtr TaskComposerExecutor::run(const TaskComposerNode& node,
+                                                   TaskComposerProblem::Ptr problem,
+                                                   TaskComposerDataStorage::Ptr data_storage)
 {
-  return run(node, std::make_shared<TaskComposerContext>(std::move(problem)));
+  return run(node, std::make_shared<TaskComposerContext>(std::move(problem), std::move(data_storage)));
 }
 
 bool TaskComposerExecutor::operator==(const TaskComposerExecutor& rhs) const { return (name_ == rhs.name_); }
