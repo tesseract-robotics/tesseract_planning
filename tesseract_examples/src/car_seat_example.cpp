@@ -302,7 +302,7 @@ bool CarSeatExample::run()
     const std::string output_key = task->getOutputKeys().front();
 
     // Create Task Input Data
-    auto input_data = std::unique_ptr<TaskComposerDataStorage>();
+    auto input_data = std::make_unique<TaskComposerDataStorage>();
     input_data->setData(input_key, program);
 
     // Create Task Composer Problem
@@ -390,7 +390,7 @@ bool CarSeatExample::run()
     const std::string output_key = task->getOutputKeys().front();
 
     // Create Task Input Data
-    auto input_data = std::unique_ptr<TaskComposerDataStorage>();
+    auto input_data = std::make_unique<TaskComposerDataStorage>();
     input_data->setData(input_key, program);
 
     // Create Task Composer Problem
