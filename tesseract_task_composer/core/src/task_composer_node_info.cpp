@@ -99,18 +99,21 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
 
 TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(const TaskComposerNodeInfoContainer& other)
 {
-  std::shared_lock lhs_lock(mutex_, std::defer_lock);
+  std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
-  *this = other;
+  aborting_node_ = other.aborting_node_;
+  for (const auto& pair : other.info_map_)
+    info_map_[pair.first] = pair.second->clone();
 }
 TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(const TaskComposerNodeInfoContainer& other)
 {
-  std::shared_lock lhs_lock(mutex_, std::defer_lock);
+  std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
+  aborting_node_ = other.aborting_node_;
   for (const auto& pair : other.info_map_)
     info_map_[pair.first] = pair.second->clone();
 
@@ -119,18 +122,20 @@ TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(const Ta
 
 TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(TaskComposerNodeInfoContainer&& other) noexcept
 {
-  std::shared_lock lhs_lock(mutex_, std::defer_lock);
-  std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
+  std::unique_lock lhs_lock(mutex_, std::defer_lock);
+  std::unique_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
-  *this = std::move(other);
+  aborting_node_ = other.aborting_node_;
+  info_map_ = std::move(other.info_map_);
 }
 TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(TaskComposerNodeInfoContainer&& other) noexcept
 {
-  std::shared_lock lhs_lock(mutex_, std::defer_lock);
-  std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
+  std::unique_lock lhs_lock(mutex_, std::defer_lock);
+  std::unique_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
+  aborting_node_ = other.aborting_node_;
   info_map_ = std::move(other.info_map_);
 
   return *this;
@@ -185,6 +190,26 @@ std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> TaskComposerNodeInfoCon
   return copy;
 }
 
+void TaskComposerNodeInfoContainer::insertInfoMap(const TaskComposerNodeInfoContainer& container)
+{
+  std::unique_lock lhs_lock(mutex_, std::defer_lock);
+  std::shared_lock rhs_lock(container.mutex_, std::defer_lock);
+  std::scoped_lock lock{ lhs_lock, rhs_lock };
+  for (const auto& pair : container.info_map_)
+    info_map_[pair.first] = pair.second->clone();
+}
+
+void TaskComposerNodeInfoContainer::mergeInfoMap(TaskComposerNodeInfoContainer&& container)
+{
+  std::unique_lock lhs_lock(mutex_, std::defer_lock);
+  std::unique_lock rhs_lock(container.mutex_, std::defer_lock);
+  std::scoped_lock lock{ lhs_lock, rhs_lock };
+  info_map_.merge(std::move(container.info_map_));
+
+  // Should be empty, but if not then duplicates keys exist which should not be possible.
+  assert(container.info_map_.empty());
+}
+
 void TaskComposerNodeInfoContainer::updateParents(std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& info_map,
                                                   const boost::uuids::uuid& uuid) const
 {
@@ -232,6 +257,7 @@ template <class Archive>
 void TaskComposerNodeInfoContainer::serialize(Archive& ar, const unsigned int /*version*/)
 {
   std::unique_lock<std::shared_mutex> lock(mutex_);
+  ar& BOOST_SERIALIZATION_NVP(aborting_node_);
   ar& BOOST_SERIALIZATION_NVP(info_map_);
 }
 

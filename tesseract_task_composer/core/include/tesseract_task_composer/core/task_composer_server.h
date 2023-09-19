@@ -116,20 +116,25 @@ public:
 
   /**
    * @brief Execute the provided task graph
-   * @param task_input The task input provided to every task
+   * @param problem The task problem
    * @param name The name of the executor to use
    * @return The future associated with execution
    */
-  TaskComposerFuture::UPtr run(TaskComposerInput& task_input, const std::string& name);
+  TaskComposerFuture::UPtr run(TaskComposerProblem::Ptr problem,
+                               TaskComposerDataStorage::Ptr data_storage,
+                               const std::string& name);
 
   /**
    * @brief Execute the provided node
    * @details It will call one of the methods below based on the node type
    * @param node The node to execute
-   * @param task_input The task input provided to every task
+   * @param problem The problem
    * @return The future associated with execution
    */
-  TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerInput& task_input, const std::string& name);
+  TaskComposerFuture::UPtr run(const TaskComposerNode& node,
+                               TaskComposerProblem::Ptr problem,
+                               TaskComposerDataStorage::Ptr data_storage,
+                               const std::string& name);
 
   /** @brief Queries the number of workers (example: number of threads) */
   long getWorkerCount(const std::string& name) const;

@@ -48,9 +48,9 @@ TaskComposerPipeline::TaskComposerPipeline(std::string name,
 {
 }
 
-int TaskComposerPipeline::run(TaskComposerInput& input, OptionalTaskComposerExecutor executor) const
+int TaskComposerPipeline::run(TaskComposerContext& context, OptionalTaskComposerExecutor executor) const
 {
-  if (input.isAborted())
+  if (context.isAborted())
   {
     auto info = std::make_unique<TaskComposerNodeInfo>(*this);
     info->input_keys = input_keys_;
@@ -59,7 +59,7 @@ int TaskComposerPipeline::run(TaskComposerInput& input, OptionalTaskComposerExec
     info->color = "white";
     info->message = "Aborted";
     info->aborted_ = true;
-    input.task_infos.addInfo(std::move(info));
+    context.task_infos.addInfo(std::move(info));
     return 0;
   }
 
@@ -68,7 +68,7 @@ int TaskComposerPipeline::run(TaskComposerInput& input, OptionalTaskComposerExec
   timer.start();
   try
   {
-    results = runImpl(input, executor);
+    results = runImpl(context, executor);
   }
   catch (const std::exception& e)
   {
@@ -84,11 +84,11 @@ int TaskComposerPipeline::run(TaskComposerInput& input, OptionalTaskComposerExec
 
   int value = results->return_value;
   assert(value >= 0);
-  input.task_infos.addInfo(std::move(results));
+  context.task_infos.addInfo(std::move(results));
   return value;
 }
 
-TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(TaskComposerInput& input,
+TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(TaskComposerContext& context,
                                                          OptionalTaskComposerExecutor executor) const
 {
   if (terminals_.empty())
@@ -109,11 +109,11 @@ TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(TaskComposerInput& inpu
   if (root_node.is_nil())
     throw std::runtime_error("TaskComposerPipeline, with name '" + name_ + "' does not have a root node!");
 
-  runRecursive(*(nodes_.at(root_node)), input, executor);
+  runRecursive(*(nodes_.at(root_node)), context, executor);
 
   for (std::size_t i = 0; i < terminals_.size(); ++i)
   {
-    auto node_info = input.task_infos.getInfo(terminals_[i]);
+    auto node_info = context.task_infos.getInfo(terminals_[i]);
     if (node_info != nullptr)
     {
       timer.stop();
@@ -133,7 +133,7 @@ TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(TaskComposerInput& inpu
 }
 
 void TaskComposerPipeline::runRecursive(const TaskComposerNode& node,
-                                        TaskComposerInput& input,
+                                        TaskComposerContext& context,
                                         OptionalTaskComposerExecutor executor) const
 {
   if (node.getType() == TaskComposerNodeType::GRAPH)
@@ -142,11 +142,11 @@ void TaskComposerPipeline::runRecursive(const TaskComposerNode& node,
   if (node.getType() == TaskComposerNodeType::TASK)
   {
     const auto& task = static_cast<const TaskComposerTask&>(node);
-    int rv = task.run(input, executor);
+    int rv = task.run(context, executor);
     if (task.isConditional())
     {
       const auto& edge = node.getOutboundEdges().at(static_cast<std::size_t>(rv));
-      runRecursive(*nodes_.at(edge), input, executor);
+      runRecursive(*nodes_.at(edge), context, executor);
     }
     else
     {
@@ -155,22 +155,22 @@ void TaskComposerPipeline::runRecursive(const TaskComposerNode& node,
                                  "'" +
                                  name_ + "'");
       for (const auto& edge : node.getOutboundEdges())
-        runRecursive(*(nodes_.at(edge)), input, executor);
+        runRecursive(*(nodes_.at(edge)), context, executor);
     }
   }
   else
   {
     const auto& pipeline = static_cast<const TaskComposerPipeline&>(node);
-    int rv = pipeline.run(input, executor);
+    int rv = pipeline.run(context, executor);
     if (pipeline.isConditional())
     {
       const auto& edge = node.getOutboundEdges().at(static_cast<std::size_t>(rv));
-      runRecursive(*nodes_.at(edge), input, executor);
+      runRecursive(*nodes_.at(edge), context, executor);
     }
     else
     {
       for (const auto& edge : node.getOutboundEdges())
-        runRecursive(*nodes_.at(edge), input, executor);
+        runRecursive(*nodes_.at(edge), context, executor);
     }
   }
 }

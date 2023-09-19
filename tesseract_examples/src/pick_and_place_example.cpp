@@ -43,7 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
-#include <tesseract_task_composer/core/task_composer_input.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
@@ -227,25 +227,24 @@ bool PickAndPlaceExample::run()
   const std::string pick_output_key = pick_task->getOutputKeys().front();
 
   // Create Task Input Data
-  TaskComposerDataStorage pick_input_data;
-  pick_input_data.setData(pick_input_key, pick_program);
+  auto pick_input_data = std::make_unique<TaskComposerDataStorage>();
+  pick_input_data->setData(pick_input_key, pick_program);
 
   // Create Task Composer Problem
-  auto pick_problem = std::make_unique<PlanningTaskComposerProblem>(env_, pick_input_data, profiles);
+  auto pick_problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
 
   // Solve task
-  TaskComposerInput pick_input(std::move(pick_problem));
-  TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, pick_input);
+  TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, std::move(pick_problem), std::move(pick_input_data));
   pick_future->wait();
 
-  if (!pick_input.isSuccessful())
+  if (!pick_future->context->isSuccessful())
     return false;
 
   // Plot Process Trajectory
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    auto ci = pick_input.data_storage.getData(pick_output_key).as<CompositeInstruction>();
+    auto ci = pick_future->context->data_storage->getData(pick_output_key).as<CompositeInstruction>();
     tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();
@@ -278,7 +277,8 @@ bool PickAndPlaceExample::run()
   env_->applyCommands(cmds);
 
   // Get the last move instruction
-  CompositeInstruction pick_composite = pick_input.data_storage.getData(pick_output_key).as<CompositeInstruction>();
+  CompositeInstruction pick_composite =
+      pick_future->context->data_storage->getData(pick_output_key).as<CompositeInstruction>();
   const MoveInstructionPoly* pick_final_state = pick_composite.getLastMoveInstruction();
 
   // Retreat to the approach pose
@@ -348,25 +348,25 @@ bool PickAndPlaceExample::run()
   const std::string place_output_key = pick_task->getOutputKeys().front();
 
   // Create Task Input Data
-  TaskComposerDataStorage place_input_data;
-  place_input_data.setData(place_input_key, place_program);
+  auto place_input_data = std::make_unique<TaskComposerDataStorage>();
+  place_input_data->setData(place_input_key, place_program);
 
   // Create Task Composer Problem
-  auto place_problem = std::make_unique<PlanningTaskComposerProblem>(env_, place_input_data, profiles);
+  auto place_problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
 
   // Solve task
-  TaskComposerInput place_input(std::move(place_problem));
-  TaskComposerFuture::UPtr place_future = executor->run(*place_task, place_input);
+  TaskComposerFuture::UPtr place_future =
+      executor->run(*place_task, std::move(place_problem), std::move(place_input_data));
   place_future->wait();
 
-  if (!place_input.isSuccessful())
+  if (!place_future->context->isSuccessful())
     return false;
 
   // Plot Process Trajectory
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    auto ci = place_input.data_storage.getData(place_output_key).as<CompositeInstruction>();
+    auto ci = place_future->context->data_storage->getData(place_output_key).as<CompositeInstruction>();
     tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();

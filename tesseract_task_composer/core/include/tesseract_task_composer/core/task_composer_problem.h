@@ -44,8 +44,7 @@ struct TaskComposerProblem
   using UPtr = std::unique_ptr<TaskComposerProblem>;
   using ConstUPtr = std::unique_ptr<const TaskComposerProblem>;
 
-  TaskComposerProblem(std::string name = "unset");
-  TaskComposerProblem(TaskComposerDataStorage input_data, std::string name = "unset");
+  TaskComposerProblem(std::string name = "unset", bool dotgraph = false);
 
   TaskComposerProblem(const TaskComposerProblem&) = default;
   TaskComposerProblem& operator=(const TaskComposerProblem&) = default;
@@ -56,8 +55,8 @@ struct TaskComposerProblem
   /** @brief The name of the task to be ran for this problem */
   std::string name;
 
-  /** @brief The location data is stored and retrieved during execution */
-  TaskComposerDataStorage input_data;
+  /** @brief Indicate if dotgraph should be provided */
+  bool dotgraph{ false };
 
   /**
    * @brief Clone the planning problem

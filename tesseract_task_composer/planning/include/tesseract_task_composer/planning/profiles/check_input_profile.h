@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/core/task_composer_input.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
 namespace tesseract_planning
@@ -46,13 +46,13 @@ struct CheckInputProfile
 
   /**
    * @brief Check if the task input is valid
-   * @param task_input The task input to check
+   * @param context The task context to check
    * @return True if valid otherwise false
    */
-  virtual bool isValid(const TaskComposerInput& input) const
+  virtual bool isValid(const TaskComposerContext& context) const
   {
     // Get the problem
-    auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+    const auto& problem = dynamic_cast<const PlanningTaskComposerProblem&>(*context.problem);
 
     // Check Input
     if (!problem.env)

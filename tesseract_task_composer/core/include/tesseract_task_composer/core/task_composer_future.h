@@ -33,6 +33,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_task_composer/core/task_composer_context.h>
+
 namespace tesseract_planning
 {
 /**
@@ -50,7 +52,11 @@ public:
   using UPtr = std::unique_ptr<TaskComposerFuture>;
   using ConstUPtr = std::unique_ptr<const TaskComposerFuture>;
 
+  TaskComposerFuture() = default;
+  TaskComposerFuture(TaskComposerContext::Ptr context) : context(std::move(context)) {}
   virtual ~TaskComposerFuture() = default;
+
+  TaskComposerContext::Ptr context;
 
   /** @brief Clear all content */
   virtual void clear() = 0;

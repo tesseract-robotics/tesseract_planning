@@ -66,11 +66,11 @@ DiscreteContactCheckTask::DiscreteContactCheckTask(std::string name,
                              "key");
 }
 
-TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& input,
+TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerContext& context,
                                                              OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get the problem
-  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
 
   auto info = std::make_unique<DiscreteContactCheckTaskInfo>(*this);
   info->return_value = 0;
@@ -79,7 +79,7 @@ TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerInput& 
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
+  auto input_data_poly = context.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input to DiscreteContactCheckTask must be a composite instruction";

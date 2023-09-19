@@ -126,7 +126,7 @@ private:
   friend class TaskComposerTask;
   friend class TaskComposerPipeline;
 
-  /** @brief Indicate if task was not ran because input abort flag was enabled */
+  /** @brief Indicate if task was not ran because abort flag was enabled */
   bool aborted_{ false };
 
   template <class Archive>
@@ -163,6 +163,12 @@ struct TaskComposerNodeInfoContainer
 
   /** @brief Get a copy of the task_info_map_ in case it gets resized*/
   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> getInfoMap() const;
+
+  /** @brief Insert the contents of another container's info map */
+  void insertInfoMap(const TaskComposerNodeInfoContainer& container);
+
+  /** @brief Merge the contents of another container's info map */
+  void mergeInfoMap(TaskComposerNodeInfoContainer&& container);
 
   /**
    * @brief Called if aborted

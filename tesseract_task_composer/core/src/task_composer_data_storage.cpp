@@ -38,10 +38,17 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 namespace tesseract_planning
 {
-TaskComposerDataStorage::TaskComposerDataStorage(const TaskComposerDataStorage& other) { *this = other; }
+TaskComposerDataStorage::TaskComposerDataStorage(const TaskComposerDataStorage& other)
+{
+  std::unique_lock lhs_lock(mutex_, std::defer_lock);
+  std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
+  std::scoped_lock lock{ lhs_lock, rhs_lock };
+
+  data_ = other.data_;
+}
 TaskComposerDataStorage& TaskComposerDataStorage::operator=(const TaskComposerDataStorage& other)
 {
-  std::shared_lock lhs_lock(mutex_, std::defer_lock);
+  std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
@@ -50,16 +57,16 @@ TaskComposerDataStorage& TaskComposerDataStorage::operator=(const TaskComposerDa
 }
 TaskComposerDataStorage::TaskComposerDataStorage(TaskComposerDataStorage&& other) noexcept
 {
-  std::shared_lock lhs_lock(mutex_, std::defer_lock);
-  std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
+  std::unique_lock lhs_lock(mutex_, std::defer_lock);
+  std::unique_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
   data_ = std::move(other.data_);
 }
 TaskComposerDataStorage& TaskComposerDataStorage::operator=(TaskComposerDataStorage&& other) noexcept
 {
-  std::shared_lock lhs_lock(mutex_, std::defer_lock);
-  std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
+  std::unique_lock lhs_lock(mutex_, std::defer_lock);
+  std::unique_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
   data_ = std::move(other.data_);

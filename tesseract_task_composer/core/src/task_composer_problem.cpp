@@ -37,12 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerProblem::TaskComposerProblem(std::string name) : name(std::move(name)) {}
-
-TaskComposerProblem::TaskComposerProblem(TaskComposerDataStorage input_data, std::string name)
-  : name(std::move(name)), input_data(std::move(input_data))
-{
-}
+TaskComposerProblem::TaskComposerProblem(std::string name, bool dotgraph) : name(std::move(name)), dotgraph(dotgraph) {}
 
 TaskComposerProblem::UPtr TaskComposerProblem::clone() const { return std::make_unique<TaskComposerProblem>(*this); }
 
@@ -50,7 +45,7 @@ bool TaskComposerProblem::operator==(const TaskComposerProblem& rhs) const
 {
   bool equal = true;
   equal &= name == rhs.name;
-  equal &= input_data == rhs.input_data;
+  equal &= dotgraph == rhs.dotgraph;
   return equal;
 }
 
@@ -60,7 +55,7 @@ template <class Archive>
 void TaskComposerProblem::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& boost::serialization::make_nvp("name", name);
-  ar& boost::serialization::make_nvp("input_data", input_data);
+  ar& boost::serialization::make_nvp("dotgraph", dotgraph);
 }
 
 }  // namespace tesseract_planning

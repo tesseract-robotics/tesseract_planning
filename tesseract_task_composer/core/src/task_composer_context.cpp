@@ -1,6 +1,6 @@
 /**
- * @file task_composer_input.cpp
- * @brief The input data structure to the pipeline
+ * @file task_composer_context.cpp
+ * @brief The context data structure to the pipeline
  *
  * @author Levi Armstrong
  * @date July 29. 2022
@@ -35,20 +35,21 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_common/atomic_serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/core/task_composer_input.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
 
 namespace tesseract_planning
 {
-TaskComposerInput::TaskComposerInput(TaskComposerProblem::UPtr problem)
-  : problem(std::move(problem)), data_storage(this->problem->input_data)
+TaskComposerContext::TaskComposerContext(tesseract_planning::TaskComposerProblem::Ptr problem,
+                                         TaskComposerDataStorage::Ptr data_storage)
+  : problem(std::move(problem)), data_storage(std::move(data_storage))
 {
 }
 
-bool TaskComposerInput::isAborted() const { return aborted_; }
+bool TaskComposerContext::isAborted() const { return aborted_; }
 
-bool TaskComposerInput::isSuccessful() const { return !aborted_; }
+bool TaskComposerContext::isSuccessful() const { return !aborted_; }
 
-void TaskComposerInput::abort(const boost::uuids::uuid& calling_node)
+void TaskComposerContext::abort(const boost::uuids::uuid& calling_node)
 {
   if (!calling_node.is_nil())
     task_infos.setAborted(calling_node);
@@ -56,14 +57,7 @@ void TaskComposerInput::abort(const boost::uuids::uuid& calling_node)
   aborted_ = true;
 }
 
-void TaskComposerInput::reset()
-{
-  aborted_ = false;
-  data_storage = problem->input_data;
-  task_infos.clear();
-}
-
-bool TaskComposerInput::operator==(const TaskComposerInput& rhs) const
+bool TaskComposerContext::operator==(const TaskComposerContext& rhs) const
 {
   bool equal = true;
   if (problem != nullptr && rhs.problem != nullptr)
@@ -71,16 +65,20 @@ bool TaskComposerInput::operator==(const TaskComposerInput& rhs) const
   else
     equal &= (problem == nullptr && rhs.problem == nullptr);
 
-  equal &= data_storage == rhs.data_storage;
+  if (data_storage != nullptr && rhs.data_storage != nullptr)
+    equal &= (*data_storage == *rhs.data_storage);
+  else
+    equal &= (data_storage == nullptr && rhs.data_storage == nullptr);
+
   equal &= task_infos == rhs.task_infos;
   equal &= aborted_ == rhs.aborted_;
   return equal;
 }
 
-bool TaskComposerInput::operator!=(const TaskComposerInput& rhs) const { return !operator==(rhs); }
+bool TaskComposerContext::operator!=(const TaskComposerContext& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
-void TaskComposerInput::serialize(Archive& ar, const unsigned int /*version*/)
+void TaskComposerContext::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& boost::serialization::make_nvp("problem", problem);
   ar& boost::serialization::make_nvp("data_storage", data_storage);
@@ -91,5 +89,5 @@ void TaskComposerInput::serialize(Archive& ar, const unsigned int /*version*/)
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerInput)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerInput)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerContext)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerContext)

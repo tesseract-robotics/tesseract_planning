@@ -8,7 +8,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_bounds_task.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
-#include <tesseract_task_composer/core/task_composer_input.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -81,14 +81,14 @@ void checkProgram(const Environment::Ptr& env,
   CompositeInstruction program = createProgram(start_state, goal_state, DEFAULT_PROFILE_KEY);
 
   // Create data storage
-  TaskComposerDataStorage task_data;
-  task_data.setData("input_program", program);
+  auto task_data = std::make_unique<TaskComposerDataStorage>();
+  task_data->setData("input_program", program);
 
   // Create problem
-  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env, task_data, profiles);
+  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env, profiles);
 
-  // Create input
-  auto task_input = std::make_shared<TaskComposerInput>(std::move(task_problem));
+  // Create context
+  auto task_context = std::make_shared<TaskComposerContext>(std::move(task_problem), std::move(task_data));
 
   // Create task
   FixStateBoundsTask task(FIX_STATE_BOUNDS_TASK_NAME, "input_program", "output_program");
@@ -100,11 +100,11 @@ void checkProgram(const Environment::Ptr& env,
     inside_limits &= isWithinJointLimits(instruction.get().as<MoveInstructionPoly>().getWaypoint(), joint_limits);
   EXPECT_EQ(inside_limits, pre_check_return);
 
-  EXPECT_EQ(task.run(*task_input), expected_return);
+  EXPECT_EQ(task.run(*task_context), expected_return);
 
   if (expected_return == 1)
   {
-    auto task_program = task_input->data_storage.getData("output_program").as<CompositeInstruction>();
+    auto task_program = task_context->data_storage->getData("output_program").as<CompositeInstruction>();
     auto task_flattened = task_program.flatten(moveFilter);
 
     switch (setting)

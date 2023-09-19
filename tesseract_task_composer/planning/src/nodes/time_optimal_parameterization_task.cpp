@@ -79,11 +79,11 @@ TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string nam
                              "output key");
 }
 
-TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposerInput& input,
+TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context,
                                                                     OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get the problem
-  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
 
   auto info = std::make_unique<TimeOptimalParameterizationTaskInfo>(*this);
   info->return_value = 0;
@@ -91,7 +91,7 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage.getData(input_keys_[0]);
+  auto input_data_poly = context.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input results to TOTG must be a composite instruction";
@@ -118,7 +118,7 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
     if (output_keys_[0] != input_keys_[0])
-      input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+      context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
     info->color = "green";
     info->message = "TOTG found no MoveInstructions to process";
@@ -147,14 +147,14 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
     if (output_keys_[0] != input_keys_[0])
-      input.data_storage.setData(output_keys_[0], input.data_storage.getData(input_keys_[0]));
+      context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
     info->message = "Failed to perform TOTG for process input: " + ci.getDescription();
     CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
     return info;
   }
 
-  input.data_storage.setData(output_keys_[0], copy_ci);
+  context.data_storage->setData(output_keys_[0], copy_ci);
 
   info->color = "green";
   info->message = "Successful";

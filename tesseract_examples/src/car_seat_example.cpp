@@ -42,7 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
-#include <tesseract_task_composer/core/task_composer_input.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
@@ -302,24 +302,23 @@ bool CarSeatExample::run()
     const std::string output_key = task->getOutputKeys().front();
 
     // Create Task Input Data
-    TaskComposerDataStorage input_data;
-    input_data.setData(input_key, program);
+    auto input_data = std::make_unique<TaskComposerDataStorage>();
+    input_data->setData(input_key, program);
 
     // Create Task Composer Problem
-    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, input_data, profiles);
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
 
     // Solve task
-    TaskComposerInput input(std::move(problem));
-    TaskComposerFuture::UPtr future = executor->run(*task, input);
+    TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem), std::move(input_data));
     future->wait();
 
-    if (!input.isSuccessful())
+    if (!future->context->isSuccessful())
       return false;
 
     // Plot Process Trajectory
     if (plotter_ != nullptr && plotter_->isConnected())
     {
-      auto ci = input.data_storage.getData(output_key).as<CompositeInstruction>();
+      auto ci = future->context->data_storage->getData(output_key).as<CompositeInstruction>();
       tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
       tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
       auto state_solver = env_->getStateSolver();
@@ -391,24 +390,23 @@ bool CarSeatExample::run()
     const std::string output_key = task->getOutputKeys().front();
 
     // Create Task Input Data
-    TaskComposerDataStorage input_data;
-    input_data.setData(input_key, program);
+    auto input_data = std::make_unique<TaskComposerDataStorage>();
+    input_data->setData(input_key, program);
 
     // Create Task Composer Problem
-    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, input_data, profiles);
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
 
     // Solve task
-    TaskComposerInput input(std::move(problem));
-    TaskComposerFuture::UPtr future = executor->run(*task, input);
+    TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem), std::move(input_data));
     future->wait();
 
-    if (!input.isSuccessful())
+    if (!future->context->isSuccessful())
       return false;
 
     // Plot Process Trajectory
     if (plotter_ != nullptr && plotter_->isConnected())
     {
-      auto ci = input.data_storage.getData(output_key).as<CompositeInstruction>();
+      auto ci = future->context->data_storage->getData(output_key).as<CompositeInstruction>();
       tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
       tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
       auto state_solver = env_->getStateSolver();

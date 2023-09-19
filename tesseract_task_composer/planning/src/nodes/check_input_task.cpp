@@ -60,19 +60,19 @@ CheckInputTask::CheckInputTask(std::string name,
     throw std::runtime_error("CheckInputTask, config missing 'inputs' entry");
 }
 
-TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,
+TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerContext& context,
                                                    OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
 
   // Get the problem
-  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*input.problem);
+  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
 
   // Get Composite Profile
   info->return_value = 0;
   for (const auto& key : input_keys_)
   {
-    auto input_data_poly = input.data_storage.getData(key);
+    auto input_data_poly = context.data_storage->getData(key);
     if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
     {
       info->message = "Input key '" + key + "' is missing";
@@ -87,7 +87,7 @@ TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerInput& input,
         getProfile<CheckInputProfile>(name_, profile, *problem.profiles, std::make_shared<CheckInputProfile>());
     cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
 
-    if (!cur_composite_profile->isValid(input))
+    if (!cur_composite_profile->isValid(context))
     {
       info->message = "Validator failed";
       return info;

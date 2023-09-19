@@ -20,15 +20,15 @@ public:
   {
   }
 
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
                                      OptionalTaskComposerExecutor /*executor*/) const override final
   {
     auto info = std::make_unique<TaskComposerNodeInfo>(*this);
     info->return_value = 0;
     std::cout << name_ << std::endl;
     double result =
-        input.data_storage.getData(left_key_).as<double>() + input.data_storage.getData(right_key_).as<double>();
-    input.data_storage.setData(output_key_, result);
+        context.data_storage->getData(left_key_).as<double>() + context.data_storage->getData(right_key_).as<double>();
+    context.data_storage->setData(output_key_, result);
     return info;
   }
 
@@ -49,15 +49,15 @@ public:
   {
   }
 
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
                                      OptionalTaskComposerExecutor /*executor*/) const override final
   {
     auto info = std::make_unique<TaskComposerNodeInfo>(*this);
     info->return_value = 0;
     std::cout << name_ << std::endl;
     double result =
-        input.data_storage.getData(left_key_).as<double>() * input.data_storage.getData(right_key_).as<double>();
-    input.data_storage.setData(output_key_, result);
+        context.data_storage->getData(left_key_).as<double>() * context.data_storage->getData(right_key_).as<double>();
+    context.data_storage->setData(output_key_, result);
     return info;
   }
 
@@ -73,15 +73,13 @@ int main()
   double b{ 3 };
   double c{ 5 };
   double d{ 9 };
-  TaskComposerDataStorage task_data;
-  task_data.setData("a", a);
-  task_data.setData("b", b);
-  task_data.setData("c", c);
-  task_data.setData("d", d);
+  auto task_data = std::make_unique<TaskComposerDataStorage>();
+  task_data->setData("a", a);
+  task_data->setData("b", b);
+  task_data->setData("c", c);
+  task_data->setData("d", d);
 
-  auto task_problem = std::make_unique<TaskComposerProblem>(task_data);
-
-  auto task_input = std::make_shared<TaskComposerInput>(std::move(task_problem));
+  auto task_problem = std::make_unique<TaskComposerProblem>();
 
   // result = a * (b + c) + d
   auto task1 = std::make_unique<AddTaskComposerNode>("b", "c", "task1_output");
@@ -100,8 +98,8 @@ int main()
   TaskComposerPluginFactory factory(config_path);
 
   auto task_executor = factory.createTaskComposerExecutor("TaskflowExecutor");
-  TaskComposerFuture::UPtr future = task_executor->run(task_composer, *task_input);
+  TaskComposerFuture::UPtr future = task_executor->run(task_composer, std::move(task_problem), std::move(task_data));
   future->wait();
 
-  std::cout << "Output: " << task_input->data_storage.getData("task3_output").as<double>() << std::endl;
+  std::cout << "Output: " << future->context->data_storage->getData("task3_output").as<double>() << std::endl;
 }

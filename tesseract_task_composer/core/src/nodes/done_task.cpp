@@ -40,7 +40,7 @@ DoneTask::DoneTask(std::string name, const YAML::Node& config, const TaskCompose
 {
 }
 
-TaskComposerNodeInfo::UPtr DoneTask::runImpl(TaskComposerInput& /*input*/,
+TaskComposerNodeInfo::UPtr DoneTask::runImpl(TaskComposerContext& /*context*/,
                                              OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
