@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_common/types.h>
+#include <tesseract_common/yaml_utils.h>
 
 using namespace tesseract_planning;
 
@@ -150,6 +151,32 @@ TEST(TesseractTaskComposerFactoryUnit, LoadAndExportPluginTest)  // NOLINT
 
     YAML::Node plugin_config = YAML::LoadFile(config_path.string());
     TaskComposerPluginFactory factory(plugin_config);
+    runTaskComposerFactoryTest(factory, plugin_config);
+
+    auto export_config_path = tesseract_common::fs::path(tesseract_common::getTempPath()) / "task_composer_plugins_"
+                                                                                            "export.yaml";
+    TaskComposerPluginFactory check_factory(export_config_path);
+    runTaskComposerFactoryTest(check_factory, plugin_config);
+  }
+
+  // TaskComposerPluginInfo Constructor
+  {
+    tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
+                                                                                      "task_composer_plugins.yaml");
+
+    YAML::Node plugin_config = YAML::LoadFile(config_path.string());
+    const YAML::Node& plugins = plugin_config[tesseract_common::TaskComposerPluginInfo::CONFIG_KEY];
+    const auto search_paths = plugins["search_paths"].as<std::vector<std::string>>();
+    const auto search_libraries = plugins["search_libraries"].as<std::vector<std::string>>();
+
+    tesseract_common::TaskComposerPluginInfo info;
+    info.search_paths.insert(search_paths.begin(), search_paths.end());
+    info.search_libraries.insert(search_libraries.begin(), search_libraries.end());
+    info.task_plugin_infos.plugins = plugins["tasks"]["plugins"].as<tesseract_common::PluginInfoMap>();
+    info.executor_plugin_infos.plugins = plugins["executors"]["plugins"].as<tesseract_common::PluginInfoMap>();
+    info.executor_plugin_infos.default_plugin = plugins["executors"]["default"].as<std::string>();
+
+    TaskComposerPluginFactory factory(info);
     runTaskComposerFactoryTest(factory, plugin_config);
 
     auto export_config_path = tesseract_common::fs::path(tesseract_common::getTempPath()) / "task_composer_plugins_"

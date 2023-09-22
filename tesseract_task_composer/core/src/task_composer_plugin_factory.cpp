@@ -49,6 +49,12 @@ TaskComposerPluginFactory::TaskComposerPluginFactory()
                  boost::token_compress_on);
 }
 
+TaskComposerPluginFactory::TaskComposerPluginFactory(const tesseract_common::TaskComposerPluginInfo& config)
+  : TaskComposerPluginFactory()
+{
+  loadConfig(config);
+}
+
 TaskComposerPluginFactory::TaskComposerPluginFactory(const YAML::Node& config) : TaskComposerPluginFactory()
 {
   loadConfig(config);
@@ -68,6 +74,19 @@ TaskComposerPluginFactory::TaskComposerPluginFactory(const std::string& config) 
 // This prevents it from being defined inline.
 // If not the forward declare of PluginLoader cause compiler error.
 TaskComposerPluginFactory::~TaskComposerPluginFactory() = default;
+
+void TaskComposerPluginFactory::loadConfig(const tesseract_common::TaskComposerPluginInfo& config)
+{
+  plugin_loader_.search_libraries.insert(config.search_libraries.begin(), config.search_libraries.end());
+  plugin_loader_.search_paths.insert(config.search_paths.begin(), config.search_paths.end());
+
+  executor_plugin_info_.plugins.insert(config.executor_plugin_infos.plugins.begin(),
+                                       config.executor_plugin_infos.plugins.end());
+  executor_plugin_info_.default_plugin = config.executor_plugin_infos.default_plugin;
+
+  task_plugin_info_.plugins.insert(config.task_plugin_infos.plugins.begin(), config.task_plugin_infos.plugins.end());
+  task_plugin_info_.default_plugin = config.task_plugin_infos.default_plugin;
+}
 
 void TaskComposerPluginFactory::loadConfig(const YAML::Node& config)
 {

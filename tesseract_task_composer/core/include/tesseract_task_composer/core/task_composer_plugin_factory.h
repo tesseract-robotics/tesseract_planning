@@ -96,6 +96,12 @@ public:
   TaskComposerPluginFactory& operator=(TaskComposerPluginFactory&&) = default;
 
   /**
+   * @brief Load plugins from a configuration object
+   * @param config The config object
+   */
+  TaskComposerPluginFactory(const tesseract_common::TaskComposerPluginInfo& config);
+
+  /**
    * @brief Load plugins from yaml node
    * @param config The config node
    */
@@ -112,6 +118,12 @@ public:
    * @param config The config string
    */
   TaskComposerPluginFactory(const std::string& config);
+
+  /**
+   * @brief Loads plugins from a configuration object
+   * @param config the config object
+   */
+  void loadConfig(const tesseract_common::TaskComposerPluginInfo& config);
 
   /**
    * @brief Load plugins from yaml node
