@@ -30,6 +30,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <string>
+#include <variant>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
@@ -37,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/any_poly.h>
 
 namespace tesseract_planning
 {
@@ -68,6 +70,10 @@ public:
   // LCOV_EXCL_START
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   // LCOV_EXCL_STOP
+
+  /** User Data */
+  using UserDataVariant = std::variant<double, long, std::size_t, std::string, tesseract_common::AnyPoly>;
+  using UserData = std::unordered_map<std::string, UserDataVariant>;
 
   /** value_type */
   using value_type = InstructionPoly;
@@ -241,6 +247,12 @@ public:
    */
   std::vector<std::reference_wrapper<const InstructionPoly>> flatten(const flattenFilterFn& filter = nullptr) const;
 
+  /** @brief Get user data */
+  UserData& getUserData();
+
+  /** @brief Get user data (const) */
+  const UserData& getUserData() const;
+
   bool operator==(const CompositeInstruction& rhs) const;
 
   bool operator!=(const CompositeInstruction& rhs) const;
@@ -390,6 +402,9 @@ private:
 
   /** @brief The order of the composite instruction */
   CompositeInstructionOrder order_{ CompositeInstructionOrder::ORDERED };
+
+  /** @brief A container to store user data */
+  UserData user_data_;
 
   const InstructionPoly* getFirstInstructionHelper(const CompositeInstruction& composite_instruction,
                                                    const locateFilterFn& locate_filter,
