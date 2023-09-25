@@ -30,6 +30,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/vector.hpp>
+#include <boost/serialization/unordered_map.hpp>
+#include <tesseract_common/std_variant_serialization.h>
 #include <console_bridge/console.h>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
@@ -196,6 +198,10 @@ CompositeInstruction::flatten(const flattenFilterFn& filter) const
   return flattened;
 }
 
+CompositeInstruction::UserData& CompositeInstruction::getUserData() { return user_data_; }
+
+const CompositeInstruction::UserData& CompositeInstruction::getUserData() const { return user_data_; }
+
 void CompositeInstruction::print(const std::string& prefix) const
 {
   std::cout << prefix + "Composite Instruction, Description: " << getDescription() << std::endl;
@@ -216,6 +222,7 @@ bool CompositeInstruction::operator==(const CompositeInstruction& rhs) const
   equal &= (static_cast<int>(order_) == static_cast<int>(rhs.order_));
   equal &= (profile_ == rhs.profile_);  // NOLINT
   equal &= (manipulator_info_ == rhs.manipulator_info_);
+  equal &= (user_data_ == rhs.user_data_);
   equal &= (container_.size() == rhs.container_.size());
   if (equal)
   {
@@ -517,6 +524,7 @@ void CompositeInstruction::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
   ar& boost::serialization::make_nvp("profile", profile_);
   ar& boost::serialization::make_nvp("order", order_);
+  ar& boost::serialization::make_nvp("user_data", user_data_);
   ar& boost::serialization::make_nvp("container", container_);
 }
 
