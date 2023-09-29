@@ -39,6 +39,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+TaskComposerContext::TaskComposerContext(TaskComposerProblem::Ptr problem)
+  : TaskComposerContext(std::move(problem), std::make_shared<TaskComposerDataStorage>())
+{
+}
+
 TaskComposerContext::TaskComposerContext(tesseract_planning::TaskComposerProblem::Ptr problem,
                                          TaskComposerDataStorage::Ptr data_storage)
   : problem(std::move(problem)), data_storage(std::move(data_storage))

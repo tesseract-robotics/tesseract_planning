@@ -62,9 +62,18 @@ public:
   bool operator==(const TaskComposerTask& rhs) const;
   bool operator!=(const TaskComposerTask& rhs) const;
 
+  /**
+   * @brief If true this node should call context.abort(uuid_) after run method returns
+   * @param enable True if task should call context.abort(uuid_) after run method returns
+   */
+  void setTriggerAbort(bool enable);
+
   int run(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const;
 
 protected:
+  /** @brief Indicate if task triggers abort */
+  bool trigger_abort_{ false };
+
   friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
 

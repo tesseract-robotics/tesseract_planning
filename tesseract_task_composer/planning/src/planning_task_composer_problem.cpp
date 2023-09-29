@@ -102,6 +102,7 @@ bool PlanningTaskComposerProblem::operator==(const PlanningTaskComposerProblem& 
   equal &= tesseract_common::pointersEqual(env, rhs.env);
   equal &= manip_info == rhs.manip_info;
   //  equal &= tesseract_common::pointersEqual(profiles, rhs.profiles);
+  equal &= input_instruction == rhs.input_instruction;
   equal &= move_profile_remapping == rhs.move_profile_remapping;
   equal &= composite_profile_remapping == rhs.composite_profile_remapping;
   return equal;
@@ -117,6 +118,7 @@ void PlanningTaskComposerProblem::serialize(Archive& ar, const unsigned int /*ve
   ar& boost::serialization::make_nvp("manip_info", manip_info);
   /** @todo Fix after profiles are serializable */
   //  ar& boost::serialization::make_nvp("profiles", profiles);
+  ar& boost::serialization::make_nvp("input_instruction", input_instruction);
   ar& boost::serialization::make_nvp("move_profile_remapping", move_profile_remapping);
   ar& boost::serialization::make_nvp("composite_profile_remapping", composite_profile_remapping);
 }
