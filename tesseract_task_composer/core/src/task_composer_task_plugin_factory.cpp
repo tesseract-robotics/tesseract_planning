@@ -29,7 +29,6 @@
 #include <tesseract_task_composer/core/task_composer_graph.h>
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
 
-#include <tesseract_task_composer/core/nodes/abort_task.h>
 #include <tesseract_task_composer/core/nodes/done_task.h>
 #include <tesseract_task_composer/core/nodes/error_task.h>
 #include <tesseract_task_composer/core/nodes/remap_task.h>
@@ -39,7 +38,6 @@
 
 namespace tesseract_planning
 {
-using AbortTaskFactory = TaskComposerTaskFactory<AbortTask>;
 using DoneTaskFactory = TaskComposerTaskFactory<DoneTask>;
 using ErrorTaskFactory = TaskComposerTaskFactory<ErrorTask>;
 using RemapTaskFactory = TaskComposerTaskFactory<RemapTask>;
@@ -59,8 +57,6 @@ namespace tesseract_planning::test_suite
 using TestTaskFactory = TaskComposerTaskFactory<TestTask>;
 }
 
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::AbortTaskFactory, AbortTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::DoneTaskFactory, DoneTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)

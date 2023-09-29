@@ -18,7 +18,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/test_suite/task_composer_node_info_unit.hpp>
 #include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
 
-#include <tesseract_task_composer/core/nodes/abort_task.h>
 #include <tesseract_task_composer/core/nodes/done_task.h>
 #include <tesseract_task_composer/core/nodes/error_task.h>
 #include <tesseract_task_composer/core/nodes/remap_task.h>
@@ -1515,53 +1514,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerGraphTests)  // NOLINT
                             terminals: [ErrorTask, DoneTask])";
     YAML::Node config = YAML::Load(str2);
     EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
-  }
-}
-
-TEST(TesseractTaskComposerCoreUnit, TaskComposerAbortTaskTests)  // NOLINT
-{
-  {  // Construction
-    AbortTask task;
-    EXPECT_EQ(task.getName(), "AbortTask");
-    EXPECT_EQ(task.isConditional(), false);
-  }
-
-  {  // Construction
-    AbortTask task("abc", true);
-    EXPECT_EQ(task.getName(), "abc");
-    EXPECT_EQ(task.isConditional(), true);
-  }
-
-  {  // Construction
-    TaskComposerPluginFactory factory;
-    std::string str = R"(config:
-                           conditional: true)";
-    YAML::Node config = YAML::Load(str);
-    AbortTask task("abc", config["config"], factory);
-    EXPECT_EQ(task.getName(), "abc");
-    EXPECT_EQ(task.isConditional(), true);
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<AbortTask>("abc", true);
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerAbortTaskTests");
-  }
-
-  {  // Test run method
-    auto context = std::make_shared<TaskComposerContext>(std::make_unique<TaskComposerProblem>(),
-                                                         std::make_unique<TaskComposerDataStorage>());
-    AbortTask task;
-    EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
-    EXPECT_EQ(node_info->color, "red");
-    EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message, "Aborted");
-    EXPECT_EQ(node_info->isAborted(), false);
-    EXPECT_EQ(context->isAborted(), true);
-    EXPECT_EQ(context->isSuccessful(), false);
-    EXPECT_EQ(context->task_infos.getAbortingNode(), task.getUUID());
   }
 }
 

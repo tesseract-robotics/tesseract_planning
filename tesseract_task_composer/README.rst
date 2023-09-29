@@ -476,24 +476,12 @@ The final task that is called in a task graph if successful
 Error Task
 ^^^^^^^^^^
 
-The final task that is called in a task graph if error occurs
+The final task that is called in a task graph if error occurs. Also can add `trigger_abort: true` if it should abort when this task is reached.
 
 .. code-block:: yaml
 
    ErrorTask:
      class: ErrorTaskFactory
-     config:
-       conditional: false
-
-Abort Task
-^^^^^^^^^^
-
-The task that is called if you want to abort everything
-
-.. code-block:: yaml
-
-   AbortTask:
-     class: AbortTaskFactory
      config:
        conditional: false
 
