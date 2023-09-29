@@ -38,7 +38,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CUR
 
 add_library(
   ${PROJECT_NAME}_nodes
-  src/nodes/abort_task.cpp
   src/nodes/done_task.cpp
   src/nodes/error_task.cpp
   src/nodes/remap_task.cpp
