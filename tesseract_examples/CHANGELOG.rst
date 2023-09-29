@@ -2,6 +2,12 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update tesseract examples
+* Rename TaskComposerInput to TaskComposerContext and simplify interfaces (`#379 <https://github.com/tesseract-robotics/tesseract_planning/issues/379>`_)
+* Contributors: Levi Armstrong
+
 0.19.0 (2023-09-05)
 -------------------
 * Update to leverage cmake components

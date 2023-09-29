@@ -2,6 +2,17 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remove AbortTask
+* Add input instruction to planning problem
+* Merge pull request `#370 <https://github.com/tesseract-robotics/tesseract_planning/issues/370>`_ from marip8/update/task-composer-factory-constructor
+  Add new task composer plugin factory constructor
+* Added unit test for new TaskComposerPluginFactory constructor
+* Added constructor to task composer plugin factory to use task composer plugin config struct
+* Rename TaskComposerInput to TaskComposerContext and simplify interfaces (`#379 <https://github.com/tesseract-robotics/tesseract_planning/issues/379>`_)
+* Contributors: Levi Armstrong, Michael Ripperger
+
 0.19.0 (2023-09-05)
 -------------------
 * Update to leverage cmake components

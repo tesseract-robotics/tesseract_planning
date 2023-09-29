@@ -2,6 +2,12 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add user data support to CompositeInstruction
+* Install command language test suite
+* Contributors: Levi Armstrong
+
 0.19.0 (2023-09-05)
 -------------------
 * Update to leverage cmake components
