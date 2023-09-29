@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.20.0 (2023-09-29)
+-------------------
 * Remove AbortTask
 * Add input instruction to planning problem
 * Merge pull request `#370 <https://github.com/tesseract-robotics/tesseract_planning/issues/370>`_ from marip8/update/task-composer-factory-constructor
