@@ -100,6 +100,15 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
         if (YAML::Node n = tc["conditional"])
           task_node->setConditional(n.as<bool>());
 
+        if (YAML::Node n = tc["abort_terminal"])
+        {
+          if (task_node->getType() != TaskComposerNodeType::GRAPH ||
+              task_node->getType() == TaskComposerNodeType::PIPELINE)
+            static_cast<TaskComposerGraph&>(*task_node).setTerminalTriggerAbortByIndex(n.as<int>());
+          else
+            throw std::runtime_error("YAML entry 'abort_terminal' is only supported for GRAPH and PIPELINE types");
+        }
+
         if (YAML::Node n = tc["input_remapping"])
           task_node->renameInputKeys(n.as<std::map<std::string, std::string>>());
 
@@ -232,6 +241,48 @@ void TaskComposerGraph::setTerminals(std::vector<boost::uuids::uuid> terminals)
 }
 
 std::vector<boost::uuids::uuid> TaskComposerGraph::getTerminals() const { return terminals_; }
+
+void TaskComposerGraph::setTerminalTriggerAbort(boost::uuids::uuid terminal)
+{
+  if (!terminal.is_nil())
+  {
+    auto& n = nodes_.at(terminal);
+    if (n->getType() == TaskComposerNodeType::TASK)
+      static_cast<TaskComposerTask&>(*n).setTriggerAbort(true);
+    else
+      throw std::runtime_error("Tasks can only trigger abort!");
+  }
+  else
+  {
+    for (const auto& terminal : terminals_)
+    {
+      auto& n = nodes_.at(terminal);
+      if (n->getType() == TaskComposerNodeType::TASK)
+        static_cast<TaskComposerTask&>(*n).setTriggerAbort(false);
+    }
+  }
+}
+
+void TaskComposerGraph::setTerminalTriggerAbortByIndex(int terminal_index)
+{
+  if (terminal_index >= 0)
+  {
+    auto& n = nodes_.at(terminals_.at(static_cast<std::size_t>(terminal_index)));
+    if (n->getType() == TaskComposerNodeType::TASK)
+      static_cast<TaskComposerTask&>(*n).setTriggerAbort(true);
+    else
+      throw std::runtime_error("Tasks can only trigger abort!");
+  }
+  else
+  {
+    for (const auto& terminal : terminals_)
+    {
+      auto& n = nodes_.at(terminal);
+      if (n->getType() == TaskComposerNodeType::TASK)
+        static_cast<TaskComposerTask&>(*n).setTriggerAbort(false);
+    }
+  }
+}
 
 void TaskComposerGraph::renameInputKeys(const std::map<std::string, std::string>& input_keys)
 {

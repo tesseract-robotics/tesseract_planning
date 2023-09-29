@@ -131,14 +131,9 @@ if(TESSERACT_BUILD_TASK_COMPOSER_TASKFLOW)
 endif(TESSERACT_BUILD_TASK_COMPOSER_TASKFLOW)
 
 # Planning Tests
-if(TESSERACT_BUILD_TASK_COMPOSER_PLANNING
-   AND tesseract_motion_planners_trajopt_FOUND
-   AND tesseract_motion_planners_trajopt_ifopt_FOUND
-   AND tesseract_motion_planners_descartes_FOUND
-   AND tesseract_motion_planners_ompl_FOUND
-   AND tesseract_motion_planners_isp_FOUND
-   AND tesseract_motion_planners_totg_FOUND
-   AND tesseract_motion_planners_ruckig_FOUND)
+if(TESSERACT_BUILD_TASK_COMPOSER_PLANNING)
+  find_package(tesseract_motion_planners REQUIRED COMPONENTS core simple OPTIONAL_COMPONENTS trajopt)
+
   add_executable(${PROJECT_NAME}_planning_unit ${PROJECT_NAME}_planning_unit.cpp)
   target_link_libraries(
     ${PROJECT_NAME}_planning_unit
@@ -146,7 +141,8 @@ if(TESSERACT_BUILD_TASK_COMPOSER_PLANNING
             GTest::Main
             ${PROJECT_NAME}
             ${PROJECT_NAME}_nodes
-            ${PROJECT_NAME}_planning_nodes)
+            ${PROJECT_NAME}_planning_nodes
+            tesseract::tesseract_motion_planners_trajopt)
   target_include_directories(${PROJECT_NAME}_planning_unit PUBLIC "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/examples>")
   target_compile_options(${PROJECT_NAME}_planning_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                ${TESSERACT_COMPILE_OPTIONS_PUBLIC})

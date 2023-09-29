@@ -108,6 +108,22 @@ Yaml Config:
 Task Composer Task Plugins
 --------------------------
 
+Task
+^^^^
+
+All tasks have the following config entries available.
+
+.. code-block:: yaml
+
+   ErrorTask:
+     class: ErrorTaskFactory
+     config:
+       conditional: false
+       trigger_abort: true # default for task is false
+       inputs: [input_data]
+       outputs: [output_data]
+
+
 Graph Task
 ^^^^^^^^^^
 
@@ -182,6 +198,8 @@ When using a perviously defined task it is referenced using `task:` instead of `
 
 Also in most case the tasks inputs and sometimes the outputs must be renamed. This accomplished by leveraging the `input_remapping:` and `output_remapping:`.
 
+Also you can indicate that it should abort if a terminal is reached by specifying the terminal index `abort_terminal:`. If set to anything less than zero it will set all terminal tasks trigger abort to `false`.
+
 .. code-block:: yaml
 
    UsePreviouslyDefinedTaskPipeline:
@@ -199,10 +217,11 @@ Also in most case the tasks inputs and sometimes the outputs must be renamed. Th
          CartesianPipelineTask:
             task: CartesianPipeline
             config:
-              conditional: false
-              input_remapping:
+              conditional: false         # Optional
+              abort_terminal: 0          # Optional
+              input_remapping:           # Optional
                 input_data: output_data
-              output_remapping:
+              output_remapping:          # Optional
                 output_data: output_data
        edges:
          - source: MinLengthTask

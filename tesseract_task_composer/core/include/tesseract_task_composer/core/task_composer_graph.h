@@ -96,6 +96,20 @@ public:
   /** @brief Get the terminal nodes for the pipeline */
   std::vector<boost::uuids::uuid> getTerminals() const;
 
+  /**
+   * @brief Set if the pipeline should call abort if terminal node is reached
+   * @details If null, it will not abort
+   * @param terminal The terminal uuid
+   */
+  void setTerminalTriggerAbort(boost::uuids::uuid terminal);
+
+  /**
+   * @brief Set if the pipeline should call abort if terminal node is reached
+   * @details If less than zero, it will not abort
+   * @param terminal The terminal index
+   */
+  void setTerminalTriggerAbortByIndex(int terminal_index);
+
   void renameInputKeys(const std::map<std::string, std::string>& input_keys) override;
 
   void renameOutputKeys(const std::map<std::string, std::string>& output_keys) override;

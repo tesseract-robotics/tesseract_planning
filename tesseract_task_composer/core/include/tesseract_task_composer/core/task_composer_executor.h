@@ -63,7 +63,7 @@ public:
    */
   TaskComposerFuture::UPtr run(const TaskComposerNode& node,
                                TaskComposerProblem::Ptr problem,
-                               TaskComposerDataStorage::Ptr data_storage);
+                               TaskComposerDataStorage::Ptr data_storage = std::make_shared<TaskComposerDataStorage>());
 
   /** @brief Queries the number of workers (example: number of threads) */
   virtual long getWorkerCount() const = 0;

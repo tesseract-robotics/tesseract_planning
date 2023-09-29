@@ -44,7 +44,19 @@ TaskComposerTask::TaskComposerTask(std::string name, bool conditional)
 TaskComposerTask::TaskComposerTask(std::string name, const YAML::Node& config)
   : TaskComposerNode(std::move(name), TaskComposerNodeType::TASK, config)
 {
+  try
+  {
+    if (YAML::Node n = config["trigger_abort"])
+      trigger_abort_ = n.as<bool>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("TaskComposerTask: Failed to parse yaml config entry 'trigger_abort'! Details: " +
+                             std::string(e.what()));
+  }
 }
+
+void TaskComposerTask::setTriggerAbort(bool enable) { trigger_abort_ = enable; }
 
 int TaskComposerTask::run(TaskComposerContext& context, OptionalTaskComposerExecutor executor) const
 {
@@ -82,11 +94,25 @@ int TaskComposerTask::run(TaskComposerContext& context, OptionalTaskComposerExec
 
   int value = results->return_value;
   assert(value >= 0);
+
+  // Call abort if required
+  if (trigger_abort_ && !context.isAborted())
+  {
+    results->message += " (Abort Triggered)";
+    context.abort(uuid_);
+  }
+
   context.task_infos.addInfo(std::move(results));
   return value;
 }
 
-bool TaskComposerTask::operator==(const TaskComposerTask& rhs) const { return (TaskComposerNode::operator==(rhs)); }
+bool TaskComposerTask::operator==(const TaskComposerTask& rhs) const
+{
+  bool equal{ true };
+  equal &= trigger_abort_ == rhs.trigger_abort_;
+  equal &= (TaskComposerNode::operator==(rhs));
+  return equal;
+}
 
 // LCOV_EXCL_START
 bool TaskComposerTask::operator!=(const TaskComposerTask& rhs) const { return !operator==(rhs); }
@@ -95,6 +121,7 @@ bool TaskComposerTask::operator!=(const TaskComposerTask& rhs) const { return !o
 template <class Archive>
 void TaskComposerTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& boost::serialization::make_nvp("trigger_abort", trigger_abort_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
 }
 

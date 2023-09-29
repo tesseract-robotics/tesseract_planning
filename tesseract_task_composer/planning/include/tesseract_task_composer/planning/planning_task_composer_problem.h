@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/profile_dictionary.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_task_composer/core/task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 
@@ -84,6 +85,9 @@ struct PlanningTaskComposerProblem : public TaskComposerProblem
 
   /** @brief The Profiles to use */
   ProfileDictionary::ConstPtr profiles;
+
+  /** @brief The problem input instruction */
+  InstructionPoly input_instruction;
 
   /**
    * @brief This allows the remapping of the Move Profile identified in the command language to a specific profile for a

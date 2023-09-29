@@ -58,6 +58,7 @@ struct TaskComposerContext
   using ConstUPtr = std::unique_ptr<const TaskComposerContext>;
 
   TaskComposerContext() = default;  // Required for serialization
+  TaskComposerContext(TaskComposerProblem::Ptr problem);
   TaskComposerContext(TaskComposerProblem::Ptr problem, TaskComposerDataStorage::Ptr data_storage);
   TaskComposerContext(const TaskComposerContext&) = delete;
   TaskComposerContext(TaskComposerContext&&) noexcept = delete;

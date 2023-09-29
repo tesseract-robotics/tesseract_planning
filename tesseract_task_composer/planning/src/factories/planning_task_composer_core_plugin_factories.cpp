@@ -39,6 +39,7 @@
 #include <tesseract_task_composer/planning/nodes/raster_motion_task.h>
 #include <tesseract_task_composer/planning/nodes/raster_only_motion_task.h>
 #include <tesseract_task_composer/planning/nodes/motion_planner_task.hpp>
+#include <tesseract_task_composer/planning/nodes/process_planning_input_task.h>
 
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 
@@ -56,6 +57,7 @@ using UpsampleTrajectoryTaskFactory = TaskComposerTaskFactory<UpsampleTrajectory
 using RasterMotionTaskFactory = TaskComposerTaskFactory<RasterMotionTask>;
 using RasterOnlyMotionTaskFactory = TaskComposerTaskFactory<RasterOnlyMotionTask>;
 using SimpleMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlannerTask<SimpleMotionPlanner>>;
+using ProcessPlanningInputTaskFactory = TaskComposerTaskFactory<ProcessPlanningInputTask>;
 
 // LCOV_EXCL_START
 TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerPlanningFactoriesAnchor)
@@ -91,3 +93,6 @@ TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::RasterOnlyMotionTask
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::SimpleMotionPlannerTaskFactory,
                                         SimpleMotionPlannerTaskFactory)
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::ProcessPlanningInputTaskFactory,
+                                        ProcessPlanningInputTaskFactory)

@@ -66,26 +66,23 @@ task_composer_plugins:
       DescartesFPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: DescartesFTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       DescartesDTask:
         class: PipelineTaskFactory
         config:
@@ -138,26 +135,23 @@ task_composer_plugins:
       DescartesDPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: DescartesDTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       DescartesFNPCTask:
         class: PipelineTaskFactory
         config:
@@ -203,26 +197,23 @@ task_composer_plugins:
       DescartesFNPCPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: DescartesFNPCTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       DescartesDNPCTask:
         class: PipelineTaskFactory
         config:
@@ -268,26 +259,23 @@ task_composer_plugins:
       DescartesDNPCPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: DescartesDNPCTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       OMPLTask:
         class: PipelineTaskFactory
         config:
@@ -340,26 +328,23 @@ task_composer_plugins:
       OMPLPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: OMPLTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       TrajOptTask:
         class: PipelineTaskFactory
         config:
@@ -412,26 +397,23 @@ task_composer_plugins:
       TrajOptPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: TrajOptTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       CartesianTask:
         class: PipelineTaskFactory
         config:
@@ -493,26 +475,23 @@ task_composer_plugins:
       CartesianPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: CartesianTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       FreespaceTask:
         class: PipelineTaskFactory
         config:
@@ -574,26 +553,23 @@ task_composer_plugins:
       FreespacePipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: FreespaceTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       RasterFtTask:
         class: PipelineTaskFactory
         config:
@@ -623,22 +599,25 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 freespace:
-                  task: FreespacePipeline
+                  task: FreespaceTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
                 raster:
-                  task: CartesianPipeline
+                  task: CartesianTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
                 transition:
-                  task: FreespacePipeline
+                  task: FreespaceTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
@@ -652,26 +631,23 @@ task_composer_plugins:
       RasterFtPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: RasterFtTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       RasterCtTask:
         class: PipelineTaskFactory
         config:
@@ -701,22 +677,25 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 freespace:
-                  task: FreespacePipeline
+                  task: FreespaceTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
                 raster:
-                  task: CartesianPipeline
+                  task: CartesianTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
                 transition:
-                  task: CartesianPipeline
+                  task: CartesianTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
@@ -730,26 +709,23 @@ task_composer_plugins:
       RasterCtPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: RasterCtTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       RasterFtOnlyTask:
         class: PipelineTaskFactory
         config:
@@ -779,15 +755,17 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 raster:
-                  task: CartesianPipeline
+                  task: CartesianTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
                 transition:
-                  task: FreespacePipeline
+                  task: FreespaceTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
@@ -801,26 +779,23 @@ task_composer_plugins:
       RasterFtOnlyPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: RasterFtOnlyTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       RasterCtOnlyTask:
         class: PipelineTaskFactory
         config:
@@ -850,15 +825,17 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 raster:
-                  task: CartesianPipeline
+                  task: CartesianTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
                 transition:
-                  task: CartesianPipeline
+                  task: CartesianTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
@@ -872,26 +849,23 @@ task_composer_plugins:
       RasterCtOnlyPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: RasterCtOnlyTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       RasterFtGlobalTask:
         class: PipelineTaskFactory
         config:
@@ -928,22 +902,25 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 freespace:
-                  task: FreespacePipeline
+                  task: FreespaceTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
                 raster:
-                  task: CartesianPipeline
+                  task: CartesianTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
                 transition:
-                  task: FreespacePipeline
+                  task: FreespaceTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
@@ -959,26 +936,23 @@ task_composer_plugins:
       RasterFtGlobalPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: RasterFtGlobalTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       RasterCtGlobalTask:
         class: PipelineTaskFactory
         config:
@@ -1015,22 +989,25 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 freespace:
-                  task: FreespacePipeline
+                  task: FreespaceTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
                 raster:
-                  task: CartesianPipeline
+                  task: CartesianTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
                 transition:
-                  task: CartesianPipeline
+                  task: CartesianTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
@@ -1046,26 +1023,23 @@ task_composer_plugins:
       RasterCtGlobalPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: RasterCtGlobalTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       RasterFtOnlyGlobalTask:
         class: PipelineTaskFactory
         config:
@@ -1102,15 +1076,17 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 raster:
-                  task: CartesianPipeline
+                  task: CartesianTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
                 transition:
-                  task: FreespacePipeline
+                  task: FreespaceTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
@@ -1126,26 +1102,23 @@ task_composer_plugins:
       RasterFtOnlyGlobalPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: RasterFtOnlyGlobalTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
       RasterCtOnlyGlobalTask:
         class: PipelineTaskFactory
         config:
@@ -1182,15 +1155,17 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 raster:
-                  task: CartesianPipeline
+                  task: CartesianTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
                 transition:
-                  task: CartesianPipeline
+                  task: CartesianTask
                   config:
+                    abort_terminal: 0
                     input_remapping:
                       input_data: output_data
                     input_indexing: [output_data]
@@ -1206,23 +1181,20 @@ task_composer_plugins:
       RasterCtOnlyGlobalPipeline:
         class: PipelineTaskFactory
         config:
-          conditional: true
-          inputs: [input_data]
+          conditional: false
           outputs: [output_data]
           nodes:
-            DoneTask:
-              class: DoneTaskFactory
+            ProcessInputTask:
+              class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-            AbortTask:
-              class: AbortTaskFactory
-              config:
-                conditional: false
+                outputs: [input_data]
             MotionPlanningTask:
               task: RasterCtOnlyGlobalTask
               config:
-                conditional: true
+                conditional: false
+                abort_terminal: 0
           edges:
-            - source: MotionPlanningTask
-              destinations: [AbortTask, DoneTask]
-          terminals: [AbortTask, DoneTask]
+            - source: ProcessInputTask
+              destinations: [MotionPlanningTask]
+          terminals: [MotionPlanningTask]
