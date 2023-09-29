@@ -218,23 +218,19 @@ bool PuzzlePieceExample::run()
 
   // Create task
   TaskComposerNode::UPtr task = factory.createTaskComposerNode("TrajOptPipeline");
-  const std::string input_key = task->getInputKeys().front();
   const std::string output_key = task->getOutputKeys().front();
-
-  // Create Task Input Data
-  auto input_data = std::make_unique<TaskComposerDataStorage>();
-  input_data->setData(input_key, program);
 
   if (plotter_ != nullptr)
     plotter_->waitForInput();
 
   // Create Task Composer Problem
   auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
+  problem->input_instruction = program;
 
   // Solve task
   tesseract_common::Timer stopwatch;
   stopwatch.start();
-  TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem), std::move(input_data));
+  TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem));
   future->wait();
 
   stopwatch.stop();

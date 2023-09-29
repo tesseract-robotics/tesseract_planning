@@ -223,18 +223,14 @@ bool PickAndPlaceExample::run()
 
   // Create task
   TaskComposerNode::UPtr pick_task = factory.createTaskComposerNode("TrajOptPipeline");
-  const std::string pick_input_key = pick_task->getInputKeys().front();
   const std::string pick_output_key = pick_task->getOutputKeys().front();
-
-  // Create Task Input Data
-  auto pick_input_data = std::make_unique<TaskComposerDataStorage>();
-  pick_input_data->setData(pick_input_key, pick_program);
 
   // Create Task Composer Problem
   auto pick_problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
+  pick_problem->input_instruction = pick_program;
 
   // Solve task
-  TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, std::move(pick_problem), std::move(pick_input_data));
+  TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, std::move(pick_problem));
   pick_future->wait();
 
   if (!pick_future->context->isSuccessful())
@@ -344,19 +340,14 @@ bool PickAndPlaceExample::run()
 
   // Create task
   TaskComposerNode::UPtr place_task = factory.createTaskComposerNode("TrajOptPipeline");
-  const std::string place_input_key = pick_task->getInputKeys().front();
   const std::string place_output_key = pick_task->getOutputKeys().front();
-
-  // Create Task Input Data
-  auto place_input_data = std::make_unique<TaskComposerDataStorage>();
-  place_input_data->setData(place_input_key, place_program);
 
   // Create Task Composer Problem
   auto place_problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
+  place_problem->input_instruction = place_program;
 
   // Solve task
-  TaskComposerFuture::UPtr place_future =
-      executor->run(*place_task, std::move(place_problem), std::move(place_input_data));
+  TaskComposerFuture::UPtr place_future = executor->run(*place_task, std::move(place_problem));
   place_future->wait();
 
   if (!place_future->context->isSuccessful())

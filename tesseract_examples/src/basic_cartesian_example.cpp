@@ -240,15 +240,11 @@ bool BasicCartesianExample::run()
   // Create task
   const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";
   TaskComposerNode::UPtr task = factory.createTaskComposerNode(task_name);
-  const std::string input_key = task->getInputKeys().front();
   const std::string output_key = task->getOutputKeys().front();
-
-  // Create Task Input Data
-  auto input_data = std::make_unique<TaskComposerDataStorage>();
-  input_data->setData(input_key, program);
 
   // Create Task Composer Problem
   auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
+  problem->input_instruction = program;
 
   if (plotter_ != nullptr && plotter_->isConnected())
     plotter_->waitForInput("Hit Enter to solve for trajectory.");
@@ -256,7 +252,7 @@ bool BasicCartesianExample::run()
   // Solve task
   tesseract_common::Timer stopwatch;
   stopwatch.start();
-  TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem), std::move(input_data));
+  TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem));
   future->wait();
 
   stopwatch.stop();
