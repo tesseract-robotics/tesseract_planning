@@ -46,8 +46,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
-#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
@@ -252,21 +253,37 @@ bool CarSeatExample::run()
   auto profiles = std::make_shared<ProfileDictionary>();
   if (ifopt_)
   {
-    // Create TrajOpt Profile
+    // Create TrajOpt_Ifopt Profile
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
+    trajopt_ifopt_composite_profile->collision_constraint_config->type =
+        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     trajopt_ifopt_composite_profile->collision_constraint_config->contact_manager_config =
         tesseract_collision::ContactManagerConfig(0.00);
     trajopt_ifopt_composite_profile->collision_constraint_config->collision_margin_buffer = 0.005;
     trajopt_ifopt_composite_profile->collision_constraint_config->collision_coeff_data =
-        trajopt_ifopt::CollisionCoeffData(10);
+        trajopt_ifopt::CollisionCoeffData(1);
+    trajopt_ifopt_composite_profile->collision_cost_config->type =
+        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
         tesseract_collision::ContactManagerConfig(0.005);
     trajopt_ifopt_composite_profile->collision_cost_config->collision_margin_buffer = 0.01;
     trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
-        tesseract_collision::ContactManagerConfig(50);
+        tesseract_collision::ContactManagerConfig(5);
+    trajopt_ifopt_composite_profile->smooth_velocities = false;
+    trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
+    trajopt_ifopt_composite_profile->smooth_accelerations = true;
+    trajopt_ifopt_composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
+    trajopt_ifopt_composite_profile->smooth_jerks = true;
+    trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
+    trajopt_ifopt_composite_profile->longest_valid_segment_length = 0.1;
+
+    auto plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
+    plan_profile->cartesian_coeff = Eigen::VectorXd::Ones(6);
+    plan_profile->joint_coeff = Eigen::VectorXd::Ones(8);
 
     profiles->addProfile<TrajOptIfoptCompositeProfile>(
         TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_ifopt_composite_profile);
+    profiles->addProfile<TrajOptIfoptPlanProfile>(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "FREESPACE", plan_profile);
   }
   else
   {
@@ -406,7 +423,8 @@ bool CarSeatExample::run()
     CONSOLE_BRIDGE_logInform("Freespace plan to pick seat 1 example");
 
     // Create task
-    TaskComposerNode::UPtr task = factory.createTaskComposerNode("TrajOptPipeline");
+    const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";
+    TaskComposerNode::UPtr task = factory.createTaskComposerNode(task_name);
     const std::string output_key = task->getOutputKeys().front();
 
     // Create Task Composer Problem
