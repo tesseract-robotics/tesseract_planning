@@ -42,7 +42,7 @@ int main(int /*argc*/, char** /*argv*/)
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  CarSeatExample example(env, nullptr);
+  CarSeatExample example(env, nullptr, false);
   if (!example.run())
     exit(1);
 }

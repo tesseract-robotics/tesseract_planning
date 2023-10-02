@@ -46,6 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
@@ -58,6 +59,7 @@ using namespace tesseract_visualization;
 using namespace tesseract_planning;
 using tesseract_common::ManipulatorInfo;
 
+static const std::string TRAJOPT_IFOPT_DEFAULT_NAMESPACE = "TrajOptIfoptMotionPlannerTask";
 static const std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
 namespace tesseract_examples
 {
@@ -112,8 +114,9 @@ Commands addSeats(const tesseract_common::ResourceLocator::ConstPtr& locator)
 }
 
 CarSeatExample::CarSeatExample(tesseract_environment::Environment::Ptr env,
-                               tesseract_visualization::Visualization::Ptr plotter)
-  : Example(std::move(env), std::move(plotter))
+                               tesseract_visualization::Visualization::Ptr plotter,
+                               bool ifopt)
+  : Example(std::move(env), std::move(plotter)), ifopt_(ifopt)
 {
 }
 
@@ -245,25 +248,46 @@ bool CarSeatExample::run()
   // Create Executor
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
-  // Create TrajOpt Profile
-  auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-  trajopt_composite_profile->collision_constraint_config.enabled = true;
-  trajopt_composite_profile->collision_constraint_config.safety_margin = 0.00;
-  trajopt_composite_profile->collision_constraint_config.safety_margin_buffer = 0.005;
-  trajopt_composite_profile->collision_constraint_config.coeff = 10;
-  trajopt_composite_profile->collision_cost_config.safety_margin = 0.005;
-  trajopt_composite_profile->collision_cost_config.safety_margin_buffer = 0.01;
-  trajopt_composite_profile->collision_cost_config.coeff = 50;
-
-  auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
-  trajopt_solver_profile->opt_info.max_iter = 200;
-  trajopt_solver_profile->opt_info.min_approx_improve = 1e-3;
-  trajopt_solver_profile->opt_info.min_trust_box_size = 1e-3;
-
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_composite_profile);
-  profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_solver_profile);
+  if (ifopt_)
+  {
+    // Create TrajOpt Profile
+    auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
+    trajopt_ifopt_composite_profile->collision_constraint_config->contact_manager_config =
+        tesseract_collision::ContactManagerConfig(0.00);
+    trajopt_ifopt_composite_profile->collision_constraint_config->collision_margin_buffer = 0.005;
+    trajopt_ifopt_composite_profile->collision_constraint_config->collision_coeff_data =
+        trajopt_ifopt::CollisionCoeffData(10);
+    trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
+        tesseract_collision::ContactManagerConfig(0.005);
+    trajopt_ifopt_composite_profile->collision_cost_config->collision_margin_buffer = 0.01;
+    trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
+        tesseract_collision::ContactManagerConfig(50);
+
+    profiles->addProfile<TrajOptIfoptCompositeProfile>(
+        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_ifopt_composite_profile);
+  }
+  else
+  {
+    // Create TrajOpt Profile
+    auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+    trajopt_composite_profile->collision_constraint_config.enabled = true;
+    trajopt_composite_profile->collision_constraint_config.safety_margin = 0.00;
+    trajopt_composite_profile->collision_constraint_config.safety_margin_buffer = 0.005;
+    trajopt_composite_profile->collision_constraint_config.coeff = 10;
+    trajopt_composite_profile->collision_cost_config.safety_margin = 0.005;
+    trajopt_composite_profile->collision_cost_config.safety_margin_buffer = 0.01;
+    trajopt_composite_profile->collision_cost_config.coeff = 50;
+
+    auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
+    trajopt_solver_profile->opt_info.max_iter = 200;
+    trajopt_solver_profile->opt_info.min_approx_improve = 1e-3;
+    trajopt_solver_profile->opt_info.min_trust_box_size = 1e-3;
+
+    profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_composite_profile);
+    profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_solver_profile);
+  }
 
   // Solve Trajectory
   CONSOLE_BRIDGE_logInform("Car Seat Demo Started");
@@ -297,7 +321,8 @@ bool CarSeatExample::run()
     CONSOLE_BRIDGE_logInform("Freespace plan to pick seat 1 example");
 
     // Create task
-    TaskComposerNode::UPtr task = factory.createTaskComposerNode("TrajOptPipeline");
+    const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";
+    TaskComposerNode::UPtr task = factory.createTaskComposerNode(task_name);
     const std::string output_key = task->getOutputKeys().front();
 
     // Create Task Composer Problem

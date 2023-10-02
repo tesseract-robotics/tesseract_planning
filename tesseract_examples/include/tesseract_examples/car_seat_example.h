@@ -30,7 +30,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <vector>
-#include <memory>
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -44,7 +43,8 @@ class CarSeatExample : public Example
 {
 public:
   CarSeatExample(tesseract_environment::Environment::Ptr env,
-                 tesseract_visualization::Visualization::Ptr plotter = nullptr);
+                 tesseract_visualization::Visualization::Ptr plotter = nullptr,
+                 bool ifopt = false);
   ~CarSeatExample() override = default;
   CarSeatExample(const CarSeatExample&) = default;
   CarSeatExample& operator=(const CarSeatExample&) = default;
@@ -54,6 +54,7 @@ public:
   bool run() override final;
 
 private:
+  bool ifopt_;
   std::unordered_map<std::string, std::unordered_map<std::string, double>> saved_positions_;
 
   static std::unordered_map<std::string, std::unordered_map<std::string, double>> getPredefinedPosition();
