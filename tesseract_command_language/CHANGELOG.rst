@@ -2,8 +2,8 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.20.1 (2023-10-02)
+-------------------
 * Update composite instruction user data to align with gazebo user data variant
 * Contributors: Levi Armstrong
 
