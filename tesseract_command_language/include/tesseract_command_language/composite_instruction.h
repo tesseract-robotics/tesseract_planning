@@ -71,8 +71,17 @@ public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   // LCOV_EXCL_STOP
 
-  /** User Data */
-  using UserDataVariant = std::variant<double, long, std::size_t, std::string, tesseract_common::AnyPoly>;
+  /**
+   * @brief Alias for a variant that can hold various types of data.
+   * @details The first type of the variant is std::monostate in order to prevent
+   * default-constructed variants from holding a type (a default-constructed
+   * variant is returned when a user calls CompositeInstruction::UserData with a key that
+   * doesn't exist for the CompositeInstruction. In this case, since the key doesn't
+   * exist, the variant that is returned shouldn't hold any types - an
+   * "empty variant" should be returned for keys that don't exist)
+   */
+  using UserDataVariant =
+      std::variant<std::monostate, int, long, float, double, std::string, bool, std::size_t, tesseract_common::AnyPoly>;
   using UserData = std::unordered_map<std::string, UserDataVariant>;
 
   /** value_type */
