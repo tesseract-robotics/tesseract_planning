@@ -267,8 +267,7 @@ bool CarSeatExample::run()
     trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
         tesseract_collision::ContactManagerConfig(0.005);
     trajopt_ifopt_composite_profile->collision_cost_config->collision_margin_buffer = 0.01;
-    trajopt_ifopt_composite_profile->collision_cost_config->collision_coeff_data =
-        trajopt_ifopt::CollisionCoeffData(5);
+    trajopt_ifopt_composite_profile->collision_cost_config->collision_coeff_data = trajopt_ifopt::CollisionCoeffData(5);
     trajopt_ifopt_composite_profile->smooth_velocities = false;
     trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->smooth_accelerations = true;
@@ -277,13 +276,14 @@ bool CarSeatExample::run()
     trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->longest_valid_segment_length = 0.1;
 
-    auto plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
-    plan_profile->cartesian_coeff = Eigen::VectorXd::Ones(6);
-    plan_profile->joint_coeff = Eigen::VectorXd::Ones(8);
+    auto trajopt_ifopt_plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
+    trajopt_ifopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Ones(6);
+    trajopt_ifopt_plan_profile->joint_coeff = Eigen::VectorXd::Ones(8);
 
     profiles->addProfile<TrajOptIfoptCompositeProfile>(
         TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_ifopt_composite_profile);
-    profiles->addProfile<TrajOptIfoptPlanProfile>(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "FREESPACE", plan_profile);
+    profiles->addProfile<TrajOptIfoptPlanProfile>(
+        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_ifopt_plan_profile);
   }
   else
   {
