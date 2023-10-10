@@ -84,7 +84,7 @@ std::vector<ifopt::ConstraintSet::Ptr>
 createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
                            const tesseract_environment::Environment::ConstPtr& env,
                            const tesseract_common::ManipulatorInfo& manip_info,
-                           const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
+                           const trajopt_common::TrajOptCollisionConfig::ConstPtr& config,
                            const std::vector<int>& fixed_indices,
                            bool fixed_sparsity = true);
 
@@ -92,14 +92,14 @@ bool addCollisionConstraint(trajopt_sqp::QPProblem& nlp,
                             const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
                             const tesseract_environment::Environment::ConstPtr& env,
                             const tesseract_common::ManipulatorInfo& manip_info,
-                            const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
+                            const trajopt_common::TrajOptCollisionConfig::ConstPtr& config,
                             const std::vector<int>& fixed_indices);
 
 bool addCollisionCost(trajopt_sqp::QPProblem& nlp,
                       const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
                       const tesseract_environment::Environment::ConstPtr& env,
                       const tesseract_common::ManipulatorInfo& manip_info,
-                      const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
+                      const trajopt_common::TrajOptCollisionConfig::ConstPtr& config,
                       const std::vector<int>& fixed_indices);
 
 ifopt::ConstraintSet::Ptr createJointVelocityConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
