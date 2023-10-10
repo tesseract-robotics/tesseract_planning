@@ -29,7 +29,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <string>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
@@ -45,7 +44,8 @@ class PuzzlePieceExample : public Example
 {
 public:
   PuzzlePieceExample(tesseract_environment::Environment::Ptr env,
-                     tesseract_visualization::Visualization::Ptr plotter = nullptr);
+                     tesseract_visualization::Visualization::Ptr plotter = nullptr,
+                     bool ifopt = false);
   ~PuzzlePieceExample() override = default;
   PuzzlePieceExample(const PuzzlePieceExample&) = default;
   PuzzlePieceExample& operator=(const PuzzlePieceExample&) = default;
@@ -55,6 +55,7 @@ public:
   bool run() override final;
 
 private:
+  bool ifopt_;
   static tesseract_common::VectorIsometry3d
   makePuzzleToolPoses(const tesseract_common::ResourceLocator::ConstPtr& locator);
 };
