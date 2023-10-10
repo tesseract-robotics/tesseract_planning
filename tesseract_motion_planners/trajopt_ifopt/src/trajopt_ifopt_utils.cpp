@@ -181,7 +181,7 @@ std::vector<ifopt::ConstraintSet::Ptr>
 createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
                            const tesseract_environment::Environment::ConstPtr& env,
                            const tesseract_common::ManipulatorInfo& manip_info,
-                           const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
+                           const trajopt_common::TrajOptCollisionConfig::ConstPtr& config,
                            const std::vector<int>& fixed_indices,
                            bool fixed_sparsity)
 {
@@ -190,7 +190,7 @@ createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::Const
     return constraints;
 
   // Add a collision cost for all steps
-  auto collision_cache = std::make_shared<trajopt_ifopt::CollisionCache>(vars.size());
+  auto collision_cache = std::make_shared<trajopt_common::CollisionCache>(vars.size());
   std::unordered_map<std::string, tesseract_kinematics::JointGroup::ConstPtr> manipulators;
   if (config->type == tesseract_collision::CollisionEvaluatorType::DISCRETE)
   {
@@ -322,7 +322,7 @@ bool addCollisionConstraint(trajopt_sqp::QPProblem& nlp,
                             const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
                             const tesseract_environment::Environment::ConstPtr& env,
                             const tesseract_common::ManipulatorInfo& manip_info,
-                            const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
+                            const trajopt_common::TrajOptCollisionConfig::ConstPtr& config,
                             const std::vector<int>& fixed_indices)
 {
   auto constraints = createCollisionConstraints(vars, env, manip_info, config, fixed_indices);
@@ -335,7 +335,7 @@ bool addCollisionCost(trajopt_sqp::QPProblem& nlp,
                       const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
                       const tesseract_environment::Environment::ConstPtr& env,
                       const tesseract_common::ManipulatorInfo& manip_info,
-                      const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
+                      const trajopt_common::TrajOptCollisionConfig::ConstPtr& config,
                       const std::vector<int>& fixed_indices)
 {
   // Coefficients are applied within the constraint

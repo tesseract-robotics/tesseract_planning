@@ -199,12 +199,12 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
   // Add a collision cost for all steps
   double margin_coeff = 10;
   double margin = 0.1;
-  auto collision_config = std::make_shared<trajopt_ifopt::TrajOptCollisionConfig>(margin, margin_coeff);
+  auto collision_config = std::make_shared<trajopt_common::TrajOptCollisionConfig>(margin, margin_coeff);
   collision_config->contact_request.type = tesseract_collision::ContactTestType::ALL;
   collision_config->type = CollisionEvaluatorType::DISCRETE;
   collision_config->collision_margin_buffer = 0.10;
 
-  auto collision_cache = std::make_shared<trajopt_ifopt::CollisionCache>(steps_);
+  auto collision_cache = std::make_shared<trajopt_common::CollisionCache>(steps_);
   if (use_continuous_)
   {
     std::array<bool, 2> position_vars_fixed{ true, false };

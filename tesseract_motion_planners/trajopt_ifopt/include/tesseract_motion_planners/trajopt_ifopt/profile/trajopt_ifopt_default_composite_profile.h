@@ -48,12 +48,12 @@ public:
   TrajOptIfoptDefaultCompositeProfile(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Configuration info for collisions that are modeled as costs */
-  trajopt_ifopt::TrajOptCollisionConfig::Ptr collision_cost_config{
-    std::make_shared<trajopt_ifopt::TrajOptCollisionConfig>()
+  trajopt_common::TrajOptCollisionConfig::Ptr collision_cost_config{
+    std::make_shared<trajopt_common::TrajOptCollisionConfig>()
   };
   /** @brief Configuration info for collisions that are modeled as constraints */
-  trajopt_ifopt::TrajOptCollisionConfig::Ptr collision_constraint_config{
-    std::make_shared<trajopt_ifopt::TrajOptCollisionConfig>()
+  trajopt_common::TrajOptCollisionConfig::Ptr collision_constraint_config{
+    std::make_shared<trajopt_common::TrajOptCollisionConfig>()
   };
   /** @brief If true, a joint velocity cost with a target of 0 will be applied for all timesteps Default: true*/
   bool smooth_velocities = true;
