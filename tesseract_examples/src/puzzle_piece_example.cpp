@@ -128,7 +128,7 @@ PuzzlePieceExample::makePuzzleToolPoses(const tesseract_common::ResourceLocator:
 PuzzlePieceExample::PuzzlePieceExample(tesseract_environment::Environment::Ptr env,
                                        tesseract_visualization::Visualization::Ptr plotter,
                                        bool ifopt)
-  : Example(std::move(env), std::move(plotter))
+  : Example(std::move(env), std::move(plotter)), ifopt_(ifopt)
 {
 }
 

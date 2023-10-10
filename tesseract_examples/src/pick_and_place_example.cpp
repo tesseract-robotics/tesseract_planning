@@ -381,7 +381,7 @@ bool PickAndPlaceExample::run()
   place_program.print("Program: ");
 
   // Create task
-  TaskComposerNode::UPtr place_task = factory.createTaskComposerNode("TrajOptPipeline");
+  TaskComposerNode::UPtr place_task = factory.createTaskComposerNode(task_name);
   const std::string place_output_key = pick_task->getOutputKeys().front();
 
   // Create Task Composer Problem
