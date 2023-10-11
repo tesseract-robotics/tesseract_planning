@@ -26,12 +26,7 @@
 #ifndef TESSERACT_COMMON_TRAJECTORY_H
 #define TESSERACT_COMMON_TRAJECTORY_H
 
-#include <tesseract_common/macros.h>
 #include <tesseract_common/joint_state.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <vector>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
 #include <tesseract_time_parameterization/core/trajectory_container.h>
 
 namespace tesseract_planning

@@ -27,9 +27,6 @@
 #define TESSERACT_ROS_EXAMPLES_EXAMPLES_H
 
 #include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <memory>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_environment/environment.h>
 #include <tesseract_visualization/visualization.h>

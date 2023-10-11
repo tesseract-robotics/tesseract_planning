@@ -28,8 +28,7 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <numeric>
-#include <unordered_map>
+#include <limits>
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 

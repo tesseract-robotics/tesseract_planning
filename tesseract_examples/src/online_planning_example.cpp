@@ -31,7 +31,7 @@
  */
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <Eigen/Dense>
+#include <Eigen/Geometry>
 #include <console_bridge/console.h>
 
 #include <trajopt_sqp/ifopt_qp_problem.h>

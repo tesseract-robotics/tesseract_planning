@@ -26,11 +26,6 @@
 #ifndef TESSERACT_MOTION_PLANNERS_PLANNER_H
 #define TESSERACT_MOTION_PLANNERS_PLANNER_H
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <unordered_map>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
 #include <tesseract_motion_planners/core/types.h>
 
 namespace tesseract_planning

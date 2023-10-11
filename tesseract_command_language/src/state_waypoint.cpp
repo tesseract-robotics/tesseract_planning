@@ -26,6 +26,9 @@
 
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_common/utils.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <iostream>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {

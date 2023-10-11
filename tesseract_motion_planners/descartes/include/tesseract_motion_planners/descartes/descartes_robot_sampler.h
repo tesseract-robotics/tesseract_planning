@@ -28,7 +28,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/core/waypoint_sampler.h>
-#include <Eigen/Dense>
+#include <Eigen/Geometry>
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
