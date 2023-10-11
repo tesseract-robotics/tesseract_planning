@@ -28,7 +28,7 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <Eigen/Eigen>
+#include <Eigen/Core>
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 

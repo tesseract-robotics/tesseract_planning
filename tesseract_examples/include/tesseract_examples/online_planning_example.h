@@ -35,7 +35,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
-#include <Eigen/Eigen>
+#include <Eigen/Core>
 #include <trajopt_sqp/qp_problem.h>
 
 #include <trajopt_ifopt/constraints/cartesian_position_constraint.h>

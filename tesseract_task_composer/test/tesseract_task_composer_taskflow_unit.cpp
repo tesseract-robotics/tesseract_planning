@@ -2,7 +2,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
-#include <sstream>
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 

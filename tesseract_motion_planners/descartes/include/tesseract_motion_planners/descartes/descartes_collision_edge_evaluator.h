@@ -28,7 +28,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <memory>
 #include <vector>
 #include <descartes_light/core/edge_evaluator.h>
 #include <tesseract_environment/environment.h>

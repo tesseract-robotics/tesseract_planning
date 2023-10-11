@@ -4,6 +4,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/array.hpp>
 #include <boost/serialization/vector.hpp>
+#include <iostream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/eigen_serialization.h>
