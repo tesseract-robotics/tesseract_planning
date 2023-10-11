@@ -27,9 +27,6 @@
 #define TESSERACT_EXAMPLES_GLASS_UPRIGHT_EXAMPLE_H
 
 #include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <string>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/example.h>
 

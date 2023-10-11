@@ -29,7 +29,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/problem_description.hpp>
-#include <string>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/example.h>
