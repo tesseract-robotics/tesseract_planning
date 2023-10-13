@@ -207,7 +207,7 @@ bool PuzzlePieceExample::run()
     trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
         tesseract_collision::ContactManagerConfig(0.025);
     trajopt_ifopt_composite_profile->collision_cost_config->collision_margin_buffer = 0.05;
-    trajopt_ifopt_composite_profile->collision_cost_config->collision_coeff_data = trajopt_ifopt::CollisionCoeffData(2);
+    trajopt_ifopt_composite_profile->collision_cost_config->collision_coeff_data = trajopt_common::CollisionCoeffData(2);
     trajopt_ifopt_composite_profile->smooth_velocities = false;
     trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->smooth_accelerations = true;

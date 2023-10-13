@@ -261,13 +261,13 @@ bool CarSeatExample::run()
         tesseract_collision::ContactManagerConfig(0.00);
     trajopt_ifopt_composite_profile->collision_constraint_config->collision_margin_buffer = 0.005;
     trajopt_ifopt_composite_profile->collision_constraint_config->collision_coeff_data =
-        trajopt_ifopt::CollisionCoeffData(1);
+        trajopt_common::CollisionCoeffData(1);
     trajopt_ifopt_composite_profile->collision_cost_config->type =
         tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
         tesseract_collision::ContactManagerConfig(0.005);
     trajopt_ifopt_composite_profile->collision_cost_config->collision_margin_buffer = 0.01;
-    trajopt_ifopt_composite_profile->collision_cost_config->collision_coeff_data = trajopt_ifopt::CollisionCoeffData(5);
+    trajopt_ifopt_composite_profile->collision_cost_config->collision_coeff_data = trajopt_common::CollisionCoeffData(5);
     trajopt_ifopt_composite_profile->smooth_velocities = false;
     trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->smooth_accelerations = true;
