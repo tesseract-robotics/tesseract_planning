@@ -67,6 +67,8 @@ public:
 
   std::vector<descartes_light::StateSample<FloatType>> sample() const override;
 
+  void print(std::ostream& os) const override;
+
 private:
   /** @brief The target pose working frame */
   std::string target_working_frame_;
@@ -103,6 +105,9 @@ private:
 
   /** @brief Should redundant solutions be used */
   bool use_redundant_joint_solutions_{ false };
+
+  /** @brief String message to print out with details about planning failure */
+  mutable std::string error_string_;
 };
 
 using DescartesRobotSamplerF = DescartesRobotSampler<float>;

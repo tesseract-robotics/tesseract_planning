@@ -74,9 +74,9 @@ public:
   /**
    * @brief This check is the provided solution passes the collision test defined by this class
    * @param pos The joint values array to validate
-   * @return True if passes collision test, otherwise false
+   * @return ContactResultMap containing any contacts for the given solution
    */
-  bool validate(const Eigen::Ref<const Eigen::VectorXd>& pos);
+  tesseract_collision::ContactResultMap validate(const Eigen::Ref<const Eigen::VectorXd>& pos);
 
   /**
    * @brief This gets the distance to the closest object
