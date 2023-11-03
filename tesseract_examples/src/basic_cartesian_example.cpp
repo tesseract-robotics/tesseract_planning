@@ -233,8 +233,12 @@ bool BasicCartesianExample::run()
     profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "cartesian_program", composite_profile);
 
     auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
-    plan_profile->cartesian_coeff = Eigen::VectorXd::Ones(6);
-    plan_profile->joint_coeff = Eigen::VectorXd::Ones(7);
+    plan_profile->cartesian_cost_config.enabled = false;
+    plan_profile->cartesian_constraint_config.enabled = true;
+    plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Ones(6);
+    plan_profile->joint_cost_config.enabled = false;
+    plan_profile->joint_constraint_config.enabled = true;
+    plan_profile->joint_constraint_config.coeff = Eigen::VectorXd::Ones(7);
     profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "RASTER", plan_profile);
     profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "freespace_profile", plan_profile);
   }

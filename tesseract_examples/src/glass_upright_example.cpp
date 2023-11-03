@@ -223,10 +223,12 @@ bool GlassUprightExample::run()
     profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "UPRIGHT", composite_profile);
 
     auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
-    plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 5);
-    plan_profile->cartesian_coeff(0) = 0;
-    plan_profile->cartesian_coeff(1) = 0;
-    plan_profile->cartesian_coeff(2) = 0;
+    plan_profile->cartesian_cost_config.enabled = false;
+    plan_profile->cartesian_constraint_config.enabled = true;
+    plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 5);
+    plan_profile->cartesian_constraint_config.coeff(0) = 0;
+    plan_profile->cartesian_constraint_config.coeff(1) = 0;
+    plan_profile->cartesian_constraint_config.coeff(2) = 0;
 
     // Add profile to Dictionary
     profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "UPRIGHT", plan_profile);

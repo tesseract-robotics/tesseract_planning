@@ -38,57 +38,32 @@ namespace tesseract_planning
 {
 TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement& xml_element)
 {
-  const tinyxml2::XMLElement* cartesian_coeff_element = xml_element.FirstChildElement("CartesianCoefficients");
-  const tinyxml2::XMLElement* joint_coeff_element = xml_element.FirstChildElement("JointCoefficients");
-  const tinyxml2::XMLElement* term_type_element = xml_element.FirstChildElement("Term");
+  const tinyxml2::XMLElement* cartesian_cost_element = xml_element.FirstChildElement("CartesianCostConfig");
+  const tinyxml2::XMLElement* cartesian_constraint_element = xml_element.FirstChildElement("CartesianConstraintConfig");
+  const tinyxml2::XMLElement* joint_cost_element = xml_element.FirstChildElement("JointCostConfig");
+  const tinyxml2::XMLElement* joint_constraint_element = xml_element.FirstChildElement("JointConstraintConfig");
   const tinyxml2::XMLElement* cnt_error_fn_element = xml_element.FirstChildElement("ConstraintErrorFunctions");
 
   tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (cartesian_coeff_element != nullptr)
+  if (cartesian_cost_element != nullptr)
   {
-    std::vector<std::string> cart_coeff_tokens;
-    std::string cart_coeff_string;
-    status = tesseract_common::QueryStringText(cartesian_coeff_element, cart_coeff_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("TrajOptPlanProfile: Error parsing CartesianCoeff string");
-
-    boost::split(cart_coeff_tokens, cart_coeff_string, boost::is_any_of(" "), boost::token_compress_on);
-
-    if (!tesseract_common::isNumeric(cart_coeff_tokens))
-      throw std::runtime_error("TrajOptPlanProfile: CartesianCoeff are not all numeric values.");
-
-    cartesian_coeff.resize(static_cast<long>(cart_coeff_tokens.size()));
-    for (std::size_t i = 0; i < cart_coeff_tokens.size(); ++i)
-      tesseract_common::toNumeric<double>(cart_coeff_tokens[i], cartesian_coeff[static_cast<long>(i)]);
+    cartesian_cost_config = CartesianWaypointConfig(*cartesian_cost_element);
   }
 
-  if (joint_coeff_element != nullptr)
+  if (cartesian_constraint_element != nullptr)
   {
-    std::vector<std::string> joint_coeff_tokens;
-    std::string joint_coeff_string;
-    status = tesseract_common::QueryStringText(joint_coeff_element, joint_coeff_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("TrajOptPlanProfile: Error parsing JointCoeff string");
-
-    boost::split(joint_coeff_tokens, joint_coeff_string, boost::is_any_of(" "), boost::token_compress_on);
-
-    if (!tesseract_common::isNumeric(joint_coeff_tokens))
-      throw std::runtime_error("TrajOptPlanProfile: JointCoeff are not all numeric values.");
-
-    joint_coeff.resize(static_cast<long>(joint_coeff_tokens.size()));
-    for (std::size_t i = 0; i < joint_coeff_tokens.size(); ++i)
-      tesseract_common::toNumeric<double>(joint_coeff_tokens[i], joint_coeff[static_cast<long>(i)]);
+    cartesian_constraint_config = CartesianWaypointConfig(*cartesian_constraint_element);
   }
 
-  if (term_type_element != nullptr)
+  if (joint_cost_element != nullptr)
   {
-    auto type = static_cast<int>(trajopt::TermType::TT_CNT);
-    status = term_type_element->QueryIntAttribute("type", &type);
-    if (status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("TrajOptPlanProfile: Error parsing Term type attribute.");
+    joint_cost_config = JointWaypointConfig(*joint_cost_element);
+  }
 
-    term_type = static_cast<trajopt::TermType>(type);
+  if (joint_constraint_element != nullptr)
+  {
+    joint_constraint_config = JointWaypointConfig(*joint_constraint_element);
   }
 
   if (cnt_error_fn_element != nullptr)
@@ -122,8 +97,6 @@ void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
 
   Eigen::Isometry3d tcp_offset = pci.env->findTCPOffset(mi);
 
-  trajopt::TermInfo::Ptr ti{ nullptr };
-
   /* Check if this cartesian waypoint is dynamic
    * (i.e. defined relative to a frame that will move with the kinematic chain)
    */
@@ -131,38 +104,84 @@ void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
   bool is_static_working_frame =
       (std::find(active_links.begin(), active_links.end(), mi.working_frame) == active_links.end());
 
-  if (cartesian_waypoint.isToleranced())
-    CONSOLE_BRIDGE_logWarn("Tolerance cartesian waypoints are not supported in this version of TrajOpt.");
+  // Override cost tolerances if the profile specifies that they should be overrided.
+  Eigen::VectorXd lower_tolerance_cost = cartesian_waypoint.getLowerTolerance();
+  Eigen::VectorXd upper_tolerance_cost = cartesian_waypoint.getUpperTolerance();
+  if (cartesian_cost_config.use_tolerance_override)
+  {
+    lower_tolerance_cost = cartesian_cost_config.lower_tolerance;
+    upper_tolerance_cost = cartesian_cost_config.upper_tolerance;
+  }
+  Eigen::VectorXd lower_tolerance_cnt = cartesian_waypoint.getLowerTolerance();
+  Eigen::VectorXd upper_tolerance_cnt = cartesian_waypoint.getUpperTolerance();
+  if (cartesian_constraint_config.use_tolerance_override)
+  {
+    lower_tolerance_cnt = cartesian_constraint_config.lower_tolerance;
+    upper_tolerance_cnt = cartesian_constraint_config.upper_tolerance;
+  }
 
   if ((is_static_working_frame && is_active_tcp_frame) || (!is_active_tcp_frame && !is_static_working_frame))
   {
-    ti = createCartesianWaypointTermInfo(index,
-                                         mi.working_frame,
-                                         cartesian_waypoint.getTransform(),
-                                         mi.tcp_frame,
-                                         tcp_offset,
-                                         cartesian_coeff,
-                                         term_type);
+    if (cartesian_cost_config.enabled)
+    {
+      trajopt::TermInfo::Ptr ti = createCartesianWaypointTermInfo(index,
+                                                                  mi.working_frame,
+                                                                  cartesian_waypoint.getTransform(),
+                                                                  mi.tcp_frame,
+                                                                  tcp_offset,
+                                                                  cartesian_cost_config.coeff,
+                                                                  trajopt::TermType::TT_COST,
+                                                                  lower_tolerance_cost,
+                                                                  upper_tolerance_cost);
+      pci.cost_infos.push_back(ti);
+    }
+    if (cartesian_constraint_config.enabled)
+    {
+      trajopt::TermInfo::Ptr ti = createCartesianWaypointTermInfo(index,
+                                                                  mi.working_frame,
+                                                                  cartesian_waypoint.getTransform(),
+                                                                  mi.tcp_frame,
+                                                                  tcp_offset,
+                                                                  cartesian_constraint_config.coeff,
+                                                                  trajopt::TermType::TT_CNT,
+                                                                  lower_tolerance_cnt,
+                                                                  upper_tolerance_cnt);
+      pci.cnt_infos.push_back(ti);
+    }
   }
   else if (!is_static_working_frame && is_active_tcp_frame)
   {
-    ti = createDynamicCartesianWaypointTermInfo(index,
-                                                mi.working_frame,
-                                                cartesian_waypoint.getTransform(),
-                                                mi.tcp_frame,
-                                                tcp_offset,
-                                                cartesian_coeff,
-                                                term_type);
+    if (cartesian_cost_config.enabled)
+    {
+      trajopt::TermInfo::Ptr ti = createDynamicCartesianWaypointTermInfo(index,
+                                                                         mi.working_frame,
+                                                                         cartesian_waypoint.getTransform(),
+                                                                         mi.tcp_frame,
+                                                                         tcp_offset,
+                                                                         cartesian_cost_config.coeff,
+                                                                         trajopt::TermType::TT_COST,
+                                                                         lower_tolerance_cost,
+                                                                         upper_tolerance_cost);
+      pci.cost_infos.push_back(ti);
+    }
+    if (cartesian_constraint_config.enabled)
+    {
+      trajopt::TermInfo::Ptr ti = createDynamicCartesianWaypointTermInfo(index,
+                                                                         mi.working_frame,
+                                                                         cartesian_waypoint.getTransform(),
+                                                                         mi.tcp_frame,
+                                                                         tcp_offset,
+                                                                         cartesian_constraint_config.coeff,
+                                                                         trajopt::TermType::TT_CNT,
+                                                                         lower_tolerance_cnt,
+                                                                         upper_tolerance_cnt);
+      pci.cnt_infos.push_back(ti);
+    }
   }
   else
   {
     throw std::runtime_error("TrajOpt, both tcp_frame and working_frame are both static!");
   }
-
-  if (term_type == trajopt::TermType::TT_CNT)
-    pci.cnt_infos.push_back(ti);
-  else
-    pci.cost_infos.push_back(ti);
 
   // Add constraints from error functions if available.
   addConstraintErrorFunctions(pci, index);
@@ -175,21 +194,59 @@ void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
                                       const std::vector<std::string>& /*active_links*/,
                                       int index) const
 {
-  trajopt::TermInfo::Ptr ti;
+  // Override cost tolerances if the profile specifies that they should be overrided.
+  Eigen::VectorXd lower_tolerance_cost = joint_waypoint.getLowerTolerance();
+  Eigen::VectorXd upper_tolerance_cost = joint_waypoint.getUpperTolerance();
+  if (joint_cost_config.use_tolerance_override)
+  {
+    lower_tolerance_cost = joint_cost_config.lower_tolerance;
+    upper_tolerance_cost = joint_cost_config.upper_tolerance;
+  }
+  Eigen::VectorXd lower_tolerance_cnt = joint_waypoint.getLowerTolerance();
+  Eigen::VectorXd upper_tolerance_cnt = joint_waypoint.getUpperTolerance();
+  if (joint_constraint_config.use_tolerance_override)
+  {
+    lower_tolerance_cnt = joint_constraint_config.lower_tolerance;
+    upper_tolerance_cnt = joint_constraint_config.upper_tolerance;
+  }
   if (joint_waypoint.isToleranced())
-    ti = createTolerancedJointWaypointTermInfo(joint_waypoint.getPosition(),
-                                               joint_waypoint.getLowerTolerance(),
-                                               joint_waypoint.getUpperTolerance(),
-                                               index,
-                                               joint_coeff,
-                                               term_type);
+  {
+    if (joint_cost_config.enabled)
+    {
+      trajopt::TermInfo::Ptr ti = createTolerancedJointWaypointTermInfo(joint_waypoint.getPosition(),
+                                                                        lower_tolerance_cost,
+                                                                        upper_tolerance_cost,
+                                                                        index,
+                                                                        joint_cost_config.coeff,
+                                                                        trajopt::TermType::TT_COST);
+      pci.cost_infos.push_back(ti);
+    }
+    if (joint_constraint_config.enabled)
+    {
+      trajopt::TermInfo::Ptr ti = createTolerancedJointWaypointTermInfo(joint_waypoint.getPosition(),
+                                                                        lower_tolerance_cnt,
+                                                                        upper_tolerance_cnt,
+                                                                        index,
+                                                                        joint_constraint_config.coeff,
+                                                                        trajopt::TermType::TT_CNT);
+      pci.cnt_infos.push_back(ti);
+    }
+  }
   else
-    ti = createJointWaypointTermInfo(joint_waypoint.getPosition(), index, joint_coeff, term_type);
-
-  if (term_type == trajopt::TermType::TT_CNT)
-    pci.cnt_infos.push_back(ti);
-  else
-    pci.cost_infos.push_back(ti);
+  {
+    if (joint_cost_config.enabled)
+    {
+      trajopt::TermInfo::Ptr ti = createJointWaypointTermInfo(
+          joint_waypoint.getPosition(), index, joint_cost_config.coeff, trajopt::TermType::TT_COST);
+      pci.cost_infos.push_back(ti);
+    }
+    if (joint_constraint_config.enabled)
+    {
+      trajopt::TermInfo::Ptr ti = createJointWaypointTermInfo(
+          joint_waypoint.getPosition(), index, joint_constraint_config.coeff, trajopt::TermType::TT_CNT);
+      pci.cnt_infos.push_back(ti);
+    }
+  }
 
   // Add constraints from error functions if available.
   addConstraintErrorFunctions(pci, index);
@@ -213,28 +270,22 @@ void TrajOptDefaultPlanProfile::addConstraintErrorFunctions(trajopt::ProblemCons
 
 tinyxml2::XMLElement* TrajOptDefaultPlanProfile::toXML(tinyxml2::XMLDocument& doc) const
 {
-  Eigen::IOFormat eigen_format(Eigen::StreamPrecision, Eigen::DontAlignCols, " ", " ");
-
   tinyxml2::XMLElement* xml_planner = doc.NewElement("Planner");
   xml_planner->SetAttribute("type", std::to_string(1).c_str());
 
   tinyxml2::XMLElement* xml_trajopt = doc.NewElement("TrajOptDefaultPlanProfile");
 
-  tinyxml2::XMLElement* xml_cart_coeff = doc.NewElement("CartesianCoefficients");
-  std::stringstream cart_coeff;
-  cart_coeff << cartesian_coeff.format(eigen_format);
-  xml_cart_coeff->SetText(cart_coeff.str().c_str());
-  xml_trajopt->InsertEndChild(xml_cart_coeff);
+  tinyxml2::XMLElement* xml_cart_cost = cartesian_cost_config.toXML(doc);
+  xml_trajopt->InsertEndChild(xml_cart_cost);
 
-  tinyxml2::XMLElement* xml_joint_coeff = doc.NewElement("JointCoefficients");
-  std::stringstream jnt_coeff;
-  jnt_coeff << joint_coeff.format(eigen_format);
-  xml_joint_coeff->SetText(jnt_coeff.str().c_str());
-  xml_trajopt->InsertEndChild(xml_joint_coeff);
+  tinyxml2::XMLElement* xml_cart_cnt = cartesian_constraint_config.toXML(doc);
+  xml_trajopt->InsertEndChild(xml_cart_cnt);
 
-  tinyxml2::XMLElement* xml_term_type = doc.NewElement("Term");
-  xml_term_type->SetAttribute("type", static_cast<int>(term_type));
-  xml_trajopt->InsertEndChild(xml_term_type);
+  tinyxml2::XMLElement* xml_joint_cost = joint_cost_config.toXML(doc);
+  xml_trajopt->InsertEndChild(xml_joint_cost);
+
+  tinyxml2::XMLElement* xml_joint_cnt = joint_constraint_config.toXML(doc);
+  xml_trajopt->InsertEndChild(xml_joint_cnt);
 
   xml_planner->InsertEndChild(xml_trajopt);
 

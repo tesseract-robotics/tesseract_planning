@@ -33,7 +33,9 @@ trajopt::TermInfo::Ptr createCartesianWaypointTermInfo(int index,
                                                        const std::string& tcp_frame,
                                                        const Eigen::Isometry3d& tcp_offset,
                                                        const Eigen::VectorXd& coeffs,
-                                                       trajopt::TermType type)
+                                                       trajopt::TermType type,
+                                                       Eigen::VectorXd lower_tolerance,
+                                                       Eigen::VectorXd upper_tolerance)
 {
   auto pose_info = std::make_shared<trajopt::CartPoseTermInfo>();
   pose_info->term_type = type;
@@ -57,6 +59,9 @@ trajopt::TermInfo::Ptr createCartesianWaypointTermInfo(int index,
     pose_info->rot_coeffs = coeffs.tail<3>();
   }
 
+  pose_info->lower_tolerance = lower_tolerance;
+  pose_info->upper_tolerance = upper_tolerance;
+
   return pose_info;
 }
 
@@ -66,7 +71,9 @@ trajopt::TermInfo::Ptr createDynamicCartesianWaypointTermInfo(int index,
                                                               const std::string& tcp_frame,
                                                               const Eigen::Isometry3d& tcp_offset,
                                                               const Eigen::VectorXd& coeffs,
-                                                              trajopt::TermType type)
+                                                              trajopt::TermType type,
+                                                              Eigen::VectorXd lower_tolerance,
+                                                              Eigen::VectorXd upper_tolerance)
 {
   std::shared_ptr<trajopt::DynamicCartPoseTermInfo> pose = std::make_shared<trajopt::DynamicCartPoseTermInfo>();
   pose->term_type = type;
@@ -89,6 +96,9 @@ trajopt::TermInfo::Ptr createDynamicCartesianWaypointTermInfo(int index,
     pose->pos_coeffs = coeffs.head<3>();
     pose->rot_coeffs = coeffs.tail<3>();
   }
+
+  pose->lower_tolerance = lower_tolerance;
+  pose->upper_tolerance = upper_tolerance;
 
   return pose;
 }

@@ -248,10 +248,12 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   {
     // Create TrajOpt Profile
     auto trajopt_plan_profile = std::make_shared<tesseract_planning::TrajOptDefaultPlanProfile>();
-    trajopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 5);
-    trajopt_plan_profile->cartesian_coeff(3) = 2;
-    trajopt_plan_profile->cartesian_coeff(4) = 2;
-    trajopt_plan_profile->cartesian_coeff(5) = 0;
+    trajopt_plan_profile->cartesian_cost_config.enabled = false;
+    trajopt_plan_profile->cartesian_constraint_config.enabled = true;
+    trajopt_plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 5);
+    trajopt_plan_profile->cartesian_constraint_config.coeff(3) = 2;
+    trajopt_plan_profile->cartesian_constraint_config.coeff(4) = 2;
+    trajopt_plan_profile->cartesian_constraint_config.coeff(5) = 0;
 
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
     trajopt_composite_profile->collision_constraint_config.enabled = false;

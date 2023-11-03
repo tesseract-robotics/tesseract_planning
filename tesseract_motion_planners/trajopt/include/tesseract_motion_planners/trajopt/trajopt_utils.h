@@ -42,15 +42,20 @@ trajopt::TermInfo::Ptr createCartesianWaypointTermInfo(int index,
                                                        const std::string& tcp_frame,
                                                        const Eigen::Isometry3d& tcp_offset,
                                                        const Eigen::VectorXd& coeffs,
-                                                       trajopt::TermType type);
+                                                       trajopt::TermType type,
+                                                       Eigen::VectorXd lower_tolerance = Eigen::VectorXd::Zero(6),
+                                                       Eigen::VectorXd upper_tolerance = Eigen::VectorXd::Zero(6));
 
-trajopt::TermInfo::Ptr createDynamicCartesianWaypointTermInfo(int index,
-                                                              const std::string& working_frame,
-                                                              const Eigen::Isometry3d& c_wp,
-                                                              const std::string& tcp_frame,
-                                                              const Eigen::Isometry3d& tcp_offset,
-                                                              const Eigen::VectorXd& coeffs,
-                                                              trajopt::TermType type);
+trajopt::TermInfo::Ptr
+createDynamicCartesianWaypointTermInfo(int index,
+                                       const std::string& working_frame,
+                                       const Eigen::Isometry3d& c_wp,
+                                       const std::string& tcp_frame,
+                                       const Eigen::Isometry3d& tcp_offset,
+                                       const Eigen::VectorXd& coeffs,
+                                       trajopt::TermType type,
+                                       Eigen::VectorXd lower_tolerance = Eigen::VectorXd::Zero(6),
+                                       Eigen::VectorXd upper_tolerance = Eigen::VectorXd::Zero(6));
 
 trajopt::TermInfo::Ptr createNearJointStateTermInfo(const Eigen::VectorXd& target,
                                                     const std::vector<std::string>& joint_names,
