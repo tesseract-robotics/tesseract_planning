@@ -81,9 +81,6 @@ public:
   /** @brief The output keys */
   std::vector<std::string> output_keys;
 
-  /** @brief Store the results of the task */
-  tesseract_common::AnyPoly results;
-
   /** @brief Value returned from the Task on completion */
   int return_value{ -1 };
 

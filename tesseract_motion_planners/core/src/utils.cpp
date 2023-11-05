@@ -317,8 +317,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   {
     // Grab the first waypoint to get the joint names
     const auto& joint_names = getJointNames(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
-    traj_contacts = std::make_unique<tesseract_collision::ContactTrajectoryResults>(joint_names,
-                                                                                    static_cast<int>(program.size()));
+    traj_contacts =
+        std::make_unique<tesseract_collision::ContactTrajectoryResults>(joint_names, static_cast<int>(program.size()));
   }
 
   contacts.clear();
@@ -624,8 +624,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   {
     // Grab the first waypoint to get the joint names
     const auto& joint_names = getJointNames(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
-    traj_contacts = std::make_unique<tesseract_collision::ContactTrajectoryResults>(joint_names,
-                                                                                    static_cast<int>(program.size()));
+    traj_contacts =
+        std::make_unique<tesseract_collision::ContactTrajectoryResults>(joint_names, static_cast<int>(program.size()));
   }
 
   contacts.clear();
