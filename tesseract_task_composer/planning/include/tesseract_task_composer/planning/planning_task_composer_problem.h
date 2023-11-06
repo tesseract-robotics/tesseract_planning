@@ -86,9 +86,6 @@ struct PlanningTaskComposerProblem : public TaskComposerProblem
   /** @brief The Profiles to use */
   ProfileDictionary::ConstPtr profiles;
 
-  /** @brief The problem input instruction */
-  InstructionPoly input_instruction;
-
   /**
    * @brief This allows the remapping of the Move Profile identified in the command language to a specific profile for a
    * given motion planner.

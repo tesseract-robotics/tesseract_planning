@@ -227,7 +227,7 @@ bool PickAndPlaceExample::run()
 
   // Create Task Composer Problem
   auto pick_problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
-  pick_problem->input_instruction = pick_program;
+  pick_problem->input = pick_program;
 
   // Solve task
   TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, std::move(pick_problem));
@@ -344,7 +344,7 @@ bool PickAndPlaceExample::run()
 
   // Create Task Composer Problem
   auto place_problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
-  place_problem->input_instruction = place_program;
+  place_problem->input = place_program;
 
   // Solve task
   TaskComposerFuture::UPtr place_future = executor->run(*place_task, std::move(place_problem));
