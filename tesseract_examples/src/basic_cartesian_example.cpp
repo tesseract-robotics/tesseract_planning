@@ -244,7 +244,7 @@ bool BasicCartesianExample::run()
 
   // Create Task Composer Problem
   auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
-  problem->input_instruction = program;
+  problem->input = program;
 
   if (plotter_ != nullptr && plotter_->isConnected())
     plotter_->waitForInput("Hit Enter to solve for trajectory.");

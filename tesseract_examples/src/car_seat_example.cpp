@@ -302,7 +302,7 @@ bool CarSeatExample::run()
 
     // Create Task Composer Problem
     auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
-    problem->input_instruction = program;
+    problem->input = program;
 
     // Solve task
     TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem));
@@ -386,7 +386,7 @@ bool CarSeatExample::run()
 
     // Create Task Composer Problem
     auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
-    problem->input_instruction = program;
+    problem->input = program;
 
     // Solve task
     TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem));
