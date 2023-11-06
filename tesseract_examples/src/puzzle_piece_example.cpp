@@ -225,7 +225,7 @@ bool PuzzlePieceExample::run()
 
   // Create Task Composer Problem
   auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
-  problem->input_instruction = program;
+  problem->input = program;
 
   // Solve task
   tesseract_common::Timer stopwatch;

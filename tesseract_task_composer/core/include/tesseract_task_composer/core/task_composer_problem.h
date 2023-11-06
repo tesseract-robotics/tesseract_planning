@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/any_poly.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 
 namespace tesseract_planning
@@ -57,6 +58,9 @@ struct TaskComposerProblem
 
   /** @brief Indicate if dotgraph should be provided */
   bool dotgraph{ false };
+
+  /** @brief The problem input */
+  tesseract_common::AnyPoly input;
 
   /**
    * @brief Clone the planning problem

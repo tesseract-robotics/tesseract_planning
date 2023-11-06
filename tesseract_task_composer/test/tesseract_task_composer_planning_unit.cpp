@@ -91,9 +91,9 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningProblemTests)  // 
     EXPECT_TRUE(problem.move_profile_remapping.empty());
     EXPECT_TRUE(problem.composite_profile_remapping.empty());
     EXPECT_TRUE(problem.profiles != nullptr);
-    EXPECT_TRUE(problem.input_instruction.isNull());
-    problem.input_instruction = test_suite::freespaceExampleProgramABB();
-    EXPECT_FALSE(problem.input_instruction.isNull());
+    EXPECT_TRUE(problem.input.isNull());
+    problem.input = test_suite::freespaceExampleProgramABB();
+    EXPECT_FALSE(problem.input.isNull());
 
     // Test clone
     auto clone = problem.clone();
@@ -110,9 +110,9 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningProblemTests)  // 
     EXPECT_TRUE(problem.move_profile_remapping.empty());
     EXPECT_TRUE(problem.composite_profile_remapping.empty());
     EXPECT_TRUE(problem.profiles != nullptr);
-    EXPECT_TRUE(problem.input_instruction.isNull());
-    problem.input_instruction = test_suite::freespaceExampleProgramABB();
-    EXPECT_FALSE(problem.input_instruction.isNull());
+    EXPECT_TRUE(problem.input.isNull());
+    problem.input = test_suite::freespaceExampleProgramABB();
+    EXPECT_FALSE(problem.input.isNull());
 
     // Test clone
     auto clone = problem.clone();
@@ -129,9 +129,9 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningProblemTests)  // 
     EXPECT_TRUE(problem.move_profile_remapping.empty());
     EXPECT_TRUE(problem.composite_profile_remapping.empty());
     EXPECT_TRUE(problem.profiles != nullptr);
-    EXPECT_TRUE(problem.input_instruction.isNull());
-    problem.input_instruction = test_suite::freespaceExampleProgramABB();
-    EXPECT_FALSE(problem.input_instruction.isNull());
+    EXPECT_TRUE(problem.input.isNull());
+    problem.input = test_suite::freespaceExampleProgramABB();
+    EXPECT_FALSE(problem.input.isNull());
 
     // Test clone
     auto clone = problem.clone();
@@ -148,9 +148,9 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningProblemTests)  // 
     EXPECT_TRUE(problem.move_profile_remapping.empty());
     EXPECT_TRUE(problem.composite_profile_remapping.empty());
     EXPECT_TRUE(problem.profiles != nullptr);
-    EXPECT_TRUE(problem.input_instruction.isNull());
-    problem.input_instruction = test_suite::freespaceExampleProgramABB();
-    EXPECT_FALSE(problem.input_instruction.isNull());
+    EXPECT_TRUE(problem.input.isNull());
+    problem.input = test_suite::freespaceExampleProgramABB();
+    EXPECT_FALSE(problem.input.isNull());
 
     // Test clone
     auto clone = problem.clone();
@@ -2554,7 +2554,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     // Create problem
     auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
     problem->dotgraph = true;
-    problem->input_instruction = test_suite::rasterExampleProgram();
+    problem->input = test_suite::rasterExampleProgram();
 
     // Solve raster plan
     auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
@@ -3025,7 +3025,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     // Create problem
     auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
     problem->dotgraph = true;
-    problem->input_instruction = test_suite::rasterOnlyExampleProgram();
+    problem->input = test_suite::rasterOnlyExampleProgram();
 
     // Solve raster plan
     auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
