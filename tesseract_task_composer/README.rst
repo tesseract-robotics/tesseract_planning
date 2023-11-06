@@ -196,7 +196,7 @@ Leveraging a perviously defined task
 
 When using a perviously defined task it is referenced using `task:` instead of `class:`. 
 
-Also in most case the tasks inputs and sometimes the outputs must be renamed. This accomplished by leveraging the `input_remapping:` and `output_remapping:`.
+Also in most case the tasks inputs and sometimes the outputs must be renamed. This accomplished by leveraging the `remapping:`.
 
 Also you can indicate that it should abort if a terminal is reached by specifying the terminal index `abort_terminal:`. If set to anything less than zero it will set all terminal tasks trigger abort to `false`.
 
@@ -219,10 +219,8 @@ Also you can indicate that it should abort if a terminal is reached by specifyin
             config:
               conditional: false         # Optional
               abort_terminal: 0          # Optional
-              input_remapping:           # Optional
+              remapping:           # Optional
                 input_data: output_data
-              output_remapping:          # Optional
-                output_data: output_data
        edges:
          - source: MinLengthTask
            destinations: [CartesianPipelineTask]
@@ -375,21 +373,21 @@ Raster Motion Task
        freespace:
          task: FreespacePipeline
          config:
-           input_remapping:
+           remapping:
              input_data: output_data
            input_indexing: [output_data]
            output_indexing: [output_data]
        raster:
          task: CartesianPipeline
          config:
-           input_remapping:
+           remapping:
              input_data: output_data
            input_indexing: [output_data]
            output_indexing: [output_data]
        transition:
          task: FreespacePipeline
          config:
-           input_remapping:
+           remapping:
              input_data: output_data
            input_indexing: [output_data]
            output_indexing: [output_data]
@@ -408,14 +406,14 @@ Raster Only Motion Task
        raster:
          task: CartesianPipeline
          config:
-           input_remapping:
+           remapping:
              input_data: output_data
            input_indexing: [output_data]
            output_indexing: [output_data]
        transition:
          task: FreespacePipeline
          config:
-           input_remapping:
+           remapping:
              input_data: output_data
            input_indexing: [output_data]
            output_indexing: [output_data]

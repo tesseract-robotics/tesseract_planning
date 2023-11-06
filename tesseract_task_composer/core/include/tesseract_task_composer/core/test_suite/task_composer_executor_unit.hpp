@@ -154,10 +154,8 @@ void runTaskComposerExecutorTest()
                                 task: TestPipeline
                                 config:
                                   conditional: false
-                                  input_remapping:
+                                  remapping:
                                     input_data: output_data
-                                  output_remapping:
-                                    output_data: input_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:
@@ -220,10 +218,8 @@ void runTaskComposerExecutorTest()
                                 task: TestPipeline
                                 config:
                                   conditional: false
-                                  input_remapping:
+                                  remapping:
                                     input_data: output_data
-                                  output_remapping:
-                                    output_data: input_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:
@@ -286,10 +282,8 @@ void runTaskComposerExecutorTest()
                                 task: TestPipeline
                                 config:
                                   conditional: true
-                                  input_remapping:
+                                  remapping:
                                     input_data: output_data
-                                  output_remapping:
-                                    output_data: input_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:
@@ -361,10 +355,8 @@ void runTaskComposerExecutorTest()
                                 task: TestGraph
                                 config:
                                   conditional: false
-                                  input_remapping:
+                                  remapping:
                                     input_data: output_data
-                                  output_remapping:
-                                    output_data: input_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:
