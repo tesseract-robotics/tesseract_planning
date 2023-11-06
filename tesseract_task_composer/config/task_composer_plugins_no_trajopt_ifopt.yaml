@@ -602,7 +602,7 @@ task_composer_plugins:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -610,7 +610,7 @@ task_composer_plugins:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -618,7 +618,7 @@ task_composer_plugins:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -680,7 +680,7 @@ task_composer_plugins:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -688,7 +688,7 @@ task_composer_plugins:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -696,7 +696,7 @@ task_composer_plugins:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -758,7 +758,7 @@ task_composer_plugins:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -766,7 +766,7 @@ task_composer_plugins:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -828,7 +828,7 @@ task_composer_plugins:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -836,7 +836,7 @@ task_composer_plugins:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -905,7 +905,7 @@ task_composer_plugins:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -913,7 +913,7 @@ task_composer_plugins:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -921,7 +921,7 @@ task_composer_plugins:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -992,7 +992,7 @@ task_composer_plugins:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -1000,7 +1000,7 @@ task_composer_plugins:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -1008,7 +1008,7 @@ task_composer_plugins:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -1079,7 +1079,7 @@ task_composer_plugins:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -1087,7 +1087,7 @@ task_composer_plugins:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -1158,7 +1158,7 @@ task_composer_plugins:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]
@@ -1166,7 +1166,7 @@ task_composer_plugins:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    input_remapping:
+                    remapping:
                       input_data: output_data
                     input_indexing: [output_data]
                     output_indexing: [output_data]

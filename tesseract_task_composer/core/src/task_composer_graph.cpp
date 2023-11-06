@@ -109,11 +109,18 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
             throw std::runtime_error("YAML entry 'abort_terminal' is only supported for GRAPH and PIPELINE types");
         }
 
-        if (YAML::Node n = tc["input_remapping"])
-          task_node->renameInputKeys(n.as<std::map<std::string, std::string>>());
+        if (tc["input_remapping"])
+          throw std::runtime_error("TaskComposerGraph, input_remapping is no longer supported use 'remapping'");
 
-        if (YAML::Node n = tc["output_remapping"])
-          task_node->renameOutputKeys(n.as<std::map<std::string, std::string>>());
+        if (tc["output_remapping"])
+          throw std::runtime_error("TaskComposerGraph, output_remapping is no longer supported use 'remapping'");
+
+        if (YAML::Node n = tc["remapping"])
+        {
+          auto remapping = n.as<std::map<std::string, std::string>>();
+          task_node->renameInputKeys(remapping);
+          task_node->renameOutputKeys(remapping);
+        }
       }
 
       node_uuids[node_name] = addNode(std::move(task_node));
