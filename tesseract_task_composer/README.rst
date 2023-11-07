@@ -375,22 +375,19 @@ Raster Motion Task
          config:
            remapping:
              input_data: output_data
-           input_indexing: [output_data]
-           output_indexing: [output_data]
+           indexing: [output_data]
        raster:
          task: CartesianPipeline
          config:
            remapping:
              input_data: output_data
-           input_indexing: [output_data]
-           output_indexing: [output_data]
+           indexing: [output_data]
        transition:
          task: FreespacePipeline
          config:
            remapping:
              input_data: output_data
-           input_indexing: [output_data]
-           output_indexing: [output_data]
+           indexing: [output_data]
 
 Raster Only Motion Task
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -408,15 +405,13 @@ Raster Only Motion Task
          config:
            remapping:
              input_data: output_data
-           input_indexing: [output_data]
-           output_indexing: [output_data]
+           indexing: [output_data]
        transition:
          task: FreespacePipeline
          config:
            remapping:
              input_data: output_data
-           input_indexing: [output_data]
-           output_indexing: [output_data]
+           indexing: [output_data]
 
 
 Check Input Task
