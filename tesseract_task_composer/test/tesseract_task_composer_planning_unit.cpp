@@ -2226,18 +2226,15 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     RasterMotionTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
@@ -2298,8 +2295,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            outputs: [output_data]
                            freespace:
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2323,7 +2319,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data])";
+                               indexing: [input_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2336,8 +2332,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2350,7 +2345,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               output_indexing: [output_data])";
+                               indexing: [output_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2363,12 +2358,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            raster:
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2381,8 +2374,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            raster:
                              task: CartesianPipeline)";
     YAML::Node config = YAML::Load(str);
@@ -2397,12 +2389,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data])";
+                               indexing: [input_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2415,12 +2406,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            raster:
                              task: CartesianPipeline
                              config:
-                               output_indexing: [output_data])";
+                               indexing: [output_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2433,13 +2423,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2452,17 +2440,14 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2475,65 +2460,15 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              task: CartesianPipeline)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
-  }
-
-  {  // Construction failure
-    std::string str = R"(config:
-                           conditional: true
-                           inputs: [input_data]
-                           outputs: [output_data]
-                           freespace:
-                             task: FreespacePipeline
-                             config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
-                           raster:
-                             task: CartesianPipeline
-                             config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
-                           transition:
-                             task: CartesianPipeline
-                             config:
-                               input_indexing: [input_data])";
-    YAML::Node config = YAML::Load(str);
-    // NOLINTNEXTLINE
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));
-  }
-
-  {  // Construction failure
-    std::string str = R"(config:
-                           conditional: true
-                           inputs: [input_data]
-                           outputs: [output_data]
-                           freespace:
-                             task: FreespacePipeline
-                             config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
-                           raster:
-                             task: CartesianPipeline
-                             config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
-                           transition:
-                             task: CartesianPipeline
-                             config:
-                               output_indexing: [output_data])";
-    YAML::Node config = YAML::Load(str);
-    // NOLINTNEXTLINE
-    EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));
   }
 
   {  // Serialization
@@ -2634,18 +2569,15 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     RasterMotionTask task("abc", config["config"], factory);
 
@@ -2672,18 +2604,15 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     RasterMotionTask task("abc", config["config"], factory);
 
@@ -2714,18 +2643,15 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     RasterMotionTask task("abc", config["config"], factory);
 
@@ -2756,18 +2682,15 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            freespace:
                              task: FreespacePipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     RasterMotionTask task("abc", config["config"], factory);
 
@@ -2811,13 +2734,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     RasterOnlyMotionTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
@@ -2878,8 +2799,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            outputs: [output_data]
                            raster:
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2903,7 +2823,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data])";
+                               indexing: [input_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2916,7 +2836,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            raster:
                              task: CartesianPipeline
                              config:
-                               output_indexing: [output_data])";
+                               indexing: [output_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2929,8 +2849,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2943,12 +2862,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2961,50 +2878,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              task: CartesianPipeline)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
-  }
-
-  {  // Construction failure
-    std::string str = R"(config:
-                           conditional: true
-                           inputs: [input_data]
-                           outputs: [output_data]
-                           raster:
-                             task: CartesianPipeline
-                             config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
-                           transition:
-                             task: CartesianPipeline
-                             config:
-                               input_indexing: [input_data])";
-    YAML::Node config = YAML::Load(str);
-    // NOLINTNEXTLINE
-    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));
-  }
-
-  {  // Construction failure
-    std::string str = R"(config:
-                           conditional: true
-                           inputs: [input_data]
-                           outputs: [output_data]
-                           raster:
-                             task: CartesianPipeline
-                             config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
-                           transition:
-                             task: CartesianPipeline
-                             config:
-                               output_indexing: [output_data])";
-    YAML::Node config = YAML::Load(str);
-    // NOLINTNEXTLINE
-    EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));
   }
 
   {  // Serialization
@@ -3104,13 +2982,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     RasterOnlyMotionTask task("abc", config["config"], factory);
 
@@ -3137,13 +3013,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     RasterOnlyMotionTask task("abc", config["config"], factory);
 
@@ -3174,13 +3048,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     RasterOnlyMotionTask task("abc", config["config"], factory);
 
@@ -3211,13 +3083,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            raster:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data]
+                               indexing: [input_data, output_data]
                            transition:
                              task: CartesianPipeline
                              config:
-                               input_indexing: [input_data]
-                               output_indexing: [output_data])";
+                               indexing: [input_data, output_data])";
     YAML::Node config = YAML::Load(str);
     RasterOnlyMotionTask task("abc", config["config"], factory);
 

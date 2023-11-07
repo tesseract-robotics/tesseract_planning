@@ -604,24 +604,21 @@ task_composer_plugins:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
                 raster:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
                 transition:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -682,24 +679,21 @@ task_composer_plugins:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
                 raster:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
                 transition:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -760,16 +754,14 @@ task_composer_plugins:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
                 transition:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -830,16 +822,14 @@ task_composer_plugins:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
                 transition:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -907,24 +897,21 @@ task_composer_plugins:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
                 raster:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
                 transition:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -994,24 +981,21 @@ task_composer_plugins:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
                 raster:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
                 transition:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -1081,16 +1065,14 @@ task_composer_plugins:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
                 transition:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -1160,16 +1142,14 @@ task_composer_plugins:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
                 transition:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
                     remapping:
                       input_data: output_data
-                    input_indexing: [output_data]
-                    output_indexing: [output_data]
+                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
