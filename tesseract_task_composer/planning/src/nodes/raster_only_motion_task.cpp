@@ -136,19 +136,19 @@ RasterOnlyMotionTask::RasterOnlyMotionTask(std::string name,
         abort_terminal_index = n.as<int>();
       }
 
-      if (task_config["input_remapping"])
+      if (task_config["input_remapping"])  // NOLINT
         throw std::runtime_error("RasterOnlyMotionTask, input_remapping is no longer supported use 'remapping'");
 
-      if (task_config["output_remapping"])
+      if (task_config["output_remapping"])  // NOLINT
         throw std::runtime_error("RasterOnlyMotionTask, output_remapping is no longer supported use 'remapping'");
 
       if (YAML::Node n = task_config["remapping"])
         remapping = n.as<std::map<std::string, std::string>>();
 
-      if (task_config["input_indexing"])
+      if (task_config["input_indexing"])  // NOLINT
         throw std::runtime_error("RasterOnlyMotionTask, input_indexing is no longer supported use 'indexing'");
 
-      if (task_config["output_indexing"])
+      if (task_config["output_indexing"])  // NOLINT
         throw std::runtime_error("RasterOnlyMotionTask, output_indexing is no longer supported use 'indexing'");
 
       if (YAML::Node n = task_config["indexing"])
@@ -206,19 +206,19 @@ RasterOnlyMotionTask::RasterOnlyMotionTask(std::string name,
         abort_terminal_index = n.as<int>();
       }
 
-      if (task_config["input_remapping"])
+      if (task_config["input_remapping"])  // NOLINT
         throw std::runtime_error("RasterOnlyMotionTask, input_remapping is no longer supported use 'remapping'");
 
-      if (task_config["output_remapping"])
+      if (task_config["output_remapping"])  // NOLINT
         throw std::runtime_error("RasterOnlyMotionTask, output_remapping is no longer supported use 'remapping'");
 
       if (YAML::Node n = task_config["remapping"])
         remapping = n.as<std::map<std::string, std::string>>();
 
-      if (task_config["input_indexing"])
+      if (task_config["input_indexing"])  // NOLINT
         throw std::runtime_error("RasterOnlyMotionTask, input_indexing is no longer supported use 'indexing'");
 
-      if (task_config["output_indexing"])
+      if (task_config["output_indexing"])  // NOLINT
         throw std::runtime_error("RasterOnlyMotionTask, output_indexing is no longer supported use 'indexing'");
 
       if (YAML::Node n = task_config["indexing"])

@@ -109,10 +109,10 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
             throw std::runtime_error("YAML entry 'abort_terminal' is only supported for GRAPH and PIPELINE types");
         }
 
-        if (tc["input_remapping"])
+        if (tc["input_remapping"])  // NOLINT
           throw std::runtime_error("TaskComposerGraph, input_remapping is no longer supported use 'remapping'");
 
-        if (tc["output_remapping"])
+        if (tc["output_remapping"])  // NOLINT
           throw std::runtime_error("TaskComposerGraph, output_remapping is no longer supported use 'remapping'");
 
         if (YAML::Node n = tc["remapping"])
