@@ -130,7 +130,7 @@ void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
       if (start_instruction.isNull())
       {
         start_instruction = i.as<MoveInstructionPoly>();
-        composite.push_back(i);
+        composite.push_back(i); // Prevents loss of very first waypoint when upsampling
         continue;
       }
 
