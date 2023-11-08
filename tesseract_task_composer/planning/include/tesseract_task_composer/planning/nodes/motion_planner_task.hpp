@@ -157,13 +157,13 @@ protected:
     if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
       request.verbose = true;
     PlannerResponse response = planner_->solve(request);
+    context.data_storage->setData(output_keys_[0], response.results);
 
     // --------------------
     // Verify Success
     // --------------------
     if (response)
     {
-      context.data_storage->setData(output_keys_[0], response.results);
 
       info->return_value = 1;
       info->color = "green";

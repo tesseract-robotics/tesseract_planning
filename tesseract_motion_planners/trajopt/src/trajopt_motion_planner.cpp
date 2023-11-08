@@ -126,8 +126,12 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
   if (opt->results().status != sco::OptStatus::OPT_CONVERGED)
   {
     response.successful = false;
-    response.message = ERROR_FAILED_TO_FIND_VALID_SOLUTION;
-    return response;
+    response.message = sco::statusToString(opt->results().status);
+  }
+  else
+  {
+    response.successful = true;
+    response.message = SOLUTION_FOUND;
   }
 
   const std::vector<std::string> joint_names = problem->GetKin()->getJointNames();
@@ -153,9 +157,7 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
     assignSolution(
         move_instruction, joint_names, traj.row(static_cast<Eigen::Index>(idx)), request.format_result_as_input);
   }
-
-  response.successful = true;
-  response.message = SOLUTION_FOUND;
+  
   return response;
 }
 
