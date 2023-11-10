@@ -2,6 +2,16 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix clang-tidy errors
+* Replace input_indexing and output_indexing with indexing
+* Replace input_remapping and output_remapping with remapping
+* Move TaskComposerProblem input to base class and change type to tesseract_common::AnyPoly
+* remove results from TaskComposerNodeInfo
+* Unused includes cleanup
+* Contributors: Levi Armstrong, Roelof Oomen
+
 0.20.1 (2023-10-02)
 -------------------
 
