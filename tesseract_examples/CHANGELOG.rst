@@ -2,8 +2,8 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.21.0 (2023-11-10)
+-------------------
 * Move TaskComposerProblem input to base class and change type to tesseract_common::AnyPoly
 * Unused includes cleanup
 * Update based on changes in trajopt

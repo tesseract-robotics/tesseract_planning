@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.21.0 (2023-11-10)
+-------------------
 * Fix clang-tidy errors
 * Replace input_indexing and output_indexing with indexing
 * Replace input_remapping and output_remapping with remapping

@@ -2,8 +2,8 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.21.0 (2023-11-10)
+-------------------
 * Unused includes cleanup
 * Contributors: Roelof Oomen
 
