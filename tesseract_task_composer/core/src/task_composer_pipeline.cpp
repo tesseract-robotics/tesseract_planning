@@ -50,9 +50,11 @@ TaskComposerPipeline::TaskComposerPipeline(std::string name,
 
 int TaskComposerPipeline::run(TaskComposerContext& context, OptionalTaskComposerExecutor executor) const
 {
+  auto start_time = std::chrono::system_clock::now();
   if (context.isAborted())
   {
     auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+    info->start_time = start_time;
     info->input_keys = input_keys_;
     info->output_keys = output_keys_;
     info->return_value = 0;
@@ -80,6 +82,7 @@ int TaskComposerPipeline::run(TaskComposerContext& context, OptionalTaskComposer
   timer.stop();
   results->input_keys = input_keys_;
   results->output_keys = output_keys_;
+  results->start_time = start_time;
   results->elapsed_time = timer.elapsedSeconds();
 
   int value = results->return_value;

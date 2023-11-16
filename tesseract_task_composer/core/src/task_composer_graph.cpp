@@ -337,7 +337,7 @@ std::string TaskComposerGraph::dump(std::ostream& os,
   }
   os << "]";
   os << "\\n Conditional: " << ((conditional_) ? "True" : "False");
-  if (getType() == TaskComposerNodeType::PIPELINE)
+  if (getType() == TaskComposerNodeType::PIPELINE || getType() == TaskComposerNodeType::GRAPH)
   {
     auto it = results_map.find(getUUID());
     if (it != results_map.end())
@@ -378,7 +378,7 @@ std::string TaskComposerGraph::dump(std::ostream& os,
       os << "]";
 
       os << "\\n Conditional: " << ((node->isConditional()) ? "True" : "False");
-      if (node->getType() == TaskComposerNodeType::PIPELINE && (it != results_map.end()))
+      if (it != results_map.end())
         os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s";
 
       os << "\", margin=\"0.1\", color=" << color << "];\n";  // NOLINT

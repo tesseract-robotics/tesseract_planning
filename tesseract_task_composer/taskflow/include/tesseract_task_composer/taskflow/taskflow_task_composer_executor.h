@@ -37,6 +37,8 @@ namespace tf
 {
 class Executor;
 class Taskflow;
+class Subflow;
+class Task;
 }  // namespace tf
 
 namespace tesseract_planning
@@ -84,20 +86,21 @@ protected:
 
   TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerContext::Ptr context) override final;
 
-  static std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
-  convertToTaskflow(const TaskComposerGraph& task_graph,
-                    TaskComposerContext& task_context,
-                    TaskComposerExecutor& task_executor);
+  static tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
+                                    TaskComposerContext& task_context,
+                                    TaskComposerExecutor& task_executor,
+                                    tf::Taskflow* taskflow,
+                                    tf::Subflow* parent_sbf);
 
-  static std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
-  convertToTaskflow(const TaskComposerPipeline& task_pipeline,
-                    TaskComposerContext& task_context,
-                    TaskComposerExecutor& task_executor);
+  static void convertToTaskflow(const TaskComposerPipeline& task_pipeline,
+                                TaskComposerContext& task_context,
+                                TaskComposerExecutor& task_executor,
+                                tf::Taskflow* taskflow);
 
-  static std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
-  convertToTaskflow(const TaskComposerTask& task,
-                    TaskComposerContext& task_context,
-                    TaskComposerExecutor& task_executor);
+  static void convertToTaskflow(const TaskComposerTask& task,
+                                TaskComposerContext& task_context,
+                                TaskComposerExecutor& task_executor,
+                                tf::Taskflow* taskflow);
 };
 }  // namespace tesseract_planning
 

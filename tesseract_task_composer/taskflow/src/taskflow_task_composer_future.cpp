@@ -25,14 +25,14 @@
  */
 
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_future.h>
+#include <taskflow/taskflow.hpp>
 
 namespace tesseract_planning
 {
-TaskflowTaskComposerFuture::TaskflowTaskComposerFuture(
-    std::shared_future<void> future,
-    std::shared_ptr<const std::vector<std::unique_ptr<tf::Taskflow>>> container,
-    TaskComposerContext::Ptr context)
-  : TaskComposerFuture(std::move(context)), future_(std::move(future)), container_(std::move(container))
+TaskflowTaskComposerFuture::TaskflowTaskComposerFuture(std::shared_future<void> future,
+                                                       std::unique_ptr<tf::Taskflow> taskflow,
+                                                       TaskComposerContext::Ptr context)
+  : TaskComposerFuture(std::move(context)), future_(std::move(future)), taskflow_(std::move(taskflow))
 {
 }
 
@@ -41,7 +41,7 @@ TaskflowTaskComposerFuture::~TaskflowTaskComposerFuture() = default;
 void TaskflowTaskComposerFuture::clear()
 {
   future_ = std::shared_future<void>();
-  container_ = nullptr;
+  taskflow_ = nullptr;
   context = nullptr;
 }
 
@@ -68,10 +68,7 @@ TaskflowTaskComposerFuture::waitUntil(const std::chrono::time_point<std::chrono:
 TaskComposerFuture::UPtr TaskflowTaskComposerFuture::copy() const
 {
   return std::make_unique<TaskflowTaskComposerFuture>(*this);
-  //  clone->future_ = future_;
-  //  clone->container_ = container_;
-  //  clone->context = context;
-  //  return clone;
 }
 
+void TaskflowTaskComposerFuture::dump(std::ostream& os) const { taskflow_->dump(os); }
 }  // namespace tesseract_planning
