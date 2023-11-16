@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <shared_mutex>
 #include <map>
+#include <chrono>
 #include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -86,6 +87,9 @@ public:
 
   /** @brief Status message */
   std::string message;
+
+  /** @brief The start time */
+  std::chrono::system_clock::time_point start_time{ std::chrono::system_clock::now() };
 
   /**
    * @brief Time spent in this task in seconds

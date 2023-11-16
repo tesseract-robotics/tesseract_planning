@@ -47,7 +47,7 @@ class TaskflowTaskComposerFuture : public TaskComposerFuture
 public:
   TaskflowTaskComposerFuture() = default;
   TaskflowTaskComposerFuture(std::shared_future<void> future,
-                             std::shared_ptr<const std::vector<std::unique_ptr<tf::Taskflow>>> container,
+                             std::unique_ptr<tf::Taskflow> taskflow,
                              TaskComposerContext::Ptr context);
   ~TaskflowTaskComposerFuture() override;
   TaskflowTaskComposerFuture(const TaskflowTaskComposerFuture&) = default;
@@ -70,12 +70,15 @@ public:
 
   TaskComposerFuture::UPtr copy() const override final;
 
+  /** @brief Crate DOT Graph using taskflow dump */
+  void dump(std::ostream& os) const;
+
 private:
   /** @brief This is the future return from taskflow executor.run */
   std::shared_future<void> future_;
 
-  /** @brief Hold objects that must not go out of scope during execution */
-  std::shared_ptr<const std::vector<std::unique_ptr<tf::Taskflow>>> container_;
+  /** @brief Hold object that must not go out of scope during execution */
+  std::shared_ptr<tf::Taskflow> taskflow_;
 };
 }  // namespace tesseract_planning
 

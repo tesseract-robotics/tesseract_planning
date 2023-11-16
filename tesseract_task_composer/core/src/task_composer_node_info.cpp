@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/unique_ptr.hpp>
 #include <boost/serialization/shared_ptr.hpp>
 #include <boost/serialization/string.hpp>
+#include <boost/serialization/binary_object.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
 #include <mutex>
@@ -60,6 +61,7 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= parent_uuid == rhs.parent_uuid;
   equal &= return_value == rhs.return_value;
   equal &= message == rhs.message;
+  equal &= start_time == rhs.start_time;
   equal &= tesseract_common::almostEqualRelativeAndAbs(elapsed_time, rhs.elapsed_time, max_diff);
   equal &= tesseract_common::isIdentical(inbound_edges, rhs.inbound_edges, false);
   equal &= tesseract_common::isIdentical(outbound_edges, rhs.outbound_edges, true);
@@ -85,6 +87,8 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("parent_uuid", parent_uuid);
   ar& boost::serialization::make_nvp("return_value", return_value);
   ar& boost::serialization::make_nvp("message", message);
+  ar& boost::serialization::make_nvp("start_time",
+                                     boost::serialization::make_binary_object(&start_time, sizeof(start_time)));
   ar& boost::serialization::make_nvp("elapsed_time", elapsed_time);
   ar& boost::serialization::make_nvp("inbound_edges", inbound_edges);
   ar& boost::serialization::make_nvp("outbound_edges", outbound_edges);
