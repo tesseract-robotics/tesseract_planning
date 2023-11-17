@@ -2,6 +2,9 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.21.0 (2023-11-10)
 -------------------
 * Unused includes cleanup

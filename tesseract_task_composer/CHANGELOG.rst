@@ -2,6 +2,12 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix loss of first waypoint in upsample trajectory (`#416 <https://github.com/tesseract-robotics/tesseract_planning/issues/416>`_)
+* Use taskflow subflow for graph execution to allow timing of execution
+* Contributors: Levi Armstrong, Thomas Hettasch
+
 0.21.0 (2023-11-10)
 -------------------
 * Fix clang-tidy errors
