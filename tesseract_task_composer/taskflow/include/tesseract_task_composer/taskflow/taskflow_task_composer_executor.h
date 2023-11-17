@@ -84,6 +84,10 @@ protected:
   std::size_t num_threads_;
   std::unique_ptr<tf::Executor> executor_;
 
+  std::mutex futures_mutex_;
+  std::map<boost::uuids::uuid, TaskComposerFuture::UPtr> futures_;
+  void removeFuture(const boost::uuids::uuid& uuid);
+
   TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerContext::Ptr context) override final;
 
   static tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
