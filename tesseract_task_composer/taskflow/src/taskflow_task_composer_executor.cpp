@@ -30,6 +30,8 @@
 #include <tesseract_common/utils.h>
 #include <tesseract_common/timer.h>
 #include <taskflow/taskflow.hpp>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_generators.hpp>
 
 namespace tesseract_planning
 {
@@ -71,6 +73,12 @@ TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(std::string name, con
 
 TaskflowTaskComposerExecutor::~TaskflowTaskComposerExecutor() = default;
 
+void TaskflowTaskComposerExecutor::removeFuture(const boost::uuids::uuid& uuid)
+{
+  std::unique_lock<std::mutex> lock(futures_mutex_);
+  futures_.erase(uuid);
+}
+
 TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerNode& node,
                                                            TaskComposerContext::Ptr context)
 {
@@ -84,9 +92,14 @@ TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerNod
   else
     throw std::runtime_error("TaskComposerExecutor, unsupported node type!");
 
-  std::shared_future<void> f = executor_->run(*taskflow);
-
-  return std::make_unique<TaskflowTaskComposerFuture>(f, std::move(taskflow), std::move(context));
+  // Inorder to better support dynamic tasking within pipelines we store all futures internally
+  // and cleanup when finished because the data cannot go out of scope.
+  std::unique_lock<std::mutex> lock(futures_mutex_);
+  boost::uuids::uuid uuid = boost::uuids::random_generator()();
+  std::shared_future<void> f = executor_->run(*taskflow, [this, uuid]() { removeFuture(uuid); });
+  auto future = std::make_unique<TaskflowTaskComposerFuture>(f, std::move(taskflow), std::move(context));
+  futures_[uuid] = future->copy();
+  return future;
 }
 
 long TaskflowTaskComposerExecutor::getWorkerCount() const { return static_cast<long>(executor_->num_workers()); }
