@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>tesseract_motion_planners</name>
-  <version>0.21.0</version>
+  <version>0.21.1</version>
   <description>This contains tesseract planners</description>
 
   <maintainer email="levi.armstrong@swri.org">Levi Armstrong</maintainer>
