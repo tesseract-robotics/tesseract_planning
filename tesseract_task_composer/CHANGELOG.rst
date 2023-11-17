@@ -2,6 +2,11 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Improve dynamic tasking support
+* Contributors: Levi Armstrong
+
 0.21.1 (2023-11-17)
 -------------------
 * Fix loss of first waypoint in upsample trajectory (`#416 <https://github.com/tesseract-robotics/tesseract_planning/issues/416>`_)
