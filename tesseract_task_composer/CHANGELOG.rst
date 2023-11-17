@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.21.2 (2023-11-17)
+-------------------
 * Improve dynamic tasking support
 * Contributors: Levi Armstrong
 
