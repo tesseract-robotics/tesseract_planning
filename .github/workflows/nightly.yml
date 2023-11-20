@@ -6,56 +6,45 @@ on:
   schedule:
     - cron: '0 5 * * *'
 
+  # allow manually starting this workflow
+  workflow_dispatch:
+
 jobs:
-  industrial_ci:
+  ci:
     if: contains(github.event.pull_request.labels.*.name, 'check-tesseract-ros') || github.event.schedule == true
     name: ${{ matrix.distro }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        distro: [focal]
+        distro: [focal, jammy]
+    container:
+      image: ghcr.io/tesseract-robotics/tesseract:${{ matrix.distro }}
+      env:
+        CCACHE_DIR: "$GITHUB_WORKSPACE/${{ matrix.distro }}/.ccache"
+        DEBIAN_FRONTEND: noninteractive
+        TZ: Etc/UTC
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
-
-      - name: Free disk space
-        continue-on-error: true
-        run: |
-          sudo swapoff -a
-          sudo rm -f /swapfile
-          sudo apt clean
-          docker rmi $(docker image ls -aq)
-          df -h
-
-      - name: Prepare ccache timestamp
-        id: ccache_cache_timestamp
-        shell: cmake -P {0}
-        run: |
-          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-          message("::set-output name=timestamp::${current_date}")
-
-      - name: ccache cache files
-        continue-on-error: true
-        uses: actions/cache@v1.1.0
+        uses: actions/checkout@v4
         with:
-          path: ${{ matrix.distro }}/.ccache
-          key: ${{ matrix.distro }}-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
-          restore-keys: |
-            ${{ matrix.distro }}-ccache-
+          path: target_ws/src
 
-      - name: Build workspace
-        uses: 'tesseract-robotics/industrial_ci@0109bf3523050402490b56e19c9554e7d7c5379f'
-        env:
-          ADDITIONAL_DEBS: 'taskflow libompl-dev'
-          ROS_DISTRO: false
-          DOCKER_IMAGE: ghcr.io/tesseract-robotics/tesseract:${{ matrix.distro }}-master
-          ROSDEP_SKIP_KEYS: "fcl opw_kinematics ros_industrial_cmake_boilerplate iwyu octomap catkin ompl taskflow descartes_light trajopt trajopt_ifopt trajopt_sco trajopt_sqp ruckig"
-          CCACHE_DIR: ${{ github.workspace }}/${{ matrix.distro }}/.ccache
-          BEFORE_INIT: './.github/workflows/add_sources.sh'
-          AFTER_INIT: ''
-          UPSTREAM_WORKSPACE: 'dependencies.repos'
-          DOWNSTREAM_WORKSPACE: 'github:tesseract-robotics/tesseract_ros#master github:tesseract-robotics/tesseract_python#master'
-          UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
-          TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
-          DOWNSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
+      - name: Install Depends
+        shell: bash
+        run: |
+          apt update
+          apt upgrade -y
+          apt install -y wget software-properties-common
+          add-apt-repository ppa:levi-armstrong/tesseract-robotics
+          apt install -y libompl-dev taskflow
+
+      - name: Build and Tests
+        uses: tesseract-robotics/colcon-action@before_script
+        with:
+          before-script: source /opt/tesseract/install/setup.bash
+          ccache-prefix: ${{ matrix.distro }}
+          vcs-file: dependencies.repos
+          upstream-args: --cmake-args -DCMAKE_BUILD_TYPE=Release
+          target-path: target_ws/src
+          target-args: --cmake-args -DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_TESTING=ON

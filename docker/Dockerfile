@@ -1,5 +1,5 @@
 ARG TAG
-FROM ghcr.io/tesseract-robotics/tesseract_deploy:${TAG}
+FROM ghcr.io/tesseract-robotics/tesseract:${TAG}
 
 SHELL ["/bin/bash", "-c"]
 
