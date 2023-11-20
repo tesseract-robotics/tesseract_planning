@@ -1,0 +1,33 @@
+ARG TAG
+FROM ghcr.io/tesseract-robotics/tesseract_deploy:${TAG}
+
+SHELL ["/bin/bash", "-c"]
+
+ENV DEBIAN_FRONTEND noninteractive
+
+USER root
+
+# Install the dependency repositories
+# First add the custom apt sources and install additional debians
+COPY .github/workflows/add_sources.sh /tmp/add_sources.sh
+RUN ./tmp/add_sources.sh \
+  && apt install -y \
+    libompl-dev \
+    taskflow
+
+# Bind mount the source directory so as not to unnecessarily copy source code into the docker image
+ARG WORKSPACE_DIR=/opt/tesseract_planning
+RUN --mount=type=bind,target=${WORKSPACE_DIR}/src/tesseract_planning \
+  cd ${WORKSPACE_DIR} \
+  && vcs import src < src/tesseract_planning/dependencies.repos --shallow \
+  && rosdep install \
+    --from-paths ${WORKSPACE_DIR}/src \
+    -iry
+
+# Build the repository
+# Bind mount the source directory so as not to unnecessarily copy source code into the docker image
+RUN --mount=type=bind,target=${WORKSPACE_DIR}/src/tesseract_planning \
+  source /opt/tesseract/install/setup.bash \
+  && cd ${WORKSPACE_DIR} \ 
+  && colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release \
+  && rm -rf build log
