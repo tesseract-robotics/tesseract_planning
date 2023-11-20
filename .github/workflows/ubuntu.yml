@@ -43,7 +43,7 @@ jobs:
           apt upgrade -y
           apt install -y wget software-properties-common
           add-apt-repository ppa:levi-armstrong/tesseract-robotics
-          apt install libompl-dev taskflow -y
+          apt install -y libompl-dev taskflow
 
       - name: Build and Tests
         uses: tesseract-robotics/colcon-action@before_script
