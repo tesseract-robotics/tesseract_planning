@@ -1,5 +1,5 @@
 ARG TAG
-FROM ghcr.io/tesseract-robotics/tesseract_deploy:${TAG}
+FROM ghcr.io/tesseract-robotics/tesseract:${TAG}
 
 SHELL ["/bin/bash", "-c"]
 
@@ -8,12 +8,10 @@ ENV DEBIAN_FRONTEND noninteractive
 USER root
 
 # Install the dependency repositories
-# First add the custom apt sources and install additional debians
-COPY .github/workflows/add_sources.sh /tmp/add_sources.sh
-RUN ./tmp/add_sources.sh \
-  && apt install -y \
-    libompl-dev \
-    taskflow
+RUN apt install -y --no-install-recommends software-properties-common \
+  && add-apt-repository -y ppa:levi-armstrong/tesseract-robotics \
+  && apt update \
+  && apt install -y libompl-dev taskflow
 
 # Bind mount the source directory so as not to unnecessarily copy source code into the docker image
 ARG WORKSPACE_DIR=/opt/tesseract_planning

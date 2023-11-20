@@ -1,17 +1,23 @@
-name: Nightly
+name: Unstable
 
 on:
+  push:
+    branches:
+      - master
+      - 'dev**'
   pull_request:
-    types: [labeled]
+    paths:
+      - 'tesseract**'
+      - '.github/workflows/unstable.yml'
+      - '**.repos'
   schedule:
     - cron: '0 5 * * *'
-
-  # allow manually starting this workflow
-  workflow_dispatch:
+  release:
+    types:
+      - released
 
 jobs:
   ci:
-    if: contains(github.event.pull_request.labels.*.name, 'check-tesseract-ros') || github.event.schedule == true
     name: ${{ matrix.distro }}
     runs-on: ubuntu-latest
     strategy:
@@ -19,7 +25,7 @@ jobs:
       matrix:
         distro: [focal, jammy]
     container:
-      image: ghcr.io/tesseract-robotics/tesseract:${{ matrix.distro }}
+      image: ghcr.io/tesseract-robotics/tesseract:${{ matrix.distro }}-master
       env:
         CCACHE_DIR: "$GITHUB_WORKSPACE/${{ matrix.distro }}/.ccache"
         DEBIAN_FRONTEND: noninteractive
@@ -44,7 +50,7 @@ jobs:
         with:
           before-script: source /opt/tesseract/install/setup.bash
           ccache-prefix: ${{ matrix.distro }}
-          vcs-file: dependencies.repos
+          vcs-file: dependencies_unstable.repos
           upstream-args: --cmake-args -DCMAKE_BUILD_TYPE=Release
           target-path: target_ws/src
           target-args: --cmake-args -DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_TESTING=ON
