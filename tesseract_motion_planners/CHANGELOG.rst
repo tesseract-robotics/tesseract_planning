@@ -2,6 +2,20 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.21.2 (2023-11-17)
+-------------------
+
+0.21.1 (2023-11-17)
+-------------------
+
+0.21.0 (2023-11-10)
+-------------------
+* remove results from TaskComposerNodeInfo
+* Fix contact check program to support joint and state waypoints
+* Unused includes cleanup
+* Update based on changes in trajopt
+* Contributors: Levi Armstrong, Roelof Oomen
+
 0.20.1 (2023-10-02)
 -------------------
 

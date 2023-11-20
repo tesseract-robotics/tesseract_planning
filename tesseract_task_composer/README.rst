@@ -304,7 +304,7 @@ Task for running TrajOpt Ifopt motion planner
 Simple Motion Planner Task
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Task for running TrajOpt Ifopt motion planner
+Task for running Simple motion planner
 
 .. code-block:: yaml
 

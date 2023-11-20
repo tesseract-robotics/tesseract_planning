@@ -2,6 +2,17 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.21.2 (2023-11-17)
+-------------------
+
+0.21.1 (2023-11-17)
+-------------------
+
+0.21.0 (2023-11-10)
+-------------------
+* Unused includes cleanup
+* Contributors: Roelof Oomen
+
 0.20.1 (2023-10-02)
 -------------------
 * Update composite instruction user data to align with gazebo user data variant

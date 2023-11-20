@@ -37,6 +37,8 @@ namespace tf
 {
 class Executor;
 class Taskflow;
+class Subflow;
+class Task;
 }  // namespace tf
 
 namespace tesseract_planning
@@ -82,22 +84,27 @@ protected:
   std::size_t num_threads_;
   std::unique_ptr<tf::Executor> executor_;
 
+  std::mutex futures_mutex_;
+  std::map<boost::uuids::uuid, TaskComposerFuture::UPtr> futures_;
+  void removeFuture(const boost::uuids::uuid& uuid);
+
   TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerContext::Ptr context) override final;
 
-  static std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
-  convertToTaskflow(const TaskComposerGraph& task_graph,
-                    TaskComposerContext& task_context,
-                    TaskComposerExecutor& task_executor);
+  static tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
+                                    TaskComposerContext& task_context,
+                                    TaskComposerExecutor& task_executor,
+                                    tf::Taskflow* taskflow,
+                                    tf::Subflow* parent_sbf);
 
-  static std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
-  convertToTaskflow(const TaskComposerPipeline& task_pipeline,
-                    TaskComposerContext& task_context,
-                    TaskComposerExecutor& task_executor);
+  static void convertToTaskflow(const TaskComposerPipeline& task_pipeline,
+                                TaskComposerContext& task_context,
+                                TaskComposerExecutor& task_executor,
+                                tf::Taskflow* taskflow);
 
-  static std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
-  convertToTaskflow(const TaskComposerTask& task,
-                    TaskComposerContext& task_context,
-                    TaskComposerExecutor& task_executor);
+  static void convertToTaskflow(const TaskComposerTask& task,
+                                TaskComposerContext& task_context,
+                                TaskComposerExecutor& task_executor,
+                                tf::Taskflow* taskflow);
 };
 }  // namespace tesseract_planning
 

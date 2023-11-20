@@ -2,6 +2,27 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.21.2 (2023-11-17)
+-------------------
+* Improve dynamic tasking support
+* Contributors: Levi Armstrong
+
+0.21.1 (2023-11-17)
+-------------------
+* Fix loss of first waypoint in upsample trajectory (`#416 <https://github.com/tesseract-robotics/tesseract_planning/issues/416>`_)
+* Use taskflow subflow for graph execution to allow timing of execution
+* Contributors: Levi Armstrong, Thomas Hettasch
+
+0.21.0 (2023-11-10)
+-------------------
+* Fix clang-tidy errors
+* Replace input_indexing and output_indexing with indexing
+* Replace input_remapping and output_remapping with remapping
+* Move TaskComposerProblem input to base class and change type to tesseract_common::AnyPoly
+* remove results from TaskComposerNodeInfo
+* Unused includes cleanup
+* Contributors: Levi Armstrong, Roelof Oomen
+
 0.20.1 (2023-10-02)
 -------------------
 
