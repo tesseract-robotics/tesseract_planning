@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.21.3 (2023-11-20)
+-------------------
 * Update README.rst
   Description of Simple Motion Planner task fixed
 * Contributors: Roelof
