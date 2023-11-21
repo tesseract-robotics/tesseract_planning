@@ -215,6 +215,13 @@ public:
           .erase(profile_name);
   }
 
+  /** @brief Clear the dictionary */
+  void clear()
+  {
+    std::unique_lock lock(mutex_);
+    profiles_.clear();
+  }
+
 protected:
   std::unordered_map<std::string, std::unordered_map<std::type_index, std::any>> profiles_;
   mutable std::shared_mutex mutex_;
