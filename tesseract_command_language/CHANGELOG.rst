@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add clear method to profile dictionary
+* Contributors: Levi Armstrong
+
 0.21.3 (2023-11-20)
 -------------------
 
