@@ -7,8 +7,8 @@
 Platform             | CI Status
 ---------------------|:---------
 Linux (Focal)        | [![Ubuntu](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/ubuntu.yml)
-Linux (Unstable)     | [![Unstable](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/unstable_build.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/unstable_build.yml)
-Windows              | [![Windows-Noetic-Build](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/windows_noetic_build.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/windows_noetic_build.yml)
+Linux (Unstable)     | [![Unstable](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/unstable.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/unstable.yml)
+Windows              | [![Windows-Noetic-Build](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/windows.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/windows.yml)
 Lint  (Clang-Format) | [![Clang-Format](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/clang_format.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/clang_format.yml)
 Lint  (CMake-Format) | [![CMake-Format](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/cmake_format.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/cmake_format.yml)
 Lint  (Clang-Tidy)   | [![Code Quality](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/code_quality.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/code_quality.yml)
@@ -22,15 +22,6 @@ Lint  (CodeCov)      | [![Code Quality](https://github.com/tesseract-robotics/te
 [![support level: consortium](https://img.shields.io/badge/support%20level-consortium-brightgreen.png)](http://rosindustrial.org/news/2016/10/7/better-supporting-a-growing-ros-industrial-software-platform)
 
 This include packages related to both motion and process planning for the Tesseract Motion Planning Environment.
-
-## Dependencies
-
-Dependency                       | Version
----------------------------------|---------
-ROS Industrial CMake Boilerplate | [![version](https://img.shields.io/badge/version-0.4.7-brightgreen)](https://github.com/ros-industrial/ros_industrial_cmake_boilerplate/tree/0.4.7)  
-IFOPT                            | [![version](https://img.shields.io/badge/version-2.1.3-brightgreen)](https://github.com/ethz-adrl/ifopt/tree/2.1.3)  
-TrajOpt                          | [![version](https://img.shields.io/badge/version-0.6.0-brightgreen)](https://github.com/tesseract-robotics/trajopt/tree/0.6.0)  
-Descartes Light                  | [![version](https://img.shields.io/badge/version-0.3.0-brightgreen)](https://github.com/swri-robotics/descartes_light/tree/0.3.0)  
 
 ## Tesseract Setup Wizard and Visualization Tools
 
@@ -167,44 +158,6 @@ NOTE: Must be a clean build when generating a code coverage report. Also must bu
 ## Quality Tools Leverage
 
 Tesseract currently leverages Compiler Warnigs, Clang Tidy and Code Coverage. All warnings produced by Compiler and Clang Tidy are treated as errors during CI builds.
-
-- Compiler
-  - Wall
-  - Wextra
-  - Wconversion
-  - Wsign-conversion
-  - Wno-sign-compare
-  - Wnon-virtual-dtor
-- Clang Tidy
-  - clang-analyzer-*
-  - bugprone-*
-  - cppcoreguidelines-avoid-goto
-  - cppcoreguidelines-c-copy-assignment-signature
-  - cppcoreguidelines-interfaces-global-init
-  - cppcoreguidelines-narrowing-conversions
-  - cppcoreguidelines-no-malloc
-  - cppcoreguidelines-slicing
-  - cppcoreguidelines-special-member-functions
-  - misc-*,-misc-non-private-member-variables-in-classes
-  - modernize-*,-modernize-use-trailing-return-type,-modernize-use-nodiscard
-  - performance-*
-  - readability-avoid-const-params-in-decls
-  - readability-container-size-empty
-  - readability-delete-null-pointer
-  - readability-deleted-default
-  - readability-else-after-return
-  - readability-function-size
-  - readability-identifier-naming
-  - readability-inconsistent-declaration-parameter-name
-  - readability-misleading-indentation
-  - readability-misplaced-array-index
-  - readability-non-const-parameter
-  - readability-redundant-*
-  - readability-simplify-*
-  - readability-static-*
-  - readability-string-compare
-  - readability-uniqueptr-delete-release
-  - readability-rary-objects
 
 ## Build Branch Sphinx Documentation
 
