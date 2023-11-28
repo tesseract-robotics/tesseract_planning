@@ -128,6 +128,9 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   problem->qp_solver = std::make_shared<trajopt_sqp::OSQPEigenSolver>();
   OSQPEigenSolver_setSettings(dynamic_cast<trajopt_sqp::OSQPEigenSolver&>(*problem->qp_solver).solver_,
                               problem->convex_solver_settings);
+  dynamic_cast<trajopt_sqp::OSQPEigenSolver&>(*problem->qp_solver)
+      .solver_.settings()
+      ->setVerbosity((problem->convex_solver_settings.verbose != 0) || request.verbose);
 
   trajopt_sqp::TrustRegionSQPSolver solver(problem->qp_solver);
   solver.params = problem->opt_info;
