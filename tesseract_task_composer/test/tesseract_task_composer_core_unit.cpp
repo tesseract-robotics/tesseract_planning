@@ -140,6 +140,17 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerProblemTests)  // NOLINT
   auto problem = std::make_unique<TaskComposerProblem>();
   EXPECT_EQ(problem->name, "unset");
   EXPECT_FALSE(problem->dotgraph);
+  EXPECT_TRUE(problem->input.isNull());
+
+  tesseract_common::JointState joint_state;
+  joint_state.joint_names = { "joint_1", "joint_2", "joint_3" };
+  joint_state.position = Eigen::VectorXd::Constant(3, 5);
+  joint_state.velocity = Eigen::VectorXd::Constant(3, 6);
+  joint_state.acceleration = Eigen::VectorXd::Constant(3, 7);
+  joint_state.effort = Eigen::VectorXd::Constant(3, 8);
+  joint_state.time = 100;
+
+  problem->input = joint_state;
 
   // Serialization
   test_suite::runSerializationPointerTest(problem, "TaskComposerProblemTests");
