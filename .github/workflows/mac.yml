@@ -79,7 +79,7 @@ jobs:
             -DOpenMP_CXX_LIB_NAMES=libomp -DOpenMP_CXX_FLAGS="-Xpreprocessor -fopenmp" \
             -DOpenMP_C_LIB_NAMES=libomp -DOpenMP_C_FLAGS="-Xpreprocessor -fopenmp" \
             -DOpenMP_libomp_LIBRARY=/usr/local/opt/libomp/lib/libomp.dylib \
-            -Dtcmalloc_minimal_LIBRARY=${{ github.workspace }}/vcpkg/installed/arm64-osx-dynamic-release/lib/libtcmalloc_minimal.dylib
+            -Dtcmalloc_minimal_LIBRARY=${{ github.workspace }}/vcpkg/installed/x64-osx-dynamic-release/lib/libtcmalloc_minimal.dylib
     - name: colcon test
       working-directory: ws
       run: |
