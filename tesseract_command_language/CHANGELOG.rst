@@ -2,6 +2,9 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.21.5 (2023-12-13)
+-------------------
+
 0.21.4 (2023-11-21)
 -------------------
 * Add clear method to profile dictionary

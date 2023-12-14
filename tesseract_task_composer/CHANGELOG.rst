@@ -2,6 +2,11 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.21.5 (2023-12-13)
+-------------------
+* Fix TaskComposerProblem serialization and equal operator
+* Contributors: Levi Armstrong
+
 0.21.4 (2023-11-21)
 -------------------
 
