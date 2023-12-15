@@ -73,6 +73,9 @@ public:
                      const std::vector<std::string>& active_links,
                      int index) const = 0;
 
+  virtual bool isFixedCartesian() const = 0;
+  virtual bool isFixedJoint() const = 0;
+
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 };
 

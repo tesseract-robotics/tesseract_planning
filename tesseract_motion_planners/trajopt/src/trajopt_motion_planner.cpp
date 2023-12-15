@@ -289,7 +289,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
       }
 
       // Add to fixed indices
-      if (!cwp.isToleranced()) /** @todo Should not make fixed if term_type is cost */
+      if (!cwp.isToleranced() && cur_plan_profile->isFixedCartesian())
         fixed_steps.push_back(i);
     }
     else if (move_instruction.getWaypoint().isJointWaypoint())
@@ -302,7 +302,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
         cur_plan_profile->apply(*pci, jwp, move_instruction, composite_mi, active_links, i);
 
         // Add to fixed indices
-        if (!jwp.isToleranced()) /** @todo Should not make fixed if term_type is cost */
+        if (!jwp.isToleranced() && cur_plan_profile->isFixedJoint())
           fixed_steps.push_back(i);
       }
 

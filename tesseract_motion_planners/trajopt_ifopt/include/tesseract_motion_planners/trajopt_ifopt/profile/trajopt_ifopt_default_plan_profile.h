@@ -64,6 +64,9 @@ public:
              const std::vector<std::string>& active_links,
              int index) const override;
 
+  bool isFixedCartesian() const override;
+  bool isFixedJoint() const override;
+
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
 };
 }  // namespace tesseract_planning
