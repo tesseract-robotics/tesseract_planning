@@ -211,6 +211,16 @@ void TrajOptDefaultPlanProfile::addConstraintErrorFunctions(trajopt::ProblemCons
   }
 }
 
+bool TrajOptDefaultPlanProfile::isFixedCartesian() const {
+  // If the term type is constraint and all coefficients are non-zero
+  return (term_type == trajopt::TermType::TT_CNT) && (abs(cartesian_coeff.array()) >= std::numeric_limits<double>::epsilon()).all();
+}
+
+bool TrajOptDefaultPlanProfile::isFixedJoint() const {
+  // If the term type is constraint and all coefficients are non-zero
+  return (term_type == trajopt::TermType::TT_CNT) && (abs(joint_coeff.array()) >= std::numeric_limits<double>::epsilon()).all();
+}
+
 tinyxml2::XMLElement* TrajOptDefaultPlanProfile::toXML(tinyxml2::XMLDocument& doc) const
 {
   Eigen::IOFormat eigen_format(Eigen::StreamPrecision, Eigen::DontAlignCols, " ", " ");
