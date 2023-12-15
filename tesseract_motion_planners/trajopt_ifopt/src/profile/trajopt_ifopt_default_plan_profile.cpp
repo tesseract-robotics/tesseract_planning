@@ -127,14 +127,18 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
   }
 }
 
-bool TrajOptIfoptDefaultPlanProfile::isFixedCartesian() const {
+bool TrajOptIfoptDefaultPlanProfile::isFixedCartesian() const
+{
   // If the term type is constraint and all coefficients are non-zero
-  return (term_type == TrajOptIfoptTermType::CONSTRAINT) && (abs(cartesian_coeff.array()) >= std::numeric_limits<double>::epsilon()).all();
+  return (term_type == TrajOptIfoptTermType::CONSTRAINT) &&
+         (abs(cartesian_coeff.array()) >= std::numeric_limits<double>::epsilon()).all();
 }
 
-bool TrajOptIfoptDefaultPlanProfile::isFixedJoint() const {
+bool TrajOptIfoptDefaultPlanProfile::isFixedJoint() const
+{
   // If the term type is constraint and all coefficients are non-zero
-  return (term_type == TrajOptIfoptTermType::CONSTRAINT) && (abs(joint_coeff.array()) >= std::numeric_limits<double>::epsilon()).all();
+  return (term_type == TrajOptIfoptTermType::CONSTRAINT) &&
+         (abs(joint_coeff.array()) >= std::numeric_limits<double>::epsilon()).all();
 }
 
 tinyxml2::XMLElement* TrajOptIfoptDefaultPlanProfile::toXML(tinyxml2::XMLDocument& /*doc*/) const
