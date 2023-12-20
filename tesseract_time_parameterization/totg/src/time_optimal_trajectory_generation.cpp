@@ -956,7 +956,7 @@ bool Trajectory::assignData(TrajectoryContainer& trajectory, const std::vector<s
 
     time = getTime(dist_mapping.at(seg_idx));
     if (!(time > prev_time))
-      time = prev_time + 1e-16;
+      time = prev_time + 1e-8;
 
     path_data = getPathData(time);
     uv = getVelocity(path_data).head(trajectory.dof());
@@ -967,7 +967,10 @@ bool Trajectory::assignData(TrajectoryContainer& trajectory, const std::vector<s
   }
 
   // Set end
-  path_data = getPathData(prev_time);
+  if (!(time > prev_time))
+    time = prev_time + 1e-8;
+
+  path_data = getPathData(time);
   uv = getVelocity(path_data).head(trajectory.dof());
   ua = getAcceleration(path_data).head(trajectory.dof());
   trajectory.setData((trajectory.size() - 1), uv, ua, time);
