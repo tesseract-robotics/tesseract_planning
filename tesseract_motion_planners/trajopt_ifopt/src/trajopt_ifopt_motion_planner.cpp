@@ -314,9 +314,7 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
       // Apply profile
       cur_plan_profile->apply(*problem, cwp, move_instruction, composite_mi, active_links, i);
 
-      // Add to fixed indices
-      if (!cwp.isToleranced()) /** @todo Should not make fixed if term_type is cost */
-        fixed_steps.push_back(i);
+      /** @todo If fixed cartesian and not term_type cost add as fixed */
     }
     else if (move_instruction.getWaypoint().isJointWaypoint())
     {

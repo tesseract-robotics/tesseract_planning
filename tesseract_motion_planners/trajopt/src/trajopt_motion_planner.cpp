@@ -273,9 +273,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
         seed_states.push_back(request.env_state.getJointValues(joint_names));
       }
 
-      // Add to fixed indices
-      if (!cwp.isToleranced()) /** @todo Should not make fixed if term_type is cost */
-        fixed_steps.push_back(i);
+      /** @todo If fixed cartesian and not term_type cost add as fixed */
     }
     else if (move_instruction.getWaypoint().isJointWaypoint())
     {
