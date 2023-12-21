@@ -40,7 +40,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/composite_instruction.h>
 
-#include <tesseract_command_language/move_instruction.h> /** @todo Remove after refactor is complete */
 namespace tesseract_planning
 {
 bool moveFilter(const InstructionPoly& instruction, const CompositeInstruction& /*composite*/)

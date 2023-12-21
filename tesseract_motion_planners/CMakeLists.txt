@@ -34,7 +34,7 @@ endif()
 # Load variable for clang tidy args, compiler options and cxx version
 tesseract_variables()
 
-initialize_code_coverage()
+initialize_code_coverage(ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 set(COVERAGE_EXCLUDE
     /usr/*
     /opt/*
@@ -44,7 +44,7 @@ set(COVERAGE_EXCLUDE
     /*/include/opw_kinematics/*
     /*/include/trajopt/*
     /*/include/trajopt_sco/*)
-add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE})
+add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 
 # Enable Testing
 if(TESSERACT_ENABLE_TESTING)
