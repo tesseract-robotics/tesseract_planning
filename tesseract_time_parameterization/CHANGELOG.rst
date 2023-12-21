@@ -2,8 +2,8 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.21.6 (2023-12-21)
+-------------------
 * Fix TOTG state time from start numerical issue (`#431 <https://github.com/tesseract-robotics/tesseract_planning/issues/431>`_)
 * Add Mac OSX support (`#428 <https://github.com/tesseract-robotics/tesseract_planning/issues/428>`_)
 * Contributors: John Wason, Levi Armstrong

@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.21.6 (2023-12-21)
+-------------------
 * Add Mac OSX support (`#428 <https://github.com/tesseract-robotics/tesseract_planning/issues/428>`_)
 * Contributors: John Wason
 
