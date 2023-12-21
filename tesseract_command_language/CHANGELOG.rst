@@ -2,6 +2,12 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remove include (fixes todo)
+* Add Mac OSX support (`#428 <https://github.com/tesseract-robotics/tesseract_planning/issues/428>`_)
+* Contributors: John Wason, Roelof
+
 0.21.5 (2023-12-13)
 -------------------
 
