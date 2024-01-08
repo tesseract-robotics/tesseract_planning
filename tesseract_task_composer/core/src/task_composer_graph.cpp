@@ -79,7 +79,11 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
       if (YAML::Node cn = node_it->second["config"])
         plugin_info.config = cn;
 
-      TaskComposerNode::UPtr task_node = plugin_factory.createTaskComposerNode(node_name, plugin_info);
+      std::string namespace_name = node_name;
+      if (YAML::Node ns = node_it->second["namespace"])
+        namespace_name = ns.as<std::string>();
+
+      TaskComposerNode::UPtr task_node = plugin_factory.createTaskComposerNode(namespace_name, plugin_info);
       if (task_node == nullptr)
         throw std::runtime_error("Task Composer Graph '" + name_ + "' failed to create node '" + node_name + "'");
 
