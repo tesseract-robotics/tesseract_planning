@@ -127,13 +127,6 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
   }
 }
 
-bool TrajOptIfoptDefaultPlanProfile::isFixedCartesian() const
-{
-  // If the term type is constraint and all coefficients are non-zero
-  return (term_type == TrajOptIfoptTermType::CONSTRAINT) &&
-         (abs(cartesian_coeff.array()) >= std::numeric_limits<double>::epsilon()).all();
-}
-
 bool TrajOptIfoptDefaultPlanProfile::isFixedJoint() const
 {
   // If the term type is constraint and all coefficients are non-zero
