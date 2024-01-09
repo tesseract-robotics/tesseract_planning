@@ -30,12 +30,10 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <memory>
-#include <osqp.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_environment/environment.h>
 #include <trajopt_ifopt/variable_sets/joint_position_variable.h>
-#include <trajopt_sqp/qp_solver.h>
 #include <trajopt_sqp/sqp_callback.h>
 
 namespace tesseract_planning
@@ -53,8 +51,6 @@ struct TrajOptIfoptProblem
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   // LCOV_EXCL_STOP
 
-  TrajOptIfoptProblem() { osqp_set_default_settings(&convex_solver_settings); };
-
   trajopt_sqp::SQPParameters opt_info;
 
   // These are required for Tesseract to configure Descartes
@@ -65,12 +61,6 @@ struct TrajOptIfoptProblem
   tesseract_kinematics::JointGroup::ConstPtr manip;
 
   std::vector<trajopt_sqp::SQPCallback::Ptr> callbacks;
-
-  /** @brief The OSQP convex solver settings to use
-   *  @todo Replace by convex_solver_config (cf. sco::ModelConfig) once solver selection is possible */
-  OSQPSettings convex_solver_settings{};
-
-  std::shared_ptr<trajopt_sqp::QPSolver> qp_solver;
 
   trajopt_sqp::QPProblem::Ptr nlp;
   std::vector<trajopt_ifopt::JointPosition::ConstPtr> vars;
