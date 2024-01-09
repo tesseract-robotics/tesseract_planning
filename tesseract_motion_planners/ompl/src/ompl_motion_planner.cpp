@@ -89,7 +89,7 @@ bool checkGoalState(const ompl::base::ProblemDefinitionPtr& prob_def,
 }
 
 /** @brief Construct a basic planner */
-OMPLMotionPlanner::OMPLMotionPlanner(std::string name) : MotionPlanner(std::move(name)) {}
+OMPLMotionPlanner::OMPLMotionPlanner(std::string ns) : MotionPlanner(std::move(ns)) {}
 
 bool OMPLMotionPlanner::terminate()
 {
@@ -307,7 +307,7 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 
 void OMPLMotionPlanner::clear() { parallel_plan_ = nullptr; }
 
-MotionPlanner::Ptr OMPLMotionPlanner::clone() const { return std::make_shared<OMPLMotionPlanner>(name_); }
+MotionPlanner::Ptr OMPLMotionPlanner::clone() const { return std::make_shared<OMPLMotionPlanner>(ns_); }
 
 OMPLProblemConfig OMPLMotionPlanner::createSubProblem(const PlannerRequest& request,
                                                       const tesseract_common::ManipulatorInfo& composite_mi,
@@ -322,10 +322,10 @@ OMPLProblemConfig OMPLMotionPlanner::createSubProblem(const PlannerRequest& requ
 
   // Get Plan Profile
   std::string profile = end_instruction.getProfile();
-  profile = getProfileString(name_, profile, request.plan_profile_remapping);
+  profile = getProfileString(ns_, profile, request.plan_profile_remapping);
   auto cur_plan_profile =
-      getProfile<OMPLPlanProfile>(name_, profile, *request.profiles, std::make_shared<OMPLDefaultPlanProfile>());
-  cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile, end_instruction.getProfileOverrides());
+      getProfile<OMPLPlanProfile>(ns_, profile, *request.profiles, std::make_shared<OMPLDefaultPlanProfile>());
+  cur_plan_profile = applyProfileOverrides(ns_, profile, cur_plan_profile, end_instruction.getProfileOverrides());
   if (!cur_plan_profile)
     throw std::runtime_error("OMPLMotionPlanner: Invalid profile");
 

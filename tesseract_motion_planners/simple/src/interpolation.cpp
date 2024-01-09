@@ -1302,11 +1302,11 @@ CompositeInstruction generateInterpolatedProgram(const CompositeInstruction& ins
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<SimplePlannerPlanProfile>(planner.getName(), instructions.getProfile(), profile);
+  profiles->addProfile<SimplePlannerPlanProfile>(planner.getNamespace(), instructions.getProfile(), profile);
   auto flat = instructions.flatten(&moveFilter);
   for (const auto& i : flat)
     profiles->addProfile<SimplePlannerPlanProfile>(
-        planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
+        planner.getNamespace(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
 
   // Assign profile dictionary
   request.profiles = profiles;

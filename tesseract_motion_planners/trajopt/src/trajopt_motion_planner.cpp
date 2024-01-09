@@ -52,7 +52,7 @@ using namespace trajopt;
 
 namespace tesseract_planning
 {
-TrajOptMotionPlanner::TrajOptMotionPlanner(std::string name) : MotionPlanner(std::move(name)) {}
+TrajOptMotionPlanner::TrajOptMotionPlanner(std::string ns) : MotionPlanner(std::move(ns)) {}
 
 bool TrajOptMotionPlanner::terminate()
 {
@@ -62,7 +62,7 @@ bool TrajOptMotionPlanner::terminate()
 
 void TrajOptMotionPlanner::clear() {}
 
-MotionPlanner::Ptr TrajOptMotionPlanner::clone() const { return std::make_shared<TrajOptMotionPlanner>(name_); }
+MotionPlanner::Ptr TrajOptMotionPlanner::clone() const { return std::make_shared<TrajOptMotionPlanner>(ns_); }
 
 PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
 {
@@ -212,10 +212,10 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   // Apply Solver parameters
   std::string profile = request.instructions.getProfile();
   ProfileDictionary::ConstPtr profile_overrides = request.instructions.getProfileOverrides();
-  profile = getProfileString(name_, profile, request.plan_profile_remapping);
+  profile = getProfileString(ns_, profile, request.plan_profile_remapping);
   TrajOptSolverProfile::ConstPtr solver_profile = getProfile<TrajOptSolverProfile>(
-      name_, profile, *request.profiles, std::make_shared<TrajOptDefaultSolverProfile>());
-  solver_profile = applyProfileOverrides(name_, profile, solver_profile, profile_overrides);
+      ns_, profile, *request.profiles, std::make_shared<TrajOptDefaultSolverProfile>());
+  solver_profile = applyProfileOverrides(ns_, profile, solver_profile, profile_overrides);
   if (!solver_profile)
     throw std::runtime_error("TrajOptMotionPlanner: Invalid profile");
 
@@ -250,10 +250,10 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
       throw std::runtime_error("TrajOpt, working_frame is empty!");
 
     // Get Plan Profile
-    std::string profile = getProfileString(name_, move_instruction.getProfile(), request.plan_profile_remapping);
-    TrajOptPlanProfile::ConstPtr cur_plan_profile = getProfile<TrajOptPlanProfile>(
-        name_, profile, *request.profiles, std::make_shared<TrajOptDefaultPlanProfile>());
-    cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile, move_instruction.getProfileOverrides());
+    std::string profile = getProfileString(ns_, move_instruction.getProfile(), request.plan_profile_remapping);
+    TrajOptPlanProfile::ConstPtr cur_plan_profile =
+        getProfile<TrajOptPlanProfile>(ns_, profile, *request.profiles, std::make_shared<TrajOptDefaultPlanProfile>());
+    cur_plan_profile = applyProfileOverrides(ns_, profile, cur_plan_profile, move_instruction.getProfileOverrides());
     if (!cur_plan_profile)
       throw std::runtime_error("TrajOptMotionPlanner: Invalid profile");
 
@@ -333,11 +333,11 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   for (long i = 0; i < pci->basic_info.n_steps; ++i)
     pci->init_info.data.row(i) = seed_states[static_cast<std::size_t>(i)];
 
-  profile = getProfileString(name_, request.instructions.getProfile(), request.composite_profile_remapping);
+  profile = getProfileString(ns_, request.instructions.getProfile(), request.composite_profile_remapping);
   TrajOptCompositeProfile::ConstPtr cur_composite_profile = getProfile<TrajOptCompositeProfile>(
-      name_, profile, *request.profiles, std::make_shared<TrajOptDefaultCompositeProfile>());
+      ns_, profile, *request.profiles, std::make_shared<TrajOptDefaultCompositeProfile>());
   cur_composite_profile =
-      applyProfileOverrides(name_, profile, cur_composite_profile, request.instructions.getProfileOverrides());
+      applyProfileOverrides(ns_, profile, cur_composite_profile, request.instructions.getProfileOverrides());
   if (!cur_composite_profile)
     throw std::runtime_error("TrajOptMotionPlanner: Invalid profile");
 

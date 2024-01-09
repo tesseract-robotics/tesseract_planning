@@ -46,7 +46,7 @@ constexpr auto FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
 
 namespace tesseract_planning
 {
-SimpleMotionPlanner::SimpleMotionPlanner(std::string name) : MotionPlanner(std::move(name)) {}
+SimpleMotionPlanner::SimpleMotionPlanner(std::string ns) : MotionPlanner(std::move(ns)) {}
 
 bool SimpleMotionPlanner::terminate()
 {
@@ -56,7 +56,7 @@ bool SimpleMotionPlanner::terminate()
 
 void SimpleMotionPlanner::clear() {}
 
-MotionPlanner::Ptr SimpleMotionPlanner::clone() const { return std::make_shared<SimpleMotionPlanner>(name_); }
+MotionPlanner::Ptr SimpleMotionPlanner::clone() const { return std::make_shared<SimpleMotionPlanner>(ns_); }
 
 PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
 {
@@ -196,18 +196,17 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
       SimplePlannerPlanProfile::ConstPtr plan_profile;
       if (base_instruction.getPathProfile().empty())
       {
-        std::string profile = getProfileString(name_, base_instruction.getProfile(), request.plan_profile_remapping);
+        std::string profile = getProfileString(ns_, base_instruction.getProfile(), request.plan_profile_remapping);
         plan_profile = getProfile<SimplePlannerPlanProfile>(
-            name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
-        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.getProfileOverrides());
+            ns_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
+        plan_profile = applyProfileOverrides(ns_, profile, plan_profile, base_instruction.getProfileOverrides());
       }
       else
       {
-        std::string profile =
-            getProfileString(name_, base_instruction.getPathProfile(), request.plan_profile_remapping);
+        std::string profile = getProfileString(ns_, base_instruction.getPathProfile(), request.plan_profile_remapping);
         plan_profile = getProfile<SimplePlannerPlanProfile>(
-            name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
-        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.getProfileOverrides());
+            ns_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
+        plan_profile = applyProfileOverrides(ns_, profile, plan_profile, base_instruction.getProfileOverrides());
       }
 
       if (!plan_profile)

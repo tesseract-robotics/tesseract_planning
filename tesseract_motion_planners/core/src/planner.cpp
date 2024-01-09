@@ -28,13 +28,13 @@
 
 namespace tesseract_planning
 {
-MotionPlanner::MotionPlanner(std::string name) : name_(std::move(name))
+MotionPlanner::MotionPlanner(std::string ns) : ns_(std::move(ns))
 {
-  if (name_.empty())
-    throw std::runtime_error("MotionPlanner name is empty!");
+  if (ns_.empty())
+    throw std::runtime_error("MotionPlanner namespace is empty!");
 }
 
-const std::string& MotionPlanner::getName() const { return name_; }
+const std::string& MotionPlanner::getNamespace() const { return ns_; }
 
 bool MotionPlanner::checkRequest(const PlannerRequest& request)
 {

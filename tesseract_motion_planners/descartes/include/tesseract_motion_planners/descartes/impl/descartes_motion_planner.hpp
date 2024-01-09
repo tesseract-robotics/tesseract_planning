@@ -55,7 +55,7 @@ constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid soluti
 namespace tesseract_planning
 {
 template <typename FloatType>
-DescartesMotionPlanner<FloatType>::DescartesMotionPlanner(std::string name) : MotionPlanner(std::move(name))  // NOLINT
+DescartesMotionPlanner<FloatType>::DescartesMotionPlanner(std::string ns) : MotionPlanner(std::move(ns))  // NOLINT
 {
 }
 
@@ -213,7 +213,7 @@ void DescartesMotionPlanner<FloatType>::clear()
 template <typename FloatType>
 MotionPlanner::Ptr DescartesMotionPlanner<FloatType>::clone() const
 {
-  return std::make_shared<DescartesMotionPlanner<FloatType>>(name_);
+  return std::make_shared<DescartesMotionPlanner<FloatType>>(ns_);
 }
 
 template <typename FloatType>
@@ -284,10 +284,10 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
 
     // Get Plan Profile
     std::string profile = plan_instruction.getProfile();
-    profile = getProfileString(name_, profile, request.plan_profile_remapping);
+    profile = getProfileString(ns_, profile, request.plan_profile_remapping);
     auto cur_plan_profile = getProfile<DescartesPlanProfile<FloatType>>(
-        name_, profile, *request.profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
-    //      cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile,
+        ns_, profile, *request.profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
+    //      cur_plan_profile = applyProfileOverrides(ns_, profile, cur_plan_profile,
     //      plan_instruction.profile_overrides);
     if (!cur_plan_profile)
       throw std::runtime_error("DescartesMotionPlanner: Invalid profile");
