@@ -24,8 +24,6 @@
  * limitations under the License.
  */
 #include <tesseract_common/macros.h>
-#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
-#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <json/json.h>
 #include <console_bridge/console.h>
@@ -36,6 +34,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
@@ -72,9 +73,14 @@ namespace tesseract_examples
 PickAndPlaceExample::PickAndPlaceExample(tesseract_environment::Environment::Ptr env,
                                          tesseract_visualization::Visualization::Ptr plotter,
                                          bool ifopt,
+                                         bool debug,
                                          double box_size,
                                          std::array<double, 2> box_position)
-  : Example(std::move(env), std::move(plotter)), ifopt_(ifopt), box_size_(box_size), box_position_(box_position)
+  : Example(std::move(env), std::move(plotter))
+  , ifopt_(ifopt)
+  , debug_(debug)
+  , box_size_(box_size)
+  , box_position_(box_position)
 {
 }
 
@@ -108,7 +114,10 @@ bool PickAndPlaceExample::run()
   /// SETUP ///
   /////////////
 
-  console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  if (debug_)
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  else
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
 
   // Set default contact distance
   Command::Ptr cmd_default_dist = std::make_shared<tesseract_environment::ChangeCollisionMarginsCommand>(0.005);
@@ -200,16 +209,20 @@ bool PickAndPlaceExample::run()
   if (ifopt_)
   {
     // Create TrajOpt_Ifopt Profile
+    auto trajopt_ifopt_plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
+    trajopt_ifopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Ones(6);
+    trajopt_ifopt_plan_profile->joint_coeff = Eigen::VectorXd::Ones(7);
+
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
     trajopt_ifopt_composite_profile->collision_constraint_config->type =
-        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+        tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
     trajopt_ifopt_composite_profile->collision_constraint_config->contact_manager_config =
         tesseract_collision::ContactManagerConfig(0.00);
     trajopt_ifopt_composite_profile->collision_constraint_config->collision_margin_buffer = 0.005;
     trajopt_ifopt_composite_profile->collision_constraint_config->collision_coeff_data =
         trajopt_common::CollisionCoeffData(1);
     trajopt_ifopt_composite_profile->collision_cost_config->type =
-        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+        tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
     trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
         tesseract_collision::ContactManagerConfig(0.005);
     trajopt_ifopt_composite_profile->collision_cost_config->collision_margin_buffer = 0.01;
@@ -223,14 +236,15 @@ bool PickAndPlaceExample::run()
     trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->longest_valid_segment_length = 0.05;
 
-    auto trajopt_ifopt_plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
-    trajopt_ifopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Ones(6);
-    trajopt_ifopt_plan_profile->joint_coeff = Eigen::VectorXd::Ones(7);
+    auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptDefaultSolverProfile>();
+    trajopt_ifopt_solver_profile->opt_info.max_iterations = 100;
 
-    profiles->addProfile<TrajOptIfoptCompositeProfile>(
-        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
     profiles->addProfile<TrajOptIfoptPlanProfile>(
         TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_plan_profile);
+    profiles->addProfile<TrajOptIfoptCompositeProfile>(
+        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
+    profiles->addProfile<TrajOptIfoptSolverProfile>(
+        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_solver_profile);
   }
   else
   {

@@ -49,6 +49,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
@@ -116,8 +117,9 @@ Commands addSeats(const tesseract_common::ResourceLocator::ConstPtr& locator)
 
 CarSeatExample::CarSeatExample(tesseract_environment::Environment::Ptr env,
                                tesseract_visualization::Visualization::Ptr plotter,
-                               bool ifopt)
-  : Example(std::move(env), std::move(plotter)), ifopt_(ifopt)
+                               bool ifopt,
+                               bool debug)
+  : Example(std::move(env), std::move(plotter)), ifopt_(ifopt), debug_(debug)
 {
 }
 
@@ -219,7 +221,10 @@ Eigen::VectorXd CarSeatExample::getPositionVectorXd(const JointGroup& joint_grou
 
 bool CarSeatExample::run()
 {
-  console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  if (debug_)
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  else
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
 
   // Create Task Composer Plugin Factory
   const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
@@ -256,19 +261,19 @@ bool CarSeatExample::run()
     // Create TrajOpt_Ifopt Profile
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
     trajopt_ifopt_composite_profile->collision_constraint_config->type =
-        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+        tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
     trajopt_ifopt_composite_profile->collision_constraint_config->contact_manager_config =
         tesseract_collision::ContactManagerConfig(0.00);
     trajopt_ifopt_composite_profile->collision_constraint_config->collision_margin_buffer = 0.005;
     trajopt_ifopt_composite_profile->collision_constraint_config->collision_coeff_data =
         trajopt_common::CollisionCoeffData(1);
     trajopt_ifopt_composite_profile->collision_cost_config->type =
-        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+        tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
     trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
         tesseract_collision::ContactManagerConfig(0.005);
     trajopt_ifopt_composite_profile->collision_cost_config->collision_margin_buffer = 0.01;
     trajopt_ifopt_composite_profile->collision_cost_config->collision_coeff_data =
-        trajopt_common::CollisionCoeffData(5);
+        trajopt_common::CollisionCoeffData(50);
     trajopt_ifopt_composite_profile->smooth_velocities = false;
     trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->smooth_accelerations = true;
@@ -281,10 +286,17 @@ bool CarSeatExample::run()
     trajopt_ifopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Ones(6);
     trajopt_ifopt_plan_profile->joint_coeff = Eigen::VectorXd::Ones(8);
 
+    auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptDefaultSolverProfile>();
+    trajopt_ifopt_solver_profile->opt_info.max_iterations = 200;
+    trajopt_ifopt_solver_profile->opt_info.min_approx_improve = 1e-3;
+    trajopt_ifopt_solver_profile->opt_info.min_trust_box_size = 1e-3;
+
     profiles->addProfile<TrajOptIfoptCompositeProfile>(
         TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_ifopt_composite_profile);
     profiles->addProfile<TrajOptIfoptPlanProfile>(
         TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_ifopt_plan_profile);
+    profiles->addProfile<TrajOptIfoptSolverProfile>(
+        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_ifopt_solver_profile);
   }
   else
   {

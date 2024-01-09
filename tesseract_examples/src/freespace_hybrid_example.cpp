@@ -103,6 +103,8 @@ bool FreespaceHybridExample::run()
 {
   if (debug_)
     console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  else
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
 
   // Add sphere to environment
   Command::Ptr cmd = addSphere();

@@ -45,7 +45,8 @@ class PuzzlePieceExample : public Example
 public:
   PuzzlePieceExample(tesseract_environment::Environment::Ptr env,
                      tesseract_visualization::Visualization::Ptr plotter = nullptr,
-                     bool ifopt = false);
+                     bool ifopt = false,
+                     bool debug = false);
   ~PuzzlePieceExample() override = default;
   PuzzlePieceExample(const PuzzlePieceExample&) = default;
   PuzzlePieceExample& operator=(const PuzzlePieceExample&) = default;
@@ -56,6 +57,7 @@ public:
 
 private:
   bool ifopt_;
+  bool debug_;
   static tesseract_common::VectorIsometry3d
   makePuzzleToolPoses(const tesseract_common::ResourceLocator::ConstPtr& locator);
 };

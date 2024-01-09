@@ -44,7 +44,8 @@ class CarSeatExample : public Example
 public:
   CarSeatExample(tesseract_environment::Environment::Ptr env,
                  tesseract_visualization::Visualization::Ptr plotter = nullptr,
-                 bool ifopt = false);
+                 bool ifopt = false,
+                 bool debug = false);
   ~CarSeatExample() override = default;
   CarSeatExample(const CarSeatExample&) = default;
   CarSeatExample& operator=(const CarSeatExample&) = default;
@@ -55,6 +56,7 @@ public:
 
 private:
   bool ifopt_;
+  bool debug_;
   std::unordered_map<std::string, std::unordered_map<std::string, double>> saved_positions_;
 
   static std::unordered_map<std::string, std::unordered_map<std::string, double>> getPredefinedPosition();

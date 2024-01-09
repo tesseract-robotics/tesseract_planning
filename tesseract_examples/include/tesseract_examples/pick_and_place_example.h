@@ -46,6 +46,7 @@ public:
   PickAndPlaceExample(tesseract_environment::Environment::Ptr env,
                       tesseract_visualization::Visualization::Ptr plotter = nullptr,
                       bool ifopt = false,
+                      bool debug = false,
                       double box_size = 0.2,
                       std::array<double, 2> box_position = { 0.15, 0.4 });
   ~PickAndPlaceExample() override = default;
@@ -58,6 +59,7 @@ public:
 
 private:
   bool ifopt_;
+  bool debug_;
   double box_size_;
   std::array<double, 2> box_position_;
   static tesseract_environment::Command::Ptr addBox(double box_x, double box_y, double box_side);
