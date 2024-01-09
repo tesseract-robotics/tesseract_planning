@@ -232,7 +232,7 @@ bool PuzzlePieceAuxillaryAxesExample::run()
     trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
 
     auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptDefaultSolverProfile>();
-    trajopt_ifopt_solver_profile->convex_solver_settings.adaptive_rho = 0;
+    // trajopt_ifopt_solver_profile->convex_solver_settings.adaptive_rho = 0;
     trajopt_ifopt_solver_profile->opt_info.max_iterations = 200;
     trajopt_ifopt_solver_profile->opt_info.min_approx_improve = 1e-3;
     trajopt_ifopt_solver_profile->opt_info.min_trust_box_size = 1e-3;
