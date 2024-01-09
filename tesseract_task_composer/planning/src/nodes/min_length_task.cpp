@@ -91,10 +91,10 @@ TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerContext& context,
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   long cnt = ci.getMoveInstructionCount();
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, problem.composite_profile_remapping);
+  profile = getProfileString(ns_, profile, problem.composite_profile_remapping);
   auto cur_composite_profile =
-      getProfile<MinLengthProfile>(name_, profile, *problem.profiles, std::make_shared<MinLengthProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
+      getProfile<MinLengthProfile>(ns_, profile, *problem.profiles, std::make_shared<MinLengthProfile>());
+  cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   if (cnt < cur_composite_profile->min_length)
   {
@@ -108,17 +108,17 @@ TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerContext& context,
     request.env = problem.env;
 
     // Set up planner
-    SimpleMotionPlanner planner(name_);
+    SimpleMotionPlanner planner(ns_);
 
     auto profile = std::make_shared<SimplePlannerFixedSizePlanProfile>(subdivisions, subdivisions);
 
     // Create profile dictionary
     auto profiles = std::make_shared<ProfileDictionary>();
-    profiles->addProfile<SimplePlannerPlanProfile>(planner.getName(), ci.getProfile(), profile);
+    profiles->addProfile<SimplePlannerPlanProfile>(planner.getNamespace(), ci.getProfile(), profile);
     auto flat = ci.flatten(&moveFilter);
     for (const auto& i : flat)
       profiles->addProfile<SimplePlannerPlanProfile>(
-          planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
+          planner.getNamespace(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
 
     // Assign profile dictionary
     request.profiles = profiles;

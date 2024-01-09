@@ -71,6 +71,12 @@ public:
   /** @brief The name of the node */
   const std::string& getName() const;
 
+  /** @brief Set the namespace of the node */
+  void setNamespace(const std::string& ns);
+
+  /** @brief The namespace of the node */
+  const std::string& getNamespace() const;
+
   /** @brief The node type TASK, GRAPH, etc */
   TaskComposerNodeType getType() const;
 
@@ -141,6 +147,9 @@ protected:
 
   /** @brief The name of the task */
   std::string name_;
+
+  /** @brief The namespace of the task */
+  std::string ns_;
 
   /** @brief The node type */
   TaskComposerNodeType type_;

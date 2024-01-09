@@ -100,10 +100,10 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerCo
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, problem.composite_profile_remapping);
+  profile = getProfileString(ns_, profile, problem.composite_profile_remapping);
   auto cur_composite_profile = getProfile<RuckigTrajectorySmoothingCompositeProfile>(
-      name_, profile, *problem.profiles, std::make_shared<RuckigTrajectorySmoothingCompositeProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
+      ns_, profile, *problem.profiles, std::make_shared<RuckigTrajectorySmoothingCompositeProfile>());
+  cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   RuckigTrajectorySmoothing solver(cur_composite_profile->duration_extension_fraction,
                                    cur_composite_profile->max_duration_extension_factor);
@@ -138,10 +138,10 @@ TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerCo
     std::string move_profile = mi.getProfile();
 
     // Check for remapping of the plan profile
-    move_profile = getProfileString(name_, profile, problem.move_profile_remapping);
+    move_profile = getProfileString(ns_, profile, problem.move_profile_remapping);
     auto cur_move_profile = getProfile<RuckigTrajectorySmoothingMoveProfile>(
-        name_, move_profile, *problem.profiles, std::make_shared<RuckigTrajectorySmoothingMoveProfile>());
-    //    cur_move_profile = applyProfileOverrides(name_, profile, cur_move_profile, mi.profile_overrides);
+        ns_, move_profile, *problem.profiles, std::make_shared<RuckigTrajectorySmoothingMoveProfile>());
+    //    cur_move_profile = applyProfileOverrides(ns_, profile, cur_move_profile, mi.profile_overrides);
 
     // If there is a move profile associated with it, override the parameters
     if (cur_move_profile)

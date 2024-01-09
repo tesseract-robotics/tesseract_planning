@@ -106,10 +106,10 @@ TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposer
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, problem.composite_profile_remapping);
+  profile = getProfileString(ns_, profile, problem.composite_profile_remapping);
   auto cur_composite_profile = getProfile<TimeOptimalParameterizationProfile>(
-      name_, profile, *problem.profiles, std::make_shared<TimeOptimalParameterizationProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
+      ns_, profile, *problem.profiles, std::make_shared<TimeOptimalParameterizationProfile>());
+  cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   // Create data structures for checking for plan profile overrides
   auto flattened = ci.flatten(moveFilter);

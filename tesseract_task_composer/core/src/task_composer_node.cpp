@@ -51,6 +51,11 @@ TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type, 
 {
   try
   {
+    if (YAML::Node n = config["namespace"])
+      ns_ = n.as<std::string>();
+    else
+      ns_ = name_;
+
     if (YAML::Node n = config["conditional"])
       conditional_ = n.as<bool>();
 
@@ -78,6 +83,9 @@ TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type, 
 
 void TaskComposerNode::setName(const std::string& name) { name_ = name; }
 const std::string& TaskComposerNode::getName() const { return name_; }
+
+void TaskComposerNode::setNamespace(const std::string& ns) { ns_ = ns; }
+const std::string& TaskComposerNode::getNamespace() const { return ns_; }
 
 TaskComposerNodeType TaskComposerNode::getType() const { return type_; }
 
@@ -134,7 +142,8 @@ std::string TaskComposerNode::dump(std::ostream& os,
 
   if (conditional_)
   {
-    os << std::endl << tmp << " [shape=diamond, label=\"" << name_ << "\\n(" << uuid_str_ << ")";
+    os << std::endl << tmp << " [shape=diamond, label=\"" << name_ << "\\n";
+    os << "Namespace: " << ns_ << "\\n(" << uuid_str_ << ")";
 
     os << "\\n Inputs: [";
     for (std::size_t i = 0; i < input_keys_.size(); ++i)
