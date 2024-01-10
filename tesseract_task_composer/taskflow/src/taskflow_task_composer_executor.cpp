@@ -82,7 +82,7 @@ void TaskflowTaskComposerExecutor::removeFuture(const boost::uuids::uuid& uuid)
 TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerNode& node,
                                                            TaskComposerContext::Ptr context)
 {
-  auto taskflow = std::make_unique<tf::Taskflow>(node.getNamespace());
+  auto taskflow = std::make_unique<tf::Taskflow>(node.getName());
   if (node.getType() == TaskComposerNodeType::TASK)
     convertToTaskflow(static_cast<const TaskComposerTask&>(node), *context, *this, taskflow.get());
   else if (node.getType() == TaskComposerNodeType::PIPELINE)
