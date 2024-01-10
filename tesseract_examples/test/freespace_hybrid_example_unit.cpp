@@ -3,40 +3,40 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_examples/puzzle_piece_example.h>
+#include <tesseract_examples/freespace_hybrid_example.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_examples;
 using namespace tesseract_common;
 using namespace tesseract_environment;
 
-TEST(TesseractExamples, PuzzlePieceCppTrajOptExampleUnit)  // NOLINT
+TEST(TesseractExamples, FreespaceHybridTrajOptExampleUnit)  // NOLINT
 {
   auto locator = std::make_shared<TesseractSupportResourceLocator>();
   tesseract_common::fs::path urdf_path =
-      locator->locateResource("package://tesseract_support/urdf/puzzle_piece_workcell.urdf")->getFilePath();
+      locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath();
   tesseract_common::fs::path srdf_path =
-      locator->locateResource("package://tesseract_support/urdf/puzzle_piece_workcell.srdf")->getFilePath();
+      locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath();
   auto env = std::make_shared<Environment>();
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  PuzzlePieceExample example(env, nullptr, false, false);
+  FreespaceHybridExample example(env, nullptr, false, false);
   EXPECT_TRUE(example.run());
 }
 
-TEST(TesseractExamples, DISABLED_PuzzlePieceCppTrajOptIfoptExampleUnit)  // NOLINT
+TEST(TesseractExamples, FreespaceHybridTrajOptIfoptExampleUnit)  // NOLINT
 {
   auto locator = std::make_shared<TesseractSupportResourceLocator>();
   tesseract_common::fs::path urdf_path =
-      locator->locateResource("package://tesseract_support/urdf/puzzle_piece_workcell.urdf")->getFilePath();
+      locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath();
   tesseract_common::fs::path srdf_path =
-      locator->locateResource("package://tesseract_support/urdf/puzzle_piece_workcell.srdf")->getFilePath();
+      locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath();
   auto env = std::make_shared<Environment>();
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  PuzzlePieceExample example(env, nullptr, true, false);
+  FreespaceHybridExample example(env, nullptr, true, false);
   EXPECT_TRUE(example.run());
 }
 
