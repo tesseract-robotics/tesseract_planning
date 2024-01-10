@@ -53,12 +53,14 @@ This file allows you define Excutors and Tasks (aka Nodes).
                MinLengthTask:
                  class: MinLengthTaskFactory
                  config:
+                   namespace: MinLengthTask # (optional, defaults to parent yaml key name "MinLengthTask")
                    conditional: true
                    inputs: [input_data]
                    outputs: [output_data]
                DescartesMotionPlannerTask:
                  class: DescartesFMotionPlannerTaskFactory
                  config:
+                   namespace: DescartesMotionPlannerTask # (optional, defaults to parent yaml key name "DescartesMotionPlannerTask")
                    conditional: true
                    inputs: [output_data]
                    outputs: [output_data]
@@ -66,11 +68,13 @@ This file allows you define Excutors and Tasks (aka Nodes).
                DiscreteContactCheckTask:
                  class: DiscreteContactCheckTaskFactory
                  config:
+                   namespace: DiscreteContactCheckTask # (optional, defaults to parent yaml key name "DiscreteContactCheckTask")
                    conditional: true
                    inputs: [output_data]
                IterativeSplineParameterizationTask:
                  class: IterativeSplineParameterizationTaskFactory
                  config:
+                   namespace: IterativeSplineParameterizationTask # (optional, defaults to parent yaml key name "IterativeSplineParameterizationTask")
                    conditional: true
                    inputs: [output_data]
                    outputs: [output_data]
@@ -150,12 +154,14 @@ Define the graph nodes and edges as shown in the config below.
          MinLengthTask:
            class: MinLengthTaskFactory
            config:
+             namespace: MinLengthTask # (optional)
              conditional: true
              inputs: [input_data]
              outputs: [output_data]
          DescartesMotionPlannerTask:
            class: DescartesFMotionPlannerTaskFactory
            config:
+             namespace: DescartesMotionPlannerTask # (optional)
              conditional: true
              inputs: [output_data]
              outputs: [output_data]
@@ -163,6 +169,7 @@ Define the graph nodes and edges as shown in the config below.
          TrajOptMotionPlannerTask:
            class: TrajOptMotionPlannerTaskFactory
            config:
+             namespace: TrajOptMotionPlannerTask # (optional)
              conditional: true
              inputs: [output_data]
              outputs: [output_data]
@@ -170,11 +177,13 @@ Define the graph nodes and edges as shown in the config below.
          DiscreteContactCheckTask:
            class: DiscreteContactCheckTaskFactory
            config:
+             namespace: DiscreteContactCheckTask # (optional)
              conditional: true
              inputs: [output_data]
          IterativeSplineParameterizationTask:
            class: IterativeSplineParameterizationTaskFactory
            config:
+             namespace: IterativeSplineParameterizationTask # (optional)
              conditional: true
              inputs: [output_data]
              outputs: [output_data]
@@ -191,7 +200,7 @@ Define the graph nodes and edges as shown in the config below.
            destinations: [ErrorTask, DoneTask]
        terminals: [ErrorTask, DoneTask]
 
-Leveraging a perviously defined task
+Leveraging a previously defined task
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When using a perviously defined task it is referenced using `task:` instead of `class:`. 
@@ -226,6 +235,97 @@ Also you can indicate that it should abort if a terminal is reached by specifyin
            destinations: [CartesianPipelineTask]
        terminals: [CartesianPipelineTask]
 
+
+Reusing a namespace across multiple tasks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sometimes it is desireable to reuse a particular configration of a task. To prevent the need from having to make two entries for the tasks you can use the namespace field under the task config.
+
+Here is an example where the namespace field is used to reuse a contact check configuration.
+
+.. code-block:: yaml
+
+   task_composer_plugins:
+     search_paths:
+       - /usr/local/lib
+     search_libraries:
+       - tesseract_task_composer_factories
+     executors:
+       default: TaskflowExecutor
+       plugins:
+         TaskflowExecutor:
+           class: TaskflowTaskComposerExecutorFactory
+           config:
+             threads: 5
+     tasks:
+       plugins:
+         FreespacePipeline:
+           class: GraphTaskFactory
+           config:
+             inputs: [input_data]
+             outputs: [output_data]
+             nodes:
+               DoneTask:
+                 class: DoneTaskFactory
+                 config:
+                   conditional: false
+               ErrorTask:
+                 class: ErrorTaskFactory
+                 config:
+                   conditional: false
+               MinLengthTask:
+                 class: MinLengthTaskFactory
+                 config:
+                   conditional: true
+                   inputs: [input_data]
+                   outputs: [output_data]
+               TrajOptMotionPlannerTask:
+                 class: TrajOptMotionPlannerTaskFactory
+                 config:
+                   conditional: true
+                   inputs: [output_data]
+                   outputs: [output_data]
+                   format_result_as_input: false
+               ContactCheckTask_1:
+                 class: DiscreteContactCheckTaskFactory
+                 config:
+                   namespace: DiscreteContactCheckTask
+                   conditional: true
+                   inputs: [output_data]
+               OMPLMotionPlannerTask:
+                 class: OMPLMotionPlannerTaskFactory
+                 config:
+                   conditional: true
+                   inputs: [input_data]
+                   outputs: [output_data]
+                   format_result_as_input: false
+               ContactCheckTask_2:
+                 class: DiscreteContactCheckTaskFactory
+                 config:
+                   namespace: DiscreteContactCheckTask
+                   conditional: true
+                   inputs: [output_data]
+               IterativeSplineParameterizationTask:
+                 class: IterativeSplineParameterizationTaskFactory
+                 config:
+                   conditional: true
+                   inputs: [output_data]
+                   outputs: [output_data]
+             edges:
+               - source: MinLengthTask
+                 destinations: [ErrorTask, TrajOptMotionPlannerTask]
+               - source: TrajOptMotionPlannerTask
+                 destinations: [OMPLMotionPlannerTask, ContactCheckTask_1]
+               - source: ContactCheckTask_1
+                 destinations: [OMPLMotionPlannerTask, IterativeSplineParameterizationTask]
+               - source: OMPLMotionPlannerTask
+                 destinations: [ErrorTask, ContactCheckTask_2]
+               - source: ContactCheckTask_2
+                 destinations: [ErrorTask, IterativeSplineParameterizationTask]
+               - source: IterativeSplineParameterizationTask
+                 destinations: [ErrorTask, DoneTask]
+             terminals: [ErrorTask, DoneTask]
+
 Descartes Motion Planner Task
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -238,6 +338,7 @@ Task for running Descartes motion planner
    DescartesMotionPlannerTask:
      class: DescartesDMotionPlannerTaskFactory
      config:
+       namespace: DescartesMotionPlannerTask # (optional, defaults to parent yaml key name "DescartesMotionPlannerTask")
        conditional: true
        inputs: [input_data]
        outputs: [output_data]
@@ -251,6 +352,7 @@ Task for running Descartes motion planner
    DescartesMotionPlannerTask:
      class: DescartesFMotionPlannerTaskFactory
      config:
+       namespace: DescartesMotionPlannerTask # (optional, defaults to parent yaml key name "DescartesMotionPlannerTask")
        conditional: true
        inputs: [input_data]
        outputs: [output_data]
@@ -266,6 +368,7 @@ Task for running OMPL motion planner
    OMPLMotionPlannerTask:
      class: OMPLMotionPlannerTaskFactory
      config:
+       namespace: OMPLMotionPlannerTask # (optional, defaults to parent yaml key name "OMPLMotionPlannerTask")
        conditional: true
        inputs: [input_data]
        outputs: [output_data]
@@ -281,6 +384,7 @@ Task for running TrajOpt motion planner
    TrajOptMotionPlannerTask:
      class: TrajOptMotionPlannerTaskFactory
      config:
+       namespace: TrajOptMotionPlannerTask # (optional, defaults to parent yaml key name "TrajOptMotionPlannerTask")
        conditional: true
        inputs: [input_data]
        outputs: [output_data]
@@ -296,6 +400,7 @@ Task for running TrajOpt Ifopt motion planner
    TrajOptIfoptMotionPlannerTask:
      class: TrajOptIfoptMotionPlannerTaskFactory
      config:
+       namespace: TrajOptIfoptMotionPlannerTask # (optional, defaults to parent yaml key name "TrajOptIfoptMotionPlannerTask")
        conditional: true
        inputs: [input_data]
        outputs: [output_data]
@@ -311,6 +416,7 @@ Task for running Simple motion planner
    SimpleMotionPlannerTask:
      class: SimpleMotionPlannerTaskFactory
      config:
+       namespace: SimpleMotionPlannerTask # (optional, defaults to parent yaml key name "SimpleMotionPlannerTask")
        conditional: true
        inputs: [input_data]
        outputs: [output_data]
@@ -326,6 +432,7 @@ Perform iterative spline time parameterization
    IterativeSplineParameterizationTask:
      class: IterativeSplineParameterizationTaskFactory
      config:
+       namespace: IterativeSplineParameterizationTask # (optional, defaults to parent yaml key name "IterativeSplineParameterizationTask")
        conditional: true
        inputs: [input_data]
        outputs: [output_data]
@@ -341,6 +448,7 @@ Perform time optimal time parameterization
    TimeOptimalParameterizationTask:
      class: TimeOptimalParameterizationTaskFactory
      config:
+       namespace: TimeOptimalParameterizationTask # (optional, defaults to parent yaml key name "TimeOptimalParameterizationTask")
        conditional: true
        inputs: [input_data]
        outputs: [output_data]
@@ -355,6 +463,7 @@ Perform trajectory smoothing leveraging Ruckig. Time parameterization must be ra
    RuckigTrajectorySmoothingTask:
      class: RuckigTrajectorySmoothingTaskFactory
      config:
+       namespace: RuckigTrajectorySmoothingTask # (optional, defaults to parent yaml key name "RuckigTrajectorySmoothingTask")
        conditional: true
        inputs: [input_data]
        outputs: [output_data]
@@ -421,9 +530,10 @@ Task for checking input data structure
 
 .. code-block:: yaml
 
-   MinLengthTask:
-     class: MinLengthTaskFactory
+   CheckInputTask:
+     class: CheckInputTaskFactory
      config:
+       namespace: CheckInputTask # (optional, defaults to parent yaml key name "CheckInputTask")
        conditional: true
        inputs: [input_data]
        outputs: [output_data]
@@ -438,6 +548,7 @@ Continuous collision check trajectory task
    ContinuousContactCheckTask:
      class: ContinuousContactCheckTaskFactory
      config:
+       namespace: ContinuousContactCheckTask # (optional, defaults to parent yaml key name "ContinuousContactCheckTask")
        conditional: true
        inputs: [input_data]
 
@@ -451,6 +562,7 @@ Discrete collision check trajectory task
    DiscreteContactCheckTask:
      class: DiscreteContactCheckTaskFactory
      config:
+       namespace: DiscreteContactCheckTask # (optional, defaults to parent yaml key name "DiscreteContactCheckTask")
        conditional: true
        inputs: [input_data]
 
@@ -516,6 +628,7 @@ This task modifies the input instructions in order to push waypoints that are ou
    FixStateBoundsTask:
      class: FixStateBoundsTaskFactory
      config:
+       namespace: FixStateBoundsTask # (optional, defaults to parent yaml key name "FixStateBoundsTask")
        conditional: true
        inputs: [input_data]
        outputs: [output_data]
@@ -533,6 +646,7 @@ This task modifies the input instructions in order to push waypoints that are in
    FixStateCollisionTask:
      class: FixStateCollisionTaskFactory
      config:
+       namespace: FixStateCollisionTask # (optional, defaults to parent yaml key name "FixStateCollisionTask")
        conditional: true
        inputs: [input_data]
        outputs: [output_data]
@@ -547,6 +661,7 @@ Task for processing the input data so it meets a minimum length. Planners like t
    MinLengthTask:
      class: MinLengthTaskFactory
      config:
+       namespace: MinLengthTask # (optional, defaults to parent yaml key name "MinLengthTask")
        conditional: false
        inputs: [input_data]
        outputs: [output_data]
@@ -561,6 +676,7 @@ This task simply returns a value specified in the composite profile. This can be
    ProfileSwitchTask:
      class: ProfileSwitchTaskFactory
      config:
+       namespace: ProfileSwitchTask # (optional, defaults to parent yaml key name "ProfileSwitchTask")
        conditional: false
        inputs: [input_data]
 
@@ -577,6 +693,7 @@ This is used to upsample the results trajectory based on the longest valid segme
    UpsampleTrajectoryTask:
      class: UpsampleTrajectoryTaskFactory
      config:
+       namespace: UpsampleTrajectoryTask # (optional, defaults to parent yaml key name "UpsampleTrajectoryTask")
        conditional: false
        inputs: [input_data]
        outputs: [output_data]
