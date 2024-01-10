@@ -39,6 +39,7 @@ namespace tesseract_planning
 {
 TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type, bool conditional)
   : name_(std::move(name))
+  , ns_(name_)
   , type_(type)
   , uuid_(boost::uuids::random_generator()())
   , uuid_str_(boost::uuids::to_string(uuid_))
