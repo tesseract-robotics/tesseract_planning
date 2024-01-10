@@ -173,7 +173,7 @@ protected:
     }
 
     CONSOLE_BRIDGE_logInform("%s motion planning failed (%s) for process input: %s",
-                             planner_->getNamespace().c_str(),
+                             planner_->getName().c_str(),
                              response.message.c_str(),
                              instructions.getDescription().c_str());
 

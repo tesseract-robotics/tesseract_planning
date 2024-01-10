@@ -56,7 +56,7 @@ class OMPLMotionPlanner : public MotionPlanner
 {
 public:
   /** @brief Construct a planner */
-  OMPLMotionPlanner(std::string ns);
+  OMPLMotionPlanner(std::string name);
 
   /**
    * @brief Sets up the OMPL problem then solves. It is intended to simplify setting up

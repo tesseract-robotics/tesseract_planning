@@ -40,7 +40,7 @@ class TrajOptMotionPlanner : public MotionPlanner
 {
 public:
   /** @brief Construct a basic planner */
-  TrajOptMotionPlanner(std::string ns);
+  TrajOptMotionPlanner(std::string name);
 
   ~TrajOptMotionPlanner() override = default;
   TrajOptMotionPlanner(const TrajOptMotionPlanner&) = delete;

@@ -37,7 +37,7 @@ public:
   using ConstPtr = std::shared_ptr<const MotionPlanner>;
   /** @brief Construct a basic planner */
   MotionPlanner() = default;
-  MotionPlanner(std::string ns);
+  MotionPlanner(std::string name);
   virtual ~MotionPlanner() = default;
   MotionPlanner(const MotionPlanner&) = delete;
   MotionPlanner& operator=(const MotionPlanner&) = delete;
@@ -45,10 +45,10 @@ public:
   MotionPlanner& operator=(MotionPlanner&&) = delete;
 
   /**
-   *  @brief Get the namespace of this planner
+   *  @brief Get the name of this planner
    *  @details This is also used as the namespace for the profiles in the profile dictionary
    */
-  const std::string& getNamespace() const;
+  const std::string& getName() const;
 
   /**
    * @brief Solve the planner request problem
@@ -79,7 +79,7 @@ public:
                              bool format_result_as_input);
 
 protected:
-  std::string ns_;
+  std::string name_;
 };
 }  // namespace tesseract_planning
 #endif  // TESSERACT_PLANNING_PLANNER_H
