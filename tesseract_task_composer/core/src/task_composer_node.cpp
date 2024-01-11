@@ -52,7 +52,7 @@ TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type, 
 {
   try
   {
-    ns_ = config["namespace"] ? config["namespace"].as<std::string>() : name_;
+    ns_ = config["namespace"].IsDefined() ? config["namespace"].as<std::string>() : name_;
 
     if (YAML::Node n = config["conditional"])
       conditional_ = n.as<bool>();
