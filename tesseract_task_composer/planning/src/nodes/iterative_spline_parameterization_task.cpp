@@ -115,10 +115,10 @@ TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComp
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
-  profile = getProfileString(name_, profile, problem.composite_profile_remapping);
+  profile = getProfileString(ns_, profile, problem.composite_profile_remapping);
   auto cur_composite_profile = getProfile<IterativeSplineParameterizationProfile>(
-      name_, profile, *problem.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
+      ns_, profile, *problem.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
+  cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   // Create data structures for checking for plan profile overrides
   auto flattened = ci.flatten(moveFilter);
@@ -148,10 +148,10 @@ TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComp
     std::string move_profile = mi.getProfile();
 
     // Check for remapping of the plan profile
-    move_profile = getProfileString(name_, profile, problem.move_profile_remapping);
+    move_profile = getProfileString(ns_, profile, problem.move_profile_remapping);
     auto cur_move_profile = getProfile<IterativeSplineParameterizationProfile>(
-        name_, move_profile, *problem.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
-    //    cur_move_profile = applyProfileOverrides(name_, profile, cur_move_profile, mi.profile_overrides);
+        ns_, move_profile, *problem.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
+    //    cur_move_profile = applyProfileOverrides(ns_, profile, cur_move_profile, mi.profile_overrides);
 
     // If there is a move profile associated with it, override the parameters
     if (cur_move_profile)

@@ -52,7 +52,7 @@ public:
                              bool format_result_as_input,
                              bool conditional)
     : TaskComposerTask(std::move(name), conditional)
-    , planner_(std::make_shared<MotionPlannerType>(name_))
+    , planner_(std::make_shared<MotionPlannerType>(ns_))
     , format_result_as_input_(format_result_as_input)
   {
     input_keys_.push_back(std::move(input_key));
@@ -62,7 +62,7 @@ public:
   explicit MotionPlannerTask(std::string name,  // NOLINT(performance-unnecessary-value-param)
                              const YAML::Node& config,
                              const TaskComposerPluginFactory& /*plugin_factory*/)
-    : TaskComposerTask(std::move(name), config), planner_(std::make_shared<MotionPlannerType>(name_))
+    : TaskComposerTask(std::move(name), config), planner_(std::make_shared<MotionPlannerType>(ns_))
   {
     if (input_keys_.empty())
       throw std::runtime_error("MotionPlannerTask, config missing 'inputs' entry");
