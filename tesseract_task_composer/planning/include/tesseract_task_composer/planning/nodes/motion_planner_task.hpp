@@ -164,7 +164,6 @@ protected:
     // --------------------
     if (response)
     {
-
       info->return_value = 1;
       info->color = "green";
       info->message = response.message;

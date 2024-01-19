@@ -158,7 +158,7 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
     assignSolution(
         move_instruction, joint_names, traj.row(static_cast<Eigen::Index>(idx)), request.format_result_as_input);
   }
-  
+
   return response;
 }
 
