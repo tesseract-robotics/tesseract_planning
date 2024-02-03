@@ -115,9 +115,13 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
     }
     else if (mi.getWaypoint().isCartesianWaypoint())
     {
-      Eigen::VectorXd& jp = mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
-      assert(tesseract_common::satisfiesPositionLimits<double>(jp, joint_limits));
-      tesseract_common::enforcePositionLimits<double>(jp, joint_limits);
+      auto& cwp = mi.getWaypoint().as<CartesianWaypointPoly>();
+      if (cwp.hasSeed())
+      {
+        Eigen::VectorXd& jp = cwp.getSeed().position;
+        assert(tesseract_common::satisfiesPositionLimits<double>(jp, joint_limits));
+        tesseract_common::enforcePositionLimits<double>(jp, joint_limits);
+      }
     }
     else
       throw std::runtime_error("Unsupported waypoint type.");
