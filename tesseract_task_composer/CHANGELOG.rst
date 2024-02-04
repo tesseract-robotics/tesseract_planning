@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.21.7 (2024-02-03)
+-------------------
 * Add optional namespace field to task nodes (`#433 <https://github.com/tesseract-robotics/tesseract_planning/issues/433>`_)
 * Contributors: Tyler Marr
 

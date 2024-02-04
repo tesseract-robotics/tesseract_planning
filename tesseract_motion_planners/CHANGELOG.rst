@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.21.7 (2024-02-03)
+-------------------
 * Fix simple planner enforcing limits on cartesian waypoints that do not have a seed
 * Contributors: Levi Armstrong
 
