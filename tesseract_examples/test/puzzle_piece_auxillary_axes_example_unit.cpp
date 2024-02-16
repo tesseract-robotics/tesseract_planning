@@ -10,7 +10,7 @@ using namespace tesseract_examples;
 using namespace tesseract_common;
 using namespace tesseract_environment;
 
-TEST(TesseractExamples, DISABLED_PuzzlePieceAuxillaryAxesCppTrajOptExampleUnit)  // NOLINT
+TEST(TesseractExamples, PuzzlePieceAuxillaryAxesCppTrajOptExampleUnit)  // NOLINT
 {
   auto locator = std::make_shared<TesseractSupportResourceLocator>();
   tesseract_common::fs::path urdf_path =

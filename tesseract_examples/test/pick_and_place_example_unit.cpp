@@ -25,7 +25,7 @@ TEST(TesseractExamples, PickAndPlaceCppTrajOptExampleUnit)  // NOLINT
   EXPECT_TRUE(example.run());
 }
 
-TEST(TesseractExamples, DISABLED_PickAndPlaceCppTrajOptIfoptExampleUnit)  // NOLINT
+TEST(TesseractExamples, PickAndPlaceCppTrajOptIfoptExampleUnit)  // NOLINT
 {
   auto locator = std::make_shared<TesseractSupportResourceLocator>();
   tesseract_common::fs::path urdf_path =
