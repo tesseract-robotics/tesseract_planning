@@ -152,6 +152,8 @@ bool BasicCartesianExample::run()
 
   if (debug_)
     console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  else
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
 
   // Create Task Composer Plugin Factory
   const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);

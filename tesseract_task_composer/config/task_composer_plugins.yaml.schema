@@ -124,6 +124,10 @@ definitions:
         "$ref": "#/definitions/CartesianTaskClass"
       FreespacePipeline:
         "$ref": "#/definitions/Pipeline"
+      FreespaceIfoptTask:
+        "$ref": "#/definitions/CartesianTaskClass"
+      FreespaceIfoptPipeline:
+        "$ref": "#/definitions/Pipeline"
       RasterFtTask:
         "$ref": "#/definitions/RasterTask"
       RasterFtPipeline:

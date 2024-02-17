@@ -47,7 +47,9 @@ class PuzzlePieceAuxillaryAxesExample : public Example
 {
 public:
   PuzzlePieceAuxillaryAxesExample(tesseract_environment::Environment::Ptr env,
-                                  tesseract_visualization::Visualization::Ptr plotter = nullptr);
+                                  tesseract_visualization::Visualization::Ptr plotter = nullptr,
+                                  bool ifopt = false,
+                                  bool debug = false);
   ~PuzzlePieceAuxillaryAxesExample() override = default;
   PuzzlePieceAuxillaryAxesExample(const PuzzlePieceAuxillaryAxesExample&) = default;
   PuzzlePieceAuxillaryAxesExample& operator=(const PuzzlePieceAuxillaryAxesExample&) = default;
@@ -57,6 +59,8 @@ public:
   bool run() override final;
 
 private:
+  bool ifopt_;
+  bool debug_;
   static tesseract_common::VectorIsometry3d
   makePuzzleToolPoses(const tesseract_common::ResourceLocator::ConstPtr& locator);
 };

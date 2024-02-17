@@ -34,6 +34,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
@@ -63,14 +66,21 @@ const std::string LINK_BOX_NAME = "box";
 const std::string LINK_BASE_NAME = "world";
 const std::string LINK_END_EFFECTOR_NAME = "iiwa_tool0";
 const std::string DISCRETE_CONTACT_CHECK_TASK_NAME = "DiscreteContactCheckTask";
+static const std::string TRAJOPT_IFOPT_DEFAULT_NAMESPACE = "TrajOptIfoptMotionPlannerTask";
 const std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
 namespace tesseract_examples
 {
 PickAndPlaceExample::PickAndPlaceExample(tesseract_environment::Environment::Ptr env,
                                          tesseract_visualization::Visualization::Ptr plotter,
+                                         bool ifopt,
+                                         bool debug,
                                          double box_size,
                                          std::array<double, 2> box_position)
-  : Example(std::move(env), std::move(plotter)), box_size_(box_size), box_position_(box_position)
+  : Example(std::move(env), std::move(plotter))
+  , ifopt_(ifopt)
+  , debug_(debug)
+  , box_size_(box_size)
+  , box_position_(box_position)
 {
 }
 
@@ -104,7 +114,10 @@ bool PickAndPlaceExample::run()
   /// SETUP ///
   /////////////
 
-  console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  if (debug_)
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  else
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
 
   // Set default contact distance
   Command::Ptr cmd_default_dist = std::make_shared<tesseract_environment::ChangeCollisionMarginsCommand>(0.005);
@@ -191,30 +204,73 @@ bool PickAndPlaceExample::run()
   // Create Executor
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
-  // Create TrajOpt Profile
-  auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
-  trajopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 10);
-
-  auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-  trajopt_composite_profile->longest_valid_segment_length = 0.05;
-  trajopt_composite_profile->collision_constraint_config.enabled = true;
-  trajopt_composite_profile->collision_constraint_config.safety_margin = 0.0;
-  trajopt_composite_profile->collision_constraint_config.safety_margin_buffer = 0.005;
-  trajopt_composite_profile->collision_constraint_config.coeff = 10;
-  trajopt_composite_profile->collision_cost_config.safety_margin = 0.005;
-  trajopt_composite_profile->collision_cost_config.safety_margin_buffer = 0.01;
-  trajopt_composite_profile->collision_cost_config.coeff = 50;
-
-  auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
-  trajopt_solver_profile->opt_info.max_iter = 100;
-
-  auto post_check_profile = std::make_shared<ContactCheckProfile>();
-
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
-  profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
+  if (ifopt_)
+  {
+    // Create TrajOpt_Ifopt Profile
+    auto trajopt_ifopt_plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
+    trajopt_ifopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 10);
+    trajopt_ifopt_plan_profile->joint_coeff = Eigen::VectorXd::Ones(7);
+
+    auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
+    trajopt_ifopt_composite_profile->collision_constraint_config->type =
+        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+    trajopt_ifopt_composite_profile->collision_constraint_config->contact_manager_config =
+        tesseract_collision::ContactManagerConfig(0.00);
+    trajopt_ifopt_composite_profile->collision_constraint_config->collision_margin_buffer = 0.005;
+    trajopt_ifopt_composite_profile->collision_constraint_config->collision_coeff_data =
+        trajopt_common::CollisionCoeffData(10);
+    trajopt_ifopt_composite_profile->collision_cost_config->type =
+        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+    trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
+        tesseract_collision::ContactManagerConfig(0.005);
+    trajopt_ifopt_composite_profile->collision_cost_config->collision_margin_buffer = 0.01;
+    trajopt_ifopt_composite_profile->collision_cost_config->collision_coeff_data =
+        trajopt_common::CollisionCoeffData(50);
+    trajopt_ifopt_composite_profile->smooth_velocities = true;
+    trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
+    trajopt_ifopt_composite_profile->smooth_accelerations = true;
+    trajopt_ifopt_composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
+    trajopt_ifopt_composite_profile->smooth_jerks = true;
+    trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
+    trajopt_ifopt_composite_profile->longest_valid_segment_length = 0.05;
+
+    auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptDefaultSolverProfile>();
+    trajopt_ifopt_solver_profile->opt_info.max_iterations = 100;
+
+    profiles->addProfile<TrajOptIfoptPlanProfile>(
+        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_plan_profile);
+    profiles->addProfile<TrajOptIfoptCompositeProfile>(
+        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
+    profiles->addProfile<TrajOptIfoptSolverProfile>(
+        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_solver_profile);
+  }
+  else
+  {
+    // Create TrajOpt Profile
+    auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+    trajopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 10);
+
+    auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+    trajopt_composite_profile->longest_valid_segment_length = 0.05;
+    trajopt_composite_profile->collision_constraint_config.enabled = true;
+    trajopt_composite_profile->collision_constraint_config.safety_margin = 0.0;
+    trajopt_composite_profile->collision_constraint_config.safety_margin_buffer = 0.005;
+    trajopt_composite_profile->collision_constraint_config.coeff = 10;
+    trajopt_composite_profile->collision_cost_config.safety_margin = 0.005;
+    trajopt_composite_profile->collision_cost_config.safety_margin_buffer = 0.01;
+    trajopt_composite_profile->collision_cost_config.coeff = 50;
+
+    auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
+    trajopt_solver_profile->opt_info.max_iter = 100;
+
+    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
+    profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
+    profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
+  }
+
+  auto post_check_profile = std::make_shared<ContactCheckProfile>();
 
   profiles->addProfile<ContactCheckProfile>(DISCRETE_CONTACT_CHECK_TASK_NAME, "CARTESIAN", post_check_profile);
   profiles->addProfile<ContactCheckProfile>(DISCRETE_CONTACT_CHECK_TASK_NAME, "DEFAULT", post_check_profile);
@@ -222,7 +278,8 @@ bool PickAndPlaceExample::run()
   CONSOLE_BRIDGE_logInform("Pick plan");
 
   // Create task
-  TaskComposerNode::UPtr pick_task = factory.createTaskComposerNode("TrajOptPipeline");
+  const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";
+  TaskComposerNode::UPtr pick_task = factory.createTaskComposerNode(task_name);
   const std::string pick_output_key = pick_task->getOutputKeys().front();
 
   // Create Task Composer Problem
@@ -339,7 +396,7 @@ bool PickAndPlaceExample::run()
   place_program.print("Program: ");
 
   // Create task
-  TaskComposerNode::UPtr place_task = factory.createTaskComposerNode("TrajOptPipeline");
+  TaskComposerNode::UPtr place_task = factory.createTaskComposerNode(task_name);
   const std::string place_output_key = pick_task->getOutputKeys().front();
 
   // Create Task Composer Problem

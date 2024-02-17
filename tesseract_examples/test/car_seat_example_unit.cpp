@@ -10,7 +10,7 @@ using namespace tesseract_examples;
 using namespace tesseract_common;
 using namespace tesseract_environment;
 
-TEST(TesseractExamples, CarSeatCppExampleUnit)  // NOLINT
+TEST(TesseractExamples, CarSeatCppTrajOptExampleUnit)  // NOLINT
 {
   auto locator = std::make_shared<TesseractSupportResourceLocator>();
   tesseract_common::fs::path urdf_path =
@@ -21,7 +21,22 @@ TEST(TesseractExamples, CarSeatCppExampleUnit)  // NOLINT
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  CarSeatExample example(env, nullptr);
+  CarSeatExample example(env, nullptr, false, false);
+  EXPECT_TRUE(example.run());
+}
+
+TEST(TesseractExamples, CarSeatCppTrajOptIfoptExampleUnit)  // NOLINT
+{
+  auto locator = std::make_shared<TesseractSupportResourceLocator>();
+  tesseract_common::fs::path urdf_path =
+      locator->locateResource("package://tesseract_support/urdf/car_seat_demo.urdf")->getFilePath();
+  tesseract_common::fs::path srdf_path =
+      locator->locateResource("package://tesseract_support/urdf/car_seat_demo.srdf")->getFilePath();
+  auto env = std::make_shared<Environment>();
+  if (!env->init(urdf_path, srdf_path, locator))
+    exit(1);
+
+  CarSeatExample example(env, nullptr, true, false);
   EXPECT_TRUE(example.run());
 }
 

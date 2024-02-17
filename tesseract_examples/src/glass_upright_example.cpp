@@ -140,6 +140,8 @@ bool GlassUprightExample::run()
 
   if (debug_)
     console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  else
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
 
   // Solve Trajectory
   CONSOLE_BRIDGE_logInform("glass upright plan example");

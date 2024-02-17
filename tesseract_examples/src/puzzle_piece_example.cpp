@@ -42,6 +42,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
@@ -54,8 +57,8 @@ using namespace tesseract_scene_graph;
 using namespace tesseract_collision;
 using namespace tesseract_visualization;
 using namespace tesseract_planning;
-using tesseract_common::ManipulatorInfo;
 
+static const std::string TRAJOPT_IFOPT_DEFAULT_NAMESPACE = "TrajOptIfoptMotionPlannerTask";
 static const std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
 
 namespace tesseract_examples
@@ -123,14 +126,19 @@ PuzzlePieceExample::makePuzzleToolPoses(const tesseract_common::ResourceLocator:
 }
 
 PuzzlePieceExample::PuzzlePieceExample(tesseract_environment::Environment::Ptr env,
-                                       tesseract_visualization::Visualization::Ptr plotter)
-  : Example(std::move(env), std::move(plotter))
+                                       tesseract_visualization::Visualization::Ptr plotter,
+                                       bool ifopt,
+                                       bool debug)
+  : Example(std::move(env), std::move(plotter)), ifopt_(ifopt), debug_(debug)
 {
 }
 
 bool PuzzlePieceExample::run()
 {
-  console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
+  if (debug_)
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  else
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
 
   if (plotter_ != nullptr)
     plotter_->waitForConnection();
@@ -191,33 +199,72 @@ bool PuzzlePieceExample::run()
   // Create Executor
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
-  // Create TrajOpt Profile
-  auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
-  trajopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 10);
-  trajopt_plan_profile->cartesian_coeff(5) = 0;
-
-  auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-  trajopt_composite_profile->collision_constraint_config.enabled = false;
-  trajopt_composite_profile->collision_cost_config.enabled = true;
-  trajopt_composite_profile->collision_cost_config.safety_margin = 0.025;
-  trajopt_composite_profile->collision_cost_config.type = trajopt::CollisionEvaluatorType::SINGLE_TIMESTEP;
-  trajopt_composite_profile->collision_cost_config.coeff = 20;
-
-  auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
-  trajopt_solver_profile->convex_solver = sco::ModelType::OSQP;
-  trajopt_solver_profile->opt_info.num_threads = 0;
-  trajopt_solver_profile->opt_info.max_iter = 200;
-  trajopt_solver_profile->opt_info.min_approx_improve = 1e-3;
-  trajopt_solver_profile->opt_info.min_trust_box_size = 1e-3;
-
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
-  profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
+  if (ifopt_)
+  {
+    // Create TrajOpt_Ifopt Profile
+    auto trajopt_ifopt_plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
+    trajopt_ifopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 10);
+    trajopt_ifopt_plan_profile->cartesian_coeff(5) = 0;
+    trajopt_ifopt_plan_profile->joint_coeff = Eigen::VectorXd::Ones(8);
+
+    auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
+    trajopt_ifopt_composite_profile->collision_constraint_config = nullptr;
+    trajopt_ifopt_composite_profile->collision_cost_config->type =
+        tesseract_collision::CollisionEvaluatorType::DISCRETE;
+    trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
+        tesseract_collision::ContactManagerConfig(0.025);
+    trajopt_ifopt_composite_profile->collision_cost_config->collision_coeff_data =
+        trajopt_common::CollisionCoeffData(20);
+    trajopt_ifopt_composite_profile->smooth_velocities = false;
+    trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
+    trajopt_ifopt_composite_profile->smooth_accelerations = true;
+    trajopt_ifopt_composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
+    trajopt_ifopt_composite_profile->smooth_jerks = true;
+    trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
+
+    auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptDefaultSolverProfile>();
+    trajopt_ifopt_solver_profile->opt_info.max_iterations = 200;
+    trajopt_ifopt_solver_profile->opt_info.min_approx_improve = 1e-3;
+    trajopt_ifopt_solver_profile->opt_info.min_trust_box_size = 1e-3;
+
+    profiles->addProfile<TrajOptIfoptPlanProfile>(
+        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_plan_profile);
+    profiles->addProfile<TrajOptIfoptCompositeProfile>(
+        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
+    profiles->addProfile<TrajOptIfoptSolverProfile>(
+        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_solver_profile);
+  }
+  else
+  {
+    // Create TrajOpt Profile
+    auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+    trajopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 10);
+    trajopt_plan_profile->cartesian_coeff(5) = 0;
+
+    auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+    trajopt_composite_profile->collision_constraint_config.enabled = false;
+    trajopt_composite_profile->collision_cost_config.enabled = true;
+    trajopt_composite_profile->collision_cost_config.safety_margin = 0.025;
+    trajopt_composite_profile->collision_cost_config.type = trajopt::CollisionEvaluatorType::SINGLE_TIMESTEP;
+    trajopt_composite_profile->collision_cost_config.coeff = 20;
+
+    auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
+    trajopt_solver_profile->convex_solver = sco::ModelType::OSQP;
+    trajopt_solver_profile->opt_info.num_threads = 0;
+    trajopt_solver_profile->opt_info.max_iter = 200;
+    trajopt_solver_profile->opt_info.min_approx_improve = 1e-3;
+    trajopt_solver_profile->opt_info.min_trust_box_size = 1e-3;
+
+    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
+    profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
+    profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
+  }
 
   // Create task
-  TaskComposerNode::UPtr task = factory.createTaskComposerNode("TrajOptPipeline");
+  const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";
+  TaskComposerNode::UPtr task = factory.createTaskComposerNode(task_name);
   const std::string output_key = task->getOutputKeys().front();
 
   if (plotter_ != nullptr)

@@ -10,7 +10,7 @@ using namespace tesseract_examples;
 using namespace tesseract_common;
 using namespace tesseract_environment;
 
-TEST(TesseractExamples, PickAndPlaceCppExampleUnit)  // NOLINT
+TEST(TesseractExamples, PickAndPlaceCppTrajOptExampleUnit)  // NOLINT
 {
   auto locator = std::make_shared<TesseractSupportResourceLocator>();
   tesseract_common::fs::path urdf_path =
@@ -21,7 +21,22 @@ TEST(TesseractExamples, PickAndPlaceCppExampleUnit)  // NOLINT
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  PickAndPlaceExample example(env, nullptr);
+  PickAndPlaceExample example(env, nullptr, false, false);
+  EXPECT_TRUE(example.run());
+}
+
+TEST(TesseractExamples, PickAndPlaceCppTrajOptIfoptExampleUnit)  // NOLINT
+{
+  auto locator = std::make_shared<TesseractSupportResourceLocator>();
+  tesseract_common::fs::path urdf_path =
+      locator->locateResource("package://tesseract_support/urdf/pick_and_place_plan.urdf")->getFilePath();
+  tesseract_common::fs::path srdf_path =
+      locator->locateResource("package://tesseract_support/urdf/pick_and_place_plan.srdf")->getFilePath();
+  auto env = std::make_shared<Environment>();
+  if (!env->init(urdf_path, srdf_path, locator))
+    exit(1);
+
+  PickAndPlaceExample example(env, nullptr, true, false);
   EXPECT_TRUE(example.run());
 }
 

@@ -3,14 +3,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_examples/glass_upright_example.h>
+#include <tesseract_examples/freespace_hybrid_example.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_examples;
 using namespace tesseract_common;
 using namespace tesseract_environment;
 
-TEST(TesseractExamples, GlassUprightTrajOptExampleUnit)  // NOLINT
+TEST(TesseractExamples, FreespaceHybridTrajOptExampleUnit)  // NOLINT
 {
   auto locator = std::make_shared<TesseractSupportResourceLocator>();
   tesseract_common::fs::path urdf_path =
@@ -21,11 +21,11 @@ TEST(TesseractExamples, GlassUprightTrajOptExampleUnit)  // NOLINT
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  GlassUprightExample example(env, nullptr, false, false);
+  FreespaceHybridExample example(env, nullptr, false, false);
   EXPECT_TRUE(example.run());
 }
 
-TEST(TesseractExamples, GlassUprightTrajOptIfoptExampleUnit)  // NOLINT
+TEST(TesseractExamples, FreespaceHybridTrajOptIfoptExampleUnit)  // NOLINT
 {
   auto locator = std::make_shared<TesseractSupportResourceLocator>();
   tesseract_common::fs::path urdf_path =
@@ -36,7 +36,7 @@ TEST(TesseractExamples, GlassUprightTrajOptIfoptExampleUnit)  // NOLINT
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  GlassUprightExample example(env, nullptr, true, false);
+  FreespaceHybridExample example(env, nullptr, true, false);
   EXPECT_TRUE(example.run());
 }
 
