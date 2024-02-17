@@ -52,7 +52,7 @@ ProcessPlanningInputTask::ProcessPlanningInputTask(std::string name,
     throw std::runtime_error("ProcessPlanningInputTask, config should not have 'inputs' entry");
 
   if (output_keys_.empty())
-    throw std::runtime_error("ProcessPlanningInputTask, config missing 'inputs' entry");
+    throw std::runtime_error("ProcessPlanningInputTask, config missing 'outputs' entry");
 
   if (output_keys_.size() != 1)
     throw std::runtime_error("ProcessPlanningInputTask, 'outputs' should only have one key");

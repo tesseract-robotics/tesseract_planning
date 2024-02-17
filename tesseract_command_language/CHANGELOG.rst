@@ -2,6 +2,9 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.21.7 (2024-02-03)
+-------------------
+
 0.21.6 (2023-12-21)
 -------------------
 * Remove include (fixes todo)
