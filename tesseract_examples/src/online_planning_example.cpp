@@ -315,7 +315,7 @@ bool OnlinePlanningExample::onlinePlan()
     {
       tesseract_common::JointState state = player_.setCurrentDuration(dt);
       std::vector<Eigen::VectorXd> init_trajectory;
-      Eigen::VectorXd time_state = Eigen::VectorXd::LinSpaced(steps_, dt, player_.trajectoryDuration());
+      Eigen::VectorXd time_state = Eigen::VectorXd::LinSpaced(steps_, dt, player_.trajectoryDurationEnd());
       for (Eigen::Index t = 0; t < steps_; t++)
       {
         tesseract_common::JointState state = player_.setCurrentDuration(time_state(t));  // NOLINT
