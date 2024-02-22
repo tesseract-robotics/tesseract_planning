@@ -46,8 +46,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 
 constexpr auto SOLUTION_FOUND{ "Found valid solution" };
-constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input" };
-constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
+constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input: " };
+constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution: " };
 
 namespace tesseract_planning
 {
@@ -100,10 +100,11 @@ bool OMPLMotionPlanner::terminate()
 PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 {
   PlannerResponse response;
-  if (!checkRequest(request))  // NOLINT
+  std::string reason;
+  if (!checkRequest(request, reason))
   {
     response.successful = false;
-    response.message = ERROR_INVALID_INPUT;
+    response.message = std::string(ERROR_INVALID_INPUT) + reason;
     return response;
   }
   std::vector<OMPLProblemConfig> problems;
@@ -121,7 +122,7 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
     {
       CONSOLE_BRIDGE_logError("OMPLPlanner failed to generate problem: %s.", e.what());
       response.successful = false;
-      response.message = ERROR_INVALID_INPUT;
+      response.message = std::string(ERROR_INVALID_INPUT) + e.what();
       return response;
     }
 
@@ -171,7 +172,8 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 
           if (!pdef->hasOptimizationObjective())
           {
-            CONSOLE_BRIDGE_logDebug("Terminating early since there is no optimization objective specified");
+            reason = "Terminating early since there is no optimization objective specified";
+            CONSOLE_BRIDGE_logDebug(reason.c_str());
             break;
           }
 
@@ -180,23 +182,27 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 
           if (pdef->getOptimizationObjective()->isSatisfied(obj_cost))
           {
-            CONSOLE_BRIDGE_logDebug("Terminating early since solution path satisfies the optimization objective");
+            reason = "Terminating early since solution path satisfies the optimization objective";
+            CONSOLE_BRIDGE_logDebug(reason.c_str());
             break;
           }
 
           if (pdef->getSolutionCount() >= static_cast<std::size_t>(p->max_solutions))
           {
-            CONSOLE_BRIDGE_logDebug("Terminating early since %u solutions were generated", p->max_solutions);
+            reason = "Terminating early since " + std::to_string(p->max_solutions) + " solutions were generated";
+            CONSOLE_BRIDGE_logDebug(reason.c_str());
             break;
           }
         }
       }
+      if (ompl::time::now() >= end)
+        reason = "Exceeded allowed time";
     }
 
     if (status != ompl::base::PlannerStatus::EXACT_SOLUTION)
     {
       response.successful = false;
-      response.message = ERROR_FAILED_TO_FIND_VALID_SOLUTION;
+      response.message = std::string(ERROR_FAILED_TO_FIND_VALID_SOLUTION) + reason;
       return response;
     }
 
