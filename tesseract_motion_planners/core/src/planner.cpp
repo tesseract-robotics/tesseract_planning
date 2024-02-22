@@ -38,16 +38,24 @@ const std::string& MotionPlanner::getName() const { return name_; }
 
 bool MotionPlanner::checkRequest(const PlannerRequest& request)
 {
+  std::string reason;
+  return checkRequest(request, reason);
+}
+
+bool MotionPlanner::checkRequest(const PlannerRequest& request, std::string& reason)
+{
   // Check that parameters are valid
   if (request.env == nullptr)
   {
-    CONSOLE_BRIDGE_logError("In TrajOptPlannerUniversalConfig: tesseract is a required parameter and has not been set");
+    reason = "PlannerRequest environment is nullptr";
+    CONSOLE_BRIDGE_logError(reason.c_str());
     return false;
   }
 
   if (request.instructions.empty())
   {
-    CONSOLE_BRIDGE_logError("TrajOptPlannerUniversalConfig requires at least one instruction");
+    reason = "PlannerRequest instruction is empty";
+    CONSOLE_BRIDGE_logError(reason.c_str());
     return false;
   }
 

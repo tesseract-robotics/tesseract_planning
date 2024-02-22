@@ -43,7 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 
 constexpr auto SOLUTION_FOUND{ "Found valid solution" };
-constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input" };
+constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input: " };
 constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
 
 using namespace trajopt_ifopt;
@@ -66,10 +66,11 @@ MotionPlanner::Ptr TrajOptIfoptMotionPlanner::clone() const
 PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) const
 {
   PlannerResponse response;
-  if (!checkRequest(request))
+  std::string reason;
+  if (!checkRequest(request, reason))
   {
     response.successful = false;
-    response.message = ERROR_INVALID_INPUT;
+    response.message = std::string(ERROR_INVALID_INPUT) + reason;
     return response;
   }
 

@@ -41,8 +41,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/planner_utils.h>
 
 constexpr auto SOLUTION_FOUND{ "Found valid solution" };
-constexpr auto ERROR_INVALID_INPUT{ "Input to planner is invalid. Check that instructions and seed are compatible" };
-constexpr auto FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
+constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input: " };
+constexpr auto FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution: " };
 
 namespace tesseract_planning
 {
@@ -61,10 +61,11 @@ MotionPlanner::Ptr SimpleMotionPlanner::clone() const { return std::make_shared<
 PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
 {
   PlannerResponse response;
-  if (!checkRequest(request))
+  std::string reason;
+  if (!checkRequest(request, reason))  // NOLINT
   {
     response.successful = false;
-    response.message = ERROR_INVALID_INPUT;
+    response.message = std::string(ERROR_INVALID_INPUT) + reason;
     return response;
   }
 
@@ -93,7 +94,7 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
   {
     CONSOLE_BRIDGE_logError("SimplePlanner failed to generate problem: %s.", e.what());
     response.successful = false;
-    response.message = FAILED_TO_FIND_VALID_SOLUTION;
+    response.message = std::string(FAILED_TO_FIND_VALID_SOLUTION) + e.what();
     return response;
   }
 

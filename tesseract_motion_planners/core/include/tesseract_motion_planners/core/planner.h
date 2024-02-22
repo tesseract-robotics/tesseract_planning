@@ -72,6 +72,9 @@ public:
   /** @brief Check planning request */
   static bool checkRequest(const PlannerRequest& request);
 
+  /** @brief Check planning request and give reason for failure */
+  static bool checkRequest(const PlannerRequest& request, std::string& reason);
+
   /** @brief Assign a solution to the move instruction */
   static void assignSolution(MoveInstructionPoly& mi,
                              const std::vector<std::string>& joint_names,

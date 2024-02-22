@@ -10,7 +10,7 @@ using namespace tesseract_examples;
 using namespace tesseract_common;
 using namespace tesseract_environment;
 
-TEST(TesseractExamples, PuzzlePieceCppExampleUnit)  // NOLINT
+TEST(TesseractExamples, PuzzlePieceCppTrajOptExampleUnit)  // NOLINT
 {
   auto locator = std::make_shared<TesseractSupportResourceLocator>();
   tesseract_common::fs::path urdf_path =
@@ -21,7 +21,22 @@ TEST(TesseractExamples, PuzzlePieceCppExampleUnit)  // NOLINT
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  PuzzlePieceExample example(env, nullptr);
+  PuzzlePieceExample example(env, nullptr, false, false);
+  EXPECT_TRUE(example.run());
+}
+
+TEST(TesseractExamples, PuzzlePieceCppTrajOptIfoptExampleUnit)  // NOLINT
+{
+  auto locator = std::make_shared<TesseractSupportResourceLocator>();
+  tesseract_common::fs::path urdf_path =
+      locator->locateResource("package://tesseract_support/urdf/puzzle_piece_workcell.urdf")->getFilePath();
+  tesseract_common::fs::path srdf_path =
+      locator->locateResource("package://tesseract_support/urdf/puzzle_piece_workcell.srdf")->getFilePath();
+  auto env = std::make_shared<Environment>();
+  if (!env->init(urdf_path, srdf_path, locator))
+    exit(1);
+
+  PuzzlePieceExample example(env, nullptr, true, false);
   EXPECT_TRUE(example.run());
 }
 
