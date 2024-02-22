@@ -29,7 +29,7 @@ jobs:
             env:
               TARGET_CMAKE_ARGS: "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CODE_COVERAGE=ON -DTESSERACT_WARNINGS_AS_ERRORS=OFF"
     container:
-      image: ghcr.io/tesseract-robotics/tesseract:focal-0.21
+      image: ghcr.io/tesseract-robotics/tesseract:${{ matrix.distro }}-master
       env:
         CCACHE_DIR: "$GITHUB_WORKSPACE/${{ matrix.job_type }}/.ccache"
         DEBIAN_FRONTEND: noninteractive
