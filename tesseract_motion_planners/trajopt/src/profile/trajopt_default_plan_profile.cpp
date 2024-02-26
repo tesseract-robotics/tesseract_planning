@@ -48,25 +48,30 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
 
   if (cartesian_cost_element != nullptr)
   {
-    const tinyxml2::XMLElement* cartesian_waypoint_config = cartesian_cost_element->FirstChildElement("CartesianWaypointConfig");
+    const tinyxml2::XMLElement* cartesian_waypoint_config = cartesian_cost_element->FirstChildElement("CartesianWaypoin"
+                                                                                                      "tConfig");
     cartesian_cost_config = CartesianWaypointConfig(*cartesian_waypoint_config);
   }
 
   if (cartesian_constraint_element != nullptr)
   {
-    const tinyxml2::XMLElement* cartesian_waypoint_config = cartesian_constraint_element->FirstChildElement("CartesianWaypointConfig");
+    const tinyxml2::XMLElement* cartesian_waypoint_config = cartesian_constraint_element->FirstChildElement("CartesianW"
+                                                                                                            "aypointCon"
+                                                                                                            "fig");
     cartesian_constraint_config = CartesianWaypointConfig(*cartesian_waypoint_config);
   }
 
   if (joint_cost_element != nullptr)
   {
-    const tinyxml2::XMLElement* cartesian_waypoint_config = joint_cost_element->FirstChildElement("CartesianWaypointConfig");
+    const tinyxml2::XMLElement* cartesian_waypoint_config = joint_cost_element->FirstChildElement("CartesianWaypointCon"
+                                                                                                  "fig");
     joint_cost_config = JointWaypointConfig(*cartesian_waypoint_config);
   }
 
   if (joint_constraint_element != nullptr)
   {
-    const tinyxml2::XMLElement* cartesian_waypoint_config = joint_constraint_element->FirstChildElement("CartesianWaypointConfig");
+    const tinyxml2::XMLElement* cartesian_waypoint_config = joint_constraint_element->FirstChildElement("CartesianWaypo"
+                                                                                                        "intConfig");
     joint_constraint_config = JointWaypointConfig(*cartesian_waypoint_config);
   }
 

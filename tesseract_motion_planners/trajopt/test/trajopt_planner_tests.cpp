@@ -816,15 +816,20 @@ TEST(TesseractPlanningTrajoptSerializeUnit, SerializeTrajoptDefaultPlanToXml)  /
   EXPECT_TRUE(
       toXMLFile(imported_plan_profile, tesseract_common::getTempPath() + "trajopt_default_plan_example_input2.xml"));
   EXPECT_TRUE(plan_profile.cartesian_cost_config.enabled == imported_plan_profile.cartesian_cost_config.enabled);
-  EXPECT_TRUE(plan_profile.cartesian_constraint_config.enabled == imported_plan_profile.cartesian_constraint_config.enabled);
+  EXPECT_TRUE(plan_profile.cartesian_constraint_config.enabled ==
+              imported_plan_profile.cartesian_constraint_config.enabled);
   EXPECT_TRUE(plan_profile.joint_cost_config.enabled == imported_plan_profile.joint_cost_config.enabled);
   EXPECT_TRUE(plan_profile.joint_constraint_config.enabled == imported_plan_profile.joint_constraint_config.enabled);
   EXPECT_TRUE(plan_profile.cartesian_cost_config.coeff == imported_plan_profile.cartesian_cost_config.coeff);
   EXPECT_TRUE(plan_profile.joint_cost_config.coeff == imported_plan_profile.joint_cost_config.coeff);
-  EXPECT_TRUE(plan_profile.cartesian_constraint_config.lower_tolerance == imported_plan_profile.cartesian_constraint_config.lower_tolerance);
-  EXPECT_TRUE(plan_profile.cartesian_constraint_config.upper_tolerance == imported_plan_profile.cartesian_constraint_config.upper_tolerance);
-  EXPECT_TRUE(plan_profile.joint_constraint_config.lower_tolerance == imported_plan_profile.joint_constraint_config.lower_tolerance);
-  EXPECT_TRUE(plan_profile.joint_constraint_config.upper_tolerance == imported_plan_profile.joint_constraint_config.upper_tolerance);
+  EXPECT_TRUE(plan_profile.cartesian_constraint_config.lower_tolerance ==
+              imported_plan_profile.cartesian_constraint_config.lower_tolerance);
+  EXPECT_TRUE(plan_profile.cartesian_constraint_config.upper_tolerance ==
+              imported_plan_profile.cartesian_constraint_config.upper_tolerance);
+  EXPECT_TRUE(plan_profile.joint_constraint_config.lower_tolerance ==
+              imported_plan_profile.joint_constraint_config.lower_tolerance);
+  EXPECT_TRUE(plan_profile.joint_constraint_config.upper_tolerance ==
+              imported_plan_profile.joint_constraint_config.upper_tolerance);
 }
 
 int main(int argc, char** argv)
