@@ -48,22 +48,26 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
 
   if (cartesian_cost_element != nullptr)
   {
-    cartesian_cost_config = CartesianWaypointConfig(*cartesian_cost_element);
+    const tinyxml2::XMLElement* cartesian_waypoint_config = cartesian_cost_element->FirstChildElement("CartesianWaypointConfig");
+    cartesian_cost_config = CartesianWaypointConfig(*cartesian_waypoint_config);
   }
 
   if (cartesian_constraint_element != nullptr)
   {
-    cartesian_constraint_config = CartesianWaypointConfig(*cartesian_constraint_element);
+    const tinyxml2::XMLElement* cartesian_waypoint_config = cartesian_constraint_element->FirstChildElement("CartesianWaypointConfig");
+    cartesian_constraint_config = CartesianWaypointConfig(*cartesian_waypoint_config);
   }
 
   if (joint_cost_element != nullptr)
   {
-    joint_cost_config = JointWaypointConfig(*joint_cost_element);
+    const tinyxml2::XMLElement* cartesian_waypoint_config = joint_cost_element->FirstChildElement("CartesianWaypointConfig");
+    joint_cost_config = JointWaypointConfig(*cartesian_waypoint_config);
   }
 
   if (joint_constraint_element != nullptr)
   {
-    joint_constraint_config = JointWaypointConfig(*joint_constraint_element);
+    const tinyxml2::XMLElement* cartesian_waypoint_config = joint_constraint_element->FirstChildElement("CartesianWaypointConfig");
+    joint_constraint_config = JointWaypointConfig(*cartesian_waypoint_config);
   }
 
   if (cnt_error_fn_element != nullptr)
@@ -275,17 +279,25 @@ tinyxml2::XMLElement* TrajOptDefaultPlanProfile::toXML(tinyxml2::XMLDocument& do
 
   tinyxml2::XMLElement* xml_trajopt = doc.NewElement("TrajOptDefaultPlanProfile");
 
+  tinyxml2::XMLElement* xml_cart_cost_parent = doc.NewElement("CartesianCostConfig");
   tinyxml2::XMLElement* xml_cart_cost = cartesian_cost_config.toXML(doc);
-  xml_trajopt->InsertEndChild(xml_cart_cost);
+  xml_cart_cost_parent->InsertEndChild(xml_cart_cost);
+  xml_trajopt->InsertEndChild(xml_cart_cost_parent);
 
+  tinyxml2::XMLElement* xml_cart_cnt_parent = doc.NewElement("CartesianConstraintConfig");
   tinyxml2::XMLElement* xml_cart_cnt = cartesian_constraint_config.toXML(doc);
-  xml_trajopt->InsertEndChild(xml_cart_cnt);
+  xml_cart_cnt_parent->InsertEndChild(xml_cart_cnt);
+  xml_trajopt->InsertEndChild(xml_cart_cnt_parent);
 
+  tinyxml2::XMLElement* xml_joint_cost_parent = doc.NewElement("JointCostConfig");
   tinyxml2::XMLElement* xml_joint_cost = joint_cost_config.toXML(doc);
-  xml_trajopt->InsertEndChild(xml_joint_cost);
+  xml_joint_cost_parent->InsertEndChild(xml_joint_cost);
+  xml_trajopt->InsertEndChild(xml_joint_cost_parent);
 
+  tinyxml2::XMLElement* xml_joint_cnt_parent = doc.NewElement("JointConstraintConfig");
   tinyxml2::XMLElement* xml_joint_cnt = joint_constraint_config.toXML(doc);
-  xml_trajopt->InsertEndChild(xml_joint_cnt);
+  xml_joint_cnt_parent->InsertEndChild(xml_joint_cnt);
+  xml_trajopt->InsertEndChild(xml_joint_cnt_parent);
 
   xml_planner->InsertEndChild(xml_trajopt);
 

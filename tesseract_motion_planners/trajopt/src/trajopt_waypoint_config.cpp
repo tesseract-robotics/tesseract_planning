@@ -45,7 +45,6 @@ CartesianWaypointConfig::CartesianWaypointConfig(const tinyxml2::XMLElement& xml
 
   if (enabled_element == nullptr)
     throw std::runtime_error("CartesianWaypointConfig: Must have Enabled element.");
-
   tinyxml2::XMLError status = enabled_element->QueryBoolText(&enabled);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("CartesianWaypointConfig: Error parsing Enabled string");
@@ -126,17 +125,23 @@ tinyxml2::XMLElement* CartesianWaypointConfig::toXML(tinyxml2::XMLDocument& doc)
   xml_use_tolerance_override->SetText(use_tolerance_override);
   xml_cartesian_waypoint_config->InsertEndChild(xml_use_tolerance_override);
 
-  tinyxml2::XMLElement* xml_lower_tolerance = doc.NewElement("LowerTolerance");
-  std::stringstream lower_tolerance_ss;
-  lower_tolerance_ss << lower_tolerance.format(eigen_format);
-  xml_lower_tolerance->SetText(lower_tolerance_ss.str().c_str());
-  xml_cartesian_waypoint_config->InsertEndChild(xml_lower_tolerance);
+  if (lower_tolerance.size() > 0)
+  {
+    tinyxml2::XMLElement* xml_lower_tolerance = doc.NewElement("LowerTolerance");
+    std::stringstream lower_tolerance_ss;
+    lower_tolerance_ss << lower_tolerance.format(eigen_format);
+    xml_lower_tolerance->SetText(lower_tolerance_ss.str().c_str());
+    xml_cartesian_waypoint_config->InsertEndChild(xml_lower_tolerance);
+  }
 
-  tinyxml2::XMLElement* xml_upper_tolerance = doc.NewElement("UpperTolerance");
-  std::stringstream upper_tolerance_ss;
-  upper_tolerance_ss << upper_tolerance.format(eigen_format);
-  xml_upper_tolerance->SetText(upper_tolerance_ss.str().c_str());
-  xml_cartesian_waypoint_config->InsertEndChild(xml_upper_tolerance);
+  if (upper_tolerance.size() > 0)
+  {
+    tinyxml2::XMLElement* xml_upper_tolerance = doc.NewElement("UpperTolerance");
+    std::stringstream upper_tolerance_ss;
+    upper_tolerance_ss << upper_tolerance.format(eigen_format);
+    xml_upper_tolerance->SetText(upper_tolerance_ss.str().c_str());
+    xml_cartesian_waypoint_config->InsertEndChild(xml_upper_tolerance);
+  }
 
   tinyxml2::XMLElement* xml_coeff = doc.NewElement("Coefficients");
   std::stringstream coeff_ss;
@@ -238,17 +243,23 @@ tinyxml2::XMLElement* JointWaypointConfig::toXML(tinyxml2::XMLDocument& doc) con
   xml_use_tolerance_override->SetText(use_tolerance_override);
   xml_cartesian_waypoint_config->InsertEndChild(xml_use_tolerance_override);
 
-  tinyxml2::XMLElement* xml_lower_tolerance = doc.NewElement("LowerTolerance");
-  std::stringstream lower_tolerance_ss;
-  lower_tolerance_ss << lower_tolerance.format(eigen_format);
-  xml_lower_tolerance->SetText(lower_tolerance_ss.str().c_str());
-  xml_cartesian_waypoint_config->InsertEndChild(xml_lower_tolerance);
+  if (lower_tolerance.size() > 0)
+  {
+    tinyxml2::XMLElement* xml_lower_tolerance = doc.NewElement("LowerTolerance");
+    std::stringstream lower_tolerance_ss;
+    lower_tolerance_ss << lower_tolerance.format(eigen_format);
+    xml_lower_tolerance->SetText(lower_tolerance_ss.str().c_str());
+    xml_cartesian_waypoint_config->InsertEndChild(xml_lower_tolerance);
+  }
 
-  tinyxml2::XMLElement* xml_upper_tolerance = doc.NewElement("UpperTolerance");
-  std::stringstream upper_tolerance_ss;
-  upper_tolerance_ss << upper_tolerance.format(eigen_format);
-  xml_upper_tolerance->SetText(upper_tolerance_ss.str().c_str());
-  xml_cartesian_waypoint_config->InsertEndChild(xml_upper_tolerance);
+  if (upper_tolerance.size() > 0)
+  {
+    tinyxml2::XMLElement* xml_upper_tolerance = doc.NewElement("UpperTolerance");
+    std::stringstream upper_tolerance_ss;
+    upper_tolerance_ss << upper_tolerance.format(eigen_format);
+    xml_upper_tolerance->SetText(upper_tolerance_ss.str().c_str());
+    xml_cartesian_waypoint_config->InsertEndChild(xml_upper_tolerance);
+  }
 
   tinyxml2::XMLElement* xml_coeff = doc.NewElement("Coefficients");
   std::stringstream coeff_ss;
