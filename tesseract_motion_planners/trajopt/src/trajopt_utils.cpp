@@ -34,8 +34,8 @@ trajopt::TermInfo::Ptr createCartesianWaypointTermInfo(int index,
                                                        const Eigen::Isometry3d& tcp_offset,
                                                        const Eigen::VectorXd& coeffs,
                                                        trajopt::TermType type,
-                                                       Eigen::VectorXd lower_tolerance,
-                                                       Eigen::VectorXd upper_tolerance)
+                                                       const Eigen::VectorXd& lower_tolerance,
+                                                       const Eigen::VectorXd& upper_tolerance)
 {
   auto pose_info = std::make_shared<trajopt::CartPoseTermInfo>();
   pose_info->term_type = type;
@@ -72,8 +72,8 @@ trajopt::TermInfo::Ptr createDynamicCartesianWaypointTermInfo(int index,
                                                               const Eigen::Isometry3d& tcp_offset,
                                                               const Eigen::VectorXd& coeffs,
                                                               trajopt::TermType type,
-                                                              Eigen::VectorXd lower_tolerance,
-                                                              Eigen::VectorXd upper_tolerance)
+                                                              const Eigen::VectorXd& lower_tolerance,
+                                                              const Eigen::VectorXd& upper_tolerance)
 {
   std::shared_ptr<trajopt::DynamicCartPoseTermInfo> pose = std::make_shared<trajopt::DynamicCartPoseTermInfo>();
   pose->term_type = type;
