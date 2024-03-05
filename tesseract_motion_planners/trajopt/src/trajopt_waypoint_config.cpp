@@ -235,7 +235,7 @@ tinyxml2::XMLElement* JointWaypointConfig::toXML(tinyxml2::XMLDocument& doc) con
 {
   Eigen::IOFormat eigen_format(Eigen::StreamPrecision, Eigen::DontAlignCols, " ", " ");
 
-  tinyxml2::XMLElement* xml_cartesian_waypoint_config = doc.NewElement("CartesianWaypointConfig");
+  tinyxml2::XMLElement* xml_cartesian_waypoint_config = doc.NewElement("JointWaypointConfig");
 
   tinyxml2::XMLElement* xml_enabled = doc.NewElement("Enabled");
   xml_enabled->SetText(enabled);

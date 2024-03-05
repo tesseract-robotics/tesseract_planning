@@ -63,15 +63,15 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
 
   if (joint_cost_element != nullptr)
   {
-    const tinyxml2::XMLElement* cartesian_waypoint_config = joint_cost_element->FirstChildElement("CartesianWaypointCon"
-                                                                                                  "fig");
+    const tinyxml2::XMLElement* cartesian_waypoint_config = joint_cost_element->FirstChildElement("JointWaypointConfi"
+                                                                                                  "g");
     joint_cost_config = JointWaypointConfig(*cartesian_waypoint_config);
   }
 
   if (joint_constraint_element != nullptr)
   {
-    const tinyxml2::XMLElement* cartesian_waypoint_config = joint_constraint_element->FirstChildElement("CartesianWaypo"
-                                                                                                        "intConfig");
+    const tinyxml2::XMLElement* cartesian_waypoint_config = joint_constraint_element->FirstChildElement("JointWaypointC"
+                                                                                                        "onfig");
     joint_constraint_config = JointWaypointConfig(*cartesian_waypoint_config);
   }
 

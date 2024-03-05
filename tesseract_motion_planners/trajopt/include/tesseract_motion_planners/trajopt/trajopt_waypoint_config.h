@@ -59,10 +59,10 @@ struct CartesianWaypointConfig
 
   /** @brief Distance below waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3
    * elements are angle axis error allowed (Eigen::AngleAxisd.axis() * Eigen::AngleAxisd.angle()) */
-  Eigen::Matrix<double, 6, 1> lower_tolerance;
+  Eigen::Matrix<double, 6, 1> lower_tolerance{ Eigen::VectorXd::Zero(6) };
   /** @brief Distance above waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3
    * elements are angle axis error allowed (Eigen::AngleAxisd.axis() * Eigen::AngleAxisd.angle())*/
-  Eigen::Matrix<double, 6, 1> upper_tolerance;
+  Eigen::Matrix<double, 6, 1> upper_tolerance{ Eigen::VectorXd::Zero(6) };
 
   /** @brief coefficients corresponsing to dx, dy, dz, rx, ry, rz*/
   Eigen::Matrix<double, 6, 1> coeff{ Eigen::VectorXd::Constant(6, 5) };
