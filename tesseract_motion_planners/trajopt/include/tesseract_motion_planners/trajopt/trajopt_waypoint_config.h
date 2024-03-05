@@ -31,9 +31,9 @@
 
 namespace tinyxml2
 {
-  class XMLElement;
-  class XMLDocument;
-}
+class XMLElement;
+class XMLDocument;
+}  // namespace tinyxml2
 
 namespace tesseract_planning
 {
