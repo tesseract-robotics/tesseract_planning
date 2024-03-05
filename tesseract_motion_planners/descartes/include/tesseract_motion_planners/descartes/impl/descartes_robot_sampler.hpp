@@ -40,12 +40,12 @@ namespace tesseract_planning
 {
 template <typename FloatType>
 DescartesRobotSampler<FloatType>::DescartesRobotSampler(std::string target_working_frame,
-                                                        const Eigen::Isometry3d& target_pose,
+                                                        const Eigen::Isometry3d& target_pose,   // NOLINT(modernize-pass-by-value)
                                                         PoseSamplerFn target_pose_sampler,
                                                         tesseract_kinematics::KinematicGroup::ConstPtr manip,
                                                         DescartesCollision::Ptr collision,
                                                         std::string tcp_frame,
-                                                        const Eigen::Isometry3d& tcp_offset,
+                                                        const Eigen::Isometry3d& tcp_offset,    // NOLINT(modernize-pass-by-value)
                                                         bool allow_collision,
                                                         DescartesVertexEvaluator::Ptr is_valid,
                                                         bool use_redundant_joint_solutions)
