@@ -27,13 +27,13 @@
 #define TESSERACT_MOTION_PLANNERS_TRAJOPT_CONFIG_TRAJOPT_WAYPOINT_CONFIG_H
 
 #include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <trajopt/problem_description.hpp>
-#include <tinyxml2.h>
-#include <boost/algorithm/string.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
 #include <tesseract_common/utils.h>
+
+namespace tinyxml2
+{
+  class XMLElement;
+  class XMLDocument;
+}
 
 namespace tesseract_planning
 {
@@ -42,25 +42,29 @@ namespace tesseract_planning
  */
 struct CartesianWaypointConfig
 {
+  // LCOV_EXCL_START
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  // LCOV_EXCL_STOP
+
   CartesianWaypointConfig() = default;
   CartesianWaypointConfig(const tinyxml2::XMLElement& xml_element);
 
   /** @brief If true, a cost/constraint term will be added to the problem. Default: true*/
-  bool enabled = true;
+  bool enabled{ true };
 
   /** @brief If true, will override existing waypoint tolerance with described tolerance here. Default: false
    * This is useful if you want to have a smaller tolerance for the cost than the constraint.*/
-  bool use_tolerance_override = false;
+  bool use_tolerance_override{ false };
 
   /** @brief Distance below waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3
    * elements are angle axis error allowed (Eigen::AngleAxisd.axis() * Eigen::AngleAxisd.angle()) */
-  Eigen::VectorXd lower_tolerance;
+  Eigen::Matrix<double, 6, 1> lower_tolerance;
   /** @brief Distance above waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3
    * elements are angle axis error allowed (Eigen::AngleAxisd.axis() * Eigen::AngleAxisd.angle())*/
-  Eigen::VectorXd upper_tolerance;
+  Eigen::Matrix<double, 6, 1> upper_tolerance;
 
   /** @brief coefficients corresponsing to dx, dy, dz, rx, ry, rz*/
-  Eigen::VectorXd coeff{ Eigen::VectorXd::Constant(1, 1, 5) };
+  Eigen::Matrix<double, 6, 1> coeff{ Eigen::VectorXd::Constant(6, 5) };
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const;
 };
@@ -70,15 +74,19 @@ struct CartesianWaypointConfig
  */
 struct JointWaypointConfig
 {
+  // LCOV_EXCL_START
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  // LCOV_EXCL_STOP
+
   JointWaypointConfig() = default;
   JointWaypointConfig(const tinyxml2::XMLElement& xml_element);
 
   /** @brief If true, a cost/constraint term will be added to the problem. Default: true*/
-  bool enabled = true;
+  bool enabled{ true };
 
   /** @brief If true, will override existing waypoint tolerance with described tolerance here. Default: false
    * This is useful if you want to have a smaller tolerance for the cost than the constraint.*/
-  bool use_tolerance_override = false;
+  bool use_tolerance_override{ false };
 
   /** @brief Distance below waypoint that is allowed. Should be size of joints in a joint state*/
   Eigen::VectorXd lower_tolerance;
