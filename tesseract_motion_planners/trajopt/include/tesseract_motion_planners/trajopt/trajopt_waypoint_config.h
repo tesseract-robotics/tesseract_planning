@@ -31,6 +31,7 @@
 
 namespace tinyxml2
 {
+// NOLINTNEXTLINE(cppcoreguidelines-virtual-class-destructor)
 class XMLElement;
 class XMLDocument;
 }  // namespace tinyxml2
