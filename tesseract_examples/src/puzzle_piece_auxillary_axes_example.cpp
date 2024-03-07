@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/puzzle_piece_auxillary_axes_example.h>
 #include <tesseract_environment/utils.h>
+#include <tesseract_common/timer.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -287,8 +288,13 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   problem->input = program;
 
   // Solve task
+  tesseract_common::Timer stopwatch;
+  stopwatch.start();
   TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem));
   future->wait();
+
+  stopwatch.stop();
+  CONSOLE_BRIDGE_logInform("Planning took %f seconds.", stopwatch.elapsedSeconds());
 
   // Plot Process Trajectory
   if (plotter_ != nullptr && plotter_->isConnected())
