@@ -54,7 +54,7 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
   if (discrete_contact_manager_ != nullptr)
   {
     discrete_contact_manager_->setActiveCollisionObjects(active_link_names_);
-    discrete_contact_manager_->applyContactManagerConfig(config.contact_manager_config);
+    discrete_contact_manager_->applyContactManagerConfig(collision_check_config_.contact_manager_config);
   }
   else if (collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::DISCRETE ||
            collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
@@ -66,7 +66,7 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
   if (continuous_contact_manager_ != nullptr)
   {
     continuous_contact_manager_->setActiveCollisionObjects(active_link_names_);
-    continuous_contact_manager_->applyContactManagerConfig(config.contact_manager_config);
+    continuous_contact_manager_->applyContactManagerConfig(collision_check_config_.contact_manager_config);
   }
   else if (collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::CONTINUOUS ||
            collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)

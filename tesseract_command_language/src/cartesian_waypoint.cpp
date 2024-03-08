@@ -8,12 +8,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/utils.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 
-tesseract_planning::CartesianWaypoint::CartesianWaypoint(const Eigen::Isometry3d& transform) : transform_(transform) {}
+tesseract_planning::CartesianWaypoint::CartesianWaypoint(
+    const Eigen::Isometry3d& transform)  // NOLINT(modernize-pass-by-value)
+  : transform_(transform)
+{
+}
 
 tesseract_planning::CartesianWaypoint::CartesianWaypoint(
-    const Eigen::Isometry3d& transform,
-    const Eigen::VectorXd& lower_tol,  // NOLINT(modernize-pass-by-value)
-    const Eigen::VectorXd& upper_tol)  // NOLINT(modernize-pass-by-value)
+    const Eigen::Isometry3d& transform,  // NOLINT(modernize-pass-by-value)
+    const Eigen::VectorXd& lower_tol,    // NOLINT(modernize-pass-by-value)
+    const Eigen::VectorXd& upper_tol)    // NOLINT(modernize-pass-by-value)
   : transform_(transform), lower_tolerance_(lower_tol), upper_tolerance_(upper_tol)
 {
 }

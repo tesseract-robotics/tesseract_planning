@@ -5,6 +5,7 @@ find_package(trajopt_sco REQUIRED)
 add_library(
   ${PROJECT_NAME}_trajopt
   src/trajopt_collision_config.cpp
+  src/trajopt_waypoint_config.cpp
   src/trajopt_motion_planner.cpp
   src/trajopt_utils.cpp
   src/profile/trajopt_default_plan_profile.cpp
