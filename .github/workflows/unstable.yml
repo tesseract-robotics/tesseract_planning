@@ -25,7 +25,7 @@ jobs:
       matrix:
         distro: [focal, jammy]
     container:
-      image: ghcr.io/tesseract-robotics/tesseract:${{ matrix.distro }}-master
+      image: ghcr.io/tesseract-robotics/trajopt:${{ matrix.distro }}-master
       env:
         CCACHE_DIR: "$GITHUB_WORKSPACE/${{ matrix.distro }}/.ccache"
         DEBIAN_FRONTEND: noninteractive
@@ -48,7 +48,7 @@ jobs:
       - name: Build and Tests
         uses: tesseract-robotics/colcon-action@v2
         with:
-          before-script: source /opt/tesseract/install/setup.bash
+          before-script: source /opt/tesseract/install/setup.bash && source /opt/trajopt/install/setup.bash
           ccache-prefix: ${{ matrix.distro }}
           vcs-file: dependencies_unstable.repos
           upstream-args: --cmake-args -DCMAKE_BUILD_TYPE=Release

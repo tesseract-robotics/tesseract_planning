@@ -1,5 +1,5 @@
 ARG TAG
-FROM ghcr.io/tesseract-robotics/tesseract:${TAG}
+FROM ghcr.io/tesseract-robotics/trajopt:${TAG}
 
 SHELL ["/bin/bash", "-c"]
 
@@ -26,6 +26,7 @@ RUN --mount=type=bind,target=${WORKSPACE_DIR}/src/tesseract_planning \
 # Bind mount the source directory so as not to unnecessarily copy source code into the docker image
 RUN --mount=type=bind,target=${WORKSPACE_DIR}/src/tesseract_planning \
   source /opt/tesseract/install/setup.bash \
+  && source /opt/trajopt/install/setup.bash \
   && cd ${WORKSPACE_DIR} \ 
   && colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release \
   && rm -rf build log
