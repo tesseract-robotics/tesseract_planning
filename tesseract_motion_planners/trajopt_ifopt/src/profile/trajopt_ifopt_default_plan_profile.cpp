@@ -38,7 +38,7 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
                                            const CartesianWaypointPoly& cartesian_waypoint,
                                            const InstructionPoly& parent_instruction,
                                            const tesseract_common::ManipulatorInfo& manip_info,
-                                           const std::vector<std::string>& active_links,
+                                           const std::vector<std::string>& /*active_links*/,
                                            int index) const
 {
   assert(parent_instruction.isMoveInstruction());
@@ -61,20 +61,30 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
     throw std::runtime_error("TrajOptIfoptDefaultPlanProfile: cartesian_coeff size must be 6.");
 
   trajopt_ifopt::JointPosition::ConstPtr var = problem.vars[static_cast<std::size_t>(index)];
-
-  /* Check if this cartesian waypoint is dynamic
-   * (i.e. defined relative to a frame that will move with the kinematic chain)
-   */
-  bool is_active_tcp_frame = (std::find(active_links.begin(), active_links.end(), mi.tcp_frame) != active_links.end());
-  bool is_static_working_frame =
-      (std::find(active_links.begin(), active_links.end(), mi.working_frame) == active_links.end());
-
-  if ((is_static_working_frame && is_active_tcp_frame) || (!is_active_tcp_frame && !is_static_working_frame))
+  switch (term_type)
   {
-    switch (term_type)
-    {
-      case TrajOptIfoptTermType::CONSTRAINT:
-        addCartesianPositionConstraint(*problem.nlp,
+    case TrajOptIfoptTermType::CONSTRAINT:
+      addCartesianPositionConstraint(*problem.nlp,
+                                     var,
+                                     problem.manip,
+                                     mi.tcp_frame,
+                                     mi.working_frame,
+                                     tcp_offset,
+                                     cartesian_waypoint.getTransform(),
+                                     cartesian_coeff);
+      break;
+    case TrajOptIfoptTermType::SQUARED_COST:
+      addCartesianPositionSquaredCost(*problem.nlp,
+                                      var,
+                                      problem.manip,
+                                      mi.tcp_frame,
+                                      mi.working_frame,
+                                      tcp_offset,
+                                      cartesian_waypoint.getTransform(),
+                                      cartesian_coeff);
+      break;
+    case TrajOptIfoptTermType::ABSOLUTE_COST:
+      addCartesianPositionAbsoluteCost(*problem.nlp,
                                        var,
                                        problem.manip,
                                        mi.tcp_frame,
@@ -82,36 +92,7 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
                                        tcp_offset,
                                        cartesian_waypoint.getTransform(),
                                        cartesian_coeff);
-        break;
-      case TrajOptIfoptTermType::SQUARED_COST:
-        addCartesianPositionSquaredCost(*problem.nlp,
-                                        var,
-                                        problem.manip,
-                                        mi.tcp_frame,
-                                        mi.working_frame,
-                                        tcp_offset,
-                                        cartesian_waypoint.getTransform(),
-                                        cartesian_coeff);
-        break;
-      case TrajOptIfoptTermType::ABSOLUTE_COST:
-        addCartesianPositionAbsoluteCost(*problem.nlp,
-                                         var,
-                                         problem.manip,
-                                         mi.tcp_frame,
-                                         mi.working_frame,
-                                         tcp_offset,
-                                         cartesian_waypoint.getTransform(),
-                                         cartesian_coeff);
-        break;
-    }
-  }
-  else if (!is_static_working_frame && is_active_tcp_frame)
-  {
-    throw std::runtime_error("TrajOpt IFOPT currently does not support dynamic cartesian waypoints!");
-  }
-  else
-  {
-    throw std::runtime_error("TrajOpt, both tcp_frame and working_frame are both static!");
+      break;
   }
 }
 

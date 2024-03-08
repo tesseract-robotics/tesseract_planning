@@ -30,8 +30,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/puzzle_piece_example.h>
-#include <tesseract_common/timer.h>
 #include <tesseract_environment/utils.h>
+#include <tesseract_common/timer.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -240,8 +240,10 @@ bool PuzzlePieceExample::run()
   {
     // Create TrajOpt Profile
     auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
-    trajopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 10);
-    trajopt_plan_profile->cartesian_coeff(5) = 0;
+    trajopt_plan_profile->cartesian_cost_config.enabled = false;
+    trajopt_plan_profile->cartesian_constraint_config.enabled = true;
+    trajopt_plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);
+    trajopt_plan_profile->cartesian_constraint_config.coeff(5) = 0;
 
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
     trajopt_composite_profile->collision_constraint_config.enabled = false;

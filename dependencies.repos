@@ -3,10 +3,6 @@
     uri: https://github.com/ros-industrial/ros_industrial_cmake_boilerplate.git
     version: 0.5.4
 - git:
-    local-name: trajopt
-    uri: https://github.com/tesseract-robotics/trajopt.git
-    version: 0.7.0
-- git:
     local-name: descartes_light
     uri: https://github.com/swri-robotics/descartes_light.git
     version: 0.4.2

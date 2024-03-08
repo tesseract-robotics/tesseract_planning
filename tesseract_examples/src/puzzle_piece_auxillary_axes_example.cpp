@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/puzzle_piece_auxillary_axes_example.h>
 #include <tesseract_environment/utils.h>
+#include <tesseract_common/timer.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -248,10 +249,12 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   {
     // Create TrajOpt Profile
     auto trajopt_plan_profile = std::make_shared<tesseract_planning::TrajOptDefaultPlanProfile>();
-    trajopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 5);
-    trajopt_plan_profile->cartesian_coeff(3) = 2;
-    trajopt_plan_profile->cartesian_coeff(4) = 2;
-    trajopt_plan_profile->cartesian_coeff(5) = 0;
+    trajopt_plan_profile->cartesian_cost_config.enabled = false;
+    trajopt_plan_profile->cartesian_constraint_config.enabled = true;
+    trajopt_plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 5);
+    trajopt_plan_profile->cartesian_constraint_config.coeff(3) = 2;
+    trajopt_plan_profile->cartesian_constraint_config.coeff(4) = 2;
+    trajopt_plan_profile->cartesian_constraint_config.coeff(5) = 0;
 
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
     trajopt_composite_profile->collision_constraint_config.enabled = false;
@@ -287,8 +290,13 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   problem->input = program;
 
   // Solve task
+  tesseract_common::Timer stopwatch;
+  stopwatch.start();
   TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem));
   future->wait();
+
+  stopwatch.stop();
+  CONSOLE_BRIDGE_logInform("Planning took %f seconds.", stopwatch.elapsedSeconds());
 
   // Plot Process Trajectory
   if (plotter_ != nullptr && plotter_->isConnected())

@@ -25,7 +25,7 @@ TEST(TesseractExamples, PuzzlePieceAuxillaryAxesCppTrajOptExampleUnit)  // NOLIN
   EXPECT_TRUE(example.run());
 }
 
-TEST(TesseractExamples, DISABLED_PuzzlePieceAuxillaryAxesCppTrajOptIfoptExampleUnit)  // NOLINT
+TEST(TesseractExamples, PuzzlePieceAuxillaryAxesCppTrajOptIfoptExampleUnit)  // NOLINT
 {
   auto locator = std::make_shared<TesseractSupportResourceLocator>();
   tesseract_common::fs::path urdf_path =
