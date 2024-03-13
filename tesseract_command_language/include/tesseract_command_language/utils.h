@@ -29,14 +29,19 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <limits>
+#include <string>
+#include <vector>
+#include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_common/joint_state.h>
-#include <tesseract_common/types.h>
+#include <tesseract_common/fwd.h>
 
 namespace tesseract_planning
 {
+struct InstructionPoly;
+struct WaypointPoly;
+class CompositeInstruction;
+
 /**
  * @brief Convert instruction to a joint trajectory
  * @details This searches for both move instructions. If it contains a Cartesian waypoint it is skipped.

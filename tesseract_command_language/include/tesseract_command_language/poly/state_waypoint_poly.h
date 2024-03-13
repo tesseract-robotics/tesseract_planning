@@ -28,14 +28,16 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
-#include <boost/serialization/base_object.hpp>
+#include <Eigen/Core>
+#include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
+#include <boost/serialization/base_object.hpp>
 #include <boost/concept_check.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/waypoint_poly.h>
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/type_erasure.h>
+#include <tesseract_common/fwd.h>
 
 /** @brief If shared library, this must go in the header after the class definition */
 #define TESSERACT_STATE_WAYPOINT_EXPORT_KEY(N, C)                                                                      \
@@ -284,8 +286,8 @@ BOOST_CLASS_EXPORT_KEY(tesseract_planning::StateWaypointPolyBase)
 BOOST_CLASS_TRACKING(tesseract_planning::StateWaypointPolyBase, boost::serialization::track_never)
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::StateWaypointPoly)
-BOOST_CLASS_TRACKING(tesseract_planning::StateWaypointPoly, boost::serialization::track_never);
+BOOST_CLASS_TRACKING(tesseract_planning::StateWaypointPoly, boost::serialization::track_never)
 
-TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning, StateWaypointPoly);
+TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning, StateWaypointPoly)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_STATE_WAYPOINT_POLY_H

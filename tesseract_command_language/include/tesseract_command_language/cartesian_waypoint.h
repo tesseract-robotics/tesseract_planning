@@ -28,7 +28,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <Eigen/Core>
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -102,6 +101,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-TESSERACT_CARTESIAN_WAYPOINT_EXPORT_KEY(tesseract_planning, CartesianWaypoint);
+TESSERACT_CARTESIAN_WAYPOINT_EXPORT_KEY(tesseract_planning, CartesianWaypoint)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_H

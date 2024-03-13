@@ -31,18 +31,20 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <string>
 #include <variant>
+#include <Eigen/Core>
+#include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
-#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/constants.h>
-#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/any_poly.h>
 
 namespace tesseract_planning
 {
 class CompositeInstruction;
+class ProfileDictionary;
+struct MoveInstructionPoly;
 
 /**
  * @brief This is used for filtering only what you want in the vector
@@ -134,16 +136,16 @@ public:
   void setProfile(const std::string& profile);
   const std::string& getProfile() const;
 
-  void setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides);
-  ProfileDictionary::ConstPtr getProfileOverrides() const;
+  void setProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides);
+  std::shared_ptr<const ProfileDictionary> getProfileOverrides() const;
 
   void setManipulatorInfo(tesseract_common::ManipulatorInfo info);
   const tesseract_common::ManipulatorInfo& getManipulatorInfo() const;
   tesseract_common::ManipulatorInfo& getManipulatorInfo();
 
-  void setInstructions(std::vector<tesseract_planning::InstructionPoly> instructions);
-  std::vector<tesseract_planning::InstructionPoly>& getInstructions();
-  const std::vector<tesseract_planning::InstructionPoly>& getInstructions() const;
+  void setInstructions(std::vector<InstructionPoly> instructions);
+  std::vector<InstructionPoly>& getInstructions();
+  const std::vector<InstructionPoly>& getInstructions() const;
 
   void appendMoveInstruction(const MoveInstructionPoly& mi);
   void appendMoveInstruction(const MoveInstructionPoly&& mi);
@@ -407,7 +409,7 @@ private:
   std::string profile_{ DEFAULT_PROFILE_KEY };
 
   /** @brief Dictionary of profiles that will override named profiles for a specific task*/
-  ProfileDictionary::ConstPtr profile_overrides_;
+  std::shared_ptr<const ProfileDictionary> profile_overrides_;
 
   /** @brief The order of the composite instruction */
   CompositeInstructionOrder order_{ CompositeInstructionOrder::ORDERED };
@@ -464,7 +466,7 @@ private:
 
 }  // namespace tesseract_planning
 
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, CompositeInstruction);
-TESSERACT_ANY_EXPORT_KEY(tesseract_planning, CompositeInstruction);
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, CompositeInstruction)
+TESSERACT_ANY_EXPORT_KEY(tesseract_planning, CompositeInstruction)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMPOSITE_INSTRUCTION_H

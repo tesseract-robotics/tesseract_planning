@@ -29,10 +29,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/utils.h>
+#include <tesseract_common/kinematic_limits.h>
+#include <tesseract_common/joint_state.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/utils.h>
 
 namespace tesseract_planning
 {

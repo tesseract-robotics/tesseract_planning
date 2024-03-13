@@ -34,9 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_common/joint_state.h>
-#include <tesseract_common/utils.h>
-#include <tesseract_common/types.h>
-#include <tesseract_common/serialization.h>
 
 namespace tesseract_planning
 {
@@ -98,6 +95,6 @@ private:
 };
 }  // namespace tesseract_planning
 
-TESSERACT_STATE_WAYPOINT_EXPORT_KEY(tesseract_planning, StateWaypoint);
+TESSERACT_STATE_WAYPOINT_EXPORT_KEY(tesseract_planning, StateWaypoint)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_H

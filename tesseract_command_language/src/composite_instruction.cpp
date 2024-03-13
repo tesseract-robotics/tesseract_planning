@@ -38,7 +38,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/uuid/uuid_serialize.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/profile_dictionary.h>
 
 namespace tesseract_planning
 {
@@ -82,11 +84,14 @@ void CompositeInstruction::setProfile(const std::string& profile)
 }
 const std::string& CompositeInstruction::getProfile() const { return profile_; }
 
-void CompositeInstruction::setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides)
+void CompositeInstruction::setProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides)
 {
   profile_overrides_ = std::move(profile_overrides);
 }
-ProfileDictionary::ConstPtr CompositeInstruction::getProfileOverrides() const { return profile_overrides_; }
+std::shared_ptr<const ProfileDictionary> CompositeInstruction::getProfileOverrides() const
+{
+  return profile_overrides_;
+}
 
 void CompositeInstruction::setManipulatorInfo(tesseract_common::ManipulatorInfo info)
 {

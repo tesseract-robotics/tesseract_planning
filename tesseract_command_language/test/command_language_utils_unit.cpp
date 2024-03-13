@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/utils.h>
+#include <tesseract_common/utils.h>
 #include "command_language_test_program.hpp"
 
 using namespace tesseract_planning;

@@ -1,4 +1,4 @@
-add_library(${PROJECT_NAME}_core src/instructions_trajectory.cpp src/tesseract_common_trajectory.cpp)
+add_library(${PROJECT_NAME}_core src/instructions_trajectory.cpp src/tesseract_common_trajectory.cpp src/utils.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_core
   PUBLIC tesseract::tesseract_common

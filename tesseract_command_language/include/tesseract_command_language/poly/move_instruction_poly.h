@@ -29,10 +29,10 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
-#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
+#include <boost/serialization/base_object.hpp>
 #include <boost/concept_check.hpp>
-#include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
@@ -40,10 +40,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/poly/waypoint_poly.h>
-#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_common/manipulator_info.h>
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/type_erasure.h>
+#include <tesseract_common/fwd.h>
 
 /** @brief If shared library, this must go in the header after the class definition */
 #define TESSERACT_MOVE_INSTRUCTION_EXPORT_KEY(N, C)                                                                    \
@@ -78,6 +77,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 struct MoveInstructionPoly;
+class ProfileDictionary;
 
 enum class MoveInstructionType : int
 {
@@ -189,11 +189,11 @@ struct MoveInstructionInterface : tesseract_common::TypeErasureInterface
   virtual void setPathProfile(const std::string& profile) = 0;
   virtual const std::string& getPathProfile() const = 0;
 
-  virtual void setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides) = 0;
-  virtual ProfileDictionary::ConstPtr getProfileOverrides() const = 0;
+  virtual void setProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides) = 0;
+  virtual std::shared_ptr<const ProfileDictionary> getProfileOverrides() const = 0;
 
-  virtual void setPathProfileOverrides(ProfileDictionary::ConstPtr profile_overrides) = 0;
-  virtual ProfileDictionary::ConstPtr getPathProfileOverrides() const = 0;
+  virtual void setPathProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides) = 0;
+  virtual std::shared_ptr<const ProfileDictionary> getPathProfileOverrides() const = 0;
 
   virtual void setMoveType(MoveInstructionType move_type) = 0;
   virtual MoveInstructionType getMoveType() const = 0;
@@ -253,17 +253,23 @@ struct MoveInstructionInstance : tesseract_common::TypeErasureInstance<T, MoveIn
   void setPathProfile(const std::string& profile) final { this->get().setPathProfile(profile); }
   const std::string& getPathProfile() const final { return this->get().getPathProfile(); }
 
-  void setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides) final
+  void setProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides) final
   {
     this->get().setProfileOverrides(profile_overrides);
   }
-  ProfileDictionary::ConstPtr getProfileOverrides() const final { return this->get().getProfileOverrides(); }
+  std::shared_ptr<const ProfileDictionary> getProfileOverrides() const final
+  {
+    return this->get().getProfileOverrides();
+  }
 
-  void setPathProfileOverrides(ProfileDictionary::ConstPtr profile_overrides) final
+  void setPathProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides) final
   {
     this->get().setPathProfileOverrides(profile_overrides);
   }
-  ProfileDictionary::ConstPtr getPathProfileOverrides() const final { return this->get().getPathProfileOverrides(); }
+  std::shared_ptr<const ProfileDictionary> getPathProfileOverrides() const final
+  {
+    return this->get().getPathProfileOverrides();
+  }
 
   void setMoveType(MoveInstructionType move_type) final { this->get().setMoveType(move_type); }
   MoveInstructionType getMoveType() const final { return this->get().getMoveType(); }
@@ -319,11 +325,11 @@ struct MoveInstructionPoly : MoveInstructionPolyBase
   void setPathProfile(const std::string& profile);
   const std::string& getPathProfile() const;
 
-  void setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides);
-  ProfileDictionary::ConstPtr getProfileOverrides() const;
+  void setProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides);
+  std::shared_ptr<const ProfileDictionary> getProfileOverrides() const;
 
-  void setPathProfileOverrides(ProfileDictionary::ConstPtr profile_overrides);
-  ProfileDictionary::ConstPtr getPathProfileOverrides() const;
+  void setPathProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides);
+  std::shared_ptr<const ProfileDictionary> getPathProfileOverrides() const;
 
   void setMoveType(MoveInstructionType move_type);
   MoveInstructionType getMoveType() const;
