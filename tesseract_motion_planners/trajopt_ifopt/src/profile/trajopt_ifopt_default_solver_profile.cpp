@@ -28,8 +28,22 @@
 
 namespace tesseract_planning
 {
+
+TrajOptIfoptDefaultSolverProfile::TrajOptIfoptDefaultSolverProfile()
+{
+  osqp_set_default_settings(&convex_solver_settings);
+  convex_solver_settings.verbose = 0;
+  convex_solver_settings.warm_start = 1;
+  convex_solver_settings.polish = 1;
+  convex_solver_settings.adaptive_rho = 1;
+  convex_solver_settings.max_iter = 8192;
+  convex_solver_settings.eps_abs = 1e-4;
+  convex_solver_settings.eps_rel = 1e-6;
+}
+
 void TrajOptIfoptDefaultSolverProfile::apply(TrajOptIfoptProblem& problem) const
 {
+  problem.convex_solver_settings = convex_solver_settings;
   problem.opt_info = opt_info;
   problem.callbacks = callbacks;
 }
