@@ -24,7 +24,16 @@
  * limitations under the License.
  */
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <ompl/geometric/SimpleSetup.h>
+#include <ompl/base/OptimizationObjective.h>
+#include <ompl/tools/multiplan/ParallelPlan.h>
+#include <ompl/base/objectives/PathLengthOptimizationObjective.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_motion_planners/ompl/ompl_problem.h>
+#include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_motion_planners/ompl/utils.h>
 
 namespace tesseract_planning

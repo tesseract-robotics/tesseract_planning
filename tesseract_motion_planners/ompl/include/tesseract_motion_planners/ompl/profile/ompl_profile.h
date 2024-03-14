@@ -30,13 +30,21 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <memory>
+#include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/poly/move_instruction_poly.h>
-#include <tesseract_motion_planners/ompl/ompl_problem.h>
+#include <tesseract_common/fwd.h>
+#include <tesseract_command_language/fwd.h>
+
+namespace tinyxml2
+{
+class XMLElement;  // NOLINT
+class XMLDocument;
+}  // namespace tinyxml2
 
 namespace tesseract_planning
 {
+struct OMPLProblem;
 class OMPLPlanProfile
 {
 public:
@@ -85,7 +93,7 @@ public:
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 };
 
-using OMPLPlanProfileMap = std::unordered_map<std::string, OMPLPlanProfile::ConstPtr>;
+// using OMPLPlanProfileMap = std::unordered_map<std::string, OMPLPlanProfile::ConstPtr>;
 
 /** @todo Currently OMPL does not have support of composite profile everything is handled by the plan profile */
 

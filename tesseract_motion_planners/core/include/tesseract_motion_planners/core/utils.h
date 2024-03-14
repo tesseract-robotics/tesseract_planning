@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/eigen_types.h>
 
 #include <tesseract_collision/core/fwd.h>
+#include <tesseract_state_solver/fwd.h>
 #include <tesseract_environment/fwd.h>
 #include <tesseract_command_language/fwd.h>
 

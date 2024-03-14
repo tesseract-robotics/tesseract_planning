@@ -31,6 +31,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/MotionValidator.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+namespace ompl::base
+{
+class SpaceInformation;
+using SpaceInformationPtr = std::shared_ptr<SpaceInformation>;
+class StateValidityChecker;
+using StateValidityCheckerPtr = std::shared_ptr<StateValidityChecker>;
+}  // namespace ompl::base
+
 namespace tesseract_planning
 {
 /** @brief Continuous collision check between two states */

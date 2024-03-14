@@ -27,11 +27,6 @@
 #ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_PLAN_PROFILE_H
 #define TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_PLAN_PROFILE_H
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <Eigen/Geometry>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
 namespace tesseract_planning

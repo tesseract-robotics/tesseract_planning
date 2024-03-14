@@ -34,11 +34,22 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <ompl/base/SpaceInformation.h>
-#include <ompl/base/Planner.h>
-#include <tinyxml2.h>
+#include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+namespace tinyxml2
+{
+class XMLElement;  // NOLINT
+class XMLDocument;
+}  // namespace tinyxml2
+
+namespace ompl::base
+{
+class Planner;
+using PlannerPtr = std::shared_ptr<Planner>;
+class SpaceInformation;
+using SpaceInformationPtr = std::shared_ptr<SpaceInformation>;
+}  // namespace ompl::base
 namespace tesseract_planning
 {
 enum class OMPLPlannerType

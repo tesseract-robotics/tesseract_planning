@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <tinyxml2.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/utils.h>
@@ -49,7 +50,7 @@ OMPLDefaultPlanProfile omplPlanFromXMLElement(const tinyxml2::XMLElement* profil
 {
   std::array<int, 3> version{ 0, 0, 0 };
   std::string version_string;
-  tinyxml2::XMLError status = tesseract_common::QueryStringAttribute(profile_xml, "version", version_string);
+  int status = tesseract_common::QueryStringAttribute(profile_xml, "version", version_string);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("fromXML: Error parsing robot attribute 'version'");
 

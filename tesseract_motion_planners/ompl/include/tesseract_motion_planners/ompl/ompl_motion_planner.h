@@ -29,10 +29,13 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <functional>
+#include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/planner.h>
-#include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
+
+#include <tesseract_common/fwd.h>
+#include <tesseract_kinematics/core/fwd.h>
 
 namespace ompl::tools
 {
@@ -41,9 +44,10 @@ class ParallelPlan;
 
 namespace tesseract_planning
 {
+struct OMPLProblem;
 struct OMPLProblemConfig
 {
-  OMPLProblem::Ptr problem;
+  std::shared_ptr<OMPLProblem> problem;
   boost::uuids::uuid start_uuid{};
   boost::uuids::uuid end_uuid{};
 };
@@ -83,7 +87,7 @@ public:
 
   void clear() override;
 
-  MotionPlanner::Ptr clone() const override;
+  std::unique_ptr<MotionPlanner> clone() const override;
 
   virtual std::vector<OMPLProblemConfig> createProblems(const PlannerRequest& request) const;
 
@@ -93,7 +97,7 @@ protected:
 
   OMPLProblemConfig createSubProblem(const PlannerRequest& request,
                                      const tesseract_common::ManipulatorInfo& composite_mi,
-                                     const tesseract_kinematics::JointGroup::ConstPtr& manip,
+                                     const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
                                      const MoveInstructionPoly& start_instruction,
                                      const MoveInstructionPoly& end_instruction,
                                      int n_output_states,

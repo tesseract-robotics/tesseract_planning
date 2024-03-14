@@ -29,20 +29,25 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <ompl/base/goals/GoalState.h>
 #include <ompl/base/goals/GoalStates.h>
+#include <ompl/geometric/SimpleSetup.h>
 #include <ompl/tools/multiplan/ParallelPlan.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
-#include <tesseract_environment/utils.h>
 
 #include <tesseract_motion_planners/planner_utils.h>
 
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
-#include <tesseract_motion_planners/ompl/continuous_motion_validator.h>
-#include <tesseract_motion_planners/ompl/discrete_motion_validator.h>
+#include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
+#include <tesseract_motion_planners/ompl/ompl_problem.h>
+#include <tesseract_motion_planners/ompl/types.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
-#include <tesseract_motion_planners/ompl/weighted_real_vector_state_sampler.h>
-#include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/core/types.h>
 
+#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract_kinematics/core/kinematic_group.h>
+#include <tesseract_collision/core/discrete_contact_manager.h>
+#include <tesseract_environment/environment.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/utils.h>
 
 constexpr auto SOLUTION_FOUND{ "Found valid solution" };
@@ -313,15 +318,16 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 
 void OMPLMotionPlanner::clear() { parallel_plan_ = nullptr; }
 
-MotionPlanner::Ptr OMPLMotionPlanner::clone() const { return std::make_shared<OMPLMotionPlanner>(name_); }
+std::unique_ptr<MotionPlanner> OMPLMotionPlanner::clone() const { return std::make_unique<OMPLMotionPlanner>(name_); }
 
-OMPLProblemConfig OMPLMotionPlanner::createSubProblem(const PlannerRequest& request,
-                                                      const tesseract_common::ManipulatorInfo& composite_mi,
-                                                      const tesseract_kinematics::JointGroup::ConstPtr& manip,
-                                                      const MoveInstructionPoly& start_instruction,
-                                                      const MoveInstructionPoly& end_instruction,
-                                                      int n_output_states,
-                                                      int index) const
+OMPLProblemConfig
+OMPLMotionPlanner::createSubProblem(const PlannerRequest& request,
+                                    const tesseract_common::ManipulatorInfo& composite_mi,
+                                    const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
+                                    const MoveInstructionPoly& start_instruction,
+                                    const MoveInstructionPoly& end_instruction,
+                                    int n_output_states,
+                                    int index) const
 {
   std::vector<std::string> joint_names = manip->getJointNames();
   std::vector<std::string> active_link_names = manip->getActiveLinkNames();

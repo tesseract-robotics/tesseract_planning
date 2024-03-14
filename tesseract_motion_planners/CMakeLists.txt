@@ -69,29 +69,29 @@ if(TESSERACT_BUILD_OMPL)
   add_subdirectory(ompl)
 endif()
 
-# Descartes
-option(TESSERACT_BUILD_DESCARTES "Build the Descartes planner" ON)
-if(TESSERACT_BUILD_DESCARTES)
-  message("Building Descartes Planner")
-  list(APPEND SUPPORTED_COMPONENTS descartes)
-  add_subdirectory(descartes)
-endif()
+# # Descartes
+# option(TESSERACT_BUILD_DESCARTES "Build the Descartes planner" ON)
+# if(TESSERACT_BUILD_DESCARTES)
+#   message("Building Descartes Planner")
+#   list(APPEND SUPPORTED_COMPONENTS descartes)
+#   add_subdirectory(descartes)
+# endif()
 
-# Trajopt
-option(TESSERACT_BUILD_TRAJOPT "Build the Trajopt planner" ON)
-if(TESSERACT_BUILD_TRAJOPT)
-  message("Building Trajopt Planner")
-  list(APPEND SUPPORTED_COMPONENTS trajopt)
-  add_subdirectory(trajopt)
-endif()
+# # Trajopt
+# option(TESSERACT_BUILD_TRAJOPT "Build the Trajopt planner" ON)
+# if(TESSERACT_BUILD_TRAJOPT)
+#   message("Building Trajopt Planner")
+#   list(APPEND SUPPORTED_COMPONENTS trajopt)
+#   add_subdirectory(trajopt)
+# endif()
 
-# Trajopt IFOPT
-option(TESSERACT_BUILD_TRAJOPT_IFOPT "Build the Trajopt IFOPT planner" ON)
-if(TESSERACT_BUILD_TRAJOPT_IFOPT)
-  message("Building Trajopt IFOPT Planner")
-  list(APPEND SUPPORTED_COMPONENTS trajopt_ifopt)
-  add_subdirectory(trajopt_ifopt)
-endif()
+# # Trajopt IFOPT
+# option(TESSERACT_BUILD_TRAJOPT_IFOPT "Build the Trajopt IFOPT planner" ON)
+# if(TESSERACT_BUILD_TRAJOPT_IFOPT)
+#   message("Building Trajopt IFOPT Planner")
+#   list(APPEND SUPPORTED_COMPONENTS trajopt_ifopt)
+#   add_subdirectory(trajopt_ifopt)
+# endif()
 
 # Examples
 if(TESSERACT_ENABLE_EXAMPLES)

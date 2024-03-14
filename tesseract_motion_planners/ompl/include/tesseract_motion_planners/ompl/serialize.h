@@ -28,12 +28,19 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tinyxml2.h>
+#include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
+
+namespace tinyxml2
+{
+class XMLElement;  // NOLINT
+class XMLDocument;
+}  // namespace tinyxml2
 
 namespace tesseract_planning
 {
+class OMPLPlanProfile;
+
 std::shared_ptr<tinyxml2::XMLDocument> toXMLDocument(const OMPLPlanProfile& plan_profile);
 
 bool toXMLFile(const OMPLPlanProfile& plan_profile, const std::string& file_path);
