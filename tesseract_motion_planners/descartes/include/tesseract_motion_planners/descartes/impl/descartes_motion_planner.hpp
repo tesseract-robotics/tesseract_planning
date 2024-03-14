@@ -29,23 +29,20 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/solvers/ladder_graph/ladder_graph_solver.h>
-#include <descartes_light/samplers/fixed_joint_waypoint_sampler.h>
-#include <vector>
+#include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_collision/core/discrete_contact_manager.h>
-#include <tesseract_collision/core/continuous_contact_manager.h>
-
+#include <tesseract_common/kinematic_limits.h>
+#include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_environment/environment.h>
-#include <tesseract_environment/utils.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/utils.h>
 
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
-#include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/planner_utils.h>
-
-#include <tesseract_command_language/utils.h>
 
 constexpr auto SOLUTION_FOUND{ "Found valid solution" };
 constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input: " };
@@ -211,9 +208,9 @@ void DescartesMotionPlanner<FloatType>::clear()
 }
 
 template <typename FloatType>
-MotionPlanner::Ptr DescartesMotionPlanner<FloatType>::clone() const
+std::unique_ptr<MotionPlanner> DescartesMotionPlanner<FloatType>::clone() const
 {
-  return std::make_shared<DescartesMotionPlanner<FloatType>>(name_);
+  return std::make_unique<DescartesMotionPlanner<FloatType>>(name_);
 }
 
 template <typename FloatType>

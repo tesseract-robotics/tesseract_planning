@@ -32,13 +32,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_kinematics/core/kinematic_group.h>
+#include <tesseract_kinematics/core/fwd.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
-#include <tesseract_motion_planners/descartes/descartes_collision.h>
-#include <tesseract_motion_planners/descartes/types.h>
 
 namespace tesseract_planning
 {
+class DescartesVertexEvaluator;
+class DescartesCollision;
+
 template <typename FloatType>
 class DescartesRobotSampler : public descartes_light::WaypointSampler<FloatType>
 {
@@ -56,12 +57,12 @@ public:
   DescartesRobotSampler(std::string target_working_frame,
                         const Eigen::Isometry3d& target_pose,  // NOLINT(modernize-pass-by-value)
                         PoseSamplerFn target_pose_sampler,
-                        tesseract_kinematics::KinematicGroup::ConstPtr manip,
-                        DescartesCollision::Ptr collision,
+                        std::shared_ptr<const tesseract_kinematics::KinematicGroup> manip,
+                        std::shared_ptr<DescartesCollision> collision,
                         std::string tcp_frame,
                         const Eigen::Isometry3d& tcp_offset,  // NOLINT(modernize-pass-by-value)
                         bool allow_collision,
-                        DescartesVertexEvaluator::Ptr is_valid,
+                        std::shared_ptr<DescartesVertexEvaluator> is_valid,
                         bool use_redundant_joint_solutions);
 
   std::vector<descartes_light::StateSample<FloatType>> sample() const override;
@@ -77,10 +78,10 @@ private:
   PoseSamplerFn target_pose_sampler_;
 
   /** @brief The manipulator kinematic group */
-  tesseract_kinematics::KinematicGroup::ConstPtr manip_;
+  std::shared_ptr<const tesseract_kinematics::KinematicGroup> manip_;
 
   /** @brief The collision interface */
-  DescartesCollision::Ptr collision_;
+  std::shared_ptr<DescartesCollision> collision_;
 
   /** @brief The robot tool center point frame */
   std::string tcp_frame_;
@@ -98,7 +99,7 @@ private:
   Eigen::VectorXd ik_seed_;
 
   /** @brief This is the vertex evaluator to filter out solution */
-  DescartesVertexEvaluator::Ptr is_valid_;
+  std::shared_ptr<DescartesVertexEvaluator> is_valid_;
 
   /** @brief Should redundant solutions be used */
   bool use_redundant_joint_solutions_{ false };

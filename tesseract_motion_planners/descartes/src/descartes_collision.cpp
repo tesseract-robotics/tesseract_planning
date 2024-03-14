@@ -24,12 +24,16 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
+
+#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract_collision/core/discrete_contact_manager.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_environment/utils.h>
 
 namespace tesseract_planning
 {
 DescartesCollision::DescartesCollision(const tesseract_environment::Environment& collision_env,
-                                       tesseract_kinematics::JointGroup::ConstPtr manip,
+                                       std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
                                        tesseract_collision::CollisionCheckConfig collision_check_config,
                                        bool debug)
   : manip_(std::move(manip))

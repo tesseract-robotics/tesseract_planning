@@ -32,6 +32,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/descartes/descartes_collision_edge_evaluator.h>
+
+#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract_collision/core/discrete_contact_manager.h>
+#include <tesseract_collision/core/continuous_contact_manager.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_environment/utils.h>
 
 namespace tesseract_planning
@@ -39,7 +44,7 @@ namespace tesseract_planning
 template <typename FloatType>
 DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
     const tesseract_environment::Environment& collision_env,
-    tesseract_kinematics::JointGroup::ConstPtr manip,
+    std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
     tesseract_collision::CollisionCheckConfig config,
     bool allow_collision,
     bool debug)

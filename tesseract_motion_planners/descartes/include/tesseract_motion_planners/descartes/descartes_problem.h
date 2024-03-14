@@ -35,7 +35,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_environment/environment.h>
+#include <tesseract_kinematics/core/fwd.h>
+#include <tesseract_environment/fwd.h>
+
+#include <tesseract_scene_graph/scene_state.h>
 
 namespace tesseract_planning
 {
@@ -47,11 +50,11 @@ struct DescartesProblem
   // LCOV_EXCL_STOP
 
   // These are required for Tesseract to configure Descartes
-  tesseract_environment::Environment::ConstPtr env;
+  std::shared_ptr<const tesseract_environment::Environment> env;
   tesseract_scene_graph::SceneState env_state;
 
   // Kinematic Objects
-  tesseract_kinematics::KinematicGroup::ConstPtr manip;
+  std::shared_ptr<const tesseract_kinematics::KinematicGroup> manip;
 
   // These are required for descartes
   std::vector<typename descartes_light::EdgeEvaluator<FloatType>::ConstPtr> edge_evaluators{};

@@ -70,12 +70,12 @@ if(TESSERACT_BUILD_OMPL)
 endif()
 
 # Descartes
-# option(TESSERACT_BUILD_DESCARTES "Build the Descartes planner" ON)
-# if(TESSERACT_BUILD_DESCARTES)
-#   message("Building Descartes Planner")
-#   list(APPEND SUPPORTED_COMPONENTS descartes)
-#   add_subdirectory(descartes)
-# endif()
+option(TESSERACT_BUILD_DESCARTES "Build the Descartes planner" ON)
+if(TESSERACT_BUILD_DESCARTES)
+  message("Building Descartes Planner")
+  list(APPEND SUPPORTED_COMPONENTS descartes)
+  add_subdirectory(descartes)
+endif()
 
 # Trajopt
 option(TESSERACT_BUILD_TRAJOPT "Build the Trajopt planner" ON)

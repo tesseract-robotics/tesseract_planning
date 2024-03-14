@@ -26,19 +26,24 @@
 #ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DEFAULT_PLAN_PROFILE_HPP
 #define TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DEFAULT_PLAN_PROFILE_HPP
 
-#include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <tinyxml2.h>
+#include <descartes_light/edge_evaluators/euclidean_distance_edge_evaluator.h>
+#include <descartes_light/edge_evaluators/compound_edge_evaluator.h>
+#include <descartes_light/samplers/fixed_joint_waypoint_sampler.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
 #include <tesseract_motion_planners/descartes/descartes_robot_sampler.h>
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
 #include <tesseract_motion_planners/descartes/descartes_collision_edge_evaluator.h>
 
-#include <descartes_light/edge_evaluators/euclidean_distance_edge_evaluator.h>
-#include <descartes_light/edge_evaluators/compound_edge_evaluator.h>
-#include <descartes_light/state_evaluators/euclidean_distance_state_evaluator.h>
-#include <descartes_light/samplers/fixed_joint_waypoint_sampler.h>
-
-#include <tesseract_kinematics/core/utils.h>
+#include <tesseract_common/utils.h>
+#include <tesseract_common/manipulator_info.h>
+#include <tesseract_kinematics/core/kinematic_group.h>
+#include <tesseract_environment/environment.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 
 namespace tesseract_planning
 {
@@ -51,7 +56,7 @@ DescartesDefaultPlanProfile<FloatType>::DescartesDefaultPlanProfile(const tinyxm
   const tinyxml2::XMLElement* allow_collisions_element = xml_element.FirstChildElement("AllowCollisions");
   const tinyxml2::XMLElement* debug_element = xml_element.FirstChildElement("Debug");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (vertex_collisions_element != nullptr)
   {

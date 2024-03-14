@@ -34,6 +34,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/descartes/descartes_robot_sampler.h>
+#include <tesseract_motion_planners/descartes/descartes_collision.h>
+#include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
+#include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_kinematics/core/utils.h>
 
 namespace tesseract_planning
@@ -43,12 +46,12 @@ DescartesRobotSampler<FloatType>::DescartesRobotSampler(
     std::string target_working_frame,
     const Eigen::Isometry3d& target_pose,  // NOLINT(modernize-pass-by-value)
     PoseSamplerFn target_pose_sampler,
-    tesseract_kinematics::KinematicGroup::ConstPtr manip,
-    DescartesCollision::Ptr collision,
+    std::shared_ptr<const tesseract_kinematics::KinematicGroup> manip,
+    std::shared_ptr<DescartesCollision> collision,
     std::string tcp_frame,
     const Eigen::Isometry3d& tcp_offset,  // NOLINT(modernize-pass-by-value)
     bool allow_collision,
-    DescartesVertexEvaluator::Ptr is_valid,
+    std::shared_ptr<DescartesVertexEvaluator> is_valid,
     bool use_redundant_joint_solutions)
   : target_working_frame_(std::move(target_working_frame))
   , target_pose_(target_pose)

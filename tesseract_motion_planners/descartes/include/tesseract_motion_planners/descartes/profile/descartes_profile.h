@@ -32,8 +32,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/poly/instruction_poly.h>
+#include <tesseract_common/fwd.h>
+#include <tesseract_command_language/fwd.h>
 #include <tesseract_motion_planners/descartes/descartes_problem.h>
+
+namespace tinyxml2
+{
+class XMLElement;  // NOLINT
+class XMLDocument;
+}  // namespace tinyxml2
 
 namespace tesseract_planning
 {
@@ -65,12 +72,6 @@ public:
 
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 };
-
-template <typename FloatType>
-using DescartesPlanProfileMap = std::unordered_map<std::string, typename DescartesPlanProfile<FloatType>::ConstPtr>;
-
-using DescartesPlanProfileMapD = DescartesPlanProfileMap<double>;
-using DescartesPlanProfileMapF = DescartesPlanProfileMap<float>;
 
 /** @todo Currently descartes does not have support of composite profile everything is handled by the plan profile */
 }  // namespace tesseract_planning

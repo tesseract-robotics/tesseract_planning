@@ -29,10 +29,14 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
-#include <tesseract_environment/environment.h>
-#include <tesseract_collision/core/discrete_contact_manager.h>
-#include <tesseract_collision/core/types.h>
+#include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
+#include <tesseract_collision/core/fwd.h>
+#include <tesseract_kinematics/core/fwd.h>
+#include <tesseract_environment/fwd.h>
+
+#include <tesseract_collision/core/types.h>
 
 namespace tesseract_planning
 {
@@ -52,7 +56,7 @@ public:
    * @param debug If true, this print debug information to the terminal
    */
   DescartesCollision(const tesseract_environment::Environment& collision_env,
-                     tesseract_kinematics::JointGroup::ConstPtr manip,
+                     std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
                      tesseract_collision::CollisionCheckConfig collision_check_config =
                          tesseract_collision::CollisionCheckConfig{ 0.025 },
                      bool debug = false);
@@ -96,9 +100,10 @@ private:
    */
   bool isContactAllowed(const std::string& a, const std::string& b) const;
 
-  tesseract_kinematics::JointGroup::ConstPtr manip_;                 /**< @brief The tesseract state solver */
-  std::vector<std::string> active_link_names_;                       /**< @brief A vector of active link names */
-  tesseract_collision::DiscreteContactManager::Ptr contact_manager_; /**< @brief The discrete contact manager */
+  std::shared_ptr<const tesseract_kinematics::JointGroup> manip_; /**< @brief The tesseract state solver */
+  std::vector<std::string> active_link_names_;                    /**< @brief A vector of active link names */
+  std::shared_ptr<tesseract_collision::DiscreteContactManager> contact_manager_; /**< @brief The discrete contact
+                                                                                    manager */
   tesseract_collision::CollisionCheckConfig collision_check_config_;
   bool debug_; /**< @brief Enable debug information to be printed to the terminal */
 };

@@ -27,12 +27,12 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
+#include <tinyxml2.h>
 #include <console_bridge/console.h>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/utils.h>
 #include <tesseract_motion_planners/descartes/serialize.h>
 
 static const std::array<int, 3> VERSION{ { 1, 0, 0 } };

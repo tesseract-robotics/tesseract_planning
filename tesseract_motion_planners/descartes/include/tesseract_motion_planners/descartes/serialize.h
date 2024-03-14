@@ -28,9 +28,17 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tinyxml2.h>
+#include <string>
+#include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_motion_planners/descartes/profile/descartes_profile.h>
+
+namespace tinyxml2
+{
+class XMLElement;  // NOLINT
+class XMLDocument;
+}  // namespace tinyxml2
 
 namespace tesseract_planning
 {

@@ -29,12 +29,13 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
-#include <tesseract_collision/core/types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/descartes/profile/descartes_profile.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
 #include <tesseract_motion_planners/descartes/types.h>
+
+#include <tesseract_collision/core/types.h>
 
 namespace tesseract_planning
 {
