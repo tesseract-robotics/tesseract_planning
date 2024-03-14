@@ -28,6 +28,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <fstream>
+#include <tinyxml2.h>
 #include <console_bridge/console.h>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -35,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/utils.h>
 #include <tesseract_motion_planners/trajopt/serialize.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
 
 static const std::array<int, 3> VERSION{ { 1, 0, 0 } };
 static const Eigen::IOFormat eigen_format(Eigen::StreamPrecision, Eigen::DontAlignCols, " ", " ");

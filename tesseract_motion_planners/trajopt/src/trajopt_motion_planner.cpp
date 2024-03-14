@@ -28,21 +28,30 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <trajopt/plot_callback.hpp>
 #include <trajopt/problem_description.hpp>
+#include <trajopt/utils.hpp>
 #include <trajopt_common/config.hpp>
 #include <trajopt_common/logging.hpp>
 #include <trajopt_sco/optimizers.hpp>
 #include <trajopt_sco/sco_common.hpp>
-#include <tesseract_environment/utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/utils.h>
+
+#include <tesseract_common/joint_state.h>
+
+#include <tesseract_kinematics/core/kinematic_group.h>
+
+#include <tesseract_environment/environment.h>
+#include <tesseract_environment/utils.h>
 
 constexpr auto SOLUTION_FOUND{ "Found valid solution" };
 constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input: " };
@@ -62,7 +71,10 @@ bool TrajOptMotionPlanner::terminate()
 
 void TrajOptMotionPlanner::clear() {}
 
-MotionPlanner::Ptr TrajOptMotionPlanner::clone() const { return std::make_shared<TrajOptMotionPlanner>(name_); }
+std::unique_ptr<MotionPlanner> TrajOptMotionPlanner::clone() const
+{
+  return std::make_unique<TrajOptMotionPlanner>(name_);
+}
 
 PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
 {

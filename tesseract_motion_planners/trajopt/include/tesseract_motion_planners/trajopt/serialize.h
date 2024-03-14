@@ -28,12 +28,21 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tinyxml2.h>
+#include <string>
+#include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
+
+namespace tinyxml2
+{
+class XMLElement;  // NOLINT
+class XMLDocument;
+}  // namespace tinyxml2
 
 namespace tesseract_planning
 {
+class TrajOptPlanProfile;
+class TrajOptCompositeProfile;
+
 std::shared_ptr<tinyxml2::XMLDocument> toXMLDocument(const TrajOptPlanProfile& plan_profile);
 
 bool toXMLFile(const TrajOptPlanProfile& plan_profile, const std::string& file_path);

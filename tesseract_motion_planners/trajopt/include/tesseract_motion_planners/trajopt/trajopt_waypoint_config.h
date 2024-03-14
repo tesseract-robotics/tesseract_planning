@@ -27,7 +27,9 @@
 #define TESSERACT_MOTION_PLANNERS_TRAJOPT_CONFIG_TRAJOPT_WAYPOINT_CONFIG_H
 
 #include <tesseract_common/macros.h>
-#include <tesseract_common/utils.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <Eigen/Core>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tinyxml2
 {

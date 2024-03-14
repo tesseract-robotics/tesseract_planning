@@ -24,6 +24,12 @@
  * limitations under the License.
  */
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <tinyxml2.h>
+#include <trajopt/problem_description.hpp>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
 
 namespace tesseract_planning

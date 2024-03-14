@@ -93,8 +93,6 @@ public:
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 };
 
-// using OMPLPlanProfileMap = std::unordered_map<std::string, OMPLPlanProfile::ConstPtr>;
-
 /** @todo Currently OMPL does not have support of composite profile everything is handled by the plan profile */
 
 }  // namespace tesseract_planning

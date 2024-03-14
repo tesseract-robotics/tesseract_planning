@@ -29,12 +29,8 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <vector>
-#include <Eigen/Geometry>
 #include <Eigen/Core>
-#include <trajopt_ifopt/constraints/collision/discrete_collision_evaluators.h>
-#include <trajopt_ifopt/constraints/collision/continuous_collision_evaluators.h>
-#include <trajopt_common/utils.hpp>
+#include <trajopt_common/fwd.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
@@ -44,17 +40,13 @@ namespace tesseract_planning
 class TrajOptIfoptDefaultCompositeProfile : public TrajOptIfoptCompositeProfile
 {
 public:
-  TrajOptIfoptDefaultCompositeProfile() = default;
+  TrajOptIfoptDefaultCompositeProfile();
   TrajOptIfoptDefaultCompositeProfile(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Configuration info for collisions that are modeled as costs */
-  trajopt_common::TrajOptCollisionConfig::Ptr collision_cost_config{
-    std::make_shared<trajopt_common::TrajOptCollisionConfig>()
-  };
+  std::shared_ptr<trajopt_common::TrajOptCollisionConfig> collision_cost_config;
   /** @brief Configuration info for collisions that are modeled as constraints */
-  trajopt_common::TrajOptCollisionConfig::Ptr collision_constraint_config{
-    std::make_shared<trajopt_common::TrajOptCollisionConfig>()
-  };
+  std::shared_ptr<trajopt_common::TrajOptCollisionConfig> collision_constraint_config;
   /** @brief If true, a joint velocity cost with a target of 0 will be applied for all timesteps Default: true*/
   bool smooth_velocities = true;
   /** @brief This default to all ones, but allows you to weight different joints */
@@ -86,9 +78,9 @@ public:
   double longest_valid_segment_length = 0.5;
 
   /** @brief Special link collision cost distances */
-  trajopt_common::SafetyMarginData::Ptr special_collision_cost{ nullptr };
+  std::shared_ptr<trajopt_common::SafetyMarginData> special_collision_cost{ nullptr };
   /** @brief Special link collision constraint distances */
-  trajopt_common::SafetyMarginData::Ptr special_collision_constraint{ nullptr };
+  std::shared_ptr<trajopt_common::SafetyMarginData> special_collision_constraint{ nullptr };
 
   void apply(TrajOptIfoptProblem& problem,
              int start_index,

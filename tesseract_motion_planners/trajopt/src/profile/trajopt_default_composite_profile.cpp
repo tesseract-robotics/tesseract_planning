@@ -27,6 +27,8 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/problem_description.hpp>
+#include <tinyxml2.h>
+#include <boost/algorithm/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
@@ -38,11 +40,19 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 
+#include <tesseract_kinematics/core/joint_group.h>
+
 static const double LONGEST_VALID_SEGMENT_FRACTION_DEFAULT = 0.01;
 
 namespace tesseract_planning
 {
+TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile()
+  : contact_test_type(tesseract_collision::ContactTestType::ALL)
+{
+}
+
 TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(const tinyxml2::XMLElement& xml_element)
+  : contact_test_type(tesseract_collision::ContactTestType::ALL)
 {
   const tinyxml2::XMLElement* contact_test_type_element = xml_element.FirstChildElement("ContactTestType");
   const tinyxml2::XMLElement* collision_cost_config_element = xml_element.FirstChildElement("CollisionCostConfig");
@@ -56,7 +66,7 @@ TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(const tinyxml2::X
   const tinyxml2::XMLElement* longest_valid_seg_length_element = xml_element.FirstChildElement("LongestValidSegmentLeng"
                                                                                                "th");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (contact_test_type_element != nullptr)
   {
@@ -160,7 +170,7 @@ void TrajOptDefaultCompositeProfile::smoothMotionTerms(const tinyxml2::XMLElemen
   if (enabled_element == nullptr)
     throw std::runtime_error("TrajoptCompositeProfile: All motion smoothing types must have Enabled element.");
 
-  tinyxml2::XMLError status = enabled_element->QueryBoolText(&enabled);
+  int status = enabled_element->QueryBoolText(&enabled);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("TrajoptCompositeProfile: Error parsing Enabled string");
 

@@ -28,6 +28,8 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <stdexcept>
 #include <iostream>
+#include <tinyxml2.h>
+#include <trajopt/problem_description.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/trajopt_collision_config.h>
@@ -35,7 +37,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+CollisionCostConfig::CollisionCostConfig() : type(trajopt::CollisionEvaluatorType::DISCRETE_CONTINUOUS) {}
+
 CollisionCostConfig::CollisionCostConfig(const tinyxml2::XMLElement& xml_element)
+  : type(trajopt::CollisionEvaluatorType::DISCRETE_CONTINUOUS)
 {
   const tinyxml2::XMLElement* enabled_element = xml_element.FirstChildElement("Enabled");
   const tinyxml2::XMLElement* use_weighted_sum_element = xml_element.FirstChildElement("UseWeightedSum");
@@ -47,7 +52,7 @@ CollisionCostConfig::CollisionCostConfig(const tinyxml2::XMLElement& xml_element
   if (enabled_element == nullptr)
     throw std::runtime_error("CollisionCostConfig: Must have Enabled element.");
 
-  tinyxml2::XMLError status = enabled_element->QueryBoolText(&enabled);
+  int status = enabled_element->QueryBoolText(&enabled);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("CollisionCostConfig: Error parsing Enabled string");
 
@@ -139,7 +144,9 @@ tinyxml2::XMLElement* CollisionCostConfig::toXML(tinyxml2::XMLDocument& doc) con
   return xml_coll_cost_config;
 }
 
+CollisionConstraintConfig::CollisionConstraintConfig() : type(trajopt::CollisionEvaluatorType::DISCRETE_CONTINUOUS) {}
 CollisionConstraintConfig::CollisionConstraintConfig(const tinyxml2::XMLElement& xml_element)
+  : type(trajopt::CollisionEvaluatorType::DISCRETE_CONTINUOUS)
 {
   const tinyxml2::XMLElement* enabled_element = xml_element.FirstChildElement("Enabled");
   const tinyxml2::XMLElement* use_weighted_sum_element = xml_element.FirstChildElement("UseWeightedSum");
@@ -151,7 +158,7 @@ CollisionConstraintConfig::CollisionConstraintConfig(const tinyxml2::XMLElement&
   if (enabled_element == nullptr)
     throw std::runtime_error("CollisionConstraintConfig: Must have Enabled element.");
 
-  tinyxml2::XMLError status = enabled_element->QueryBoolText(&enabled);
+  int status = enabled_element->QueryBoolText(&enabled);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("CollisionConstraintConfig: Error parsing Enabled string");
 

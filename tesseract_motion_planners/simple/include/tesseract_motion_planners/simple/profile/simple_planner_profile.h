@@ -91,8 +91,6 @@ public:
   // This contains functions for composite processing. Get start for example
 };
 
-// using SimplePlannerPlanProfileMap = std::unordered_map<std::string, SimplePlannerPlanProfile::ConstPtr>;
-// using SimplePlannerCompositeProfileMap = std::unordered_map<std::string, SimplePlannerCompositeProfile::ConstPtr>;
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PROFILE_H
