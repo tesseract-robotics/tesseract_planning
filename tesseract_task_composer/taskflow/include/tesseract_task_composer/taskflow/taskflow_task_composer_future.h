@@ -48,7 +48,7 @@ public:
   TaskflowTaskComposerFuture() = default;
   TaskflowTaskComposerFuture(std::shared_future<void> future,
                              std::unique_ptr<tf::Taskflow> taskflow,
-                             TaskComposerContext::Ptr context);
+                             std::shared_ptr<TaskComposerContext> context);
   ~TaskflowTaskComposerFuture() override;
   TaskflowTaskComposerFuture(const TaskflowTaskComposerFuture&) = default;
   TaskflowTaskComposerFuture& operator=(const TaskflowTaskComposerFuture&) = default;

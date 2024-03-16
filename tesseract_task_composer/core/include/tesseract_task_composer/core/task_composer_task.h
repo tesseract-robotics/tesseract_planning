@@ -37,6 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+struct TaskComposerContext;
 class TaskComposerExecutor;
 class TaskComposerTask : public TaskComposerNode
 {
@@ -79,13 +80,12 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  virtual TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
-                                             OptionalTaskComposerExecutor executor = std::nullopt) const = 0;
+  virtual std::unique_ptr<TaskComposerNodeInfo> runImpl(TaskComposerContext& context,
+                                                        OptionalTaskComposerExecutor executor = std::nullopt) const = 0;
 };
 
 }  // namespace tesseract_planning
 
-#include <boost/serialization/export.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerTask, "TaskComposerTask")
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_TASK_H

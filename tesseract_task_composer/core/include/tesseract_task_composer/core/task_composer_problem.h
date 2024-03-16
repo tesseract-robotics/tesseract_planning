@@ -30,11 +30,11 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <boost/serialization/access.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/serialization.h>
+#include <tesseract_common/fwd.h>
 #include <tesseract_common/any_poly.h>
-#include <tesseract_task_composer/core/task_composer_data_storage.h>
 
 namespace tesseract_planning
 {
@@ -80,7 +80,6 @@ protected:
 };
 }  // namespace tesseract_planning
 
-#include <boost/serialization/export.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerProblem, "TaskComposerProblem")
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_PROBLEM_H

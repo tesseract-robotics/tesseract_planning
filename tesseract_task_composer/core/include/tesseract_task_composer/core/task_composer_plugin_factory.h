@@ -30,12 +30,11 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <map>
-#include <yaml-cpp/yaml.h>
+#include <set>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/core/task_composer_node.h>
-#include <tesseract_task_composer/core/task_composer_executor.h>
-#include <tesseract_common/plugin_loader.h>
+#include <tesseract_common/fwd.h>
+#include <tesseract_common/filesystem.h>
 
 // clang-format off
 #define TESSERACT_ADD_TASK_COMPOSER_EXECUTOR_PLUGIN(DERIVED_CLASS, ALIAS)                                                    \
@@ -45,8 +44,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
   TESSERACT_ADD_PLUGIN_SECTIONED(DERIVED_CLASS, ALIAS, TaskNode)
 // clang-format on
 
+namespace YAML
+{
+class Node;
+}
+
 namespace tesseract_planning
 {
+class TaskComposerNode;
+class TaskComposerExecutor;
 class TaskComposerPluginFactory;
 
 /** @brief Task Composer Node Factory class used by the TaskComposerServer for loading top level task to be called by
@@ -59,9 +65,9 @@ public:
 
   virtual ~TaskComposerNodeFactory() = default;
 
-  virtual TaskComposerNode::UPtr create(const std::string& name,
-                                        const YAML::Node& config,
-                                        const TaskComposerPluginFactory& plugin_factory) const = 0;
+  virtual std::unique_ptr<TaskComposerNode> create(const std::string& name,
+                                                   const YAML::Node& config,
+                                                   const TaskComposerPluginFactory& plugin_factory) const = 0;
 
 protected:
   static const std::string SECTION_NAME;
@@ -78,7 +84,7 @@ public:
 
   virtual ~TaskComposerExecutorFactory() = default;
 
-  virtual TaskComposerExecutor::UPtr create(const std::string& name, const YAML::Node& config) const = 0;
+  virtual std::unique_ptr<TaskComposerExecutor> create(const std::string& name, const YAML::Node& config) const = 0;
 
 protected:
   static const std::string SECTION_NAME;
@@ -88,6 +94,8 @@ protected:
 class TaskComposerPluginFactory
 {
 public:
+  using PluginInfoMap = std::map<std::string, tesseract_common::PluginInfo>;
+
   TaskComposerPluginFactory();
   ~TaskComposerPluginFactory();
   TaskComposerPluginFactory(const TaskComposerPluginFactory&) = default;
@@ -196,7 +204,7 @@ public:
    * @brief Get the map of task composer executor plugins
    * @return A map of plugins
    */
-  tesseract_common::PluginInfoMap getTaskComposerExecutorPlugins() const;
+  PluginInfoMap getTaskComposerExecutorPlugins() const;
 
   /**
    * @brief Remove task composer executor plugin
@@ -233,7 +241,8 @@ public:
    * @brief Get the map of task composer node plugins
    * @return A map of plugins
    */
-  tesseract_common::PluginInfoMap getTaskComposerNodePlugins() const;
+
+  PluginInfoMap getTaskComposerNodePlugins() const;
 
   /**
    * @brief Remove task composer node plugin
@@ -258,30 +267,30 @@ public:
    * @details This looks for task composer executor plugin info. If not found nullptr is returned.
    * @param name The name
    */
-  TaskComposerExecutor::UPtr createTaskComposerExecutor(const std::string& name) const;
+  std::unique_ptr<TaskComposerExecutor> createTaskComposerExecutor(const std::string& name) const;
 
   /**
    * @brief Get task composer executor object given plugin info
    * @param name The name
    * @param plugin_info The plugin information to create task composer executor object
    */
-  TaskComposerExecutor::UPtr createTaskComposerExecutor(const std::string& name,
-                                                        const tesseract_common::PluginInfo& plugin_info) const;
+  std::unique_ptr<TaskComposerExecutor>
+  createTaskComposerExecutor(const std::string& name, const tesseract_common::PluginInfo& plugin_info) const;
 
   /**
    * @brief Get task composer node object given name
    * @details This looks for task composer node plugin info. If not found nullptr is returned.
    * @param name The name
    */
-  TaskComposerNode::UPtr createTaskComposerNode(const std::string& name) const;
+  std::unique_ptr<TaskComposerNode> createTaskComposerNode(const std::string& name) const;
 
   /**
    * @brief Get task composer node  object given plugin info
    * @param name The name
    * @param plugin_info The plugin information to task composer node  object
    */
-  TaskComposerNode::UPtr createTaskComposerNode(const std::string& name,
-                                                const tesseract_common::PluginInfo& plugin_info) const;
+  std::unique_ptr<TaskComposerNode> createTaskComposerNode(const std::string& name,
+                                                           const tesseract_common::PluginInfo& plugin_info) const;
 
   /**
    * @brief Save the plugin information to a yaml config file
@@ -296,11 +305,8 @@ public:
   YAML::Node getConfig() const;
 
 private:
-  mutable std::map<std::string, TaskComposerExecutorFactory::Ptr> executor_factories_;
-  mutable std::map<std::string, TaskComposerNodeFactory::Ptr> node_factories_;
-  tesseract_common::PluginInfoContainer executor_plugin_info_;
-  tesseract_common::PluginInfoContainer task_plugin_info_;
-  tesseract_common::PluginLoader plugin_loader_;
+  struct Implementation;
+  std::unique_ptr<Implementation> impl_;
 };
 }  // namespace tesseract_planning
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_FACTORY_H

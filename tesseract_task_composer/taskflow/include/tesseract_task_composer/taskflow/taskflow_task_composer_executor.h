@@ -29,6 +29,9 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
+#include <mutex>
+#include <map>
+#include <thread>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_executor.h>
@@ -41,8 +44,22 @@ class Subflow;
 class Task;
 }  // namespace tf
 
+namespace YAML
+{
+class Node;
+}
+
+namespace boost::uuids
+{
+struct uuid;
+}
+
 namespace tesseract_planning
 {
+class TaskComposerPipeline;
+class TaskComposerTask;
+class TaskComposerGraph;
+
 class TaskflowTaskComposerExecutor : public TaskComposerExecutor
 {
 public:
@@ -85,31 +102,14 @@ protected:
   std::unique_ptr<tf::Executor> executor_;
 
   std::mutex futures_mutex_;
-  std::map<boost::uuids::uuid, TaskComposerFuture::UPtr> futures_;
+  std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerFuture>> futures_;
   void removeFuture(const boost::uuids::uuid& uuid);
 
-  TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerContext::Ptr context) override final;
-
-  static tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
-                                    TaskComposerContext& task_context,
-                                    TaskComposerExecutor& task_executor,
-                                    tf::Taskflow* taskflow,
-                                    tf::Subflow* parent_sbf);
-
-  static void convertToTaskflow(const TaskComposerPipeline& task_pipeline,
-                                TaskComposerContext& task_context,
-                                TaskComposerExecutor& task_executor,
-                                tf::Taskflow* taskflow);
-
-  static void convertToTaskflow(const TaskComposerTask& task,
-                                TaskComposerContext& task_context,
-                                TaskComposerExecutor& task_executor,
-                                tf::Taskflow* taskflow);
+  std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node,
+                                          std::shared_ptr<TaskComposerContext> context) override final;
 };
 }  // namespace tesseract_planning
 
-#include <boost/serialization/export.hpp>
-#include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskflowTaskComposerExecutor, "TaskflowExecutor")
 
 #endif  // TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_EXECUTOR_H

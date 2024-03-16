@@ -24,34 +24,47 @@
  * limitations under the License.
  */
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <console_bridge/console.h>
+#include <tesseract_common/plugin_info.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_task_composer/core/task_composer_server.h>
+#include <tesseract_task_composer/core/task_composer_problem.h>
+#include <tesseract_task_composer/core/task_composer_executor.h>
+#include <tesseract_task_composer/core/task_composer_future.h>
+#include <tesseract_task_composer/core/task_composer_node.h>
+#include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
 namespace tesseract_planning
 {
+TaskComposerServer::TaskComposerServer() : plugin_factory_(std::make_shared<TaskComposerPluginFactory>()) {}
+
 void TaskComposerServer::loadConfig(const YAML::Node& config)
 {
-  plugin_factory_.loadConfig(config);
+  plugin_factory_->loadConfig(config);
   loadPlugins();
 }
 
 void TaskComposerServer::loadConfig(const tesseract_common::fs::path& config)
 {
-  plugin_factory_.loadConfig(config);
+  plugin_factory_->loadConfig(config);
   loadPlugins();
 }
 
 void TaskComposerServer::loadConfig(const std::string& config)
 {
-  plugin_factory_.loadConfig(config);
+  plugin_factory_->loadConfig(config);
   loadPlugins();
 }
 
-void TaskComposerServer::addExecutor(const TaskComposerExecutor::Ptr& executor)
+void TaskComposerServer::addExecutor(const std::shared_ptr<TaskComposerExecutor>& executor)
 {
   executors_[executor->getName()] = executor;
 }
 
-TaskComposerExecutor::Ptr TaskComposerServer::getExecutor(const std::string& name)
+std::shared_ptr<TaskComposerExecutor> TaskComposerServer::getExecutor(const std::string& name)
 {
   auto it = executors_.find(name);
   if (it == executors_.end())
@@ -75,7 +88,7 @@ std::vector<std::string> TaskComposerServer::getAvailableExecutors() const
   return executors;
 }
 
-void TaskComposerServer::addTask(TaskComposerNode::UPtr task)
+void TaskComposerServer::addTask(std::unique_ptr<TaskComposerNode> task)
 {
   if (tasks_.find(task->getName()) != tasks_.end())
     CONSOLE_BRIDGE_logDebug("Task %s already exist so replacing with new task.", task->getName().c_str());
@@ -104,9 +117,9 @@ std::vector<std::string> TaskComposerServer::getAvailableTasks() const
   return tasks;
 }
 
-TaskComposerFuture::UPtr TaskComposerServer::run(TaskComposerProblem::Ptr problem,
-                                                 TaskComposerDataStorage::Ptr data_storage,
-                                                 const std::string& name)
+std::unique_ptr<TaskComposerFuture> TaskComposerServer::run(std::shared_ptr<TaskComposerProblem> problem,
+                                                            std::shared_ptr<TaskComposerDataStorage> data_storage,
+                                                            const std::string& name)
 {
   auto e_it = executors_.find(name);
   if (e_it == executors_.end())
@@ -119,10 +132,10 @@ TaskComposerFuture::UPtr TaskComposerServer::run(TaskComposerProblem::Ptr proble
   return e_it->second->run(*t_it->second, std::move(problem), std::move(data_storage));
 }
 
-TaskComposerFuture::UPtr TaskComposerServer::run(const TaskComposerNode& node,
-                                                 TaskComposerProblem::Ptr problem,
-                                                 TaskComposerDataStorage::Ptr data_storage,
-                                                 const std::string& name)
+std::unique_ptr<TaskComposerFuture> TaskComposerServer::run(const TaskComposerNode& node,
+                                                            std::shared_ptr<TaskComposerProblem> problem,
+                                                            std::shared_ptr<TaskComposerDataStorage> data_storage,
+                                                            const std::string& name)
 {
   auto it = executors_.find(name);
   if (it == executors_.end())
@@ -151,20 +164,20 @@ long TaskComposerServer::getTaskCount(const std::string& name) const
 
 void TaskComposerServer::loadPlugins()
 {
-  tesseract_common::PluginInfoMap executor_plugins = plugin_factory_.getTaskComposerExecutorPlugins();
+  auto executor_plugins = plugin_factory_->getTaskComposerExecutorPlugins();
   for (const auto& executor_plugin : executor_plugins)
   {
-    TaskComposerExecutor::UPtr e = plugin_factory_.createTaskComposerExecutor(executor_plugin.first);
+    TaskComposerExecutor::UPtr e = plugin_factory_->createTaskComposerExecutor(executor_plugin.first);
     if (e != nullptr)
       addExecutor(std::move(e));
     else
       CONSOLE_BRIDGE_logError("TaskComposerServer, failed to create executor '%s'", executor_plugin.first.c_str());
   }
 
-  tesseract_common::PluginInfoMap task_plugins = plugin_factory_.getTaskComposerNodePlugins();
+  auto task_plugins = plugin_factory_->getTaskComposerNodePlugins();
   for (const auto& task_plugin : task_plugins)
   {
-    TaskComposerNode::UPtr t = plugin_factory_.createTaskComposerNode(task_plugin.first);
+    std::unique_ptr<TaskComposerNode> t = plugin_factory_->createTaskComposerNode(task_plugin.first);
     if (t != nullptr)
       addTask(std::move(t));
     else

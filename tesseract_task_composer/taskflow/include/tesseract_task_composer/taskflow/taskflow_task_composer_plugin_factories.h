@@ -26,7 +26,6 @@
 #ifndef TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_PLUGIN_FACTORIES_H
 #define TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_PLUGIN_FACTORIES_H
 
-#include <tesseract_common/macros.h>
 #include <tesseract_common/class_loader.h>
 
 namespace tesseract_planning

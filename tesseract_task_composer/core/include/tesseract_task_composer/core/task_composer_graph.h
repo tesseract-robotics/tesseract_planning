@@ -30,6 +30,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <vector>
+#include <map>
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -62,7 +63,7 @@ public:
    * @brief Add a node to the pipeline
    * @return The node ID which should be used with adding edges
    */
-  boost::uuids::uuid addNode(TaskComposerNode::UPtr task_node);
+  boost::uuids::uuid addNode(std::unique_ptr<TaskComposerNode> task_node);
 
   /**
    * @brief Adds directed edges from a source node to destination nodes in the taskflow graph
@@ -78,14 +79,14 @@ public:
   void addEdges(boost::uuids::uuid source, std::vector<boost::uuids::uuid> destinations);
 
   /** @brief Get the nodes associated with the pipeline mapped by uuid */
-  std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr> getNodes() const;
+  std::map<boost::uuids::uuid, std::shared_ptr<const TaskComposerNode>> getNodes() const;
 
   /**
    * @brief Get a node by name
    * @param name The name of the node to search for
    * @return The node with the name, otherwise nullptr
    */
-  TaskComposerNode::ConstPtr getNodeByName(const std::string& name) const;
+  std::shared_ptr<const TaskComposerNode> getNodeByName(const std::string& name) const;
 
   /**
    *  @brief Set the terminals nodes
@@ -114,9 +115,10 @@ public:
 
   void renameOutputKeys(const std::map<std::string, std::string>& output_keys) override;
 
-  std::string dump(std::ostream& os,
-                   const TaskComposerNode* parent = nullptr,
-                   const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map = {}) const override;
+  std::string
+  dump(std::ostream& os,
+       const TaskComposerNode* parent = nullptr,
+       const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map = {}) const override;
 
   bool operator==(const TaskComposerGraph& rhs) const;
   bool operator!=(const TaskComposerGraph& rhs) const;
@@ -141,7 +143,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-#include <boost/serialization/export.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerGraph, "TaskComposerGraph")
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_GRAPH_H

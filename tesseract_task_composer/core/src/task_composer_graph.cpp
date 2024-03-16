@@ -32,9 +32,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/shared_ptr.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/serialization.h>
+#include <tesseract_common/plugin_info.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_graph.h>
+#include <tesseract_task_composer/core/task_composer_task.h>
+#include <tesseract_task_composer/core/task_composer_pipeline.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
 namespace tesseract_planning
@@ -79,7 +85,7 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
       if (YAML::Node cn = node_it->second["config"])
         plugin_info.config = cn;
 
-      TaskComposerNode::UPtr task_node = plugin_factory.createTaskComposerNode(node_name, plugin_info);
+      std::unique_ptr<TaskComposerNode> task_node = plugin_factory.createTaskComposerNode(node_name, plugin_info);
       if (task_node == nullptr)
         throw std::runtime_error("Task Composer Graph '" + name_ + "' failed to create node '" + node_name + "'");
 
@@ -88,7 +94,7 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
     else if (YAML::Node tn = node_it->second["task"])
     {
       auto task_name = tn.as<std::string>();
-      TaskComposerNode::UPtr task_node = plugin_factory.createTaskComposerNode(task_name);
+      std::unique_ptr<TaskComposerNode> task_node = plugin_factory.createTaskComposerNode(task_name);
       if (task_node == nullptr)
         throw std::runtime_error("Task Composer Graph '" + name_ + "' failed to create task '" + task_name +
                                      "' for node '" += node_name + "'");
@@ -199,7 +205,7 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
   }
 }
 
-boost::uuids::uuid TaskComposerGraph::addNode(TaskComposerNode::UPtr task_node)
+boost::uuids::uuid TaskComposerGraph::addNode(std::unique_ptr<TaskComposerNode> task_node)
 {
   boost::uuids::uuid uuid = task_node->getUUID();
   task_node->parent_uuid_ = uuid_;
@@ -216,12 +222,12 @@ void TaskComposerGraph::addEdges(boost::uuids::uuid source, std::vector<boost::u
     nodes_.at(d)->inbound_edges_.push_back(source);
 }
 
-std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr> TaskComposerGraph::getNodes() const
+std::map<boost::uuids::uuid, std::shared_ptr<const TaskComposerNode>> TaskComposerGraph::getNodes() const
 {
-  return std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr>{ nodes_.begin(), nodes_.end() };
+  return std::map<boost::uuids::uuid, std::shared_ptr<const TaskComposerNode>>{ nodes_.begin(), nodes_.end() };
 }
 
-TaskComposerNode::ConstPtr TaskComposerGraph::getNodeByName(const std::string& name) const
+std::shared_ptr<const TaskComposerNode> TaskComposerGraph::getNodeByName(const std::string& name) const
 {
   for (const auto& pair : nodes_)
   {
@@ -309,9 +315,10 @@ void TaskComposerGraph::renameOutputKeys(const std::map<std::string, std::string
     node.second->renameOutputKeys(output_keys);
 }
 
-std::string TaskComposerGraph::dump(std::ostream& os,
-                                    const TaskComposerNode* parent,
-                                    const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
+std::string
+TaskComposerGraph::dump(std::ostream& os,
+                        const TaskComposerNode* parent,
+                        const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const
 {
   if (parent == nullptr)
     os << "digraph TaskComposer {\n";
@@ -466,6 +473,5 @@ void TaskComposerGraph::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerGraph)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerGraph)
