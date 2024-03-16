@@ -44,7 +44,7 @@ TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile()
   , collision_constraint_config(std::make_shared<trajopt_common::TrajOptCollisionConfig>())
 {
 }
-TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(const tinyxml2::XMLElement& xml_element)
+TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(const tinyxml2::XMLElement& /*xml_element*/)
   : collision_cost_config(std::make_shared<trajopt_common::TrajOptCollisionConfig>())
   , collision_constraint_config(std::make_shared<trajopt_common::TrajOptCollisionConfig>())
 {
