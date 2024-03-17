@@ -1,5 +1,5 @@
-#ifndef TESSERACT_MOTION_PLANNERS_FWD_H
-#define TESSERACT_MOTION_PLANNERS_FWD_H
+#ifndef TESSERACT_MOTION_PLANNERS_CORE_FWD_H
+#define TESSERACT_MOTION_PLANNERS_CORE_FWD_H
 
 namespace tesseract_planning
 {
@@ -8,4 +8,4 @@ struct PlannerResponse;
 class MotionPlanner;
 }  // namespace tesseract_planning
 
-#endif  // TESSERACT_MOTION_PLANNERS_FWD_H
+#endif  // TESSERACT_MOTION_PLANNERS_CORE_FWD_H

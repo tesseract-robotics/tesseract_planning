@@ -88,10 +88,7 @@ struct OMPLPlannerConfigurator
 
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 };
-}  // namespace tesseract_planning
 
-namespace tesseract_planning
-{
 struct SBLConfigurator : public OMPLPlannerConfigurator
 {
   SBLConfigurator() = default;

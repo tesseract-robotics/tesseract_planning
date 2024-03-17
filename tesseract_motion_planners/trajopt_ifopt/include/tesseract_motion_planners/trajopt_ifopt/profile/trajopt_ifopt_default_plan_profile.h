@@ -34,8 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
-// #include <tesseract_command_language/joint_waypoint.h>
-// #include <tesseract_command_language/cartesian_waypoint.h>
 
 namespace tesseract_planning
 {

@@ -36,7 +36,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-struct KinematicGroupInstructionInfo;
 class SimplePlannerLVSPlanProfile : public SimplePlannerPlanProfile
 {
 public:
