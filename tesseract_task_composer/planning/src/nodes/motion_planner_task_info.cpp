@@ -27,16 +27,22 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/shared_ptr.hpp>
+#include <tesseract_common/utils.h>
+#include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/motion_planner_task_info.h>
-#include <tesseract_environment/environment.h>
+
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_task.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
 
 namespace tesseract_planning
 {
 MotionPlannerTaskInfo::MotionPlannerTaskInfo(const TaskComposerTask& task) : TaskComposerNodeInfo(task) {}
 
-TaskComposerNodeInfo::UPtr MotionPlannerTaskInfo::clone() const
+std::unique_ptr<TaskComposerNodeInfo> MotionPlannerTaskInfo::clone() const
 {
   return std::make_unique<MotionPlannerTaskInfo>(*this);
 }

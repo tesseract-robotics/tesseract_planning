@@ -27,14 +27,16 @@
 #define TESSERACT_TASK_COMPOSER_DISCRETE_CONTACT_CHECK_TASK_H
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/access.hpp>
 #include <vector>
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 
-#include <tesseract_environment/environment.h>
+#include <tesseract_environment/fwd.h>
+#include <tesseract_collision/core/types.h>
 
 namespace tesseract_planning
 {
@@ -68,8 +70,8 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
-                                     OptionalTaskComposerExecutor executor = std::nullopt) const override final;
+  std::unique_ptr<TaskComposerNodeInfo>
+  runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
 class DiscreteContactCheckTaskInfo : public TaskComposerNodeInfo
@@ -83,10 +85,10 @@ public:
   DiscreteContactCheckTaskInfo() = default;
   DiscreteContactCheckTaskInfo(const DiscreteContactCheckTask& task);
 
-  tesseract_environment::Environment::ConstPtr env;
+  std::shared_ptr<const tesseract_environment::Environment> env;
   std::vector<tesseract_collision::ContactResultMap> contact_results;
 
-  TaskComposerNodeInfo::UPtr clone() const override;
+  std::unique_ptr<TaskComposerNodeInfo> clone() const override;
 
   bool operator==(const DiscreteContactCheckTaskInfo& rhs) const;
   bool operator!=(const DiscreteContactCheckTaskInfo& rhs) const;
@@ -99,7 +101,6 @@ private:
 
 }  // namespace tesseract_planning
 
-#include <boost/serialization/export.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::DiscreteContactCheckTask, "DiscreteContactCheckTask")
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::DiscreteContactCheckTaskInfo, "DiscreteContactCheckTaskInfo")
 #endif  // TESSERACT_TASK_COMPOSER_DISCRETE_CONTACT_CHECK_TASK_H

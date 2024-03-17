@@ -32,8 +32,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/profiles/profile_switch_profile.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/utils.h>
+
 #include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
@@ -60,8 +65,8 @@ ProfileSwitchTask::ProfileSwitchTask(std::string name,
     throw std::runtime_error("ProfileSwitchTask, does not support 'outputs' entry");
 }
 
-TaskComposerNodeInfo::UPtr ProfileSwitchTask::runImpl(TaskComposerContext& context,
-                                                      OptionalTaskComposerExecutor /*executor*/) const
+std::unique_ptr<TaskComposerNodeInfo> ProfileSwitchTask::runImpl(TaskComposerContext& context,
+                                                                 OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);

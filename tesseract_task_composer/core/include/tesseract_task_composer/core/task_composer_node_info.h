@@ -137,8 +137,9 @@ private:
 };
 
 /** @brief A threadsafe container for TaskComposerNodeInfo */
-struct TaskComposerNodeInfoContainer
+class TaskComposerNodeInfoContainer
 {
+public:
   using Ptr = std::shared_ptr<TaskComposerNodeInfoContainer>;
   using ConstPtr = std::shared_ptr<const TaskComposerNodeInfoContainer>;
   using UPtr = std::unique_ptr<TaskComposerNodeInfoContainer>;

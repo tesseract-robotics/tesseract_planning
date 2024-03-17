@@ -34,6 +34,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/nodes/check_input_task.h>
 #include <tesseract_task_composer/planning/profiles/check_input_profile.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
+
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+
 #include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
@@ -60,8 +65,8 @@ CheckInputTask::CheckInputTask(std::string name,
     throw std::runtime_error("CheckInputTask, config missing 'inputs' entry");
 }
 
-TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerContext& context,
-                                                   OptionalTaskComposerExecutor /*executor*/) const
+std::unique_ptr<TaskComposerNodeInfo> CheckInputTask::runImpl(TaskComposerContext& context,
+                                                              OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
 

@@ -31,6 +31,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/library_version_type.hpp>
 #endif
 #include <boost/serialization/unordered_map.hpp>
+#include <tesseract_common/utils.h>
+#include <tesseract_environment/environment.h>
+#include <tesseract_command_language/profile_dictionary.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
@@ -39,14 +42,15 @@ namespace tesseract_planning
 {
 PlanningTaskComposerProblem::PlanningTaskComposerProblem(std::string name) : TaskComposerProblem(std::move(name)) {}
 
-PlanningTaskComposerProblem::PlanningTaskComposerProblem(ProfileDictionary::ConstPtr profiles, std::string name)
+PlanningTaskComposerProblem::PlanningTaskComposerProblem(std::shared_ptr<const ProfileDictionary> profiles,
+                                                         std::string name)
   : TaskComposerProblem(std::move(name)), profiles(std::move(profiles))
 {
 }
 
-PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
+PlanningTaskComposerProblem::PlanningTaskComposerProblem(std::shared_ptr<const tesseract_environment::Environment> env,
                                                          tesseract_common::ManipulatorInfo manip_info,
-                                                         ProfileDictionary::ConstPtr profiles,
+                                                         std::shared_ptr<const ProfileDictionary> profiles,
                                                          std::string name)
   : TaskComposerProblem(std::move(name))
   , env(std::move(env))
@@ -55,11 +59,11 @@ PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::
 {
 }
 
-PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
+PlanningTaskComposerProblem::PlanningTaskComposerProblem(std::shared_ptr<const tesseract_environment::Environment> env,
                                                          tesseract_common::ManipulatorInfo manip_info,
                                                          ProfileRemapping move_profile_remapping,
                                                          ProfileRemapping composite_profile_remapping,
-                                                         ProfileDictionary::ConstPtr profiles,
+                                                         std::shared_ptr<const ProfileDictionary> profiles,
                                                          std::string name)
   : TaskComposerProblem(std::move(name))
   , env(std::move(env))
@@ -70,10 +74,10 @@ PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::
 {
 }
 
-PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
+PlanningTaskComposerProblem::PlanningTaskComposerProblem(std::shared_ptr<const tesseract_environment::Environment> env,
                                                          ProfileRemapping move_profile_remapping,
                                                          ProfileRemapping composite_profile_remapping,
-                                                         ProfileDictionary::ConstPtr profiles,
+                                                         std::shared_ptr<const ProfileDictionary> profiles,
                                                          std::string name)
   : TaskComposerProblem(std::move(name))
   , env(std::move(env))
@@ -83,8 +87,8 @@ PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::
 {
 }
 
-PlanningTaskComposerProblem::PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
-                                                         ProfileDictionary::ConstPtr profiles,
+PlanningTaskComposerProblem::PlanningTaskComposerProblem(std::shared_ptr<const tesseract_environment::Environment> env,
+                                                         std::shared_ptr<const ProfileDictionary> profiles,
                                                          std::string name)
   : TaskComposerProblem(std::move(name)), env(std::move(env)), profiles(std::move(profiles))
 {

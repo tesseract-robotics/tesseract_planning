@@ -29,21 +29,22 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/access.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 
-#include <tesseract_task_composer/planning/profiles/fix_state_collision_profile.h>
-#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
-
-#include <tesseract_command_language/poly/waypoint_poly.h>
-
-#include <tesseract_environment/environment.h>
+#include <tesseract_environment/fwd.h>
+#include <tesseract_collision/core/types.h>
+#include <tesseract_command_language/fwd.h>
 
 namespace tesseract_planning
 {
 class TaskComposerPluginFactory;
+struct PlanningTaskComposerProblem;
+struct FixStateCollisionProfile;
+
 /**
  * @brief This task modifies the input instructions in order to push waypoints that are in collision out of
  * collision.
@@ -81,8 +82,8 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
-                                     OptionalTaskComposerExecutor executor = std::nullopt) const override final;
+  std::unique_ptr<TaskComposerNodeInfo>
+  runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
 class FixStateCollisionTaskInfo : public TaskComposerNodeInfo
@@ -96,9 +97,9 @@ public:
   FixStateCollisionTaskInfo() = default;
   FixStateCollisionTaskInfo(const FixStateCollisionTask& task);
 
-  TaskComposerNodeInfo::UPtr clone() const override;
+  std::unique_ptr<TaskComposerNodeInfo> clone() const override;
 
-  tesseract_environment::Environment::ConstPtr env;
+  std::shared_ptr<const tesseract_environment::Environment> env;
   std::vector<tesseract_collision::ContactResultMap> contact_results;
 
   bool operator==(const FixStateCollisionTaskInfo& rhs) const;
@@ -164,7 +165,6 @@ bool applyCorrectionWorkflow(WaypointPoly& waypoint,
                              const FixStateCollisionProfile& profile);
 }  // namespace tesseract_planning
 
-#include <boost/serialization/export.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::FixStateCollisionTask, "FixStateCollisionTask")
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::FixStateCollisionTaskInfo, "FixStateCollisionTaskInfo")
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_COLLISION_TASK_H

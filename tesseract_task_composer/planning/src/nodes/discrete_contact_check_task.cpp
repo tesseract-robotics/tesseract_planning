@@ -31,6 +31,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/shared_ptr.hpp>
+
+#include <tesseract_collision/core/discrete_contact_manager.h>
+#include <tesseract_collision/core/serialization.h>
+
+#include <tesseract_state_solver/state_solver.h>
+
+#include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 //#include <tesseract_process_managers/core/utils.h>
@@ -38,10 +45,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+
 #include <tesseract_command_language/composite_instruction.h>
+
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
-#include <tesseract_collision/core/serialization.h>
 
 namespace tesseract_planning
 {
@@ -66,8 +77,8 @@ DiscreteContactCheckTask::DiscreteContactCheckTask(std::string name,
                              "key");
 }
 
-TaskComposerNodeInfo::UPtr DiscreteContactCheckTask::runImpl(TaskComposerContext& context,
-                                                             OptionalTaskComposerExecutor /*executor*/) const
+std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTask::runImpl(TaskComposerContext& context,
+                                                                        OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
@@ -142,7 +153,7 @@ DiscreteContactCheckTaskInfo::DiscreteContactCheckTaskInfo(const DiscreteContact
 {
 }
 
-TaskComposerNodeInfo::UPtr DiscreteContactCheckTaskInfo::clone() const
+std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTaskInfo::clone() const
 {
   return std::make_unique<DiscreteContactCheckTaskInfo>(*this);
 }

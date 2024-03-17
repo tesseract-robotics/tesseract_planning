@@ -52,13 +52,13 @@ set(TASK_COMPOSER_PLUGINS "")
 set(SUPPORTED_COMPONENTS core)
 add_subdirectory(core)
 
-# # Planning Tasks
-# option(TESSERACT_BUILD_TASK_COMPOSER_PLANNING "Build task composer planning components" ON)
-# if(TESSERACT_BUILD_TASK_COMPOSER_PLANNING)
-#   message("Build task composer planning components")
-#   list(APPEND SUPPORTED_COMPONENTS planning)
-#   add_subdirectory(planning)
-# endif()
+# Planning Tasks
+option(TESSERACT_BUILD_TASK_COMPOSER_PLANNING "Build task composer planning components" ON)
+if(TESSERACT_BUILD_TASK_COMPOSER_PLANNING)
+  message("Build task composer planning components")
+  list(APPEND SUPPORTED_COMPONENTS planning)
+  add_subdirectory(planning)
+endif()
 
 # Taskflow Executor
 option(TESSERACT_BUILD_TASK_COMPOSER_TASKFLOW "Build task composer taskflow components" ON)
@@ -77,9 +77,9 @@ string(
 target_compile_definitions(${PROJECT_NAME} PRIVATE TESSERACT_TASK_COMPOSER_PLUGINS="${TASK_COMPOSER_PLUGINS_STRING}")
 
 # Examples
-# if(TESSERACT_ENABLE_EXAMPLES)
-#   add_subdirectory(examples)
-# endif()
+if(TESSERACT_ENABLE_EXAMPLES)
+  add_subdirectory(examples)
+endif()
 
 install(DIRECTORY config/ DESTINATION share/${PROJECT_NAME}/config COMPONENT core)
 

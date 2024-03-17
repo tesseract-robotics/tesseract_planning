@@ -5,15 +5,23 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/core/task_composer_graph.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_future.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
+#include <tesseract_task_composer/core/task_composer_graph.h>
+#include <tesseract_task_composer/core/task_composer_executor.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/core/test_suite/test_programs.hpp>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
 #include <tesseract_common/types.h>
+#include <tesseract_common/utils.h>
+#include <tesseract_state_solver/state_solver.h>
 #include <tesseract_environment/environment.h>
+#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/utils.h>
+#include <tesseract_visualization/visualization.h>
 #include <tesseract_visualization/visualization_loader.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 

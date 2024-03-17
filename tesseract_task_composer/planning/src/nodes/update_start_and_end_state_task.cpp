@@ -30,7 +30,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/update_start_and_end_state_task.h>
+
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+
 #include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/poly/state_waypoint_poly.h>
+#include <tesseract_command_language/poly/joint_waypoint_poly.h>
 
 namespace tesseract_planning
 {
@@ -61,8 +70,8 @@ UpdateStartAndEndStateTask::UpdateStartAndEndStateTask(std::string name,
   output_keys_.push_back(std::move(output_key));
 }
 
-TaskComposerNodeInfo::UPtr UpdateStartAndEndStateTask::runImpl(TaskComposerContext& context,
-                                                               OptionalTaskComposerExecutor /*executor*/) const
+std::unique_ptr<TaskComposerNodeInfo>
+UpdateStartAndEndStateTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
