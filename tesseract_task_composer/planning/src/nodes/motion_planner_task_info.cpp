@@ -27,7 +27,10 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/shared_ptr.hpp>
+
+#include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
+
 #include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -64,6 +67,5 @@ void MotionPlannerTaskInfo::serialize(Archive& ar, const unsigned int /*version*
 }
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MotionPlannerTaskInfo)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MotionPlannerTaskInfo)

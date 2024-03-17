@@ -32,6 +32,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/shared_ptr.hpp>
 
+#include <tesseract_common/serialization.h>
+
 #include <tesseract_collision/core/discrete_contact_manager.h>
 #include <tesseract_collision/core/serialization.h>
 
@@ -180,7 +182,6 @@ void DiscreteContactCheckTaskInfo::serialize(Archive& ar, const unsigned int /*v
 }
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DiscreteContactCheckTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DiscreteContactCheckTask)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DiscreteContactCheckTaskInfo)

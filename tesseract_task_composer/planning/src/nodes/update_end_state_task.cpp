@@ -27,6 +27,8 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
+
+#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/update_end_state_task.h>
@@ -128,6 +130,5 @@ void UpdateEndStateTask::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::UpdateEndStateTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::UpdateEndStateTask)

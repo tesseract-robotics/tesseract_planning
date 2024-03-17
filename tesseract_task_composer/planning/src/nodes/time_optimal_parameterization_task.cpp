@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
 
+#include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
 
 #include <tesseract_environment/environment.h>
@@ -222,7 +223,6 @@ void TimeOptimalParameterizationTaskInfo::serialize(Archive& ar, const unsigned 
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimeOptimalParameterizationTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TimeOptimalParameterizationTask)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimeOptimalParameterizationTaskInfo)

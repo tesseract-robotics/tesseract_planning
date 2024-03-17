@@ -35,6 +35,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/problem_description.hpp>
 #include <trajopt/utils.hpp>
 
+#include <tesseract_common/serialization.h>
+
 #include <tesseract_collision/core/discrete_contact_manager.h>
 #include <tesseract_collision/core/serialization.h>
 
@@ -730,7 +732,6 @@ void FixStateCollisionTaskInfo::serialize(Archive& ar, const unsigned int /*vers
 }
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FixStateCollisionTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FixStateCollisionTask)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FixStateCollisionTaskInfo)
