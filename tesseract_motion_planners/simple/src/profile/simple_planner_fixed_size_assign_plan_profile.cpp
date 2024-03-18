@@ -24,6 +24,7 @@
  * limitations under the License.
  */
 
+#include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_plan_profile.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -47,28 +48,9 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
   KinematicGroupInstructionInfo info2(base_instruction, request, global_manip_info);
 
   Eigen::MatrixXd states;
-  if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
+  if (!info2.has_cartesian_waypoint)
   {
-    const Eigen::VectorXd& jp = info2.extractJointPosition();
-    if (info2.instruction.isLinear())
-      states = jp.replicate(1, linear_steps + 1);
-    else if (info2.instruction.isFreespace())
-      states = jp.replicate(1, freespace_steps + 1);
-    else
-      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
-  }
-  else if (!info1.has_cartesian_waypoint && info2.has_cartesian_waypoint)
-  {
-    const Eigen::VectorXd& jp = info1.extractJointPosition();
-    if (info2.instruction.isLinear())
-      states = jp.replicate(1, linear_steps + 1);
-    else if (info2.instruction.isFreespace())
-      states = jp.replicate(1, freespace_steps + 1);
-    else
-      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
-  }
-  else if (info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
-  {
+    // Replicate base_instruction joint position
     const Eigen::VectorXd& jp = info2.extractJointPosition();
     if (info2.instruction.isLinear())
       states = jp.replicate(1, linear_steps + 1);
@@ -79,13 +61,42 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
   }
   else
   {
-    Eigen::VectorXd seed = request.env_state.getJointValues(info2.manip->getJointNames());
-    tesseract_common::enforcePositionLimits<double>(seed, info2.manip->getLimits().joint_limits);
+    // Determine base_instruction joint position and replicate
+    const auto& base_cwp = info2.instruction.getWaypoint().as<CartesianWaypointPoly>();
+    Eigen::VectorXd jp;
+    if (base_cwp.hasSeed())
+    {
+      // Use joint position of cartesian base_instruction
+      jp = base_cwp.getSeed().position;
+    }
+    else
+    {
+      if (info1.has_cartesian_waypoint)
+      {
+        const auto& prev_cwp = info1.instruction.getWaypoint().as<CartesianWaypointPoly>();
+        if (prev_cwp.hasSeed())
+        {
+          // Use joint position of cartesian prev_instruction as seed
+          jp = getClosestJointSolution(info2, prev_cwp.getSeed().position);
+        }
+        else
+        {
+          // Use current env_state as seed
+          jp = getClosestJointSolution(info2, request.env_state.getJointValues(info2.manip->getJointNames()));
+        }
+      }
+      else
+      {
+        // Use prev_instruction as seed
+        jp = getClosestJointSolution(info2, info1.extractJointPosition());
+      }
+    }
+    tesseract_common::enforcePositionLimits<double>(jp, info2.manip->getLimits().joint_limits);
 
     if (info2.instruction.isLinear())
-      states = seed.replicate(1, linear_steps + 1);
+      states = jp.replicate(1, linear_steps + 1);
     else if (info2.instruction.isFreespace())
-      states = seed.replicate(1, freespace_steps + 1);
+      states = jp.replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
   }
