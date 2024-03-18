@@ -2,7 +2,7 @@
 #include <iostream>
 #include <tesseract_common/utils.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
-#include <tesseract_task_composer/core/task_composer_future.h>.h>
+#include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_graph.h>
