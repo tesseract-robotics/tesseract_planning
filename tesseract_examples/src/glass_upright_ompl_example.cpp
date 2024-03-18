@@ -205,8 +205,8 @@ private:
   tesseract_kinematics::ForwardKinematics::Ptr fwd_kin_;
 };
 
-GlassUprightOMPLExample::GlassUprightOMPLExample(tesseract_environment::Environment::Ptr env,
-                                                 tesseract_visualization::Visualization::Ptr plotter,
+GlassUprightOMPLExample::GlassUprightOMPLExample(std::shared_ptr<tesseract_environment::Environment> env,
+                                                 std::shared_ptr<tesseract_visualization::Visualization> plotter,
                                                  double range,
                                                  double planning_time,
                                                  bool use_trajopt_constraint)

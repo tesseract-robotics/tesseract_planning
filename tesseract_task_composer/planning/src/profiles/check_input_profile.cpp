@@ -1,5 +1,5 @@
 /**
- * @file check_input_profile.h
+ * @file check_input_profile.cpp
  * @brief Profile used for checking input data structure
  *
  * @author Levi Armstrong
@@ -23,32 +23,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_CHECK_INPUT_PROFILE_H
-#define TESSERACT_TASK_COMPOSER_CHECK_INPUT_PROFILE_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <memory>
+#include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
+#include <tesseract_task_composer/planning/profiles/check_input_profile.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
 namespace tesseract_planning
 {
-struct TaskComposerContext;
-
-struct CheckInputProfile
+bool CheckInputProfile::isValid(const TaskComposerContext& context) const
 {
-  using Ptr = std::shared_ptr<CheckInputProfile>;
-  using ConstPtr = std::shared_ptr<const CheckInputProfile>;
+  // Get the problem
+  const auto& problem = dynamic_cast<const PlanningTaskComposerProblem&>(*context.problem);
 
-  virtual ~CheckInputProfile() = default;
+  // Check Input
+  if (!problem.env)
+  {
+    CONSOLE_BRIDGE_logError("Input env is a nullptr");
+    return false;
+  }
 
-  /**
-   * @brief Check if the task input is valid
-   * @param context The task context to check
-   * @return True if valid otherwise false
-   */
-  virtual bool isValid(const TaskComposerContext& context) const;
-};
+  return true;
+}
 }  // namespace tesseract_planning
-
-#endif  // TESSERACT_TASK_COMPOSER_CHECK_INPUT_PROFILE_H

@@ -1,5 +1,5 @@
 /**
- * @file contact_check_profile.h
+ * @file contact_check_profile.cpp
  * @brief Contact check trajectory profile
  *
  * @author Levi Armstrong
@@ -23,32 +23,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_CONTACT_CHECK_PROFILE_H
-#define TESSERACT_TASK_COMPOSER_CONTACT_CHECK_PROFILE_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <memory>
+#include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_collision/core/types.h>
+#include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
 
 namespace tesseract_planning
 {
-struct ContactCheckProfile
+ContactCheckProfile::ContactCheckProfile() : ContactCheckProfile(0.05, 0) {}
+
+ContactCheckProfile::ContactCheckProfile(double longest_valid_segment_length, double contact_distance)
 {
-  using Ptr = std::shared_ptr<ContactCheckProfile>;
-  using ConstPtr = std::shared_ptr<const ContactCheckProfile>;
+  config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+  config.longest_valid_segment_length = longest_valid_segment_length;
+  config.contact_manager_config.margin_data = tesseract_collision::CollisionMarginData(contact_distance);
+  config.contact_manager_config.margin_data_override_type =
+      tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
 
-  ContactCheckProfile();
-
-  ContactCheckProfile(double longest_valid_segment_length, double contact_distance);
-
-  virtual ~ContactCheckProfile() = default;
-
-  /** @brief The contact manager config */
-  tesseract_collision::CollisionCheckConfig config;
-};
+  if (config.longest_valid_segment_length <= 0)
+  {
+    CONSOLE_BRIDGE_logWarn("ContactCheckProfile: Invalid longest valid segment. Defaulting to 0.05");
+    config.longest_valid_segment_length = 0.05;
+  }
+}
 }  // namespace tesseract_planning
-
-#endif  // TESSERACT_TASK_COMPOSER_CONTACT_CHECK_PROFILE_H

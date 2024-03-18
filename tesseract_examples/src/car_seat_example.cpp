@@ -25,15 +25,31 @@
  */
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <memory>
 #include <console_bridge/console.h>
+#include <trajopt_common/collision_types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/car_seat_example.h>
+
+#include <tesseract_common/allowed_collision_matrix.h>
+
 #include <tesseract_collision/bullet/convex_hull_utils.h>
+
+#include <tesseract_kinematics/core/joint_group.h>
+
+#include <tesseract_scene_graph/link.h>
+#include <tesseract_scene_graph/joint.h>
+
+#include <tesseract_state_solver/state_solver.h>
+
+#include <tesseract_environment/environment.h>
 #include <tesseract_environment/utils.h>
-#include <tesseract_environment/commands.h>
+#include <tesseract_environment/commands/add_link_command.h>
+#include <tesseract_environment/commands/move_link_command.h>
+#include <tesseract_environment/commands/modify_allowed_collisions_command.h>
+
 #include <tesseract_geometry/mesh_parser.h>
+
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -41,8 +57,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/utils.h>
+
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+#include <tesseract_task_composer/core/task_composer_future.h>
+#include <tesseract_task_composer/core/task_composer_executor.h>
+#include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
@@ -51,6 +72,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
+
+#include <tesseract_visualization/visualization.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
 using namespace tesseract_environment;
@@ -115,15 +138,15 @@ Commands addSeats(const tesseract_common::ResourceLocator::ConstPtr& locator)
   return cmds;
 }
 
-CarSeatExample::CarSeatExample(tesseract_environment::Environment::Ptr env,
-                               tesseract_visualization::Visualization::Ptr plotter,
+CarSeatExample::CarSeatExample(std::shared_ptr<tesseract_environment::Environment> env,
+                               std::shared_ptr<tesseract_visualization::Visualization> plotter,
                                bool ifopt,
                                bool debug)
   : Example(std::move(env), std::move(plotter)), ifopt_(ifopt), debug_(debug)
 {
 }
 
-std::unordered_map<std::string, std::unordered_map<std::string, double>> CarSeatExample::getPredefinedPosition()
+std::unordered_map<std::string, std::unordered_map<std::string, double>> getPredefinedPosition()
 {
   std::unordered_map<std::string, std::unordered_map<std::string, double>> result;
 
@@ -196,8 +219,7 @@ std::unordered_map<std::string, std::unordered_map<std::string, double>> CarSeat
   return result;
 }
 
-std::vector<double> CarSeatExample::getPositionVector(const JointGroup& joint_group,
-                                                      const std::unordered_map<std::string, double>& pos)
+std::vector<double> getPositionVector(const JointGroup& joint_group, const std::unordered_map<std::string, double>& pos)
 {
   std::vector<double> result;
   result.reserve(static_cast<std::size_t>(joint_group.numJoints()));
@@ -207,8 +229,7 @@ std::vector<double> CarSeatExample::getPositionVector(const JointGroup& joint_gr
   return result;
 }
 
-Eigen::VectorXd CarSeatExample::getPositionVectorXd(const JointGroup& joint_group,
-                                                    const std::unordered_map<std::string, double>& pos)
+Eigen::VectorXd getPositionVectorXd(const JointGroup& joint_group, const std::unordered_map<std::string, double>& pos)
 {
   Eigen::VectorXd result;
   result.resize(joint_group.numJoints());

@@ -27,9 +27,12 @@
 #define TESSERACT_ROS_EXAMPLES_EXAMPLES_H
 
 #include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <memory>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_environment/environment.h>
-#include <tesseract_visualization/visualization.h>
+#include <tesseract_environment/fwd.h>
+#include <tesseract_visualization/fwd.h>
 
 namespace tesseract_examples
 {
@@ -44,10 +47,8 @@ namespace tesseract_examples
 class Example
 {
 public:
-  Example(tesseract_environment::Environment::Ptr env, tesseract_visualization::Visualization::Ptr plotter = nullptr)
-    : env_(std::move(env)), plotter_(std::move(plotter))
-  {
-  }
+  Example(std::shared_ptr<tesseract_environment::Environment> env,
+          std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr);
 
   virtual ~Example() = default;
   Example(const Example&) = default;
@@ -59,9 +60,9 @@ public:
 
 protected:
   /** @brief Tesseract Manager Class (Required) */
-  tesseract_environment::Environment::Ptr env_;
+  std::shared_ptr<tesseract_environment::Environment> env_;
   /** @brief Tesseract Visualization Class (Optional)*/
-  tesseract_visualization::Visualization::Ptr plotter_;
+  std::shared_ptr<tesseract_visualization::Visualization> plotter_;
 };
 
 }  // namespace tesseract_examples

@@ -26,8 +26,6 @@
 #ifndef TESSERACT_EXAMPLES_FREESPACE_HYBRID_EXAMPLE_H
 #define TESSERACT_EXAMPLES_FREESPACE_HYBRID_EXAMPLE_H
 
-#include <tesseract_common/macros.h>
-
 #include <tesseract_examples/example.h>
 
 namespace tesseract_examples
@@ -39,8 +37,8 @@ namespace tesseract_examples
 class FreespaceHybridExample : public Example
 {
 public:
-  FreespaceHybridExample(tesseract_environment::Environment::Ptr env,
-                         tesseract_visualization::Visualization::Ptr plotter = nullptr,
+  FreespaceHybridExample(std::shared_ptr<tesseract_environment::Environment> env,
+                         std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
                          bool ifopt = false,
                          bool debug = false,
                          double range = 0.01,
@@ -58,8 +56,6 @@ private:
   bool debug_;
   double range_;
   double planning_time_;
-
-  static tesseract_environment::Command::Ptr addSphere();
 };
 
 }  // namespace tesseract_examples

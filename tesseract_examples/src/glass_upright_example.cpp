@@ -27,27 +27,45 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <json/json.h>
 #include <console_bridge/console.h>
+#include <trajopt_common/collision_types.h>
+#include <trajopt/problem_description.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/glass_upright_example.h>
+
+#include <tesseract_scene_graph/link.h>
+#include <tesseract_scene_graph/joint.h>
+
+#include <tesseract_state_solver/state_solver.h>
+
+#include <tesseract_environment/environment.h>
+#include <tesseract_environment/commands/add_link_command.h>
 #include <tesseract_environment/utils.h>
+
 #include <tesseract_common/timer.h>
+
+#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
+
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+#include <tesseract_task_composer/core/task_composer_node.h>
+#include <tesseract_task_composer/core/task_composer_executor.h>
+#include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
+
+#include <tesseract_visualization/visualization.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
 #include <tesseract_motion_planners/core/utils.h>
-
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
-
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 
@@ -66,15 +84,15 @@ static const std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
 
 namespace tesseract_examples
 {
-GlassUprightExample::GlassUprightExample(tesseract_environment::Environment::Ptr env,
-                                         tesseract_visualization::Visualization::Ptr plotter,
+GlassUprightExample::GlassUprightExample(std::shared_ptr<tesseract_environment::Environment> env,
+                                         std::shared_ptr<tesseract_visualization::Visualization> plotter,
                                          bool ifopt,
                                          bool debug)
   : Example(std::move(env), std::move(plotter)), ifopt_(ifopt), debug_(debug)
 {
 }
 
-tesseract_environment::Command::Ptr GlassUprightExample::addSphere()
+inline tesseract_environment::Command::Ptr addSphere()
 {
   // Add sphere to environment
   Link link_sphere("sphere_attached");

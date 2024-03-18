@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <array>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/types.h>
 #include <tesseract_examples/example.h>
 
 namespace tesseract_examples
@@ -43,8 +42,8 @@ namespace tesseract_examples
 class PickAndPlaceExample : public Example
 {
 public:
-  PickAndPlaceExample(tesseract_environment::Environment::Ptr env,
-                      tesseract_visualization::Visualization::Ptr plotter = nullptr,
+  PickAndPlaceExample(std::shared_ptr<tesseract_environment::Environment> env,
+                      std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
                       bool ifopt = false,
                       bool debug = false,
                       double box_size = 0.2,
@@ -62,7 +61,6 @@ private:
   bool debug_;
   double box_size_;
   std::array<double, 2> box_position_;
-  static tesseract_environment::Command::Ptr addBox(double box_x, double box_y, double box_side);
 };
 
 }  // namespace tesseract_examples

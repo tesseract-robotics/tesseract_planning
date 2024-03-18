@@ -34,6 +34,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 #include <console_bridge/console.h>
 
+#include <trajopt_common/collision_types.h>
+
+#include <trajopt_sqp/qp_problem.h>
 #include <trajopt_sqp/ifopt_qp_problem.h>
 #include <trajopt_sqp/trajopt_qp_problem.h>
 #include <trajopt_sqp/trust_region_sqp_solver.h>
@@ -44,7 +47,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/constraints/joint_position_constraint.h>
 #include <trajopt_ifopt/constraints/joint_velocity_constraint.h>
 #include <trajopt_ifopt/constraints/collision/discrete_collision_constraint.h>
+#include <trajopt_ifopt/constraints/collision/discrete_collision_evaluators.h>
 #include <trajopt_ifopt/constraints/collision/continuous_collision_constraint.h>
+#include <trajopt_ifopt/constraints/collision/continuous_collision_evaluators.h>
 #include <trajopt_ifopt/constraints/inverse_kinematics_constraint.h>
 #include <trajopt_ifopt/variable_sets/joint_position_variable.h>
 #include <trajopt_ifopt/costs/squared_cost.h>
@@ -53,6 +58,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/online_planning_example.h>
+
+#include <tesseract_common/joint_state.h>
+
+#include <tesseract_kinematics/core/kinematic_group.h>
+
+#include <tesseract_state_solver/state_solver.h>
+
+#include <tesseract_environment/environment.h>
+
+#include <tesseract_visualization/visualization.h>
 #include <tesseract_visualization/markers/axis_marker.h>
 
 using namespace tesseract_environment;
@@ -62,8 +77,8 @@ using namespace tesseract_visualization;
 
 namespace tesseract_examples
 {
-OnlinePlanningExample::OnlinePlanningExample(tesseract_environment::Environment::Ptr env,
-                                             tesseract_visualization::Visualization::Ptr plotter,
+OnlinePlanningExample::OnlinePlanningExample(std::shared_ptr<tesseract_environment::Environment> env,
+                                             std::shared_ptr<tesseract_visualization::Visualization> plotter,
                                              int steps,
                                              double box_size,
                                              bool update_start_state,
@@ -204,7 +219,7 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
   collision_config->type = CollisionEvaluatorType::DISCRETE;
   collision_config->collision_margin_buffer = 0.10;
 
-  auto collision_cache = std::make_shared<trajopt_common::CollisionCache>(steps_);
+  auto collision_cache = std::make_shared<trajopt_ifopt::CollisionCache>(steps_);
   if (use_continuous_)
   {
     std::array<bool, 2> position_vars_fixed{ true, false };
