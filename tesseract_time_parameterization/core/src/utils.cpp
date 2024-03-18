@@ -41,12 +41,12 @@ void rescaleTimings(CompositeInstruction& program, std::vector<double> scalings)
   double prev_time_original = 0;
   for (std::size_t sub_composite_idx = 0; sub_composite_idx < program.size(); sub_composite_idx++)
   {
-    CompositeInstruction& sub = program[sub_composite_idx].as<CompositeInstruction>();
-    for (std::size_t move_idx = 0; move_idx < sub.size(); move_idx++)
+    auto& sub = program[sub_composite_idx].as<CompositeInstruction>();
+    for (auto& instruction : sub)
     {
-      if (sub.at(move_idx).isMoveInstruction())
+      if (instruction.isMoveInstruction())
       {
-        auto& move = sub.at(move_idx).as<MoveInstructionPoly>();
+        auto& move = instruction.as<MoveInstructionPoly>();
         if (move.getWaypoint().isStateWaypoint())
         {
           auto& state = move.getWaypoint().as<StateWaypointPoly>();

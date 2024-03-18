@@ -6,7 +6,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/types.h>
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_environment/environment.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_collision_task.h>
+#include <tesseract_task_composer/planning/profiles/fix_state_collision_profile.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_command_language/joint_waypoint.h>

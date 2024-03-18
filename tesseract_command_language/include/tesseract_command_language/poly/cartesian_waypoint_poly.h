@@ -38,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_common/type_erasure.h>
+#include <tesseract_common/joint_state.h>
 #include <tesseract_common/fwd.h>
 
 /** @brief If shared library, this must go in the header after the class definition */

@@ -46,13 +46,7 @@ static const double LONGEST_VALID_SEGMENT_FRACTION_DEFAULT = 0.01;
 
 namespace tesseract_planning
 {
-TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile()
-  : contact_test_type(tesseract_collision::ContactTestType::ALL)
-{
-}
-
 TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(const tinyxml2::XMLElement& xml_element)
-  : contact_test_type(tesseract_collision::ContactTestType::ALL)
 {
   const tinyxml2::XMLElement* contact_test_type_element = xml_element.FirstChildElement("ContactTestType");
   const tinyxml2::XMLElement* collision_cost_config_element = xml_element.FirstChildElement("CollisionCostConfig");

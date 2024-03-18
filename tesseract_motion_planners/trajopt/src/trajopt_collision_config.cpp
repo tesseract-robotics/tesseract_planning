@@ -29,7 +29,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <stdexcept>
 #include <iostream>
 #include <tinyxml2.h>
-#include <trajopt/problem_description.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/trajopt_collision_config.h>
@@ -37,10 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-CollisionCostConfig::CollisionCostConfig() : type(trajopt::CollisionEvaluatorType::DISCRETE_CONTINUOUS) {}
-
 CollisionCostConfig::CollisionCostConfig(const tinyxml2::XMLElement& xml_element)
-  : type(trajopt::CollisionEvaluatorType::DISCRETE_CONTINUOUS)
 {
   const tinyxml2::XMLElement* enabled_element = xml_element.FirstChildElement("Enabled");
   const tinyxml2::XMLElement* use_weighted_sum_element = xml_element.FirstChildElement("UseWeightedSum");
@@ -144,9 +140,7 @@ tinyxml2::XMLElement* CollisionCostConfig::toXML(tinyxml2::XMLDocument& doc) con
   return xml_coll_cost_config;
 }
 
-CollisionConstraintConfig::CollisionConstraintConfig() : type(trajopt::CollisionEvaluatorType::DISCRETE_CONTINUOUS) {}
 CollisionConstraintConfig::CollisionConstraintConfig(const tinyxml2::XMLElement& xml_element)
-  : type(trajopt::CollisionEvaluatorType::DISCRETE_CONTINUOUS)
 {
   const tinyxml2::XMLElement* enabled_element = xml_element.FirstChildElement("Enabled");
   const tinyxml2::XMLElement* use_weighted_sum_element = xml_element.FirstChildElement("UseWeightedSum");

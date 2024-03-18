@@ -29,6 +29,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
+#include <tesseract_collision/core/types.h>
+#include <tesseract_collision/core/continuous_contact_manager.h>
+#include <tesseract_collision/core/discrete_contact_manager.h>
+#include <tesseract_scene_graph/link.h>
+#include <tesseract_scene_graph/joint.h>
+#include <tesseract_state_solver/state_solver.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_environment/commands/add_link_command.h>
 #include <tesseract_motion_planners/core/utils.h>

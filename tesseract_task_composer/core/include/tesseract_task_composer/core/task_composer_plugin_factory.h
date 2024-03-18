@@ -98,8 +98,8 @@ public:
 
   TaskComposerPluginFactory();
   ~TaskComposerPluginFactory();
-  TaskComposerPluginFactory(const TaskComposerPluginFactory&) = default;
-  TaskComposerPluginFactory& operator=(const TaskComposerPluginFactory&) = default;
+  TaskComposerPluginFactory(const TaskComposerPluginFactory&) = delete;
+  TaskComposerPluginFactory& operator=(const TaskComposerPluginFactory&) = delete;
   TaskComposerPluginFactory(TaskComposerPluginFactory&&) = default;
   TaskComposerPluginFactory& operator=(TaskComposerPluginFactory&&) = default;
 

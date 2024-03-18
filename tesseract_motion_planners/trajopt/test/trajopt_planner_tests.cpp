@@ -30,8 +30,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
+
+#include <tesseract_kinematics/core/joint_group.h>
+
+#include <tesseract_scene_graph/scene_state.h>
+
 #include <tesseract_environment/environment.h>
 
+#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -42,9 +48,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/serialize.h>
 #include <tesseract_motion_planners/trajopt/deserialize.h>
-
-#include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
+#include <tesseract_motion_planners/core/types.h>
+#include <tesseract_motion_planners/core/utils.h>
+
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 const int NUM_STEPS = 7;

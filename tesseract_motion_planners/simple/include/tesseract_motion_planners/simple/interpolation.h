@@ -51,6 +51,10 @@ struct JointGroupInstructionInfo
                             const tesseract_common::ManipulatorInfo& manip_info);
 
   ~JointGroupInstructionInfo();
+  JointGroupInstructionInfo(const JointGroupInstructionInfo&) = delete;
+  JointGroupInstructionInfo& operator=(const JointGroupInstructionInfo&) = delete;
+  JointGroupInstructionInfo(JointGroupInstructionInfo&&) = default;
+  JointGroupInstructionInfo& operator=(JointGroupInstructionInfo&&) = delete;
 
   const MoveInstructionPoly& instruction;
   std::unique_ptr<tesseract_kinematics::JointGroup> manip;
@@ -98,6 +102,10 @@ struct KinematicGroupInstructionInfo
                                 const tesseract_common::ManipulatorInfo& manip_info);
 
   ~KinematicGroupInstructionInfo();
+  KinematicGroupInstructionInfo(const KinematicGroupInstructionInfo&) = delete;
+  KinematicGroupInstructionInfo& operator=(const KinematicGroupInstructionInfo&) = delete;
+  KinematicGroupInstructionInfo(KinematicGroupInstructionInfo&&) = default;
+  KinematicGroupInstructionInfo& operator=(KinematicGroupInstructionInfo&&) = delete;
 
   const MoveInstructionPoly& instruction;
   std::unique_ptr<tesseract_kinematics::KinematicGroup> manip;

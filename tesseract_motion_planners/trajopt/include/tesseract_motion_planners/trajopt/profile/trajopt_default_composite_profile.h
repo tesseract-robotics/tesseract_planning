@@ -40,6 +40,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
 
 #include <tesseract_collision/core/fwd.h>
+#include <tesseract_collision/core/types.h>
 
 namespace tesseract_planning
 {
@@ -49,7 +50,7 @@ public:
   using Ptr = std::shared_ptr<TrajOptDefaultCompositeProfile>;
   using ConstPtr = std::shared_ptr<const TrajOptDefaultCompositeProfile>;
 
-  TrajOptDefaultCompositeProfile();
+  TrajOptDefaultCompositeProfile() = default;
   ~TrajOptDefaultCompositeProfile() override = default;
   TrajOptDefaultCompositeProfile(const tinyxml2::XMLElement& xml_element);
   TrajOptDefaultCompositeProfile(const TrajOptDefaultCompositeProfile&) = default;
@@ -58,7 +59,7 @@ public:
   TrajOptDefaultCompositeProfile& operator=(TrajOptDefaultCompositeProfile&&) = default;
 
   /** @brief The type of contact test to perform: FIRST, CLOSEST, ALL */
-  tesseract_collision::ContactTestType contact_test_type;
+  tesseract_collision::ContactTestType contact_test_type{ tesseract_collision::ContactTestType::ALL };
   /** @brief Configuration info for collisions that are modeled as costs */
   CollisionCostConfig collision_cost_config;
   /** @brief Configuration info for collisions that are modeled as constraints */
