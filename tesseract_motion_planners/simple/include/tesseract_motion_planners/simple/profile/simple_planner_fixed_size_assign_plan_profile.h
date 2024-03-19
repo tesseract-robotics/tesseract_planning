@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_default_plan_profile.h
+ * @file simple_planner_fixed_size_assign_plan_profile.h
  * @brief
  *
  * @author Matthew Powelson
