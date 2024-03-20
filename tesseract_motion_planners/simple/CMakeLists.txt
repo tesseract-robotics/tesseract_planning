@@ -3,10 +3,13 @@ add_library(
   src/interpolation.cpp
   src/simple_motion_planner.cpp
   src/profile/simple_planner_profile.cpp
-  src/profile/simple_planner_lvs_move_profile.cpp
-  src/profile/simple_planner_lvs_no_ik_move_profile.cpp
-  src/profile/simple_planner_fixed_size_assign_move_profile.cpp
-  src/profile/simple_planner_fixed_size_move_profile.cpp)
+  src/profile/simple_planner_lvs_plan_profile.cpp
+  src/profile/simple_planner_lvs_no_ik_plan_profile.cpp
+  src/profile/simple_planner_fixed_size_assign_plan_profile.cpp
+  src/profile/simple_planner_fixed_size_plan_profile.cpp
+  src/profile/simple_planner_lvs_assign_plan_profile.cpp
+  src/profile/simple_planner_lvs_no_ik_plan_profile.cpp
+  src/profile/simple_planner_lvs_plan_profile.cpp)
 target_link_libraries(${PROJECT_NAME}_simple PUBLIC ${PROJECT_NAME}_core Boost::boost)
 target_compile_options(${PROJECT_NAME}_simple PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_simple PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
