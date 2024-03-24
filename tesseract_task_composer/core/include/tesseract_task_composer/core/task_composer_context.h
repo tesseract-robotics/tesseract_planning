@@ -29,13 +29,16 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
-#include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
-#include <boost/uuid/uuid.hpp>
 #include <tesseract_common/fwd.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_node_info.h>
+
+namespace boost::uuids
+{
+struct uuid;
+}
 
 namespace tesseract_planning
 {
