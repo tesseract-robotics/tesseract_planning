@@ -211,6 +211,7 @@ bool GlassUprightExample::run()
     composite_profile->smooth_accelerations = false;
     composite_profile->smooth_jerks = false;
     composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
+    composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
     profiles->addProfile<TrajOptIfoptCompositeProfile>(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "UPRIGHT", composite_profile);
 
     auto plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
@@ -238,6 +239,7 @@ bool GlassUprightExample::run()
     composite_profile->smooth_accelerations = false;
     composite_profile->smooth_jerks = false;
     composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
+    composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
     profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "UPRIGHT", composite_profile);
 
     auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();

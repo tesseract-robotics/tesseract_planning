@@ -414,7 +414,7 @@ bool addCollisionConstraint(trajopt_sqp::QPProblem& nlp,
                             const std::shared_ptr<const trajopt_common::TrajOptCollisionConfig>& config,
                             const std::vector<int>& fixed_indices)
 {
-  auto constraints = createCollisionConstraints(vars, env, manip_info, config, fixed_indices, true);
+  auto constraints = createCollisionConstraints(vars, env, manip_info, config, fixed_indices, false);
   for (auto& constraint : constraints)
     nlp.addConstraintSet(constraint);
   return true;
@@ -428,7 +428,7 @@ bool addCollisionCost(trajopt_sqp::QPProblem& nlp,
                       const std::vector<int>& fixed_indices)
 {
   // Coefficients are applied within the constraint
-  auto constraints = createCollisionConstraints(vars, env, manip_info, config, fixed_indices, true);
+  auto constraints = createCollisionConstraints(vars, env, manip_info, config, fixed_indices, false);
   for (auto& constraint : constraints)
     nlp.addCostSet(constraint, trajopt_sqp::CostPenaltyType::HINGE);
 
