@@ -29,6 +29,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
+#include <atomic>
 #include <boost/serialization/export.hpp>
 #include <tesseract_common/fwd.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
