@@ -24,14 +24,19 @@
  * limitations under the License.
  */
 
-#include <tesseract_task_composer/taskflow/taskflow_task_composer_future.h>
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <taskflow/taskflow.hpp>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
+#include <tesseract_task_composer/taskflow/taskflow_task_composer_future.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
 
 namespace tesseract_planning
 {
 TaskflowTaskComposerFuture::TaskflowTaskComposerFuture(std::shared_future<void> future,
                                                        std::unique_ptr<tf::Taskflow> taskflow,
-                                                       TaskComposerContext::Ptr context)
+                                                       std::shared_ptr<TaskComposerContext> context)
   : TaskComposerFuture(std::move(context)), future_(std::move(future)), taskflow_(std::move(taskflow))
 {
 }

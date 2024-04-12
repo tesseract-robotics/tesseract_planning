@@ -29,6 +29,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
+#include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
@@ -97,6 +98,6 @@ private:
 };
 }  // namespace tesseract_planning
 
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, SetAnalogInstruction);
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, SetAnalogInstruction)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_SET_ANALOG_INSTRUCTION_H

@@ -24,128 +24,33 @@
  * limitations under the License.
  */
 
-#include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
-#include <tesseract_task_composer/taskflow/taskflow_task_composer_future.h>
-#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_common/timer.h>
 #include <taskflow/taskflow.hpp>
+#include <yaml-cpp/yaml.h>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
+#include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
+#include <tesseract_task_composer/taskflow/taskflow_task_composer_future.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node.h>
+#include <tesseract_task_composer/core/task_composer_task.h>
+#include <tesseract_task_composer/core/task_composer_pipeline.h>
+#include <tesseract_task_composer/core/task_composer_graph.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
 
 namespace tesseract_planning
 {
-TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(size_t num_threads)
-  : TaskComposerExecutor("TaskflowExecutor")
-  , num_threads_(num_threads)
-  , executor_(std::make_unique<tf::Executor>(num_threads_))
-{
-}
-TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(std::string name, size_t num_threads)
-  : TaskComposerExecutor(std::move(name))
-  , num_threads_(num_threads)
-  , executor_(std::make_unique<tf::Executor>(num_threads_))
-{
-}
-
-TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(std::string name, const YAML::Node& config)
-  : TaskComposerExecutor(std::move(name)), num_threads_(std::thread::hardware_concurrency())
-{
-  try
-  {
-    if (YAML::Node n = config["threads"])
-    {
-      auto t = n.as<int>();
-      if (t > 0)
-        num_threads_ = static_cast<std::size_t>(t);
-      else
-        throw std::runtime_error("TaskflowTaskComposerExecutor: entry 'threads' must be greater than zero");
-    }
-
-    executor_ = std::make_unique<tf::Executor>(num_threads_);
-  }
-  catch (const std::exception& e)
-  {
-    throw std::runtime_error("TaskflowTaskComposerExecutor: Failed to parse yaml config data! Details: " +
-                             std::string(e.what()));
-  }
-}
-
-TaskflowTaskComposerExecutor::~TaskflowTaskComposerExecutor() = default;
-
-void TaskflowTaskComposerExecutor::removeFuture(const boost::uuids::uuid& uuid)
-{
-  std::unique_lock<std::mutex> lock(futures_mutex_);
-  futures_.erase(uuid);
-}
-
-TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerNode& node,
-                                                           TaskComposerContext::Ptr context)
-{
-  auto taskflow = std::make_unique<tf::Taskflow>(node.getName());
-  if (node.getType() == TaskComposerNodeType::TASK)
-    convertToTaskflow(static_cast<const TaskComposerTask&>(node), *context, *this, taskflow.get());
-  else if (node.getType() == TaskComposerNodeType::PIPELINE)
-    convertToTaskflow(static_cast<const TaskComposerPipeline&>(node), *context, *this, taskflow.get());
-  else if (node.getType() == TaskComposerNodeType::GRAPH)
-    convertToTaskflow(static_cast<const TaskComposerGraph&>(node), *context, *this, taskflow.get(), nullptr);
-  else
-    throw std::runtime_error("TaskComposerExecutor, unsupported node type!");
-
-  // Inorder to better support dynamic tasking within pipelines we store all futures internally
-  // and cleanup when finished because the data cannot go out of scope.
-  std::unique_lock<std::mutex> lock(futures_mutex_);
-  boost::uuids::uuid uuid = boost::uuids::random_generator()();
-  std::shared_future<void> f = executor_->run(*taskflow, [this, uuid]() { removeFuture(uuid); });
-  auto future = std::make_unique<TaskflowTaskComposerFuture>(f, std::move(taskflow), std::move(context));
-  futures_[uuid] = future->copy();
-  return future;
-}
-
-long TaskflowTaskComposerExecutor::getWorkerCount() const { return static_cast<long>(executor_->num_workers()); }
-
-long TaskflowTaskComposerExecutor::getTaskCount() const { return static_cast<long>(executor_->num_topologies()); }
-
-bool TaskflowTaskComposerExecutor::operator==(const TaskflowTaskComposerExecutor& rhs) const
-{
-  bool equal = true;
-  equal &= (num_threads_ == rhs.num_threads_);
-  equal &= TaskComposerExecutor::operator==(rhs);
-  return equal;
-}
-
-bool TaskflowTaskComposerExecutor::operator!=(const TaskflowTaskComposerExecutor& rhs) const
-{
-  return !operator==(rhs);
-}
-
-template <class Archive>
-void TaskflowTaskComposerExecutor::save(Archive& ar, const unsigned int /*version*/) const
-{
-  ar& BOOST_SERIALIZATION_NVP(num_threads_);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerExecutor);
-}
-
-template <class Archive>
-void TaskflowTaskComposerExecutor::load(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_NVP(num_threads_);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerExecutor);
-
-  executor_ = std::make_unique<tf::Executor>(num_threads_);
-}
-
-template <class Archive>
-void TaskflowTaskComposerExecutor::serialize(Archive& ar, const unsigned int version)
-{
-  boost::serialization::split_member(ar, *this, version);
-}
-
-tf::Task TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_graph,
-                                                         TaskComposerContext& task_context,
-                                                         TaskComposerExecutor& task_executor,
-                                                         tf::Taskflow* taskflow,
-                                                         tf::Subflow* parent_sbf)
+tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
+                           TaskComposerContext& task_context,
+                           TaskComposerExecutor& task_executor,
+                           tf::Taskflow* taskflow,
+                           tf::Subflow* parent_sbf)
 {
   auto fn = [&task_graph, &task_context, &task_executor](tf::Subflow& subflow) {
     tesseract_common::Timer timer;
@@ -218,10 +123,10 @@ tf::Task TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph
   return taskflow->emplace(fn).name(task_graph.getName());
 }
 
-void TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerPipeline& task_pipeline,
-                                                     TaskComposerContext& task_context,
-                                                     TaskComposerExecutor& task_executor,
-                                                     tf::Taskflow* taskflow)
+void convertToTaskflow(const TaskComposerPipeline& task_pipeline,
+                       TaskComposerContext& task_context,
+                       TaskComposerExecutor& task_executor,
+                       tf::Taskflow* taskflow)
 {
   taskflow
       ->emplace(
@@ -229,17 +134,122 @@ void TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerPipeline&
       .name(task_pipeline.getName());
 }
 
-void TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerTask& task,
-                                                     TaskComposerContext& task_context,
-                                                     TaskComposerExecutor& task_executor,
-                                                     tf::Taskflow* taskflow)
+void convertToTaskflow(const TaskComposerTask& task,
+                       TaskComposerContext& task_context,
+                       TaskComposerExecutor& task_executor,
+                       tf::Taskflow* taskflow)
 {
   taskflow->emplace([&task, &task_context, &task_executor] { return task.run(task_context, task_executor); })
       .name(task.getName());
 }
 
+TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(size_t num_threads)
+  : TaskComposerExecutor("TaskflowExecutor")
+  , num_threads_(num_threads)
+  , executor_(std::make_unique<tf::Executor>(num_threads_))
+{
+}
+TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(std::string name, size_t num_threads)
+  : TaskComposerExecutor(std::move(name))
+  , num_threads_(num_threads)
+  , executor_(std::make_unique<tf::Executor>(num_threads_))
+{
+}
+
+TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(std::string name, const YAML::Node& config)
+  : TaskComposerExecutor(std::move(name)), num_threads_(std::thread::hardware_concurrency())
+{
+  try
+  {
+    if (YAML::Node n = config["threads"])
+    {
+      auto t = n.as<int>();
+      if (t > 0)
+        num_threads_ = static_cast<std::size_t>(t);
+      else
+        throw std::runtime_error("TaskflowTaskComposerExecutor: entry 'threads' must be greater than zero");
+    }
+
+    executor_ = std::make_unique<tf::Executor>(num_threads_);
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("TaskflowTaskComposerExecutor: Failed to parse yaml config data! Details: " +
+                             std::string(e.what()));
+  }
+}
+
+TaskflowTaskComposerExecutor::~TaskflowTaskComposerExecutor() = default;
+
+void TaskflowTaskComposerExecutor::removeFuture(const boost::uuids::uuid& uuid)
+{
+  std::unique_lock<std::mutex> lock(futures_mutex_);
+  futures_.erase(uuid);
+}
+
+std::unique_ptr<TaskComposerFuture> TaskflowTaskComposerExecutor::run(const TaskComposerNode& node,
+                                                                      std::shared_ptr<TaskComposerContext> context)
+{
+  auto taskflow = std::make_unique<tf::Taskflow>(node.getName());
+  if (node.getType() == TaskComposerNodeType::TASK)
+    convertToTaskflow(static_cast<const TaskComposerTask&>(node), *context, *this, taskflow.get());
+  else if (node.getType() == TaskComposerNodeType::PIPELINE)
+    convertToTaskflow(static_cast<const TaskComposerPipeline&>(node), *context, *this, taskflow.get());
+  else if (node.getType() == TaskComposerNodeType::GRAPH)
+    convertToTaskflow(static_cast<const TaskComposerGraph&>(node), *context, *this, taskflow.get(), nullptr);
+  else
+    throw std::runtime_error("TaskComposerExecutor, unsupported node type!");
+
+  // Inorder to better support dynamic tasking within pipelines we store all futures internally
+  // and cleanup when finished because the data cannot go out of scope.
+  std::unique_lock<std::mutex> lock(futures_mutex_);
+  boost::uuids::uuid uuid = boost::uuids::random_generator()();
+  std::shared_future<void> f = executor_->run(*taskflow, [this, uuid]() { removeFuture(uuid); });
+  auto future = std::make_unique<TaskflowTaskComposerFuture>(f, std::move(taskflow), std::move(context));
+  futures_[uuid] = future->copy();
+  return future;
+}
+
+long TaskflowTaskComposerExecutor::getWorkerCount() const { return static_cast<long>(executor_->num_workers()); }
+
+long TaskflowTaskComposerExecutor::getTaskCount() const { return static_cast<long>(executor_->num_topologies()); }
+
+bool TaskflowTaskComposerExecutor::operator==(const TaskflowTaskComposerExecutor& rhs) const
+{
+  bool equal = true;
+  equal &= (num_threads_ == rhs.num_threads_);
+  equal &= TaskComposerExecutor::operator==(rhs);
+  return equal;
+}
+
+bool TaskflowTaskComposerExecutor::operator!=(const TaskflowTaskComposerExecutor& rhs) const
+{
+  return !operator==(rhs);
+}
+
+template <class Archive>
+void TaskflowTaskComposerExecutor::save(Archive& ar, const unsigned int /*version*/) const
+{
+  ar& BOOST_SERIALIZATION_NVP(num_threads_);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerExecutor);
+}
+
+template <class Archive>
+void TaskflowTaskComposerExecutor::load(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_NVP(num_threads_);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerExecutor);
+
+  executor_ = std::make_unique<tf::Executor>(num_threads_);
+}
+
+template <class Archive>
+void TaskflowTaskComposerExecutor::serialize(Archive& ar, const unsigned int version)
+{
+  boost::serialization::split_member(ar, *this, version);
+}
+
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskflowTaskComposerExecutor)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskflowTaskComposerExecutor)

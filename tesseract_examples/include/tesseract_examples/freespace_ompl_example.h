@@ -26,8 +26,6 @@
 #ifndef TESSERACT_EXAMPLES_FREESPACE_OMPL_EXAMPLE_H
 #define TESSERACT_EXAMPLES_FREESPACE_OMPL_EXAMPLE_H
 
-#include <tesseract_common/macros.h>
-
 #include <tesseract_examples/example.h>
 
 namespace tesseract_examples
@@ -38,8 +36,8 @@ namespace tesseract_examples
 class FreespaceOMPLExample : public Example
 {
 public:
-  FreespaceOMPLExample(tesseract_environment::Environment::Ptr env,
-                       tesseract_visualization::Visualization::Ptr plotter = nullptr,
+  FreespaceOMPLExample(std::shared_ptr<tesseract_environment::Environment> env,
+                       std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
                        double range = 0.01,
                        double planning_time = 60.0);
   ~FreespaceOMPLExample() override = default;
@@ -53,8 +51,6 @@ public:
 private:
   double range_;
   double planning_time_;
-
-  static tesseract_environment::Command::Ptr addSphere();
 };
 
 }  // namespace tesseract_examples

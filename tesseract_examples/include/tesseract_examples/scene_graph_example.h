@@ -37,8 +37,8 @@ namespace tesseract_examples
 class SceneGraphExample : public Example
 {
 public:
-  SceneGraphExample(tesseract_environment::Environment::Ptr env,
-                    tesseract_visualization::Visualization::Ptr plotter = nullptr);
+  SceneGraphExample(std::shared_ptr<tesseract_environment::Environment> env,
+                    std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr);
   ~SceneGraphExample() override = default;
   SceneGraphExample(const SceneGraphExample&) = default;
   SceneGraphExample& operator=(const SceneGraphExample&) = default;

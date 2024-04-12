@@ -29,12 +29,22 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/StateValidityChecker.h>
+#include <vector>
+#include <map>
 #include <mutex>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/ompl/utils.h>
-#include <tesseract_environment/environment.h>
-#include <tesseract_kinematics/core/forward_kinematics.h>
+#include <tesseract_motion_planners/ompl/types.h>
+
+#include <tesseract_environment/fwd.h>
+#include <tesseract_kinematics/core/fwd.h>
+#include <tesseract_collision/core/fwd.h>
+
+namespace ompl::base
+{
+class SpaceInformation;
+using SpaceInformationPtr = std::shared_ptr<SpaceInformation>;
+}  // namespace ompl::base
 
 namespace tesseract_planning
 {
@@ -44,7 +54,7 @@ class StateCollisionValidator : public ompl::base::StateValidityChecker
 public:
   StateCollisionValidator(const ompl::base::SpaceInformationPtr& space_info,
                           const tesseract_environment::Environment& env,
-                          tesseract_kinematics::JointGroup::ConstPtr manip,
+                          std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
                           const tesseract_collision::CollisionCheckConfig& collision_check_config,
                           OMPLStateExtractor extractor);
 
@@ -52,10 +62,10 @@ public:
 
 private:
   /** @brief The Tesseract Joint Group */
-  tesseract_kinematics::JointGroup::ConstPtr manip_;
+  std::shared_ptr<const tesseract_kinematics::JointGroup> manip_;
 
   /** @brief The continuous contact manager used for creating cached continuous contact managers. */
-  tesseract_collision::DiscreteContactManager::Ptr contact_manager_;
+  std::shared_ptr<tesseract_collision::DiscreteContactManager> contact_manager_;
 
   /** @brief A list of active links */
   std::vector<std::string> links_;
@@ -72,7 +82,7 @@ private:
   mutable std::mutex mutex_;
 
   /** @brief The continuous contact manager cache */
-  mutable std::map<unsigned long int, tesseract_collision::DiscreteContactManager::Ptr> contact_managers_;
+  mutable std::map<unsigned long int, std::shared_ptr<tesseract_collision::DiscreteContactManager>> contact_managers_;
 };
 
 }  // namespace tesseract_planning

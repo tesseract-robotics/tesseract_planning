@@ -29,13 +29,21 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/access.hpp>
+#include <yaml-cpp/yaml.h>
+
+#include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
 #include <tesseract_task_composer/planning/nodes/motion_planner_task_info.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
+
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+
 #include <tesseract_motion_planners/core/planner.h>
+#include <tesseract_motion_planners/core/types.h>
 
 namespace tesseract_planning
 {
@@ -112,8 +120,8 @@ protected:
     ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
   }
 
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
-                                     OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override
+  std::unique_ptr<TaskComposerNodeInfo> runImpl(TaskComposerContext& context,
+                                                OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override
   {
     // Get the problem
     auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);

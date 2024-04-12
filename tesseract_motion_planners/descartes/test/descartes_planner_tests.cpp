@@ -34,8 +34,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
 
+#include <tesseract_kinematics/core/kinematic_group.h>
+
 #include <tesseract_environment/environment.h>
 
+#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
@@ -46,10 +49,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
 #include <tesseract_motion_planners/descartes/serialize.h>
 #include <tesseract_motion_planners/descartes/deserialize.h>
-
+#include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
-#include <tesseract_motion_planners/simple/interpolation.h>
+
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_environment;

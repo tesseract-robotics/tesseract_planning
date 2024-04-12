@@ -37,6 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/profile_dictionary.h>
 
 namespace tesseract_planning
 {
@@ -195,17 +196,20 @@ const std::string& MoveInstruction::getProfile() const { return profile_; }
 void MoveInstruction::setPathProfile(const std::string& profile) { path_profile_ = profile; }
 const std::string& MoveInstruction::getPathProfile() const { return path_profile_; }
 
-void MoveInstruction::setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides)
+void MoveInstruction::setProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides)
 {
   profile_overrides_ = std::move(profile_overrides);
 }
-ProfileDictionary::ConstPtr MoveInstruction::getProfileOverrides() const { return profile_overrides_; }
+std::shared_ptr<const ProfileDictionary> MoveInstruction::getProfileOverrides() const { return profile_overrides_; }
 
-void MoveInstruction::setPathProfileOverrides(ProfileDictionary::ConstPtr profile_overrides)
+void MoveInstruction::setPathProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides)
 {
   path_profile_overrides_ = std::move(profile_overrides);
 }
-ProfileDictionary::ConstPtr MoveInstruction::getPathProfileOverrides() const { return path_profile_overrides_; }
+std::shared_ptr<const ProfileDictionary> MoveInstruction::getPathProfileOverrides() const
+{
+  return path_profile_overrides_;
+}
 
 const std::string& MoveInstruction::getDescription() const { return description_; }
 

@@ -27,11 +27,23 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <fstream>
+#include <trajopt_common/collision_types.h>
+#include <trajopt/problem_description.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/puzzle_piece_auxillary_axes_example.h>
+
+#include <tesseract_collision/core/types.h>
+
+#include <tesseract_state_solver/state_solver.h>
+
+#include <tesseract_environment/environment.h>
 #include <tesseract_environment/utils.h>
+
+#include <tesseract_common/resource_locator.h>
 #include <tesseract_common/timer.h>
+
+#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -46,10 +58,18 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
+
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+#include <tesseract_task_composer/core/task_composer_node.h>
+#include <tesseract_task_composer/core/task_composer_executor.h>
+#include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
+
+#include <tesseract_visualization/visualization.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
+
 #include <trajopt_sco/osqp_interface.hpp>
 
 using namespace trajopt;
@@ -64,8 +84,7 @@ static const std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
 
 namespace tesseract_examples
 {
-tesseract_common::VectorIsometry3d
-PuzzlePieceAuxillaryAxesExample::makePuzzleToolPoses(const tesseract_common::ResourceLocator::ConstPtr& locator)
+tesseract_common::VectorIsometry3d makePuzzleToolPoses(const tesseract_common::ResourceLocator::ConstPtr& locator)
 {
   tesseract_common::VectorIsometry3d path;  // results
   std::ifstream indata;                     // input file
@@ -126,10 +145,11 @@ PuzzlePieceAuxillaryAxesExample::makePuzzleToolPoses(const tesseract_common::Res
   return path;
 }
 
-PuzzlePieceAuxillaryAxesExample::PuzzlePieceAuxillaryAxesExample(tesseract_environment::Environment::Ptr env,
-                                                                 tesseract_visualization::Visualization::Ptr plotter,
-                                                                 bool ifopt,
-                                                                 bool debug)
+PuzzlePieceAuxillaryAxesExample::PuzzlePieceAuxillaryAxesExample(
+    std::shared_ptr<tesseract_environment::Environment> env,
+    std::shared_ptr<tesseract_visualization::Visualization> plotter,
+    bool ifopt,
+    bool debug)
   : Example(std::move(env), std::move(plotter)), ifopt_(ifopt), debug_(debug)
 {
 }

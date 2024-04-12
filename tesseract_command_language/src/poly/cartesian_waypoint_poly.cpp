@@ -28,8 +28,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/utils.h>
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/poly/waypoint_poly.h>
+#include <tesseract_common/joint_state.h>
+#include <tesseract_common/serialization.h>
+#include <tesseract_common/utils.h>
 
 template <class Archive>
 void tesseract_planning::detail_cartesian_waypoint::CartesianWaypointInterface::serialize(
@@ -126,7 +129,6 @@ void tesseract_planning::CartesianWaypointPoly::serialize(Archive& ar, const uns
   ar& boost::serialization::make_nvp("base", boost::serialization::base_object<CartesianWaypointPolyBase>(*this));
 }
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_cartesian_waypoint::CartesianWaypointInterface)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypointPolyBase)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypointPoly)
@@ -135,4 +137,4 @@ BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_cartesian_waypoint::Cart
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypointPolyBase)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypointPoly)
 
-TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypointPoly);
+TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypointPoly)

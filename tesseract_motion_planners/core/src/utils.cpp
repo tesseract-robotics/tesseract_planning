@@ -31,14 +31,30 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/joint_state.h>
+
+#include <tesseract_collision/core/types.h>
+#include <tesseract_collision/core/continuous_contact_manager.h>
+#include <tesseract_collision/core/discrete_contact_manager.h>
+
+#include <tesseract_scene_graph/scene_state.h>
+#include <tesseract_state_solver/state_solver.h>
+
 #include <tesseract_environment/environment.h>
 #include <tesseract_environment/utils.h>
-#include <tesseract_kinematics/core/forward_kinematics.h>
-#include <tesseract_kinematics/core/inverse_kinematics.h>
+
+#include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
+
+#include <tesseract_command_language/poly/instruction_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+
+#include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/utils.h>
+
 #include <tesseract_motion_planners/core/utils.h>
 
 namespace tesseract_planning

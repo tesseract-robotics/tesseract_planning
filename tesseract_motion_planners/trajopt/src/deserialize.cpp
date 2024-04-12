@@ -28,6 +28,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <fstream>
+#include <tinyxml2.h>
 #include <console_bridge/console.h>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -35,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/utils.h>
 #include <tesseract_motion_planners/trajopt/deserialize.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 
 namespace tesseract_planning
@@ -49,7 +51,7 @@ TrajOptDefaultPlanProfile trajOptPlanFromXMLElement(const tinyxml2::XMLElement* 
 {
   std::array<int, 3> version{ 0, 0, 0 };
   std::string version_string;
-  tinyxml2::XMLError status = tesseract_common::QueryStringAttribute(profile_xml, "version", version_string);
+  int status = tesseract_common::QueryStringAttribute(profile_xml, "version", version_string);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("fromXML: Error parsing robot attribute 'version'");
 
@@ -96,7 +98,7 @@ TrajOptDefaultPlanProfile trajOptPlanFromXMLDocument(const tinyxml2::XMLDocument
 TrajOptDefaultPlanProfile trajOptPlanFromXMLString(const std::string& xml_string)
 {
   tinyxml2::XMLDocument xml_doc;
-  tinyxml2::XMLError status = xml_doc.Parse(xml_string.c_str());
+  int status = xml_doc.Parse(xml_string.c_str());
   if (status != tinyxml2::XMLError::XML_SUCCESS)
     throw std::runtime_error("Could not parse the Planner Profile XML File.");
 
@@ -133,7 +135,7 @@ TrajOptDefaultCompositeProfile trajOptCompositeFromXMLElement(const tinyxml2::XM
 {
   std::array<int, 3> version{ 0, 0, 0 };
   std::string version_string;
-  tinyxml2::XMLError status = tesseract_common::QueryStringAttribute(profile_xml, "version", version_string);
+  int status = tesseract_common::QueryStringAttribute(profile_xml, "version", version_string);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("fromXML: Error parsing robot attribute 'version'");
 
@@ -180,7 +182,7 @@ TrajOptDefaultCompositeProfile trajOptCompositeFromXMLDocument(const tinyxml2::X
 TrajOptDefaultCompositeProfile trajOptCompositeFromXMLString(const std::string& xml_string)
 {
   tinyxml2::XMLDocument xml_doc;
-  tinyxml2::XMLError status = xml_doc.Parse(xml_string.c_str());
+  int status = xml_doc.Parse(xml_string.c_str());
   if (status != tinyxml2::XMLError::XML_SUCCESS)
     throw std::runtime_error("Could not parse the Planner Profile XML File.");
 

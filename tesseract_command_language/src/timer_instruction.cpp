@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/timer_instruction.h>
+#include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
@@ -106,6 +107,5 @@ void TimerInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 }
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimerInstruction)
-TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::TimerInstruction);
+TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::TimerInstruction)

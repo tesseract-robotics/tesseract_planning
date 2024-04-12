@@ -31,10 +31,22 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
+
+#include <tesseract_common/joint_state.h>
+#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_task_composer/planning/nodes/format_as_input_task.h>
+
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/poly/state_waypoint_poly.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/poly/joint_waypoint_poly.h>
 
 namespace tesseract_planning
 {
@@ -68,8 +80,8 @@ FormatAsInputTask::FormatAsInputTask(std::string name,
     throw std::runtime_error("FormatAsInputTask, config 'outputs' entry requires one output key");
 }
 
-TaskComposerNodeInfo::UPtr FormatAsInputTask::runImpl(TaskComposerContext& context,
-                                                      OptionalTaskComposerExecutor /*executor*/) const
+std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerContext& context,
+                                                                 OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
@@ -158,6 +170,5 @@ void FormatAsInputTask::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FormatAsInputTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FormatAsInputTask)

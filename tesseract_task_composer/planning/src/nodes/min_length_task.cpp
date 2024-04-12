@@ -29,17 +29,27 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
+
+#include <tesseract_common/serialization.h>
+
+#include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/min_length_task.h>
 #include <tesseract_task_composer/planning/profiles/min_length_profile.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_plan_profile.h>
 #include <tesseract_motion_planners/planner_utils.h>
+
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 
 namespace tesseract_planning
 {
@@ -69,8 +79,8 @@ MinLengthTask::MinLengthTask(std::string name,
     throw std::runtime_error("MinLengthTask, config 'outputs' entry currently only supports one output key");
 }
 
-TaskComposerNodeInfo::UPtr MinLengthTask::runImpl(TaskComposerContext& context,
-                                                  OptionalTaskComposerExecutor /*executor*/) const
+std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext& context,
+                                                             OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
@@ -158,6 +168,5 @@ void MinLengthTask::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MinLengthTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MinLengthTask)

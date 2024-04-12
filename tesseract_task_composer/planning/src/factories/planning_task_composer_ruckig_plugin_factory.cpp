@@ -35,6 +35,7 @@ using RuckigTrajectorySmoothingTaskFactory = TaskComposerTaskFactory<RuckigTraje
 
 }  // namespace tesseract_planning
 
+// clang-format off
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::RuckigTrajectorySmoothingTaskFactory,
-                                        RuckigTrajectorySmoothingTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::RuckigTrajectorySmoothingTaskFactory, RuckigTrajectorySmoothingTaskFactory)
+// clang-format on

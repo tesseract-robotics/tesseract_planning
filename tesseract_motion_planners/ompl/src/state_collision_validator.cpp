@@ -27,17 +27,23 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/SpaceInformation.h>
 #include <thread>
+#include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/utils.h>
 #include <tesseract_motion_planners/ompl/state_collision_validator.h>
+
+#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract_collision/core/discrete_contact_manager.h>
+#include <tesseract_collision/core/types.h>
+#include <tesseract_environment/environment.h>
 
 namespace tesseract_planning
 {
 StateCollisionValidator::StateCollisionValidator(
     const ompl::base::SpaceInformationPtr& space_info,
     const tesseract_environment::Environment& env,
-    tesseract_kinematics::JointGroup::ConstPtr manip,
+    std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
     const tesseract_collision::CollisionCheckConfig& collision_check_config,
     OMPLStateExtractor extractor)
   : StateValidityChecker(space_info)

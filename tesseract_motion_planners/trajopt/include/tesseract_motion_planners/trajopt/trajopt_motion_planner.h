@@ -28,11 +28,10 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <trajopt/problem_description.hpp>
+#include <trajopt/fwd.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/planner.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
 
 namespace tesseract_planning
 {
@@ -54,7 +53,7 @@ public:
 
   void clear() override;
 
-  MotionPlanner::Ptr clone() const override;
+  std::unique_ptr<MotionPlanner> clone() const override;
 
   virtual std::shared_ptr<trajopt::ProblemConstructionInfo> createProblem(const PlannerRequest& request) const;
 };

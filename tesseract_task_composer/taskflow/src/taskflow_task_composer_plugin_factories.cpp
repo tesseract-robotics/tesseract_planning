@@ -36,6 +36,7 @@ TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerTaskflowFactoriesAnchor)
 // LCOV_EXCL_STOP
 }  // namespace tesseract_planning
 
+// clang-format off
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_EXECUTOR_PLUGIN(tesseract_planning::TaskflowTaskComposerExecutorFactory,
-                                            TaskflowTaskComposerExecutorFactory)
+TESSERACT_ADD_TASK_COMPOSER_EXECUTOR_PLUGIN(tesseract_planning::TaskflowTaskComposerExecutorFactory, TaskflowTaskComposerExecutorFactory)
+// clang-format on

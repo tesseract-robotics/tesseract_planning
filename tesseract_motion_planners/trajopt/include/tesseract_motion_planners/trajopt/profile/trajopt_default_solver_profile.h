@@ -27,7 +27,7 @@
 #define TESSERACT_MOTION_PLANNERS_TRAJOPT_DEFAULT_SOLVER_PROFILE_H
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
-#include <trajopt_sco/solver_interface.hpp>
+#include <trajopt_sco/optimizers.hpp>
 
 namespace tesseract_planning
 {

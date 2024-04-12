@@ -28,14 +28,23 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
+
+#include <tesseract_common/serialization.h>
+
+#include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-//#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_bounds_task.h>
 #include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/utils.h>
+
 #include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
@@ -69,8 +78,8 @@ FixStateBoundsTask::FixStateBoundsTask(std::string name,
     throw std::runtime_error("FixStateBoundsTask, config 'outputs' entry currently only supports one output key");
 }
 
-TaskComposerNodeInfo::UPtr FixStateBoundsTask::runImpl(TaskComposerContext& context,
-                                                       OptionalTaskComposerExecutor /*executor*/) const
+std::unique_ptr<TaskComposerNodeInfo> FixStateBoundsTask::runImpl(TaskComposerContext& context,
+                                                                  OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
@@ -234,6 +243,5 @@ void FixStateBoundsTask::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FixStateBoundsTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FixStateBoundsTask)

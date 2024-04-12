@@ -26,26 +26,33 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/shared_ptr.hpp>
-#include <boost/serialization/unique_ptr.hpp>
+#include <boost/version.hpp>
 #if (BOOST_VERSION >= 107400) && (BOOST_VERSION < 107500)
 #include <boost/serialization/library_version_type.hpp>
 #endif
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/shared_ptr.hpp>
+#include <boost/serialization/unique_ptr.hpp>
 #include <boost/serialization/unordered_map.hpp>
+#include <boost/uuid/uuid.hpp>
+#include <tesseract_common/serialization.h>
 #include <tesseract_common/atomic_serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+#include <tesseract_task_composer/core/task_composer_problem.h>
+#include <tesseract_task_composer/core/task_composer_node.h>
 
 namespace tesseract_planning
 {
-TaskComposerContext::TaskComposerContext(TaskComposerProblem::Ptr problem)
+TaskComposerContext::TaskComposerContext(std::shared_ptr<TaskComposerProblem> problem)
   : TaskComposerContext(std::move(problem), std::make_shared<TaskComposerDataStorage>())
 {
 }
 
-TaskComposerContext::TaskComposerContext(tesseract_planning::TaskComposerProblem::Ptr problem,
-                                         TaskComposerDataStorage::Ptr data_storage)
+TaskComposerContext::TaskComposerContext(std::shared_ptr<TaskComposerProblem> problem,
+                                         std::shared_ptr<TaskComposerDataStorage> data_storage)
   : problem(std::move(problem)), data_storage(std::move(data_storage))
 {
 }
@@ -93,6 +100,5 @@ void TaskComposerContext::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerContext)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerContext)

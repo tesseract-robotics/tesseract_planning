@@ -28,8 +28,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/utils.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
+#include <tesseract_common/serialization.h>
 
 template <class Archive>
 void tesseract_planning::detail_state_waypoint::StateWaypointInterface::serialize(
@@ -101,7 +101,6 @@ void tesseract_planning::StateWaypointPoly::serialize(Archive& ar, const unsigne
   ar& boost::serialization::make_nvp("base", boost::serialization::base_object<StateWaypointPolyBase>(*this));
 }
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_state_waypoint::StateWaypointInterface)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypointPolyBase)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypointPoly)
@@ -110,4 +109,4 @@ BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_state_waypoint::StateWay
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointPolyBase)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointPoly)
 
-TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointPoly);
+TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointPoly)

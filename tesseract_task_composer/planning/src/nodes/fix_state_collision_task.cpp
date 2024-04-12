@@ -31,17 +31,32 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/shared_ptr.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <trajopt/problem_description.hpp>
+#include <trajopt/utils.hpp>
 
+#include <tesseract_common/serialization.h>
+
+#include <tesseract_collision/core/discrete_contact_manager.h>
+#include <tesseract_collision/core/serialization.h>
+
+#include <tesseract_environment/environment.h>
 #include <tesseract_environment/utils.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/fix_state_collision_task.h>
+#include <tesseract_task_composer/planning/profiles/fix_state_collision_profile.h>
+#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
+
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
 
 #include <tesseract_command_language/utils.h>
+#include <tesseract_command_language/poly/waypoint_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+
 #include <tesseract_motion_planners/planner_utils.h>
-#include <tesseract_collision/core/serialization.h>
 
 namespace tesseract_planning
 {
@@ -169,7 +184,7 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     jp->first_step = 0;
     jp->last_step = 0;
     jp->name = "joint_pos";
-    jp->term_type = TT_CNT;
+    jp->term_type = TermType::TT_CNT;
     pci.cnt_infos.push_back(jp);
   }
 
@@ -177,7 +192,7 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
   {
     auto collision = std::make_shared<CollisionTermInfo>();
     collision->name = "collision";
-    collision->term_type = TT_CNT;
+    collision->term_type = TermType::TT_CNT;
     collision->evaluator_type = trajopt::CollisionEvaluatorType::SINGLE_TIMESTEP;
     collision->first_step = 0;
     collision->last_step = 0;
@@ -192,7 +207,7 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
   {
     auto collision = std::make_shared<CollisionTermInfo>();
     collision->name = "collision";
-    collision->term_type = TT_COST;
+    collision->term_type = TermType::TT_COST;
     collision->evaluator_type = trajopt::CollisionEvaluatorType::SINGLE_TIMESTEP;
     collision->first_step = 0;
     collision->last_step = 0;
@@ -342,8 +357,8 @@ FixStateCollisionTask::FixStateCollisionTask(std::string name,
     throw std::runtime_error("FixStateCollisionTask, config 'outputs' entry currently only supports one output key");
 }
 
-TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerContext& context,
-                                                          OptionalTaskComposerExecutor /*executor*/) const
+std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskComposerContext& context,
+                                                                     OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
@@ -693,7 +708,7 @@ void FixStateCollisionTask::serialize(Archive& ar, const unsigned int /*version*
 
 FixStateCollisionTaskInfo::FixStateCollisionTaskInfo(const FixStateCollisionTask& task) : TaskComposerNodeInfo(task) {}
 
-TaskComposerNodeInfo::UPtr FixStateCollisionTaskInfo::clone() const
+std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTaskInfo::clone() const
 {
   return std::make_unique<FixStateCollisionTaskInfo>(*this);
 }
@@ -717,7 +732,6 @@ void FixStateCollisionTaskInfo::serialize(Archive& ar, const unsigned int /*vers
 }
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FixStateCollisionTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FixStateCollisionTask)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FixStateCollisionTaskInfo)

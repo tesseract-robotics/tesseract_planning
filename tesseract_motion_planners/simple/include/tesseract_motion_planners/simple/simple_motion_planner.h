@@ -34,12 +34,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/planner.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
+#include <tesseract_command_language/fwd.h>
 
 namespace tesseract_planning
 {
-class SimpleMotionPlannerStatusCategory;
-
 /**
  * @brief The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all
  * of the MoveInstructions and then calls the appropriate function from the profile. These functions do not depend on
@@ -65,7 +63,7 @@ public:
 
   void clear() override;
 
-  MotionPlanner::Ptr clone() const override;
+  std::unique_ptr<MotionPlanner> clone() const override;
 
 protected:
   CompositeInstruction processCompositeInstruction(const CompositeInstruction& instructions,

@@ -30,17 +30,22 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <memory>
-#include <ifopt/problem.h>
+#include <trajopt_ifopt/fwd.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/poly/instruction_poly.h>
-#include <tesseract_common/manipulator_info.h>
-#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
-#include <tesseract_command_language/joint_waypoint.h>
-#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/fwd.h>
+#include <tesseract_common/fwd.h>
+
+namespace tinyxml2
+{
+class XMLElement;  // NOLINT
+class XMLDocument;
+}  // namespace tinyxml2
 
 namespace tesseract_planning
 {
+struct TrajOptIfoptProblem;
+
 class TrajOptIfoptPlanProfile
 {
 public:
@@ -111,10 +116,6 @@ public:
 
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 };
-
-using TrajOptIfoptSolverProfileMap = std::unordered_map<std::string, TrajOptIfoptSolverProfile::ConstPtr>;
-using TrajOptIfoptCompositeProfileMap = std::unordered_map<std::string, TrajOptIfoptCompositeProfile::ConstPtr>;
-using TrajOptIfoptPlanProfileMap = std::unordered_map<std::string, TrajOptIfoptPlanProfile::ConstPtr>;
 
 }  // namespace tesseract_planning
 

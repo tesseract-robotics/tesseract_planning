@@ -28,6 +28,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/access.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
@@ -62,13 +63,12 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
-                                     OptionalTaskComposerExecutor executor = std::nullopt) const override;
+  std::unique_ptr<TaskComposerNodeInfo> runImpl(TaskComposerContext& context,
+                                                OptionalTaskComposerExecutor executor = std::nullopt) const override;
 };
 
 }  // namespace tesseract_planning
 
-#include <boost/serialization/export.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::UpdateStartStateTask, "UpdateStartStateTask")
 
 #endif  // TESSERACT_TASK_COMPOSER_UPDATE_START_STATE_TASK_H

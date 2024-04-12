@@ -26,10 +26,16 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/SpaceInformation.h>
+#include <ompl/base/StateValidityChecker.h>
 #include <thread>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/continuous_motion_validator.h>
+
+#include <tesseract_environment/environment.h>
+#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract_collision/core/types.h>
+#include <tesseract_collision/core/continuous_contact_manager.h>
 
 namespace tesseract_planning
 {
@@ -37,7 +43,7 @@ ContinuousMotionValidator::ContinuousMotionValidator(
     const ompl::base::SpaceInformationPtr& space_info,
     ompl::base::StateValidityCheckerPtr state_validator,
     const tesseract_environment::Environment& env,
-    tesseract_kinematics::JointGroup::ConstPtr manip,
+    std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
     const tesseract_collision::CollisionCheckConfig& collision_check_config,
     OMPLStateExtractor extractor)
   : MotionValidator(space_info)

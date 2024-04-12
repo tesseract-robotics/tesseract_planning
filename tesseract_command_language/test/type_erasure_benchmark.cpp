@@ -35,6 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <benchmark/benchmark.h>
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/any_poly.h>
+#include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>

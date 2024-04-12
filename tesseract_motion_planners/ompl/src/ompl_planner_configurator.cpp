@@ -26,6 +26,9 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <ompl/base/SpaceInformation.h>
+#include <ompl/base/Planner.h>
+
 #include <ompl/geometric/planners/sbl/SBL.h>
 #include <ompl/geometric/planners/est/EST.h>
 #include <ompl/geometric/planners/kpiece/LBKPIECE1.h>
@@ -40,6 +43,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/geometric/planners/prm/PRMstar.h>
 #include <ompl/geometric/planners/prm/LazyPRMstar.h>
 #include <ompl/geometric/planners/prm/SPARS.h>
+
+#include <tinyxml2.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
@@ -55,7 +60,7 @@ SBLConfigurator::SBLConfigurator(const tinyxml2::XMLElement& xml_element)
   if (range_element != nullptr)
   {
     std::string range_string;
-    tinyxml2::XMLError status = tesseract_common::QueryStringText(range_element, range_string);
+    int status = tesseract_common::QueryStringText(range_element, range_string);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("OMPLConfigurator: SBL: Error parsing Range string");
 
@@ -92,7 +97,7 @@ ESTConfigurator::ESTConfigurator(const tinyxml2::XMLElement& xml_element)
   const tinyxml2::XMLElement* range_element = est_element->FirstChildElement("Range");
   const tinyxml2::XMLElement* goal_bias_element = est_element->FirstChildElement("GoalBias");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (range_element != nullptr)
   {
@@ -154,7 +159,7 @@ LBKPIECE1Configurator::LBKPIECE1Configurator(const tinyxml2::XMLElement& xml_ele
   const tinyxml2::XMLElement* min_valid_path_fraction_element = lbkpiece1_element->FirstChildElement("MinValidPathFract"
                                                                                                      "ion");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (range_element != nullptr)
   {
@@ -237,7 +242,7 @@ BKPIECE1Configurator::BKPIECE1Configurator(const tinyxml2::XMLElement& xml_eleme
   const tinyxml2::XMLElement* min_valid_path_fraction_element = bkpiece1_element->FirstChildElement("MinValidPathFracti"
                                                                                                     "on");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (range_element != nullptr)
   {
@@ -340,7 +345,7 @@ KPIECE1Configurator::KPIECE1Configurator(const tinyxml2::XMLElement& xml_element
   const tinyxml2::XMLElement* min_valid_path_fraction_element = kpiece1_element->FirstChildElement("MinValidPathFractio"
                                                                                                    "n");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (range_element != nullptr)
   {
@@ -459,7 +464,7 @@ BiTRRTConfigurator::BiTRRTConfigurator(const tinyxml2::XMLElement& xml_element)
   const tinyxml2::XMLElement* frontier_threshold_element = bitrrt_element->FirstChildElement("FrontierThreshold");
   const tinyxml2::XMLElement* frontier_node_ratio_element = bitrrt_element->FirstChildElement("FrontierNodeRatio");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (range_element != nullptr)
   {
@@ -594,7 +599,7 @@ RRTConfigurator::RRTConfigurator(const tinyxml2::XMLElement& xml_element)
   const tinyxml2::XMLElement* range_element = rrt_element->FirstChildElement("Range");
   const tinyxml2::XMLElement* goal_bias_element = rrt_element->FirstChildElement("GoalBias");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (range_element != nullptr)
   {
@@ -653,7 +658,7 @@ RRTConnectConfigurator::RRTConnectConfigurator(const tinyxml2::XMLElement& xml_e
   const tinyxml2::XMLElement* rrt_connect_element = xml_element.FirstChildElement("RRTConnect");
   const tinyxml2::XMLElement* range_element = rrt_connect_element->FirstChildElement("Range");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (range_element != nullptr)
   {
@@ -697,7 +702,7 @@ RRTstarConfigurator::RRTstarConfigurator(const tinyxml2::XMLElement& xml_element
   const tinyxml2::XMLElement* delay_collision_checking_element = rrt_star_element->FirstChildElement("DelayCollisionChe"
                                                                                                      "cking");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (range_element != nullptr)
   {
@@ -774,7 +779,7 @@ TRRTConfigurator::TRRTConfigurator(const tinyxml2::XMLElement& xml_element)
   const tinyxml2::XMLElement* frontier_threshold_element = trrt_element->FirstChildElement("FrontierThreshold");
   const tinyxml2::XMLElement* frontier_node_ratio_element = trrt_element->FirstChildElement("FrontierNodeRatio");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (range_element != nullptr)
   {
@@ -905,7 +910,7 @@ PRMConfigurator::PRMConfigurator(const tinyxml2::XMLElement& xml_element)
   const tinyxml2::XMLElement* prm_element = xml_element.FirstChildElement("PRM");
   const tinyxml2::XMLElement* max_nearest_neighbors_element = prm_element->FirstChildElement("MaxNearestNeighbors");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (max_nearest_neighbors_element != nullptr)
   {
@@ -981,7 +986,7 @@ SPARSConfigurator::SPARSConfigurator(const tinyxml2::XMLElement& xml_element)
   const tinyxml2::XMLElement* sparse_delta_fraction_element = spars_element->FirstChildElement("SparseDeltaFraction");
   const tinyxml2::XMLElement* stretch_factor_element = spars_element->FirstChildElement("StretchFactor");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (max_failures_element != nullptr)
   {

@@ -33,10 +33,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/core/task_composer_context.h>
-
 namespace tesseract_planning
 {
+struct TaskComposerContext;
+
 /**
  * @brief This contains the result for the task composer request
  * @details Also this must be copyable so recommend using shared future or something comparable
@@ -53,10 +53,10 @@ public:
   using ConstUPtr = std::unique_ptr<const TaskComposerFuture>;
 
   TaskComposerFuture() = default;
-  TaskComposerFuture(TaskComposerContext::Ptr context) : context(std::move(context)) {}
+  TaskComposerFuture(std::shared_ptr<TaskComposerContext> context);
   virtual ~TaskComposerFuture() = default;
 
-  TaskComposerContext::Ptr context;
+  std::shared_ptr<TaskComposerContext> context;
 
   /** @brief Clear all content */
   virtual void clear() = 0;

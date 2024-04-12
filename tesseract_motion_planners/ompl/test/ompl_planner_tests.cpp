@@ -45,12 +45,21 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <functional>
 #include <cmath>
 #include <gtest/gtest.h>
+#include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
 
+#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract_kinematics/core/kinematic_group.h>
+
+#include <tesseract_scene_graph/link.h>
+#include <tesseract_scene_graph/joint.h>
+
 #include <tesseract_environment/environment.h>
 #include <tesseract_environment/utils.h>
+#include <tesseract_environment/commands/add_link_command.h>
+
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
@@ -61,10 +70,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 
+#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
+
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 #include <tesseract_geometry/impl/box.h>

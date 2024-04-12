@@ -28,8 +28,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/utils.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
+#include <tesseract_common/serialization.h>
+#include <tesseract_common/utils.h>
 
 template <class Archive>
 void tesseract_planning::detail_joint_waypoint::JointWaypointInterface::serialize(
@@ -121,7 +122,6 @@ void tesseract_planning::JointWaypointPoly::serialize(Archive& ar, const unsigne
   ar& boost::serialization::make_nvp("base", boost::serialization::base_object<JointWaypointPolyBase>(*this));
 }
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_joint_waypoint::JointWaypointInterface)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::JointWaypointPolyBase)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::JointWaypointPoly)

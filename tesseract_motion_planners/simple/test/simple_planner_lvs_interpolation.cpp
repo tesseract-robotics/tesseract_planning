@@ -29,7 +29,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
+#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract_scene_graph/scene_state.h>
 #include <tesseract_environment/environment.h>
+#include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_plan_profile.h>
 #include <tesseract_command_language/joint_waypoint.h>

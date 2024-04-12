@@ -1,13 +1,13 @@
 /**
- * @file types.h
- * @brief Contains common types used throughout command language
+ * @file types.cpp
+ * @brief Planner types.
  *
  * @author Levi Armstrong
- * @date July 22, 2020
+ * @date April 18, 2018
  * @version TODO
  * @bug No known bugs
  *
- * @copyright Copyright (c) 2020, Southwest Research Institute
+ * @copyright Copyright (c) 2017, Southwest Research Institute
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -23,14 +23,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_COMMAND_LANGUAGE_TYPES_H
-#define TESSERACT_COMMAND_LANGUAGE_TYPES_H
 
-#include <tesseract_common/manipulator_info.h>
+#include <tesseract_motion_planners/core/types.h>
+
+#include <tesseract_command_language/profile_dictionary.h>
 
 namespace tesseract_planning
 {
-using ManipulatorInfo = tesseract_common::ManipulatorInfo;
-}  // namespace tesseract_planning
+PlannerRequest::PlannerRequest() : profiles(std::make_shared<ProfileDictionary>()) {}
 
-#endif  // TESSERACT_COMMAND_LANGUAGE_TYPES_H
+PlannerResponse::operator bool() const noexcept { return successful; }
+}  // namespace tesseract_planning

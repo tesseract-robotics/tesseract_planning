@@ -47,7 +47,7 @@ CartesianWaypointConfig::CartesianWaypointConfig(const tinyxml2::XMLElement& xml
 
   if (enabled_element == nullptr)
     throw std::runtime_error("CartesianWaypointConfig: Must have Enabled element.");
-  tinyxml2::XMLError status = enabled_element->QueryBoolText(&enabled);
+  int status = enabled_element->QueryBoolText(&enabled);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("CartesianWaypointConfig: Error parsing Enabled string");
 
@@ -165,7 +165,7 @@ JointWaypointConfig::JointWaypointConfig(const tinyxml2::XMLElement& xml_element
   if (enabled_element == nullptr)
     throw std::runtime_error("JointWaypointConfig: Must have Enabled element.");
 
-  tinyxml2::XMLError status = enabled_element->QueryBoolText(&enabled);
+  int status = enabled_element->QueryBoolText(&enabled);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("JointWaypointConfig: Error parsing Enabled string");
 

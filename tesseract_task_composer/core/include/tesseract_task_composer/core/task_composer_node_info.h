@@ -32,6 +32,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <shared_mutex>
 #include <map>
 #include <chrono>
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/export.hpp>
 #include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -135,8 +137,9 @@ private:
 };
 
 /** @brief A threadsafe container for TaskComposerNodeInfo */
-struct TaskComposerNodeInfoContainer
+class TaskComposerNodeInfoContainer
 {
+public:
   using Ptr = std::shared_ptr<TaskComposerNodeInfoContainer>;
   using ConstPtr = std::shared_ptr<const TaskComposerNodeInfoContainer>;
   using UPtr = std::unique_ptr<TaskComposerNodeInfoContainer>;
@@ -204,7 +207,6 @@ private:
 };
 }  // namespace tesseract_planning
 
-#include <boost/serialization/export.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerNodeInfo, "TaskComposerNodeInfo")
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerNodeInfoContainer, "TaskComposerNodeInfoContainer")
 

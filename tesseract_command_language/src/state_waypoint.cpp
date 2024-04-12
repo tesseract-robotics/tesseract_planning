@@ -24,11 +24,15 @@
  * limitations under the License.
  */
 
-#include <tesseract_command_language/state_waypoint.h>
-#include <tesseract_common/utils.h>
+#include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
+#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_common/serialization.h>
+#include <tesseract_common/utils.h>
+#include <tesseract_common/types.h>
 
 namespace tesseract_planning
 {
@@ -129,6 +133,5 @@ void StateWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypoint)
 TESSERACT_STATE_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::StateWaypoint)

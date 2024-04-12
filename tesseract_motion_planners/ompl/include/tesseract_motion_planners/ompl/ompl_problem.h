@@ -28,20 +28,45 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <ompl/geometric/SimpleSetup.h>
-#include <ompl/base/OptimizationObjective.h>
-#include <ompl/tools/multiplan/ParallelPlan.h>
-#include <ompl/base/objectives/PathLengthOptimizationObjective.h>
+#include <memory>
+#include <functional>
+#include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
-#include <tesseract_environment/environment.h>
-#include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_motion_planners/ompl/types.h>
+#include <tesseract_common/eigen_types.h>
+#include <tesseract_scene_graph/scene_state.h>
+
+#include <tesseract_environment/fwd.h>
+#include <tesseract_kinematics/core/fwd.h>
+#include <tesseract_collision/core/fwd.h>
+
+namespace ompl::base
+{
+class SpaceInformation;
+using SpaceInformationPtr = std::shared_ptr<SpaceInformation>;
+class StateValidityChecker;
+using StateValidityCheckerPtr = std::shared_ptr<StateValidityChecker>;
+class StateSpace;
+using StateSpacePtr = std::shared_ptr<StateSpace>;
+class StateSampler;
+using StateSamplerPtr = std::shared_ptr<StateSampler>;
+class OptimizationObjective;
+using OptimizationObjectivePtr = std::shared_ptr<OptimizationObjective>;
+class MotionValidator;
+using MotionValidatorPtr = std::shared_ptr<MotionValidator>;
+}  // namespace ompl::base
+
+namespace ompl::geometric
+{
+class SimpleSetup;
+using SimpleSetupPtr = std::shared_ptr<SimpleSetup>;
+}  // namespace ompl::geometric
 
 namespace tesseract_planning
 {
 struct OMPLProblem;
+struct OMPLPlannerConfigurator;
 
 using StateSamplerAllocator =
     std::function<ompl::base::StateSamplerPtr(const ompl::base::StateSpace*, const OMPLProblem&)>;
@@ -76,17 +101,17 @@ struct OMPLProblem
   // LCOV_EXCL_STOP
 
   // These are required for Tesseract to configure ompl
-  tesseract_environment::Environment::ConstPtr env;
+  std::shared_ptr<const tesseract_environment::Environment> env;
   tesseract_scene_graph::SceneState env_state;
 
   // This is used to verify that start and goal states are not in collision
-  tesseract_collision::DiscreteContactManager::Ptr contact_checker;
+  std::shared_ptr<tesseract_collision::DiscreteContactManager> contact_checker;
 
   // Problem Configuration
   OMPLProblemStateSpace state_space{ OMPLProblemStateSpace::REAL_STATE_SPACE };
 
   // Kinematic Objects
-  tesseract_kinematics::JointGroup::ConstPtr manip;
+  std::shared_ptr<const tesseract_kinematics::JointGroup> manip;
 
   /** @brief Max planning time allowed in seconds */
   double planning_time = 5.0;
@@ -129,7 +154,7 @@ struct OMPLProblem
    *
    * This will create a new thread for each planner configurator provided. T
    */
-  std::vector<OMPLPlannerConfigurator::ConstPtr> planners{};
+  std::vector<std::shared_ptr<const OMPLPlannerConfigurator>> planners{};
 
   /**
    * @brief This will extract an Eigen::VectorXd from the OMPL State ***REQUIRED***

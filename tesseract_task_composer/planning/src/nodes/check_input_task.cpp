@@ -29,11 +29,17 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/string.hpp>
+#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/check_input_task.h>
 #include <tesseract_task_composer/planning/profiles/check_input_profile.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
+
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+
 #include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
@@ -60,8 +66,8 @@ CheckInputTask::CheckInputTask(std::string name,
     throw std::runtime_error("CheckInputTask, config missing 'inputs' entry");
 }
 
-TaskComposerNodeInfo::UPtr CheckInputTask::runImpl(TaskComposerContext& context,
-                                                   OptionalTaskComposerExecutor /*executor*/) const
+std::unique_ptr<TaskComposerNodeInfo> CheckInputTask::runImpl(TaskComposerContext& context,
+                                                              OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
 
@@ -111,6 +117,5 @@ void CheckInputTask::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CheckInputTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CheckInputTask)

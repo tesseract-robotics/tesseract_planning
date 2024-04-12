@@ -26,11 +26,6 @@
 #ifndef TESSERACT_EXAMPLES_GLASS_UPRIGHT_OMPL_EXAMPLE_H
 #define TESSERACT_EXAMPLES_GLASS_UPRIGHT_OMPL_EXAMPLE_H
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <trajopt/problem_description.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
 #include <tesseract_examples/example.h>
 
 namespace tesseract_examples
@@ -42,8 +37,8 @@ namespace tesseract_examples
 class GlassUprightOMPLExample : public Example
 {
 public:
-  GlassUprightOMPLExample(tesseract_environment::Environment::Ptr env,
-                          tesseract_visualization::Visualization::Ptr plotter = nullptr,
+  GlassUprightOMPLExample(std::shared_ptr<tesseract_environment::Environment> env,
+                          std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
                           double range = 0.01,
                           double planning_time = 60.0,
                           bool use_trajopt_constraint = false);

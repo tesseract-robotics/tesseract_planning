@@ -28,6 +28,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <stdexcept>
 #include <iostream>
+#include <tinyxml2.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/trajopt_collision_config.h>
@@ -47,7 +48,7 @@ CollisionCostConfig::CollisionCostConfig(const tinyxml2::XMLElement& xml_element
   if (enabled_element == nullptr)
     throw std::runtime_error("CollisionCostConfig: Must have Enabled element.");
 
-  tinyxml2::XMLError status = enabled_element->QueryBoolText(&enabled);
+  int status = enabled_element->QueryBoolText(&enabled);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("CollisionCostConfig: Error parsing Enabled string");
 
@@ -151,7 +152,7 @@ CollisionConstraintConfig::CollisionConstraintConfig(const tinyxml2::XMLElement&
   if (enabled_element == nullptr)
     throw std::runtime_error("CollisionConstraintConfig: Must have Enabled element.");
 
-  tinyxml2::XMLError status = enabled_element->QueryBoolText(&enabled);
+  int status = enabled_element->QueryBoolText(&enabled);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("CollisionConstraintConfig: Error parsing Enabled string");
 

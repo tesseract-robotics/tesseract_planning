@@ -24,7 +24,16 @@
  * limitations under the License.
  */
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <console_bridge/console.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_motion_planners/core/planner.h>
+#include <tesseract_motion_planners/core/types.h>
+
+#include <tesseract_common/joint_state.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 
 namespace tesseract_planning
 {

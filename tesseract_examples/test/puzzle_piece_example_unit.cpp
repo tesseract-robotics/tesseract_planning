@@ -4,6 +4,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/puzzle_piece_example.h>
+#include <tesseract_common/filesystem.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_examples;

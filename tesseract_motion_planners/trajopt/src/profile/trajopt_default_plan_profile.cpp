@@ -27,12 +27,15 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/algorithm/string.hpp>
+#include <tinyxml2.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/trajopt_utils.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+
+#include <tesseract_environment/environment.h>
 
 namespace tesseract_planning
 {
@@ -44,7 +47,7 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
   const tinyxml2::XMLElement* joint_constraint_element = xml_element.FirstChildElement("JointConstraintConfig");
   const tinyxml2::XMLElement* cnt_error_fn_element = xml_element.FirstChildElement("ConstraintErrorFunctions");
 
-  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
+  int status{ tinyxml2::XMLError::XML_SUCCESS };
 
   if (cartesian_cost_element != nullptr)
   {
@@ -266,7 +269,7 @@ void TrajOptDefaultPlanProfile::addConstraintErrorFunctions(trajopt::ProblemCons
   for (const auto& c : constraint_error_functions)
   {
     trajopt::TermInfo::Ptr ti =
-        createUserDefinedTermInfo(index, index, std::get<0>(c), std::get<1>(c), trajopt::TT_CNT);
+        createUserDefinedTermInfo(index, index, std::get<0>(c), std::get<1>(c), trajopt::TermType::TT_CNT);
 
     // Update the term info with the (possibly) new start and end state indices for which to apply this cost
     std::shared_ptr<trajopt::UserDefinedTermInfo> ef = std::static_pointer_cast<trajopt::UserDefinedTermInfo>(ti);

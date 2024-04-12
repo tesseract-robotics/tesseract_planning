@@ -26,7 +26,15 @@
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_plan_profile.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
+#include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
+
+#include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/kinematic_limits.h>
+
+#include <tesseract_kinematics/core/kinematic_group.h>
+
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 
 namespace tesseract_planning
 {

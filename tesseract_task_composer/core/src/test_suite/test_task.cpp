@@ -23,8 +23,17 @@
  * limitations under the License.
  */
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <console_bridge/console.h>
+#include <boost/serialization/string.hpp>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/serialization.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_task_composer/core/test_suite/test_task.h>
-#include <tesseract_task_composer/core/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
 
 namespace tesseract_planning::test_suite
 {
@@ -72,8 +81,8 @@ void TestTask::serialize(Archive& ar, const unsigned int /*version*/)
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-TaskComposerNodeInfo::UPtr TestTask::runImpl(TaskComposerContext& context,
-                                             OptionalTaskComposerExecutor /*executor*/) const
+std::unique_ptr<TaskComposerNodeInfo> TestTask::runImpl(TaskComposerContext& context,
+                                                        OptionalTaskComposerExecutor /*executor*/) const
 {
   if (throw_exception)
     throw std::runtime_error("TestTask, failure");
@@ -96,6 +105,5 @@ TaskComposerNodeInfo::UPtr TestTask::runImpl(TaskComposerContext& context,
 
 }  // namespace tesseract_planning::test_suite
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::test_suite::TestTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::test_suite::TestTask)

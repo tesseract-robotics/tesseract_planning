@@ -28,12 +28,11 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <Eigen/Geometry>
 #include <functional>
 #include <descartes_light/core/edge_evaluator.h>
-#include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
 #include <tesseract_motion_planners/descartes/descartes_problem.h>
 
 namespace tesseract_planning

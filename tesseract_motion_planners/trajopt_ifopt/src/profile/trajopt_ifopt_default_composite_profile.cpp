@@ -23,16 +23,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <tinyxml2.h>
+#include <trajopt_ifopt/variable_sets/joint_position_variable.h>
+#include <trajopt_common/collision_types.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 
-#include <tesseract_command_language/poly/instruction_poly.h>
-#include <tesseract_command_language/poly/move_instruction_poly.h>
-#include <tesseract_command_language/cartesian_waypoint.h>
-#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_common/manipulator_info.h>
 
 namespace tesseract_planning
 {
+TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile()
+  : collision_cost_config(std::make_shared<trajopt_common::TrajOptCollisionConfig>())
+  , collision_constraint_config(std::make_shared<trajopt_common::TrajOptCollisionConfig>())
+{
+}
+TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(const tinyxml2::XMLElement& /*xml_element*/)
+  : collision_cost_config(std::make_shared<trajopt_common::TrajOptCollisionConfig>())
+  , collision_constraint_config(std::make_shared<trajopt_common::TrajOptCollisionConfig>())
+{
+}
+
 void TrajOptIfoptDefaultCompositeProfile::apply(TrajOptIfoptProblem& problem,
                                                 int start_index,
                                                 int end_index,

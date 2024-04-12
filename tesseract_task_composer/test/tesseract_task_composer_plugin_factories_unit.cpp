@@ -28,6 +28,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_task_composer/core/task_composer_executor.h>
+#include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_common/types.h>
@@ -49,7 +51,7 @@ void runTaskComposerFactoryTest(TaskComposerPluginFactory& factory, YAML::Node p
 
     for (auto it = search_paths.begin(); it != search_paths.end(); ++it)
     {
-      EXPECT_TRUE(std::find(sp.begin(), sp.end(), it->as<std::string>()) != sp.end());
+      EXPECT_TRUE(sp.find(it->as<std::string>()) != sp.end());
     }
   }
 
@@ -59,7 +61,7 @@ void runTaskComposerFactoryTest(TaskComposerPluginFactory& factory, YAML::Node p
 
     for (auto it = search_libraries.begin(); it != search_libraries.end(); ++it)
     {
-      EXPECT_TRUE(std::find(sl.begin(), sl.end(), it->as<std::string>()) != sl.end());
+      EXPECT_TRUE(sl.find(it->as<std::string>()) != sl.end());
     }
   }
 

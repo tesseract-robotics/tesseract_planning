@@ -1,7 +1,12 @@
 
 #include <iostream>
 #include <tesseract_common/utils.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_future.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_graph.h>
+#include <tesseract_task_composer/core/task_composer_executor.h>
 #include <tesseract_task_composer/core/task_composer_task.h>
 #include <tesseract_task_composer/core/task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>

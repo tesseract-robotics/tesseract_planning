@@ -26,27 +26,33 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <tesseract_environment/utils.h>
-#include <trajopt_sqp/ifopt_qp_problem.h>
-#include <trajopt_sqp/trajopt_qp_problem.h>
+#include <trajopt_ifopt/variable_sets/joint_position_variable.h>
 #include <trajopt_sqp/trust_region_sqp_solver.h>
 #include <trajopt_sqp/osqp_eigen_solver.h>
+#include <trajopt_sqp/sqp_callback.h>
+#include <trajopt_sqp/trajopt_qp_problem.h>
+#include <OsqpEigen/OsqpEigen.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
+#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
-#include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
+#include <tesseract_common/joint_state.h>
+#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract_kinematics/core/kinematic_group.h>
+#include <tesseract_environment/environment.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/utils.h>
 
 constexpr auto SOLUTION_FOUND{ "Found valid solution" };
 constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input: " };
 constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
-
-using namespace trajopt_ifopt;
 
 namespace tesseract_planning
 {
@@ -58,9 +64,11 @@ bool TrajOptIfoptMotionPlanner::terminate()
   return false;
 }
 
-MotionPlanner::Ptr TrajOptIfoptMotionPlanner::clone() const
+void TrajOptIfoptMotionPlanner::clear() {}
+
+std::unique_ptr<MotionPlanner> TrajOptIfoptMotionPlanner::clone() const
 {
-  return std::make_shared<TrajOptIfoptMotionPlanner>(name_);
+  return std::make_unique<TrajOptIfoptMotionPlanner>(name_);
 }
 
 PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) const
@@ -101,13 +109,13 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   auto qp_solver = std::make_shared<trajopt_sqp::OSQPEigenSolver>();
   trajopt_sqp::TrustRegionSQPSolver solver(qp_solver);
   /** @todo Set these as the defaults in trajopt and allow setting */
-  qp_solver->solver_.settings()->setVerbosity(request.verbose);
-  qp_solver->solver_.settings()->setWarmStart(true);
-  qp_solver->solver_.settings()->setPolish(true);
-  qp_solver->solver_.settings()->setAdaptiveRho(false);
-  qp_solver->solver_.settings()->setMaxIteration(8192);
-  qp_solver->solver_.settings()->setAbsoluteTolerance(1e-4);
-  qp_solver->solver_.settings()->setRelativeTolerance(1e-6);
+  qp_solver->solver_->settings()->setVerbosity(request.verbose);
+  qp_solver->solver_->settings()->setWarmStart(true);
+  qp_solver->solver_->settings()->setPolish(true);
+  qp_solver->solver_->settings()->setAdaptiveRho(false);
+  qp_solver->solver_->settings()->setMaxIteration(8192);
+  qp_solver->solver_->settings()->setAbsoluteTolerance(1e-4);
+  qp_solver->solver_->settings()->setRelativeTolerance(1e-6);
 
   solver.params = problem->opt_info;
 

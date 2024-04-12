@@ -28,14 +28,13 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
+#include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
-#include <tesseract_task_composer/core/task_composer_context.h>
-#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
 namespace tesseract_planning
 {
+struct TaskComposerContext;
+
 struct CheckInputProfile
 {
   using Ptr = std::shared_ptr<CheckInputProfile>;
@@ -48,20 +47,7 @@ struct CheckInputProfile
    * @param context The task context to check
    * @return True if valid otherwise false
    */
-  virtual bool isValid(const TaskComposerContext& context) const
-  {
-    // Get the problem
-    const auto& problem = dynamic_cast<const PlanningTaskComposerProblem&>(*context.problem);
-
-    // Check Input
-    if (!problem.env)
-    {
-      CONSOLE_BRIDGE_logError("Input env is a nullptr");
-      return false;
-    }
-
-    return true;
-  }
+  virtual bool isValid(const TaskComposerContext& context) const;
 };
 }  // namespace tesseract_planning
 

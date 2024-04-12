@@ -29,16 +29,17 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
+#include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_command_language/constants.h>
-#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_common/manipulator_info.h>
 
 namespace tesseract_planning
 {
+class ProfileDictionary;
 /**
  * @brief The move instruction is used when defining the results of a motion planning request
  * @details
@@ -143,11 +144,11 @@ public:
   void setPathProfile(const std::string& profile);
   const std::string& getPathProfile() const;
 
-  void setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides);
-  ProfileDictionary::ConstPtr getProfileOverrides() const;
+  void setProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides);
+  std::shared_ptr<const ProfileDictionary> getProfileOverrides() const;
 
-  void setPathProfileOverrides(ProfileDictionary::ConstPtr profile_overrides);
-  ProfileDictionary::ConstPtr getPathProfileOverrides() const;
+  void setPathProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides);
+  std::shared_ptr<const ProfileDictionary> getPathProfileOverrides() const;
 
   const std::string& getDescription() const;
 
@@ -182,10 +183,10 @@ private:
   std::string path_profile_;
 
   /** @brief Dictionary of profiles that will override named profiles for a specific task*/
-  ProfileDictionary::ConstPtr profile_overrides_;
+  std::shared_ptr<const ProfileDictionary> profile_overrides_;
 
   /** @brief Dictionary of path profiles that will override named profiles for a specific task*/
-  ProfileDictionary::ConstPtr path_profile_overrides_;
+  std::shared_ptr<const ProfileDictionary> path_profile_overrides_;
 
   /** @brief The assigned waypoint (Cartesian, Joint or State) */
   WaypointPoly waypoint_;

@@ -26,8 +26,8 @@
 #ifndef TESSERACT_COMMON_TRAJECTORY_H
 #define TESSERACT_COMMON_TRAJECTORY_H
 
-#include <tesseract_common/joint_state.h>
 #include <tesseract_time_parameterization/core/trajectory_container.h>
+#include <tesseract_common/fwd.h>
 
 namespace tesseract_planning
 {

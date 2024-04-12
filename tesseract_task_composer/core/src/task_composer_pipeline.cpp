@@ -26,11 +26,13 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
+#include <tesseract_common/serialization.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_task.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
@@ -66,7 +68,7 @@ int TaskComposerPipeline::run(TaskComposerContext& context, OptionalTaskComposer
   }
 
   tesseract_common::Timer timer;
-  TaskComposerNodeInfo::UPtr results;
+  std::unique_ptr<TaskComposerNodeInfo> results;
   timer.start();
   try
   {
@@ -91,8 +93,8 @@ int TaskComposerPipeline::run(TaskComposerContext& context, OptionalTaskComposer
   return value;
 }
 
-TaskComposerNodeInfo::UPtr TaskComposerPipeline::runImpl(TaskComposerContext& context,
-                                                         OptionalTaskComposerExecutor executor) const
+std::unique_ptr<TaskComposerNodeInfo> TaskComposerPipeline::runImpl(TaskComposerContext& context,
+                                                                    OptionalTaskComposerExecutor executor) const
 {
   if (terminals_.empty())
     throw std::runtime_error("TaskComposerPipeline, with name '" + name_ + "' does not have terminals!");
@@ -192,6 +194,5 @@ void TaskComposerPipeline::serialize(Archive& ar, const unsigned int /*version*/
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerPipeline)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerPipeline)

@@ -29,16 +29,20 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_environment/environment.h>
-#include <tesseract_command_language/profile_dictionary.h>
-#include <tesseract_command_language/poly/instruction_poly.h>
+#include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/fwd.h>
+#include <tesseract_environment/fwd.h>
+#include <tesseract_command_language/fwd.h>
+
 #include <tesseract_task_composer/core/task_composer_problem.h>
-#include <tesseract_task_composer/core/task_composer_data_storage.h>
 
 namespace tesseract_planning
 {
+using ProfileRemapping = std::unordered_map<std::string, std::unordered_map<std::string, std::string>>;
 struct PlanningTaskComposerProblem : public TaskComposerProblem
 {
   using Ptr = std::shared_ptr<PlanningTaskComposerProblem>;
@@ -47,28 +51,28 @@ struct PlanningTaskComposerProblem : public TaskComposerProblem
   using ConstUPtr = std::unique_ptr<const PlanningTaskComposerProblem>;
 
   PlanningTaskComposerProblem(std::string name = "unset");
-  PlanningTaskComposerProblem(ProfileDictionary::ConstPtr profiles, std::string name = "unset");
+  PlanningTaskComposerProblem(std::shared_ptr<const ProfileDictionary> profiles, std::string name = "unset");
 
-  PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
+  PlanningTaskComposerProblem(std::shared_ptr<const tesseract_environment::Environment> env,
                               tesseract_common::ManipulatorInfo manip_info,
-                              ProfileDictionary::ConstPtr profiles = nullptr,
+                              std::shared_ptr<const ProfileDictionary> profiles = nullptr,
                               std::string name = "unset");
 
-  PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
+  PlanningTaskComposerProblem(std::shared_ptr<const tesseract_environment::Environment> env,
                               tesseract_common::ManipulatorInfo manip_info,
                               ProfileRemapping move_profile_remapping,
                               ProfileRemapping composite_profile_remapping,
-                              ProfileDictionary::ConstPtr profiles = nullptr,
+                              std::shared_ptr<const ProfileDictionary> profiles = nullptr,
                               std::string name = "unset");
 
-  PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
+  PlanningTaskComposerProblem(std::shared_ptr<const tesseract_environment::Environment> env,
                               ProfileRemapping move_profile_remapping,
                               ProfileRemapping composite_profile_remapping,
-                              ProfileDictionary::ConstPtr profiles = nullptr,
+                              std::shared_ptr<const ProfileDictionary> profiles = nullptr,
                               std::string name = "unset");
 
-  PlanningTaskComposerProblem(tesseract_environment::Environment::ConstPtr env,
-                              ProfileDictionary::ConstPtr profiles = nullptr,
+  PlanningTaskComposerProblem(std::shared_ptr<const tesseract_environment::Environment> env,
+                              std::shared_ptr<const ProfileDictionary> profiles = nullptr,
                               std::string name = "unset");
 
   PlanningTaskComposerProblem(const PlanningTaskComposerProblem&) = default;
@@ -78,13 +82,13 @@ struct PlanningTaskComposerProblem : public TaskComposerProblem
   ~PlanningTaskComposerProblem() override = default;
 
   /** @brief Tesseract associated with current state of the system */
-  tesseract_environment::Environment::ConstPtr env;
+  std::shared_ptr<const tesseract_environment::Environment> env;
 
   /** @brief Global Manipulator Information */
   tesseract_common::ManipulatorInfo manip_info;
 
   /** @brief The Profiles to use */
-  ProfileDictionary::ConstPtr profiles;
+  std::shared_ptr<const ProfileDictionary> profiles;
 
   /**
    * @brief This allows the remapping of the Move Profile identified in the command language to a specific profile for a
@@ -112,7 +116,6 @@ protected:
 };
 }  // namespace tesseract_planning
 
-#include <boost/serialization/export.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::PlanningTaskComposerProblem, "PlanningTaskComposerProblem")
 
 #endif  // TESSERACT_TASK_COMPOSER_PLANNING_TASK_COMPOSER_PROBLEM_H

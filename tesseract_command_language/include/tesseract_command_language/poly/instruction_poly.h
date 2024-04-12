@@ -29,15 +29,20 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
-#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
 #include <boost/concept_check.hpp>
-#include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/poly/waypoint_poly.h>
-#include <tesseract_common/serialization.h>
+#include <tesseract_common/fwd.h>
 #include <tesseract_common/type_erasure.h>
+
+namespace boost::uuids
+{
+struct uuid;
+}
 
 /** @brief If shared library, this must go in the header after the class definition */
 #define TESSERACT_INSTRUCTION_EXPORT_KEY(N, C)                                                                         \
@@ -207,6 +212,6 @@ BOOST_CLASS_EXPORT_KEY(tesseract_planning::InstructionPolyBase)
 BOOST_CLASS_TRACKING(tesseract_planning::InstructionPolyBase, boost::serialization::track_never)
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::InstructionPoly)
-BOOST_CLASS_TRACKING(tesseract_planning::InstructionPoly, boost::serialization::track_never);
+BOOST_CLASS_TRACKING(tesseract_planning::InstructionPoly, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_H

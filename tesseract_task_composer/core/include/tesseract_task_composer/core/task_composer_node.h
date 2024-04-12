@@ -30,14 +30,23 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <vector>
+#include <map>
 #include <boost/uuid/uuid.hpp>
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/core/task_composer_context.h>
-#include <tesseract_task_composer/core/task_composer_data_storage.h>
+#include <tesseract_common/fwd.h>
+
+namespace YAML
+{
+class Node;
+}
 
 namespace tesseract_planning
 {
+class TaskComposerNodeInfo;
+
 enum class TaskComposerNodeType
 {
   NODE,
@@ -129,9 +138,10 @@ public:
    * @brief dump the task to dot
    * @brief Return additional subgraphs which should get appended if needed
    */
-  virtual std::string dump(std::ostream& os,
-                           const TaskComposerNode* parent = nullptr,
-                           const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map = {}) const;
+  virtual std::string
+  dump(std::ostream& os,
+       const TaskComposerNode* parent = nullptr,
+       const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map = {}) const;
 
   bool operator==(const TaskComposerNode& rhs) const;
   bool operator!=(const TaskComposerNode& rhs) const;
@@ -187,7 +197,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-#include <boost/serialization/export.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerNode, "TaskComposerNode")
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_H

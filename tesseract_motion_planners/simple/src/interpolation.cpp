@@ -24,12 +24,34 @@
  * limitations under the License.
  */
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <console_bridge/console.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
-#include <tesseract_motion_planners/core/utils.h>
-#include <tesseract_command_language/utils.h>
+
+#include <tesseract_motion_planners/core/types.h>
+
+#include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/joint_state.h>
+
+#include <tesseract_scene_graph/scene_state.h>
+
+#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_kinematics/core/utils.h>
+
+#include <tesseract_environment/environment.h>
+
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/profile_dictionary.h>
+#include <tesseract_command_language/utils.h>
+
+// #include <tesseract_motion_planners/core/utils.h>
 
 namespace tesseract_planning
 {
@@ -68,6 +90,8 @@ JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& 
   else
     throw std::runtime_error("Simple planner currently only supports State, Joint and Cartesian Waypoint types!");
 }
+
+JointGroupInstructionInfo::~JointGroupInstructionInfo() = default;
 
 Eigen::Isometry3d JointGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp, bool in_world) const
 {
@@ -130,6 +154,8 @@ KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructi
   else
     throw std::runtime_error("Simple planner currently only supports State, Joint and Cartesian Waypoint types!");
 }
+
+KinematicGroupInstructionInfo::~KinematicGroupInstructionInfo() = default;
 
 Eigen::Isometry3d KinematicGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp, bool in_world) const
 {
@@ -1280,7 +1306,7 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
 
 CompositeInstruction generateInterpolatedProgram(const CompositeInstruction& instructions,
                                                  const tesseract_scene_graph::SceneState& current_state,
-                                                 const tesseract_environment::Environment::ConstPtr& env,
+                                                 const std::shared_ptr<const tesseract_environment::Environment>& env,
                                                  double state_longest_valid_segment_length,
                                                  double translation_longest_valid_segment_length,
                                                  double rotation_longest_valid_segment_length,

@@ -24,13 +24,22 @@
  * limitations under the License.
  */
 
-#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <tinyxml2.h>
+#include <trajopt_sqp/qp_problem.h>
+#include <trajopt_ifopt/variable_sets/joint_position_variable.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
+#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 
+#include <tesseract_common/manipulator_info.h>
+#include <tesseract_environment/environment.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
-
-#include <trajopt_ifopt/trajopt_ifopt.h>
-#include <trajopt_ifopt/utils/ifopt_utils.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 
 namespace tesseract_planning
 {
@@ -104,17 +113,16 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
                                            int index) const
 {
   auto idx = static_cast<std::size_t>(index);
-  auto constraint = createJointPositionConstraint(joint_waypoint, problem.vars[idx], joint_coeff);
   switch (term_type)
   {
     case TrajOptIfoptTermType::CONSTRAINT:
-      problem.nlp->addConstraintSet(constraint);
+      addJointPositionConstraint(*problem.nlp, joint_waypoint, problem.vars[idx], joint_coeff);
       break;
     case TrajOptIfoptTermType::SQUARED_COST:
-      problem.nlp->addCostSet(constraint, trajopt_sqp::CostPenaltyType::SQUARED);
+      addJointPositionSquaredCost(*problem.nlp, joint_waypoint, problem.vars[idx], joint_coeff);
       break;
     case TrajOptIfoptTermType::ABSOLUTE_COST:
-      problem.nlp->addCostSet(constraint, trajopt_sqp::CostPenaltyType::ABSOLUTE);
+      addJointPositionAbsoluteCost(*problem.nlp, joint_waypoint, problem.vars[idx], joint_coeff);
       break;
   }
 }

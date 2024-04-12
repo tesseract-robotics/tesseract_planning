@@ -27,6 +27,8 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/spaces/RealVectorStateSpace.h>
+#include <ompl/base/State.h>
+#include <ompl/geometric/PathGeometric.h>
 #include <memory>
 
 #ifndef OMPL_LESS_1_4_0
@@ -35,8 +37,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_motion_planners/ompl/ompl_problem.h>
 #include <tesseract_motion_planners/ompl/utils.h>
 #include <tesseract_motion_planners/ompl/weighted_real_vector_state_sampler.h>
+
+#include <tesseract_collision/core/types.h>
+#include <tesseract_collision/core/discrete_contact_manager.h>
+
+#include <tesseract_kinematics/core/joint_group.h>
 
 namespace tesseract_planning
 {

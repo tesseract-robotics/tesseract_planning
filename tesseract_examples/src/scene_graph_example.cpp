@@ -29,15 +29,25 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/scene_graph_example.h>
+
+#include <tesseract_scene_graph/link.h>
+#include <tesseract_scene_graph/joint.h>
+#include <tesseract_scene_graph/graph.h>
+
+#include <tesseract_environment/environment.h>
+#include <tesseract_environment/commands/move_link_command.h>
+#include <tesseract_environment/commands/move_joint_command.h>
 #include <tesseract_environment/utils.h>
+
+#include <tesseract_visualization/visualization.h>
 
 using namespace tesseract_environment;
 using namespace tesseract_scene_graph;
 
 namespace tesseract_examples
 {
-SceneGraphExample::SceneGraphExample(tesseract_environment::Environment::Ptr env,
-                                     tesseract_visualization::Visualization::Ptr plotter)
+SceneGraphExample::SceneGraphExample(std::shared_ptr<tesseract_environment::Environment> env,
+                                     std::shared_ptr<tesseract_visualization::Visualization> plotter)
   : Example(std::move(env), std::move(plotter))
 {
 }

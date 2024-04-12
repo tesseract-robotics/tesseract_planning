@@ -28,13 +28,13 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/export.hpp>
 #include <functional>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
-#include <tesseract_common/any_poly.h>
+#include <tesseract_common/fwd.h>
 
 namespace tesseract_planning
 {
@@ -102,12 +102,11 @@ protected:
 
   static void checkTaskInput(const tesseract_common::AnyPoly& input);
 
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
-                                     OptionalTaskComposerExecutor executor) const override final;
+  std::unique_ptr<TaskComposerNodeInfo> runImpl(TaskComposerContext& context,
+                                                OptionalTaskComposerExecutor executor) const override final;
 };
 }  // namespace tesseract_planning
 
-#include <boost/serialization/export.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RasterMotionTask, "RasterMotionTask")
 
 #endif  // TESSERACT_TASK_COMPOSER_RASTER_MOTION_TASK_H

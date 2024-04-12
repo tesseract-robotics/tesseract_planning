@@ -24,18 +24,19 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/trajopt/trajopt_utils.h>
+#include <trajopt/problem_description.hpp>
 
 namespace tesseract_planning
 {
-trajopt::TermInfo::Ptr createCartesianWaypointTermInfo(int index,
-                                                       const std::string& working_frame,
-                                                       const Eigen::Isometry3d& c_wp,
-                                                       const std::string& tcp_frame,
-                                                       const Eigen::Isometry3d& tcp_offset,
-                                                       const Eigen::VectorXd& coeffs,
-                                                       trajopt::TermType type,
-                                                       const Eigen::VectorXd& lower_tolerance,
-                                                       const Eigen::VectorXd& upper_tolerance)
+std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
+                                                                   const std::string& working_frame,
+                                                                   const Eigen::Isometry3d& c_wp,
+                                                                   const std::string& tcp_frame,
+                                                                   const Eigen::Isometry3d& tcp_offset,
+                                                                   const Eigen::VectorXd& coeffs,
+                                                                   trajopt::TermType type,
+                                                                   const Eigen::VectorXd& lower_tolerance,
+                                                                   const Eigen::VectorXd& upper_tolerance)
 {
   auto pose_info = std::make_shared<trajopt::CartPoseTermInfo>();
   pose_info->term_type = type;
@@ -65,15 +66,15 @@ trajopt::TermInfo::Ptr createCartesianWaypointTermInfo(int index,
   return pose_info;
 }
 
-trajopt::TermInfo::Ptr createDynamicCartesianWaypointTermInfo(int index,
-                                                              const std::string& working_frame,
-                                                              const Eigen::Isometry3d& c_wp,
-                                                              const std::string& tcp_frame,
-                                                              const Eigen::Isometry3d& tcp_offset,
-                                                              const Eigen::VectorXd& coeffs,
-                                                              trajopt::TermType type,
-                                                              const Eigen::VectorXd& lower_tolerance,
-                                                              const Eigen::VectorXd& upper_tolerance)
+std::shared_ptr<trajopt::TermInfo> createDynamicCartesianWaypointTermInfo(int index,
+                                                                          const std::string& working_frame,
+                                                                          const Eigen::Isometry3d& c_wp,
+                                                                          const std::string& tcp_frame,
+                                                                          const Eigen::Isometry3d& tcp_offset,
+                                                                          const Eigen::VectorXd& coeffs,
+                                                                          trajopt::TermType type,
+                                                                          const Eigen::VectorXd& lower_tolerance,
+                                                                          const Eigen::VectorXd& upper_tolerance)
 {
   std::shared_ptr<trajopt::DynamicCartPoseTermInfo> pose = std::make_shared<trajopt::DynamicCartPoseTermInfo>();
   pose->term_type = type;
@@ -103,11 +104,11 @@ trajopt::TermInfo::Ptr createDynamicCartesianWaypointTermInfo(int index,
   return pose;
 }
 
-trajopt::TermInfo::Ptr createNearJointStateTermInfo(const Eigen::VectorXd& target,
-                                                    const std::vector<std::string>& joint_names,
-                                                    int index,
-                                                    const Eigen::VectorXd& coeffs,
-                                                    trajopt::TermType type)
+std::shared_ptr<trajopt::TermInfo> createNearJointStateTermInfo(const Eigen::VectorXd& target,
+                                                                const std::vector<std::string>& joint_names,
+                                                                int index,
+                                                                const Eigen::VectorXd& coeffs,
+                                                                trajopt::TermType type)
 {
   assert(static_cast<std::size_t>(target.size()) == joint_names.size());
 
@@ -126,10 +127,10 @@ trajopt::TermInfo::Ptr createNearJointStateTermInfo(const Eigen::VectorXd& targe
   return jp;
 }
 
-trajopt::TermInfo::Ptr createJointWaypointTermInfo(const Eigen::VectorXd& j_wp,
-                                                   int index,
-                                                   const Eigen::VectorXd& coeffs,
-                                                   trajopt::TermType type)
+std::shared_ptr<trajopt::TermInfo> createJointWaypointTermInfo(const Eigen::VectorXd& j_wp,
+                                                               int index,
+                                                               const Eigen::VectorXd& coeffs,
+                                                               trajopt::TermType type)
 {
   auto joint_info = std::make_shared<trajopt::JointPosTermInfo>();
   if (coeffs.size() == 1)
@@ -146,12 +147,12 @@ trajopt::TermInfo::Ptr createJointWaypointTermInfo(const Eigen::VectorXd& j_wp,
   return joint_info;
 }
 
-trajopt::TermInfo::Ptr createTolerancedJointWaypointTermInfo(const Eigen::VectorXd& j_wp,
-                                                             const Eigen::VectorXd& lower_tol,
-                                                             const Eigen::VectorXd& upper_tol,
-                                                             int index,
-                                                             const Eigen::VectorXd& coeffs,
-                                                             trajopt::TermType type)
+std::shared_ptr<trajopt::TermInfo> createTolerancedJointWaypointTermInfo(const Eigen::VectorXd& j_wp,
+                                                                         const Eigen::VectorXd& lower_tol,
+                                                                         const Eigen::VectorXd& upper_tol,
+                                                                         int index,
+                                                                         const Eigen::VectorXd& coeffs,
+                                                                         trajopt::TermType type)
 {
   auto joint_info = std::make_shared<trajopt::JointPosTermInfo>();
   if (coeffs.size() == 1)
@@ -172,16 +173,16 @@ trajopt::TermInfo::Ptr createTolerancedJointWaypointTermInfo(const Eigen::Vector
   return joint_info;
 }
 
-trajopt::TermInfo::Ptr createCollisionTermInfo(int start_index,
-                                               int end_index,
-                                               double collision_safety_margin,
-                                               double collision_safety_margin_buffer,
-                                               trajopt::CollisionEvaluatorType evaluator_type,
-                                               bool use_weighted_sum,
-                                               double coeff,
-                                               tesseract_collision::ContactTestType contact_test_type,
-                                               double longest_valid_segment_length,
-                                               trajopt::TermType type)
+std::shared_ptr<trajopt::TermInfo> createCollisionTermInfo(int start_index,
+                                                           int end_index,
+                                                           double collision_safety_margin,
+                                                           double collision_safety_margin_buffer,
+                                                           trajopt::CollisionEvaluatorType evaluator_type,
+                                                           bool use_weighted_sum,
+                                                           double coeff,
+                                                           tesseract_collision::ContactTestType contact_test_type,
+                                                           double longest_valid_segment_length,
+                                                           trajopt::TermType type)
 {
   std::shared_ptr<trajopt::CollisionTermInfo> collision = std::make_shared<trajopt::CollisionTermInfo>();
   collision->name = "collision";
@@ -198,7 +199,7 @@ trajopt::TermInfo::Ptr createCollisionTermInfo(int start_index,
   return collision;
 }
 
-trajopt::TermInfo::Ptr
+std::shared_ptr<trajopt::TermInfo>
 createSmoothVelocityTermInfo(int start_index, int end_index, int n_joints, double coeff, trajopt::TermType type)
 {
   if ((end_index - start_index) < 1)
@@ -215,10 +216,10 @@ createSmoothVelocityTermInfo(int start_index, int end_index, int n_joints, doubl
   return jv;
 }
 
-trajopt::TermInfo::Ptr createSmoothVelocityTermInfo(int start_index,
-                                                    int end_index,
-                                                    const Eigen::Ref<const Eigen::VectorXd>& coeff,
-                                                    trajopt::TermType type)
+std::shared_ptr<trajopt::TermInfo> createSmoothVelocityTermInfo(int start_index,
+                                                                int end_index,
+                                                                const Eigen::Ref<const Eigen::VectorXd>& coeff,
+                                                                trajopt::TermType type)
 {
   if ((end_index - start_index) < 1)
     throw std::runtime_error("TrajOpt JointVelTermInfo requires at least two states, failed with start_index " +
@@ -234,7 +235,7 @@ trajopt::TermInfo::Ptr createSmoothVelocityTermInfo(int start_index,
   return jv;
 }
 
-trajopt::TermInfo::Ptr
+std::shared_ptr<trajopt::TermInfo>
 createSmoothAccelerationTermInfo(int start_index, int end_index, int n_joints, double coeff, trajopt::TermType type)
 {
   if ((end_index - start_index) < 2)
@@ -251,10 +252,10 @@ createSmoothAccelerationTermInfo(int start_index, int end_index, int n_joints, d
   return ja;
 }
 
-trajopt::TermInfo::Ptr createSmoothAccelerationTermInfo(int start_index,
-                                                        int end_index,
-                                                        const Eigen::Ref<const Eigen::VectorXd>& coeff,
-                                                        trajopt::TermType type)
+std::shared_ptr<trajopt::TermInfo> createSmoothAccelerationTermInfo(int start_index,
+                                                                    int end_index,
+                                                                    const Eigen::Ref<const Eigen::VectorXd>& coeff,
+                                                                    trajopt::TermType type)
 {
   if ((end_index - start_index) < 2)
     throw std::runtime_error("TrajOpt JointAccTermInfo requires at least three states, failed with start_index " +
@@ -270,7 +271,7 @@ trajopt::TermInfo::Ptr createSmoothAccelerationTermInfo(int start_index,
   return ja;
 }
 
-trajopt::TermInfo::Ptr
+std::shared_ptr<trajopt::TermInfo>
 createSmoothJerkTermInfo(int start_index, int end_index, int n_joints, double coeff, trajopt::TermType type)
 {
   if ((end_index - start_index) < 4)
@@ -287,10 +288,10 @@ createSmoothJerkTermInfo(int start_index, int end_index, int n_joints, double co
   return jj;
 }
 
-trajopt::TermInfo::Ptr createSmoothJerkTermInfo(int start_index,
-                                                int end_index,
-                                                const Eigen::Ref<const Eigen::VectorXd>& coeff,
-                                                trajopt::TermType type)
+std::shared_ptr<trajopt::TermInfo> createSmoothJerkTermInfo(int start_index,
+                                                            int end_index,
+                                                            const Eigen::Ref<const Eigen::VectorXd>& coeff,
+                                                            trajopt::TermType type)
 {
   if ((end_index - start_index) < 4)
     throw std::runtime_error("TrajOpt JointJerkTermInfo requires at least five states, failed with start_index " +
@@ -306,11 +307,11 @@ trajopt::TermInfo::Ptr createSmoothJerkTermInfo(int start_index,
   return jj;
 }
 
-trajopt::TermInfo::Ptr createUserDefinedTermInfo(int start_index,
-                                                 int end_index,
-                                                 sco::VectorOfVector::func error_function,
-                                                 sco::MatrixOfVector::func jacobian_function,
-                                                 trajopt::TermType type)
+std::shared_ptr<trajopt::TermInfo> createUserDefinedTermInfo(int start_index,
+                                                             int end_index,
+                                                             sco::VectorOfVector::func error_function,
+                                                             sco::MatrixOfVector::func jacobian_function,
+                                                             trajopt::TermType type)
 {
   if (error_function == nullptr)
   {
@@ -328,11 +329,11 @@ trajopt::TermInfo::Ptr createUserDefinedTermInfo(int start_index,
   return ef;
 }
 
-trajopt::TermInfo::Ptr createAvoidSingularityTermInfo(int start_index,
-                                                      int end_index,
-                                                      const std::string& link,
-                                                      double coeff,
-                                                      trajopt::TermType type)
+std::shared_ptr<trajopt::TermInfo> createAvoidSingularityTermInfo(int start_index,
+                                                                  int end_index,
+                                                                  const std::string& link,
+                                                                  double coeff,
+                                                                  trajopt::TermType type)
 {
   auto as = std::make_shared<trajopt::AvoidSingularityTermInfo>();
   as->term_type = type;

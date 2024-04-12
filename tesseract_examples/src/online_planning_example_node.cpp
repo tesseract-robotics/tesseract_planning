@@ -30,6 +30,8 @@
  */
 
 #include <tesseract_examples/online_planning_example.h>
+#include <tesseract_common/filesystem.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_examples;

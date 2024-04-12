@@ -30,8 +30,17 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/freespace_ompl_example.h>
+
+#include <tesseract_scene_graph/link.h>
+#include <tesseract_scene_graph/joint.h>
+
+#include <tesseract_state_solver/state_solver.h>
+
+#include <tesseract_environment/environment.h>
 #include <tesseract_environment/utils.h>
-#include <tesseract_environment/commands.h>
+#include <tesseract_environment/commands/add_link_command.h>
+
+#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -40,10 +49,18 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 
 #include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
+#include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_motion_planners/core/utils.h>
+
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+#include <tesseract_task_composer/core/task_composer_node.h>
+#include <tesseract_task_composer/core/task_composer_executor.h>
+#include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
+
+#include <tesseract_visualization/visualization.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
 #include <tesseract_geometry/impl/sphere.h>
@@ -59,15 +76,15 @@ static const std::string OMPL_DEFAULT_NAMESPACE = "OMPLMotionPlannerTask";
 
 namespace tesseract_examples
 {
-FreespaceOMPLExample::FreespaceOMPLExample(tesseract_environment::Environment::Ptr env,
-                                           tesseract_visualization::Visualization::Ptr plotter,
+FreespaceOMPLExample::FreespaceOMPLExample(std::shared_ptr<tesseract_environment::Environment> env,
+                                           std::shared_ptr<tesseract_visualization::Visualization> plotter,
                                            double range,
                                            double planning_time)
   : Example(std::move(env), std::move(plotter)), range_(range), planning_time_(planning_time)
 {
 }
 
-Command::Ptr FreespaceOMPLExample::addSphere()
+inline Command::Ptr addSphere()
 {
   // Add sphere to environment
   Link link_sphere("sphere_attached");

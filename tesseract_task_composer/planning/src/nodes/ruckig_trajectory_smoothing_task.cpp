@@ -26,15 +26,25 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
+
+#include <tesseract_common/serialization.h>
+
+#include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_task_composer/planning/nodes/ruckig_trajectory_smoothing_task.h>
 #include <tesseract_task_composer/planning/profiles/ruckig_trajectory_smoothing_profile.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+
+#include <tesseract_motion_planners/planner_utils.h>
+
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
 #include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing.h>
 
@@ -73,8 +83,8 @@ RuckigTrajectorySmoothingTask::RuckigTrajectorySmoothingTask(std::string name,
                              "output key");
 }
 
-TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context,
-                                                                  OptionalTaskComposerExecutor /*executor*/) const
+std::unique_ptr<TaskComposerNodeInfo>
+RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
@@ -198,6 +208,5 @@ void RuckigTrajectorySmoothingTask::serialize(Archive& ar, const unsigned int /*
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RuckigTrajectorySmoothingTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RuckigTrajectorySmoothingTask)

@@ -28,13 +28,18 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <Eigen/Geometry>
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_kinematics/core/joint_group.h>
-#include <tesseract_kinematics/core/kinematic_group.h>
-#include <tesseract_motion_planners/core/types.h>
+#include <tesseract_common/fwd.h>
+#include <tesseract_scene_graph/fwd.h>
+#include <tesseract_environment/fwd.h>
+#include <tesseract_kinematics/core/fwd.h>
+#include <tesseract_command_language/fwd.h>
+#include <tesseract_motion_planners/core/fwd.h>
+
+#include <tesseract_common/eigen_types.h>
 
 namespace tesseract_planning
 {
@@ -45,8 +50,14 @@ struct JointGroupInstructionInfo
                             const PlannerRequest& request,
                             const tesseract_common::ManipulatorInfo& manip_info);
 
+  ~JointGroupInstructionInfo();
+  JointGroupInstructionInfo(const JointGroupInstructionInfo&) = delete;
+  JointGroupInstructionInfo& operator=(const JointGroupInstructionInfo&) = delete;
+  JointGroupInstructionInfo(JointGroupInstructionInfo&&) = default;
+  JointGroupInstructionInfo& operator=(JointGroupInstructionInfo&&) = delete;
+
   const MoveInstructionPoly& instruction;
-  tesseract_kinematics::JointGroup::UPtr manip;
+  std::unique_ptr<tesseract_kinematics::JointGroup> manip;
   std::string working_frame;
   Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };
   std::string tcp_frame;
@@ -90,8 +101,14 @@ struct KinematicGroupInstructionInfo
                                 const PlannerRequest& request,
                                 const tesseract_common::ManipulatorInfo& manip_info);
 
+  ~KinematicGroupInstructionInfo();
+  KinematicGroupInstructionInfo(const KinematicGroupInstructionInfo&) = delete;
+  KinematicGroupInstructionInfo& operator=(const KinematicGroupInstructionInfo&) = delete;
+  KinematicGroupInstructionInfo(KinematicGroupInstructionInfo&&) = default;
+  KinematicGroupInstructionInfo& operator=(KinematicGroupInstructionInfo&&) = delete;
+
   const MoveInstructionPoly& instruction;
-  tesseract_kinematics::KinematicGroup::UPtr manip;
+  std::unique_ptr<tesseract_kinematics::KinematicGroup> manip;
   std::string working_frame;
   Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };
   std::string tcp_frame;
@@ -491,7 +508,7 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
 /** @brief Provided for backwards compatibility */
 CompositeInstruction generateInterpolatedProgram(const CompositeInstruction& instructions,
                                                  const tesseract_scene_graph::SceneState& current_state,
-                                                 const tesseract_environment::Environment::ConstPtr& env,
+                                                 const std::shared_ptr<const tesseract_environment::Environment>& env,
                                                  double state_longest_valid_segment_length = 5 * M_PI / 180,
                                                  double translation_longest_valid_segment_length = 0.15,
                                                  double rotation_longest_valid_segment_length = 5 * M_PI / 180,

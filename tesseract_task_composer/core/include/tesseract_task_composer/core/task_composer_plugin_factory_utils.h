@@ -34,9 +34,9 @@ template <typename TaskType>
 class TaskComposerTaskFactory : public TaskComposerNodeFactory
 {
 public:
-  TaskComposerNode::UPtr create(const std::string& name,
-                                const YAML::Node& config,
-                                const TaskComposerPluginFactory& plugin_factory) const override
+  std::unique_ptr<TaskComposerNode> create(const std::string& name,
+                                           const YAML::Node& config,
+                                           const TaskComposerPluginFactory& plugin_factory) const override
   {
     return std::make_unique<TaskType>(name, config, plugin_factory);
   }
@@ -46,7 +46,7 @@ template <typename ExecutorType>
 class TaskComposerExecutorFactoryImpl : public TaskComposerExecutorFactory
 {
 public:
-  TaskComposerExecutor::UPtr create(const std::string& name, const YAML::Node& config) const override
+  std::unique_ptr<TaskComposerExecutor> create(const std::string& name, const YAML::Node& config) const override
   {
     return std::make_unique<ExecutorType>(name, config);
   }

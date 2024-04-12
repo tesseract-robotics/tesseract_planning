@@ -30,11 +30,16 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <memory>
+#include <Eigen/Core>
+#include <trajopt_ifopt/fwd.h>
+#include <trajopt_sqp/fwd.h>
+#include <trajopt_sqp/types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_environment/environment.h>
-#include <trajopt_ifopt/variable_sets/joint_position_variable.h>
-#include <trajopt_sqp/sqp_callback.h>
+#include <tesseract_environment/fwd.h>
+#include <tesseract_kinematics/core/fwd.h>
+
+#include <tesseract_scene_graph/scene_state.h>
 
 namespace tesseract_planning
 {
@@ -54,16 +59,16 @@ struct TrajOptIfoptProblem
   trajopt_sqp::SQPParameters opt_info;
 
   // These are required for Tesseract to configure Descartes
-  tesseract_environment::Environment::ConstPtr environment;
+  std::shared_ptr<const tesseract_environment::Environment> environment;
   tesseract_scene_graph::SceneState env_state;
 
   // Kinematic Objects
-  tesseract_kinematics::JointGroup::ConstPtr manip;
+  std::shared_ptr<const tesseract_kinematics::JointGroup> manip;
 
-  std::vector<trajopt_sqp::SQPCallback::Ptr> callbacks;
+  std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> callbacks;
 
-  trajopt_sqp::QPProblem::Ptr nlp;
-  std::vector<trajopt_ifopt::JointPosition::ConstPtr> vars;
+  std::shared_ptr<trajopt_sqp::QPProblem> nlp;
+  std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition>> vars;
 };
 
 }  // namespace tesseract_planning

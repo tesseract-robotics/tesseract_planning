@@ -32,8 +32,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/poly/move_instruction_poly.h>
-#include <tesseract_motion_planners/core/types.h>
+#include <tesseract_common/fwd.h>
+#include <tesseract_command_language/fwd.h>
+#include <tesseract_motion_planners/core/fwd.h>
 
 namespace tesseract_planning
 {
@@ -90,8 +91,6 @@ public:
   // This contains functions for composite processing. Get start for example
 };
 
-using SimplePlannerPlanProfileMap = std::unordered_map<std::string, SimplePlannerPlanProfile::ConstPtr>;
-using SimplePlannerCompositeProfileMap = std::unordered_map<std::string, SimplePlannerCompositeProfile::ConstPtr>;
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PROFILE_H

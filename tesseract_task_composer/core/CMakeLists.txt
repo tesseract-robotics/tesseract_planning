@@ -3,6 +3,7 @@ add_library(
   src/task_composer_data_storage.cpp
   src/task_composer_context.cpp
   src/task_composer_executor.cpp
+  src/task_composer_future.cpp
   src/task_composer_graph.cpp
   src/task_composer_node.cpp
   src/task_composer_node_info.cpp

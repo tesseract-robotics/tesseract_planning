@@ -29,16 +29,27 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <boost/serialization/string.hpp>
+
+#include <tesseract_common/serialization.h>
+#include <tesseract_common/utils.h>
+
+#include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_task_composer/planning/nodes/time_optimal_parameterization_task.h>
 #include <tesseract_task_composer/planning/profiles/time_optimal_parameterization_profile.h>
 #include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/utils.h>
+
+#include <tesseract_motion_planners/planner_utils.h>
+
 #include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation.h>
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
 #include <tesseract_time_parameterization/core/utils.h>
@@ -79,8 +90,8 @@ TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string nam
                              "output key");
 }
 
-TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context,
-                                                                    OptionalTaskComposerExecutor /*executor*/) const
+std::unique_ptr<TaskComposerNodeInfo>
+TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
@@ -183,7 +194,7 @@ TimeOptimalParameterizationTaskInfo::TimeOptimalParameterizationTaskInfo(const T
 {
 }
 
-TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTaskInfo::clone() const
+std::unique_ptr<TaskComposerNodeInfo> TimeOptimalParameterizationTaskInfo::clone() const
 {
   return std::make_unique<TimeOptimalParameterizationTaskInfo>(*this);
 }
@@ -212,7 +223,6 @@ void TimeOptimalParameterizationTaskInfo::serialize(Archive& ar, const unsigned 
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimeOptimalParameterizationTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TimeOptimalParameterizationTask)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimeOptimalParameterizationTaskInfo)

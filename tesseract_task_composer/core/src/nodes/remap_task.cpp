@@ -26,10 +26,15 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
+#include <boost/serialization/map.hpp>
 #include <yaml-cpp/yaml.h>
+#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/nodes/remap_task.h>
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
 
 namespace tesseract_planning
 {
@@ -58,8 +63,8 @@ RemapTask::RemapTask(std::string name, const YAML::Node& config, const TaskCompo
     copy_ = n.as<bool>();
 }
 
-TaskComposerNodeInfo::UPtr RemapTask::runImpl(TaskComposerContext& context,
-                                              OptionalTaskComposerExecutor /*executor*/) const
+std::unique_ptr<TaskComposerNodeInfo> RemapTask::runImpl(TaskComposerContext& context,
+                                                         OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   if (context.data_storage->remapData(remap_, copy_))
@@ -97,6 +102,5 @@ void RemapTask::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RemapTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RemapTask)

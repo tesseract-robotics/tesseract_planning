@@ -31,9 +31,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_node.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
 
 namespace tesseract_planning
 {
@@ -121,9 +124,10 @@ void TaskComposerNode::renameOutputKeys(const std::map<std::string, std::string>
 
 void TaskComposerNode::setConditional(bool enable) { conditional_ = enable; }
 
-std::string TaskComposerNode::dump(std::ostream& os,
-                                   const TaskComposerNode* /*parent*/,
-                                   const std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& results_map) const
+std::string
+TaskComposerNode::dump(std::ostream& os,
+                       const TaskComposerNode* /*parent*/,
+                       const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const
 {
   const std::string tmp = toString(uuid_, "node_");
 
@@ -265,6 +269,5 @@ std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::s
 }
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerNode)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerNode)

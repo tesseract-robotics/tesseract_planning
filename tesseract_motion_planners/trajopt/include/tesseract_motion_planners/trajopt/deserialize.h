@@ -25,15 +25,23 @@
  */
 #ifndef TESSERACT_MOTION_PLANNERS_TRAJOPT_DESERIALIZE_H
 #define TESSERACT_MOTION_PLANNERS_TRAJOPT_DESERIALIZE_H
+
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tinyxml2.h>
+#include <string>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
+
+namespace tinyxml2
+{
+class XMLElement;  // NOLINT
+class XMLDocument;
+}  // namespace tinyxml2
 
 namespace tesseract_planning
 {
+class TrajOptDefaultPlanProfile;
+class TrajOptDefaultCompositeProfile;
+
 TrajOptDefaultPlanProfile trajOptPlanParser(const tinyxml2::XMLElement& xml_element);
 
 TrajOptDefaultPlanProfile trajOptPlanFromXMLElement(const tinyxml2::XMLElement* profile_xml);
