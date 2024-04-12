@@ -65,14 +65,13 @@ TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerPlanningFactoriesAnchor)
 
 }  // namespace tesseract_planning
 
+// clang-format off
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::CheckInputTaskFactory, CheckInputTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::ContinuousContactCheckTaskFactory,
-                                        ContinuousContactCheckTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::ContinuousContactCheckTaskFactory, ContinuousContactCheckTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::DiscreteContactCheckTaskFactory,
-                                        DiscreteContactCheckTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::DiscreteContactCheckTaskFactory, DiscreteContactCheckTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::FixStateBoundsTaskFactory, FixStateBoundsTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
@@ -84,15 +83,13 @@ TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::MinLengthTaskFactory
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::ProfileSwitchTaskFactory, ProfileSwitchTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::UpsampleTrajectoryTaskFactory,
-                                        UpsampleTrajectoryTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::UpsampleTrajectoryTaskFactory, UpsampleTrajectoryTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::RasterMotionTaskFactory, RasterMotionTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::RasterOnlyMotionTaskFactory, RasterOnlyMotionTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::SimpleMotionPlannerTaskFactory,
-                                        SimpleMotionPlannerTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::SimpleMotionPlannerTaskFactory, SimpleMotionPlannerTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::ProcessPlanningInputTaskFactory,
-                                        ProcessPlanningInputTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::ProcessPlanningInputTaskFactory, ProcessPlanningInputTaskFactory)
+// clang-format on

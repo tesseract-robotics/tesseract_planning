@@ -37,9 +37,9 @@ using DescartesDMotionPlannerTaskFactory = TaskComposerTaskFactory<MotionPlanner
 
 }  // namespace tesseract_planning
 
+// clang-format off
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::DescartesFMotionPlannerTaskFactory,
-                                        DescartesFMotionPlannerTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::DescartesFMotionPlannerTaskFactory, DescartesFMotionPlannerTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::DescartesDMotionPlannerTaskFactory,
-                                        DescartesDMotionPlannerTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::DescartesDMotionPlannerTaskFactory, DescartesDMotionPlannerTaskFactory)
+// clang-format on
