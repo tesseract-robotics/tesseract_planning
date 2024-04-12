@@ -103,7 +103,7 @@ private:
   double box_size_;
   bool update_start_state_{ false };
   bool use_continuous_{ false };
-  bool realtime_running_;
+  bool realtime_running_{ false };
 
   std::shared_ptr<const tesseract_kinematics::KinematicGroup> manip_;
   tesseract_visualization::TrajectoryPlayer player_;

@@ -88,7 +88,6 @@ OnlinePlanningExample::OnlinePlanningExample(std::shared_ptr<tesseract_environme
   , box_size_(box_size)
   , update_start_state_(update_start_state)
   , use_continuous_(use_continuous)
-  , realtime_running_(false)
 {
   // Extract necessary kinematic information
   manip_ = env_->getKinematicGroup("manipulator");
