@@ -51,7 +51,7 @@ void runTaskComposerFactoryTest(TaskComposerPluginFactory& factory, YAML::Node p
 
     for (auto it = search_paths.begin(); it != search_paths.end(); ++it)
     {
-      EXPECT_TRUE(sp.find(it->as<std::string>()));
+      EXPECT_TRUE(sp.find(it->as<std::string>()) != sp.end());
     }
   }
 
@@ -61,7 +61,7 @@ void runTaskComposerFactoryTest(TaskComposerPluginFactory& factory, YAML::Node p
 
     for (auto it = search_libraries.begin(); it != search_libraries.end(); ++it)
     {
-      EXPECT_TRUE(sl.find(it->as<std::string>()));
+      EXPECT_TRUE(sl.find(it->as<std::string>()) != sl.end());
     }
   }
 
