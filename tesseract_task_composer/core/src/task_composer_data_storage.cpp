@@ -39,38 +39,45 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 namespace tesseract_planning
 {
+// NOLINTNEXTLINE(cppcoreguidelines-prefer-member-initializer)
 TaskComposerDataStorage::TaskComposerDataStorage(const TaskComposerDataStorage& other)
 {
   std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
-  data_ = other.data_;  // NOLINT(cppcoreguidelines-prefer-member-initializer)
+  data_ = other.data_;
 }
+
+// NOLINTNEXTLINE(cppcoreguidelines-prefer-member-initializer)
 TaskComposerDataStorage& TaskComposerDataStorage::operator=(const TaskComposerDataStorage& other)
 {
   std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
-  data_ = other.data_;  // NOLINT(cppcoreguidelines-prefer-member-initializer)
+  data_ = other.data_;
   return *this;
 }
+
+// NOLINTNEXTLINE(cppcoreguidelines-prefer-member-initializer)
 TaskComposerDataStorage::TaskComposerDataStorage(TaskComposerDataStorage&& other) noexcept
 {
   std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::unique_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
-  data_ = std::move(other.data_);  // NOLINT(cppcoreguidelines-prefer-member-initializer)
+  data_ = std::move(other.data_);
 }
+
+// NOLINTNEXTLINE(cppcoreguidelines-prefer-member-initializer)
 TaskComposerDataStorage& TaskComposerDataStorage::operator=(TaskComposerDataStorage&& other) noexcept
 {
   std::unique_lock lhs_lock(mutex_, std::defer_lock);
   std::unique_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
-  data_ = std::move(other.data_);  // NOLINT(cppcoreguidelines-prefer-member-initializer)
+  data_ = std::move(other.data_);
   return *this;
 }
 
