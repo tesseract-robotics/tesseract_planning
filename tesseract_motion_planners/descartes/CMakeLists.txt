@@ -19,6 +19,7 @@ target_link_libraries(
          tesseract::tesseract_collision_core
          descartes::descartes_light
          Boost::boost
+         Threads::Threads
          ${CMAKE_THREAD_LIBS_INIT})
 target_compile_options(${PROJECT_NAME}_descartes PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_descartes PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})

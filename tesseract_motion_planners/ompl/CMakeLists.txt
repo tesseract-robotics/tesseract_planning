@@ -27,6 +27,7 @@ target_link_libraries(
          ${PROJECT_NAME}_simple
          ${OMPL_LIBRARIES}
          Boost::boost
+         Threads::Threads
          ${CMAKE_THREAD_LIBS_INIT})
 target_compile_options(${PROJECT_NAME}_ompl PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_ompl PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
