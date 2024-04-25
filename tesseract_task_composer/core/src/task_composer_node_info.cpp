@@ -45,6 +45,7 @@ namespace tesseract_planning
 {
 TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node)
   : name(node.name_)
+  , ns(node.ns_)
   , uuid(node.uuid_)
   , parent_uuid(node.parent_uuid_)
   , inbound_edges(node.inbound_edges_)
@@ -58,6 +59,7 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
 
   bool equal = true;
   equal &= name == rhs.name;
+  equal &= ns == rhs.ns;
   equal &= uuid == rhs.uuid;
   equal &= parent_uuid == rhs.parent_uuid;
   equal &= return_value == rhs.return_value;
@@ -84,6 +86,7 @@ template <class Archive>
 void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& boost::serialization::make_nvp("name", name);
+  ar& boost::serialization::make_nvp("ns", ns);
   ar& boost::serialization::make_nvp("uuid", uuid);
   ar& boost::serialization::make_nvp("parent_uuid", parent_uuid);
   ar& boost::serialization::make_nvp("return_value", return_value);
@@ -160,6 +163,19 @@ TaskComposerNodeInfo::UPtr TaskComposerNodeInfoContainer::getInfo(const boost::u
   return it->second->clone();
 }
 
+std::vector<TaskComposerNodeInfo::UPtr>
+TaskComposerNodeInfoContainer::find(const std::function<bool(const TaskComposerNodeInfo&)>& search_fn) const
+{
+  std::unique_lock<std::shared_mutex> lock(mutex_);
+  std::vector<TaskComposerNodeInfo::UPtr> results;
+  for (const auto& info : info_map_)
+  {
+    if (search_fn(*info.second))
+      results.push_back(info.second->clone());
+  }
+  return results;
+}
+
 void TaskComposerNodeInfoContainer::setAborted(const boost::uuids::uuid& node_uuid)
 {
   assert(!node_uuid.is_nil());
@@ -178,6 +194,13 @@ void TaskComposerNodeInfoContainer::clear()
   std::unique_lock<std::shared_mutex> lock(mutex_);
   aborting_node_ = boost::uuids::uuid{};
   info_map_.clear();
+}
+
+void TaskComposerNodeInfoContainer::prune(const std::function<void(TaskComposerNodeInfo& node_info)>& prune_fn)
+{
+  std::unique_lock<std::shared_mutex> lock(mutex_);
+  for (auto& info : info_map_)
+    prune_fn(*info.second);
 }
 
 std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> TaskComposerNodeInfoContainer::getInfoMap() const
