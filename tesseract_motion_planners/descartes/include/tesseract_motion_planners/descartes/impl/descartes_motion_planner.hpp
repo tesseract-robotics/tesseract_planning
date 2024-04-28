@@ -86,7 +86,12 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   try
   {
     descartes_light::LadderGraphSolver<FloatType> solver(problem->num_threads);
-    solver.build(problem->samplers, problem->edge_evaluators, problem->state_evaluators);
+    if (!solver.build(problem->samplers, problem->edge_evaluators, problem->state_evaluators))
+    {
+      response.successful = false;
+      response.message = ERROR_FAILED_TO_BUILD_GRAPH;
+      return response;
+    }
     descartes_result = solver.search();
     if (descartes_result.trajectory.empty())
     {
