@@ -25,9 +25,12 @@
  */
 
 #include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_assign_plan_profile.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/core/types.h>
 
 namespace tesseract_planning
 {
