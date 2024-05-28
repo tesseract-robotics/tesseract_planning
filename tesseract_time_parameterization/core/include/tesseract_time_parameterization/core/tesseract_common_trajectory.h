@@ -1,5 +1,5 @@
 /**
- * @file tesseract_cmmon_trajectory.h
+ * @file tesseract_common_trajectory.h
  * @brief Trajectory Container implementation for tesseract_cmmon trajectories
  *
  * @author Connor Wolfe

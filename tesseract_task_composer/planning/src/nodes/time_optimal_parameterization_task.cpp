@@ -149,11 +149,13 @@ TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalT
   // Copy the Composite before passing in because it will get flattened and resampled
   CompositeInstruction copy_ci(ci);
   InstructionsTrajectory traj_wrapper(copy_ci);
-  if (!solver.computeTimeStamps(traj_wrapper,
-                                limits.velocity_limits,
-                                limits.acceleration_limits,
-                                cur_composite_profile->max_velocity_scaling_factor,
-                                cur_composite_profile->max_acceleration_scaling_factor))
+  if (!solver.compute(traj_wrapper,
+                      limits.velocity_limits,
+                      limits.acceleration_limits,
+                      limits.jerk_limits,
+                      Eigen::VectorXd::Constant(1, cur_composite_profile->max_velocity_scaling_factor),
+                      Eigen::VectorXd::Constant(1, cur_composite_profile->max_acceleration_scaling_factor),
+                      Eigen::VectorXd::Constant(1, cur_composite_profile->max_jerk_scaling_factor)))
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching

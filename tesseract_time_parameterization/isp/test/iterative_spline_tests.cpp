@@ -98,10 +98,22 @@ TEST(TestTimeParameterization, TestIterativeSpline)  // NOLINT
 {
   IterativeSplineParameterization time_parameterization(false);
   CompositeInstruction program = createStraightTrajectory();
-  std::vector<double> max_velocity = { 2.088, 2.082, 3.27, 3.6, 3.3, 3.078 };
-  std::vector<double> max_acceleration = { 1, 1, 1, 1, 1, 1 };
+
+  // Limits
+  Eigen::MatrixX2d max_velocity(6, 2);
+  max_velocity.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  max_velocity.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  Eigen::MatrixX2d max_acceleration(6, 2);
+  max_acceleration.col(0) << -1, -1, -1, -1, -1, -1;
+  max_acceleration.col(1) << 1, 1, 1, 1, 1, 1;
+  Eigen::MatrixX2d max_jerk(6, 2);
+  max_jerk.col(0) << -1, -1, -1, -1, -1, -1;
+  max_jerk.col(1) << 1, 1, 1, 1, 1, 1;
+
+  // Trajectory
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
-  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration));
+
+  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration, max_jerk));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 }
 
@@ -109,10 +121,17 @@ TEST(TestTimeParameterization, TestIterativeSplineAddPoints)  // NOLINT
 {
   IterativeSplineParameterization time_parameterization(true);
   CompositeInstruction program = createStraightTrajectory();
-  std::vector<double> max_velocity = { 2.088, 2.082, 3.27, 3.6, 3.3, 3.078 };
-  std::vector<double> max_acceleration = { 1, 1, 1, 1, 1, 1 };
+  Eigen::MatrixX2d max_velocity(6, 2);
+  max_velocity.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  max_velocity.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  Eigen::MatrixX2d max_acceleration(6, 2);
+  max_acceleration.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  max_acceleration.col(1) = Eigen::VectorXd::Ones(6);
+  Eigen::MatrixX2d max_jerk(6, 2);
+  max_jerk.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  max_jerk.col(1) = Eigen::VectorXd::Ones(6);
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
-  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration));
+  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration, max_jerk));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 }
 
@@ -120,36 +139,58 @@ TEST(TestTimeParameterization, TestIterativeSplineDynamicParams)  // NOLINT
 {
   IterativeSplineParameterization time_parameterization(false);
   CompositeInstruction program = createStraightTrajectory();
-  Eigen::VectorXd max_velocity(6);
-  max_velocity << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
-  Eigen::VectorXd max_acceleration(6);
-  max_acceleration << 1, 1, 1, 1, 1, 1;
-  Eigen::VectorXd max_velocity_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(program.size()));
+  Eigen::MatrixX2d max_velocity(6, 2);
+  max_velocity.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  max_velocity.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  Eigen::MatrixX2d max_acceleration(6, 2);
+  max_acceleration.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  max_acceleration.col(1) = Eigen::VectorXd::Ones(6);
+  Eigen::MatrixX2d max_jerk(6, 2);
+  max_jerk.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  max_jerk.col(1) = Eigen::VectorXd::Ones(6);
 
-  // +1 for start instruction
+  Eigen::VectorXd max_velocity_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(program.size()));
   Eigen::VectorXd max_acceleration_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(program.size()));
+  Eigen::VectorXd max_jerk_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(program.size()));
 
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
-  EXPECT_TRUE(time_parameterization.compute(
-      *trajectory, max_velocity, max_acceleration, max_velocity_scaling_factors, max_acceleration_scaling_factors));
+  EXPECT_TRUE(time_parameterization.compute(*trajectory,
+                                            max_velocity,
+                                            max_acceleration,
+                                            max_jerk,
+                                            max_velocity_scaling_factors,
+                                            max_acceleration_scaling_factors,
+                                            max_jerk_scaling_factors));
   EXPECT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 
   program = createStraightTrajectory();
   max_velocity_scaling_factors[0] = 0.5;
   max_acceleration_scaling_factors[0] = 0.5;
   trajectory = std::make_shared<InstructionsTrajectory>(program);
-  EXPECT_TRUE(time_parameterization.compute(
-      *trajectory, max_velocity, max_acceleration, max_velocity_scaling_factors, max_acceleration_scaling_factors));
+  EXPECT_TRUE(time_parameterization.compute(*trajectory,
+                                            max_velocity,
+                                            max_acceleration,
+                                            max_jerk,
+                                            max_velocity_scaling_factors,
+                                            max_acceleration_scaling_factors,
+                                            max_jerk_scaling_factors));
 }
 
 TEST(TestTimeParameterization, TestRepeatedPoint)  // NOLINT
 {
   IterativeSplineParameterization time_parameterization(true);
   CompositeInstruction program = createRepeatedPointTrajectory();
-  std::vector<double> max_velocity = { 2.088, 2.082, 3.27, 3.6, 3.3, 3.078 };
-  std::vector<double> max_acceleration = { 1, 1, 1, 1, 1, 1 };
+  Eigen::MatrixX2d max_velocity(6, 2);
+  max_velocity.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  max_velocity.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  Eigen::MatrixX2d max_acceleration(6, 2);
+  max_acceleration.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  max_acceleration.col(1) = Eigen::VectorXd::Ones(6);
+  Eigen::MatrixX2d max_jerk(6, 2);
+  max_jerk.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  max_jerk.col(1) = Eigen::VectorXd::Ones(6);
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
-  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration));
+  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration, max_jerk));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 0.001);
 }
 

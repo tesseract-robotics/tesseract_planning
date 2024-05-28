@@ -150,6 +150,7 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
                                              cur_composite_profile->max_velocity_scaling_factor;
   Eigen::VectorXd acceleration_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(flattened.size())) *
                                                  cur_composite_profile->max_acceleration_scaling_factor;
+  Eigen::VectorXd jerk_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(flattened.size()));
 
   // Loop over all MoveInstructions
   for (Eigen::Index idx = 0; idx < static_cast<Eigen::Index>(flattened.size()); idx++)
@@ -176,8 +177,10 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
   if (!solver_.compute(*trajectory,
                        limits.velocity_limits,
                        limits.acceleration_limits,
+                       limits.jerk_limits,
                        velocity_scaling_factors,
-                       acceleration_scaling_factors))
+                       acceleration_scaling_factors,
+                       jerk_scaling_factors))
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching

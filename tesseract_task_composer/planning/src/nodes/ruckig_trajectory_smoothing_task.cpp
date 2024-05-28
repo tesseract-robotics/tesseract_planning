@@ -167,7 +167,7 @@ RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTas
   if (!solver.compute(*trajectory,
                       limits.velocity_limits,
                       limits.acceleration_limits,
-                      Eigen::VectorXd::Constant(limits.velocity_limits.rows(), 1000),
+                      limits.jerk_limits,  // Eigen::VectorXd::Constant(limits.velocity_limits.rows(), 1000)
                       velocity_scaling_factors,
                       acceleration_scaling_factors,
                       jerk_scaling_factors))

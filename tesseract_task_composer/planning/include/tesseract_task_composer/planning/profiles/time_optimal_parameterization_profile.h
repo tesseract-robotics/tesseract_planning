@@ -42,10 +42,12 @@ struct TimeOptimalParameterizationProfile
   TimeOptimalParameterizationProfile() = default;
   TimeOptimalParameterizationProfile(double max_velocity_scaling_factor,
                                      double max_acceleration_scaling_factor,
+                                     double max_jerk_scaling_factor,
                                      double path_tolerance,
                                      double min_angle_change)
     : max_velocity_scaling_factor(max_velocity_scaling_factor)
     , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
+    , max_jerk_scaling_factor(max_jerk_scaling_factor)
     , path_tolerance(path_tolerance)
     , min_angle_change(min_angle_change)
   {
@@ -56,6 +58,9 @@ struct TimeOptimalParameterizationProfile
 
   /** @brief The max acceleration scaling factor passed to the solver. Default: 1.0 */
   double max_acceleration_scaling_factor{ 1.0 };
+
+  /** @brief The max acceleration scaling factor passed to the solver. Default: 1.0 */
+  double max_jerk_scaling_factor{ 1.0 };
 
   /** @brief path_tolerance. Default: 0.1*/
   double path_tolerance{ 0.1 };

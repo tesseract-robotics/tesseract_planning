@@ -99,119 +99,55 @@ void globalAdjustment(std::vector<SingleJointTrajectory>& t2,
 
 IterativeSplineParameterization::IterativeSplineParameterization(bool add_points) : add_points_(add_points) {}
 
-IterativeSplineParameterization::~IterativeSplineParameterization() = default;
-
 bool IterativeSplineParameterization::compute(TrajectoryContainer& trajectory,
-                                              const double& max_velocity,
-                                              const double& max_acceleration,
-                                              double max_velocity_scaling_factor,
-                                              double max_acceleration_scaling_factor) const
-{
-  return compute(trajectory,
-                 std::vector<double>(static_cast<std::size_t>(trajectory.dof()), max_velocity),
-                 std::vector<double>(static_cast<std::size_t>(trajectory.dof()), max_acceleration),
-                 max_velocity_scaling_factor,
-                 max_acceleration_scaling_factor);
-}
-
-bool IterativeSplineParameterization::compute(TrajectoryContainer& trajectory,
-                                              const std::vector<double>& max_velocity,
-                                              const std::vector<double>& max_acceleration,
-                                              double max_velocity_scaling_factor,
-                                              double max_acceleration_scaling_factor) const
-{
-  return compute(trajectory,
-                 Eigen::Map<const Eigen::VectorXd>(max_velocity.data(), static_cast<long>(max_velocity.size())),
-                 Eigen::Map<const Eigen::VectorXd>(max_acceleration.data(), static_cast<long>(max_acceleration.size())),
-                 max_velocity_scaling_factor,
-                 max_acceleration_scaling_factor);
-}
-
-bool IterativeSplineParameterization::compute(TrajectoryContainer& trajectory,
-                                              const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-                                              const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-                                              double max_velocity_scaling_factor,
-                                              double max_acceleration_scaling_factor) const
-{
-  Eigen::VectorXd max_velocity_scaling_factors =
-      Eigen::VectorXd::Ones(static_cast<Eigen::Index>(trajectory.size())) * max_velocity_scaling_factor;
-  Eigen::VectorXd max_acceleration_scaling_factors =
-      Eigen::VectorXd::Ones(static_cast<Eigen::Index>(trajectory.size())) * max_acceleration_scaling_factor;
-  return compute(
-      trajectory, max_velocity, max_acceleration, max_velocity_scaling_factors, max_acceleration_scaling_factors);
-}
-
-bool IterativeSplineParameterization::compute(
-    TrajectoryContainer& trajectory,
-    const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-    const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-    const Eigen::Ref<const Eigen::VectorXd>& max_velocity_scaling_factors,
-    const Eigen::Ref<const Eigen::VectorXd>& max_acceleration_scaling_factors) const
+                                              const Eigen::Ref<const Eigen::MatrixX2d>& velocity_limits,
+                                              const Eigen::Ref<const Eigen::MatrixX2d>& acceleration_limits,
+                                              const Eigen::Ref<const Eigen::MatrixX2d>& /*jerk_limits*/,
+                                              const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors,
+                                              const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors,
+                                              const Eigen::Ref<const Eigen::VectorXd>& /*jerk_scaling_factors*/) const
 {
   if (trajectory.empty())
     return true;
 
-  Eigen::VectorXd velocity_scaling_factor = Eigen::VectorXd::Ones(trajectory.size());
-  Eigen::VectorXd acceleration_scaling_factor = Eigen::VectorXd::Ones(trajectory.size());
+  Eigen::VectorXd local_velocity_scaling_factor = Eigen::VectorXd::Ones(trajectory.size());
+  Eigen::VectorXd local_acceleration_scaling_factor = Eigen::VectorXd::Ones(trajectory.size());
   auto num_points = static_cast<std::size_t>(trajectory.size());
 
-  if (max_velocity.size() != trajectory.dof() || max_acceleration.size() != trajectory.dof())
+  if (velocity_limits.rows() != trajectory.dof() || acceleration_limits.rows() != trajectory.dof())
     return false;
 
   // Set scaling factors
-  if ((max_velocity_scaling_factors.array() > 0.0).all() && (max_velocity_scaling_factors.array() <= 1.0).all())
-    velocity_scaling_factor = max_velocity_scaling_factors;
-  else
+  if (!((velocity_scaling_factors.array() > 0.0).all() && (velocity_scaling_factors.array() <= 1.0).all()))
+    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+
+  if (!((acceleration_scaling_factors.array() > 0.0).all() && (acceleration_scaling_factors.array() <= 1.0).all()))
+    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+
+  if (velocity_scaling_factors.rows() == 1)
   {
-    for (Eigen::Index idx = 0; idx < max_velocity_scaling_factors.size(); idx++)
-    {
-      if (max_velocity_scaling_factors[idx] == 0.0)
-      {
-        // NOLINTNEXTLINE
-        CONSOLE_BRIDGE_logDebug("iterative_spline_parameterization: A max_velocity_scaling_factor of 0.0 was "
-                                "specified at index %d, "
-                                "defaulting to %f instead.",
-                                idx,
-                                velocity_scaling_factor[idx]);
-      }
-      else
-      {
-        // NOLINTNEXTLINE
-        CONSOLE_BRIDGE_logWarn("iterative_spline_parameterization: Invalid max_velocity_scaling_factor %f specified at "
-                               "index %d, "
-                               "defaulting to %f instead.",
-                               max_velocity_scaling_factors[idx],
-                               idx,
-                               velocity_scaling_factor[idx]);
-      }
-    }
+    local_velocity_scaling_factor *= velocity_scaling_factors(0);
   }
-  if ((max_acceleration_scaling_factors.array() > 0.0).all() && (max_acceleration_scaling_factors.array() <= 1.0).all())
-    acceleration_scaling_factor = max_acceleration_scaling_factors;
+  else if (velocity_scaling_factors.rows() == local_velocity_scaling_factor.rows())
+  {
+    local_velocity_scaling_factor = velocity_scaling_factors;
+  }
   else
   {
-    for (Eigen::Index idx = 0; idx < max_acceleration_scaling_factors.size(); idx++)
-    {
-      if (max_acceleration_scaling_factors[idx] == 0.0)
-      {
-        // NOLINTNEXTLINE
-        CONSOLE_BRIDGE_logDebug("iterative_spline_parameterization: A max_acceleration_scaling_factor of 0.0 was "
-                                "specified at index %d, defaulting to %f instead.",
-                                idx,
-                                acceleration_scaling_factor[idx]);
-      }
-      else
-      {
-        // NOLINTNEXTLINE
-        CONSOLE_BRIDGE_logWarn("iterative_spline_parameterization: Invalid max_acceleration_scaling_factor %f "
-                               "specified "
-                               "at index %d, "
-                               "defaulting to %f instead.",
-                               max_acceleration_scaling_factors[idx],
-                               idx,
-                               acceleration_scaling_factor[idx]);
-      }
-    }
+    CONSOLE_BRIDGE_logWarn("Invalid velocity_scaling_factors specified, defaulting to 1 instead.");
+  }
+
+  if (acceleration_scaling_factors.rows() == 1)
+  {
+    local_acceleration_scaling_factor *= acceleration_scaling_factors(0);
+  }
+  else if (acceleration_scaling_factors.rows() == local_acceleration_scaling_factor.rows())
+  {
+    local_acceleration_scaling_factor = acceleration_scaling_factors;
+  }
+  else
+  {
+    CONSOLE_BRIDGE_logWarn("Invalid acceleration_scaling_factor specified, defaulting to 1 instead.");
   }
 
   // JointTrajectory indexes in [point][joint] order.
@@ -267,18 +203,18 @@ bool IterativeSplineParameterization::compute(
                                                        static_cast<Eigen::Index>(num_points));
 
     max_velocity_eigen =
-        Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * max_velocity[static_cast<Eigen::Index>(j)];
+        Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * velocity_limits(static_cast<Eigen::Index>(j), 1);
     min_velocity_eigen =
-        Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * -max_velocity[static_cast<Eigen::Index>(j)];
-    max_velocity_eigen.array() *= velocity_scaling_factor.array();
-    min_velocity_eigen.array() *= velocity_scaling_factor.array();
+        Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * velocity_limits(static_cast<Eigen::Index>(j), 0);
+    max_velocity_eigen.array() *= local_velocity_scaling_factor.array();
+    min_velocity_eigen.array() *= local_velocity_scaling_factor.array();
 
-    max_acceleration_eigen =
-        Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * max_acceleration[static_cast<Eigen::Index>(j)];
-    min_acceleration_eigen =
-        Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * -max_acceleration[static_cast<Eigen::Index>(j)];
-    max_acceleration_eigen.array() *= acceleration_scaling_factor.array();
-    min_acceleration_eigen.array() *= acceleration_scaling_factor.array();
+    max_acceleration_eigen = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) *
+                             acceleration_limits(static_cast<Eigen::Index>(j), 1);
+    min_acceleration_eigen = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) *
+                             acceleration_limits(static_cast<Eigen::Index>(j), 0);
+    max_acceleration_eigen.array() *= local_acceleration_scaling_factor.array();
+    min_acceleration_eigen.array() *= local_acceleration_scaling_factor.array();
 
     // Error out if bounds don't make sense
     if ((max_velocity_eigen.array() <= 0.0).any() || (max_acceleration_eigen.array() <= 0.0).any())

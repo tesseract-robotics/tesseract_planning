@@ -125,8 +125,8 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   for (const auto& js : descartes_result.trajectory)
   {
     solution.push_back(js->values.template cast<double>());
-    assert(tesseract_common::satisfiesPositionLimits<double>(solution.back(), joint_limits));
-    tesseract_common::enforcePositionLimits<double>(solution.back(), joint_limits);
+    assert(tesseract_common::satisfiesLimits<double>(solution.back(), joint_limits));
+    tesseract_common::enforceLimits<double>(solution.back(), joint_limits);
   }
 
   // Flatten the results to make them easier to process
