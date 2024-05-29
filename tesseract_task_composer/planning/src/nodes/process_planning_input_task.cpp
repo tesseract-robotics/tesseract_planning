@@ -76,7 +76,8 @@ std::unique_ptr<TaskComposerNodeInfo> ProcessPlanningInputTask::runImpl(TaskComp
   if (problem.input.isNull() || problem.input.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->color = "red";
-    info->message = "Input is not a Composite Instruction, aborting...";
+    info->status_code = 0;
+    info->status_message = "Input is not a Composite Instruction, aborting...";
     info->return_value = 0;
 
     // Abort
@@ -87,7 +88,8 @@ std::unique_ptr<TaskComposerNodeInfo> ProcessPlanningInputTask::runImpl(TaskComp
   context.data_storage->setData(output_keys_[0], problem.input.as<CompositeInstruction>());
 
   info->color = "green";
-  info->message = "Successful";
+  info->status_code = 1;
+  info->status_message = "Successful";
   info->return_value = 1;
   return info;
 }

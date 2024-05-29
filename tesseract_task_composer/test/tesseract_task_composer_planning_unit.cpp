@@ -229,7 +229,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningTaskComposerProble
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message, "Successful");
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message, "Successful");
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -249,7 +250,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningTaskComposerProble
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -267,7 +269,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerPlanningTaskComposerProble
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -335,7 +338,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -356,7 +360,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -382,7 +387,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(dynamic_cast<const ContinuousContactCheckTaskInfo&>(*node_info).contact_results.empty(), false);
     EXPECT_EQ(context->isAborted(), false);
@@ -451,7 +457,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -473,7 +480,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -499,7 +507,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(dynamic_cast<const DiscreteContactCheckTaskInfo&>(*node_info).contact_results.empty(), false);
     EXPECT_EQ(context->isAborted(), false);
@@ -601,7 +610,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -634,7 +644,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -662,7 +673,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -683,7 +695,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -703,7 +716,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -722,7 +736,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -742,7 +757,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -830,7 +846,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -848,7 +865,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -936,7 +954,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -957,7 +976,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -975,7 +995,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1063,7 +1084,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1085,7 +1107,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1162,7 +1185,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1179,7 +1203,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1244,7 +1269,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1266,7 +1292,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1284,7 +1311,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1349,7 +1377,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1371,7 +1400,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1389,7 +1419,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1463,7 +1494,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1489,7 +1521,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1507,7 +1540,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1526,7 +1560,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1614,7 +1649,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1632,7 +1668,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1749,7 +1786,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1770,7 +1808,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1788,7 +1827,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1887,7 +1927,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1912,7 +1953,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -1930,7 +1972,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -2037,7 +2080,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -2058,7 +2102,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -2076,7 +2121,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -2179,7 +2225,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -2201,7 +2248,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -2592,7 +2640,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -2631,7 +2680,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -2670,7 +2720,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -2709,7 +2760,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -3001,7 +3053,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -3036,7 +3089,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -3071,7 +3125,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
@@ -3106,7 +3161,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
-    EXPECT_EQ(node_info->message.empty(), false);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);

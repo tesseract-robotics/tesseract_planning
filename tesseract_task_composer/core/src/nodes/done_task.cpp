@@ -49,8 +49,9 @@ std::unique_ptr<TaskComposerNodeInfo> DoneTask::runImpl(TaskComposerContext& /*c
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->color = "green";
   info->return_value = 1;
-  info->message = "Successful";
-  CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
+  info->status_code = 1;
+  info->status_message = "Successful";
+  CONSOLE_BRIDGE_logDebug("%s", info->status_message.c_str());
   return info;
 }
 

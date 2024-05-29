@@ -106,6 +106,7 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
 
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
+  info->status_code = 0;
 
   // --------------------
   // Check that inputs are valid
@@ -113,8 +114,8 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
   auto input_data_poly = context.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "Input results to iterative spline parameterization must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_message = "Input results to iterative spline parameterization must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
@@ -140,9 +141,10 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
       context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
     info->color = "green";
-    info->message = "Iterative spline time parameterization found no MoveInstructions to process";
+    info->status_code = 1;
+    info->status_message = "Iterative spline time parameterization found no MoveInstructions to process";
     info->return_value = 1;
-    CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+    CONSOLE_BRIDGE_logWarn("%s", info->status_message.c_str());
     return info;
   }
 
@@ -187,14 +189,15 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
     if (output_keys_[0] != input_keys_[0])
       context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
-    info->message =
+    info->status_message =
         "Failed to perform iterative spline time parameterization for process input: " + ci.getDescription();
-    CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
+    CONSOLE_BRIDGE_logInform("%s", info->status_message.c_str());
     return info;
   }
 
   info->color = "green";
-  info->message = "Successful";
+  info->status_code = 1;
+  info->status_message = "Successful";
   context.data_storage->setData(output_keys_[0], input_data_poly);
   info->return_value = 1;
   CONSOLE_BRIDGE_logDebug("Iterative spline time parameterization succeeded");

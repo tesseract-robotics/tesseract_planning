@@ -44,6 +44,7 @@ void runTaskComposerNodeInfoTest()
   {  // Default
     T node_info;
     EXPECT_EQ(node_info.return_value, -1);
+    EXPECT_EQ(node_info.status_code, 0);
     EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(node_info.elapsed_time, 0));
     EXPECT_TRUE(node_info.uuid.is_nil());
     EXPECT_TRUE(node_info.parent_uuid.is_nil());
@@ -59,6 +60,7 @@ void runTaskComposerNodeInfoTest()
     TaskComposerNode node;
     T node_info(node);
     EXPECT_EQ(node_info.return_value, -1);
+    EXPECT_EQ(node_info.status_code, 0);
     EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(node_info.elapsed_time, 0));
     EXPECT_FALSE(node_info.uuid.is_nil());
     EXPECT_EQ(node_info.uuid, node.getUUID());

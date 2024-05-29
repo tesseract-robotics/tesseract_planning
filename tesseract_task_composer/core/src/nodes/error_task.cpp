@@ -49,8 +49,9 @@ std::unique_ptr<TaskComposerNodeInfo> ErrorTask::runImpl(TaskComposerContext& /*
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->color = "red";
   info->return_value = 0;
-  info->message = "Error";
-  CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
+  info->status_code = 0;
+  info->status_message = "Error";
+  CONSOLE_BRIDGE_logDebug("%s", info->status_message.c_str());
   return info;
 }
 

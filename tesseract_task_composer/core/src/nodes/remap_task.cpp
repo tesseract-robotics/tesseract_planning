@@ -71,13 +71,15 @@ std::unique_ptr<TaskComposerNodeInfo> RemapTask::runImpl(TaskComposerContext& co
   {
     info->color = "green";
     info->return_value = 1;
-    info->message = "Successful";
+    info->status_code = 1;
+    info->status_message = "Successful";
   }
   else
   {
     info->color = "red";
     info->return_value = 0;
-    info->message = "Failed to remap data.";
+    info->status_code = 0;
+    info->status_message = "Failed to remap data.";
   }
   return info;
 }

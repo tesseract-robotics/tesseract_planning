@@ -91,8 +91,11 @@ public:
   /** @brief Value returned from the Task on completion */
   int return_value{ -1 };
 
+  /** @brief Status code */
+  int status_code{ 0 };
+
   /** @brief Status message */
-  std::string message;
+  std::string status_message;
 
   /** @brief The start time */
   std::chrono::system_clock::time_point start_time{ std::chrono::system_clock::now() };
