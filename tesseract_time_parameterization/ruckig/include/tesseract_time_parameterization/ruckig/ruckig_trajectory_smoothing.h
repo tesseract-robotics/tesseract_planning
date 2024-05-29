@@ -39,7 +39,7 @@ class RuckigTrajectorySmoothing : public TimeParameterization
 {
 public:
   RuckigTrajectorySmoothing(double duration_extension_fraction = 1.1, double max_duration_extension_factor = 10);
-  virtual ~RuckigTrajectorySmoothing() = default;
+  ~RuckigTrajectorySmoothing() override = default;
   RuckigTrajectorySmoothing(const RuckigTrajectorySmoothing&) = default;
   RuckigTrajectorySmoothing& operator=(const RuckigTrajectorySmoothing&) = default;
   RuckigTrajectorySmoothing(RuckigTrajectorySmoothing&&) = default;
