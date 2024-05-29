@@ -3,7 +3,7 @@
  * @brief
  *
  * @author Roelof Oomen
- * @date March 19, 2024
+ * @date May 29, 2024
  * @version TODO
  * @bug No known bugs
  *
@@ -96,7 +96,7 @@ SimplePlannerLVSAssignPlanProfile::generate(const MoveInstructionPoly& prev_inst
         j1 = getClosestJointSolution(prev, base.extractJointPosition());
       }
     }
-    tesseract_common::enforcePositionLimits<double>(j1, prev.manip->getLimits().joint_limits);
+    tesseract_common::enforceLimits<double>(j1, prev.manip->getLimits().joint_limits);
   }
 
   Eigen::VectorXd j2;
@@ -137,7 +137,7 @@ SimplePlannerLVSAssignPlanProfile::generate(const MoveInstructionPoly& prev_inst
         j2 = getClosestJointSolution(base, prev.extractJointPosition());
       }
     }
-    tesseract_common::enforcePositionLimits<double>(j2, base.manip->getLimits().joint_limits);
+    tesseract_common::enforceLimits<double>(j2, base.manip->getLimits().joint_limits);
   }
 
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
