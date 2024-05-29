@@ -46,21 +46,28 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/fwd.h>
 #include <tesseract_time_parameterization/core/fwd.h>
+#include <tesseract_time_parameterization/core/time_parameterization.h>
 
 namespace tesseract_planning
 {
-class TimeOptimalTrajectoryGeneration
+class TimeOptimalTrajectoryGeneration : public TimeParameterization
 {
 public:
   TimeOptimalTrajectoryGeneration(double path_tolerance = 0.1, double min_angle_change = 0.001);
 
-  bool computeTimeStamps(TrajectoryContainer& trajectory,
-                         const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-                         const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-                         double max_velocity_scaling_factor = 1.0,
-                         double max_acceleration_scaling_factor = 1.0) const;
+  /**
+   * @brief Compute timestampes
+   * Currently this only supports using max velocity and acceleration so min values are ignored
+   * Currently only supports a single scale factor so the input must be of length one.
+   */
+  bool compute(TrajectoryContainer& trajectory,
+               const Eigen::Ref<const Eigen::MatrixX2d>& velocity_limits,
+               const Eigen::Ref<const Eigen::MatrixX2d>& acceleration_limits,
+               const Eigen::Ref<const Eigen::MatrixX2d>& jerk_limits,
+               const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors = Eigen::VectorXd::Ones(1),
+               const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors = Eigen::VectorXd::Ones(1),
+               const Eigen::Ref<const Eigen::VectorXd>& jerk_scaling_factors = Eigen::VectorXd::Ones(1)) const override;
 
 private:
   double path_tolerance_;

@@ -319,14 +319,19 @@ TEST(time_optimal_trajectory_generation, testCommandLanguageInterface)  // NOLIN
     program.appendMoveInstruction(plan_f0);
   }
 
-  Eigen::VectorXd max_velocities(6);
-  max_velocities.setOnes();
-  Eigen::VectorXd max_accelerations(6);
-  max_accelerations.setOnes();
+  Eigen::MatrixX2d max_velocities(6, 2);
+  max_velocities.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  max_velocities.col(1) = Eigen::VectorXd::Ones(6);
+  Eigen::MatrixX2d max_accelerations(6, 2);
+  max_accelerations.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  max_accelerations.col(1) = Eigen::VectorXd::Ones(6);
+  Eigen::MatrixX2d max_jerks(6, 2);
+  max_jerks.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  max_jerks.col(1) = Eigen::VectorXd::Ones(6);
 
   TimeOptimalTrajectoryGeneration solver(0.001, 1e-3);
   InstructionsTrajectory traj_wrapper(program);
-  EXPECT_TRUE(solver.computeTimeStamps(traj_wrapper, max_velocities, max_accelerations, 1.0, 1.0));
+  EXPECT_TRUE(solver.compute(traj_wrapper, max_velocities, max_accelerations, max_jerks));
 }
 
 // Initialize one-joint, straight-line trajectory
@@ -357,12 +362,17 @@ void runTrajectoryContainerInterfaceTest(double path_tolerance)
 {
   TimeOptimalTrajectoryGeneration solver(path_tolerance, 1e-3);
   CompositeInstruction program = createStraightTrajectory();
-  Eigen::VectorXd max_velocity(6);
-  max_velocity << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
-  Eigen::VectorXd max_acceleration(6);
-  max_acceleration << 1, 1, 1, 1, 1, 1;
+  Eigen::MatrixX2d max_velocity(6, 2);
+  max_velocity.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  max_velocity.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  Eigen::MatrixX2d max_acceleration(6, 2);
+  max_acceleration.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  max_acceleration.col(1) = Eigen::VectorXd::Ones(6);
+  Eigen::MatrixX2d max_jerk(6, 2);
+  max_jerk.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  max_jerk.col(1) = Eigen::VectorXd::Ones(6);
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
-  EXPECT_TRUE(solver.computeTimeStamps(*trajectory, max_velocity, max_acceleration));
+  EXPECT_TRUE(solver.compute(*trajectory, max_velocity, max_acceleration, max_jerk));
   ASSERT_LT(
       program.back().as<tesseract_planning::MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(),
       5.0);

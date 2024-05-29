@@ -364,7 +364,7 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
 {
   // Get IK seed
   Eigen::VectorXd seed = scene_state.getJointValues(base.manip->getJointNames());
-  tesseract_common::enforcePositionLimits<double>(seed, base.manip->getLimits().joint_limits);
+  tesseract_common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
 
   std::array<Eigen::VectorXd, 2> sol;
   const auto& base_cwp = base.instruction.getWaypoint().as<CartesianWaypointPoly>();
@@ -657,7 +657,7 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
 {
   // Get IK seed
   Eigen::VectorXd seed = scene_state.getJointValues(base.manip->getJointNames());
-  tesseract_common::enforcePositionLimits<double>(seed, base.manip->getLimits().joint_limits);
+  tesseract_common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
 
   // Calculate IK for start and end
   Eigen::Isometry3d p1_world = prev.extractCartesianPose();
@@ -910,7 +910,7 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const JointGroupIns
 {
   // Get IK seed
   Eigen::VectorXd seed = scene_state.getJointValues(base.manip->getJointNames());
-  tesseract_common::enforcePositionLimits<double>(seed, base.manip->getLimits().joint_limits);
+  tesseract_common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
 
   // Calculate IK for start and end
   Eigen::Isometry3d p1_world = prev.extractCartesianPose();
@@ -1157,7 +1157,7 @@ Eigen::VectorXd getClosestJointSolution(const KinematicGroupInstructionInfo& inf
     double dist = std::numeric_limits<double>::max();
     for (const auto& solution : jp)
     {
-      if (tesseract_common::satisfiesPositionLimits<double>(solution, limits.joint_limits))
+      if (tesseract_common::satisfiesLimits<double>(solution, limits.joint_limits))
       {
         if (jp_final.rows() == 0)
         {
@@ -1208,8 +1208,8 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
   j1_solutions.erase(std::remove_if(j1_solutions.begin(),
                                     j1_solutions.end(),
                                     [&manip1_limits](const Eigen::VectorXd& solution) {
-                                      return !tesseract_common::satisfiesPositionLimits<double>(
-                                          solution, manip1_limits.joint_limits);
+                                      return !tesseract_common::satisfiesLimits<double>(solution,
+                                                                                        manip1_limits.joint_limits);
                                     }),
                      j1_solutions.end());
 
@@ -1230,8 +1230,8 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
                                     j2_solutions.end(),
                                     [&manip2_limits](const Eigen::VectorXd& solution) {
                                       // NOLINTNEXTLINE(clang-analyzer-core.uninitialized.UndefReturn)
-                                      return !tesseract_common::satisfiesPositionLimits<double>(
-                                          solution, manip2_limits.joint_limits);
+                                      return !tesseract_common::satisfiesLimits<double>(solution,
+                                                                                        manip2_limits.joint_limits);
                                     }),
                      j2_solutions.end());
 

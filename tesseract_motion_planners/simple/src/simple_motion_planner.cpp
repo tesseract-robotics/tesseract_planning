@@ -124,8 +124,8 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
     if (mi.getWaypoint().isJointWaypoint() || mi.getWaypoint().isStateWaypoint())
     {
       Eigen::VectorXd jp = getJointPosition(mi.getWaypoint());
-      assert(tesseract_common::satisfiesPositionLimits<double>(jp, joint_limits));
-      tesseract_common::enforcePositionLimits<double>(jp, joint_limits);
+      assert(tesseract_common::satisfiesLimits<double>(jp, joint_limits));
+      tesseract_common::enforceLimits<double>(jp, joint_limits);
       setJointPosition(mi.getWaypoint(), jp);
     }
     else if (mi.getWaypoint().isCartesianWaypoint())
@@ -134,8 +134,8 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
       if (cwp.hasSeed())
       {
         Eigen::VectorXd& jp = cwp.getSeed().position;
-        assert(tesseract_common::satisfiesPositionLimits<double>(jp, joint_limits));
-        tesseract_common::enforcePositionLimits<double>(jp, joint_limits);
+        assert(tesseract_common::satisfiesLimits<double>(jp, joint_limits));
+        tesseract_common::enforceLimits<double>(jp, joint_limits);
       }
     }
     else

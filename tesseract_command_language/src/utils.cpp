@@ -314,7 +314,7 @@ bool isWithinJointLimits(const WaypointPoly& wp, const Eigen::Ref<const Eigen::M
   if (wp.isJointWaypoint() || wp.isStateWaypoint())
   {
     const Eigen::VectorXd& cmd_pos = getJointPosition(wp);
-    return tesseract_common::isWithinPositionLimits<double>(cmd_pos, limits);
+    return tesseract_common::isWithinLimits<double>(cmd_pos, limits);
   }
 
   throw std::runtime_error("isWithinJointLimits, invalid waypoint type!");
@@ -336,11 +336,11 @@ bool clampToJointLimits(WaypointPoly& wp,
 
     const Eigen::VectorXd max_rel_diff =
         Eigen::VectorXd::Constant(cmd_pos.size(), std::numeric_limits<double>::epsilon());
-    if (!tesseract_common::satisfiesPositionLimits<double>(cmd_pos, limits, max_deviation, max_rel_diff))
+    if (!tesseract_common::satisfiesLimits<double>(cmd_pos, limits, max_deviation, max_rel_diff))
       return false;
 
     CONSOLE_BRIDGE_logDebug("Clamping Waypoint to joint limits");
-    tesseract_common::enforcePositionLimits<double>(cmd_pos, limits);
+    tesseract_common::enforceLimits<double>(cmd_pos, limits);
     return setJointPosition(wp, cmd_pos);
   }
 
