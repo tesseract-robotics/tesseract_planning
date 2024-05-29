@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_interpolation_move_profile.h
+ * @file simple_planner_fixed_size_move_profile.h
  * @brief
  *
  * @author Matthew Powelson
