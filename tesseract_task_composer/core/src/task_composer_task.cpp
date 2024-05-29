@@ -72,7 +72,8 @@ int TaskComposerTask::run(TaskComposerContext& context, OptionalTaskComposerExec
     info->output_keys = output_keys_;
     info->return_value = 0;
     info->color = "white";
-    info->message = "Aborted";
+    info->status_code = 0;
+    info->status_message = "Aborted";
     info->aborted_ = true;
     context.task_infos.addInfo(std::move(info));
     return 0;
@@ -89,7 +90,8 @@ int TaskComposerTask::run(TaskComposerContext& context, OptionalTaskComposerExec
   {
     results = std::make_unique<TaskComposerNodeInfo>(*this);
     results->color = "red";
-    results->message = "Exception thrown: " + std::string(e.what());
+    results->status_code = -1;
+    results->status_message = "Exception thrown: " + std::string(e.what());
     results->return_value = 0;
   }
   timer.stop();
@@ -104,7 +106,7 @@ int TaskComposerTask::run(TaskComposerContext& context, OptionalTaskComposerExec
   // Call abort if required
   if (trigger_abort_ && !context.isAborted())
   {
-    results->message += " (Abort Triggered)";
+    results->status_message += " (Abort Triggered)";
     context.abort(uuid_);
   }
 

@@ -63,7 +63,8 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= uuid == rhs.uuid;
   equal &= parent_uuid == rhs.parent_uuid;
   equal &= return_value == rhs.return_value;
-  equal &= message == rhs.message;
+  equal &= status_code == rhs.status_code;
+  equal &= status_message == rhs.status_message;
   equal &= start_time == rhs.start_time;
   equal &= tesseract_common::almostEqualRelativeAndAbs(elapsed_time, rhs.elapsed_time, max_diff);
   equal &= tesseract_common::isIdentical(inbound_edges, rhs.inbound_edges, false);
@@ -90,7 +91,8 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("uuid", uuid);
   ar& boost::serialization::make_nvp("parent_uuid", parent_uuid);
   ar& boost::serialization::make_nvp("return_value", return_value);
-  ar& boost::serialization::make_nvp("message", message);
+  ar& boost::serialization::make_nvp("status_code", status_code);
+  ar& boost::serialization::make_nvp("status_message", status_message);
   ar& boost::serialization::make_nvp("start_time",
                                      boost::serialization::make_binary_object(&start_time, sizeof(start_time)));
   ar& boost::serialization::make_nvp("elapsed_time", elapsed_time);

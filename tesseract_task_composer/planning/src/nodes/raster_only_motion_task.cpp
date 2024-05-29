@@ -287,6 +287,7 @@ std::unique_ptr<TaskComposerNodeInfo> RasterOnlyMotionTask::runImpl(TaskComposer
 
   auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
   info->return_value = 0;
+  info->status_code = 0;
   info->env = problem.env;
 
   // --------------------
@@ -299,8 +300,8 @@ std::unique_ptr<TaskComposerNodeInfo> RasterOnlyMotionTask::runImpl(TaskComposer
   }
   catch (const std::exception& e)
   {
-    info->message = e.what();
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_message = e.what();
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
@@ -417,8 +418,8 @@ std::unique_ptr<TaskComposerNodeInfo> RasterOnlyMotionTask::runImpl(TaskComposer
 
   if (context.isAborted())
   {
-    info->message = "Raster only subgraph failed";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_message = "Raster only subgraph failed";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
@@ -444,7 +445,8 @@ std::unique_ptr<TaskComposerNodeInfo> RasterOnlyMotionTask::runImpl(TaskComposer
   context.data_storage->setData(output_keys_[0], program);
 
   info->color = "green";
-  info->message = "Successful";
+  info->status_code = 1;
+  info->status_message = "Successful";
   info->return_value = 1;
   return info;
 }

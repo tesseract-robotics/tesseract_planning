@@ -93,6 +93,7 @@ std::unique_ptr<TaskComposerNodeInfo> TestTask::runImpl(TaskComposerContext& con
   else
     node_info->color = "green";
   node_info->return_value = return_value;
+  node_info->status_code = return_value;
 
   if (set_abort)
   {

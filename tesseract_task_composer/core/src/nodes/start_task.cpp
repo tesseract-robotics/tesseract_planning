@@ -54,8 +54,9 @@ std::unique_ptr<TaskComposerNodeInfo> StartTask::runImpl(TaskComposerContext& /*
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->color = "green";
-  info->message = "Successful";
   info->return_value = 1;
+  info->status_code = 1;
+  info->status_message = "Successful";
   return info;
 }
 

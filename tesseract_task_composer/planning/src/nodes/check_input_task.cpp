@@ -70,19 +70,20 @@ std::unique_ptr<TaskComposerNodeInfo> CheckInputTask::runImpl(TaskComposerContex
                                                               OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+  info->return_value = 0;
+  info->status_code = 0;
 
   // Get the problem
   auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
 
   // Get Composite Profile
-  info->return_value = 0;
   for (const auto& key : input_keys_)
   {
     auto input_data_poly = context.data_storage->getData(key);
     if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
     {
-      info->message = "Input key '" + key + "' is missing";
-      CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+      info->status_message = "Input key '" + key + "' is missing";
+      CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
       return info;
     }
 
@@ -95,13 +96,14 @@ std::unique_ptr<TaskComposerNodeInfo> CheckInputTask::runImpl(TaskComposerContex
 
     if (!cur_composite_profile->isValid(context))
     {
-      info->message = "Validator failed";
+      info->status_message = "Validator failed";
       return info;
     }
   }
 
   info->color = "green";
-  info->message = "Successful";
+  info->status_code = 1;
+  info->status_message = "Successful";
   info->return_value = 1;
   return info;
 }

@@ -73,6 +73,7 @@ std::unique_ptr<TaskComposerNodeInfo> UpdateEndStateTask::runImpl(TaskComposerCo
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
+  info->status_code = 0;
 
   auto input_data_poly = context.data_storage->getData(input_keys_[0]);
   auto input_next_data_poly = context.data_storage->getData(input_keys_[1]);
@@ -82,15 +83,17 @@ std::unique_ptr<TaskComposerNodeInfo> UpdateEndStateTask::runImpl(TaskComposerCo
   // --------------------
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "UpdateEndStateTask: Input data for key '" + input_keys_[0] + "' must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_message =
+        "UpdateEndStateTask: Input data for key '" + input_keys_[0] + "' must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
   if (input_next_data_poly.isNull() || input_next_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "UpdateEndStateTask: Input data for key '" + input_keys_[1] + "' must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_message =
+        "UpdateEndStateTask: Input data for key '" + input_keys_[1] + "' must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
@@ -114,7 +117,8 @@ std::unique_ptr<TaskComposerNodeInfo> UpdateEndStateTask::runImpl(TaskComposerCo
   context.data_storage->setData(output_keys_[0], input_data_poly);
 
   info->color = "green";
-  info->message = "Successful";
+  info->status_code = 1;
+  info->status_message = "Successful";
   info->return_value = 1;
   return info;
 }

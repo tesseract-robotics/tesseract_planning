@@ -86,6 +86,7 @@ ContinuousContactCheckTask::runImpl(TaskComposerContext& context, OptionalTaskCo
 
   auto info = std::make_unique<ContinuousContactCheckTaskInfo>(*this);
   info->return_value = 0;
+  info->status_code = 0;
   info->env = problem.env;
 
   // --------------------
@@ -94,8 +95,9 @@ ContinuousContactCheckTask::runImpl(TaskComposerContext& context, OptionalTaskCo
   auto input_data_poly = context.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "Input seed to ContinuousContactCheckTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_code = 0;
+    info->status_message = "Input seed to ContinuousContactCheckTask must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     info->return_value = 0;
     return info;
   }
@@ -121,8 +123,9 @@ ContinuousContactCheckTask::runImpl(TaskComposerContext& context, OptionalTaskCo
   std::vector<tesseract_collision::ContactResultMap> contacts;
   if (contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->config))
   {
-    info->message = "Results are not contact free for process input: " + ci.getDescription();
-    CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
+    info->status_code = 0;
+    info->status_message = "Results are not contact free for process input: " + ci.getDescription();
+    CONSOLE_BRIDGE_logInform("%s", info->status_message.c_str());
 
     // Save space
     for (auto& contact_map : contacts)
@@ -134,8 +137,9 @@ ContinuousContactCheckTask::runImpl(TaskComposerContext& context, OptionalTaskCo
   }
 
   info->color = "green";
-  info->message = "Continuous contact check succeeded";
-  CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
+  info->status_code = 1;
+  info->status_message = "Continuous contact check succeeded";
+  CONSOLE_BRIDGE_logDebug("%s", info->status_message.c_str());
   info->return_value = 1;
   return info;
 }
