@@ -1,13 +1,13 @@
 /**
- * @file simple_planner_fixed_size_assign_plan_profile.h
+ * @file simple_planner_fixed_size_assign_no_ik_plan_profile.h
  * @brief
  *
- * @author Roelof Oomen
- * @date May 29, 2024
+ * @author Matthew Powelson
+ * @date July 23, 2020
  * @version TODO
  * @bug No known bugs
  *
- * @copyright Copyright (c) 2024, ROS Industrial Consortium
+ * @copyright Copyright (c) 2020, Southwest Research Institute
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -24,31 +24,31 @@
  * limitations under the License.
  */
 
-#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_PLAN_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_PLAN_PROFILE_H
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_PLAN_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_PLAN_PROFILE_H
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
 namespace tesseract_planning
 {
-class SimplePlannerFixedSizeAssignPlanProfile : public SimplePlannerPlanProfile
+class SimplePlannerFixedSizeAssignNoIKPlanProfile : public SimplePlannerPlanProfile
 {
 public:
-  using Ptr = std::shared_ptr<SimplePlannerFixedSizeAssignPlanProfile>;
-  using ConstPtr = std::shared_ptr<const SimplePlannerFixedSizeAssignPlanProfile>;
+  using Ptr = std::shared_ptr<SimplePlannerFixedSizeAssignNoIKPlanProfile>;
+  using ConstPtr = std::shared_ptr<const SimplePlannerFixedSizeAssignNoIKPlanProfile>;
 
   /**
    * @brief SimplePlannerFixedSizeAssignPlanProfile
    * @param freespace_steps The number of steps to use for freespace instruction
    * @param linear_steps The number of steps to use for linear instruction
    */
-  SimplePlannerFixedSizeAssignPlanProfile(int freespace_steps = 10, int linear_steps = 10);
+  SimplePlannerFixedSizeAssignNoIKPlanProfile(int freespace_steps = 10, int linear_steps = 10);
 
   std::vector<MoveInstructionPoly> generate(const MoveInstructionPoly& prev_instruction,
                                             const MoveInstructionPoly& prev_seed,
                                             const MoveInstructionPoly& base_instruction,
                                             const InstructionPoly& next_instruction,
-                                            const std::shared_ptr<const tesseract_environment::Environment>& env,
+                                            const PlannerRequest& request,
                                             const tesseract_common::ManipulatorInfo& global_manip_info) const override;
 
   /** @brief The number of steps to use for freespace instruction */
@@ -56,15 +56,8 @@ public:
 
   /** @brief The number of steps to use for linear instruction */
   int linear_steps;
-
-protected:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerFixedSizeAssignPlanProfile)
-
-#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_PLAN_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_PLAN_PROFILE_H
