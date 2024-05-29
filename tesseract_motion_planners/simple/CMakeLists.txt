@@ -7,6 +7,7 @@ add_library(
   src/profile/simple_planner_lvs_no_ik_plan_profile.cpp
   src/profile/simple_planner_fixed_size_assign_plan_profile.cpp
   src/profile/simple_planner_fixed_size_plan_profile.cpp
+  src/profile/simple_planner_lvs_assign_no_ik_plan_profile.cpp
   src/profile/simple_planner_lvs_assign_plan_profile.cpp
   src/profile/simple_planner_lvs_no_ik_plan_profile.cpp
   src/profile/simple_planner_lvs_plan_profile.cpp)
