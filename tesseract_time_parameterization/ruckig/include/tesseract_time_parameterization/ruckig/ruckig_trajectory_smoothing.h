@@ -31,14 +31,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_time_parameterization/core/fwd.h>
+#include <tesseract_time_parameterization/core/time_parameterization.h>
 
 namespace tesseract_planning
 {
-class RuckigTrajectorySmoothing
+class RuckigTrajectorySmoothing : public TimeParameterization
 {
 public:
   RuckigTrajectorySmoothing(double duration_extension_fraction = 1.1, double max_duration_extension_factor = 10);
-  virtual ~RuckigTrajectorySmoothing() = default;
+  ~RuckigTrajectorySmoothing() override = default;
   RuckigTrajectorySmoothing(const RuckigTrajectorySmoothing&) = default;
   RuckigTrajectorySmoothing& operator=(const RuckigTrajectorySmoothing&) = default;
   RuckigTrajectorySmoothing(RuckigTrajectorySmoothing&&) = default;
@@ -50,73 +51,13 @@ public:
   /** @brief Set the max duration extension factor */
   void setMaxDurationExtensionFactor(double max_duration_extension_factor);
 
-  /**
-   * @brief Compute the time stamps for a flattened vector of move instruction
-   * @param trajectory Flattended vector of move instruction
-   * @param max_velocities The max velocities for each joint
-   * @param max_accelerations The max acceleration for each joint
-   * @param max_velocity_scaling_factor The max velocity scaling factor
-   * @param max_acceleration_scaling_factor The max acceleration scaling factor
-   * @return True if successful, otherwise false
-   */
   bool compute(TrajectoryContainer& trajectory,
-               const double& max_velocity,
-               const double& max_acceleration,
-               const double& max_jerk,
-               double max_velocity_scaling_factor = 1.0,
-               double max_acceleration_scaling_factor = 1.0,
-               double max_jerk_scaling_factor = 1.0) const;
-
-  /**
-   * @brief Compute the time stamps for a flattened vector of move instruction
-   * @param trajectory Flattended vector of move instruction
-   * @param max_velocities The max velocities for each joint
-   * @param max_accelerations The max acceleration for each joint
-   * @param max_velocity_scaling_factor The max velocity scaling factor
-   * @param max_acceleration_scaling_factor The max acceleration scaling factor
-   * @return True if successful, otherwise false
-   */
-  bool compute(TrajectoryContainer& trajectory,
-               const std::vector<double>& max_velocity,
-               const std::vector<double>& max_acceleration,
-               const std::vector<double>& max_jerk,
-               double max_velocity_scaling_factor = 1.0,
-               double max_acceleration_scaling_factor = 1.0,
-               double max_jerk_scaling_factor = 1.0) const;
-
-  /**
-   * @brief Compute the time stamps for a flattened vector of move instruction
-   * @param trajectory Flattended vector of move instruction
-   * @param max_velocities The max velocities for each joint
-   * @param max_accelerations The max acceleration for each joint
-   * @param max_velocity_scaling_factor The max velocity scaling factor
-   * @param max_acceleration_scaling_factor The max acceleration scaling factor
-   * @return True if successful, otherwise false
-   */
-  bool compute(TrajectoryContainer& trajectory,
-               const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-               const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-               const Eigen::Ref<const Eigen::VectorXd>& max_jerk,
-               double max_velocity_scaling_factor = 1.0,
-               double max_acceleration_scaling_factor = 1.0,
-               double max_jerk_scaling_factor = 1.0) const;
-
-  /**
-   * @brief Compute the time stamps for a flattened vector of move instruction
-   * @param trajectory Flattended vector of move instruction
-   * @param max_velocities The max velocities for each joint
-   * @param max_accelerations The max acceleration for each joint
-   * @param max_velocity_scaling_factor The max velocity scaling factor. Size should be trajectory.size()
-   * @param max_acceleration_scaling_factor The max acceleration scaling factor. Size should be trajectory.size()
-   * @return True if successful, otherwise false
-   */
-  bool compute(TrajectoryContainer& trajectory,
-               const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-               const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-               const Eigen::Ref<const Eigen::VectorXd>& max_jerk,
-               const Eigen::Ref<const Eigen::VectorXd>& max_velocity_scaling_factors,
-               const Eigen::Ref<const Eigen::VectorXd>& max_acceleration_scaling_factors,
-               const Eigen::Ref<const Eigen::VectorXd>& max_jerk_scaling_factors) const;
+               const Eigen::Ref<const Eigen::MatrixX2d>& velocity_limits,
+               const Eigen::Ref<const Eigen::MatrixX2d>& acceleration_limits,
+               const Eigen::Ref<const Eigen::MatrixX2d>& jerk_limits,
+               const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors = Eigen::VectorXd::Ones(1),
+               const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors = Eigen::VectorXd::Ones(1),
+               const Eigen::Ref<const Eigen::VectorXd>& jerk_scaling_factors = Eigen::VectorXd::Ones(1)) const override;
 
 protected:
   double duration_extension_fraction_;

@@ -128,6 +128,7 @@ protected:
 
     auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
     info->return_value = 0;
+    info->status_code = 0;
     info->env = problem.env;
 
     // --------------------
@@ -136,8 +137,8 @@ protected:
     auto input_data_poly = context.data_storage->getData(input_keys_[0]);
     if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
     {
-      info->message = "Input instructions to MotionPlannerTask: " + name_ + " must be a composite instruction";
-      CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+      info->status_message = "Input instructions to MotionPlannerTask: " + name_ + " must be a composite instruction";
+      CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
       return info;
     }
 
@@ -174,7 +175,8 @@ protected:
     {
       info->return_value = 1;
       info->color = "green";
-      info->message = response.message;
+      info->status_code = 1;
+      info->status_message = response.message;
       CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
       return info;
     }
@@ -189,7 +191,7 @@ protected:
     if (output_keys_[0] != input_keys_[0])
       context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
-    info->message = response.message;
+    info->status_message = response.message;
     return info;
   }
 };

@@ -61,55 +61,45 @@ TimeOptimalTrajectoryGeneration::TimeOptimalTrajectoryGeneration(double path_tol
 {
 }
 
-bool TimeOptimalTrajectoryGeneration::computeTimeStamps(TrajectoryContainer& trajectory,
-                                                        const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-                                                        const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-                                                        double max_velocity_scaling_factor,
-                                                        double max_acceleration_scaling_factor) const
+bool TimeOptimalTrajectoryGeneration::compute(TrajectoryContainer& trajectory,
+                                              const Eigen::Ref<const Eigen::MatrixX2d>& velocity_limits,
+                                              const Eigen::Ref<const Eigen::MatrixX2d>& acceleration_limits,
+                                              const Eigen::Ref<const Eigen::MatrixX2d>& /*jerk_limits*/,
+                                              const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors,
+                                              const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors,
+                                              const Eigen::Ref<const Eigen::VectorXd>& /*jerk_scaling_factors*/) const
 {
   if (trajectory.empty())
     return true;
 
   // Validate velocity scaling
-  double velocity_scaling_factor = 1.0;
-  if (max_velocity_scaling_factor > 0.0 && max_velocity_scaling_factor <= 1.0)
+  double local_velocity_scaling_factor = 1;
+  if ((velocity_scaling_factors.rows() == 1) && (velocity_scaling_factors.array() > 0.0).all() &&
+      (velocity_scaling_factors.array() <= 1.0).all())
   {
-    velocity_scaling_factor = max_velocity_scaling_factor;
-  }
-  else if (max_velocity_scaling_factor == 0.0)
-  {
-    CONSOLE_BRIDGE_logDebug("A max_velocity_scaling_factor of 0.0 was specified, defaulting to %f instead.",
-                            velocity_scaling_factor);
+    local_velocity_scaling_factor = velocity_scaling_factors(0);
   }
   else
   {
-    CONSOLE_BRIDGE_logWarn("Invalid max_velocity_scaling_factor %f specified, defaulting to %f instead.",
-                           max_velocity_scaling_factor,
-                           velocity_scaling_factor);
+    CONSOLE_BRIDGE_logWarn("Invalid velocity_scaling_factor specified, defaulting to 1 instead.");
   }
 
   // Validate acceleration scaling
-  double acceleration_scaling_factor = 1.0;
-  if (max_acceleration_scaling_factor > 0.0 && max_acceleration_scaling_factor <= 1.0)
+  double local_acceleration_scaling_factor = 1;
+  if ((acceleration_scaling_factors.rows() == 1) && (acceleration_scaling_factors.array() > 0.0).all() &&
+      (acceleration_scaling_factors.array() <= 1.0).all())
   {
-    acceleration_scaling_factor = max_acceleration_scaling_factor;
-  }
-  else if (max_acceleration_scaling_factor == 0.0)
-  {
-    CONSOLE_BRIDGE_logDebug("A max_acceleration_scaling_factor of 0.0 was specified, defaulting to %f instead.",
-                            acceleration_scaling_factor);
+    local_acceleration_scaling_factor = acceleration_scaling_factors(0);
   }
   else
   {
-    CONSOLE_BRIDGE_logWarn("Invalid max_acceleration_scaling_factor %f specified, defaulting to %f instead.",
-                           max_acceleration_scaling_factor,
-                           acceleration_scaling_factor);
+    CONSOLE_BRIDGE_logWarn("Invalid acceleration_scaling_factors specified, defaulting to 1 instead.");
   }
 
   // Validate limits
-  if (max_velocity.rows() != max_acceleration.rows())
+  if (velocity_limits.rows() != acceleration_limits.rows())
   {
-    CONSOLE_BRIDGE_logError("Invalid max_velocity or max_acceleration specified. They should be the same length");
+    CONSOLE_BRIDGE_logError("Invalid velocity or acceleration specified. They should be the same length");
   }
 
   // Flatten program
@@ -169,10 +159,11 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(TrajectoryContainer& tra
     dummy += 1.0;
   }
 
-  Eigen::VectorXd max_velocity_dummy_appended(max_velocity.size() + 1);
-  max_velocity_dummy_appended << (max_velocity * velocity_scaling_factor), std::numeric_limits<double>::max();
-  Eigen::VectorXd max_acceleration_dummy_appended(max_acceleration.size() + 1);
-  max_acceleration_dummy_appended << (max_acceleration * acceleration_scaling_factor),
+  Eigen::VectorXd max_velocity_dummy_appended(velocity_limits.rows() + 1);
+  max_velocity_dummy_appended << (velocity_limits.col(1) * local_velocity_scaling_factor),
+      std::numeric_limits<double>::max();
+  Eigen::VectorXd max_acceleration_dummy_appended(acceleration_limits.rows() + 1);
+  max_acceleration_dummy_appended << (acceleration_limits.col(1) * local_acceleration_scaling_factor),
       std::numeric_limits<double>::max();
 
   // Now actually call the algorithm

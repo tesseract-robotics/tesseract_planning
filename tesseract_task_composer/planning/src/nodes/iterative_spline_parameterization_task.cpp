@@ -106,6 +106,7 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
 
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
+  info->status_code = 0;
 
   // --------------------
   // Check that inputs are valid
@@ -113,8 +114,8 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
   auto input_data_poly = context.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "Input results to iterative spline parameterization must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_message = "Input results to iterative spline parameterization must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
@@ -140,9 +141,10 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
       context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
     info->color = "green";
-    info->message = "Iterative spline time parameterization found no MoveInstructions to process";
+    info->status_code = 1;
+    info->status_message = "Iterative spline time parameterization found no MoveInstructions to process";
     info->return_value = 1;
-    CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+    CONSOLE_BRIDGE_logWarn("%s", info->status_message.c_str());
     return info;
   }
 
@@ -150,6 +152,7 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
                                              cur_composite_profile->max_velocity_scaling_factor;
   Eigen::VectorXd acceleration_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(flattened.size())) *
                                                  cur_composite_profile->max_acceleration_scaling_factor;
+  Eigen::VectorXd jerk_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(flattened.size()));
 
   // Loop over all MoveInstructions
   for (Eigen::Index idx = 0; idx < static_cast<Eigen::Index>(flattened.size()); idx++)
@@ -176,22 +179,25 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
   if (!solver_.compute(*trajectory,
                        limits.velocity_limits,
                        limits.acceleration_limits,
+                       limits.jerk_limits,
                        velocity_scaling_factors,
-                       acceleration_scaling_factors))
+                       acceleration_scaling_factors,
+                       jerk_scaling_factors))
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
     if (output_keys_[0] != input_keys_[0])
       context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
-    info->message =
+    info->status_message =
         "Failed to perform iterative spline time parameterization for process input: " + ci.getDescription();
-    CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
+    CONSOLE_BRIDGE_logInform("%s", info->status_message.c_str());
     return info;
   }
 
   info->color = "green";
-  info->message = "Successful";
+  info->status_code = 1;
+  info->status_message = "Successful";
   context.data_storage->setData(output_keys_[0], input_data_poly);
   info->return_value = 1;
   CONSOLE_BRIDGE_logDebug("Iterative spline time parameterization succeeded");

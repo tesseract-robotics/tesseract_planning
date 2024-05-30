@@ -168,7 +168,7 @@ TaskComposerNode::dump(std::ostream& os,
     if (it != results_map.end())
     {
       os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s"
-         << "\\n`" << it->second->message << "`";
+         << "\\n`" << std::to_string(it->second->status_code) << "::" << it->second->status_message << "`";
     }
     os << "\", color=black, fillcolor=" << color << ", style=filled];\n";
 
@@ -205,7 +205,7 @@ TaskComposerNode::dump(std::ostream& os,
     if (it != results_map.end())
     {
       os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s"
-         << "\\n'" << it->second->message << "'";
+         << "\\n'" << std::to_string(it->second->status_code) << "::" << it->second->status_message << "'";
     }
     os << "\", color=black, fillcolor=" << color << ", style=filled];\n";
 

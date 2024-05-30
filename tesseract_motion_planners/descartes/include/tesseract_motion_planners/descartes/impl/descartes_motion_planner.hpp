@@ -86,7 +86,16 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   try
   {
     descartes_light::LadderGraphSolver<FloatType> solver(problem->num_threads);
-    solver.build(problem->samplers, problem->edge_evaluators, problem->state_evaluators);
+
+    // Build Graph
+    if (!solver.build(problem->samplers, problem->edge_evaluators, problem->state_evaluators))
+    {
+      response.successful = false;
+      response.message = ERROR_FAILED_TO_BUILD_GRAPH;
+      return response;
+    }
+
+    // Search Graph
     descartes_result = solver.search();
     if (descartes_result.trajectory.empty())
     {
@@ -125,8 +134,8 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   for (const auto& js : descartes_result.trajectory)
   {
     solution.push_back(js->values.template cast<double>());
-    assert(tesseract_common::satisfiesPositionLimits<double>(solution.back(), joint_limits));
-    tesseract_common::enforcePositionLimits<double>(solution.back(), joint_limits);
+    assert(tesseract_common::satisfiesLimits<double>(solution.back(), joint_limits));
+    tesseract_common::enforceLimits<double>(solution.back(), joint_limits);
   }
 
   // Flatten the results to make them easier to process

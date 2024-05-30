@@ -149,8 +149,8 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   // Enforce limits
   for (Eigen::Index i = 0; i < traj.rows(); i++)
   {
-    assert(tesseract_common::satisfiesPositionLimits<double>(traj.row(i), joint_limits, 1e-4));
-    tesseract_common::enforcePositionLimits<double>(traj.row(i), joint_limits);
+    assert(tesseract_common::satisfiesLimits<double>(traj.row(i), joint_limits, 1e-4));
+    tesseract_common::enforceLimits<double>(traj.row(i), joint_limits);
   }
 
   // Flatten the results to make them easier to process

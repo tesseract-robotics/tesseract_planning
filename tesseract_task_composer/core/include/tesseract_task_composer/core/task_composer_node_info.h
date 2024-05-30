@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <shared_mutex>
 #include <map>
 #include <chrono>
+#include <functional>
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
 #include <boost/uuid/uuid.hpp>
@@ -60,8 +61,11 @@ public:
   TaskComposerNodeInfo(TaskComposerNodeInfo&&) = default;
   TaskComposerNodeInfo& operator=(TaskComposerNodeInfo&&) = default;
 
-  /** @brief The name */
+  /** @brief The name of the task */
   std::string name;
+
+  /** @brief The namespace of the task */
+  std::string ns;
 
   /** @brief The task uuid */
   boost::uuids::uuid uuid{};
@@ -87,8 +91,11 @@ public:
   /** @brief Value returned from the Task on completion */
   int return_value{ -1 };
 
+  /** @brief Status code */
+  int status_code{ 0 };
+
   /** @brief Status message */
-  std::string message;
+  std::string status_message;
 
   /** @brief The start time */
   std::chrono::system_clock::time_point start_time{ std::chrono::system_clock::now() };
@@ -165,6 +172,15 @@ public:
    */
   TaskComposerNodeInfo::UPtr getInfo(const boost::uuids::uuid& key) const;
 
+  /**
+   * @brief Get task info by name
+   * @param name The name of task info to search
+   * @param ns The namespace to search under. If empty all namespace's are include
+   * @return A list of task infos with the following name.
+   */
+  std::vector<TaskComposerNodeInfo::UPtr>
+  find(const std::function<bool(const TaskComposerNodeInfo& node_info)>& search_fn) const;
+
   /** @brief Get a copy of the task_info_map_ in case it gets resized*/
   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> getInfoMap() const;
 
@@ -188,6 +204,9 @@ public:
 
   /** @brief Clear the contents */
   void clear();
+
+  /** @brief Prune data from node infos to save space */
+  void prune(const std::function<void(TaskComposerNodeInfo&)>& prune_fn);
 
   bool operator==(const TaskComposerNodeInfoContainer& rhs) const;
   bool operator!=(const TaskComposerNodeInfoContainer& rhs) const;

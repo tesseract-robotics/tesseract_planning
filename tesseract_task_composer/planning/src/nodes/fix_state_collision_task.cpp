@@ -365,6 +365,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
 
   auto info = std::make_unique<FixStateCollisionTaskInfo>(*this);
   info->return_value = 0;
+  info->status_code = 0;
   info->env = problem.env;
 
   // --------------------
@@ -373,8 +374,8 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
   auto input_data_poly = context.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "Input to FixStateCollision must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_message = "Input to FixStateCollision must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
@@ -411,7 +412,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
             for (auto& contact_map : info->contact_results)
               contact_map.shrinkToFit();
 
-            info->message = "Failed to correct state in collision";
+            info->status_message = "Failed to correct state in collision";
             return info;
           }
         }
@@ -440,7 +441,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
             for (auto& contact_map : info->contact_results)
               contact_map.shrinkToFit();
 
-            info->message = "Failed to correct state in collision";
+            info->status_message = "Failed to correct state in collision";
             return info;
           }
         }
@@ -456,9 +457,10 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
         if (output_keys_[0] != input_keys_[0])
           context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
-        info->message = "FixStateCollisionTask found no MoveInstructions to process";
+        info->status_code = 1;
+        info->status_message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
-        CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+        CONSOLE_BRIDGE_logWarn("%s", info->status_message.c_str());
         return info;
       }
 
@@ -467,9 +469,10 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
         if (output_keys_[0] != input_keys_[0])
           context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
-        info->message = "FixStateCollisionTask found no intermediate MoveInstructions to process";
+        info->status_code = 1;
+        info->status_message = "FixStateCollisionTask found no intermediate MoveInstructions to process";
         info->return_value = 1;
-        CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+        CONSOLE_BRIDGE_logWarn("%s", info->status_message.c_str());
         return info;
       }
 
@@ -505,7 +508,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
             for (auto& contact_map : info->contact_results)
               contact_map.shrinkToFit();
 
-            info->message = "Failed to correct state in collision";
+            info->status_message = "Failed to correct state in collision";
             return info;
           }
         }
@@ -521,9 +524,10 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
         if (output_keys_[0] != input_keys_[0])
           context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
-        info->message = "FixStateCollisionTask found no MoveInstructions to process";
+        info->status_code = 1;
+        info->status_message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
-        CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+        CONSOLE_BRIDGE_logWarn("%s", info->status_message.c_str());
         return info;
       }
 
@@ -559,7 +563,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
             for (auto& contact_map : info->contact_results)
               contact_map.shrinkToFit();
 
-            info->message = "Failed to correct state in collision";
+            info->status_message = "Failed to correct state in collision";
             return info;
           }
         }
@@ -575,9 +579,10 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
         if (output_keys_[0] != input_keys_[0])
           context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
-        info->message = "FixStateCollisionTask found no MoveInstructions to process";
+        info->status_code = 1;
+        info->status_message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
-        CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+        CONSOLE_BRIDGE_logWarn("%s", info->status_message.c_str());
         return info;
       }
 
@@ -613,7 +618,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
             for (auto& contact_map : info->contact_results)
               contact_map.shrinkToFit();
 
-            info->message = "Failed to correct state in collision";
+            info->status_message = "Failed to correct state in collision";
             return info;
           }
         }
@@ -629,9 +634,10 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
         if (output_keys_[0] != input_keys_[0])
           context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
-        info->message = "FixStateCollisionTask found no MoveInstructions to process";
+        info->status_code = 1;
+        info->status_message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
-        CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+        CONSOLE_BRIDGE_logWarn("%s", info->status_message.c_str());
         return info;
       }
 
@@ -667,7 +673,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
             for (auto& contact_map : info->contact_results)
               contact_map.shrinkToFit();
 
-            info->message = "Failed to correct state in collision";
+            info->status_message = "Failed to correct state in collision";
             return info;
           }
         }
@@ -679,7 +685,8 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
       if (output_keys_[0] != input_keys_[0])
         context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
-      info->message = "Successful, DISABLED";
+      info->status_code = 1;
+      info->status_message = "Successful, DISABLED";
       info->return_value = 1;
       return info;
     }
@@ -688,7 +695,8 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
   context.data_storage->setData(output_keys_[0], input_data_poly);
 
   info->color = "green";
-  info->message = "Successful";
+  info->status_code = 1;
+  info->status_message = "Successful";
   info->return_value = 1;
   CONSOLE_BRIDGE_logDebug("FixStateCollisionTask succeeded");
   return info;

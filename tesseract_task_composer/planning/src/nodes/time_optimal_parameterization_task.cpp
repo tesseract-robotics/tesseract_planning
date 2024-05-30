@@ -98,6 +98,7 @@ TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalT
 
   auto info = std::make_unique<TimeOptimalParameterizationTaskInfo>(*this);
   info->return_value = 0;
+  info->status_code = 0;
 
   // --------------------
   // Check that inputs are valid
@@ -105,8 +106,8 @@ TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalT
   auto input_data_poly = context.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "Input results to TOTG must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_message = "Input results to TOTG must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
@@ -132,9 +133,10 @@ TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalT
       context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
     info->color = "green";
-    info->message = "TOTG found no MoveInstructions to process";
+    info->status_code = 1;
+    info->status_message = "TOTG found no MoveInstructions to process";
     info->return_value = 1;
-    CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+    CONSOLE_BRIDGE_logWarn("%s", info->status_message.c_str());
     return info;
   }
 
@@ -149,26 +151,29 @@ TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalT
   // Copy the Composite before passing in because it will get flattened and resampled
   CompositeInstruction copy_ci(ci);
   InstructionsTrajectory traj_wrapper(copy_ci);
-  if (!solver.computeTimeStamps(traj_wrapper,
-                                limits.velocity_limits,
-                                limits.acceleration_limits,
-                                cur_composite_profile->max_velocity_scaling_factor,
-                                cur_composite_profile->max_acceleration_scaling_factor))
+  if (!solver.compute(traj_wrapper,
+                      limits.velocity_limits,
+                      limits.acceleration_limits,
+                      limits.jerk_limits,
+                      Eigen::VectorXd::Constant(1, cur_composite_profile->max_velocity_scaling_factor),
+                      Eigen::VectorXd::Constant(1, cur_composite_profile->max_acceleration_scaling_factor),
+                      Eigen::VectorXd::Constant(1, cur_composite_profile->max_jerk_scaling_factor)))
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
     if (output_keys_[0] != input_keys_[0])
       context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
-    info->message = "Failed to perform TOTG for process input: " + ci.getDescription();
-    CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
+    info->status_message = "Failed to perform TOTG for process input: " + ci.getDescription();
+    CONSOLE_BRIDGE_logInform("%s", info->status_message.c_str());
     return info;
   }
 
   context.data_storage->setData(output_keys_[0], copy_ci);
 
   info->color = "green";
-  info->message = "Successful";
+  info->status_code = 1;
+  info->status_message = "Successful";
   info->return_value = 1;
   CONSOLE_BRIDGE_logDebug("TOTG succeeded");
   return info;

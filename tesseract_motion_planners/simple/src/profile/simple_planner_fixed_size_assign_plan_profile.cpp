@@ -88,7 +88,7 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
   else
   {
     Eigen::VectorXd seed = request.env_state.getJointValues(info2.manip->getJointNames());
-    tesseract_common::enforcePositionLimits<double>(seed, info2.manip->getLimits().joint_limits);
+    tesseract_common::enforceLimits<double>(seed, info2.manip->getLimits().joint_limits);
 
     if (info2.instruction.isLinear())
       states = seed.replicate(1, linear_steps + 1);

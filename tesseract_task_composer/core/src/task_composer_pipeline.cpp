@@ -60,8 +60,9 @@ int TaskComposerPipeline::run(TaskComposerContext& context, OptionalTaskComposer
     info->input_keys = input_keys_;
     info->output_keys = output_keys_;
     info->return_value = 0;
+    info->status_code = 0;
+    info->status_message = "Aborted";
     info->color = "white";
-    info->message = "Aborted";
     info->aborted_ = true;
     context.task_infos.addInfo(std::move(info));
     return 0;
@@ -78,7 +79,8 @@ int TaskComposerPipeline::run(TaskComposerContext& context, OptionalTaskComposer
   {
     results = std::make_unique<TaskComposerNodeInfo>(*this);
     results->color = "red";
-    results->message = "Exception thrown: " + std::string(e.what());
+    results->status_code = -1;
+    results->status_message = "Exception thrown: " + std::string(e.what());
     results->return_value = 0;
   }
   timer.stop();
@@ -127,7 +129,8 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerPipeline::runImpl(TaskComposer
       info->output_keys = output_keys_;
       info->return_value = static_cast<int>(i);
       info->color = node_info->color;
-      info->message = node_info->message;
+      info->status_code = node_info->status_code;
+      info->status_message = node_info->status_message;
       info->elapsed_time = timer.elapsedSeconds();
       return info;
     }

@@ -87,13 +87,14 @@ std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext
 
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
+  info->status_code = 0;
 
   // Check that inputs are valid
   auto input_data_poly = context.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "Input seed to MinLengthTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_message = "Input seed to MinLengthTask must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
@@ -138,8 +139,8 @@ std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext
 
     if (!response.successful)
     {
-      info->message = "MinLengthTask, failed to subdivid!";
-      CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+      info->status_message = "MinLengthTask, failed to subdivid!";
+      CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
       return info;
     }
 
@@ -151,7 +152,8 @@ std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext
   }
 
   info->color = "green";
-  info->message = "Successful";
+  info->status_code = 1;
+  info->status_message = "Successful";
   info->return_value = 1;
   CONSOLE_BRIDGE_logDebug("Seed Min Length Task Succeeded!");
   return info;

@@ -85,6 +85,7 @@ std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerCon
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
+  info->status_code = 0;
 
   // --------------------
   // Check that inputs are valid
@@ -93,8 +94,8 @@ std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerCon
   if (input_formatted_data_poly.isNull() ||
       input_formatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "Input[0] instruction to FormatAsInputTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_message = "Input[0] instruction to FormatAsInputTask must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
@@ -102,8 +103,8 @@ std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerCon
   if (input_unformatted_data_poly.isNull() ||
       input_unformatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "Input[1] instruction to FormatAsInputTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_message = "Input[1] instruction to FormatAsInputTask must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
@@ -116,8 +117,8 @@ std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerCon
 
   if (mi_formatted_data.size() != mi_unformatted_data.size())
   {
-    info->message = "FormatAsInputTask, input programs are not same size";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_message = "FormatAsInputTask, input programs are not same size";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
@@ -154,7 +155,8 @@ std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerCon
   context.data_storage->setData(output_keys_[0], input_formatted_data_poly);
 
   info->color = "green";
-  info->message = "Successful";
+  info->status_code = 1;
+  info->status_message = "Successful";
   info->return_value = 1;
   return info;
 }

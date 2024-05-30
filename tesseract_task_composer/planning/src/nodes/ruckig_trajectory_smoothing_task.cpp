@@ -91,6 +91,7 @@ RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTas
 
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
+  info->status_code = 0;
 
   // --------------------
   // Check that inputs are valid
@@ -98,8 +99,8 @@ RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTas
   auto input_data_poly = context.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "Input results to ruckig trajectory smoothing must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->status_message = "Input results to ruckig trajectory smoothing must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
@@ -128,9 +129,10 @@ RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTas
       context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
     info->color = "green";
-    info->message = "Ruckig trajectory smoothing found no MoveInstructions to process";
+    info->status_code = 1;
+    info->status_message = "Ruckig trajectory smoothing found no MoveInstructions to process";
     info->return_value = 1;
-    CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+    CONSOLE_BRIDGE_logWarn("%s", info->status_message.c_str());
     return info;
   }
 
@@ -167,7 +169,7 @@ RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTas
   if (!solver.compute(*trajectory,
                       limits.velocity_limits,
                       limits.acceleration_limits,
-                      Eigen::VectorXd::Constant(limits.velocity_limits.rows(), 1000),
+                      limits.jerk_limits,  // Eigen::VectorXd::Constant(limits.velocity_limits.rows(), 1000)
                       velocity_scaling_factors,
                       acceleration_scaling_factors,
                       jerk_scaling_factors))
@@ -177,15 +179,16 @@ RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTas
     if (output_keys_[0] != input_keys_[0])
       context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
 
-    info->message = "Failed to perform ruckig trajectory smoothing for process input: %s" + ci.getDescription();
-    CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
+    info->status_message = "Failed to perform ruckig trajectory smoothing for process input: %s" + ci.getDescription();
+    CONSOLE_BRIDGE_logInform("%s", info->status_message.c_str());
     return info;
   }
 
   context.data_storage->setData(output_keys_[0], input_data_poly);
 
   info->color = "green";
-  info->message = "Successful";
+  info->status_code = 1;
+  info->status_message = "Successful";
   info->return_value = 1;
   CONSOLE_BRIDGE_logDebug("Ruckig trajectory smoothing succeeded");
   return info;
