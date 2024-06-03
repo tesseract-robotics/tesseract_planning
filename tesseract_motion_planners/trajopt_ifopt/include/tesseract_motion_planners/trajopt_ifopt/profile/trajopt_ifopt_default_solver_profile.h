@@ -29,12 +29,16 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
-#include <osqp.h>
 #include <trajopt_sqp/fwd.h>
 #include <trajopt_sqp/types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
+
+namespace OsqpEigen
+{
+class Settings;
+}
 
 namespace tesseract_planning
 {
@@ -46,15 +50,15 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptIfoptDefaultSolverProfile>;
 
   TrajOptIfoptDefaultSolverProfile();
-  ~TrajOptIfoptDefaultSolverProfile() override = default;
-  TrajOptIfoptDefaultSolverProfile(const TrajOptIfoptDefaultSolverProfile&) = default;
-  TrajOptIfoptDefaultSolverProfile& operator=(const TrajOptIfoptDefaultSolverProfile&) = default;
+  ~TrajOptIfoptDefaultSolverProfile() override;
+  TrajOptIfoptDefaultSolverProfile(const TrajOptIfoptDefaultSolverProfile&) = delete;
+  TrajOptIfoptDefaultSolverProfile& operator=(const TrajOptIfoptDefaultSolverProfile&) = delete;
   TrajOptIfoptDefaultSolverProfile(TrajOptIfoptDefaultSolverProfile&&) = default;
   TrajOptIfoptDefaultSolverProfile& operator=(TrajOptIfoptDefaultSolverProfile&&) = default;
 
   /** @brief The OSQP convex solver settings to use
    *  @todo Replace by convex_solver_config (cf. sco::ModelConfig) once solver selection is possible */
-  OSQPSettings convex_solver_settings{};
+  std::unique_ptr<OsqpEigen::Settings> convex_solver_settings{ nullptr };
 
   /** @brief Optimization parameters */
   trajopt_sqp::SQPParameters opt_info{};

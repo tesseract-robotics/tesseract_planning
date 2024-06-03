@@ -30,7 +30,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <memory>
-#include <osqp.h>
 #include <trajopt_ifopt/fwd.h>
 #include <trajopt_sqp/fwd.h>
 #include <trajopt_sqp/types.h>
@@ -40,6 +39,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/fwd.h>
 
 #include <tesseract_scene_graph/scene_state.h>
+
+namespace OsqpEigen
+{
+class Settings;
+}
 
 namespace tesseract_planning
 {
@@ -56,7 +60,7 @@ struct TrajOptIfoptProblem
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   // LCOV_EXCL_STOP
 
-  TrajOptIfoptProblem() { osqp_set_default_settings(&convex_solver_settings); };
+  TrajOptIfoptProblem();
 
   trajopt_sqp::SQPParameters opt_info;
 
@@ -69,9 +73,8 @@ struct TrajOptIfoptProblem
 
   std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> callbacks;
 
-  /** @brief The OSQP convex solver settings to use
-   *  @todo Replace by convex_solver_config (cf. sco::ModelConfig) once solver selection is possible */
-  OSQPSettings convex_solver_settings{};
+  /** @brief The OSQP convex solver settings to use */
+  std::unique_ptr<OsqpEigen::Settings> convex_solver_settings{ nullptr };
 
   std::shared_ptr<trajopt_sqp::QPSolver> qp_solver;
 

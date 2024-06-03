@@ -36,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
+#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
@@ -69,34 +70,6 @@ void TrajOptIfoptMotionPlanner::clear() {}
 std::unique_ptr<MotionPlanner> TrajOptIfoptMotionPlanner::clone() const
 {
   return std::make_unique<TrajOptIfoptMotionPlanner>(name_);
-}
-
-void OSQPEigenSolver_setSettings(const std::unique_ptr<OsqpEigen::Solver>& solver_, OSQPSettings settings)
-{
-  // There seems to be no way to set objects solver_->settings() (OsqpEigen::Settings)
-  // or solver_->settings()->getSettings() (OSQPSettings) at once
-  solver_->settings()->setRho(settings.rho);
-  solver_->settings()->setSigma(settings.sigma);
-  solver_->settings()->setScaling((int)settings.scaling);
-  solver_->settings()->setAdaptiveRho(settings.adaptive_rho);
-  solver_->settings()->setAdaptiveRhoInterval((int)settings.adaptive_rho_interval);
-  solver_->settings()->setAdaptiveRhoTolerance(settings.adaptive_rho_tolerance);
-  solver_->settings()->setAdaptiveRhoFraction(settings.adaptive_rho_fraction);
-  solver_->settings()->setMaxIteration((int)settings.max_iter);
-  solver_->settings()->setAbsoluteTolerance(settings.eps_abs);
-  solver_->settings()->setRelativeTolerance(settings.eps_rel);
-  solver_->settings()->setPrimalInfeasibilityTollerance(settings.eps_prim_inf);
-  solver_->settings()->setDualInfeasibilityTollerance(settings.eps_dual_inf);
-  solver_->settings()->setAlpha(settings.alpha);
-  solver_->settings()->setLinearSystemSolver(settings.linsys_solver);
-  solver_->settings()->setDelta(settings.delta);
-  solver_->settings()->setPolish(settings.polish);
-  solver_->settings()->setPolishRefineIter((int)settings.polish_refine_iter);
-  solver_->settings()->setVerbosity(settings.verbose);
-  solver_->settings()->setScaledTerimination(settings.scaled_termination);
-  solver_->settings()->setCheckTermination((int)settings.check_termination);
-  solver_->settings()->setWarmStart(settings.warm_start);
-  solver_->settings()->setTimeLimit(settings.time_limit);
 }
 
 PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) const
@@ -135,10 +108,15 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   // Create optimizer
   /** @todo Enable solver selection (e.g. IPOPT) */
   auto qp_solver = std::make_shared<trajopt_sqp::OSQPEigenSolver>();
-  OSQPEigenSolver_setSettings(qp_solver->solver_, problem->convex_solver_settings);
-  qp_solver->solver_->settings()->setVerbosity((problem->convex_solver_settings.verbose != 0) || request.verbose);
+
+  // There seems to be no way to set objects solver_->settings() (OsqpEigen::Settings)
+  // or solver_->settings()->getSettings() (OSQPSettings) at once
+  copyOSQPEigenSettings(*qp_solver->solver_->settings(), *problem->convex_solver_settings);
+  qp_solver->solver_->settings()->setVerbosity((problem->convex_solver_settings->getSettings()->verbose != 0) ||
+                                               request.verbose);
 
   problem->qp_solver = qp_solver;
+
   trajopt_sqp::TrustRegionSQPSolver solver(problem->qp_solver);
   solver.params = problem->opt_info;
 
