@@ -42,6 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_common/collision_types.h>
 #include <trajopt_sqp/qp_problem.h>
 #include <ifopt/constraint_set.h>
+#include <OsqpEigen/Settings.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
@@ -58,6 +59,33 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& rhs)
+{
+  const auto& settings = *rhs.getSettings();
+  lhs.setRho(settings.rho);
+  lhs.setSigma(settings.sigma);
+  lhs.setScaling(static_cast<int>(settings.scaling));
+  lhs.setAdaptiveRho(static_cast<bool>(settings.adaptive_rho));
+  lhs.setAdaptiveRhoInterval(static_cast<int>(settings.adaptive_rho_interval));
+  lhs.setAdaptiveRhoTolerance(settings.adaptive_rho_tolerance);
+  lhs.setAdaptiveRhoFraction(settings.adaptive_rho_fraction);
+  lhs.setMaxIteration(static_cast<int>(settings.max_iter));
+  lhs.setAbsoluteTolerance(settings.eps_abs);
+  lhs.setRelativeTolerance(settings.eps_rel);
+  lhs.setPrimalInfeasibilityTollerance(settings.eps_prim_inf);
+  lhs.setDualInfeasibilityTollerance(settings.eps_dual_inf);
+  lhs.setAlpha(settings.alpha);
+  lhs.setLinearSystemSolver(settings.linsys_solver);
+  lhs.setDelta(settings.delta);
+  lhs.setPolish(static_cast<bool>(settings.polish));
+  lhs.setPolishRefineIter(static_cast<int>(settings.polish_refine_iter));
+  lhs.setVerbosity(static_cast<bool>(settings.verbose));
+  lhs.setScaledTerimination(static_cast<bool>(settings.scaled_termination));
+  lhs.setCheckTermination(static_cast<int>(settings.check_termination));
+  lhs.setWarmStart(static_cast<bool>(settings.warm_start));
+  lhs.setTimeLimit(settings.time_limit);
+}
+
 ifopt::ConstraintSet::Ptr
 createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::JointPosition>& var,
                                   const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
@@ -380,7 +408,7 @@ bool addCartesianPositionAbsoluteCost(trajopt_sqp::QPProblem& nlp,
 
 bool addJointPositionConstraint(trajopt_sqp::QPProblem& nlp,
                                 const JointWaypointPoly& joint_waypoint,
-                                const trajopt_ifopt::JointPosition::ConstPtr& var,
+                                const std::shared_ptr<const trajopt_ifopt::JointPosition>& var,
                                 const Eigen::VectorXd& coeffs)
 {
   auto constraint = createJointPositionConstraint(joint_waypoint, var, coeffs);
@@ -390,7 +418,7 @@ bool addJointPositionConstraint(trajopt_sqp::QPProblem& nlp,
 
 bool addJointPositionSquaredCost(trajopt_sqp::QPProblem& nlp,
                                  const JointWaypointPoly& joint_waypoint,
-                                 const trajopt_ifopt::JointPosition::ConstPtr& var,
+                                 const std::shared_ptr<const trajopt_ifopt::JointPosition>& var,
                                  const Eigen::VectorXd& coeffs)
 {
   auto constraint = createJointPositionConstraint(joint_waypoint, var, coeffs);
@@ -399,7 +427,7 @@ bool addJointPositionSquaredCost(trajopt_sqp::QPProblem& nlp,
 }
 bool addJointPositionAbsoluteCost(trajopt_sqp::QPProblem& nlp,
                                   const JointWaypointPoly& joint_waypoint,
-                                  const trajopt_ifopt::JointPosition::ConstPtr& var,
+                                  const std::shared_ptr<const trajopt_ifopt::JointPosition>& var,
                                   const Eigen::VectorXd& coeffs)
 {
   auto constraint = createJointPositionConstraint(joint_waypoint, var, coeffs);
