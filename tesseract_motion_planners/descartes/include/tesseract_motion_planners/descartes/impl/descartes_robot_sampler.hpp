@@ -95,7 +95,8 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
     if (ik_solutions.empty())
       continue;
 
-    tesseract_collision::ContactTrajectoryResults traj_contacts(manip_->getJointNames(), ik_solutions.size());
+    tesseract_collision::ContactTrajectoryResults traj_contacts(manip_->getJointNames(),
+                                                                static_cast<int>(ik_solutions.size()));
 
     found_ik_sol = true;
 
@@ -121,7 +122,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
         }
         else if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
         {
-          tesseract_collision::ContactTrajectoryStepResults step_contacts(j, sol, sol, 1);
+          tesseract_collision::ContactTrajectoryStepResults step_contacts(static_cast<int>(j), sol, sol, 1);
           tesseract_collision::ContactTrajectorySubstepResults substep_contacts(1, sol);
           substep_contacts.contacts = coll_results;
           step_contacts.substeps[0] = substep_contacts;
@@ -137,7 +138,8 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
 
     if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
     {
-      error_string_stream << "For sample " << i << " " << ik_solutions.size() << " IK solutions were found, with a collision summary of:" << std::endl;
+      error_string_stream << "For sample " << i << " " << ik_solutions.size()
+                          << " IK solutions were found, with a collision summary of:" << std::endl;
       error_string_stream << traj_contacts.trajectoryCollisionResultsTable().str();
     }
   }
