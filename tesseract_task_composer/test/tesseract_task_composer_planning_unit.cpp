@@ -11,6 +11,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/nodes/continuous_contact_check_task.h>
 #include <tesseract_task_composer/planning/nodes/discrete_contact_check_task.h>
 #include <tesseract_task_composer/planning/nodes/format_as_input_task.h>
+#include <tesseract_task_composer/planning/nodes/format_as_result_task.h>
 #include <tesseract_task_composer/planning/nodes/min_length_task.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_bounds_task.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_collision_task.h>
@@ -758,6 +759,119 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsResultTaskTests)  // NOLINT
+{
+  {  // Construction
+    FormatAsResultTask task;
+    EXPECT_EQ(task.getName(), "FormatAsResultTask");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    FormatAsResultTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+    EXPECT_EQ(task.getInputKeys().size(), 1);
+    EXPECT_EQ(task.getInputKeys().front(), "input_data");
+    EXPECT_EQ(task.getOutputKeys().size(), 1);
+    EXPECT_EQ(task.getOutputKeys().front(), "output_data");
+    EXPECT_EQ(task.getOutboundEdges().size(), 0);
+    EXPECT_EQ(task.getInboundEdges().size(), 0);
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FormatAsResultTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FormatAsResultTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           outputs: [output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FormatAsResultTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input_data]
+                           outputs: [output_data, output_data2])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FormatAsResultTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<FormatAsResultTask>();
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerFormatAsResultTaskTests");
+  }
+
+  {  // Test run method
+    auto profiles = std::make_shared<ProfileDictionary>();
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    CompositeInstruction compare = test_suite::jointInterpolateExampleProgramABB(false);
+    data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, profiles, "abc");
+    auto context = std::make_unique<TaskComposerContext>(std::move(problem), std::move(data));
+    std::vector<std::string> input_keys{ "input_data" };
+    std::vector<std::string> output_keys{ "output_data" };
+    FormatAsResultTask task("abc", input_keys, output_keys, true);
+    EXPECT_EQ(task.run(*context), 1);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_EQ(context->data_storage->getData("output_data"), compare);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure missing input data [0]
+    auto profiles = std::make_shared<ProfileDictionary>();
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, manip_, profiles, "abc");
+    auto context = std::make_unique<TaskComposerContext>(std::move(problem), std::move(data));
+    std::vector<std::string> input_keys{ "input_data" };
+    std::vector<std::string> output_keys{ "output_data" };
+    FormatAsResultTask task("abc", input_keys, output_keys, true);
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, -1);  // Indicates an exception was thrown
     EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);

@@ -23,6 +23,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/nodes/done_task.h>
 #include <tesseract_task_composer/core/nodes/error_task.h>
+#include <tesseract_task_composer/core/nodes/has_data_storage_entry_task.h>
 #include <tesseract_task_composer/core/nodes/remap_task.h>
 #include <tesseract_task_composer/core/nodes/start_task.h>
 #include <tesseract_task_composer/core/nodes/sync_task.h>
@@ -1987,6 +1988,126 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerSyncTaskTests)  // NOLINT
     auto context = std::make_shared<TaskComposerContext>(std::make_unique<TaskComposerProblem>(),
                                                          std::make_unique<TaskComposerDataStorage>());
     SyncTask task;
+    EXPECT_EQ(task.run(*context), 1);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message, "Successful");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerHasDataStorageEntryTaskTests)  // NOLINT
+{
+  {  // Construction
+    HasDataStorageEntryTask task;
+    EXPECT_EQ(task.getName(), "HasDataStorageEntryTask");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    std::vector<std::string> input_keys{ "input1", "input2" };
+    HasDataStorageEntryTask task("abc", input_keys);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.getInputKeys(), input_keys);
+    EXPECT_TRUE(task.getOutputKeys().empty());
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    std::vector<std::string> input_keys{ "input1", "input2" };
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs: [input1, input2])";
+    YAML::Node config = YAML::Load(str);
+    HasDataStorageEntryTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.getInputKeys(), input_keys);
+    EXPECT_TRUE(task.getOutputKeys().empty());
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction Failure
+    EXPECT_ANY_THROW(std::make_unique<HasDataStorageEntryTask>("abc", std::vector<std::string>{}));  // NOLINT
+  }
+
+  {  // Construction Failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           outputs: [output1, output2])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<HasDataStorageEntryTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction Failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<HasDataStorageEntryTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Serialization
+    std::vector<std::string> input_keys{ "input1", "input2" };
+    auto task = std::make_unique<HasDataStorageEntryTask>("abc", input_keys, true);
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerHasDataStorageEntryTaskTests");
+  }
+
+  {  // Test run method
+    auto context = std::make_shared<TaskComposerContext>(std::make_unique<TaskComposerProblem>(),
+                                                         std::make_unique<TaskComposerDataStorage>());
+
+    std::vector<std::string> input_keys{ "input1", "input2" };
+    HasDataStorageEntryTask task("test_run", input_keys);
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message, "Missing input key");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Test run method
+    auto data_storage = std::make_unique<TaskComposerDataStorage>();
+    data_storage->setData("input1", std::vector<std::string>{});
+    auto context =
+        std::make_shared<TaskComposerContext>(std::make_unique<TaskComposerProblem>(), std::move(data_storage));
+
+    std::vector<std::string> input_keys{ "input1", "input2" };
+    HasDataStorageEntryTask task("test_run", input_keys);
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message, "Missing input key");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Test run method
+    auto data_storage = std::make_unique<TaskComposerDataStorage>();
+    data_storage->setData("input1", std::vector<std::string>{});
+    data_storage->setData("input2", std::vector<std::string>{});
+    auto context =
+        std::make_shared<TaskComposerContext>(std::make_unique<TaskComposerProblem>(), std::move(data_storage));
+
+    std::vector<std::string> input_keys{ "input1", "input2" };
+    HasDataStorageEntryTask task("test_run", input_keys);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
