@@ -56,7 +56,7 @@ DescartesCollision::DescartesCollision(const DescartesCollision& collision_inter
   contact_manager_->applyContactManagerConfig(collision_check_config_.contact_manager_config);
 }
 
-bool DescartesCollision::validate(const Eigen::Ref<const Eigen::VectorXd>& pos)
+tesseract_collision::ContactResultMap DescartesCollision::validate(const Eigen::Ref<const Eigen::VectorXd>& pos)
 {
   // Happens in two phases:
   // 1. Compute the transform of all objects
@@ -67,7 +67,7 @@ bool DescartesCollision::validate(const Eigen::Ref<const Eigen::VectorXd>& pos)
 
   tesseract_collision::ContactResultMap results;
   tesseract_environment::checkTrajectoryState(results, *contact_manager_, state, config);
-  return results.empty();
+  return results;
 }
 
 double DescartesCollision::distance(const Eigen::Ref<const Eigen::VectorXd>& pos)

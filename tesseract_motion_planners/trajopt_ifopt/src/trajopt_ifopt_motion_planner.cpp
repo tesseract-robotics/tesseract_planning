@@ -36,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
+#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
@@ -107,16 +108,16 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   // Create optimizer
   /** @todo Enable solver selection (e.g. IPOPT) */
   auto qp_solver = std::make_shared<trajopt_sqp::OSQPEigenSolver>();
-  trajopt_sqp::TrustRegionSQPSolver solver(qp_solver);
-  /** @todo Set these as the defaults in trajopt and allow setting */
-  qp_solver->solver_->settings()->setVerbosity(request.verbose);
-  qp_solver->solver_->settings()->setWarmStart(true);
-  qp_solver->solver_->settings()->setPolish(true);
-  qp_solver->solver_->settings()->setAdaptiveRho(false);
-  qp_solver->solver_->settings()->setMaxIteration(8192);
-  qp_solver->solver_->settings()->setAbsoluteTolerance(1e-4);
-  qp_solver->solver_->settings()->setRelativeTolerance(1e-6);
 
+  // There seems to be no way to set objects solver_->settings() (OsqpEigen::Settings)
+  // or solver_->settings()->getSettings() (OSQPSettings) at once
+  copyOSQPEigenSettings(*qp_solver->solver_->settings(), *problem->convex_solver_settings);
+  qp_solver->solver_->settings()->setVerbosity((problem->convex_solver_settings->getSettings()->verbose != 0) ||
+                                               request.verbose);
+
+  problem->qp_solver = qp_solver;
+
+  trajopt_sqp::TrustRegionSQPSolver solver(problem->qp_solver);
   solver.params = problem->opt_info;
 
   // Add all callbacks

@@ -35,6 +35,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
 
+namespace OsqpEigen
+{
+class Settings;
+}
+
 namespace tesseract_planning
 {
 /** @brief The contains the default solver parameters available for setting up TrajOpt */
@@ -44,15 +49,19 @@ public:
   using Ptr = std::shared_ptr<TrajOptIfoptDefaultSolverProfile>;
   using ConstPtr = std::shared_ptr<const TrajOptIfoptDefaultSolverProfile>;
 
-  TrajOptIfoptDefaultSolverProfile() = default;
-  ~TrajOptIfoptDefaultSolverProfile() override = default;
-  TrajOptIfoptDefaultSolverProfile(const TrajOptIfoptDefaultSolverProfile&) = default;
-  TrajOptIfoptDefaultSolverProfile& operator=(const TrajOptIfoptDefaultSolverProfile&) = default;
+  TrajOptIfoptDefaultSolverProfile();
+  ~TrajOptIfoptDefaultSolverProfile() override;
+  TrajOptIfoptDefaultSolverProfile(const TrajOptIfoptDefaultSolverProfile&) = delete;
+  TrajOptIfoptDefaultSolverProfile& operator=(const TrajOptIfoptDefaultSolverProfile&) = delete;
   TrajOptIfoptDefaultSolverProfile(TrajOptIfoptDefaultSolverProfile&&) = default;
   TrajOptIfoptDefaultSolverProfile& operator=(TrajOptIfoptDefaultSolverProfile&&) = default;
 
-  /** @brief Optimization paramters */
-  trajopt_sqp::SQPParameters opt_info;
+  /** @brief The OSQP convex solver settings to use
+   *  @todo Replace by convex_solver_config (cf. sco::ModelConfig) once solver selection is possible */
+  std::unique_ptr<OsqpEigen::Settings> convex_solver_settings{ nullptr };
+
+  /** @brief Optimization parameters */
+  trajopt_sqp::SQPParameters opt_info{};
 
   /** @brief Optimization callbacks */
   std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> callbacks;

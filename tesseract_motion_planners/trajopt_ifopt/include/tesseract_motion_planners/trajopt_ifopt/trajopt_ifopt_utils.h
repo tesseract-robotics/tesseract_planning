@@ -42,8 +42,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/fwd.h>
 #include <tesseract_command_language/fwd.h>
 
+namespace OsqpEigen
+{
+class Settings;
+}
+
 namespace tesseract_planning
 {
+void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& rhs);
+
 bool addCartesianPositionConstraint(trajopt_sqp::QPProblem& nlp,
                                     const std::shared_ptr<const trajopt_ifopt::JointPosition>& var,
                                     const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
@@ -73,17 +80,17 @@ bool addCartesianPositionAbsoluteCost(trajopt_sqp::QPProblem& nlp,
 
 bool addJointPositionConstraint(trajopt_sqp::QPProblem& nlp,
                                 const JointWaypointPoly& joint_waypoint,
-                                const trajopt_ifopt::JointPosition::ConstPtr& var,
+                                const std::shared_ptr<const trajopt_ifopt::JointPosition>& var,
                                 const Eigen::VectorXd& coeffs);
 
 bool addJointPositionSquaredCost(trajopt_sqp::QPProblem& nlp,
                                  const JointWaypointPoly& joint_waypoint,
-                                 const trajopt_ifopt::JointPosition::ConstPtr& var,
+                                 const std::shared_ptr<const trajopt_ifopt::JointPosition>& var,
                                  const Eigen::VectorXd& coeffs);
 
 bool addJointPositionAbsoluteCost(trajopt_sqp::QPProblem& nlp,
                                   const JointWaypointPoly& joint_waypoint,
-                                  const trajopt_ifopt::JointPosition::ConstPtr& var,
+                                  const std::shared_ptr<const trajopt_ifopt::JointPosition>& var,
                                   const Eigen::VectorXd& coeffs);
 
 bool addCollisionConstraint(trajopt_sqp::QPProblem& nlp,

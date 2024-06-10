@@ -1,9 +1,9 @@
 /**
- * @file trajopt_default_solver_profile.cpp
+ * @file trajopt_ifopt_problem.cpp
  * @brief
  *
  * @author Levi Armstrong
- * @date December 13, 2020
+ * @date June 18, 2020
  * @version TODO
  * @bug No known bugs
  *
@@ -26,17 +26,14 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tinyxml2.h>
 #include <OsqpEigen/Settings.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
-#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 
 namespace tesseract_planning
 {
-TrajOptIfoptDefaultSolverProfile::TrajOptIfoptDefaultSolverProfile()
+TrajOptIfoptProblem::TrajOptIfoptProblem()
 {
   convex_solver_settings = std::make_unique<OsqpEigen::Settings>();
   convex_solver_settings->setVerbosity(false);
@@ -46,20 +43,6 @@ TrajOptIfoptDefaultSolverProfile::TrajOptIfoptDefaultSolverProfile()
   convex_solver_settings->setMaxIteration(8192);
   convex_solver_settings->setAbsoluteTolerance(1e-4);
   convex_solver_settings->setRelativeTolerance(1e-6);
-}
-
-TrajOptIfoptDefaultSolverProfile::~TrajOptIfoptDefaultSolverProfile() = default;
-
-void TrajOptIfoptDefaultSolverProfile::apply(TrajOptIfoptProblem& problem) const
-{
-  copyOSQPEigenSettings(*problem.convex_solver_settings, *convex_solver_settings);
-  problem.opt_info = opt_info;
-  problem.callbacks = callbacks;
-}
-
-tinyxml2::XMLElement* TrajOptIfoptDefaultSolverProfile::toXML(tinyxml2::XMLDocument& /*doc*/) const
-{
-  throw std::runtime_error("TrajOptIfoptDefaultSolverProfile::toXML is not implemented!");
 }
 
 }  // namespace tesseract_planning
