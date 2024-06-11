@@ -140,7 +140,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
     {
       error_string_stream << "For sample " << i << " " << ik_solutions.size()
                           << " IK solutions were found, with a collision summary of:" << std::endl;
-      error_string_stream << traj_contacts.trajectoryCollisionResultsTable().str();
+      error_string_stream << traj_contacts.collisionFrequencyPerLink().str();
     }
   }
 
