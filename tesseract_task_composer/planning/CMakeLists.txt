@@ -40,6 +40,7 @@ set(LIB_SOURCE_FILES
     src/nodes/fix_state_bounds_task.cpp
     src/nodes/fix_state_collision_task.cpp
     src/nodes/format_as_input_task.cpp
+    src/nodes/format_as_result_task.cpp
     src/nodes/profile_switch_task.cpp
     src/nodes/min_length_task.cpp
     src/nodes/motion_planner_task_info.cpp
