@@ -2,6 +2,15 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update to use forward declarations (`#449 <https://github.com/tesseract-robotics/tesseract_planning/issues/449>`_)
+* Add toleranced waypoints to TrajOpt Solver (`#403 <https://github.com/tesseract-robotics/tesseract_planning/issues/403>`_)
+* Update trajopt ifopt to support dynamic cartesian waypoints
+* Update matching https://github.com/tesseract-robotics/tesseract/pull/989
+* Adding Trajopt_Ifopt option to all examples (`#389 <https://github.com/tesseract-robotics/tesseract_planning/issues/389>`_)
+* Contributors: Levi Armstrong, Roelof, Roelof Oomen, Tyler Marr
+
 0.21.7 (2024-02-03)
 -------------------
 

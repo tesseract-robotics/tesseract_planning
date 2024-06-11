@@ -2,6 +2,21 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Improve FixStateCollisionTask by also add a cost (distance) between new and original joint state
+* Add task composer graph validation (`#463 <https://github.com/tesseract-robotics/tesseract_planning/issues/463>`_)
+* Add HasDataStorageEntryTask and FormatAsResultTask with unit tests (`#462 <https://github.com/tesseract-robotics/tesseract_planning/issues/462>`_)
+* Add include for Ubuntu Noble
+* Add status_code to TaskComposerNodeInfo
+* Add time parameterization interface (`#455 <https://github.com/tesseract-robotics/tesseract_planning/issues/455>`_)
+* Add utility methods to task composer node info container
+* Update to use forward declarations (`#449 <https://github.com/tesseract-robotics/tesseract_planning/issues/449>`_)
+* Feat/more verbose planning failures (`#440 <https://github.com/tesseract-robotics/tesseract_planning/issues/440>`_)
+* Adding Trajopt_Ifopt option to all examples (`#389 <https://github.com/tesseract-robotics/tesseract_planning/issues/389>`_)
+* Fix error message for missing output keys
+* Contributors: Levi Armstrong, Roelof, Roelof Oomen, Tyler Marr
+
 0.21.7 (2024-02-03)
 -------------------
 * Add optional namespace field to task nodes (`#433 <https://github.com/tesseract-robotics/tesseract_planning/issues/433>`_)

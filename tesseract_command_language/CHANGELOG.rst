@@ -2,6 +2,14 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add time parameterization interface (`#455 <https://github.com/tesseract-robotics/tesseract_planning/issues/455>`_)
+* Update to use forward declarations (`#449 <https://github.com/tesseract-robotics/tesseract_planning/issues/449>`_)
+* Add toleranced waypoints to TrajOpt Solver (`#403 <https://github.com/tesseract-robotics/tesseract_planning/issues/403>`_)
+* Base code quality CI on 'unstable' (master) tesseract docker container (`#442 <https://github.com/tesseract-robotics/tesseract_planning/issues/442>`_)
+* Contributors: Levi Armstrong, Roelof Oomen, Tyler Marr
+
 0.21.7 (2024-02-03)
 -------------------
 
