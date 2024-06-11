@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.22.0 (2024-06-10)
+-------------------
 * Improve FixStateCollisionTask by also add a cost (distance) between new and original joint state
 * Add task composer graph validation (`#463 <https://github.com/tesseract-robotics/tesseract_planning/issues/463>`_)
 * Add HasDataStorageEntryTask and FormatAsResultTask with unit tests (`#462 <https://github.com/tesseract-robotics/tesseract_planning/issues/462>`_)
