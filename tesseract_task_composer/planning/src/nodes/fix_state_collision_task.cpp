@@ -176,16 +176,29 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     Eigen::VectorXd pos_tolerance = range * profile.jiggle_factor;
     Eigen::VectorXd neg_tolerance = range * -profile.jiggle_factor;
 
-    auto jp = std::make_shared<JointPosTermInfo>();
-    jp->coeffs = std::vector<double>(num_jnts, 1.0);
-    jp->targets = std::vector<double>(start_pos.data(), start_pos.data() + start_pos.size());
-    jp->upper_tols = std::vector<double>(pos_tolerance.data(), pos_tolerance.data() + pos_tolerance.size());
-    jp->lower_tols = std::vector<double>(neg_tolerance.data(), neg_tolerance.data() + neg_tolerance.size());
-    jp->first_step = 0;
-    jp->last_step = 0;
-    jp->name = "joint_pos";
-    jp->term_type = TermType::TT_CNT;
-    pci.cnt_infos.push_back(jp);
+    {  // Add Constraint
+      auto jp_cnt = std::make_shared<JointPosTermInfo>();
+      jp_cnt->coeffs = std::vector<double>(num_jnts, 1.0);
+      jp_cnt->targets = std::vector<double>(start_pos.data(), start_pos.data() + start_pos.size());
+      jp_cnt->upper_tols = std::vector<double>(pos_tolerance.data(), pos_tolerance.data() + pos_tolerance.size());
+      jp_cnt->lower_tols = std::vector<double>(neg_tolerance.data(), neg_tolerance.data() + neg_tolerance.size());
+      jp_cnt->first_step = 0;
+      jp_cnt->last_step = 0;
+      jp_cnt->name = "joint_pos_cnt";
+      jp_cnt->term_type = TermType::TT_CNT;
+      pci.cnt_infos.push_back(jp_cnt);
+    }
+
+    {  // Add Costs
+      auto jp_cost = std::make_shared<JointPosTermInfo>();
+      jp_cost->coeffs = std::vector<double>(num_jnts, 5.0);
+      jp_cost->targets = std::vector<double>(start_pos.data(), start_pos.data() + start_pos.size());
+      jp_cost->first_step = 0;
+      jp_cost->last_step = 0;
+      jp_cost->name = "joint_pos_cost";
+      jp_cost->term_type = TermType::TT_COST;
+      pci.cnt_infos.push_back(jp_cost);
+    }
   }
 
   // Add a constraint that it must not be in collision
