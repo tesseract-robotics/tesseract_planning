@@ -111,6 +111,13 @@ public:
    */
   void setTerminalTriggerAbortByIndex(int terminal_index);
 
+  /**
+   * @brief Check if the current state of the graph is valid
+   * @todo Replace return type with std::expected when upgraded to use c++23
+   * @return True if valid otherwise false with a reason
+   */
+  virtual std::pair<bool, std::string> isValid() const;
+
   void renameInputKeys(const std::map<std::string, std::string>& input_keys) override;
 
   void renameOutputKeys(const std::map<std::string, std::string>& output_keys) override;

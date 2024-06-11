@@ -203,6 +203,10 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
   {
     throw std::runtime_error("Task Composer Graph '" + name_ + "' is missing 'terminals' entry");
   }
+
+  auto is_valid = TaskComposerGraph::isValid();
+  if (!is_valid.first)
+    throw std::runtime_error(is_valid.second);
 }
 
 boost::uuids::uuid TaskComposerGraph::addNode(std::unique_ptr<TaskComposerNode> task_node)
@@ -295,6 +299,28 @@ void TaskComposerGraph::setTerminalTriggerAbortByIndex(int terminal_index)
         static_cast<TaskComposerTask&>(*n).setTriggerAbort(false);
     }
   }
+}
+
+std::pair<bool, std::string> TaskComposerGraph::isValid() const
+{
+  int root_node_cnt{ 0 };
+  for (const auto& pair : nodes_)
+  {
+    auto node_inbound_edges = pair.second->getInboundEdges();
+    if (node_inbound_edges.empty())
+      root_node_cnt++;
+
+    if (root_node_cnt > 1)
+      return { false, "Task Composer Graph '" + name_ + "' has multiple root nodes" };
+  }
+
+  for (const auto& terminal : terminals_)
+  {
+    if (!nodes_.at(terminal)->getOutboundEdges().empty())
+      return { false, "Task Composer Graph '" + name_ + "' has terminal node with outbound edges" };
+  }
+
+  return { true, "Task Composer Graph Valid" };
 }
 
 void TaskComposerGraph::renameInputKeys(const std::map<std::string, std::string>& input_keys)

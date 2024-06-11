@@ -1539,6 +1539,148 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerGraphTests)  // NOLINT
     YAML::Node config = YAML::Load(str2);
     EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
   }
+
+  {  // Failure multiple root nodes
+    std::string str = R"(task_composer_plugins:
+                           search_paths:
+                             - /usr/local/lib
+                           search_libraries:
+                             - tesseract_task_composer_factories
+                           tasks:
+                             plugins:
+                               TestPipeline:
+                                 class: PipelineTaskFactory
+                                 config:
+                                   conditional: true
+                                   inputs: input_data
+                                   outputs: output_data
+                                   nodes:
+                                     StartTask:
+                                       class: StartTaskFactory
+                                       config:
+                                         conditional: false
+                                     DuplicateTask:
+                                       class: StartTaskFactory
+                                       config:
+                                         conditional: false
+                                     DoneTask:
+                                       class: DoneTaskFactory
+                                       config:
+                                         conditional: false
+                                     ErrorTask:
+                                       class: ErrorTaskFactory
+                                       config:
+                                         conditional: false
+                                   edges:
+                                     - source: StartTask
+                                       destinations: [ErrorTask, DoneTask]
+                                     - source: DuplicateTask
+                                       destinations: [ErrorTask, DoneTask]
+                                   terminals: [ErrorTask, DoneTask])";
+
+    TaskComposerPluginFactory factory(str);
+
+    std::string str2 = R"(config:
+                            conditional: true
+                            inputs: input_data
+                            outputs: output_data
+                            nodes:
+                              StartTask:
+                                class: StartTaskFactory
+                                config:
+                                  conditional: false
+                              DuplicateTask:
+                                class: StartTaskFactory
+                                config:
+                                  conditional: false
+                              DoneTask:
+                                class: DoneTaskFactory
+                                config:
+                                  conditional: false
+                              ErrorTask:
+                                class: ErrorTaskFactory
+                                config:
+                                  conditional: false
+                            edges:
+                              - source: StartTask
+                                destinations: [ErrorTask, DoneTask]
+                              - source: DuplicateTask
+                                destinations: [ErrorTask, DoneTask]
+                            terminals: [ErrorTask, DoneTask])";
+    YAML::Node config = YAML::Load(str2);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
+
+  {  // Failure terminal node with outbound edges
+    std::string str = R"(task_composer_plugins:
+                           search_paths:
+                             - /usr/local/lib
+                           search_libraries:
+                             - tesseract_task_composer_factories
+                           tasks:
+                             plugins:
+                               TestPipeline:
+                                 class: PipelineTaskFactory
+                                 config:
+                                   conditional: true
+                                   inputs: input_data
+                                   outputs: output_data
+                                   nodes:
+                                     StartTask:
+                                       class: StartTaskFactory
+                                       config:
+                                         conditional: false
+                                     DuplicateTask:
+                                       class: StartTaskFactory
+                                       config:
+                                         conditional: false
+                                     DoneTask:
+                                       class: DoneTaskFactory
+                                       config:
+                                         conditional: false
+                                     ErrorTask:
+                                       class: ErrorTaskFactory
+                                       config:
+                                         conditional: false
+                                   edges:
+                                     - source: StartTask
+                                       destinations: [ErrorTask, DoneTask]
+                                     - source: ErrorTask
+                                       destinations: [DuplicateTask]
+                                   terminals: [ErrorTask, DoneTask])";
+
+    TaskComposerPluginFactory factory(str);
+
+    std::string str2 = R"(config:
+                            conditional: true
+                            inputs: input_data
+                            outputs: output_data
+                            nodes:
+                              StartTask:
+                                class: StartTaskFactory
+                                config:
+                                  conditional: false
+                              DuplicateTask:
+                                class: StartTaskFactory
+                                config:
+                                  conditional: false
+                              DoneTask:
+                                class: DoneTaskFactory
+                                config:
+                                  conditional: false
+                              ErrorTask:
+                                class: ErrorTaskFactory
+                                config:
+                                  conditional: false
+                            edges:
+                              - source: StartTask
+                                destinations: [ErrorTask, DoneTask]
+                              - source: ErrorTask
+                                destinations: [DuplicateTask]
+                            terminals: [ErrorTask, DoneTask])";
+    YAML::Node config = YAML::Load(str2);
+    EXPECT_ANY_THROW(std::make_unique<TaskComposerPipeline>(name, config["config"], factory));  // NOLINT
+  }
 }
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerErrorTaskTests)  // NOLINT
