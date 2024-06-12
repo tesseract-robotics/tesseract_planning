@@ -197,7 +197,7 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
       jp_cost->last_step = 0;
       jp_cost->name = "joint_pos_cost";
       jp_cost->term_type = TermType::TT_COST;
-      pci.cnt_infos.push_back(jp_cost);
+      pci.cost_infos.push_back(jp_cost);
     }
   }
 
