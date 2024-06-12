@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.22.1 (2024-06-12)
+-------------------
 * Fix: Add cost to cost_infos instead of cnt_infos
 * Contributors: Roelof Oomen
 
