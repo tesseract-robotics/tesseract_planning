@@ -2,6 +2,9 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.22.0 (2024-06-10)
 -------------------
 * More compact descartes collision logging output (`#460 <https://github.com/tesseract-robotics/tesseract_planning/issues/460>`_)

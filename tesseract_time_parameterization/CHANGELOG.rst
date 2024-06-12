@@ -2,6 +2,9 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.22.0 (2024-06-10)
 -------------------
 * Add time parameterization interface (`#455 <https://github.com/tesseract-robotics/tesseract_planning/issues/455>`_)

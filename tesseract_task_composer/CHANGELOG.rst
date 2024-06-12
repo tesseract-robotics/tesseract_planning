@@ -2,6 +2,11 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix: Add cost to cost_infos instead of cnt_infos
+* Contributors: Roelof Oomen
+
 0.22.0 (2024-06-10)
 -------------------
 * Improve FixStateCollisionTask by also add a cost (distance) between new and original joint state
