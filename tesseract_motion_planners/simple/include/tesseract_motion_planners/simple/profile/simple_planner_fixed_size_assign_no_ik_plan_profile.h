@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_fixed_size_plan_profile.h
+ * @file simple_planner_fixed_size_assign_no_ik_plan_profile.h
  * @brief
  *
  * @author Matthew Powelson
@@ -23,25 +23,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_PLAN_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_PLAN_PROFILE_H
+
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_PLAN_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_PLAN_PROFILE_H
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
 namespace tesseract_planning
 {
-class SimplePlannerFixedSizePlanProfile : public SimplePlannerPlanProfile
+class SimplePlannerFixedSizeAssignNoIKPlanProfile : public SimplePlannerPlanProfile
 {
 public:
-  using Ptr = std::shared_ptr<SimplePlannerFixedSizePlanProfile>;
-  using ConstPtr = std::shared_ptr<const SimplePlannerFixedSizePlanProfile>;
+  using Ptr = std::shared_ptr<SimplePlannerFixedSizeAssignNoIKPlanProfile>;
+  using ConstPtr = std::shared_ptr<const SimplePlannerFixedSizeAssignNoIKPlanProfile>;
 
   /**
-   * @brief SimplePlannerFixedSizePlanProfile
+   * @brief SimplePlannerFixedSizeAssignPlanProfile
    * @param freespace_steps The number of steps to use for freespace instruction
    * @param linear_steps The number of steps to use for linear instruction
    */
-  SimplePlannerFixedSizePlanProfile(int freespace_steps = 10, int linear_steps = 10);
+  SimplePlannerFixedSizeAssignNoIKPlanProfile(int freespace_steps = 10, int linear_steps = 10);
 
   std::vector<MoveInstructionPoly> generate(const MoveInstructionPoly& prev_instruction,
                                             const MoveInstructionPoly& prev_seed,
@@ -59,4 +60,4 @@ public:
 
 }  // namespace tesseract_planning
 
-#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_PLAN_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_PLAN_PROFILE_H

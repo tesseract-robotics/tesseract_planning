@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_default_lvs_plan_profile.cpp
+ * @file simple_planner_lvs_plan_profile.cpp
  * @brief
  *
  * @author Tyler Marr
