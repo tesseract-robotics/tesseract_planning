@@ -162,10 +162,7 @@ bool TaskComposerDataStorage::operator==(const TaskComposerDataStorage& rhs) con
   std::shared_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(rhs.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
-
-  bool equal = true;
-  equal &= data_ == rhs.data_;
-  return equal;
+  return (data_ == rhs.data_);
 }
 
 bool TaskComposerDataStorage::operator!=(const TaskComposerDataStorage& rhs) const { return !operator==(rhs); }

@@ -46,6 +46,13 @@ class TaskComposerPluginFactory;
 class UpsampleTrajectoryTask : public TaskComposerTask
 {
 public:
+  // Requried
+  static const std::string INOUT_PROGRAM_PORT;
+  static const std::string INPUT_PROFILES_PORT;
+
+  // Optional
+  static const std::string INPUT_COMPOSITE_PROFILE_REMAPPING_PORT;
+
   using Ptr = std::shared_ptr<UpsampleTrajectoryTask>;
   using ConstPtr = std::shared_ptr<const UpsampleTrajectoryTask>;
   using UPtr = std::unique_ptr<UpsampleTrajectoryTask>;
@@ -53,8 +60,9 @@ public:
 
   UpsampleTrajectoryTask();
   explicit UpsampleTrajectoryTask(std::string name,
-                                  std::string input_key,
-                                  std::string output_key,
+                                  std::string input_program_key,
+                                  std::string input_profiles_key,
+                                  std::string output_program_key,
                                   bool conditional = false);
   explicit UpsampleTrajectoryTask(std::string name,
                                   const YAML::Node& config,
@@ -78,6 +86,8 @@ protected:
                 const CompositeInstruction& current_composite,
                 InstructionPoly& start_instruction,
                 double longest_valid_segment_length) const;
+
+  static TaskComposerNodePorts ports();
 
   std::unique_ptr<TaskComposerNodeInfo>
   runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;

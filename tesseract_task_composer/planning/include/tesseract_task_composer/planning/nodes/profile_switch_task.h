@@ -42,13 +42,23 @@ class TaskComposerPluginFactory;
 class ProfileSwitchTask : public TaskComposerTask
 {
 public:
+  // Requried
+  static const std::string INPUT_PROGRAM_PORT;
+  static const std::string INPUT_PROFILES_PORT;
+
+  // Optional
+  static const std::string INPUT_COMPOSITE_PROFILE_REMAPPING_PORT;
+
   using Ptr = std::shared_ptr<ProfileSwitchTask>;
   using ConstPtr = std::shared_ptr<const ProfileSwitchTask>;
   using UPtr = std::unique_ptr<ProfileSwitchTask>;
   using ConstUPtr = std::unique_ptr<const ProfileSwitchTask>;
 
   ProfileSwitchTask();
-  explicit ProfileSwitchTask(std::string name, std::string input_key, bool conditional = true);
+  explicit ProfileSwitchTask(std::string name,
+                             std::string input_program_key,
+                             std::string input_profiles_key,
+                             bool conditional = true);
   explicit ProfileSwitchTask(std::string name,
                              const YAML::Node& config,
                              const TaskComposerPluginFactory& plugin_factory);
@@ -66,6 +76,8 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  static TaskComposerNodePorts ports();
 
   std::unique_ptr<TaskComposerNodeInfo>
   runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;

@@ -36,10 +36,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-ErrorTask::ErrorTask() : TaskComposerTask("ErrorTask", false) {}
-ErrorTask::ErrorTask(std::string name, bool is_conditional) : TaskComposerTask(std::move(name), is_conditional) {}
+ErrorTask::ErrorTask() : ErrorTask("ErrorTask", false) {}
+ErrorTask::ErrorTask(std::string name, bool is_conditional)
+  : TaskComposerTask(std::move(name), TaskComposerNodePorts{}, is_conditional)
+{
+}
 ErrorTask::ErrorTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
-  : TaskComposerTask(std::move(name), config)
+  : TaskComposerTask(std::move(name), TaskComposerNodePorts{}, config)
 {
 }
 

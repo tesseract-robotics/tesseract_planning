@@ -129,25 +129,30 @@ public:
 
   /**
    * @brief Execute the provided task graph
-   * @param problem The task problem
-   * @param name The name of the executor to use
+   * @param task_name The task name to run
+   * @param data_storage The data storage
+   * @param dotgraph Indicate if dotgraph should be generated
+   * @param excutor_name The name of the executor to use
    * @return The future associated with execution
    */
-  std::unique_ptr<TaskComposerFuture> run(std::shared_ptr<TaskComposerProblem> problem,
+  std::unique_ptr<TaskComposerFuture> run(const std::string& task_name,
                                           std::shared_ptr<TaskComposerDataStorage> data_storage,
-                                          const std::string& name);
+                                          bool dotgraph,
+                                          const std::string& executor_name);
 
   /**
    * @brief Execute the provided node
    * @details It will call one of the methods below based on the node type
    * @param node The node to execute
-   * @param problem The problem
+   * @param data_storage The data storage
+   * @param dotgraph Indicate if dotgraph should be generated
+   * @param excutor_name The name of the executor to use
    * @return The future associated with execution
    */
   std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node,
-                                          std::shared_ptr<TaskComposerProblem> problem,
                                           std::shared_ptr<TaskComposerDataStorage> data_storage,
-                                          const std::string& name);
+                                          bool dotgraph,
+                                          const std::string& executor_name);
 
   /** @brief Queries the number of workers (example: number of threads) */
   long getWorkerCount(const std::string& name) const;

@@ -59,6 +59,13 @@ class TaskComposerPluginFactory;
 class RasterMotionTask : public TaskComposerTask
 {
 public:
+  // Requried
+  static const std::string INOUT_PROGRAM_PORT;
+  static const std::string INPUT_ENVIRONMENT_PORT;
+
+  // Optional
+  static const std::string INPUT_MANIP_INFO_PORT;
+
   struct TaskFactoryResults
   {
     TaskComposerNode::UPtr node;
@@ -69,8 +76,9 @@ public:
 
   RasterMotionTask();
   explicit RasterMotionTask(std::string name,
-                            std::string input_key,
-                            std::string output_key,
+                            std::string input_program_key,
+                            std::string input_environment_key,
+                            std::string output_program_key,
                             bool conditional,
                             TaskFactory freespace_task_factory,
                             TaskFactory raster_task_factory,
@@ -101,6 +109,8 @@ protected:
   void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
 
   static void checkTaskInput(const tesseract_common::AnyPoly& input);
+
+  static TaskComposerNodePorts ports();
 
   std::unique_ptr<TaskComposerNodeInfo> runImpl(TaskComposerContext& context,
                                                 OptionalTaskComposerExecutor executor) const override final;

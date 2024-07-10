@@ -10,31 +10,7 @@ find_package(
 find_package(tesseract_time_parameterization REQUIRED COMPONENTS core OPTIONAL_COMPONENTS isp totg ruckig)
 find_package(trajopt REQUIRED)
 
-add_library(${PROJECT_NAME}_planning src/planning_task_composer_problem.cpp)
-target_link_libraries(
-  ${PROJECT_NAME}_planning
-  PUBLIC ${PROJECT_NAME}
-         console_bridge::console_bridge
-         tesseract::tesseract_common
-         tesseract::tesseract_command_language
-         tesseract::tesseract_environment
-         Boost::boost
-         Boost::serialization
-         yaml-cpp)
-target_compile_options(${PROJECT_NAME}_planning PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
-target_compile_options(${PROJECT_NAME}_planning PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_clang_tidy(${PROJECT_NAME}_planning ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
-target_cxx_version(${PROJECT_NAME}_planning PUBLIC VERSION ${TESSERACT_CXX_VERSION})
-target_code_coverage(
-  ${PROJECT_NAME}_planning
-  PRIVATE
-  ALL
-  EXCLUDE ${COVERAGE_EXCLUDE}
-  ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
-target_include_directories(${PROJECT_NAME}_planning PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-                                                           "$<INSTALL_INTERFACE:include>")
 set(LIB_SOURCE_FILES
-    src/nodes/check_input_task.cpp
     src/nodes/continuous_contact_check_task.cpp
     src/nodes/discrete_contact_check_task.cpp
     src/nodes/fix_state_bounds_task.cpp
@@ -51,13 +27,11 @@ set(LIB_SOURCE_FILES
     src/nodes/upsample_trajectory_task.cpp
     src/nodes/raster_motion_task.cpp
     src/nodes/raster_only_motion_task.cpp
-    src/profiles/check_input_profile.cpp
     src/profiles/contact_check_profile.cpp)
 
 set(LIB_SOURCE_LINK_LIBRARIES
     ${PROJECT_NAME}
     ${PROJECT_NAME}_nodes
-    ${PROJECT_NAME}_planning
     console_bridge::console_bridge
     trajopt::trajopt
     tesseract::tesseract_common
@@ -201,7 +175,7 @@ install(
 configure_component(
   COMPONENT planning
   NAMESPACE tesseract
-  TARGETS ${PROJECT_NAME}_planning ${PROJECT_NAME}_planning_nodes ${PROJECT_NAME}_planning_factories
+  TARGETS ${PROJECT_NAME}_planning_nodes ${PROJECT_NAME}_planning_factories
   DEPENDENCIES
     "tesseract_task_composer COMPONENTS core"
     tesseract_command_language

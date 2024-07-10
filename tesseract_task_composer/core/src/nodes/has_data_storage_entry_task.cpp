@@ -13,40 +13,47 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-HasDataStorageEntryTask::HasDataStorageEntryTask() : TaskComposerTask("HasDataStorageEntryTask", true) {}
+const std::string HasDataStorageEntryTask::INPUT_KEYS_PORT = "keys";
+
+HasDataStorageEntryTask::HasDataStorageEntryTask()
+  : TaskComposerTask("HasDataStorageEntryTask", HasDataStorageEntryTask::ports(), true)
+{
+}
 HasDataStorageEntryTask::HasDataStorageEntryTask(std::string name,
                                                  const std::vector<std::string>& input_keys,
                                                  bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+  : TaskComposerTask(std::move(name), HasDataStorageEntryTask::ports(), is_conditional)
 {
-  input_keys_ = input_keys;
-  if (input_keys_.empty())
-    throw std::runtime_error("HasDataStorageEntryTask, input_keys should not be empty!");
+  input_keys_.add(INPUT_KEYS_PORT, input_keys);
+  validatePorts();
 }
 HasDataStorageEntryTask::HasDataStorageEntryTask(std::string name,
                                                  const YAML::Node& config,
                                                  const TaskComposerPluginFactory& /*plugin_factory*/)
-  : TaskComposerTask(std::move(name), config)
+  : TaskComposerTask(std::move(name), HasDataStorageEntryTask::ports(), config)
 {
-  if (input_keys_.empty())
-    throw std::runtime_error("HasDataStorageEntryTask, input_keys should not be empty!");
+}
 
-  if (!output_keys_.empty())
-    throw std::runtime_error("HasDataStorageEntryTask, output_keys should be empty!");
+TaskComposerNodePorts HasDataStorageEntryTask::ports()
+{
+  TaskComposerNodePorts ports;
+  ports.input_required[INPUT_KEYS_PORT] = true;
+  return ports;
 }
 
 std::unique_ptr<TaskComposerNodeInfo> HasDataStorageEntryTask::runImpl(TaskComposerContext& context,
                                                                        OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  for (const auto& input_key : input_keys_)
+  const auto& keys = input_keys_.get<std::vector<std::string>>(INPUT_KEYS_PORT);
+  for (const auto& key : keys)
   {
-    if (!context.data_storage->hasKey(input_key))
+    if (!context.data_storage->hasKey(key))
     {
       info->color = "red";
       info->return_value = 0;
       info->status_code = 0;
-      info->status_message = "Missing input key";
+      info->status_message = "Missing input key: " + key;
       return info;
     }
   }

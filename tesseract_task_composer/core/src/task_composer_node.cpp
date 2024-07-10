@@ -37,21 +37,68 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
+
+namespace YAML
+{
+template <>
+struct convert<tesseract_planning::TaskComposerKeys>
+{
+  static Node encode(const tesseract_planning::TaskComposerKeys& rhs)
+  {
+    Node node;
+    for (const auto& entry : rhs.data())
+    {
+      if (entry.second.index() == 0)
+        node[entry.first] = std::get<std::string>(entry.second);
+      else
+        node[entry.first] = std::get<std::vector<std::string>>(entry.second);
+    }
+
+    return node;
+  }
+
+  static bool decode(const Node& node, tesseract_planning::TaskComposerKeys& rhs)
+  {
+    if (!node.IsMap())
+      throw std::runtime_error("TaskComposerKeys, must be a yaml map");
+
+    for (const auto& dict : node)
+    {
+      if (dict.second.IsSequence())
+        rhs.add(dict.first.as<std::string>(), dict.second.as<std::vector<std::string>>());
+      else if (dict.second.IsScalar())
+        rhs.add(dict.first.as<std::string>(), dict.second.as<std::string>());
+      else
+        throw std::runtime_error("TaskComposerKeys, allowed port type is std::string or std::vector<std::string>");
+    }
+
+    return true;
+  }
+};
+}  // namespace YAML
 
 namespace tesseract_planning
 {
-TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type, bool conditional)
+TaskComposerNode::TaskComposerNode(std::string name,
+                                   TaskComposerNodeType type,
+                                   TaskComposerNodePorts ports,
+                                   bool conditional)
   : name_(std::move(name))
   , ns_(name_)
   , type_(type)
   , uuid_(boost::uuids::random_generator()())
   , uuid_str_(boost::uuids::to_string(uuid_))
   , conditional_(conditional)
+  , ports_(std::move(ports))
 {
 }
 
-TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type, const YAML::Node& config)
-  : TaskComposerNode::TaskComposerNode(std::move(name), type)
+TaskComposerNode::TaskComposerNode(std::string name,
+                                   TaskComposerNodeType type,
+                                   TaskComposerNodePorts ports,
+                                   const YAML::Node& config)
+  : TaskComposerNode::TaskComposerNode(std::move(name), type, std::move(ports))
 {
   try
   {
@@ -62,24 +109,27 @@ TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type, 
 
     if (YAML::Node n = config["inputs"])
     {
-      if (n.IsSequence())
-        input_keys_ = n.as<std::vector<std::string>>();
-      else
-        input_keys_ = { n.as<std::string>() };
+      if (!n.IsMap())
+        throw std::runtime_error("TaskComposerNode, inputs must be a map type");
+
+      input_keys_ = n.as<TaskComposerKeys>();
     }
 
     if (YAML::Node n = config["outputs"])
     {
-      if (n.IsSequence())
-        output_keys_ = n.as<std::vector<std::string>>();
-      else
-        output_keys_ = { n.as<std::string>() };
+      if (!n.IsMap())
+        throw std::runtime_error("TaskComposerNode, outputs must be a map type");
+
+      output_keys_ = n.as<TaskComposerKeys>();
     }
   }
   catch (const std::exception& e)
   {
     throw std::runtime_error("TaskComposerNode: Failed to parse yaml config data! Details: " + std::string(e.what()));
   }
+
+  if (type != TaskComposerNodeType::GRAPH && type != TaskComposerNodeType::PIPELINE)
+    validatePorts();
 }
 
 void TaskComposerNode::setName(const std::string& name) { name_ = name; }
@@ -98,28 +148,198 @@ const boost::uuids::uuid& TaskComposerNode::getParentUUID() const { return paren
 
 bool TaskComposerNode::isConditional() const { return conditional_; }
 
+void TaskComposerNode::validatePorts() const
+{
+  const auto& input_keys = input_keys_.data();
+  const auto& output_keys = output_keys_.data();
+
+  // Check for required ports
+  for (const auto& [port, container] : ports_.input_required)
+  {
+    auto it = input_keys.find(port);
+    if (it == input_keys.end())
+    {
+      std::string msg;
+      msg.append(name_);
+      msg.append(", missing required input port '");
+      msg.append(port);
+      msg.append(":");
+      msg.append((container) ? "Multiple" : "Single");
+      msg.append("'. Supported Ports:\n");
+      msg.append(ports_.toString());
+      throw std::runtime_error(msg);
+    }
+
+    if (static_cast<bool>(it->second.index()) != container)
+    {
+      std::string msg;
+      msg.append(name_);
+      msg.append(", required input port is wrong type'");
+      msg.append(port);
+      msg.append(":");
+      msg.append((container) ? "Multiple" : "Single");
+      msg.append("'. Supported Ports:\n");
+      msg.append(ports_.toString());
+      throw std::runtime_error(msg);
+    }
+
+    if (container && std::get<std::vector<std::string>>(it->second).empty())
+    {
+      std::string msg;
+      msg.append(name_);
+      msg.append(", required input port container is empty'");
+      msg.append(port);
+      msg.append(":Container'. Supported Ports:\n");
+      msg.append(ports_.toString());
+      throw std::runtime_error(msg);
+    }
+  }
+
+  for (const auto& [port, container] : ports_.output_required)
+  {
+    auto it = output_keys.find(port);
+    if (it == output_keys.end())
+    {
+      std::string msg;
+      msg.append(name_);
+      msg.append(", missing required output port '");
+      msg.append(port);
+      msg.append(":");
+      msg.append((container) ? "Multiple" : "Single");
+      msg.append("'. Supported Ports:\n");
+      msg.append(ports_.toString());
+      throw std::runtime_error(msg);
+    }
+
+    if (static_cast<bool>(it->second.index()) != container)
+    {
+      std::string msg;
+      msg.append(name_);
+      msg.append(", required output port is wrong type'");
+      msg.append(port);
+      msg.append(":");
+      msg.append((container) ? "Multiple" : "Single");
+      msg.append("'. Supported Ports:\n");
+      msg.append(ports_.toString());
+      throw std::runtime_error(msg);
+    }
+
+    if (container && std::get<std::vector<std::string>>(it->second).empty())
+    {
+      std::string msg;
+      msg.append(name_);
+      msg.append(", required output port container is empty'");
+      msg.append(port);
+      msg.append(":Container'. Supported Ports:\n");
+      msg.append(ports_.toString());
+      throw std::runtime_error(msg);
+    }
+  }
+
+  // Check for extra ports that do not belong
+  for (const auto& [port, key] : input_keys)
+  {
+    {
+      auto it = ports_.input_required.find(port);
+      if ((it != ports_.input_required.end()) &&
+          ((key.index() == 0 && !it->second) || (key.index() == 1 && it->second)))
+        continue;
+    }
+
+    {
+      auto it = ports_.input_optional.find(port);
+      if ((it != ports_.input_optional.end()) &&
+          ((key.index() == 0 && !it->second) || (key.index() == 1 && it->second)))
+      {
+        if ((it != ports_.input_optional.end()) && it->second && std::get<std::vector<std::string>>(key).empty())
+        {
+          std::string msg;
+          msg.append(name_);
+          msg.append(", optional input port container is empty'");
+          msg.append(port);
+          msg.append(":Container'. Supported Ports:\n");
+          msg.append(ports_.toString());
+          throw std::runtime_error(msg);
+        }
+
+        continue;
+      }
+    }
+
+    std::string msg;
+    msg.append(name_);
+    msg.append(", invalid input port defined '");
+    msg.append(port);
+    msg.append(":");
+    msg.append((key.index() == 1) ? "Multiple" : "Single");
+    msg.append("'. Supported Ports:\n");
+    msg.append(ports_.toString());
+    throw std::runtime_error(msg);
+  }
+
+  for (const auto& [port, key] : output_keys)
+  {
+    {
+      auto it = ports_.output_required.find(port);
+      if ((it != ports_.output_required.end()) &&
+          ((key.index() == 0 && !it->second) || (key.index() == 1 && it->second)))
+        continue;
+    }
+
+    {
+      auto it = ports_.output_optional.find(port);
+      if ((it != ports_.output_optional.end()) &&
+          ((key.index() == 0 && !it->second) || (key.index() == 1 && it->second)))
+      {
+        if ((it != ports_.output_optional.end()) && it->second && std::get<std::vector<std::string>>(key).empty())
+        {
+          std::string msg;
+          msg.append(name_);
+          msg.append(", optional output port container is empty'");
+          msg.append(port);
+          msg.append(":Container'. Supported Ports:\n");
+          msg.append(ports_.toString());
+          throw std::runtime_error(msg);
+        }
+
+        continue;
+      }
+    }
+
+    std::string msg;
+    msg.append(name_);
+    msg.append(", invalid output port defined '");
+    msg.append(port);
+    msg.append(":");
+    msg.append((key.index() == 1) ? "Multiple" : "Single");
+    msg.append("'. Supported Ports:\n");
+    msg.append(ports_.toString());
+    throw std::runtime_error(msg);
+  }
+}
+
 const std::vector<boost::uuids::uuid>& TaskComposerNode::getOutboundEdges() const { return outbound_edges_; }
 
 const std::vector<boost::uuids::uuid>& TaskComposerNode::getInboundEdges() const { return inbound_edges_; }
 
-void TaskComposerNode::setInputKeys(const std::vector<std::string>& input_keys) { input_keys_ = input_keys; }
+void TaskComposerNode::setInputKeys(const TaskComposerKeys& input_keys) { input_keys_ = input_keys; }
 
-const std::vector<std::string>& TaskComposerNode::getInputKeys() const { return input_keys_; }
+const TaskComposerKeys& TaskComposerNode::getInputKeys() const { return input_keys_; }
 
-void TaskComposerNode::setOutputKeys(const std::vector<std::string>& output_keys) { output_keys_ = output_keys; }
+void TaskComposerNode::setOutputKeys(const TaskComposerKeys& output_keys) { output_keys_ = output_keys; }
 
-const std::vector<std::string>& TaskComposerNode::getOutputKeys() const { return output_keys_; }
+const TaskComposerKeys& TaskComposerNode::getOutputKeys() const { return output_keys_; }
+
+TaskComposerNodePorts TaskComposerNode::getPorts() const { return ports_; }
 
 void TaskComposerNode::renameInputKeys(const std::map<std::string, std::string>& input_keys)
 {
-  for (const auto& key : input_keys)
-    std::replace(input_keys_.begin(), input_keys_.end(), key.first, key.second);
+  input_keys_.rename(input_keys);
 }
 
 void TaskComposerNode::renameOutputKeys(const std::map<std::string, std::string>& output_keys)
 {
-  for (const auto& key : output_keys)
-    std::replace(output_keys_.begin(), output_keys_.end(), key.first, key.second);
+  output_keys_.rename(output_keys);
 }
 
 void TaskComposerNode::setConditional(bool enable) { conditional_ = enable; }
@@ -146,24 +366,8 @@ TaskComposerNode::dump(std::ostream& os,
   {
     os << std::endl << tmp << " [shape=diamond, label=\"" << name_ << "\\n";
     os << "Namespace: " << ns_ << "\\n(" << uuid_str_ << ")";
-
-    os << "\\n Inputs: [";
-    for (std::size_t i = 0; i < input_keys_.size(); ++i)
-    {
-      os << input_keys_[i];
-      if (i < input_keys_.size() - 1)
-        os << ", ";
-    }
-    os << "]";
-
-    os << "\\n Outputs: [";
-    for (std::size_t i = 0; i < output_keys_.size(); ++i)
-    {
-      os << output_keys_[i];
-      if (i < output_keys_.size() - 1)
-        os << ", ";
-    }
-    os << "]";
+    os << "\\n Inputs: " << input_keys_;
+    os << "\\n Outputs: " << output_keys_;
 
     if (it != results_map.end())
     {
@@ -183,24 +387,8 @@ TaskComposerNode::dump(std::ostream& os,
   else
   {
     os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")";
-
-    os << "\\n Inputs: [";
-    for (std::size_t i = 0; i < input_keys_.size(); ++i)
-    {
-      os << input_keys_[i];
-      if (i < input_keys_.size() - 1)
-        os << ", ";
-    }
-    os << "]";
-
-    os << "\\n Outputs: [";
-    for (std::size_t i = 0; i < output_keys_.size(); ++i)
-    {
-      os << output_keys_[i];
-      if (i < output_keys_.size() - 1)
-        os << ", ";
-    }
-    os << "]";
+    os << "\\n Inputs: " << input_keys_;
+    os << "\\n Outputs: " << output_keys_;
 
     if (it != results_map.end())
     {
@@ -232,6 +420,7 @@ bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
   equal &= input_keys_ == rhs.input_keys_;
   equal &= output_keys_ == rhs.output_keys_;
   equal &= conditional_ == rhs.conditional_;
+  equal &= ports_ == rhs.ports_;
   return equal;
 }
 bool TaskComposerNode::operator!=(const TaskComposerNode& rhs) const { return !operator==(rhs); }
@@ -249,6 +438,7 @@ void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("input_keys", input_keys_);
   ar& boost::serialization::make_nvp("output_keys", output_keys_);
   ar& boost::serialization::make_nvp("conditional", conditional_);
+  ar& boost::serialization::make_nvp("ports", ports_);
 }
 
 std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::string& prefix)
@@ -267,6 +457,93 @@ std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::s
   }
   return (prefix + result);
 }
+
+template <>
+tesseract_common::AnyPoly TaskComposerNode::getData(const TaskComposerDataStorage& data_storage,
+                                                    const std::string& port,
+                                                    bool required) const
+{
+  auto it = input_keys_.data().find(port);
+  if (it == input_keys_.data().end())
+  {
+    if (required)
+      throw std::runtime_error(name_ + ", required key does not exist for the provided name: " + port);
+
+    return {};
+  }
+
+  const auto& key = std::get<std::string>(it->second);
+  auto data = data_storage.getData(key);
+  if (data.isNull() && required)
+    throw std::runtime_error(name_ + ", required data is missing: " + port + ":" + key);
+
+  return data;
+}
+
+template <>
+std::vector<tesseract_common::AnyPoly> TaskComposerNode::getData(const TaskComposerDataStorage& data_storage,
+                                                                 const std::string& port,
+                                                                 bool required) const
+{
+  auto it = input_keys_.data().find(port);
+  if (it == input_keys_.data().end())
+  {
+    if (required)
+      throw std::runtime_error(name_ + ", required key does not exist for the provided name: " + port);
+
+    return {};
+  }
+
+  const auto& vs = std::get<std::vector<std::string>>(it->second);
+  std::vector<tesseract_common::AnyPoly> data_container;
+  for (const auto& key : vs)
+  {
+    auto data = data_storage.getData(key);
+    if (data.isNull() && required)
+    {
+      std::string msg(name_);
+      msg.append(", required data is missing: ");
+      msg.append(port);
+      msg.append(":");
+      msg.append(key);
+      throw std::runtime_error(msg);
+    }
+
+    data_container.push_back(data);
+  }
+
+  return data_container;
+}
+
+void TaskComposerNode::setData(TaskComposerDataStorage& data_storage,
+                               const std::string& port,
+                               tesseract_common::AnyPoly data) const
+{
+  auto it = output_keys_.data().find(port);
+  if (it == output_keys_.data().end())
+    throw std::runtime_error(name_ + ", output key does not exist for the provided name: " + port);
+
+  const auto& key = std::get<std::string>(it->second);
+  data_storage.setData(key, std::move(data));
+}
+
+void TaskComposerNode::setData(TaskComposerDataStorage& data_storage,
+                               const std::string& port,
+                               const std::vector<tesseract_common::AnyPoly>& data) const
+{
+  auto it = output_keys_.data().find(port);
+  if (it == output_keys_.data().end())
+    throw std::runtime_error(name_ + ", output key does not exist for the provided name: " + port);
+
+  const auto& vs = std::get<std::vector<std::string>>(it->second);
+  if (vs.size() != data.size())
+    throw std::runtime_error(
+        name_ + ", output container and assigned data are not the same size for the provided name: " + port);
+
+  for (std::size_t i = 0; i < vs.size(); ++i)
+    data_storage.setData(vs[i], data[i]);
+}
+
 }  // namespace tesseract_planning
 
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerNode)

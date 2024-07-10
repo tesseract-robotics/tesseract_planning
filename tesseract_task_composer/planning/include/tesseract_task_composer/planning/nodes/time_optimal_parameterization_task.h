@@ -42,6 +42,16 @@ class TaskComposerPluginFactory;
 class TimeOptimalParameterizationTask : public TaskComposerTask
 {
 public:
+  // Requried
+  static const std::string INOUT_PROGRAM_PORT;
+  static const std::string INPUT_ENVIRONMENT_PORT;
+  static const std::string INPUT_PROFILES_PORT;
+
+  // Optional
+  static const std::string INPUT_MANIP_INFO_PORT;
+  static const std::string INPUT_COMPOSITE_PROFILE_REMAPPING_PORT;
+  static const std::string INPUT_MOVE_PROFILE_REMAPPING_PORT;
+
   using Ptr = std::shared_ptr<TimeOptimalParameterizationTask>;
   using ConstPtr = std::shared_ptr<const TimeOptimalParameterizationTask>;
   using UPtr = std::unique_ptr<TimeOptimalParameterizationTask>;
@@ -49,8 +59,10 @@ public:
 
   TimeOptimalParameterizationTask();
   explicit TimeOptimalParameterizationTask(std::string name,
-                                           std::string input_key,
-                                           std::string output_key,
+                                           std::string input_program_key,
+                                           std::string input_environment_key,
+                                           std::string input_profiles_key,
+                                           std::string output_program_key,
                                            bool conditional = true);
   explicit TimeOptimalParameterizationTask(std::string name,
                                            const YAML::Node& config,
@@ -69,6 +81,8 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  static TaskComposerNodePorts ports();
 
   std::unique_ptr<TaskComposerNodeInfo>
   runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;

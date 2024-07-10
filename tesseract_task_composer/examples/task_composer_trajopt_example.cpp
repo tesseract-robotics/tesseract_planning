@@ -13,12 +13,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_executor.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/core/test_suite/test_programs.hpp>
-#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
 #include <tesseract_common/types.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_state_solver/state_solver.h>
 #include <tesseract_environment/environment.h>
+#include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_visualization/visualization.h>
@@ -55,8 +55,8 @@ int main()
 
   // Create trajopt pipeline
   TaskComposerNode::UPtr task = factory.createTaskComposerNode("TrajOptPipeline");
-  const std::string input_key = task->getInputKeys().front();
-  const std::string output_key = task->getOutputKeys().front();
+  const std::string input_key = task->getInputKeys().get("program");
+  const std::string output_key = task->getOutputKeys().get("program");
 
   // Define profiles
   auto profiles = std::make_shared<ProfileDictionary>();
@@ -68,12 +68,11 @@ int main()
   // Create data storage
   auto task_data = std::make_unique<TaskComposerDataStorage>();
   task_data->setData(input_key, program);
-
-  // Create problem
-  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env, profiles);
+  task_data->setData("environment", env);
+  task_data->setData("profiles", profiles);
 
   auto task_executor = factory.createTaskComposerExecutor("TaskflowExecutor");
-  TaskComposerFuture::UPtr future = task_executor->run(*task, std::move(task_problem), std::move(task_data));
+  TaskComposerFuture::UPtr future = task_executor->run(*task, std::move(task_data));
   future->wait();
 
   // Save dot graph

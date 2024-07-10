@@ -37,7 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-struct TaskComposerContext;
+class TaskComposerContext;
 class TaskComposerExecutor;
 class TaskComposerTask : public TaskComposerNode
 {
@@ -50,9 +50,9 @@ public:
   /** @brief Most task will not require a executor so making it optional */
   using OptionalTaskComposerExecutor = std::optional<std::reference_wrapper<TaskComposerExecutor>>;
 
-  explicit TaskComposerTask(std::string name = "TaskComposerTask");
-  explicit TaskComposerTask(std::string name, bool conditional);
-  explicit TaskComposerTask(std::string name, const YAML::Node& config);
+  TaskComposerTask();
+  explicit TaskComposerTask(std::string name, TaskComposerNodePorts ports, bool conditional);
+  explicit TaskComposerTask(std::string name, TaskComposerNodePorts ports, const YAML::Node& config);
   ~TaskComposerTask() override = default;
   TaskComposerTask(const TaskComposerTask&) = delete;
   TaskComposerTask& operator=(const TaskComposerTask&) = delete;

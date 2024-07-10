@@ -38,6 +38,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
 
+#include <tesseract_task_composer/core/task_composer_keys.h>
+#include <tesseract_task_composer/core/task_composer_node_ports.h>
+
 namespace YAML
 {
 class Node;
@@ -46,6 +49,7 @@ class Node;
 namespace tesseract_planning
 {
 class TaskComposerNodeInfo;
+class TaskComposerDataStorage;
 
 enum class TaskComposerNodeType
 {
@@ -66,8 +70,12 @@ public:
 
   TaskComposerNode(std::string name = "TaskComposerNode",
                    TaskComposerNodeType type = TaskComposerNodeType::NODE,
+                   TaskComposerNodePorts ports = TaskComposerNodePorts(),
                    bool conditional = false);
-  explicit TaskComposerNode(std::string name, TaskComposerNodeType type, const YAML::Node& config);
+  explicit TaskComposerNode(std::string name,
+                            TaskComposerNodeType type,
+                            TaskComposerNodePorts ports,
+                            const YAML::Node& config);
   virtual ~TaskComposerNode() = default;
   TaskComposerNode(const TaskComposerNode&) = delete;
   TaskComposerNode& operator=(const TaskComposerNode&) = delete;
@@ -107,6 +115,9 @@ public:
    */
   bool isConditional() const;
 
+  /** @brief This will validate that all required ports exist and that no extra ports exist */
+  void validatePorts() const;
+
   /** @brief IDs of nodes (i.e. node) that should run after this node */
   const std::vector<boost::uuids::uuid>& getOutboundEdges() const;
 
@@ -114,16 +125,19 @@ public:
   const std::vector<boost::uuids::uuid>& getInboundEdges() const;
 
   /** @brief Set the nodes input keys */
-  void setInputKeys(const std::vector<std::string>& input_keys);
+  void setInputKeys(const TaskComposerKeys& input_keys);
 
   /** @brief The nodes input keys */
-  const std::vector<std::string>& getInputKeys() const;
+  const TaskComposerKeys& getInputKeys() const;
 
   /** @brief Set the nodes input keys */
-  void setOutputKeys(const std::vector<std::string>& output_keys);
+  void setOutputKeys(const TaskComposerKeys& output_keys);
 
   /** @brief The nodes output keys */
-  const std::vector<std::string>& getOutputKeys() const;
+  const TaskComposerKeys& getOutputKeys() const;
+
+  /** @brief Get the ports associated with the node */
+  TaskComposerNodePorts getPorts() const;
 
   /** @brief Rename input keys */
   virtual void renameInputKeys(const std::map<std::string, std::string>& input_keys);
@@ -183,16 +197,40 @@ protected:
   std::vector<boost::uuids::uuid> inbound_edges_;
 
   /** @brief The nodes input keys */
-  std::vector<std::string> input_keys_;
+  TaskComposerKeys input_keys_;
 
   /** @brief The nodes output keys */
-  std::vector<std::string> output_keys_;
+  TaskComposerKeys output_keys_;
 
   /** @brief Indicate if node is conditional */
   bool conditional_{ false };
 
+  /** @brief The nodes ports definition */
+  TaskComposerNodePorts ports_;
+
   /** @brief This will create a UUID string with no hyphens used when creating dot graph */
   static std::string toString(const boost::uuids::uuid& u, const std::string& prefix = "");
+
+  /**
+   * @brief A utility function for extracting data from data storage
+   * @param data_storage The data storage to retrieve data from
+   * @param port The port associated with the key
+   * @param required Indicate if data is required
+   * @return The data stored under the name, if not found and required an exception will be thrown other null
+   */
+  template <typename T = tesseract_common::AnyPoly>
+  T getData(const TaskComposerDataStorage& data_storage, const std::string& port, bool required = true) const;
+
+  /**
+   * @brief A utility function for setting data in data storage
+   * @param port The port associated with the key
+   * @param data_storage The data storage to assign data to
+   * @param data The data to store
+   */
+  void setData(TaskComposerDataStorage& data_storage, const std::string& port, tesseract_common::AnyPoly data) const;
+  void setData(TaskComposerDataStorage& data_storage,
+               const std::string& port,
+               const std::vector<tesseract_common::AnyPoly>& data) const;
 };
 
 }  // namespace tesseract_planning

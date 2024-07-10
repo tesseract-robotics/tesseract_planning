@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/process_planning_input_task.h>
-#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
@@ -42,38 +41,47 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-ProcessPlanningInputTask::ProcessPlanningInputTask() : TaskComposerTask("ProcessPlanningInputInstructionTask", false) {}
+// Requried
+const std::string ProcessPlanningInputTask::INPUT_PLANNING_INPUT_PORT = "planning_input";
+const std::string ProcessPlanningInputTask::OUTPUT_PROGRAM_PORT = "program";
 
-ProcessPlanningInputTask::ProcessPlanningInputTask(std::string name, std::string output_key, bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+ProcessPlanningInputTask::ProcessPlanningInputTask()
+  : TaskComposerTask("ProcessPlanningInputInstructionTask", ProcessPlanningInputTask::ports(), false)
 {
-  output_keys_ = { std::move(output_key) };
+}
+
+ProcessPlanningInputTask::ProcessPlanningInputTask(std::string name,
+                                                   std::string input_key,
+                                                   std::string output_key,
+                                                   bool is_conditional)
+  : TaskComposerTask(std::move(name), ProcessPlanningInputTask::ports(), is_conditional)
+{
+  input_keys_.add(INPUT_PLANNING_INPUT_PORT, std::move(input_key));
+  output_keys_.add(OUTPUT_PROGRAM_PORT, std::move(output_key));
+  validatePorts();
 }
 
 ProcessPlanningInputTask::ProcessPlanningInputTask(std::string name,
                                                    const YAML::Node& config,
                                                    const TaskComposerPluginFactory& /*plugin_factory*/)
-  : TaskComposerTask(std::move(name), config)
+  : TaskComposerTask(std::move(name), ProcessPlanningInputTask::ports(), config)
 {
-  if (!input_keys_.empty())
-    throw std::runtime_error("ProcessPlanningInputTask, config should not have 'inputs' entry");
+}
 
-  if (output_keys_.empty())
-    throw std::runtime_error("ProcessPlanningInputTask, config missing 'outputs' entry");
-
-  if (output_keys_.size() != 1)
-    throw std::runtime_error("ProcessPlanningInputTask, 'outputs' should only have one key");
+TaskComposerNodePorts ProcessPlanningInputTask::ports()
+{
+  TaskComposerNodePorts ports;
+  ports.input_required[INPUT_PLANNING_INPUT_PORT] = false;
+  ports.output_required[OUTPUT_PROGRAM_PORT] = false;
+  return ports;
 }
 
 std::unique_ptr<TaskComposerNodeInfo> ProcessPlanningInputTask::runImpl(TaskComposerContext& context,
                                                                         OptionalTaskComposerExecutor /*executor*/) const
 {
-  // Get the problem
-  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
-
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-
-  if (problem.input.isNull() || problem.input.getType() != std::type_index(typeid(CompositeInstruction)))
+  auto planning_input_poly = getData(*context.data_storage, INPUT_PLANNING_INPUT_PORT);
+  if (planning_input_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->color = "red";
     info->status_code = 0;
@@ -85,7 +93,7 @@ std::unique_ptr<TaskComposerNodeInfo> ProcessPlanningInputTask::runImpl(TaskComp
     return info;
   }
 
-  context.data_storage->setData(output_keys_[0], problem.input.as<CompositeInstruction>());
+  setData(*context.data_storage, OUTPUT_PROGRAM_PORT, planning_input_poly.as<CompositeInstruction>());
 
   info->color = "green";
   info->status_code = 1;

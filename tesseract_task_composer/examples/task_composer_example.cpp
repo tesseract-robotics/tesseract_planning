@@ -8,7 +8,6 @@
 #include <tesseract_task_composer/core/task_composer_graph.h>
 #include <tesseract_task_composer/core/task_composer_executor.h>
 #include <tesseract_task_composer/core/task_composer_task.h>
-#include <tesseract_task_composer/core/task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 
@@ -17,12 +16,27 @@ using namespace tesseract_planning;
 class AddTaskComposerNode : public TaskComposerTask
 {
 public:
+  // Requried
+  static const std::string INPUT_LEFT_PORT;
+  static const std::string INPUT_RIGHT_PORT;
+  static const std::string OUTPUT_RESULT_PORT;
+
   AddTaskComposerNode(std::string left_key, std::string right_key, std::string output_key)
-    : TaskComposerTask("AddTwoNumbers", false)
-    , left_key_(std::move(left_key))
-    , right_key_(std::move(right_key))
-    , output_key_(std::move(output_key))
+    : TaskComposerTask("AddTwoNumbers", AddTaskComposerNode::ports(), false)
   {
+    input_keys_.add(INPUT_LEFT_PORT, std::move(left_key));
+    input_keys_.add(INPUT_RIGHT_PORT, std::move(right_key));
+    output_keys_.add(OUTPUT_RESULT_PORT, std::move(output_key));
+    validatePorts();
+  }
+
+  static TaskComposerNodePorts ports()
+  {
+    TaskComposerNodePorts ports;
+    ports.input_required[INPUT_LEFT_PORT] = false;
+    ports.input_required[INPUT_RIGHT_PORT] = false;
+    ports.output_required[OUTPUT_RESULT_PORT] = false;
+    return ports;
   }
 
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
@@ -31,27 +45,41 @@ public:
     auto info = std::make_unique<TaskComposerNodeInfo>(*this);
     info->return_value = 0;
     std::cout << name_ << std::endl;
-    double result =
-        context.data_storage->getData(left_key_).as<double>() + context.data_storage->getData(right_key_).as<double>();
-    context.data_storage->setData(output_key_, result);
+    double result = getData(*context.data_storage, INPUT_LEFT_PORT).as<double>() +
+                    getData(*context.data_storage, INPUT_RIGHT_PORT).as<double>();
+    setData(*context.data_storage, OUTPUT_RESULT_PORT, result);
     return info;
   }
-
-protected:
-  std::string left_key_;
-  std::string right_key_;
-  std::string output_key_;
 };
+
+const std::string AddTaskComposerNode::INPUT_LEFT_PORT = "left";
+const std::string AddTaskComposerNode::INPUT_RIGHT_PORT = "right";
+const std::string AddTaskComposerNode::OUTPUT_RESULT_PORT = "result";
 
 class MultiplyTaskComposerNode : public TaskComposerTask
 {
 public:
+  // Requried
+  static const std::string INPUT_LEFT_PORT;
+  static const std::string INPUT_RIGHT_PORT;
+  static const std::string OUTPUT_RESULT_PORT;
+
   MultiplyTaskComposerNode(std::string left_key, std::string right_key, std::string output_key)
-    : TaskComposerTask("MultiplyTwoNumbers", false)
-    , left_key_(std::move(left_key))
-    , right_key_(std::move(right_key))
-    , output_key_(std::move(output_key))
+    : TaskComposerTask("MultiplyTwoNumbers", MultiplyTaskComposerNode::ports(), false)
   {
+    input_keys_.add(INPUT_LEFT_PORT, std::move(left_key));
+    input_keys_.add(INPUT_RIGHT_PORT, std::move(right_key));
+    output_keys_.add(OUTPUT_RESULT_PORT, std::move(output_key));
+    validatePorts();
+  }
+
+  static TaskComposerNodePorts ports()
+  {
+    TaskComposerNodePorts ports;
+    ports.input_required[INPUT_LEFT_PORT] = false;
+    ports.input_required[INPUT_RIGHT_PORT] = false;
+    ports.output_required[OUTPUT_RESULT_PORT] = false;
+    return ports;
   }
 
   TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
@@ -60,17 +88,16 @@ public:
     auto info = std::make_unique<TaskComposerNodeInfo>(*this);
     info->return_value = 0;
     std::cout << name_ << std::endl;
-    double result =
-        context.data_storage->getData(left_key_).as<double>() * context.data_storage->getData(right_key_).as<double>();
-    context.data_storage->setData(output_key_, result);
+    double result = getData(*context.data_storage, INPUT_LEFT_PORT).as<double>() *
+                    getData(*context.data_storage, INPUT_RIGHT_PORT).as<double>();
+    setData(*context.data_storage, OUTPUT_RESULT_PORT, result);
     return info;
   }
-
-protected:
-  std::string left_key_;
-  std::string right_key_;
-  std::string output_key_;
 };
+
+const std::string MultiplyTaskComposerNode::INPUT_LEFT_PORT = "left";
+const std::string MultiplyTaskComposerNode::INPUT_RIGHT_PORT = "right";
+const std::string MultiplyTaskComposerNode::OUTPUT_RESULT_PORT = "result";
 
 int main()
 {
@@ -83,8 +110,6 @@ int main()
   task_data->setData("b", b);
   task_data->setData("c", c);
   task_data->setData("d", d);
-
-  auto task_problem = std::make_unique<TaskComposerProblem>();
 
   // result = a * (b + c) + d
   auto task1 = std::make_unique<AddTaskComposerNode>("b", "c", "task1_output");
@@ -103,7 +128,7 @@ int main()
   TaskComposerPluginFactory factory(config_path);
 
   auto task_executor = factory.createTaskComposerExecutor("TaskflowExecutor");
-  TaskComposerFuture::UPtr future = task_executor->run(task_composer, std::move(task_problem), std::move(task_data));
+  TaskComposerFuture::UPtr future = task_executor->run(task_composer, std::move(task_data));
   future->wait();
 
   std::cout << "Output: " << future->context->data_storage->getData("task3_output").as<double>() << std::endl;

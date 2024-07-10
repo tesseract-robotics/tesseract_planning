@@ -41,19 +41,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
-#include <tesseract_task_composer/core/task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
 
 namespace tesseract_planning
 {
-TaskComposerContext::TaskComposerContext(std::shared_ptr<TaskComposerProblem> problem)
-  : TaskComposerContext(std::move(problem), std::make_shared<TaskComposerDataStorage>())
-{
-}
-
-TaskComposerContext::TaskComposerContext(std::shared_ptr<TaskComposerProblem> problem,
-                                         std::shared_ptr<TaskComposerDataStorage> data_storage)
-  : problem(std::move(problem)), data_storage(std::move(data_storage))
+TaskComposerContext::TaskComposerContext(std::string name,
+                                         std::shared_ptr<TaskComposerDataStorage> data_storage,
+                                         bool dotgraph)
+  : name(std::move(name)), dotgraph(dotgraph), data_storage(std::move(data_storage))
 {
 }
 
@@ -72,10 +67,7 @@ void TaskComposerContext::abort(const boost::uuids::uuid& calling_node)
 bool TaskComposerContext::operator==(const TaskComposerContext& rhs) const
 {
   bool equal = true;
-  if (problem != nullptr && rhs.problem != nullptr)
-    equal &= (*problem == *rhs.problem);
-  else
-    equal &= (problem == nullptr && rhs.problem == nullptr);
+  equal &= name == rhs.name;
 
   if (data_storage != nullptr && rhs.data_storage != nullptr)
     equal &= (*data_storage == *rhs.data_storage);
@@ -92,7 +84,7 @@ bool TaskComposerContext::operator!=(const TaskComposerContext& rhs) const { ret
 template <class Archive>
 void TaskComposerContext::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& boost::serialization::make_nvp("problem", problem);
+  ar& boost::serialization::make_nvp("name", name);
   ar& boost::serialization::make_nvp("data_storage", data_storage);
   ar& boost::serialization::make_nvp("task_infos", task_infos);
   ar& boost::serialization::make_nvp("aborted", aborted_);

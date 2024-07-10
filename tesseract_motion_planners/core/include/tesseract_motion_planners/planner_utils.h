@@ -102,14 +102,18 @@ bool isValidState(const tesseract_kinematics::ForwardKinematics::ConstPtr& robot
  */
 inline std::string getProfileString(const std::string& ns,
                                     const std::string& profile,
-                                    const PlannerProfileRemapping& profile_remapping,
+                                    const tesseract_common::AnyPoly& profile_remapping_poly,
                                     std::string default_profile = DEFAULT_PROFILE_KEY)
 {
   std::string results = profile;
   if (profile.empty())
     results = std::move(default_profile);
 
+  if (profile_remapping_poly.isNull())
+    return results;
+
   // Check for remapping of profile
+  const auto& profile_remapping = profile_remapping_poly.as<ProfileRemapping>();
   auto remap = profile_remapping.find(ns);
   if (remap != profile_remapping.end())
   {

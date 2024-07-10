@@ -59,7 +59,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 
-#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
@@ -300,19 +299,21 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   // Create task
   const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";
   TaskComposerNode::UPtr task = factory.createTaskComposerNode(task_name);
-  const std::string output_key = task->getOutputKeys().front();
+  const std::string output_key = task->getOutputKeys().get("program");
 
   if (plotter_ != nullptr)
     plotter_->waitForInput();
 
-  // Create Task Composer Problem
-  auto problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
-  problem->input = program;
+  // Create Task Composer Data Storage
+  auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+  data->setData("planning_input", program);
+  data->setData("environment", env_);
+  data->setData("profiles", profiles);
 
   // Solve task
   tesseract_common::Timer stopwatch;
   stopwatch.start();
-  TaskComposerFuture::UPtr future = executor->run(*task, std::move(problem));
+  TaskComposerFuture::UPtr future = executor->run(*task, std::move(data));
   future->wait();
 
   stopwatch.stop();

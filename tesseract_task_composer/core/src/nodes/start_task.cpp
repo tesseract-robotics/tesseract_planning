@@ -36,18 +36,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-StartTask::StartTask(std::string name) : TaskComposerTask(std::move(name), false) {}
+StartTask::StartTask(std::string name) : TaskComposerTask(std::move(name), TaskComposerNodePorts{}, false) {}
 StartTask::StartTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
-  : TaskComposerTask(std::move(name), config)
+  : TaskComposerTask(std::move(name), TaskComposerNodePorts{}, config)
 {
   if (conditional_)
     throw std::runtime_error("StartTask, config is_conditional should not be true");
-
-  if (!input_keys_.empty())
-    throw std::runtime_error("StartTask, config does not support 'inputs' entry");
-
-  if (!output_keys_.empty())
-    throw std::runtime_error("StartTask, config does not support 'outputs' entry");
 }
 std::unique_ptr<TaskComposerNodeInfo> StartTask::runImpl(TaskComposerContext& /*context*/,
                                                          OptionalTaskComposerExecutor /*executor*/) const

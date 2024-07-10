@@ -18,8 +18,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -33,26 +35,50 @@ task_composer_plugins:
               class: MinLengthTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  composite_profile_remapping: composite_profile_remapping
+                outputs:
+                  program: output_data
             DescartesMotionPlannerTask:
               class: DescartesFMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: false
             DiscreteContactCheckTask:
               class: DiscreteContactCheckTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
           edges:
             - source: MinLengthTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -67,13 +93,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: DescartesFTask
               config:
@@ -87,8 +119,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -102,26 +136,50 @@ task_composer_plugins:
               class: MinLengthTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  composite_profile_remapping: composite_profile_remapping
+                outputs:
+                  program: output_data
             DescartesMotionPlannerTask:
               class: DescartesDMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: false
             DiscreteContactCheckTask:
               class: DiscreteContactCheckTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
           edges:
             - source: MinLengthTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -136,13 +194,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: DescartesDTask
               config:
@@ -156,8 +220,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -171,21 +237,40 @@ task_composer_plugins:
               class: MinLengthTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  composite_profile_remapping: composite_profile_remapping
+                outputs:
+                  program: output_data
             DescartesMotionPlannerTask:
               class: DescartesFMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: false
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
           edges:
             - source: MinLengthTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -198,13 +283,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: DescartesFNPCTask
               config:
@@ -218,8 +309,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -233,21 +326,40 @@ task_composer_plugins:
               class: MinLengthTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  composite_profile_remapping: composite_profile_remapping
+                outputs:
+                  program: output_data
             DescartesMotionPlannerTask:
               class: DescartesDMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: false
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
           edges:
             - source: MinLengthTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -260,13 +372,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: DescartesDNPCTask
               config:
@@ -280,8 +398,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -295,26 +415,50 @@ task_composer_plugins:
               class: MinLengthTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  composite_profile_remapping: composite_profile_remapping
+                outputs:
+                  program: output_data
             OMPLMotionPlannerTask:
               class: OMPLMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: false
             DiscreteContactCheckTask:
               class: DiscreteContactCheckTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
           edges:
             - source: MinLengthTask
               destinations: [ErrorTask, OMPLMotionPlannerTask]
@@ -329,13 +473,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: OMPLTask
               config:
@@ -349,8 +499,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -364,26 +516,50 @@ task_composer_plugins:
               class: MinLengthTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  composite_profile_remapping: composite_profile_remapping
+                outputs:
+                  program: output_data
             TrajOptMotionPlannerTask:
               class: TrajOptMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: false
             DiscreteContactCheckTask:
               class: DiscreteContactCheckTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
           edges:
             - source: MinLengthTask
               destinations: [ErrorTask, TrajOptMotionPlannerTask]
@@ -398,13 +574,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            planning_input: planning_input
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: TrajOptTask
               config:
@@ -418,8 +600,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -433,26 +617,50 @@ task_composer_plugins:
               class: MinLengthTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  composite_profile_remapping: composite_profile_remapping
+                outputs:
+                  program: output_data
             TrajOptIfoptMotionPlannerTask:
               class: TrajOptIfoptMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: false
             DiscreteContactCheckTask:
               class: DiscreteContactCheckTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
           edges:
             - source: MinLengthTask
               destinations: [ErrorTask, TrajOptIfoptMotionPlannerTask]
@@ -467,13 +675,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            planning_input: planning_input
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: TrajOptIfoptTask
               config:
@@ -487,8 +701,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -502,33 +718,64 @@ task_composer_plugins:
               class: MinLengthTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  composite_profile_remapping: composite_profile_remapping
+                outputs:
+                  program: output_data
             DescartesMotionPlannerTask:
               class: DescartesFMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             TrajOptMotionPlannerTask:
               class: TrajOptMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: false
             DiscreteContactCheckTask:
               class: DiscreteContactCheckTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
           edges:
             - source: MinLengthTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -545,13 +792,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            planning_input: planning_input
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: CartesianTask
               config:
@@ -565,8 +818,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -580,33 +835,64 @@ task_composer_plugins:
               class: MinLengthTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  composite_profile_remapping: composite_profile_remapping
+                outputs:
+                  program: output_data
             OMPLMotionPlannerTask:
               class: OMPLMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             TrajOptMotionPlannerTask:
               class: TrajOptMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: false
             DiscreteContactCheckTask:
               class: DiscreteContactCheckTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
           edges:
             - source: MinLengthTask
               destinations: [ErrorTask, OMPLMotionPlannerTask]
@@ -623,13 +909,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            planning_input: planning_input
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: FreespaceTask
               config:
@@ -643,8 +935,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -658,33 +952,64 @@ task_composer_plugins:
               class: MinLengthTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  composite_profile_remapping: composite_profile_remapping
+                outputs:
+                  program: output_data
             OMPLMotionPlannerTask:
               class: OMPLMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             TrajOptIfoptMotionPlannerTask:
               class: TrajOptIfoptMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: false
             DiscreteContactCheckTask:
               class: DiscreteContactCheckTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
           edges:
             - source: MinLengthTask
               destinations: [ErrorTask, OMPLMotionPlannerTask]
@@ -701,13 +1026,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            planning_input: planning_input
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: FreespaceIfoptTask
               config:
@@ -721,8 +1052,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -736,15 +1069,26 @@ task_composer_plugins:
               class: SimpleMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             RasterMotionTask:
               class: RasterMotionTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  manip_info: manip_info
+                outputs:
+                  program: output_data
                 freespace:
                   task: FreespaceTask
                   config:
@@ -776,13 +1120,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            planning_input: planning_input
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterFtTask
               config:
@@ -796,8 +1146,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -811,15 +1163,26 @@ task_composer_plugins:
               class: SimpleMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             RasterMotionTask:
               class: RasterMotionTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  manip_info: manip_info
+                outputs:
+                  program: output_data
                 freespace:
                   task: FreespaceTask
                   config:
@@ -851,13 +1214,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            planning_input: input_data
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterCtTask
               config:
@@ -871,8 +1240,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -886,15 +1257,26 @@ task_composer_plugins:
               class: SimpleMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             RasterMotionTask:
               class: RasterOnlyMotionTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  manip_info: manip_info
+                outputs:
+                  program: output_data
                 raster:
                   task: CartesianTask
                   config:
@@ -919,13 +1301,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            planning_input: planning_input
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterFtOnlyTask
               config:
@@ -939,8 +1327,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -954,15 +1344,26 @@ task_composer_plugins:
               class: SimpleMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             RasterMotionTask:
               class: RasterOnlyMotionTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  manip_info: manip_info
+                outputs:
+                  program: output_data
                 raster:
                   task: CartesianTask
                   config:
@@ -987,13 +1388,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            planning_input: planning_input
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterCtOnlyTask
               config:
@@ -1007,8 +1414,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -1022,22 +1431,40 @@ task_composer_plugins:
               class: SimpleMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             DescartesMotionPlannerTask:
               class: DescartesFMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             RasterMotionTask:
               class: RasterMotionTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  manip_info: manip_info
+                outputs:
+                  program: output_data
                 freespace:
                   task: FreespaceTask
                   config:
@@ -1071,13 +1498,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            planning_input: planning_input
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterFtGlobalTask
               config:
@@ -1091,8 +1524,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -1106,22 +1541,40 @@ task_composer_plugins:
               class: SimpleMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             DescartesMotionPlannerTask:
               class: DescartesFMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             RasterMotionTask:
               class: RasterMotionTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  manip_info: manip_info
+                outputs:
+                  program: output_data
                 freespace:
                   task: FreespaceTask
                   config:
@@ -1155,13 +1608,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            planning_input: planning_input
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterCtGlobalTask
               config:
@@ -1175,8 +1634,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -1190,22 +1651,40 @@ task_composer_plugins:
               class: SimpleMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             DescartesMotionPlannerTask:
               class: DescartesFMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             RasterMotionTask:
               class: RasterOnlyMotionTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  manip_info: manip_info
+                outputs:
+                  program: output_data
                 raster:
                   task: CartesianTask
                   config:
@@ -1232,13 +1711,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            planning_input: planning_input
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterFtOnlyGlobalTask
               config:
@@ -1252,8 +1737,10 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: true
-          inputs: [input_data]
-          outputs: [output_data]
+          inputs:
+            program: input_data
+          outputs:
+            program: output_data
           nodes:
             DoneTask:
               class: DoneTaskFactory
@@ -1267,22 +1754,40 @@ task_composer_plugins:
               class: SimpleMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [input_data]
-                outputs: [output_data]
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             DescartesMotionPlannerTask:
               class: DescartesFMotionPlannerTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  profiles: profiles
+                  manip_info: manip_info
+                  composite_profile_remapping: composite_profile_remapping
+                  move_profile_remapping: move_profile_remapping
+                outputs:
+                  program: output_data
                 format_result_as_input: true
             RasterMotionTask:
               class: RasterOnlyMotionTaskFactory
               config:
                 conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
+                inputs:
+                  program: output_data
+                  environment: environment
+                  manip_info: manip_info
+                outputs:
+                  program: output_data
                 raster:
                   task: CartesianTask
                   config:
@@ -1309,13 +1814,19 @@ task_composer_plugins:
         class: PipelineTaskFactory
         config:
           conditional: false
-          outputs: [output_data]
+          inputs:
+            planning_input: planning_input
+          outputs:
+            program: output_data
           nodes:
             ProcessInputTask:
               class: ProcessPlanningInputTaskFactory
               config:
                 conditional: false
-                outputs: [input_data]
+                inputs:
+                  planning_input: planning_input
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterCtOnlyGlobalTask
               config:

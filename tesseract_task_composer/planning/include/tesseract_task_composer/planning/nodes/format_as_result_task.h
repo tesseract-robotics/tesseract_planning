@@ -15,6 +15,9 @@ class TaskComposerPluginFactory;
 class FormatAsResultTask : public TaskComposerTask
 {
 public:
+  // Requried
+  static const std::string INOUT_PROGRAMS_PORT;
+
   using Ptr = std::shared_ptr<FormatAsResultTask>;
   using ConstPtr = std::shared_ptr<const FormatAsResultTask>;
   using UPtr = std::unique_ptr<FormatAsResultTask>;
@@ -38,6 +41,8 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  static TaskComposerNodePorts ports();
 
   std::unique_ptr<TaskComposerNodeInfo>
   runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;

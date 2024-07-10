@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-struct TaskComposerContext;
+class TaskComposerContext;
 
 /**
  * @brief This contains the result for the task composer request

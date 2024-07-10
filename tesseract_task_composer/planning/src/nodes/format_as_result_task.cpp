@@ -15,22 +15,21 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-FormatAsResultTask::FormatAsResultTask() : TaskComposerTask("FormatAsResultTask", true) {}
+// Requried
+const std::string FormatAsResultTask::INOUT_PROGRAMS_PORT = "programs";
+
+FormatAsResultTask::FormatAsResultTask() : TaskComposerTask("FormatAsResultTask", FormatAsResultTask::ports(), true) {}
 
 FormatAsResultTask::FormatAsResultTask(std::string name,
                                        const std::vector<std::string>& input_keys,
                                        const std::vector<std::string>& output_keys,
                                        bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+  : TaskComposerTask(std::move(name), FormatAsResultTask::ports(), is_conditional)
 {
-  input_keys_ = input_keys;
-  output_keys_ = output_keys;
+  input_keys_.add(INOUT_PROGRAMS_PORT, input_keys);
+  output_keys_.add(INOUT_PROGRAMS_PORT, output_keys);
 
-  if (input_keys_.empty())
-    throw std::runtime_error("FormatAsResultTask, input_keys should not be empty!");
-
-  if (output_keys_.empty())
-    throw std::runtime_error("FormatAsResultTask, output_keys should not be empty!");
+  validatePorts();
 
   if (input_keys_.size() != output_keys_.size())
     throw std::runtime_error("FormatAsResultTask, input_keys and output_keys be the same size!");
@@ -39,24 +38,29 @@ FormatAsResultTask::FormatAsResultTask(std::string name,
 FormatAsResultTask::FormatAsResultTask(std::string name,
                                        const YAML::Node& config,
                                        const TaskComposerPluginFactory& /*plugin_factory*/)
-  : TaskComposerTask(std::move(name), config)
+  : TaskComposerTask(std::move(name), FormatAsResultTask::ports(), config)
 {
-  if (input_keys_.empty())
-    throw std::runtime_error("FormatAsResultTask, input_keys should not be empty!");
-
-  if (output_keys_.empty())
-    throw std::runtime_error("FormatAsResultTask, output_keys should not be empty!");
-
   if (input_keys_.size() != output_keys_.size())
     throw std::runtime_error("FormatAsResultTask, input_keys and output_keys be the same size!");
+}
+
+TaskComposerNodePorts FormatAsResultTask::ports()
+{
+  TaskComposerNodePorts ports;
+  ports.input_required[INOUT_PROGRAMS_PORT] = true;
+  ports.output_required[INOUT_PROGRAMS_PORT] = true;
+  return ports;
 }
 
 std::unique_ptr<TaskComposerNodeInfo> FormatAsResultTask::runImpl(TaskComposerContext& context,
                                                                   OptionalTaskComposerExecutor /*executor*/) const
 {
-  for (std::size_t i = 0; i < input_keys_.size(); ++i)
+  auto input_data_container =
+      getData<std::vector<tesseract_common::AnyPoly>>(*context.data_storage, INOUT_PROGRAMS_PORT);
+  std::vector<tesseract_common::AnyPoly> output_data_container;
+  output_data_container.reserve(input_data_container.size());
+  for (auto& input_data : input_data_container)
   {
-    auto input_data = context.data_storage->getData(input_keys_[i]);
     auto& ci = input_data.as<CompositeInstruction>();
     std::vector<std::reference_wrapper<InstructionPoly>> instructions = ci.flatten(&moveFilter);
     for (auto& instruction : instructions)
@@ -78,8 +82,10 @@ std::unique_ptr<TaskComposerNodeInfo> FormatAsResultTask::runImpl(TaskComposerCo
       mi.assignStateWaypoint(swp);
     }
 
-    context.data_storage->setData(output_keys_[i], ci);
+    output_data_container.emplace_back(ci);
   }
+
+  setData(*context.data_storage, INOUT_PROGRAMS_PORT, output_data_container);
 
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->color = "green";
