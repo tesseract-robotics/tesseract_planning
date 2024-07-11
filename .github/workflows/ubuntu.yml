@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distro: [focal, jammy]
+        distro: [focal, jammy, noble]
     container:
       image: ghcr.io/tesseract-robotics/trajopt:${{ matrix.distro }}-0.22
       env:
@@ -46,7 +46,7 @@ jobs:
           apt install -y libompl-dev taskflow
 
       - name: Build and Tests
-        uses: tesseract-robotics/colcon-action@v2
+        uses: tesseract-robotics/colcon-action@v8
         with:
           before-script: source /opt/tesseract/install/setup.bash && source /opt/trajopt/install/setup.bash
           ccache-prefix: ${{ matrix.distro }}
