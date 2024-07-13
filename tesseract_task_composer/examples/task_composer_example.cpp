@@ -33,9 +33,9 @@ public:
   static TaskComposerNodePorts ports()
   {
     TaskComposerNodePorts ports;
-    ports.input_required[INPUT_LEFT_PORT] = false;
-    ports.input_required[INPUT_RIGHT_PORT] = false;
-    ports.output_required[OUTPUT_RESULT_PORT] = false;
+    ports.input_required[INPUT_LEFT_PORT] = TaskComposerNodePorts::SINGLE;
+    ports.input_required[INPUT_RIGHT_PORT] = TaskComposerNodePorts::SINGLE;
+    ports.output_required[OUTPUT_RESULT_PORT] = TaskComposerNodePorts::SINGLE;
     return ports;
   }
 
@@ -76,9 +76,9 @@ public:
   static TaskComposerNodePorts ports()
   {
     TaskComposerNodePorts ports;
-    ports.input_required[INPUT_LEFT_PORT] = false;
-    ports.input_required[INPUT_RIGHT_PORT] = false;
-    ports.output_required[OUTPUT_RESULT_PORT] = false;
+    ports.input_required[INPUT_LEFT_PORT] = TaskComposerNodePorts::SINGLE;
+    ports.input_required[INPUT_RIGHT_PORT] = TaskComposerNodePorts::SINGLE;
+    ports.output_required[OUTPUT_RESULT_PORT] = TaskComposerNodePorts::SINGLE;
     return ports;
   }
 

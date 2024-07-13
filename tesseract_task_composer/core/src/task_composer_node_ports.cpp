@@ -40,9 +40,9 @@ std::string TaskComposerNodePorts::toString() const
   {
     std::string temp = "    required: [";
     std::size_t cnt{ 0 };
-    for (const auto& [port, container] : input_required)
+    for (const auto& [port, type] : input_required)
     {
-      std::string bool_str = (container) ? "Multiple" : "Single";
+      std::string bool_str = (static_cast<bool>(type)) ? "Multiple" : "Single";
       temp.append(port);
       temp.append(":");
       temp.append(bool_str);
@@ -64,9 +64,9 @@ std::string TaskComposerNodePorts::toString() const
   {
     std::string temp = "    optional: [";
     std::size_t cnt{ 0 };
-    for (const auto& [port, container] : input_optional)
+    for (const auto& [port, type] : input_optional)
     {
-      std::string bool_str = (container) ? "Multiple" : "Single";
+      std::string bool_str = (static_cast<bool>(type)) ? "Multiple" : "Single";
       temp.append(port);
       temp.append(":");
       temp.append(bool_str);
@@ -89,9 +89,9 @@ std::string TaskComposerNodePorts::toString() const
   {
     std::string temp = "    required: [";
     std::size_t cnt{ 0 };
-    for (const auto& [port, container] : output_required)
+    for (const auto& [port, type] : output_required)
     {
-      std::string bool_str = (container) ? "Multiple" : "Single";
+      std::string bool_str = (static_cast<bool>(type)) ? "Multiple" : "Single";
       temp.append(port);
       temp.append(":");
       temp.append(bool_str);
@@ -113,9 +113,9 @@ std::string TaskComposerNodePorts::toString() const
   {
     std::string temp = "    optional: [";
     std::size_t cnt{ 0 };
-    for (const auto& [port, container] : output_optional)
+    for (const auto& [port, type] : output_optional)
     {
-      std::string bool_str = (container) ? "Multiple" : "Single";
+      std::string bool_str = (static_cast<bool>(type)) ? "Multiple" : "Single";
       temp.append(port);
       temp.append(":");
       temp.append(bool_str);

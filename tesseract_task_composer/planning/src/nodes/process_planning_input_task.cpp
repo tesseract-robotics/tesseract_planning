@@ -71,8 +71,8 @@ ProcessPlanningInputTask::ProcessPlanningInputTask(std::string name,
 TaskComposerNodePorts ProcessPlanningInputTask::ports()
 {
   TaskComposerNodePorts ports;
-  ports.input_required[INPUT_PLANNING_INPUT_PORT] = false;
-  ports.output_required[OUTPUT_PROGRAM_PORT] = false;
+  ports.input_required[INPUT_PLANNING_INPUT_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.output_required[OUTPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   return ports;
 }
 

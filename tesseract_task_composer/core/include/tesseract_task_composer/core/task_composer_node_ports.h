@@ -40,11 +40,17 @@ namespace tesseract_planning
  */
 struct TaskComposerNodePorts
 {
-  std::unordered_map<std::string, bool> input_required;
-  std::unordered_map<std::string, bool> input_optional;
+  enum Type
+  {
+    SINGLE = 0,
+    MULTIPLE = 1
+  };
 
-  std::unordered_map<std::string, bool> output_required;
-  std::unordered_map<std::string, bool> output_optional;
+  std::unordered_map<std::string, Type> input_required;
+  std::unordered_map<std::string, Type> input_optional;
+
+  std::unordered_map<std::string, Type> output_required;
+  std::unordered_map<std::string, Type> output_optional;
 
   std::string toString() const;
 

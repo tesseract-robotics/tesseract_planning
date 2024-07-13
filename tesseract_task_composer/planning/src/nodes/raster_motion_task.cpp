@@ -332,11 +332,11 @@ RasterMotionTask::RasterMotionTask(std::string name,
 TaskComposerNodePorts RasterMotionTask::ports()
 {
   TaskComposerNodePorts ports;
-  ports.input_required[INOUT_PROGRAM_PORT] = false;
-  ports.input_required[INPUT_ENVIRONMENT_PORT] = false;
+  ports.input_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
 
-  ports.input_optional[INPUT_MANIP_INFO_PORT] = false;
-  ports.output_required[INOUT_PROGRAM_PORT] = false;
+  ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   return ports;
 }
 

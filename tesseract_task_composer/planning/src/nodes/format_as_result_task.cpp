@@ -47,8 +47,8 @@ FormatAsResultTask::FormatAsResultTask(std::string name,
 TaskComposerNodePorts FormatAsResultTask::ports()
 {
   TaskComposerNodePorts ports;
-  ports.input_required[INOUT_PROGRAMS_PORT] = true;
-  ports.output_required[INOUT_PROGRAMS_PORT] = true;
+  ports.input_required[INOUT_PROGRAMS_PORT] = TaskComposerNodePorts::MULTIPLE;
+  ports.output_required[INOUT_PROGRAMS_PORT] = TaskComposerNodePorts::MULTIPLE;
   return ports;
 }
 

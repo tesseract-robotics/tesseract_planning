@@ -37,7 +37,7 @@ HasDataStorageEntryTask::HasDataStorageEntryTask(std::string name,
 TaskComposerNodePorts HasDataStorageEntryTask::ports()
 {
   TaskComposerNodePorts ports;
-  ports.input_required[INPUT_KEYS_PORT] = true;
+  ports.input_required[INPUT_KEYS_PORT] = TaskComposerNodePorts::MULTIPLE;
   return ports;
 }
 

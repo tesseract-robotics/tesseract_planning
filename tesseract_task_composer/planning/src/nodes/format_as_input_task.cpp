@@ -79,10 +79,10 @@ FormatAsInputTask::FormatAsInputTask(std::string name,
 TaskComposerNodePorts FormatAsInputTask::ports()
 {
   TaskComposerNodePorts ports;
-  ports.input_required[INPUT_PRE_PLANNING_PROGRAM_PORT] = false;
-  ports.input_required[INPUT_POST_PLANNING_PROGRAM_PORT] = false;
+  ports.input_required[INPUT_PRE_PLANNING_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_POST_PLANNING_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
 
-  ports.output_required[OUTPUT_PROGRAM_PORT] = false;
+  ports.output_required[OUTPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
 
   return ports;
 }

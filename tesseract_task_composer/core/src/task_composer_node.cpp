@@ -154,7 +154,7 @@ void TaskComposerNode::validatePorts() const
   const auto& output_keys = output_keys_.data();
 
   // Check for required ports
-  for (const auto& [port, container] : ports_.input_required)
+  for (const auto& [port, type] : ports_.input_required)
   {
     auto it = input_keys.find(port);
     if (it == input_keys.end())
@@ -164,38 +164,38 @@ void TaskComposerNode::validatePorts() const
       msg.append(", missing required input port '");
       msg.append(port);
       msg.append(":");
-      msg.append((container) ? "Multiple" : "Single");
+      msg.append((static_cast<bool>(type)) ? "Multiple" : "Single");
       msg.append("'. Supported Ports:\n");
       msg.append(ports_.toString());
       throw std::runtime_error(msg);
     }
 
-    if (static_cast<bool>(it->second.index()) != container)
+    if (it->second.index() != type)
     {
       std::string msg;
       msg.append(name_);
       msg.append(", required input port is wrong type'");
       msg.append(port);
       msg.append(":");
-      msg.append((container) ? "Multiple" : "Single");
+      msg.append((static_cast<bool>(type)) ? "Multiple" : "Single");
       msg.append("'. Supported Ports:\n");
       msg.append(ports_.toString());
       throw std::runtime_error(msg);
     }
 
-    if (container && std::get<std::vector<std::string>>(it->second).empty())
+    if (static_cast<bool>(type) && std::get<std::vector<std::string>>(it->second).empty())
     {
       std::string msg;
       msg.append(name_);
       msg.append(", required input port container is empty'");
       msg.append(port);
-      msg.append(":Container'. Supported Ports:\n");
+      msg.append(":Multiple'. Supported Ports:\n");
       msg.append(ports_.toString());
       throw std::runtime_error(msg);
     }
   }
 
-  for (const auto& [port, container] : ports_.output_required)
+  for (const auto& [port, type] : ports_.output_required)
   {
     auto it = output_keys.find(port);
     if (it == output_keys.end())
@@ -205,32 +205,32 @@ void TaskComposerNode::validatePorts() const
       msg.append(", missing required output port '");
       msg.append(port);
       msg.append(":");
-      msg.append((container) ? "Multiple" : "Single");
+      msg.append((static_cast<bool>(type)) ? "Multiple" : "Single");
       msg.append("'. Supported Ports:\n");
       msg.append(ports_.toString());
       throw std::runtime_error(msg);
     }
 
-    if (static_cast<bool>(it->second.index()) != container)
+    if (it->second.index() != type)
     {
       std::string msg;
       msg.append(name_);
       msg.append(", required output port is wrong type'");
       msg.append(port);
       msg.append(":");
-      msg.append((container) ? "Multiple" : "Single");
+      msg.append((static_cast<bool>(type)) ? "Multiple" : "Single");
       msg.append("'. Supported Ports:\n");
       msg.append(ports_.toString());
       throw std::runtime_error(msg);
     }
 
-    if (container && std::get<std::vector<std::string>>(it->second).empty())
+    if (static_cast<bool>(type) && std::get<std::vector<std::string>>(it->second).empty())
     {
       std::string msg;
       msg.append(name_);
       msg.append(", required output port container is empty'");
       msg.append(port);
-      msg.append(":Container'. Supported Ports:\n");
+      msg.append(":Multiple'. Supported Ports:\n");
       msg.append(ports_.toString());
       throw std::runtime_error(msg);
     }
@@ -241,17 +241,16 @@ void TaskComposerNode::validatePorts() const
   {
     {
       auto it = ports_.input_required.find(port);
-      if ((it != ports_.input_required.end()) &&
-          ((key.index() == 0 && !it->second) || (key.index() == 1 && it->second)))
+      if ((it != ports_.input_required.end()) && (key.index() == it->second))
         continue;
     }
 
     {
       auto it = ports_.input_optional.find(port);
-      if ((it != ports_.input_optional.end()) &&
-          ((key.index() == 0 && !it->second) || (key.index() == 1 && it->second)))
+      if ((it != ports_.input_optional.end()) && (key.index() == it->second))
       {
-        if ((it != ports_.input_optional.end()) && it->second && std::get<std::vector<std::string>>(key).empty())
+        if ((it != ports_.input_optional.end()) && static_cast<bool>(it->second) &&
+            std::get<std::vector<std::string>>(key).empty())
         {
           std::string msg;
           msg.append(name_);
@@ -281,17 +280,16 @@ void TaskComposerNode::validatePorts() const
   {
     {
       auto it = ports_.output_required.find(port);
-      if ((it != ports_.output_required.end()) &&
-          ((key.index() == 0 && !it->second) || (key.index() == 1 && it->second)))
+      if ((it != ports_.output_required.end()) && (key.index() == it->second))
         continue;
     }
 
     {
       auto it = ports_.output_optional.find(port);
-      if ((it != ports_.output_optional.end()) &&
-          ((key.index() == 0 && !it->second) || (key.index() == 1 && it->second)))
+      if ((it != ports_.output_optional.end()) && (key.index() == it->second))
       {
-        if ((it != ports_.output_optional.end()) && it->second && std::get<std::vector<std::string>>(key).empty())
+        if ((it != ports_.output_optional.end()) && static_cast<bool>(it->second) &&
+            std::get<std::vector<std::string>>(key).empty())
         {
           std::string msg;
           msg.append(name_);

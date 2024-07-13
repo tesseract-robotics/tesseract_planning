@@ -93,12 +93,12 @@ DiscreteContactCheckTask::DiscreteContactCheckTask(std::string name,
 TaskComposerNodePorts DiscreteContactCheckTask::ports()
 {
   TaskComposerNodePorts ports;
-  ports.input_required[INPUT_PROGRAM_PORT] = false;
-  ports.input_required[INPUT_ENVIRONMENT_PORT] = false;
-  ports.input_required[INPUT_PROFILES_PORT] = false;
+  ports.input_required[INPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
-  ports.input_optional[INPUT_MANIP_INFO_PORT] = false;
-  ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = false;
+  ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
   return ports;
 }
 

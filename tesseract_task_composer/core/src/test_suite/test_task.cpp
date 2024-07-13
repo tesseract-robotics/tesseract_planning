@@ -70,10 +70,10 @@ TestTask::TestTask(std::string name, const YAML::Node& config, const TaskCompose
 TaskComposerNodePorts TestTask::ports()
 {
   TaskComposerNodePorts ports;
-  ports.input_required[INOUT_PORT1_PORT] = false;
-  ports.input_required[INOUT_PORT2_PORT] = true;
-  ports.output_required[INOUT_PORT1_PORT] = false;
-  ports.output_required[INOUT_PORT2_PORT] = true;
+  ports.input_required[INOUT_PORT1_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INOUT_PORT2_PORT] = TaskComposerNodePorts::MULTIPLE;
+  ports.output_required[INOUT_PORT1_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.output_required[INOUT_PORT2_PORT] = TaskComposerNodePorts::MULTIPLE;
   return ports;
 }
 

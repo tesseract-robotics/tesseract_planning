@@ -78,9 +78,9 @@ UpdateEndStateTask::UpdateEndStateTask(std::string name,
 TaskComposerNodePorts UpdateEndStateTask::ports()
 {
   TaskComposerNodePorts ports;
-  ports.input_required[INPUT_CURRENT_PROGRAM_PORT] = false;
-  ports.input_required[INPUT_NEXT_PROGRAM_PORT] = false;
-  ports.output_required[OUTPUT_PROGRAM_PORT] = false;
+  ports.input_required[INPUT_CURRENT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_NEXT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.output_required[OUTPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   return ports;
 }
 
