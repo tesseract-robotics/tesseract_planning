@@ -8,10 +8,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/environment.h>
 #include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_bounds_task.h>
-#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
-#include <tesseract_task_composer/core/task_composer_problem.h>
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/joint_waypoint.h>
@@ -88,15 +86,14 @@ void checkProgram(const Environment::Ptr& env,
   // Create data storage
   auto task_data = std::make_unique<TaskComposerDataStorage>();
   task_data->setData("input_program", program);
-
-  // Create problem
-  auto task_problem = std::make_unique<PlanningTaskComposerProblem>(env, profiles);
+  task_data->setData("environment", env);
+  task_data->setData("profiles", profiles);
 
   // Create context
-  auto task_context = std::make_shared<TaskComposerContext>(std::move(task_problem), std::move(task_data));
+  auto task_context = std::make_shared<TaskComposerContext>("fix_state_bounds_unit", std::move(task_data));
 
   // Create task
-  FixStateBoundsTask task(FIX_STATE_BOUNDS_TASK_NAME, "input_program", "output_program");
+  FixStateBoundsTask task(FIX_STATE_BOUNDS_TASK_NAME, "input_program", "environment", "profiles", "output_program");
 
   // Manual Check of program
   auto flattened = program.flatten(moveFilter);

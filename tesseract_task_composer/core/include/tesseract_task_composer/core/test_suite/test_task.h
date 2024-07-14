@@ -44,6 +44,10 @@ namespace tesseract_planning::test_suite
 class TestTask : public TaskComposerTask
 {
 public:
+  // Requried
+  static const std::string INOUT_PORT1_PORT;
+  static const std::string INOUT_PORT2_PORT;
+
   TestTask();
   explicit TestTask(std::string name, bool conditional);
   explicit TestTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
@@ -62,6 +66,8 @@ protected:
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
+
+  static TaskComposerNodePorts ports();
 
   std::unique_ptr<TaskComposerNodeInfo>
   runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override final;

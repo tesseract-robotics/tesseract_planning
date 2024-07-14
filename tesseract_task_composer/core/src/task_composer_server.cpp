@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_server.h>
-#include <tesseract_task_composer/core/task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_executor.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
@@ -117,31 +116,32 @@ std::vector<std::string> TaskComposerServer::getAvailableTasks() const
   return tasks;
 }
 
-std::unique_ptr<TaskComposerFuture> TaskComposerServer::run(std::shared_ptr<TaskComposerProblem> problem,
+std::unique_ptr<TaskComposerFuture> TaskComposerServer::run(const std::string& task_name,
                                                             std::shared_ptr<TaskComposerDataStorage> data_storage,
-                                                            const std::string& name)
+                                                            bool dotgraph,
+                                                            const std::string& executor_name)
 {
-  auto e_it = executors_.find(name);
+  auto e_it = executors_.find(executor_name);
   if (e_it == executors_.end())
-    throw std::runtime_error("Executor with name '" + name + "' does not exist!");
+    throw std::runtime_error("Executor with name '" + executor_name + "' does not exist!");
 
-  auto t_it = tasks_.find(problem->name);
+  auto t_it = tasks_.find(task_name);
   if (t_it == tasks_.end())
-    throw std::runtime_error("Task with name '" + problem->name + "' does not exist!");
+    throw std::runtime_error("Task with name '" + task_name + "' does not exist!");
 
-  return e_it->second->run(*t_it->second, std::move(problem), std::move(data_storage));
+  return e_it->second->run(*t_it->second, std::move(data_storage), dotgraph);
 }
 
 std::unique_ptr<TaskComposerFuture> TaskComposerServer::run(const TaskComposerNode& node,
-                                                            std::shared_ptr<TaskComposerProblem> problem,
                                                             std::shared_ptr<TaskComposerDataStorage> data_storage,
-                                                            const std::string& name)
+                                                            bool dotgraph,
+                                                            const std::string& executor_name)
 {
-  auto it = executors_.find(name);
+  auto it = executors_.find(executor_name);
   if (it == executors_.end())
-    throw std::runtime_error("Executor with name '" + name + "' does not exist!");
+    throw std::runtime_error("Executor with name '" + executor_name + "' does not exist!");
 
-  return it->second->run(node, std::move(problem), std::move(data_storage));
+  return it->second->run(node, std::move(data_storage), dotgraph);
 }
 
 long TaskComposerServer::getWorkerCount(const std::string& name) const

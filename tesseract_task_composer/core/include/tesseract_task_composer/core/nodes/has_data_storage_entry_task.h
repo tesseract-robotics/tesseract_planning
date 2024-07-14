@@ -15,6 +15,9 @@ class TaskComposerPluginFactory;
 class HasDataStorageEntryTask : public TaskComposerTask
 {
 public:
+  // Requried
+  static const std::string INPUT_KEYS_PORT;
+
   using Ptr = std::shared_ptr<HasDataStorageEntryTask>;
   using ConstPtr = std::shared_ptr<const HasDataStorageEntryTask>;
   using UPtr = std::unique_ptr<HasDataStorageEntryTask>;
@@ -37,6 +40,8 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  static TaskComposerNodePorts ports();
 
   std::unique_ptr<TaskComposerNodeInfo>
   runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;

@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
-#include <tesseract_task_composer/core/task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
 #include <tesseract_task_composer/core/task_composer_graph.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
@@ -53,9 +52,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto problem = std::make_unique<TaskComposerProblem>();
     auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*task, std::move(problem), std::move(data_storage));
+    auto future = executor->run(*task, std::move(data_storage));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -91,8 +89,6 @@ void runTaskComposerExecutorTest()
                                class: PipelineTaskFactory
                                config:
                                  conditional: true
-                                 inputs: input_data
-                                 outputs: output_data
                                  nodes:
                                    StartTask:
                                      class: StartTaskFactory
@@ -103,6 +99,12 @@ void runTaskComposerExecutorTest()
                                      config:
                                        conditional: true
                                        return_value: 1
+                                       inputs:
+                                         port1: input_data
+                                         port2: [input_data]
+                                       outputs:
+                                         port1: output_data
+                                         port2: [output_data]
                                    DoneTask:
                                      class: DoneTaskFactory
                                      config:
@@ -121,8 +123,6 @@ void runTaskComposerExecutorTest()
                                class: GraphTaskFactory
                                config:
                                  conditional: false
-                                 inputs: input_data
-                                 outputs: output_data
                                  nodes:
                                    StartTask:
                                      class: StartTaskFactory
@@ -133,6 +133,12 @@ void runTaskComposerExecutorTest()
                                      config:
                                        conditional: true
                                        return_value: 1
+                                       inputs:
+                                         port1: input_data
+                                         port2: [input_data]
+                                       outputs:
+                                         port1: output_data
+                                         port2: [output_data]
                                    DoneTask:
                                      class: DoneTaskFactory
                                      config:
@@ -153,8 +159,6 @@ void runTaskComposerExecutorTest()
   {  // Pipeline
     std::string str2 = R"(config:
                             conditional: true
-                            inputs: input_data
-                            outputs: output_data
                             nodes:
                               StartTask:
                                 task: TestPipeline
@@ -177,9 +181,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto problem = std::make_unique<TaskComposerProblem>();
     auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*pipeline, std::move(problem), std::move(data_storage));
+    auto future = executor->run(*pipeline, std::move(data_storage));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -217,8 +220,6 @@ void runTaskComposerExecutorTest()
   {  // Graph with child pipeline task not conditional
     std::string str2 = R"(config:
                             conditional: false
-                            inputs: input_data
-                            outputs: output_data
                             nodes:
                               StartTask:
                                 task: TestPipeline
@@ -241,9 +242,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto problem = std::make_unique<TaskComposerProblem>();
     auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*graph, std::move(problem), std::move(data_storage));
+    auto future = executor->run(*graph, std::move(data_storage));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -281,8 +281,6 @@ void runTaskComposerExecutorTest()
   {  // Graph with child pipeline task conditional
     std::string str2 = R"(config:
                             conditional: false
-                            inputs: input_data
-                            outputs: output_data
                             nodes:
                               StartTask:
                                 task: TestPipeline
@@ -309,9 +307,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto problem = std::make_unique<TaskComposerProblem>();
     auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*graph, std::move(problem), std::move(data_storage));
+    auto future = executor->run(*graph, std::move(data_storage));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -354,8 +351,6 @@ void runTaskComposerExecutorTest()
   {  // Graph with child graph task
     std::string str2 = R"(config:
                             conditional: false
-                            inputs: input_data
-                            outputs: output_data
                             nodes:
                               StartTask:
                                 task: TestGraph
@@ -378,9 +373,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto problem = std::make_unique<TaskComposerProblem>();
     auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*graph, std::move(problem), std::move(data_storage));
+    auto future = executor->run(*graph, std::move(data_storage));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());

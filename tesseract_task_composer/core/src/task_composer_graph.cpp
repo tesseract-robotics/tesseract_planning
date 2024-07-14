@@ -51,7 +51,7 @@ TaskComposerGraph::TaskComposerGraph(std::string name)
 }
 
 TaskComposerGraph::TaskComposerGraph(std::string name, TaskComposerNodeType type, bool conditional)
-  : TaskComposerNode(std::move(name), type, conditional)
+  : TaskComposerNode(std::move(name), type, TaskComposerNodePorts{}, conditional)
 {
 }
 
@@ -68,7 +68,7 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
                                      TaskComposerNodeType type,
                                      const YAML::Node& config,
                                      const TaskComposerPluginFactory& plugin_factory)
-  : TaskComposerNode(std::move(name), type, config)
+  : TaskComposerNode(std::move(name), type, TaskComposerNodePorts{}, config)
 {
   std::unordered_map<std::string, boost::uuids::uuid> node_uuids;
   YAML::Node nodes = config["nodes"];
@@ -325,18 +325,14 @@ std::pair<bool, std::string> TaskComposerGraph::isValid() const
 
 void TaskComposerGraph::renameInputKeys(const std::map<std::string, std::string>& input_keys)
 {
-  for (const auto& key : input_keys)
-    std::replace(input_keys_.begin(), input_keys_.end(), key.first, key.second);
-
+  input_keys_.rename(input_keys);
   for (auto& node : nodes_)
     node.second->renameInputKeys(input_keys);
 }
 
 void TaskComposerGraph::renameOutputKeys(const std::map<std::string, std::string>& output_keys)
 {
-  for (const auto& key : output_keys)
-    std::replace(output_keys_.begin(), output_keys_.end(), key.first, key.second);
-
+  output_keys_.rename(output_keys);
   for (auto& node : nodes_)
     node.second->renameOutputKeys(output_keys);
 }
@@ -352,23 +348,8 @@ TaskComposerGraph::dump(std::ostream& os,
   std::ostringstream sub_graphs;
   const std::string tmp = toString(uuid_);
   os << "subgraph cluster_" << tmp << " {\n color=black;\n label = \"" << name_ << "\\n(" << uuid_str_ << ")";
-  os << "\\n Inputs: [";
-  for (std::size_t i = 0; i < input_keys_.size(); ++i)
-  {
-    os << input_keys_[i];
-    if (i < input_keys_.size() - 1)
-      os << ", ";
-  }
-  os << "]";
-
-  os << "\\n Outputs: [";
-  for (std::size_t i = 0; i < output_keys_.size(); ++i)
-  {
-    os << output_keys_[i];
-    if (i < output_keys_.size() - 1)
-      os << ", ";
-  }
-  os << "]";
+  os << "\\n Inputs: " << input_keys_;
+  os << "\\n Outputs: " << output_keys_;
   os << "\\n Conditional: " << ((conditional_) ? "True" : "False");
   if (getType() == TaskComposerNodeType::PIPELINE || getType() == TaskComposerNodeType::GRAPH)
   {
@@ -389,27 +370,11 @@ TaskComposerGraph::dump(std::ostream& os,
       auto it = results_map.find(node->getUUID());
       std::string color = (it != results_map.end() && it->second->color != "white") ? it->second->color : "blue";
       const std::string tmp = toString(node->uuid_, "node_");
-      const std::vector<std::string>& input_keys = node->getInputKeys();
-      const std::vector<std::string>& output_keys = node->getOutputKeys();
+      const TaskComposerKeys& input_keys = node->getInputKeys();
+      const TaskComposerKeys& output_keys = node->getOutputKeys();
       os << std::endl << tmp << " [shape=box3d, label=\"Subgraph: " << node->name_ << "\\n(" << node->uuid_str_ << ")";
-      os << "\\n Inputs: [";
-      for (std::size_t i = 0; i < input_keys.size(); ++i)
-      {
-        os << input_keys[i];
-        if (i < input_keys.size() - 1)
-          os << ", ";
-      }
-      os << "]";
-
-      os << "\\n Outputs: [";
-      for (std::size_t i = 0; i < output_keys.size(); ++i)
-      {
-        os << output_keys[i];
-        if (i < output_keys.size() - 1)
-          os << ", ";
-      }
-      os << "]";
-
+      os << "\\n Inputs: " << input_keys;
+      os << "\\n Outputs: " << output_keys;
       os << "\\n Conditional: " << ((node->isConditional()) ? "True" : "False");
       if (it != results_map.end())
         os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s";

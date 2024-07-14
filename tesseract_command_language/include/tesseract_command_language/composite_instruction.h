@@ -467,6 +467,6 @@ private:
 }  // namespace tesseract_planning
 
 TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, CompositeInstruction)
-TESSERACT_ANY_EXPORT_KEY(tesseract_planning, CompositeInstruction)
+TESSERACT_ANY_EXPORT_KEY(tesseract_planning::CompositeInstruction, TesseractPlanningCompositeInstruction)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMPOSITE_INSTRUCTION_H

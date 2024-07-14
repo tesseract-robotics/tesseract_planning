@@ -38,6 +38,11 @@ namespace tesseract_planning
 class UpdateEndStateTask : public TaskComposerTask
 {
 public:
+  // Requried
+  static const std::string INPUT_CURRENT_PROGRAM_PORT;
+  static const std::string INPUT_NEXT_PROGRAM_PORT;
+  static const std::string OUTPUT_PROGRAM_PORT;
+
   using Ptr = std::shared_ptr<UpdateEndStateTask>;
   using ConstPtr = std::shared_ptr<const UpdateEndStateTask>;
   using UPtr = std::unique_ptr<UpdateEndStateTask>;
@@ -63,6 +68,8 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  static TaskComposerNodePorts ports();
 
   std::unique_ptr<TaskComposerNodeInfo> runImpl(TaskComposerContext& context,
                                                 OptionalTaskComposerExecutor executor = std::nullopt) const override;

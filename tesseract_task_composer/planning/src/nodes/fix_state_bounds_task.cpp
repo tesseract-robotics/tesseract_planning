@@ -36,7 +36,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/fix_state_bounds_task.h>
 #include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
-#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
@@ -49,41 +48,56 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-FixStateBoundsTask::FixStateBoundsTask() : TaskComposerTask("FixStateBoundsTask", true) {}
+// Requried
+const std::string FixStateBoundsTask::INOUT_PROGRAM_PORT = "program";
+const std::string FixStateBoundsTask::INPUT_ENVIRONMENT_PORT = "environment";
+const std::string FixStateBoundsTask::INPUT_PROFILES_PORT = "profiles";
+
+// Optional
+const std::string FixStateBoundsTask::INPUT_MANIP_INFO_PORT = "manip_info";
+const std::string FixStateBoundsTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_remapping";
+
+FixStateBoundsTask::FixStateBoundsTask() : TaskComposerTask("FixStateBoundsTask", FixStateBoundsTask::ports(), true) {}
 FixStateBoundsTask::FixStateBoundsTask(std::string name,
-                                       std::string input_key,
-                                       std::string output_key,
+                                       std::string input_program_key,
+                                       std::string input_environment_key,
+                                       std::string input_profiles_key,
+                                       std::string output_program_key,
                                        bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+  : TaskComposerTask(std::move(name), FixStateBoundsTask::ports(), is_conditional)
 {
-  input_keys_.push_back(std::move(input_key));
-  output_keys_.push_back(std::move(output_key));
+  input_keys_.add(INOUT_PROGRAM_PORT, std::move(input_program_key));
+  input_keys_.add(INPUT_ENVIRONMENT_PORT, std::move(input_environment_key));
+  input_keys_.add(INPUT_PROFILES_PORT, std::move(input_profiles_key));
+  output_keys_.add(INOUT_PROGRAM_PORT, std::move(output_program_key));
+  validatePorts();
 }
 
 FixStateBoundsTask::FixStateBoundsTask(std::string name,
                                        const YAML::Node& config,
                                        const TaskComposerPluginFactory& /*plugin_factory*/)
-  : TaskComposerTask(std::move(name), config)
+  : TaskComposerTask(std::move(name), FixStateBoundsTask::ports(), config)
 {
-  if (input_keys_.empty())
-    throw std::runtime_error("FixStateBoundsTask, config missing 'inputs' entry");
+}
 
-  if (input_keys_.size() > 1)
-    throw std::runtime_error("FixStateBoundsTask, config 'inputs' entry currently only supports one input key");
+TaskComposerNodePorts FixStateBoundsTask::ports()
+{
+  TaskComposerNodePorts ports;
+  ports.input_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
-  if (output_keys_.empty())
-    throw std::runtime_error("FixStateBoundsTask, config missing 'outputs' entry");
+  ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
 
-  if (output_keys_.size() > 1)
-    throw std::runtime_error("FixStateBoundsTask, config 'outputs' entry currently only supports one output key");
+  ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+
+  return ports;
 }
 
 std::unique_ptr<TaskComposerNodeInfo> FixStateBoundsTask::runImpl(TaskComposerContext& context,
                                                                   OptionalTaskComposerExecutor /*executor*/) const
 {
-  // Get the problem
-  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
-
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
   info->status_code = 0;
@@ -91,25 +105,46 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateBoundsTask::runImpl(TaskComposerCo
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = context.data_storage->getData(input_keys_[0]);
-  if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  tesseract_common::AnyPoly env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
+  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<tesseract_environment::Environment>)))
+  {
+    info->status_code = 0;
+    info->status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info->return_value = 0;
+    return info;
+  }
+  std::shared_ptr<const tesseract_environment::Environment> env =
+      env_poly.as<std::shared_ptr<tesseract_environment::Environment>>();
+
+  auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
+  if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->status_message = "Input instruction to FixStateBounds must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
+  tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
+
+  tesseract_common::ManipulatorInfo input_manip_info;
+  auto manip_info_poly = getData(*context.data_storage, INPUT_MANIP_INFO_PORT, false);
+  if (!manip_info_poly.isNull())
+    input_manip_info = manip_info_poly.as<tesseract_common::ManipulatorInfo>();
+
+  auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
+  auto composite_profile_remapping_poly = getData(*context.data_storage, INPUT_COMPOSITE_PROFILE_REMAPPING_PORT, false);
   auto& ci = input_data_poly.as<CompositeInstruction>();
-  ci.setManipulatorInfo(ci.getManipulatorInfo().getCombined(problem.manip_info));
+  ci.setManipulatorInfo(ci.getManipulatorInfo().getCombined(input_manip_info));
   const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
-  auto joint_group = problem.env->getJointGroup(manip_info.manipulator);
+  auto joint_group = env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
-  profile = getProfileString(ns_, profile, problem.composite_profile_remapping);
+  profile = getProfileString(ns_, profile, composite_profile_remapping_poly);
   auto cur_composite_profile =
-      getProfile<FixStateBoundsProfile>(ns_, profile, *problem.profiles, std::make_shared<FixStateBoundsProfile>());
+      getProfile<FixStateBoundsProfile>(ns_, profile, *profiles, std::make_shared<FixStateBoundsProfile>());
   cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   limits.joint_limits.col(0) = limits.joint_limits.col(0).array() + cur_composite_profile->lower_bounds_reduction;
@@ -131,8 +166,8 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateBoundsTask::runImpl(TaskComposerCo
             {
               // If the output key is not the same as the input key the output data should be assigned the input data
               // for error branching
-              if (output_keys_[0] != input_keys_[0])
-                context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
+              if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
+                setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
 
               info->status_message = "Failed to clamp to joint limits";
               return info;
@@ -157,8 +192,8 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateBoundsTask::runImpl(TaskComposerCo
             {
               // If the output key is not the same as the input key the output data should be assigned the input data
               // for error branching
-              if (output_keys_[0] != input_keys_[0])
-                context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
+              if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
+                setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
 
               info->status_message = "Failed to clamp to joint limits";
               return info;
@@ -173,8 +208,10 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateBoundsTask::runImpl(TaskComposerCo
       auto flattened = ci.flatten(moveFilter);
       if (flattened.empty())
       {
-        if (output_keys_[0] != input_keys_[0])
-          context.data_storage->setData(output_keys_[0], input_data_poly);
+        // If the output key is not the same as the input key the output data should be assigned the input data for
+        // error branching
+        if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
+          setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
 
         info->color = "green";
         info->status_code = 1;
@@ -204,8 +241,8 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateBoundsTask::runImpl(TaskComposerCo
           {
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
-            if (output_keys_[0] != input_keys_[0])
-              context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
+            if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
+              setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
 
             info->status_message = "Failed to clamp to joint limits";
             return info;
@@ -216,8 +253,11 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateBoundsTask::runImpl(TaskComposerCo
     break;
     case FixStateBoundsProfile::Settings::DISABLED:
     {
-      if (output_keys_[0] != input_keys_[0])
-        context.data_storage->setData(output_keys_[0], input_data_poly);
+      // If the output key is not the same as the input key the output data should be assigned the input data for
+      // error branching
+      if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
+        setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
+
       info->color = "green";
       info->status_code = 1;
       info->status_message = "Successful, DISABLED";
@@ -226,7 +266,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateBoundsTask::runImpl(TaskComposerCo
     }
   }
 
-  context.data_storage->setData(output_keys_[0], input_data_poly);
+  setData(*context.data_storage, INOUT_PROGRAM_PORT, input_data_poly);
 
   info->color = "green";
   info->status_code = 1;

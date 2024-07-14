@@ -38,14 +38,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerTask::TaskComposerTask(std::string name) : TaskComposerTask(std::move(name), true) {}
-TaskComposerTask::TaskComposerTask(std::string name, bool conditional)
-  : TaskComposerNode(std::move(name), TaskComposerNodeType::TASK, conditional)
+TaskComposerTask::TaskComposerTask() : TaskComposerTask("TaskComposerTask", TaskComposerNodePorts{}, true) {}
+TaskComposerTask::TaskComposerTask(std::string name, TaskComposerNodePorts ports, bool conditional)
+  : TaskComposerNode(std::move(name), TaskComposerNodeType::TASK, std::move(ports), conditional)
 {
 }
 
-TaskComposerTask::TaskComposerTask(std::string name, const YAML::Node& config)
-  : TaskComposerNode(std::move(name), TaskComposerNodeType::TASK, config)
+TaskComposerTask::TaskComposerTask(std::string name, TaskComposerNodePorts ports, const YAML::Node& config)
+  : TaskComposerNode(std::move(name), TaskComposerNodeType::TASK, std::move(ports), config)
 {
   try
   {

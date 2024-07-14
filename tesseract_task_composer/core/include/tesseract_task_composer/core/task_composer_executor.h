@@ -38,7 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 struct TaskComposerProblem;
-struct TaskComposerContext;
+class TaskComposerContext;
 class TaskComposerDataStorage;
 class TaskComposerFuture;
 class TaskComposerNode;
@@ -60,15 +60,13 @@ public:
   /**
    * @brief Execute the provided node
    * @param node The node to execute
-   * @param problem The problem
    * @param data_storage The data storage object to leverage
+   * @param dotgraph Indicate if dotgraph should be generated
    * @return The future associated with execution
    */
-  std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node, std::shared_ptr<TaskComposerProblem> problem);
-
   std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node,
-                                          std::shared_ptr<TaskComposerProblem> problem,
-                                          std::shared_ptr<TaskComposerDataStorage> data_storage);
+                                          std::shared_ptr<TaskComposerDataStorage> data_storage,
+                                          bool dotgraph = false);
 
   /** @brief Queries the number of workers (example: number of threads) */
   virtual long getWorkerCount() const = 0;

@@ -54,6 +54,11 @@ class TaskComposerPluginFactory;
 class FormatAsInputTask : public TaskComposerTask
 {
 public:
+  // Requried
+  static const std::string INPUT_PRE_PLANNING_PROGRAM_PORT;
+  static const std::string INPUT_POST_PLANNING_PROGRAM_PORT;
+  static const std::string OUTPUT_PROGRAM_PORT;
+
   using Ptr = std::shared_ptr<FormatAsInputTask>;
   using ConstPtr = std::shared_ptr<const FormatAsInputTask>;
   using UPtr = std::unique_ptr<FormatAsInputTask>;
@@ -61,8 +66,9 @@ public:
 
   FormatAsInputTask();
   explicit FormatAsInputTask(std::string name,
-                             const std::array<std::string, 2>& input_keys,
-                             std::string output_key,
+                             std::string input_pre_planning_program_key,
+                             std::string input_post_planning_program_key,
+                             std::string output_program_key,
                              bool conditional = true);
   explicit FormatAsInputTask(std::string name,
                              const YAML::Node& config,
@@ -81,6 +87,8 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  static TaskComposerNodePorts ports();
 
   std::unique_ptr<TaskComposerNodeInfo>
   runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;

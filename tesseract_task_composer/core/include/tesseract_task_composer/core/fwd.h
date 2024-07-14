@@ -4,7 +4,7 @@
 namespace tesseract_planning
 {
 // task_composer_context.h
-struct TaskComposerContext;
+class TaskComposerContext;
 
 // task_composer_data_storage.h
 class TaskComposerDataStorage;
@@ -18,6 +18,9 @@ class TaskComposerFuture;
 // task_composer_graph.h
 class TaskComposerGraph;
 
+// task_composer_keys.h
+class TaskComposerKeys;
+
 // task_composer_node_info.h
 class TaskComposerNodeInfo;
 class TaskComposerNodeInfoContainer;
@@ -25,6 +28,7 @@ class TaskComposerNodeInfoContainer;
 // task_composer_node.h
 enum class TaskComposerNodeType;
 class TaskComposerNode;
+class TaskComposerNodePorts;
 
 // task_composer_pipeline.h
 class TaskComposerPipeline;
@@ -33,9 +37,6 @@ class TaskComposerPipeline;
 class TaskComposerNodeFactory;
 class TaskComposerExecutorFactory;
 class TaskComposerPluginFactory;
-
-// task_composer_problem.h
-struct TaskComposerProblem;
 
 // task_composer_server.h
 class TaskComposerServer;

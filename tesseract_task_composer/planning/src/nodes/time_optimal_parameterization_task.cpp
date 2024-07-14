@@ -38,7 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/time_optimal_parameterization_task.h>
 #include <tesseract_task_composer/planning/profiles/time_optimal_parameterization_profile.h>
-#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
@@ -56,46 +55,62 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+// Requried
+const std::string TimeOptimalParameterizationTask::INOUT_PROGRAM_PORT = "program";
+const std::string TimeOptimalParameterizationTask::INPUT_ENVIRONMENT_PORT = "environment";
+const std::string TimeOptimalParameterizationTask::INPUT_PROFILES_PORT = "profiles";
+
+// Optional
+const std::string TimeOptimalParameterizationTask::INPUT_MANIP_INFO_PORT = "manip_info";
+const std::string TimeOptimalParameterizationTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_"
+                                                                                            "remapping";
+const std::string TimeOptimalParameterizationTask::INPUT_MOVE_PROFILE_REMAPPING_PORT = "move_profile_remapping";
+
 TimeOptimalParameterizationTask::TimeOptimalParameterizationTask()
-  : TaskComposerTask("TimeOptimalParameterizationTask", true)
+  : TaskComposerTask("TimeOptimalParameterizationTask", TimeOptimalParameterizationTask::ports(), true)
 {
 }
 TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string name,
-                                                                 std::string input_key,
-                                                                 std::string output_key,
+                                                                 std::string input_program_key,
+                                                                 std::string input_environment_key,
+                                                                 std::string input_profiles_key,
+                                                                 std::string output_program_key,
                                                                  bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+  : TaskComposerTask(std::move(name), TimeOptimalParameterizationTask::ports(), is_conditional)
 {
-  input_keys_.push_back(std::move(input_key));
-  output_keys_.push_back(std::move(output_key));
+  input_keys_.add(INOUT_PROGRAM_PORT, std::move(input_program_key));
+  input_keys_.add(INPUT_ENVIRONMENT_PORT, std::move(input_environment_key));
+  input_keys_.add(INPUT_PROFILES_PORT, std::move(input_profiles_key));
+  output_keys_.add(INOUT_PROGRAM_PORT, std::move(output_program_key));
+  validatePorts();
 }
 
 TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string name,
                                                                  const YAML::Node& config,
                                                                  const TaskComposerPluginFactory&)
-  : TaskComposerTask(std::move(name), config)
+  : TaskComposerTask(std::move(name), TimeOptimalParameterizationTask::ports(), config)
 {
-  if (input_keys_.empty())
-    throw std::runtime_error("TimeOptimalParameterizationTask, config missing 'inputs' entry");
+}
 
-  if (input_keys_.size() > 1)
-    throw std::runtime_error("TimeOptimalParameterizationTask, config 'inputs' entry currently only supports one "
-                             "input key");
+TaskComposerNodePorts TimeOptimalParameterizationTask::ports()
+{
+  TaskComposerNodePorts ports;
+  ports.input_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
-  if (output_keys_.empty())
-    throw std::runtime_error("TimeOptimalParameterizationTask, config missing 'outputs' entry");
+  ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_optional[INPUT_MOVE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
 
-  if (output_keys_.size() > 1)
-    throw std::runtime_error("TimeOptimalParameterizationTask, config 'outputs' entry currently only supports one "
-                             "output key");
+  ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+
+  return ports;
 }
 
 std::unique_ptr<TaskComposerNodeInfo>
 TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
 {
-  // Get the problem
-  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
-
   auto info = std::make_unique<TimeOptimalParameterizationTaskInfo>(*this);
   info->return_value = 0;
   info->status_code = 0;
@@ -103,24 +118,45 @@ TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalT
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = context.data_storage->getData(input_keys_[0]);
-  if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
+  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<tesseract_environment::Environment>)))
+  {
+    info->status_code = 0;
+    info->status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info->return_value = 0;
+    return info;
+  }
+
+  std::shared_ptr<const tesseract_environment::Environment> env =
+      env_poly.as<std::shared_ptr<tesseract_environment::Environment>>();
+
+  auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
+  if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->status_message = "Input results to TOTG must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
+  tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
+
+  tesseract_common::ManipulatorInfo input_manip_info;
+  auto manip_info_poly = getData(*context.data_storage, INPUT_MANIP_INFO_PORT, false);
+  if (!manip_info_poly.isNull())
+    input_manip_info = manip_info_poly.as<tesseract_common::ManipulatorInfo>();
 
   auto& ci = input_data_poly.as<CompositeInstruction>();
-  const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
-  auto joint_group = problem.env->getJointGroup(manip_info.manipulator);
+  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(input_manip_info);
+  auto joint_group = env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
 
   // Get Composite Profile
+  auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
+  auto composite_profile_remapping_poly = getData(*context.data_storage, INPUT_COMPOSITE_PROFILE_REMAPPING_PORT, false);
   std::string profile = ci.getProfile();
-  profile = getProfileString(ns_, profile, problem.composite_profile_remapping);
+  profile = getProfileString(ns_, profile, composite_profile_remapping_poly);
   auto cur_composite_profile = getProfile<TimeOptimalParameterizationProfile>(
-      ns_, profile, *problem.profiles, std::make_shared<TimeOptimalParameterizationProfile>());
+      ns_, profile, *profiles, std::make_shared<TimeOptimalParameterizationProfile>());
   cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   // Create data structures for checking for plan profile overrides
@@ -129,8 +165,8 @@ TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalT
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
-    if (output_keys_[0] != input_keys_[0])
-      context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
+    if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
+      setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
 
     info->color = "green";
     info->status_code = 1;
@@ -161,15 +197,15 @@ TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalT
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
-    if (output_keys_[0] != input_keys_[0])
-      context.data_storage->setData(output_keys_[0], context.data_storage->getData(input_keys_[0]));
+    if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
+      setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
 
     info->status_message = "Failed to perform TOTG for process input: " + ci.getDescription();
     CONSOLE_BRIDGE_logInform("%s", info->status_message.c_str());
     return info;
   }
 
-  context.data_storage->setData(output_keys_[0], copy_ci);
+  setData(*context.data_storage, INOUT_PROGRAM_PORT, copy_ci);
 
   info->color = "green";
   info->status_code = 1;

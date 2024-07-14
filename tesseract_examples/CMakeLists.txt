@@ -69,7 +69,6 @@ target_link_libraries(
   trajopt::trajopt_sqp
   trajopt::trajopt_ifopt
   tesseract::tesseract_task_composer
-  tesseract::tesseract_task_composer_planning
   tesseract::tesseract_task_composer_planning_nodes
   console_bridge::console_bridge
   ${PCL_LIBRARIES})

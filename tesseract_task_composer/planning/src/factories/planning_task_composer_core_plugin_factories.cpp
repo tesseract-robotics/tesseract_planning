@@ -27,7 +27,6 @@
 #include <tesseract_task_composer/planning/planning_task_composer_plugin_factories.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory_utils.h>
 
-#include <tesseract_task_composer/planning/nodes/check_input_task.h>
 #include <tesseract_task_composer/planning/nodes/continuous_contact_check_task.h>
 #include <tesseract_task_composer/planning/nodes/discrete_contact_check_task.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_bounds_task.h>
@@ -46,7 +45,6 @@
 
 namespace tesseract_planning
 {
-using CheckInputTaskFactory = TaskComposerTaskFactory<CheckInputTask>;
 using ContinuousContactCheckTaskFactory = TaskComposerTaskFactory<ContinuousContactCheckTask>;
 using DiscreteContactCheckTaskFactory = TaskComposerTaskFactory<DiscreteContactCheckTask>;
 using FixStateBoundsTaskFactory = TaskComposerTaskFactory<FixStateBoundsTask>;
@@ -68,8 +66,6 @@ TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerPlanningFactoriesAnchor)
 }  // namespace tesseract_planning
 
 // clang-format off
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::CheckInputTaskFactory, CheckInputTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::ContinuousContactCheckTaskFactory, ContinuousContactCheckTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)

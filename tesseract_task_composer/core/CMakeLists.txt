@@ -5,11 +5,12 @@ add_library(
   src/task_composer_executor.cpp
   src/task_composer_future.cpp
   src/task_composer_graph.cpp
-  src/task_composer_node.cpp
+  src/task_composer_keys.cpp
   src/task_composer_node_info.cpp
+  src/task_composer_node_ports.cpp
+  src/task_composer_node.cpp
   src/task_composer_pipeline.cpp
   src/task_composer_plugin_factory.cpp
-  src/task_composer_problem.cpp
   src/task_composer_server.cpp
   src/task_composer_task.cpp)
 target_link_libraries(

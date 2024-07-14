@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_executor.h>
-#include <tesseract_task_composer/core/task_composer_problem.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
@@ -44,17 +43,10 @@ TaskComposerExecutor::TaskComposerExecutor(std::string name) : name_(std::move(n
 const std::string& TaskComposerExecutor::getName() const { return name_; }
 
 std::unique_ptr<TaskComposerFuture> TaskComposerExecutor::run(const TaskComposerNode& node,
-                                                              std::shared_ptr<TaskComposerProblem> problem)
+                                                              std::shared_ptr<TaskComposerDataStorage> data_storage,
+                                                              bool dotgraph)
 {
-  auto data_storage = std::make_shared<TaskComposerDataStorage>();
-  return run(node, std::move(problem), std::move(data_storage));
-}
-
-std::unique_ptr<TaskComposerFuture> TaskComposerExecutor::run(const TaskComposerNode& node,
-                                                              std::shared_ptr<TaskComposerProblem> problem,
-                                                              std::shared_ptr<TaskComposerDataStorage> data_storage)
-{
-  return run(node, std::make_shared<TaskComposerContext>(std::move(problem), std::move(data_storage)));
+  return run(node, std::make_shared<TaskComposerContext>(node.getName(), std::move(data_storage), dotgraph));
 }
 
 bool TaskComposerExecutor::operator==(const TaskComposerExecutor& rhs) const { return (name_ == rhs.name_); }

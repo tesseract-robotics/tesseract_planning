@@ -69,8 +69,8 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= tesseract_common::almostEqualRelativeAndAbs(elapsed_time, rhs.elapsed_time, max_diff);
   equal &= tesseract_common::isIdentical(inbound_edges, rhs.inbound_edges, false);
   equal &= tesseract_common::isIdentical(outbound_edges, rhs.outbound_edges, true);
-  equal &= tesseract_common::isIdentical(input_keys, rhs.input_keys, false);
-  equal &= tesseract_common::isIdentical(output_keys, rhs.output_keys, false);
+  equal &= input_keys == rhs.input_keys;
+  equal &= output_keys == rhs.output_keys;
   equal &= color == rhs.color;
   equal &= dotgraph == rhs.dotgraph;
   equal &= aborted_ == rhs.aborted_;

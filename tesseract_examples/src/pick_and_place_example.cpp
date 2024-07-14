@@ -58,7 +58,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
 
-#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
@@ -302,14 +301,16 @@ bool PickAndPlaceExample::run()
   // Create task
   const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";
   TaskComposerNode::UPtr pick_task = factory.createTaskComposerNode(task_name);
-  const std::string pick_output_key = pick_task->getOutputKeys().front();
+  const std::string pick_output_key = pick_task->getOutputKeys().get("program");
 
-  // Create Task Composer Problem
-  auto pick_problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
-  pick_problem->input = pick_program;
+  // Create Task Composer Data Storage
+  auto pick_data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+  pick_data->setData("planning_input", pick_program);
+  pick_data->setData("environment", env_);
+  pick_data->setData("profiles", profiles);
 
   // Solve task
-  TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, std::move(pick_problem));
+  TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, std::move(pick_data));
   pick_future->wait();
 
   if (!pick_future->context->isSuccessful())
@@ -419,14 +420,16 @@ bool PickAndPlaceExample::run()
 
   // Create task
   TaskComposerNode::UPtr place_task = factory.createTaskComposerNode(task_name);
-  const std::string place_output_key = pick_task->getOutputKeys().front();
+  const std::string place_output_key = pick_task->getOutputKeys().get("program");
 
-  // Create Task Composer Problem
-  auto place_problem = std::make_unique<PlanningTaskComposerProblem>(env_, profiles);
-  place_problem->input = place_program;
+  // Create Task Composer Data Storage
+  auto place_data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+  place_data->setData("planning_input", place_program);
+  place_data->setData("environment", env_);
+  place_data->setData("profiles", profiles);
 
   // Solve task
-  TaskComposerFuture::UPtr place_future = executor->run(*place_task, std::move(place_problem));
+  TaskComposerFuture::UPtr place_future = executor->run(*place_task, std::move(place_data));
   place_future->wait();
 
   if (!place_future->context->isSuccessful())

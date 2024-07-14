@@ -44,7 +44,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 //#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_task_composer/planning/nodes/continuous_contact_check_task.h>
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
-#include <tesseract_task_composer/planning/planning_task_composer_problem.h>
 
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
@@ -57,43 +56,78 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-ContinuousContactCheckTask::ContinuousContactCheckTask() : TaskComposerTask("ContinuousContactCheckTask", true) {}
+// Requried
+const std::string ContinuousContactCheckTask::INPUT_PROGRAM_PORT = "program";
+const std::string ContinuousContactCheckTask::INPUT_ENVIRONMENT_PORT = "environment";
+const std::string ContinuousContactCheckTask::INPUT_PROFILES_PORT = "profiles";
 
-ContinuousContactCheckTask::ContinuousContactCheckTask(std::string name, std::string input_key, bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+// Optional
+const std::string ContinuousContactCheckTask::INPUT_MANIP_INFO_PORT = "manip_info";
+const std::string ContinuousContactCheckTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_remapping";
+
+ContinuousContactCheckTask::ContinuousContactCheckTask()
+  : TaskComposerTask("ContinuousContactCheckTask", ContinuousContactCheckTask::ports(), true)
 {
-  input_keys_.push_back(std::move(input_key));
+}
+
+ContinuousContactCheckTask::ContinuousContactCheckTask(std::string name,
+                                                       std::string input_program_key,
+                                                       std::string input_environment_key,
+                                                       std::string input_profiles_key,
+                                                       bool is_conditional)
+  : TaskComposerTask(std::move(name), ContinuousContactCheckTask::ports(), is_conditional)
+{
+  input_keys_.add(INPUT_PROGRAM_PORT, std::move(input_program_key));
+  input_keys_.add(INPUT_ENVIRONMENT_PORT, std::move(input_environment_key));
+  input_keys_.add(INPUT_PROFILES_PORT, std::move(input_profiles_key));
+  validatePorts();
 }
 
 ContinuousContactCheckTask::ContinuousContactCheckTask(std::string name,
                                                        const YAML::Node& config,
                                                        const TaskComposerPluginFactory& /*plugin_factory*/)
-  : TaskComposerTask(std::move(name), config)
+  : TaskComposerTask(std::move(name), ContinuousContactCheckTask::ports(), config)
 {
-  if (input_keys_.empty())
-    throw std::runtime_error("ContinuousContactCheckTask, config missing 'inputs' entry");
+}
 
-  if (input_keys_.size() > 1)
-    throw std::runtime_error("ContinuousContactCheckTask, config 'inputs' entry currently only supports one input "
-                             "key");
+TaskComposerNodePorts ContinuousContactCheckTask::ports()
+{
+  TaskComposerNodePorts ports;
+  ports.input_required[INPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
+
+  ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
+  return ports;
 }
 
 std::unique_ptr<TaskComposerNodeInfo>
 ContinuousContactCheckTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
 {
-  // Get the problem
-  auto& problem = dynamic_cast<PlanningTaskComposerProblem&>(*context.problem);
-
   auto info = std::make_unique<ContinuousContactCheckTaskInfo>(*this);
   info->return_value = 0;
   info->status_code = 0;
-  info->env = problem.env;
 
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = context.data_storage->getData(input_keys_[0]);
-  if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
+  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<tesseract_environment::Environment>)))
+  {
+    info->status_code = 0;
+    info->status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
+    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info->return_value = 0;
+    return info;
+  }
+
+  std::shared_ptr<const tesseract_environment::Environment> env =
+      env_poly.as<std::shared_ptr<tesseract_environment::Environment>>();
+  info->env = env;
+
+  auto input_data_poly = getData(*context.data_storage, INPUT_PROGRAM_PORT);
+  if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->status_code = 0;
     info->status_message = "Input seed to ContinuousContactCheckTask must be a composite instruction";
@@ -102,21 +136,28 @@ ContinuousContactCheckTask::runImpl(TaskComposerContext& context, OptionalTaskCo
     return info;
   }
 
+  tesseract_common::ManipulatorInfo input_manip_info;
+  auto manip_info_poly = getData(*context.data_storage, INPUT_MANIP_INFO_PORT, false);
+  if (!manip_info_poly.isNull())
+    input_manip_info = manip_info_poly.as<tesseract_common::ManipulatorInfo>();
+
   // Get Composite Profile
+  auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
+  auto composite_profile_remapping_poly = getData(*context.data_storage, INPUT_COMPOSITE_PROFILE_REMAPPING_PORT, false);
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   std::string profile = ci.getProfile();
-  profile = getProfileString(ns_, profile, problem.composite_profile_remapping);
+  profile = getProfileString(ns_, profile, composite_profile_remapping_poly);
   auto default_profile = std::make_shared<ContactCheckProfile>();
   default_profile->config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
-  auto cur_composite_profile = getProfile<ContactCheckProfile>(ns_, profile, *problem.profiles, default_profile);
+  auto cur_composite_profile = getProfile<ContactCheckProfile>(ns_, profile, *profiles, default_profile);
   cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   // Get state solver
-  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(problem.manip_info);
-  tesseract_kinematics::JointGroup::UPtr manip = problem.env->getJointGroup(manip_info.manipulator);
-  tesseract_scene_graph::StateSolver::UPtr state_solver = problem.env->getStateSolver();
+  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(input_manip_info);
+  tesseract_kinematics::JointGroup::UPtr manip = env->getJointGroup(manip_info.manipulator);
+  tesseract_scene_graph::StateSolver::UPtr state_solver = env->getStateSolver();
 
-  tesseract_collision::ContinuousContactManager::Ptr manager = problem.env->getContinuousContactManager();
+  tesseract_collision::ContinuousContactManager::Ptr manager = env->getContinuousContactManager();
   manager->setActiveCollisionObjects(manip->getActiveLinkNames());
   manager->applyContactManagerConfig(cur_composite_profile->config.contact_manager_config);
 

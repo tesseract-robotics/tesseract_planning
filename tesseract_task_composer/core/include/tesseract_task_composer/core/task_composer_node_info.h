@@ -40,6 +40,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/any_poly.h>
 
+#include <tesseract_task_composer/core/task_composer_keys.h>
+
 namespace tesseract_planning
 {
 class TaskComposerNode;
@@ -83,10 +85,10 @@ public:
   std::vector<boost::uuids::uuid> outbound_edges;
 
   /** @brief The input keys */
-  std::vector<std::string> input_keys;
+  TaskComposerKeys input_keys;
 
   /** @brief The output keys */
-  std::vector<std::string> output_keys;
+  TaskComposerKeys output_keys;
 
   /** @brief Value returned from the Task on completion */
   int return_value{ -1 };

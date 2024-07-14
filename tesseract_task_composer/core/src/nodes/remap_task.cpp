@@ -38,22 +38,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-RemapTask::RemapTask() : TaskComposerTask("RemapTask", false) {}
+RemapTask::RemapTask() : TaskComposerTask("RemapTask", TaskComposerNodePorts{}, false) {}
 RemapTask::RemapTask(std::string name, std::map<std::string, std::string> remap, bool copy, bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional), remap_(std::move(remap)), copy_(copy)
+  : TaskComposerTask(std::move(name), TaskComposerNodePorts{}, is_conditional), remap_(std::move(remap)), copy_(copy)
 {
   if (remap_.empty())
     throw std::runtime_error("RemapTask, remap should not be empty!");
 }
 RemapTask::RemapTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
-  : TaskComposerTask(std::move(name), config)
+  : TaskComposerTask(std::move(name), TaskComposerNodePorts{}, config)
 {
-  if (!input_keys_.empty())
-    throw std::runtime_error("RemapTask, input_keys should be empty!");
-
-  if (!output_keys_.empty())
-    throw std::runtime_error("RemapTask, output_keys should be empty!");
-
   if (YAML::Node n = config["remap"])
     remap_ = n.as<std::map<std::string, std::string>>();
   else

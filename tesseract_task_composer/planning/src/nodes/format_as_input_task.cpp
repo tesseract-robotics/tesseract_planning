@@ -50,34 +50,41 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-FormatAsInputTask::FormatAsInputTask() : TaskComposerTask("FormatAsInputTask", true) {}
+// Requried
+const std::string FormatAsInputTask::INPUT_PRE_PLANNING_PROGRAM_PORT = "pre_planning_program";
+const std::string FormatAsInputTask::INPUT_POST_PLANNING_PROGRAM_PORT = "post_planning_program";
+const std::string FormatAsInputTask::OUTPUT_PROGRAM_PORT = "program";
+
+FormatAsInputTask::FormatAsInputTask() : TaskComposerTask("FormatAsInputTask", FormatAsInputTask::ports(), true) {}
 FormatAsInputTask::FormatAsInputTask(std::string name,
-                                     const std::array<std::string, 2>& input_keys,
-                                     std::string output_key,
+                                     std::string input_pre_planning_program_key,
+                                     std::string input_post_planning_program_key,
+                                     std::string output_program_key,
                                      bool is_conditional)
-  : TaskComposerTask(std::move(name), is_conditional)
+  : TaskComposerTask(std::move(name), FormatAsInputTask::ports(), is_conditional)
 {
-  input_keys_.reserve(2);
-  input_keys_.insert(input_keys_.end(), input_keys.begin(), input_keys.end());
-  output_keys_.push_back(std::move(output_key));
+  input_keys_.add(INPUT_PRE_PLANNING_PROGRAM_PORT, std::move(input_pre_planning_program_key));
+  input_keys_.add(INPUT_POST_PLANNING_PROGRAM_PORT, std::move(input_post_planning_program_key));
+  output_keys_.add(OUTPUT_PROGRAM_PORT, std::move(output_program_key));
+  validatePorts();
 }
 
 FormatAsInputTask::FormatAsInputTask(std::string name,
                                      const YAML::Node& config,
                                      const TaskComposerPluginFactory& /*plugin_factory*/)
-  : TaskComposerTask(std::move(name), config)
+  : TaskComposerTask(std::move(name), FormatAsInputTask::ports(), config)
 {
-  if (input_keys_.empty())
-    throw std::runtime_error("FormatAsInputTask, config missing 'inputs' entry");
+}
 
-  if (input_keys_.size() != 2)
-    throw std::runtime_error("FormatAsInputTask, config 'inputs' entry requires two input key");
+TaskComposerNodePorts FormatAsInputTask::ports()
+{
+  TaskComposerNodePorts ports;
+  ports.input_required[INPUT_PRE_PLANNING_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_POST_PLANNING_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
 
-  if (output_keys_.empty())
-    throw std::runtime_error("FormatAsInputTask, config missing 'outputs' entry");
+  ports.output_required[OUTPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
 
-  if (output_keys_.size() > 1)
-    throw std::runtime_error("FormatAsInputTask, config 'outputs' entry requires one output key");
+  return ports;
 }
 
 std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerContext& context,
@@ -90,20 +97,20 @@ std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerCon
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_formatted_data_poly = context.data_storage->getData(input_keys_[0]);
-  if (input_formatted_data_poly.isNull() ||
-      input_formatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  auto input_formatted_data_poly = getData(*context.data_storage, INPUT_PRE_PLANNING_PROGRAM_PORT);
+  if (input_formatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->status_message = "Input[0] instruction to FormatAsInputTask must be a composite instruction";
+    info->status_message = "Input '" + input_keys_.get(INPUT_PRE_PLANNING_PROGRAM_PORT) +
+                           "' instruction to FormatAsInputTask must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
 
-  auto input_unformatted_data_poly = context.data_storage->getData(input_keys_[1]);
-  if (input_unformatted_data_poly.isNull() ||
-      input_unformatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  auto input_unformatted_data_poly = getData(*context.data_storage, INPUT_POST_PLANNING_PROGRAM_PORT);
+  if (input_unformatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->status_message = "Input[1] instruction to FormatAsInputTask must be a composite instruction";
+    info->status_message = "Input '" + input_keys_.get(INPUT_POST_PLANNING_PROGRAM_PORT) +
+                           "' instruction to FormatAsInputTask must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
     return info;
   }
@@ -152,7 +159,7 @@ std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerCon
     }
   }
 
-  context.data_storage->setData(output_keys_[0], input_formatted_data_poly);
+  setData(*context.data_storage, OUTPUT_PROGRAM_PORT, input_formatted_data_poly);
 
   info->color = "green";
   info->status_code = 1;

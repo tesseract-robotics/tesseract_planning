@@ -41,13 +41,20 @@ class TaskComposerPluginFactory;
 class ProcessPlanningInputTask : public TaskComposerTask
 {
 public:
+  // Requried
+  static const std::string INPUT_PLANNING_INPUT_PORT;
+  static const std::string OUTPUT_PROGRAM_PORT;
+
   using Ptr = std::shared_ptr<ProcessPlanningInputTask>;
   using ConstPtr = std::shared_ptr<const ProcessPlanningInputTask>;
   using UPtr = std::unique_ptr<ProcessPlanningInputTask>;
   using ConstUPtr = std::unique_ptr<const ProcessPlanningInputTask>;
 
   ProcessPlanningInputTask();
-  explicit ProcessPlanningInputTask(std::string name, std::string output_key, bool conditional = false);
+  explicit ProcessPlanningInputTask(std::string name,
+                                    std::string input_key,
+                                    std::string output_key,
+                                    bool conditional = false);
   explicit ProcessPlanningInputTask(std::string name,
                                     const YAML::Node& config,
                                     const TaskComposerPluginFactory& plugin_factory);
@@ -66,6 +73,8 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  static TaskComposerNodePorts ports();
 
   std::unique_ptr<TaskComposerNodeInfo>
   runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;

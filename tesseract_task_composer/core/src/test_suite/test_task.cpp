@@ -37,10 +37,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning::test_suite
 {
-TestTask::TestTask() : TaskComposerTask("TestTask", true) {}
-TestTask::TestTask(std::string name, bool is_conditional) : TaskComposerTask(std::move(name), is_conditional) {}
+const std::string TestTask::INOUT_PORT1_PORT = "port1";
+const std::string TestTask::INOUT_PORT2_PORT = "port2";
+
+TestTask::TestTask() : TaskComposerTask("TestTask", TestTask::ports(), true) {}
+TestTask::TestTask(std::string name, bool is_conditional)
+  : TaskComposerTask(std::move(name), TestTask::ports(), is_conditional)
+{
+}
 TestTask::TestTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
-  : TaskComposerTask(std::move(name), config)
+  : TaskComposerTask(std::move(name), TestTask::ports(), config)
 {
   // LCOV_EXCL_START
   try
@@ -59,6 +65,16 @@ TestTask::TestTask(std::string name, const YAML::Node& config, const TaskCompose
     throw std::runtime_error("TestTask: Failed to parse yaml config data! Details: " + std::string(e.what()));
   }
   // LCOV_EXCL_STOP
+}
+
+TaskComposerNodePorts TestTask::ports()
+{
+  TaskComposerNodePorts ports;
+  ports.input_required[INOUT_PORT1_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INOUT_PORT2_PORT] = TaskComposerNodePorts::MULTIPLE;
+  ports.output_required[INOUT_PORT1_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.output_required[INOUT_PORT2_PORT] = TaskComposerNodePorts::MULTIPLE;
+  return ports;
 }
 
 bool TestTask::operator==(const TestTask& rhs) const
