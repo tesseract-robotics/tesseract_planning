@@ -174,7 +174,8 @@ bool moveWaypointFromCollisionRandomSampler(WaypointPoly& waypoint,
 bool applyCorrectionWorkflow(WaypointPoly& waypoint,
                              const tesseract_common::ManipulatorInfo& manip_info,
                              const std::shared_ptr<const tesseract_environment::Environment>& env,
-                             const FixStateCollisionProfile& profile);
+                             const FixStateCollisionProfile& profile,
+                             tesseract_collision::ContactResultMap& contacts);
 }  // namespace tesseract_planning
 
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::FixStateCollisionTask, "FixStateCollisionTask")
