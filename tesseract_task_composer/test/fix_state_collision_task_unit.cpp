@@ -49,7 +49,7 @@ TEST_F(FixStateCollisionTaskUnit, StateInCollisionTest)  // NOLINT
   // Create data storage
   auto task_data = std::make_unique<TaskComposerDataStorage>();
   task_data->setData("input_program", program);
-  task_data->setData("environment", env_);
+  task_data->setData("environment", std::shared_ptr<const Environment>(env_));
 
   FixStateCollisionProfile profile;
 
@@ -90,7 +90,7 @@ TEST_F(FixStateCollisionTaskUnit, WaypointInCollisionTest)  // NOLINT
   // Create data storage
   auto task_data = std::make_unique<TaskComposerDataStorage>();
   task_data->setData("input_program", program);
-  task_data->setData("environment", env_);
+  task_data->setData("environment", std::shared_ptr<const Environment>(env_));
 
   FixStateCollisionProfile profile;
 
@@ -139,7 +139,7 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionRandomSamplerTest)  /
   // Create data storage
   auto task_data = std::make_shared<TaskComposerDataStorage>();
   task_data->setData("input_program", program);
-  task_data->setData("environment", env_);
+  task_data->setData("environment", std::shared_ptr<const Environment>(env_));
 
   FixStateCollisionProfile profile;
 
@@ -173,7 +173,7 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionTrajoptTest)  // NOLI
   // Create data storage
   auto task_data = std::make_shared<TaskComposerDataStorage>();
   task_data->setData("input_program", program);
-  task_data->setData("environment", env_);
+  task_data->setData("environment", std::shared_ptr<const Environment>(env_));
 
   FixStateCollisionProfile profile;
 
