@@ -149,17 +149,16 @@ protected:
     // Check that inputs are valid
     // --------------------
     auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
-    if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<tesseract_environment::Environment>)))
+    if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
     {
       info->status_code = 0;
-      info->status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is missing";
+      info->status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
       CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
       info->return_value = 0;
       return info;
     }
 
-    std::shared_ptr<const tesseract_environment::Environment> env =
-        env_poly.template as<std::shared_ptr<tesseract_environment::Environment>>();
+    auto env = env_poly.template as<std::shared_ptr<const tesseract_environment::Environment>>();
     info->env = env;
 
     auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
