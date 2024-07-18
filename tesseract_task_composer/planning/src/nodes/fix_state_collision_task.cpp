@@ -732,6 +732,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
       if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
         setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
 
+      info->color = "yellow";
       info->status_code = 1;
       info->status_message = "Successful, DISABLED";
       info->return_value = 1;
