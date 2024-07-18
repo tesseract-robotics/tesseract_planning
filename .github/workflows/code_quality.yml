@@ -29,7 +29,7 @@ jobs:
             env:
               TARGET_CMAKE_ARGS: "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CODE_COVERAGE=ON -DTESSERACT_WARNINGS_AS_ERRORS=OFF"
     container:
-      image: ghcr.io/tesseract-robotics/trajopt:jammy-master
+      image: ghcr.io/tesseract-robotics/trajopt:noble-master
       env:
         CCACHE_DIR: "$GITHUB_WORKSPACE/${{ matrix.job_type }}/.ccache"
         DEBIAN_FRONTEND: noninteractive
@@ -45,9 +45,7 @@ jobs:
         run: |
           apt update
           apt upgrade -y
-          apt install -y wget software-properties-common
-          add-apt-repository ppa:levi-armstrong/tesseract-robotics
-          apt install -y clang-tidy libompl-dev taskflow
+          apt install -y wget clang-tidy libompl-dev
 
       - name: Build and Tests
         uses: tesseract-robotics/colcon-action@v2

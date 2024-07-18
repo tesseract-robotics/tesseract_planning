@@ -35,9 +35,19 @@ jobs:
         run: |
           apt update
           apt upgrade -y
-          apt install -y wget software-properties-common
+          apt install -y wget libompl-dev
+      - name: Install Depends (non-noble)
+        if: ${{ matrix.distro != 'noble' }}
+        shell: bash
+        run: |
+          apt install -y software-properties-common
           add-apt-repository ppa:levi-armstrong/tesseract-robotics
-          apt install -y libompl-dev taskflow
+          apt install -y taskflow
+      - name: Install Depends (noble)
+        if: ${{ matrix.distro  == 'noble' }}
+        shell: bash
+        run: |
+          apt install -y libtaskflow-cpp-dev
 
       - name: Build and Tests
         uses: tesseract-robotics/colcon-action@v8
