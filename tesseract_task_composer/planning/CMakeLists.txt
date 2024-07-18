@@ -171,11 +171,19 @@ install(
   PATTERN "*.hpp"
   PATTERN ".svn" EXCLUDE)
 
+# Plugin should not be export only installed
+install(
+  TARGETS ${PROJECT_NAME}_planning_factories
+  COMPONENT planning
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib)
+
 # Configure Components
 configure_component(
   COMPONENT planning
   NAMESPACE tesseract
-  TARGETS ${PROJECT_NAME}_planning_nodes ${PROJECT_NAME}_planning_factories
+  TARGETS ${PROJECT_NAME}_planning_nodes
   DEPENDENCIES
     "tesseract_task_composer COMPONENTS core"
     tesseract_command_language

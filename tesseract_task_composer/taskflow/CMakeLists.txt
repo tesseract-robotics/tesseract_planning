@@ -55,11 +55,19 @@ install(
   PATTERN "*.hpp"
   PATTERN ".svn" EXCLUDE)
 
+# Plugin should not be export only installed
+install(
+  TARGETS ${PROJECT_NAME}_taskflow_factories
+  COMPONENT taskflow
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib)
+
 # Configure Components
 configure_component(
   COMPONENT taskflow
   NAMESPACE tesseract
-  TARGETS ${PROJECT_NAME}_taskflow ${PROJECT_NAME}_taskflow_factories
+  TARGETS ${PROJECT_NAME}_taskflow
   DEPENDENCIES "tesseract_task_composer COMPONENTS core" Taskflow)
 
 if(TESSERACT_PACKAGE)
