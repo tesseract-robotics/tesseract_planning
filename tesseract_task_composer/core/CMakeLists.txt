@@ -97,11 +97,19 @@ install(
   PATTERN "*.h"
   PATTERN "*.hpp")
 
+# Plugin should not be export only installed
+install(
+  TARGETS ${PROJECT_NAME}_factories
+  COMPONENT core
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib)
+
 # Configure Components
 configure_component(
   COMPONENT core
   NAMESPACE tesseract
-  TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_nodes ${PROJECT_NAME}_factories
+  TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_nodes
   DEPENDENCIES
     console_bridge
     tesseract_common
