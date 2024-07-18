@@ -112,7 +112,7 @@ RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTas
   // Check that inputs are valid
   // --------------------
   auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
-  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<tesseract_environment::Environment>)))
+  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
     info->status_code = 0;
     info->status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
@@ -121,8 +121,7 @@ RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTas
     return info;
   }
 
-  std::shared_ptr<const tesseract_environment::Environment> env =
-      env_poly.as<std::shared_ptr<tesseract_environment::Environment>>();
+  auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
 
   auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))

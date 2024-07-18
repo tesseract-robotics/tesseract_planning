@@ -306,7 +306,7 @@ bool PickAndPlaceExample::run()
   // Create Task Composer Data Storage
   auto pick_data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
   pick_data->setData("planning_input", pick_program);
-  pick_data->setData("environment", env_);
+  pick_data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
   pick_data->setData("profiles", profiles);
 
   // Solve task
@@ -425,7 +425,7 @@ bool PickAndPlaceExample::run()
   // Create Task Composer Data Storage
   auto place_data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
   place_data->setData("planning_input", place_program);
-  place_data->setData("environment", env_);
+  place_data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
   place_data->setData("profiles", profiles);
 
   // Solve task

@@ -68,7 +68,7 @@ int main()
   // Create data storage
   auto task_data = std::make_unique<TaskComposerDataStorage>();
   task_data->setData(input_key, program);
-  task_data->setData("environment", env);
+  task_data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env));
   task_data->setData("profiles", profiles);
 
   auto task_executor = factory.createTaskComposerExecutor("TaskflowExecutor");

@@ -86,7 +86,7 @@ void checkProgram(const Environment::Ptr& env,
   // Create data storage
   auto task_data = std::make_unique<TaskComposerDataStorage>();
   task_data->setData("input_program", program);
-  task_data->setData("environment", env);
+  task_data->setData("environment", std::shared_ptr<const Environment>(env));
   task_data->setData("profiles", profiles);
 
   // Create context

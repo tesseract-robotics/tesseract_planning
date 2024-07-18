@@ -261,7 +261,7 @@ bool GlassUprightExample::run()
   // Create Task Composer Data Storage
   auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
   data->setData("planning_input", program);
-  data->setData("environment", env_);
+  data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
   data->setData("profiles", profiles);
 
   if (plotter_ != nullptr && plotter_->isConnected())
