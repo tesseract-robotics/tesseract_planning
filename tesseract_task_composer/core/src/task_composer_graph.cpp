@@ -35,6 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/plugin_info.h>
+#include <tesseract_common/yaml_utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_graph.h>
@@ -70,6 +71,10 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
                                      const TaskComposerPluginFactory& plugin_factory)
   : TaskComposerNode(std::move(name), type, TaskComposerNodePorts{}, config)
 {
+  static const std::set<std::string> graph_expected_keys{ "conditional", "inputs", "outputs",
+                                                          "nodes",       "edges",  "terminals" };
+  tesseract_common::checkForUnknownKeys(config, graph_expected_keys);
+
   std::unordered_map<std::string, boost::uuids::uuid> node_uuids;
   YAML::Node nodes = config["nodes"];
   if (!nodes.IsMap())
@@ -77,6 +82,9 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
 
   for (auto node_it = nodes.begin(); node_it != nodes.end(); ++node_it)
   {
+    static const std::set<std::string> nodes_expected_keys{ "class", "task", "config" };
+    tesseract_common::checkForUnknownKeys(node_it->second, nodes_expected_keys);
+
     auto node_name = node_it->first.as<std::string>();
     if (YAML::Node fn = node_it->second["class"])
     {
@@ -103,6 +111,9 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
 
       if (YAML::Node tc = node_it->second["config"])
       {
+        static const std::set<std::string> tasks_expected_keys{ "conditional", "abort_terminal", "remapping" };
+        tesseract_common::checkForUnknownKeys(tc, tasks_expected_keys);
+
         if (YAML::Node n = tc["conditional"])
           task_node->setConditional(n.as<bool>());
 
@@ -114,12 +125,6 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
           else
             throw std::runtime_error("YAML entry 'abort_terminal' is only supported for GRAPH and PIPELINE types");
         }
-
-        if (tc["input_remapping"])  // NOLINT
-          throw std::runtime_error("TaskComposerGraph, input_remapping is no longer supported use 'remapping'");
-
-        if (tc["output_remapping"])  // NOLINT
-          throw std::runtime_error("TaskComposerGraph, output_remapping is no longer supported use 'remapping'");
 
         if (YAML::Node n = tc["remapping"])
         {
