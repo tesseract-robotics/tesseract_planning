@@ -790,6 +790,8 @@ This task modifies the input instructions in order to push waypoints that are ou
          profiles: profiles
          manip_info: manip_info
          composite_profile_remapping: composite_profile_remapping
+       outputs:
+         program: output_data
 
 Fix State Collision Task
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -812,6 +814,8 @@ This task modifies the input instructions in order to push waypoints that are in
          profiles: profiles
          manip_info: manip_info
          composite_profile_remapping: composite_profile_remapping
+       outputs:
+         program: output_data
 
 Min Length Task
 ^^^^^^^^^^^^^^^

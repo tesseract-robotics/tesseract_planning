@@ -1,5 +1,6 @@
 ARG TAG
 FROM ghcr.io/tesseract-robotics/trajopt:${TAG}
+ENV E_TAG=$TAG
 
 SHELL ["/bin/bash", "-c"]
 
@@ -8,10 +9,14 @@ ENV DEBIAN_FRONTEND noninteractive
 USER root
 
 # Install the dependency repositories
-RUN apt install -y --no-install-recommends software-properties-common \
+RUN if [[ $(lsb_release -cs) != noble ]] ; then \
+  apt install -y --no-install-recommends software-properties-common \
   && add-apt-repository -y ppa:levi-armstrong/tesseract-robotics \
   && apt update \
-  && apt install -y libompl-dev taskflow
+  && apt install -y libompl-dev taskflow \
+  ; else \
+  apt install -y libompl-dev libtaskflow-cpp-dev \
+  ; fi
 
 # Bind mount the source directory so as not to unnecessarily copy source code into the docker image
 ARG WORKSPACE_DIR=/opt/tesseract_planning
