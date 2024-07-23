@@ -196,7 +196,7 @@ void ContinuousContactCheckTask::serialize(Archive& ar, const unsigned int /*ver
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-ContinuousContactCheckTaskInfo::ContinuousContactCheckTaskInfo(const ContinuousContactCheckTask& task)
+ContinuousContactCheckTaskInfo::ContinuousContactCheckTaskInfo(const tesseract_planning::TaskComposerNodeInfo& task)
   : TaskComposerNodeInfo(task)
 {
 }

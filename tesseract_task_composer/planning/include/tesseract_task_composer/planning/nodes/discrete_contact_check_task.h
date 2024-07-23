@@ -98,7 +98,7 @@ public:
   using ConstUPtr = std::unique_ptr<const DiscreteContactCheckTaskInfo>;
 
   DiscreteContactCheckTaskInfo() = default;
-  DiscreteContactCheckTaskInfo(const DiscreteContactCheckTask& task);
+  DiscreteContactCheckTaskInfo(const TaskComposerNodeInfo& task);
 
   std::shared_ptr<const tesseract_environment::Environment> env;
   std::vector<tesseract_collision::ContactResultMap> contact_results;

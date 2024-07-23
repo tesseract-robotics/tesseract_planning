@@ -191,7 +191,7 @@ void DiscreteContactCheckTask::serialize(Archive& ar, const unsigned int /*versi
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-DiscreteContactCheckTaskInfo::DiscreteContactCheckTaskInfo(const DiscreteContactCheckTask& task)
+DiscreteContactCheckTaskInfo::DiscreteContactCheckTaskInfo(const TaskComposerNodeInfo& task)
   : TaskComposerNodeInfo(task)
 {
 }
