@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_interpolation_plan_profile.cpp
+ * @file simple_planner_fixed_size_plan_profile.cpp
  * @brief
  *
  * @author Matthew Powelson
