@@ -57,11 +57,24 @@ public:
   TaskComposerDataStorage& operator=(TaskComposerDataStorage&&) noexcept;
 
   /**
+   * @brief Get the name data storage.
+   * @details This is primarily used to hold the pipeline name
+   * @return The name
+   */
+  std::string getName() const;
+
+  /**
+   * @brief Set the name
+   * @param name The name
+   */
+  void setName(const std::string& name);
+
+  /**
    * @brief Check if key exists
    * @param key The key to check for
    * @return True if the key exist, otherwise false
    */
-  bool hasKey(const std::string& key);
+  bool hasKey(const std::string& key) const;
 
   /**
    * @brief Set data for the provided key
@@ -109,6 +122,7 @@ protected:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   mutable std::shared_mutex mutex_;
+  std::string name_;
   std::unordered_map<std::string, tesseract_common::AnyPoly> data_;
 };
 

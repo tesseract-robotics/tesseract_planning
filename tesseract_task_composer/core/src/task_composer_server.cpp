@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_executor.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
 namespace tesseract_planning
@@ -129,6 +130,7 @@ std::unique_ptr<TaskComposerFuture> TaskComposerServer::run(const std::string& t
   if (t_it == tasks_.end())
     throw std::runtime_error("Task with name '" + task_name + "' does not exist!");
 
+  data_storage->setName(task_name);
   return e_it->second->run(*t_it->second, std::move(data_storage), dotgraph);
 }
 
@@ -141,6 +143,7 @@ std::unique_ptr<TaskComposerFuture> TaskComposerServer::run(const TaskComposerNo
   if (it == executors_.end())
     throw std::runtime_error("Executor with name '" + executor_name + "' does not exist!");
 
+  data_storage->setName(node.getName());
   return it->second->run(node, std::move(data_storage), dotgraph);
 }
 

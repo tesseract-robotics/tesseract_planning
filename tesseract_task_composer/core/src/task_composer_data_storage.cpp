@@ -81,7 +81,19 @@ TaskComposerDataStorage& TaskComposerDataStorage::operator=(TaskComposerDataStor
   return *this;
 }
 
-bool TaskComposerDataStorage::hasKey(const std::string& key)
+std::string TaskComposerDataStorage::getName() const
+{
+  std::shared_lock lock(mutex_);
+  return name_;
+}
+
+void TaskComposerDataStorage::setName(const std::string& name)
+{
+  std::unique_lock lock(mutex_);
+  name_ = name;
+}
+
+bool TaskComposerDataStorage::hasKey(const std::string& key) const
 {
   std::shared_lock lock(mutex_);
   return (data_.find(key) != data_.end());
@@ -162,7 +174,7 @@ bool TaskComposerDataStorage::operator==(const TaskComposerDataStorage& rhs) con
   std::shared_lock lhs_lock(mutex_, std::defer_lock);
   std::shared_lock rhs_lock(rhs.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
-  return (data_ == rhs.data_);
+  return ((data_ == rhs.data_) && (name_ == rhs.name_));
 }
 
 bool TaskComposerDataStorage::operator!=(const TaskComposerDataStorage& rhs) const { return !operator==(rhs); }
@@ -171,6 +183,7 @@ template <class Archive>
 void TaskComposerDataStorage::serialize(Archive& ar, const unsigned int /*version*/)
 {
   std::unique_lock lock(mutex_);
+  ar& boost::serialization::make_nvp("name", name_);
   ar& boost::serialization::make_nvp("data", data_);
 }
 
