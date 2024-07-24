@@ -352,15 +352,15 @@ TaskComposerGraph::dump(std::ostream& os,
 
   std::ostringstream sub_graphs;
   const std::string tmp = toString(uuid_);
-  os << "subgraph cluster_" << tmp << " {\n color=black;\n label = \"" << name_ << "\\n(" << uuid_str_ << ")";
-  os << "\\n Inputs: " << input_keys_;
-  os << "\\n Outputs: " << output_keys_;
-  os << "\\n Conditional: " << ((conditional_) ? "True" : "False");
+  os << "subgraph cluster_" << tmp << " {\n color=black;\n label = \"" << name_ << "\\nUUID: " << uuid_str_ << "\\n";
+  os << "Inputs:\\l" << input_keys_;
+  os << "Outputs:\\l" << output_keys_;
+  os << "Conditional: " << ((conditional_) ? "True" : "False") << "\\l";
   if (getType() == TaskComposerNodeType::PIPELINE || getType() == TaskComposerNodeType::GRAPH)
   {
     auto it = results_map.find(getUUID());
     if (it != results_map.end())
-      os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s";
+      os << "Time: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s\\l";
   }
   os << "\";";
   for (const auto& pair : nodes_)
@@ -377,12 +377,13 @@ TaskComposerGraph::dump(std::ostream& os,
       const std::string tmp = toString(node->uuid_, "node_");
       const TaskComposerKeys& input_keys = node->getInputKeys();
       const TaskComposerKeys& output_keys = node->getOutputKeys();
-      os << std::endl << tmp << " [shape=box3d, label=\"Subgraph: " << node->name_ << "\\n(" << node->uuid_str_ << ")";
-      os << "\\n Inputs: " << input_keys;
-      os << "\\n Outputs: " << output_keys;
-      os << "\\n Conditional: " << ((node->isConditional()) ? "True" : "False");
+      os << std::endl
+         << tmp << " [shape=box3d, label=\"Subgraph: " << node->name_ << "\\nUUID: " << node->uuid_str_ << "\\n";
+      os << "Inputs:\\l" << input_keys;
+      os << "Outputs:\\l" << output_keys;
+      os << "Conditional: " << ((node->isConditional()) ? "True" : "False") << "\\l";
       if (it != results_map.end())
-        os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s";
+        os << "Time: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s\\l";
 
       os << "\", margin=\"0.1\", color=" << color << "];\n";  // NOLINT
       node->dump(sub_graphs, this, results_map);

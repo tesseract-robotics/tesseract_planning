@@ -87,17 +87,16 @@ void TaskComposerKeys::serialize(Archive& ar, const unsigned int /*version*/)
 
 std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys)
 {
-  os << "[";
   std::size_t cnt{ 0 };
   for (const auto& pair : keys.data())
   {
     if (pair.second.index() == 0)
     {
-      os << pair.first << ":" << std::get<std::string>(pair.second);
+      os << "\t" << pair.first << ": " << std::get<std::string>(pair.second);
     }
     else
     {
-      os << pair.first << ":[";
+      os << "\t" << pair.first << ":[";
       const auto& vs = std::get<std::vector<std::string>>(pair.second);
       for (std::size_t i = 0; i < vs.size(); ++i)
       {
@@ -107,12 +106,9 @@ std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys)
       }
       os << "]";
     }
-    if (cnt < keys.size() - 1)
-      os << ", ";
-
+    os << "\\l";
     ++cnt;
   }
-  os << "]";
 
   return os;
 }

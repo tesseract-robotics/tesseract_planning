@@ -363,14 +363,16 @@ TaskComposerNode::dump(std::ostream& os,
   if (conditional_)
   {
     os << std::endl << tmp << " [shape=diamond, label=\"" << name_ << "\\n";
-    os << "Namespace: " << ns_ << "\\n(" << uuid_str_ << ")";
-    os << "\\n Inputs: " << input_keys_;
-    os << "\\n Outputs: " << output_keys_;
+    os << "UUID: " << uuid_str_ << "\\n";
+    os << "Namespace: " << ns_ << "\\l";
+    os << "Inputs:\\l" << input_keys_;
+    os << "Outputs:\\l" << output_keys_;
 
     if (it != results_map.end())
     {
-      os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s"
-         << "\\n`" << std::to_string(it->second->status_code) << "::" << it->second->status_message << "`";
+      os << "Time: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s\\l"
+         << "Status Code: " << std::to_string(it->second->status_code) << "\\l"
+         << "Status Msg: " << it->second->status_message << "\\l";
     }
     os << "\", color=black, fillcolor=" << color << ", style=filled];\n";
 
@@ -384,14 +386,17 @@ TaskComposerNode::dump(std::ostream& os,
   }
   else
   {
-    os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")";
-    os << "\\n Inputs: " << input_keys_;
-    os << "\\n Outputs: " << output_keys_;
+    os << std::endl << tmp << " [label=\"" << name_ << "\\n";
+    os << "UUID: " << uuid_str_ << "\\n";
+    os << "Namespace: " << ns_ << "\\l";
+    os << "Inputs:\\l" << input_keys_;
+    os << "Outputs:\\l" << output_keys_;
 
     if (it != results_map.end())
     {
-      os << "\\nTime: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s"
-         << "\\n'" << std::to_string(it->second->status_code) << "::" << it->second->status_message << "'";
+      os << "Time: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s\\l"
+         << "Status Code: " << std::to_string(it->second->status_code) << "\\l"
+         << "Status Msg: " << it->second->status_message << "\\l";
     }
     os << "\", color=black, fillcolor=" << color << ", style=filled];\n";
 
