@@ -362,8 +362,8 @@ TaskComposerNode::dump(std::ostream& os,
 
   if (conditional_)
   {
-    os << std::endl << tmp << " [shape=diamond, label=\"" << name_ << "\\n";
-    os << "UUID: " << uuid_str_ << "\\n";
+    os << std::endl << tmp << " [shape=diamond, nojustify=true label=\"" << name_ << "\\n";
+    os << "UUID: " << uuid_str_ << "\\l";
     os << "Namespace: " << ns_ << "\\l";
     os << "Inputs:\\l" << input_keys_;
     os << "Outputs:\\l" << output_keys_;
@@ -386,8 +386,8 @@ TaskComposerNode::dump(std::ostream& os,
   }
   else
   {
-    os << std::endl << tmp << " [label=\"" << name_ << "\\n";
-    os << "UUID: " << uuid_str_ << "\\n";
+    os << std::endl << tmp << " [nojustify=true label=\"" << name_ << "\\n";
+    os << "UUID: " << uuid_str_ << "\\l";
     os << "Namespace: " << ns_ << "\\l";
     os << "Inputs:\\l" << input_keys_;
     os << "Outputs:\\l" << output_keys_;

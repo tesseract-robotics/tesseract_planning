@@ -46,7 +46,7 @@ TaskComposerDataStorage::TaskComposerDataStorage(const TaskComposerDataStorage& 
   std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
-  name_ = other.name_;
+  name_ = other.name_;  // NOLINT(cppcoreguidelines-prefer-member-initializer)
   data_ = other.data_;  // NOLINT(cppcoreguidelines-prefer-member-initializer)
 }
 
@@ -57,7 +57,7 @@ TaskComposerDataStorage& TaskComposerDataStorage::operator=(const TaskComposerDa
   std::shared_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
-  name_ = other.name_;
+  name_ = other.name_;  // NOLINT(cppcoreguidelines-prefer-member-initializer)
   data_ = other.data_;  // NOLINT(cppcoreguidelines-prefer-member-initializer)
   return *this;
 }
@@ -69,7 +69,7 @@ TaskComposerDataStorage::TaskComposerDataStorage(TaskComposerDataStorage&& other
   std::unique_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
-  name_ = std::move(other.name_);
+  name_ = std::move(other.name_);  // NOLINT(cppcoreguidelines-prefer-member-initializer)
   data_ = std::move(other.data_);  // NOLINT(cppcoreguidelines-prefer-member-initializer)
 }
 
@@ -80,7 +80,7 @@ TaskComposerDataStorage& TaskComposerDataStorage::operator=(TaskComposerDataStor
   std::unique_lock rhs_lock(other.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
-  name_ = std::move(other.name_);
+  name_ = std::move(other.name_);  // NOLINT(cppcoreguidelines-prefer-member-initializer)
   data_ = std::move(other.data_);  // NOLINT(cppcoreguidelines-prefer-member-initializer)
   return *this;
 }
