@@ -2,6 +2,12 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remove TaskComposerProblem and leverage TaskComposerDataStorage instead (`#469 <https://github.com/tesseract-robotics/tesseract_planning/issues/469>`_)
+* Fixes for building on Ubuntu Noble
+* Contributors: Levi Armstrong, Roelof Oomen
+
 0.22.1 (2024-06-12)
 -------------------
 

@@ -2,6 +2,12 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add boost serialization support to Profile dictionary
+* Remove TaskComposerProblem and leverage TaskComposerDataStorage instead (`#469 <https://github.com/tesseract-robotics/tesseract_planning/issues/469>`_)
+* Contributors: Levi Armstrong
+
 0.22.1 (2024-06-12)
 -------------------
 

@@ -2,6 +2,22 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add name to data storage to hold pipeline name
+* Improve dotgraph
+* Fix discrete and continuous task info constructors
+* Remove task_composer_problem.h
+* Add check for expected keys to TaskComposerGraph
+* Update task composer readme
+* Do not export plugin libraries (`#474 <https://github.com/tesseract-robotics/tesseract_planning/issues/474>`_)
+* Make disabled task dotgraph color yellow
+* Environment should be stored as const in data storage
+* fix applyCorrectionWorkflow definition
+* Remove TaskComposerProblem and leverage TaskComposerDataStorage instead (`#469 <https://github.com/tesseract-robotics/tesseract_planning/issues/469>`_)
+* Fixes for building on Ubuntu Noble
+* Contributors: Levi Armstrong, Roelof Oomen
+
 0.22.1 (2024-06-12)
 -------------------
 * Fix: Add cost to cost_infos instead of cnt_infos

@@ -2,6 +2,13 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Environment should be stored as const in data storage
+* Remove TaskComposerProblem and leverage TaskComposerDataStorage instead (`#469 <https://github.com/tesseract-robotics/tesseract_planning/issues/469>`_)
+* Fixes for building on Ubuntu Noble
+* Contributors: Levi Armstrong, Roelof Oomen
+
 0.22.1 (2024-06-12)
 -------------------
 
