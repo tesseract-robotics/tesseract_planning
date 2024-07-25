@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>tesseract_task_composer</name>
-  <version>0.23.0</version>
+  <version>0.23.1</version>
   <description>The Tesseract Task Composer package</description>
   <author email="levi.armstrong@gmail.com">Levi Armstrong</author>
   <maintainer email="levi.armstrong@gmail.com">Levi Armstrong</maintainer>
