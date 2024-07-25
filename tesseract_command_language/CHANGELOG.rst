@@ -2,6 +2,9 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.23.1 (2024-07-24)
 -------------------
 

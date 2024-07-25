@@ -2,6 +2,12 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Make dotgraph label nojustify
+* Fix task composer data storage constructors
+* Contributors: Levi Armstrong
+
 0.23.1 (2024-07-24)
 -------------------
 
