@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.23.0 (2024-07-24)
+-------------------
 * Add name to data storage to hold pipeline name
 * Improve dotgraph
 * Fix discrete and continuous task info constructors
