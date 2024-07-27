@@ -40,6 +40,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_keys.h>
 #include <tesseract_task_composer/core/task_composer_node_ports.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
 
 namespace YAML
 {
@@ -48,7 +49,6 @@ class Node;
 
 namespace tesseract_planning
 {
-class TaskComposerNodeInfo;
 class TaskComposerDataStorage;
 
 enum class TaskComposerNodeType
