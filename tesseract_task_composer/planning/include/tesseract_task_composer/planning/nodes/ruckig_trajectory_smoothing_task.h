@@ -39,14 +39,14 @@ class RuckigTrajectorySmoothingTask : public TaskComposerTask
 {
 public:
   // Requried
-  static const std::string INOUT_PROGRAM_PORT;
-  static const std::string INPUT_ENVIRONMENT_PORT;
-  static const std::string INPUT_PROFILES_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INOUT_PROGRAM_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_ENVIRONMENT_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_PROFILES_PORT;
 
   // Optional
-  static const std::string INPUT_MANIP_INFO_PORT;
-  static const std::string INPUT_COMPOSITE_PROFILE_REMAPPING_PORT;
-  static const std::string INPUT_MOVE_PROFILE_REMAPPING_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_MANIP_INFO_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_COMPOSITE_PROFILE_REMAPPING_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_MOVE_PROFILE_REMAPPING_PORT;
 
   using Ptr = std::shared_ptr<RuckigTrajectorySmoothingTask>;
   using ConstPtr = std::shared_ptr<const RuckigTrajectorySmoothingTask>;

@@ -16,7 +16,7 @@ class HasDataStorageEntryTask : public TaskComposerTask
 {
 public:
   // Requried
-  static const std::string INPUT_KEYS_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_KEYS_PORT;
 
   using Ptr = std::shared_ptr<HasDataStorageEntryTask>;
   using ConstPtr = std::shared_ptr<const HasDataStorageEntryTask>;
