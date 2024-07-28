@@ -227,8 +227,6 @@ private:
                      const boost::uuids::uuid& uuid) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerNodeInfo, "TaskComposerNodeInfo")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerNodeInfoContainer, "TaskComposerNodeInfoContainer")
-
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerNodeInfo)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerNodeInfoContainer)
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_INFO_H

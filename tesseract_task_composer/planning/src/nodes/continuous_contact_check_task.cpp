@@ -228,7 +228,7 @@ void ContinuousContactCheckTaskInfo::serialize(Archive& ar, const unsigned int /
 }
 }  // namespace tesseract_planning
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ContinuousContactCheckTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ContinuousContactCheckTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ContinuousContactCheckTaskInfo)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ContinuousContactCheckTaskInfo)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ContinuousContactCheckTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ContinuousContactCheckTaskInfo)

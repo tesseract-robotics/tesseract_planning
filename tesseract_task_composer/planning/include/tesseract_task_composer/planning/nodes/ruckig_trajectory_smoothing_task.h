@@ -86,6 +86,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RuckigTrajectorySmoothingTask, "RuckigTrajectorySmoothingTask")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::RuckigTrajectorySmoothingTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_RUCKIG_TRAJECTORY_SMOOTHING_TASK_H

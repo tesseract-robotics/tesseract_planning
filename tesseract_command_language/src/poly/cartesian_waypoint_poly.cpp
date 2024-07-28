@@ -129,12 +129,12 @@ void tesseract_planning::CartesianWaypointPoly::serialize(Archive& ar, const uns
   ar& boost::serialization::make_nvp("base", boost::serialization::base_object<CartesianWaypointPolyBase>(*this));
 }
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_cartesian_waypoint::CartesianWaypointInterface)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypointPolyBase)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypointPoly)
-
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_cartesian_waypoint::CartesianWaypointInterface)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypointPolyBase)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypointPoly)
 
 TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypointPoly)
+
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_cartesian_waypoint::CartesianWaypointInterface)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypointPolyBase)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypointPoly)

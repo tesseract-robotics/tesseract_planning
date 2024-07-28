@@ -114,6 +114,6 @@ private:
 };
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TimeOptimalParameterizationTask, "TimeOptimalParameterizationTask")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TimeOptimalParameterizationTaskInfo, "TimeOptimalParameterizationTaskInfo")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TimeOptimalParameterizationTask)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TimeOptimalParameterizationTaskInfo)
 #endif  // TESSERACT_TASK_COMPOSER_TIME_OPTIMAL_TRAJECTORY_GENERATION_TASK_H

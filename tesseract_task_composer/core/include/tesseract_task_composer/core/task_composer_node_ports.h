@@ -66,7 +66,5 @@ protected:
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerNodePorts, "TaskComposerNodePorts")
-
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerNodePorts)
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_PORTS_H

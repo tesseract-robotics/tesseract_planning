@@ -73,6 +73,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::SyncTask, "SyncTask")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SyncTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_SYNC_TASK_H

@@ -85,5 +85,5 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::MinLengthTask, "MinLengthTask")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::MinLengthTask)
 #endif  // TESSERACT_TASK_COMPOSER_MIN_LENGTH_TASK_H

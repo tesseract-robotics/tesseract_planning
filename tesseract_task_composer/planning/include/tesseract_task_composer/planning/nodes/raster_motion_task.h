@@ -117,6 +117,6 @@ protected:
 };
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RasterMotionTask, "RasterMotionTask")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::RasterMotionTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_RASTER_MOTION_TASK_H

@@ -74,6 +74,6 @@ protected:
 };
 }  // namespace tesseract_planning::test_suite
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::test_suite::TestTask, "TestTask")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::test_suite::TestTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_TEST_TASK_H

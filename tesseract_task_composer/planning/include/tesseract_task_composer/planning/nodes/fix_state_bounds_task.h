@@ -92,5 +92,5 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::FixStateBoundsTask, "FixStateBoundsTask")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::FixStateBoundsTask)
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_BOUNDS_TASK_H

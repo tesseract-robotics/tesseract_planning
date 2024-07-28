@@ -65,5 +65,5 @@ private:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::MotionPlannerTaskInfo, "MotionPlannerTaskInfo")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::MotionPlannerTaskInfo)
 #endif  // TESSERACT_TASK_COMPOSER_MOTION_PLANNER_TASK_INFO_H

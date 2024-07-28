@@ -122,5 +122,5 @@ std::unique_ptr<TaskComposerNodeInfo> TestTask::runImpl(TaskComposerContext& con
 
 }  // namespace tesseract_planning::test_suite
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::test_suite::TestTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::test_suite::TestTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::test_suite::TestTask)
