@@ -91,6 +91,5 @@ void TaskComposerContext::serialize(Archive& ar, const unsigned int /*version*/)
 }
 
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerContext)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerContext)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerContext)

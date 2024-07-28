@@ -49,6 +49,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::HasDataStorageEntryTask, "HasDataStorageEntryTask")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::HasDataStorageEntryTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_HAS_DATA_STORAGE_ENTRY_TASK_H

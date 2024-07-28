@@ -76,6 +76,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::UpdateStartStateTask, "UpdateStartStateTask")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::UpdateStartStateTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_UPDATE_START_STATE_TASK_H

@@ -116,5 +116,5 @@ void ProcessPlanningInputTask::serialize(Archive& ar, const unsigned int /*versi
 
 }  // namespace tesseract_planning
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ProcessPlanningInputTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ProcessPlanningInputTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ProcessPlanningInputTask)

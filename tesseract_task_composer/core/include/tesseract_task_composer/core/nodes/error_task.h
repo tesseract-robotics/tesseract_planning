@@ -64,6 +64,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::ErrorTask, "ErrorTask")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::ErrorTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_ERROR_TASK_H

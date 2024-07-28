@@ -82,5 +82,6 @@ void tesseract_planning::CartesianWaypoint::serialize(Archive& ar, const unsigne
 }
 
 #include <tesseract_common/serialization.h>
+
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypoint)
-TESSERACT_CARTESIAN_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypoint);
+TESSERACT_CARTESIAN_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypoint)

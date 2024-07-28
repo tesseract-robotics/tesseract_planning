@@ -64,6 +64,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::DoneTask, "DoneTask")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::DoneTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_DONE_TASK_H

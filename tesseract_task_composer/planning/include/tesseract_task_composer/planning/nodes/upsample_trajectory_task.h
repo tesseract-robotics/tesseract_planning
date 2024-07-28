@@ -95,5 +95,5 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::UpsampleTrajectoryTask, "UpsampleTrajectoryTask")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::UpsampleTrajectoryTask)
 #endif  // TESSERACT_TASK_COMPOSER_UPSAMPLE_TRAJECTORY_TASK_H

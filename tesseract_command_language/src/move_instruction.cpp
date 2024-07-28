@@ -262,5 +262,6 @@ void MoveInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
+
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstruction)
 TESSERACT_MOVE_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::MoveInstruction)

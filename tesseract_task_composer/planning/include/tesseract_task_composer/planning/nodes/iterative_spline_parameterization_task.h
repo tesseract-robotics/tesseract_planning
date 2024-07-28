@@ -94,5 +94,5 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::IterativeSplineParameterizationTask, "IterativeSplineParameterizationTask")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::IterativeSplineParameterizationTask)
 #endif  // TESSERACT_TASK_COMPOSER_ITERATIVE_SPLINE_PARAMETERIZATION_TASK_H

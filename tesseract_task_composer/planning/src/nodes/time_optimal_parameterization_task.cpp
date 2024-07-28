@@ -263,7 +263,7 @@ void TimeOptimalParameterizationTaskInfo::serialize(Archive& ar, const unsigned 
 
 }  // namespace tesseract_planning
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimeOptimalParameterizationTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TimeOptimalParameterizationTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimeOptimalParameterizationTaskInfo)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TimeOptimalParameterizationTaskInfo)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimeOptimalParameterizationTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimeOptimalParameterizationTaskInfo)

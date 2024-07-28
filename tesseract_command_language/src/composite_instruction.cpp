@@ -535,6 +535,7 @@ void CompositeInstruction::serialize(Archive& ar, const unsigned int /*version*/
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
+
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CompositeInstruction)
 TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::CompositeInstruction)
 TESSERACT_ANY_EXPORT_IMPLEMENT(TesseractPlanningCompositeInstruction)
