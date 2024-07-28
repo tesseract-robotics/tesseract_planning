@@ -39,9 +39,9 @@ class UpdateStartStateTask : public TaskComposerTask
 {
 public:
   // Requried
-  static const std::string INPUT_PREVIOUS_PROGRAM_PORT;
-  static const std::string INPUT_CURRENT_PROGRAM_PORT;
-  static const std::string OUTPUT_PROGRAM_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_PREVIOUS_PROGRAM_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_CURRENT_PROGRAM_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string OUTPUT_PROGRAM_PORT;
 
   using Ptr = std::shared_ptr<UpdateStartStateTask>;
   using ConstPtr = std::shared_ptr<const UpdateStartStateTask>;

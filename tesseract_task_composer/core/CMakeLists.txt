@@ -1,3 +1,6 @@
+# Need to create export header so static class variables can be exported on windows build
+include(GenerateExportHeader)
+
 add_library(
   ${PROJECT_NAME}
   src/task_composer_data_storage.cpp
@@ -13,6 +16,9 @@ add_library(
   src/task_composer_plugin_factory.cpp
   src/task_composer_server.cpp
   src/task_composer_task.cpp)
+
+generate_export_header(${PROJECT_NAME})
+
 target_link_libraries(
   ${PROJECT_NAME}
   PUBLIC console_bridge::console_bridge
@@ -35,8 +41,9 @@ target_code_coverage(
   ALL
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
-target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-                                                  "$<INSTALL_INTERFACE:include>")
+target_include_directories(
+  ${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+                         "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/../>" "$<INSTALL_INTERFACE:include>")
 
 add_library(
   ${PROJECT_NAME}_nodes
@@ -96,6 +103,9 @@ install(
   FILES_MATCHING
   PATTERN "*.h"
   PATTERN "*.hpp")
+
+install(FILES ${PROJECT_BINARY_DIR}/core/tesseract_task_composer_export.h DESTINATION include/${PROJECT_NAME}/core/
+        COMPONENT core)
 
 # Plugin should not be export only installed
 install(

@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/uuid/uuid.hpp>
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
+#include <tesseract_task_composer/core/tesseract_task_composer_export.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>

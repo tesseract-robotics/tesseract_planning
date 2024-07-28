@@ -16,7 +16,7 @@ class FormatAsResultTask : public TaskComposerTask
 {
 public:
   // Requried
-  static const std::string INOUT_PROGRAMS_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INOUT_PROGRAMS_PORT;
 
   using Ptr = std::shared_ptr<FormatAsResultTask>;
   using ConstPtr = std::shared_ptr<const FormatAsResultTask>;

@@ -42,8 +42,8 @@ class ProcessPlanningInputTask : public TaskComposerTask
 {
 public:
   // Requried
-  static const std::string INPUT_PLANNING_INPUT_PORT;
-  static const std::string OUTPUT_PROGRAM_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_PLANNING_INPUT_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string OUTPUT_PROGRAM_PORT;
 
   using Ptr = std::shared_ptr<ProcessPlanningInputTask>;
   using ConstPtr = std::shared_ptr<const ProcessPlanningInputTask>;

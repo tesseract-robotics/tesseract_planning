@@ -55,9 +55,9 @@ class FormatAsInputTask : public TaskComposerTask
 {
 public:
   // Requried
-  static const std::string INPUT_PRE_PLANNING_PROGRAM_PORT;
-  static const std::string INPUT_POST_PLANNING_PROGRAM_PORT;
-  static const std::string OUTPUT_PROGRAM_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_PRE_PLANNING_PROGRAM_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_POST_PLANNING_PROGRAM_PORT;
+  static const TESSERACT_TASK_COMPOSER_EXPORT std::string OUTPUT_PROGRAM_PORT;
 
   using Ptr = std::shared_ptr<FormatAsInputTask>;
   using ConstPtr = std::shared_ptr<const FormatAsInputTask>;
