@@ -178,6 +178,6 @@ bool applyCorrectionWorkflow(WaypointPoly& waypoint,
                              tesseract_collision::ContactResultMap& contacts);
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::FixStateCollisionTask, "FixStateCollisionTask")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::FixStateCollisionTaskInfo, "FixStateCollisionTaskInfo")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::FixStateCollisionTask)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::FixStateCollisionTaskInfo)
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_COLLISION_TASK_H

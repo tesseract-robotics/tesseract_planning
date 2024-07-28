@@ -110,6 +110,6 @@ protected:
 };
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskflowTaskComposerExecutor, "TaskflowExecutor")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskflowTaskComposerExecutor)
 
 #endif  // TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_EXECUTOR_H

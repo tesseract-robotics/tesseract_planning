@@ -129,7 +129,5 @@ private:
   mutable std::atomic<bool> aborted_{ false };
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerContext, "TaskComposerContext")
-
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerContext)
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_CONTEXT_H

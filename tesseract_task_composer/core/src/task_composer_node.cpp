@@ -549,5 +549,5 @@ void TaskComposerNode::setData(TaskComposerDataStorage& data_storage,
 
 }  // namespace tesseract_planning
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerNode)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerNode)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerNode)

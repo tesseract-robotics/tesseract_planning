@@ -612,5 +612,5 @@ void RasterMotionTask::checkTaskInput(const tesseract_common::AnyPoly& input)
 
 }  // namespace tesseract_planning
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterMotionTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterMotionTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterMotionTask)

@@ -201,5 +201,5 @@ void MinLengthTask::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MinLengthTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MinLengthTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MinLengthTask)

@@ -150,6 +150,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerGraph, "TaskComposerGraph")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerGraph)
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_GRAPH_H

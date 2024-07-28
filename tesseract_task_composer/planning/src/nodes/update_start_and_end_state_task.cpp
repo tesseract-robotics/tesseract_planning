@@ -181,5 +181,5 @@ void UpdateStartAndEndStateTask::serialize(Archive& ar, const unsigned int /*ver
 
 }  // namespace tesseract_planning
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::UpdateStartAndEndStateTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::UpdateStartAndEndStateTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::UpdateStartAndEndStateTask)

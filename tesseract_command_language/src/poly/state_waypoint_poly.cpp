@@ -101,12 +101,12 @@ void tesseract_planning::StateWaypointPoly::serialize(Archive& ar, const unsigne
   ar& boost::serialization::make_nvp("base", boost::serialization::base_object<StateWaypointPolyBase>(*this));
 }
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_state_waypoint::StateWaypointInterface)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypointPolyBase)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypointPoly)
-
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_state_waypoint::StateWaypointInterface)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointPolyBase)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointPoly)
 
 TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointPoly)
+
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_state_waypoint::StateWaypointInterface)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypointPolyBase)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypointPoly)

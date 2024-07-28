@@ -171,12 +171,12 @@ void tesseract_planning::MoveInstructionPoly::serialize(Archive& ar, const unsig
   ar& boost::serialization::make_nvp("base", boost::serialization::base_object<MoveInstructionPolyBase>(*this));
 }
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_move_instruction::MoveInstructionInterface)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstructionPolyBase)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstructionPoly)
-
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_move_instruction::MoveInstructionInterface)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionPolyBase)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionPoly)
 
 TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionPoly)
+
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_move_instruction::MoveInstructionInterface)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstructionPolyBase)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstructionPoly)

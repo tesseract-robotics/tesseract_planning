@@ -98,5 +98,5 @@ void RemapTask::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RemapTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RemapTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RemapTask)

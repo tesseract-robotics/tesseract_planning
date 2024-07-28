@@ -82,6 +82,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::ProcessPlanningInputTask, "ProcessPlanningInputTask")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::ProcessPlanningInputTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_PROCESS_PLANNING_INPUT_TASK_H

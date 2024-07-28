@@ -115,6 +115,6 @@ private:
 };
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::ContinuousContactCheckTask, "ContinuousContactCheckTask")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::ContinuousContactCheckTaskInfo, "ContinuousContactCheckTaskInfo")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::ContinuousContactCheckTask)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::ContinuousContactCheckTaskInfo)
 #endif  // TESSERACT_TASK_COMPOSER_CONTINUOUS_CONTACT_CHECK_TASK_H

@@ -116,6 +116,6 @@ private:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::DiscreteContactCheckTask, "DiscreteContactCheckTask")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::DiscreteContactCheckTaskInfo, "DiscreteContactCheckTaskInfo")
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::DiscreteContactCheckTask)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::DiscreteContactCheckTaskInfo)
 #endif  // TESSERACT_TASK_COMPOSER_DISCRETE_CONTACT_CHECK_TASK_H
