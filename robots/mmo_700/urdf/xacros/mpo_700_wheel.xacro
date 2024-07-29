@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mpo_700">
+
+  <xacro:macro name="mpo_700_wheel" params="name parent *origin">
+   <joint name="${name}_joint" type="fixed">
+    <xacro:insert_block name="origin" />
+    <limit effort="1000.0" lower="-1e+16" upper="1e+16" velocity="3.5"/>
+    <axis xyz="1 0 0" />
+    <parent link="${parent}" />
+    <child link="${name}_link" />
+   </joint>
+
+   <link name="${name}_link" type="wheel">
+    <inertial>
+      <mass value="5.9" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia  ixx="0.04" ixy="0.0007" ixz="0.0"
+                  iyy="0.02" iyz="0.004" 
+                  izz="0.05" />
+    </inertial>
+
+    <visual>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+     <geometry>
+        <mesh filename="package://tesseract_ros_examples/robots/mmo_700/meshes/MPO-700-WHEEL.dae" scale="0.001 0.001 0.001"/>
+     </geometry>
+    </visual>
+
+    <collision>
+     <origin xyz="0 0 0" rpy="0 0 0" />
+     <geometry>
+        <mesh filename="package://tesseract_ros_examples/robots/mmo_700/meshes/MPO-700-WHEEL.dae" scale="0.001 0.001 0.001"/>
+     </geometry>
+    </collision>
+   </link>
+
+     <gazebo reference="${name}_link">
+      <mu1 value="0.05"/>
+      <mu2 value="0.05"/>
+      <kp value="100000.0" />
+      <kd value="10.0" />
+      </gazebo>
+  </xacro:macro>
+  
+</robot>
+
+

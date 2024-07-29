@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mp_500">
+
+  <xacro:macro name="caster_wheel" params="name parent *origin">
+   <joint name="${name}_joint" type="fixed">
+    <xacro:insert_block name="origin" />
+        <axis xyz="0 -1 0" />
+      <limit effort="1000.0" lower="-1e+16" upper="1e+16" velocity="3.5"/>
+      <parent link="${parent}" />
+      <child link="${name}_link" />
+      <joint_properties damping="1.0" friction="1.0" />
+   </joint>
+
+   <link name="${name}_link" type="wheel">
+    <inertial>
+        <mass value="1.82362"/>
+        <inertia ixx="0.00499743171" ixy="0.00000004464" ixz="-0.00000002245"
+                 iyy="0.00499741733" iyz="0.00000000164"
+izz="0.00839239692"/>
+</inertial>
+      <visual name='castor_wheel'>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <mesh filename="package://neo_simulation/robots/mp_500/meshes/MP-500-WHEEL.dae" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+            <mesh filename="package://neo_simulation/robots/mp_500/meshes/MP-500-WHEEL.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+</link>
+
+
+<gazebo reference="${name}_link">
+      <kp>8000.0</kp>
+      <kd>1460.0</kd>
+      <mu1>0.5</mu1>
+      <mu2>0.2</mu2>
+      <fdir1>1 0 0</fdir1>
+      <maxVel>3.0</maxVel>
+      <minDepth>0.00</minDepth>
+</gazebo>
+  </xacro:macro>
+  
+</robot>
+
+

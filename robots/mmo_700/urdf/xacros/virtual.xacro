@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mpo_700">
+
+  
+  <xacro:macro name="deploy" params="prefix attach_to_world loc_x loc_y orientation">
+
+    <!-- Virtual Link Starts -->
+    <link name="${prefix}virtual_base_x" />
+
+    <link name="${prefix}virtual_base_y" />
+
+    <link name="${prefix}virtual_base_theta" />
+    <!-- Virtual Link Ends -->
+
+    <joint name="${prefix}base_link_base_theta" type="revolute">
+      <parent link="${prefix}virtual_base_theta" />
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+      <child link="base_link" />
+      <axis xyz="0 0 1" />
+      <limit effort="20" velocity="5.0" lower="-3.14" upper="3.14" />
+    </joint>
+
+    <joint name="${prefix}base_theta_base_y" type="prismatic">
+      <parent link="${prefix}virtual_base_y" />
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+      <child link="${prefix}virtual_base_theta" />
+      <axis xyz="0 1 0" />
+      <limit effort="20" velocity="5.0" lower="-10" upper="10" />
+    </joint>
+
+    <joint name="${prefix}base_y_base_x" type="prismatic">
+      <parent link="${prefix}virtual_base_x" />
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+      <child link="${prefix}virtual_base_y" />
+      <axis xyz="1 0 0" />
+      <limit effort="20" velocity="5.0" lower="-10" upper="10" />
+    </joint>
+
+    <xacro:if value="${attach_to_world}">
+      <joint name="${prefix}world" type="fixed">
+        <child link="${prefix}virtual_base_x" />
+        <parent link="world" />
+        <origin xyz="${loc_x} ${loc_y} 0" rpy="0 0 ${orientation}" />
+      </joint>
+    </xacro:if>
+
+  </xacro:macro>
+
+  </robot>

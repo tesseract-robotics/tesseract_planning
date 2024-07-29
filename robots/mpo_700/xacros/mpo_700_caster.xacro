@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mpo_700">
+
+  <xacro:macro name="mpo_700_caster_0" params="name parent *origin">
+   <joint name="${name}_joint" type="fixed">
+    <xacro:insert_block name="origin" />
+    <axis xyz="0 0 -1" />
+    <!-- <limit effort="1000.0" lower="-1e+16" upper="1e+16" velocity="3.5"/> -->
+    <joint_properties damping="1" friction="1" />
+    <parent link="${parent}" />
+    <child link="${name}_link" />
+   </joint>
+
+   <link name="${name}_link">
+    <inertial>
+  <mass value="0.0008" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <inertia ixx="0.000044332" ixy="0" ixz="0" iyy="0.000044332" iyz="0" izz="0.000044332" />
+    </inertial>
+
+    <visual>
+     <origin xyz="0 0 0.10" rpy="0 0 0"/>
+     <geometry>
+        <mesh filename="package://neo_simulation/robots/mpo_700/meshes/MPO-700-caster.dae" scale="0.001 0.001 0.001"/>
+     </geometry>
+    </visual>
+
+    <collision>
+     <origin xyz="0 0 0.10" rpy="0 0 0" />
+     <geometry>
+        <mesh filename="package://neo_simulation/robots/mpo_700/meshes/MPO-700-caster.dae" scale="0.001 0.001 0.001"/>
+     </geometry>
+    </collision>
+   </link>
+   
+  </xacro:macro>
+
+  <xacro:macro name="mpo_700_caster_1" params="name parent *origin">
+   <joint name="${name}_joint" type="fixed">
+    <xacro:insert_block name="origin" />
+    <axis xyz="0 0 -1" />
+    <joint_properties damping="1" friction="1" />
+    <parent link="${parent}" />
+    <child link="${name}_link" />
+   </joint>
+
+   <link name="${name}_link">
+    <inertial>
+  <mass value="0.0008" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <inertia ixx="0.000044332" ixy="0" ixz="0" iyy="0.000044332" iyz="0" izz="0.000044332" />
+    </inertial>
+
+    <visual>
+     <origin xyz="0 0 0.10" rpy="0 0 0"/>
+     <geometry>
+        <mesh filename="package://neo_simulation/robots/mpo_700/meshes/MPO-700-caster.dae" scale="0.001 0.001 0.001"/>
+     </geometry>
+    </visual>
+
+    <collision>
+     <origin xyz="0 0 0.10" rpy="0 0 0" />
+     <geometry>
+        <mesh filename="package://neo_simulation/robots/mpo_700/meshes/MPO-700-caster.dae" scale="0.001 0.001 0.001"/>
+     </geometry>
+    </collision>
+   </link>
+   
+  </xacro:macro>
+  
+  <xacro:macro name="mpo_700_caster_2" params="name parent *origin">
+   <joint name="${name}_joint" type="fixed">
+    <xacro:insert_block name="origin" />
+    <axis xyz="0 0 -1" />
+    <joint_properties damping="1" friction="1" />
+    <parent link="${parent}" />
+    <child link="${name}_link" />
+   </joint>
+
+   <link name="${name}_link">
+    <inertial>
+  <mass value="0.0008" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <inertia ixx="0.000044332" ixy="0" ixz="0" iyy="0.000044332" iyz="0" izz="0.000044332" />
+    </inertial>
+
+    <visual>
+     <origin xyz="0 0 0.10" rpy="0 0 0"/>
+     <geometry>
+        <mesh filename="package://neo_simulation/robots/mpo_700/meshes/MPO-700-caster.dae" scale="0.001 0.001 0.001"/>
+     </geometry>
+    </visual>
+
+    <collision>
+     <origin xyz="0 0 0.10" rpy="0 0 0" />
+     <geometry>
+        <mesh filename="package://neo_simulation/robots/mpo_700/meshes/MPO-700-caster.dae" scale="0.001 0.001 0.001"/>
+     </geometry>
+    </collision>
+   </link>
+   
+  </xacro:macro>
+
+  <xacro:macro name="mpo_700_caster_3" params="name parent *origin">
+   <joint name="${name}_joint" type="fixed">
+    <xacro:insert_block name="origin" />
+    <axis xyz="0 0 -1" />
+    <joint_properties damping="1" friction="1" />
+    <parent link="${parent}" />
+    <child link="${name}_link" />
+   </joint>
+
+   <link name="${name}_link">
+    <inertial>
+  <mass value="0.0008" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <inertia ixx="0.000044332" ixy="0" ixz="0" iyy="0.000044332" iyz="0" izz="0.000044332" />
+    </inertial>
+
+    <visual>
+     <origin xyz="0 0 0.10" rpy="0 0 0"/>
+     <geometry>
+        <mesh filename="package://neo_simulation/robots/mpo_700/meshes/MPO-700-caster.dae" scale="0.001 0.001 0.001"/>
+     </geometry>
+    </visual>
+
+    <collision>
+     <origin xyz="0 0 0.10" rpy="0 0 0" />
+     <geometry>
+        <mesh filename="package://neo_simulation/robots/mpo_700/meshes/MPO-700-caster.dae" scale="0.001 0.001 0.001"/>
+     </geometry>
+    </collision>
+   </link>
+   
+  </xacro:macro>
+</robot>
+
+

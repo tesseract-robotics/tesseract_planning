@@ -1,0 +1,210 @@
+<?xml version="1.0" ?>
+<robot name="mmo_500" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!--GAZEBO REFERENCES 
+  MPO_500-->
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_500/urdf/xacros/mpo_500_gazebo.xacro" />
+
+  <!--ur10 -->
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_500/urdf/xacros/common.gazebo.xacro" />
+
+  <!-- BODY -->
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_500/urdf/xacros/mpo_500_body.xacro" />
+ 
+  <!-- WHEELS -->
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_500/urdf/xacros/omni_wheel.xacro" />
+
+  <!-- SENSORS --> 
+  <!-- Sick-S300 -->
+  <!-- <xacro:include filename="$(find neo_simulation)/robots/mmo_500/xacros/sick_S300.xacro" /> -->
+
+  <!--Sick Micro-scan  -->
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_500/urdf/xacros/micro_scan.xacro" /> 
+
+  <!-- Ultrasonics, cameras and IMU's -->
+  <!-- <xacro:include filename="$(find neo_simulation)/robots/mmo_500/urdf/xacros/imu.xacro" />
+
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_500/urdf/xacros/ultrasonic.xacro" /> -->
+
+    <!-- <xacro:include filename="$(find neo_simulation)/robots/mmo_500/urdf/xacros/camera.xacro" />  -->
+
+
+
+  <!-- CABINET --> 
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_500/urdf/xacros/cabinet.xacro" />
+
+  <!--ur10 -->
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_500/urdf/ur10.urdf.xacro" />
+
+  <!-- Pilz -->
+  <!-- <xacro:include filename="$(find neo_simulation)/robots/mmo_500/urdf/prbt_macro.xacro" /> -->
+
+
+
+  <link name="base_link" />
+
+  <!-- Base link macro -->
+  <xacro:mpo_500_base name="base_footprint" parent="base_link">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:mpo_500_base>
+
+  <!-- Wheel Macro -->
+  <xacro:omni_wheel_250 name="mpo_500_omni_wheel_front_left" parent="base_footprint">
+    <origin xyz="0.25 0.28 0.13" rpy="0 0 0" />
+  </xacro:omni_wheel_250>
+
+  <xacro:omni_wheel_250 name="mpo_500_omni_wheel_front_right" parent="base_footprint">
+    <origin xyz="0.25 -0.28 0.13" rpy="0 0 3.14" />
+  </xacro:omni_wheel_250>
+
+  <xacro:omni_wheel_250 name="mpo_500_omni_wheel_back_left" parent="base_footprint">
+    <origin xyz="-0.25 0.28 0.13" rpy="0 0 0" />
+  </xacro:omni_wheel_250>
+
+  <xacro:omni_wheel_250 name="mpo_500_omni_wheel_back_right" parent="base_footprint">
+    <origin xyz="-0.25 -0.28 0.13" rpy="0 0 3.14" />
+  </xacro:omni_wheel_250>
+
+  <!-- Sensors -->
+  <xacro:sick_laser_v0 name="lidar_1" parent="base_link" ros_topic="lidar_1/scan_filtered">
+    <origin xyz="0.442 0 0.372" rpy="0 0 0" />
+  </xacro:sick_laser_v0>
+
+  <xacro:sick_laser_v0 name="lidar_2" parent="base_link" ros_topic="lidar_2/scan_filtered">
+    <origin xyz="-0.442 0 0.372" rpy="0 0 3.14" />
+  </xacro:sick_laser_v0>
+
+     <!--+++++++++++++++++++ IMU ++++++++++++++++++++++++-->
+ <!-- Comment or uncomment based on your requirement -->
+<!--   <xacro:imu name="imu_1" parent="base_link">
+    <origin xyz="0.100 0 0.300" rpy="0 0 3.14" />
+  </xacro:imu> -->
+
+  <!--+++++++++++++++++++ Ultra Sonic ++++++++++++++++++++++++-->
+  <!-- Comment or uncomment based on your requirement -->
+  <!-- SENSOR 1 --> 
+  <!-- xacro:us_sensor name="us_1" parent="base_link">
+    <origin xyz="0.100 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 2 --> 
+  <!-- xacro:us_sensor name="us_2" parent="base_link">
+    <origin xyz="0.110 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 3 --> 
+  <!-- xacro:us_sensor name="us_3" parent="base_link">
+    <origin xyz="0.120 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 4 --> 
+  <!-- xacro:us_sensor name="us_4" parent="base_link">
+    <origin xyz="0.130 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 5 --> 
+  <!-- xacro:us_sensor name="us_5" parent="base_link">
+    <origin xyz="0.140 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 6 --> 
+  <!-- xacro:us_sensor name="us_6" parent="base_link">
+    <origin xyz="0.150 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 7 --> 
+  <!-- xacro:us_sensor name="us_7" parent="base_link">
+    <origin xyz="0.160 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 8 --> 
+  <!-- xacro:us_sensor name="us_8" parent="base_link">
+    <origin xyz="0.170 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 9 --> 
+  <!-- xacro:us_sensor name="us_9" parent="base_link">
+    <origin xyz="0.180 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 10 --> 
+  <!-- xacro:us_sensor name="us_10" parent="base_link">
+    <origin xyz="0.100 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 11 --> 
+  <!-- xacro:us_sensor name="us_11" parent="base_link">
+    <origin xyz="0.100 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 12 --> 
+  <!-- xacro:us_sensor name="us_12" parent="base_link">
+    <origin xyz="0.190 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 13 --> 
+  <!-- xacro:us_sensor name="us_13" parent="base_link">
+    <origin xyz="0.200 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 14 --> 
+  <!-- xacro:us_sensor name="us_14" parent="base_link">
+    <origin xyz="0.210 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 15 --> 
+  <!-- xacro:us_sensor name="us_15" parent="base_link">
+    <origin xyz="0.220 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 16 --> 
+  <!-- xacro:us_sensor name="us_16" parent="base_link">
+    <origin xyz="0.230 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+
+    <!--Camera  -->
+<!-- <xacro:camera name="camera" parent="base_link">
+    <origin xyz="0 0 0.38" rpy="0 0 0" />
+  </xacro:camera> -->
+  <!--cabinet-->
+  <xacro:mmo_500_cabinet name="cabinet" parent="base_link">
+  	<origin xyz="0.072 0 0.386" rpy="0 0 0" />
+  </xacro:mmo_500_cabinet>
+
+  <!--ur10-->
+  <xacro:ur10_robot parent="cabinet_link" prefix="ur10" joint_limited="true"
+		 shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
+		 shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${pi}"
+		 elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi}"
+		 wrist_1_lower_limit="${-pi}" wrist_1_upper_limit="${pi}"
+		 wrist_2_lower_limit="${-pi}" wrist_2_upper_limit="${pi}"
+		 wrist_3_lower_limit="${-pi}" wrist_3_upper_limit="${pi}">
+  </xacro:ur10_robot>
+
+  <!-- Pilz arm -->
+<!--     <xacro:prbt parent="cabinet_link" prefix="pilz">
+    <origin xyz="0 0 0." rpy="0 0 0" />
+  </xacro:prbt>
+ -->
+   <transmission name="mpo_500_omni_wheel_front_left">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="mpo_500_omni_wheel_front_left_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="mpo_500_omni_wheel_front_left_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="mpo_500_omni_wheel_front_right">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="mpo_500_omni_wheel_front_right_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="mpo_500_omni_wheel_front_right_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="mpo_500_omni_wheel_back_left">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="mpo_500_omni_wheel_back_left_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="mpo_500_omni_wheel_back_left_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="mpo_500_omni_wheel_back_right">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="mpo_500_omni_wheel_back_right_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="mpo_500_omni_wheel_back_right_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+</robot>

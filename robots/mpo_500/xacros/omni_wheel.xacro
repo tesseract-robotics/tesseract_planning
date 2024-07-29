@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mpo_500">
+
+  <xacro:macro name="omni_wheel_250" params="name parent *origin">
+   <joint name="${name}_joint" type="revolute">
+    <xacro:insert_block name="origin" />
+    <axis xyz="0 1 0" />
+    <joint_properties damping="100" friction="1000" />
+        <limit effort="1000.0" lower="-1e+16" upper="1e+16" velocity="15"/>
+    <joint_properties damping="1.0" friction="1" />
+    <parent link="${parent}" />
+    <child link="${name}_link" />
+   </joint>
+
+   <link name="${name}_link" type="wheel">
+    <inertial>
+      <mass value="2.2" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia  ixx="0.01" ixy="0.0" ixz="0.0"
+                  iyy="0.01" iyz="0.0" 
+                  izz="0.01" />
+    </inertial>
+
+    <visual>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+     <geometry>
+        <mesh filename="package://neo_simulation/robots/mpo_500/meshes/MPO-500-WHEEL.dae" scale="0.001 0.001 0.001"/>
+     </geometry>
+    </visual>
+
+    <collision>
+     <origin xyz="0 0 0" rpy="0 1.57 1.57" />
+     <geometry>
+        <!-- <mesh filename="package://neo_simulation/robots/mpo_500/meshes/MPO-500-WHEEL.dae" scale="0.001 0.001 0.001"/> -->
+       <!-- <cylinder radius="0.126" length="0.110"/> -->
+      <sphere radius="0.117" />
+     </geometry>
+    </collision>
+   </link>
+   
+<gazebo reference="${name}_link">
+      <!-- <kp> 10000 </kp> -->
+      <!-- <fdir1>0 1 0</fdir1> -->
+      <!-- <slip1> 0.1 </slip1> -->
+      <mu1>0.0001</mu1>
+      <mu2>0.0001</mu2>
+</gazebo>
+  </xacro:macro>
+  
+</robot>
+
+

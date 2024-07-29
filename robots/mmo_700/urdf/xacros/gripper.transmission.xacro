@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="gripper_transmission">
+  
+  
+    <transmission name="robotiq_85_left_knuckle_joint">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="robotiq_85_left_knuckle_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="2_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  
+    <transmission name="robotiq_85_right_knuckle_joint">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="robotiq_85_right_knuckle_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="3_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="robotiq_85_left_inner_knuckle_joint">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="robotiq_85_left_inner_knuckle_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="4_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="robotiq_85_right_inner_knuckle_joint">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="robotiq_85_right_inner_knuckle_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="5_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+
+
+
+  </xacro:macro>
+
+</robot>

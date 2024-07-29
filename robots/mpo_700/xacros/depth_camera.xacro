@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mpo_700">
+
+	<xacro:macro name="depth_camera" params="name parent *origin">
+	  	<xacro:property name="depth_camera_link" value="0.05" />
+		    <joint name="${name}_joint" type="fixed">
+		      <axis xyz="0 1 0" />
+		      <xacro:insert_block name="origin" />
+		      <parent link="${parent}"/>
+		      <child link="${name}_link"/>
+		    </joint>
+		    
+		    <joint name="${name}_optical_joint" type="fixed">
+		    	<origin xyz="0 0.015 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+		    	<parent link="${name}_link"/>
+		    	<child link="${name}_link_optical"/>
+		    </joint>
+		    
+		    <joint name="${name}_gazebo_joint" type="fixed">
+		    	<origin xyz="0 0.015 0" rpy="0 0 0"/>
+		    	<parent link="${name}_link"/>
+		    	<child link="${name}_link_gazebo"/>
+		    </joint>
+
+		    <link name="${name}_link">
+			    <collision>
+			      <origin xyz="0 0 0" rpy="0 0 0"/>
+			      <geometry>
+			    	<box size="${depth_camera_link} ${depth_camera_link} ${depth_camera_link}"/>
+			      </geometry>
+			    </collision>
+
+			    <visual>
+			      <origin xyz="0 -0.0175 0" rpy="1.570796 0 1.570796"/>
+			      <geometry>
+			      	<mesh filename="package://neo_simulation/robots/mpo_700/meshes/d435.dae"/>
+			      </geometry>
+			      <material name="red">
+			      	<color rgba="1 0 0 1" />
+			      </material>
+			    </visual>
+
+			    <inertial>
+			      <mass value="1e-5" />
+			      <origin xyz="0 0 0" rpy="0 0 0"/>
+			      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+			    </inertial>
+		    </link>
+
+		    <link  name="${name}_link_optical">
+		    </link>
+
+		    <link name="${name}_link_gazebo" />
+
+	</xacro:macro>
+</robot>

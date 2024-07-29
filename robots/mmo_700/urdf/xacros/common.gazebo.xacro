@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mmo_700">
+
+<gazebo>
+  <plugin name="ros_control" filename="libgazebo_ros_control.so">
+    <legacyModeNS>false</legacyModeNS>
+    <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+  </plugin>
+</gazebo>
+
+<gazebo>
+	<plugin filename="libgazebo_ros_moveit_planning_scene.so" name="gazebo_ros_moveit_planning_scene">
+		<topicName>/planning_scene</topicName>
+ 		<sceneName>laboratory</sceneName>
+		<robotName>mmo_700</robotName>
+		<updatePeriod>0.5</updatePeriod>
+	</plugin>
+</gazebo>
+
+<gazebo>
+   <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+        <arm>
+           <arm_name>arm</arm_name>
+           <palm_link>wrist_3_link</palm_link>
+           <gripper_link>H1_F1_link_1</gripper_link>
+           <gripper_link>H1_F2_link_1</gripper_link>
+           <gripper_link>H1_F3_link_1</gripper_link>
+           <gripper_link>H1_F1_link_2</gripper_link>
+           <gripper_link>H1_F2_link_2</gripper_link>
+           <gripper_link>H1_F3_link_2</gripper_link>
+       </arm>
+       <forces_angle_tolerance>100</forces_angle_tolerance>
+       <update_rate>4</update_rate>
+       <grip_count_threshold>4</grip_count_threshold>
+       <max_grip_count>20</max_grip_count>
+       <release_tolerance>0.005</release_tolerance>
+       <disable_collisions_on_attach>false</disable_collisions_on_attach>
+       <contact_topic>__default_topic__</contact_topic>
+    </plugin>
+</gazebo>
+</robot>
