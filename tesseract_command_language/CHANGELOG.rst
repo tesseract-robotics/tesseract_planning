@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.23.3 (2024-07-28)
+-------------------
+* Cleanup boost serialization (`#490 <https://github.com/tesseract-robotics/tesseract_planning/issues/490>`_)
+* Contributors: Levi Armstrong
+
 0.23.2 (2024-07-25)
 -------------------
 
