@@ -29,19 +29,20 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
+#include <tesseract_task_composer/planning/tesseract_task_composer_planning_nodes_export.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
 
 namespace tesseract_planning
 {
-class UpdateStartStateTask : public TaskComposerTask
+class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT UpdateStartStateTask : public TaskComposerTask
 {
 public:
   // Requried
-  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_PREVIOUS_PROGRAM_PORT;
-  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_CURRENT_PROGRAM_PORT;
-  static const TESSERACT_TASK_COMPOSER_EXPORT std::string OUTPUT_PROGRAM_PORT;
+  static const std::string INPUT_PREVIOUS_PROGRAM_PORT;
+  static const std::string INPUT_CURRENT_PROGRAM_PORT;
+  static const std::string OUTPUT_PROGRAM_PORT;
 
   using Ptr = std::shared_ptr<UpdateStartStateTask>;
   using ConstPtr = std::shared_ptr<const UpdateStartStateTask>;

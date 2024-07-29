@@ -30,6 +30,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
+#include <tesseract_task_composer/planning/tesseract_task_composer_planning_nodes_export.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
@@ -50,17 +51,17 @@ struct FixStateCollisionProfile;
  *
  * First it uses TrajOpt to correct the waypoint. If that fails, it reverts to random sampling
  */
-class FixStateCollisionTask : public TaskComposerTask
+class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT FixStateCollisionTask : public TaskComposerTask
 {
 public:
   // Requried
-  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INOUT_PROGRAM_PORT;
-  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_ENVIRONMENT_PORT;
-  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_PROFILES_PORT;
+  static const std::string INOUT_PROGRAM_PORT;
+  static const std::string INPUT_ENVIRONMENT_PORT;
+  static const std::string INPUT_PROFILES_PORT;
 
   // Optional
-  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_MANIP_INFO_PORT;
-  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_COMPOSITE_PROFILE_REMAPPING_PORT;
+  static const std::string INPUT_MANIP_INFO_PORT;
+  static const std::string INPUT_COMPOSITE_PROFILE_REMAPPING_PORT;
 
   using Ptr = std::shared_ptr<FixStateCollisionTask>;
   using ConstPtr = std::shared_ptr<const FixStateCollisionTask>;

@@ -5,6 +5,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
+#include <tesseract_task_composer/core/tesseract_task_composer_nodes_export.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
@@ -12,11 +13,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 class TaskComposerPluginFactory;
-class HasDataStorageEntryTask : public TaskComposerTask
+class TESSERACT_TASK_COMPOSER_NODES_EXPORT HasDataStorageEntryTask : public TaskComposerTask
 {
 public:
   // Requried
-  static const TESSERACT_TASK_COMPOSER_EXPORT std::string INPUT_KEYS_PORT;
+  static const std::string INPUT_KEYS_PORT;
 
   using Ptr = std::shared_ptr<HasDataStorageEntryTask>;
   using ConstPtr = std::shared_ptr<const HasDataStorageEntryTask>;

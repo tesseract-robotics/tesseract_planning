@@ -17,8 +17,6 @@ add_library(
   src/task_composer_server.cpp
   src/task_composer_task.cpp)
 
-generate_export_header(${PROJECT_NAME})
-
 target_link_libraries(
   ${PROJECT_NAME}
   PUBLIC console_bridge::console_bridge
@@ -54,6 +52,9 @@ add_library(
   src/nodes/start_task.cpp
   src/nodes/sync_task.cpp
   src/test_suite/test_task.cpp)
+
+generate_export_header(${PROJECT_NAME}_nodes)
+
 target_link_libraries(
   ${PROJECT_NAME}_nodes
   PUBLIC ${PROJECT_NAME}
@@ -104,7 +105,7 @@ install(
   PATTERN "*.h"
   PATTERN "*.hpp")
 
-install(FILES ${PROJECT_BINARY_DIR}/core/tesseract_task_composer_export.h DESTINATION include/${PROJECT_NAME}/core/
+install(FILES ${PROJECT_BINARY_DIR}/core/tesseract_task_composer_nodes_export.h DESTINATION include/${PROJECT_NAME}/core/
         COMPONENT core)
 
 # Plugin should not be export only installed
