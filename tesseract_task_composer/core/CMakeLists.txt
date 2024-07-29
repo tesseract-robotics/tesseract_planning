@@ -105,8 +105,8 @@ install(
   PATTERN "*.h"
   PATTERN "*.hpp")
 
-install(FILES ${PROJECT_BINARY_DIR}/core/tesseract_task_composer_nodes_export.h DESTINATION include/${PROJECT_NAME}/core/
-        COMPONENT core)
+install(FILES ${PROJECT_BINARY_DIR}/core/tesseract_task_composer_nodes_export.h
+        DESTINATION include/${PROJECT_NAME}/core/ COMPONENT core)
 
 # Plugin should not be export only installed
 install(

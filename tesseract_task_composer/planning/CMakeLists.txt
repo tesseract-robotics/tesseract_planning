@@ -141,8 +141,7 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 target_include_directories(
   ${PROJECT_NAME}_planning_nodes PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-                                        "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/../>"
-                                        "$<INSTALL_INTERFACE:include>")
+                                        "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/../>" "$<INSTALL_INTERFACE:include>")
 
 generate_export_header(${PROJECT_NAME}_planning_nodes)
 
@@ -177,8 +176,8 @@ install(
   PATTERN "*.hpp"
   PATTERN ".svn" EXCLUDE)
 
-install(FILES ${PROJECT_BINARY_DIR}/planning/tesseract_task_composer_planning_nodes_export.h DESTINATION include/${PROJECT_NAME}/planning/
-  COMPONENT planning)
+install(FILES ${PROJECT_BINARY_DIR}/planning/tesseract_task_composer_planning_nodes_export.h
+        DESTINATION include/${PROJECT_NAME}/planning/ COMPONENT planning)
 
 # Plugin should not be export only installed
 install(
