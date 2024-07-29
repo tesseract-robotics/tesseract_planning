@@ -2,6 +2,11 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix task composer graph config loading
+* Contributors: Levi Armstrong
+
 0.23.3 (2024-07-28)
 -------------------
 * Cleanup boost serialization (`#490 <https://github.com/tesseract-robotics/tesseract_planning/issues/490>`_)
