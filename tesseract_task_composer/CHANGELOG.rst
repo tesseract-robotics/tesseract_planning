@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.23.4 (2024-07-29)
+-------------------
 * Fix task composer graph config loading
 * Contributors: Levi Armstrong
 
