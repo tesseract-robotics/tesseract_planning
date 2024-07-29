@@ -119,7 +119,7 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
 
         if (YAML::Node n = tc["abort_terminal"])
         {
-          if (task_node->getType() != TaskComposerNodeType::GRAPH ||
+          if (task_node->getType() == TaskComposerNodeType::GRAPH ||
               task_node->getType() == TaskComposerNodeType::PIPELINE)
             static_cast<TaskComposerGraph&>(*task_node).setTerminalTriggerAbortByIndex(n.as<int>());
           else
