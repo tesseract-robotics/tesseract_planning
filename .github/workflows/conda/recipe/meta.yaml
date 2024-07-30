@@ -21,7 +21,7 @@ requirements:
       - {{ cdt('mesa-dri-drivers') }}    # [linux]
       - git
     host:
-      - boost-cpp 
+      - libboost-devel
       - eigen 
       - tinyxml2
       - console_bridge
@@ -47,7 +47,6 @@ requirements:
       - ompl
       - taskflow
     run:
-      - boost-cpp
       - eigen 
       - tinyxml2
       - console_bridge
