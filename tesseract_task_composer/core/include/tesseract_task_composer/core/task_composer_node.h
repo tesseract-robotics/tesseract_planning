@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <vector>
 #include <map>
+#include <optional>
 #include <boost/uuid/uuid.hpp>
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
@@ -50,6 +51,8 @@ class Node;
 namespace tesseract_planning
 {
 class TaskComposerDataStorage;
+class TaskComposerContext;
+class TaskComposerExecutor;
 
 enum class TaskComposerNodeType
 {
@@ -68,6 +71,9 @@ public:
   using UPtr = std::unique_ptr<TaskComposerNode>;
   using ConstUPtr = std::unique_ptr<const TaskComposerNode>;
 
+  /** @brief Most task will not require a executor so making it optional */
+  using OptionalTaskComposerExecutor = std::optional<std::reference_wrapper<TaskComposerExecutor>>;
+
   TaskComposerNode(std::string name = "TaskComposerNode",
                    TaskComposerNodeType type = TaskComposerNodeType::NODE,
                    TaskComposerNodePorts ports = TaskComposerNodePorts(),
@@ -81,6 +87,8 @@ public:
   TaskComposerNode& operator=(const TaskComposerNode&) = delete;
   TaskComposerNode(TaskComposerNode&&) = delete;
   TaskComposerNode& operator=(TaskComposerNode&&) = delete;
+
+  int run(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const;
 
   /** @brief Set the name of the node */
   void setName(const std::string& name);
@@ -169,6 +177,9 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
+  virtual std::unique_ptr<TaskComposerNodeInfo> runImpl(TaskComposerContext& context,
+                                                        OptionalTaskComposerExecutor executor = std::nullopt) const = 0;
+
   /** @brief The name of the task */
   std::string name_;
 
@@ -207,6 +218,9 @@ protected:
 
   /** @brief The nodes ports definition */
   TaskComposerNodePorts ports_;
+
+  /** @brief Indicate if task triggers abort */
+  bool trigger_abort_{ false };
 
   /** @brief This will create a UUID string with no hyphens used when creating dot graph */
   static std::string toString(const boost::uuids::uuid& u, const std::string& prefix = "");

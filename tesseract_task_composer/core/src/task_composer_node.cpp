@@ -33,8 +33,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/uuid/uuid_serialize.hpp>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/timer.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
@@ -130,6 +132,59 @@ TaskComposerNode::TaskComposerNode(std::string name,
 
   if (type != TaskComposerNodeType::GRAPH && type != TaskComposerNodeType::PIPELINE)
     validatePorts();
+}
+
+int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExecutor executor) const
+{
+  auto start_time = std::chrono::system_clock::now();
+  if (context.isAborted())
+  {
+    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+    info->start_time = start_time;
+    info->input_keys = input_keys_;
+    info->output_keys = output_keys_;
+    info->return_value = 0;
+    info->color = "white";
+    info->status_code = 0;
+    info->status_message = "Aborted";
+    info->aborted_ = true;
+    context.task_infos.addInfo(std::move(info));
+    return 0;
+  }
+
+  tesseract_common::Timer timer;
+  TaskComposerNodeInfo::UPtr results;
+  timer.start();
+  try
+  {
+    results = runImpl(context, executor);
+  }
+  catch (const std::exception& e)
+  {
+    results = std::make_unique<TaskComposerNodeInfo>(*this);
+    results->color = "red";
+    results->status_code = -1;
+    results->status_message = "Exception thrown: " + std::string(e.what());
+    results->return_value = 0;
+  }
+  timer.stop();
+  results->input_keys = input_keys_;
+  results->output_keys = output_keys_;
+  results->start_time = start_time;
+  results->elapsed_time = timer.elapsedSeconds();
+
+  int value = results->return_value;
+  assert(value >= 0);
+
+  // Call abort if required and is a task
+  if (type_ == TaskComposerNodeType::TASK && trigger_abort_ && !context.isAborted())
+  {
+    results->status_message += " (Abort Triggered)";
+    context.abort(uuid_);
+  }
+
+  context.task_infos.addInfo(std::move(results));
+  return value;
 }
 
 void TaskComposerNode::setName(const std::string& name) { name_ = name; }
@@ -424,6 +479,7 @@ bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
   equal &= output_keys_ == rhs.output_keys_;
   equal &= conditional_ == rhs.conditional_;
   equal &= ports_ == rhs.ports_;
+  equal &= trigger_abort_ == rhs.trigger_abort_;
   return equal;
 }
 bool TaskComposerNode::operator!=(const TaskComposerNode& rhs) const { return !operator==(rhs); }
@@ -442,6 +498,7 @@ void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("output_keys", output_keys_);
   ar& boost::serialization::make_nvp("conditional", conditional_);
   ar& boost::serialization::make_nvp("ports", ports_);
+  ar& boost::serialization::make_nvp("trigger_abort", trigger_abort_);
 }
 
 std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::string& prefix)

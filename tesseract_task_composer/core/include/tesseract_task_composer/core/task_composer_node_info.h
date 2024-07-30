@@ -135,8 +135,7 @@ public:
 private:
   friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
-  friend class TaskComposerTask;
-  friend class TaskComposerPipeline;
+  friend class TaskComposerNode;
 
   /** @brief Indicate if task was not ran because abort flag was enabled */
   bool aborted_{ false };

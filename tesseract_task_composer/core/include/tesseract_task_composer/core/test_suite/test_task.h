@@ -41,6 +41,14 @@ class TaskComposerPluginFactory;
 
 namespace tesseract_planning::test_suite
 {
+class DummyTaskComposerNode : public TaskComposerNode
+{
+  using TaskComposerNode::TaskComposerNode;
+
+  std::unique_ptr<TaskComposerNodeInfo>
+  runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override final;
+};
+
 class TestTask : public TaskComposerTask
 {
 public:
