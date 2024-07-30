@@ -87,7 +87,6 @@ void TaskComposerKeys::serialize(Archive& ar, const unsigned int /*version*/)
 
 std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys)
 {
-  std::size_t cnt{ 0 };
   for (const auto& pair : keys.data())
   {
     if (pair.second.index() == 0)
@@ -107,7 +106,6 @@ std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys)
       os << "]";
     }
     os << "\\l";
-    ++cnt;
   }
 
   return os;

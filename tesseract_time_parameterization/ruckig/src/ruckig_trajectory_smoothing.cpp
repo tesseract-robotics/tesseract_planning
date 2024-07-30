@@ -288,7 +288,7 @@ bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
   bool smoothing_complete{ false };
   while ((duration_extension_factor < max_duration_extension_factor_) && !smoothing_complete)
   {
-    for (Eigen::Index waypoint_idx = 0; waypoint_idx < num_waypoints - 1; ++waypoint_idx)
+    for (Eigen::Index waypoint_idx = 0; waypoint_idx < static_cast<Eigen::Index>(num_waypoints) - 1; ++waypoint_idx)
     {
       // Get Next Input
       getNextRuckigInput(
@@ -297,7 +297,7 @@ bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
       // Run Ruckig
       ruckig_result = ruckig_ptr->update(ruckig_input, ruckig_output);
 
-      if ((waypoint_idx == num_waypoints - 2) && ruckig_result == ruckig::Result::Finished)
+      if ((waypoint_idx == static_cast<Eigen::Index>(num_waypoints) - 2) && ruckig_result == ruckig::Result::Finished)
       {
         smoothing_complete = true;
         break;
@@ -310,7 +310,7 @@ bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
         Eigen::VectorXd new_duration_from_previous = original_duration_from_previous;
 
         double time_from_start = original_duration_from_previous(0);
-        for (Eigen::Index time_stretch_idx = 1; time_stretch_idx < num_waypoints; ++time_stretch_idx)
+        for (Eigen::Index time_stretch_idx = 1; time_stretch_idx < static_cast<Eigen::Index>(num_waypoints); ++time_stretch_idx)
         {
           assert(time_stretch_idx < original_duration_from_previous.rows());
           const double duration_from_previous =

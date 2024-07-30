@@ -222,7 +222,7 @@ std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const KinematicGr
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -286,7 +286,7 @@ std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const KinematicGro
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -349,7 +349,7 @@ std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const KinematicGro
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -451,7 +451,7 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -540,7 +540,7 @@ std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const KinematicGro
       for (auto& pose : poses)
         pose = base.working_frame_transform.inverse() * pose;
 
-      assert(poses.size() == states.cols());
+      assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
       return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
     }
 
@@ -561,7 +561,7 @@ std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const KinematicGro
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -618,7 +618,7 @@ std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const KinematicGro
       for (auto& pose : poses)
         pose = base.working_frame_transform.inverse() * pose;
 
-      assert(poses.size() == states.cols());
+      assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
       return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
     }
 
@@ -639,7 +639,7 @@ std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const KinematicGro
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -740,7 +740,7 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -786,7 +786,7 @@ std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const JointGroupI
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -839,7 +839,7 @@ std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const JointGroupIn
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -892,7 +892,7 @@ std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const JointGroupIn
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -948,7 +948,7 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const JointGroupIns
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
