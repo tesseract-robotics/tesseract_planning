@@ -121,7 +121,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDataStorageTests)  // NOLINT
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerContextTests)  // NOLINT
 {
-  TaskComposerNode node;
+  test_suite::DummyTaskComposerNode node;
   auto context =
       std::make_unique<TaskComposerContext>("TaskComposerContextTests", std::make_unique<TaskComposerDataStorage>());
   EXPECT_EQ(context->name, "TaskComposerContextTests");
@@ -142,7 +142,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerContextTests)  // NOLINT
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoContainerTests)  // NOLINT
 {
-  TaskComposerNode node;
+  test_suite::DummyTaskComposerNode node;
   auto node_info = std::make_unique<TaskComposerNodeInfo>(node);
 
   auto node_info_container = std::make_unique<TaskComposerNodeInfoContainer>();
@@ -179,7 +179,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoContainerTests)  // NOLI
 TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
 {
   std::stringstream os;
-  auto node = std::make_unique<TaskComposerNode>();
+  auto node = std::make_unique<test_suite::DummyTaskComposerNode>();
   // Default
   EXPECT_EQ(node->getName(), "TaskComposerNode");
   EXPECT_EQ(node->getType(), TaskComposerNodeType::NODE);
@@ -235,8 +235,8 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
   {
     std::string str = R"(config:)";
     YAML::Node config = YAML::Load(str);
-    auto task =
-        std::make_unique<TaskComposerNode>(name, TaskComposerNodeType::TASK, TaskComposerNodePorts{}, config["config"]);
+    auto task = std::make_unique<test_suite::DummyTaskComposerNode>(
+        name, TaskComposerNodeType::TASK, TaskComposerNodePorts{}, config["config"]);
     EXPECT_EQ(task->getName(), name);
     EXPECT_EQ(task->getType(), TaskComposerNodeType::TASK);
     EXPECT_TRUE(task->getInputKeys().empty());
@@ -251,8 +251,8 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
     std::string str = R"(config:
                            conditional: true)";
     YAML::Node config = YAML::Load(str);
-    auto task =
-        std::make_unique<TaskComposerNode>(name, TaskComposerNodeType::TASK, TaskComposerNodePorts{}, config["config"]);
+    auto task = std::make_unique<test_suite::DummyTaskComposerNode>(
+        name, TaskComposerNodeType::TASK, TaskComposerNodePorts{}, config["config"]);
     EXPECT_EQ(task->getName(), name);
     EXPECT_EQ(task->getType(), TaskComposerNodeType::TASK);
     EXPECT_TRUE(task->getInputKeys().empty());
@@ -2361,6 +2361,105 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerServerTests)  // NOLINT
     server.loadConfig(file_path);
     runTest(server);
   }
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineWithGraphChild)  // NOLINT
+{
+  std::string str = R"(task_composer_plugins:
+                         search_paths:
+                           - /usr/local/lib
+                         search_libraries:
+                           - tesseract_task_composer_factories
+                           - tesseract_task_composer_taskflow_factories
+                         executors:
+                           default: TaskflowExecutor
+                           plugins:
+                             TaskflowExecutor:
+                               class: TaskflowTaskComposerExecutorFactory
+                               config:
+                                 threads: 5
+                         tasks:
+                           plugins:
+                             TestPipeline:
+                               class: PipelineTaskFactory
+                               config:
+                                 conditional: true
+                                 nodes:
+                                   StartTask:
+                                     class: StartTaskFactory
+                                     config:
+                                       conditional: false
+                                   TestConditionalGraphTask:
+                                     task: TestGraph
+                                     config:
+                                       conditional: true
+                                   DoneTask:
+                                     class: DoneTaskFactory
+                                     config:
+                                       conditional: false
+                                   AbortTask:
+                                     class: DoneTaskFactory
+                                     config:
+                                       conditional: false
+                                 edges:
+                                   - source: StartTask
+                                     destinations: [TestConditionalGraphTask]
+                                   - source: TestConditionalGraphTask
+                                     destinations: [AbortTask, DoneTask]
+                                 terminals: [AbortTask, DoneTask]
+                             TestGraph:
+                               class: GraphTaskFactory
+                               config:
+                                 conditional: false
+                                 nodes:
+                                   StartTask:
+                                     class: StartTaskFactory
+                                     config:
+                                       conditional: false
+                                   TestTask:
+                                     class: TestTaskFactory
+                                     config:
+                                       conditional: true
+                                       return_value: 1
+                                       inputs:
+                                         port1: input_data
+                                         port2: [input_data2]
+                                       outputs:
+                                         port1: output_data
+                                         port2: [output_data2]
+                                   DoneTask:
+                                     class: DoneTaskFactory
+                                     config:
+                                       conditional: false
+                                   AbortTask:
+                                     class: DoneTaskFactory
+                                     config:
+                                       conditional: false
+                                 edges:
+                                   - source: StartTask
+                                     destinations: [TestTask]
+                                   - source: TestTask
+                                     destinations: [AbortTask, DoneTask]
+                                 terminals: [AbortTask, DoneTask])";
+
+  TaskComposerServer server;
+  server.loadConfig(str);
+
+  // Run method using TaskComposerContext
+  const auto& pipeline = server.getTask("TestPipeline");
+  auto data_storage = std::make_unique<TaskComposerDataStorage>();
+  auto future = server.run(pipeline, std::move(data_storage), false, "TaskflowExecutor");
+  future->wait();
+
+  EXPECT_EQ(future->context->isAborted(), false);
+  EXPECT_EQ(future->context->isSuccessful(), true);
+  EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 7);
+  EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
+
+  std::ofstream os1;
+  os1.open(tesseract_common::getTempPath() + "task_composer_pipeline_with_conditional_child_graph_task.dot");
+  EXPECT_NO_THROW(pipeline.dump(os1, nullptr, future->context->task_infos.getInfoMap()));  // NOLINT
+  os1.close();
 }
 
 int main(int argc, char** argv)

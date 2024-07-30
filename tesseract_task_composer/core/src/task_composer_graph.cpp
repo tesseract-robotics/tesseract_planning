@@ -36,8 +36,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/plugin_info.h>
 #include <tesseract_common/yaml_utils.h>
+#include <tesseract_common/timer.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_future.h>
+#include <tesseract_task_composer/core/task_composer_executor.h>
 #include <tesseract_task_composer/core/task_composer_graph.h>
 #include <tesseract_task_composer/core/task_composer_task.h>
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
@@ -212,6 +216,55 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
   auto is_valid = TaskComposerGraph::isValid();
   if (!is_valid.first)
     throw std::runtime_error(is_valid.second);
+}
+
+std::unique_ptr<TaskComposerNodeInfo> TaskComposerGraph::runImpl(TaskComposerContext& context,
+                                                                 OptionalTaskComposerExecutor executor) const
+{
+  if (terminals_.empty())
+    throw std::runtime_error("TaskComposerGraph, with name '" + name_ + "' does not have terminals!");
+
+  tesseract_common::Timer timer;
+  timer.start();
+
+  TaskComposerFuture::UPtr future = executor.value().get().run(*this, context.data_storage, context.dotgraph);
+  future->wait();
+
+  // Merge child context data into parent context
+  context.task_infos.mergeInfoMap(std::move(future->context->task_infos));
+  if (future->context->isAborted())
+    context.abort(future->context->task_infos.getAbortingNode());
+
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+  auto info_map = context.task_infos.getInfoMap();
+  if (context.dotgraph)
+  {
+    std::stringstream dot_graph;
+    dot_graph << "subgraph cluster_" << toString(uuid_) << " {\n color=black;\n label = \"" << name_ << "\\n("
+              << uuid_str_ << ")\";\n";
+    dump(dot_graph, this, info_map);  // dump the graph including dynamic tasks
+    dot_graph << "}\n";
+    info->dotgraph = dot_graph.str();
+  }
+
+  for (std::size_t i = 0; i < terminals_.size(); ++i)
+  {
+    auto node_info = context.task_infos.getInfo(terminals_[i]);
+    if (node_info != nullptr)
+    {
+      timer.stop();
+      info->input_keys = input_keys_;
+      info->output_keys = output_keys_;
+      info->return_value = static_cast<int>(i);
+      info->color = node_info->color;
+      info->status_code = node_info->status_code;
+      info->status_message = node_info->status_message;
+      info->elapsed_time = timer.elapsedSeconds();
+      return info;
+    }
+  }
+
+  throw std::runtime_error("TaskComposerGraph, with name '" + name_ + "' has no node info for any of the leaf nodes!");
 }
 
 boost::uuids::uuid TaskComposerGraph::addNode(std::unique_ptr<TaskComposerNode> task_node)
@@ -392,10 +445,9 @@ TaskComposerGraph::dump(std::ostream& os,
     }
   }
 
-  if (type_ == TaskComposerNodeType::PIPELINE)
+  if (type_ == TaskComposerNodeType::GRAPH || type_ == TaskComposerNodeType::PIPELINE)
   {
-    const auto& pipeline = static_cast<const TaskComposerPipeline&>(*this);
-    if (pipeline.isConditional())
+    if (conditional_)
     {
       int return_value = -1;
 
