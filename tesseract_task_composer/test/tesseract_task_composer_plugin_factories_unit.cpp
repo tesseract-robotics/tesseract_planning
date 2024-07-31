@@ -134,8 +134,15 @@ TEST(TesseractTaskComposerFactoryUnit, LoadAndExportPluginTest)  // NOLINT
   }
 
   {  // String Constructor
+#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
     tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
                                                                                       "task_composer_plugins.yaml");
+#else
+    tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
+                                                                                      "task_composer_plugins_no_"
+                                                                                      "trajopt_"
+                                                                                      "ifopt.yaml");
+#endif
 
     TaskComposerPluginFactory factory(tesseract_common::fileToString(config_path));
     YAML::Node plugin_config = YAML::LoadFile(config_path.string());
@@ -148,8 +155,15 @@ TEST(TesseractTaskComposerFactoryUnit, LoadAndExportPluginTest)  // NOLINT
   }
 
   {  // YAML Node Constructor
+#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
     tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
                                                                                       "task_composer_plugins.yaml");
+#else
+    tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
+                                                                                      "task_composer_plugins_no_"
+                                                                                      "trajopt_"
+                                                                                      "ifopt.yaml");
+#endif
 
     YAML::Node plugin_config = YAML::LoadFile(config_path.string());
     TaskComposerPluginFactory factory(plugin_config);
@@ -163,8 +177,15 @@ TEST(TesseractTaskComposerFactoryUnit, LoadAndExportPluginTest)  // NOLINT
 
   // TaskComposerPluginInfo Constructor
   {
+#ifdef TESSERACT_TASK_COMPOSER_HAS_TRAJOPT_IFOPT
     tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
                                                                                       "task_composer_plugins.yaml");
+#else
+    tesseract_common::fs::path config_path(std::string(TESSERACT_TASK_COMPOSER_DIR) + "/config/"
+                                                                                      "task_composer_plugins_no_"
+                                                                                      "trajopt_"
+                                                                                      "ifopt.yaml");
+#endif
 
     YAML::Node plugin_config = YAML::LoadFile(config_path.string());
     const YAML::Node& plugins = plugin_config[tesseract_common::TaskComposerPluginInfo::CONFIG_KEY];
