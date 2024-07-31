@@ -50,51 +50,6 @@ TaskComposerPipeline::TaskComposerPipeline(std::string name,
 {
 }
 
-int TaskComposerPipeline::run(TaskComposerContext& context, OptionalTaskComposerExecutor executor) const
-{
-  auto start_time = std::chrono::system_clock::now();
-  if (context.isAborted())
-  {
-    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-    info->start_time = start_time;
-    info->input_keys = input_keys_;
-    info->output_keys = output_keys_;
-    info->return_value = 0;
-    info->status_code = 0;
-    info->status_message = "Aborted";
-    info->color = "white";
-    info->aborted_ = true;
-    context.task_infos.addInfo(std::move(info));
-    return 0;
-  }
-
-  tesseract_common::Timer timer;
-  std::unique_ptr<TaskComposerNodeInfo> results;
-  timer.start();
-  try
-  {
-    results = runImpl(context, executor);
-  }
-  catch (const std::exception& e)
-  {
-    results = std::make_unique<TaskComposerNodeInfo>(*this);
-    results->color = "red";
-    results->status_code = -1;
-    results->status_message = "Exception thrown: " + std::string(e.what());
-    results->return_value = 0;
-  }
-  timer.stop();
-  results->input_keys = input_keys_;
-  results->output_keys = output_keys_;
-  results->start_time = start_time;
-  results->elapsed_time = timer.elapsedSeconds();
-
-  int value = results->return_value;
-  assert(value >= 0);
-  context.task_infos.addInfo(std::move(results));
-  return value;
-}
-
 std::unique_ptr<TaskComposerNodeInfo> TaskComposerPipeline::runImpl(TaskComposerContext& context,
                                                                     OptionalTaskComposerExecutor executor) const
 {
@@ -144,42 +99,23 @@ void TaskComposerPipeline::runRecursive(const TaskComposerNode& node,
                                         TaskComposerContext& context,
                                         OptionalTaskComposerExecutor executor) const
 {
-  if (node.getType() == TaskComposerNodeType::GRAPH)
-    throw std::runtime_error("TaskComposerPipeline, does not support GRAPH node types. Name: '" + name_ + "'");
+  if (node.getType() == TaskComposerNodeType::NODE)
+    throw std::runtime_error("TaskComposerPipeline, unsupported node type TaskComposerNodeType::NODE");
 
-  if (node.getType() == TaskComposerNodeType::TASK)
+  int rv = node.run(context, executor);
+  if (node.isConditional())
   {
-    const auto& task = static_cast<const TaskComposerTask&>(node);
-    int rv = task.run(context, executor);
-    if (task.isConditional())
-    {
-      const auto& edge = node.getOutboundEdges().at(static_cast<std::size_t>(rv));
-      runRecursive(*nodes_.at(edge), context, executor);
-    }
-    else
-    {
-      if (node.getOutboundEdges().size() > 1)
-        throw std::runtime_error("TaskComposerPipeline, non conditional task can only have one out bound edge. Name: "
-                                 "'" +
-                                 name_ + "'");
-      for (const auto& edge : node.getOutboundEdges())
-        runRecursive(*(nodes_.at(edge)), context, executor);
-    }
+    const auto& edge = node.getOutboundEdges().at(static_cast<std::size_t>(rv));
+    runRecursive(*nodes_.at(edge), context, executor);
   }
   else
   {
-    const auto& pipeline = static_cast<const TaskComposerPipeline&>(node);
-    int rv = pipeline.run(context, executor);
-    if (pipeline.isConditional())
-    {
-      const auto& edge = node.getOutboundEdges().at(static_cast<std::size_t>(rv));
-      runRecursive(*nodes_.at(edge), context, executor);
-    }
-    else
-    {
-      for (const auto& edge : node.getOutboundEdges())
-        runRecursive(*nodes_.at(edge), context, executor);
-    }
+    if (node.getOutboundEdges().size() > 1)
+      throw std::runtime_error("TaskComposerPipeline, non conditional task can only have one out bound edge. Name: "
+                               "'" +
+                               name_ + "'");
+    for (const auto& edge : node.getOutboundEdges())
+      runRecursive(*(nodes_.at(edge)), context, executor);
   }
 }
 

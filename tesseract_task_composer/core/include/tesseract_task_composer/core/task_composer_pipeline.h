@@ -30,7 +30,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <memory>
-#include <optional>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_graph.h>
@@ -53,8 +52,6 @@ public:
   using ConstPtr = std::shared_ptr<const TaskComposerPipeline>;
   using UPtr = std::unique_ptr<TaskComposerPipeline>;
   using ConstUPtr = std::unique_ptr<const TaskComposerPipeline>;
-  /** @brief Most task will not require a executor so making it optional */
-  using OptionalTaskComposerExecutor = std::optional<std::reference_wrapper<TaskComposerExecutor>>;
 
   TaskComposerPipeline(std::string name = "TaskComposerPipeline");
   TaskComposerPipeline(std::string name, bool conditional);
@@ -64,8 +61,6 @@ public:
   TaskComposerPipeline& operator=(const TaskComposerPipeline&) = delete;
   TaskComposerPipeline(TaskComposerPipeline&&) = delete;
   TaskComposerPipeline& operator=(TaskComposerPipeline&&) = delete;
-
-  int run(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const;
 
   bool operator==(const TaskComposerPipeline& rhs) const;
   bool operator!=(const TaskComposerPipeline& rhs) const;
@@ -77,8 +72,8 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  std::unique_ptr<TaskComposerNodeInfo> runImpl(TaskComposerContext& context,
-                                                OptionalTaskComposerExecutor executor = std::nullopt) const;
+  std::unique_ptr<TaskComposerNodeInfo>
+  runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   void runRecursive(const TaskComposerNode& node,
                     TaskComposerContext& context,

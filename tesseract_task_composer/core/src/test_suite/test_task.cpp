@@ -37,6 +37,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning::test_suite
 {
+std::unique_ptr<TaskComposerNodeInfo> DummyTaskComposerNode::runImpl(TaskComposerContext& /*context*/,
+                                                                     OptionalTaskComposerExecutor /*executor*/) const
+{
+  return std::make_unique<TaskComposerNodeInfo>(*this);
+}
+
 const std::string TestTask::INOUT_PORT1_PORT = "port1";
 const std::string TestTask::INOUT_PORT2_PORT = "port2";
 
