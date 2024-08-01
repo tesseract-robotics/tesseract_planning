@@ -11,7 +11,7 @@ endif()
 
 find_package(console_bridge REQUIRED)
 find_package(tesseract_common REQUIRED)
-find_package(Boost REQUIRED COMPONENTS headers serialization)
+find_package(Boost REQUIRED COMPONENTS serialization)
 find_package(yaml-cpp REQUIRED)
 
 if(NOT TARGET console_bridge::console_bridge)

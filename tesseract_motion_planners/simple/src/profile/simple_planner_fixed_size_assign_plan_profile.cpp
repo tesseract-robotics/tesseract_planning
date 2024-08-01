@@ -117,7 +117,7 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
     for (auto& pose : poses)
       pose = info2.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, info2.manip->getJointNames(), states, info2.instruction);
   }
 
