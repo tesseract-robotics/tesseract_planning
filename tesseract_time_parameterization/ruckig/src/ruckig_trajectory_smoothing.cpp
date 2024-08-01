@@ -310,7 +310,8 @@ bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
         Eigen::VectorXd new_duration_from_previous = original_duration_from_previous;
 
         double time_from_start = original_duration_from_previous(0);
-        for (Eigen::Index time_stretch_idx = 1; time_stretch_idx < static_cast<Eigen::Index>(num_waypoints); ++time_stretch_idx)
+        for (Eigen::Index time_stretch_idx = 1; time_stretch_idx < static_cast<Eigen::Index>(num_waypoints);
+             ++time_stretch_idx)
         {
           assert(time_stretch_idx < original_duration_from_previous.rows());
           const double duration_from_previous =
