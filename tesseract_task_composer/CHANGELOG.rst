@@ -2,6 +2,12 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.23.5 (2024-08-01)
+-------------------
+* Update so pipelines can have child graph tasks
+* Fix Windows and Mac OS Github Actions (`#489 <https://github.com/tesseract-robotics/tesseract_planning/issues/489>`_)
+* Contributors: John Wason, Levi Armstrong
+
 0.23.4 (2024-07-29)
 -------------------
 * Fix task composer graph config loading
