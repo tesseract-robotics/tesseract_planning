@@ -61,66 +61,7 @@ TaskComposerTask::TaskComposerTask(std::string name, TaskComposerNodePorts ports
 
 void TaskComposerTask::setTriggerAbort(bool enable) { trigger_abort_ = enable; }
 
-int TaskComposerTask::run(TaskComposerContext& context, OptionalTaskComposerExecutor executor) const
-{
-  auto start_time = std::chrono::system_clock::now();
-  if (context.isAborted())
-  {
-    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-    info->start_time = start_time;
-    info->input_keys = input_keys_;
-    info->output_keys = output_keys_;
-    info->return_value = 0;
-    info->color = "white";
-    info->status_code = 0;
-    info->status_message = "Aborted";
-    info->aborted_ = true;
-    context.task_infos.addInfo(std::move(info));
-    return 0;
-  }
-
-  tesseract_common::Timer timer;
-  TaskComposerNodeInfo::UPtr results;
-  timer.start();
-  try
-  {
-    results = runImpl(context, executor);
-  }
-  catch (const std::exception& e)
-  {
-    results = std::make_unique<TaskComposerNodeInfo>(*this);
-    results->color = "red";
-    results->status_code = -1;
-    results->status_message = "Exception thrown: " + std::string(e.what());
-    results->return_value = 0;
-  }
-  timer.stop();
-  results->input_keys = input_keys_;
-  results->output_keys = output_keys_;
-  results->start_time = start_time;
-  results->elapsed_time = timer.elapsedSeconds();
-
-  int value = results->return_value;
-  assert(value >= 0);
-
-  // Call abort if required
-  if (trigger_abort_ && !context.isAborted())
-  {
-    results->status_message += " (Abort Triggered)";
-    context.abort(uuid_);
-  }
-
-  context.task_infos.addInfo(std::move(results));
-  return value;
-}
-
-bool TaskComposerTask::operator==(const TaskComposerTask& rhs) const
-{
-  bool equal{ true };
-  equal &= trigger_abort_ == rhs.trigger_abort_;
-  equal &= (TaskComposerNode::operator==(rhs));
-  return equal;
-}
+bool TaskComposerTask::operator==(const TaskComposerTask& rhs) const { return (TaskComposerNode::operator==(rhs)); }
 
 // LCOV_EXCL_START
 bool TaskComposerTask::operator!=(const TaskComposerTask& rhs) const { return !operator==(rhs); }
@@ -129,7 +70,6 @@ bool TaskComposerTask::operator!=(const TaskComposerTask& rhs) const { return !o
 template <class Archive>
 void TaskComposerTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& boost::serialization::make_nvp("trigger_abort", trigger_abort_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
 }
 
