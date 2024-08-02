@@ -1,0 +1,385 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
+  <xacro:macro name="panda_arm" params="prefix parent *origin">
+    <joint name="arm_joint" type="fixed">
+      <parent link="${parent}" />
+      <child link = "${prefix}_link0" />
+      <origin xyz="0.125 0.0 0.381" rpy="0.0 0.0 0" />
+    </joint>
+  <link name="${prefix}_link0">
+      <visual>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/visual/link0.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/collision/link0.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="2.06"/>
+        <inertia ixx="0.3" ixy="0." ixz="0.3" iyy="0." iyz="0.0" izz="0.3"/>
+      </inertial>
+    </link>
+    <link name="${prefix}_link1">
+      <visual>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/visual/link1.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/collision/link1.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1.34"/>
+        <inertia ixx="0.3" ixy="0." ixz="0.3" iyy="0." iyz="0.0" izz="0.3"/>
+      </inertial>
+    </link>
+    <joint name="${prefix}_joint1" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.8973" soft_upper_limit="2.8973"/>
+      <origin rpy="0 0 0" xyz="0 0 0.333"/>
+      <parent link="${prefix}_link0"/>
+      <child link="${prefix}_link1"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="87" lower="-2.8973" upper="2.8973" velocity="2.1750"/>
+      <dynamics damping="15.0" friction="11" />
+    </joint>
+
+    <link name="${prefix}_link2">
+      <visual>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/visual/link2.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/collision/link2.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1.36"/>
+        <inertia ixx="3.53e-2" ixy="0" ixz="0" iyy="3.01e-2" iyz="9.04e-3" izz="1.87e-2" />
+      </inertial>
+    </link>
+    <joint name="${prefix}_joint2" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-1.7628" soft_upper_limit="1.7628"/>
+      <origin rpy="${-pi/2} ${-pi/2} 0" xyz="0 0 0"/>
+      <parent link="${prefix}_link1"/>
+      <child link="${prefix}_link2"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="87" lower="-1.7628" upper="1.7628" velocity="2.1750"/>
+            <dynamics damping="15.0" friction="11" />
+
+    </joint>
+    <link name="${prefix}_link3">
+      <visual>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/visual/link3.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/collision/link3.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1.38"/>
+        <inertia ixx="0.3" ixy="0." ixz="0.3" iyy="0." iyz="0.0" izz="0.3"/>
+      </inertial>
+    </link>
+    <joint name="${prefix}_joint3" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.8973" soft_upper_limit="2.8973"/>
+      <origin rpy="${pi/2} 0 0" xyz="0 -0.316 0"/>
+      <parent link="${prefix}_link2"/>
+      <child link="${prefix}_link3"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="87" lower="-2.8973" upper="2.8973" velocity="2.1750"/>
+          <dynamics damping="15.0" friction="11" />
+
+    </joint>
+    <link name="${prefix}_link4">
+      <visual>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/visual/link4.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/collision/link4.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1.43"/>
+        <inertia ixx="0.3" ixy="0." ixz="0.3" iyy="0." iyz="0.0" izz="0.3"/>
+      </inertial>
+    </link>
+    <joint name="${prefix}_joint4" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-3.0718" soft_upper_limit="-0.0698"/>
+      <origin rpy="${pi/2} ${2.8*pi/4} 0" xyz="0.0825 0 0"/>
+      <parent link="${prefix}_link3"/>
+      <child link="${prefix}_link4"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="87" lower="-3.0718" upper="-0.0698" velocity="2.1750"/>
+      
+    </joint>
+    <link name="${prefix}_link5">
+      <visual>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/visual/link5.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/collision/link5.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="2.5"/>
+        <inertia ixx="0.3" ixy="0." ixz="0.3" iyy="0." iyz="0.0" izz="0.3"/>
+      </inertial>
+    </link>
+    <joint name="${prefix}_joint5" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.8973" soft_upper_limit="2.8973"/>
+      <origin rpy="${-pi/2} 0 0" xyz="-0.0825 0.384 0"/>
+      <parent link="${prefix}_link4"/>
+      <child link="${prefix}_link5"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="12" lower="-2.8973" upper="2.8973" velocity="2.6100"/>
+        <dynamics damping="15.0" friction="11" />
+
+      
+    </joint>
+    <link name="${prefix}_link6">
+      <visual>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/visual/link6.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/collision/link6.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1.47"/>
+        <inertia ixx="0.3" ixy="0." ixz="0.3" iyy="0." iyz="0.0" izz="0.3"/>
+      </inertial>
+    </link>
+    <joint name="${prefix}_joint6" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-0.0175" soft_upper_limit="3.7525"/>
+      <origin rpy="${pi/2} -${pi/2} 0" xyz="0 0 0"/>
+      <parent link="${prefix}_link5"/>
+      <child link="${prefix}_link6"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="12" lower="-0.0175" upper="3.7525" velocity="2.6100"/>
+         <dynamics damping="15.0" friction="11" />
+     
+    </joint>
+    <link name="${prefix}_link7">
+      <visual>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/visual/link7.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/collision/link7.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.45"/>
+        <inertia ixx="0.3" ixy="0." ixz="0.3" iyy="0." iyz="0.0" izz="0.3"/>
+      </inertial>
+    </link>
+    <joint name="${prefix}_joint7" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.8973" soft_upper_limit="2.8973"/>
+      <origin rpy="${pi/2} 0 0" xyz="0.088 0 0"/>
+      <parent link="${prefix}_link6"/>
+      <child link="${prefix}_link7"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="12" lower="-2.8973" upper="2.8973" velocity="2.6100"/>
+        <dynamics damping="15.0" friction="11" />
+      
+    </joint>
+    <link name="${prefix}_link8">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.0"/>
+        <inertia ixx="0.3" ixy="0." ixz="0.3" iyy="0." iyz="0.0" izz="0.3"/>
+      </inertial>
+    </link>
+    <joint name="${prefix}_joint8" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0 0.107"/>
+      <parent link="${prefix}_link7"/>
+      <child link="${prefix}_link8"/>
+      <axis xyz="0 0 0"/>
+    </joint>
+        <!-- transmissions for gazebo -->
+            <transmission name="${prefix}_tran_1">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_joint1">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_motor_1">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="${prefix}_tran_2">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_joint2">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_motor_2">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="${prefix}_tran_3">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_joint3">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_motor_3">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="${prefix}_tran_4">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_joint4">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_motor_4">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="${prefix}_tran_5">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_joint5">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_motor_5">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="${prefix}_tran_6">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_joint6">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_motor_6">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="${prefix}_tran_7">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_joint7">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_motor_7">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+            <!-- Link0 -->
+        <gazebo reference="${prefix}_link0">
+            <material>Gazebo/Grey</material>
+            <kp>1000000</kp>
+            <kd>200</kd>
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+        </gazebo>
+
+        <!-- Link1 -->
+        <gazebo reference="${prefix}_link1">
+            <material>Gazebo/White</material>
+            <kp>1000000</kp>
+            <kd>200</kd>
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+        </gazebo>
+
+        <!-- Link2 -->
+        <gazebo reference="${prefix}_link2">
+            <material>Gazebo/White</material>
+            <kp>1000000</kp>
+            <kd>200</kd>
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+        </gazebo>
+
+        <!-- Link3 -->
+        <gazebo reference="${prefix}_link3">
+            <material>Gazebo/White</material>
+            <kp>1000000</kp>
+            <kd>200</kd>
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+        </gazebo>
+
+        <!-- Link4 -->
+        <gazebo reference="${prefix}_link4">
+            <material>Gazebo/White</material>
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+        </gazebo>
+
+        <!-- Link5 -->
+        <gazebo reference="${prefix}_link5">
+            <material>Gazebo/White</material>
+            <kp>1000000</kp>
+            <kd>200</kd>
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+        </gazebo>
+
+        <!-- Link6 -->
+        <gazebo reference="${prefix}_link6">
+            <material>Gazebo/White</material>
+            <kp>1000000</kp>
+            <kd>200</kd>
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+        </gazebo>
+
+        <!-- Link7 -->
+        <gazebo reference="${prefix}_link7">
+            <material>Gazebo/Grey</material>
+            <kp>1000000</kp>
+            <kd>200</kd>
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+        </gazebo>
+
+        <!-- Link8 -->
+        <gazebo reference="${prefix}_link8">
+            <material>Gazebo/Grey</material>
+            <kp>1000000</kp>
+            <kd>200</kd>
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+        </gazebo>
+
+  </xacro:macro>
+</robot>

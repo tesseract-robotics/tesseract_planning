@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mmo_500">
+
+  <xacro:macro name="mmo_500_cabinet" params="name parent *origin">
+   <joint name="${name}_joint" type="fixed">
+   <xacro:insert_block name="origin" />
+    <joint_properties damping="1" friction="1" />
+    <parent link="${parent}" />
+    <child link="${name}_link" />
+   </joint>
+
+    <link name="${name}_link">
+      <inertial>
+        <mass value="2" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.457072" ixy="0.0" ixz="0.0"
+                 iyy="0.23616" iyz="0.0" 
+                 izz="0.686" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 -1.5708" />
+        <geometry>
+            <mesh filename="package://neo_simulation/robots/mmo_500/meshes/cabin.dae" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0. 0. 0" rpy="0 0 0" />
+        <geometry>
+            <mesh filename="package://neo_simulation/robots/mmo_500/meshes/cabin.dae" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+  </xacro:macro>
+  
+</robot>

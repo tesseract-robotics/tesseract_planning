@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mp_400">
+
+  <xacro:macro name="fixed_wheel_right" params="name parent *origin">
+   <joint name="${name}_joint" type="revolute">
+    <xacro:insert_block name="origin" />
+    <axis xyz="1 0 0" />
+    <limit effort="1000.0" lower="-1e+16" upper="1e+16" velocity="3.5"/>
+    <joint_properties damping="1.0" friction="1" />
+    <parent link="${parent}" />
+    <child link="${name}_link" />
+   </joint>
+
+   <link name="${name}_link" type="wheel">
+   <inertial>
+        <mass value="1.82362"/>
+        <inertia ixx="0.00399743171" ixy="0.00000004464" ixz="-0.00000002245"
+                 iyy="0.00399741733" iyz="-0.00000000164"
+                 izz="0.00739239692"/>
+</inertial>
+
+      <visual name='fixed_wheel_right'>
+    <origin xyz="0 0 0.0" rpy="0 0 3.14" />
+        <geometry>
+            <mesh filename="package://neo_simulation/robots/mp_400/meshes/MP-400-FIXED-WHEEL-RIGHT.dae" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+
+    <collision>
+     <origin xyz="0. 0 0" rpy=" 0 0 0" />
+      <geometry>
+        <sphere radius="0.0765"/>
+      </geometry>
+    </collision>
+</link>
+
+  <gazebo reference="${name}_link">
+      <kp>100000.0</kp> 
+      <kd>50.0</kd>
+      <gravity> 1 </gravity>
+      <mu1>100</mu1>
+      <mu2>100</mu2>
+      <minDepth>0.00</minDepth>
+      <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  </xacro:macro>
+</robot>
+
+

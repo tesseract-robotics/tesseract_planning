@@ -1,0 +1,238 @@
+<?xml version="1.0" ?>
+<robot name="mmo_700" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!--ur10 -->
+  <xacro:include filename="$(find tesseract_ros_examples)/robots/mmo_700/urdf/xacros/common.gazebo.xacro" />
+
+  <!-- CABINET --> 
+  <xacro:include filename="$(find tesseract_ros_examples)/robots/mmo_700/urdf/xacros/cabinet.xacro" />
+
+  <!--ur10 -->
+  <xacro:include filename="$(find tesseract_ros_examples)/robots/mmo_700/urdf/ur10.urdf.xacro" />
+
+  <!-- Body --> 
+  <xacro:include filename="$(find tesseract_ros_examples)/robots/mmo_700/urdf/xacros/mpo_700_body.xacro" />
+
+  <!-- Virtual Joint-->
+  <xacro:include filename="$(find tesseract_ros_examples)/robots/mmo_700/urdf/xacros/virtual.xacro" />
+
+  <!-- SENSORS --> 
+  <!-- Sick-S300 -->
+  <xacro:include filename="$(find tesseract_ros_examples)/robots/mmo_700/urdf/xacros/sick_S300.xacro" />
+
+  <!--Sick Micro-scan  -->
+  <!-- <xacro:include filename="$(find tesseract_ros_examples)/robots/mmo_700/urdf/xacros/micro_scan.xacro" />  -->
+
+  <!--Ultrasonics, cameras and IMU's  -->
+  <xacro:include filename="$(find tesseract_ros_examples)/robots/mmo_700/urdf/xacros/imu.xacro" />
+  <!-->
+
+  <xacro:include filename="$(find tesseract_ros_examples)/robots/mmo_700/urdf/xacros/ultrasonic.xacro" />
+  <-->
+  <xacro:include filename="$(find tesseract_ros_examples)/robots/mmo_700/urdf/xacros/camera.xacro" /> 
+
+
+  <!-- Gazebo --> 
+  <xacro:include filename="$(find tesseract_ros_examples)/robots/mmo_700/urdf/xacros/mpo_700_gazebo.xacro" />
+
+  <!-- Head --> 
+  <xacro:include filename="$(find tesseract_ros_examples)/robots/mmo_700/urdf/xacros/mpo_700_caster.xacro" />
+
+  <!-- Wheel --> 
+  <xacro:include filename="$(find tesseract_ros_examples)/robots/mmo_700/urdf/xacros/mpo_700_wheel.xacro" />
+
+  <!-- velodyne -->
+  <!-- <xacro:arg name="gpu" default="true"/>
+  <xacro:property name="gpu" value="$(arg gpu)" />
+  <xacro:arg name="organize_cloud" default="true"/>
+  <xacro:property name="organize_cloud" value="$(arg organize_cloud)" /> -->
+
+  <!-- Base Macro-->
+  <xacro:mpo_700_base name="base_link">
+      <!-- <origin xyz="0 0 0" rpy="0 0 -1.57" /> -->
+  </xacro:mpo_700_base>
+
+  <xacro:arg name="neo_locx" default="0.0"/>
+  <xacro:arg name="neo_locy" default="0.0"/>
+  <xacro:arg name="neo_orient" default="0.0"/>
+  <!-- virtual Base-->
+  <link name="world"/>
+  <xacro:deploy prefix="" attach_to_world="true" loc_x ="$(arg neo_locx)" loc_y="$(arg neo_locy)" orientation="$(arg neo_orient)">
+    </xacro:deploy>
+
+<xacro:mpo_700_caster_0 name="mpo_700_caster_front_left" parent="base_link">
+    <origin xyz="0.24 0.18 0.27" rpy="3.14 0 -1.57" />
+  </xacro:mpo_700_caster_0>
+
+<!-- Casters -->
+<xacro:mpo_700_caster_1 name="mpo_700_caster_front_right" parent="base_link">
+    <origin xyz="0.24 -0.18 0.27" rpy="3.14 0 1.57" />
+  </xacro:mpo_700_caster_1>
+
+
+<xacro:mpo_700_caster_2 name="mpo_700_caster_back_left" parent="base_link">
+    <origin xyz="-0.24 0.18 0.27" rpy="3.14 0 -1.57" />
+  </xacro:mpo_700_caster_2>
+
+
+<xacro:mpo_700_caster_3 name="mpo_700_caster_back_right" parent="base_link">
+    <origin xyz="-0.24 -0.18 0.27" rpy="3.14 0 1.57" />
+  </xacro:mpo_700_caster_3>
+
+<!-- wheels -->
+<xacro:mpo_700_wheel name="mpo_700_wheel_front_left" parent="mpo_700_caster_front_left_link">
+    <origin xyz="-0.05 0. 0.18" rpy="0 0 0" />
+  </xacro:mpo_700_wheel>
+
+
+<xacro:mpo_700_wheel name="mpo_700_wheel_front_right" parent="mpo_700_caster_front_right_link">
+    <origin xyz="-0.05 0. 0.18" rpy="0 0 0" />
+  </xacro:mpo_700_wheel>
+
+
+<xacro:mpo_700_wheel name="mpo_700_wheel_back_left" parent="mpo_700_caster_back_left_link">
+    <origin xyz="-0.05 0. 0.18" rpy="0 0 0" />
+  </xacro:mpo_700_wheel>
+
+
+<xacro:mpo_700_wheel name="mpo_700_wheel_back_right" parent="mpo_700_caster_back_right_link">
+    <origin xyz="-0.05 0. 0.18" rpy="0 0 0" />
+  </xacro:mpo_700_wheel>
+
+<!-- Sensors -->
+
+   <xacro:sick_laser_v0 name="lidar_1" parent="base_link" ros_topic="lidar_1/scan_filtered"> 
+  <!-- <origin xyz="0.360 0 0.181" rpy="3.14 0 0" />  -->
+  <!-- Scanners on the side -->
+    <origin xyz="0.338 0.288 0.223" rpy="3.14 0 0.79" /> 
+  </xacro:sick_laser_v0> 
+
+   <xacro:sick_laser_v0 name="lidar_2" parent="base_link" ros_topic="lidar_2/scan_filtered"> 
+  <!-- <origin xyz="-0.360 0 0.181" rpy="3.14 0 3.14" /> -->
+  <!-- Scanners on the side -->
+      <origin xyz="-0.338 -0.288 0.223" rpy="3.14 0 3.93" /> 
+  </xacro:sick_laser_v0>  
+
+     <!--+++++++++++++++++++ IMU ++++++++++++++++++++++++-->
+  <!-- Comment or uncomment based on your requirement -->
+  
+  <xacro:imu name="imu" parent="base_link">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:imu>
+  <!-- <xacro:imu name="imu" parent="base_link">
+    <origin xyz="0.360 0 0.181" rpy="0 0 0" />
+  </xacro:imu> -->
+  <!--+++++++++++++++++++ Ultra Sonic ++++++++++++++++++++++++-->
+  <!-- Comment or uncomment based on your requirement -->
+  <!-- SENSOR 1 --> 
+  <!-->
+  <xacro:us_sensor name="us_1" parent="base_link">
+    <origin xyz="0.400 0 0.500" rpy="0 3.14 3.14" />
+  </xacro:us_sensor>
+  <-->
+  <!-- SENSOR 2 --> 
+  <!-- xacro:us_sensor name="us_2" parent="base_link">
+    <origin xyz="0.110 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 3 --> 
+  <!-- xacro:us_sensor name="us_3" parent="base_link">
+    <origin xyz="0.120 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 4 --> 
+  <!-- xacro:us_sensor name="us_4" parent="base_link">
+    <origin xyz="0.130 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 5 --> 
+  <!-- xacro:us_sensor name="us_5" parent="base_link">
+    <origin xyz="0.140 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 6 --> 
+  <!-- xacro:us_sensor name="us_6" parent="base_link">
+    <origin xyz="0.150 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 7 --> 
+  <!-- xacro:us_sensor name="us_7" parent="base_link">
+    <origin xyz="0.160 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 8 --> 
+  <!-- xacro:us_sensor name="us_8" parent="base_link">
+    <origin xyz="0.170 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 9 --> 
+  <!-- xacro:us_sensor name="us_9" parent="base_link">
+    <origin xyz="0.180 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 10 --> 
+  <!-- xacro:us_sensor name="us_10" parent="base_link">
+    <origin xyz="0.100 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 11 --> 
+  <!-- xacro:us_sensor name="us_11" parent="base_link">
+    <origin xyz="0.100 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 12 --> 
+  <!-- xacro:us_sensor name="us_12" parent="base_link">
+    <origin xyz="0.190 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 13 --> 
+  <!-- xacro:us_sensor name="us_13" parent="base_link">
+    <origin xyz="0.200 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 14 --> 
+  <!-- xacro:us_sensor name="us_14" parent="base_link">
+    <origin xyz="0.210 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 15 --> 
+  <!-- xacro:us_sensor name="us_15" parent="base_link">
+    <origin xyz="0.220 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 16 --> 
+  <!-- xacro:us_sensor name="us_16" parent="base_link">
+    <origin xyz="0.230 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+
+  <!--Camera  -->
+  <!-- <xacro:camera name="camera" parent="base_link" ros_topic="camera_1">
+    <origin xyz="0.4 0 0.45" rpy="0 0 0" />
+  </xacro:camera> -->
+ 
+  <!-- VLP16 激光雷达 -->
+  <!-- <xacro:include filename="$(find scout_gazebo)/urdf/laser_support.xacro" /> -->
+  <!-- <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+  <xacro:VLP-16 parent="base_link" name="velodyne1" topic="/lidar1/velodyne_points" organize_cloud="${organize_cloud}" hz="10" samples="440" gpu="${gpu}">
+    <origin xyz="0.36 0 0.181" rpy="0 0 0" />
+  </xacro:VLP-16>
+  <xacro:VLP-16 parent="base_link" name="velodyne2" topic="/lidar2/velodyne_points" organize_cloud="${organize_cloud}" hz="10" samples="440" gpu="${gpu}">
+    <origin xyz="-0.36 0 0.181" rpy="0 0 3.1415926" />
+  </xacro:VLP-16> -->
+
+  <!-- <xacro:include filename="$(find velodyne_description)/urdf/HDL-32E.urdf.xacro"/>
+  <xacro:HDL-32E parent="base_link" name="velodyne1" topic="/lidar1/velodyne_points" organize_cloud="${organize_cloud}" hz="10" samples="220" gpu="${gpu}">
+    <origin xyz="0.36 0 0.181" rpy="0 0 0" />
+  </xacro:HDL-32E>
+  <xacro:HDL-32E parent="base_link" name="velodyne2" topic="/lidar2/velodyne_points" organize_cloud="${organize_cloud}" hz="10" samples="220" gpu="${gpu}">
+    <origin xyz="-0.36 0 0.181" rpy="0 0 3.1415926" />
+  </xacro:HDL-32E> -->
+
+  <!-- D435i RGB-D相机相关 -->
+  <xacro:include filename="$(find realsense_ros_gazebo)/xacro/depthcam.xacro"/>
+  <xacro:realsense_d435 sensor_name="camera_D435i" parent_link="wrist_3_link" rate="30.0">
+  <origin rpy="0 0 1.5708" xyz="0 0.22 0.1"/>
+  </xacro:realsense_d435>
+
+  <!--cabinet-->
+  <xacro:mmo_700_cabinet name="cabinet" parent="base_link">
+  	<origin xyz="-0.032 0 0.35" rpy="0 0 3.14" />
+  </xacro:mmo_700_cabinet>
+
+  <!--ur10-->
+  <xacro:ur10_robot parent="cabinet_link" prefix="ur10" joint_limited="true"
+     shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
+     shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${pi}"
+     elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi}"
+     wrist_1_lower_limit="${-pi}" wrist_1_upper_limit="${pi}"
+     wrist_2_lower_limit="${-pi}" wrist_2_upper_limit="${pi}"
+     wrist_3_lower_limit="${-pi}" wrist_3_upper_limit="${pi}">
+  </xacro:ur10_robot>
+
+</robot>

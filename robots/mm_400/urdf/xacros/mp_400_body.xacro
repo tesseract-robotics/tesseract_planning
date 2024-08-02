@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mp_400">
+
+  <xacro:macro name="mp_400_base" params="name">
+    <link name="${name}">
+  <inertial>
+        <mass value="125" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1.71402" ixy="0.0" ixz="0.0"
+                 iyy="0.8856" iyz="0.0" 
+                 izz="2.5725" />
+</inertial>
+      <visual name='body'>
+      <origin xyz="0.0 0.0 0." rpy="0 0 1.57" />
+        <geometry>
+            <mesh filename="package://neo_simulation/robots/mm_400/meshes/MP-400-BODY.dae" scale="0.001 0.001 0.001"/>
+        <!--cylinder length="0.381" radius="0.2545"/-->
+        <!--box size="0.445 0.277 0.17"/-->
+        </geometry>
+      </visual>
+      <collision name='body_collision'>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 1.57" />
+        <geometry>
+          <mesh filename="package://neo_simulation/robots/mm_400/meshes/MP-400-BODY.dae" scale="0.001 0.001 0.001"/>
+          <!--cylinder length="0.381" radius="0.2545"/-->
+        </geometry>
+      </collision>
+
+
+    </link>
+  </xacro:macro>
+
+  
+  
+</robot>

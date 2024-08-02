@@ -1,0 +1,255 @@
+<?xml version="1.0" ?>
+<robot name="mpo_700" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- BODY -->
+  <xacro:include filename="$(find neo_simulation)/robots/mpo_700/xacros/mpo_700_body.xacro" />
+
+  <!-- SENSORS --> 
+  <!-- Sick S300 - Comment/Uncomment if required -->
+  <!-- <xacro:include filename="$(find neo_simulation)/robots/mpo_700/xacros/sick_S300.xacro" /> -->
+
+  <!-- Microscan - Comment/Uncomment if required -->
+  <xacro:include filename="$(find neo_simulation)/robots/mpo_700/xacros/micro_scan.xacro" /> 
+
+  <!-- Depth camera -->
+  <xacro:include filename="$(find neo_simulation)/robots/mpo_700/xacros/depth_camera.xacro" /> 
+
+  <!--Ultrasonics, cameras and IMU's  -->
+
+  <!-->
+  <xacro:include filename="$(find neo_simulation)/robots/mpo_700/xacros/camera.xacro" /> 
+  <xacro:include filename="$(find neo_simulation)/robots/mpo_700/xacros/imu.xacro" />
+  <xacro:include filename="$(find neo_simulation)/robots/mpo_700/xacros/ultrasonic.xacro" />
+  <-->
+  <xacro:include filename="$(find neo_simulation)/robots/mpo_700/xacros/docking_adapter.xacro" />
+
+  <!--Gazebo  -->
+  <xacro:include filename="$(find neo_simulation)/robots/mpo_700/xacros/mpo_700_gazebo.xacro" />
+
+  <!--Caster  -->
+  <xacro:include filename="$(find neo_simulation)/robots/mpo_700/xacros/mpo_700_caster_left.xacro" />
+
+  <xacro:include filename="$(find neo_simulation)/robots/mpo_700/xacros/mpo_700_caster_right.xacro" />
+
+  <!-- Wheels -->
+  <xacro:include filename="$(find neo_simulation)/robots/mpo_700/xacros/mpo_700_wheel.xacro" />
+  
+  <link name="base_link" />
+
+  <!-- Base Macro-->
+  <xacro:mpo_700_base name="base_footprint" parent="base_link">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:mpo_700_base>
+
+  <!--Caster Macro  -->
+  <xacro:mpo_700_caster_left name="mpo_700_caster_front_left" parent="base_footprint">
+    <origin xyz="0.24 0.18 0.22" rpy="0 0 3.14" />
+  </xacro:mpo_700_caster_left>
+
+  <xacro:mpo_700_caster_right name="mpo_700_caster_front_right" parent="base_footprint">
+    <origin xyz="0.24 -0.18 0.22" rpy="0 0 0" />
+  </xacro:mpo_700_caster_right>
+
+  <xacro:mpo_700_caster_left name="mpo_700_caster_back_left" parent="base_footprint">
+    <origin xyz="-0.24 0.18 0.22" rpy="0 0 3.14" />
+  </xacro:mpo_700_caster_left>
+
+  <xacro:mpo_700_caster_right name="mpo_700_caster_back_right" parent="base_footprint">
+    <origin xyz="-0.24 -0.18 0.22" rpy="0 0 0" />
+  </xacro:mpo_700_caster_right>
+
+  <!--Wheel Macro  -->
+  <xacro:mpo_700_wheel name="mpo_700_wheel_front_left" parent="mpo_700_caster_front_left_link">
+    <origin xyz="0.0 0.045 -0.12" rpy="0 0 0" />
+  </xacro:mpo_700_wheel>
+
+  <xacro:mpo_700_wheel name="mpo_700_wheel_front_right" parent="mpo_700_caster_front_right_link">
+    <origin xyz="0.0 -0.045 -0.12" rpy="0 0 3.14" />
+  </xacro:mpo_700_wheel>
+
+  <xacro:mpo_700_wheel name="mpo_700_wheel_back_left" parent="mpo_700_caster_back_left_link">
+      <origin xyz="0.0 0.045 -0.12" rpy="0 0 0" />
+  </xacro:mpo_700_wheel>
+
+  <xacro:mpo_700_wheel name="mpo_700_wheel_back_right" parent="mpo_700_caster_back_right_link">
+    <origin xyz="0.0 -0.045 -0.12" rpy="0 0 3.14" />
+  </xacro:mpo_700_wheel>
+
+<!-- Sensors -->
+  <!-- Lidar sensors -->
+  <xacro:sick_laser_v0 name="lidar_1" parent="base_link" ros_topic="lidar_1/scan_filtered">
+  <!--<origin xyz="0.360 0 0.181" rpy="3.14 0 0" />--> <!-- Scanners on the front  -->
+    <origin xyz="0.338 0.288 0.223" rpy="3.14 0 0.79" /> <!-- Scanners on the side -->
+  </xacro:sick_laser_v0>
+
+  <xacro:sick_laser_v0 name="lidar_2" parent="base_link" ros_topic="lidar_2/scan_filtered">
+  <!--<origin xyz="-0.360 0 0.181" rpy="3.14 0 3.14" />--> <!-- Scanners on the rear -->
+    <origin xyz="-0.338 -0.288 0.223" rpy="3.14 0 3.93" /> <!-- Scanners on the side -->
+  </xacro:sick_laser_v0>
+
+  <xacro:docking_adapter name="docking_adapter" parent="base_link">
+    <origin xyz="-0.300 0 0.320" rpy="0 0 -1.57" />
+  </xacro:docking_adapter>
+
+     <!--+++++++++++++++++++ IMU ++++++++++++++++++++++++-->
+  <!-- Comment or uncomment based on your requirement -->
+  <!-->
+  <xacro:imu name="imu" parent="base_link">
+    <origin xyz="0.100 0 0.500" rpy="0 0 3.14" />
+  </xacro:imu>
+  <-->
+
+  <!--+++++++++++++++++++ Ultra Sonic ++++++++++++++++++++++++-->
+  <!-- Comment or uncomment based on your requirement -->
+  <!-- SENSOR 1 --> 
+  <!-->
+  <xacro:us_sensor name="us_1" parent="base_link">
+    <origin xyz="0.100 0 0.500" rpy="0 3.14 3.14" />
+  </xacro:us_sensor>
+  <-->
+  <!-- SENSOR 2 --> 
+  <!-- xacro:us_sensor name="us_2" parent="base_link">
+    <origin xyz="0.110 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 3 --> 
+  <!-- xacro:us_sensor name="us_3" parent="base_link">
+    <origin xyz="0.120 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 4 --> 
+  <!-- xacro:us_sensor name="us_4" parent="base_link">
+    <origin xyz="0.130 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 5 --> 
+  <!-- xacro:us_sensor name="us_5" parent="base_link">
+    <origin xyz="0.140 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 6 --> 
+  <!-- xacro:us_sensor name="us_6" parent="base_link">
+    <origin xyz="0.150 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 7 --> 
+  <!-- xacro:us_sensor name="us_7" parent="base_link">
+    <origin xyz="0.160 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 8 --> 
+  <!-- xacro:us_sensor name="us_8" parent="base_link">
+    <origin xyz="0.170 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 9 --> 
+  <!-- xacro:us_sensor name="us_9" parent="base_link">
+    <origin xyz="0.180 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 10 --> 
+  <!-- xacro:us_sensor name="us_10" parent="base_link">
+    <origin xyz="0.100 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 11 --> 
+  <!-- xacro:us_sensor name="us_11" parent="base_link">
+    <origin xyz="0.100 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 12 --> 
+  <!-- xacro:us_sensor name="us_12" parent="base_link">
+    <origin xyz="0.190 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 13 --> 
+  <!-- xacro:us_sensor name="us_13" parent="base_link">
+    <origin xyz="0.200 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 14 --> 
+  <!-- xacro:us_sensor name="us_14" parent="base_link">
+    <origin xyz="0.210 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 15 --> 
+  <!-- xacro:us_sensor name="us_15" parent="base_link">
+    <origin xyz="0.220 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 16 --> 
+  <!-- xacro:us_sensor name="us_16" parent="base_link">
+    <origin xyz="0.230 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+    
+  <!--Camera  -->
+  <!--><xacro:camera name="camera" parent="base_link">
+    <origin xyz="0 0 0.38" rpy="0 0 0" />
+  </xacro:camera>
+  <-->
+
+
+  <!-- Depth Camera -->
+  <xacro:depth_camera name="camera" parent="base_link">
+    <origin xyz="-0.228 0.015 0.461" rpy="0 0 3.14159" />
+  </xacro:depth_camera>
+
+  <transmission name="mpo_700_caster_front_left">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="mpo_700_caster_front_left_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="mpo_700_caster_front_left_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="mpo_700_wheel_front_left">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="mpo_700_wheel_front_left_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="mpo_700_wheel_front_left_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="mpo_700_caster_back_left">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="mpo_700_caster_back_left_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="mpo_700_caster_back_left_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="mpo_700_wheel_back_right">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="mpo_700_wheel_back_right_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="mpo_700_wheel_back_right_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="mpo_700_caster_back_right">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="mpo_700_caster_back_right_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="mpo_700_caster_back_right_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="mpo_700_wheel_front_right">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="mpo_700_wheel_front_right_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="mpo_700_wheel_front_right_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="mpo_700_caster_front_right">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="mpo_700_caster_front_right_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="mpo_700_caster_front_right_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="mpo_700_wheel_back_left">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="mpo_700_wheel_back_left_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="mpo_700_wheel_front_left_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+</robot>

@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mp_500">
+    
+  <xacro:include filename="$(find neo_simulation)/robots/mp_500/xacros/mp_500_gazebo.xacro" />
+
+  <!--++++++++++++++++++++++++++++++base_link++++++++++++++++++++++++++++++++++++++++++++++++++++--> 
+  <!--++++++++++++++++++++body++++++++++++++++++++++++++++--> 
+
+  <xacro:include filename="$(find neo_simulation)/robots/mp_500/xacros/mp_500_body.xacro" />
+
+  <!--+++++++++++++++++++castor_wheel_link++++++++++++++++++++++++--> 
+  <xacro:include filename="$(find neo_simulation)/robots/mp_500/xacros/mp_500_caster_wheel.xacro" />
+
+  <!--+++++++++++++++++++left_wheel_link++++++++++++++++++++++++--> 
+  <xacro:include filename="$(find neo_simulation)/robots/mp_500/xacros/mp_500_fixed_wheel_left.xacro" />
+  <xacro:include filename="$(find neo_simulation)/robots/mp_500/xacros/mp_500_fixed_wheel_right.xacro" />
+
+  <!-- SENSORS --> 
+  <!-- Sick S300 - Comment/Uncomment if required  -->
+
+  <xacro:include filename="$(find neo_simulation)/robots/mp_500/xacros/sick_S300.xacro" />
+
+  <!-- Microscan - Comment/Uncomment if required -->
+
+  <!-- <xacro:include filename="$(find neo_simulation)/robots/mp_500/xacros/micro_scan.xacro" /> -->
+
+  <!-- USS, IMU and Camera- Comment/Uncomment if required  -->
+  <!-->
+  <xacro:include filename="$(find neo_simulation)/robots/mp_500/xacros/imu.xacro" />
+  <xacro:include filename="$(find neo_simulation)/robots/mp_500/xacros/ultrasonic.xacro" />
+  <xacro:include filename="$(find neo_simulation)/robots/mp_500/xacros/camera.xacro" />
+  <-->
+
+
+<link name="base_link" />
+
+  <!-- Base link macro -->
+ <xacro:mp_500_base name="base_footprint" parent="base_link">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:mp_500_base>
+
+  <!-- Wheel Macro -->
+  <xacro:caster_wheel name="caster_wheel" parent="base_footprint">
+    <origin xyz="-0.43 0. 0.176" rpy="-1.570796 0 1.570796 " />
+  </xacro:caster_wheel>
+
+  <xacro:fixed_wheel_right name="wheel_right" parent="base_footprint" number="1">
+    <origin xyz="0. -0.25 0.13" rpy="0 0 -1.570796" />
+  </xacro:fixed_wheel_right>
+
+  <xacro:fixed_wheel_left name="wheel_left" parent="base_footprint" number="2">
+    <origin xyz="0. 0.25 0.13" rpy="0 0 -1.570796" />
+  </xacro:fixed_wheel_left>
+
+ <!--+++++++++++++++++++laserscanner_front_link++++++++++++++++++++++++-->
+   <!-- SENSORS --> 
+  <xacro:sick_laser_v0 name="lidar_1" parent="base_link" ros_topic="lidar_1/scan_filtered">
+    <origin xyz="0.244 0 0.141" rpy="0 0 0" />
+  </xacro:sick_laser_v0>
+
+     <!--+++++++++++++++++++ IMU ++++++++++++++++++++++++-->
+  <!-- Comment or uncomment based on your requirement -->
+  <!--><xacro:imu name="imu" parent="base_link">
+    <origin xyz="0.100 0 0.300" rpy="0 0 3.14" />
+  </xacro:imu><-->
+
+  <!--+++++++++++++++++++ Ultra Sonic ++++++++++++++++++++++++-->
+  <!-- Comment or uncomment based on your requirement -->
+  <!-- SENSOR 1 --> 
+  <!--><xacro:us_sensor name="us_1" parent="base_link">
+    <origin xyz="0.100 0 0.500" rpy="0 3.14 3.14" />
+  </xacro:us_sensor><-->
+  <!-- SENSOR 2 --> 
+  <!-- xacro:us_sensor name="us_2" parent="base_link">
+    <origin xyz="0.110 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 3 --> 
+  <!-- xacro:us_sensor name="us_3" parent="base_link">
+    <origin xyz="0.120 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 4 --> 
+  <!-- xacro:us_sensor name="us_4" parent="base_link">
+    <origin xyz="0.130 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 5 --> 
+  <!-- xacro:us_sensor name="us_5" parent="base_link">
+    <origin xyz="0.140 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 6 --> 
+  <!-- xacro:us_sensor name="us_6" parent="base_link">
+    <origin xyz="0.150 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 7 --> 
+  <!-- xacro:us_sensor name="us_7" parent="base_link">
+    <origin xyz="0.160 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 8 --> 
+  <!-- xacro:us_sensor name="us_8" parent="base_link">
+    <origin xyz="0.170 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 9 --> 
+  <!-- xacro:us_sensor name="us_9" parent="base_link">
+    <origin xyz="0.180 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 10 --> 
+  <!-- xacro:us_sensor name="us_10" parent="base_link">
+    <origin xyz="0.100 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 11 --> 
+  <!-- xacro:us_sensor name="us_11" parent="base_link">
+    <origin xyz="0.100 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 12 --> 
+  <!-- xacro:us_sensor name="us_12" parent="base_link">
+    <origin xyz="0.190 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 13 --> 
+  <!-- xacro:us_sensor name="us_13" parent="base_link">
+    <origin xyz="0.200 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 14 --> 
+  <!-- xacro:us_sensor name="us_14" parent="base_link">
+    <origin xyz="0.210 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 15 --> 
+  <!-- xacro:us_sensor name="us_15" parent="base_link">
+    <origin xyz="0.220 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+  <!-- SENSOR 16 --> 
+  <!-- xacro:us_sensor name="us_16" parent="base_link">
+    <origin xyz="0.230 0 0.300" rpy="0 3.14 3.14" />
+  </xacro:us_sensor-->
+    
+  <!--Camera  -->
+<!-- <xacro:camera name="camera" parent="base_link">
+    <origin xyz="0 0 0.38" rpy="0 0 0" />
+  </xacro:camera>
+ -->
+
+</robot>
