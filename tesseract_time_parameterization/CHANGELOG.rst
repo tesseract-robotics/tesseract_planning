@@ -2,6 +2,11 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix Mac OS clang compiler warnings (`#496 <https://github.com/tesseract-robotics/tesseract_planning/issues/496>`_)
+* Contributors: John Wason
+
 0.23.5 (2024-08-01)
 -------------------
 

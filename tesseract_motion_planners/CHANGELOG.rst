@@ -2,6 +2,11 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix Mac OS clang compiler warnings (`#496 <https://github.com/tesseract-robotics/tesseract_planning/issues/496>`_)
+* Contributors: John Wason
+
 0.23.5 (2024-08-01)
 -------------------
 

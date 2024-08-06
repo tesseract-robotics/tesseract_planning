@@ -2,6 +2,13 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Make aborted nodes grey in dotgraph
+* Fix task composer context serialization
+* Fix Mac OS clang compiler warnings (`#496 <https://github.com/tesseract-robotics/tesseract_planning/issues/496>`_)
+* Contributors: John Wason, Levi Armstrong
+
 0.23.5 (2024-08-01)
 -------------------
 * Update so pipelines can have child graph tasks
