@@ -144,7 +144,7 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
     info->input_keys = input_keys_;
     info->output_keys = output_keys_;
     info->return_value = 0;
-    info->color = "white";
+    info->color = "grey";
     info->status_code = 0;
     info->status_message = "Aborted";
     info->aborted_ = true;
