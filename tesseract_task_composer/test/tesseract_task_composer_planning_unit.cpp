@@ -156,9 +156,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization
-    test_suite::runSerializationTest(dynamic_cast<const ContinuousContactCheckTaskInfo&>(*node_info),
-                                     "TaskComposerContinuousContactCheckNodeInfoTests");
+    // Serialization (Not equal because environment is stored as shared pointer)
+    test_suite::runSerializationTestNotEqual(*node_info, "TaskComposerContinuousContactCheckNodeInfoTests");
   }
 
   {  // Failure missing input data
@@ -247,7 +246,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_EQ(node_info->status_code, 0);
     EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
-    EXPECT_EQ(dynamic_cast<const ContinuousContactCheckTaskInfo&>(*node_info).contact_results.empty(), false);
+    EXPECT_EQ(node_info->data_storage.getData("contact_results")
+                  .as<std::vector<tesseract_collision::ContactResultMap>>()
+                  .empty(),
+              false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
@@ -332,9 +334,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization
-    test_suite::runSerializationTest(dynamic_cast<const DiscreteContactCheckTaskInfo&>(*node_info),
-                                     "TaskComposerDiscreteContactCheckNodeInfoTests");
+    // Serialization (Not equal because environment is stored as shared pointer)
+    test_suite::runSerializationTestNotEqual(node_info, "TaskComposerDiscreteContactCheckNodeInfoTests");
   }
 
   {  // Failure missing input data
@@ -419,7 +420,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(node_info->status_code, 0);
     EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
-    EXPECT_EQ(dynamic_cast<const DiscreteContactCheckTaskInfo&>(*node_info).contact_results.empty(), false);
+    EXPECT_EQ(node_info->data_storage.getData("contact_results")
+                  .as<std::vector<tesseract_collision::ContactResultMap>>()
+                  .empty(),
+              false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
@@ -1240,9 +1244,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     EXPECT_TRUE(context->data_storage->hasKey("output_data"));
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization
-    test_suite::runSerializationTest(dynamic_cast<const FixStateCollisionTaskInfo&>(*node_info),
-                                     "TaskComposerFixStateCollisionNodeInfoTests");
+    // Serialization (Not equal because environment is stored as shared pointer)
+    test_suite::runSerializationTestNotEqual(node_info, "TaskComposerFixStateCollisionNodeInfoTests");
   }
 
   {  // Failure missing input data
@@ -2173,9 +2176,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization
-    test_suite::runSerializationTest(dynamic_cast<const TimeOptimalParameterizationTaskInfo&>(*node_info),
-                                     "TaskComposerTimeOptimalParameterizationNodeInfoTests");
+    // Serialization (Not equal because environment is stored as shared pointer)
+    test_suite::runSerializationTestNotEqual(node_info, "TaskComposerTimeOptimalParameterizationNodeInfoTests");
   }
 
   {  // Test run method
@@ -2572,9 +2574,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     EXPECT_GE(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization
-    test_suite::runSerializationTest(dynamic_cast<const MotionPlannerTaskInfo&>(*node_info),
-                                     "TaskComposerMotionPlannerNodeInfoTests");
+    // Serialization (Not equal because environment is stored as shared pointer)
+    test_suite::runSerializationTestNotEqual(node_info, "TaskComposerMotionPlannerNodeInfoTests");
   }
 
   {  // Failure missing input data
