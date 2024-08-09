@@ -36,7 +36,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/nodes/update_start_and_end_state_task.h>
 #include <tesseract_task_composer/planning/nodes/update_end_state_task.h>
 #include <tesseract_task_composer/planning/nodes/update_start_state_task.h>
-#include <tesseract_task_composer/planning/nodes/motion_planner_task_info.h>
 
 #include <tesseract_task_composer/core/nodes/start_task.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
@@ -45,8 +44,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_executor.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/core/task_composer_graph.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
 
 #include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_environment/environment.h>
 
 namespace
 {
@@ -352,7 +353,7 @@ void RasterMotionTask::serialize(Archive& ar, const unsigned int /*version*/)  /
 std::unique_ptr<TaskComposerNodeInfo> RasterMotionTask::runImpl(TaskComposerContext& context,
                                                                 OptionalTaskComposerExecutor executor) const
 {
-  auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
   info->status_code = 0;
 
@@ -369,8 +370,9 @@ std::unique_ptr<TaskComposerNodeInfo> RasterMotionTask::runImpl(TaskComposerCont
     return info;
   }
 
-  auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
-  info->env = env;
+  std::shared_ptr<const tesseract_environment::Environment> env =
+      env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>()->clone();
+  info->data_storage.setData("environment", env);
 
   auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
   try

@@ -90,32 +90,8 @@ protected:
   runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
-class ContinuousContactCheckTaskInfo : public TaskComposerNodeInfo
-{
-public:
-  using Ptr = std::shared_ptr<ContinuousContactCheckTaskInfo>;
-  using ConstPtr = std::shared_ptr<const ContinuousContactCheckTaskInfo>;
-  using UPtr = std::unique_ptr<ContinuousContactCheckTaskInfo>;
-  using ConstUPtr = std::unique_ptr<const ContinuousContactCheckTaskInfo>;
-
-  ContinuousContactCheckTaskInfo() = default;
-  ContinuousContactCheckTaskInfo(const TaskComposerNodeInfo& task);
-
-  std::shared_ptr<const tesseract_environment::Environment> env;
-  std::vector<tesseract_collision::ContactResultMap> contact_results;
-
-  std::unique_ptr<TaskComposerNodeInfo> clone() const override;
-
-  bool operator==(const ContinuousContactCheckTaskInfo& rhs) const;
-  bool operator!=(const ContinuousContactCheckTaskInfo& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-};
 }  // namespace tesseract_planning
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::ContinuousContactCheckTask)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::ContinuousContactCheckTaskInfo)
+
 #endif  // TESSERACT_TASK_COMPOSER_CONTINUOUS_CONTACT_CHECK_TASK_H

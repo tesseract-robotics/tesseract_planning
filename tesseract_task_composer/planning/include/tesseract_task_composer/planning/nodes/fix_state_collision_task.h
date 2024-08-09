@@ -99,31 +99,6 @@ protected:
   runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
-class FixStateCollisionTaskInfo : public TaskComposerNodeInfo
-{
-public:
-  using Ptr = std::shared_ptr<FixStateCollisionTaskInfo>;
-  using ConstPtr = std::shared_ptr<const FixStateCollisionTaskInfo>;
-  using UPtr = std::unique_ptr<FixStateCollisionTaskInfo>;
-  using ConstUPtr = std::unique_ptr<const FixStateCollisionTaskInfo>;
-
-  FixStateCollisionTaskInfo() = default;
-  FixStateCollisionTaskInfo(const FixStateCollisionTask& task);
-
-  std::unique_ptr<TaskComposerNodeInfo> clone() const override;
-
-  std::shared_ptr<const tesseract_environment::Environment> env;
-  std::vector<tesseract_collision::ContactResultMap> contact_results;
-
-  bool operator==(const FixStateCollisionTaskInfo& rhs) const;
-  bool operator!=(const FixStateCollisionTaskInfo& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-};
-
 /**
  * @brief Checks if a joint state is in collision
  * @param start_pos Vector that represents a joint state
@@ -180,5 +155,4 @@ bool applyCorrectionWorkflow(WaypointPoly& waypoint,
 }  // namespace tesseract_planning
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::FixStateCollisionTask)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::FixStateCollisionTaskInfo)
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_COLLISION_TASK_H

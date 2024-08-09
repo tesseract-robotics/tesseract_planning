@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
-#include <tesseract_task_composer/planning/nodes/motion_planner_task_info.h>
 
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
@@ -141,7 +140,7 @@ protected:
   std::unique_ptr<TaskComposerNodeInfo> runImpl(TaskComposerContext& context,
                                                 OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override
   {
-    auto info = std::make_unique<MotionPlannerTaskInfo>(*this);
+    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
     info->return_value = 0;
     info->status_code = 0;
 
@@ -158,8 +157,9 @@ protected:
       return info;
     }
 
-    auto env = env_poly.template as<std::shared_ptr<const tesseract_environment::Environment>>();
-    info->env = env;
+    std::shared_ptr<const tesseract_environment::Environment> env =
+        env_poly.template as<std::shared_ptr<const tesseract_environment::Environment>>()->clone();
+    info->data_storage.setData("environment", env);
 
     auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
     if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
