@@ -22,7 +22,6 @@ set(LIB_SOURCE_FILES
     src/nodes/format_as_result_task.cpp
     src/nodes/profile_switch_task.cpp
     src/nodes/min_length_task.cpp
-    src/nodes/motion_planner_task_info.cpp
     src/nodes/process_planning_input_task.cpp
     src/nodes/update_end_state_task.cpp
     src/nodes/update_start_and_end_state_task.cpp
