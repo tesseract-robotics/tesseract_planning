@@ -105,7 +105,7 @@ TaskComposerNodePorts ContinuousContactCheckTask::ports()
 std::unique_ptr<TaskComposerNodeInfo>
 ContinuousContactCheckTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<ContinuousContactCheckTaskInfo>(*this);
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
   info->status_code = 0;
 
@@ -122,8 +122,9 @@ ContinuousContactCheckTask::runImpl(TaskComposerContext& context, OptionalTaskCo
     return info;
   }
 
-  auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
-  info->env = env;
+  std::shared_ptr<const tesseract_environment::Environment> env =
+      env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>()->clone();
+  info->data_storage.setData("environment", env);
 
   auto input_data_poly = getData(*context.data_storage, INPUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
@@ -171,7 +172,7 @@ ContinuousContactCheckTask::runImpl(TaskComposerContext& context, OptionalTaskCo
     for (auto& contact_map : contacts)
       contact_map.shrinkToFit();
 
-    info->contact_results = contacts;
+    info->data_storage.setData("contact_results", contacts);
     info->return_value = 0;
     return info;
   }
@@ -196,39 +197,7 @@ void ContinuousContactCheckTask::serialize(Archive& ar, const unsigned int /*ver
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-ContinuousContactCheckTaskInfo::ContinuousContactCheckTaskInfo(const tesseract_planning::TaskComposerNodeInfo& task)
-  : TaskComposerNodeInfo(task)
-{
-}
-
-std::unique_ptr<TaskComposerNodeInfo> ContinuousContactCheckTaskInfo::clone() const
-{
-  return std::make_unique<ContinuousContactCheckTaskInfo>(*this);
-}
-
-bool ContinuousContactCheckTaskInfo::operator==(const ContinuousContactCheckTaskInfo& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerNodeInfo::operator==(rhs);
-  equal &= tesseract_common::pointersEqual(env, rhs.env);
-  //  equal &= contact_results == rhs.contact_results;
-  return equal;
-}
-bool ContinuousContactCheckTaskInfo::operator!=(const ContinuousContactCheckTaskInfo& rhs) const
-{
-  return !operator==(rhs);
-}
-
-template <class Archive>
-void ContinuousContactCheckTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-  ar& BOOST_SERIALIZATION_NVP(env);
-  ar& BOOST_SERIALIZATION_NVP(contact_results);
-}
 }  // namespace tesseract_planning
 
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ContinuousContactCheckTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ContinuousContactCheckTaskInfo)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ContinuousContactCheckTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ContinuousContactCheckTaskInfo)

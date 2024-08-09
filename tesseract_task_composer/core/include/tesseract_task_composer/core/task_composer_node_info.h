@@ -41,6 +41,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/any_poly.h>
 
 #include <tesseract_task_composer/core/task_composer_keys.h>
+#include <tesseract_task_composer/core/task_composer_data_storage.h>
 
 namespace tesseract_planning
 {
@@ -57,7 +58,7 @@ public:
 
   TaskComposerNodeInfo() = default;  // Required for serialization
   TaskComposerNodeInfo(const TaskComposerNode& node);
-  virtual ~TaskComposerNodeInfo() = default;
+  ~TaskComposerNodeInfo() = default;
   TaskComposerNodeInfo(const TaskComposerNodeInfo&) = default;
   TaskComposerNodeInfo& operator=(const TaskComposerNodeInfo&) = default;
   TaskComposerNodeInfo(TaskComposerNodeInfo&&) = default;
@@ -117,6 +118,9 @@ public:
    */
   std::string dotgraph;
 
+  /** @brief This provides a location for task data may be stored */
+  TaskComposerDataStorage data_storage;
+
   bool operator==(const TaskComposerNodeInfo& rhs) const;
   bool operator!=(const TaskComposerNodeInfo& rhs) const;
 
@@ -125,12 +129,6 @@ public:
    * @return True if aborted otherwise false;
    */
   bool isAborted() const;
-
-  /**
-   * @brief This should perform a deep copy
-   * @return A clone
-   */
-  virtual TaskComposerNodeInfo::UPtr clone() const;
 
 private:
   friend struct tesseract_common::Serialization;

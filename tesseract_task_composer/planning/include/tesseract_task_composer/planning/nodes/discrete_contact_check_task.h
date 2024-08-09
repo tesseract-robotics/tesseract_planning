@@ -90,33 +90,7 @@ protected:
   runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
-class DiscreteContactCheckTaskInfo : public TaskComposerNodeInfo
-{
-public:
-  using Ptr = std::shared_ptr<DiscreteContactCheckTaskInfo>;
-  using ConstPtr = std::shared_ptr<const DiscreteContactCheckTaskInfo>;
-  using UPtr = std::unique_ptr<DiscreteContactCheckTaskInfo>;
-  using ConstUPtr = std::unique_ptr<const DiscreteContactCheckTaskInfo>;
-
-  DiscreteContactCheckTaskInfo() = default;
-  DiscreteContactCheckTaskInfo(const TaskComposerNodeInfo& task);
-
-  std::shared_ptr<const tesseract_environment::Environment> env;
-  std::vector<tesseract_collision::ContactResultMap> contact_results;
-
-  std::unique_ptr<TaskComposerNodeInfo> clone() const override;
-
-  bool operator==(const DiscreteContactCheckTaskInfo& rhs) const;
-  bool operator!=(const DiscreteContactCheckTaskInfo& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-};
-
 }  // namespace tesseract_planning
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::DiscreteContactCheckTask)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::DiscreteContactCheckTaskInfo)
 #endif  // TESSERACT_TASK_COMPOSER_DISCRETE_CONTACT_CHECK_TASK_H
