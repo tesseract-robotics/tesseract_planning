@@ -45,9 +45,12 @@ public:
   using UPtr = std::unique_ptr<RemapTask>;
   using ConstUPtr = std::unique_ptr<const RemapTask>;
 
+  // Requried
+  static const std::string INOUT_KEYS_PORT;
+
   RemapTask();
   explicit RemapTask(std::string name,
-                     std::map<std::string, std::string> remap,
+                     const std::map<std::string, std::string>& remap,
                      bool copy = false,
                      bool is_conditional = false);
   explicit RemapTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
@@ -57,13 +60,14 @@ public:
   bool operator!=(const RemapTask& rhs) const;
 
 protected:
-  std::map<std::string, std::string> remap_;
   bool copy_{ false };
 
   friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  static TaskComposerNodePorts ports();
 
   std::unique_ptr<TaskComposerNodeInfo>
   runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;

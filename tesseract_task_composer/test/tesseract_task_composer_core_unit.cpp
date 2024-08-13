@@ -1732,8 +1732,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     std::string str = R"(config:
                            conditional: true
                            copy: true
-                           remap:
-                             test: test2)";
+                           inputs:
+                             keys: [test]
+                           outputs:
+                             keys: [test2])";
     YAML::Node config = YAML::Load(str);
     RemapTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
@@ -1811,8 +1813,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     std::string str = R"(config:
                            conditional: true
                            copy: true
-                           remap:
-                             joint_state: remap_joint_state)";
+                           inputs:
+                             keys: [joint_state]
+                           outputs:
+                             keys: [remap_joint_state])";
     YAML::Node config = YAML::Load(str);
 
     RemapTask task("RemapTaskTest", config["config"], factory);
@@ -1840,8 +1844,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     std::string str = R"(config:
                            conditional: true
                            copy: false
-                           remap:
-                             joint_state: remap_joint_state)";
+                           inputs:
+                             keys: [joint_state]
+                           outputs:
+                             keys: [remap_joint_state])";
     YAML::Node config = YAML::Load(str);
 
     RemapTask task("RemapTaskTest", config["config"], factory);
@@ -1874,14 +1880,14 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     str = R"(config:
                conditional: true
                inputs:
-                 port1: [input_data])";
+                 keys: [input_data])";
     config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RemapTask>("abc", config["config"], factory));  // NOLINT
 
     str = R"(config:
                conditional: true
                outputs:
-                 port1: [output_data])";
+                 keys: [output_data])";
     config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RemapTask>("abc", config["config"], factory));  // NOLINT
   }
