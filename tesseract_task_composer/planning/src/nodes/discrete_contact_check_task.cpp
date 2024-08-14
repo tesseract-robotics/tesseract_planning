@@ -122,9 +122,7 @@ std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTask::runImpl(TaskComp
     return info;
   }
 
-  std::shared_ptr<const tesseract_environment::Environment> env =
-      env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>()->clone();
-  info->data_storage.setData("environment", env);
+  auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
 
   auto input_data_poly = getData(*context.data_storage, INPUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))

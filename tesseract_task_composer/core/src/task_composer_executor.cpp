@@ -46,7 +46,9 @@ std::unique_ptr<TaskComposerFuture> TaskComposerExecutor::run(const TaskComposer
                                                               std::shared_ptr<TaskComposerDataStorage> data_storage,
                                                               bool dotgraph)
 {
-  return run(node, std::make_shared<TaskComposerContext>(node.getName(), std::move(data_storage), dotgraph));
+  auto context = std::make_shared<TaskComposerContext>(node.getName(), std::move(data_storage), dotgraph);
+  context->task_infos.setRootNode(node.getUUID());
+  return run(node, context);
 }
 
 bool TaskComposerExecutor::operator==(const TaskComposerExecutor& rhs) const { return (name_ == rhs.name_); }

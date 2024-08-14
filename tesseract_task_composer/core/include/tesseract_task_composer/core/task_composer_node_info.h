@@ -40,13 +40,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/any_poly.h>
 
+#include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_keys.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 
 namespace tesseract_planning
 {
-class TaskComposerNode;
-
 /** Stores information about a node */
 class TaskComposerNodeInfo
 {
@@ -79,6 +78,15 @@ public:
    */
   boost::uuids::uuid parent_uuid{};
 
+  /** @brief The node type */
+  TaskComposerNodeType type{ TaskComposerNodeType::NODE };
+
+  /** @brief The task type hash code from std::type_index */
+  std::size_t type_hash_code{ 0 };
+
+  /** @brief The task is conditional or not */
+  bool conditional{ false };
+
   /** @brief The nodes inbound edges */
   std::vector<boost::uuids::uuid> inbound_edges;
 
@@ -90,6 +98,12 @@ public:
 
   /** @brief The output keys */
   TaskComposerKeys output_keys;
+
+  /** @brief The graph of pipeline terminals */
+  std::vector<boost::uuids::uuid> terminals;
+
+  /** @brief Indicate if abort terminal was assigned. Only valid for graph and pipelines */
+  int abort_terminal{ -1 };
 
   /** @brief Value returned from the Task on completion */
   int return_value{ -1 };
@@ -189,6 +203,12 @@ public:
   /** @brief Merge the contents of another container's info map */
   void mergeInfoMap(TaskComposerNodeInfoContainer&& container);
 
+  /** @brief Set the root node */
+  void setRootNode(const boost::uuids::uuid& node_uuid);
+
+  /** @brief Get the root node */
+  boost::uuids::uuid getRootNode() const;
+
   /**
    * @brief Called if aborted
    * @details This is set if abort is called in input
@@ -217,6 +237,7 @@ private:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   mutable std::shared_mutex mutex_;
+  boost::uuids::uuid root_node_{};
   boost::uuids::uuid aborting_node_{};
   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> info_map_;
 

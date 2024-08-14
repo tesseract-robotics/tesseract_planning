@@ -39,7 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_node_info.h>
-#include <tesseract_task_composer/core/task_composer_node.h>
+#include <tesseract_task_composer/core/task_composer_graph.h>
 
 namespace tesseract_planning
 {
@@ -48,9 +48,20 @@ TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node)
   , ns(node.ns_)
   , uuid(node.uuid_)
   , parent_uuid(node.parent_uuid_)
+  , type(node.type_)
+  , type_hash_code(std::type_index(typeid(node)).hash_code())
+  , conditional(node.conditional_)
   , inbound_edges(node.inbound_edges_)
   , outbound_edges(node.outbound_edges_)
+  , input_keys(node.input_keys_)
+  , output_keys(node.output_keys_)
 {
+  if (type == TaskComposerNodeType::GRAPH || type == TaskComposerNodeType::PIPELINE)
+  {
+    const auto& graph = static_cast<const TaskComposerGraph&>(node);
+    terminals = graph.getTerminals();
+    abort_terminal = graph.getAbortTerminalIndex();
+  }
 }
 
 bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
@@ -62,6 +73,9 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= ns == rhs.ns;
   equal &= uuid == rhs.uuid;
   equal &= parent_uuid == rhs.parent_uuid;
+  equal &= type == rhs.type;
+  equal &= type_hash_code == rhs.type_hash_code;
+  equal &= conditional == rhs.conditional;
   equal &= return_value == rhs.return_value;
   equal &= status_code == rhs.status_code;
   equal &= status_message == rhs.status_message;
@@ -71,6 +85,8 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= tesseract_common::isIdentical(outbound_edges, rhs.outbound_edges, true);
   equal &= input_keys == rhs.input_keys;
   equal &= output_keys == rhs.output_keys;
+  equal &= terminals == rhs.terminals;
+  equal &= abort_terminal == rhs.abort_terminal;
   equal &= color == rhs.color;
   equal &= dotgraph == rhs.dotgraph;
   equal &= data_storage == rhs.data_storage;
@@ -89,6 +105,9 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("ns", ns);
   ar& boost::serialization::make_nvp("uuid", uuid);
   ar& boost::serialization::make_nvp("parent_uuid", parent_uuid);
+  ar& boost::serialization::make_nvp("type", type);
+  ar& boost::serialization::make_nvp("type_hash_code", type_hash_code);
+  ar& boost::serialization::make_nvp("conditional", conditional);
   ar& boost::serialization::make_nvp("return_value", return_value);
   ar& boost::serialization::make_nvp("status_code", status_code);
   ar& boost::serialization::make_nvp("status_message", status_message);
@@ -99,6 +118,8 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("outbound_edges", outbound_edges);
   ar& boost::serialization::make_nvp("input_keys", input_keys);
   ar& boost::serialization::make_nvp("output_keys", output_keys);
+  ar& boost::serialization::make_nvp("terminals", terminals);
+  ar& boost::serialization::make_nvp("abort_terminal", abort_terminal);
   ar& boost::serialization::make_nvp("color", color);
   ar& boost::serialization::make_nvp("dotgraph", dotgraph);
   ar& boost::serialization::make_nvp("data_storage", data_storage);
@@ -176,6 +197,18 @@ TaskComposerNodeInfoContainer::find(const std::function<bool(const TaskComposerN
       results.push_back(std::make_unique<TaskComposerNodeInfo>(*info.second));
   }
   return results;
+}
+
+void TaskComposerNodeInfoContainer::setRootNode(const boost::uuids::uuid& node_uuid)
+{
+  std::unique_lock<std::shared_mutex> lock(mutex_);
+  root_node_ = node_uuid;
+}
+
+boost::uuids::uuid TaskComposerNodeInfoContainer::getRootNode() const
+{
+  std::shared_lock<std::shared_mutex> lock(mutex_);
+  return root_node_;
 }
 
 void TaskComposerNodeInfoContainer::setAborted(const boost::uuids::uuid& node_uuid)
@@ -264,6 +297,8 @@ bool TaskComposerNodeInfoContainer::operator==(const TaskComposerNodeInfoContain
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
   bool equal = true;
+  equal &= root_node_ == rhs.root_node_;
+  equal &= aborting_node_ == rhs.aborting_node_;
   auto equality = [](const TaskComposerNodeInfo::UPtr& p1, const TaskComposerNodeInfo::UPtr& p2) {
     return (p1 && p2 && *p1 == *p2) || (!p1 && !p2);
   };
@@ -285,6 +320,7 @@ template <class Archive>
 void TaskComposerNodeInfoContainer::serialize(Archive& ar, const unsigned int /*version*/)
 {
   std::unique_lock<std::shared_mutex> lock(mutex_);
+  ar& BOOST_SERIALIZATION_NVP(root_node_);
   ar& BOOST_SERIALIZATION_NVP(aborting_node_);
   ar& BOOST_SERIALIZATION_NVP(info_map_);
 }
