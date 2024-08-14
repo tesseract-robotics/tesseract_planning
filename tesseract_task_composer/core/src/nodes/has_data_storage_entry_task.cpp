@@ -67,7 +67,7 @@ std::unique_ptr<TaskComposerNodeInfo> HasDataStorageEntryTask::runImpl(TaskCompo
 
 bool HasDataStorageEntryTask::operator==(const HasDataStorageEntryTask& rhs) const
 {
-  return (TaskComposerNode::operator==(rhs));
+  return (TaskComposerTask::operator==(rhs));
 }
 bool HasDataStorageEntryTask::operator!=(const HasDataStorageEntryTask& rhs) const { return !operator==(rhs); }
 

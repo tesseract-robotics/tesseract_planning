@@ -111,6 +111,12 @@ public:
    */
   void setTerminalTriggerAbortByIndex(int terminal_index);
 
+  /** Get the abort terminal uuid if set */
+  boost::uuids::uuid getAbortTerminal() const;
+
+  /** Get the abort terminal index if set */
+  int getAbortTerminalIndex() const;
+
   /**
    * @brief Check if the current state of the graph is valid
    * @todo Replace return type with std::expected when upgraded to use c++23
@@ -149,6 +155,7 @@ protected:
 
   std::map<boost::uuids::uuid, TaskComposerNode::Ptr> nodes_;
   std::vector<boost::uuids::uuid> terminals_;
+  int abort_terminal_{ -1 };
 };
 
 }  // namespace tesseract_planning

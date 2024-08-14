@@ -80,8 +80,6 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerPipeline::runImpl(TaskComposer
     {
       timer.stop();
       auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-      info->input_keys = input_keys_;
-      info->output_keys = output_keys_;
       info->return_value = static_cast<int>(i);
       info->color = node_info->color;
       info->status_code = node_info->status_code;

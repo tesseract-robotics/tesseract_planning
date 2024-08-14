@@ -321,17 +321,31 @@ void TaskComposerGraph::setTerminalTriggerAbort(boost::uuids::uuid terminal)
 {
   if (!terminal.is_nil())
   {
-    auto& n = nodes_.at(terminal);
-    if (n->getType() == TaskComposerNodeType::TASK)
-      static_cast<TaskComposerTask&>(*n).setTriggerAbort(true);
-    else
-      throw std::runtime_error("Tasks can only trigger abort!");
+    abort_terminal_ = -1;
+    for (std::size_t i = 0; i < terminals_.size(); ++i)
+    {
+      const boost::uuids::uuid& uuid = terminals_[i];
+      if (uuid == terminal)
+      {
+        abort_terminal_ = static_cast<int>(i);
+        auto& n = nodes_.at(terminal);
+        if (n->getType() == TaskComposerNodeType::TASK)
+          static_cast<TaskComposerTask&>(*n).setTriggerAbort(true);
+        else
+          throw std::runtime_error("Tasks can only trigger abort!");
+
+        break;
+      }
+    }
+    if (abort_terminal_ < 0)
+      throw std::runtime_error("Task with uuid: " + boost::uuids::to_string(terminal) + " is not a terminal node");
   }
   else
   {
-    for (const auto& terminal : terminals_)
+    abort_terminal_ = -1;
+    for (const auto& t : terminals_)
     {
-      auto& n = nodes_.at(terminal);
+      auto& n = nodes_.at(t);
       if (n->getType() == TaskComposerNodeType::TASK)
         static_cast<TaskComposerTask&>(*n).setTriggerAbort(false);
     }
@@ -342,6 +356,7 @@ void TaskComposerGraph::setTerminalTriggerAbortByIndex(int terminal_index)
 {
   if (terminal_index >= 0)
   {
+    abort_terminal_ = terminal_index;
     auto& n = nodes_.at(terminals_.at(static_cast<std::size_t>(terminal_index)));
     if (n->getType() == TaskComposerNodeType::TASK)
       static_cast<TaskComposerTask&>(*n).setTriggerAbort(true);
@@ -350,6 +365,7 @@ void TaskComposerGraph::setTerminalTriggerAbortByIndex(int terminal_index)
   }
   else
   {
+    abort_terminal_ = -1;
     for (const auto& terminal : terminals_)
     {
       auto& n = nodes_.at(terminal);
@@ -358,6 +374,16 @@ void TaskComposerGraph::setTerminalTriggerAbortByIndex(int terminal_index)
     }
   }
 }
+
+boost::uuids::uuid TaskComposerGraph::getAbortTerminal() const
+{
+  if (abort_terminal_ >= 0)
+    return terminals_.at(static_cast<std::size_t>(abort_terminal_));
+
+  return {};
+}
+
+int TaskComposerGraph::getAbortTerminalIndex() const { return abort_terminal_; }
 
 std::pair<bool, std::string> TaskComposerGraph::isValid() const
 {
@@ -409,6 +435,7 @@ TaskComposerGraph::dump(std::ostream& os,
      << "\\nUUID: " << uuid_str_ << "\\l";
   os << "Inputs:\\l" << input_keys_;
   os << "Outputs:\\l" << output_keys_;
+  os << "Abort Terminal: " << abort_terminal_ << "\\l";
   os << "Conditional: " << ((conditional_) ? "True" : "False") << "\\l";
   if (getType() == TaskComposerNodeType::PIPELINE || getType() == TaskComposerNodeType::GRAPH)
   {
@@ -436,6 +463,7 @@ TaskComposerGraph::dump(std::ostream& os,
          << "\\l";
       os << "Inputs:\\l" << input_keys;
       os << "Outputs:\\l" << output_keys;
+      os << "Abort Terminal: " << static_cast<const TaskComposerGraph&>(*node).abort_terminal_ << "\\l";
       os << "Conditional: " << ((node->isConditional()) ? "True" : "False") << "\\l";
       if (it != results_map.end())
         os << "Time: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s\\l";
@@ -506,6 +534,7 @@ bool TaskComposerGraph::operator==(const TaskComposerGraph& rhs) const
     }
   }
   equal &= (terminals_ == rhs.terminals_);
+  equal &= (abort_terminal_ == rhs.abort_terminal_);
   equal &= TaskComposerNode::operator==(rhs);
   return equal;
 }
@@ -519,6 +548,7 @@ void TaskComposerGraph::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& boost::serialization::make_nvp("nodes", nodes_);
   ar& boost::serialization::make_nvp("terminals", terminals_);
+  ar& boost::serialization::make_nvp("abort_terminal", abort_terminal_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
 }
 

@@ -469,6 +469,7 @@ bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
 {
   bool equal = true;
   equal &= name_ == rhs.name_;
+  equal &= ns_ == rhs.ns_;
   equal &= type_ == rhs.type_;
   equal &= uuid_ == rhs.uuid_;
   equal &= uuid_str_ == rhs.uuid_str_;
@@ -488,6 +489,7 @@ template <class Archive>
 void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& boost::serialization::make_nvp("name", name_);
+  ar& boost::serialization::make_nvp("ns", ns_);
   ar& boost::serialization::make_nvp("type", type_);
   ar& boost::serialization::make_nvp("uuid", uuid_);
   ar& boost::serialization::make_nvp("uuid_str", uuid_str_);

@@ -157,9 +157,7 @@ protected:
       return info;
     }
 
-    std::shared_ptr<const tesseract_environment::Environment> env =
-        env_poly.template as<std::shared_ptr<const tesseract_environment::Environment>>()->clone();
-    info->data_storage.setData("environment", env);
+    auto env = env_poly.template as<std::shared_ptr<const tesseract_environment::Environment>>();
 
     auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
     if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))

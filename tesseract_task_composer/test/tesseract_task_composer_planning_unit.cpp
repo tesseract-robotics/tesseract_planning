@@ -156,8 +156,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization (Not equal because environment is stored as shared pointer)
-    test_suite::runSerializationTestNotEqual(*node_info, "TaskComposerContinuousContactCheckNodeInfoTests");
+    test_suite::runSerializationTest(*node_info, "TaskComposerContinuousContactCheckNodeInfoTests");
   }
 
   {  // Failure missing input data
@@ -279,11 +278,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
     EXPECT_EQ(task.getInputKeys().size(), 5);
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_MANIP_INFO_PORT), "manip_info");
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
+    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_MANIP_INFO_PORT), "manip_info");
+    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
               "composite_profile_remapping");
     EXPECT_EQ(task.getOutputKeys().size(), 0);
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -334,8 +333,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization (Not equal because environment is stored as shared pointer)
-    test_suite::runSerializationTestNotEqual(node_info, "TaskComposerDiscreteContactCheckNodeInfoTests");
+    test_suite::runSerializationTest(*node_info, "TaskComposerDiscreteContactCheckNodeInfoTests");
   }
 
   {  // Failure missing input data
@@ -1244,8 +1242,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     EXPECT_TRUE(context->data_storage->hasKey("output_data"));
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization (Not equal because environment is stored as shared pointer)
-    test_suite::runSerializationTestNotEqual(node_info, "TaskComposerFixStateCollisionNodeInfoTests");
+    test_suite::runSerializationTest(*node_info, "TaskComposerFixStateCollisionNodeInfoTests");
   }
 
   {  // Failure missing input data
@@ -2176,8 +2173,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization (Not equal because environment is stored as shared pointer)
-    test_suite::runSerializationTestNotEqual(node_info, "TaskComposerTimeOptimalParameterizationNodeInfoTests");
+    test_suite::runSerializationTest(*node_info, "TaskComposerTimeOptimalParameterizationNodeInfoTests");
   }
 
   {  // Test run method
@@ -2574,8 +2570,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     EXPECT_GE(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization (Not equal because environment is stored as shared pointer)
-    test_suite::runSerializationTestNotEqual(node_info, "TaskComposerMotionPlannerNodeInfoTests");
+    test_suite::runSerializationTest(*node_info, "TaskComposerMotionPlannerNodeInfoTests");
   }
 
   {  // Failure missing input data
