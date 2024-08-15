@@ -141,8 +141,6 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
   {
     auto info = std::make_unique<TaskComposerNodeInfo>(*this);
     info->start_time = start_time;
-    info->input_keys = input_keys_;
-    info->output_keys = output_keys_;
     info->return_value = 0;
     info->color = "grey";
     info->status_code = 0;

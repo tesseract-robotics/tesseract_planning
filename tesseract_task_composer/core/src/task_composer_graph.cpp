@@ -267,6 +267,20 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerGraph::runImpl(TaskComposerCon
   throw std::runtime_error("TaskComposerGraph, with name '" + name_ + "' has no node info for any of the leaf nodes!");
 }
 
+boost::uuids::uuid TaskComposerGraph::getRootNode() const
+{
+  boost::uuids::uuid root_node{};
+  for (const auto& pair : nodes_)
+  {
+    if (pair.second->getInboundEdges().empty())
+    {
+      root_node = pair.first;
+      break;
+    }
+  }
+  return root_node;
+}
+
 boost::uuids::uuid TaskComposerGraph::addNode(std::unique_ptr<TaskComposerNode> task_node)
 {
   boost::uuids::uuid uuid = task_node->getUUID();

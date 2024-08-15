@@ -58,15 +58,7 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerPipeline::runImpl(TaskComposer
 
   tesseract_common::Timer timer;
   timer.start();
-  boost::uuids::uuid root_node{};
-  for (const auto& pair : nodes_)
-  {
-    if (pair.second->getInboundEdges().empty())
-    {
-      root_node = pair.first;
-      break;
-    }
-  }
+  boost::uuids::uuid root_node = getRootNode();
 
   if (root_node.is_nil())
     throw std::runtime_error("TaskComposerPipeline, with name '" + name_ + "' does not have a root node!");
