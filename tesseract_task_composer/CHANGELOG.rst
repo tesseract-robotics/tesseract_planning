@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.24.0 (2024-08-14)
+-------------------
 * Update TaskComposerNodeInfo to allow searching graph
 * Fix RemapTask support for global remapping
 * Add data storage to task composer node info
