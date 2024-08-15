@@ -2,6 +2,13 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update TaskComposerNodeInfo to allow searching graph
+* Fix RemapTask support for global remapping
+* Add data storage to task composer node info
+* Contributors: Levi Armstrong
+
 0.23.6 (2024-08-06)
 -------------------
 * Make aborted nodes grey in dotgraph
