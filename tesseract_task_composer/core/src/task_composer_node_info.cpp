@@ -55,12 +55,14 @@ TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node)
   , outbound_edges(node.outbound_edges_)
   , input_keys(node.input_keys_)
   , output_keys(node.output_keys_)
+  , triggers_abort(node.trigger_abort_)
 {
   if (type == TaskComposerNodeType::GRAPH || type == TaskComposerNodeType::PIPELINE)
   {
     const auto& graph = static_cast<const TaskComposerGraph&>(node);
+    root_uuid = graph.getRootNode();
     terminals = graph.getTerminals();
-    abort_terminal = graph.getAbortTerminalIndex();
+    triggers_abort = (graph.getAbortTerminalIndex() >= 0);
   }
 }
 
@@ -72,6 +74,7 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= name == rhs.name;
   equal &= ns == rhs.ns;
   equal &= uuid == rhs.uuid;
+  equal &= root_uuid == rhs.root_uuid;
   equal &= parent_uuid == rhs.parent_uuid;
   equal &= type == rhs.type;
   equal &= type_hash_code == rhs.type_hash_code;
@@ -86,7 +89,7 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= input_keys == rhs.input_keys;
   equal &= output_keys == rhs.output_keys;
   equal &= terminals == rhs.terminals;
-  equal &= abort_terminal == rhs.abort_terminal;
+  equal &= triggers_abort == rhs.triggers_abort;
   equal &= color == rhs.color;
   equal &= dotgraph == rhs.dotgraph;
   equal &= data_storage == rhs.data_storage;
@@ -104,6 +107,7 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("name", name);
   ar& boost::serialization::make_nvp("ns", ns);
   ar& boost::serialization::make_nvp("uuid", uuid);
+  ar& boost::serialization::make_nvp("root_uuid", root_uuid);
   ar& boost::serialization::make_nvp("parent_uuid", parent_uuid);
   ar& boost::serialization::make_nvp("type", type);
   ar& boost::serialization::make_nvp("type_hash_code", type_hash_code);
@@ -119,7 +123,7 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("input_keys", input_keys);
   ar& boost::serialization::make_nvp("output_keys", output_keys);
   ar& boost::serialization::make_nvp("terminals", terminals);
-  ar& boost::serialization::make_nvp("abort_terminal", abort_terminal);
+  ar& boost::serialization::make_nvp("triggers_abort", triggers_abort);
   ar& boost::serialization::make_nvp("color", color);
   ar& boost::serialization::make_nvp("dotgraph", dotgraph);
   ar& boost::serialization::make_nvp("data_storage", data_storage);

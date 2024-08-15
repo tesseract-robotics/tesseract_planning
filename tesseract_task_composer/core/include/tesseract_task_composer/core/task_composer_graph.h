@@ -60,6 +60,12 @@ public:
   TaskComposerGraph& operator=(TaskComposerGraph&&) = delete;
 
   /**
+   * @brief Get the root node of the graph
+   * @return The root node uuid
+   */
+  boost::uuids::uuid getRootNode() const;
+
+  /**
    * @brief Add a node to the pipeline
    * @return The node ID which should be used with adding edges
    */

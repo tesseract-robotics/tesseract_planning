@@ -72,6 +72,9 @@ public:
   /** @brief The task uuid */
   boost::uuids::uuid uuid{};
 
+  /** @brief If type is Pipeline or Graph this will be the root node of the pipeline or graph, otherwise null */
+  boost::uuids::uuid root_uuid{};
+
   /**
    * @brief The parent uuid
    * @details This is set when the node is added to a graph
@@ -102,8 +105,8 @@ public:
   /** @brief The graph of pipeline terminals */
   std::vector<boost::uuids::uuid> terminals;
 
-  /** @brief Indicate if abort terminal was assigned. Only valid for graph and pipelines */
-  int abort_terminal{ -1 };
+  /** @brief Indicate if it can trigger a abort. */
+  bool triggers_abort{ false };
 
   /** @brief Value returned from the Task on completion */
   int return_value{ -1 };
