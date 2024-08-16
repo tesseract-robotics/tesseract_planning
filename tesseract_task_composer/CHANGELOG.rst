@@ -2,6 +2,11 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add getRootNode to TaskComposerGraph and update TaskComposerNodeInfo to store root_uuid
+* Contributors: Levi Armstrong
+
 0.24.0 (2024-08-14)
 -------------------
 * Update TaskComposerNodeInfo to allow searching graph
