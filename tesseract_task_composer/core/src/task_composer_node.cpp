@@ -577,11 +577,17 @@ std::vector<tesseract_common::AnyPoly> TaskComposerNode::getData(const TaskCompo
 
 void TaskComposerNode::setData(TaskComposerDataStorage& data_storage,
                                const std::string& port,
-                               tesseract_common::AnyPoly data) const
+                               tesseract_common::AnyPoly data,
+                               bool required) const
 {
   auto it = output_keys_.data().find(port);
   if (it == output_keys_.data().end())
-    throw std::runtime_error(name_ + ", output key does not exist for the provided name: " + port);
+  {
+    if (required)
+      throw std::runtime_error(name_ + ", output key does not exist for the provided name: " + port);
+
+    return;
+  }
 
   const auto& key = std::get<std::string>(it->second);
   data_storage.setData(key, std::move(data));
@@ -589,11 +595,17 @@ void TaskComposerNode::setData(TaskComposerDataStorage& data_storage,
 
 void TaskComposerNode::setData(TaskComposerDataStorage& data_storage,
                                const std::string& port,
-                               const std::vector<tesseract_common::AnyPoly>& data) const
+                               const std::vector<tesseract_common::AnyPoly>& data,
+                               bool required) const
 {
   auto it = output_keys_.data().find(port);
   if (it == output_keys_.data().end())
-    throw std::runtime_error(name_ + ", output key does not exist for the provided name: " + port);
+  {
+    if (required)
+      throw std::runtime_error(name_ + ", output key does not exist for the provided name: " + port);
+
+    return;
+  }
 
   const auto& vs = std::get<std::vector<std::string>>(it->second);
   if (vs.size() != data.size())

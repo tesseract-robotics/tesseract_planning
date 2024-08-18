@@ -64,6 +64,7 @@ const std::string DiscreteContactCheckTask::INPUT_PROFILES_PORT = "profiles";
 // Optional
 const std::string DiscreteContactCheckTask::INPUT_MANIP_INFO_PORT = "manip_info";
 const std::string DiscreteContactCheckTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_remapping";
+const std::string DiscreteContactCheckTask::OUTPUT_CONTACT_RESULTS_PORT = "contact_results";
 
 DiscreteContactCheckTask::DiscreteContactCheckTask()
   : TaskComposerTask("DiscreteContactCheckTask", DiscreteContactCheckTask::ports(), true)
@@ -99,6 +100,8 @@ TaskComposerNodePorts DiscreteContactCheckTask::ports()
 
   ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
+
+  ports.output_optional[OUTPUT_CONTACT_RESULTS_PORT] = TaskComposerNodePorts::SINGLE;
   return ports;
 }
 
@@ -167,6 +170,8 @@ std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTask::runImpl(TaskComp
       contact_map.shrinkToFit();
 
     info->data_storage.setData("contact_results", contacts);
+    setData(*context.data_storage, OUTPUT_CONTACT_RESULTS_PORT, contacts, false);
+
     return info;
   }
 
