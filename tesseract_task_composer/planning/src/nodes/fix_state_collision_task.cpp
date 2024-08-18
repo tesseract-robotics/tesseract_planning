@@ -67,6 +67,7 @@ const std::string FixStateCollisionTask::INPUT_PROFILES_PORT = "profiles";
 // Optional
 const std::string FixStateCollisionTask::INPUT_MANIP_INFO_PORT = "manip_info";
 const std::string FixStateCollisionTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_remapping";
+const std::string FixStateCollisionTask::OUTPUT_CONTACT_RESULTS_PORT = "contact_results";
 
 bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
                       const tesseract_common::ManipulatorInfo& manip_info,
@@ -384,6 +385,7 @@ TaskComposerNodePorts FixStateCollisionTask::ports()
   ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.output_optional[OUTPUT_CONTACT_RESULTS_PORT] = TaskComposerNodePorts::SINGLE;
 
   return ports;
 }
@@ -461,6 +463,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
 
             info->status_message = "Failed to correct state in collision";
             info->data_storage.setData("contact_results", contact_results);
+            setData(*context.data_storage, OUTPUT_CONTACT_RESULTS_PORT, contact_results, false);
             return info;
           }
         }
@@ -491,6 +494,8 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
 
             info->status_message = "Failed to correct state in collision";
             info->data_storage.setData("contact_results", contact_results);
+            setData(*context.data_storage, OUTPUT_CONTACT_RESULTS_PORT, contact_results, false);
+
             return info;
           }
         }
@@ -558,6 +563,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
 
             info->status_message = "Failed to correct state in collision";
             info->data_storage.setData("contact_results", contact_results);
+            setData(*context.data_storage, OUTPUT_CONTACT_RESULTS_PORT, contact_results, false);
             return info;
           }
         }
@@ -613,6 +619,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
 
             info->status_message = "Failed to correct state in collision";
             info->data_storage.setData("contact_results", contact_results);
+            setData(*context.data_storage, OUTPUT_CONTACT_RESULTS_PORT, contact_results, false);
             return info;
           }
         }
@@ -670,6 +677,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
 
             info->status_message = "Failed to correct state in collision";
             info->data_storage.setData("contact_results", contact_results);
+            setData(*context.data_storage, OUTPUT_CONTACT_RESULTS_PORT, contact_results, false);
             return info;
           }
         }
@@ -725,6 +733,7 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
 
             info->status_message = "Failed to correct state in collision";
             info->data_storage.setData("contact_results", contact_results);
+            setData(*context.data_storage, OUTPUT_CONTACT_RESULTS_PORT, contact_results, false);
             return info;
           }
         }

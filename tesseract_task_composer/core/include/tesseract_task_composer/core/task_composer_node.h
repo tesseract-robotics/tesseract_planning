@@ -240,11 +240,16 @@ protected:
    * @param port The port associated with the key
    * @param data_storage The data storage to assign data to
    * @param data The data to store
+   * @param required Indicate if required port
    */
-  void setData(TaskComposerDataStorage& data_storage, const std::string& port, tesseract_common::AnyPoly data) const;
   void setData(TaskComposerDataStorage& data_storage,
                const std::string& port,
-               const std::vector<tesseract_common::AnyPoly>& data) const;
+               tesseract_common::AnyPoly data,
+               bool required = true) const;
+  void setData(TaskComposerDataStorage& data_storage,
+               const std::string& port,
+               const std::vector<tesseract_common::AnyPoly>& data,
+               bool required = true) const;
 };
 
 }  // namespace tesseract_planning

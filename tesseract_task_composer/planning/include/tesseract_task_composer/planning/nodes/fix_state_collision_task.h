@@ -62,6 +62,7 @@ public:
   // Optional
   static const std::string INPUT_MANIP_INFO_PORT;
   static const std::string INPUT_COMPOSITE_PROFILE_REMAPPING_PORT;
+  static const std::string OUTPUT_CONTACT_RESULTS_PORT;
 
   using Ptr = std::shared_ptr<FixStateCollisionTask>;
   using ConstPtr = std::shared_ptr<const FixStateCollisionTask>;
