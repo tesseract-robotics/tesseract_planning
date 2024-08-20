@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.24.2 (2024-08-19)
+-------------------
 * Add optional output to task which produce contact results
 * Contributors: Levi Armstrong
 
