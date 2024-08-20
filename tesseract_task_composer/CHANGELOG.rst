@@ -2,6 +2,11 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add optional output to task which produce contact results
+* Contributors: Levi Armstrong
+
 0.24.1 (2024-08-16)
 -------------------
 * Add getRootNode to TaskComposerGraph and update TaskComposerNodeInfo to store root_uuid
