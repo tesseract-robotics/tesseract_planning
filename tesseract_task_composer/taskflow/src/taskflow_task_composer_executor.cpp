@@ -28,7 +28,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
-#include <tesseract_common/timer.h>
+#include <tesseract_common/stopwatch.h>
 #include <taskflow/taskflow.hpp>
 #include <yaml-cpp/yaml.h>
 #include <boost/uuid/uuid.hpp>
@@ -53,8 +53,8 @@ tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
                            tf::Subflow* parent_sbf)
 {
   auto fn = [&task_graph, &task_context, &task_executor](tf::Subflow& subflow) {
-    tesseract_common::Timer timer;
-    timer.start();
+    tesseract_common::Stopwatch stopwatch;
+    stopwatch.start();
 
     // Node Info
     auto info = std::make_unique<TaskComposerNodeInfo>(task_graph);
@@ -112,8 +112,8 @@ tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
         tasks[pair.first].precede(tasks[e]);
     }
     subflow.join();
-    timer.stop();
-    info->elapsed_time = timer.elapsedSeconds();
+    stopwatch.stop();
+    info->elapsed_time = stopwatch.elapsedSeconds();
     task_context.task_infos.addInfo(std::move(info));
   };
 

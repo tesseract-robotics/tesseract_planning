@@ -26,7 +26,7 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tesseract_common/timer.h>
+#include <tesseract_common/stopwatch.h>
 #include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -56,8 +56,8 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerPipeline::runImpl(TaskComposer
   if (terminals_.empty())
     throw std::runtime_error("TaskComposerPipeline, with name '" + name_ + "' does not have terminals!");
 
-  tesseract_common::Timer timer;
-  timer.start();
+  tesseract_common::Stopwatch stopwatch;
+  stopwatch.start();
   boost::uuids::uuid root_node = getRootNode();
 
   if (root_node.is_nil())
@@ -70,13 +70,13 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerPipeline::runImpl(TaskComposer
     auto node_info = context.task_infos.getInfo(terminals_[i]);
     if (node_info != nullptr)
     {
-      timer.stop();
+      stopwatch.stop();
       auto info = std::make_unique<TaskComposerNodeInfo>(*this);
       info->return_value = static_cast<int>(i);
       info->color = node_info->color;
       info->status_code = node_info->status_code;
       info->status_message = node_info->status_message;
-      info->elapsed_time = timer.elapsedSeconds();
+      info->elapsed_time = stopwatch.elapsedSeconds();
       return info;
     }
   }
