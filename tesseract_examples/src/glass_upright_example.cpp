@@ -42,7 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/commands/add_link_command.h>
 #include <tesseract_environment/utils.h>
 
-#include <tesseract_common/timer.h>
+#include <tesseract_common/stopwatch.h>
 
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/composite_instruction.h>
@@ -268,7 +268,7 @@ bool GlassUprightExample::run()
     plotter_->waitForInput("Hit Enter to solve for trajectory.");
 
   // Solve process plan
-  tesseract_common::Timer stopwatch;
+  tesseract_common::Stopwatch stopwatch;
   stopwatch.start();
   TaskComposerFuture::UPtr future = executor->run(*task, std::move(data));
   future->wait();

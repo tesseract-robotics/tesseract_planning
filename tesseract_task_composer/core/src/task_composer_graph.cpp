@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/plugin_info.h>
 #include <tesseract_common/yaml_utils.h>
-#include <tesseract_common/timer.h>
+#include <tesseract_common/stopwatch.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_context.h>
@@ -224,8 +224,8 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerGraph::runImpl(TaskComposerCon
   if (terminals_.empty())
     throw std::runtime_error("TaskComposerGraph, with name '" + name_ + "' does not have terminals!");
 
-  tesseract_common::Timer timer;
-  timer.start();
+  tesseract_common::Stopwatch stopwatch;
+  stopwatch.start();
 
   TaskComposerFuture::UPtr future = executor.value().get().run(*this, context.data_storage, context.dotgraph);
   future->wait();
@@ -252,14 +252,14 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerGraph::runImpl(TaskComposerCon
     auto node_info = context.task_infos.getInfo(terminals_[i]);
     if (node_info != nullptr)
     {
-      timer.stop();
+      stopwatch.stop();
       info->input_keys = input_keys_;
       info->output_keys = output_keys_;
       info->return_value = static_cast<int>(i);
       info->color = node_info->color;
       info->status_code = node_info->status_code;
       info->status_message = node_info->status_message;
-      info->elapsed_time = timer.elapsedSeconds();
+      info->elapsed_time = stopwatch.elapsedSeconds();
       return info;
     }
   }

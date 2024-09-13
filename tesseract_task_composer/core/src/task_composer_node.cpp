@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/uuid/uuid_serialize.hpp>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/serialization.h>
-#include <tesseract_common/timer.h>
+#include <tesseract_common/stopwatch.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_context.h>
@@ -150,9 +150,9 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
     return 0;
   }
 
-  tesseract_common::Timer timer;
+  tesseract_common::Stopwatch stopwatch;
   TaskComposerNodeInfo::UPtr results;
-  timer.start();
+  stopwatch.start();
   try
   {
     results = runImpl(context, executor);
@@ -165,11 +165,11 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
     results->status_message = "Exception thrown: " + std::string(e.what());
     results->return_value = 0;
   }
-  timer.stop();
+  stopwatch.stop();
   results->input_keys = input_keys_;
   results->output_keys = output_keys_;
   results->start_time = start_time;
-  results->elapsed_time = timer.elapsedSeconds();
+  results->elapsed_time = stopwatch.elapsedSeconds();
 
   int value = results->return_value;
   assert(value >= 0);

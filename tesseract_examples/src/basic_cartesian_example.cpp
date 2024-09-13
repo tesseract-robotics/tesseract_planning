@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/basic_cartesian_example.h>
 
-#include <tesseract_common/timer.h>
+#include <tesseract_common/stopwatch.h>
 
 #include <tesseract_collision/core/types.h>
 
@@ -278,7 +278,7 @@ bool BasicCartesianExample::run()
     plotter_->waitForInput("Hit Enter to solve for trajectory.");
 
   // Solve task
-  tesseract_common::Timer stopwatch;
+  tesseract_common::Stopwatch stopwatch;
   stopwatch.start();
   TaskComposerFuture::UPtr future = executor->run(*task, std::move(data));
   future->wait();
