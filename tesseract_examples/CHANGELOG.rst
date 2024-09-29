@@ -2,6 +2,11 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Rename Timer to Stopwatch
+* Contributors: Levi Armstrong
+
 0.24.2 (2024-08-19)
 -------------------
 

@@ -2,6 +2,11 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Rename Timer to Stopwatch
+* Contributors: Levi Armstrong
+
 0.24.2 (2024-08-19)
 -------------------
 * Add optional output to task which produce contact results
