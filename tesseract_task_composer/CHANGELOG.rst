@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.25.0 (2024-09-29)
+-------------------
 * Rename Timer to Stopwatch
 * Contributors: Levi Armstrong
 
