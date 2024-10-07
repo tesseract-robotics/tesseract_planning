@@ -58,6 +58,13 @@ namespace tesseract_planning
 JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                                                      const PlannerRequest& request,
                                                      const tesseract_common::ManipulatorInfo& manip_info)
+  : JointGroupInstructionInfo(plan_instruction, *request.env, manip_info)
+{
+}
+
+JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
+                                                     const tesseract_environment::Environment& env,
+                                                     const tesseract_common::ManipulatorInfo& manip_info)
   : instruction(plan_instruction)
 {
   assert(!(manip_info.empty() && plan_instruction.getManipulatorInfo().empty()));
@@ -74,13 +81,13 @@ JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& 
     throw std::runtime_error("InstructionInfo, working frame is empty!");
 
   // Get Previous Instruction Kinematics
-  manip = request.env->getJointGroup(mi.manipulator);
+  manip = env.getJointGroup(mi.manipulator);
 
   // Get Previous Instruction TCP and Working Frame
   working_frame = mi.working_frame;
-  working_frame_transform = request.env_state.link_transforms.at(working_frame);
+  working_frame_transform = env.getLinkTransform(working_frame);
   tcp_frame = mi.tcp_frame;
-  tcp_offset = request.env->findTCPOffset(mi);
+  tcp_offset = env.findTCPOffset(mi);
 
   // Get Previous Instruction Waypoint Info
   if (plan_instruction.getWaypoint().isStateWaypoint() || plan_instruction.getWaypoint().isJointWaypoint())
@@ -122,6 +129,13 @@ const Eigen::VectorXd& JointGroupInstructionInfo::extractJointPosition() const
 KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                                                              const PlannerRequest& request,
                                                              const tesseract_common::ManipulatorInfo& manip_info)
+  : KinematicGroupInstructionInfo(plan_instruction, *request.env, manip_info)
+{
+}
+
+KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
+                                                             const tesseract_environment::Environment& env,
+                                                             const tesseract_common::ManipulatorInfo& manip_info)
   : instruction(plan_instruction)
 {
   assert(!(manip_info.empty() && plan_instruction.getManipulatorInfo().empty()));
@@ -138,13 +152,13 @@ KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructi
     throw std::runtime_error("InstructionInfo, working frame is empty!");
 
   // Get Previous Instruction Kinematics
-  manip = request.env->getKinematicGroup(mi.manipulator, mi.manipulator_ik_solver);
+  manip = env.getKinematicGroup(mi.manipulator, mi.manipulator_ik_solver);
 
   // Get Previous Instruction TCP and Working Frame
   working_frame = mi.working_frame;
-  working_frame_transform = request.env_state.link_transforms.at(working_frame);
+  working_frame_transform = env.getLinkTransform(working_frame);
   tcp_frame = mi.tcp_frame;
-  tcp_offset = request.env->findTCPOffset(mi);
+  tcp_offset = env.findTCPOffset(mi);
 
   // Get Previous Instruction Waypoint Info
   if (plan_instruction.getWaypoint().isStateWaypoint() || plan_instruction.getWaypoint().isJointWaypoint())
