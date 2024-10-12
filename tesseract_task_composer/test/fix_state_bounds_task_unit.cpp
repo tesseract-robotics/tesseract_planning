@@ -16,7 +16,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
-#include <tesseract_support/tesseract_support_resource_locator.h>
+#include <tesseract_common/resource_locator.h>
 
 using namespace tesseract_planning;
 using namespace tesseract_environment;
@@ -32,11 +32,13 @@ protected:
 
   void SetUp() override
   {
-    auto locator = std::make_shared<tesseract_common::TesseractSupportResourceLocator>();
+    auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
     Environment::Ptr env = std::make_shared<Environment>();
 
-    tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.urdf");
-    tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.srdf");
+    tesseract_common::fs::path urdf_path(
+        locator->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
+    tesseract_common::fs::path srdf_path(
+        locator->locateResource("package://tesseract_support/urdf/abb_irb2400.srdf")->getFilePath());
     EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
     env_ = env;
 

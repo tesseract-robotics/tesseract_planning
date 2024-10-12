@@ -1,13 +1,7 @@
-find_package(tesseract_support REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 
 add_executable(${PROJECT_NAME}_trajopt_unit trajopt_planner_tests.cpp)
-target_link_libraries(
-  ${PROJECT_NAME}_trajopt_unit
-  PRIVATE GTest::GTest
-          GTest::Main
-          tesseract::tesseract_support
-          ${PROJECT_NAME}_trajopt)
+target_link_libraries(${PROJECT_NAME}_trajopt_unit PRIVATE GTest::GTest GTest::Main ${PROJECT_NAME}_trajopt)
 target_compile_options(${PROJECT_NAME}_trajopt_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                             ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_trajopt_unit PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})

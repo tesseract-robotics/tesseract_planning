@@ -21,6 +21,9 @@ class TaskComposerGraph;
 // task_composer_keys.h
 class TaskComposerKeys;
 
+// task_composer_log.h
+class TaskComposerLog;
+
 // task_composer_node_info.h
 class TaskComposerNodeInfo;
 class TaskComposerNodeInfoContainer;

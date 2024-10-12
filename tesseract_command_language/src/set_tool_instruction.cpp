@@ -89,5 +89,5 @@ void SetToolInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::SetToolInstruction)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SetToolInstruction)
+TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::SetToolInstruction)

@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_executor.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
+#include <tesseract_task_composer/core/task_composer_log.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
 #include <tesseract_task_composer/core/test_suite/test_programs.hpp>
@@ -2552,25 +2553,34 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
       data->setData("input_data", context->data_storage->getData("output_data"));
       EXPECT_GE(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
     }
+    tesseract_planning::TaskComposerLog log;
     auto profiles = std::make_shared<ProfileDictionary>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
-    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    log.initial_data = *data;
+
+    log.context = std::make_shared<TaskComposerContext>("abc", std::move(data));
     MotionPlannerTask<TrajOptMotionPlanner> task(
         "abc", "input_data", "environment", "profiles", "output_data", false, true);
-    EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(task.run(*log.context), 1);
+    auto node_info = log.context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
     EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
-    EXPECT_EQ(context->isAborted(), false);
-    EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_GE(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(log.context->isAborted(), false);
+    EXPECT_EQ(log.context->isSuccessful(), true);
+    EXPECT_GE(log.context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
+    EXPECT_TRUE(log.context->task_infos.getAbortingNode().is_nil());
 
     test_suite::runSerializationTest(*node_info, "TaskComposerMotionPlannerNodeInfoTests");
+    {
+      const std::string filepath = tesseract_common::getTempPath() + "TaskComposerMotionPlannerLogTests.xml";
+      tesseract_common::Serialization::toArchiveFileXML<tesseract_planning::TaskComposerLog>(log, filepath);
+      auto ninput = tesseract_common::Serialization::fromArchiveFileXML<tesseract_planning::TaskComposerLog>(filepath);
+      EXPECT_TRUE(ninput.initial_data.hasKey("environment"));
+    }
   }
 
   {  // Failure missing input data

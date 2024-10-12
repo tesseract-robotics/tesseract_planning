@@ -777,5 +777,5 @@ void FixStateCollisionTask::serialize(Archive& ar, const unsigned int /*version*
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FixStateCollisionTask)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FixStateCollisionTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FixStateCollisionTask)

@@ -79,5 +79,5 @@ void HasDataStorageEntryTask::serialize(Archive& ar, const unsigned int /*versio
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::HasDataStorageEntryTask)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::HasDataStorageEntryTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::HasDataStorageEntryTask)

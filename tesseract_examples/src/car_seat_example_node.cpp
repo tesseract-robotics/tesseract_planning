@@ -27,7 +27,7 @@
 #include <tesseract_examples/car_seat_example.h>
 #include <tesseract_common/filesystem.h>
 #include <tesseract_environment/environment.h>
-#include <tesseract_support/tesseract_support_resource_locator.h>
+#include <tesseract_common/resource_locator.h>
 
 using namespace tesseract_examples;
 using namespace tesseract_common;
@@ -35,7 +35,7 @@ using namespace tesseract_environment;
 
 int main(int /*argc*/, char** /*argv*/)
 {
-  auto locator = std::make_shared<TesseractSupportResourceLocator>();
+  auto locator = std::make_shared<GeneralResourceLocator>();
   tesseract_common::fs::path urdf_path =
       locator->locateResource("package://tesseract_support/urdf/car_seat_demo.urdf")->getFilePath();
   tesseract_common::fs::path srdf_path =
