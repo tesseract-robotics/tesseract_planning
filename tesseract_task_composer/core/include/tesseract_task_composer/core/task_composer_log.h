@@ -35,11 +35,13 @@ class TaskComposerContext;
 class TaskComposerLog
 {
 public:
+  TaskComposerLog(std::string desc = "");
   virtual ~TaskComposerLog() = default;
 
+  std::string description;
   TaskComposerDataStorage initial_data;
   std::shared_ptr<TaskComposerContext> context;
-  std::string description;
+  std::string dotgraph;
 
   bool operator==(const TaskComposerLog& rhs) const;
   bool operator!=(const TaskComposerLog& rhs) const;

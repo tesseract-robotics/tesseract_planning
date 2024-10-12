@@ -147,6 +147,14 @@ public:
   /** @brief Get the ports associated with the node */
   TaskComposerNodePorts getPorts() const;
 
+  /** @brief Generate the Dotgraph as a string */
+  std::string
+  getDotgraph(const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map = {}) const;
+
+  /** @brief Generate the Dotgraph and save to file */
+  bool saveDotgraph(const std::string& filepath,
+                    const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map = {}) const;
+
   /** @brief Rename input keys */
   virtual void renameInputKeys(const std::map<std::string, std::string>& input_keys);
 
