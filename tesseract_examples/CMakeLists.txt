@@ -9,7 +9,6 @@ find_package(tesseract_environment REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 find_package(tesseract_task_composer REQUIRED)
 find_package(tesseract_common REQUIRED)
-find_package(tesseract_support REQUIRED)
 find_package(trajopt_sqp REQUIRED)
 find_package(trajopt_ifopt REQUIRED)
 find_package(
@@ -106,7 +105,7 @@ target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC ${PCL_INCLUDE_DIRS})
 
 macro(add_example example_name example_file)
   add_executable(${example_name} ${example_file})
-  target_link_libraries(${example_name} ${PROJECT_NAME} tesseract::tesseract_support)
+  target_link_libraries(${example_name} ${PROJECT_NAME})
   target_compile_options(${example_name} PRIVATE ${TESSERACT_COMPILE_OPTIONS})
   target_clang_tidy(${example_name} ARGUMENTS ${TESSERACT_CLANG_TIDY_ARGS} ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
   target_cxx_version(${example_name} PUBLIC VERSION ${TESSERACT_CXX_VERSION})
@@ -156,7 +155,6 @@ configure_package(
     tesseract_task_composer
     tesseract_collision
     tesseract_common
-    tesseract_support
     trajopt_sqp
     trajopt_ifopt
     "PCL REQUIRED COMPONENTS core features filters io segmentation surface")

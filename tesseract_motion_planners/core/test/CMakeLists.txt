@@ -1,4 +1,3 @@
-find_package(tesseract_support REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 
 # Profile Dictionary Tests
@@ -25,7 +24,6 @@ target_link_libraries(
   ${PROJECT_NAME}_utils_unit
   PRIVATE GTest::GTest
           GTest::Main
-          tesseract::tesseract_support
           tesseract::tesseract_command_language
           ${PROJECT_NAME}_core
           ${PROJECT_NAME}_simple)

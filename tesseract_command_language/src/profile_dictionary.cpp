@@ -43,6 +43,6 @@ void ProfileDictionary::serialize(Archive& /*ar*/, const unsigned int /*version*
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ProfileDictionary)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ProfileDictionary)
 TESSERACT_ANY_EXPORT_IMPLEMENT(TesseractPlanningProfileDictionarySharedPtr)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ProfileDictionary)

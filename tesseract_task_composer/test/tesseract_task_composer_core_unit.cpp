@@ -16,6 +16,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
 #include <tesseract_task_composer/core/task_composer_server.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/core/task_composer_log.h>
 
 #include <tesseract_task_composer/core/test_suite/task_composer_node_info_unit.hpp>
 #include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
@@ -138,6 +139,16 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerContextTests)  // NOLINT
 
   // Serialization
   test_suite::runSerializationPointerTest(context, "TaskComposerContextTests");
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerLogTests)  // NOLINT
+{
+  tesseract_planning::TaskComposerLog log;
+  log.context =
+      std::make_unique<TaskComposerContext>("TaskComposerLogTests", std::make_unique<TaskComposerDataStorage>());
+
+  // Serialization
+  test_suite::runSerializationTest(log, "TaskComposerLogTests");
 }
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoContainerTests)  // NOLINT

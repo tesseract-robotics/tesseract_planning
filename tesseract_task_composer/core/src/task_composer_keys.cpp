@@ -113,5 +113,5 @@ std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys)
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerKeys)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerKeys)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerKeys)

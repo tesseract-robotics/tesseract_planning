@@ -61,10 +61,9 @@ void tesseract_planning::InstructionPoly::serialize(Archive& ar, const unsigned 
   ar& boost::serialization::make_nvp("base", boost::serialization::base_object<InstructionPolyBase>(*this));
 }
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_instruction::InstructionInterface)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::InstructionPolyBase)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::InstructionPoly)
-
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_instruction::InstructionInterface)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::InstructionPolyBase)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::InstructionPoly)
+
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::InstructionPolyBase)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::InstructionPoly)

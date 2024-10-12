@@ -13,7 +13,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
-#include <tesseract_support/tesseract_support_resource_locator.h>
+#include <tesseract_common/resource_locator.h>
 
 #include <tesseract_task_composer/core/test_suite/test_programs.hpp>
 
@@ -30,11 +30,13 @@ protected:
 
   void SetUp() override
   {
-    auto locator = std::make_shared<tesseract_common::TesseractSupportResourceLocator>();
+    auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
     Environment::Ptr env = std::make_shared<Environment>();
 
-    tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/boxbot.urdf");
-    tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/boxbot.srdf");
+    tesseract_common::fs::path urdf_path(
+        locator->locateResource("package://tesseract_support/urdf/boxbot.urdf")->getFilePath());
+    tesseract_common::fs::path srdf_path(
+        locator->locateResource("package://tesseract_support/urdf/boxbot.srdf")->getFilePath());
     EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
     env_ = env;
 

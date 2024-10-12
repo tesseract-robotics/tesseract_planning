@@ -133,5 +133,5 @@ void StateWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-TESSERACT_STATE_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::StateWaypoint)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypoint)
+TESSERACT_STATE_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::StateWaypoint)
