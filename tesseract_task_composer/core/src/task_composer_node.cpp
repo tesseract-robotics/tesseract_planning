@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
 #include <yaml-cpp/yaml.h>
+#include <console_bridge/console.h>
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/stopwatch.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -382,6 +383,45 @@ void TaskComposerNode::setOutputKeys(const TaskComposerKeys& output_keys) { outp
 const TaskComposerKeys& TaskComposerNode::getOutputKeys() const { return output_keys_; }
 
 TaskComposerNodePorts TaskComposerNode::getPorts() const { return ports_; }
+
+std::string TaskComposerNode::getDotgraph(
+    const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const
+{
+  try
+  {
+    // Save dot graph
+    std::stringstream dotgraph;
+    dump(dotgraph, nullptr, results_map);
+    return dotgraph.str();
+  }
+  catch (const std::exception& e)
+  {
+    CONSOLE_BRIDGE_logError("Failed to generated DOT Graph: '%s'!", e.what());
+  }
+
+  return {};
+}
+
+bool TaskComposerNode::saveDotgraph(
+    const std::string& filepath,
+    const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const
+{
+  try
+  {
+    // Save dot graph
+    std::ofstream os;
+    os.open(filepath);
+    dump(os, nullptr, results_map);
+    os.close();
+    return true;
+  }
+  catch (const std::exception& e)
+  {
+    CONSOLE_BRIDGE_logError("Failed to save DOT Graph: '%s'!", e.what());
+  }
+
+  return false;
+}
 
 void TaskComposerNode::renameInputKeys(const std::map<std::string, std::string>& input_keys)
 {

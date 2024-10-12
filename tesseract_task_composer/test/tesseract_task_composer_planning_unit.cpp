@@ -2553,7 +2553,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
       data->setData("input_data", context->data_storage->getData("output_data"));
       EXPECT_GE(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
     }
-    tesseract_planning::TaskComposerLog log;
+    tesseract_planning::TaskComposerLog log("TaskComposerMotionPlannerNodeInfoTests");
     auto profiles = std::make_shared<ProfileDictionary>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
@@ -2563,6 +2563,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     MotionPlannerTask<TrajOptMotionPlanner> task(
         "abc", "input_data", "environment", "profiles", "output_data", false, true);
     EXPECT_EQ(task.run(*log.context), 1);
+    log.dotgraph = task.getDotgraph(log.context->task_infos.getInfoMap());
     auto node_info = log.context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);

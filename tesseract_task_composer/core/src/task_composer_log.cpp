@@ -23,9 +23,12 @@
 
 namespace tesseract_planning
 {
+TaskComposerLog::TaskComposerLog(std::string desc) : description(std::move(desc)) {}
+
 bool TaskComposerLog::operator==(const TaskComposerLog& rhs) const
 {
-  return ((initial_data == rhs.initial_data) && (*context == *rhs.context) && (description == rhs.description));
+  return ((description == rhs.description) && (initial_data == rhs.initial_data) && (*context == *rhs.context) &&
+          (dotgraph == rhs.dotgraph));
 }
 
 // LCOV_EXCL_START
@@ -35,9 +38,10 @@ bool TaskComposerLog::operator!=(const TaskComposerLog& rhs) const { return !ope
 template <class Archive>
 void TaskComposerLog::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& BOOST_SERIALIZATION_NVP(description);
   ar& BOOST_SERIALIZATION_NVP(initial_data);
   ar& BOOST_SERIALIZATION_NVP(context);
-  ar& BOOST_SERIALIZATION_NVP(description);
+  ar& BOOST_SERIALIZATION_NVP(dotgraph);
 }
 
 }  // namespace tesseract_planning
