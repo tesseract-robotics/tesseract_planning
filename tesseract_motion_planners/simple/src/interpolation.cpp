@@ -113,7 +113,10 @@ Eigen::Isometry3d JointGroupInstructionInfo::calcCartesianPose(const Eigen::Vect
 Eigen::Isometry3d JointGroupInstructionInfo::extractCartesianPose(bool in_world) const
 {
   if (!instruction.getWaypoint().isCartesianWaypoint())
-    throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
+  {
+    const auto& jp = getJointPosition(instruction.getWaypoint());
+    return calcCartesianPose(jp, in_world);
+  }
 
   if (in_world)
     return working_frame_transform * instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform();
@@ -184,7 +187,10 @@ Eigen::Isometry3d KinematicGroupInstructionInfo::calcCartesianPose(const Eigen::
 Eigen::Isometry3d KinematicGroupInstructionInfo::extractCartesianPose(bool in_world) const
 {
   if (!instruction.getWaypoint().isCartesianWaypoint())
-    throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
+  {
+    const auto& jp = getJointPosition(instruction.getWaypoint());
+    return calcCartesianPose(jp, in_world);
+  }
 
   if (in_world)
     return working_frame_transform * instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform();
