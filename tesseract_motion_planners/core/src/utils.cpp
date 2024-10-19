@@ -112,18 +112,13 @@ tesseract_common::Toolpath toToolpath(const InstructionPoly& instruction, const 
   throw std::runtime_error("toToolpath: Unsupported Instruction Type!");
 }
 
-tesseract_common::Toolpath toToolpath(const CompositeInstruction& ci, const tesseract_environment::Environment& env)
+tesseract_common::VectorIsometry3d toPoses(const CompositeInstruction& ci,
+                                           const tesseract_common::ManipulatorInfo& parent_mi,
+                                           const tesseract_environment::Environment& env,
+                                           const tesseract_scene_graph::SceneState& state,
+                                           tesseract_scene_graph::StateSolver& state_solver)
 {
-  tesseract_common::Toolpath toolpath;
   tesseract_common::VectorIsometry3d poses;
-
-  tesseract_scene_graph::StateSolver::UPtr state_solver = env.getStateSolver();
-  tesseract_scene_graph::SceneState state = env.getState();
-
-  // Assume all the plan instructions have the same manipulator as the composite
-  assert(!ci.getManipulatorInfo().empty());
-  const tesseract_common::ManipulatorInfo& composite_mi = ci.getManipulatorInfo();
-
   std::vector<std::reference_wrapper<const InstructionPoly>> fi = ci.flatten(moveFilter);
   for (const auto& i : fi)
   {
@@ -134,7 +129,7 @@ tesseract_common::Toolpath toToolpath(const CompositeInstruction& ci, const tess
     if (i.get().isMoveInstruction())
     {
       const auto& mi = i.get().as<MoveInstructionPoly>();
-      manip_info = composite_mi.getCombined(mi.getManipulatorInfo());
+      manip_info = parent_mi.getCombined(mi.getManipulatorInfo());
       wp = mi.getWaypoint();
     }
     else
@@ -146,10 +141,41 @@ tesseract_common::Toolpath toToolpath(const CompositeInstruction& ci, const tess
     Eigen::Isometry3d tcp_offset = env.findTCPOffset(manip_info);
 
     // Calculate pose
-    poses.push_back(calcPose(wp, manip_info.working_frame, manip_info.tcp_frame, tcp_offset, state, *state_solver));
+    poses.push_back(calcPose(wp, manip_info.working_frame, manip_info.tcp_frame, tcp_offset, state, state_solver));
   }
 
-  toolpath.push_back(poses);
+  return poses;
+}
+
+tesseract_common::Toolpath toToolpath(const CompositeInstruction& ci, const tesseract_environment::Environment& env)
+{
+  if (ci.empty())
+    return {};
+
+  tesseract_scene_graph::StateSolver::UPtr state_solver = env.getStateSolver();
+  tesseract_scene_graph::SceneState state = env.getState();
+
+  // Assume all the plan instructions have the same manipulator as the composite
+  assert(!ci.getManipulatorInfo().empty());
+  const tesseract_common::ManipulatorInfo& composite_mi = ci.getManipulatorInfo();
+
+  if (ci.front().isCompositeInstruction())
+  {
+    tesseract_common::Toolpath toolpath;
+    for (const auto& sub_ci : ci)
+    {
+      if (!sub_ci.isCompositeInstruction())
+        break;
+
+      toolpath.push_back(
+          toPoses(sub_ci.as<tesseract_planning::CompositeInstruction>(), composite_mi, env, state, *state_solver));
+    }
+    return toolpath;
+  }
+
+  tesseract_common::Toolpath toolpath;
+  toolpath.push_back(toPoses(ci, composite_mi, env, state, *state_solver));
+
   return toolpath;
 }
 
