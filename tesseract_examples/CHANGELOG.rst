@@ -2,6 +2,11 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remove TesseractSupportResourceLocator
+* Contributors: Levi Armstrong
+
 0.25.1 (2024-09-29)
 -------------------
 

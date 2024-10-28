@@ -2,6 +2,15 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix use of trajopt composite profile cost and constraint collision config
+* Improve toToolPath to handle nested composites
+* Fix KinematicGroupInstructionInfo and JointGroupInstructionInfo extract cartesian pose
+* Remove TesseractSupportResourceLocator
+* Add additional constructor to simple planner interpolation tools
+* Contributors: Levi Armstrong
+
 0.25.1 (2024-09-29)
 -------------------
 

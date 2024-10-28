@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remove TesseractSupportResourceLocator
+* Contributors: Levi Armstrong
+
 0.25.1 (2024-09-29)
 -------------------
 

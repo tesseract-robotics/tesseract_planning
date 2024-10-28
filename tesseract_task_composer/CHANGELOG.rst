@@ -2,6 +2,12 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Store dotgraph in TaskComposerLog
+* Remove TesseractSupportResourceLocator
+* Contributors: Levi Armstrong
+
 0.25.1 (2024-09-29)
 -------------------
 
