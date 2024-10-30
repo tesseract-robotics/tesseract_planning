@@ -33,6 +33,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 #include <console_bridge/console.h>
+#include <boost/uuid/random_generator.hpp>
 
 #include <trajopt_common/collision_types.h>
 
@@ -88,6 +89,7 @@ OnlinePlanningExample::OnlinePlanningExample(std::shared_ptr<tesseract_environme
   , box_size_(box_size)
   , update_start_state_(update_start_state)
   , use_continuous_(use_continuous)
+  , current_trajectory_uuid_(boost::uuids::random_generator()())
 {
   // Extract necessary kinematic information
   manip_ = env_->getKinematicGroup("manipulator");
@@ -266,10 +268,12 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
 }
 
 // Convert to joint trajectory
-tesseract_common::JointTrajectory getJointTrajectory(const std::vector<std::string>& joint_names,
+tesseract_common::JointTrajectory getJointTrajectory(boost::uuids::uuid uuid,
+                                                     const std::vector<std::string>& joint_names,
                                                      const tesseract_common::TrajArray& current_trajectory)
 {
   tesseract_common::JointTrajectory joint_traj;
+  joint_traj.uuid = uuid;
   joint_traj.reserve(static_cast<std::size_t>(current_trajectory.rows()));
   double total_time = 0;
   for (long i = 0; i < current_trajectory.rows(); ++i)
@@ -289,7 +293,8 @@ void OnlinePlanningExample::updateAndPlotTrajectory(const Eigen::VectorXd& osqp_
   current_trajectory_.block(0, 0, steps_, 8) = trajectory;
 
   // Convert to joint trajectory
-  tesseract_common::JointTrajectory joint_traj = getJointTrajectory(joint_names_, current_trajectory_);
+  tesseract_common::JointTrajectory joint_traj =
+      getJointTrajectory(current_trajectory_uuid_, joint_names_, current_trajectory_);
   player_.setTrajectory(joint_traj);
 
   // Display Results

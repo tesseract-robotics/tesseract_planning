@@ -63,6 +63,7 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
   std::vector<std::reference_wrapper<const InstructionPoly>> flattened_program =
       composite_instructions.flatten(toJointTrajectoryInstructionFilter);
   trajectory.reserve(flattened_program.size());
+  trajectory.uuid = composite_instructions.getUUID();
   trajectory.description = composite_instructions.getDescription();
 
   double last_time = 0;
