@@ -42,6 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 
+#include <tesseract_command_language/utils.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
@@ -139,18 +140,16 @@ std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerCon
 
     if (mi.getWaypoint().isCartesianWaypoint())
     {
-      const auto& swp = umi.getWaypoint().as<StateWaypointPoly>();
       auto& cwp = mi.getWaypoint().as<CartesianWaypointPoly>();
-      cwp.setSeed(tesseract_common::JointState(swp.getNames(), swp.getPosition()));
+      cwp.setSeed(tesseract_common::JointState(getJointNames(umi.getWaypoint()), getJointPosition(umi.getWaypoint())));
     }
     else if (mi.getWaypoint().isJointWaypoint())
     {
       auto& jwp = mi.getWaypoint().as<JointWaypointPoly>();
       if (!jwp.isConstrained() || (jwp.isConstrained() && jwp.isToleranced()))
       {
-        const auto& swp = umi.getWaypoint().as<StateWaypointPoly>();
-        jwp.setNames(swp.getNames());
-        jwp.setPosition(swp.getPosition());
+        jwp.setNames(getJointNames(umi.getWaypoint()));
+        jwp.setPosition(getJointPosition(umi.getWaypoint()));
       }
     }
     else
