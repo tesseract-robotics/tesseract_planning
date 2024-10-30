@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.26.1 (2024-10-29)
+-------------------
 * Fix format as input task to handle both joint and state waypoints
 * Contributors: Levi Armstrong
 
