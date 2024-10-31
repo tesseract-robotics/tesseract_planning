@@ -322,11 +322,12 @@ bool OnlinePlanningExample::onlinePlan()
   console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
 
   using namespace std::chrono;
-  auto prev_start = high_resolution_clock::now();
+  auto user_input_start = steady_clock::now();
+  auto prev_start = steady_clock::now();
   while (realtime_running_)
   {
-    auto start = high_resolution_clock::now();
-    auto dt = 0.01 * duration<double>(start - prev_start).count();
+    auto start = steady_clock::now();
+    auto dt = 0.01 * std::chrono::duration<double>(start - prev_start).count();
     prev_start = start;
 
     // Calculate current position of the robot and update environment current state
@@ -383,11 +384,18 @@ bool OnlinePlanningExample::onlinePlan()
       solver.setBoxSize(box_size_);
     }
 
-    auto stop = high_resolution_clock::now();
+    auto stop = steady_clock::now();
     auto duration = duration_cast<microseconds>(stop - start) / static_cast<double>(num_steps);
 
     // Update manipulator joint values and plot trajectory
     updateAndPlotTrajectory(x);
+
+    // Wait for user input every 5 seconds to allow viewing the trajectory
+    if (std::chrono::duration<double>(steady_clock::now() - user_input_start).count() > 10)
+    {
+      plotter_->waitForInput("Pausing to allow viewing of trajectory. Hit enter to continue online planner.");
+      user_input_start = steady_clock::now();
+    }
 
     std::string message =
         "Solver Frequency (Hz): " + std::to_string(1.0 / static_cast<double>(duration.count()) * 1000000.) +
