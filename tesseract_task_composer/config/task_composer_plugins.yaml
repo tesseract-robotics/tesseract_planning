@@ -106,6 +106,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: DescartesFTask
               config:
@@ -113,6 +122,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       DescartesDTask:
@@ -207,6 +218,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: DescartesDTask
               config:
@@ -214,6 +234,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       DescartesFNPCTask:
@@ -296,6 +318,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: DescartesFNPCTask
               config:
@@ -303,6 +334,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       DescartesDNPCTask:
@@ -385,6 +418,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: DescartesDNPCTask
               config:
@@ -392,6 +434,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       OMPLTask:
@@ -486,6 +530,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: OMPLTask
               config:
@@ -493,6 +546,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       TrajOptTask:
@@ -587,6 +642,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: TrajOptTask
               config:
@@ -594,6 +658,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       TrajOptIfoptTask:
@@ -688,6 +754,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: TrajOptIfoptTask
               config:
@@ -695,6 +770,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       CartesianTask:
@@ -805,6 +882,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: CartesianTask
               config:
@@ -812,6 +898,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       FreespaceTask:
@@ -922,6 +1010,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: FreespaceTask
               config:
@@ -929,6 +1026,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       FreespaceIfoptTask:
@@ -1039,6 +1138,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: FreespaceIfoptTask
               config:
@@ -1046,6 +1154,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       RasterFtTask:
@@ -1133,6 +1243,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterFtTask
               config:
@@ -1140,6 +1259,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       RasterCtTask:
@@ -1227,6 +1348,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterCtTask
               config:
@@ -1234,6 +1364,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       RasterFtOnlyTask:
@@ -1314,6 +1446,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterFtOnlyTask
               config:
@@ -1321,6 +1462,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       RasterCtOnlyTask:
@@ -1401,6 +1544,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterCtOnlyTask
               config:
@@ -1408,6 +1560,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       RasterFtGlobalTask:
@@ -1511,6 +1665,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterFtGlobalTask
               config:
@@ -1518,6 +1681,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       RasterCtGlobalTask:
@@ -1621,6 +1786,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterCtGlobalTask
               config:
@@ -1628,6 +1802,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       RasterFtOnlyGlobalTask:
@@ -1724,6 +1900,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterFtOnlyGlobalTask
               config:
@@ -1731,6 +1916,8 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
       RasterCtOnlyGlobalTask:
@@ -1827,6 +2014,15 @@ task_composer_plugins:
                   planning_input: planning_input
                 outputs:
                   program: input_data
+            FormatInputTask:
+              class: FormatPlanningInputTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                outputs:
+                  program: input_data
             MotionPlanningTask:
               task: RasterCtOnlyGlobalTask
               config:
@@ -1834,5 +2030,7 @@ task_composer_plugins:
                 abort_terminal: 0
           edges:
             - source: ProcessInputTask
+              destinations: [FormatInputTask]
+            - source: FormatInputTask
               destinations: [MotionPlanningTask]
           terminals: [MotionPlanningTask]
