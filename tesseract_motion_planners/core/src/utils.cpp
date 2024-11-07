@@ -267,7 +267,8 @@ bool formatProgramHelper(CompositeInstruction& composite_instructions,
         joint_names = it->second;
       }
 
-      if (base_instruction.getWaypoint().isStateWaypoint() || base_instruction.getWaypoint().isJointWaypoint())
+      auto& wp = base_instruction.getWaypoint();
+      if (wp.isStateWaypoint() || wp.isJointWaypoint() || wp.isCartesianWaypoint())
       {
         if (formatJointPosition(joint_names, base_instruction.getWaypoint()))
           format_required = true;
