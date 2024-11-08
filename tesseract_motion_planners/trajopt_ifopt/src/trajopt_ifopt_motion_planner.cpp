@@ -320,7 +320,7 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
         cur_plan_profile->apply(*problem, jwp, move_instruction, composite_mi, active_links, i);
 
         // Add to fixed indices
-        if (!jwp.isToleranced()) /** @todo Should not make fixed if term_type is cost */
+        if (!jwp.isToleranced() && cur_plan_profile->isFixedJoint())
           fixed_steps.push_back(i);
       }
     }
