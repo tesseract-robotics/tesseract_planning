@@ -87,7 +87,6 @@ void TaskComposerKeys::serialize(Archive& ar, const unsigned int /*version*/)
 
 std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys)
 {
-  std::size_t cnt{ 0 };
   for (const auto& pair : keys.data())
   {
     if (pair.second.index() == 0)
@@ -107,7 +106,6 @@ std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys)
       os << "]";
     }
     os << "\\l";
-    ++cnt;
   }
 
   return os;
@@ -115,5 +113,5 @@ std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys)
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerKeys)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerKeys)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerKeys)

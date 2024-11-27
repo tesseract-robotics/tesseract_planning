@@ -50,6 +50,10 @@ struct JointGroupInstructionInfo
                             const PlannerRequest& request,
                             const tesseract_common::ManipulatorInfo& manip_info);
 
+  JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
+                            const tesseract_environment::Environment& env,
+                            const tesseract_common::ManipulatorInfo& manip_info);
+
   ~JointGroupInstructionInfo();
   JointGroupInstructionInfo(const JointGroupInstructionInfo&) = delete;
   JointGroupInstructionInfo& operator=(const JointGroupInstructionInfo&) = delete;
@@ -99,6 +103,10 @@ struct KinematicGroupInstructionInfo
 {
   KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                                 const PlannerRequest& request,
+                                const tesseract_common::ManipulatorInfo& manip_info);
+
+  KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
+                                const tesseract_environment::Environment& env,
                                 const tesseract_common::ManipulatorInfo& manip_info);
 
   ~KinematicGroupInstructionInfo();

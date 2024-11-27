@@ -41,7 +41,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_keys.h>
 #include <tesseract_task_composer/core/task_composer_node_ports.h>
-#include <tesseract_task_composer/core/task_composer_node_info.h>
 
 namespace YAML
 {
@@ -53,6 +52,7 @@ namespace tesseract_planning
 class TaskComposerDataStorage;
 class TaskComposerContext;
 class TaskComposerExecutor;
+class TaskComposerNodeInfo;
 
 enum class TaskComposerNodeType
 {
@@ -147,6 +147,14 @@ public:
   /** @brief Get the ports associated with the node */
   TaskComposerNodePorts getPorts() const;
 
+  /** @brief Generate the Dotgraph as a string */
+  std::string
+  getDotgraph(const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map = {}) const;
+
+  /** @brief Generate the Dotgraph and save to file */
+  bool saveDotgraph(const std::string& filepath,
+                    const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map = {}) const;
+
   /** @brief Rename input keys */
   virtual void renameInputKeys(const std::map<std::string, std::string>& input_keys);
 
@@ -240,11 +248,16 @@ protected:
    * @param port The port associated with the key
    * @param data_storage The data storage to assign data to
    * @param data The data to store
+   * @param required Indicate if required port
    */
-  void setData(TaskComposerDataStorage& data_storage, const std::string& port, tesseract_common::AnyPoly data) const;
   void setData(TaskComposerDataStorage& data_storage,
                const std::string& port,
-               const std::vector<tesseract_common::AnyPoly>& data) const;
+               tesseract_common::AnyPoly data,
+               bool required = true) const;
+  void setData(TaskComposerDataStorage& data_storage,
+               const std::string& port,
+               const std::vector<tesseract_common::AnyPoly>& data,
+               bool required = true) const;
 };
 
 }  // namespace tesseract_planning

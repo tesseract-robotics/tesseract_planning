@@ -106,5 +106,5 @@ void FormatAsResultTask::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FormatAsResultTask)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FormatAsResultTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FormatAsResultTask)

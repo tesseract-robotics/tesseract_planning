@@ -114,5 +114,5 @@ void JointWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 }
 }  // namespace tesseract_planning
 
-TESSERACT_JOINT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::JointWaypoint)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::JointWaypoint)
+TESSERACT_JOINT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::JointWaypoint)

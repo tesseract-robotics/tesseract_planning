@@ -58,6 +58,13 @@ namespace tesseract_planning
 JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                                                      const PlannerRequest& request,
                                                      const tesseract_common::ManipulatorInfo& manip_info)
+  : JointGroupInstructionInfo(plan_instruction, *request.env, manip_info)
+{
+}
+
+JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
+                                                     const tesseract_environment::Environment& env,
+                                                     const tesseract_common::ManipulatorInfo& manip_info)
   : instruction(plan_instruction)
 {
   assert(!(manip_info.empty() && plan_instruction.getManipulatorInfo().empty()));
@@ -74,13 +81,13 @@ JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& 
     throw std::runtime_error("InstructionInfo, working frame is empty!");
 
   // Get Previous Instruction Kinematics
-  manip = request.env->getJointGroup(mi.manipulator);
+  manip = env.getJointGroup(mi.manipulator);
 
   // Get Previous Instruction TCP and Working Frame
   working_frame = mi.working_frame;
-  working_frame_transform = request.env_state.link_transforms.at(working_frame);
+  working_frame_transform = env.getLinkTransform(working_frame);
   tcp_frame = mi.tcp_frame;
-  tcp_offset = request.env->findTCPOffset(mi);
+  tcp_offset = env.findTCPOffset(mi);
 
   // Get Previous Instruction Waypoint Info
   if (plan_instruction.getWaypoint().isStateWaypoint() || plan_instruction.getWaypoint().isJointWaypoint())
@@ -106,7 +113,10 @@ Eigen::Isometry3d JointGroupInstructionInfo::calcCartesianPose(const Eigen::Vect
 Eigen::Isometry3d JointGroupInstructionInfo::extractCartesianPose(bool in_world) const
 {
   if (!instruction.getWaypoint().isCartesianWaypoint())
-    throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
+  {
+    const auto& jp = getJointPosition(instruction.getWaypoint());
+    return calcCartesianPose(jp, in_world);
+  }
 
   if (in_world)
     return working_frame_transform * instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform();
@@ -121,6 +131,13 @@ const Eigen::VectorXd& JointGroupInstructionInfo::extractJointPosition() const
 
 KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                                                              const PlannerRequest& request,
+                                                             const tesseract_common::ManipulatorInfo& manip_info)
+  : KinematicGroupInstructionInfo(plan_instruction, *request.env, manip_info)
+{
+}
+
+KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
+                                                             const tesseract_environment::Environment& env,
                                                              const tesseract_common::ManipulatorInfo& manip_info)
   : instruction(plan_instruction)
 {
@@ -138,13 +155,13 @@ KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructi
     throw std::runtime_error("InstructionInfo, working frame is empty!");
 
   // Get Previous Instruction Kinematics
-  manip = request.env->getKinematicGroup(mi.manipulator, mi.manipulator_ik_solver);
+  manip = env.getKinematicGroup(mi.manipulator, mi.manipulator_ik_solver);
 
   // Get Previous Instruction TCP and Working Frame
   working_frame = mi.working_frame;
-  working_frame_transform = request.env_state.link_transforms.at(working_frame);
+  working_frame_transform = env.getLinkTransform(working_frame);
   tcp_frame = mi.tcp_frame;
-  tcp_offset = request.env->findTCPOffset(mi);
+  tcp_offset = env.findTCPOffset(mi);
 
   // Get Previous Instruction Waypoint Info
   if (plan_instruction.getWaypoint().isStateWaypoint() || plan_instruction.getWaypoint().isJointWaypoint())
@@ -170,7 +187,10 @@ Eigen::Isometry3d KinematicGroupInstructionInfo::calcCartesianPose(const Eigen::
 Eigen::Isometry3d KinematicGroupInstructionInfo::extractCartesianPose(bool in_world) const
 {
   if (!instruction.getWaypoint().isCartesianWaypoint())
-    throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
+  {
+    const auto& jp = getJointPosition(instruction.getWaypoint());
+    return calcCartesianPose(jp, in_world);
+  }
 
   if (in_world)
     return working_frame_transform * instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform();
@@ -222,7 +242,7 @@ std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const KinematicGr
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -286,7 +306,7 @@ std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const KinematicGro
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -349,7 +369,7 @@ std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const KinematicGro
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -451,7 +471,7 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -540,7 +560,7 @@ std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const KinematicGro
       for (auto& pose : poses)
         pose = base.working_frame_transform.inverse() * pose;
 
-      assert(poses.size() == states.cols());
+      assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
       return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
     }
 
@@ -561,7 +581,7 @@ std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const KinematicGro
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -618,7 +638,7 @@ std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const KinematicGro
       for (auto& pose : poses)
         pose = base.working_frame_transform.inverse() * pose;
 
-      assert(poses.size() == states.cols());
+      assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
       return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
     }
 
@@ -639,7 +659,7 @@ std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const KinematicGro
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -740,7 +760,7 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -786,7 +806,7 @@ std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const JointGroupI
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -839,7 +859,7 @@ std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const JointGroupIn
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -892,7 +912,7 @@ std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const JointGroupIn
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
@@ -948,7 +968,7 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const JointGroupIns
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(poses.size() == states.cols());
+    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 

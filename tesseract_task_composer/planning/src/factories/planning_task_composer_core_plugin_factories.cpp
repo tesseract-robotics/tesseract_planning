@@ -33,6 +33,7 @@
 #include <tesseract_task_composer/planning/nodes/fix_state_collision_task.h>
 #include <tesseract_task_composer/planning/nodes/format_as_input_task.h>
 #include <tesseract_task_composer/planning/nodes/format_as_result_task.h>
+#include <tesseract_task_composer/planning/nodes/format_planning_input_task.h>
 #include <tesseract_task_composer/planning/nodes/min_length_task.h>
 #include <tesseract_task_composer/planning/nodes/profile_switch_task.h>
 #include <tesseract_task_composer/planning/nodes/upsample_trajectory_task.h>
@@ -51,6 +52,7 @@ using FixStateBoundsTaskFactory = TaskComposerTaskFactory<FixStateBoundsTask>;
 using FixStateCollisionTaskFactory = TaskComposerTaskFactory<FixStateCollisionTask>;
 using FormatAsInputTaskFactory = TaskComposerTaskFactory<FormatAsInputTask>;
 using FormatAsResultTaskFactory = TaskComposerTaskFactory<FormatAsResultTask>;
+using FormatPlanningInputTaskFactory = TaskComposerTaskFactory<FormatPlanningInputTask>;
 using MinLengthTaskFactory = TaskComposerTaskFactory<MinLengthTask>;
 using ProfileSwitchTaskFactory = TaskComposerTaskFactory<ProfileSwitchTask>;
 using UpsampleTrajectoryTaskFactory = TaskComposerTaskFactory<UpsampleTrajectoryTask>;
@@ -78,6 +80,8 @@ TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::FixStateCollisionTas
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::FormatAsInputTaskFactory, FormatAsInputTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::FormatAsResultTaskFactory, FormatAsResultTaskFactory)
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::FormatPlanningInputTaskFactory, FormatPlanningInputTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::MinLengthTaskFactory, MinLengthTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)

@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/plugin_info.h>
 #include <tesseract_common/yaml_utils.h>
-#include <tesseract_common/timer.h>
+#include <tesseract_common/stopwatch.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_context.h>
@@ -224,8 +224,8 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerGraph::runImpl(TaskComposerCon
   if (terminals_.empty())
     throw std::runtime_error("TaskComposerGraph, with name '" + name_ + "' does not have terminals!");
 
-  tesseract_common::Timer timer;
-  timer.start();
+  tesseract_common::Stopwatch stopwatch;
+  stopwatch.start();
 
   TaskComposerFuture::UPtr future = executor.value().get().run(*this, context.data_storage, context.dotgraph);
   future->wait();
@@ -252,19 +252,33 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerGraph::runImpl(TaskComposerCon
     auto node_info = context.task_infos.getInfo(terminals_[i]);
     if (node_info != nullptr)
     {
-      timer.stop();
+      stopwatch.stop();
       info->input_keys = input_keys_;
       info->output_keys = output_keys_;
       info->return_value = static_cast<int>(i);
       info->color = node_info->color;
       info->status_code = node_info->status_code;
       info->status_message = node_info->status_message;
-      info->elapsed_time = timer.elapsedSeconds();
+      info->elapsed_time = stopwatch.elapsedSeconds();
       return info;
     }
   }
 
   throw std::runtime_error("TaskComposerGraph, with name '" + name_ + "' has no node info for any of the leaf nodes!");
+}
+
+boost::uuids::uuid TaskComposerGraph::getRootNode() const
+{
+  boost::uuids::uuid root_node{};
+  for (const auto& pair : nodes_)
+  {
+    if (pair.second->getInboundEdges().empty())
+    {
+      root_node = pair.first;
+      break;
+    }
+  }
+  return root_node;
 }
 
 boost::uuids::uuid TaskComposerGraph::addNode(std::unique_ptr<TaskComposerNode> task_node)
@@ -321,17 +335,31 @@ void TaskComposerGraph::setTerminalTriggerAbort(boost::uuids::uuid terminal)
 {
   if (!terminal.is_nil())
   {
-    auto& n = nodes_.at(terminal);
-    if (n->getType() == TaskComposerNodeType::TASK)
-      static_cast<TaskComposerTask&>(*n).setTriggerAbort(true);
-    else
-      throw std::runtime_error("Tasks can only trigger abort!");
+    abort_terminal_ = -1;
+    for (std::size_t i = 0; i < terminals_.size(); ++i)
+    {
+      const boost::uuids::uuid& uuid = terminals_[i];
+      if (uuid == terminal)
+      {
+        abort_terminal_ = static_cast<int>(i);
+        auto& n = nodes_.at(terminal);
+        if (n->getType() == TaskComposerNodeType::TASK)
+          static_cast<TaskComposerTask&>(*n).setTriggerAbort(true);
+        else
+          throw std::runtime_error("Tasks can only trigger abort!");
+
+        break;
+      }
+    }
+    if (abort_terminal_ < 0)
+      throw std::runtime_error("Task with uuid: " + boost::uuids::to_string(terminal) + " is not a terminal node");
   }
   else
   {
-    for (const auto& terminal : terminals_)
+    abort_terminal_ = -1;
+    for (const auto& t : terminals_)
     {
-      auto& n = nodes_.at(terminal);
+      auto& n = nodes_.at(t);
       if (n->getType() == TaskComposerNodeType::TASK)
         static_cast<TaskComposerTask&>(*n).setTriggerAbort(false);
     }
@@ -342,6 +370,7 @@ void TaskComposerGraph::setTerminalTriggerAbortByIndex(int terminal_index)
 {
   if (terminal_index >= 0)
   {
+    abort_terminal_ = terminal_index;
     auto& n = nodes_.at(terminals_.at(static_cast<std::size_t>(terminal_index)));
     if (n->getType() == TaskComposerNodeType::TASK)
       static_cast<TaskComposerTask&>(*n).setTriggerAbort(true);
@@ -350,6 +379,7 @@ void TaskComposerGraph::setTerminalTriggerAbortByIndex(int terminal_index)
   }
   else
   {
+    abort_terminal_ = -1;
     for (const auto& terminal : terminals_)
     {
       auto& n = nodes_.at(terminal);
@@ -358,6 +388,16 @@ void TaskComposerGraph::setTerminalTriggerAbortByIndex(int terminal_index)
     }
   }
 }
+
+boost::uuids::uuid TaskComposerGraph::getAbortTerminal() const
+{
+  if (abort_terminal_ >= 0)
+    return terminals_.at(static_cast<std::size_t>(abort_terminal_));
+
+  return {};
+}
+
+int TaskComposerGraph::getAbortTerminalIndex() const { return abort_terminal_; }
 
 std::pair<bool, std::string> TaskComposerGraph::isValid() const
 {
@@ -409,6 +449,7 @@ TaskComposerGraph::dump(std::ostream& os,
      << "\\nUUID: " << uuid_str_ << "\\l";
   os << "Inputs:\\l" << input_keys_;
   os << "Outputs:\\l" << output_keys_;
+  os << "Abort Terminal: " << abort_terminal_ << "\\l";
   os << "Conditional: " << ((conditional_) ? "True" : "False") << "\\l";
   if (getType() == TaskComposerNodeType::PIPELINE || getType() == TaskComposerNodeType::GRAPH)
   {
@@ -436,6 +477,7 @@ TaskComposerGraph::dump(std::ostream& os,
          << "\\l";
       os << "Inputs:\\l" << input_keys;
       os << "Outputs:\\l" << output_keys;
+      os << "Abort Terminal: " << static_cast<const TaskComposerGraph&>(*node).abort_terminal_ << "\\l";
       os << "Conditional: " << ((node->isConditional()) ? "True" : "False") << "\\l";
       if (it != results_map.end())
         os << "Time: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s\\l";
@@ -506,6 +548,7 @@ bool TaskComposerGraph::operator==(const TaskComposerGraph& rhs) const
     }
   }
   equal &= (terminals_ == rhs.terminals_);
+  equal &= (abort_terminal_ == rhs.abort_terminal_);
   equal &= TaskComposerNode::operator==(rhs);
   return equal;
 }
@@ -519,10 +562,11 @@ void TaskComposerGraph::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& boost::serialization::make_nvp("nodes", nodes_);
   ar& boost::serialization::make_nvp("terminals", terminals_);
+  ar& boost::serialization::make_nvp("abort_terminal", abort_terminal_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
 }
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerGraph)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerGraph)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerGraph)

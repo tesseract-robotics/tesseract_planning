@@ -36,6 +36,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <Eigen/Geometry>
+#include <boost/uuid/uuid.hpp>
 #include <trajopt_sqp/fwd.h>
 #include <trajopt_ifopt/fwd.h>
 #include <tesseract_common/eigen_types.h>
@@ -107,6 +108,7 @@ private:
 
   std::shared_ptr<const tesseract_kinematics::KinematicGroup> manip_;
   tesseract_visualization::TrajectoryPlayer player_;
+  boost::uuids::uuid current_trajectory_uuid_{};
   tesseract_common::TrajArray current_trajectory_;
   Eigen::Isometry3d target_pose_delta_;
   Eigen::Isometry3d target_pose_base_frame_;

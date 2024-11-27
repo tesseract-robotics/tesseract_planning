@@ -1,4 +1,3 @@
-find_package(tesseract_support REQUIRED)
 find_package(
   tesseract_motion_planners REQUIRED
   COMPONENTS core simple
@@ -20,7 +19,6 @@ target_link_libraries(
   ${PROJECT_NAME}_fix_state_bounds_task_unit
   PRIVATE GTest::GTest
           GTest::Main
-          tesseract::tesseract_support
           ${PROJECT_NAME}_planning_nodes
           ${TESSERACT_TCMALLOC_LIB})
 target_include_directories(${PROJECT_NAME}_fix_state_bounds_task_unit
@@ -42,7 +40,6 @@ target_link_libraries(
   ${PROJECT_NAME}_fix_state_collision_task_unit
   PRIVATE GTest::GTest
           GTest::Main
-          tesseract::tesseract_support
           ${PROJECT_NAME}_planning_nodes
           ${TESSERACT_TCMALLOC_LIB})
 target_include_directories(${PROJECT_NAME}_fix_state_collision_task_unit

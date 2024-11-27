@@ -122,12 +122,12 @@ void tesseract_planning::JointWaypointPoly::serialize(Archive& ar, const unsigne
   ar& boost::serialization::make_nvp("base", boost::serialization::base_object<JointWaypointPolyBase>(*this));
 }
 
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_joint_waypoint::JointWaypointInterface)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::JointWaypointPolyBase)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::JointWaypointPoly)
+
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_joint_waypoint::JointWaypointInterface)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::JointWaypointPolyBase)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::JointWaypointPoly)
 
 TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::JointWaypointPoly)
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_joint_waypoint::JointWaypointInterface)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::JointWaypointPolyBase)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::JointWaypointPoly)

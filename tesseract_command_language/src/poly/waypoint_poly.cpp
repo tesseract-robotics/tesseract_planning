@@ -43,10 +43,9 @@ void tesseract_planning::WaypointPoly::serialize(Archive& ar, const unsigned int
   ar& boost::serialization::make_nvp("base", boost::serialization::base_object<WaypointPolyBase>(*this));
 }
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_waypoint::WaypointInterface)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::WaypointPolyBase)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::WaypointPoly)
-
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_waypoint::WaypointInterface)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::WaypointPolyBase)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::WaypointPoly)
+
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::WaypointPolyBase)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::WaypointPoly)

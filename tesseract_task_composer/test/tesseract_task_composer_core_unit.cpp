@@ -16,6 +16,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
 #include <tesseract_task_composer/core/task_composer_server.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/core/task_composer_log.h>
 
 #include <tesseract_task_composer/core/test_suite/task_composer_node_info_unit.hpp>
 #include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
@@ -138,6 +139,16 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerContextTests)  // NOLINT
 
   // Serialization
   test_suite::runSerializationPointerTest(context, "TaskComposerContextTests");
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerLogTests)  // NOLINT
+{
+  tesseract_planning::TaskComposerLog log;
+  log.context =
+      std::make_unique<TaskComposerContext>("TaskComposerLogTests", std::make_unique<TaskComposerDataStorage>());
+
+  // Serialization
+  test_suite::runSerializationTest(log, "TaskComposerLogTests");
 }
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoContainerTests)  // NOLINT
@@ -1732,8 +1743,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     std::string str = R"(config:
                            conditional: true
                            copy: true
-                           remap:
-                             test: test2)";
+                           inputs:
+                             keys: [test]
+                           outputs:
+                             keys: [test2])";
     YAML::Node config = YAML::Load(str);
     RemapTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
@@ -1811,8 +1824,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     std::string str = R"(config:
                            conditional: true
                            copy: true
-                           remap:
-                             joint_state: remap_joint_state)";
+                           inputs:
+                             keys: [joint_state]
+                           outputs:
+                             keys: [remap_joint_state])";
     YAML::Node config = YAML::Load(str);
 
     RemapTask task("RemapTaskTest", config["config"], factory);
@@ -1840,8 +1855,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     std::string str = R"(config:
                            conditional: true
                            copy: false
-                           remap:
-                             joint_state: remap_joint_state)";
+                           inputs:
+                             keys: [joint_state]
+                           outputs:
+                             keys: [remap_joint_state])";
     YAML::Node config = YAML::Load(str);
 
     RemapTask task("RemapTaskTest", config["config"], factory);
@@ -1874,14 +1891,14 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     str = R"(config:
                conditional: true
                inputs:
-                 port1: [input_data])";
+                 keys: [input_data])";
     config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RemapTask>("abc", config["config"], factory));  // NOLINT
 
     str = R"(config:
                conditional: true
                outputs:
-                 port1: [output_data])";
+                 keys: [output_data])";
     config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RemapTask>("abc", config["config"], factory));  // NOLINT
   }

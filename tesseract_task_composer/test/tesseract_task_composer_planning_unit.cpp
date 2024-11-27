@@ -10,6 +10,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/nodes/discrete_contact_check_task.h>
 #include <tesseract_task_composer/planning/nodes/format_as_input_task.h>
 #include <tesseract_task_composer/planning/nodes/format_as_result_task.h>
+#include <tesseract_task_composer/planning/nodes/format_planning_input_task.h>
 #include <tesseract_task_composer/planning/nodes/min_length_task.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_bounds_task.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_collision_task.h>
@@ -32,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_executor.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
+#include <tesseract_task_composer/core/task_composer_log.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
 #include <tesseract_task_composer/core/test_suite/test_programs.hpp>
@@ -156,9 +158,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization
-    test_suite::runSerializationTest(dynamic_cast<const ContinuousContactCheckTaskInfo&>(*node_info),
-                                     "TaskComposerContinuousContactCheckNodeInfoTests");
+    test_suite::runSerializationTest(*node_info, "TaskComposerContinuousContactCheckNodeInfoTests");
   }
 
   {  // Failure missing input data
@@ -247,7 +247,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_EQ(node_info->status_code, 0);
     EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
-    EXPECT_EQ(dynamic_cast<const ContinuousContactCheckTaskInfo&>(*node_info).contact_results.empty(), false);
+    EXPECT_EQ(node_info->data_storage.getData("contact_results")
+                  .as<std::vector<tesseract_collision::ContactResultMap>>()
+                  .empty(),
+              false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
@@ -277,11 +280,11 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
     EXPECT_EQ(task.getInputKeys().size(), 5);
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_PROGRAM_PORT), "input_data");
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_MANIP_INFO_PORT), "manip_info");
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
+    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_MANIP_INFO_PORT), "manip_info");
+    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
               "composite_profile_remapping");
     EXPECT_EQ(task.getOutputKeys().size(), 0);
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -332,9 +335,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization
-    test_suite::runSerializationTest(dynamic_cast<const DiscreteContactCheckTaskInfo&>(*node_info),
-                                     "TaskComposerDiscreteContactCheckNodeInfoTests");
+    test_suite::runSerializationTest(*node_info, "TaskComposerDiscreteContactCheckNodeInfoTests");
   }
 
   {  // Failure missing input data
@@ -419,7 +420,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(node_info->status_code, 0);
     EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
-    EXPECT_EQ(dynamic_cast<const DiscreteContactCheckTaskInfo&>(*node_info).contact_results.empty(), false);
+    EXPECT_EQ(node_info->data_storage.getData("contact_results")
+                  .as<std::vector<tesseract_collision::ContactResultMap>>()
+                  .empty(),
+              false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
@@ -971,6 +975,127 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
   }
 }
 
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatPlanningInputTaskTests)  // NOLINT
+{
+  {  // Construction
+    FormatPlanningInputTask task;
+    EXPECT_EQ(task.getName(), "FormatPlanningInputTask");
+    EXPECT_EQ(task.isConditional(), false);
+  }
+
+  {  // Construction
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             program: input_data
+                             environment: environment
+                           outputs:
+                             program: output_data)";
+    YAML::Node config = YAML::Load(str);
+    FormatPlanningInputTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+    EXPECT_EQ(task.getInputKeys().size(), 2);
+    EXPECT_EQ(task.getInputKeys().get(FormatPlanningInputTask::INOUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputKeys().get(FormatPlanningInputTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getOutputKeys().size(), 1);
+    EXPECT_EQ(task.getOutputKeys().get(MinLengthTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getOutboundEdges().size(), 0);
+    EXPECT_EQ(task.getInboundEdges().size(), 0);
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FormatPlanningInputTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             program: input_data
+                             environment: environment)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FormatPlanningInputTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           outputs:
+                             program: output_data)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<FormatPlanningInputTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<FormatPlanningInputTask>();
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerFormatPlanningInputTaskTests");
+  }
+
+  {  // Test run method
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    auto input_data = test_suite::jointInterpolateExampleProgramABB(true);
+    data->setData("input_data", input_data);
+    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    FormatPlanningInputTask task("abc", "input_data", "environment", "output_data", true);
+    EXPECT_EQ(task.run(*context), 1);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_GE(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), input_data.size());
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure missing input data
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    FormatPlanningInputTask task("abc", "input_data", "environment", "output_data", true);
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, -1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure missing environment data
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    FormatPlanningInputTask task("abc", "input_data", "environment", "output_data", true);
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, -1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+}
+
 TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  // NOLINT
 {
   {  // Construction
@@ -1240,9 +1365,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     EXPECT_TRUE(context->data_storage->hasKey("output_data"));
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization
-    test_suite::runSerializationTest(dynamic_cast<const FixStateCollisionTaskInfo&>(*node_info),
-                                     "TaskComposerFixStateCollisionNodeInfoTests");
+    test_suite::runSerializationTest(*node_info, "TaskComposerFixStateCollisionNodeInfoTests");
   }
 
   {  // Failure missing input data
@@ -2173,9 +2296,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization
-    test_suite::runSerializationTest(dynamic_cast<const TimeOptimalParameterizationTaskInfo&>(*node_info),
-                                     "TaskComposerTimeOptimalParameterizationNodeInfoTests");
+    test_suite::runSerializationTest(*node_info, "TaskComposerTimeOptimalParameterizationNodeInfoTests");
   }
 
   {  // Test run method
@@ -2554,27 +2675,35 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
       data->setData("input_data", context->data_storage->getData("output_data"));
       EXPECT_GE(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
     }
+    tesseract_planning::TaskComposerLog log("TaskComposerMotionPlannerNodeInfoTests");
     auto profiles = std::make_shared<ProfileDictionary>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
-    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    log.initial_data = *data;
+
+    log.context = std::make_shared<TaskComposerContext>("abc", std::move(data));
     MotionPlannerTask<TrajOptMotionPlanner> task(
         "abc", "input_data", "environment", "profiles", "output_data", false, true);
-    EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    EXPECT_EQ(task.run(*log.context), 1);
+    log.dotgraph = task.getDotgraph(log.context->task_infos.getInfoMap());
+    auto node_info = log.context->task_infos.getInfo(task.getUUID());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
     EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
-    EXPECT_EQ(context->isAborted(), false);
-    EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_GE(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(log.context->isAborted(), false);
+    EXPECT_EQ(log.context->isSuccessful(), true);
+    EXPECT_GE(log.context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
+    EXPECT_TRUE(log.context->task_infos.getAbortingNode().is_nil());
 
-    // Serialization
-    test_suite::runSerializationTest(dynamic_cast<const MotionPlannerTaskInfo&>(*node_info),
-                                     "TaskComposerMotionPlannerNodeInfoTests");
+    test_suite::runSerializationTest(*node_info, "TaskComposerMotionPlannerNodeInfoTests");
+    {
+      const std::string filepath = tesseract_common::getTempPath() + "TaskComposerMotionPlannerLogTests.xml";
+      tesseract_common::Serialization::toArchiveFileXML<tesseract_planning::TaskComposerLog>(log, filepath);
+      auto ninput = tesseract_common::Serialization::fromArchiveFileXML<tesseract_planning::TaskComposerLog>(filepath);
+      EXPECT_TRUE(ninput.initial_data.hasKey("environment"));
+    }
   }
 
   {  // Failure missing input data
@@ -2977,7 +3106,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     EXPECT_TRUE(future->context->data_storage->hasKey(output_key));
     EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
     auto info_map = future->context->task_infos.getInfoMap();
-    EXPECT_EQ(info_map.size(), 76);
+    EXPECT_EQ(info_map.size(), 77);
 
     // Make sure keys are unique
     std::vector<std::string> raster_input_keys;
@@ -3444,7 +3573,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     EXPECT_TRUE(future->context->data_storage->hasKey(output_key));
     EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
     auto info_map = future->context->task_infos.getInfoMap();
-    EXPECT_EQ(info_map.size(), 60);
+    EXPECT_EQ(info_map.size(), 61);
 
     // Make sure keys are unique
     std::vector<std::string> raster_input_keys;

@@ -38,30 +38,59 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-RemapTask::RemapTask() : TaskComposerTask("RemapTask", TaskComposerNodePorts{}, false) {}
-RemapTask::RemapTask(std::string name, std::map<std::string, std::string> remap, bool copy, bool is_conditional)
-  : TaskComposerTask(std::move(name), TaskComposerNodePorts{}, is_conditional), remap_(std::move(remap)), copy_(copy)
+const std::string RemapTask::INOUT_KEYS_PORT = "keys";
+
+RemapTask::RemapTask() : TaskComposerTask("RemapTask", RemapTask::ports(), false) {}
+RemapTask::RemapTask(std::string name, const std::map<std::string, std::string>& remap, bool copy, bool is_conditional)
+  : TaskComposerTask(std::move(name), RemapTask::ports(), is_conditional), copy_(copy)
 {
-  if (remap_.empty())
+  if (remap.empty())
     throw std::runtime_error("RemapTask, remap should not be empty!");
+
+  std::vector<std::string> ikeys;
+  std::vector<std::string> okeys;
+  ikeys.reserve(remap.size());
+  okeys.reserve(remap.size());
+  for (const auto& pair : remap)
+  {
+    ikeys.push_back(pair.first);
+    okeys.push_back(pair.second);
+  }
+
+  input_keys_.add(INOUT_KEYS_PORT, ikeys);
+  output_keys_.add(INOUT_KEYS_PORT, okeys);
+  validatePorts();
 }
 RemapTask::RemapTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
-  : TaskComposerTask(std::move(name), TaskComposerNodePorts{}, config)
+  : TaskComposerTask(std::move(name), RemapTask::ports(), config)
 {
-  if (YAML::Node n = config["remap"])
-    remap_ = n.as<std::map<std::string, std::string>>();
-  else
-    throw std::runtime_error("RemapTask missing config key: 'remap'");
+  if (input_keys_.get<std::vector<std::string>>(INOUT_KEYS_PORT).size() !=
+      output_keys_.get<std::vector<std::string>>(INOUT_KEYS_PORT).size())
+    throw std::runtime_error("RemapTask, input and ouput port 'keys' must be same size");
 
   if (YAML::Node n = config["copy"])
     copy_ = n.as<bool>();
+}
+
+TaskComposerNodePorts RemapTask::ports()
+{
+  TaskComposerNodePorts ports;
+  ports.input_required[INOUT_KEYS_PORT] = TaskComposerNodePorts::MULTIPLE;
+  ports.output_required[INOUT_KEYS_PORT] = TaskComposerNodePorts::MULTIPLE;
+  return ports;
 }
 
 std::unique_ptr<TaskComposerNodeInfo> RemapTask::runImpl(TaskComposerContext& context,
                                                          OptionalTaskComposerExecutor /*executor*/) const
 {
   auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  if (context.data_storage->remapData(remap_, copy_))
+  const auto& ikeys = input_keys_.get<std::vector<std::string>>(INOUT_KEYS_PORT);
+  const auto& okeys = output_keys_.get<std::vector<std::string>>(INOUT_KEYS_PORT);
+  std::map<std::string, std::string> remapping;
+  for (std::size_t i = 0; i < ikeys.size(); ++i)
+    remapping[ikeys[i]] = okeys[i];
+
+  if (context.data_storage->remapData(remapping, copy_))
   {
     info->color = "green";
     info->return_value = 1;
@@ -81,9 +110,8 @@ std::unique_ptr<TaskComposerNodeInfo> RemapTask::runImpl(TaskComposerContext& co
 bool RemapTask::operator==(const RemapTask& rhs) const
 {
   bool equal = true;
-  equal &= (remap_ == rhs.remap_);
   equal &= (copy_ == rhs.copy_);
-  equal &= TaskComposerNode::operator==(rhs);
+  equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
 bool RemapTask::operator!=(const RemapTask& rhs) const { return !operator==(rhs); }
@@ -92,11 +120,10 @@ template <class Archive>
 void RemapTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-  ar& boost::serialization::make_nvp("remap_data", remap_);
   ar& boost::serialization::make_nvp("copy", copy_);
 }
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RemapTask)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RemapTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RemapTask)

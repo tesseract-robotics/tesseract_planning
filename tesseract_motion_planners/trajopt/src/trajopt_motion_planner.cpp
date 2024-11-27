@@ -163,7 +163,7 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
   // Flatten the results to make them easier to process
   response.results = request.instructions;
   auto results_instructions = response.results.flatten(&moveFilter);
-  assert(results_instructions.size() == traj.rows());
+  assert(static_cast<Eigen::Index>(results_instructions.size()) == traj.rows());
   for (std::size_t idx = 0; idx < results_instructions.size(); idx++)
   {
     auto& move_instruction = results_instructions.at(idx).get().as<MoveInstructionPoly>();
@@ -248,7 +248,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   std::vector<Eigen::VectorXd> seed_states;
   seed_states.reserve(move_instructions.size());
 
-  for (int i = 0; i < move_instructions.size(); ++i)
+  for (int i = 0; i < static_cast<Eigen::Index>(move_instructions.size()); ++i)
   {
     const auto& move_instruction = move_instructions[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>();
 

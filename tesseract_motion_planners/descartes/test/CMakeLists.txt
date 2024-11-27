@@ -1,4 +1,3 @@
-find_package(tesseract_support REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 find_package(tesseract_kinematics REQUIRED COMPONENTS opw)
 
@@ -7,7 +6,6 @@ target_link_libraries(
   ${PROJECT_NAME}_descartes_unit
   PRIVATE GTest::GTest
           GTest::Main
-          tesseract::tesseract_support
           tesseract::tesseract_kinematics_opw
           ${PROJECT_NAME}_descartes)
 target_compile_options(${PROJECT_NAME}_descartes_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}

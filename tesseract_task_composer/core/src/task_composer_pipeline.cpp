@@ -26,7 +26,7 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tesseract_common/timer.h>
+#include <tesseract_common/stopwatch.h>
 #include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -56,17 +56,9 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerPipeline::runImpl(TaskComposer
   if (terminals_.empty())
     throw std::runtime_error("TaskComposerPipeline, with name '" + name_ + "' does not have terminals!");
 
-  tesseract_common::Timer timer;
-  timer.start();
-  boost::uuids::uuid root_node{};
-  for (const auto& pair : nodes_)
-  {
-    if (pair.second->getInboundEdges().empty())
-    {
-      root_node = pair.first;
-      break;
-    }
-  }
+  tesseract_common::Stopwatch stopwatch;
+  stopwatch.start();
+  boost::uuids::uuid root_node = getRootNode();
 
   if (root_node.is_nil())
     throw std::runtime_error("TaskComposerPipeline, with name '" + name_ + "' does not have a root node!");
@@ -78,15 +70,13 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerPipeline::runImpl(TaskComposer
     auto node_info = context.task_infos.getInfo(terminals_[i]);
     if (node_info != nullptr)
     {
-      timer.stop();
+      stopwatch.stop();
       auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-      info->input_keys = input_keys_;
-      info->output_keys = output_keys_;
       info->return_value = static_cast<int>(i);
       info->color = node_info->color;
       info->status_code = node_info->status_code;
       info->status_message = node_info->status_message;
-      info->elapsed_time = timer.elapsedSeconds();
+      info->elapsed_time = stopwatch.elapsedSeconds();
       return info;
     }
   }
@@ -133,5 +123,5 @@ void TaskComposerPipeline::serialize(Archive& ar, const unsigned int /*version*/
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerPipeline)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerPipeline)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerPipeline)

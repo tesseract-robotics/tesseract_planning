@@ -2,6 +2,37 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.26.1 (2024-10-29)
+-------------------
+
+0.26.0 (2024-10-27)
+-------------------
+* Remove TesseractSupportResourceLocator
+* Contributors: Levi Armstrong
+
+0.25.1 (2024-09-29)
+-------------------
+
+0.25.0 (2024-09-29)
+-------------------
+
+0.24.2 (2024-08-19)
+-------------------
+
+0.24.1 (2024-08-16)
+-------------------
+
+0.24.0 (2024-08-14)
+-------------------
+
+0.23.6 (2024-08-06)
+-------------------
+* Fix Mac OS clang compiler warnings (`#496 <https://github.com/tesseract-robotics/tesseract_planning/issues/496>`_)
+* Contributors: John Wason
+
+0.23.5 (2024-08-01)
+-------------------
+
 0.23.4 (2024-07-29)
 -------------------
 
@@ -239,8 +270,8 @@ Changelog for package tesseract_command_language
 
 0.9.5 (2022-03-31)
 ------------------
-* Update to leverage TesseractSupportResourceLocator (`#181 <https://github.com/tesseract-robotics/tesseract_planning/issues/181>`_)
-  * Update to leverage TesseractSupportResourceLocator
+* Update to leverage GeneralResourceLocator (`#181 <https://github.com/tesseract-robotics/tesseract_planning/issues/181>`_)
+  * Update to leverage GeneralResourceLocator
   * Update CI docker tag to 0.9
 * Fix windows CI build (`#178 <https://github.com/tesseract-robotics/tesseract_planning/issues/178>`_)
 * Contributors: Levi Armstrong

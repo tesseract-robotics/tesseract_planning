@@ -68,6 +68,7 @@ bool TaskComposerContext::operator==(const TaskComposerContext& rhs) const
 {
   bool equal = true;
   equal &= name == rhs.name;
+  equal &= dotgraph == rhs.dotgraph;
 
   if (data_storage != nullptr && rhs.data_storage != nullptr)
     equal &= (*data_storage == *rhs.data_storage);
@@ -85,11 +86,12 @@ template <class Archive>
 void TaskComposerContext::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& boost::serialization::make_nvp("name", name);
+  ar& boost::serialization::make_nvp("dotgraph", dotgraph);
   ar& boost::serialization::make_nvp("data_storage", data_storage);
   ar& boost::serialization::make_nvp("task_infos", task_infos);
   ar& boost::serialization::make_nvp("aborted", aborted_);
 }
 
 }  // namespace tesseract_planning
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerContext)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerContext)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerContext)

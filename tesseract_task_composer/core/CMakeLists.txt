@@ -9,6 +9,7 @@ add_library(
   src/task_composer_future.cpp
   src/task_composer_graph.cpp
   src/task_composer_keys.cpp
+  src/task_composer_log.cpp
   src/task_composer_node_info.cpp
   src/task_composer_node_ports.cpp
   src/task_composer_node.cpp

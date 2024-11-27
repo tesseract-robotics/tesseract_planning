@@ -111,7 +111,7 @@ TaskComposerNodePorts TimeOptimalParameterizationTask::ports()
 std::unique_ptr<TaskComposerNodeInfo>
 TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TimeOptimalParameterizationTaskInfo>(*this);
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
   info->status_code = 0;
 
@@ -180,8 +180,8 @@ TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalT
                                          cur_composite_profile->min_angle_change);
 
   // Store scaling factors
-  info->max_velocity_scaling_factor = cur_composite_profile->max_velocity_scaling_factor;
-  info->max_acceleration_scaling_factor = cur_composite_profile->max_acceleration_scaling_factor;
+  info->data_storage.setData("max_velocity_scaling_factor", cur_composite_profile->max_velocity_scaling_factor);
+  info->data_storage.setData("max_acceleration_scaling_factor", cur_composite_profile->max_acceleration_scaling_factor);
 
   // Copy the Composite before passing in because it will get flattened and resampled
   CompositeInstruction copy_ci(ci);
@@ -229,41 +229,7 @@ void TimeOptimalParameterizationTask::serialize(Archive& ar, const unsigned int 
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-TimeOptimalParameterizationTaskInfo::TimeOptimalParameterizationTaskInfo(const TimeOptimalParameterizationTask& task)
-  : TaskComposerNodeInfo(task)
-{
-}
-
-std::unique_ptr<TaskComposerNodeInfo> TimeOptimalParameterizationTaskInfo::clone() const
-{
-  return std::make_unique<TimeOptimalParameterizationTaskInfo>(*this);
-}
-
-bool TimeOptimalParameterizationTaskInfo::operator==(const TimeOptimalParameterizationTaskInfo& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerNodeInfo::operator==(rhs);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(max_velocity_scaling_factor, rhs.max_velocity_scaling_factor);
-  equal &=
-      tesseract_common::almostEqualRelativeAndAbs(max_acceleration_scaling_factor, rhs.max_acceleration_scaling_factor);
-  return equal;
-}
-bool TimeOptimalParameterizationTaskInfo::operator!=(const TimeOptimalParameterizationTaskInfo& rhs) const
-{
-  return !operator==(rhs);
-}
-
-template <class Archive>
-void TimeOptimalParameterizationTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-  ar& BOOST_SERIALIZATION_NVP(max_velocity_scaling_factor);
-  ar& BOOST_SERIALIZATION_NVP(max_acceleration_scaling_factor);
-}
-
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TimeOptimalParameterizationTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TimeOptimalParameterizationTaskInfo)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimeOptimalParameterizationTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimeOptimalParameterizationTaskInfo)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TimeOptimalParameterizationTask)

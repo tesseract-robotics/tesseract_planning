@@ -64,6 +64,7 @@ const std::string DiscreteContactCheckTask::INPUT_PROFILES_PORT = "profiles";
 // Optional
 const std::string DiscreteContactCheckTask::INPUT_MANIP_INFO_PORT = "manip_info";
 const std::string DiscreteContactCheckTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_remapping";
+const std::string DiscreteContactCheckTask::OUTPUT_CONTACT_RESULTS_PORT = "contact_results";
 
 DiscreteContactCheckTask::DiscreteContactCheckTask()
   : TaskComposerTask("DiscreteContactCheckTask", DiscreteContactCheckTask::ports(), true)
@@ -99,13 +100,15 @@ TaskComposerNodePorts DiscreteContactCheckTask::ports()
 
   ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
+
+  ports.output_optional[OUTPUT_CONTACT_RESULTS_PORT] = TaskComposerNodePorts::SINGLE;
   return ports;
 }
 
 std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTask::runImpl(TaskComposerContext& context,
                                                                         OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<DiscreteContactCheckTaskInfo>(*this);
+  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
   info->return_value = 0;
   info->status_code = 0;
 
@@ -123,7 +126,6 @@ std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTask::runImpl(TaskComp
   }
 
   auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
-  info->env = env;
 
   auto input_data_poly = getData(*context.data_storage, INPUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
@@ -167,7 +169,9 @@ std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTask::runImpl(TaskComp
     for (auto& contact_map : contacts)
       contact_map.shrinkToFit();
 
-    info->contact_results = contacts;
+    info->data_storage.setData("contact_results", contacts);
+    setData(*context.data_storage, OUTPUT_CONTACT_RESULTS_PORT, contacts, false);
+
     return info;
   }
 
@@ -191,39 +195,7 @@ void DiscreteContactCheckTask::serialize(Archive& ar, const unsigned int /*versi
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-DiscreteContactCheckTaskInfo::DiscreteContactCheckTaskInfo(const TaskComposerNodeInfo& task)
-  : TaskComposerNodeInfo(task)
-{
-}
-
-std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTaskInfo::clone() const
-{
-  return std::make_unique<DiscreteContactCheckTaskInfo>(*this);
-}
-
-bool DiscreteContactCheckTaskInfo::operator==(const DiscreteContactCheckTaskInfo& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerNodeInfo::operator==(rhs);
-  equal &= tesseract_common::pointersEqual(env, rhs.env);
-  //  equal &= contact_results == rhs.contact_results;
-  return equal;
-}
-bool DiscreteContactCheckTaskInfo::operator!=(const DiscreteContactCheckTaskInfo& rhs) const
-{
-  return !operator==(rhs);
-}
-
-template <class Archive>
-void DiscreteContactCheckTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-  ar& BOOST_SERIALIZATION_NVP(env);
-  ar& BOOST_SERIALIZATION_NVP(contact_results);
-}
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DiscreteContactCheckTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DiscreteContactCheckTaskInfo)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DiscreteContactCheckTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DiscreteContactCheckTaskInfo)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DiscreteContactCheckTask)

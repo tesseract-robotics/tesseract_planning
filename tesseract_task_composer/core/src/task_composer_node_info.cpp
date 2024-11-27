@@ -39,7 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_node_info.h>
-#include <tesseract_task_composer/core/task_composer_node.h>
+#include <tesseract_task_composer/core/task_composer_graph.h>
 
 namespace tesseract_planning
 {
@@ -48,9 +48,22 @@ TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node)
   , ns(node.ns_)
   , uuid(node.uuid_)
   , parent_uuid(node.parent_uuid_)
+  , type(node.type_)
+  , type_hash_code(std::type_index(typeid(node)).hash_code())
+  , conditional(node.conditional_)
   , inbound_edges(node.inbound_edges_)
   , outbound_edges(node.outbound_edges_)
+  , input_keys(node.input_keys_)
+  , output_keys(node.output_keys_)
+  , triggers_abort(node.trigger_abort_)
 {
+  if (type == TaskComposerNodeType::GRAPH || type == TaskComposerNodeType::PIPELINE)
+  {
+    const auto& graph = static_cast<const TaskComposerGraph&>(node);
+    root_uuid = graph.getRootNode();
+    terminals = graph.getTerminals();
+    triggers_abort = (graph.getAbortTerminalIndex() >= 0);
+  }
 }
 
 bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
@@ -61,7 +74,11 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= name == rhs.name;
   equal &= ns == rhs.ns;
   equal &= uuid == rhs.uuid;
+  equal &= root_uuid == rhs.root_uuid;
   equal &= parent_uuid == rhs.parent_uuid;
+  equal &= type == rhs.type;
+  equal &= type_hash_code == rhs.type_hash_code;
+  equal &= conditional == rhs.conditional;
   equal &= return_value == rhs.return_value;
   equal &= status_code == rhs.status_code;
   equal &= status_message == rhs.status_message;
@@ -71,8 +88,11 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= tesseract_common::isIdentical(outbound_edges, rhs.outbound_edges, true);
   equal &= input_keys == rhs.input_keys;
   equal &= output_keys == rhs.output_keys;
+  equal &= terminals == rhs.terminals;
+  equal &= triggers_abort == rhs.triggers_abort;
   equal &= color == rhs.color;
   equal &= dotgraph == rhs.dotgraph;
+  equal &= data_storage == rhs.data_storage;
   equal &= aborted_ == rhs.aborted_;
   return equal;
 }
@@ -81,15 +101,17 @@ bool TaskComposerNodeInfo::operator!=(const TaskComposerNodeInfo& rhs) const { r
 
 bool TaskComposerNodeInfo::isAborted() const { return aborted_; }
 
-TaskComposerNodeInfo::UPtr TaskComposerNodeInfo::clone() const { return std::make_unique<TaskComposerNodeInfo>(*this); }
-
 template <class Archive>
 void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& boost::serialization::make_nvp("name", name);
   ar& boost::serialization::make_nvp("ns", ns);
   ar& boost::serialization::make_nvp("uuid", uuid);
+  ar& boost::serialization::make_nvp("root_uuid", root_uuid);
   ar& boost::serialization::make_nvp("parent_uuid", parent_uuid);
+  ar& boost::serialization::make_nvp("type", type);
+  ar& boost::serialization::make_nvp("type_hash_code", type_hash_code);
+  ar& boost::serialization::make_nvp("conditional", conditional);
   ar& boost::serialization::make_nvp("return_value", return_value);
   ar& boost::serialization::make_nvp("status_code", status_code);
   ar& boost::serialization::make_nvp("status_message", status_message);
@@ -100,8 +122,11 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("outbound_edges", outbound_edges);
   ar& boost::serialization::make_nvp("input_keys", input_keys);
   ar& boost::serialization::make_nvp("output_keys", output_keys);
+  ar& boost::serialization::make_nvp("terminals", terminals);
+  ar& boost::serialization::make_nvp("triggers_abort", triggers_abort);
   ar& boost::serialization::make_nvp("color", color);
   ar& boost::serialization::make_nvp("dotgraph", dotgraph);
+  ar& boost::serialization::make_nvp("data_storage", data_storage);
   ar& boost::serialization::make_nvp("aborted", aborted_);
 }
 
@@ -113,7 +138,7 @@ TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(const TaskComposerN
 
   aborting_node_ = other.aborting_node_;  // NOLINT(cppcoreguidelines-prefer-member-initializer)
   for (const auto& pair : other.info_map_)
-    info_map_[pair.first] = pair.second->clone();
+    info_map_[pair.first] = std::make_unique<TaskComposerNodeInfo>(*pair.second);
 }
 TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(const TaskComposerNodeInfoContainer& other)
 {
@@ -123,7 +148,7 @@ TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(const Ta
 
   aborting_node_ = other.aborting_node_;  // NOLINT(cppcoreguidelines-prefer-member-initializer)
   for (const auto& pair : other.info_map_)
-    info_map_[pair.first] = pair.second->clone();
+    info_map_[pair.first] = std::make_unique<TaskComposerNodeInfo>(*pair.second);
 
   return *this;
 }
@@ -162,7 +187,7 @@ TaskComposerNodeInfo::UPtr TaskComposerNodeInfoContainer::getInfo(const boost::u
   if (it == info_map_.end())
     return nullptr;
 
-  return it->second->clone();
+  return std::make_unique<TaskComposerNodeInfo>(*it->second);
 }
 
 std::vector<TaskComposerNodeInfo::UPtr>
@@ -173,9 +198,21 @@ TaskComposerNodeInfoContainer::find(const std::function<bool(const TaskComposerN
   for (const auto& info : info_map_)
   {
     if (search_fn(*info.second))
-      results.push_back(info.second->clone());
+      results.push_back(std::make_unique<TaskComposerNodeInfo>(*info.second));
   }
   return results;
+}
+
+void TaskComposerNodeInfoContainer::setRootNode(const boost::uuids::uuid& node_uuid)
+{
+  std::unique_lock<std::shared_mutex> lock(mutex_);
+  root_node_ = node_uuid;
+}
+
+boost::uuids::uuid TaskComposerNodeInfoContainer::getRootNode() const
+{
+  std::shared_lock<std::shared_mutex> lock(mutex_);
+  return root_node_;
 }
 
 void TaskComposerNodeInfoContainer::setAborted(const boost::uuids::uuid& node_uuid)
@@ -210,7 +247,7 @@ std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> TaskComposerNodeInfoCon
   std::shared_lock<std::shared_mutex> lock(mutex_);
   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> copy;
   for (const auto& pair : info_map_)
-    copy[pair.first] = pair.second->clone();
+    copy[pair.first] = std::make_unique<TaskComposerNodeInfo>(*pair.second);
 
   if (!aborting_node_.is_nil())
     updateParents(copy, aborting_node_);
@@ -224,7 +261,7 @@ void TaskComposerNodeInfoContainer::insertInfoMap(const TaskComposerNodeInfoCont
   std::shared_lock rhs_lock(container.mutex_, std::defer_lock);
   std::scoped_lock lock{ lhs_lock, rhs_lock };
   for (const auto& pair : container.info_map_)
-    info_map_[pair.first] = pair.second->clone();
+    info_map_[pair.first] = std::make_unique<TaskComposerNodeInfo>(*pair.second);
 }
 
 void TaskComposerNodeInfoContainer::mergeInfoMap(TaskComposerNodeInfoContainer&& container)
@@ -264,6 +301,8 @@ bool TaskComposerNodeInfoContainer::operator==(const TaskComposerNodeInfoContain
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
   bool equal = true;
+  equal &= root_node_ == rhs.root_node_;
+  equal &= aborting_node_ == rhs.aborting_node_;
   auto equality = [](const TaskComposerNodeInfo::UPtr& p1, const TaskComposerNodeInfo::UPtr& p2) {
     return (p1 && p2 && *p1 == *p2) || (!p1 && !p2);
   };
@@ -285,14 +324,15 @@ template <class Archive>
 void TaskComposerNodeInfoContainer::serialize(Archive& ar, const unsigned int /*version*/)
 {
   std::unique_lock<std::shared_mutex> lock(mutex_);
+  ar& BOOST_SERIALIZATION_NVP(root_node_);
   ar& BOOST_SERIALIZATION_NVP(aborting_node_);
   ar& BOOST_SERIALIZATION_NVP(info_map_);
 }
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerNodeInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerNodeInfoContainer)
-
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerNodeInfo)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerNodeInfoContainer)
+
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerNodeInfo)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerNodeInfoContainer)

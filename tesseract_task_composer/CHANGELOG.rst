@@ -2,6 +2,55 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.26.1 (2024-10-29)
+-------------------
+* Fix format as input task to handle both joint and state waypoints
+* Contributors: Levi Armstrong
+
+0.26.0 (2024-10-27)
+-------------------
+* Store dotgraph in TaskComposerLog
+* Remove TesseractSupportResourceLocator
+* Contributors: Levi Armstrong
+
+0.25.1 (2024-09-29)
+-------------------
+
+0.25.0 (2024-09-29)
+-------------------
+* Rename Timer to Stopwatch
+* Contributors: Levi Armstrong
+
+0.24.2 (2024-08-19)
+-------------------
+* Add optional output to task which produce contact results
+* Contributors: Levi Armstrong
+
+0.24.1 (2024-08-16)
+-------------------
+* Add getRootNode to TaskComposerGraph and update TaskComposerNodeInfo to store root_uuid
+* Contributors: Levi Armstrong
+
+0.24.0 (2024-08-14)
+-------------------
+* Update TaskComposerNodeInfo to allow searching graph
+* Fix RemapTask support for global remapping
+* Add data storage to task composer node info
+* Contributors: Levi Armstrong
+
+0.23.6 (2024-08-06)
+-------------------
+* Make aborted nodes grey in dotgraph
+* Fix task composer context serialization
+* Fix Mac OS clang compiler warnings (`#496 <https://github.com/tesseract-robotics/tesseract_planning/issues/496>`_)
+* Contributors: John Wason, Levi Armstrong
+
+0.23.5 (2024-08-01)
+-------------------
+* Update so pipelines can have child graph tasks
+* Fix Windows and Mac OS Github Actions (`#489 <https://github.com/tesseract-robotics/tesseract_planning/issues/489>`_)
+* Contributors: John Wason, Levi Armstrong
+
 0.23.4 (2024-07-29)
 -------------------
 * Fix task composer graph config loading

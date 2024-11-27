@@ -30,7 +30,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
 #include <boost/serialization/base_object.hpp>
 #include <tesseract_common/serialization.h>
-#include <tesseract_common/timer.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
@@ -75,5 +74,5 @@ void TaskComposerTask::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerTask)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerTask)

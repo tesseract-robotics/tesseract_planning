@@ -67,7 +67,7 @@ std::unique_ptr<TaskComposerNodeInfo> HasDataStorageEntryTask::runImpl(TaskCompo
 
 bool HasDataStorageEntryTask::operator==(const HasDataStorageEntryTask& rhs) const
 {
-  return (TaskComposerNode::operator==(rhs));
+  return (TaskComposerTask::operator==(rhs));
 }
 bool HasDataStorageEntryTask::operator!=(const HasDataStorageEntryTask& rhs) const { return !operator==(rhs); }
 
@@ -79,5 +79,5 @@ void HasDataStorageEntryTask::serialize(Archive& ar, const unsigned int /*versio
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::HasDataStorageEntryTask)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::HasDataStorageEntryTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::HasDataStorageEntryTask)

@@ -1,14 +1,9 @@
-find_package(tesseract_support REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 
 # SimplePlanner Tests
 add_executable(${PROJECT_NAME}_simple_planner_fixed_size_interpolation_unit simple_planner_fixed_size_interpolation.cpp)
-target_link_libraries(
-  ${PROJECT_NAME}_simple_planner_fixed_size_interpolation_unit
-  PRIVATE GTest::GTest
-          GTest::Main
-          tesseract::tesseract_support
-          ${PROJECT_NAME}_simple)
+target_link_libraries(${PROJECT_NAME}_simple_planner_fixed_size_interpolation_unit PRIVATE GTest::GTest GTest::Main
+                                                                                           ${PROJECT_NAME}_simple)
 target_compile_options(${PROJECT_NAME}_simple_planner_fixed_size_interpolation_unit
                        PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE} ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_simple_planner_fixed_size_interpolation_unit
@@ -28,12 +23,8 @@ add_dependencies(run_tests ${PROJECT_NAME}_simple_planner_fixed_size_interpolati
 
 add_executable(${PROJECT_NAME}_simple_planner_fixed_size_assign_position_unit
                simple_planner_fixed_size_assign_position.cpp)
-target_link_libraries(
-  ${PROJECT_NAME}_simple_planner_fixed_size_assign_position_unit
-  PRIVATE GTest::GTest
-          GTest::Main
-          ${PROJECT_NAME}_simple
-          tesseract::tesseract_support)
+target_link_libraries(${PROJECT_NAME}_simple_planner_fixed_size_assign_position_unit PRIVATE GTest::GTest GTest::Main
+                                                                                             ${PROJECT_NAME}_simple)
 target_compile_options(${PROJECT_NAME}_simple_planner_fixed_size_assign_position_unit
                        PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE} ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_simple_planner_fixed_size_assign_position_unit
@@ -52,12 +43,8 @@ add_dependencies(${PROJECT_NAME}_simple_planner_fixed_size_assign_position_unit 
 add_dependencies(run_tests ${PROJECT_NAME}_simple_planner_fixed_size_assign_position_unit)
 
 add_executable(${PROJECT_NAME}_simple_planner_lvs_interpolation_unit simple_planner_lvs_interpolation.cpp)
-target_link_libraries(
-  ${PROJECT_NAME}_simple_planner_lvs_interpolation_unit
-  PRIVATE GTest::GTest
-          GTest::Main
-          ${PROJECT_NAME}_simple
-          tesseract::tesseract_support)
+target_link_libraries(${PROJECT_NAME}_simple_planner_lvs_interpolation_unit PRIVATE GTest::GTest GTest::Main
+                                                                                    ${PROJECT_NAME}_simple)
 target_compile_options(${PROJECT_NAME}_simple_planner_lvs_interpolation_unit
                        PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE} ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_simple_planner_lvs_interpolation_unit

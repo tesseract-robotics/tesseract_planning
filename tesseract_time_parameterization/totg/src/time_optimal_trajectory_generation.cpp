@@ -932,7 +932,7 @@ double Trajectory::getDuration() const { return trajectory_.back().time_; }
 bool Trajectory::assignData(TrajectoryContainer& trajectory, const std::vector<std::size_t>& mapping) const
 {
   const auto& dist_mapping = path_.getMapping();
-  assert(trajectory.size() == mapping.size());
+  assert(trajectory.size() == static_cast<Eigen::Index>(mapping.size()));
 
   // Set Start
   PathData path_data = getPathData(0);
