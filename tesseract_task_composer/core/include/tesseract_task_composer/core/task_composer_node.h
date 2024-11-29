@@ -149,11 +149,11 @@ public:
 
   /** @brief Generate the Dotgraph as a string */
   std::string
-  getDotgraph(const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map = {}) const;
+  getDotgraph(const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const;
 
   /** @brief Generate the Dotgraph and save to file */
   bool saveDotgraph(const std::string& filepath,
-                    const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map = {}) const;
+                    const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const;
 
   /** @brief Rename input keys */
   virtual void renameInputKeys(const std::map<std::string, std::string>& input_keys);
@@ -170,8 +170,15 @@ public:
    */
   virtual std::string
   dump(std::ostream& os,
-       const TaskComposerNode* parent = nullptr,
-       const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map = {}) const;
+       const TaskComposerNode* parent,
+       const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const;
+
+  /**
+   * @brief dump the task to dot
+   * @brief Return additional subgraphs which should get appended if needed
+   */
+  virtual std::string
+  dump(std::ostream& os) const;
 
   bool operator==(const TaskComposerNode& rhs) const;
   bool operator!=(const TaskComposerNode& rhs) const;

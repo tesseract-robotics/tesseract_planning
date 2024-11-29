@@ -31,6 +31,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string/replace.hpp>
 #include <yaml-cpp/yaml.h>
 #include <console_bridge/console.h>
 #include <tesseract_common/serialization.h>
@@ -436,6 +438,12 @@ void TaskComposerNode::renameOutputKeys(const std::map<std::string, std::string>
 void TaskComposerNode::setConditional(bool enable) { conditional_ = enable; }
 
 std::string
+TaskComposerNode::dump(std::ostream& os) const
+{
+  return dump(os, nullptr, {});
+}
+
+std::string
 TaskComposerNode::dump(std::ostream& os,
                        const TaskComposerNode* /*parent*/,
                        const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const
@@ -543,18 +551,9 @@ void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
 
 std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::string& prefix)
 {
-  std::string result;
-  result.reserve(36);
-
-  std::size_t i = 0;
-  for (const auto* it_data = u.begin(); it_data != u.end(); ++it_data, ++i)
-  {
-    const size_t hi = ((*it_data) >> 4) & 0x0F;
-    result += boost::uuids::detail::to_char(hi);
-
-    const size_t lo = (*it_data) & 0x0F;
-    result += boost::uuids::detail::to_char(lo);
-  }
+  std::string result = boost::lexical_cast<std::string>(u);
+  boost::replace_all(result, "-", "");
+  
   return (prefix + result);
 }
 
