@@ -93,6 +93,10 @@ protected:
 
 class TaskComposerPluginFactory
 {
+private:
+  struct Implementation;
+  std::unique_ptr<Implementation> impl_;
+
 public:
   using PluginInfoMap = std::map<std::string, tesseract_common::PluginInfo>;
 
@@ -100,8 +104,8 @@ public:
   ~TaskComposerPluginFactory();
   TaskComposerPluginFactory(const TaskComposerPluginFactory&) = delete;
   TaskComposerPluginFactory& operator=(const TaskComposerPluginFactory&) = delete;
-  TaskComposerPluginFactory(TaskComposerPluginFactory&&) = default;
-  TaskComposerPluginFactory& operator=(TaskComposerPluginFactory&&) = default;
+  TaskComposerPluginFactory(TaskComposerPluginFactory&&);
+  TaskComposerPluginFactory& operator=(TaskComposerPluginFactory&&);
 
   /**
    * @brief Load plugins from a configuration object
@@ -303,10 +307,6 @@ public:
    * @return The plugin information config yaml node/
    */
   YAML::Node getConfig() const;
-
-private:
-  struct Implementation;
-  std::unique_ptr<Implementation> impl_;
 };
 }  // namespace tesseract_planning
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_FACTORY_H

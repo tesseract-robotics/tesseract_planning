@@ -91,6 +91,8 @@ TaskComposerPluginFactory::TaskComposerPluginFactory(const std::string& config) 
 // This prevents it from being defined inline.
 // If not the forward declare of PluginLoader cause compiler error.
 TaskComposerPluginFactory::~TaskComposerPluginFactory() = default;
+TaskComposerPluginFactory::TaskComposerPluginFactory(TaskComposerPluginFactory&&) = default;
+TaskComposerPluginFactory& TaskComposerPluginFactory::operator=(TaskComposerPluginFactory&&) = default;
 
 void TaskComposerPluginFactory::loadConfig(const tesseract_common::TaskComposerPluginInfo& config)
 {
