@@ -2,6 +2,11 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add FormatPlanningInputTask
+* Contributors: Levi Armstrong
+
 0.26.1 (2024-10-29)
 -------------------
 

@@ -2,6 +2,12 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update online example to pause every 10 seconds
+* Update online planning example and toJointTrajectory to leverage trajectory uuid
+* Contributors: Levi Armstrong
+
 0.26.1 (2024-10-29)
 -------------------
 
