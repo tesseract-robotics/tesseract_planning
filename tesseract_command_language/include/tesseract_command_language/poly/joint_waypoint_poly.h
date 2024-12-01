@@ -47,20 +47,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
   using C##InstanceBase =                                                                                              \
       tesseract_common::TypeErasureInstance<C, tesseract_planning::detail_joint_waypoint::JointWaypointInterface>;     \
   using C##Instance = tesseract_planning::detail_joint_waypoint::JointWaypointInstance<C>;                             \
-  using C##InstanceWrapper = tesseract_common::TypeErasureInstanceWrapper<C##Instance>;                                \
   }                                                                                                                    \
   BOOST_CLASS_EXPORT_KEY(N::C##InstanceBase)                                                                           \
   BOOST_CLASS_EXPORT_KEY(N::C##Instance)                                                                               \
-  BOOST_CLASS_EXPORT_KEY(N::C##InstanceWrapper)                                                                        \
   BOOST_CLASS_TRACKING(N::C##InstanceBase, boost::serialization::track_never)                                          \
-  BOOST_CLASS_TRACKING(N::C##Instance, boost::serialization::track_never)                                              \
-  BOOST_CLASS_TRACKING(N::C##InstanceWrapper, boost::serialization::track_never)
+  BOOST_CLASS_TRACKING(N::C##Instance, boost::serialization::track_never)
 
 /** @brief If shared library, this must go in the cpp after the implicit instantiation of the serialize function */
 #define TESSERACT_JOINT_WAYPOINT_EXPORT_IMPLEMENT(inst)                                                                \
   BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceBase)                                                                     \
-  BOOST_CLASS_EXPORT_IMPLEMENT(inst##Instance)                                                                         \
-  BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceWrapper)
+  BOOST_CLASS_EXPORT_IMPLEMENT(inst##Instance)
 
 /**
  * @brief This should not be used within shared libraries use the two above.
@@ -203,6 +199,11 @@ struct JointWaypointInstance : tesseract_common::TypeErasureInstance<T, JointWay
   void setName(const std::string& name) final { this->get().setName(name); }
   const std::string& getName() const final { return this->get().getName(); }
   void print(const std::string& prefix) const final { this->get().print(prefix); }
+
+  std::unique_ptr<tesseract_common::TypeErasureInterface> clone() const final
+  {
+    return std::make_unique<JointWaypointInstance<T>>(this->get());
+  }
 
 private:
   friend class boost::serialization::access;
