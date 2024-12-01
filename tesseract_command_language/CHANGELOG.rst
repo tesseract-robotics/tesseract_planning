@@ -2,8 +2,8 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.27.0 (2024-12-01)
+-------------------
 * Simplify the type erasure poly
 * Update to leverage clang-format-12
 * Update online planning example and toJointTrajectory to leverage trajectory uuid
