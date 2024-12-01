@@ -51,20 +51,16 @@ struct uuid;
   using C##InstanceBase =                                                                                              \
       tesseract_common::TypeErasureInstance<C, tesseract_planning::detail_instruction::InstructionInterface>;          \
   using C##Instance = tesseract_planning::detail_instruction::InstructionInstance<C>;                                  \
-  using C##InstanceWrapper = tesseract_common::TypeErasureInstanceWrapper<C##Instance>;                                \
   }                                                                                                                    \
   BOOST_CLASS_EXPORT_KEY(N::C##InstanceBase)                                                                           \
   BOOST_CLASS_EXPORT_KEY(N::C##Instance)                                                                               \
-  BOOST_CLASS_EXPORT_KEY(N::C##InstanceWrapper)                                                                        \
   BOOST_CLASS_TRACKING(N::C##InstanceBase, boost::serialization::track_never)                                          \
-  BOOST_CLASS_TRACKING(N::C##Instance, boost::serialization::track_never)                                              \
-  BOOST_CLASS_TRACKING(N::C##InstanceWrapper, boost::serialization::track_never)
+  BOOST_CLASS_TRACKING(N::C##Instance, boost::serialization::track_never)
 
 /** @brief If shared library, this must go in the cpp after the implicit instantiation of the serialize function */
 #define TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(inst)                                                                   \
   BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceBase)                                                                     \
-  BOOST_CLASS_EXPORT_IMPLEMENT(inst##Instance)                                                                         \
-  BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceWrapper)
+  BOOST_CLASS_EXPORT_IMPLEMENT(inst##Instance)
 
 /**
  * @brief This should not be used within shared libraries use the two above.
@@ -157,6 +153,11 @@ struct InstructionInstance : tesseract_common::TypeErasureInstance<T, Instructio
   void setDescription(const std::string& description) final { this->get().setDescription(description); }
 
   void print(const std::string& prefix) const final { this->get().print(prefix); }
+
+  std::unique_ptr<tesseract_common::TypeErasureInterface> clone() const final
+  {
+    return std::make_unique<InstructionInstance<T>>(this->get());  // Creates a copy of this object
+  }
 
 private:
   friend class boost::serialization::access;

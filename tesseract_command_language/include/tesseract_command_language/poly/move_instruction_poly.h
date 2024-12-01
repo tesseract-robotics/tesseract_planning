@@ -51,20 +51,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
   using C##InstanceBase =                                                                                              \
       tesseract_common::TypeErasureInstance<C, tesseract_planning::detail_move_instruction::MoveInstructionInterface>; \
   using C##Instance = tesseract_planning::detail_move_instruction::MoveInstructionInstance<C>;                         \
-  using C##InstanceWrapper = tesseract_common::TypeErasureInstanceWrapper<C##Instance>;                                \
   }                                                                                                                    \
   BOOST_CLASS_EXPORT_KEY(N::C##InstanceBase)                                                                           \
   BOOST_CLASS_EXPORT_KEY(N::C##Instance)                                                                               \
-  BOOST_CLASS_EXPORT_KEY(N::C##InstanceWrapper)                                                                        \
   BOOST_CLASS_TRACKING(N::C##InstanceBase, boost::serialization::track_never)                                          \
-  BOOST_CLASS_TRACKING(N::C##Instance, boost::serialization::track_never)                                              \
-  BOOST_CLASS_TRACKING(N::C##InstanceWrapper, boost::serialization::track_never)
+  BOOST_CLASS_TRACKING(N::C##Instance, boost::serialization::track_never)
 
 /** @brief If shared library, this must go in the cpp after the implicit instantiation of the serialize function */
 #define TESSERACT_MOVE_INSTRUCTION_EXPORT_IMPLEMENT(inst)                                                              \
   BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceBase)                                                                     \
-  BOOST_CLASS_EXPORT_IMPLEMENT(inst##Instance)                                                                         \
-  BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceWrapper)
+  BOOST_CLASS_EXPORT_IMPLEMENT(inst##Instance)
 
 /**
  * @brief This should not be used within shared libraries use the two above.
@@ -282,6 +278,11 @@ struct MoveInstructionInstance : tesseract_common::TypeErasureInstance<T, MoveIn
   CartesianWaypointPoly createCartesianWaypoint() const final { return this->get().createCartesianWaypoint(); }
   JointWaypointPoly createJointWaypoint() const final { return this->get().createJointWaypoint(); }
   StateWaypointPoly createStateWaypoint() const final { return this->get().createStateWaypoint(); }
+
+  std::unique_ptr<tesseract_common::TypeErasureInterface> clone() const final
+  {
+    return std::make_unique<MoveInstructionInstance<T>>(this->get());
+  }
 
 private:
   friend class boost::serialization::access;
