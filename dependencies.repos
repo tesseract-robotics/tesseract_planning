@@ -1,8 +1,4 @@
 - git:
-    local-name: ros_industrial_cmake_boilerplate
-    uri: https://github.com/ros-industrial/ros_industrial_cmake_boilerplate.git
-    version: 0.6.2
-- git:
     local-name: descartes_light
     uri: https://github.com/swri-robotics/descartes_light.git
     version: 0.4.3
