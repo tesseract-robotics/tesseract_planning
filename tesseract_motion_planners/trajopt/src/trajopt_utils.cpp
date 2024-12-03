@@ -98,7 +98,7 @@ std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
 
   if (lower_tolerance.size() == 1)
   {
-    pose_info->lower_tolerance = Eigen::Vector3d::Constant(lower_tolerance(0));
+    pose_info->lower_tolerance = Eigen::VectorXd::Constant(6, lower_tolerance(0));
   }
   else if (lower_tolerance.size() == 6)
   {
@@ -107,7 +107,7 @@ std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
 
   if (upper_tolerance.size() == 1)
   {
-    pose_info->upper_tolerance = Eigen::Vector3d::Constant(upper_tolerance(0));
+    pose_info->upper_tolerance = Eigen::VectorXd::Constant(6, upper_tolerance(0));
   }
   else if (upper_tolerance.size() == 6)
   {
