@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_fixed_size_interpolation.cpp
+ * @file simple_planner_fixed_size_plan_unit.cpp
  * @brief
  *
  * @author Matthew Powelson
@@ -43,7 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 using namespace tesseract_environment;
 using namespace tesseract_planning;
 
-class TesseractPlanningSimplePlannerFixedSizeInterpolationUnit : public ::testing::Test
+class TesseractPlanningSimplePlannerFixedSizePlanProfileUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
@@ -68,7 +68,7 @@ protected:
   }
 };
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_JointInterpolation)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, JointJoint_JointInterpolation)  // NOLINT
 {
   PlannerRequest request;
   request.env = env_;
@@ -110,7 +110,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_Join
   EXPECT_TRUE(wp2.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_JointInterpolation)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, JointCart_JointInterpolation)  // NOLINT
 {
   PlannerRequest request;
   request.env = env_;
@@ -156,7 +156,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_Joint
   EXPECT_TRUE(wp2.getTransform().isApprox(final_pose, 1e-3));
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_JointInterpolation)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, CartJoint_JointInterpolation)  // NOLINT
 {
   PlannerRequest request;
   request.env = env_;
@@ -199,7 +199,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_Joint
   EXPECT_TRUE(wp2.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartCart_JointInterpolation)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, CartCart_JointInterpolation)  // NOLINT
 {
   PlannerRequest request;
   request.env = env_;
