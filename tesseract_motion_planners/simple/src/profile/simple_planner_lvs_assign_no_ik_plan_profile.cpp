@@ -99,16 +99,19 @@ SimplePlannerLVSAssignNoIKPlanProfile::generate(const MoveInstructionPoly& prev_
 
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
   double rot_dist = Eigen::Quaterniond(p1_world.linear()).angularDistance(Eigen::Quaterniond(p2_world.linear()));
+
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
-  int steps = std::max(trans_steps, rot_steps);
 
+  int steps = std::max(trans_steps, rot_steps);
   if (has_j1 && has_j2)
   {
     double joint_dist = (j2 - j1).norm();
     int joint_steps = int(joint_dist / state_longest_valid_segment_length) + 1;
     steps = std::max(steps, joint_steps);
   }
+  steps = std::max(steps, min_steps);
+  steps = std::min(steps, max_steps);
 
   Eigen::MatrixXd states;
   if (has_j2)
