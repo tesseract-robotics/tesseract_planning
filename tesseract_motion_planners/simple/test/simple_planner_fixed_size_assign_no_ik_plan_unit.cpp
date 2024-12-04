@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_fixed_size_assign_position.cpp
+ * @file simple_planner_fixed_size_assign_no_ik_plan_unit.cpp
  * @brief
  *
  * @author Levi Armstrong
@@ -43,7 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 using namespace tesseract_environment;
 using namespace tesseract_planning;
 
-class TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit : public ::testing::Test
+class TesseractPlanningSimplePlannerFixedSizeAssignNoIKPlanProfileUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
@@ -68,7 +68,7 @@ protected:
   }
 };
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit, JointCartesian_AssignJointPosition)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPlanProfileUnit, JointCartesian_AssignJointPosition)  // NOLINT
 {
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
@@ -107,7 +107,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit, JointCarte
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit, CartesianJoint_AssignJointPosition)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPlanProfileUnit, CartesianJoint_AssignJointPosition)  // NOLINT
 {
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
@@ -145,7 +145,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit, CartesianJ
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit, CartesianCartesian_AssignJointPosition)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPlanProfileUnit, CartesianCartesian_AssignJointPosition)  // NOLINT
 {
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
