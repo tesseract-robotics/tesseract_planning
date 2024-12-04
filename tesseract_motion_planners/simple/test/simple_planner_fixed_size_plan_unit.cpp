@@ -1,9 +1,9 @@
 /**
- * @file simple_planner_fixed_size_assign_position.cpp
+ * @file simple_planner_fixed_size_plan_unit.cpp
  * @brief
  *
- * @author Levi Armstrong
- * @date July 28, 2020
+ * @author Matthew Powelson
+ * @date July 23, 2020
  * @version TODO
  * @bug No known bugs
  *
@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/environment.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_no_ik_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_move_profile.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
@@ -43,7 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 using namespace tesseract_environment;
 using namespace tesseract_planning;
 
-class TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit : public ::testing::Test
+class TesseractPlanningSimplePlannerFixedSizePlanProfileUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
@@ -62,25 +62,25 @@ protected:
     env_ = env;
 
     manip_info_.tcp_frame = "tool0";
-    manip_info_.working_frame = "base_link";
     manip_info_.manipulator = "manipulator";
+    manip_info_.working_frame = "base_link";
     joint_names_ = env_->getJointGroup("manipulator")->getJointNames();
   }
 };
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit, JointCartesian_AssignJointPosition)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, JointJoint_JointInterpolation)  // NOLINT
 {
   JointWaypoint wp1{ joint_names_, Eigen::VectorXd::Zero(7) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
 
-  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() };
+  JointWaypoint wp2{ joint_names_, Eigen::VectorXd::Ones(7) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
 
-  SimplePlannerFixedSizeAssignNoIKPlanProfile profile(10, 10);
+  SimplePlannerFixedSizeMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
       profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
@@ -88,7 +88,6 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit, JointCarte
   {
     const MoveInstructionPoly& mi = move_instructions.at(i);
     EXPECT_TRUE(mi.getWaypoint().isJointWaypoint());
-    EXPECT_TRUE(wp1.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
     EXPECT_FALSE(mi.getWaypoint().as<JointWaypointPoly>().isConstrained());
     if (instr2.getPathProfile().empty())
     {
@@ -102,24 +101,69 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit, JointCarte
     }
   }
   const MoveInstructionPoly& mi = move_instructions.back();
-  EXPECT_TRUE(wp1.getPosition().isApprox(mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position, 1e-5));
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+  EXPECT_TRUE(mi.getWaypoint().as<JointWaypointPoly>().isConstrained());
+  EXPECT_TRUE(wp2.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit, CartesianJoint_AssignJointPosition)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, JointCart_JointInterpolation)  // NOLINT
 {
-  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() };
+  JointWaypoint wp1{ joint_names_, Eigen::VectorXd::Zero(7) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.getWaypoint() = JointWaypointPoly(JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_)));
+  instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
+
+  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() };
+  wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0, 1);
+  MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
+
+  InstructionPoly instr3;
+
+  SimplePlannerFixedSizeMoveProfile profile(10, 10);
+  std::vector<MoveInstructionPoly> move_instructions =
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+  EXPECT_EQ(move_instructions.size(), 10);
+  for (std::size_t i = 0; i < move_instructions.size() - 1; ++i)
+  {
+    const MoveInstructionPoly& mi = move_instructions.at(i);
+    EXPECT_TRUE(mi.getWaypoint().isJointWaypoint());
+    EXPECT_FALSE(mi.getWaypoint().as<JointWaypointPoly>().isConstrained());
+    if (instr2.getPathProfile().empty())
+    {
+      EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+      EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+    }
+    else
+    {
+      EXPECT_EQ(mi.getProfile(), instr2.getPathProfile());
+      EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+    }
+  }
+  const MoveInstructionPoly& mi = move_instructions.back();
+  EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+  EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+
+  const Eigen::VectorXd& last_position = mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
+  auto manip = env_->getJointGroup(manip_info_.manipulator);
+  Eigen::Isometry3d final_pose = manip->calcFwdKin(last_position).at(manip_info_.tcp_frame);
+  EXPECT_TRUE(wp2.getTransform().isApprox(final_pose, 1e-3));
+}
+
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, CartJoint_JointInterpolation)  // NOLINT
+{
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() };
+  wp1.getTransform().translation() = Eigen::Vector3d(0.25, 0, 1);
+  MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed{ instr1 };
+  instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
 
   JointWaypoint wp2{ joint_names_, Eigen::VectorXd::Zero(7) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
 
-  SimplePlannerFixedSizeAssignNoIKPlanProfile profile(10, 10);
+  SimplePlannerFixedSizeMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
       profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
@@ -127,7 +171,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit, CartesianJ
   {
     const MoveInstructionPoly& mi = move_instructions.at(i);
     EXPECT_TRUE(mi.getWaypoint().isJointWaypoint());
-    EXPECT_TRUE(wp2.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
+    EXPECT_FALSE(mi.getWaypoint().as<JointWaypointPoly>().isConstrained());
     if (instr2.getPathProfile().empty())
     {
       EXPECT_EQ(mi.getProfile(), instr2.getProfile());
@@ -140,34 +184,35 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit, CartesianJ
     }
   }
   const MoveInstructionPoly& mi = move_instructions.back();
-  EXPECT_TRUE(wp2.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+  EXPECT_TRUE(mi.getWaypoint().as<JointWaypointPoly>().isConstrained());
+  EXPECT_TRUE(wp2.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit, CartesianCartesian_AssignJointPosition)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, CartCart_JointInterpolation)  // NOLINT
 {
   CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() };
+  wp1.getTransform().translation() = Eigen::Vector3d(0.25, -0.1, 1);
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
   instr1_seed.getWaypoint() = JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_));
 
   CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() };
+  wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0.1, 1);
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
   InstructionPoly instr3;
 
-  SimplePlannerFixedSizeAssignNoIKPlanProfile profile(10, 10);
+  SimplePlannerFixedSizeMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
       profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
-  auto fwd_kin = env_->getJointGroup(manip_info_.manipulator);
-  Eigen::VectorXd position = env_->getCurrentJointValues(fwd_kin->getJointNames());
   EXPECT_EQ(move_instructions.size(), 10);
   for (std::size_t i = 0; i < move_instructions.size() - 1; ++i)
   {
     const MoveInstructionPoly& mi = move_instructions.at(i);
     EXPECT_TRUE(mi.getWaypoint().isJointWaypoint());
-    EXPECT_TRUE(position.isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
+    EXPECT_FALSE(mi.getWaypoint().as<JointWaypointPoly>().isConstrained());
     if (instr2.getPathProfile().empty())
     {
       EXPECT_EQ(mi.getProfile(), instr2.getProfile());
@@ -180,9 +225,12 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPositionUnit, CartesianC
     }
   }
   const MoveInstructionPoly& mi = move_instructions.back();
-  EXPECT_TRUE(position.isApprox(mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position, 1e-5));
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+  const Eigen::VectorXd& last_position = mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
+  auto manip = env_->getJointGroup(manip_info_.manipulator);
+  Eigen::Isometry3d final_pose = manip->calcFwdKin(last_position).at(manip_info_.tcp_frame);
+  EXPECT_TRUE(wp2.getTransform().isApprox(final_pose, 1e-3));
 }
 
 int main(int argc, char** argv)
