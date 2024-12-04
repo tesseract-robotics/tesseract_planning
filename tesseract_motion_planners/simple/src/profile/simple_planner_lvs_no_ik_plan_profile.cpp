@@ -33,6 +33,9 @@
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
+
 namespace tesseract_planning
 {
 SimplePlannerLVSNoIKPlanProfile::SimplePlannerLVSNoIKPlanProfile(double state_longest_valid_segment_length,
@@ -96,4 +99,14 @@ SimplePlannerLVSNoIKPlanProfile::generate(const MoveInstructionPoly& prev_instru
                                      request.env_state);
 }
 
+template <class Archive>
+void SimplePlannerLVSNoIKPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerPlanProfile);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerLVSNoIKPlanProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerLVSNoIKPlanProfile)

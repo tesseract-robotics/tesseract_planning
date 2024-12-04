@@ -8,6 +8,7 @@ add_library(
   src/trajopt_waypoint_config.cpp
   src/trajopt_motion_planner.cpp
   src/trajopt_utils.cpp
+  src/profile/trajopt_profile.cpp
   src/profile/trajopt_default_plan_profile.cpp
   src/profile/trajopt_default_composite_profile.cpp
   src/profile/trajopt_default_solver_profile.cpp

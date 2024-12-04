@@ -29,11 +29,13 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
+#include <typeindex>
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
 #include <tesseract_command_language/fwd.h>
+#include <tesseract_command_language/profile.h>
 #include <tesseract_motion_planners/descartes/descartes_problem.h>
 
 namespace tinyxml2
@@ -45,18 +47,23 @@ class XMLDocument;
 namespace tesseract_planning
 {
 template <typename FloatType>
-class DescartesPlanProfile
+class DescartesPlanProfile : public Profile
 {
 public:
   using Ptr = std::shared_ptr<DescartesPlanProfile<FloatType>>;
   using ConstPtr = std::shared_ptr<const DescartesPlanProfile<FloatType>>;
 
-  DescartesPlanProfile() = default;
-  virtual ~DescartesPlanProfile() = default;
-  DescartesPlanProfile(const DescartesPlanProfile&) = default;
-  DescartesPlanProfile& operator=(const DescartesPlanProfile&) = default;
-  DescartesPlanProfile(DescartesPlanProfile&&) noexcept = default;
-  DescartesPlanProfile& operator=(DescartesPlanProfile&&) noexcept = default;
+  DescartesPlanProfile() : Profile(DescartesPlanProfile<FloatType>::getStaticKey()) {}
+  DescartesPlanProfile(const DescartesPlanProfile&) = delete;
+  DescartesPlanProfile& operator=(const DescartesPlanProfile&) = delete;
+  DescartesPlanProfile(DescartesPlanProfile&&) noexcept = delete;
+  DescartesPlanProfile& operator=(DescartesPlanProfile&&) noexcept = delete;
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey() { return std::type_index(typeid(DescartesPlanProfile<FloatType>)).hash_code(); }
 
   virtual void apply(DescartesProblem<FloatType>& prob,
                      const Eigen::Isometry3d& cartesian_waypoint,
@@ -71,6 +78,11 @@ public:
                      int index) const = 0;
 
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int);  // NOLINT
 };
 
 /** @todo Currently descartes does not have support of composite profile everything is handled by the plan profile */

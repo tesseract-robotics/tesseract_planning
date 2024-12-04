@@ -156,11 +156,10 @@ std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext
 
     // Create profile dictionary
     auto simple_profiles = std::make_shared<ProfileDictionary>();
-    simple_profiles->addProfile<SimplePlannerPlanProfile>(planner.getName(), ci.getProfile(), profile);
+    simple_profiles->addProfile(planner.getName(), ci.getProfile(), profile);
     auto flat = ci.flatten(&moveFilter);
     for (const auto& i : flat)
-      simple_profiles->addProfile<SimplePlannerPlanProfile>(
-          planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
+      simple_profiles->addProfile(planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
 
     // Assign profile dictionary
     request.profiles = simple_profiles;

@@ -33,6 +33,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/algorithm/string.hpp>
 #include <tinyxml2.h>
 #include <console_bridge/console.h>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
@@ -777,4 +779,14 @@ void OMPLDefaultPlanProfile::processOptimizationObjective(OMPLProblem& prob) con
   }
 }
 
+template <class Archive>
+void OMPLDefaultPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlanProfile);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLDefaultPlanProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::OMPLDefaultPlanProfile)

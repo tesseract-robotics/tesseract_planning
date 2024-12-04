@@ -36,6 +36,9 @@
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
+
 namespace tesseract_planning
 {
 SimplePlannerFixedSizeAssignPlanProfile::SimplePlannerFixedSizeAssignPlanProfile(int freespace_steps, int linear_steps)
@@ -124,4 +127,14 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
   return getInterpolatedInstructions(info2.manip->getJointNames(), states, info2.instruction);
 }
 
+template <class Archive>
+void SimplePlannerFixedSizeAssignPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerPlanProfile);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerFixedSizeAssignPlanProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerFixedSizeAssignPlanProfile)

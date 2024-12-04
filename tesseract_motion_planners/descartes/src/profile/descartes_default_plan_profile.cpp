@@ -24,6 +24,8 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/descartes/impl/profile/descartes_default_plan_profile.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
 
 namespace tesseract_planning
 {
@@ -31,4 +33,17 @@ namespace tesseract_planning
 template class DescartesDefaultPlanProfile<float>;
 template class DescartesDefaultPlanProfile<double>;
 
+template <typename FloatType>
+template <class Archive>
+void DescartesDefaultPlanProfile<FloatType>::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(DescartesPlanProfile<FloatType>);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesDefaultPlanProfile<float>)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesDefaultPlanProfile<float>)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesDefaultPlanProfile<double>)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesDefaultPlanProfile<double>)

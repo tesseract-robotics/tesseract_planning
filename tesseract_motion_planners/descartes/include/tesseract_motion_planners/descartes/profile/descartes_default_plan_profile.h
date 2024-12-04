@@ -103,10 +103,18 @@ public:
              int index) const override;
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 using DescartesDefaultPlanProfileF = DescartesDefaultPlanProfile<float>;
 using DescartesDefaultPlanProfileD = DescartesDefaultPlanProfile<double>;
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::DescartesDefaultPlanProfile<float>)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::DescartesDefaultPlanProfile<double>)
 
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_DEFAULT_PLAN_PROFILE_H

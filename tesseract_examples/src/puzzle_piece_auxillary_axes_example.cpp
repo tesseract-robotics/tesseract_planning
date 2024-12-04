@@ -257,12 +257,9 @@ bool PuzzlePieceAuxillaryAxesExample::run()
     trajopt_ifopt_solver_profile->opt_info.min_approx_improve = 1e-3;
     trajopt_ifopt_solver_profile->opt_info.min_trust_box_size = 1e-3;
 
-    profiles->addProfile<TrajOptIfoptPlanProfile>(
-        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_plan_profile);
-    profiles->addProfile<TrajOptIfoptCompositeProfile>(
-        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
-    profiles->addProfile<TrajOptIfoptSolverProfile>(
-        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_solver_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_plan_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_solver_profile);
   }
   else
   {
@@ -291,9 +288,9 @@ bool PuzzlePieceAuxillaryAxesExample::run()
     trajopt_solver_profile->opt_info.min_approx_improve = 1e-3;
     trajopt_solver_profile->opt_info.min_trust_box_size = 1e-3;
 
-    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
-    profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
-    profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
   }
 
   // Create task
