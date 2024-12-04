@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_fixed_size_interpolation.cpp
+ * @file simple_planner_fixed_size_plan_unit.cpp
  * @brief
  *
  * @author Matthew Powelson
@@ -43,7 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 using namespace tesseract_environment;
 using namespace tesseract_planning;
 
-class TesseractPlanningSimplePlannerFixedSizeInterpolationUnit : public ::testing::Test
+class TesseractPlanningSimplePlannerFixedSizePlanProfileUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
@@ -68,7 +68,7 @@ protected:
   }
 };
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_JointInterpolation)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, JointJoint_JointInterpolation)  // NOLINT
 {
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
@@ -107,7 +107,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_Join
   EXPECT_TRUE(wp2.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_JointInterpolation)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, JointCart_JointInterpolation)  // NOLINT
 {
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
@@ -150,7 +150,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_Joint
   EXPECT_TRUE(wp2.getTransform().isApprox(final_pose, 1e-3));
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_JointInterpolation)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, CartJoint_JointInterpolation)  // NOLINT
 {
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, 0, 1);
@@ -190,7 +190,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_Joint
   EXPECT_TRUE(wp2.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartCart_JointInterpolation)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, CartCart_JointInterpolation)  // NOLINT
 {
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, -0.1, 1);

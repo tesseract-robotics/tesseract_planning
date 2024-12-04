@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_fixed_size_interpolation.cpp
+ * @file simple_planner_lvs_plan_unit.cpp
  * @brief
  *
  * @author Matthew Powelson
@@ -43,7 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 using namespace tesseract_environment;
 using namespace tesseract_planning;
 
-class TesseractPlanningSimplePlannerLVSInterpolationUnit : public ::testing::Test
+class TesseractPlanningSimplePlannerLVSPlanProfileUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
@@ -68,7 +68,7 @@ protected:
   }
 };
 
-TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypoint_JointJoint_Freespace)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_JointJoint_Freespace)  // NOLINT
 {
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
@@ -121,7 +121,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   EXPECT_EQ(cl.size(), steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypoint_JointJoint_Linear)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_JointJoint_Linear)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
@@ -186,7 +186,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   EXPECT_EQ(crl.size(), rot_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypoint_JointCart_Freespace)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_JointCart_Freespace)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
@@ -241,7 +241,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypoint_JointCart_Linear)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_JointCart_Linear)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
@@ -307,7 +307,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   EXPECT_EQ(crl.size(), rot_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypoint_CartJoint_Freespace)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_CartJoint_Freespace)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
@@ -360,7 +360,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypoint_CartJoint_Linear)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_CartJoint_Linear)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
@@ -425,7 +425,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   EXPECT_EQ(crl.size(), rot_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypoint_CartCart_Freespace)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_CartCart_Freespace)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
@@ -480,7 +480,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypoint_CartCart_Linear)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_CartCart_Linear)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
