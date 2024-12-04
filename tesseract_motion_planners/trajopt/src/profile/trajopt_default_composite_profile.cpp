@@ -29,6 +29,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/problem_description.hpp>
 #include <tinyxml2.h>
 #include <boost/algorithm/string.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
@@ -463,4 +465,14 @@ void TrajOptDefaultCompositeProfile::addAvoidSingularity(trajopt::ProblemConstru
   pci.cost_infos.push_back(ti);
 }
 
+template <class Archive>
+void TrajOptDefaultCompositeProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptCompositeProfile);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptDefaultCompositeProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptDefaultCompositeProfile)

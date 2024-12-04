@@ -153,7 +153,13 @@ protected:
                                 bool& enabled,
                                 Eigen::VectorXd& coeff,
                                 std::size_t& length);
+
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptDefaultCompositeProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_DEFAULT_COMPOSITE_PROFILE_H

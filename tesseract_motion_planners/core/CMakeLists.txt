@@ -1,5 +1,8 @@
 # Create interface for core
-add_library(${PROJECT_NAME}_core src/planner.cpp src/types.cpp src/utils.cpp)
+add_library(${PROJECT_NAME}_core
+  src/planner.cpp
+  src/types.cpp
+  src/utils.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_core
   PUBLIC tesseract::tesseract_environment

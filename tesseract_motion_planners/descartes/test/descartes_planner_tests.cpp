@@ -145,7 +145,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<DescartesPlanProfile<double>>(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner
   DescartesMotionPlannerD single_descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
@@ -261,7 +261,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<DescartesPlanProfile<double>>(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner
   DescartesMotionPlannerD single_descartes_planner(DESCARTES_DEFAULT_NAMESPACE);
@@ -364,7 +364,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<DescartesPlanProfile<double>>(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planning Request
   PlannerRequest request;

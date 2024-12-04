@@ -242,7 +242,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
@@ -406,7 +406,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
@@ -501,7 +501,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;

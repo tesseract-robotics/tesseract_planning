@@ -69,6 +69,14 @@ public:
   void apply(TrajOptIfoptProblem& problem) const override;
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptDefaultSolverProfile)
+
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_DEFAULT_SOLVER_PROFILE_H

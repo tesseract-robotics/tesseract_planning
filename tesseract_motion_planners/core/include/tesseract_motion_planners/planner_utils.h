@@ -138,8 +138,9 @@ std::shared_ptr<const ProfileType> getProfile(const std::string& ns,
                                               const ProfileDictionary& profile_dictionary,
                                               std::shared_ptr<const ProfileType> default_profile = nullptr)
 {
-  if (profile_dictionary.hasProfile<ProfileType>(ns, profile))
-    return profile_dictionary.getProfile<ProfileType>(ns, profile);
+  if (profile_dictionary.hasProfile(ProfileType::getStaticKey(), ns, profile))
+    return std::static_pointer_cast<const ProfileType>(
+        profile_dictionary.getProfile(ProfileType::getStaticKey(), ns, profile));
 
   CONSOLE_BRIDGE_logDebug("Profile '%s' was not found in namespace '%s' for type '%s'. Using default if available. "
                           "Available "
@@ -148,9 +149,9 @@ std::shared_ptr<const ProfileType> getProfile(const std::string& ns,
                           ns.c_str(),
                           typeid(ProfileType).name());
 
-  if (profile_dictionary.hasProfileEntry<ProfileType>(ns))
+  if (profile_dictionary.hasProfileEntry(ProfileType::getStaticKey(), ns))
   {
-    for (const auto& pair : profile_dictionary.getProfileEntry<ProfileType>(ns))
+    for (const auto& pair : profile_dictionary.getProfileEntry(ProfileType::getStaticKey(), ns))
     {
       CONSOLE_BRIDGE_logDebug("%s", pair.first.c_str());
     }
@@ -171,14 +172,14 @@ std::shared_ptr<const ProfileType> getProfile(const std::string& ns,
 template <typename ProfileType>
 std::shared_ptr<const ProfileType> applyProfileOverrides(const std::string& ns,
                                                          const std::string& profile,
-                                                         const std::shared_ptr<ProfileType>& nominal_profile,
+                                                         const std::shared_ptr<const ProfileType>& nominal_profile,
                                                          const ProfileDictionary::ConstPtr& overrides = nullptr)
 {
   if (!overrides)
     return nominal_profile;
 
-  if (overrides->hasProfile<ProfileType>(ns, profile))
-    return overrides->getProfile<ProfileType>(ns, profile);
+  if (overrides->hasProfile(ProfileType::getStaticKey(), ns, profile))
+    return std::static_pointer_cast<const ProfileType>(overrides->getProfile(ProfileType::getStaticKey(), ns, profile));
 
   return nominal_profile;
 }

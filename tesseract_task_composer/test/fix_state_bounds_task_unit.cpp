@@ -150,7 +150,7 @@ TEST_F(FixStateBoundsTaskUnit, stateInBounds)  // NOLINT
   state_bounds_profile->upper_bounds_reduction = 1e-3;
 
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<FixStateBoundsProfile>(FIX_STATE_BOUNDS_TASK_NAME, DEFAULT_PROFILE_KEY, state_bounds_profile);
+  profiles->addProfile(FIX_STATE_BOUNDS_TASK_NAME, DEFAULT_PROFILE_KEY, state_bounds_profile);
 
   Eigen::VectorXd mid_state = joint_limits.col(0) + (joint_limits.col(1) - joint_limits.col(0)) / 2.;
   {  // All are valid
