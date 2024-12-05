@@ -551,7 +551,7 @@ void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
 
 std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::string& prefix)
 {
-  std::string result = boost::lexical_cast<std::string>(u);
+  auto result = boost::lexical_cast<std::string>(u);
   boost::replace_all(result, "-", "");
   
   return (prefix + result);
