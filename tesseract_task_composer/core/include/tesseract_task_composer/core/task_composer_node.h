@@ -148,8 +148,7 @@ public:
   TaskComposerNodePorts getPorts() const;
 
   /** @brief Generate the Dotgraph as a string */
-  std::string
-  getDotgraph(const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const;
+  std::string getDotgraph(const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const;
 
   /** @brief Generate the Dotgraph and save to file */
   bool saveDotgraph(const std::string& filepath,
@@ -177,8 +176,7 @@ public:
    * @brief dump the task to dot
    * @brief Return additional subgraphs which should get appended if needed
    */
-  virtual std::string
-  dump(std::ostream& os) const;
+  virtual std::string dump(std::ostream& os) const;
 
   bool operator==(const TaskComposerNode& rhs) const;
   bool operator!=(const TaskComposerNode& rhs) const;

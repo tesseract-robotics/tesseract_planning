@@ -437,11 +437,7 @@ void TaskComposerNode::renameOutputKeys(const std::map<std::string, std::string>
 
 void TaskComposerNode::setConditional(bool enable) { conditional_ = enable; }
 
-std::string
-TaskComposerNode::dump(std::ostream& os) const
-{
-  return dump(os, nullptr, {});
-}
+std::string TaskComposerNode::dump(std::ostream& os) const { return dump(os, nullptr, {}); }
 
 std::string
 TaskComposerNode::dump(std::ostream& os,
@@ -553,7 +549,7 @@ std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::s
 {
   auto result = boost::lexical_cast<std::string>(u);
   boost::replace_all(result, "-", "");
-  
+
   return (prefix + result);
 }
 
