@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
+#include <tesseract_collision/core/serialization.h>
 
 namespace tesseract_planning
 {
@@ -60,6 +61,7 @@ template <class Archive>
 void ContactCheckProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
+  ar& BOOST_SERIALIZATION_NVP(config);
 }
 
 }  // namespace tesseract_planning

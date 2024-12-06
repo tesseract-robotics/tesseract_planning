@@ -44,6 +44,7 @@ template <class Archive>
 void MinLengthProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
+  ar& BOOST_SERIALIZATION_NVP(min_length);
 }
 }  // namespace tesseract_planning
 

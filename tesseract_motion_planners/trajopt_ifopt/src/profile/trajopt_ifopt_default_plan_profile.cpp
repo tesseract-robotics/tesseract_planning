@@ -43,6 +43,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 
+#include <tesseract_common/eigen_serialization.h>
+
 namespace tesseract_planning
 {
 void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
@@ -138,6 +140,9 @@ template <class Archive>
 void TrajOptIfoptDefaultPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptIfoptPlanProfile);
+  ar& BOOST_SERIALIZATION_NVP(cartesian_coeff);
+  ar& BOOST_SERIALIZATION_NVP(joint_coeff);
+  ar& BOOST_SERIALIZATION_NVP(term_type);
 }
 
 }  // namespace tesseract_planning

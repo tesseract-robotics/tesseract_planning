@@ -54,10 +54,6 @@ public:
   using ConstPtr = std::shared_ptr<const DescartesPlanProfile<FloatType>>;
 
   DescartesPlanProfile() : Profile(DescartesPlanProfile<FloatType>::getStaticKey()) {}
-  DescartesPlanProfile(const DescartesPlanProfile&) = delete;
-  DescartesPlanProfile& operator=(const DescartesPlanProfile&) = delete;
-  DescartesPlanProfile(DescartesPlanProfile&&) noexcept = delete;
-  DescartesPlanProfile& operator=(DescartesPlanProfile&&) noexcept = delete;
 
   /**
    * @brief A utility function for getting profile ID

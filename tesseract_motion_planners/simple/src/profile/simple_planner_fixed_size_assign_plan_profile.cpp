@@ -131,6 +131,8 @@ template <class Archive>
 void SimplePlannerFixedSizeAssignPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerPlanProfile);
+  ar& BOOST_SERIALIZATION_NVP(freespace_steps);
+  ar& BOOST_SERIALIZATION_NVP(linear_steps);
 }
 
 }  // namespace tesseract_planning

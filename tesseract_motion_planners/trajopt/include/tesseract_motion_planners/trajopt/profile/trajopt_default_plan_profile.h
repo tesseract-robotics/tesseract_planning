@@ -45,12 +45,7 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptDefaultPlanProfile>;
 
   TrajOptDefaultPlanProfile() = default;
-  ~TrajOptDefaultPlanProfile() override = default;
   TrajOptDefaultPlanProfile(const tinyxml2::XMLElement& xml_element);
-  TrajOptDefaultPlanProfile(const TrajOptDefaultPlanProfile&) = default;
-  TrajOptDefaultPlanProfile& operator=(const TrajOptDefaultPlanProfile&) = default;
-  TrajOptDefaultPlanProfile(TrajOptDefaultPlanProfile&&) = default;
-  TrajOptDefaultPlanProfile& operator=(TrajOptDefaultPlanProfile&&) = default;
 
   CartesianWaypointConfig cartesian_cost_config;
   CartesianWaypointConfig cartesian_constraint_config;

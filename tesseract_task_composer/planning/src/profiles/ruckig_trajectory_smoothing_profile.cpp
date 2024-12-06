@@ -73,6 +73,9 @@ template <class Archive>
 void RuckigTrajectorySmoothingMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
+  ar& BOOST_SERIALIZATION_NVP(max_velocity_scaling_factor);
+  ar& BOOST_SERIALIZATION_NVP(max_acceleration_scaling_factor);
+  ar& BOOST_SERIALIZATION_NVP(max_jerk_scaling_factor);
 }
 
 }  // namespace tesseract_planning
