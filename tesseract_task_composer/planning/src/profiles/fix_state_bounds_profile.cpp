@@ -40,6 +40,10 @@ template <class Archive>
 void FixStateBoundsProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
+  ar& BOOST_SERIALIZATION_NVP(mode);
+  ar& BOOST_SERIALIZATION_NVP(max_deviation_global);
+  ar& BOOST_SERIALIZATION_NVP(upper_bounds_reduction);
+  ar& BOOST_SERIALIZATION_NVP(lower_bounds_reduction);
 }
 
 }  // namespace tesseract_planning

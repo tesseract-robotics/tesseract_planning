@@ -25,8 +25,10 @@
  */
 
 #include <tesseract_task_composer/planning/profiles/fix_state_collision_profile.h>
+#include <tesseract_collision/core/serialization.h>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
+#include <boost/serialization/vector.hpp>
 #include <typeindex>
 
 namespace tesseract_planning
@@ -47,6 +49,11 @@ template <class Archive>
 void FixStateCollisionProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
+  ar& BOOST_SERIALIZATION_NVP(mode);
+  ar& BOOST_SERIALIZATION_NVP(correction_workflow);
+  ar& BOOST_SERIALIZATION_NVP(jiggle_factor);
+  ar& BOOST_SERIALIZATION_NVP(collision_check_config);
+  ar& BOOST_SERIALIZATION_NVP(sampling_attempts);
 }
 
 }  // namespace tesseract_planning

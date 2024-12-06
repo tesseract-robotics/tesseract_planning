@@ -62,11 +62,6 @@ public:
   using ConstPtr = std::shared_ptr<const OMPLDefaultPlanProfile>;
 
   OMPLDefaultPlanProfile();
-  ~OMPLDefaultPlanProfile() override = default;
-  OMPLDefaultPlanProfile(const OMPLDefaultPlanProfile&) = default;
-  OMPLDefaultPlanProfile& operator=(const OMPLDefaultPlanProfile&) = default;
-  OMPLDefaultPlanProfile(OMPLDefaultPlanProfile&&) noexcept = default;
-  OMPLDefaultPlanProfile& operator=(OMPLDefaultPlanProfile&&) noexcept = default;
   OMPLDefaultPlanProfile(const tinyxml2::XMLElement& xml_element);
 
   /** @brief The OMPL state space to use when planning */

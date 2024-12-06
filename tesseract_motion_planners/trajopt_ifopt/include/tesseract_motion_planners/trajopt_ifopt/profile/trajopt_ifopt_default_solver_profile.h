@@ -53,8 +53,8 @@ public:
   ~TrajOptIfoptDefaultSolverProfile() override;
   TrajOptIfoptDefaultSolverProfile(const TrajOptIfoptDefaultSolverProfile&) = delete;
   TrajOptIfoptDefaultSolverProfile& operator=(const TrajOptIfoptDefaultSolverProfile&) = delete;
-  TrajOptIfoptDefaultSolverProfile(TrajOptIfoptDefaultSolverProfile&&) = default;
-  TrajOptIfoptDefaultSolverProfile& operator=(TrajOptIfoptDefaultSolverProfile&&) = default;
+  TrajOptIfoptDefaultSolverProfile(TrajOptIfoptDefaultSolverProfile&&) = delete;
+  TrajOptIfoptDefaultSolverProfile&& operator=(TrajOptIfoptDefaultSolverProfile&&) = delete;
 
   /** @brief The OSQP convex solver settings to use
    *  @todo Replace by convex_solver_config (cf. sco::ModelConfig) once solver selection is possible */

@@ -50,6 +50,11 @@ template <class Archive>
 void TrajOptDefaultSolverProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptSolverProfile);
+  /** @todo FIX */
+  // ar& BOOST_SERIALIZATION_NVP(convex_solver);
+  // ar& BOOST_SERIALIZATION_NVP(convex_solver_config);
+  // ar& BOOST_SERIALIZATION_NVP(opt_info);
+  // ar& BOOST_SERIALIZATION_NVP(callbacks);
 }
 
 }  // namespace tesseract_planning

@@ -318,6 +318,11 @@ template <class Archive>
 void TrajOptDefaultPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptPlanProfile);
+  ar& BOOST_SERIALIZATION_NVP(cartesian_cost_config);
+  ar& BOOST_SERIALIZATION_NVP(cartesian_constraint_config);
+  ar& BOOST_SERIALIZATION_NVP(joint_cost_config);
+  ar& BOOST_SERIALIZATION_NVP(joint_constraint_config);
+  // ar& BOOST_SERIALIZATION_NVP(constraint_error_functions); /** @todo FIX */
 }
 }  // namespace tesseract_planning
 

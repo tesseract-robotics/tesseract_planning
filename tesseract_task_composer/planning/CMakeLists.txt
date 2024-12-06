@@ -38,8 +38,7 @@ set(LIB_SOURCE_FILES
     src/profiles/profile_switch_profile.cpp
     src/profiles/ruckig_trajectory_smoothing_profile.cpp
     src/profiles/time_optimal_parameterization_profile.cpp
-    src/profiles/upsample_trajectory_profile.cpp
-  )
+    src/profiles/upsample_trajectory_profile.cpp)
 
 set(LIB_SOURCE_LINK_LIBRARIES
     ${PROJECT_NAME}

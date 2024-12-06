@@ -46,6 +46,7 @@ template <class Archive>
 void UpsampleTrajectoryProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
+  ar& BOOST_SERIALIZATION_NVP(longest_valid_segment_length);
 }
 
 }  // namespace tesseract_planning

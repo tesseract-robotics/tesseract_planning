@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/trajopt_waypoint_config.h>
 #include <tesseract_common/utils.h>
+#include <tesseract_common/eigen_serialization.h>
 
 namespace tesseract_planning
 {
@@ -154,6 +155,16 @@ tinyxml2::XMLElement* CartesianWaypointConfig::toXML(tinyxml2::XMLDocument& doc)
   return xml_cartesian_waypoint_config;
 }
 
+template <class Archive>
+void CartesianWaypointConfig::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_NVP(enabled);
+  ar& BOOST_SERIALIZATION_NVP(use_tolerance_override);
+  ar& BOOST_SERIALIZATION_NVP(lower_tolerance);
+  ar& BOOST_SERIALIZATION_NVP(upper_tolerance);
+  ar& BOOST_SERIALIZATION_NVP(coeff);
+}
+
 JointWaypointConfig::JointWaypointConfig(const tinyxml2::XMLElement& xml_element)
 {
   const tinyxml2::XMLElement* enabled_element = xml_element.FirstChildElement("Enabled");
@@ -271,4 +282,20 @@ tinyxml2::XMLElement* JointWaypointConfig::toXML(tinyxml2::XMLDocument& doc) con
 
   return xml_cartesian_waypoint_config;
 }
+
+template <class Archive>
+void JointWaypointConfig::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_NVP(enabled);
+  ar& BOOST_SERIALIZATION_NVP(use_tolerance_override);
+  ar& BOOST_SERIALIZATION_NVP(lower_tolerance);
+  ar& BOOST_SERIALIZATION_NVP(upper_tolerance);
+  ar& BOOST_SERIALIZATION_NVP(coeff);
+}
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypointConfig)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypointConfig)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::JointWaypointConfig)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::JointWaypointConfig)

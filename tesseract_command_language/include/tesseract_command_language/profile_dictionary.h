@@ -64,7 +64,7 @@ public:
    * @param profile_name The profile name
    * @param profile The profile to add
    */
-  void addProfile(const std::string& ns, const std::string& profile_name, Profile::ConstPtr profile);
+  void addProfile(const std::string& ns, const std::string& profile_name, const Profile::ConstPtr& profile);
 
   /**
    * @brief Check if a profile exists

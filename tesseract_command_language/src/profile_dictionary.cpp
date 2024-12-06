@@ -68,7 +68,9 @@ std::unordered_map<std::string, Profile::ConstPtr> ProfileDictionary::getProfile
                            ns + "'!");
 }
 
-void ProfileDictionary::addProfile(const std::string& ns, const std::string& profile_name, Profile::ConstPtr profile)
+void ProfileDictionary::addProfile(const std::string& ns,
+                                   const std::string& profile_name,
+                                   const Profile::ConstPtr& profile)
 {
   if (ns.empty())
     throw std::runtime_error("Adding profile with an empty namespace!");

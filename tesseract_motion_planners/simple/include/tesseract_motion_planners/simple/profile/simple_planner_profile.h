@@ -50,10 +50,6 @@ public:
   using ConstPtr = std::shared_ptr<const SimplePlannerPlanProfile>;
 
   SimplePlannerPlanProfile();
-  SimplePlannerPlanProfile(const SimplePlannerPlanProfile&) = delete;
-  SimplePlannerPlanProfile& operator=(const SimplePlannerPlanProfile&) = delete;
-  SimplePlannerPlanProfile(SimplePlannerPlanProfile&&) noexcept = delete;
-  SimplePlannerPlanProfile& operator=(SimplePlannerPlanProfile&&) noexcept = delete;
 
   /**
    * @brief A utility function for getting profile ID
@@ -93,10 +89,6 @@ public:
   using ConstPtr = std::shared_ptr<const SimplePlannerCompositeProfile>;
 
   SimplePlannerCompositeProfile();
-  SimplePlannerCompositeProfile(const SimplePlannerCompositeProfile&) = delete;
-  SimplePlannerCompositeProfile& operator=(const SimplePlannerCompositeProfile&) = delete;
-  SimplePlannerCompositeProfile(SimplePlannerCompositeProfile&&) noexcept = delete;
-  SimplePlannerCompositeProfile& operator=(SimplePlannerCompositeProfile&&) noexcept = delete;
 
   /**
    * @brief A utility function for getting profile ID

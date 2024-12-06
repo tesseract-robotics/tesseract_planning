@@ -42,7 +42,7 @@ public:
   using ConstPtr = std::shared_ptr<const Profile>;
 
   Profile() = default;
-  Profile(std::size_t id);
+  Profile(std::size_t key);
   Profile(const Profile&) = delete;
   Profile& operator=(const Profile&) = delete;
   Profile(Profile&&) = delete;

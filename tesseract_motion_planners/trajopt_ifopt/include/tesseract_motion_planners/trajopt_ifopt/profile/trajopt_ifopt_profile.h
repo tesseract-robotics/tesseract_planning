@@ -54,10 +54,6 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptIfoptPlanProfile>;
 
   TrajOptIfoptPlanProfile();
-  TrajOptIfoptPlanProfile(const TrajOptIfoptPlanProfile&) = delete;
-  TrajOptIfoptPlanProfile& operator=(const TrajOptIfoptPlanProfile&) = delete;
-  TrajOptIfoptPlanProfile(TrajOptIfoptPlanProfile&&) = delete;
-  TrajOptIfoptPlanProfile& operator=(TrajOptIfoptPlanProfile&&) = delete;
 
   /**
    * @brief A utility function for getting profile ID
@@ -94,10 +90,6 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptIfoptCompositeProfile>;
 
   TrajOptIfoptCompositeProfile();
-  TrajOptIfoptCompositeProfile(const TrajOptIfoptCompositeProfile&) = delete;
-  TrajOptIfoptCompositeProfile& operator=(const TrajOptIfoptCompositeProfile&) = delete;
-  TrajOptIfoptCompositeProfile(TrajOptIfoptCompositeProfile&&) = delete;
-  TrajOptIfoptCompositeProfile& operator=(TrajOptIfoptCompositeProfile&&) = delete;
 
   /**
    * @brief A utility function for getting profile ID
@@ -127,10 +119,6 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptIfoptSolverProfile>;
 
   TrajOptIfoptSolverProfile();
-  TrajOptIfoptSolverProfile(const TrajOptIfoptSolverProfile&) = delete;
-  TrajOptIfoptSolverProfile& operator=(const TrajOptIfoptSolverProfile&) = delete;
-  TrajOptIfoptSolverProfile(TrajOptIfoptSolverProfile&&) = delete;
-  TrajOptIfoptSolverProfile& operator=(TrajOptIfoptSolverProfile&&) = delete;
 
   /**
    * @brief A utility function for getting profile ID

@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <OsqpEigen/Settings.hpp>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
+#include <boost/serialization/unique_ptr.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
@@ -68,6 +69,10 @@ template <class Archive>
 void TrajOptIfoptDefaultSolverProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptIfoptSolverProfile);
+  /** @todo FIX */
+  // ar& BOOST_SERIALIZATION_NVP(convex_solver_settings);
+  // ar& BOOST_SERIALIZATION_NVP(opt_info);
+  // ar& BOOST_SERIALIZATION_NVP(callbacks);
 }
 
 }  // namespace tesseract_planning

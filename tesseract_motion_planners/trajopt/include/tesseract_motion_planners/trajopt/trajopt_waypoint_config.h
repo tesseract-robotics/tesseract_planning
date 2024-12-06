@@ -29,6 +29,8 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tinyxml2
@@ -70,6 +72,11 @@ struct CartesianWaypointConfig
   Eigen::Matrix<double, 6, 1> coeff{ Eigen::VectorXd::Constant(6, 5) };
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 /**
@@ -100,7 +107,15 @@ struct JointWaypointConfig
   Eigen::VectorXd coeff{ Eigen::VectorXd::Constant(1, 1, 5) };
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::CartesianWaypointConfig)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::JointWaypointConfig)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_CONFIG_TRAJOPT_WAYPOINT_CONFIG_H

@@ -53,10 +53,6 @@ public:
   using ConstPtr = std::shared_ptr<const OMPLPlanProfile>;
 
   OMPLPlanProfile();
-  OMPLPlanProfile(const OMPLPlanProfile&) = delete;
-  OMPLPlanProfile& operator=(const OMPLPlanProfile&) = delete;
-  OMPLPlanProfile(OMPLPlanProfile&&) noexcept = delete;
-  OMPLPlanProfile& operator=(OMPLPlanProfile&&) noexcept = delete;
 
   /**
    * @brief A utility function for getting profile ID
