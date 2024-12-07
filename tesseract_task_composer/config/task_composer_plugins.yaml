@@ -39,7 +39,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  composite_profile_remapping: composite_profile_remapping
                 outputs:
                   program: output_data
             DescartesMotionPlannerTask:
@@ -51,8 +50,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -65,7 +62,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -75,8 +71,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
           edges:
@@ -151,7 +145,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  composite_profile_remapping: composite_profile_remapping
                 outputs:
                   program: output_data
             DescartesMotionPlannerTask:
@@ -163,8 +156,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -177,7 +168,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -187,8 +177,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
           edges:
@@ -263,7 +251,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  composite_profile_remapping: composite_profile_remapping
                 outputs:
                   program: output_data
             DescartesMotionPlannerTask:
@@ -275,8 +262,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -289,8 +274,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
           edges:
@@ -363,7 +346,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  composite_profile_remapping: composite_profile_remapping
                 outputs:
                   program: output_data
             DescartesMotionPlannerTask:
@@ -375,8 +357,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -389,8 +369,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
           edges:
@@ -463,7 +441,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  composite_profile_remapping: composite_profile_remapping
                 outputs:
                   program: output_data
             OMPLMotionPlannerTask:
@@ -475,8 +452,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -489,7 +464,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -499,8 +473,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
           edges:
@@ -575,7 +547,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  composite_profile_remapping: composite_profile_remapping
                 outputs:
                   program: output_data
             TrajOptMotionPlannerTask:
@@ -587,8 +558,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -601,7 +570,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -611,8 +579,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
           edges:
@@ -687,7 +653,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  composite_profile_remapping: composite_profile_remapping
                 outputs:
                   program: output_data
             TrajOptIfoptMotionPlannerTask:
@@ -699,8 +664,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -713,7 +676,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -723,8 +685,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
           edges:
@@ -799,7 +759,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  composite_profile_remapping: composite_profile_remapping
                 outputs:
                   program: output_data
             DescartesMotionPlannerTask:
@@ -811,8 +770,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -825,8 +782,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -839,7 +794,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -849,8 +803,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
           edges:
@@ -927,7 +879,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  composite_profile_remapping: composite_profile_remapping
                 outputs:
                   program: output_data
             OMPLMotionPlannerTask:
@@ -939,8 +890,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -953,8 +902,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -967,7 +914,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -977,8 +923,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
           edges:
@@ -1055,7 +999,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  composite_profile_remapping: composite_profile_remapping
                 outputs:
                   program: output_data
             OMPLMotionPlannerTask:
@@ -1067,8 +1010,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1081,8 +1022,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -1095,7 +1034,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -1105,8 +1043,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
           edges:
@@ -1184,8 +1120,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1289,8 +1223,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1394,8 +1326,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1492,8 +1422,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1590,8 +1518,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1604,8 +1530,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1711,8 +1635,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1725,8 +1647,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1832,8 +1752,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1846,8 +1764,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1946,8 +1862,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1960,8 +1874,6 @@ task_composer_plugins:
                   environment: environment
                   profiles: profiles
                   manip_info: manip_info
-                  composite_profile_remapping: composite_profile_remapping
-                  move_profile_remapping: move_profile_remapping
                 outputs:
                   program: output_data
                 format_result_as_input: true
