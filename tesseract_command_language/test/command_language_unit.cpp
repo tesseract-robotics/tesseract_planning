@@ -405,7 +405,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_FALSE(instr.getUUID().is_nil());
   EXPECT_TRUE(instr.getParentUUID().is_nil());
   EXPECT_EQ(instr.getProfile(), profile);
-  EXPECT_EQ(instr.getProfileOverrides(), nullptr);
+  EXPECT_TRUE(instr.getProfileOverrides().empty());
   EXPECT_EQ(instr.getManipulatorInfo(), manip_info);
   EXPECT_EQ(std::as_const(instr).getManipulatorInfo(), manip_info);
   EXPECT_EQ(instr.getOrder(), order);
@@ -435,7 +435,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_FALSE(insert_program.getUUID().is_nil());
   EXPECT_TRUE(insert_program.getParentUUID().is_nil());
   EXPECT_EQ(insert_program.getProfile(), DEFAULT_PROFILE_KEY);
-  EXPECT_EQ(insert_program.getProfileOverrides(), nullptr);
+  EXPECT_TRUE(insert_program.getProfileOverrides().empty());
   EXPECT_TRUE(insert_program.getManipulatorInfo().empty());
   EXPECT_EQ(insert_program.getOrder(), order);
   EXPECT_NE(insert_program.size(), insert_program.getInstructionCount());  // Because of nested composites
@@ -469,7 +469,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_FALSE(assign_program.getUUID().is_nil());
   EXPECT_TRUE(assign_program.getParentUUID().is_nil());
   EXPECT_EQ(assign_program.getProfile(), profile);
-  EXPECT_EQ(assign_program.getProfileOverrides(), nullptr);
+  EXPECT_TRUE(assign_program.getProfileOverrides().empty());
   EXPECT_EQ(assign_program.getManipulatorInfo(), manip_info);
   EXPECT_EQ(std::as_const(assign_program).getManipulatorInfo(), manip_info);
   EXPECT_EQ(assign_program.getOrder(), order);
@@ -503,7 +503,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_FALSE(copy_program.getUUID().is_nil());
   EXPECT_TRUE(copy_program.getParentUUID().is_nil());
   EXPECT_EQ(copy_program.getProfile(), profile);
-  EXPECT_EQ(copy_program.getProfileOverrides(), nullptr);
+  EXPECT_TRUE(copy_program.getProfileOverrides().empty());
   EXPECT_EQ(copy_program.getManipulatorInfo(), manip_info);
   EXPECT_EQ(std::as_const(copy_program).getManipulatorInfo(), manip_info);
   EXPECT_EQ(copy_program.getOrder(), order);
@@ -537,7 +537,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_FALSE(empty_program.getUUID().is_nil());
   EXPECT_TRUE(empty_program.getParentUUID().is_nil());
   EXPECT_EQ(empty_program.getProfile(), profile);
-  EXPECT_EQ(empty_program.getProfileOverrides(), nullptr);
+  EXPECT_TRUE(empty_program.getProfileOverrides().empty());
   EXPECT_EQ(empty_program.getManipulatorInfo(), manip_info);
   EXPECT_EQ(std::as_const(empty_program).getManipulatorInfo(), manip_info);
   EXPECT_EQ(empty_program.getOrder(), order);
@@ -567,15 +567,13 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_FALSE(empty_program == instr);
   EXPECT_TRUE(empty_program != instr);
 
-  auto profile_overrides = std::make_shared<ProfileDictionary>();
   T set_program;
   set_program.setProfile(profile);
   set_program.setManipulatorInfo(manip_info);
-  set_program.setProfileOverrides(profile_overrides);
   EXPECT_FALSE(set_program.getUUID().is_nil());
   EXPECT_TRUE(set_program.getParentUUID().is_nil());
   EXPECT_EQ(set_program.getProfile(), profile);
-  EXPECT_EQ(set_program.getProfileOverrides(), profile_overrides);
+  EXPECT_TRUE(set_program.getProfileOverrides().empty());
   EXPECT_EQ(set_program.getManipulatorInfo(), manip_info);
   EXPECT_EQ(std::as_const(set_program).getManipulatorInfo(), manip_info);
   EXPECT_EQ(set_program.getOrder(), order);
@@ -611,7 +609,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_FALSE(clear_program.getUUID().is_nil());
   EXPECT_TRUE(clear_program.getParentUUID().is_nil());
   EXPECT_EQ(clear_program.getProfile(), profile);
-  EXPECT_EQ(clear_program.getProfileOverrides(), nullptr);
+  EXPECT_TRUE(clear_program.getProfileOverrides().empty());
   EXPECT_EQ(clear_program.getManipulatorInfo(), manip_info);
   EXPECT_EQ(std::as_const(clear_program).getManipulatorInfo(), manip_info);
   EXPECT_EQ(clear_program.getOrder(), order);

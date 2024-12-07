@@ -56,7 +56,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_collision/core/discrete_contact_manager.h>
 #include <tesseract_collision/core/serialization.h>
 #include <tesseract_environment/environment.h>
-#include <tesseract_collision/core/serialization.h>
 
 namespace tesseract_planning
 {
@@ -65,240 +64,77 @@ OMPLDefaultPlanProfile::OMPLDefaultPlanProfile()
 {
 }
 
-OMPLDefaultPlanProfile::OMPLDefaultPlanProfile(const tinyxml2::XMLElement& xml_element)
-  : planners({ std::make_shared<const RRTConnectConfigurator>(), std::make_shared<const RRTConnectConfigurator>() })
+std::vector<OMPLProblemConfig> OMPLDefaultPlanProfile::create(const PlannerRequest& request) const
 {
-  const tinyxml2::XMLElement* state_space_element = xml_element.FirstChildElement("StateSpace");
-  const tinyxml2::XMLElement* planning_time_element = xml_element.FirstChildElement("PlanningTime");
-  const tinyxml2::XMLElement* max_solutions_element = xml_element.FirstChildElement("MaxSolutions");
-  const tinyxml2::XMLElement* simplify_element = xml_element.FirstChildElement("Simplify");
-  const tinyxml2::XMLElement* optimize_element = xml_element.FirstChildElement("Optimize");
-  const tinyxml2::XMLElement* planners_element = xml_element.FirstChildElement("Planners");
-  //  const tinyxml2::XMLElement* collision_check_element = xml_element.FirstChildElement("CollisionCheck");
-  //  const tinyxml2::XMLElement* collision_continuous_element = xml_element.FirstChildElement("CollisionContinuous");
-  //  const tinyxml2::XMLElement* collision_safety_margin_element =
-  //  xml_element.FirstChildElement("CollisionSafetyMargin");
-  //  const tinyxml2::XMLElement* longest_valid_segment_fraction_element =
-  //  xml_element.FirstChildElement("LongestValidSegme"
-  //                                                                                                     "ntFraction");
-  //  const tinyxml2::XMLElement* longest_valid_segment_length_element =
-  //  xml_element.FirstChildElement("LongestValidSegment"
-  //                                                                                                   "Length");
+  std::vector<OMPLProblemConfig> problems;
 
-  int status{ tinyxml2::XMLError::XML_SUCCESS };
+  // Assume all the plan instructions have the same manipulator as the composite
+  assert(!request.instructions.getManipulatorInfo().empty());
 
-  if (state_space_element != nullptr)
+  const tesseract_common::ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
+
+  tesseract_kinematics::JointGroup::Ptr manip;
+  if (composite_mi.manipulator.empty())
+    throw std::runtime_error("OMPL, manipulator is empty!");
+
+  try
   {
-    auto type = static_cast<int>(OMPLProblemStateSpace::REAL_STATE_SPACE);
-    status = state_space_element->QueryIntAttribute("type", &type);
-    if (status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLPlanProfile: Error parsing StateSpace type attribute.");
-
-    state_space = static_cast<OMPLProblemStateSpace>(type);
-  }
-
-  if (planning_time_element != nullptr)
-  {
-    std::string planning_time_string;
-    status = tesseract_common::QueryStringText(planning_time_element, planning_time_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLPlanProfile: Error parsing PlanningTime string");
-
-    if (!tesseract_common::isNumeric(planning_time_string))
-      throw std::runtime_error("OMPLPlanProfile: PlanningTime is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(planning_time_string, planning_time);
-  }
-
-  if (max_solutions_element != nullptr)
-  {
-    std::string max_solutions_string;
-    status = tesseract_common::QueryStringText(max_solutions_element, max_solutions_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLPlanProfile: Error parsing MaxSolutions string");
-
-    if (!tesseract_common::isNumeric(max_solutions_string))
-      throw std::runtime_error("OMPLPlanProfile: MaxSolutions is not a numeric values.");
-
-    tesseract_common::toNumeric<int>(max_solutions_string, max_solutions);
-  }
-
-  if (simplify_element != nullptr)
-  {
-    status = simplify_element->QueryBoolText(&simplify);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLPlanProfile: Error parsing Simplify string");
-  }
-
-  if (optimize_element != nullptr)
-  {
-    status = optimize_element->QueryBoolText(&optimize);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLPlanProfile: Error parsing Optimize string");
-  }
-
-  if (planners_element != nullptr)
-  {
-    planners.clear();
-    for (const tinyxml2::XMLElement* e = planners_element->FirstChildElement("Planner"); e != nullptr;
-         e = e->NextSiblingElement("Planner"))
+    tesseract_kinematics::KinematicGroup::Ptr kin_group;
+    std::string error_msg;
+    if (composite_mi.manipulator_ik_solver.empty())
     {
-      int type{ 0 };
-      status = e->QueryIntAttribute("type", &type);
-      if (status != tinyxml2::XML_SUCCESS)
-        throw std::runtime_error("OMPLPlanProfile: Error parsing Planner type attribute.");
+      kin_group = request.env->getKinematicGroup(composite_mi.manipulator);
+      error_msg = "Failed to find kinematic group for manipulator '" + composite_mi.manipulator + "'";
+    }
+    else
+    {
+      kin_group = request.env->getKinematicGroup(composite_mi.manipulator, composite_mi.manipulator_ik_solver);
+      error_msg = "Failed to find kinematic group for manipulator '" + composite_mi.manipulator + "' with solver '" +
+                  composite_mi.manipulator_ik_solver + "'";
+    }
 
-      switch (type)
-      {
-        case static_cast<int>(OMPLPlannerType::SBL):
-        {
-          SBLConfigurator::ConstPtr ompl_planner = std::make_shared<const SBLConfigurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        case static_cast<int>(OMPLPlannerType::EST):
-        {
-          ESTConfigurator::ConstPtr ompl_planner = std::make_shared<const ESTConfigurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        case static_cast<int>(OMPLPlannerType::LBKPIECE1):
-        {
-          LBKPIECE1Configurator::ConstPtr ompl_planner = std::make_shared<const LBKPIECE1Configurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        case static_cast<int>(OMPLPlannerType::BKPIECE1):
-        {
-          BKPIECE1Configurator::ConstPtr ompl_planner = std::make_shared<const BKPIECE1Configurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        case static_cast<int>(OMPLPlannerType::KPIECE1):
-        {
-          KPIECE1Configurator::ConstPtr ompl_planner = std::make_shared<const KPIECE1Configurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        case static_cast<int>(OMPLPlannerType::BiTRRT):
-        {
-          BiTRRTConfigurator::ConstPtr ompl_planner = std::make_shared<const BiTRRTConfigurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        case static_cast<int>(OMPLPlannerType::RRT):
-        {
-          RRTConfigurator::ConstPtr ompl_planner = std::make_shared<const RRTConfigurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        case static_cast<int>(OMPLPlannerType::RRTConnect):
-        {
-          RRTConnectConfigurator::ConstPtr ompl_planner = std::make_shared<const RRTConnectConfigurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        case static_cast<int>(OMPLPlannerType::RRTstar):
-        {
-          RRTstarConfigurator::ConstPtr ompl_planner = std::make_shared<const RRTstarConfigurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        case static_cast<int>(OMPLPlannerType::TRRT):
-        {
-          TRRTConfigurator::ConstPtr ompl_planner = std::make_shared<const TRRTConfigurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        case static_cast<int>(OMPLPlannerType::PRM):
-        {
-          PRMConfigurator::ConstPtr ompl_planner = std::make_shared<const PRMConfigurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        case static_cast<int>(OMPLPlannerType::PRMstar):
-        {
-          PRMstarConfigurator::ConstPtr ompl_planner = std::make_shared<const PRMstarConfigurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        case static_cast<int>(OMPLPlannerType::LazyPRMstar):
-        {
-          LazyPRMstarConfigurator::ConstPtr ompl_planner = std::make_shared<const LazyPRMstarConfigurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        case static_cast<int>(OMPLPlannerType::SPARS):
-        {
-          SPARSConfigurator::ConstPtr ompl_planner = std::make_shared<const SPARSConfigurator>(*e);
-          planners.push_back(ompl_planner);
-          break;
-        }
-        default:
-        {
-          throw std::runtime_error("Unsupported OMPL Planner type");
-        }
-      }
+    if (kin_group == nullptr)
+    {
+      CONSOLE_BRIDGE_logError("%s", error_msg.c_str());
+      throw std::runtime_error(error_msg);
+    }
+
+    manip = kin_group;
+  }
+  catch (...)
+  {
+    manip = request.env->getJointGroup(composite_mi.manipulator);
+  }
+
+  if (!manip)
+    throw std::runtime_error("Failed to get joint/kinematic group: " + composite_mi.manipulator);
+
+  // Flatten the input for planning
+  auto move_instructions = request.instructions.flatten(&moveFilter);
+
+  // Transform plan instructions into ompl problem
+  int index = 0;
+  int num_output_states = 1;
+  MoveInstructionPoly start_instruction = move_instructions.front().get().as<MoveInstructionPoly>();
+
+  for (std::size_t i = 1; i < move_instructions.size(); ++i)
+  {
+    ++num_output_states;
+    const auto& instruction = move_instructions[i].get();
+    assert(instruction.isMoveInstruction());
+    const auto& move_instruction = instruction.as<MoveInstructionPoly>();
+    const auto& waypoint = move_instruction.getWaypoint();
+    if (waypoint.isCartesianWaypoint() || waypoint.isStateWaypoint() ||
+        (waypoint.isJointWaypoint() && waypoint.as<JointWaypointPoly>().isConstrained()))
+    {
+      problems.push_back(createSubProblem(
+          request, composite_mi, manip, start_instruction, move_instruction, num_output_states, index++));
+      start_instruction = move_instruction;
+      num_output_states = 1;
     }
   }
 
-  /// @todo Update XML
-  //  if (collision_check_element)
-  //  {
-  //    status = collision_check_element->QueryBoolText(&collision_check);
-  //    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-  //      throw std::runtime_error("OMPLPlanProfile: Error parsing CollisionCheck string");
-  //  }
-
-  //  if (collision_continuous_element)
-  //  {
-  //    status = collision_continuous_element->QueryBoolText(&collision_continuous);
-  //    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-  //      throw std::runtime_error("OMPLPlanProfile: Error parsing CollisionContinuous string");
-  //  }
-
-  /// @todo Update XML
-  //  if (collision_safety_margin_element)
-  //  {
-  //    std::string collision_safety_margin_string;
-  //    status = tesseract_common::QueryStringText(collision_safety_margin_element, collision_safety_margin_string);
-  //    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-  //      throw std::runtime_error("OMPLPlanProfile: Error parsing CollisionSafetyMargin string");
-
-  //    if (!tesseract_common::isNumeric(collision_safety_margin_string))
-  //      throw std::runtime_error("OMPLPlanProfile: CollisionSafetyMargin is not a numeric values.");
-
-  //    tesseract_common::toNumeric<double>(collision_safety_margin_string, collision_safety_margin);
-  //  }
-
-  //  if (longest_valid_segment_fraction_element)
-  //  {
-  //    std::string longest_valid_segment_fraction_string;
-  //    status = tesseract_common::QueryStringText(longest_valid_segment_fraction_element,
-  //                                               longest_valid_segment_fraction_string);
-  //    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-  //      throw std::runtime_error("OMPLPlanProfile: Error parsing LongestValidSegmentFraction string");
-
-  //    if (!tesseract_common::isNumeric(longest_valid_segment_fraction_string))
-  //      throw std::runtime_error("OMPLPlanProfile: LongestValidSegmentFraction is not a numeric values.");
-
-  //    tesseract_common::toNumeric<double>(longest_valid_segment_fraction_string, longest_valid_segment_fraction);
-  //  }
-
-  //  if (longest_valid_segment_length_element)
-  //  {
-  //    std::string longest_valid_segment_length_string;
-  //    status =
-  //        tesseract_common::QueryStringText(longest_valid_segment_length_element,
-  //        longest_valid_segment_length_string);
-  //    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-  //      throw std::runtime_error("OMPLPlanProfile: Error parsing LongestValidSegmentLength string");
-
-  //    if (!tesseract_common::isNumeric(longest_valid_segment_length_string))
-  //      throw std::runtime_error("OMPLPlanProfile: LongestValidSegmentLength is not a numeric values.");
-
-  //    tesseract_common::toNumeric<double>(longest_valid_segment_length_string, longest_valid_segment_length);
-  //  }
+  return problems;
 }
 
 void OMPLDefaultPlanProfile::setup(OMPLProblem& prob) const

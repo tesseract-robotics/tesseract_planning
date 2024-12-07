@@ -48,9 +48,6 @@ namespace tesseract_planning
 const std::string ProfileSwitchTask::INPUT_PROGRAM_PORT = "program";
 const std::string ProfileSwitchTask::INPUT_PROFILES_PORT = "profiles";
 
-// Optional
-const std::string ProfileSwitchTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_remapping";
-
 ProfileSwitchTask::ProfileSwitchTask() : TaskComposerTask("ProfileSwitchTask", ProfileSwitchTask::ports(), true) {}
 ProfileSwitchTask::ProfileSwitchTask(std::string name,
                                      std::string input_program_key,
@@ -75,7 +72,6 @@ TaskComposerNodePorts ProfileSwitchTask::ports()
   TaskComposerNodePorts ports;
   ports.input_required[INPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
   return ports;
 }
 
@@ -99,13 +95,9 @@ std::unique_ptr<TaskComposerNodeInfo> ProfileSwitchTask::runImpl(TaskComposerCon
 
   // Get Composite Profile
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
-  auto composite_profile_remapping_poly = getData(*context.data_storage, INPUT_COMPOSITE_PROFILE_REMAPPING_PORT, false);
   const auto& ci = input_data_poly.as<CompositeInstruction>();
-  std::string profile = ci.getProfile();
-  profile = getProfileString(ns_, profile, composite_profile_remapping_poly);
   auto cur_composite_profile =
-      getProfile<ProfileSwitchProfile>(ns_, profile, *profiles, std::make_shared<ProfileSwitchProfile>());
-  cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
+      getProfile<ProfileSwitchProfile>(ns_, ci.getProfile(ns_), *profiles, std::make_shared<ProfileSwitchProfile>());
 
   // Return the value specified in the profile
   CONSOLE_BRIDGE_logDebug("ProfileSwitchProfile returning %d", cur_composite_profile->return_value);

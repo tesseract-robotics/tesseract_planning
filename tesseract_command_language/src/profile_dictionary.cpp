@@ -105,6 +105,61 @@ void ProfileDictionary::addProfile(const std::string& ns,
   }
 }
 
+void ProfileDictionary::addProfile(const std::string& ns,
+                                   const std::vector<std::string>& profile_names,
+                                   const Profile::ConstPtr& profile)
+{
+  if (ns.empty())
+    throw std::runtime_error("Adding profile with an empty namespace!");
+
+  if (profile_names.empty())
+    throw std::runtime_error("Adding profile with an empty vector of keys!");
+
+  if (profile == nullptr)
+    throw std::runtime_error("Adding profile that is a nullptr");
+
+  const std::unique_lock lock(mutex_);
+  auto it = profiles_.find(ns);
+  if (it == profiles_.end())
+  {
+    std::unordered_map<std::string, Profile::ConstPtr> new_entry;
+    for (const auto& profile_name : profile_names)
+    {
+      if (profile_name.empty())
+        throw std::runtime_error("Adding profile with an empty string as the key!");
+
+      new_entry[profile_name] = profile;
+    }
+    profiles_[ns][profile->getKey()] = new_entry;
+  }
+  else
+  {
+    auto it2 = it->second.find(profile->getKey());
+    if (it2 != it->second.end())
+    {
+      for (const auto& profile_name : profile_names)
+      {
+        if (profile_name.empty())
+          throw std::runtime_error("Adding profile with an empty string as the key!");
+
+        it2->second[profile_name] = profile;
+      }
+    }
+    else
+    {
+      std::unordered_map<std::string, Profile::ConstPtr> new_entry;
+      for (const auto& profile_name : profile_names)
+      {
+        if (profile_name.empty())
+          throw std::runtime_error("Adding profile with an empty string as the key!");
+
+        new_entry[profile_name] = profile;
+      }
+      it->second[profile->getKey()] = new_entry;
+    }
+  }
+}
+
 bool ProfileDictionary::hasProfile(std::size_t key, const std::string& ns, const std::string& profile_name) const
 {
   const std::shared_lock lock(mutex_);
@@ -151,6 +206,7 @@ void ProfileDictionary::clear()
 template <class Archive>
 void ProfileDictionary::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  const std::shared_lock lock(mutex_);
   ar& boost::serialization::make_nvp("profiles", profiles_);
 }
 

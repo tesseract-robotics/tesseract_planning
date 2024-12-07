@@ -55,7 +55,6 @@ const std::string FixStateBoundsTask::INPUT_PROFILES_PORT = "profiles";
 
 // Optional
 const std::string FixStateBoundsTask::INPUT_MANIP_INFO_PORT = "manip_info";
-const std::string FixStateBoundsTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_remapping";
 
 FixStateBoundsTask::FixStateBoundsTask() : TaskComposerTask("FixStateBoundsTask", FixStateBoundsTask::ports(), true) {}
 FixStateBoundsTask::FixStateBoundsTask(std::string name,
@@ -88,7 +87,6 @@ TaskComposerNodePorts FixStateBoundsTask::ports()
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
 
@@ -132,7 +130,6 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateBoundsTask::runImpl(TaskComposerCo
     input_manip_info = manip_info_poly.as<tesseract_common::ManipulatorInfo>();
 
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
-  auto composite_profile_remapping_poly = getData(*context.data_storage, INPUT_COMPOSITE_PROFILE_REMAPPING_PORT, false);
   auto& ci = input_data_poly.as<CompositeInstruction>();
   ci.setManipulatorInfo(ci.getManipulatorInfo().getCombined(input_manip_info));
   const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
@@ -140,11 +137,8 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateBoundsTask::runImpl(TaskComposerCo
   auto limits = joint_group->getLimits();
 
   // Get Composite Profile
-  std::string profile = ci.getProfile();
-  profile = getProfileString(ns_, profile, composite_profile_remapping_poly);
   auto cur_composite_profile =
-      getProfile<FixStateBoundsProfile>(ns_, profile, *profiles, std::make_shared<FixStateBoundsProfile>());
-  cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
+      getProfile<FixStateBoundsProfile>(ns_, ci.getProfile(ns_), *profiles, std::make_shared<FixStateBoundsProfile>());
 
   limits.joint_limits.col(0) = limits.joint_limits.col(0).array() + cur_composite_profile->lower_bounds_reduction;
   limits.joint_limits.col(1) = limits.joint_limits.col(1).array() - cur_composite_profile->upper_bounds_reduction;

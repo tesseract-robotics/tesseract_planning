@@ -61,6 +61,7 @@ int main()
 
   // Define profiles
   auto profiles = std::make_shared<ProfileDictionary>();
+  /** @todo Add default profiles */
 
   // Define the program
   CompositeInstruction program = test_suite::rasterExampleProgram();
