@@ -37,7 +37,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/ompl/ompl_problem.h>
 #include <tesseract_motion_planners/ompl/utils.h>
 #include <tesseract_motion_planners/ompl/weighted_real_vector_state_sampler.h>
 
@@ -108,16 +107,17 @@ void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr
   state_space_ptr->setLongestValidSegmentFraction(longest_valid_segment_fraction);
 }
 
-bool checkStateInCollision(OMPLProblem& prob,
-                           const Eigen::VectorXd& state,
-                           tesseract_collision::ContactResultMap& contact_map)
+bool checkStateInCollision(tesseract_collision::ContactResultMap& contact_map,
+                           tesseract_collision::DiscreteContactManager& contact_checker,
+                           const tesseract_kinematics::JointGroup& manip,
+                           const Eigen::VectorXd& state)
 {
-  tesseract_common::TransformMap link_transforms = prob.manip->calcFwdKin(state);
+  tesseract_common::TransformMap link_transforms = manip.calcFwdKin(state);
 
-  for (const auto& link_name : prob.contact_checker->getActiveCollisionObjects())
-    prob.contact_checker->setCollisionObjectsTransform(link_name, link_transforms[link_name]);
+  for (const auto& link_name : contact_checker.getActiveCollisionObjects())
+    contact_checker.setCollisionObjectsTransform(link_name, link_transforms[link_name]);
 
-  prob.contact_checker->contactTest(contact_map, tesseract_collision::ContactTestType::FIRST);
+  contact_checker.contactTest(contact_map, tesseract_collision::ContactTestType::FIRST);
 
   return (!contact_map.empty());
 }

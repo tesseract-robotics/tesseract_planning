@@ -1,6 +1,6 @@
 /**
- * @file ompl_problem.h
- * @brief Tesseract OMPL problem definition
+ * @file ompl_solver_config.cpp
+ * @brief Tesseract OMPL solver config
  *
  * @author Levi Armstrong
  * @date June 18, 2020
@@ -24,24 +24,25 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <ompl/geometric/SimpleSetup.h>
-#include <ompl/base/OptimizationObjective.h>
-#include <ompl/tools/multiplan/ParallelPlan.h>
-#include <ompl/base/objectives/PathLengthOptimizationObjective.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
-#include <tesseract_motion_planners/ompl/ompl_problem.h>
+#include <tesseract_motion_planners/ompl/ompl_solver_config.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
-#include <tesseract_motion_planners/ompl/utils.h>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/shared_ptr.hpp>
+#include <boost/serialization/nvp.hpp>
 
 namespace tesseract_planning
 {
-tesseract_common::TrajArray OMPLProblem::getTrajectory() const
+template <class Archive>
+void OMPLSolverConfig::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  assert(extractor != nullptr);
-  return toTrajArray(this->simple_setup->getSolutionPath(), extractor);
+  ar& BOOST_SERIALIZATION_NVP(planning_time);
+  ar& BOOST_SERIALIZATION_NVP(max_solutions);
+  ar& BOOST_SERIALIZATION_NVP(simplify);
+  ar& BOOST_SERIALIZATION_NVP(optimize);
+  ar& BOOST_SERIALIZATION_NVP(planners);
 }
-
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLSolverConfig)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::OMPLSolverConfig)

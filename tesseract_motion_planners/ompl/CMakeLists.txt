@@ -4,19 +4,17 @@ link_directories(BEFORE ${OMPL_LIBRARY_DIRS})
 
 # OMPL Freespace Planning Interface
 set(OMPL_SRC
-    src/ompl_motion_planner.cpp
+    src/profile/ompl_profile.cpp
+    src/profile/ompl_real_vector_plan_profile.cpp
+    src/compound_state_validator.cpp
     src/continuous_motion_validator.cpp
     src/discrete_motion_validator.cpp
-    src/weighted_real_vector_state_sampler.cpp
+    src/ompl_motion_planner.cpp
     src/ompl_planner_configurator.cpp
-    src/ompl_problem.cpp
-    src/profile/ompl_profile.cpp
-    src/profile/ompl_default_plan_profile.cpp
-    src/utils.cpp
+    src/ompl_solver_config.cpp
     src/state_collision_validator.cpp
-    src/compound_state_validator.cpp
-    src/serialize.cpp
-    src/deserialize.cpp)
+    src/utils.cpp
+    src/weighted_real_vector_state_sampler.cpp)
 
 # if(NOT OMPL_VERSION VERSION_LESS "1.4.0") list(APPEND OMPL_SRC src/config/ompl_planner_constrained_config.cpp) endif()
 

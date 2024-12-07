@@ -33,25 +33,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/planner.h>
-
 #include <tesseract_common/fwd.h>
 #include <tesseract_kinematics/core/fwd.h>
-
-namespace ompl::tools
-{
-class ParallelPlan;
-}  // namespace ompl::tools
+#include <tesseract_common/eigen_types.h>
 
 namespace tesseract_planning
 {
-struct OMPLProblem;
-struct OMPLProblemConfig
-{
-  std::shared_ptr<OMPLProblem> problem;
-  boost::uuids::uuid start_uuid{};
-  boost::uuids::uuid end_uuid{};
-};
-
 /**
  * @brief This planner is intended to provide an easy to use interface to OMPL for freespace planning. It is made to
  * take a start and end point and automate the generation of the OMPL problem.
@@ -89,19 +76,25 @@ public:
 
   std::unique_ptr<MotionPlanner> clone() const override;
 
-  virtual std::vector<OMPLProblemConfig> createProblems(const PlannerRequest& request) const;
-
 protected:
-  /** @brief OMPL Parallel planner */
-  std::shared_ptr<ompl::tools::ParallelPlan> parallel_plan_;
-
-  OMPLProblemConfig createSubProblem(const PlannerRequest& request,
-                                     const tesseract_common::ManipulatorInfo& composite_mi,
-                                     const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-                                     const MoveInstructionPoly& start_instruction,
-                                     const MoveInstructionPoly& end_instruction,
-                                     int n_output_states,
-                                     int index) const;
+  /**
+   * @brief This a utility function for assigning the trajectory to the results data structure
+   * @param output The results data structure to update
+   * @param start_uuid The start uuid of the provided trajectory
+   * @param end_uuid The end uuid of the provided trajectory
+   * @param start_index The start index to begin search for start uuid
+   * @param joint_names The joint names
+   * @param traj The provided trajectory
+   * @param format_result_as_input Indicate if the result should be formated as input
+   * @return The start index for the next segment
+   */
+  static long assignTrajectory(tesseract_planning::CompositeInstruction& output,
+                               boost::uuids::uuid start_uuid,
+                               boost::uuids::uuid end_uuid,
+                               long start_index,
+                               const std::vector<std::string>& joint_names,
+                               const tesseract_common::TrajArray& traj,
+                               bool format_result_as_input);
 };
 
 }  // namespace tesseract_planning

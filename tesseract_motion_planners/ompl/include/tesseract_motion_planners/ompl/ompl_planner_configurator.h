@@ -35,15 +35,10 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
+#include <limits>
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
-namespace tinyxml2
-{
-class XMLElement;  // NOLINT
-class XMLDocument;
-}  // namespace tinyxml2
 
 namespace ompl::base
 {
@@ -88,8 +83,6 @@ struct OMPLPlannerConfigurator
 
   virtual OMPLPlannerType getType() const = 0;
 
-  virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
-
 protected:
   friend class boost::serialization::access;
   template <class Archive>
@@ -104,7 +97,6 @@ struct SBLConfigurator : public OMPLPlannerConfigurator
   SBLConfigurator& operator=(const SBLConfigurator&) = default;
   SBLConfigurator(SBLConfigurator&&) = default;
   SBLConfigurator& operator=(SBLConfigurator&&) = default;
-  SBLConfigurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Max motion added to tree */
   double range = 0;
@@ -113,9 +105,6 @@ struct SBLConfigurator : public OMPLPlannerConfigurator
   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) const override;
 
   OMPLPlannerType getType() const override;
-
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
 
 protected:
   friend class boost::serialization::access;
@@ -131,7 +120,6 @@ struct ESTConfigurator : public OMPLPlannerConfigurator
   ESTConfigurator& operator=(const ESTConfigurator&) = default;
   ESTConfigurator(ESTConfigurator&&) = default;
   ESTConfigurator& operator=(ESTConfigurator&&) = default;
-  ESTConfigurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Max motion added to tree */
   double range = 0;
@@ -143,9 +131,6 @@ struct ESTConfigurator : public OMPLPlannerConfigurator
   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) const override;
 
   OMPLPlannerType getType() const override;
-
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
 
 protected:
   friend class boost::serialization::access;
@@ -161,7 +146,6 @@ struct LBKPIECE1Configurator : public OMPLPlannerConfigurator
   LBKPIECE1Configurator& operator=(const LBKPIECE1Configurator&) = default;
   LBKPIECE1Configurator(LBKPIECE1Configurator&&) = default;
   LBKPIECE1Configurator& operator=(LBKPIECE1Configurator&&) = default;
-  LBKPIECE1Configurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Max motion added to tree */
   double range = 0;
@@ -177,9 +161,6 @@ struct LBKPIECE1Configurator : public OMPLPlannerConfigurator
 
   OMPLPlannerType getType() const override;
 
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
-
 protected:
   friend class boost::serialization::access;
   template <class Archive>
@@ -194,7 +175,6 @@ struct BKPIECE1Configurator : public OMPLPlannerConfigurator
   BKPIECE1Configurator& operator=(const BKPIECE1Configurator&) = default;
   BKPIECE1Configurator(BKPIECE1Configurator&&) = default;
   BKPIECE1Configurator& operator=(BKPIECE1Configurator&&) = default;
-  BKPIECE1Configurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Max motion added to tree */
   double range = 0;
@@ -213,9 +193,6 @@ struct BKPIECE1Configurator : public OMPLPlannerConfigurator
 
   OMPLPlannerType getType() const override;
 
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
-
 protected:
   friend class boost::serialization::access;
   template <class Archive>
@@ -230,7 +207,6 @@ struct KPIECE1Configurator : public OMPLPlannerConfigurator
   KPIECE1Configurator& operator=(const KPIECE1Configurator&) = default;
   KPIECE1Configurator(KPIECE1Configurator&&) = default;
   KPIECE1Configurator& operator=(KPIECE1Configurator&&) = default;
-  KPIECE1Configurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Max motion added to tree */
   double range = 0;
@@ -252,9 +228,6 @@ struct KPIECE1Configurator : public OMPLPlannerConfigurator
 
   OMPLPlannerType getType() const override;
 
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
-
 protected:
   friend class boost::serialization::access;
   template <class Archive>
@@ -269,7 +242,6 @@ struct BiTRRTConfigurator : public OMPLPlannerConfigurator
   BiTRRTConfigurator& operator=(const BiTRRTConfigurator&) = default;
   BiTRRTConfigurator(BiTRRTConfigurator&&) = default;
   BiTRRTConfigurator& operator=(BiTRRTConfigurator&&) = default;
-  BiTRRTConfigurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Max motion added to tree */
   double range = 0;
@@ -295,9 +267,6 @@ struct BiTRRTConfigurator : public OMPLPlannerConfigurator
 
   OMPLPlannerType getType() const override;
 
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
-
 protected:
   friend class boost::serialization::access;
   template <class Archive>
@@ -312,7 +281,6 @@ struct RRTConfigurator : public OMPLPlannerConfigurator
   RRTConfigurator& operator=(const RRTConfigurator&) = default;
   RRTConfigurator(RRTConfigurator&&) = default;
   RRTConfigurator& operator=(RRTConfigurator&&) = default;
-  RRTConfigurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Max motion added to tree */
   double range = 0;
@@ -324,9 +292,6 @@ struct RRTConfigurator : public OMPLPlannerConfigurator
   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) const override;
 
   OMPLPlannerType getType() const override;
-
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
 
 protected:
   friend class boost::serialization::access;
@@ -342,7 +307,6 @@ struct RRTConnectConfigurator : public OMPLPlannerConfigurator
   RRTConnectConfigurator& operator=(const RRTConnectConfigurator&) = default;
   RRTConnectConfigurator(RRTConnectConfigurator&&) = default;
   RRTConnectConfigurator& operator=(RRTConnectConfigurator&&) = default;
-  RRTConnectConfigurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Max motion added to tree */
   double range = 0;
@@ -351,9 +315,6 @@ struct RRTConnectConfigurator : public OMPLPlannerConfigurator
   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) const override;
 
   OMPLPlannerType getType() const override;
-
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
 
 protected:
   friend class boost::serialization::access;
@@ -369,7 +330,6 @@ struct RRTstarConfigurator : public OMPLPlannerConfigurator
   RRTstarConfigurator& operator=(const RRTstarConfigurator&) = default;
   RRTstarConfigurator(RRTstarConfigurator&&) = default;
   RRTstarConfigurator& operator=(RRTstarConfigurator&&) = default;
-  RRTstarConfigurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Max motion added to tree */
   double range = 0;
@@ -385,9 +345,6 @@ struct RRTstarConfigurator : public OMPLPlannerConfigurator
 
   OMPLPlannerType getType() const override;
 
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
-
 protected:
   friend class boost::serialization::access;
   template <class Archive>
@@ -402,7 +359,6 @@ struct TRRTConfigurator : public OMPLPlannerConfigurator
   TRRTConfigurator& operator=(const TRRTConfigurator&) = default;
   TRRTConfigurator(TRRTConfigurator&&) = default;
   TRRTConfigurator& operator=(TRRTConfigurator&&) = default;
-  TRRTConfigurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Max motion added to tree */
   double range = 0;
@@ -427,9 +383,6 @@ struct TRRTConfigurator : public OMPLPlannerConfigurator
 
   OMPLPlannerType getType() const override;
 
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
-
 protected:
   friend class boost::serialization::access;
   template <class Archive>
@@ -444,7 +397,6 @@ struct PRMConfigurator : public OMPLPlannerConfigurator
   PRMConfigurator& operator=(const PRMConfigurator&) = default;
   PRMConfigurator(PRMConfigurator&&) = default;
   PRMConfigurator& operator=(PRMConfigurator&&) = default;
-  PRMConfigurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Use k nearest neighbors. */
   int max_nearest_neighbors = 10;
@@ -453,9 +405,6 @@ struct PRMConfigurator : public OMPLPlannerConfigurator
   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) const override;
 
   OMPLPlannerType getType() const override;
-
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
 
 protected:
   friend class boost::serialization::access;
@@ -471,15 +420,11 @@ struct PRMstarConfigurator : public OMPLPlannerConfigurator
   PRMstarConfigurator& operator=(const PRMstarConfigurator&) = default;
   PRMstarConfigurator(PRMstarConfigurator&&) = default;
   PRMstarConfigurator& operator=(PRMstarConfigurator&&) = default;
-  PRMstarConfigurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Create the planner */
   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) const override;
 
   OMPLPlannerType getType() const override;
-
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
 
 protected:
   friend class boost::serialization::access;
@@ -495,15 +440,11 @@ struct LazyPRMstarConfigurator : public OMPLPlannerConfigurator
   LazyPRMstarConfigurator& operator=(const LazyPRMstarConfigurator&) = default;
   LazyPRMstarConfigurator(LazyPRMstarConfigurator&&) = default;
   LazyPRMstarConfigurator& operator=(LazyPRMstarConfigurator&&) = default;
-  LazyPRMstarConfigurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Create the planner */
   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) const override;
 
   OMPLPlannerType getType() const override;
-
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
 
 protected:
   friend class boost::serialization::access;
@@ -519,7 +460,6 @@ struct SPARSConfigurator : public OMPLPlannerConfigurator
   SPARSConfigurator& operator=(const SPARSConfigurator&) = default;
   SPARSConfigurator(SPARSConfigurator&&) = default;
   SPARSConfigurator& operator=(SPARSConfigurator&&) = default;
-  SPARSConfigurator(const tinyxml2::XMLElement& xml_element);
 
   /** @brief The maximum number of failures before terminating the algorithm */
   int max_failures = 1000;
@@ -537,9 +477,6 @@ struct SPARSConfigurator : public OMPLPlannerConfigurator
   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) const override;
 
   OMPLPlannerType getType() const override;
-
-  /** @brief Serialize planner to xml */
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
 
 protected:
   friend class boost::serialization::access;
