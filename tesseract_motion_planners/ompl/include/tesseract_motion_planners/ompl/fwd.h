@@ -33,9 +33,8 @@ struct PRMstarConfigurator;
 struct LazyPRMstarConfigurator;
 struct SPARSConfigurator;
 
-// ompl_problem.h
-enum class OMPLProblemStateSpace;
-struct OMPLProblem;
+// ompl_solver_config.h
+struct OMPLSolverConfig;
 
 // state_collision_validator.h
 class StateCollisionValidator;
@@ -45,7 +44,7 @@ class WeightedRealVectorStateSampler;
 
 // profile
 class OMPLPlanProfile;
-class OMPLDefaultPlanProfile;
+class OMPLRealVectorPlanProfile;
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_FWD_H

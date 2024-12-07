@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_environment/environment.h>
 
-#include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_real_vector_plan_profile.h>
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
@@ -114,7 +114,7 @@ int main(int /*argc*/, char** /*argv*/)
     }
 
     // Create Profiles
-    auto ompl_plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
+    auto ompl_plan_profile = std::make_shared<OMPLRealVectorPlanProfile>();
     auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
     auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();

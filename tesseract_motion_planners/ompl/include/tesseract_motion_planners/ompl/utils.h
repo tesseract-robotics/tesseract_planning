@@ -37,6 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/eigen_types.h>
 #include <tesseract_collision/core/fwd.h>
+#include <tesseract_kinematics/core/fwd.h>
 
 namespace ompl::base
 {
@@ -54,8 +55,6 @@ class PathGeometric;
 
 namespace tesseract_planning
 {
-struct OMPLProblem;
-
 Eigen::Map<Eigen::VectorXd> RealVectorStateSpaceExtractor(const ompl::base::State* s1, unsigned dimension);
 
 #ifndef OMPL_LESS_1_4_0
@@ -91,14 +90,16 @@ void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr
 
 /**
  * @brief For the provided problem check if the state is in collision
- * @param prob The OMPL Problem
- * @param state The joint state
  * @param contact_map Map of contact results. Will be empty if return true
+ * @param contact_checker The contact checker to leverage
+ * @param manip The manipulator for calculating forward kinematics
+ * @param state The joint state
  * @return True if in collision otherwise false
  */
-bool checkStateInCollision(OMPLProblem& prob,
-                           const Eigen::VectorXd& state,
-                           tesseract_collision::ContactResultMap& contact_map);
+bool checkStateInCollision(tesseract_collision::ContactResultMap& contact_map,
+                           tesseract_collision::DiscreteContactManager& contact_checker,
+                           const tesseract_kinematics::JointGroup& manip,
+                           const Eigen::VectorXd& state);
 
 /**
  * @brief Default State sampler which uses the weights information to scale the sampled state. This is use full
