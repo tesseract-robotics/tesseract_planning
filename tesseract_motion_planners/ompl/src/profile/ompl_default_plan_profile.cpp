@@ -56,7 +56,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_collision/core/discrete_contact_manager.h>
 #include <tesseract_collision/core/serialization.h>
 #include <tesseract_environment/environment.h>
-#include <tesseract_collision/core/serialization.h>
 
 namespace tesseract_planning
 {

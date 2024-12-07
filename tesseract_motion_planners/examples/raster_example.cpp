@@ -43,6 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
 
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -92,7 +93,7 @@ int main(int /*argc*/, char** /*argv*/)
     auto kin_group = env->getKinematicGroup(manip.manipulator, manip.manipulator_ik_solver);
     auto cur_state = env->getState();
 
-    CompositeInstruction program("raster_program", CompositeInstructionOrder::ORDERED, manip);
+    CompositeInstruction program(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, manip);
 
     // Start Joint Position for the program
     StateWaypointPoly wp0{ StateWaypoint(kin_group->getJointNames(), Eigen::VectorXd::Zero(6)) };
@@ -116,14 +117,14 @@ int main(int /*argc*/, char** /*argv*/)
                                                   Eigen::Quaterniond(0, 0, -1.0, 0));
 
     // Define raster move instruction
-    MoveInstruction plan_c0(wp2, MoveInstructionType::LINEAR, "RASTER");
-    MoveInstruction plan_c1(wp3, MoveInstructionType::LINEAR, "RASTER");
-    MoveInstruction plan_c2(wp4, MoveInstructionType::LINEAR, "RASTER");
-    MoveInstruction plan_c3(wp5, MoveInstructionType::LINEAR, "RASTER");
-    MoveInstruction plan_c4(wp6, MoveInstructionType::LINEAR, "RASTER");
-    MoveInstruction plan_c5(wp7, MoveInstructionType::LINEAR, "RASTER");
+    MoveInstruction plan_c0(wp2, MoveInstructionType::LINEAR);
+    MoveInstruction plan_c1(wp3, MoveInstructionType::LINEAR);
+    MoveInstruction plan_c2(wp4, MoveInstructionType::LINEAR);
+    MoveInstruction plan_c3(wp5, MoveInstructionType::LINEAR);
+    MoveInstruction plan_c4(wp6, MoveInstructionType::LINEAR);
+    MoveInstruction plan_c5(wp7, MoveInstructionType::LINEAR);
 
-    MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
+    MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE);
     plan_f0.setDescription("from_start_plan");
     CompositeInstruction from_start;
     from_start.setDescription("from_start");
@@ -144,7 +145,7 @@ int main(int /*argc*/, char** /*argv*/)
     }
 
     {
-      MoveInstruction plan_f1(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
+      MoveInstruction plan_f1(wp1, MoveInstructionType::FREESPACE);
       plan_f1.setDescription("transition_from_end_plan");
       CompositeInstruction transition_from_end;
       transition_from_end.setDescription("transition_from_end");
@@ -153,7 +154,7 @@ int main(int /*argc*/, char** /*argv*/)
       transition_from_start.setDescription("transition_from_start");
       transition_from_start.appendMoveInstruction(plan_f1);
 
-      CompositeInstruction transitions("DEFAULT", CompositeInstructionOrder::UNORDERED);
+      CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
       transitions.setDescription("transitions");
       transitions.push_back(transition_from_start);
       transitions.push_back(transition_from_end);
@@ -173,7 +174,7 @@ int main(int /*argc*/, char** /*argv*/)
     }
 
     {
-      MoveInstruction plan_f1(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
+      MoveInstruction plan_f1(wp1, MoveInstructionType::FREESPACE);
       plan_f1.setDescription("transition_from_end_plan");
       CompositeInstruction transition_from_end;
       transition_from_end.setDescription("transition_from_end");
@@ -182,7 +183,7 @@ int main(int /*argc*/, char** /*argv*/)
       transition_from_start.setDescription("transition_from_start");
       transition_from_start.appendMoveInstruction(plan_f1);
 
-      CompositeInstruction transitions("DEFAULT", CompositeInstructionOrder::UNORDERED);
+      CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
       transitions.setDescription("transitions");
       transitions.push_back(transition_from_start);
       transitions.push_back(transition_from_end);
@@ -201,7 +202,7 @@ int main(int /*argc*/, char** /*argv*/)
       program.push_back(raster_segment);
     }
 
-    MoveInstruction plan_f2(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
+    MoveInstruction plan_f2(wp1, MoveInstructionType::FREESPACE);
     plan_f2.setDescription("to_end_plan");
     CompositeInstruction to_end;
     to_end.setDescription("to_end");
@@ -218,15 +219,17 @@ int main(int /*argc*/, char** /*argv*/)
     auto descartes_plan_profile = std::make_shared<DescartesDefaultPlanProfileD>();
     auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+    auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
 
     // Create a interpolated program
     CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env);
 
     // Profile Dictionary
     auto profiles = std::make_shared<ProfileDictionary>();
-    profiles->addProfile<DescartesPlanProfile<double>>(DESCARTES_DEFAULT_NAMESPACE, "DEFAULT", descartes_plan_profile);
-    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_plan_profile);
-    profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
+    profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, descartes_plan_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, trajopt_plan_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, trajopt_composite_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, trajopt_solver_profile);
 
     // Create Planning Request
     PlannerRequest request;

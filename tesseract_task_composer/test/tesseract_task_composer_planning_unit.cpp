@@ -95,8 +95,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
                              program: input_data
                              environment: environment
                              profiles: profiles
-                             manip_info: manip_info
-                             composite_profile_remapping: composite_profile_remapping)";
+                             manip_info: manip_info)";
     YAML::Node config = YAML::Load(str);
     ContinuousContactCheckTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
@@ -106,8 +105,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_PROFILES_PORT), "profiles");
     EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_MANIP_INFO_PORT), "manip_info");
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
-              "composite_profile_remapping");
     EXPECT_EQ(task.getOutputKeys().size(), 0);
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
@@ -272,8 +269,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
                              program: input_data
                              environment: environment
                              profiles: profiles
-                             manip_info: manip_info
-                             composite_profile_remapping: composite_profile_remapping)";
+                             manip_info: manip_info)";
     YAML::Node config = YAML::Load(str);
     DiscreteContactCheckTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
@@ -283,8 +279,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_PROFILES_PORT), "profiles");
     EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_MANIP_INFO_PORT), "manip_info");
-    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
-              "composite_profile_remapping");
     EXPECT_EQ(task.getOutputKeys().size(), 0);
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
@@ -1111,7 +1105,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
                              environment: environment
                              profiles: profiles
                              manip_info: manip_info
-                             composite_profile_remapping: composite_profile_remapping
                            outputs:
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
@@ -1123,8 +1116,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     EXPECT_EQ(task.getInputKeys().get(FixStateBoundsTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(FixStateBoundsTask::INPUT_PROFILES_PORT), "profiles");
     EXPECT_EQ(task.getInputKeys().get(FixStateBoundsTask::INPUT_MANIP_INFO_PORT), "manip_info");
-    EXPECT_EQ(task.getInputKeys().get(FixStateBoundsTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
-              "composite_profile_remapping");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(FixStateBoundsTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -1286,7 +1277,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
                              environment: environment
                              profiles: profiles
                              manip_info: manip_info
-                             composite_profile_remapping: composite_profile_remapping
                            outputs:
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
@@ -1298,8 +1288,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     EXPECT_EQ(task.getInputKeys().get(FixStateCollisionTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(FixStateCollisionTask::INPUT_PROFILES_PORT), "profiles");
     EXPECT_EQ(task.getInputKeys().get(FixStateCollisionTask::INPUT_MANIP_INFO_PORT), "manip_info");
-    EXPECT_EQ(task.getInputKeys().get(FixStateCollisionTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
-              "composite_profile_remapping");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(FixStateCollisionTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -1437,8 +1425,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
                            conditional: true
                            inputs:
                              program: input_data
-                             profiles: profiles
-                             composite_profile_remapping: composite_profile_remapping)";
+                             profiles: profiles)";
     YAML::Node config = YAML::Load(str);
     ProfileSwitchTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
@@ -1446,8 +1433,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     EXPECT_EQ(task.getInputKeys().size(), 3);
     EXPECT_EQ(task.getInputKeys().get(ProfileSwitchTask::INPUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(ProfileSwitchTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getInputKeys().get(ProfileSwitchTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
-              "composite_profile_remapping");
     EXPECT_EQ(task.getOutputKeys().size(), 0);
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
@@ -1880,7 +1865,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
                            inputs:
                              program: input_data
                              profiles: profiles
-                             composite_profile_remapping: composite_profile_remapping
                            outputs:
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
@@ -1890,8 +1874,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     EXPECT_EQ(task.getInputKeys().size(), 3);
     EXPECT_EQ(task.getInputKeys().get(UpsampleTrajectoryTask::INOUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(UpsampleTrajectoryTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getInputKeys().get(UpsampleTrajectoryTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
-              "composite_profile_remapping");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(UpsampleTrajectoryTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -2007,8 +1989,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
                              environment: environment
                              profiles: profiles
                              manip_info: manip_info
-                             composite_profile_remapping: composite_profile_remapping
-                             move_profile_remapping: move_profile_remapping
                            outputs:
                              program: output_data
                            add_points: true)";
@@ -2021,10 +2001,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     EXPECT_EQ(task.getInputKeys().get(IterativeSplineParameterizationTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(IterativeSplineParameterizationTask::INPUT_PROFILES_PORT), "profiles");
     EXPECT_EQ(task.getInputKeys().get(IterativeSplineParameterizationTask::INPUT_MANIP_INFO_PORT), "manip_info");
-    EXPECT_EQ(task.getInputKeys().get(IterativeSplineParameterizationTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
-              "composite_profile_remapping");
-    EXPECT_EQ(task.getInputKeys().get(IterativeSplineParameterizationTask::INPUT_MOVE_PROFILE_REMAPPING_PORT),
-              "move_profile_remapping");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(IterativeSplineParameterizationTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -2200,8 +2176,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
                              environment: environment
                              profiles: profiles
                              manip_info: manip_info
-                             composite_profile_remapping: composite_profile_remapping
-                             move_profile_remapping: move_profile_remapping
                            outputs:
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
@@ -2213,10 +2187,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     EXPECT_EQ(task.getInputKeys().get(TimeOptimalParameterizationTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(TimeOptimalParameterizationTask::INPUT_PROFILES_PORT), "profiles");
     EXPECT_EQ(task.getInputKeys().get(TimeOptimalParameterizationTask::INPUT_MANIP_INFO_PORT), "manip_info");
-    EXPECT_EQ(task.getInputKeys().get(TimeOptimalParameterizationTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
-              "composite_profile_remapping");
-    EXPECT_EQ(task.getInputKeys().get(TimeOptimalParameterizationTask::INPUT_MOVE_PROFILE_REMAPPING_PORT),
-              "move_profile_remapping");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(TimeOptimalParameterizationTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -2394,8 +2364,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
                              environment: environment
                              profiles: profiles
                              manip_info: manip_info
-                             composite_profile_remapping: composite_profile_remapping
-                             move_profile_remapping: move_profile_remapping
                            outputs:
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
@@ -2407,10 +2375,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     EXPECT_EQ(task.getInputKeys().get(RuckigTrajectorySmoothingTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(RuckigTrajectorySmoothingTask::INPUT_PROFILES_PORT), "profiles");
     EXPECT_EQ(task.getInputKeys().get(RuckigTrajectorySmoothingTask::INPUT_MANIP_INFO_PORT), "manip_info");
-    EXPECT_EQ(task.getInputKeys().get(RuckigTrajectorySmoothingTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
-              "composite_profile_remapping");
-    EXPECT_EQ(task.getInputKeys().get(RuckigTrajectorySmoothingTask::INPUT_MOVE_PROFILE_REMAPPING_PORT),
-              "move_profile_remapping");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(RuckigTrajectorySmoothingTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -2595,8 +2559,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
                              environment: environment
                              profiles: profiles
                              manip_info: manip_info
-                             composite_profile_remapping: composite_profile_remapping
-                             move_profile_remapping: move_profile_remapping
                            outputs:
                              program: output_data
                            format_result_as_input: false)";
@@ -2609,10 +2571,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     EXPECT_EQ(task.getInputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INPUT_PROFILES_PORT), "profiles");
     EXPECT_EQ(task.getInputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INPUT_MANIP_INFO_PORT), "manip_info");
-    EXPECT_EQ(task.getInputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT),
-              "composite_profile_remapping");
-    EXPECT_EQ(task.getInputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INPUT_MOVE_PROFILE_REMAPPING_PORT),
-              "move_profile_remapping");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);

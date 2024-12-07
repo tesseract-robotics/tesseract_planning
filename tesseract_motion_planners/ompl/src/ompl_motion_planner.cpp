@@ -333,11 +333,9 @@ OMPLMotionPlanner::createSubProblem(const PlannerRequest& request,
   std::vector<std::string> active_link_names = manip->getActiveLinkNames();
 
   // Get Plan Profile
-  std::string profile = end_instruction.getProfile();
-  profile = getProfileString(name_, profile, request.plan_profile_remapping);
-  auto cur_plan_profile =
-      getProfile<OMPLPlanProfile>(name_, profile, *request.profiles, std::make_shared<OMPLDefaultPlanProfile>());
-  cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile, end_instruction.getProfileOverrides());
+  auto cur_plan_profile = getProfile<OMPLPlanProfile>(
+      name_, end_instruction.getProfile(name_), *request.profiles, std::make_shared<OMPLDefaultPlanProfile>());
+
   if (!cur_plan_profile)
     throw std::runtime_error("OMPLMotionPlanner: Invalid profile");
 

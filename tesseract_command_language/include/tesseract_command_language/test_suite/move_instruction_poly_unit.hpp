@@ -103,8 +103,8 @@ void runMoveInstructionConstructorTest()
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::CIRCULAR);
     EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
     EXPECT_EQ(instr.getPathProfile(), DEFAULT_PROFILE_KEY);
-    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
-    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getProfileOverrides().empty());
+    EXPECT_TRUE(instr.getPathProfileOverrides().empty());
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -133,8 +133,8 @@ void runMoveInstructionConstructorTest()
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::CIRCULAR);
     EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
     EXPECT_EQ(instr.getPathProfile(), DEFAULT_PROFILE_KEY);
-    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
-    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getProfileOverrides().empty());
+    EXPECT_TRUE(instr.getPathProfileOverrides().empty());
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -163,8 +163,8 @@ void runMoveInstructionConstructorTest()
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::FREESPACE);
     EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
     EXPECT_TRUE(instr.getPathProfile().empty());
-    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
-    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getProfileOverrides().empty());
+    EXPECT_TRUE(instr.getPathProfileOverrides().empty());
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -193,8 +193,8 @@ void runMoveInstructionConstructorTest()
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::LINEAR);
     EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
     EXPECT_EQ(instr.getPathProfile(), DEFAULT_PROFILE_KEY);
-    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
-    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getProfileOverrides().empty());
+    EXPECT_TRUE(instr.getPathProfileOverrides().empty());
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -224,8 +224,8 @@ void runMoveInstructionConstructorTest()
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::CIRCULAR);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PROFILE");
-    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
-    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getProfileOverrides().empty());
+    EXPECT_TRUE(instr.getPathProfileOverrides().empty());
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -254,8 +254,8 @@ void runMoveInstructionConstructorTest()
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::FREESPACE);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_TRUE(instr.getPathProfile().empty());
-    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
-    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getProfileOverrides().empty());
+    EXPECT_TRUE(instr.getPathProfileOverrides().empty());
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -284,8 +284,8 @@ void runMoveInstructionConstructorTest()
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::FREESPACE);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_TRUE(instr.getPathProfile().empty());
-    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
-    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getProfileOverrides().empty());
+    EXPECT_TRUE(instr.getPathProfileOverrides().empty());
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -314,8 +314,8 @@ void runMoveInstructionConstructorTest()
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::LINEAR);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PROFILE");
-    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
-    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getProfileOverrides().empty());
+    EXPECT_TRUE(instr.getPathProfileOverrides().empty());
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -345,8 +345,8 @@ void runMoveInstructionConstructorTest()
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::CIRCULAR);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
-    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
-    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getProfileOverrides().empty());
+    EXPECT_TRUE(instr.getPathProfileOverrides().empty());
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -375,8 +375,8 @@ void runMoveInstructionConstructorTest()
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::FREESPACE);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
-    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
-    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getProfileOverrides().empty());
+    EXPECT_TRUE(instr.getPathProfileOverrides().empty());
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -406,8 +406,8 @@ void runMoveInstructionConstructorTest()
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::LINEAR);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
-    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
-    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getProfileOverrides().empty());
+    EXPECT_TRUE(instr.getPathProfileOverrides().empty());
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -436,8 +436,8 @@ void runMoveInstructionConstructorTest()
     EXPECT_EQ(instr.getMoveType(), MoveInstructionType::LINEAR);
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
-    EXPECT_TRUE(instr.getProfileOverrides() == nullptr);
-    EXPECT_TRUE(instr.getPathProfileOverrides() == nullptr);
+    EXPECT_TRUE(instr.getProfileOverrides().empty());
+    EXPECT_TRUE(instr.getPathProfileOverrides().empty());
     EXPECT_FALSE(instr.getDescription().empty());
     EXPECT_FALSE(instr.getUUID().is_nil());
     EXPECT_TRUE(instr.getParentUUID().is_nil());
@@ -496,13 +496,28 @@ void runMoveInstructionSettersTest()
   instr.setPathProfile("TEST_PATH_PROFILE");
   EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
 
-  auto profiles = std::make_shared<ProfileDictionary>();
-  instr.setProfileOverrides(profiles);
-  EXPECT_TRUE(instr.getProfileOverrides() == profiles);
+  // Create arbitrary profile overrides under arbitrary namespaces
+  const std::string ns1 = "ns1";
+  const std::string ns1_profile = "profile1";
+  const std::string ns2 = "ns2";
+  const std::string ns2_profile = "profile2";
+  {
+    ProfileOverrides overrides;
+    overrides[ns1] = ns1_profile;
+    overrides[ns2] = ns2_profile;
+    instr.setProfileOverrides(overrides);
+    instr.setPathProfileOverrides(overrides);
+  }
 
-  auto path_profiles = std::make_shared<ProfileDictionary>();
-  instr.setPathProfileOverrides(path_profiles);
-  EXPECT_TRUE(instr.getPathProfileOverrides() == path_profiles);
+  // Profile Overrides
+  EXPECT_EQ(instr.getProfile(ns1), ns1_profile);
+  EXPECT_EQ(instr.getProfile(ns2), ns2_profile);
+  EXPECT_EQ(instr.getProfile("nonexistent_ns"), "TEST_PROFILE");
+
+  // Path Profile Overrides
+  EXPECT_EQ(instr.getPathProfile(ns1), ns1_profile);
+  EXPECT_EQ(instr.getPathProfile(ns2), ns2_profile);
+  EXPECT_EQ(instr.getPathProfile("nonexistent_ns"), "TEST_PATH_PROFILE");
 
   EXPECT_TRUE(instr.getManipulatorInfo().empty());
   tesseract_common::ManipulatorInfo manip_info("manip", "base_link", "tool0");

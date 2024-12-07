@@ -82,16 +82,19 @@ void CompositeInstruction::setProfile(const std::string& profile)
 {
   profile_ = (profile.empty()) ? DEFAULT_PROFILE_KEY : profile;
 }
-const std::string& CompositeInstruction::getProfile() const { return profile_; }
+const std::string& CompositeInstruction::getProfile(const std::string& ns) const
+{
+  if (ns.empty() || (profile_overrides_.find(ns) == profile_overrides_.end()))
+    return profile_;
 
-void CompositeInstruction::setProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides)
+  return profile_overrides_.at(ns);
+}
+
+void CompositeInstruction::setProfileOverrides(ProfileOverrides profile_overrides)
 {
   profile_overrides_ = std::move(profile_overrides);
 }
-std::shared_ptr<const ProfileDictionary> CompositeInstruction::getProfileOverrides() const
-{
-  return profile_overrides_;
-}
+const ProfileOverrides& CompositeInstruction::getProfileOverrides() const { return profile_overrides_; }
 
 void CompositeInstruction::setManipulatorInfo(tesseract_common::ManipulatorInfo info)
 {

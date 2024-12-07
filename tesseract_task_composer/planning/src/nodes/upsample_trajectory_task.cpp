@@ -52,9 +52,6 @@ namespace tesseract_planning
 const std::string UpsampleTrajectoryTask::INOUT_PROGRAM_PORT = "program";
 const std::string UpsampleTrajectoryTask::INPUT_PROFILES_PORT = "profiles";
 
-// Optional
-const std::string UpsampleTrajectoryTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_remapping";
-
 UpsampleTrajectoryTask::UpsampleTrajectoryTask()
   : TaskComposerTask("UpsampleTrajectoryTask", UpsampleTrajectoryTask::ports(), false)
 {
@@ -84,7 +81,6 @@ TaskComposerNodePorts UpsampleTrajectoryTask::ports()
   TaskComposerNodePorts ports;
   ports.input_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   return ports;
 }
@@ -107,13 +103,9 @@ std::unique_ptr<TaskComposerNodeInfo> UpsampleTrajectoryTask::runImpl(TaskCompos
 
   // Get Composite Profile
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
-  auto composite_profile_remapping_poly = getData(*context.data_storage, INPUT_COMPOSITE_PROFILE_REMAPPING_PORT, false);
   const auto& ci = input_data_poly.as<CompositeInstruction>();
-  std::string profile = ci.getProfile();
-  profile = getProfileString(ns_, profile, composite_profile_remapping_poly);
-  auto cur_composite_profile =
-      getProfile<UpsampleTrajectoryProfile>(ns_, profile, *profiles, std::make_shared<UpsampleTrajectoryProfile>());
-  cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
+  auto cur_composite_profile = getProfile<UpsampleTrajectoryProfile>(
+      ns_, ci.getProfile(ns_), *profiles, std::make_shared<UpsampleTrajectoryProfile>());
 
   assert(cur_composite_profile->longest_valid_segment_length > 0);
   InstructionPoly start_instruction;

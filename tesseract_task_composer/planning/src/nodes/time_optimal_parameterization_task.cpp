@@ -62,9 +62,6 @@ const std::string TimeOptimalParameterizationTask::INPUT_PROFILES_PORT = "profil
 
 // Optional
 const std::string TimeOptimalParameterizationTask::INPUT_MANIP_INFO_PORT = "manip_info";
-const std::string TimeOptimalParameterizationTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_"
-                                                                                            "remapping";
-const std::string TimeOptimalParameterizationTask::INPUT_MOVE_PROFILE_REMAPPING_PORT = "move_profile_remapping";
 
 TimeOptimalParameterizationTask::TimeOptimalParameterizationTask()
   : TaskComposerTask("TimeOptimalParameterizationTask", TimeOptimalParameterizationTask::ports(), true)
@@ -100,8 +97,6 @@ TaskComposerNodePorts TimeOptimalParameterizationTask::ports()
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_optional[INPUT_MOVE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
 
@@ -151,12 +146,8 @@ TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalT
 
   // Get Composite Profile
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
-  auto composite_profile_remapping_poly = getData(*context.data_storage, INPUT_COMPOSITE_PROFILE_REMAPPING_PORT, false);
-  std::string profile = ci.getProfile();
-  profile = getProfileString(ns_, profile, composite_profile_remapping_poly);
   auto cur_composite_profile = getProfile<TimeOptimalParameterizationProfile>(
-      ns_, profile, *profiles, std::make_shared<TimeOptimalParameterizationProfile>());
-  cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
+      ns_, ci.getProfile(ns_), *profiles, std::make_shared<TimeOptimalParameterizationProfile>());
 
   // Create data structures for checking for plan profile overrides
   auto flattened = ci.flatten(moveFilter);

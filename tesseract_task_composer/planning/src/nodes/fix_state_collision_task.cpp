@@ -66,7 +66,6 @@ const std::string FixStateCollisionTask::INPUT_PROFILES_PORT = "profiles";
 
 // Optional
 const std::string FixStateCollisionTask::INPUT_MANIP_INFO_PORT = "manip_info";
-const std::string FixStateCollisionTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_remapping";
 const std::string FixStateCollisionTask::OUTPUT_CONTACT_RESULTS_PORT = "contact_results";
 
 bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
@@ -382,7 +381,6 @@ TaskComposerNodePorts FixStateCollisionTask::ports()
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   ports.output_optional[OUTPUT_CONTACT_RESULTS_PORT] = TaskComposerNodePorts::SINGLE;
@@ -429,13 +427,9 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
 
   // Get Composite Profile
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
-  auto composite_profile_remapping_poly = getData(*context.data_storage, INPUT_COMPOSITE_PROFILE_REMAPPING_PORT, false);
   auto& ci = input_data_poly.as<CompositeInstruction>();
-  std::string profile = ci.getProfile();
-  profile = getProfileString(ns_, profile, composite_profile_remapping_poly);
-  auto cur_composite_profile =
-      getProfile<FixStateCollisionProfile>(ns_, profile, *profiles, std::make_shared<FixStateCollisionProfile>());
-  cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
+  auto cur_composite_profile = getProfile<FixStateCollisionProfile>(
+      ns_, ci.getProfile(ns_), *profiles, std::make_shared<FixStateCollisionProfile>());
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;
   switch (cur_composite_profile->mode)
