@@ -62,7 +62,6 @@ public:
   using ConstPtr = std::shared_ptr<const OMPLDefaultPlanProfile>;
 
   OMPLDefaultPlanProfile();
-  OMPLDefaultPlanProfile(const tinyxml2::XMLElement& xml_element);
 
   /** @brief The OMPL state space to use when planning */
   OMPLProblemStateSpace state_space{ OMPLProblemStateSpace::REAL_STATE_SPACE };
@@ -104,20 +103,9 @@ public:
   /** @brief The collision check configuration */
   tesseract_collision::CollisionCheckConfig collision_check_config;
 
-  /** @brief The state sampler allocator. This can be null and it will use Tesseract default state sampler allocator. */
-  StateSamplerAllocator state_sampler_allocator;
+  std::vector<OMPLProblemConfig> create(const PlannerRequest& request) const override;
 
-  /** @brief Set the optimization objective function allocator. Default is to minimize path length */
-  OptimizationObjectiveAllocator optimization_objective_allocator;
-
-  /** @brief The ompl state validity checker. If nullptr and collision checking enabled it uses
-   * StateCollisionValidator */
-  StateValidityCheckerAllocator svc_allocator;
-
-  /** @brief The ompl motion validator. If nullptr and continuous collision checking enabled it used
-   * ContinuousMotionValidator */
-  MotionValidatorAllocator mv_allocator;
-
+protected:
   void setup(OMPLProblem& prob) const override;
 
   void applyGoalStates(OMPLProblem& prob,
@@ -148,9 +136,6 @@ public:
                         const std::vector<std::string>& active_links,
                         int index) const override;
 
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
-
-protected:
   ompl::base::StateValidityCheckerPtr processStateValidator(OMPLProblem& prob) const;
   void processMotionValidator(OMPLProblem& prob,
                               const ompl::base::StateValidityCheckerPtr& svc_without_collision) const;
