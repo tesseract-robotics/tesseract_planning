@@ -68,18 +68,6 @@ namespace tesseract_planning
 struct OMPLProblem;
 struct OMPLPlannerConfigurator;
 
-using StateSamplerAllocator =
-    std::function<ompl::base::StateSamplerPtr(const ompl::base::StateSpace*, const OMPLProblem&)>;
-
-using OptimizationObjectiveAllocator =
-    std::function<ompl::base::OptimizationObjectivePtr(const ompl::base::SpaceInformationPtr&, const OMPLProblem&)>;
-
-using StateValidityCheckerAllocator =
-    std::function<ompl::base::StateValidityCheckerPtr(const ompl::base::SpaceInformationPtr&, const OMPLProblem&)>;
-
-using MotionValidatorAllocator =
-    std::function<ompl::base::MotionValidatorPtr(const ompl::base::SpaceInformationPtr&, const OMPLProblem&)>;
-
 enum class OMPLProblemStateSpace
 {
   REAL_STATE_SPACE,

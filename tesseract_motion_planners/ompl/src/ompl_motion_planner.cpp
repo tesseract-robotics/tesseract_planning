@@ -320,149 +320,12 @@ void OMPLMotionPlanner::clear() { parallel_plan_ = nullptr; }
 
 std::unique_ptr<MotionPlanner> OMPLMotionPlanner::clone() const { return std::make_unique<OMPLMotionPlanner>(name_); }
 
-OMPLProblemConfig
-OMPLMotionPlanner::createSubProblem(const PlannerRequest& request,
-                                    const tesseract_common::ManipulatorInfo& composite_mi,
-                                    const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-                                    const MoveInstructionPoly& start_instruction,
-                                    const MoveInstructionPoly& end_instruction,
-                                    int n_output_states,
-                                    int index) const
-{
-  std::vector<std::string> joint_names = manip->getJointNames();
-  std::vector<std::string> active_link_names = manip->getActiveLinkNames();
-
-  // Get Plan Profile
-  auto cur_plan_profile = getProfile<OMPLPlanProfile>(
-      name_, end_instruction.getProfile(name_), *request.profiles, std::make_shared<OMPLDefaultPlanProfile>());
-
-  if (!cur_plan_profile)
-    throw std::runtime_error("OMPLMotionPlanner: Invalid profile");
-
-  /** @todo Should check that the joint names match the order of the manipulator */
-  OMPLProblemConfig config;
-  config.start_uuid = start_instruction.getUUID();
-  config.end_uuid = end_instruction.getUUID();
-  config.problem = std::make_shared<OMPLProblem>();
-  config.problem->env = request.env;
-  config.problem->env_state = request.env->getState();
-  config.problem->manip = manip;
-  config.problem->contact_checker = request.env->getDiscreteContactManager();
-  config.problem->contact_checker->setCollisionObjectsTransform(config.problem->env_state.link_transforms);
-  config.problem->contact_checker->setActiveCollisionObjects(active_link_names);
-
-  cur_plan_profile->setup(*config.problem);
-  config.problem->n_output_states = n_output_states;
-
-  if (end_instruction.getWaypoint().isJointWaypoint() || end_instruction.getWaypoint().isStateWaypoint())
-  {
-    assert(checkJointPositionFormat(joint_names, end_instruction.getWaypoint()));
-    const Eigen::VectorXd& cur_position = getJointPosition(end_instruction.getWaypoint());
-    cur_plan_profile->applyGoalStates(
-        *config.problem, cur_position, end_instruction, composite_mi, active_link_names, index);
-
-    if (start_instruction.getWaypoint().isJointWaypoint() || start_instruction.getWaypoint().isStateWaypoint())
-    {
-      assert(checkJointPositionFormat(joint_names, start_instruction.getWaypoint()));
-      const Eigen::VectorXd& prev_position = getJointPosition(start_instruction.getWaypoint());
-      cur_plan_profile->applyStartStates(
-          *config.problem, prev_position, start_instruction, composite_mi, active_link_names, index);
-    }
-    else if (start_instruction.getWaypoint().isCartesianWaypoint())
-    {
-      const auto& prev_wp = start_instruction.getWaypoint().as<CartesianWaypointPoly>();
-      cur_plan_profile->applyStartStates(
-          *config.problem, prev_wp.getTransform(), start_instruction, composite_mi, active_link_names, index);
-    }
-    else
-    {
-      throw std::runtime_error("OMPLMotionPlanner: unknown waypoint type");
-    }
-
-    return config;
-  }
-
-  if (end_instruction.getWaypoint().isCartesianWaypoint())
-  {
-    const auto& cur_wp = end_instruction.getWaypoint().as<CartesianWaypointPoly>();
-    cur_plan_profile->applyGoalStates(
-        *config.problem, cur_wp.getTransform(), end_instruction, composite_mi, active_link_names, index);
-
-    if (index == 0)
-    {
-      if (start_instruction.getWaypoint().isJointWaypoint() || start_instruction.getWaypoint().isStateWaypoint())
-      {
-        assert(checkJointPositionFormat(joint_names, start_instruction.getWaypoint()));
-        const Eigen::VectorXd& prev_position = getJointPosition(start_instruction.getWaypoint());
-        cur_plan_profile->applyStartStates(
-            *config.problem, prev_position, start_instruction, composite_mi, active_link_names, index);
-      }
-      else if (start_instruction.getWaypoint().isCartesianWaypoint())
-      {
-        const auto& prev_wp = start_instruction.getWaypoint().as<CartesianWaypointPoly>();
-        cur_plan_profile->applyStartStates(
-            *config.problem, prev_wp.getTransform(), start_instruction, composite_mi, active_link_names, index);
-      }
-      else
-      {
-        throw std::runtime_error("OMPLMotionPlanner: unknown waypoint type");
-      }
-    }
-    else
-    {
-      /** @todo Update. Extract the solution for the previous plan and set as the start */
-      assert(false);
-    }
-
-    return config;
-  }
-
-  throw std::runtime_error("OMPLMotionPlanner: unknown waypoint type");
-}
 std::vector<OMPLProblemConfig> OMPLMotionPlanner::createProblems(const PlannerRequest& request) const
 {
   std::vector<OMPLProblemConfig> problems;
 
   // Assume all the plan instructions have the same manipulator as the composite
   assert(!request.instructions.getManipulatorInfo().empty());
-
-  const tesseract_common::ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
-
-  tesseract_kinematics::JointGroup::Ptr manip;
-  if (composite_mi.manipulator.empty())
-    throw std::runtime_error("OMPL, manipulator is empty!");
-
-  try
-  {
-    tesseract_kinematics::KinematicGroup::Ptr kin_group;
-    std::string error_msg;
-    if (composite_mi.manipulator_ik_solver.empty())
-    {
-      kin_group = request.env->getKinematicGroup(composite_mi.manipulator);
-      error_msg = "Failed to find kinematic group for manipulator '" + composite_mi.manipulator + "'";
-    }
-    else
-    {
-      kin_group = request.env->getKinematicGroup(composite_mi.manipulator, composite_mi.manipulator_ik_solver);
-      error_msg = "Failed to find kinematic group for manipulator '" + composite_mi.manipulator + "' with solver '" +
-                  composite_mi.manipulator_ik_solver + "'";
-    }
-
-    if (kin_group == nullptr)
-    {
-      CONSOLE_BRIDGE_logError("%s", error_msg.c_str());
-      throw std::runtime_error(error_msg);
-    }
-
-    manip = kin_group;
-  }
-  catch (...)
-  {
-    manip = request.env->getJointGroup(composite_mi.manipulator);
-  }
-
-  if (!manip)
-    throw std::runtime_error("Failed to get joint/kinematic group: " + composite_mi.manipulator);
 
   // Flatten the input for planning
   auto move_instructions = request.instructions.flatten(&moveFilter);
@@ -471,7 +334,6 @@ std::vector<OMPLProblemConfig> OMPLMotionPlanner::createProblems(const PlannerRe
   int index = 0;
   int num_output_states = 1;
   MoveInstructionPoly start_instruction = move_instructions.front().get().as<MoveInstructionPoly>();
-
   for (std::size_t i = 1; i < move_instructions.size(); ++i)
   {
     ++num_output_states;
@@ -482,8 +344,24 @@ std::vector<OMPLProblemConfig> OMPLMotionPlanner::createProblems(const PlannerRe
     if (waypoint.isCartesianWaypoint() || waypoint.isStateWaypoint() ||
         (waypoint.isJointWaypoint() && waypoint.as<JointWaypointPoly>().isConstrained()))
     {
-      problems.push_back(createSubProblem(
-          request, composite_mi, manip, start_instruction, move_instruction, num_output_states, index++));
+      // Get Plan Profile
+      auto cur_plan_profile = getProfile<OMPLPlanProfile>(
+          name_, move_instruction.getProfile(name_), *request.profiles, std::make_shared<OMPLDefaultPlanProfile>());
+
+      if (!cur_plan_profile)
+        throw std::runtime_error("OMPLMotionPlanner: Invalid profile");
+
+      OMPLProblemConfig config;
+      config.start_uuid = start_instruction.getUUID();
+      config.end_uuid = move_instruction.getUUID();
+      config.problem = cur_plan_profile->create(start_instruction,
+                                                move_instruction,
+                                                request.instructions.getManipulatorInfo(),
+                                                request.env,
+                                                num_output_states,
+                                                ++index);
+
+      problems.push_back(config);
       start_instruction = move_instruction;
       num_output_states = 1;
     }

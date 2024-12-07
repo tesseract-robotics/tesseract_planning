@@ -41,12 +41,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/fwd.h>
 #include <tesseract_common/fwd.h>
 
-namespace ompl::base
-{
-class StateValidityChecker;
-using StateValidityCheckerPtr = std::shared_ptr<StateValidityChecker>;
-}  // namespace ompl::base
-
 namespace tesseract_planning
 {
 struct OMPLPlannerConfigurator;
@@ -62,10 +56,6 @@ public:
   using ConstPtr = std::shared_ptr<const OMPLDefaultPlanProfile>;
 
   OMPLDefaultPlanProfile();
-  OMPLDefaultPlanProfile(const tinyxml2::XMLElement& xml_element);
-
-  /** @brief The OMPL state space to use when planning */
-  OMPLProblemStateSpace state_space{ OMPLProblemStateSpace::REAL_STATE_SPACE };
 
   /** @brief Max planning time allowed in seconds */
   double planning_time = 5.0;
@@ -104,57 +94,66 @@ public:
   /** @brief The collision check configuration */
   tesseract_collision::CollisionCheckConfig collision_check_config;
 
-  /** @brief The state sampler allocator. This can be null and it will use Tesseract default state sampler allocator. */
-  StateSamplerAllocator state_sampler_allocator;
-
-  /** @brief Set the optimization objective function allocator. Default is to minimize path length */
-  OptimizationObjectiveAllocator optimization_objective_allocator;
-
-  /** @brief The ompl state validity checker. If nullptr and collision checking enabled it uses
-   * StateCollisionValidator */
-  StateValidityCheckerAllocator svc_allocator;
-
-  /** @brief The ompl motion validator. If nullptr and continuous collision checking enabled it used
-   * ContinuousMotionValidator */
-  MotionValidatorAllocator mv_allocator;
-
-  void setup(OMPLProblem& prob) const override;
-
-  void applyGoalStates(OMPLProblem& prob,
-                       const Eigen::Isometry3d& cartesian_waypoint,
-                       const MoveInstructionPoly& parent_instruction,
-                       const tesseract_common::ManipulatorInfo& manip_info,
-                       const std::vector<std::string>& active_links,
-                       int index) const override;
-
-  void applyGoalStates(OMPLProblem& prob,
-                       const Eigen::VectorXd& joint_waypoint,
-                       const MoveInstructionPoly& parent_instruction,
-                       const tesseract_common::ManipulatorInfo& manip_info,
-                       const std::vector<std::string>& active_links,
-                       int index) const override;
-
-  void applyStartStates(OMPLProblem& prob,
-                        const Eigen::Isometry3d& cartesian_waypoint,
-                        const MoveInstructionPoly& parent_instruction,
-                        const tesseract_common::ManipulatorInfo& manip_info,
-                        const std::vector<std::string>& active_links,
-                        int index) const override;
-
-  void applyStartStates(OMPLProblem& prob,
-                        const Eigen::VectorXd& joint_waypoint,
-                        const MoveInstructionPoly& parent_instruction,
-                        const tesseract_common::ManipulatorInfo& manip_info,
-                        const std::vector<std::string>& active_links,
-                        int index) const override;
-
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+  std::unique_ptr<OMPLProblem> create(const MoveInstructionPoly& start_instruction,
+                                      const MoveInstructionPoly& end_instruction,
+                                      const tesseract_common::ManipulatorInfo& composite_mi,
+                                      const std::shared_ptr<const tesseract_environment::Environment>& env,
+                                      int n_output_states,
+                                      int index) const override;
 
 protected:
-  ompl::base::StateValidityCheckerPtr processStateValidator(OMPLProblem& prob) const;
-  void processMotionValidator(OMPLProblem& prob,
-                              const ompl::base::StateValidityCheckerPtr& svc_without_collision) const;
-  void processOptimizationObjective(OMPLProblem& prob) const;
+  void setup(OMPLProblem& prob) const;
+
+  static void applyGoalStates(OMPLProblem& prob,
+                              const Eigen::Isometry3d& cartesian_waypoint,
+                              const MoveInstructionPoly& parent_instruction,
+                              const tesseract_common::ManipulatorInfo& manip_info);
+
+  static void applyGoalStates(OMPLProblem& prob, const Eigen::VectorXd& joint_waypoint);
+
+  static void applyStartStates(OMPLProblem& prob,
+                               const Eigen::Isometry3d& cartesian_waypoint,
+                               const MoveInstructionPoly& parent_instruction,
+                               const tesseract_common::ManipulatorInfo& manip_info);
+
+  static void applyStartStates(OMPLProblem& prob, const Eigen::VectorXd& joint_waypoint);
+
+  /**
+   * @brief Create state sampler allocator
+   * @param prob The OMPL problem
+   * @return OMPL state sampler allocator
+   */
+  virtual std::function<ompl::base::StateSamplerPtr(const ompl::base::StateSpace*)>
+  createStateSamplerAllocator(OMPLProblem& prob) const;
+
+  /**
+   * @brief Create state validator which should not be the collision state validator
+   * @param prob The OMPL problem
+   * @return OMPL state validator
+   */
+  virtual std::unique_ptr<ompl::base::StateValidityChecker> createStateValidator(OMPLProblem& prob) const;
+
+  /**
+   * @brief Create collision state validator
+   * @param prob The OMPL problem
+   * @return OMPL state collision validator
+   */
+  virtual std::unique_ptr<ompl::base::StateValidityChecker> createCollisionStateValidator(OMPLProblem& prob) const;
+
+  /**
+   * @brief Create motion validator
+   * @param prob The OMPL problem
+   * @return OMPL motion validator
+   */
+  virtual std::unique_ptr<ompl::base::MotionValidator>
+  createMotionValidator(OMPLProblem& prob, const ompl::base::StateValidityCheckerPtr& svc_without_collision) const;
+
+  /**
+   * @brief Create OMPL optimization object
+   * @param prob The OMPL problem
+   * @return OMPL optimization objective
+   */
+  virtual std::unique_ptr<ompl::base::OptimizationObjective> createOptimizationObjective(OMPLProblem& prob) const;
 
   friend class boost::serialization::access;
   template <class Archive>

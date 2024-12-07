@@ -34,18 +34,18 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
+#include <tesseract_kinematics/core/fwd.h>
+#include <tesseract_scene_graph/scene_state.h>
+#include <tesseract_environment/fwd.h>
 #include <tesseract_command_language/fwd.h>
-#include <tesseract_command_language/profile.h>
+#include <tesseract_motion_planners/core/fwd.h>
 
-namespace tinyxml2
-{
-class XMLElement;  // NOLINT
-class XMLDocument;
-}  // namespace tinyxml2
+#include <tesseract_command_language/profile.h>
 
 namespace tesseract_planning
 {
 struct OMPLProblem;
+
 class OMPLPlanProfile : public Profile
 {
 public:
@@ -60,45 +60,29 @@ public:
    */
   static std::size_t getStaticKey();
 
-  virtual void setup(OMPLProblem& prob) const = 0;
-
-  virtual void applyGoalStates(OMPLProblem& prob,
-                               const Eigen::Isometry3d& cartesian_waypoint,
-                               const MoveInstructionPoly& parent_instruction,
-                               const tesseract_common::ManipulatorInfo& manip_info,
-                               const std::vector<std::string>& active_links,
-                               int index) const = 0;
-
-  virtual void applyGoalStates(OMPLProblem& prob,
-                               const Eigen::VectorXd& joint_waypoint,
-                               const MoveInstructionPoly& parent_instruction,
-                               const tesseract_common::ManipulatorInfo& manip_info,
-                               const std::vector<std::string>& active_links,
-                               int index) const = 0;
-
-  virtual void applyStartStates(OMPLProblem& prob,
-                                const Eigen::Isometry3d& cartesian_waypoint,
-                                const MoveInstructionPoly& parent_instruction,
-                                const tesseract_common::ManipulatorInfo& manip_info,
-                                const std::vector<std::string>& active_links,
-                                int index) const = 0;
-
-  virtual void applyStartStates(OMPLProblem& prob,
-                                const Eigen::VectorXd& joint_waypoint,
-                                const MoveInstructionPoly& parent_instruction,
-                                const tesseract_common::ManipulatorInfo& manip_info,
-                                const std::vector<std::string>& active_links,
-                                int index) const = 0;
-
-  virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
+  /**
+   * @brief Create OMPL Planning Problem
+   * @param start_instruction The start instruction
+   * @param end_instruction The goal instruction
+   * @param composite_mi The parent composite manip info
+   * @param env The environment
+   * @param env_state The environment state
+   * @param n_output_states The number of interpolated output states
+   * @param index The current index being processed (>=1)
+   * @return A OMPL Problem
+   */
+  virtual std::unique_ptr<OMPLProblem> create(const MoveInstructionPoly& start_instruction,
+                                              const MoveInstructionPoly& end_instruction,
+                                              const tesseract_common::ManipulatorInfo& composite_mi,
+                                              const std::shared_ptr<const tesseract_environment::Environment>& env,
+                                              int n_output_states,
+                                              int index) const = 0;
 
 protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
-
-/** @todo Currently OMPL does not have support of composite profile everything is handled by the plan profile */
 
 }  // namespace tesseract_planning
 
