@@ -33,12 +33,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_graph.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
 
 namespace tesseract_planning
 {
 class TaskComposerContext;
 class TaskComposerNode;
-class TaskComposerNodeInfo;
 class TaskComposerExecutor;
 class TaskComposerPluginFactory;
 /**
