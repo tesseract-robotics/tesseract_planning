@@ -40,7 +40,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/fwd.h>
 
 #include <tesseract_task_composer/core/task_composer_keys.h>
+#include <tesseract_task_composer/core/task_composer_node_types.h>
 #include <tesseract_task_composer/core/task_composer_node_ports.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
 
 namespace YAML
 {
@@ -52,15 +54,6 @@ namespace tesseract_planning
 class TaskComposerDataStorage;
 class TaskComposerContext;
 class TaskComposerExecutor;
-class TaskComposerNodeInfo;
-
-enum class TaskComposerNodeType
-{
-  NODE,
-  TASK,
-  PIPELINE,
-  GRAPH
-};
 
 /** @brief Represents a node the pipeline to be executed */
 class TaskComposerNode
@@ -70,6 +63,9 @@ public:
   using ConstPtr = std::shared_ptr<const TaskComposerNode>;
   using UPtr = std::unique_ptr<TaskComposerNode>;
   using ConstUPtr = std::unique_ptr<const TaskComposerNode>;
+
+  // @brief The results map
+  using ResultsMap = std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>;
 
   /** @brief Most task will not require a executor so making it optional */
   using OptionalTaskComposerExecutor = std::optional<std::reference_wrapper<TaskComposerExecutor>>;
@@ -148,12 +144,10 @@ public:
   TaskComposerNodePorts getPorts() const;
 
   /** @brief Generate the Dotgraph as a string */
-  std::string
-  getDotgraph(const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map = {}) const;
+  std::string getDotgraph(const ResultsMap& results_map = ResultsMap()) const;
 
   /** @brief Generate the Dotgraph and save to file */
-  bool saveDotgraph(const std::string& filepath,
-                    const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map = {}) const;
+  bool saveDotgraph(const std::string& filepath, const ResultsMap& results_map = ResultsMap()) const;  // NOLINT
 
   /** @brief Rename input keys */
   virtual void renameInputKeys(const std::map<std::string, std::string>& input_keys);
@@ -168,10 +162,9 @@ public:
    * @brief dump the task to dot
    * @brief Return additional subgraphs which should get appended if needed
    */
-  virtual std::string
-  dump(std::ostream& os,
-       const TaskComposerNode* parent = nullptr,
-       const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map = {}) const;
+  virtual std::string dump(std::ostream& os,
+                           const TaskComposerNode* parent = nullptr,
+                           const ResultsMap& results_map = ResultsMap()) const;
 
   bool operator==(const TaskComposerNode& rhs) const;
   bool operator!=(const TaskComposerNode& rhs) const;
