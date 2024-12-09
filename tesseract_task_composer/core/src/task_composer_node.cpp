@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
+#include <boost/algorithm/string/replace.hpp>
 #include <yaml-cpp/yaml.h>
 #include <console_bridge/console.h>
 #include <tesseract_common/serialization.h>
@@ -384,8 +385,7 @@ const TaskComposerKeys& TaskComposerNode::getOutputKeys() const { return output_
 
 TaskComposerNodePorts TaskComposerNode::getPorts() const { return ports_; }
 
-std::string TaskComposerNode::getDotgraph(
-    const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const
+std::string TaskComposerNode::getDotgraph(const ResultsMap& results_map) const
 {
   try
   {
@@ -402,9 +402,7 @@ std::string TaskComposerNode::getDotgraph(
   return {};
 }
 
-bool TaskComposerNode::saveDotgraph(
-    const std::string& filepath,
-    const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const
+bool TaskComposerNode::saveDotgraph(const std::string& filepath, const ResultsMap& results_map) const
 {
   try
   {
@@ -435,10 +433,9 @@ void TaskComposerNode::renameOutputKeys(const std::map<std::string, std::string>
 
 void TaskComposerNode::setConditional(bool enable) { conditional_ = enable; }
 
-std::string
-TaskComposerNode::dump(std::ostream& os,
-                       const TaskComposerNode* /*parent*/,
-                       const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const
+std::string TaskComposerNode::dump(std::ostream& os,
+                                   const TaskComposerNode* /*parent*/,
+                                   const ResultsMap& results_map) const
 {
   const std::string tmp = toString(uuid_, "node_");
 
@@ -543,18 +540,8 @@ void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
 
 std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::string& prefix)
 {
-  std::string result;
-  result.reserve(36);
-
-  std::size_t i = 0;
-  for (const auto* it_data = u.begin(); it_data != u.end(); ++it_data, ++i)
-  {
-    const size_t hi = ((*it_data) >> 4) & 0x0F;
-    result += boost::uuids::detail::to_char(hi);
-
-    const size_t lo = (*it_data) & 0x0F;
-    result += boost::uuids::detail::to_char(lo);
-  }
+  auto result = boost::uuids::to_string(u);
+  boost::replace_all(result, "-", "");
   return (prefix + result);
 }
 

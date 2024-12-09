@@ -40,12 +40,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/any_poly.h>
 
-#include <tesseract_task_composer/core/task_composer_node.h>
+#include <tesseract_task_composer/core/task_composer_node_types.h>
 #include <tesseract_task_composer/core/task_composer_keys.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 
 namespace tesseract_planning
 {
+class TaskComposerNode;
+
 /** Stores information about a node */
 class TaskComposerNodeInfo
 {
@@ -57,7 +59,7 @@ public:
 
   TaskComposerNodeInfo() = default;  // Required for serialization
   TaskComposerNodeInfo(const TaskComposerNode& node);
-  ~TaskComposerNodeInfo() = default;
+  ~TaskComposerNodeInfo();
   TaskComposerNodeInfo(const TaskComposerNodeInfo&) = default;
   TaskComposerNodeInfo& operator=(const TaskComposerNodeInfo&) = default;
   TaskComposerNodeInfo(TaskComposerNodeInfo&&) = default;
