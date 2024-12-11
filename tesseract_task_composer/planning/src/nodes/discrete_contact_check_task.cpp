@@ -156,7 +156,18 @@ std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTask::runImpl(TaskComp
   std::vector<tesseract_collision::ContactResultMap> contacts;
   if (contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->config))
   {
-    info->status_message = "Results are not contact free for process input: " + ci.getDescription();
+    std::stringstream ss;
+    ss << "Results are not contact free for process input: " << ci.getDescription() << "\n";
+    // Iterate over each contact and add collision summary if not empty
+    for (std::size_t i = 0; i < contacts.size(); ++i)
+    {
+      const auto& contact_map = contacts[i];
+      if (!contact_map.empty())
+      {
+        ss << contact_map.getCollisionSummary().str() << "\n";
+      }
+    }
+    info->status_message = ss.str();
     CONSOLE_BRIDGE_logInform("%s", info->status_message.c_str());
 
     // Save space
