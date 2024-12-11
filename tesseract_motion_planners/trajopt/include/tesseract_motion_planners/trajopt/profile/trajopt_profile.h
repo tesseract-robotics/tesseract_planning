@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/fwd.hpp>
 #include <vector>
 #include <memory>
+#include <string>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
