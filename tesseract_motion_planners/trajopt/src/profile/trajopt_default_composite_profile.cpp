@@ -45,6 +45,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_common/eigen_serialization.h>
+#include <trajopt_common/utils.hpp>
 
 static const double LONGEST_VALID_SEGMENT_FRACTION_DEFAULT = 0.01;
 
