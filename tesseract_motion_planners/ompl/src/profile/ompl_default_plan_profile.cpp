@@ -474,6 +474,7 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
     else
     {
       CONSOLE_BRIDGE_logDebug("In OMPLDefaultPlanProfile: Goal state has invalid bounds");
+      throw std::runtime_error("In OMPLDefaultPlanProfile: Goal state has invalid bounds");
     }
 
     // Get discrete contact manager for testing provided start and end position
@@ -482,12 +483,19 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
     tesseract_collision::ContactResultMap contact_map;
     if (checkStateInCollision(prob, solution, contact_map))
     {
-      CONSOLE_BRIDGE_logError("In OMPLDefaultPlanProfile: Goal state is in collision");
+      std::stringstream contact_msg;
+      contact_msg << "In OMPLPlannerFreespaceConfig: Goal state (";
+      contact_msg << solution.transpose().matrix() << ") is in collision. ";
+
       for (const auto& contact_vec : contact_map)
         for (const auto& contact : contact_vec.second)
-          CONSOLE_BRIDGE_logError(("Links: " + contact.link_names[0] + ", " + contact.link_names[1] +
-                                   "  Distance: " + std::to_string(contact.distance))
-                                      .c_str());
+        {
+          contact_msg << "Links: " << contact.link_names[0] << ", " << contact.link_names[1] <<
+              "  Distance: " << std::to_string(contact.distance);
+          CONSOLE_BRIDGE_logError(contact_msg.str().c_str());
+        }
+
+      throw std::runtime_error(contact_msg.str());
     }
 
     ompl::base::ScopedState<> goal_state(prob.simple_setup->getStateSpace());
@@ -611,6 +619,7 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
     else
     {
       CONSOLE_BRIDGE_logDebug("In OMPLDefaultPlanProfile: Start state is outside limits");
+      throw std::runtime_error("In OMPLDefaultPlanProfile: Start state is outside limits");
     }
 
     // Get discrete contact manager for testing provided start and end position
@@ -619,12 +628,19 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
     tesseract_collision::ContactResultMap contact_map;
     if (checkStateInCollision(prob, joint_waypoint, contact_map))
     {
-      CONSOLE_BRIDGE_logError("In OMPLPlannerFreespaceConfig: Start state is in collision");
+      std::stringstream contact_msg;
+      contact_msg << "In OMPLPlannerFreespaceConfig: Start state (";
+      contact_msg << solution.transpose().matrix() << ") is in collision. ";
+
       for (const auto& contact_vec : contact_map)
         for (const auto& contact : contact_vec.second)
-          CONSOLE_BRIDGE_logError(("Links: " + contact.link_names[0] + ", " + contact.link_names[1] +
-                                   "  Distance: " + std::to_string(contact.distance))
-                                      .c_str());
+        {
+          contact_msg << "Links: " << contact.link_names[0] << ", " << contact.link_names[1] <<
+                        "  Distance: " << std::to_string(contact.distance);
+          CONSOLE_BRIDGE_logError(contact_msg.str().c_str());
+        }
+
+      throw std::runtime_error(contact_msg.str());
     }
 
     ompl::base::ScopedState<> start_state(prob.simple_setup->getStateSpace());
