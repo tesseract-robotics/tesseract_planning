@@ -78,11 +78,7 @@ public:
   /** @brief The max number of solutions. If max solutions are hit it will exit even if other threads are running. */
   int max_solutions = 10;
 
-  /**
-   * @brief Simplify trajectory.
-   *
-   * Note: If set to true it ignores n_output_states and returns the simplest trajectory.
-   */
+  /** @brief Simplify trajectory. */
   bool simplify = false;
 
   /**

@@ -100,7 +100,6 @@ protected:
                                      const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
                                      const MoveInstructionPoly& start_instruction,
                                      const MoveInstructionPoly& end_instruction,
-                                     int n_output_states,
                                      int index) const;
 };
 

@@ -159,7 +159,6 @@ TEST(OMPLConstraintPlanner, OMPLConstraintPlannerUnit)  // NOLINT
   ompl_config->collision_continuous = true;
   ompl_config->collision_check = true;
   ompl_config->simplify = false;
-  ompl_config->n_output_states = 50;
   ompl_config->constraint = std::make_shared<GlassUprightConstraint>(normal, kin);
 
   // Set the planner configuration

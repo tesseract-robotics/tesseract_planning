@@ -215,23 +215,6 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
     {
       p->simple_setup->simplifySolution();
     }
-    else
-    {
-      // Interpolate the path if it shouldn't be simplified and there are currently fewer states than requested
-      auto num_output_states = static_cast<unsigned>(p->n_output_states);
-      if (p->simple_setup->getSolutionPath().getStateCount() < num_output_states)
-      {
-        p->simple_setup->getSolutionPath().interpolate(num_output_states);
-      }
-      else
-      {
-        // Now try to simplify the trajectory to get it under the requested number of output states
-        // The interpolate function only executes if the current number of states is less than the requested
-        p->simple_setup->simplifySolution();
-        if (p->simple_setup->getSolutionPath().getStateCount() < num_output_states)
-          p->simple_setup->getSolutionPath().interpolate(num_output_states);
-      }
-    }
   }
 
   // Flatten the results to make them easier to process
@@ -246,7 +229,6 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
     tesseract_common::TrajArray traj = p->getTrajectory();
     assert(checkStartState(p->simple_setup->getProblemDefinition(), traj.row(0), p->extractor));
     assert(checkGoalState(p->simple_setup->getProblemDefinition(), traj.bottomRows(1).transpose(), p->extractor));
-    assert(traj.rows() >= p->n_output_states);
 
     const std::vector<std::string> joint_names = p->manip->getJointNames();
     const Eigen::MatrixX2d joint_limits = p->manip->getLimits().joint_limits;
@@ -326,7 +308,6 @@ OMPLMotionPlanner::createSubProblem(const PlannerRequest& request,
                                     const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
                                     const MoveInstructionPoly& start_instruction,
                                     const MoveInstructionPoly& end_instruction,
-                                    int n_output_states,
                                     int index) const
 {
   std::vector<std::string> joint_names = manip->getJointNames();
@@ -354,7 +335,6 @@ OMPLMotionPlanner::createSubProblem(const PlannerRequest& request,
   config.problem->contact_checker->setActiveCollisionObjects(active_link_names);
 
   cur_plan_profile->setup(*config.problem);
-  config.problem->n_output_states = n_output_states;
 
   if (end_instruction.getWaypoint().isJointWaypoint() || end_instruction.getWaypoint().isStateWaypoint())
   {
@@ -471,12 +451,10 @@ std::vector<OMPLProblemConfig> OMPLMotionPlanner::createProblems(const PlannerRe
 
   // Transform plan instructions into ompl problem
   int index = 0;
-  int num_output_states = 1;
   MoveInstructionPoly start_instruction = move_instructions.front().get().as<MoveInstructionPoly>();
 
   for (std::size_t i = 1; i < move_instructions.size(); ++i)
   {
-    ++num_output_states;
     const auto& instruction = move_instructions[i].get();
     assert(instruction.isMoveInstruction());
     const auto& move_instruction = instruction.as<MoveInstructionPoly>();
@@ -485,9 +463,8 @@ std::vector<OMPLProblemConfig> OMPLMotionPlanner::createProblems(const PlannerRe
         (waypoint.isJointWaypoint() && waypoint.as<JointWaypointPoly>().isConstrained()))
     {
       problems.push_back(createSubProblem(
-          request, composite_mi, manip, start_instruction, move_instruction, num_output_states, index++));
+          request, composite_mi, manip, start_instruction, move_instruction, index++));
       start_instruction = move_instruction;
-      num_output_states = 1;
     }
   }
 

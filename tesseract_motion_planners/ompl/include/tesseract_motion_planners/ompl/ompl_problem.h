@@ -119,20 +119,8 @@ struct OMPLProblem
   /** @brief The max number of solutions. If max solutions are hit it will exit even if other threads are running. */
   int max_solutions = 10;
 
-  /**
-   * @brief Simplify trajectory.
-   *
-   * Note: If set to true it ignores n_output_states and returns the simplest trajectory.
-   */
+  /** @brief Simplify trajectory. */
   bool simplify = false;
-
-  /**
-   * @brief Number of states in the output trajectory
-   *   Note: This is ignored if the simplify is set to true.
-   *   Note: The trajectory can be longer if original trajectory is longer and reducing the number of states causes
-   *         the solution to be invalid.
-   */
-  int n_output_states = 20;
 
   /**
    * @brief This uses all available planning time to create the most optimized trajectory given the objective function.

@@ -566,7 +566,6 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 //  ompl_config->collision_continuous = true;
 //  ompl_config->collision_check = true;
 //  ompl_config->simplify = false;
-//  ompl_config->n_output_states = 50;
 
 //  // Set the planner configuration
 //  ompl_planner.setConfiguration(ompl_config);
@@ -578,7 +577,6 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 //    CONSOLE_BRIDGE_logError("CI Error: %s", status.message().c_str());
 //  }
 //  EXPECT_TRUE(&status);
-//  EXPECT_EQ(ompl_planning_response.joint_trajectory.trajectory.rows(), ompl_config->n_output_states);
 
 //  // Check for start state in collision error
 //  swp = { 0, 0.7, 0.0, 0, 0.0, 0, 0.0 };
