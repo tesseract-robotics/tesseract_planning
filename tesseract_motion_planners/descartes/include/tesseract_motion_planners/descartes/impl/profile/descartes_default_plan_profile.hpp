@@ -28,166 +28,68 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tinyxml2.h>
 #include <descartes_light/edge_evaluators/euclidean_distance_edge_evaluator.h>
 #include <descartes_light/edge_evaluators/compound_edge_evaluator.h>
 #include <descartes_light/samplers/fixed_joint_waypoint_sampler.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
+#include <tesseract_motion_planners/descartes/impl/profile/descartes_profile.hpp>
 #include <tesseract_motion_planners/descartes/descartes_robot_sampler.h>
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
 #include <tesseract_motion_planners/descartes/descartes_collision_edge_evaluator.h>
+#include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
 
 #include <tesseract_common/utils.h>
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/utils.h>
 
 namespace tesseract_planning
 {
 template <typename FloatType>
-DescartesDefaultPlanProfile<FloatType>::DescartesDefaultPlanProfile(const tinyxml2::XMLElement& xml_element)
+std::unique_ptr<DescartesVertexEvaluator> DescartesDefaultPlanProfile<FloatType>::createVertexEvaluator(
+    const MoveInstructionPoly& /*move_instruction*/,
+    const std::shared_ptr<const tesseract_kinematics::KinematicGroup>& manip,
+    const std::shared_ptr<const tesseract_environment::Environment>& /*env*/) const
 {
-  const tinyxml2::XMLElement* vertex_collisions_element = xml_element.FirstChildElement("VertexCollisions");
-  const tinyxml2::XMLElement* edge_collisions_element = xml_element.FirstChildElement("EdgeCollisions");
-  const tinyxml2::XMLElement* num_threads_element = xml_element.FirstChildElement("NumberThreads");
-  const tinyxml2::XMLElement* allow_collisions_element = xml_element.FirstChildElement("AllowCollisions");
-  const tinyxml2::XMLElement* debug_element = xml_element.FirstChildElement("Debug");
-
-  int status{ tinyxml2::XMLError::XML_SUCCESS };
-
-  if (vertex_collisions_element != nullptr)
-  {
-    const tinyxml2::XMLElement* enabled_element = vertex_collisions_element->FirstChildElement("Enabled");
-    //    const tinyxml2::XMLElement* coll_safety_margin_element =
-    //    vertex_collisions_element->FirstChildElement("CollisionSaf"
-    //                                                                                                          "etyMargin");
-
-    if (enabled_element != nullptr)
-    {
-      status = enabled_element->QueryBoolText(&enable_collision);
-      if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-        throw std::runtime_error("DescartesPlanProfile: VertexCollisions: Error parsing Enabled string");
-    }
-
-    /** @todo Update XML */
-    //    if (coll_safety_margin_element)
-    //    {
-    //      std::string coll_safety_margin_string;
-    //      status = tesseract_common::QueryStringText(coll_safety_margin_element, coll_safety_margin_string);
-    //      if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-    //        throw std::runtime_error("DescartesPlanProfile: VertexCollisions:: Error parsing CollisionSafetyMargin
-    //        string");
-
-    //      if (!tesseract_common::isNumeric(coll_safety_margin_string))
-    //        throw std::runtime_error("DescartesPlanProfile: VertexCollisions:: CollisionSafetyMargin is not a numeric
-    //        "
-    //                                 "values.");
-
-    //      tesseract_common::toNumeric<double>(coll_safety_margin_string, collision_safety_margin);
-    //    }
-  }
-
-  if (edge_collisions_element != nullptr)
-  {
-    const tinyxml2::XMLElement* enabled_element = edge_collisions_element->FirstChildElement("Enabled");
-    const tinyxml2::XMLElement* coll_safety_margin_element = edge_collisions_element->FirstChildElement("CollisionSafet"
-                                                                                                        "yMargin");
-    const tinyxml2::XMLElement* long_valid_seg_len_element = edge_collisions_element->FirstChildElement("LongestValidSe"
-                                                                                                        "gmentLength");
-
-    if (enabled_element != nullptr)
-    {
-      status = enabled_element->QueryBoolText(&enable_edge_collision);
-      if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-        throw std::runtime_error("DescartesPlanProfile: EdgeCollisions: Error parsing Enabled string");
-    }
-
-    if (coll_safety_margin_element != nullptr)
-    {
-      std::string coll_safety_margin_string;
-      status = tesseract_common::QueryStringText(coll_safety_margin_element, coll_safety_margin_string);
-      if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-        throw std::runtime_error("DescartesPlanProfile: EdgeCollisions: Error parsing CollisionSafetyMargin string");
-
-      if (!tesseract_common::isNumeric(coll_safety_margin_string))
-        throw std::runtime_error("DescartesPlanProfile: EdgeCollisions: CollisionSafetyMargin is not a numeric "
-                                 "values.");
-
-      /** @todo Update XML */
-      //      tesseract_common::toNumeric<double>(coll_safety_margin_string, edge_collision_saftey_margin);
-    }
-
-    if (long_valid_seg_len_element != nullptr)
-    {
-      std::string long_valid_seg_len_string;
-      status = tesseract_common::QueryStringText(long_valid_seg_len_element, long_valid_seg_len_string);
-      if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-        throw std::runtime_error("DescartesPlanProfile: EdgeCollisions: Error parsing LongestValidSegmentLength "
-                                 "string");
-
-      if (!tesseract_common::isNumeric(long_valid_seg_len_string))
-        throw std::runtime_error("DescartesPlanProfile: EdgeCollisions: LongestValidSegmentLength is not a numeric "
-                                 "values.");
-
-      /** @todo Update XML */
-      //      tesseract_common::toNumeric<double>(long_valid_seg_len_string, edge_longest_valid_segment_length);
-    }
-  }
-
-  if (num_threads_element != nullptr)
-  {
-    std::string num_threads_string;
-    status = tesseract_common::QueryStringText(num_threads_element, num_threads_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("DescartesPlanProfile: Error parsing NumberThreads string");
-
-    if (!tesseract_common::isNumeric(num_threads_string))
-      throw std::runtime_error("DescartesPlanProfile: NumberThreads is not a numeric values.");
-
-    tesseract_common::toNumeric<int>(num_threads_string, num_threads);
-  }
-
-  if (allow_collisions_element != nullptr)
-  {
-    status = allow_collisions_element->QueryBoolText(&allow_collision);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("DescartesPlanProfile: Error parsing AllowCollisions string");
-  }
-
-  if (debug_element != nullptr)
-  {
-    status = debug_element->QueryBoolText(&debug);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("DescartesPlanProfile: Error parsing Debug string");
-  }
+  return std::make_unique<DescartesJointLimitsVertexEvaluator>(manip->getLimits().joint_limits);
 }
 
 template <typename FloatType>
-void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& prob,
-                                                   const Eigen::Isometry3d& cartesian_waypoint,
-                                                   const InstructionPoly& parent_instruction,
-                                                   const tesseract_common::ManipulatorInfo& manip_info,
-                                                   int index) const
+PoseSamplerFn DescartesDefaultPlanProfile<FloatType>::createPoseSampler(
+    const MoveInstructionPoly& /*move_instruction*/,
+    const std::shared_ptr<const tesseract_kinematics::KinematicGroup>& /*manip*/,
+    const std::shared_ptr<const tesseract_environment::Environment>& /*env*/) const
 {
-  assert(parent_instruction.isMoveInstruction());
-  const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
-  assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
-  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
+  if (target_pose_fixed)
+    return sampleFixed;
 
-  if (mi.manipulator.empty())
-    throw std::runtime_error("Descartes, manipulator is empty!");
+  return [axis = target_pose_sample_axis, resolution = target_pose_sample_resolution](
+             const Eigen::Isometry3d& tool_pose) { return sampleToolAxis(tool_pose, resolution, axis); };
+}
 
-  if (mi.tcp_frame.empty())
-    throw std::runtime_error("Descartes, tcp_frame is empty!");
+template <typename FloatType>
+std::unique_ptr<descartes_light::WaypointSampler<FloatType>>
+DescartesDefaultPlanProfile<FloatType>::createWaypointSampler(
+    const MoveInstructionPoly& move_instruction,
+    const tesseract_common::ManipulatorInfo& manip_info,
+    const std::shared_ptr<const tesseract_environment::Environment>& env) const
+{
+  auto manip = DescartesPlanProfile<FloatType>::createKinematicGroup(manip_info, *env);
+  if (!move_instruction.getWaypoint().isCartesianWaypoint())
+  {
+    assert(checkJointPositionFormat(manip->getJointNames(), move_instruction.getWaypoint()));
+    const Eigen::VectorXd& joint_waypoint = getJointPosition(move_instruction.getWaypoint());
+    auto state = std::make_shared<descartes_light::State<FloatType>>(joint_waypoint.cast<FloatType>());
+    return std::make_unique<descartes_light::FixedJointWaypointSampler<FloatType>>(state);
+  }
 
-  if (mi.working_frame.empty())
-    throw std::runtime_error("Descartes, working_frame is empty!");
-
-  Eigen::Isometry3d tcp_offset = prob.env->findTCPOffset(mi);
-  std::vector<std::string> joint_names = prob.manip->getJointNames();
+  Eigen::Isometry3d tcp_offset = env->findTCPOffset(manip_info);
 
   /* Check if this cartesian waypoint is dynamic
    * (i.e. defined relative to a frame that will move with the kinematic chain) */
@@ -199,182 +101,64 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
 
   DescartesCollision::Ptr ci = nullptr;
   if (enable_collision)
-    ci = std::make_shared<DescartesCollision>(*prob.env, prob.manip, vertex_collision_check_config, debug);
+    ci = std::make_shared<DescartesCollision>(*env, manip, vertex_collision_check_config, debug);
 
-  // Add vertex evaluator
-  std::shared_ptr<descartes_light::WaypointSampler<FloatType>> sampler;
-  if (vertex_evaluator == nullptr)
-  {
-    auto ve = std::make_shared<DescartesJointLimitsVertexEvaluator>(prob.manip->getLimits().joint_limits);
-    sampler = std::make_shared<DescartesRobotSampler<FloatType>>(mi.working_frame,
-                                                                 cartesian_waypoint,
-                                                                 target_pose_sampler,
-                                                                 prob.manip,
-                                                                 ci,
-                                                                 mi.tcp_frame,
-                                                                 tcp_offset,
-                                                                 allow_collision,
-                                                                 ve,
-                                                                 use_redundant_joint_solutions);
-  }
-  else
-  {
-    sampler = std::make_shared<DescartesRobotSampler<FloatType>>(mi.working_frame,
-                                                                 cartesian_waypoint,
-                                                                 target_pose_sampler,
-                                                                 prob.manip,
-                                                                 ci,
-                                                                 mi.tcp_frame,
-                                                                 tcp_offset,
-                                                                 allow_collision,
-                                                                 vertex_evaluator(prob),
-                                                                 use_redundant_joint_solutions);
-  }
-  prob.samplers.push_back(std::move(sampler));
-
-  if (index != 0)
-  {
-    // Add edge Evaluator
-    if (edge_evaluator == nullptr)
-    {
-      if (enable_edge_collision)
-      {
-        auto compound_evaluator = std::make_shared<descartes_light::CompoundEdgeEvaluator<FloatType>>();
-        compound_evaluator->evaluators.push_back(
-            std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
-        compound_evaluator->evaluators.push_back(std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(
-            *prob.env, prob.manip, edge_collision_check_config, allow_collision, debug));
-        prob.edge_evaluators.push_back(compound_evaluator);
-      }
-      else
-      {
-        prob.edge_evaluators.push_back(std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
-      }
-    }
-    else
-    {
-      if (enable_edge_collision)
-      {
-        auto compound_evaluator = std::make_shared<descartes_light::CompoundEdgeEvaluator<FloatType>>();
-        compound_evaluator->evaluators.push_back(edge_evaluator(prob));
-        compound_evaluator->evaluators.push_back(std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(
-            *prob.env, prob.manip, edge_collision_check_config, allow_collision, debug));
-        prob.edge_evaluators.push_back(compound_evaluator);
-      }
-      else
-      {
-        prob.edge_evaluators.push_back(edge_evaluator(prob));
-      }
-    }
-  }
-
-  // Add state evaluator
-  if (state_evaluator != nullptr)
-    prob.state_evaluators.push_back(state_evaluator(prob));
-  else
-    prob.state_evaluators.push_back(std::make_shared<const descartes_light::StateEvaluator<FloatType>>());
-
-  prob.num_threads = num_threads;
+  auto ve = createVertexEvaluator(move_instruction, manip, env);
+  auto pose_sampler = createPoseSampler(move_instruction, manip, env);
+  return std::make_unique<DescartesRobotSampler<FloatType>>(
+      manip_info.working_frame,
+      move_instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform(),
+      pose_sampler,
+      manip,
+      ci,
+      manip_info.tcp_frame,
+      tcp_offset,
+      allow_collision,
+      std::move(ve),
+      use_redundant_joint_solutions);
 }
 
 template <typename FloatType>
-void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& prob,
-                                                   const Eigen::VectorXd& joint_waypoint,
-                                                   const InstructionPoly& /*parent_instruction*/,
-                                                   const tesseract_common::ManipulatorInfo& /*manip_info*/,
-                                                   int index) const
+std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>> DescartesDefaultPlanProfile<FloatType>::createEdgeEvaluator(
+    const MoveInstructionPoly& move_instruction,
+    const tesseract_common::ManipulatorInfo& manip_info,
+    const std::shared_ptr<const tesseract_environment::Environment>& env) const
 {
-  auto state = std::make_shared<descartes_light::State<FloatType>>(joint_waypoint.cast<FloatType>());
-  auto sampler = std::make_shared<descartes_light::FixedJointWaypointSampler<FloatType>>(state);
-  prob.samplers.push_back(std::move(sampler));
-
-  std::vector<std::string> joint_names = prob.manip->getJointNames();
-
-  if (index != 0)
+  auto manip = DescartesPlanProfile<FloatType>::createKinematicGroup(manip_info, *env);
+  if (move_instruction.getWaypoint().isCartesianWaypoint())
   {
-    // Add edge Evaluator
-    if (edge_evaluator == nullptr)
-    {
-      if (enable_edge_collision)
-      {
-        auto compound_evaluator = std::make_shared<descartes_light::CompoundEdgeEvaluator<FloatType>>();
-        compound_evaluator->evaluators.push_back(
-            std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
-        compound_evaluator->evaluators.push_back(std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(
-            *prob.env, prob.manip, edge_collision_check_config, allow_collision, debug));
-        prob.edge_evaluators.push_back(compound_evaluator);
-      }
-      else
-      {
-        prob.edge_evaluators.push_back(std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
-      }
-    }
-    else
-    {
-      prob.edge_evaluators.push_back(edge_evaluator(prob));
-    }
+    if (!enable_edge_collision)
+      return std::make_unique<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>();
+
+    auto compound_evaluator = std::make_unique<descartes_light::CompoundEdgeEvaluator<FloatType>>();
+    compound_evaluator->evaluators.push_back(
+        std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
+    compound_evaluator->evaluators.push_back(std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(
+        *env, manip, edge_collision_check_config, allow_collision, debug));
+
+    return compound_evaluator;
   }
 
-  if (state_evaluator != nullptr)
-    prob.state_evaluators.push_back(state_evaluator(prob));
-  else
-    prob.state_evaluators.push_back(std::make_shared<const descartes_light::StateEvaluator<FloatType>>());
+  if (!enable_edge_collision)
+    return std::make_unique<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>();
 
-  prob.num_threads = num_threads;
+  auto compound_evaluator = std::make_unique<descartes_light::CompoundEdgeEvaluator<FloatType>>();
+  compound_evaluator->evaluators.push_back(
+      std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
+  compound_evaluator->evaluators.push_back(std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(
+      *env, manip, edge_collision_check_config, allow_collision, debug));
+
+  return compound_evaluator;
 }
 
 template <typename FloatType>
-tinyxml2::XMLElement* DescartesDefaultPlanProfile<FloatType>::toXML(tinyxml2::XMLDocument& doc) const
+std::unique_ptr<descartes_light::StateEvaluator<FloatType>>
+DescartesDefaultPlanProfile<FloatType>::createStateEvaluator(
+    const MoveInstructionPoly& /*move_instruction*/,
+    const tesseract_common::ManipulatorInfo& /*manip_info*/,
+    const std::shared_ptr<const tesseract_environment::Environment>& /*env*/) const
 {
-  tinyxml2::XMLElement* xml_planner = doc.NewElement("Planner");
-  xml_planner->SetAttribute("type", std::to_string(3).c_str());
-
-  tinyxml2::XMLElement* xml_descartes = doc.NewElement("DescartesPlanProfile");
-
-  tinyxml2::XMLElement* vertex_collisions = doc.NewElement("VertexCollisions");
-  tinyxml2::XMLElement* vertex_collisions_enabled = doc.NewElement("Enabled");
-  vertex_collisions_enabled->SetText(enable_collision);
-  vertex_collisions->InsertEndChild(vertex_collisions_enabled);
-
-  //  tinyxml2::XMLElement* vertex_collisions_safety_margin = doc.NewElement("CollisionSafetyMargin");
-  //  vertex_collisions_safety_margin->SetText(collision_safety_margin);
-  //  vertex_collisions->InsertEndChild(vertex_collisions_safety_margin);
-
-  xml_descartes->InsertEndChild(vertex_collisions);
-
-  tinyxml2::XMLElement* edge_collisions = doc.NewElement("EdgeCollisions");
-  tinyxml2::XMLElement* edge_collisions_enabled = doc.NewElement("Enabled");
-  edge_collisions_enabled->SetText(enable_edge_collision);
-  edge_collisions->InsertEndChild(edge_collisions_enabled);
-
-  /** @todo Update XML */
-  //  tinyxml2::XMLElement* edge_collisions_safety_margin = doc.NewElement("CollisionSafetyMargin");
-  //  edge_collisions_safety_margin->SetText(edge_collision_saftey_margin);
-  //  edge_collisions->InsertEndChild(edge_collisions_safety_margin);
-
-  //  tinyxml2::XMLElement* edge_collisions_long_valid_seg_len = doc.NewElement("LongestValidSegmentLength");
-  //  edge_collisions_long_valid_seg_len->SetText(edge_longest_valid_segment_length);
-  //  edge_collisions->InsertEndChild(edge_collisions_long_valid_seg_len);
-
-  xml_descartes->InsertEndChild(edge_collisions);
-
-  tinyxml2::XMLElement* number_threads = doc.NewElement("NumberThreads");
-  number_threads->SetText(num_threads);
-  xml_descartes->InsertEndChild(number_threads);
-
-  tinyxml2::XMLElement* allow_collision_element = doc.NewElement("AllowCollisions");
-  allow_collision_element->SetText(allow_collision);
-  xml_descartes->InsertEndChild(allow_collision_element);
-
-  tinyxml2::XMLElement* debug_element = doc.NewElement("Debug");
-  debug_element->SetText(debug);
-  xml_descartes->InsertEndChild(debug_element);
-
-  xml_planner->InsertEndChild(xml_descartes);
-
-  // TODO: Add Edge Evaluator and IsValidFn?
-
-  return xml_planner;
+  return std::make_unique<descartes_light::StateEvaluator<FloatType>>();
 }
 
 }  // namespace tesseract_planning

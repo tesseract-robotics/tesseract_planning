@@ -33,12 +33,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/descartes/profile/descartes_profile.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
-#include <tesseract_motion_planners/descartes/types.h>
 
 #include <tesseract_collision/core/types.h>
 
 namespace tesseract_planning
 {
+class DescartesVertexEvaluator;
+
 template <typename FloatType>
 class DescartesDefaultPlanProfile : public DescartesPlanProfile<FloatType>
 {
@@ -47,15 +48,10 @@ public:
   using ConstPtr = std::shared_ptr<const DescartesDefaultPlanProfile<FloatType>>;
 
   DescartesDefaultPlanProfile() = default;
-  DescartesDefaultPlanProfile(const tinyxml2::XMLElement& xml_element);
 
-  PoseSamplerFn target_pose_sampler = sampleFixed;
-
-  DescartesEdgeEvaluatorAllocatorFn<FloatType> edge_evaluator{ nullptr };
-  DescartesStateEvaluatorAllocatorFn<FloatType> state_evaluator{ nullptr };
-
-  // If not provided it adds a joint limit is valid function
-  DescartesVertexEvaluatorAllocatorFn<FloatType> vertex_evaluator{ nullptr };
+  bool target_pose_fixed{ true };
+  Eigen::Vector3d target_pose_sample_axis{ 0, 0, 1 };
+  double target_pose_sample_resolution{ M_PI_2 };
 
   /**
    * @brief Flag to indicate that collisions should not cause failures during state/edge evaluation
@@ -79,30 +75,37 @@ public:
    */
   bool use_redundant_joint_solutions{ false };
 
-  /** @brief Number of threads to use during planning */
-  int num_threads{ 1 };
-
   /** @brief Flag to produce debug information during planning */
   bool debug{ false };
 
-  void apply(DescartesProblem<FloatType>& prob,
-             const Eigen::Isometry3d& cartesian_waypoint,
-             const InstructionPoly& parent_instruction,
-             const tesseract_common::ManipulatorInfo& manip_info,
-             int index) const override;
+  std::unique_ptr<descartes_light::WaypointSampler<FloatType>>
+  createWaypointSampler(const MoveInstructionPoly& move_instruction,
+                        const tesseract_common::ManipulatorInfo& manip_info,
+                        const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
 
-  void apply(DescartesProblem<FloatType>& prob,
-             const Eigen::VectorXd& joint_waypoint,
-             const InstructionPoly& parent_instruction,
-             const tesseract_common::ManipulatorInfo& manip_info,
-             int index) const override;
+  std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>>
+  createEdgeEvaluator(const MoveInstructionPoly& move_instruction,
+                      const tesseract_common::ManipulatorInfo& manip_info,
+                      const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
 
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+  std::unique_ptr<descartes_light::StateEvaluator<FloatType>>
+  createStateEvaluator(const MoveInstructionPoly& move_instruction,
+                       const tesseract_common::ManipulatorInfo& manip_info,
+                       const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
 
 protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
+
+  virtual std::unique_ptr<DescartesVertexEvaluator>
+  createVertexEvaluator(const MoveInstructionPoly& move_instruction,
+                        const std::shared_ptr<const tesseract_kinematics::KinematicGroup>& manip,
+                        const std::shared_ptr<const tesseract_environment::Environment>& env) const;
+
+  virtual PoseSamplerFn createPoseSampler(const MoveInstructionPoly& move_instruction,
+                                          const std::shared_ptr<const tesseract_kinematics::KinematicGroup>& manip,
+                                          const std::shared_ptr<const tesseract_environment::Environment>& env) const;
 };
 
 using DescartesDefaultPlanProfileF = DescartesDefaultPlanProfile<float>;
