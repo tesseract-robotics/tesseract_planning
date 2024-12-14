@@ -259,8 +259,8 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
     return prob;
   }
 
-  prob->env_state = request.env_state;
   prob->env = request.env;
+  prob->env_state = request.env->getState();
 
   std::vector<std::string> joint_names = prob->manip->getJointNames();
 

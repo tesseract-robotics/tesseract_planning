@@ -33,7 +33,7 @@
 #include <tesseract_common/kinematic_limits.h>
 
 #include <tesseract_kinematics/core/kinematic_group.h>
-
+#include <tesseract_environment/environment.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
 #include <boost/serialization/base_object.hpp>
@@ -54,8 +54,8 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
                                                   const PlannerRequest& request,
                                                   const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
-  KinematicGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
-  KinematicGroupInstructionInfo info2(base_instruction, request, global_manip_info);
+  KinematicGroupInstructionInfo info1(prev_instruction, *request.env, global_manip_info);
+  KinematicGroupInstructionInfo info2(base_instruction, *request.env, global_manip_info);
 
   Eigen::MatrixXd states;
   if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
@@ -90,7 +90,7 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
   }
   else
   {
-    Eigen::VectorXd seed = request.env_state.getJointValues(info2.manip->getJointNames());
+    Eigen::VectorXd seed = request.env->getCurrentJointValues(info2.manip->getJointNames());
     tesseract_common::enforceLimits<double>(seed, info2.manip->getLimits().joint_limits);
 
     if (info2.instruction.isLinear())

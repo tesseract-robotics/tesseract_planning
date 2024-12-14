@@ -345,10 +345,10 @@ OMPLMotionPlanner::createSubProblem(const PlannerRequest& request,
   config.end_uuid = end_instruction.getUUID();
   config.problem = std::make_shared<OMPLProblem>();
   config.problem->env = request.env;
-  config.problem->env_state = request.env_state;
+  config.problem->env_state = request.env->getState();
   config.problem->manip = manip;
   config.problem->contact_checker = request.env->getDiscreteContactManager();
-  config.problem->contact_checker->setCollisionObjectsTransform(request.env_state.link_transforms);
+  config.problem->contact_checker->setCollisionObjectsTransform(config.problem->env_state.link_transforms);
   config.problem->contact_checker->setActiveCollisionObjects(active_link_names);
 
   cur_plan_profile->setup(*config.problem);

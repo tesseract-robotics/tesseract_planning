@@ -109,13 +109,6 @@ TEST(TesseractPlanningDescartesSerializeUnit, SerializeDescartesDefaultPlanToXml
 
 TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
 {
-  // Create the planner and the responses that will store the results
-  PlannerResponse planning_response;
-
-  tesseract_kinematics::KinematicGroup::Ptr kin_group =
-      env_->getKinematicGroup(manip.manipulator, manip.manipulator_ik_solver);
-  auto cur_state = env_->getState();
-
   // Specify a start waypoint
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
                                                Eigen::Quaterniond(0, 0, -1.0, 0)) };
@@ -137,8 +130,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<DescartesDefaultPlanProfileD>();
@@ -155,7 +147,6 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   PlannerResponse single_planner_response = single_descartes_planner.solve(request);
@@ -221,13 +212,6 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
 
 TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
 {
-  // Create the planner and the responses that will store the results
-  PlannerResponse planning_response;
-
-  tesseract_kinematics::KinematicGroup::Ptr kin_group =
-      env_->getKinematicGroup(manip.manipulator, manip.manipulator_ik_solver);
-  auto cur_state = env_->getState();
-
   // Specify a start waypoint
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
                                                Eigen::Quaterniond(0, 0, -1.0, 0)) };
@@ -249,8 +233,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<DescartesDefaultPlanProfileD>();
@@ -271,7 +254,6 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   auto problem = single_descartes_planner.createProblem(request);
@@ -324,13 +306,6 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
 
 TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  // NOLINT
 {
-  // Create the planner and the responses that will store the results
-  PlannerResponse planning_response;
-
-  tesseract_kinematics::KinematicGroup::Ptr kin_group =
-      env_->getKinematicGroup(manip.manipulator, manip.manipulator_ik_solver);
-  auto cur_state = env_->getState();
-
   // Specify a start waypoint
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.10, 0.8) *
                                                Eigen::Quaterniond(0, 0, -1.0, 0)) };
@@ -352,7 +327,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 2);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 2);
 
   // Create Profiles
   auto plan_profile = std::make_shared<DescartesDefaultPlanProfileD>();
@@ -370,7 +345,6 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   // Create Planner

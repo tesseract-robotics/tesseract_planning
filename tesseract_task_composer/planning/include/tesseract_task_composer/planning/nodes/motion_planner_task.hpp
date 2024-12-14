@@ -181,7 +181,6 @@ protected:
     // Fill out request
     // --------------------
     PlannerRequest request;
-    request.env_state = env->getState();
     request.env = env;
     request.instructions = instructions;
     request.profiles = profiles;

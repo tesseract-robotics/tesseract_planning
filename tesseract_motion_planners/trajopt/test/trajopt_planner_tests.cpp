@@ -120,7 +120,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
 {
   auto joint_group = env_->getJointGroup(manip.manipulator);
   std::vector<std::string> joint_names = joint_group->getJointNames();
-  auto cur_state = env_->getState();
 
   // Specify a JointWaypoint as the start
   JointWaypointPoly wp1{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
@@ -143,8 +142,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -164,7 +162,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   // Loop over all combinations of these 4. 0001, 0010, 0011, ... , 1111
@@ -197,7 +194,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip.manipulator);
   std::vector<std::string> joint_names = joint_group->getJointNames();
-  auto cur_state = env_->getState();
 
   // Specify a JointWaypoint as the start
   JointWaypointPoly wp1{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
@@ -220,8 +216,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -241,7 +236,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   {
@@ -286,7 +280,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip.manipulator);
   std::vector<std::string> joint_names = joint_group->getJointNames();
-  auto cur_state = env_->getState();
 
   // Specify a JointWaypoint as the start
   JointWaypointPoly wp1{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
@@ -309,8 +302,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -330,7 +322,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   {
@@ -373,12 +364,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
 // This test tests freespace motion b/n 1 cartesian waypoint and 1 joint waypoint
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
 {
-  // Create the planner and the responses that will store the results
-  PlannerResponse planning_response;
-
   auto joint_group = env_->getJointGroup(manip.manipulator);
   std::vector<std::string> joint_names = joint_group->getJointNames();
-  auto cur_state = env_->getState();
 
   // Specify a JointWaypoint as the start
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
@@ -402,8 +389,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -423,7 +409,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   {
@@ -466,12 +451,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
 // This test tests freespace motion b/n 2 cartesian waypoints
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
 {
-  // Create the planner and the responses that will store the results
-  PlannerResponse planning_response;
-
-  auto joint_group = env_->getJointGroup(manip.manipulator);
-  auto cur_state = env_->getState();
-
   // Specify a CartesianWaypoint as the start
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
                                                Eigen::Quaterniond(0, 0, 1.0, 0)) };
@@ -495,8 +474,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -516,7 +494,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   {
@@ -559,12 +536,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
 // are / added correctly
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOLINT
 {
-  // Create the planner and the responses that will store the results
-  PlannerResponse planning_response;
-
-  auto joint_group = env_->getJointGroup(manip.manipulator);
-  auto cur_state = env_->getState();
-
   // Specify a JointWaypoint as the start
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.8) *
                                                Eigen::Quaterniond(0, 0, 1.0, 0)) };
@@ -588,8 +559,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -609,7 +579,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   std::shared_ptr<trajopt::ProblemConstructionInfo> pci;
@@ -655,12 +624,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
 // This test checks that the terms are being added correctly for joint cnts
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
 {
-  // Create the planner and the responses that will store the results
-  PlannerResponse planning_response;
-
   auto joint_group = env_->getJointGroup(manip.manipulator);
   std::vector<std::string> joint_names = joint_group->getJointNames();
-  auto cur_state = env_->getState();
 
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
@@ -677,8 +642,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   }
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -702,7 +666,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
@@ -721,12 +684,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
 // This test checks that the terms are being added correctly for joint costs
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
 {
-  // Create the planner and the responses that will store the results
-  PlannerResponse planning_response;
-
   auto joint_group = env_->getJointGroup(manip.manipulator);
   const std::vector<std::string>& joint_names = joint_group->getJointNames();
-  auto cur_state = env_->getState();
 
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
@@ -743,8 +702,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   }
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -769,7 +727,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);

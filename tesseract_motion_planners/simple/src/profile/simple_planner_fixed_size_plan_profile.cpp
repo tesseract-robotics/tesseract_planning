@@ -30,7 +30,7 @@
 #include <tesseract_motion_planners/core/utils.h>
 
 #include <tesseract_common/manipulator_info.h>
-
+#include <tesseract_environment/environment.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
 #include <boost/serialization/base_object.hpp>
@@ -51,8 +51,8 @@ SimplePlannerFixedSizePlanProfile::generate(const MoveInstructionPoly& prev_inst
                                             const PlannerRequest& request,
                                             const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
-  KinematicGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
-  KinematicGroupInstructionInfo info2(base_instruction, request, global_manip_info);
+  KinematicGroupInstructionInfo info1(prev_instruction, *request.env, global_manip_info);
+  KinematicGroupInstructionInfo info2(base_instruction, *request.env, global_manip_info);
 
   if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
     return interpolateJointJointWaypoint(info1, info2, linear_steps, freespace_steps);
@@ -63,7 +63,7 @@ SimplePlannerFixedSizePlanProfile::generate(const MoveInstructionPoly& prev_inst
   if (info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
     return interpolateCartJointWaypoint(info1, info2, linear_steps, freespace_steps);
 
-  return interpolateCartCartWaypoint(info1, info2, linear_steps, freespace_steps, request.env_state);
+  return interpolateCartCartWaypoint(info1, info2, linear_steps, freespace_steps, request.env->getState());
 }
 
 template <class Archive>

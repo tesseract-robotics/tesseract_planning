@@ -56,9 +56,6 @@ struct PlannerRequest
   /** @brief The environment */
   std::shared_ptr<const tesseract_environment::Environment> env;
 
-  /** @brief The start state to use for planning */
-  tesseract_scene_graph::SceneState env_state;
-
   /** @brief The profile dictionary */
   std::shared_ptr<const ProfileDictionary> profiles;
 
