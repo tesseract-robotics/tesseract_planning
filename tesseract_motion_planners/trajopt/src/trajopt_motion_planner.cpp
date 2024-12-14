@@ -282,7 +282,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
       }
       else
       {
-        seed_states.push_back(request.env_state.getJointValues(joint_names));
+        seed_states.push_back(request.env->getCurrentJointValues(joint_names));
       }
 
       /** @todo If fixed cartesian and not term_type cost add as fixed */

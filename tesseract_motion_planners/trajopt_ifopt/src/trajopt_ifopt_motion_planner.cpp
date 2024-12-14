@@ -178,7 +178,7 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
   // Create the problem
   auto problem = std::make_shared<TrajOptIfoptProblem>();
   problem->environment = request.env;
-  problem->env_state = request.env_state;
+  problem->env_state = request.env->getState();
   problem->nlp = std::make_shared<trajopt_sqp::TrajOptQPProblem>();
 
   // Assume all the plan instructions have the same manipulator as the composite
@@ -286,7 +286,7 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
       }
       else
       {
-        seed_state = request.env_state.getJointValues(joint_names);
+        seed_state = request.env->getCurrentJointValues(joint_names);
       }
 
       // Add variable set to problem

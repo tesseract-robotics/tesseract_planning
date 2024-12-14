@@ -137,7 +137,6 @@ std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext
     // Fill out request and response
     PlannerRequest request;
     request.instructions = ci;
-    request.env_state = env->getState();
     request.env = env;
 
     // Set up planner

@@ -515,7 +515,6 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
 
 /** @brief Provided for backwards compatibility */
 CompositeInstruction generateInterpolatedProgram(const CompositeInstruction& instructions,
-                                                 const tesseract_scene_graph::SceneState& current_state,
                                                  const std::shared_ptr<const tesseract_environment::Environment>& env,
                                                  double state_longest_valid_segment_length = 5 * M_PI / 180,
                                                  double translation_longest_valid_segment_length = 0.15,
