@@ -51,11 +51,11 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
                                                   const MoveInstructionPoly& /*prev_seed*/,
                                                   const MoveInstructionPoly& base_instruction,
                                                   const InstructionPoly& /*next_instruction*/,
-                                                  const PlannerRequest& request,
+                                                  const std::shared_ptr<const tesseract_environment::Environment>& env,
                                                   const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
-  KinematicGroupInstructionInfo info1(prev_instruction, *request.env, global_manip_info);
-  KinematicGroupInstructionInfo info2(base_instruction, *request.env, global_manip_info);
+  KinematicGroupInstructionInfo info1(prev_instruction, *env, global_manip_info);
+  KinematicGroupInstructionInfo info2(base_instruction, *env, global_manip_info);
 
   Eigen::MatrixXd states;
   if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
@@ -90,7 +90,7 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
   }
   else
   {
-    Eigen::VectorXd seed = request.env->getCurrentJointValues(info2.manip->getJointNames());
+    Eigen::VectorXd seed = env->getCurrentJointValues(info2.manip->getJointNames());
     tesseract_common::enforceLimits<double>(seed, info2.manip->getLimits().joint_limits);
 
     if (info2.instruction.isLinear())

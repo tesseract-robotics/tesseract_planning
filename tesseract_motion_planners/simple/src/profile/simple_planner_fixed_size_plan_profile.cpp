@@ -48,11 +48,11 @@ SimplePlannerFixedSizePlanProfile::generate(const MoveInstructionPoly& prev_inst
                                             const MoveInstructionPoly& /*prev_seed*/,
                                             const MoveInstructionPoly& base_instruction,
                                             const InstructionPoly& /*next_instruction*/,
-                                            const PlannerRequest& request,
+                                            const std::shared_ptr<const tesseract_environment::Environment>& env,
                                             const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
-  KinematicGroupInstructionInfo info1(prev_instruction, *request.env, global_manip_info);
-  KinematicGroupInstructionInfo info2(base_instruction, *request.env, global_manip_info);
+  KinematicGroupInstructionInfo info1(prev_instruction, *env, global_manip_info);
+  KinematicGroupInstructionInfo info2(base_instruction, *env, global_manip_info);
 
   if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
     return interpolateJointJointWaypoint(info1, info2, linear_steps, freespace_steps);
@@ -63,7 +63,7 @@ SimplePlannerFixedSizePlanProfile::generate(const MoveInstructionPoly& prev_inst
   if (info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
     return interpolateCartJointWaypoint(info1, info2, linear_steps, freespace_steps);
 
-  return interpolateCartCartWaypoint(info1, info2, linear_steps, freespace_steps, request.env->getState());
+  return interpolateCartCartWaypoint(info1, info2, linear_steps, freespace_steps, env->getState());
 }
 
 template <class Archive>

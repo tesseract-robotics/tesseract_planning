@@ -56,11 +56,11 @@ SimplePlannerLVSNoIKPlanProfile::generate(const MoveInstructionPoly& prev_instru
                                           const MoveInstructionPoly& /*prev_seed*/,
                                           const MoveInstructionPoly& base_instruction,
                                           const InstructionPoly& /*next_instruction*/,
-                                          const PlannerRequest& request,
+                                          const std::shared_ptr<const tesseract_environment::Environment>& env,
                                           const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
-  JointGroupInstructionInfo info1(prev_instruction, *request.env, global_manip_info);
-  JointGroupInstructionInfo info2(base_instruction, *request.env, global_manip_info);
+  JointGroupInstructionInfo info1(prev_instruction, *env, global_manip_info);
+  JointGroupInstructionInfo info2(base_instruction, *env, global_manip_info);
 
   if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
     return interpolateJointJointWaypoint(info1,
@@ -96,7 +96,7 @@ SimplePlannerLVSNoIKPlanProfile::generate(const MoveInstructionPoly& prev_instru
                                      rotation_longest_valid_segment_length,
                                      min_steps,
                                      max_steps,
-                                     request.env->getState());
+                                     env->getState());
 }
 
 template <class Archive>
