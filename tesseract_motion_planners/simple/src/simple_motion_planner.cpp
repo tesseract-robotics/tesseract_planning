@@ -185,7 +185,8 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
           if (!start_waypoint.as<CartesianWaypointPoly>().hasSeed())
           {
             // Run IK to find solution closest to start
-            KinematicGroupInstructionInfo info(prev_instruction, request, request.instructions.getManipulatorInfo());
+            KinematicGroupInstructionInfo info(
+                prev_instruction, *request.env, request.instructions.getManipulatorInfo());
             auto start_seed = getClosestJointSolution(info, request.env_state.getJointValues(manip->getJointNames()));
             start_waypoint.as<CartesianWaypointPoly>().setSeed(
                 tesseract_common::JointState(manip->getJointNames(), start_seed));
@@ -237,7 +238,7 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
                                  prev_seed,
                                  base_instruction,
                                  next_instruction,
-                                 request,
+                                 request.env,
                                  request.instructions.getManipulatorInfo());
 
       // The data for the last instruction should be unchanged with exception to seed or tolerance joint state

@@ -55,12 +55,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
-                                                     const PlannerRequest& request,
-                                                     const tesseract_common::ManipulatorInfo& manip_info)
-  : JointGroupInstructionInfo(plan_instruction, *request.env, manip_info)
-{
-}
 
 JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                                                      const tesseract_environment::Environment& env,
@@ -127,13 +121,6 @@ Eigen::Isometry3d JointGroupInstructionInfo::extractCartesianPose(bool in_world)
 const Eigen::VectorXd& JointGroupInstructionInfo::extractJointPosition() const
 {
   return getJointPosition(instruction.getWaypoint());
-}
-
-KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
-                                                             const PlannerRequest& request,
-                                                             const tesseract_common::ManipulatorInfo& manip_info)
-  : KinematicGroupInstructionInfo(plan_instruction, *request.env, manip_info)
-{
 }
 
 KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,

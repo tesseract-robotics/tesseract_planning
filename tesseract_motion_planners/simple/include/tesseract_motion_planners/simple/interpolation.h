@@ -47,10 +47,6 @@ namespace tesseract_planning
 struct JointGroupInstructionInfo
 {
   JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
-                            const PlannerRequest& request,
-                            const tesseract_common::ManipulatorInfo& manip_info);
-
-  JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                             const tesseract_environment::Environment& env,
                             const tesseract_common::ManipulatorInfo& manip_info);
 
@@ -101,10 +97,6 @@ struct JointGroupInstructionInfo
 /** @brief The Kinematic Group Instruction Information struct */
 struct KinematicGroupInstructionInfo
 {
-  KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
-                                const PlannerRequest& request,
-                                const tesseract_common::ManipulatorInfo& manip_info);
-
   KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                                 const tesseract_environment::Environment& env,
                                 const tesseract_common::ManipulatorInfo& manip_info);

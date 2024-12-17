@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
 #include <tesseract_command_language/fwd.h>
+#include <tesseract_environment/fwd.h>
 #include <tesseract_motion_planners/core/fwd.h>
 
 namespace tesseract_planning
@@ -71,7 +72,7 @@ public:
            const MoveInstructionPoly& prev_seed,
            const MoveInstructionPoly& base_instruction,
            const InstructionPoly& next_instruction,
-           const PlannerRequest& request,
+           const std::shared_ptr<const tesseract_environment::Environment>& env,
            const tesseract_common::ManipulatorInfo& global_manip_info) const = 0;
 };
 
