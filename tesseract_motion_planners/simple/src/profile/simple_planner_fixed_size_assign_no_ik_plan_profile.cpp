@@ -31,7 +31,7 @@
 
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/kinematic_limits.h>
-
+#include <tesseract_environment/environment.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
@@ -44,16 +44,16 @@ SimplePlannerFixedSizeAssignNoIKPlanProfile::SimplePlannerFixedSizeAssignNoIKPla
 {
 }
 
-std::vector<MoveInstructionPoly>
-SimplePlannerFixedSizeAssignNoIKPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
-                                                      const MoveInstructionPoly& /*prev_seed*/,
-                                                      const MoveInstructionPoly& base_instruction,
-                                                      const InstructionPoly& /*next_instruction*/,
-                                                      const PlannerRequest& request,
-                                                      const tesseract_common::ManipulatorInfo& global_manip_info) const
+std::vector<MoveInstructionPoly> SimplePlannerFixedSizeAssignNoIKPlanProfile::generate(
+    const MoveInstructionPoly& prev_instruction,
+    const MoveInstructionPoly& /*prev_seed*/,
+    const MoveInstructionPoly& base_instruction,
+    const InstructionPoly& /*next_instruction*/,
+    const std::shared_ptr<const tesseract_environment::Environment>& env,
+    const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
-  JointGroupInstructionInfo prev(prev_instruction, request, global_manip_info);
-  JointGroupInstructionInfo base(base_instruction, request, global_manip_info);
+  JointGroupInstructionInfo prev(prev_instruction, *env, global_manip_info);
+  JointGroupInstructionInfo base(base_instruction, *env, global_manip_info);
 
   Eigen::MatrixXd states;
   if (!prev.has_cartesian_waypoint && !base.has_cartesian_waypoint)
@@ -88,7 +88,7 @@ SimplePlannerFixedSizeAssignNoIKPlanProfile::generate(const MoveInstructionPoly&
   }
   else
   {
-    Eigen::VectorXd seed = request.env_state.getJointValues(base.manip->getJointNames());
+    Eigen::VectorXd seed = env->getCurrentJointValues(base.manip->getJointNames());
     tesseract_common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
 
     if (base.instruction.isLinear())

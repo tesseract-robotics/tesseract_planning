@@ -26,6 +26,7 @@
 
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_assign_plan_profile.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
@@ -52,11 +53,11 @@ SimplePlannerLVSAssignPlanProfile::generate(const MoveInstructionPoly& prev_inst
                                             const MoveInstructionPoly& /*prev_seed*/,
                                             const MoveInstructionPoly& base_instruction,
                                             const InstructionPoly& /*next_instruction*/,
-                                            const PlannerRequest& request,
+                                            const std::shared_ptr<const tesseract_environment::Environment>& env,
                                             const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
-  KinematicGroupInstructionInfo prev(prev_instruction, request, global_manip_info);
-  KinematicGroupInstructionInfo base(base_instruction, request, global_manip_info);
+  KinematicGroupInstructionInfo prev(prev_instruction, *env, global_manip_info);
+  KinematicGroupInstructionInfo base(base_instruction, *env, global_manip_info);
 
   Eigen::VectorXd j1;
   Eigen::Isometry3d p1_world;
@@ -87,7 +88,7 @@ SimplePlannerLVSAssignPlanProfile::generate(const MoveInstructionPoly& prev_inst
         else
         {
           // Use current env_state as seed
-          j1 = getClosestJointSolution(prev, request.env_state.getJointValues(prev.manip->getJointNames()));
+          j1 = getClosestJointSolution(prev, env->getCurrentJointValues(prev.manip->getJointNames()));
         }
       }
       else
@@ -128,7 +129,7 @@ SimplePlannerLVSAssignPlanProfile::generate(const MoveInstructionPoly& prev_inst
         else
         {
           // Use current env_state as seed
-          j2 = getClosestJointSolution(base, request.env_state.getJointValues(base.manip->getJointNames()));
+          j2 = getClosestJointSolution(base, env->getCurrentJointValues(base.manip->getJointNames()));
         }
       }
       else

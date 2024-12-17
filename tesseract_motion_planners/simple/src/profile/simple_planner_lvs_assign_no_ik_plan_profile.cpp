@@ -26,6 +26,7 @@
 
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_assign_no_ik_plan_profile.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
@@ -53,11 +54,11 @@ SimplePlannerLVSAssignNoIKPlanProfile::generate(const MoveInstructionPoly& prev_
                                                 const MoveInstructionPoly& /*prev_seed*/,
                                                 const MoveInstructionPoly& base_instruction,
                                                 const InstructionPoly& /*next_instruction*/,
-                                                const PlannerRequest& request,
+                                                const std::shared_ptr<const tesseract_environment::Environment>& env,
                                                 const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
-  JointGroupInstructionInfo prev(prev_instruction, request, global_manip_info);
-  JointGroupInstructionInfo base(base_instruction, request, global_manip_info);
+  JointGroupInstructionInfo prev(prev_instruction, *env, global_manip_info);
+  JointGroupInstructionInfo base(base_instruction, *env, global_manip_info);
 
   Eigen::VectorXd j1;
   Eigen::Isometry3d p1_world;
@@ -124,7 +125,7 @@ SimplePlannerLVSAssignNoIKPlanProfile::generate(const MoveInstructionPoly& prev_
   }
   else
   {
-    Eigen::VectorXd seed = request.env_state.getJointValues(base.manip->getJointNames());
+    Eigen::VectorXd seed = env->getCurrentJointValues(base.manip->getJointNames());
     tesseract_common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
     states = seed.replicate(1, steps + 1);
   }
