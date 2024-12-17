@@ -188,7 +188,7 @@ bool FreespaceOMPLExample::run()
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
 
   // Create task
   TaskComposerNode::UPtr task = factory.createTaskComposerNode("OMPLPipeline");

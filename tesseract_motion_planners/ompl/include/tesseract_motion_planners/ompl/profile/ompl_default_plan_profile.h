@@ -62,11 +62,6 @@ public:
   using ConstPtr = std::shared_ptr<const OMPLDefaultPlanProfile>;
 
   OMPLDefaultPlanProfile();
-  ~OMPLDefaultPlanProfile() override = default;
-  OMPLDefaultPlanProfile(const OMPLDefaultPlanProfile&) = default;
-  OMPLDefaultPlanProfile& operator=(const OMPLDefaultPlanProfile&) = default;
-  OMPLDefaultPlanProfile(OMPLDefaultPlanProfile&&) noexcept = default;
-  OMPLDefaultPlanProfile& operator=(OMPLDefaultPlanProfile&&) noexcept = default;
   OMPLDefaultPlanProfile(const tinyxml2::XMLElement& xml_element);
 
   /** @brief The OMPL state space to use when planning */
@@ -160,6 +155,13 @@ protected:
   void processMotionValidator(OMPLProblem& prob,
                               const ompl::base::StateValidityCheckerPtr& svc_without_collision) const;
   void processOptimizationObjective(OMPLProblem& prob) const;
+
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::OMPLDefaultPlanProfile)
+
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_DEFAULT_PLAN_PROFILE_H

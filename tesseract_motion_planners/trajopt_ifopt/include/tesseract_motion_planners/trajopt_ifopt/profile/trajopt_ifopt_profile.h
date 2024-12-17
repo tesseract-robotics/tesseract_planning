@@ -33,8 +33,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/fwd.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/fwd.h>
 #include <tesseract_common/fwd.h>
+#include <tesseract_command_language/fwd.h>
+#include <tesseract_command_language/profile.h>
 
 namespace tinyxml2
 {
@@ -46,18 +47,19 @@ namespace tesseract_planning
 {
 struct TrajOptIfoptProblem;
 
-class TrajOptIfoptPlanProfile
+class TrajOptIfoptPlanProfile : public Profile
 {
 public:
   using Ptr = std::shared_ptr<TrajOptIfoptPlanProfile>;
   using ConstPtr = std::shared_ptr<const TrajOptIfoptPlanProfile>;
 
-  TrajOptIfoptPlanProfile() = default;
-  virtual ~TrajOptIfoptPlanProfile() = default;
-  TrajOptIfoptPlanProfile(const TrajOptIfoptPlanProfile&) = default;
-  TrajOptIfoptPlanProfile& operator=(const TrajOptIfoptPlanProfile&) = default;
-  TrajOptIfoptPlanProfile(TrajOptIfoptPlanProfile&&) = default;
-  TrajOptIfoptPlanProfile& operator=(TrajOptIfoptPlanProfile&&) = default;
+  TrajOptIfoptPlanProfile();
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   virtual void apply(TrajOptIfoptProblem& problem,
                      const CartesianWaypointPoly& cartesian_waypoint,
@@ -74,20 +76,26 @@ public:
                      int index) const = 0;
 
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
-class TrajOptIfoptCompositeProfile
+class TrajOptIfoptCompositeProfile : public Profile
 {
 public:
   using Ptr = std::shared_ptr<TrajOptIfoptCompositeProfile>;
   using ConstPtr = std::shared_ptr<const TrajOptIfoptCompositeProfile>;
 
-  TrajOptIfoptCompositeProfile() = default;
-  virtual ~TrajOptIfoptCompositeProfile() = default;
-  TrajOptIfoptCompositeProfile(const TrajOptIfoptCompositeProfile&) = default;
-  TrajOptIfoptCompositeProfile& operator=(const TrajOptIfoptCompositeProfile&) = default;
-  TrajOptIfoptCompositeProfile(TrajOptIfoptCompositeProfile&&) = default;
-  TrajOptIfoptCompositeProfile& operator=(TrajOptIfoptCompositeProfile&&) = default;
+  TrajOptIfoptCompositeProfile();
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   virtual void apply(TrajOptIfoptProblem& problem,
                      int start_index,
@@ -97,26 +105,41 @@ public:
                      const std::vector<int>& fixed_indices) const = 0;
 
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
-class TrajOptIfoptSolverProfile
+class TrajOptIfoptSolverProfile : public Profile
 {
 public:
   using Ptr = std::shared_ptr<TrajOptIfoptSolverProfile>;
   using ConstPtr = std::shared_ptr<const TrajOptIfoptSolverProfile>;
 
-  TrajOptIfoptSolverProfile() = default;
-  virtual ~TrajOptIfoptSolverProfile() = default;
-  TrajOptIfoptSolverProfile(const TrajOptIfoptSolverProfile&) = default;
-  TrajOptIfoptSolverProfile& operator=(const TrajOptIfoptSolverProfile&) = default;
-  TrajOptIfoptSolverProfile(TrajOptIfoptSolverProfile&&) = default;
-  TrajOptIfoptSolverProfile& operator=(TrajOptIfoptSolverProfile&&) = default;
+  TrajOptIfoptSolverProfile();
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   virtual void apply(TrajOptIfoptProblem& problem) const = 0;
 
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptPlanProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptCompositeProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptSolverProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_PROFILE_H

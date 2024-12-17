@@ -24,6 +24,10 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/descartes/impl/profile/descartes_default_plan_profile.hpp>
+#include <tesseract_collision/core/serialization.h>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
+#include <boost/serialization/shared_ptr.hpp>
 
 namespace tesseract_planning
 {
@@ -31,4 +35,30 @@ namespace tesseract_planning
 template class DescartesDefaultPlanProfile<float>;
 template class DescartesDefaultPlanProfile<double>;
 
+template <typename FloatType>
+template <class Archive>
+void DescartesDefaultPlanProfile<FloatType>::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(DescartesPlanProfile<FloatType>);
+  /** @todo FIX */
+  // ar& BOOST_SERIALIZATION_NVP(target_pose_sampler);
+  // ar& BOOST_SERIALIZATION_NVP(edge_evaluator);
+  // ar& BOOST_SERIALIZATION_NVP(state_evaluator);
+  // ar& BOOST_SERIALIZATION_NVP(vertex_evaluator);
+  ar& BOOST_SERIALIZATION_NVP(allow_collision);
+  ar& BOOST_SERIALIZATION_NVP(enable_collision);
+  ar& BOOST_SERIALIZATION_NVP(vertex_collision_check_config);
+  ar& BOOST_SERIALIZATION_NVP(enable_edge_collision);
+  ar& BOOST_SERIALIZATION_NVP(edge_collision_check_config);
+  ar& BOOST_SERIALIZATION_NVP(use_redundant_joint_solutions);
+  ar& BOOST_SERIALIZATION_NVP(num_threads);
+  ar& BOOST_SERIALIZATION_NVP(debug);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesDefaultPlanProfile<float>)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesDefaultPlanProfile<float>)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesDefaultPlanProfile<double>)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesDefaultPlanProfile<double>)

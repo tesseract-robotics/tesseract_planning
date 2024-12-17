@@ -258,12 +258,9 @@ bool PickAndPlaceExample::run()
     auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptDefaultSolverProfile>();
     trajopt_ifopt_solver_profile->opt_info.max_iterations = 100;
 
-    profiles->addProfile<TrajOptIfoptPlanProfile>(
-        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_plan_profile);
-    profiles->addProfile<TrajOptIfoptCompositeProfile>(
-        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
-    profiles->addProfile<TrajOptIfoptSolverProfile>(
-        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_solver_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_plan_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_solver_profile);
   }
   else
   {
@@ -286,15 +283,15 @@ bool PickAndPlaceExample::run()
     auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
     trajopt_solver_profile->opt_info.max_iter = 100;
 
-    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
-    profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
-    profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
   }
 
   auto post_check_profile = std::make_shared<ContactCheckProfile>();
 
-  profiles->addProfile<ContactCheckProfile>(DISCRETE_CONTACT_CHECK_TASK_NAME, "CARTESIAN", post_check_profile);
-  profiles->addProfile<ContactCheckProfile>(DISCRETE_CONTACT_CHECK_TASK_NAME, "DEFAULT", post_check_profile);
+  profiles->addProfile(DISCRETE_CONTACT_CHECK_TASK_NAME, "CARTESIAN", post_check_profile);
+  profiles->addProfile(DISCRETE_CONTACT_CHECK_TASK_NAME, "DEFAULT", post_check_profile);
 
   CONSOLE_BRIDGE_logInform("Pick plan");
 

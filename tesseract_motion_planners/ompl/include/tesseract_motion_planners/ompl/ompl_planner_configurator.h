@@ -35,6 +35,8 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tinyxml2
@@ -87,6 +89,11 @@ struct OMPLPlannerConfigurator
   virtual OMPLPlannerType getType() const = 0;
 
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct SBLConfigurator : public OMPLPlannerConfigurator
@@ -109,6 +116,11 @@ struct SBLConfigurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct ESTConfigurator : public OMPLPlannerConfigurator
@@ -134,6 +146,11 @@ struct ESTConfigurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct LBKPIECE1Configurator : public OMPLPlannerConfigurator
@@ -162,6 +179,11 @@ struct LBKPIECE1Configurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct BKPIECE1Configurator : public OMPLPlannerConfigurator
@@ -193,6 +215,11 @@ struct BKPIECE1Configurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct KPIECE1Configurator : public OMPLPlannerConfigurator
@@ -227,6 +254,11 @@ struct KPIECE1Configurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct BiTRRTConfigurator : public OMPLPlannerConfigurator
@@ -265,6 +297,11 @@ struct BiTRRTConfigurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct RRTConfigurator : public OMPLPlannerConfigurator
@@ -290,6 +327,11 @@ struct RRTConfigurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct RRTConnectConfigurator : public OMPLPlannerConfigurator
@@ -312,6 +354,11 @@ struct RRTConnectConfigurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct RRTstarConfigurator : public OMPLPlannerConfigurator
@@ -340,6 +387,11 @@ struct RRTstarConfigurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct TRRTConfigurator : public OMPLPlannerConfigurator
@@ -377,6 +429,11 @@ struct TRRTConfigurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct PRMConfigurator : public OMPLPlannerConfigurator
@@ -399,6 +456,11 @@ struct PRMConfigurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct PRMstarConfigurator : public OMPLPlannerConfigurator
@@ -418,6 +480,11 @@ struct PRMstarConfigurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct LazyPRMstarConfigurator : public OMPLPlannerConfigurator
@@ -437,6 +504,11 @@ struct LazyPRMstarConfigurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct SPARSConfigurator : public OMPLPlannerConfigurator
@@ -468,8 +540,29 @@ struct SPARSConfigurator : public OMPLPlannerConfigurator
 
   /** @brief Serialize planner to xml */
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::OMPLPlannerConfigurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SBLConfigurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::ESTConfigurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::LBKPIECE1Configurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::BKPIECE1Configurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::KPIECE1Configurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::BiTRRTConfigurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::RRTConfigurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::RRTConnectConfigurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::RRTstarConfigurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TRRTConfigurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::PRMConfigurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::PRMstarConfigurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::LazyPRMstarConfigurator)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SPARSConfigurator)
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_PLANNER_CONFIGURATOR_H

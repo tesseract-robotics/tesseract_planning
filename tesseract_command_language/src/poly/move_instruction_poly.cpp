@@ -71,35 +71,34 @@ void tesseract_planning::MoveInstructionPoly::setProfile(const std::string& prof
 {
   getInterface().setProfile(profile);
 }
-const std::string& tesseract_planning::MoveInstructionPoly::getProfile() const { return getInterface().getProfile(); }
+const std::string& tesseract_planning::MoveInstructionPoly::getProfile(const std::string& ns) const
+{
+  return getInterface().getProfile(ns);
+}
 
 void tesseract_planning::MoveInstructionPoly::setPathProfile(const std::string& profile)
 {
   getInterface().setPathProfile(profile);
 }
-const std::string& tesseract_planning::MoveInstructionPoly::getPathProfile() const
+const std::string& tesseract_planning::MoveInstructionPoly::getPathProfile(const std::string& ns) const
 {
-  return getInterface().getPathProfile();
+  return getInterface().getPathProfile(ns);
 }
 
-void tesseract_planning::MoveInstructionPoly::setProfileOverrides(
-    std::shared_ptr<const ProfileDictionary> profile_overrides)
+void tesseract_planning::MoveInstructionPoly::setProfileOverrides(ProfileOverrides profile_overrides)
 {
   getInterface().setProfileOverrides(std::move(profile_overrides));
 }
-std::shared_ptr<const tesseract_planning::ProfileDictionary>
-tesseract_planning::MoveInstructionPoly::getProfileOverrides() const
+const tesseract_planning::ProfileOverrides& tesseract_planning::MoveInstructionPoly::getProfileOverrides() const
 {
   return getInterface().getProfileOverrides();
 }
 
-void tesseract_planning::MoveInstructionPoly::setPathProfileOverrides(
-    std::shared_ptr<const ProfileDictionary> profile_overrides)
+void tesseract_planning::MoveInstructionPoly::setPathProfileOverrides(ProfileOverrides profile_overrides)
 {
   getInterface().setPathProfileOverrides(std::move(profile_overrides));
 }
-std::shared_ptr<const tesseract_planning::ProfileDictionary>
-tesseract_planning::MoveInstructionPoly::getPathProfileOverrides() const
+const tesseract_planning::ProfileOverrides& tesseract_planning::MoveInstructionPoly::getPathProfileOverrides() const
 {
   return getInterface().getPathProfileOverrides();
 }

@@ -32,10 +32,13 @@
 
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/kinematic_limits.h>
-#include <tesseract_environment/environment.h>
-#include <tesseract_kinematics/core/kinematic_group.h>
 
+#include <tesseract_kinematics/core/kinematic_group.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
 
 namespace tesseract_planning
 {
@@ -129,4 +132,16 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
   return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
+template <class Archive>
+void SimplePlannerFixedSizeAssignPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerPlanProfile);
+  ar& BOOST_SERIALIZATION_NVP(freespace_steps);
+  ar& BOOST_SERIALIZATION_NVP(linear_steps);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerFixedSizeAssignPlanProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerFixedSizeAssignPlanProfile)

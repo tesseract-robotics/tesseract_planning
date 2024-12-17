@@ -45,12 +45,7 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptDefaultPlanProfile>;
 
   TrajOptDefaultPlanProfile() = default;
-  ~TrajOptDefaultPlanProfile() override = default;
   TrajOptDefaultPlanProfile(const tinyxml2::XMLElement& xml_element);
-  TrajOptDefaultPlanProfile(const TrajOptDefaultPlanProfile&) = default;
-  TrajOptDefaultPlanProfile& operator=(const TrajOptDefaultPlanProfile&) = default;
-  TrajOptDefaultPlanProfile(TrajOptDefaultPlanProfile&&) = default;
-  TrajOptDefaultPlanProfile& operator=(TrajOptDefaultPlanProfile&&) = default;
 
   CartesianWaypointConfig cartesian_cost_config;
   CartesianWaypointConfig cartesian_constraint_config;
@@ -98,7 +93,13 @@ protected:
   void addConstraintErrorFunctions(trajopt::ProblemConstructionInfo& pci, int index) const;
 
   void addAvoidSingularity(trajopt::ProblemConstructionInfo& pci, const std::vector<int>& fixed_steps) const;
+
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptDefaultPlanProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_DEFAULT_PLAN_PROFILE_H

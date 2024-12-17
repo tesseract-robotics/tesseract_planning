@@ -30,7 +30,15 @@ set(LIB_SOURCE_FILES
     src/nodes/upsample_trajectory_task.cpp
     src/nodes/raster_motion_task.cpp
     src/nodes/raster_only_motion_task.cpp
-    src/profiles/contact_check_profile.cpp)
+    src/profiles/contact_check_profile.cpp
+    src/profiles/fix_state_bounds_profile.cpp
+    src/profiles/fix_state_collision_profile.cpp
+    src/profiles/iterative_spline_parameterization_profile.cpp
+    src/profiles/min_length_profile.cpp
+    src/profiles/profile_switch_profile.cpp
+    src/profiles/ruckig_trajectory_smoothing_profile.cpp
+    src/profiles/time_optimal_parameterization_profile.cpp
+    src/profiles/upsample_trajectory_profile.cpp)
 
 set(LIB_SOURCE_LINK_LIBRARIES
     ${PROJECT_NAME}

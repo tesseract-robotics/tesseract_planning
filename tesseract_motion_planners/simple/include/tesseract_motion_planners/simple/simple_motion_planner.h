@@ -35,6 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/planner.h>
 #include <tesseract_command_language/fwd.h>
+#include <tesseract_scene_graph/fwd.h>
 
 namespace tesseract_planning
 {
@@ -66,9 +67,10 @@ public:
   std::unique_ptr<MotionPlanner> clone() const override;
 
 protected:
-  CompositeInstruction processCompositeInstruction(const CompositeInstruction& instructions,
-                                                   MoveInstructionPoly& prev_instruction,
+  CompositeInstruction processCompositeInstruction(MoveInstructionPoly& prev_instruction,
                                                    MoveInstructionPoly& prev_seed,
+                                                   const CompositeInstruction& instructions,
+                                                   const tesseract_scene_graph::SceneState& start_state,
                                                    const PlannerRequest& request) const;
 };
 

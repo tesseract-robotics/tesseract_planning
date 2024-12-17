@@ -27,6 +27,8 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/algorithm/string.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
 #include <tinyxml2.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -311,4 +313,19 @@ tinyxml2::XMLElement* TrajOptDefaultPlanProfile::toXML(tinyxml2::XMLDocument& do
 
   return xml_planner;
 }
+
+template <class Archive>
+void TrajOptDefaultPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptPlanProfile);
+  ar& BOOST_SERIALIZATION_NVP(cartesian_cost_config);
+  ar& BOOST_SERIALIZATION_NVP(cartesian_constraint_config);
+  ar& BOOST_SERIALIZATION_NVP(joint_cost_config);
+  ar& BOOST_SERIALIZATION_NVP(joint_constraint_config);
+  // ar& BOOST_SERIALIZATION_NVP(constraint_error_functions); /** @todo FIX */
+}
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptDefaultPlanProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptDefaultPlanProfile)

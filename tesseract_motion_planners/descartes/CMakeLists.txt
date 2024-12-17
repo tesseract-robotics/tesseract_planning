@@ -11,6 +11,7 @@ add_library(
   src/serialize.cpp
   src/deserialize.cpp
   src/descartes_utils.cpp
+  src/profile/descartes_profile.cpp
   src/profile/descartes_default_plan_profile.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_descartes

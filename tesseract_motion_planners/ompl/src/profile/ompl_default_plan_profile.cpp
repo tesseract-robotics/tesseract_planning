@@ -33,6 +33,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/algorithm/string.hpp>
 #include <tinyxml2.h>
 #include <console_bridge/console.h>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/shared_ptr.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
@@ -50,6 +54,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_collision/core/discrete_contact_manager.h>
+#include <tesseract_collision/core/serialization.h>
 #include <tesseract_environment/environment.h>
 
 namespace tesseract_planning
@@ -777,4 +782,25 @@ void OMPLDefaultPlanProfile::processOptimizationObjective(OMPLProblem& prob) con
   }
 }
 
+template <class Archive>
+void OMPLDefaultPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlanProfile);
+  ar& BOOST_SERIALIZATION_NVP(state_space);
+  ar& BOOST_SERIALIZATION_NVP(planning_time);
+  ar& BOOST_SERIALIZATION_NVP(max_solutions);
+  ar& BOOST_SERIALIZATION_NVP(simplify);
+  ar& BOOST_SERIALIZATION_NVP(optimize);
+  ar& BOOST_SERIALIZATION_NVP(planners);
+  ar& BOOST_SERIALIZATION_NVP(collision_check_config);
+  // ar& BOOST_SERIALIZATION_NVP(state_sampler_allocator);
+  // ar& BOOST_SERIALIZATION_NVP(optimization_objective_allocator);
+  // ar& BOOST_SERIALIZATION_NVP(svc_allocator);
+  // ar& BOOST_SERIALIZATION_NVP(mv_allocator);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLDefaultPlanProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::OMPLDefaultPlanProfile)

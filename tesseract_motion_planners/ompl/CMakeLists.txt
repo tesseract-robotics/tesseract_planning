@@ -10,6 +10,7 @@ set(OMPL_SRC
     src/weighted_real_vector_state_sampler.cpp
     src/ompl_planner_configurator.cpp
     src/ompl_problem.cpp
+    src/profile/ompl_profile.cpp
     src/profile/ompl_default_plan_profile.cpp
     src/utils.cpp
     src/state_collision_validator.cpp

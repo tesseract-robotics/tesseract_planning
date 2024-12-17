@@ -52,228 +52,227 @@ void runJointWaypointTest()
     EXPECT_FALSE(base.isStateWaypoint());
   }
 
-  {  // Test construction
-    {
-      JointWaypointPoly wp{ T() };
-      EXPECT_TRUE(wp.getNames().empty());
-      EXPECT_TRUE(wp.getPosition().rows() == 0);
-      EXPECT_TRUE(std::as_const(wp).getUpperTolerance().rows() == 0);
-      EXPECT_TRUE(std::as_const(wp).getLowerTolerance().rows() == 0);
-      EXPECT_FALSE(wp.isConstrained());
-    }
-    {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
-      Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
-      JointWaypointPoly wp{ T(names, positions) };
-      EXPECT_EQ(wp.getNames(), names);
-      EXPECT_TRUE(wp.getPosition().isApprox(positions));
-      EXPECT_TRUE(std::as_const(wp).getUpperTolerance().rows() == 0);
-      EXPECT_TRUE(std::as_const(wp).getLowerTolerance().rows() == 0);
-      EXPECT_TRUE(wp.isConstrained());
-    }
-    {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
-      Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
-      Eigen::VectorXd lower_tol = Eigen::VectorXd::Constant(3, -5);
-      Eigen::VectorXd uppert_tol = Eigen::VectorXd::Constant(3, 5);
-      JointWaypointPoly wp{ T(names, positions, lower_tol, uppert_tol) };
-      EXPECT_EQ(wp.getNames(), names);
-      EXPECT_TRUE(wp.getPosition().isApprox(positions));
-      EXPECT_TRUE(wp.getLowerTolerance().isApprox(lower_tol));
-      EXPECT_TRUE(wp.getUpperTolerance().isApprox(uppert_tol));
-      EXPECT_TRUE(wp.isConstrained());
-    }
-    {
-      std::vector<std::string> names{ "j1", "j2" };
-      Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
-      EXPECT_ANY_THROW(JointWaypointPoly{ T(names, positions) });  // NOLINT
-    }
-    {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
-      Eigen::VectorXd positions = Eigen::VectorXd::Constant(2, 0.0);
-      EXPECT_ANY_THROW(JointWaypointPoly{ T(names, positions) });  // NOLINT
-    }
-    {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
-      Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
-      Eigen::VectorXd lower_tol = Eigen::VectorXd::Constant(2, -5);
-      Eigen::VectorXd uppert_tol = Eigen::VectorXd::Constant(3, 5);
-      EXPECT_ANY_THROW(JointWaypointPoly{ T(names, positions, lower_tol, uppert_tol) });  // NOLINT
-    }
-    {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
-      Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
-      Eigen::VectorXd lower_tol = Eigen::VectorXd::Constant(3, -5);
-      Eigen::VectorXd uppert_tol = Eigen::VectorXd::Constant(2, 5);
-      EXPECT_ANY_THROW(JointWaypointPoly{ T(names, positions, lower_tol, uppert_tol) });  // NOLINT
-    }
-  }  // namespace tesseract_planning::test_suite
+  { // Test construction
+    { JointWaypointPoly wp{ T() };
+  EXPECT_TRUE(wp.getNames().empty());
+  EXPECT_TRUE(wp.getPosition().rows() == 0);
+  EXPECT_TRUE(std::as_const(wp).getUpperTolerance().rows() == 0);
+  EXPECT_TRUE(std::as_const(wp).getLowerTolerance().rows() == 0);
+  EXPECT_FALSE(wp.isConstrained());
+}
+{
+  std::vector<std::string> names{ "j1", "j2", "j3" };
+  Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
+  JointWaypointPoly wp{ T(names, positions) };
+  EXPECT_EQ(wp.getNames(), names);
+  EXPECT_TRUE(wp.getPosition().isApprox(positions));
+  EXPECT_TRUE(std::as_const(wp).getUpperTolerance().rows() == 0);
+  EXPECT_TRUE(std::as_const(wp).getLowerTolerance().rows() == 0);
+  EXPECT_TRUE(wp.isConstrained());
+}
+{
+  std::vector<std::string> names{ "j1", "j2", "j3" };
+  Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
+  Eigen::VectorXd lower_tol = Eigen::VectorXd::Constant(3, -5);
+  Eigen::VectorXd uppert_tol = Eigen::VectorXd::Constant(3, 5);
+  JointWaypointPoly wp{ T(names, positions, lower_tol, uppert_tol) };
+  EXPECT_EQ(wp.getNames(), names);
+  EXPECT_TRUE(wp.getPosition().isApprox(positions));
+  EXPECT_TRUE(wp.getLowerTolerance().isApprox(lower_tol));
+  EXPECT_TRUE(wp.getUpperTolerance().isApprox(uppert_tol));
+  EXPECT_TRUE(wp.isConstrained());
+}
+{
+  std::vector<std::string> names{ "j1", "j2" };
+  Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
+  EXPECT_ANY_THROW(JointWaypointPoly{ T(names, positions) });  // NOLINT
+}
+{
+  std::vector<std::string> names{ "j1", "j2", "j3" };
+  Eigen::VectorXd positions = Eigen::VectorXd::Constant(2, 0.0);
+  EXPECT_ANY_THROW(JointWaypointPoly{ T(names, positions) });  // NOLINT
+}
+{
+  std::vector<std::string> names{ "j1", "j2", "j3" };
+  Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
+  Eigen::VectorXd lower_tol = Eigen::VectorXd::Constant(2, -5);
+  Eigen::VectorXd uppert_tol = Eigen::VectorXd::Constant(3, 5);
+  EXPECT_ANY_THROW(JointWaypointPoly{ T(names, positions, lower_tol, uppert_tol) });  // NOLINT
+}
+{
+  std::vector<std::string> names{ "j1", "j2", "j3" };
+  Eigen::VectorXd positions = Eigen::VectorXd::Constant(3, 0.0);
+  Eigen::VectorXd lower_tol = Eigen::VectorXd::Constant(3, -5);
+  Eigen::VectorXd uppert_tol = Eigen::VectorXd::Constant(2, 5);
+  EXPECT_ANY_THROW(JointWaypointPoly{ T(names, positions, lower_tol, uppert_tol) });  // NOLINT
+}
+}  // namespace tesseract_planning::test_suite
 
-  {  // Test is constrained
+{  // Test is constrained
+  JointWaypointPoly wp{ T() };
+  EXPECT_FALSE(wp.isConstrained());
+  wp.setIsConstrained(true);
+  EXPECT_TRUE(wp.isConstrained());
+}
+
+{  // Set/Get Names
+  const std::vector<std::string> names{ "j1", "j2", "j3" };
+  {  // Test set
     JointWaypointPoly wp{ T() };
-    EXPECT_FALSE(wp.isConstrained());
-    wp.setIsConstrained(true);
-    EXPECT_TRUE(wp.isConstrained());
+    wp.setNames(names);
+    EXPECT_TRUE(wp.getNames() == names);
   }
 
-  {  // Set/Get Names
-    const std::vector<std::string> names{ "j1", "j2", "j3" };
-    {  // Test set
-      JointWaypointPoly wp{ T() };
-      wp.setNames(names);
-      EXPECT_TRUE(wp.getNames() == names);
-    }
+  {  // Test assigning
+    JointWaypointPoly wp{ T() };
+    wp.getNames() = names;
+    EXPECT_TRUE(std::as_const(wp).getNames() == names);
+  }
+}
 
-    {  // Test assigning
-      JointWaypointPoly wp{ T() };
-      wp.getNames() = names;
-      EXPECT_TRUE(std::as_const(wp).getNames() == names);
-    }
+{  // Set/Get Positions
+  Eigen::VectorXd positions;
+  positions.resize(3);
+  positions << 1.0, 2.0, 3.0;
+
+  {  // Test set
+    JointWaypointPoly wp{ T() };
+    wp.setPosition(positions);
+    EXPECT_TRUE(wp.getPosition().isApprox(positions));
   }
 
-  {  // Set/Get Positions
-    Eigen::VectorXd positions;
+  {  // Test assigning
+    JointWaypointPoly wp{ T() };
+    wp.getPosition() = positions;
+    EXPECT_TRUE(std::as_const(wp).getPosition().isApprox(positions));
+  }
+}
+
+{  // Test Set Tolerances
+  JointWaypointPoly wp{ T() };
+  EXPECT_FALSE(wp.isToleranced());
+
+  wp.setUpperTolerance(Eigen::VectorXd::Constant(3, 5));
+  wp.setLowerTolerance(Eigen::VectorXd::Constant(3, -5));
+  EXPECT_TRUE(wp.isToleranced());
+
+  wp.setUpperTolerance(Eigen::VectorXd::Constant(3, -5));
+  wp.setLowerTolerance(Eigen::VectorXd::Constant(3, -5));
+  EXPECT_ANY_THROW(wp.isToleranced());  // NOLINT
+
+  wp.setUpperTolerance(Eigen::VectorXd::Constant(3, 5));
+  wp.setLowerTolerance(Eigen::VectorXd::Constant(3, 5));
+  EXPECT_ANY_THROW(wp.isToleranced());  // NOLINT
+
+  wp.setUpperTolerance(Eigen::VectorXd::Constant(3, 0));
+  wp.setLowerTolerance(Eigen::VectorXd::Constant(3, 0));
+  EXPECT_FALSE(wp.isToleranced());
+}
+
+{  // Test Equality and Serialization
+  {
+    JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0.0, 0.0, 0.0 }) };
+    const JointWaypointPoly wp2(wp1);  // NOLINT
+    EXPECT_TRUE(wp1.isConstrained());
+    EXPECT_TRUE(wp2.isConstrained());
+    EXPECT_TRUE(wp1 == wp2);
+    EXPECT_TRUE(wp2 == wp1);
+    EXPECT_FALSE(wp2 != wp1);
+    runWaypointSerializationTest(wp1);
+  }
+  {
+    JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, -1e6, 1e6 }) };
+    JointWaypointPoly wp2(wp1);  // NOLINT
+    EXPECT_TRUE(wp1.isConstrained());
+    EXPECT_TRUE(wp2.isConstrained());
+    EXPECT_TRUE(wp1 == wp2);
+    EXPECT_TRUE(wp2 == wp1);
+    EXPECT_FALSE(wp2 != wp1);
+    runWaypointSerializationTest(wp1);
+  }
+  {
+    std::vector<std::string> names{ "j1", "j2", "j3" };
+    Eigen::VectorXd positions, upper_tol, lower_tol;
     positions.resize(3);
-    positions << 1.0, 2.0, 3.0;
+    upper_tol.resize(3);
+    lower_tol.resize(3);
+    positions << 0, -1e6, 1e6;
+    upper_tol << 1, 2, 3;
+    lower_tol << -4, -5, -6;
 
-    {  // Test set
-      JointWaypointPoly wp{ T() };
-      wp.setPosition(positions);
-      EXPECT_TRUE(wp.getPosition().isApprox(positions));
-    }
-
-    {  // Test assigning
-      JointWaypointPoly wp{ T() };
-      wp.getPosition() = positions;
-      EXPECT_TRUE(std::as_const(wp).getPosition().isApprox(positions));
-    }
+    JointWaypointPoly wp1{ T(names, positions, lower_tol, upper_tol) };
+    JointWaypointPoly wp2(wp1);
+    EXPECT_TRUE(wp1.isConstrained());
+    EXPECT_TRUE(wp2.isConstrained());
+    EXPECT_TRUE(wp1 == wp2);
+    EXPECT_TRUE(wp2 == wp1);
+    EXPECT_FALSE(wp2 != wp1);
+    runWaypointSerializationTest(wp1);
   }
-
-  {  // Test Set Tolerances
-    JointWaypointPoly wp{ T() };
-    EXPECT_FALSE(wp.isToleranced());
-
-    wp.setUpperTolerance(Eigen::VectorXd::Constant(3, 5));
-    wp.setLowerTolerance(Eigen::VectorXd::Constant(3, -5));
-    EXPECT_TRUE(wp.isToleranced());
-
-    wp.setUpperTolerance(Eigen::VectorXd::Constant(3, -5));
-    wp.setLowerTolerance(Eigen::VectorXd::Constant(3, -5));
-    EXPECT_ANY_THROW(wp.isToleranced());  // NOLINT
-
-    wp.setUpperTolerance(Eigen::VectorXd::Constant(3, 5));
-    wp.setLowerTolerance(Eigen::VectorXd::Constant(3, 5));
-    EXPECT_ANY_THROW(wp.isToleranced());  // NOLINT
-
-    wp.setUpperTolerance(Eigen::VectorXd::Constant(3, 0));
-    wp.setLowerTolerance(Eigen::VectorXd::Constant(3, 0));
-    EXPECT_FALSE(wp.isToleranced());
+  // Not equal
+  {
+    JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }) };
+    JointWaypointPoly wp2{ T(std::vector<std::string>({ "j1" }), Eigen::VectorXd::Zero(1)) };
+    EXPECT_TRUE(wp1.isConstrained());
+    EXPECT_TRUE(wp2.isConstrained());
+    EXPECT_FALSE(wp1 == wp2);
+    EXPECT_FALSE(wp2 == wp1);
+    EXPECT_TRUE(wp2 != wp1);
+    runWaypointSerializationTest(wp1);
+    runWaypointSerializationTest(wp2);
   }
-
-  {  // Test Equality and Serialization
-    {
-      JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0.0, 0.0, 0.0 }) };
-      const JointWaypointPoly wp2(wp1);  // NOLINT
-      EXPECT_TRUE(wp1.isConstrained());
-      EXPECT_TRUE(wp2.isConstrained());
-      EXPECT_TRUE(wp1 == wp2);
-      EXPECT_TRUE(wp2 == wp1);
-      EXPECT_FALSE(wp2 != wp1);
-      runWaypointSerializationTest(wp1);
-    }
-    {
-      JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, -1e6, 1e6 }) };
-      JointWaypointPoly wp2(wp1);  // NOLINT
-      EXPECT_TRUE(wp1.isConstrained());
-      EXPECT_TRUE(wp2.isConstrained());
-      EXPECT_TRUE(wp1 == wp2);
-      EXPECT_TRUE(wp2 == wp1);
-      EXPECT_FALSE(wp2 != wp1);
-      runWaypointSerializationTest(wp1);
-    }
-    {
-      std::vector<std::string> names{ "j1", "j2", "j3" };
-      Eigen::VectorXd positions, upper_tol, lower_tol;
-      positions.resize(3);
-      upper_tol.resize(3);
-      lower_tol.resize(3);
-      positions << 0, -1e6, 1e6;
-      upper_tol << 1, 2, 3;
-      lower_tol << -4, -5, -6;
-
-      JointWaypointPoly wp1{ T(names, positions, lower_tol, upper_tol) };
-      JointWaypointPoly wp2(wp1);
-      EXPECT_TRUE(wp1.isConstrained());
-      EXPECT_TRUE(wp2.isConstrained());
-      EXPECT_TRUE(wp1 == wp2);
-      EXPECT_TRUE(wp2 == wp1);
-      EXPECT_FALSE(wp2 != wp1);
-      runWaypointSerializationTest(wp1);
-    }
-    // Not equal
-    {
-      JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }) };
-      JointWaypointPoly wp2{ T(std::vector<std::string>({ "j1" }), Eigen::VectorXd::Zero(1)) };
-      EXPECT_TRUE(wp1.isConstrained());
-      EXPECT_TRUE(wp2.isConstrained());
-      EXPECT_FALSE(wp1 == wp2);
-      EXPECT_FALSE(wp2 == wp1);
-      EXPECT_TRUE(wp2 != wp1);
-      runWaypointSerializationTest(wp1);
-      runWaypointSerializationTest(wp2);
-    }
-    {
-      JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }) };
-      JointWaypointPoly wp2{ T({ "j1", "j2", "j4" }, { 0, 0, 0 }) };
-      EXPECT_TRUE(wp1.isConstrained());
-      EXPECT_TRUE(wp2.isConstrained());
-      EXPECT_FALSE(wp1 == wp2);
-      EXPECT_FALSE(wp2 == wp1);
-      EXPECT_TRUE(wp2 != wp1);
-      runWaypointSerializationTest(wp1);
-      runWaypointSerializationTest(wp2);
-    }
-    {
-      JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }) };
-      JointWaypointPoly wp2{ T({ "j1", "j2", "j3" }, { 0.001, 0, 0 }) };
-      EXPECT_TRUE(wp1.isConstrained());
-      EXPECT_TRUE(wp2.isConstrained());
-      EXPECT_FALSE(wp1 == wp2);
-      EXPECT_FALSE(wp2 == wp1);
-      EXPECT_TRUE(wp2 != wp1);
-      runWaypointSerializationTest(wp1);
-      runWaypointSerializationTest(wp2);
-    }
-    {
-      JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }, { 1, 2, 3 }, { -4, -5, -6 }) };
-      JointWaypointPoly wp2(wp1);
-      EXPECT_TRUE(wp1.isConstrained());
-      EXPECT_TRUE(wp2.isConstrained());
-      EXPECT_TRUE(wp1 == wp2);
-      EXPECT_TRUE(wp2 == wp1);
-      EXPECT_FALSE(wp2 != wp1);
-      runWaypointSerializationTest(wp1);
-      runWaypointSerializationTest(wp2);
-    }
-    {
-      Eigen::VectorXd upper_tol, lower_tol;
-      upper_tol.resize(3);
-      lower_tol.resize(3);
-      upper_tol << 1, 2, 3;
-      lower_tol << -4, -5, -6;
-      JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }) };
-      JointWaypointPoly wp2(wp1);
-      wp1.getUpperTolerance() = upper_tol;
-      wp1.getLowerTolerance() = lower_tol;
-      EXPECT_TRUE(wp1.isConstrained());
-      EXPECT_TRUE(wp2.isConstrained());
-      EXPECT_FALSE(wp1 == wp2);
-      EXPECT_FALSE(wp2 == wp1);
-      EXPECT_TRUE(wp2 != wp1);
-      runWaypointSerializationTest(wp1);
-      runWaypointSerializationTest(wp2);
-    }
+  {
+    JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }) };
+    JointWaypointPoly wp2{ T({ "j1", "j2", "j4" }, { 0, 0, 0 }) };
+    EXPECT_TRUE(wp1.isConstrained());
+    EXPECT_TRUE(wp2.isConstrained());
+    EXPECT_FALSE(wp1 == wp2);
+    EXPECT_FALSE(wp2 == wp1);
+    EXPECT_TRUE(wp2 != wp1);
+    runWaypointSerializationTest(wp1);
+    runWaypointSerializationTest(wp2);
   }
+  {
+    JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }) };
+    JointWaypointPoly wp2{ T({ "j1", "j2", "j3" }, { 0.001, 0, 0 }) };
+    EXPECT_TRUE(wp1.isConstrained());
+    EXPECT_TRUE(wp2.isConstrained());
+    EXPECT_FALSE(wp1 == wp2);
+    EXPECT_FALSE(wp2 == wp1);
+    EXPECT_TRUE(wp2 != wp1);
+    runWaypointSerializationTest(wp1);
+    runWaypointSerializationTest(wp2);
+  }
+  {
+    JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }, { 1, 2, 3 }, { -4, -5, -6 }) };
+    JointWaypointPoly wp2(wp1);
+    EXPECT_TRUE(wp1.isConstrained());
+    EXPECT_TRUE(wp2.isConstrained());
+    EXPECT_TRUE(wp1 == wp2);
+    EXPECT_TRUE(wp2 == wp1);
+    EXPECT_FALSE(wp2 != wp1);
+    runWaypointSerializationTest(wp1);
+    runWaypointSerializationTest(wp2);
+  }
+  {
+    Eigen::VectorXd upper_tol, lower_tol;
+    upper_tol.resize(3);
+    lower_tol.resize(3);
+    upper_tol << 1, 2, 3;
+    lower_tol << -4, -5, -6;
+    JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, 0, 0 }) };
+    JointWaypointPoly wp2(wp1);
+    wp1.getUpperTolerance() = upper_tol;
+    wp1.getLowerTolerance() = lower_tol;
+    EXPECT_TRUE(wp1.isConstrained());
+    EXPECT_TRUE(wp2.isConstrained());
+    EXPECT_FALSE(wp1 == wp2);
+    EXPECT_FALSE(wp2 == wp1);
+    EXPECT_TRUE(wp2 != wp1);
+    runWaypointSerializationTest(wp1);
+    runWaypointSerializationTest(wp2);
+  }
+}
 }
 }  // namespace tesseract_planning::test_suite
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_POLY_UNIT_HPP

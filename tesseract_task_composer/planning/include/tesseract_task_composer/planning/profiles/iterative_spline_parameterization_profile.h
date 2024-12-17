@@ -31,26 +31,37 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_command_language/profile.h>
+
 namespace tesseract_planning
 {
-struct IterativeSplineParameterizationProfile
+struct IterativeSplineParameterizationProfile : public Profile
 {
   using Ptr = std::shared_ptr<IterativeSplineParameterizationProfile>;
   using ConstPtr = std::shared_ptr<const IterativeSplineParameterizationProfile>;
 
-  IterativeSplineParameterizationProfile() = default;
-  IterativeSplineParameterizationProfile(double max_velocity_scaling_factor, double max_acceleration_scaling_factor)
-    : max_velocity_scaling_factor(max_velocity_scaling_factor)
-    , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
-  {
-  }
+  IterativeSplineParameterizationProfile();
+  IterativeSplineParameterizationProfile(double max_velocity_scaling_factor, double max_acceleration_scaling_factor);
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   /** @brief max_velocity_scaling_factor The max velocity scaling factor passed to the solver */
   double max_velocity_scaling_factor{ 1.0 };
 
   /** @brief max_velocity_scaling_factor The max acceleration scaling factor passed to the solver */
   double max_acceleration_scaling_factor{ 1.0 };
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::IterativeSplineParameterizationProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_ITERATIVE_SPLINE_PARAMETERIZATION_PROFILE_H

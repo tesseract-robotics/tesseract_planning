@@ -51,12 +51,7 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptDefaultCompositeProfile>;
 
   TrajOptDefaultCompositeProfile() = default;
-  ~TrajOptDefaultCompositeProfile() override = default;
   TrajOptDefaultCompositeProfile(const tinyxml2::XMLElement& xml_element);
-  TrajOptDefaultCompositeProfile(const TrajOptDefaultCompositeProfile&) = default;
-  TrajOptDefaultCompositeProfile& operator=(const TrajOptDefaultCompositeProfile&) = default;
-  TrajOptDefaultCompositeProfile(TrajOptDefaultCompositeProfile&&) = default;
-  TrajOptDefaultCompositeProfile& operator=(TrajOptDefaultCompositeProfile&&) = default;
 
   /** @brief The type of contact test to perform: FIRST, CLOSEST, ALL */
   tesseract_collision::ContactTestType contact_test_type{ tesseract_collision::ContactTestType::ALL };
@@ -153,7 +148,13 @@ protected:
                                 bool& enabled,
                                 Eigen::VectorXd& coeff,
                                 std::size_t& length);
+
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptDefaultCompositeProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_DEFAULT_COMPOSITE_PROFILE_H

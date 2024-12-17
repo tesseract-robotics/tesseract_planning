@@ -38,13 +38,6 @@ public:
   using Ptr = std::shared_ptr<TrajOptDefaultSolverProfile>;
   using ConstPtr = std::shared_ptr<const TrajOptDefaultSolverProfile>;
 
-  TrajOptDefaultSolverProfile() = default;
-  ~TrajOptDefaultSolverProfile() override = default;
-  TrajOptDefaultSolverProfile(const TrajOptDefaultSolverProfile&) = default;
-  TrajOptDefaultSolverProfile& operator=(const TrajOptDefaultSolverProfile&) = default;
-  TrajOptDefaultSolverProfile(TrajOptDefaultSolverProfile&&) = default;
-  TrajOptDefaultSolverProfile& operator=(TrajOptDefaultSolverProfile&&) = default;
-
   /** @brief The Convex solver to use */
   sco::ModelType convex_solver{ sco::ModelType::OSQP };
 
@@ -60,6 +53,14 @@ public:
   void apply(trajopt::ProblemConstructionInfo& pci) const override;
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptDefaultSolverProfile)
+
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_DEFAULT_SOLVER_PROFILE_H

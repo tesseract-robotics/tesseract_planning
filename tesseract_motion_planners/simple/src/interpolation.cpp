@@ -55,7 +55,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-
 JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                                                      const tesseract_environment::Environment& env,
                                                      const tesseract_common::ManipulatorInfo& manip_info)
@@ -1312,7 +1311,6 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
 }
 
 CompositeInstruction generateInterpolatedProgram(const CompositeInstruction& instructions,
-                                                 const tesseract_scene_graph::SceneState& current_state,
                                                  const std::shared_ptr<const tesseract_environment::Environment>& env,
                                                  double state_longest_valid_segment_length,
                                                  double translation_longest_valid_segment_length,
@@ -1322,7 +1320,6 @@ CompositeInstruction generateInterpolatedProgram(const CompositeInstruction& ins
   // Fill out request and response
   PlannerRequest request;
   request.instructions = instructions;
-  request.env_state = current_state;
   request.env = env;
 
   // Set up planner
@@ -1335,11 +1332,10 @@ CompositeInstruction generateInterpolatedProgram(const CompositeInstruction& ins
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<SimplePlannerPlanProfile>(planner.getName(), instructions.getProfile(), profile);
+  profiles->addProfile(planner.getName(), instructions.getProfile(), profile);
   auto flat = instructions.flatten(&moveFilter);
   for (const auto& i : flat)
-    profiles->addProfile<SimplePlannerPlanProfile>(
-        planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
+    profiles->addProfile(planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
 
   // Assign profile dictionary
   request.profiles = profiles;

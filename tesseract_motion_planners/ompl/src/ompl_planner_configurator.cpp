@@ -44,6 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/geometric/planners/prm/LazyPRMstar.h>
 #include <ompl/geometric/planners/prm/SPARS.h>
 
+#include <boost/serialization/nvp.hpp>
 #include <tinyxml2.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -52,6 +53,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+template <class Archive>
+void OMPLPlannerConfigurator::serialize(Archive& /*ar*/, const unsigned int /*version*/)
+{
+}
+
 SBLConfigurator::SBLConfigurator(const tinyxml2::XMLElement& xml_element)
 {
   const tinyxml2::XMLElement* sbl_element = xml_element.FirstChildElement("SBL");
@@ -89,6 +95,13 @@ tinyxml2::XMLElement* SBLConfigurator::toXML(tinyxml2::XMLDocument& doc) const
   ompl_xml->InsertEndChild(range_xml);
 
   return ompl_xml;
+}
+
+template <class Archive>
+void SBLConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
 }
 
 ESTConfigurator::ESTConfigurator(const tinyxml2::XMLElement& xml_element)
@@ -149,6 +162,14 @@ tinyxml2::XMLElement* ESTConfigurator::toXML(tinyxml2::XMLDocument& doc) const
   ompl_xml->InsertEndChild(goal_bias_xml);
 
   return ompl_xml;
+}
+
+template <class Archive>
+void ESTConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(goal_bias);
 }
 
 LBKPIECE1Configurator::LBKPIECE1Configurator(const tinyxml2::XMLElement& xml_element)
@@ -229,6 +250,15 @@ tinyxml2::XMLElement* LBKPIECE1Configurator::toXML(tinyxml2::XMLDocument& doc) c
   ompl_xml->InsertEndChild(min_valid_path_fraction_xml);
 
   return ompl_xml;
+}
+
+template <class Archive>
+void LBKPIECE1Configurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(border_fraction);
+  ar& BOOST_SERIALIZATION_NVP(min_valid_path_fraction);
 }
 
 BKPIECE1Configurator::BKPIECE1Configurator(const tinyxml2::XMLElement& xml_element)
@@ -331,6 +361,16 @@ tinyxml2::XMLElement* BKPIECE1Configurator::toXML(tinyxml2::XMLDocument& doc) co
   ompl_xml->InsertEndChild(min_valid_path_fraction_xml);
 
   return ompl_xml;
+}
+
+template <class Archive>
+void BKPIECE1Configurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(border_fraction);
+  ar& BOOST_SERIALIZATION_NVP(failed_expansion_score_factor);
+  ar& BOOST_SERIALIZATION_NVP(min_valid_path_fraction);
 }
 
 KPIECE1Configurator::KPIECE1Configurator(const tinyxml2::XMLElement& xml_element)
@@ -452,6 +492,17 @@ tinyxml2::XMLElement* KPIECE1Configurator::toXML(tinyxml2::XMLDocument& doc) con
   ompl_xml->InsertEndChild(min_valid_path_fraction_xml);
 
   return ompl_xml;
+}
+
+template <class Archive>
+void KPIECE1Configurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(goal_bias);
+  ar& BOOST_SERIALIZATION_NVP(border_fraction);
+  ar& BOOST_SERIALIZATION_NVP(failed_expansion_score_factor);
+  ar& BOOST_SERIALIZATION_NVP(min_valid_path_fraction);
 }
 
 BiTRRTConfigurator::BiTRRTConfigurator(const tinyxml2::XMLElement& xml_element)
@@ -593,6 +644,18 @@ tinyxml2::XMLElement* BiTRRTConfigurator::toXML(tinyxml2::XMLDocument& doc) cons
   return ompl_xml;
 }
 
+template <class Archive>
+void BiTRRTConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(temp_change_factor);
+  ar& BOOST_SERIALIZATION_NVP(cost_threshold);
+  ar& BOOST_SERIALIZATION_NVP(init_temperature);
+  ar& BOOST_SERIALIZATION_NVP(frontier_threshold);
+  ar& BOOST_SERIALIZATION_NVP(frontier_node_ratio);
+}
+
 RRTConfigurator::RRTConfigurator(const tinyxml2::XMLElement& xml_element)
 {
   const tinyxml2::XMLElement* rrt_element = xml_element.FirstChildElement("RRT");
@@ -653,6 +716,14 @@ tinyxml2::XMLElement* RRTConfigurator::toXML(tinyxml2::XMLDocument& doc) const
   return ompl_xml;
 }
 
+template <class Archive>
+void RRTConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(goal_bias);
+}
+
 RRTConnectConfigurator::RRTConnectConfigurator(const tinyxml2::XMLElement& xml_element)
 {
   const tinyxml2::XMLElement* rrt_connect_element = xml_element.FirstChildElement("RRTConnect");
@@ -692,6 +763,13 @@ tinyxml2::XMLElement* RRTConnectConfigurator::toXML(tinyxml2::XMLDocument& doc) 
   ompl_xml->InsertEndChild(range_xml);
 
   return ompl_xml;
+}
+
+template <class Archive>
+void RRTConnectConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
 }
 
 RRTstarConfigurator::RRTstarConfigurator(const tinyxml2::XMLElement& xml_element)
@@ -767,6 +845,15 @@ tinyxml2::XMLElement* RRTstarConfigurator::toXML(tinyxml2::XMLDocument& doc) con
   ompl_xml->InsertEndChild(delay_collision_checking_xml);
 
   return ompl_xml;
+}
+
+template <class Archive>
+void RRTstarConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(goal_bias);
+  ar& BOOST_SERIALIZATION_NVP(delay_collision_checking);
 }
 
 TRRTConfigurator::TRRTConfigurator(const tinyxml2::XMLElement& xml_element)
@@ -905,6 +992,18 @@ tinyxml2::XMLElement* TRRTConfigurator::toXML(tinyxml2::XMLDocument& doc) const
   return ompl_xml;
 }
 
+template <class Archive>
+void TRRTConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(goal_bias);
+  ar& BOOST_SERIALIZATION_NVP(temp_change_factor);
+  ar& BOOST_SERIALIZATION_NVP(init_temperature);
+  ar& BOOST_SERIALIZATION_NVP(frontier_threshold);
+  ar& BOOST_SERIALIZATION_NVP(frontier_node_ratio);
+}
+
 PRMConfigurator::PRMConfigurator(const tinyxml2::XMLElement& xml_element)
 {
   const tinyxml2::XMLElement* prm_element = xml_element.FirstChildElement("PRM");
@@ -946,6 +1045,13 @@ tinyxml2::XMLElement* PRMConfigurator::toXML(tinyxml2::XMLDocument& doc) const
   return ompl_xml;
 }
 
+template <class Archive>
+void PRMConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(max_nearest_neighbors);
+}
+
 PRMstarConfigurator::PRMstarConfigurator(const tinyxml2::XMLElement&) {}
 
 ompl::base::PlannerPtr PRMstarConfigurator::create(ompl::base::SpaceInformationPtr si) const
@@ -962,6 +1068,12 @@ tinyxml2::XMLElement* PRMstarConfigurator::toXML(tinyxml2::XMLDocument& doc) con
   return ompl_xml;
 }
 
+template <class Archive>
+void PRMstarConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+}
+
 LazyPRMstarConfigurator::LazyPRMstarConfigurator(const tinyxml2::XMLElement&) {}
 
 ompl::base::PlannerPtr LazyPRMstarConfigurator::create(ompl::base::SpaceInformationPtr si) const
@@ -976,6 +1088,12 @@ tinyxml2::XMLElement* LazyPRMstarConfigurator::toXML(tinyxml2::XMLDocument& doc)
   tinyxml2::XMLElement* ompl_xml = doc.NewElement("LazyPRMstar");
 
   return ompl_xml;
+}
+
+template <class Archive>
+void LazyPRMstarConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
 }
 
 SPARSConfigurator::SPARSConfigurator(const tinyxml2::XMLElement& xml_element)
@@ -1075,4 +1193,47 @@ tinyxml2::XMLElement* SPARSConfigurator::toXML(tinyxml2::XMLDocument& doc) const
 
   return ompl_xml;
 }
+
+template <class Archive>
+void SPARSConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(max_failures);
+  ar& BOOST_SERIALIZATION_NVP(dense_delta_fraction);
+  ar& BOOST_SERIALIZATION_NVP(sparse_delta_fraction);
+  ar& BOOST_SERIALIZATION_NVP(stretch_factor);
+}
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLPlannerConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SBLConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ESTConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::LBKPIECE1Configurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::BKPIECE1Configurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::KPIECE1Configurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::BiTRRTConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RRTConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RRTConnectConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RRTstarConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TRRTConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::PRMConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::PRMstarConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::LazyPRMstarConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SPARSConfigurator)
+
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::OMPLPlannerConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SBLConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ESTConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::LBKPIECE1Configurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::BKPIECE1Configurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::KPIECE1Configurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::BiTRRTConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RRTConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RRTConnectConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RRTstarConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TRRTConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::PRMConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::PRMstarConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::LazyPRMstarConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SPARSConfigurator)

@@ -28,6 +28,8 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tinyxml2.h>
 #include <trajopt/problem_description.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
@@ -44,4 +46,19 @@ void TrajOptDefaultSolverProfile::apply(trajopt::ProblemConstructionInfo& pci) c
 
 tinyxml2::XMLElement* TrajOptDefaultSolverProfile::toXML(tinyxml2::XMLDocument& /*doc*/) const { return nullptr; }
 
+template <class Archive>
+void TrajOptDefaultSolverProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptSolverProfile);
+  /** @todo FIX */
+  // ar& BOOST_SERIALIZATION_NVP(convex_solver);
+  // ar& BOOST_SERIALIZATION_NVP(convex_solver_config);
+  // ar& BOOST_SERIALIZATION_NVP(opt_info);
+  // ar& BOOST_SERIALIZATION_NVP(callbacks);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptDefaultSolverProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptDefaultSolverProfile)

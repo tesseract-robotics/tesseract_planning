@@ -28,6 +28,9 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tinyxml2.h>
 #include <OsqpEigen/Settings.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
+#include <boost/serialization/unique_ptr.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
@@ -62,4 +65,18 @@ tinyxml2::XMLElement* TrajOptIfoptDefaultSolverProfile::toXML(tinyxml2::XMLDocum
   throw std::runtime_error("TrajOptIfoptDefaultSolverProfile::toXML is not implemented!");
 }
 
+template <class Archive>
+void TrajOptIfoptDefaultSolverProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptIfoptSolverProfile);
+  /** @todo FIX */
+  // ar& BOOST_SERIALIZATION_NVP(convex_solver_settings);
+  // ar& BOOST_SERIALIZATION_NVP(opt_info);
+  // ar& BOOST_SERIALIZATION_NVP(callbacks);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptIfoptDefaultSolverProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptIfoptDefaultSolverProfile)

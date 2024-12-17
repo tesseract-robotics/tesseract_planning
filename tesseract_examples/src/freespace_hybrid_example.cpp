@@ -203,7 +203,7 @@ bool FreespaceHybridExample::run()
   ompl_profile->planning_time = planning_time_;
   ompl_profile->planners = { ompl_planner_config, ompl_planner_config };
 
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
 
   if (ifopt_)
   {
@@ -217,8 +217,7 @@ bool FreespaceHybridExample::run()
     trajopt_ifopt_composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
 
-    profiles->addProfile<TrajOptIfoptCompositeProfile>(
-        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_ifopt_composite_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_ifopt_composite_profile);
   }
 
   // Create task

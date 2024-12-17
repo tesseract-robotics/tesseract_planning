@@ -33,18 +33,33 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_command_language/profile.h>
+
 namespace tesseract_planning
 {
-struct MinLengthProfile
+struct MinLengthProfile : public Profile
 {
   using Ptr = std::shared_ptr<MinLengthProfile>;
   using ConstPtr = std::shared_ptr<const MinLengthProfile>;
 
-  MinLengthProfile() = default;
-  MinLengthProfile(long min_length) : min_length(min_length) {}
+  MinLengthProfile();
+  MinLengthProfile(long min_length);
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   long min_length{ 10 };
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::MinLengthProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_MIN_LENGTH_PROFILE_H

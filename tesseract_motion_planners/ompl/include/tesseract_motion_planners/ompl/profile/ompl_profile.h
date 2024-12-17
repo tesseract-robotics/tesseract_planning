@@ -35,6 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
 #include <tesseract_command_language/fwd.h>
+#include <tesseract_command_language/profile.h>
 
 namespace tinyxml2
 {
@@ -45,20 +46,19 @@ class XMLDocument;
 namespace tesseract_planning
 {
 struct OMPLProblem;
-class OMPLPlanProfile
+class OMPLPlanProfile : public Profile
 {
 public:
   using Ptr = std::shared_ptr<OMPLPlanProfile>;
   using ConstPtr = std::shared_ptr<const OMPLPlanProfile>;
 
-  OMPLPlanProfile() = default;
-  virtual ~OMPLPlanProfile() = default;
-  OMPLPlanProfile(const OMPLPlanProfile&) = default;
-  OMPLPlanProfile& operator=(const OMPLPlanProfile&) = default;
-  OMPLPlanProfile(OMPLPlanProfile&&) noexcept = default;
-  OMPLPlanProfile& operator=(OMPLPlanProfile&&) noexcept = default;
+  OMPLPlanProfile();
 
-  OMPLPlanProfile(const tinyxml2::XMLElement& xml_element);
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   virtual void setup(OMPLProblem& prob) const = 0;
 
@@ -91,10 +91,17 @@ public:
                                 int index) const = 0;
 
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 /** @todo Currently OMPL does not have support of composite profile everything is handled by the plan profile */
 
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::OMPLPlanProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_PROFILE_H

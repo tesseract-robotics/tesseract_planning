@@ -333,11 +333,9 @@ OMPLMotionPlanner::createSubProblem(const PlannerRequest& request,
   std::vector<std::string> active_link_names = manip->getActiveLinkNames();
 
   // Get Plan Profile
-  std::string profile = end_instruction.getProfile();
-  profile = getProfileString(name_, profile, request.plan_profile_remapping);
-  auto cur_plan_profile =
-      getProfile<OMPLPlanProfile>(name_, profile, *request.profiles, std::make_shared<OMPLDefaultPlanProfile>());
-  cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile, end_instruction.getProfileOverrides());
+  auto cur_plan_profile = getProfile<OMPLPlanProfile>(
+      name_, end_instruction.getProfile(name_), *request.profiles, std::make_shared<OMPLDefaultPlanProfile>());
+
   if (!cur_plan_profile)
     throw std::runtime_error("OMPLMotionPlanner: Invalid profile");
 
@@ -347,10 +345,10 @@ OMPLMotionPlanner::createSubProblem(const PlannerRequest& request,
   config.end_uuid = end_instruction.getUUID();
   config.problem = std::make_shared<OMPLProblem>();
   config.problem->env = request.env;
-  config.problem->env_state = request.env_state;
+  config.problem->env_state = request.env->getState();
   config.problem->manip = manip;
   config.problem->contact_checker = request.env->getDiscreteContactManager();
-  config.problem->contact_checker->setCollisionObjectsTransform(request.env_state.link_transforms);
+  config.problem->contact_checker->setCollisionObjectsTransform(config.problem->env_state.link_transforms);
   config.problem->contact_checker->setActiveCollisionObjects(active_link_names);
 
   cur_plan_profile->setup(*config.problem);

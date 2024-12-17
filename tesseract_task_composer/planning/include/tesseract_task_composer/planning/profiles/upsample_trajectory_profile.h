@@ -30,21 +30,33 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_command_language/profile.h>
+
 namespace tesseract_planning
 {
-struct UpsampleTrajectoryProfile
+struct UpsampleTrajectoryProfile : public Profile
 {
   using Ptr = std::shared_ptr<UpsampleTrajectoryProfile>;
   using ConstPtr = std::shared_ptr<const UpsampleTrajectoryProfile>;
 
-  UpsampleTrajectoryProfile() = default;
-  UpsampleTrajectoryProfile(double longest_valid_segment_length)
-    : longest_valid_segment_length(longest_valid_segment_length)
-  {
-  }
+  UpsampleTrajectoryProfile();
+  UpsampleTrajectoryProfile(double longest_valid_segment_length);
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   double longest_valid_segment_length{ 0.1 };
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::UpsampleTrajectoryProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_UPSAMPLE_TRAJECTORY_PROFILE_H

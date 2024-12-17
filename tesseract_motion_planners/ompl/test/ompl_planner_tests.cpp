@@ -198,7 +198,6 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   // Step 3: Create ompl planner config and populate it
   auto joint_group = env->getJointGroup(manip.manipulator);
-  auto cur_state = env->getState();
 
   // Specify a start waypoint
   JointWaypointPoly wp1{ JointWaypoint(
@@ -225,7 +224,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f2);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
@@ -242,13 +241,12 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   // Create Planner and solve
@@ -295,7 +293,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a new seed
-  interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
 
   // Update Configuration
   request.instructions = interpolated_program;
@@ -328,7 +326,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a new seed
-  interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
 
   // Update Configuration
   request.instructions = interpolated_program;
@@ -364,7 +362,6 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
 
   // Step 3: Create ompl planner config and populate it
   auto kin_group = env->getKinematicGroup(manip.manipulator);
-  auto cur_state = env->getState();
 
   // Specify a start waypoint
   JointWaypointPoly wp1{ JointWaypoint(
@@ -389,7 +386,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
@@ -406,13 +403,12 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   // Create Planner and solve
@@ -459,7 +455,6 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 
   // Step 3: Create ompl planner config and populate it
   auto kin_group = env->getKinematicGroup(manip.manipulator);
-  auto cur_state = env->getState();
 
   // Specify a start waypoint
   auto start_jv = Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size()));
@@ -484,7 +479,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
@@ -501,13 +496,12 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   // Create Planner and solve

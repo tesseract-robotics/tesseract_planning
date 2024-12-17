@@ -53,8 +53,8 @@ public:
   ~TrajOptIfoptDefaultSolverProfile() override;
   TrajOptIfoptDefaultSolverProfile(const TrajOptIfoptDefaultSolverProfile&) = delete;
   TrajOptIfoptDefaultSolverProfile& operator=(const TrajOptIfoptDefaultSolverProfile&) = delete;
-  TrajOptIfoptDefaultSolverProfile(TrajOptIfoptDefaultSolverProfile&&) = default;
-  TrajOptIfoptDefaultSolverProfile& operator=(TrajOptIfoptDefaultSolverProfile&&) = default;
+  TrajOptIfoptDefaultSolverProfile(TrajOptIfoptDefaultSolverProfile&&) = delete;
+  TrajOptIfoptDefaultSolverProfile&& operator=(TrajOptIfoptDefaultSolverProfile&&) = delete;
 
   /** @brief The OSQP convex solver settings to use
    *  @todo Replace by convex_solver_config (cf. sco::ModelConfig) once solver selection is possible */
@@ -69,6 +69,14 @@ public:
   void apply(TrajOptIfoptProblem& problem) const override;
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptDefaultSolverProfile)
+
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_DEFAULT_SOLVER_PROFILE_H

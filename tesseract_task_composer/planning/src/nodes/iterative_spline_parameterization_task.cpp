@@ -56,9 +56,6 @@ const std::string IterativeSplineParameterizationTask::INPUT_PROFILES_PORT = "pr
 
 // Optional
 const std::string IterativeSplineParameterizationTask::INPUT_MANIP_INFO_PORT = "manip_info";
-const std::string IterativeSplineParameterizationTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_"
-                                                                                                "remapping";
-const std::string IterativeSplineParameterizationTask::INPUT_MOVE_PROFILE_REMAPPING_PORT = "move_profile_remapping";
 
 IterativeSplineParameterizationTask::IterativeSplineParameterizationTask()
   : TaskComposerTask("IterativeSplineParameterizationTask", IterativeSplineParameterizationTask::ports(), true)
@@ -108,8 +105,6 @@ TaskComposerNodePorts IterativeSplineParameterizationTask::ports()
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_optional[INPUT_MOVE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
 
@@ -160,13 +155,9 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
 
   // Get Composite Profile
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
-  auto composite_profile_remapping_poly = getData(*context.data_storage, INPUT_COMPOSITE_PROFILE_REMAPPING_PORT, false);
-  auto move_profile_remapping_poly = getData(*context.data_storage, INPUT_MOVE_PROFILE_REMAPPING_PORT, false);
   std::string profile = ci.getProfile();
-  profile = getProfileString(ns_, profile, composite_profile_remapping_poly);
   auto cur_composite_profile = getProfile<IterativeSplineParameterizationProfile>(
-      ns_, profile, *profiles, std::make_shared<IterativeSplineParameterizationProfile>());
-  cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
+      ns_, ci.getProfile(ns_), *profiles, std::make_shared<IterativeSplineParameterizationProfile>());
 
   // Create data structures for checking for plan profile overrides
   auto flattened = ci.flatten(moveFilter);
@@ -195,13 +186,10 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
   for (Eigen::Index idx = 0; idx < static_cast<Eigen::Index>(flattened.size()); idx++)
   {
     const auto& mi = flattened[static_cast<std::size_t>(idx)].get().as<MoveInstructionPoly>();
-    std::string move_profile = mi.getProfile();
 
-    // Check for remapping of the plan profile
-    move_profile = getProfileString(ns_, profile, move_profile_remapping_poly);
+    // Check for remapping of the plan profil
     auto cur_move_profile = getProfile<IterativeSplineParameterizationProfile>(
-        ns_, move_profile, *profiles, std::make_shared<IterativeSplineParameterizationProfile>());
-    //    cur_move_profile = applyProfileOverrides(ns_, profile, cur_move_profile, mi.profile_overrides);
+        ns_, mi.getProfile(ns_), *profiles, std::make_shared<IterativeSplineParameterizationProfile>());
 
     // If there is a move profile associated with it, override the parameters
     if (cur_move_profile)

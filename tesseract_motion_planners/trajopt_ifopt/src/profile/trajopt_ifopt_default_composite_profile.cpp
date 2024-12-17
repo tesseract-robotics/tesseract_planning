@@ -29,6 +29,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tinyxml2.h>
 #include <trajopt_ifopt/variable_sets/joint_position_variable.h>
 #include <trajopt_common/collision_types.h>
+#include <trajopt_common/utils.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
+#include <boost/serialization/shared_ptr.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
@@ -36,6 +40,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 
 #include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/eigen_serialization.h>
+#include <tesseract_collision/core/serialization.h>
 
 namespace tesseract_planning
 {
@@ -97,4 +103,26 @@ tinyxml2::XMLElement* TrajOptIfoptDefaultCompositeProfile::toXML(tinyxml2::XMLDo
   throw std::runtime_error("TrajOptIfoptDefaultCompositeProfile::toXML is not implemented!");
 }
 
+template <class Archive>
+void TrajOptIfoptDefaultCompositeProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptIfoptCompositeProfile);
+  ar& BOOST_SERIALIZATION_NVP(collision_cost_config);
+  ar& BOOST_SERIALIZATION_NVP(collision_constraint_config);
+  ar& BOOST_SERIALIZATION_NVP(smooth_velocities);
+  ar& BOOST_SERIALIZATION_NVP(velocity_coeff);
+  ar& BOOST_SERIALIZATION_NVP(smooth_accelerations);
+  ar& BOOST_SERIALIZATION_NVP(acceleration_coeff);
+  ar& BOOST_SERIALIZATION_NVP(smooth_jerks);
+  ar& BOOST_SERIALIZATION_NVP(jerk_coeff);
+  ar& BOOST_SERIALIZATION_NVP(longest_valid_segment_fraction);
+  ar& BOOST_SERIALIZATION_NVP(longest_valid_segment_length);
+  ar& BOOST_SERIALIZATION_NVP(special_collision_cost);
+  ar& BOOST_SERIALIZATION_NVP(special_collision_constraint);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptIfoptDefaultCompositeProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptIfoptDefaultCompositeProfile)

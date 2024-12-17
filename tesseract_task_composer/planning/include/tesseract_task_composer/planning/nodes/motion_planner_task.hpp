@@ -58,8 +58,6 @@ public:
 
   // Optional
   static const std::string INPUT_MANIP_INFO_PORT;
-  static const std::string INPUT_COMPOSITE_PROFILE_REMAPPING_PORT;
-  static const std::string INPUT_MOVE_PROFILE_REMAPPING_PORT;
 
   MotionPlannerTask() : TaskComposerTask("MotionPlannerTask", MotionPlannerTask<MotionPlannerType>::ports(), true) {}
   explicit MotionPlannerTask(std::string name,  // NOLINT(performance-unnecessary-value-param)
@@ -130,8 +128,6 @@ protected:
     ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
     ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
-    ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
-    ports.input_optional[INPUT_MOVE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
 
     ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
     return ports;
@@ -170,9 +166,6 @@ protected:
 
     auto profiles =
         getData(*context.data_storage, INPUT_PROFILES_PORT).template as<std::shared_ptr<ProfileDictionary>>();
-    auto composite_profile_remapping_poly =
-        getData(*context.data_storage, INPUT_COMPOSITE_PROFILE_REMAPPING_PORT, false);
-    auto move_profile_remapping_poly = getData(*context.data_storage, INPUT_MOVE_PROFILE_REMAPPING_PORT, false);
 
     tesseract_common::ManipulatorInfo input_manip_info;
     auto manip_info_poly = getData(*context.data_storage, INPUT_MANIP_INFO_PORT, false);
@@ -188,14 +181,9 @@ protected:
     // Fill out request
     // --------------------
     PlannerRequest request;
-    request.env_state = env->getState();
     request.env = env;
     request.instructions = instructions;
     request.profiles = profiles;
-    if (!move_profile_remapping_poly.isNull())
-      request.plan_profile_remapping = move_profile_remapping_poly.template as<PlannerProfileRemapping>();
-    if (!composite_profile_remapping_poly.isNull())
-      request.composite_profile_remapping = composite_profile_remapping_poly.template as<PlannerProfileRemapping>();
     request.format_result_as_input = format_result_as_input_;
 
     // --------------------
@@ -248,13 +236,6 @@ const std::string MotionPlannerTask<MotionPlannerType>::INPUT_PROFILES_PORT = "p
 // Optional
 template <typename MotionPlannerType>
 const std::string MotionPlannerTask<MotionPlannerType>::INPUT_MANIP_INFO_PORT = "manip_info";
-
-template <typename MotionPlannerType>
-const std::string MotionPlannerTask<MotionPlannerType>::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_"
-                                                                                                 "remapping";
-
-template <typename MotionPlannerType>
-const std::string MotionPlannerTask<MotionPlannerType>::INPUT_MOVE_PROFILE_REMAPPING_PORT = "move_profile_remapping";
 
 }  // namespace tesseract_planning
 

@@ -63,7 +63,6 @@ const std::string ContinuousContactCheckTask::INPUT_PROFILES_PORT = "profiles";
 
 // Optional
 const std::string ContinuousContactCheckTask::INPUT_MANIP_INFO_PORT = "manip_info";
-const std::string ContinuousContactCheckTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_remapping";
 const std::string ContinuousContactCheckTask::OUTPUT_CONTACT_RESULTS_PORT = "contact_results";
 
 ContinuousContactCheckTask::ContinuousContactCheckTask()
@@ -99,7 +98,6 @@ TaskComposerNodePorts ContinuousContactCheckTask::ports()
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
-  ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
   ports.output_optional[OUTPUT_CONTACT_RESULTS_PORT] = TaskComposerNodePorts::SINGLE;
 
   return ports;
@@ -144,14 +142,10 @@ ContinuousContactCheckTask::runImpl(TaskComposerContext& context, OptionalTaskCo
 
   // Get Composite Profile
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
-  auto composite_profile_remapping_poly = getData(*context.data_storage, INPUT_COMPOSITE_PROFILE_REMAPPING_PORT, false);
   const auto& ci = input_data_poly.as<CompositeInstruction>();
-  std::string profile = ci.getProfile();
-  profile = getProfileString(ns_, profile, composite_profile_remapping_poly);
   auto default_profile = std::make_shared<ContactCheckProfile>();
   default_profile->config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
-  auto cur_composite_profile = getProfile<ContactCheckProfile>(ns_, profile, *profiles, default_profile);
-  cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
+  auto cur_composite_profile = getProfile<ContactCheckProfile>(ns_, ci.getProfile(ns_), *profiles, default_profile);
 
   // Get state solver
   tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(input_manip_info);

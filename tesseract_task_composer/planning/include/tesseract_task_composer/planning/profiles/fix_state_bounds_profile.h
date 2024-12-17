@@ -32,9 +32,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_command_language/profile.h>
+
 namespace tesseract_planning
 {
-struct FixStateBoundsProfile
+struct FixStateBoundsProfile : public Profile
 {
   using Ptr = std::shared_ptr<FixStateBoundsProfile>;
   using ConstPtr = std::shared_ptr<const FixStateBoundsProfile>;
@@ -47,7 +49,13 @@ struct FixStateBoundsProfile
     DISABLED
   };
 
-  FixStateBoundsProfile(Settings mode = Settings::ALL) : mode(mode) {}
+  FixStateBoundsProfile(Settings mode = Settings::ALL);
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   /** @brief Sets which terms will be corrected  */
   Settings mode;
@@ -60,7 +68,14 @@ struct FixStateBoundsProfile
 
   /** @brief Amount to increase the lower bounds before clamping limits. Should be > 1 */
   double lower_bounds_reduction{ std::numeric_limits<float>::epsilon() };
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::FixStateBoundsProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_BOUNDS_PROFILE_H

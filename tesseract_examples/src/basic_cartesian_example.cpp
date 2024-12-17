@@ -232,14 +232,13 @@ bool BasicCartesianExample::run()
     composite_profile->smooth_accelerations = false;
     composite_profile->smooth_jerks = false;
     composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
-    profiles->addProfile<TrajOptIfoptCompositeProfile>(
-        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "cartesian_program", composite_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "cartesian_program", composite_profile);
 
     auto plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
     plan_profile->cartesian_coeff = Eigen::VectorXd::Ones(6);
     plan_profile->joint_coeff = Eigen::VectorXd::Ones(7);
-    profiles->addProfile<TrajOptIfoptPlanProfile>(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "RASTER", plan_profile);
-    profiles->addProfile<TrajOptIfoptPlanProfile>(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "freespace_profile", plan_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "RASTER", plan_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "freespace_profile", plan_profile);
   }
   else
   {
@@ -250,7 +249,7 @@ bool BasicCartesianExample::run()
     composite_profile->smooth_accelerations = false;
     composite_profile->smooth_jerks = false;
     composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
-    profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "cartesian_program", composite_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "cartesian_program", composite_profile);
 
     auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
     plan_profile->cartesian_cost_config.enabled = false;
@@ -259,8 +258,8 @@ bool BasicCartesianExample::run()
     plan_profile->joint_cost_config.enabled = false;
     plan_profile->joint_constraint_config.enabled = true;
     plan_profile->joint_constraint_config.coeff = Eigen::VectorXd::Ones(7);
-    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "RASTER", plan_profile);
-    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "freespace_profile", plan_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "RASTER", plan_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "freespace_profile", plan_profile);
   }
 
   // Create task
