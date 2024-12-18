@@ -64,6 +64,11 @@ struct RuckigTrajectorySmoothingCompositeProfile : public Profile
 
   /** @brief max_jerk_scaling_factor The max jerk scaling factor passed to the solver */
   double max_jerk_scaling_factor{ 1.0 };
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 struct RuckigTrajectorySmoothingMoveProfile : public Profile
@@ -96,6 +101,7 @@ protected:
 };
 }  // namespace tesseract_planning
 
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::RuckigTrajectorySmoothingCompositeProfile)
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::RuckigTrajectorySmoothingMoveProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_RUCKIG_TRAJECTORY_SMOOTHING_PROFILE_H
