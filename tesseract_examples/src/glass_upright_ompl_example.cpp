@@ -277,7 +277,6 @@ bool GlassUprightOMPLExample::run()
   ompl_config->collision_continuous = false;
   ompl_config->collision_check = false;
   ompl_config->simplify = false;
-  ompl_config->n_output_states = 50;
 
   if (use_trajopt_constraint_)
   {
