@@ -144,4 +144,19 @@ SimplePlannerLVSAssignNoIKPlanProfile::generate(const MoveInstructionPoly& prev_
   return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
+template <class Archive>
+void SimplePlannerLVSAssignNoIKPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerPlanProfile);
+  ar& BOOST_SERIALIZATION_NVP(state_longest_valid_segment_length);
+  ar& BOOST_SERIALIZATION_NVP(translation_longest_valid_segment_length);
+  ar& BOOST_SERIALIZATION_NVP(rotation_longest_valid_segment_length);
+  ar& BOOST_SERIALIZATION_NVP(min_steps);
+  ar& BOOST_SERIALIZATION_NVP(max_steps);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerLVSAssignNoIKPlanProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerLVSAssignNoIKPlanProfile)
