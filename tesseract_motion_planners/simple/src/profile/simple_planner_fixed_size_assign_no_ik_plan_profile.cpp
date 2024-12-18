@@ -125,4 +125,16 @@ std::vector<MoveInstructionPoly> SimplePlannerFixedSizeAssignNoIKPlanProfile::ge
   return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
+template <class Archive>
+void SimplePlannerFixedSizeAssignNoIKPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerPlanProfile);
+  ar& BOOST_SERIALIZATION_NVP(freespace_steps);
+  ar& BOOST_SERIALIZATION_NVP(linear_steps);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerFixedSizeAssignNoIKPlanProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerFixedSizeAssignNoIKPlanProfile)
