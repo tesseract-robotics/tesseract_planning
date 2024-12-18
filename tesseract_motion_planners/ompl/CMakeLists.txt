@@ -14,9 +14,7 @@ set(OMPL_SRC
     src/profile/ompl_default_plan_profile.cpp
     src/utils.cpp
     src/state_collision_validator.cpp
-    src/compound_state_validator.cpp
-    src/serialize.cpp
-    src/deserialize.cpp)
+    src/compound_state_validator.cpp)
 
 # if(NOT OMPL_VERSION VERSION_LESS "1.4.0") list(APPEND OMPL_SRC src/config/ompl_planner_constrained_config.cpp) endif()
 

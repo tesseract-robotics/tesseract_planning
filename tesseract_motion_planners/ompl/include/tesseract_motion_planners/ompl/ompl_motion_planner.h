@@ -94,14 +94,6 @@ public:
 protected:
   /** @brief OMPL Parallel planner */
   std::shared_ptr<ompl::tools::ParallelPlan> parallel_plan_;
-
-  OMPLProblemConfig createSubProblem(const PlannerRequest& request,
-                                     const tesseract_common::ManipulatorInfo& composite_mi,
-                                     const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-                                     const MoveInstructionPoly& start_instruction,
-                                     const MoveInstructionPoly& end_instruction,
-                                     int n_output_states,
-                                     int index) const;
 };
 
 }  // namespace tesseract_planning
