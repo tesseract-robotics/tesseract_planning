@@ -495,8 +495,8 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
       for (const auto& contact_vec : contact_map)
         for (const auto& contact : contact_vec.second)
         {
-          contact_msg << "Links: " << contact.link_names[0] << ", " << contact.link_names[1] <<
-              "  Distance: " << std::to_string(contact.distance);
+          contact_msg << "Links: " << contact.link_names[0] << ", " << contact.link_names[1]
+                      << "  Distance: " << std::to_string(contact.distance);
           CONSOLE_BRIDGE_logError(contact_msg.str().c_str());
         }
 
@@ -640,8 +640,8 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
       for (const auto& contact_vec : contact_map)
         for (const auto& contact : contact_vec.second)
         {
-          contact_msg << "Links: " << contact.link_names[0] << ", " << contact.link_names[1] <<
-                        "  Distance: " << std::to_string(contact.distance);
+          contact_msg << "Links: " << contact.link_names[0] << ", " << contact.link_names[1]
+                      << "  Distance: " << std::to_string(contact.distance);
           CONSOLE_BRIDGE_logError(contact_msg.str().c_str());
         }
 
