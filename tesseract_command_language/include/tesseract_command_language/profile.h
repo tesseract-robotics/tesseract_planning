@@ -43,10 +43,6 @@ public:
 
   Profile() = default;
   Profile(std::size_t key);
-  Profile(const Profile&) = delete;
-  Profile& operator=(const Profile&) = delete;
-  Profile(Profile&&) = delete;
-  Profile&& operator=(Profile&&) = delete;
   virtual ~Profile() = default;
 
   /**
@@ -56,6 +52,11 @@ public:
   std::size_t getKey() const;
 
 protected:
+  Profile(const Profile&) = default;
+  Profile& operator=(const Profile&) = default;
+  Profile(Profile&&) = default;
+  Profile& operator=(Profile&&) = default;
+
   std::size_t key_{ 0 };
   friend class boost::serialization::access;
   template <class Archive>
