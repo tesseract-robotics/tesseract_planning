@@ -31,6 +31,13 @@ namespace tesseract_planning
 {
 template <typename FloatType>
 template <class Archive>
+void DescartesSolverProfile<FloatType>::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
+}
+
+template <typename FloatType>
+template <class Archive>
 void DescartesPlanProfile<FloatType>::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
@@ -43,3 +50,8 @@ TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesPlanProfil
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesPlanProfile<float>)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesPlanProfile<double>)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesPlanProfile<double>)
+
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesSolverProfile<float>)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesSolverProfile<float>)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesSolverProfile<double>)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesSolverProfile<double>)

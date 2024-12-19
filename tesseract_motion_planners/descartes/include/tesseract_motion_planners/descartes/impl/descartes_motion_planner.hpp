@@ -40,6 +40,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
+#include <tesseract_motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/planner_utils.h>
@@ -60,35 +61,67 @@ template <typename FloatType>
 PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& request) const
 {
   PlannerResponse response;
-  std::shared_ptr<DescartesProblem<FloatType>> problem;
-  if (request.data)
-  {
-    problem = std::static_pointer_cast<DescartesProblem<FloatType>>(request.data);
-  }
-  else
-  {
-    try
-    {
-      problem = createProblem(request);
-    }
-    catch (std::exception& e)
-    {
-      CONSOLE_BRIDGE_logError("DescartesMotionPlanner failed to generate problem: %s.", e.what());
-      response.successful = false;
-      response.message = ERROR_INVALID_INPUT;
-      return response;
-    }
 
-    response.data = problem;
+  // Get solver config
+  auto solver_profile =
+      getProfile<DescartesSolverProfile<FloatType>>(name_,
+                                                    request.instructions.getProfile(name_),
+                                                    *request.profiles,
+                                                    std::make_shared<DescartesLadderGraphSolverProfile<FloatType>>());
+
+  auto solver = solver_profile->create();
+
+  std::vector<typename descartes_light::EdgeEvaluator<FloatType>::ConstPtr> edge_evaluators;
+  std::vector<typename descartes_light::WaypointSampler<FloatType>::ConstPtr> waypoint_samplers;
+  std::vector<typename descartes_light::StateEvaluator<FloatType>::ConstPtr> state_evaluators;
+
+  const tesseract_common::ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
+  if (composite_mi.empty())
+    throw std::runtime_error("Descartes, manipulator info is empty!");
+
+  // Flatten the input for planning
+  auto move_instructions = request.instructions.flatten(&moveFilter);
+
+  // Transform plan instructions into descartes samplers
+  int index = 0;
+  for (const auto& instruction : move_instructions)
+  {
+    assert(instruction.get().isMoveInstruction());
+    const auto& move_instruction = instruction.get().template as<MoveInstructionPoly>();
+
+    // If plan instruction has manipulator information then use it over the one provided by the composite.
+    tesseract_common::ManipulatorInfo manip_info = composite_mi.getCombined(move_instruction.getManipulatorInfo());
+
+    if (manip_info.empty())
+      throw std::runtime_error("Descartes, manipulator info is empty!");
+
+    // Get Plan Profile
+    auto cur_plan_profile =
+        getProfile<DescartesPlanProfile<FloatType>>(name_,
+                                                    move_instruction.getProfile(name_),
+                                                    *request.profiles,
+                                                    std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
+
+    if (!cur_plan_profile)
+      throw std::runtime_error("DescartesMotionPlanner: Invalid profile");
+
+    if (move_instruction.getWaypoint().isJointWaypoint() &&
+        !move_instruction.getWaypoint().as<JointWaypointPoly>().isConstrained())
+      continue;
+
+    waypoint_samplers.push_back(cur_plan_profile->createWaypointSampler(move_instruction, manip_info, request.env));
+    state_evaluators.push_back(cur_plan_profile->createStateEvaluator(move_instruction, manip_info, request.env));
+    if (index != 0)
+      edge_evaluators.push_back(cur_plan_profile->createEdgeEvaluator(move_instruction, manip_info, request.env));
+
+    ++index;
   }
 
   descartes_light::SearchResult<FloatType> descartes_result;
   try
   {
-    descartes_light::LadderGraphSolver<FloatType> solver(problem->num_threads);
-
     // Build Graph
-    if (!solver.build(problem->samplers, problem->edge_evaluators, problem->state_evaluators))
+    if (!solver->build(waypoint_samplers, edge_evaluators, state_evaluators))
     {
       response.successful = false;
       response.message = ERROR_FAILED_TO_BUILD_GRAPH;
@@ -96,7 +129,7 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
     }
 
     // Search Graph
-    descartes_result = solver.search();
+    descartes_result = solver->search();
     if (descartes_result.trajectory.empty())
     {
       CONSOLE_BRIDGE_logError("Search for graph completion failed");
@@ -107,26 +140,17 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   }
   catch (...)
   {
-    //    CONSOLE_BRIDGE_logError("Failed to build vertices");
-    //    for (const auto& i : graph_builder.getFailedVertices())
-    //      response.failed_waypoints.push_back(config_->waypoints[i]);
-
-    //    // Copy the waypoint if it is not already in the failed waypoints list
-    //    std::copy_if(config_->waypoints.begin(),
-    //                 config_->waypoints.end(),
-    //                 std::back_inserter(response.succeeded_waypoints),
-    //                 [&response](const Waypoint::ConstPtr wp) {
-    //                   return std::find(response.failed_waypoints.begin(), response.failed_waypoints.end(), wp) ==
-    //                          response.failed_waypoints.end();
-    //                 });
-
     response.successful = false;
     response.message = ERROR_FAILED_TO_BUILD_GRAPH;
     return response;
   }
 
-  const std::vector<std::string> joint_names = problem->manip->getJointNames();
-  const Eigen::MatrixX2d joint_limits = problem->manip->getLimits().joint_limits;
+  response.data = std::move(solver);
+
+  // Get Manipulator Information
+  tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(composite_mi.manipulator);
+  const std::vector<std::string> joint_names = manip->getJointNames();
+  const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
 
   // Enforce limits
   std::vector<Eigen::VectorXd> solution{};
@@ -220,115 +244,6 @@ template <typename FloatType>
 std::unique_ptr<MotionPlanner> DescartesMotionPlanner<FloatType>::clone() const
 {
   return std::make_unique<DescartesMotionPlanner<FloatType>>(name_);
-}
-
-template <typename FloatType>
-std::shared_ptr<DescartesProblem<FloatType>>
-DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) const
-{
-  auto prob = std::make_shared<DescartesProblem<FloatType>>();
-
-  // Clear descartes data
-  prob->edge_evaluators.clear();
-  prob->samplers.clear();
-  prob->state_evaluators.clear();
-
-  // Assume all the plan instructions have the same manipulator as the composite
-  assert(!request.instructions.getManipulatorInfo().empty());
-  const tesseract_common::ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
-
-  if (composite_mi.manipulator.empty())
-    throw std::runtime_error("Descartes, manipulator is empty!");
-
-  // Get Manipulator Information
-  try
-  {
-    if (composite_mi.manipulator_ik_solver.empty())
-      prob->manip = request.env->getKinematicGroup(composite_mi.manipulator);
-    else
-      prob->manip = request.env->getKinematicGroup(composite_mi.manipulator, composite_mi.manipulator_ik_solver);
-  }
-  catch (...)
-  {
-    throw std::runtime_error("Descartes problem generator failed to create kinematic group!");
-  }
-
-  if (!prob->manip)
-  {
-    CONSOLE_BRIDGE_logError("No Kinematics Group found");
-    return prob;
-  }
-
-  prob->env = request.env;
-  prob->env_state = request.env->getState();
-
-  std::vector<std::string> joint_names = prob->manip->getJointNames();
-
-  // Flatten the input for planning
-  auto move_instructions = request.instructions.flatten(&moveFilter);
-
-  // Transform plan instructions into descartes samplers
-  int index = 0;
-  for (const auto& move_instruction : move_instructions)
-  {
-    const auto& instruction = move_instruction.get();
-
-    assert(instruction.isMoveInstruction());
-    const auto& plan_instruction = instruction.template as<MoveInstructionPoly>();
-
-    // If plan instruction has manipulator information then use it over the one provided by the composite.
-    tesseract_common::ManipulatorInfo mi = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
-
-    if (mi.manipulator.empty())
-      throw std::runtime_error("Descartes, manipulator is empty!");
-
-    if (mi.tcp_frame.empty())
-      throw std::runtime_error("Descartes, tcp_frame is empty!");
-
-    if (mi.working_frame.empty())
-      throw std::runtime_error("Descartes, working_frame is empty!");
-
-    // Get Plan Profile
-    auto cur_plan_profile =
-        getProfile<DescartesPlanProfile<FloatType>>(name_,
-                                                    plan_instruction.getProfile(name_),
-                                                    *request.profiles,
-                                                    std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
-
-    if (!cur_plan_profile)
-      throw std::runtime_error("DescartesMotionPlanner: Invalid profile");
-
-    if (plan_instruction.getWaypoint().isCartesianWaypoint())
-    {
-      const auto& cur_wp = plan_instruction.getWaypoint().template as<CartesianWaypointPoly>();
-      cur_plan_profile->apply(*prob, cur_wp.getTransform(), plan_instruction, composite_mi, index);
-      ++index;
-    }
-    else if (plan_instruction.getWaypoint().isJointWaypoint())
-    {
-      if (plan_instruction.getWaypoint().as<JointWaypointPoly>().isConstrained())
-      {
-        assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
-        const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
-        cur_plan_profile->apply(*prob, cur_position, plan_instruction, composite_mi, index);
-        ++index;
-      }
-    }
-    else if (plan_instruction.getWaypoint().isStateWaypoint())
-    {
-      assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
-      const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
-      cur_plan_profile->apply(*prob, cur_position, plan_instruction, composite_mi, index);
-      ++index;
-    }
-    else
-    {
-      throw std::runtime_error("DescartesMotionPlanner: unknown waypoint type");
-    }
-  }
-
-  // Call the base class generate which checks the problem to make sure everything is in order
-  return prob;
 }
 
 }  // namespace tesseract_planning

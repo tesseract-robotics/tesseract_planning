@@ -2,7 +2,6 @@
 #define TESSERACT_MOTION_PLANNERS_DECARTES_MOTION_PLANNER_H
 
 #include <tesseract_motion_planners/core/planner.h>
-#include <tesseract_motion_planners/descartes/descartes_problem.h>
 
 namespace tesseract_planning
 {
@@ -25,8 +24,6 @@ public:
   void clear() override;
 
   std::unique_ptr<MotionPlanner> clone() const override;
-
-  virtual std::shared_ptr<DescartesProblem<FloatType>> createProblem(const PlannerRequest& request) const;
 };
 
 using DescartesMotionPlannerD = DescartesMotionPlanner<double>;
