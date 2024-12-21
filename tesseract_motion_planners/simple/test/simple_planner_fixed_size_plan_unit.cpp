@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_fixed_size_interpolation.cpp
+ * @file simple_planner_fixed_size_plan_unit.cpp
  * @brief
  *
  * @author Matthew Powelson
@@ -23,52 +23,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <gtest/gtest.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#include "simple_planner_test_utils.hpp"
 
 #include <tesseract_common/types.h>
-#include <tesseract_kinematics/core/joint_group.h>
-#include <tesseract_scene_graph/scene_state.h>
-#include <tesseract_environment/environment.h>
 #include <tesseract_motion_planners/core/types.h>
-#include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_plan_profile.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
-#include <tesseract_common/resource_locator.h>
 
-using namespace tesseract_environment;
 using namespace tesseract_planning;
 
-class TesseractPlanningSimplePlannerFixedSizeInterpolationUnit : public ::testing::Test
+class TesseractPlanningSimplePlannerFixedSizePlanProfileUnit : public TesseractPlanningSimplePlannerUnit
 {
-protected:
-  Environment::Ptr env_;
-  tesseract_common::ManipulatorInfo manip_info_;
-  std::vector<std::string> joint_names_;
-
-  void SetUp() override
-  {
-    auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
-    Environment::Ptr env = std::make_shared<Environment>();
-    tesseract_common::fs::path urdf_path(
-        locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());
-    tesseract_common::fs::path srdf_path(
-        locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath());
-    EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
-    env_ = env;
-
-    manip_info_.tcp_frame = "tool0";
-    manip_info_.manipulator = "manipulator";
-    manip_info_.working_frame = "base_link";
-    joint_names_ = env_->getJointGroup("manipulator")->getJointNames();
-  }
 };
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_JointInterpolation)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, JointJoint_JointInterpolation)  // NOLINT
 {
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
@@ -107,7 +77,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_Join
   EXPECT_TRUE(wp2.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_JointInterpolation)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, JointCart_JointInterpolation)  // NOLINT
 {
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
@@ -150,7 +120,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_Joint
   EXPECT_TRUE(wp2.getTransform().isApprox(final_pose, 1e-3));
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_JointInterpolation)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, CartJoint_JointInterpolation)  // NOLINT
 {
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, 0, 1);
@@ -190,7 +160,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_Joint
   EXPECT_TRUE(wp2.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartCart_JointInterpolation)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizePlanProfileUnit, CartCart_JointInterpolation)  // NOLINT
 {
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, -0.1, 1);
