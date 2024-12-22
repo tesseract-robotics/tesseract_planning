@@ -45,14 +45,21 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptDefaultPlanProfile>;
 
   TrajOptDefaultPlanProfile() = default;
-  TrajOptDefaultPlanProfile(const tinyxml2::XMLElement& xml_element);
 
   CartesianWaypointConfig cartesian_cost_config;
   CartesianWaypointConfig cartesian_constraint_config;
   JointWaypointConfig joint_cost_config;
   JointWaypointConfig joint_constraint_config;
 
-  /** @brief Error function that is set as a constraint for each timestep.
+  TrajOptWaypointInfo create(const MoveInstructionPoly& move_instruction,
+                             const tesseract_common::ManipulatorInfo& composite_manip_info,
+                             const std::shared_ptr<const tesseract_environment::Environment>& env,
+                             const std::vector<std::string>& active_links,
+                             int index) const override;
+
+protected:
+  /**
+   * @brief Error function that is set as a constraint for each timestep.
    *
    * This is a vector of std::tuple<Error Function, Error Function Jacobian, Constraint Type, Coeff>, the error
    * function, constraint type, and coeff is required, but the jacobian is optional (nullptr).
@@ -70,29 +77,12 @@ public:
    * Coefficients/Weights
    *
    */
-  std::vector<std::tuple<sco::VectorOfVector::func, sco::MatrixOfVector::func, sco::ConstraintType, Eigen::VectorXd>>
-      constraint_error_functions;
-
-  void apply(trajopt::ProblemConstructionInfo& pci,
-             const CartesianWaypointPoly& cartesian_waypoint,
-             const MoveInstructionPoly& parent_instruction,
-             const tesseract_common::ManipulatorInfo& manip_info,
-             const std::vector<std::string>& active_links,
-             int index) const override;
-
-  void apply(trajopt::ProblemConstructionInfo& pci,
-             const JointWaypointPoly& joint_waypoint,
-             const MoveInstructionPoly& parent_instruction,
-             const tesseract_common::ManipulatorInfo& manip_info,
-             const std::vector<std::string>& active_links,
-             int index) const override;
-
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
-
-protected:
-  void addConstraintErrorFunctions(trajopt::ProblemConstructionInfo& pci, int index) const;
-
-  void addAvoidSingularity(trajopt::ProblemConstructionInfo& pci, const std::vector<int>& fixed_steps) const;
+  static std::shared_ptr<trajopt::TermInfo>
+  createConstraintFromErrorFunction(sco::VectorOfVector::func error_function,
+                                    sco::MatrixOfVector::func jacobian_function,
+                                    sco::ConstraintType type,
+                                    const Eigen::VectorXd& coeff,
+                                    int index);
 
   friend class boost::serialization::access;
   template <class Archive>

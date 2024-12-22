@@ -24,10 +24,48 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/trajopt/trajopt_utils.h>
+#include <tesseract_common/manipulator_info.h>
+#include <tesseract_kinematics/core/kinematic_group.h>
+#include <tesseract_environment/environment.h>
 #include <trajopt/problem_description.hpp>
+#include <console_bridge/console.h>
 
 namespace tesseract_planning
 {
+std::unique_ptr<const tesseract_kinematics::JointGroup>
+createKinematicGroup(const tesseract_common::ManipulatorInfo& manip_info, const tesseract_environment::Environment& env)
+{
+  // Assign Kinematics object
+  try
+  {
+    tesseract_kinematics::KinematicGroup::UPtr kin_group;
+    std::string error_msg;
+    if (manip_info.manipulator_ik_solver.empty())
+    {
+      kin_group = env.getKinematicGroup(manip_info.manipulator);
+      error_msg = "Failed to find kinematic group for manipulator '" + manip_info.manipulator + "'";
+    }
+    else
+    {
+      kin_group = env.getKinematicGroup(manip_info.manipulator, manip_info.manipulator_ik_solver);
+      error_msg = "Failed to find kinematic group for manipulator '" + manip_info.manipulator + "' with solver '" +
+                  manip_info.manipulator_ik_solver + "'";
+    }
+
+    if (kin_group == nullptr)
+    {
+      CONSOLE_BRIDGE_logError("%s", error_msg.c_str());
+      throw std::runtime_error(error_msg);
+    }
+
+    return kin_group;
+  }
+  catch (...)
+  {
+    return env.getJointGroup(manip_info.manipulator);
+  }
+}
+
 std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
                                                                    const std::string& working_frame,
                                                                    const Eigen::Isometry3d& c_wp,
