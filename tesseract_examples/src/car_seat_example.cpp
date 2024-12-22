@@ -66,7 +66,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
@@ -327,10 +327,10 @@ bool CarSeatExample::run()
     trajopt_composite_profile->collision_cost_config.safety_margin_buffer = 0.01;
     trajopt_composite_profile->collision_cost_config.coeff = 50;
 
-    auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
-    trajopt_solver_profile->opt_info.max_iter = 200;
-    trajopt_solver_profile->opt_info.min_approx_improve = 1e-3;
-    trajopt_solver_profile->opt_info.min_trust_box_size = 1e-3;
+    auto trajopt_solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
+    trajopt_solver_profile->opt_params.max_iter = 200;
+    trajopt_solver_profile->opt_params.min_approx_improve = 1e-3;
+    trajopt_solver_profile->opt_params.min_trust_box_size = 1e-3;
 
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_composite_profile);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_solver_profile);

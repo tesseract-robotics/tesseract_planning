@@ -19,7 +19,7 @@ class TrajOptPlanProfile;
 class TrajOptCompositeProfile;
 class TrajOptSolverProfile;
 
-class TrajOptDefaultSolverProfile;
+class TrajOptOSQPSolverProfile;
 class TrajOptDefaultPlanProfile;
 class TrajOptDefaultCompositeProfile;
 }  // namespace tesseract_planning
