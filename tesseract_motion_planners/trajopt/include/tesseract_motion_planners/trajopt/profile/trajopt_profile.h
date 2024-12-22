@@ -29,23 +29,41 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/fwd.hpp>
+#include <trajopt_sco/optimizers.hpp>
 #include <vector>
 #include <memory>
 #include <string>
+#include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
+#include <tesseract_environment/fwd.h>
 #include <tesseract_command_language/fwd.h>
 #include <tesseract_command_language/profile.h>
 
-namespace tinyxml2
+namespace boost::serialization
 {
-class XMLElement;  // NOLINT
-class XMLDocument;
-}  // namespace tinyxml2
+template <class Archive>
+void serialize(Archive& ar, sco::BasicTrustRegionSQPParameters& params, const unsigned int version);  // NOLINT
+}  // namespace boost::serialization
 
 namespace tesseract_planning
 {
+/** @brief Structure to store TrajOpt cost and constrant term infos */
+struct TrajOptTermInfos
+{
+  std::vector<std::shared_ptr<trajopt::TermInfo>> costs;
+  std::vector<std::shared_ptr<trajopt::TermInfo>> constraints;
+};
+
+/** @brief Structure to store TrajOpt waypoint cost and constrant term infos */
+struct TrajOptWaypointInfo
+{
+  TrajOptTermInfos term_infos;
+  Eigen::VectorXd seed;
+  bool fixed{ false };
+};
+
 class TrajOptPlanProfile : public Profile
 {
 public:
@@ -54,27 +72,17 @@ public:
 
   TrajOptPlanProfile();
 
+  virtual TrajOptWaypointInfo create(const MoveInstructionPoly& move_instruction,
+                                     const tesseract_common::ManipulatorInfo& composite_manip_info,
+                                     const std::shared_ptr<const tesseract_environment::Environment>& env,
+                                     const std::vector<std::string>& active_links,
+                                     int index) const = 0;
+
   /**
    * @brief A utility function for getting profile ID
    * @return The profile ID used when storing in profile dictionary
    */
   static std::size_t getStaticKey();
-
-  virtual void apply(trajopt::ProblemConstructionInfo& pci,
-                     const CartesianWaypointPoly& cartesian_waypoint,
-                     const MoveInstructionPoly& parent_instruction,
-                     const tesseract_common::ManipulatorInfo& manip_info,
-                     const std::vector<std::string>& active_links,
-                     int index) const = 0;
-
-  virtual void apply(trajopt::ProblemConstructionInfo& pci,
-                     const JointWaypointPoly& joint_waypoint,
-                     const MoveInstructionPoly& parent_instruction,
-                     const tesseract_common::ManipulatorInfo& manip_info,
-                     const std::vector<std::string>& active_links,
-                     int index) const = 0;
-
-  virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 
 protected:
   friend class boost::serialization::access;
@@ -90,20 +98,17 @@ public:
 
   TrajOptCompositeProfile();
 
+  virtual TrajOptTermInfos create(const tesseract_common::ManipulatorInfo& composite_manip_info,
+                                  const std::shared_ptr<const tesseract_environment::Environment>& env,
+                                  const std::vector<int>& fixed_indices,
+                                  int start_index,
+                                  int end_index) const = 0;
+
   /**
    * @brief A utility function for getting profile ID
    * @return The profile ID used when storing in profile dictionary
    */
   static std::size_t getStaticKey();
-
-  virtual void apply(trajopt::ProblemConstructionInfo& pci,
-                     int start_index,
-                     int end_index,
-                     const tesseract_common::ManipulatorInfo& manip_info,
-                     const std::vector<std::string>& active_links,
-                     const std::vector<int>& fixed_indices) const = 0;
-
-  virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 
 protected:
   friend class boost::serialization::access;
@@ -119,15 +124,26 @@ public:
 
   TrajOptSolverProfile();
 
+  /** @brief Optimization paramters */
+  sco::BasicTrustRegionSQPParameters opt_params;
+
+  /** @brief Get the convex solver to use */
+  virtual sco::ModelType getSolverType() const = 0;
+
+  /** @brief The convex solver config to use, if nullptr the default settings are used */
+  virtual std::unique_ptr<sco::ModelConfig> createSolverConfig() const = 0;
+
+  /** @brief Optimization paramters */
+  virtual sco::BasicTrustRegionSQPParameters createOptimizationParameters() const;
+
+  /** @brief Optimization callbacks */
+  virtual std::vector<sco::Optimizer::Callback> createOptimizationCallbacks() const;
+
   /**
    * @brief A utility function for getting profile ID
    * @return The profile ID used when storing in profile dictionary
    */
   static std::size_t getStaticKey();
-
-  virtual void apply(trajopt::ProblemConstructionInfo& pci) const = 0;
-
-  virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 
 protected:
   friend class boost::serialization::access;

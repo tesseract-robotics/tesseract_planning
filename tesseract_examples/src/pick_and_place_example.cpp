@@ -44,7 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
@@ -280,8 +280,8 @@ bool PickAndPlaceExample::run()
     trajopt_composite_profile->collision_cost_config.safety_margin_buffer = 0.01;
     trajopt_composite_profile->collision_cost_config.coeff = 50;
 
-    auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
-    trajopt_solver_profile->opt_info.max_iter = 100;
+    auto trajopt_solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
+    trajopt_solver_profile->opt_params.max_iter = 100;
 
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);

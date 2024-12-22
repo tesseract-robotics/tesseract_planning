@@ -46,9 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
-#include <tesseract_motion_planners/trajopt/serialize.h>
-#include <tesseract_motion_planners/trajopt/deserialize.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -147,7 +145,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
@@ -221,7 +219,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
@@ -307,7 +305,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
@@ -394,7 +392,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
@@ -479,7 +477,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
@@ -564,7 +562,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
@@ -651,7 +649,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   plan_profile->joint_cost_config.enabled = false;
   plan_profile->joint_constraint_config.enabled = true;
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
@@ -712,7 +710,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   plan_profile->joint_constraint_config.enabled = false;
 
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-  auto solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
@@ -740,79 +738,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   EXPECT_TRUE((tesseract_tests::vectorContainsType<sco::Cost::Ptr, trajopt::JointPosEqCost>(problem->getCosts())));
   EXPECT_FALSE(
       (tesseract_tests::vectorContainsType<sco::Cost::Ptr, trajopt::TrajOptCostFromErrFunc>(problem->getCosts())));
-}
-
-TEST(TesseractPlanningTrajoptSerializeUnit, SerializeTrajoptDefaultCompositeToXml)  // NOLINT
-{
-  // Write program to file
-  TrajOptDefaultCompositeProfile comp_profile;
-  CollisionCostConfig collision_cost_config;
-  comp_profile.collision_cost_config = collision_cost_config;
-
-  CollisionConstraintConfig collision_constraint_config;
-  comp_profile.collision_constraint_config = collision_constraint_config;
-
-  comp_profile.velocity_coeff = Eigen::VectorXd::Ones(6) * 10;
-  comp_profile.acceleration_coeff = Eigen::VectorXd::Ones(6) * 10;
-  comp_profile.jerk_coeff = Eigen::VectorXd::Ones(6) * 10;
-
-  comp_profile.smooth_velocities = false;
-
-  EXPECT_TRUE(toXMLFile(comp_profile, tesseract_common::getTempPath() + "trajopt_default_composite_example_input.xml"));
-
-  // Import file
-  TrajOptDefaultCompositeProfile imported_comp_profile =
-      trajOptCompositeFromXMLFile(tesseract_common::getTempPath() + "trajopt_default_composite_example_input.xml");
-
-  // Re-write file and compare changed from default term
-  EXPECT_TRUE(toXMLFile(imported_comp_profile,
-                        tesseract_common::getTempPath() + "trajopt_default_composite_example_input2.xml"));
-  EXPECT_TRUE(comp_profile.smooth_velocities == imported_comp_profile.smooth_velocities);
-}
-
-TEST(TesseractPlanningTrajoptSerializeUnit, SerializeTrajoptDefaultPlanToXml)  // NOLINT
-{
-  // Write program to file
-  TrajOptDefaultPlanProfile plan_profile;
-  plan_profile.cartesian_cost_config.coeff = Eigen::VectorXd::Ones(6) * 10;
-  plan_profile.joint_cost_config.coeff = Eigen::VectorXd::Ones(6) * 9;
-  plan_profile.cartesian_cost_config.enabled = true;
-  plan_profile.cartesian_constraint_config.enabled = false;
-  plan_profile.joint_cost_config.enabled = true;
-  plan_profile.joint_constraint_config.enabled = false;
-  plan_profile.cartesian_constraint_config.lower_tolerance = Eigen::VectorXd::Ones(6) * -0.01;
-  plan_profile.cartesian_constraint_config.upper_tolerance = Eigen::VectorXd::Ones(6) * 0.02;
-  plan_profile.joint_constraint_config.lower_tolerance = Eigen::VectorXd::Ones(6) * -0.03;
-  plan_profile.joint_constraint_config.upper_tolerance = Eigen::VectorXd::Ones(6) * 0.04;
-
-  EXPECT_TRUE(toXMLFile(plan_profile, tesseract_common::getTempPath() + "trajopt_default_plan_example_input.xml"));
-
-  // Import file
-  TrajOptDefaultPlanProfile imported_plan_profile = trajOptPlanFromXMLFile(tesseract_common::getTempPath() + "trajopt_"
-                                                                                                             "default_"
-                                                                                                             "plan_"
-                                                                                                             "example_"
-                                                                                                             "input."
-                                                                                                             "xml");
-
-  // Re-write file and compare changed from default term
-  EXPECT_TRUE(
-      toXMLFile(imported_plan_profile, tesseract_common::getTempPath() + "trajopt_default_plan_example_input2.xml"));
-  EXPECT_TRUE(plan_profile.cartesian_cost_config.enabled == imported_plan_profile.cartesian_cost_config.enabled);
-  EXPECT_TRUE(plan_profile.cartesian_constraint_config.enabled ==
-              imported_plan_profile.cartesian_constraint_config.enabled);
-  EXPECT_TRUE(plan_profile.joint_cost_config.enabled == imported_plan_profile.joint_cost_config.enabled);
-  EXPECT_TRUE(plan_profile.joint_constraint_config.enabled == imported_plan_profile.joint_constraint_config.enabled);
-  EXPECT_TRUE(plan_profile.cartesian_cost_config.coeff == imported_plan_profile.cartesian_cost_config.coeff);
-  EXPECT_TRUE(plan_profile.joint_cost_config.coeff == imported_plan_profile.joint_cost_config.coeff);
-  EXPECT_TRUE(plan_profile.cartesian_constraint_config.lower_tolerance ==
-              imported_plan_profile.cartesian_constraint_config.lower_tolerance);
-  EXPECT_TRUE(plan_profile.cartesian_constraint_config.upper_tolerance ==
-              imported_plan_profile.cartesian_constraint_config.upper_tolerance);
-  EXPECT_TRUE(plan_profile.joint_constraint_config.lower_tolerance ==
-              imported_plan_profile.joint_constraint_config.lower_tolerance);
-  EXPECT_TRUE(plan_profile.joint_constraint_config.upper_tolerance ==
-              imported_plan_profile.joint_constraint_config.upper_tolerance);
 }
 
 int main(int argc, char** argv)

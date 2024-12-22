@@ -53,7 +53,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
@@ -279,14 +279,11 @@ bool PuzzlePieceAuxillaryAxesExample::run()
     trajopt_composite_profile->collision_cost_config.type = trajopt::CollisionEvaluatorType::SINGLE_TIMESTEP;
     trajopt_composite_profile->collision_cost_config.coeff = 1;
 
-    auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
-    trajopt_solver_profile->convex_solver = sco::ModelType::OSQP;
-    auto convex_solver_config = std::make_shared<sco::OSQPModelConfig>();
-    convex_solver_config->settings.adaptive_rho = 0;
-    trajopt_solver_profile->convex_solver_config = convex_solver_config;
-    trajopt_solver_profile->opt_info.max_iter = 200;
-    trajopt_solver_profile->opt_info.min_approx_improve = 1e-3;
-    trajopt_solver_profile->opt_info.min_trust_box_size = 1e-3;
+    auto trajopt_solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
+    trajopt_solver_profile->settings.adaptive_rho = 0;
+    trajopt_solver_profile->opt_params.max_iter = 200;
+    trajopt_solver_profile->opt_params.min_approx_improve = 1e-3;
+    trajopt_solver_profile->opt_params.min_trust_box_size = 1e-3;
 
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);

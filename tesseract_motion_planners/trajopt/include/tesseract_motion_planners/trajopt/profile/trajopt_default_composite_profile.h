@@ -51,7 +51,6 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptDefaultCompositeProfile>;
 
   TrajOptDefaultCompositeProfile() = default;
-  TrajOptDefaultCompositeProfile(const tinyxml2::XMLElement& xml_element);
 
   /** @brief The type of contact test to perform: FIRST, CLOSEST, ALL */
   tesseract_collision::ContactTestType contact_test_type{ tesseract_collision::ContactTestType::ALL };
@@ -98,56 +97,14 @@ public:
   /**@brief Special link collision constraint distances */
   std::shared_ptr<trajopt_common::SafetyMarginData> special_collision_constraint{ nullptr };
 
-  void apply(trajopt::ProblemConstructionInfo& pci,
-             int start_index,
-             int end_index,
-             const tesseract_common::ManipulatorInfo& manip_info,
-             const std::vector<std::string>& active_links,
-             const std::vector<int>& fixed_indices) const override;
-
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+  TrajOptTermInfos create(const tesseract_common::ManipulatorInfo& composite_manip_info,
+                          const std::shared_ptr<const tesseract_environment::Environment>& env,
+                          const std::vector<int>& fixed_indices,
+                          int start_index,
+                          int end_index) const override;
 
 protected:
-  void addCollisionCost(trajopt::ProblemConstructionInfo& pci,
-                        int start_index,
-                        int end_index,
-                        const std::vector<int>& fixed_indices) const;
-
-  void addCollisionConstraint(trajopt::ProblemConstructionInfo& pci,
-                              int start_index,
-                              int end_index,
-                              const std::vector<int>& fixed_indices) const;
-
-  void addVelocitySmoothing(trajopt::ProblemConstructionInfo& pci,
-                            int start_index,
-                            int end_index,
-                            const std::vector<int>& fixed_indices) const;
-
-  void addAccelerationSmoothing(trajopt::ProblemConstructionInfo& pci,
-                                int start_index,
-                                int end_index,
-                                const std::vector<int>& fixed_indices) const;
-
-  void addJerkSmoothing(trajopt::ProblemConstructionInfo& pci,
-                        int start_index,
-                        int end_index,
-                        const std::vector<int>& fixed_indices) const;
-
-  void addConstraintErrorFunctions(trajopt::ProblemConstructionInfo& pci,
-                                   int start_index,
-                                   int end_index,
-                                   const std::vector<int>& fixed_indices) const;
-
-  void addAvoidSingularity(trajopt::ProblemConstructionInfo& pci,
-                           int start_index,
-                           int end_index,
-                           const std::string& link,
-                           const std::vector<int>& fixed_indices) const;
-
-  static void smoothMotionTerms(const tinyxml2::XMLElement& xml_element,
-                                bool& enabled,
-                                Eigen::VectorXd& coeff,
-                                std::size_t& length);
+  double computeLongestValidSegmentLength(const Eigen::MatrixX2d& joint_limits) const;
 
   friend class boost::serialization::access;
   template <class Archive>
