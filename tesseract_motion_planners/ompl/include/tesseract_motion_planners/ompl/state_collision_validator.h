@@ -34,8 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <mutex>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/ompl/types.h>
-
 #include <tesseract_environment/fwd.h>
 #include <tesseract_kinematics/core/fwd.h>
 #include <tesseract_collision/core/fwd.h>
@@ -55,8 +53,7 @@ public:
   StateCollisionValidator(const ompl::base::SpaceInformationPtr& space_info,
                           const tesseract_environment::Environment& env,
                           std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-                          const tesseract_collision::CollisionCheckConfig& collision_check_config,
-                          OMPLStateExtractor extractor);
+                          const tesseract_collision::CollisionCheckConfig& collision_check_config);
 
   bool isValid(const ompl::base::State* state) const override;
 
@@ -69,9 +66,6 @@ private:
 
   /** @brief A list of active links */
   std::vector<std::string> links_;
-
-  /** @brief This will extract an Eigen::VectorXd from the OMPL State */
-  OMPLStateExtractor extractor_;
 
   // The items below are to cache the contact manager based on thread ID. Currently ompl is multi
   // threaded but the methods used to implement collision checking are not thread safe. To prevent

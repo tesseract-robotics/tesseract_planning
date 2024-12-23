@@ -33,11 +33,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/ompl/types.h>
-
 #include <tesseract_common/eigen_types.h>
 #include <tesseract_collision/core/fwd.h>
 #include <tesseract_kinematics/core/fwd.h>
+#include <tesseract_command_language/composite_instruction.h>
 
 namespace ompl::base
 {
@@ -55,21 +54,6 @@ class PathGeometric;
 
 namespace tesseract_planning
 {
-Eigen::Map<Eigen::VectorXd> RealVectorStateSpaceExtractor(const ompl::base::State* s1, unsigned dimension);
-
-#ifndef OMPL_LESS_1_4_0
-Eigen::Map<Eigen::VectorXd> ConstrainedStateSpaceExtractor(const ompl::base::State* s1);
-#endif
-
-/**
- * @brief Convert an ompl path to tesseract TrajArray
- * @param path OMPL Path
- * @param extractor This function understands the type of state space and converts it to an eigen vector.
- * @return Tesseract TrajArray
- */
-tesseract_common::TrajArray toTrajArray(const ompl::geometric::PathGeometric& path,
-                                        const OMPLStateExtractor& extractor);
-
 /**
  * @brief Given longest valid fraction and length it will set the correct information of the state space
  * @param state_space_ptr OMPL State Space
@@ -110,6 +94,29 @@ bool checkStateInCollision(tesseract_collision::ContactResultMap& contact_map,
 ompl::base::StateSamplerPtr allocWeightedRealVectorStateSampler(const ompl::base::StateSpace* space,
                                                                 const Eigen::VectorXd& weights,
                                                                 const Eigen::MatrixX2d& limits);
+
+/**
+ * @brief Converts an OMPL state into a vector of doubles
+ * @param s1 OMPL state
+ * @param dimension Size of the state (e.g., number of joints)
+ * @return
+ */
+Eigen::Map<Eigen::VectorXd> fromRealVectorStateSpace(const ompl::base::State* s1, unsigned dimension);
+
+/**
+ * @brief Converts
+ * @param path
+ * @return
+ */
+tesseract_common::TrajArray fromRealVectorStateSpace(const ompl::geometric::PathGeometric& path);
+
+// long assignTrajectory(tesseract_planning::CompositeInstruction& output,
+//                       boost::uuids::uuid start_uuid,
+//                       boost::uuids::uuid end_uuid,
+//                       long start_index,
+//                       const std::vector<std::string>& joint_names,
+//                       const tesseract_common::TrajArray& traj,
+//                       const bool format_result_as_input);
 
 }  // namespace tesseract_planning
 

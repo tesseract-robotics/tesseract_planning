@@ -40,6 +40,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/utils.h>
 #include <tesseract_motion_planners/ompl/weighted_real_vector_state_sampler.h>
 
+#include <tesseract_common/types.h>
+
 #include <tesseract_collision/core/types.h>
 #include <tesseract_collision/core/discrete_contact_manager.h>
 
@@ -47,34 +49,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-Eigen::Map<Eigen::VectorXd> RealVectorStateSpaceExtractor(const ompl::base::State* s1, unsigned dimension)
-{
-  assert(dynamic_cast<const ompl::base::RealVectorStateSpace::StateType*>(s1) != nullptr);
-  const auto* s = s1->template as<ompl::base::RealVectorStateSpace::StateType>();
-  return Eigen::Map<Eigen::VectorXd>{ s->values, dimension };
-}
-
-#ifndef OMPL_LESS_1_4_0
-Eigen::Map<Eigen::VectorXd> ConstrainedStateSpaceExtractor(const ompl::base::State* s1)
-{
-  assert(dynamic_cast<const ompl::base::ProjectedStateSpace::StateType*>(s1) != nullptr);
-  const Eigen::Map<Eigen::VectorXd>& s = *(s1->template as<ompl::base::ProjectedStateSpace::StateType>());
-  return s;
-}
-#endif
-
-tesseract_common::TrajArray toTrajArray(const ompl::geometric::PathGeometric& path, const OMPLStateExtractor& extractor)
-{
-  const auto n_points = static_cast<long>(path.getStateCount());
-  const auto dof = static_cast<long>(path.getSpaceInformation()->getStateDimension());
-
-  tesseract_common::TrajArray result(n_points, dof);
-  for (long i = 0; i < n_points; ++i)
-    result.row(i) = extractor(path.getState(static_cast<unsigned>(i)));
-
-  return result;
-}
-
 void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr,
                                 double longest_valid_segment_fraction,
                                 double longest_valid_segment_length)
@@ -128,5 +102,87 @@ ompl::base::StateSamplerPtr allocWeightedRealVectorStateSampler(const ompl::base
 {
   return std::make_shared<WeightedRealVectorStateSampler>(space, weights, limits);
 }
+
+Eigen::Map<Eigen::VectorXd> fromRealVectorStateSpace(const ompl::base::State* s1, unsigned dimension)
+{
+  assert(dynamic_cast<const ompl::base::RealVectorStateSpace::StateType*>(s1) != nullptr);
+  const auto* s = s1->template as<ompl::base::RealVectorStateSpace::StateType>();
+  return Eigen::Map<Eigen::VectorXd>{ s->values, dimension };
+}
+
+tesseract_common::TrajArray fromRealVectorStateSpace(const ompl::geometric::PathGeometric& path)
+{
+  const auto n_points = static_cast<long>(path.getStateCount());
+  const auto dof = static_cast<unsigned>(path.getSpaceInformation()->getStateDimension());
+
+  tesseract_common::TrajArray result(n_points, dof);
+  for (long i = 0; i < n_points; ++i)
+    result.row(i) = fromRealVectorStateSpace(path.getState(static_cast<unsigned>(i)), dof);
+
+  return result;
+}
+
+// long assignTrajectory(tesseract_planning::CompositeInstruction& output,
+//                       boost::uuids::uuid start_uuid,
+//                       boost::uuids::uuid end_uuid,
+//                       long start_index,
+//                       const std::vector<std::string>& joint_names,
+//                       const tesseract_common::TrajArray& traj,
+//                       const bool format_result_as_input)
+// {
+//   bool found{ false };
+//   Eigen::Index row{ 0 };
+//   auto& ci = output.getInstructions();
+//   for (auto it = ci.begin() + static_cast<long>(start_index); it != ci.end(); ++it)
+//   {
+//     if (it->isMoveInstruction())
+//     {
+//       auto& mi = it->as<MoveInstructionPoly>();
+//       if (mi.getUUID() == start_uuid)
+//         found = true;
+
+//       if (mi.getUUID() == end_uuid)
+//       {
+//         std::vector<InstructionPoly> extra;
+//         for (; row < traj.rows() - 1; ++row)
+//         {
+//           MoveInstructionPoly child = mi.createChild();
+//           if (format_result_as_input)
+//           {
+//             JointWaypointPoly jwp = mi.createJointWaypoint();
+//             jwp.setIsConstrained(false);
+//             jwp.setNames(joint_names);
+//             jwp.setPosition(traj.row(row));
+//             child.assignJointWaypoint(jwp);
+//           }
+//           else
+//           {
+//             StateWaypointPoly swp = mi.createStateWaypoint();
+//             swp.setNames(joint_names);
+//             swp.setPosition(traj.row(row));
+//             child.assignStateWaypoint(swp);
+//           }
+
+//           extra.emplace_back(child);
+//         }
+
+//         assignSolution(mi, joint_names, traj.row(row), format_result_as_input);
+
+//         if (!extra.empty())
+//           ci.insert(it, extra.begin(), extra.end());
+
+//         start_index += static_cast<long>(extra.size());
+//         break;
+//       }
+
+//       if (found)
+//         assignSolution(mi, joint_names, traj.row(row++), format_result_as_input);
+//     }
+
+//     ++start_index;
+//   }
+
+//   return start_index;
+// }
 
 }  // namespace tesseract_planning
