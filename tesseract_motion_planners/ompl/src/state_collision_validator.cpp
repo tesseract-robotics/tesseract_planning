@@ -44,12 +44,10 @@ StateCollisionValidator::StateCollisionValidator(
     const ompl::base::SpaceInformationPtr& space_info,
     const tesseract_environment::Environment& env,
     std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-    const tesseract_collision::CollisionCheckConfig& collision_check_config,
-    OMPLStateExtractor extractor)
+    const tesseract_collision::CollisionCheckConfig& collision_check_config)
   : StateValidityChecker(space_info)
   , manip_(std::move(manip))
   , contact_manager_(env.getDiscreteContactManager())
-  , extractor_(std::move(extractor))
 {
   links_ = manip_->getActiveLinkNames();
 
@@ -75,7 +73,7 @@ bool StateCollisionValidator::isValid(const ompl::base::State* state) const
   }
   mutex_.unlock();
 
-  Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(state);
+  Eigen::Map<Eigen::VectorXd> finish_joints = fromRealVectorStateSpace(state, si_->getStateDimension());
   tesseract_common::TransformMap state1 = manip_->calcFwdKin(finish_joints);
 
   for (const auto& link_name : links_)

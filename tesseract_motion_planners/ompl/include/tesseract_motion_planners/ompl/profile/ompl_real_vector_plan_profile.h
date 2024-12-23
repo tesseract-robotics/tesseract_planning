@@ -76,13 +76,15 @@ public:
 
   std::unique_ptr<OMPLSolverConfig> createSolverConfig() const override;
 
-  OMPLStateExtractor createStateExtractor(const tesseract_kinematics::JointGroup& manip) const override;
-
   std::unique_ptr<ompl::geometric::SimpleSetup>
   createSimpleSetup(const MoveInstructionPoly& start_instruction,
                     const MoveInstructionPoly& end_instruction,
                     const tesseract_common::ManipulatorInfo& composite_mi,
                     const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
+
+  CompositeInstruction convertPath(const ompl::geometric::PathGeometric& path,
+                                   const tesseract_common::ManipulatorInfo& composite_mi,
+                                   const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
 
 protected:
   static void applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
@@ -126,8 +128,7 @@ protected:
   virtual std::unique_ptr<ompl::base::StateValidityChecker>
   createStateValidator(const ompl::geometric::SimpleSetup& simple_setup,
                        const std::shared_ptr<const tesseract_environment::Environment>& env,
-                       const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-                       const OMPLStateExtractor& state_extractor) const;
+                       const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip) const;
 
   /**
    * @brief Create collision state validator
@@ -140,8 +141,7 @@ protected:
   virtual std::unique_ptr<ompl::base::StateValidityChecker>
   createCollisionStateValidator(const ompl::geometric::SimpleSetup& simple_setup,
                                 const std::shared_ptr<const tesseract_environment::Environment>& env,
-                                const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-                                const OMPLStateExtractor& state_extractor) const;
+                                const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip) const;
 
   /**
    * @brief Create motion validator
@@ -155,7 +155,6 @@ protected:
   createMotionValidator(const ompl::geometric::SimpleSetup& simple_setup,
                         const std::shared_ptr<const tesseract_environment::Environment>& env,
                         const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-                        const OMPLStateExtractor& state_extractor,
                         const std::shared_ptr<ompl::base::StateValidityChecker>& svc_without_collision) const;
 
   /**
@@ -169,8 +168,7 @@ protected:
   virtual std::unique_ptr<ompl::base::OptimizationObjective>
   createOptimizationObjective(const ompl::geometric::SimpleSetup& simple_setup,
                               const std::shared_ptr<const tesseract_environment::Environment>& env,
-                              const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-                              const OMPLStateExtractor& state_extractor) const;
+                              const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip) const;
 
   friend class boost::serialization::access;
   template <class Archive>

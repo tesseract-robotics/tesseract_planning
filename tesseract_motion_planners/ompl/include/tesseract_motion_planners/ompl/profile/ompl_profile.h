@@ -33,8 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/ompl/types.h>
-
 #include <tesseract_common/fwd.h>
 #include <tesseract_kinematics/core/fwd.h>
 #include <tesseract_environment/fwd.h>
@@ -45,6 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace ompl::geometric
 {
 class SimpleSetup;
+class PathGeometric;
 }
 
 namespace tesseract_planning
@@ -73,12 +72,6 @@ public:
   virtual std::unique_ptr<OMPLSolverConfig> createSolverConfig() const = 0;
 
   /**
-   * @brief Create the state extractor
-   * @return The OMPL state extractor
-   */
-  virtual OMPLStateExtractor createStateExtractor(const tesseract_kinematics::JointGroup& manip) const = 0;
-
-  /**
    * @brief Create OMPL Simple Setup
    * @param start_instruction The start instruction
    * @param end_instruction The goal instruction
@@ -91,6 +84,13 @@ public:
                     const MoveInstructionPoly& end_instruction,
                     const tesseract_common::ManipulatorInfo& composite_mi,
                     const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
+
+  /**
+   * @brief Convert an OMPL defined path into a composite instruction that can be returned by the planner
+   */
+  virtual CompositeInstruction convertPath(const ompl::geometric::PathGeometric& path,
+                                           const tesseract_common::ManipulatorInfo& composite_mi,
+                                           const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
 
 protected:
   friend class boost::serialization::access;
