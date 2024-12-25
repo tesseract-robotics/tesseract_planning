@@ -241,11 +241,15 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPo
   else if (waypoint.isCartesianWaypoint())
   {
     auto& cwp = waypoint.as<CartesianWaypointPoly>();
-    if (!cwp.hasSeed())
-      throw std::runtime_error("Cartesian waypoint does not have a seed.");
-
-    jv = &(cwp.getSeed().position);
-    jn = &(cwp.getSeed().joint_names);
+    if (cwp.hasSeed())
+    {
+      jv = &(cwp.getSeed().position);
+      jn = &(cwp.getSeed().joint_names);
+    }
+    else
+    {
+      return false;
+    }
   }
   else
   {
