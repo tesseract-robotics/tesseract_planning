@@ -15,6 +15,7 @@ find_package(Boost REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Threads REQUIRED)
 find_package(tesseract_common REQUIRED)
+find_package(tesseract_kinematics REQUIRED)
 find_package(tesseract_environment REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 
