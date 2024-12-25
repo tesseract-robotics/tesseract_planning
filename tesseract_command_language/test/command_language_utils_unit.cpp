@@ -312,12 +312,12 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionTests)  // NOLINT
   EXPECT_FALSE(formatJointPosition(joint_names, wp1u_poly));
   EXPECT_TRUE(wp1u_poly.as<CartesianWaypointPoly>().getSeed().position.isApprox(seed_position));
 
+  WaypointPoly wp2_poly{ wp2 };
+  EXPECT_FALSE(formatJointPosition(format_joint_names, wp2_poly));  // NOLINT
+
   // Format is not correct size or invalid joint name
   EXPECT_ANY_THROW(formatJointPosition({ "joint_1" }, wp0_poly));             // NOLINT
   EXPECT_ANY_THROW(formatJointPosition({ "joint_3", "joint_1" }, wp0_poly));  // NOLINT
-
-  WaypointPoly wp2_poly{ wp2 };
-  EXPECT_ANY_THROW(formatJointPosition(format_joint_names, wp2_poly));  // NOLINT
 
   WaypointPoly error_poly;
   EXPECT_ANY_THROW(formatJointPosition(format_joint_names, error_poly));  // NOLINT
