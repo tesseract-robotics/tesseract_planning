@@ -29,6 +29,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/fwd.hpp>
+#include <trajopt_sco/optimizers.hpp>
 #include <vector>
 #include <memory>
 #include <string>
@@ -39,8 +40,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/fwd.h>
 #include <tesseract_command_language/fwd.h>
 #include <tesseract_command_language/profile.h>
-#include <trajopt/fwd.hpp>
-#include <trajopt_sco/optimizers.hpp>
 
 namespace boost::serialization
 {

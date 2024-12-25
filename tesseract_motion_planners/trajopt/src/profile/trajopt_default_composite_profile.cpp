@@ -152,7 +152,7 @@ TrajOptTermInfos TrajOptDefaultCompositeProfile::createCostAndConstraints(
   return term_infos;
 }
 
-double TrajOptDefaultCompositeProfile::computeLongestValidSegmentLength(const Eigen::MatrixX2d joint_limits) const
+double TrajOptDefaultCompositeProfile::computeLongestValidSegmentLength(const Eigen::MatrixX2d& joint_limits) const
 {
   // Calculate longest valid segment length
   double extent = (joint_limits.col(1) - joint_limits.col(0)).norm();

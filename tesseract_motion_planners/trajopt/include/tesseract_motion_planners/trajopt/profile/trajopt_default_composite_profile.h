@@ -104,7 +104,7 @@ public:
                                             int end_index) const override;
 
 protected:
-  double computeLongestValidSegmentLength(const Eigen::MatrixX2d joint_limits) const;
+  double computeLongestValidSegmentLength(const Eigen::MatrixX2d& joint_limits) const;
 
   friend class boost::serialization::access;
   template <class Archive>

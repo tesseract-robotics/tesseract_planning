@@ -253,14 +253,12 @@ bool formatProgramHelper(CompositeInstruction& composite_instructions,
       auto& base_instruction = i.as<MoveInstructionPoly>();
       tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 
-      tesseract_common::ManipulatorInfo combined_mi = mi.getCombined(base_instruction.getManipulatorInfo());
-
       std::vector<std::string> joint_names;
-      auto it = manip_joint_names.find(combined_mi.manipulator);
+      auto it = manip_joint_names.find(mi.manipulator);
       if (it == manip_joint_names.end())
       {
-        joint_names = env.getGroupJointNames(combined_mi.manipulator);
-        manip_joint_names[combined_mi.manipulator] = joint_names;
+        joint_names = env.getGroupJointNames(mi.manipulator);
+        manip_joint_names[mi.manipulator] = joint_names;
       }
       else
       {
