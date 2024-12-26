@@ -31,10 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/geometric/PathGeometric.h>
 #include <memory>
 
-#ifndef OMPL_LESS_1_4_0
-#include <ompl/base/spaces/constraint/ProjectedStateSpace.h>
-#endif
-
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/utils.h>
