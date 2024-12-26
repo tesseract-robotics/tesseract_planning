@@ -38,39 +38,52 @@ namespace tesseract_planning
 using PoseSamplerFn = std::function<tesseract_common::VectorIsometry3d(const Eigen::Isometry3d& tool_pose)>;
 
 /**
- * @brief Given a tool pose create samples from [-PI, PI) around the provided axis.
+ * @brief Given a tool pose create samples from [minimum, maximum] around the provided axis.
  * @param tool_pose Tool pose to be sampled
- * @param resolution The resolution to sample at
  * @param axis The axis to sample around
+ * @param resolution The resolution to sample at
+ * @param minimum The minimum angle to start sampling at
+ * @param maximum The maximum angle to stop sampling at
  * @return A vector of tool poses
  */
 tesseract_common::VectorIsometry3d sampleToolAxis(const Eigen::Isometry3d& tool_pose,
+                                                  const Eigen::Vector3d& axis,
                                                   double resolution,
-                                                  const Eigen::Vector3d& axis);
+                                                  double minimum,
+                                                  double maximum);
 
 /**
- * @brief Given a tool pose create samples from [-PI, PI) around the x axis.
+ * @brief Given a tool pose create samples from [minimum, maximum] around the x axis.
  * @param tool_pose Tool pose to be sampled
  * @param resolution The resolution to sample at
+ * @param minimum The minimum angle to start sampling at
+ * @param maximum The maximum angle to stop sampling at
  * @return A vector of tool poses
  */
-tesseract_common::VectorIsometry3d sampleToolXAxis(const Eigen::Isometry3d& tool_pose, double resolution);
+tesseract_common::VectorIsometry3d
+sampleToolXAxis(const Eigen::Isometry3d& tool_pose, double resolution, double minimum, double maximum);
 
 /**
- * @brief Given a tool pose create samples from [-PI, PI) around the y axis.
+ * @brief Given a tool pose create samples from [minimum, maximum] around the y axis.
  * @param tool_pose Tool pose to be sampled
  * @param resolution The resolution to sample at
+ * @param minimum The minimum angle to start sampling at
+ * @param maximum The maximum angle to stop sampling at
  * @return A vector of tool poses
  */
-tesseract_common::VectorIsometry3d sampleToolYAxis(const Eigen::Isometry3d& tool_pose, double resolution);
+tesseract_common::VectorIsometry3d
+sampleToolYAxis(const Eigen::Isometry3d& tool_pose, double resolution, double minimum, double maximum);
 
 /**
- * @brief Given a tool pose create samples from [-PI, PI) around the z axis.
+ * @brief Given a tool pose create samples from [minimum, maximum] around the z axis.
  * @param tool_pose Tool pose to be sampled
  * @param resolution The resolution to sample at
+ * @param minimum The minimum angle to start sampling at
+ * @param maximum The maximum angle to stop sampling at
  * @return A vector of tool poses
  */
-tesseract_common::VectorIsometry3d sampleToolZAxis(const Eigen::Isometry3d& tool_pose, double resolution);
+tesseract_common::VectorIsometry3d
+sampleToolZAxis(const Eigen::Isometry3d& tool_pose, double resolution, double minimum, double maximum);
 
 /**
  * @brief This is the default sample with if a fixed pose sampler

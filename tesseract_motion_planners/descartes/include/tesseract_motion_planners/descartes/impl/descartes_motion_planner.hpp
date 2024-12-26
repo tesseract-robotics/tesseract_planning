@@ -89,12 +89,6 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
     assert(instruction.get().isMoveInstruction());
     const auto& move_instruction = instruction.get().template as<MoveInstructionPoly>();
 
-    // If plan instruction has manipulator information then use it over the one provided by the composite.
-    tesseract_common::ManipulatorInfo manip_info = composite_mi.getCombined(move_instruction.getManipulatorInfo());
-
-    if (manip_info.empty())
-      throw std::runtime_error("Descartes, manipulator info is empty!");
-
     // Get Plan Profile
     auto cur_plan_profile =
         getProfile<DescartesPlanProfile<FloatType>>(name_,
@@ -109,10 +103,10 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
         !move_instruction.getWaypoint().as<JointWaypointPoly>().isConstrained())
       continue;
 
-    waypoint_samplers.push_back(cur_plan_profile->createWaypointSampler(move_instruction, manip_info, request.env));
-    state_evaluators.push_back(cur_plan_profile->createStateEvaluator(move_instruction, manip_info, request.env));
+    waypoint_samplers.push_back(cur_plan_profile->createWaypointSampler(move_instruction, composite_mi, request.env));
+    state_evaluators.push_back(cur_plan_profile->createStateEvaluator(move_instruction, composite_mi, request.env));
     if (index != 0)
-      edge_evaluators.push_back(cur_plan_profile->createEdgeEvaluator(move_instruction, manip_info, request.env));
+      edge_evaluators.push_back(cur_plan_profile->createEdgeEvaluator(move_instruction, composite_mi, request.env));
 
     ++index;
   }

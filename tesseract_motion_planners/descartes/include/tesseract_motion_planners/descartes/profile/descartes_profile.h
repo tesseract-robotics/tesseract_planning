@@ -90,17 +90,17 @@ public:
 
   virtual std::unique_ptr<descartes_light::WaypointSampler<FloatType>>
   createWaypointSampler(const MoveInstructionPoly& move_instruction,
-                        const tesseract_common::ManipulatorInfo& manip_info,
+                        const tesseract_common::ManipulatorInfo& composite_manip_info,
                         const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
 
   virtual std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>>
   createEdgeEvaluator(const MoveInstructionPoly& move_instruction,
-                      const tesseract_common::ManipulatorInfo& manip_info,
+                      const tesseract_common::ManipulatorInfo& composite_manip_info,
                       const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
 
   virtual std::unique_ptr<descartes_light::StateEvaluator<FloatType>>
   createStateEvaluator(const MoveInstructionPoly& move_instruction,
-                       const tesseract_common::ManipulatorInfo& manip_info,
+                       const tesseract_common::ManipulatorInfo& composite_manip_info,
                        const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
 
 protected:

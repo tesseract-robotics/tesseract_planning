@@ -49,9 +49,15 @@ public:
 
   DescartesDefaultPlanProfile() = default;
 
+  /** @brief Target pose sampling params */
   bool target_pose_fixed{ true };
   Eigen::Vector3d target_pose_sample_axis{ 0, 0, 1 };
   double target_pose_sample_resolution{ M_PI_2 };
+  double target_pose_sample_min{ -M_PI };
+  double target_pose_sample_max{ M_PI - M_PI_2 };  // Subtract resolution to avoid duplicate states at -PI and PI
+
+  /** @brief Override the manipulator ik solver */
+  std::string manipulator_ik_solver;
 
   /**
    * @brief Flag to indicate that collisions should not cause failures during state/edge evaluation
@@ -80,17 +86,17 @@ public:
 
   std::unique_ptr<descartes_light::WaypointSampler<FloatType>>
   createWaypointSampler(const MoveInstructionPoly& move_instruction,
-                        const tesseract_common::ManipulatorInfo& manip_info,
+                        const tesseract_common::ManipulatorInfo& composite_manip_info,
                         const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
 
   std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>>
   createEdgeEvaluator(const MoveInstructionPoly& move_instruction,
-                      const tesseract_common::ManipulatorInfo& manip_info,
+                      const tesseract_common::ManipulatorInfo& composite_manip_info,
                       const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
 
   std::unique_ptr<descartes_light::StateEvaluator<FloatType>>
   createStateEvaluator(const MoveInstructionPoly& move_instruction,
-                       const tesseract_common::ManipulatorInfo& manip_info,
+                       const tesseract_common::ManipulatorInfo& composite_manip_info,
                        const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
 
 protected:

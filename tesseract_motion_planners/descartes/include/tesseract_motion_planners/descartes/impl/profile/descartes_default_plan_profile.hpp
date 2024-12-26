@@ -69,18 +69,32 @@ PoseSamplerFn DescartesDefaultPlanProfile<FloatType>::createPoseSampler(
   if (target_pose_fixed)
     return sampleFixed;
 
-  return [axis = target_pose_sample_axis, resolution = target_pose_sample_resolution](
-             const Eigen::Isometry3d& tool_pose) { return sampleToolAxis(tool_pose, resolution, axis); };
+  return [axis = target_pose_sample_axis,
+          resolution = target_pose_sample_resolution,
+          minimum = target_pose_sample_min,
+          maximum = target_pose_sample_max](const Eigen::Isometry3d& tool_pose) {
+    return sampleToolAxis(tool_pose, axis, resolution, minimum, maximum);
+  };
 }
 
 template <typename FloatType>
 std::unique_ptr<descartes_light::WaypointSampler<FloatType>>
 DescartesDefaultPlanProfile<FloatType>::createWaypointSampler(
     const MoveInstructionPoly& move_instruction,
-    const tesseract_common::ManipulatorInfo& manip_info,
+    const tesseract_common::ManipulatorInfo& composite_manip_info,
     const std::shared_ptr<const tesseract_environment::Environment>& env) const
 {
+  // If plan instruction has manipulator information then use it over the one provided by the composite.
+  tesseract_common::ManipulatorInfo manip_info =
+      composite_manip_info.getCombined(move_instruction.getManipulatorInfo());
+  if (!manipulator_ik_solver.empty())
+    manip_info.manipulator_ik_solver = manipulator_ik_solver;
+
+  if (manip_info.empty())
+    throw std::runtime_error("Descartes, manipulator info is empty!");
+
   auto manip = DescartesPlanProfile<FloatType>::createKinematicGroup(manip_info, *env);
+
   if (!move_instruction.getWaypoint().isCartesianWaypoint())
   {
     assert(checkJointPositionFormat(manip->getJointNames(), move_instruction.getWaypoint()));
@@ -121,10 +135,20 @@ DescartesDefaultPlanProfile<FloatType>::createWaypointSampler(
 template <typename FloatType>
 std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>> DescartesDefaultPlanProfile<FloatType>::createEdgeEvaluator(
     const MoveInstructionPoly& move_instruction,
-    const tesseract_common::ManipulatorInfo& manip_info,
+    const tesseract_common::ManipulatorInfo& composite_manip_info,
     const std::shared_ptr<const tesseract_environment::Environment>& env) const
 {
+  // If plan instruction has manipulator information then use it over the one provided by the composite.
+  tesseract_common::ManipulatorInfo manip_info =
+      composite_manip_info.getCombined(move_instruction.getManipulatorInfo());
+  if (!manipulator_ik_solver.empty())
+    manip_info.manipulator_ik_solver = manipulator_ik_solver;
+
+  if (manip_info.empty())
+    throw std::runtime_error("Descartes, manipulator info is empty!");
+
   auto manip = DescartesPlanProfile<FloatType>::createKinematicGroup(manip_info, *env);
+
   if (move_instruction.getWaypoint().isCartesianWaypoint())
   {
     if (!enable_edge_collision)
@@ -155,7 +179,7 @@ template <typename FloatType>
 std::unique_ptr<descartes_light::StateEvaluator<FloatType>>
 DescartesDefaultPlanProfile<FloatType>::createStateEvaluator(
     const MoveInstructionPoly& /*move_instruction*/,
-    const tesseract_common::ManipulatorInfo& /*manip_info*/,
+    const tesseract_common::ManipulatorInfo& /*composite_manip_info*/,
     const std::shared_ptr<const tesseract_environment::Environment>& /*env*/) const
 {
   return std::make_unique<descartes_light::StateEvaluator<FloatType>>();
