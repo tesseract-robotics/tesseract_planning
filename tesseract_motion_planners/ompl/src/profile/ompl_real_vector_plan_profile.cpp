@@ -47,6 +47,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 
 #include <tesseract_motion_planners/core/types.h>
+
 #include <tesseract_motion_planners/ompl/profile/ompl_real_vector_plan_profile.h>
 #include <tesseract_motion_planners/ompl/utils.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
@@ -77,6 +78,28 @@ std::unique_ptr<OMPLSolverConfig> OMPLRealVectorPlanProfile::createSolverConfig(
   return std::make_unique<OMPLSolverConfig>(solver_config);
 }
 
+ompl::base::StateSpacePtr OMPLRealVectorPlanProfile::createStateSpace(const tesseract_common::ManipulatorInfo& mi,
+                                                                      const std::shared_ptr<const tesseract_environment::Environment>& env) const
+{
+  // Get kinematics
+  tesseract_kinematics::JointGroup::Ptr manip = env->getJointGroup(mi.manipulator);
+  const auto dof = static_cast<unsigned>(manip->numJoints());
+  const std::vector<std::string> joint_names = manip->getJointNames();
+  const Eigen::MatrixX2d limits = manip->getLimits().joint_limits;
+
+  // Construct the OMPL state space for this manipulator
+  auto rvss = std::make_shared<ompl::base::RealVectorStateSpace>();
+  for (unsigned i = 0; i < dof; ++i)
+    rvss->addDimension(joint_names[i], limits(i, 0), limits(i, 1));
+
+  rvss->setStateSamplerAllocator(createStateSamplerAllocator(env, manip));
+
+  // Setup Longest Valid Segment
+  processLongestValidSegment(rvss, collision_check_config);
+
+  return rvss;
+}
+
 std::unique_ptr<ompl::geometric::SimpleSetup>
 OMPLRealVectorPlanProfile::createSimpleSetup(const MoveInstructionPoly& start_instruction,
                                              const MoveInstructionPoly& end_instruction,
@@ -90,26 +113,9 @@ OMPLRealVectorPlanProfile::createSimpleSetup(const MoveInstructionPoly& start_in
 
   // Get kinematics
   tesseract_kinematics::JointGroup::Ptr manip = env->getJointGroup(end_mi.manipulator);
-  const auto dof = static_cast<unsigned>(manip->numJoints());
-  const std::vector<std::string> joint_names = manip->getJointNames();
-  const Eigen::MatrixX2d limits = manip->getLimits().joint_limits;
-
-  // Construct the OMPL state space for this manipulator
-  ompl::base::StateSpacePtr state_space_ptr;
-
-  auto rss = std::make_shared<ompl::base::RealVectorStateSpace>();
-  for (unsigned i = 0; i < dof; ++i)
-    rss->addDimension(joint_names[i], limits(i, 0), limits(i, 1));
-
-  rss->setStateSamplerAllocator(createStateSamplerAllocator(env, manip));
-
-  state_space_ptr = rss;
-
-  // Setup Longest Valid Segment
-  processLongestValidSegment(state_space_ptr, collision_check_config);
 
   // Create Simple Setup from state space
-  auto simple_setup = std::make_unique<ompl::geometric::SimpleSetup>(state_space_ptr);
+  auto simple_setup = std::make_unique<ompl::geometric::SimpleSetup>(createStateSpace(end_mi, env));
 
   // Setup state validators
   auto csvc = std::make_shared<CompoundStateValidator>();

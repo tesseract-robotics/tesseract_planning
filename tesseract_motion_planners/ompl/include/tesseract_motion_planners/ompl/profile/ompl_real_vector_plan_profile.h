@@ -46,8 +46,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace ompl::base
 {
+class State;
 class StateSampler;
-class StateSpace;
 class StateValidityChecker;
 class MotionValidator;
 class OptimizationObjective;
@@ -87,6 +87,9 @@ public:
                                    const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
 
 protected:
+  ompl::base::StateSpacePtr createStateSpace(const tesseract_common::ManipulatorInfo& composite_mi,
+                                             const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
+
   static void applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
                               const tesseract_kinematics::KinGroupIKInput& ik_input,
                               const tesseract_kinematics::KinematicGroup& manip,

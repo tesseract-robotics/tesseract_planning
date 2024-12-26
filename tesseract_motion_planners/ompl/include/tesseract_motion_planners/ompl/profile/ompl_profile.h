@@ -40,6 +40,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/profile.h>
 
+namespace ompl::base
+{
+class StateSpace;
+using StateSpacePtr = std::shared_ptr<StateSpace>;
+}
+
 namespace ompl::geometric
 {
 class SimpleSetup;
@@ -93,6 +99,13 @@ public:
                                            const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
 
 protected:
+  /**
+   * @brief Creates an OMPL StateSpace object that con be used internally to construct the SimpleSetup object
+   * @return
+   */
+  ompl::base::StateSpacePtr virtual createStateSpace(const tesseract_common::ManipulatorInfo& composite_mi,
+                                                     const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
+
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
