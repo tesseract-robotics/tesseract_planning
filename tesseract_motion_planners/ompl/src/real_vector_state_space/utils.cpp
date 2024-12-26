@@ -30,15 +30,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/State.h>
 #include <ompl/geometric/PathGeometric.h>
 
-// #ifndef OMPL_LESS_1_4_0
-// #include <ompl/base/spaces/constraint/ProjectedStateSpace.h>
-// #endif
+#ifndef OMPL_LESS_1_4_0
+#include <ompl/base/spaces/constraint/ProjectedStateSpace.h>
+#endif
 
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/real_vector_state_space/utils.h>
-
-#include <tesseract_common/types.h>
 
 namespace tesseract_planning
 {
@@ -49,14 +47,24 @@ Eigen::Map<Eigen::VectorXd> fromRealVectorStateSpace(const ompl::base::State* s1
   return Eigen::Map<Eigen::VectorXd>{ s->values, dimension };
 }
 
-tesseract_common::TrajArray fromRealVectorStateSpace(const ompl::geometric::PathGeometric& path)
+#ifndef OMPL_LESS_1_4_0
+Eigen::Map<Eigen::VectorXd> fromConstrainedRealVectorStateSpace(const ompl::base::State* s1, unsigned /*dimension*/)
+{
+  assert(dynamic_cast<const ompl::base::ProjectedStateSpace::StateType*>(s1) != nullptr);
+  const Eigen::Map<Eigen::VectorXd>& s = *(s1->template as<ompl::base::ProjectedStateSpace::StateType>());
+  return s;
+}
+#endif
+
+tesseract_common::TrajArray fromRealVectorStateSpace(const ompl::geometric::PathGeometric& path,
+                                                     StateConverterFn state_converter)
 {
   const auto n_points = static_cast<long>(path.getStateCount());
   const auto dof = static_cast<unsigned>(path.getSpaceInformation()->getStateDimension());
 
   tesseract_common::TrajArray result(n_points, dof);
   for (long i = 0; i < n_points; ++i)
-    result.row(i) = fromRealVectorStateSpace(path.getState(static_cast<unsigned>(i)), dof);
+    result.row(i) = state_converter(path.getState(static_cast<unsigned>(i)), dof);
 
   return result;
 }

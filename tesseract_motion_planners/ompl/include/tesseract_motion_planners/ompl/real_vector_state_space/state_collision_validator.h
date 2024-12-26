@@ -38,6 +38,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/fwd.h>
 #include <tesseract_collision/core/fwd.h>
 
+#include <tesseract_motion_planners/ompl/real_vector_state_space/utils.h>
+
 namespace ompl::base
 {
 class SpaceInformation;
@@ -53,7 +55,8 @@ public:
   StateCollisionValidator(const ompl::base::SpaceInformationPtr& space_info,
                           const tesseract_environment::Environment& env,
                           std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-                          const tesseract_collision::CollisionCheckConfig& collision_check_config);
+                          const tesseract_collision::CollisionCheckConfig& collision_check_config,
+                          StateConverterFn state_converter);
 
   bool isValid(const ompl::base::State* state) const override;
 
@@ -66,6 +69,9 @@ private:
 
   /** @brief A list of active links */
   std::vector<std::string> links_;
+
+  /** @brief Function to convert an OMPL state (typically of type RealVectorStateSpace::StateType or ConstrainedStateSpace::StateType) into a vector of doubles representing a joint state */
+  StateConverterFn state_converter_;
 
   // The items below are to cache the contact manager based on thread ID. Currently ompl is multi
   // threaded but the methods used to implement collision checking are not thread safe. To prevent

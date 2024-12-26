@@ -29,6 +29,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
+#include <functional>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/eigen_types.h>
@@ -46,19 +47,32 @@ class PathGeometric;
 namespace tesseract_planning
 {
 /**
- * @brief Converts an OMPL state into a vector of doubles
+ * @brief Typedef for a function that can convert an OMPL base state object into a vector of contiguous double values
+ */
+using StateConverterFn = std::function<Eigen::Map<Eigen::VectorXd>(const ompl::base::State*, unsigned dim)>;
+
+/**
+ * @brief Implementation of StateConverterFn that converts an OMPL state into a vector of doubles by casting through a RealVectorStateSpace::StateType OMPL state
  * @param s1 OMPL state
  * @param dimension Size of the state (e.g., number of joints)
  * @return
  */
 Eigen::Map<Eigen::VectorXd> fromRealVectorStateSpace(const ompl::base::State* s1, unsigned dimension);
 
+#ifndef OMPL_LESS_1_4_0
 /**
- * @brief Converts
- * @param path
+ * @brief Implementation of StateConverterFn that converts an OMPL state into a vector of doubles by casting through a ProjectedStateSpace::StateType OMPL state
+ * @param s1 OMPL state
+ * @param dimension Size of the state (e.g., number of joints)
  * @return
  */
-tesseract_common::TrajArray fromRealVectorStateSpace(const ompl::geometric::PathGeometric& path);
+Eigen::Map<Eigen::VectorXd> fromConstrainedRealVectorStateSpace(const ompl::base::State* s1, unsigned dimension);
+#endif
+
+/**
+ * @brief Converts an OMPL path into a trajectory array by using the input state converter to convert the path waypoints into joint state vectors
+ */
+tesseract_common::TrajArray fromOMPL(const ompl::geometric::PathGeometric& path, StateConverterFn state_converter);
 
 }  // namespace tesseract_planning
 
