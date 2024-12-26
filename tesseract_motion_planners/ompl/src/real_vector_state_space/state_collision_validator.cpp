@@ -30,8 +30,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/ompl/utils.h>
-#include <tesseract_motion_planners/ompl/state_collision_validator.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/state_collision_validator.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/utils.h>
 
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_collision/core/discrete_contact_manager.h>

@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/ScopedState.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/ompl/weighted_real_vector_state_sampler.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/weighted_real_vector_state_sampler.h>
 
 namespace tesseract_planning
 {

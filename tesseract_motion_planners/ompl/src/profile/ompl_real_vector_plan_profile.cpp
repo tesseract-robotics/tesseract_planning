@@ -49,12 +49,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_real_vector_plan_profile.h>
 #include <tesseract_motion_planners/ompl/utils.h>
-
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
-#include <tesseract_motion_planners/ompl/continuous_motion_validator.h>
 #include <tesseract_motion_planners/ompl/discrete_motion_validator.h>
-#include <tesseract_motion_planners/ompl/state_collision_validator.h>
 #include <tesseract_motion_planners/ompl/compound_state_validator.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/continuous_motion_validator.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/state_collision_validator.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/weighted_real_vector_state_sampler.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/utils.h>
 
 #include <tesseract_kinematics/core/utils.h>
 #include <tesseract_kinematics/core/joint_group.h>
@@ -421,7 +422,7 @@ OMPLRealVectorPlanProfile::createStateSamplerAllocator(
   Eigen::MatrixX2d limits = manip->getLimits().joint_limits;
   Eigen::VectorXd weights = Eigen::VectorXd::Ones(manip->numJoints());
   return [weights, limits](const ompl::base::StateSpace* state_space) -> ompl::base::StateSamplerPtr {
-    return allocWeightedRealVectorStateSampler(state_space, weights, limits);
+    return std::make_shared<WeightedRealVectorStateSampler>(state_space, weights, limits);
   };
 }
 

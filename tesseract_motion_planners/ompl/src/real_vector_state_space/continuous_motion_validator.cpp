@@ -30,8 +30,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <thread>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/ompl/continuous_motion_validator.h>
-#include <tesseract_motion_planners/ompl/utils.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/continuous_motion_validator.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/utils.h>
 
 #include <tesseract_environment/environment.h>
 #include <tesseract_kinematics/core/joint_group.h>

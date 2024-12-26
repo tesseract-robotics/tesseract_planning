@@ -7,14 +7,15 @@ set(OMPL_SRC
     src/profile/ompl_profile.cpp
     src/profile/ompl_real_vector_plan_profile.cpp
     src/compound_state_validator.cpp
-    src/continuous_motion_validator.cpp
     src/discrete_motion_validator.cpp
     src/ompl_motion_planner.cpp
     src/ompl_planner_configurator.cpp
     src/ompl_solver_config.cpp
-    src/state_collision_validator.cpp
     src/utils.cpp
-    src/weighted_real_vector_state_sampler.cpp)
+    src/real_vector_state_space/continuous_motion_validator.cpp
+    src/real_vector_state_space/state_collision_validator.cpp
+    src/real_vector_state_space/weighted_real_vector_state_sampler.cpp
+    src/real_vector_state_space/utils.cpp)
 
 # if(NOT OMPL_VERSION VERSION_LESS "1.4.0") list(APPEND OMPL_SRC src/config/ompl_planner_constrained_config.cpp) endif()
 

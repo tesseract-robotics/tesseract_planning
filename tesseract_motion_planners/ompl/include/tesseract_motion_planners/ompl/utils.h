@@ -40,7 +40,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace ompl::base
 {
-class State;
 class StateSpace;
 using StateSpacePtr = std::shared_ptr<StateSpace>;
 class StateSampler;
@@ -84,31 +83,6 @@ bool checkStateInCollision(tesseract_collision::ContactResultMap& contact_map,
                            tesseract_collision::DiscreteContactManager& contact_checker,
                            const tesseract_kinematics::JointGroup& manip,
                            const Eigen::VectorXd& state);
-
-/**
- * @brief Default State sampler which uses the weights information to scale the sampled state. This is use full
- * when you state space has mixed units like meters and radian.
- * @param space The ompl state space.
- * @return OMPL state sampler shared pointer
- */
-ompl::base::StateSamplerPtr allocWeightedRealVectorStateSampler(const ompl::base::StateSpace* space,
-                                                                const Eigen::VectorXd& weights,
-                                                                const Eigen::MatrixX2d& limits);
-
-/**
- * @brief Converts an OMPL state into a vector of doubles
- * @param s1 OMPL state
- * @param dimension Size of the state (e.g., number of joints)
- * @return
- */
-Eigen::Map<Eigen::VectorXd> fromRealVectorStateSpace(const ompl::base::State* s1, unsigned dimension);
-
-/**
- * @brief Converts
- * @param path
- * @return
- */
-tesseract_common::TrajArray fromRealVectorStateSpace(const ompl::geometric::PathGeometric& path);
 
 // long assignTrajectory(tesseract_planning::CompositeInstruction& output,
 //                       boost::uuids::uuid start_uuid,

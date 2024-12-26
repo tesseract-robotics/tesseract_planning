@@ -38,7 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/utils.h>
-#include <tesseract_motion_planners/ompl/weighted_real_vector_state_sampler.h>
 
 #include <tesseract_common/types.h>
 
@@ -94,32 +93,6 @@ bool checkStateInCollision(tesseract_collision::ContactResultMap& contact_map,
   contact_checker.contactTest(contact_map, tesseract_collision::ContactTestType::FIRST);
 
   return (!contact_map.empty());
-}
-
-ompl::base::StateSamplerPtr allocWeightedRealVectorStateSampler(const ompl::base::StateSpace* space,
-                                                                const Eigen::VectorXd& weights,
-                                                                const Eigen::MatrixX2d& limits)
-{
-  return std::make_shared<WeightedRealVectorStateSampler>(space, weights, limits);
-}
-
-Eigen::Map<Eigen::VectorXd> fromRealVectorStateSpace(const ompl::base::State* s1, unsigned dimension)
-{
-  assert(dynamic_cast<const ompl::base::RealVectorStateSpace::StateType*>(s1) != nullptr);
-  const auto* s = s1->template as<ompl::base::RealVectorStateSpace::StateType>();
-  return Eigen::Map<Eigen::VectorXd>{ s->values, dimension };
-}
-
-tesseract_common::TrajArray fromRealVectorStateSpace(const ompl::geometric::PathGeometric& path)
-{
-  const auto n_points = static_cast<long>(path.getStateCount());
-  const auto dof = static_cast<unsigned>(path.getSpaceInformation()->getStateDimension());
-
-  tesseract_common::TrajArray result(n_points, dof);
-  for (long i = 0; i < n_points; ++i)
-    result.row(i) = fromRealVectorStateSpace(path.getState(static_cast<unsigned>(i)), dof);
-
-  return result;
 }
 
 // long assignTrajectory(tesseract_planning::CompositeInstruction& output,
