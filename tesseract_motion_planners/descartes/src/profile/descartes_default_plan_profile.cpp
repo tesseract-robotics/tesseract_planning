@@ -45,6 +45,9 @@ void DescartesDefaultPlanProfile<FloatType>::serialize(Archive& ar, const unsign
   ar& BOOST_SERIALIZATION_NVP(target_pose_fixed);
   ar& BOOST_SERIALIZATION_NVP(target_pose_sample_axis);
   ar& BOOST_SERIALIZATION_NVP(target_pose_sample_resolution);
+  ar& BOOST_SERIALIZATION_NVP(target_pose_sample_min);
+  ar& BOOST_SERIALIZATION_NVP(target_pose_sample_max);
+  ar& BOOST_SERIALIZATION_NVP(manipulator_ik_solver);
   ar& BOOST_SERIALIZATION_NVP(allow_collision);
   ar& BOOST_SERIALIZATION_NVP(enable_collision);
   ar& BOOST_SERIALIZATION_NVP(vertex_collision_check_config);
