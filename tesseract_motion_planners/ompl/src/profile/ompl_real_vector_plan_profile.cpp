@@ -68,6 +68,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 OMPLRealVectorPlanProfile::OMPLRealVectorPlanProfile()
+    : state_converter_(&fromRealVectorStateSpace)
 {
   solver_config.planners = { std::make_shared<const RRTConnectConfigurator>(),
                              std::make_shared<const RRTConnectConfigurator>() };
@@ -449,7 +450,7 @@ std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorPlanProfile::cre
       collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
   {
     return std::make_unique<StateCollisionValidator>(
-        simple_setup.getSpaceInformation(), *env, manip, collision_check_config, &fromRealVectorStateSpace);
+        simple_setup.getSpaceInformation(), *env, manip, collision_check_config, state_converter_);
   }
 
   return nullptr;
@@ -471,7 +472,7 @@ std::unique_ptr<ompl::base::MotionValidator> OMPLRealVectorPlanProfile::createMo
                                                          *env,
                                                          manip,
                                                          collision_check_config,
-                                                         &fromRealVectorStateSpace);
+                                                         state_converter_);
     }
 
     // Collision checking is preformed using the state validator which this calls.
@@ -493,7 +494,7 @@ CompositeInstruction OMPLRealVectorPlanProfile::convertPath(const ompl::geometri
                                                             const tesseract_common::ManipulatorInfo& composite_mi,
                                                             const std::shared_ptr<const tesseract_environment::Environment>& env) const
 {
-  tesseract_common::TrajArray traj = fromOMPL(path, &fromRealVectorStateSpace);
+  tesseract_common::TrajArray traj = fromOMPL(path, state_converter_);
 
   // Get kinematics
   tesseract_kinematics::JointGroup::Ptr manip = env->getJointGroup(composite_mi.manipulator);

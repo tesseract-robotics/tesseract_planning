@@ -36,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
 #include <tesseract_motion_planners/ompl/ompl_solver_config.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/utils.h>
 
 #include <tesseract_collision/core/fwd.h>
 #include <tesseract_collision/core/types.h>
@@ -173,10 +174,14 @@ protected:
                               const std::shared_ptr<const tesseract_environment::Environment>& env,
                               const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip) const;
 
+  /** @brief Function used to convert OMPL states into joint states */
+  StateConverterFn state_converter_;
+
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
+
 }  // namespace tesseract_planning
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::OMPLRealVectorPlanProfile)
