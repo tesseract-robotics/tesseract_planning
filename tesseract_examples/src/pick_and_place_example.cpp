@@ -47,7 +47,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
-#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 
 #include <tesseract_command_language/profile_dictionary.h>
@@ -229,8 +229,10 @@ bool PickAndPlaceExample::run()
   {
     // Create TrajOpt_Ifopt Profile
     auto trajopt_ifopt_plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
-    trajopt_ifopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 10);
-    trajopt_ifopt_plan_profile->joint_coeff = Eigen::VectorXd::Ones(7);
+    trajopt_ifopt_plan_profile->joint_cost_config.enabled = false;
+    trajopt_ifopt_plan_profile->cartesian_cost_config.enabled = false;
+    trajopt_ifopt_plan_profile->cartesian_constraint_config.enabled = true;
+    trajopt_ifopt_plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);
 
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
     trajopt_ifopt_composite_profile->collision_constraint_config->type =
@@ -255,8 +257,8 @@ bool PickAndPlaceExample::run()
     trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->longest_valid_segment_length = 0.05;
 
-    auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptDefaultSolverProfile>();
-    trajopt_ifopt_solver_profile->opt_info.max_iterations = 100;
+    auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptOSQPSolverProfile>();
+    trajopt_ifopt_solver_profile->opt_params.max_iterations = 100;
 
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_plan_profile);
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
@@ -266,6 +268,7 @@ bool PickAndPlaceExample::run()
   {
     // Create TrajOpt Profile
     auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+    trajopt_plan_profile->joint_cost_config.enabled = false;
     trajopt_plan_profile->cartesian_cost_config.enabled = false;
     trajopt_plan_profile->cartesian_constraint_config.enabled = true;
     trajopt_plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);

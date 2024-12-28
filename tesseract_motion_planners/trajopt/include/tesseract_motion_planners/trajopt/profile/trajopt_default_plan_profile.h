@@ -44,12 +44,12 @@ public:
   using Ptr = std::shared_ptr<TrajOptDefaultPlanProfile>;
   using ConstPtr = std::shared_ptr<const TrajOptDefaultPlanProfile>;
 
-  TrajOptDefaultPlanProfile() = default;
+  TrajOptDefaultPlanProfile();
 
-  CartesianWaypointConfig cartesian_cost_config;
-  CartesianWaypointConfig cartesian_constraint_config;
-  JointWaypointConfig joint_cost_config;
-  JointWaypointConfig joint_constraint_config;
+  TrajOptCartesianWaypointConfig cartesian_cost_config;
+  TrajOptCartesianWaypointConfig cartesian_constraint_config;
+  TrajOptJointWaypointConfig joint_cost_config;
+  TrajOptJointWaypointConfig joint_constraint_config;
 
   TrajOptWaypointInfo create(const MoveInstructionPoly& move_instruction,
                              const tesseract_common::ManipulatorInfo& composite_manip_info,

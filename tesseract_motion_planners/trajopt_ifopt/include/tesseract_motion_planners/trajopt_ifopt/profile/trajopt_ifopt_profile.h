@@ -30,23 +30,40 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <memory>
+#include <Eigen/Core>
 #include <trajopt_ifopt/fwd.h>
+#include <trajopt_sqp/fwd.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
+#include <tesseract_environment/fwd.h>
 #include <tesseract_command_language/fwd.h>
 #include <tesseract_command_language/profile.h>
 
-namespace tinyxml2
+namespace ifopt
 {
-class XMLElement;  // NOLINT
-class XMLDocument;
-}  // namespace tinyxml2
+class ConstraintSet;
+}
+
+/** @brief Structure to store TrajOpt IFOPT constrant and cost term infos */
+struct TrajOptIfoptTermInfos
+{
+  std::vector<std::shared_ptr<ifopt::ConstraintSet>> constraints;
+  std::vector<std::shared_ptr<ifopt::ConstraintSet>> squared_costs;
+  std::vector<std::shared_ptr<ifopt::ConstraintSet>> absolute_costs;
+  std::vector<std::shared_ptr<ifopt::ConstraintSet>> hinge_costs;
+};
+
+/** @brief Structure to store TrajOpt waypoint cost and constrant term infos */
+struct TrajOptIfoptWaypointInfo
+{
+  TrajOptIfoptTermInfos term_infos;
+  std::shared_ptr<trajopt_ifopt::JointPosition> var;
+  bool fixed{ false };
+};
 
 namespace tesseract_planning
 {
-struct TrajOptIfoptProblem;
-
 class TrajOptIfoptPlanProfile : public Profile
 {
 public:
@@ -55,27 +72,16 @@ public:
 
   TrajOptIfoptPlanProfile();
 
+  virtual TrajOptIfoptWaypointInfo create(const MoveInstructionPoly& move_instruction,
+                                          const tesseract_common::ManipulatorInfo& composite_manip_info,
+                                          const std::shared_ptr<const tesseract_environment::Environment>& env,
+                                          int index) const = 0;
+
   /**
    * @brief A utility function for getting profile ID
    * @return The profile ID used when storing in profile dictionary
    */
   static std::size_t getStaticKey();
-
-  virtual void apply(TrajOptIfoptProblem& problem,
-                     const CartesianWaypointPoly& cartesian_waypoint,
-                     const InstructionPoly& parent_instruction,
-                     const tesseract_common::ManipulatorInfo& manip_info,
-                     const std::vector<std::string>& active_links,
-                     int index) const = 0;
-
-  virtual void apply(TrajOptIfoptProblem& problem,
-                     const JointWaypointPoly& joint_waypoint,
-                     const InstructionPoly& parent_instruction,
-                     const tesseract_common::ManipulatorInfo& manip_info,
-                     const std::vector<std::string>& active_links,
-                     int index) const = 0;
-
-  virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 
 protected:
   friend class boost::serialization::access;
@@ -91,20 +97,16 @@ public:
 
   TrajOptIfoptCompositeProfile();
 
+  virtual TrajOptIfoptTermInfos create(const tesseract_common::ManipulatorInfo& composite_manip_info,
+                                       const std::shared_ptr<const tesseract_environment::Environment>& env,
+                                       const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition>>& vars,
+                                       const std::vector<int>& fixed_indices) const = 0;
+
   /**
    * @brief A utility function for getting profile ID
    * @return The profile ID used when storing in profile dictionary
    */
   static std::size_t getStaticKey();
-
-  virtual void apply(TrajOptIfoptProblem& problem,
-                     int start_index,
-                     int end_index,
-                     const tesseract_common::ManipulatorInfo& manip_info,
-                     const std::vector<std::string>& active_links,
-                     const std::vector<int>& fixed_indices) const = 0;
-
-  virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 
 protected:
   friend class boost::serialization::access;
@@ -120,15 +122,13 @@ public:
 
   TrajOptIfoptSolverProfile();
 
+  virtual std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> create(bool verbose = false) const = 0;
+
   /**
    * @brief A utility function for getting profile ID
    * @return The profile ID used when storing in profile dictionary
    */
   static std::size_t getStaticKey();
-
-  virtual void apply(TrajOptIfoptProblem& problem) const = 0;
-
-  virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 
 protected:
   friend class boost::serialization::access;

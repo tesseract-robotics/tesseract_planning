@@ -1,6 +1,6 @@
 /**
- * @file trajopt_collision_config.cpp
- * @brief TrajOpt collision configuration settings
+ * @file trajopt_ifopt_waypoint_config.cpp
+ * @brief TrajOpt Ifopt Waypoint configuration settings
  *
  * @author Tyler Marr
  * @date November 2, 2023
@@ -31,14 +31,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/algorithm/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/trajopt/trajopt_waypoint_config.h>
+#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_waypoint_config.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_common/eigen_serialization.h>
 
 namespace tesseract_planning
 {
 template <class Archive>
-void TrajOptCartesianWaypointConfig::serialize(Archive& ar, const unsigned int /*version*/)
+void TrajOptIfoptCartesianWaypointConfig::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_NVP(enabled);
   ar& BOOST_SERIALIZATION_NVP(use_tolerance_override);
@@ -48,7 +48,7 @@ void TrajOptCartesianWaypointConfig::serialize(Archive& ar, const unsigned int /
 }
 
 template <class Archive>
-void TrajOptJointWaypointConfig::serialize(Archive& ar, const unsigned int /*version*/)
+void TrajOptIfoptJointWaypointConfig::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_NVP(enabled);
   ar& BOOST_SERIALIZATION_NVP(use_tolerance_override);
@@ -59,7 +59,7 @@ void TrajOptJointWaypointConfig::serialize(Archive& ar, const unsigned int /*ver
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptCartesianWaypointConfig)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptCartesianWaypointConfig)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptJointWaypointConfig)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptJointWaypointConfig)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptIfoptCartesianWaypointConfig)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptIfoptCartesianWaypointConfig)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptIfoptJointWaypointConfig)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptIfoptJointWaypointConfig)
