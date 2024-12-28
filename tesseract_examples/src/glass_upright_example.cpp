@@ -214,11 +214,14 @@ bool GlassUprightExample::run()
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "UPRIGHT", composite_profile);
 
     auto plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
-    plan_profile->joint_coeff = Eigen::VectorXd::Ones(7);
-    plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 5);
-    plan_profile->cartesian_coeff(0) = 0;
-    plan_profile->cartesian_coeff(1) = 0;
-    plan_profile->cartesian_coeff(2) = 0;
+    plan_profile->joint_cost_config.enabled = false;
+    plan_profile->cartesian_cost_config.enabled = false;
+    plan_profile->cartesian_constraint_config.enabled = true;
+    plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 5);
+    plan_profile->cartesian_constraint_config.coeff(0) = 0;
+    plan_profile->cartesian_constraint_config.coeff(1) = 0;
+    plan_profile->cartesian_constraint_config.coeff(2) = 0;
+
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "UPRIGHT", plan_profile);
   }
   else
@@ -242,6 +245,7 @@ bool GlassUprightExample::run()
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "UPRIGHT", composite_profile);
 
     auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+    plan_profile->joint_cost_config.enabled = false;
     plan_profile->cartesian_cost_config.enabled = false;
     plan_profile->cartesian_constraint_config.enabled = true;
     plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 5);

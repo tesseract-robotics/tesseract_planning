@@ -42,6 +42,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile()
+{
+  cartesian_cost_config.enabled = false;
+  joint_cost_config.enabled = false;
+}
+
 TrajOptWaypointInfo
 TrajOptDefaultPlanProfile::create(const MoveInstructionPoly& move_instruction,
                                   const tesseract_common::ManipulatorInfo& composite_manip_info,

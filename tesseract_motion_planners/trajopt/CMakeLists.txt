@@ -6,9 +6,9 @@ find_package(osqp REQUIRED)
 add_library(
   ${PROJECT_NAME}_trajopt
   src/trajopt_collision_config.cpp
-  src/trajopt_waypoint_config.cpp
   src/trajopt_motion_planner.cpp
   src/trajopt_utils.cpp
+  src/trajopt_waypoint_config.cpp
   src/profile/trajopt_profile.cpp
   src/profile/trajopt_default_plan_profile.cpp
   src/profile/trajopt_default_composite_profile.cpp

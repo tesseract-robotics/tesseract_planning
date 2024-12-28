@@ -1,6 +1,6 @@
 /**
- * @file trajopt_waypoint_config.h
- * @brief TrajOpt waypoint configuration settings
+ * @file trajopt_ifopt_waypoint_config.h
+ * @brief TrajOpt IFOPT waypoint configuration settings
  *
  * @author Tyler Marr
  * @date November 2, 2023
@@ -23,8 +23,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_MOTION_PLANNERS_TRAJOPT_CONFIG_TRAJOPT_WAYPOINT_CONFIG_H
-#define TESSERACT_MOTION_PLANNERS_TRAJOPT_CONFIG_TRAJOPT_WAYPOINT_CONFIG_H
+#ifndef TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_TRAJOPT_IFOPT_WAYPOINT_CONFIG_H
+#define TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_TRAJOPT_IFOPT_WAYPOINT_CONFIG_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -38,13 +38,13 @@ namespace tesseract_planning
 /**
  * @brief Config settings for cartesian waypoints
  */
-struct TrajOptCartesianWaypointConfig
+struct TrajOptIfoptCartesianWaypointConfig
 {
   // LCOV_EXCL_START
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   // LCOV_EXCL_STOP
 
-  TrajOptCartesianWaypointConfig() = default;
+  TrajOptIfoptCartesianWaypointConfig() = default;
 
   /** @brief If true, a cost/constraint term will be added to the problem. Default: true*/
   bool enabled{ true };
@@ -72,13 +72,13 @@ protected:
 /**
  * @brief Config settings for joint waypoints.
  */
-struct TrajOptJointWaypointConfig
+struct TrajOptIfoptJointWaypointConfig
 {
   // LCOV_EXCL_START
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   // LCOV_EXCL_STOP
 
-  TrajOptJointWaypointConfig() = default;
+  TrajOptIfoptJointWaypointConfig() = default;
 
   /** @brief If true, a cost/constraint term will be added to the problem. Default: true*/
   bool enabled{ true };
@@ -102,7 +102,7 @@ protected:
 };
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptCartesianWaypointConfig)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptJointWaypointConfig)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptCartesianWaypointConfig)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptJointWaypointConfig)
 
-#endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_CONFIG_TRAJOPT_WAYPOINT_CONFIG_H
+#endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_TRAJOPT_IFOPT_WAYPOINT_CONFIG_H

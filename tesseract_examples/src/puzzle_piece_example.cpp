@@ -56,7 +56,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
-#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 
 #include <tesseract_task_composer/core/task_composer_context.h>
@@ -223,9 +223,11 @@ bool PuzzlePieceExample::run()
   {
     // Create TrajOpt_Ifopt Profile
     auto trajopt_ifopt_plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
-    trajopt_ifopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 10);
-    trajopt_ifopt_plan_profile->cartesian_coeff(5) = 0;
-    trajopt_ifopt_plan_profile->joint_coeff = Eigen::VectorXd::Ones(8);
+    trajopt_ifopt_plan_profile->joint_cost_config.enabled = false;
+    trajopt_ifopt_plan_profile->cartesian_cost_config.enabled = false;
+    trajopt_ifopt_plan_profile->cartesian_constraint_config.enabled = true;
+    trajopt_ifopt_plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);
+    trajopt_ifopt_plan_profile->cartesian_constraint_config.coeff(5) = 0;
 
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
     trajopt_ifopt_composite_profile->collision_constraint_config = nullptr;
@@ -242,10 +244,10 @@ bool PuzzlePieceExample::run()
     trajopt_ifopt_composite_profile->smooth_jerks = true;
     trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
 
-    auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptDefaultSolverProfile>();
-    trajopt_ifopt_solver_profile->opt_info.max_iterations = 200;
-    trajopt_ifopt_solver_profile->opt_info.min_approx_improve = 1e-3;
-    trajopt_ifopt_solver_profile->opt_info.min_trust_box_size = 1e-3;
+    auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptOSQPSolverProfile>();
+    trajopt_ifopt_solver_profile->opt_params.max_iterations = 200;
+    trajopt_ifopt_solver_profile->opt_params.min_approx_improve = 1e-3;
+    trajopt_ifopt_solver_profile->opt_params.min_trust_box_size = 1e-3;
 
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_plan_profile);
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
@@ -255,6 +257,7 @@ bool PuzzlePieceExample::run()
   {
     // Create TrajOpt Profile
     auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+    trajopt_plan_profile->joint_cost_config.enabled = false;
     trajopt_plan_profile->cartesian_cost_config.enabled = false;
     trajopt_plan_profile->cartesian_constraint_config.enabled = true;
     trajopt_plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);

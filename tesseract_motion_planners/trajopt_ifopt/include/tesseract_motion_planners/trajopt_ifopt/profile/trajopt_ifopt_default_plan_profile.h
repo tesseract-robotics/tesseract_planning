@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
-#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
+#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_waypoint_config.h>
 
 namespace tesseract_planning
 {
@@ -43,28 +43,17 @@ public:
   using Ptr = std::shared_ptr<TrajOptIfoptDefaultPlanProfile>;
   using ConstPtr = std::shared_ptr<const TrajOptIfoptDefaultPlanProfile>;
 
-  TrajOptIfoptDefaultPlanProfile() = default;
-  TrajOptIfoptDefaultPlanProfile(const tinyxml2::XMLElement& xml_element);
+  TrajOptIfoptDefaultPlanProfile();
 
-  Eigen::VectorXd cartesian_coeff{ Eigen::VectorXd::Constant(6, 1, 5) };
-  Eigen::VectorXd joint_coeff{ Eigen::VectorXd::Constant(1, 1, 5) };
-  TrajOptIfoptTermType term_type{ TrajOptIfoptTermType::CONSTRAINT };
+  TrajOptIfoptCartesianWaypointConfig cartesian_cost_config;
+  TrajOptIfoptCartesianWaypointConfig cartesian_constraint_config;
+  TrajOptIfoptJointWaypointConfig joint_cost_config;
+  TrajOptIfoptJointWaypointConfig joint_constraint_config;
 
-  void apply(TrajOptIfoptProblem& problem,
-             const CartesianWaypointPoly& cartesian_waypoint,
-             const InstructionPoly& parent_instruction,
-             const tesseract_common::ManipulatorInfo& manip_info,
-             const std::vector<std::string>& active_links,
-             int index) const override;
-
-  void apply(TrajOptIfoptProblem& problem,
-             const JointWaypointPoly& joint_waypoint,
-             const InstructionPoly& parent_instruction,
-             const tesseract_common::ManipulatorInfo& manip_info,
-             const std::vector<std::string>& active_links,
-             int index) const override;
-
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+  TrajOptIfoptWaypointInfo create(const MoveInstructionPoly& move_instruction,
+                                  const tesseract_common::ManipulatorInfo& composite_manip_info,
+                                  const std::shared_ptr<const tesseract_environment::Environment>& env,
+                                  int index) const override;
 
 protected:
   friend class boost::serialization::access;
