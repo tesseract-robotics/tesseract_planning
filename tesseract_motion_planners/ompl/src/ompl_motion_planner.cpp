@@ -179,24 +179,22 @@ std::pair<bool, std::string> parallelPlan(ompl::geometric::SimpleSetup& simple_s
     return std::make_pair(false, std::string(ERROR_FAILED_TO_FIND_VALID_SOLUTION) + reason);
 
   if (solver_config.simplify)
-  {
     simple_setup.simplifySolution();
+
+  // Interpolate the path if it shouldn't be simplified and there are currently fewer states than requested
+  if (simple_setup.getSolutionPath().getStateCount() < num_output_states)
+  {
+    simple_setup.getSolutionPath().interpolate(num_output_states);
   }
   else
   {
-    // Interpolate the path if it shouldn't be simplified and there are currently fewer states than requested
-    if (simple_setup.getSolutionPath().getStateCount() < num_output_states)
-    {
-      simple_setup.getSolutionPath().interpolate(num_output_states);
-    }
-    else
-    {
-      // Now try to simplify the trajectory to get it under the requested number of output states
-      // The interpolate function only executes if the current number of states is less than the requested
+    // Now try to simplify the trajectory to get it under the requested number of output states
+    // The interpolate function only executes if the current number of states is less than the requested
+    if (!solver_config.simplify)
       simple_setup.simplifySolution();
-      if (simple_setup.getSolutionPath().getStateCount() < num_output_states)
-        simple_setup.getSolutionPath().interpolate(num_output_states);
-    }
+
+    if (simple_setup.getSolutionPath().getStateCount() < num_output_states)
+      simple_setup.getSolutionPath().interpolate(num_output_states);
   }
 
   return std::make_pair(true, "SUCCESS");
