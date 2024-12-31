@@ -33,8 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/ompl/types.h>
-
 #include <tesseract_common/fwd.h>
 #include <tesseract_kinematics/core/fwd.h>
 #include <tesseract_environment/fwd.h>
@@ -42,9 +40,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/profile.h>
 
+namespace ompl::base
+{
+class StateSpace;
+using StateSpacePtr = std::shared_ptr<StateSpace>;
+}
+
 namespace ompl::geometric
 {
 class SimpleSetup;
+class PathGeometric;
 }
 
 namespace tesseract_planning
@@ -73,12 +78,6 @@ public:
   virtual std::unique_ptr<OMPLSolverConfig> createSolverConfig() const = 0;
 
   /**
-   * @brief Create the state extractor
-   * @return The OMPL state extractor
-   */
-  virtual OMPLStateExtractor createStateExtractor(const tesseract_kinematics::JointGroup& manip) const = 0;
-
-  /**
    * @brief Create OMPL Simple Setup
    * @param start_instruction The start instruction
    * @param end_instruction The goal instruction
@@ -92,7 +91,21 @@ public:
                     const tesseract_common::ManipulatorInfo& composite_mi,
                     const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
 
+  /**
+   * @brief Convert an OMPL defined path into a composite instruction that can be returned by the planner
+   */
+  virtual CompositeInstruction convertPath(const ompl::geometric::PathGeometric& path,
+                                           const tesseract_common::ManipulatorInfo& composite_mi,
+                                           const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
+
 protected:
+  /**
+   * @brief Creates an OMPL StateSpace object that con be used internally to construct the SimpleSetup object
+   * @return
+   */
+  ompl::base::StateSpacePtr virtual createStateSpace(const tesseract_common::ManipulatorInfo& composite_mi,
+                                                     const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
+
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT

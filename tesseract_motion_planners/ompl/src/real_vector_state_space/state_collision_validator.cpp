@@ -30,8 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/ompl/utils.h>
-#include <tesseract_motion_planners/ompl/state_collision_validator.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/state_collision_validator.h>
 
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_collision/core/discrete_contact_manager.h>
@@ -45,11 +44,11 @@ StateCollisionValidator::StateCollisionValidator(
     const tesseract_environment::Environment& env,
     std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
     const tesseract_collision::CollisionCheckConfig& collision_check_config,
-    OMPLStateExtractor extractor)
+    StateConverterFn state_converter)
   : StateValidityChecker(space_info)
   , manip_(std::move(manip))
   , contact_manager_(env.getDiscreteContactManager())
-  , extractor_(std::move(extractor))
+  , state_converter_(state_converter)
 {
   links_ = manip_->getActiveLinkNames();
 
@@ -75,7 +74,7 @@ bool StateCollisionValidator::isValid(const ompl::base::State* state) const
   }
   mutex_.unlock();
 
-  Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(state);
+  Eigen::Map<Eigen::VectorXd> finish_joints = state_converter_(state, si_->getStateDimension());
   tesseract_common::TransformMap state1 = manip_->calcFwdKin(finish_joints);
 
   for (const auto& link_name : links_)

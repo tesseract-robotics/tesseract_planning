@@ -36,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
 #include <tesseract_motion_planners/ompl/ompl_solver_config.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/utils.h>
 
 #include <tesseract_collision/core/fwd.h>
 #include <tesseract_collision/core/types.h>
@@ -46,8 +47,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace ompl::base
 {
+class State;
 class StateSampler;
-class StateSpace;
 class StateValidityChecker;
 class MotionValidator;
 class OptimizationObjective;
@@ -76,15 +77,20 @@ public:
 
   std::unique_ptr<OMPLSolverConfig> createSolverConfig() const override;
 
-  OMPLStateExtractor createStateExtractor(const tesseract_kinematics::JointGroup& manip) const override;
-
   std::unique_ptr<ompl::geometric::SimpleSetup>
   createSimpleSetup(const MoveInstructionPoly& start_instruction,
                     const MoveInstructionPoly& end_instruction,
                     const tesseract_common::ManipulatorInfo& composite_mi,
                     const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
 
+  CompositeInstruction convertPath(const ompl::geometric::PathGeometric& path,
+                                   const tesseract_common::ManipulatorInfo& composite_mi,
+                                   const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
+
 protected:
+  ompl::base::StateSpacePtr createStateSpace(const tesseract_common::ManipulatorInfo& composite_mi,
+                                             const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
+
   static void applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
                               const tesseract_kinematics::KinGroupIKInput& ik_input,
                               const tesseract_kinematics::KinematicGroup& manip,
@@ -126,8 +132,7 @@ protected:
   virtual std::unique_ptr<ompl::base::StateValidityChecker>
   createStateValidator(const ompl::geometric::SimpleSetup& simple_setup,
                        const std::shared_ptr<const tesseract_environment::Environment>& env,
-                       const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-                       const OMPLStateExtractor& state_extractor) const;
+                       const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip) const;
 
   /**
    * @brief Create collision state validator
@@ -140,8 +145,7 @@ protected:
   virtual std::unique_ptr<ompl::base::StateValidityChecker>
   createCollisionStateValidator(const ompl::geometric::SimpleSetup& simple_setup,
                                 const std::shared_ptr<const tesseract_environment::Environment>& env,
-                                const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-                                const OMPLStateExtractor& state_extractor) const;
+                                const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip) const;
 
   /**
    * @brief Create motion validator
@@ -155,7 +159,6 @@ protected:
   createMotionValidator(const ompl::geometric::SimpleSetup& simple_setup,
                         const std::shared_ptr<const tesseract_environment::Environment>& env,
                         const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-                        const OMPLStateExtractor& state_extractor,
                         const std::shared_ptr<ompl::base::StateValidityChecker>& svc_without_collision) const;
 
   /**
@@ -169,13 +172,16 @@ protected:
   virtual std::unique_ptr<ompl::base::OptimizationObjective>
   createOptimizationObjective(const ompl::geometric::SimpleSetup& simple_setup,
                               const std::shared_ptr<const tesseract_environment::Environment>& env,
-                              const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-                              const OMPLStateExtractor& state_extractor) const;
+                              const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip) const;
+
+  /** @brief Function used to convert OMPL states into joint states */
+  StateConverterFn state_converter_;
 
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
+
 }  // namespace tesseract_planning
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::OMPLRealVectorPlanProfile)

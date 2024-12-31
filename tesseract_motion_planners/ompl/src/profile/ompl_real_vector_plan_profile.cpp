@@ -38,18 +38,25 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/shared_ptr.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/kinematic_limits.h>
+
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/utils.h>
 
 #include <tesseract_motion_planners/core/types.h>
+
 #include <tesseract_motion_planners/ompl/profile/ompl_real_vector_plan_profile.h>
 #include <tesseract_motion_planners/ompl/utils.h>
-
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
-#include <tesseract_motion_planners/ompl/continuous_motion_validator.h>
 #include <tesseract_motion_planners/ompl/discrete_motion_validator.h>
-#include <tesseract_motion_planners/ompl/state_collision_validator.h>
 #include <tesseract_motion_planners/ompl/compound_state_validator.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/continuous_motion_validator.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/state_collision_validator.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/weighted_real_vector_state_sampler.h>
+#include <tesseract_motion_planners/ompl/real_vector_state_space/utils.h>
 
 #include <tesseract_kinematics/core/utils.h>
 #include <tesseract_kinematics/core/joint_group.h>
@@ -61,6 +68,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 OMPLRealVectorPlanProfile::OMPLRealVectorPlanProfile()
+    : state_converter_(&fromRealVectorStateSpace)
 {
   solver_config.planners = { std::make_shared<const RRTConnectConfigurator>(),
                              std::make_shared<const RRTConnectConfigurator>() };
@@ -71,12 +79,26 @@ std::unique_ptr<OMPLSolverConfig> OMPLRealVectorPlanProfile::createSolverConfig(
   return std::make_unique<OMPLSolverConfig>(solver_config);
 }
 
-OMPLStateExtractor OMPLRealVectorPlanProfile::createStateExtractor(const tesseract_kinematics::JointGroup& manip) const
+ompl::base::StateSpacePtr OMPLRealVectorPlanProfile::createStateSpace(const tesseract_common::ManipulatorInfo& mi,
+                                                                      const std::shared_ptr<const tesseract_environment::Environment>& env) const
 {
-  const auto dof = static_cast<unsigned>(manip.numJoints());
-  return [dof](const ompl::base::State* state) -> Eigen::Map<Eigen::VectorXd> {
-    return tesseract_planning::RealVectorStateSpaceExtractor(state, dof);
-  };
+  // Get kinematics
+  tesseract_kinematics::JointGroup::Ptr manip = env->getJointGroup(mi.manipulator);
+  const auto dof = static_cast<unsigned>(manip->numJoints());
+  const std::vector<std::string> joint_names = manip->getJointNames();
+  const Eigen::MatrixX2d limits = manip->getLimits().joint_limits;
+
+  // Construct the OMPL state space for this manipulator
+  auto rvss = std::make_shared<ompl::base::RealVectorStateSpace>();
+  for (unsigned i = 0; i < dof; ++i)
+    rvss->addDimension(joint_names[i], limits(i, 0), limits(i, 1));
+
+  rvss->setStateSamplerAllocator(createStateSamplerAllocator(env, manip));
+
+  // Setup Longest Valid Segment
+  processLongestValidSegment(rvss, collision_check_config);
+
+  return rvss;
 }
 
 std::unique_ptr<ompl::geometric::SimpleSetup>
@@ -92,52 +114,32 @@ OMPLRealVectorPlanProfile::createSimpleSetup(const MoveInstructionPoly& start_in
 
   // Get kinematics
   tesseract_kinematics::JointGroup::Ptr manip = env->getJointGroup(end_mi.manipulator);
-  const auto dof = static_cast<unsigned>(manip->numJoints());
-  const std::vector<std::string> joint_names = manip->getJointNames();
-  const Eigen::MatrixX2d limits = manip->getLimits().joint_limits;
-
-  // Construct the OMPL state space for this manipulator
-  ompl::base::StateSpacePtr state_space_ptr;
-
-  auto rss = std::make_shared<ompl::base::RealVectorStateSpace>();
-  for (unsigned i = 0; i < dof; ++i)
-    rss->addDimension(joint_names[i], limits(i, 0), limits(i, 1));
-
-  rss->setStateSamplerAllocator(createStateSamplerAllocator(env, manip));
-
-  state_space_ptr = rss;
-
-  // Setup Longest Valid Segment
-  processLongestValidSegment(state_space_ptr, collision_check_config);
 
   // Create Simple Setup from state space
-  auto simple_setup = std::make_unique<ompl::geometric::SimpleSetup>(state_space_ptr);
-
-  // Create state extractor
-  OMPLStateExtractor state_extractor = createStateExtractor(*manip);
+  auto simple_setup = std::make_unique<ompl::geometric::SimpleSetup>(createStateSpace(end_mi, env));
 
   // Setup state validators
   auto csvc = std::make_shared<CompoundStateValidator>();
   ompl::base::StateValidityCheckerPtr svc_without_collision =
-      createStateValidator(*simple_setup, env, manip, state_extractor);
+      createStateValidator(*simple_setup, env, manip);
   if (svc_without_collision != nullptr)
     csvc->addStateValidator(svc_without_collision);
 
-  auto svc_collision = createCollisionStateValidator(*simple_setup, env, manip, state_extractor);
+  auto svc_collision = createCollisionStateValidator(*simple_setup, env, manip);
   if (svc_collision != nullptr)
     csvc->addStateValidator(std::move(svc_collision));
 
   simple_setup->setStateValidityChecker(csvc);
 
   // Setup motion validation (i.e. collision checking)
-  auto mv = createMotionValidator(*simple_setup, env, manip, state_extractor, svc_without_collision);
+  auto mv = createMotionValidator(*simple_setup, env, manip, svc_without_collision);
   if (mv != nullptr)
     simple_setup->getSpaceInformation()->setMotionValidator(std::move(mv));
 
   // make sure the planners run until the time limit, and get the best possible solution
   if (solver_config.optimize)
   {
-    auto obj = createOptimizationObjective(*simple_setup, env, manip, state_extractor);
+    auto obj = createOptimizationObjective(*simple_setup, env, manip);
     if (obj != nullptr)
       simple_setup->getProblemDefinition()->setOptimizationObjective(std::move(obj));
   }
@@ -427,15 +429,14 @@ OMPLRealVectorPlanProfile::createStateSamplerAllocator(
   Eigen::MatrixX2d limits = manip->getLimits().joint_limits;
   Eigen::VectorXd weights = Eigen::VectorXd::Ones(manip->numJoints());
   return [weights, limits](const ompl::base::StateSpace* state_space) -> ompl::base::StateSamplerPtr {
-    return allocWeightedRealVectorStateSampler(state_space, weights, limits);
+    return std::make_shared<WeightedRealVectorStateSampler>(state_space, weights, limits);
   };
 }
 
 std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorPlanProfile::createStateValidator(
     const ompl::geometric::SimpleSetup& /*simple_setup*/,
     const std::shared_ptr<const tesseract_environment::Environment>& /*env*/,
-    const std::shared_ptr<const tesseract_kinematics::JointGroup>& /*manip*/,
-    const OMPLStateExtractor& /*state_extractor*/) const
+    const std::shared_ptr<const tesseract_kinematics::JointGroup>& /*manip*/) const
 {
   return nullptr;
 }
@@ -443,14 +444,13 @@ std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorPlanProfile::cre
 std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorPlanProfile::createCollisionStateValidator(
     const ompl::geometric::SimpleSetup& simple_setup,
     const std::shared_ptr<const tesseract_environment::Environment>& env,
-    const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-    const OMPLStateExtractor& state_extractor) const
+    const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip) const
 {
   if (collision_check_config.type == tesseract_collision::CollisionEvaluatorType::DISCRETE ||
       collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
   {
     return std::make_unique<StateCollisionValidator>(
-        simple_setup.getSpaceInformation(), *env, manip, collision_check_config, state_extractor);
+        simple_setup.getSpaceInformation(), *env, manip, collision_check_config, state_converter_);
   }
 
   return nullptr;
@@ -460,7 +460,6 @@ std::unique_ptr<ompl::base::MotionValidator> OMPLRealVectorPlanProfile::createMo
     const ompl::geometric::SimpleSetup& simple_setup,
     const std::shared_ptr<const tesseract_environment::Environment>& env,
     const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-    const OMPLStateExtractor& state_extractor,
     const std::shared_ptr<ompl::base::StateValidityChecker>& svc_without_collision) const
 {
   if (collision_check_config.type != tesseract_collision::CollisionEvaluatorType::NONE)
@@ -473,7 +472,7 @@ std::unique_ptr<ompl::base::MotionValidator> OMPLRealVectorPlanProfile::createMo
                                                          *env,
                                                          manip,
                                                          collision_check_config,
-                                                         state_extractor);
+                                                         state_converter_);
     }
 
     // Collision checking is preformed using the state validator which this calls.
@@ -486,10 +485,39 @@ std::unique_ptr<ompl::base::MotionValidator> OMPLRealVectorPlanProfile::createMo
 std::unique_ptr<ompl::base::OptimizationObjective> OMPLRealVectorPlanProfile::createOptimizationObjective(
     const ompl::geometric::SimpleSetup& simple_setup,
     const std::shared_ptr<const tesseract_environment::Environment>& /*env*/,
-    const std::shared_ptr<const tesseract_kinematics::JointGroup>& /*manip*/,
-    const OMPLStateExtractor& /*state_extractor*/) const
+    const std::shared_ptr<const tesseract_kinematics::JointGroup>& /*manip*/) const
 {
   return std::make_unique<ompl::base::PathLengthOptimizationObjective>(simple_setup.getSpaceInformation());
+}
+
+CompositeInstruction OMPLRealVectorPlanProfile::convertPath(const ompl::geometric::PathGeometric& path,
+                                                            const tesseract_common::ManipulatorInfo& composite_mi,
+                                                            const std::shared_ptr<const tesseract_environment::Environment>& env) const
+{
+  tesseract_common::TrajArray traj = fromOMPL(path, state_converter_);
+
+  // Get kinematics
+  tesseract_kinematics::JointGroup::Ptr manip = env->getJointGroup(composite_mi.manipulator);
+  const std::vector<std::string> joint_names = manip->getJointNames();
+  const Eigen::MatrixX2d limits = manip->getLimits().joint_limits;
+
+  CompositeInstruction output;
+  output.reserve(static_cast<std::size_t>(traj.rows()));
+
+  for (Eigen::Index i = 0; i < traj.rows(); i++)
+  {
+    // Enforce limits
+    assert(tesseract_common::satisfiesLimits<double>(traj.row(i), limits, 1e-4));
+    tesseract_common::enforceLimits<double>(traj.row(i), limits);
+
+    // Convert to move instruction
+    MoveInstruction mi(StateWaypointPoly(StateWaypoint(joint_names, traj.row(i))), MoveInstructionType::FREESPACE);
+
+    // Append to composite instruction
+    output.push_back(mi);
+  }
+
+  return output;
 }
 
 template <class Archive>

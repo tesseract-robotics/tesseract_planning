@@ -38,7 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_motion_planners/ompl/ompl_solver_config.h>
-#include <tesseract_motion_planners/ompl/types.h>
 #include <tesseract_motion_planners/ompl/utils.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_real_vector_plan_profile.h>
@@ -60,43 +59,6 @@ using CachedSimpleSetupsPtr = std::shared_ptr<CachedSimpleSetups>;
 
 namespace tesseract_planning
 {
-bool checkStartState(const ompl::base::ProblemDefinitionPtr& prob_def,
-                     const Eigen::Ref<const Eigen::VectorXd>& state,
-                     const OMPLStateExtractor& extractor)
-{
-  if (!(prob_def->getStartStateCount() >= 1))
-    return false;
-
-  for (unsigned i = 0; i < prob_def->getStartStateCount(); ++i)
-    if (extractor(prob_def->getStartState(i)).isApprox(state, 1e-5))
-      return true;
-
-  return false;
-}
-
-bool checkGoalState(const ompl::base::ProblemDefinitionPtr& prob_def,
-                    const Eigen::Ref<const Eigen::VectorXd>& state,
-                    const OMPLStateExtractor& extractor)
-{
-  ompl::base::GoalPtr goal = prob_def->getGoal();
-  if (goal->getType() == ompl::base::GoalType::GOAL_STATE)
-    return extractor(prob_def->getGoal()->as<ompl::base::GoalState>()->getState()).isApprox(state, 1e-5);
-
-  if (goal->getType() == ompl::base::GoalType::GOAL_STATES)
-  {
-    auto* goal_states = prob_def->getGoal()->as<ompl::base::GoalStates>();
-    for (unsigned i = 0; i < goal_states->getStateCount(); ++i)
-      if (extractor(goal_states->getState(i)).isApprox(state, 1e-5))
-        return true;
-  }
-  else
-  {
-    CONSOLE_BRIDGE_logWarn("checkGoalStates: Unsupported Goal Type!");
-    return true;
-  }
-  return false;
-}
-
 /** @brief Construct a basic planner */
 OMPLMotionPlanner::OMPLMotionPlanner(std::string name) : MotionPlanner(std::move(name)) {}
 
@@ -200,69 +162,6 @@ std::pair<bool, std::string> parallelPlan(ompl::geometric::SimpleSetup& simple_s
   return std::make_pair(true, "SUCCESS");
 }
 
-long OMPLMotionPlanner::assignTrajectory(tesseract_planning::CompositeInstruction& output,
-                                         boost::uuids::uuid start_uuid,
-                                         boost::uuids::uuid end_uuid,
-                                         long start_index,
-                                         const std::vector<std::string>& joint_names,
-                                         const tesseract_common::TrajArray& traj,
-                                         const bool format_result_as_input)
-{
-  bool found{ false };
-  Eigen::Index row{ 0 };
-  auto& ci = output.getInstructions();
-  for (auto it = ci.begin() + static_cast<long>(start_index); it != ci.end(); ++it)
-  {
-    if (it->isMoveInstruction())
-    {
-      auto& mi = it->as<MoveInstructionPoly>();
-      if (mi.getUUID() == start_uuid)
-        found = true;
-
-      if (mi.getUUID() == end_uuid)
-      {
-        std::vector<InstructionPoly> extra;
-        for (; row < traj.rows() - 1; ++row)
-        {
-          MoveInstructionPoly child = mi.createChild();
-          if (format_result_as_input)
-          {
-            JointWaypointPoly jwp = mi.createJointWaypoint();
-            jwp.setIsConstrained(false);
-            jwp.setNames(joint_names);
-            jwp.setPosition(traj.row(row));
-            child.assignJointWaypoint(jwp);
-          }
-          else
-          {
-            StateWaypointPoly swp = mi.createStateWaypoint();
-            swp.setNames(joint_names);
-            swp.setPosition(traj.row(row));
-            child.assignStateWaypoint(swp);
-          }
-
-          extra.emplace_back(child);
-        }
-
-        assignSolution(mi, joint_names, traj.row(row), format_result_as_input);
-
-        if (!extra.empty())
-          ci.insert(it, extra.begin(), extra.end());
-
-        start_index += static_cast<long>(extra.size());
-        break;
-      }
-
-      if (found)
-        assignSolution(mi, joint_names, traj.row(row++), format_result_as_input);
-    }
-
-    ++start_index;
-  }
-
-  return start_index;
-}
-
 PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 {
   PlannerResponse response;
@@ -278,7 +177,7 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 
   // Assume all the plan instructions have the same manipulator as the composite
   tesseract_common::ManipulatorInfo composite_mi = request.instructions.getManipulatorInfo();
-  assert(!composite_mi.empty());
+  // assert(!composite_mi.empty());
 
   // Flatten the input for planning
   auto move_instructions = request.instructions.flatten(&moveFilter);
@@ -291,14 +190,9 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
     cached_simple_setups.reserve(move_instructions.size());
 
   // Transform plan instructions into ompl problem
-  unsigned num_output_states = 1;
-  long start_index{ 0 };
-  std::size_t segment{ 1 };
-  std::reference_wrapper<const InstructionPoly> start_instruction = move_instructions.front();
   for (std::size_t i = 1; i < move_instructions.size(); ++i)
   {
-    ++num_output_states;
-
+    std::reference_wrapper<const InstructionPoly> start_instruction = move_instructions[i - 1];
     std::reference_wrapper<const InstructionPoly> end_instruction = move_instructions[i];
     const auto& end_move_instruction = end_instruction.get().as<MoveInstructionPoly>();
     const auto& waypoint = end_move_instruction.getWaypoint();
@@ -316,15 +210,13 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 
     // Get end state kinematics data
     tesseract_common::ManipulatorInfo end_mi = composite_mi.getCombined(end_move_instruction.getManipulatorInfo());
-    tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(end_mi.manipulator);
 
     // Create problem data
     const auto& start_move_instruction = start_instruction.get().as<MoveInstructionPoly>();
     std::unique_ptr<OMPLSolverConfig> solver_config = cur_plan_profile->createSolverConfig();
-    OMPLStateExtractor extractor = cur_plan_profile->createStateExtractor(*manip);
     std::shared_ptr<ompl::geometric::SimpleSetup> simple_setup;
 
-    if (cached_simple_setups.empty() || segment > cached_simple_setups.size())
+    if (cached_simple_setups.empty() || i > cached_simple_setups.size())
     {
       simple_setup =
           cur_plan_profile->createSimpleSetup(start_move_instruction, end_move_instruction, composite_mi, request.env);
@@ -332,11 +224,11 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
     }
     else
     {
-      simple_setup = cached_simple_setups.at(segment - 1);
+      simple_setup = cached_simple_setups.at(i - 1);
     }
 
     // Parallel Plan problem
-    auto status = parallelPlan(*simple_setup, *solver_config, num_output_states);
+    auto status = parallelPlan(*simple_setup, *solver_config, 2);
     if (!status.first)
     {
       response.successful = false;
@@ -346,33 +238,10 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
     }
 
     // Extract Solution
-    const std::vector<std::string> joint_names = manip->getJointNames();
-    const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
-    tesseract_common::TrajArray traj = toTrajArray(simple_setup->getSolutionPath(), extractor);
-    assert(checkStartState(simple_setup->getProblemDefinition(), traj.row(0), extractor));
-    assert(checkGoalState(simple_setup->getProblemDefinition(), traj.bottomRows(1).transpose(), extractor));
-    assert(traj.rows() >= num_output_states);
+    CompositeInstruction output = cur_plan_profile->convertPath(simple_setup->getSolutionPath(), composite_mi, request.env);
 
-    // Enforce limits
-    for (Eigen::Index i = 0; i < traj.rows(); i++)
-    {
-      assert(tesseract_common::satisfiesLimits<double>(traj.row(i), joint_limits, 1e-4));
-      tesseract_common::enforceLimits<double>(traj.row(i), joint_limits);
-    }
-
-    // Assign trajectory to results
-    start_index = assignTrajectory(response.results,
-                                   start_move_instruction.getUUID(),
-                                   end_move_instruction.getUUID(),
-                                   start_index,
-                                   joint_names,
-                                   traj,
-                                   request.format_result_as_input);
-
-    // Reset data for next segment
-    start_instruction = end_instruction;
-    num_output_states = 1;
-    ++segment;
+    // Concatenate into results
+    std::copy(response.results.end(), output.begin(), output.end());
   }
 
   response.successful = true;
