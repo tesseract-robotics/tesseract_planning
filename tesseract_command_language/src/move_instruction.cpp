@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
+#include <boost/serialization/unordered_map.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/move_instruction.h>
@@ -241,12 +242,15 @@ StateWaypointPoly MoveInstruction::createStateWaypoint() { return StateWaypoint(
 bool MoveInstruction::operator==(const MoveInstruction& rhs) const
 {
   bool equal = true;
+  equal &= (uuid_ == rhs.uuid_);
+  equal &= (parent_uuid_ == rhs.parent_uuid_);
   equal &= (static_cast<int>(move_type_) == static_cast<int>(rhs.move_type_));
-  equal &= (waypoint_ == rhs.waypoint_);
-  equal &= (manipulator_info_ == rhs.manipulator_info_);
   equal &= (profile_ == rhs.profile_);            // NO LINT
   equal &= (path_profile_ == rhs.path_profile_);  // NO LINT
-  /** @todo Add profiles overrides when serialization is supported for profiles */
+  equal &= (profile_overrides_ == rhs.profile_overrides_);
+  equal &= (path_profile_overrides_ == rhs.path_profile_overrides_);
+  equal &= (waypoint_ == rhs.waypoint_);
+  equal &= (manipulator_info_ == rhs.manipulator_info_);
   return equal;
 }
 // LCOV_EXCL_START
@@ -262,9 +266,10 @@ void MoveInstruction::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("description", description_);
   ar& boost::serialization::make_nvp("profile", profile_);
   ar& boost::serialization::make_nvp("path_profile", path_profile_);
+  ar& boost::serialization::make_nvp("profile_overrides", profile_overrides_);
+  ar& boost::serialization::make_nvp("path_profile_overrides", path_profile_overrides_);
   ar& boost::serialization::make_nvp("waypoint", waypoint_);
   ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
-  /** @todo Add profiles overrides when serialization is supported for profiles */
 }
 
 }  // namespace tesseract_planning
