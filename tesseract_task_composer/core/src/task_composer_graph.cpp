@@ -36,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/plugin_info.h>
 #include <tesseract_common/yaml_utils.h>
+#include <tesseract_common/yaml_extenstions.h>
 #include <tesseract_common/stopwatch.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 

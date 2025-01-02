@@ -61,7 +61,7 @@ TrajOptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& 
   // -------- Construct the problem ------------
   // -------------------------------------------
   TrajOptTermInfos term_infos;
-  tesseract_kinematics::JointGroup::UPtr joint_group = env->getJointGroup(composite_manip_info.manipulator);
+  tesseract_kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(composite_manip_info.manipulator);
   const Eigen::Index dof = joint_group->numJoints();
   const Eigen::MatrixX2d joint_limits = joint_group->getLimits().joint_limits;
   const double lvs_length = computeLongestValidSegmentLength(joint_limits);

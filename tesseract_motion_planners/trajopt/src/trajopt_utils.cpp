@@ -32,13 +32,13 @@
 
 namespace tesseract_planning
 {
-std::unique_ptr<const tesseract_kinematics::JointGroup>
+std::shared_ptr<const tesseract_kinematics::JointGroup>
 createKinematicGroup(const tesseract_common::ManipulatorInfo& manip_info, const tesseract_environment::Environment& env)
 {
   // Assign Kinematics object
   try
   {
-    tesseract_kinematics::KinematicGroup::UPtr kin_group;
+    tesseract_kinematics::KinematicGroup::ConstPtr kin_group;
     std::string error_msg;
     if (manip_info.manipulator_ik_solver.empty())
     {

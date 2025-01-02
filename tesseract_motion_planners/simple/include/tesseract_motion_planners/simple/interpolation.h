@@ -57,7 +57,7 @@ struct JointGroupInstructionInfo
   JointGroupInstructionInfo& operator=(JointGroupInstructionInfo&&) = delete;
 
   const MoveInstructionPoly& instruction;
-  std::unique_ptr<tesseract_kinematics::JointGroup> manip;
+  std::shared_ptr<const tesseract_kinematics::JointGroup> manip;
   std::string working_frame;
   Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };
   std::string tcp_frame;
@@ -108,7 +108,7 @@ struct KinematicGroupInstructionInfo
   KinematicGroupInstructionInfo& operator=(KinematicGroupInstructionInfo&&) = delete;
 
   const MoveInstructionPoly& instruction;
-  std::unique_ptr<tesseract_kinematics::KinematicGroup> manip;
+  std::shared_ptr<const tesseract_kinematics::KinematicGroup> manip;
   std::string working_frame;
   Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };
   std::string tcp_frame;

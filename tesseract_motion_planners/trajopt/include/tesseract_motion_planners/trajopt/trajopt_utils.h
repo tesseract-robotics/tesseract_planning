@@ -38,7 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-std::unique_ptr<const tesseract_kinematics::JointGroup>
+std::shared_ptr<const tesseract_kinematics::JointGroup>
 createKinematicGroup(const tesseract_common::ManipulatorInfo& manip_info,
                      const tesseract_environment::Environment& env);
 
