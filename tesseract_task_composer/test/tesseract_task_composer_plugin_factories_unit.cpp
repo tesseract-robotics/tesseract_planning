@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/utils.h>
 #include <tesseract_common/types.h>
 #include <tesseract_common/yaml_utils.h>
+#include <tesseract_common/yaml_extenstions.h>
 
 using namespace tesseract_planning;
 

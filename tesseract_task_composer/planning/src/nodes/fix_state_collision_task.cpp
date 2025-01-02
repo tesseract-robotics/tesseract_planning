@@ -295,7 +295,7 @@ bool moveWaypointFromCollisionRandomSampler(WaypointPoly& waypoint,
     return false;
   }
 
-  tesseract_kinematics::JointGroup::UPtr kin = env.getJointGroup(manip_info.manipulator);
+  tesseract_kinematics::JointGroup::ConstPtr kin = env.getJointGroup(manip_info.manipulator);
   Eigen::MatrixXd limits = kin->getLimits().joint_limits;
   Eigen::VectorXd range = limits.col(1).array() - limits.col(0).array();
 

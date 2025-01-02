@@ -91,7 +91,7 @@ OMPLRealVectorPlanProfile::createSimpleSetup(const MoveInstructionPoly& start_in
   tesseract_common::ManipulatorInfo end_mi = composite_mi.getCombined(end_instruction.getManipulatorInfo());
 
   // Get kinematics
-  tesseract_kinematics::JointGroup::Ptr manip = env->getJointGroup(end_mi.manipulator);
+  tesseract_kinematics::JointGroup::ConstPtr manip = env->getJointGroup(end_mi.manipulator);
   const auto dof = static_cast<unsigned>(manip->numJoints());
   const std::vector<std::string> joint_names = manip->getJointNames();
   const Eigen::MatrixX2d limits = manip->getLimits().joint_limits;
@@ -150,7 +150,7 @@ OMPLRealVectorPlanProfile::createSimpleSetup(const MoveInstructionPoly& start_in
   // Add start states
   if (start_instruction.getWaypoint().isJointWaypoint() || start_instruction.getWaypoint().isStateWaypoint())
   {
-    tesseract_kinematics::JointGroup::UPtr joint_group = env->getJointGroup(start_mi.manipulator);
+    tesseract_kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(start_mi.manipulator);
     assert(checkJointPositionFormat(joint_group->getJointNames(), start_instruction.getWaypoint()));
     contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkNames());
     const Eigen::VectorXd& cur_position = getJointPosition(start_instruction.getWaypoint());
@@ -161,7 +161,7 @@ OMPLRealVectorPlanProfile::createSimpleSetup(const MoveInstructionPoly& start_in
     const auto& cur_wp = start_instruction.getWaypoint().as<CartesianWaypointPoly>();
     Eigen::Isometry3d tcp_offset = env->findTCPOffset(start_mi);
     Eigen::Isometry3d tcp_frame_cwp = cur_wp.getTransform() * tcp_offset.inverse();
-    tesseract_kinematics::KinematicGroup::UPtr kin_group;
+    tesseract_kinematics::KinematicGroup::ConstPtr kin_group;
     if (start_mi.manipulator_ik_solver.empty())
       kin_group = env->getKinematicGroup(start_mi.manipulator);
     else
@@ -179,7 +179,7 @@ OMPLRealVectorPlanProfile::createSimpleSetup(const MoveInstructionPoly& start_in
   // Add Goal states
   if (end_instruction.getWaypoint().isJointWaypoint() || end_instruction.getWaypoint().isStateWaypoint())
   {
-    tesseract_kinematics::JointGroup::UPtr joint_group = env->getJointGroup(end_mi.manipulator);
+    tesseract_kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(end_mi.manipulator);
     assert(checkJointPositionFormat(joint_group->getJointNames(), end_instruction.getWaypoint()));
     contact_checker->setActiveCollisionObjects(joint_group->getActiveLinkNames());
     const Eigen::VectorXd& cur_position = getJointPosition(end_instruction.getWaypoint());
@@ -190,7 +190,7 @@ OMPLRealVectorPlanProfile::createSimpleSetup(const MoveInstructionPoly& start_in
     const auto& cur_wp = end_instruction.getWaypoint().as<CartesianWaypointPoly>();
     Eigen::Isometry3d tcp_offset = env->findTCPOffset(end_mi);
     Eigen::Isometry3d tcp_frame_cwp = cur_wp.getTransform() * tcp_offset.inverse();
-    tesseract_kinematics::KinematicGroup::UPtr kin_group;
+    tesseract_kinematics::KinematicGroup::ConstPtr kin_group;
     if (end_mi.manipulator_ik_solver.empty())
       kin_group = env->getKinematicGroup(end_mi.manipulator);
     else

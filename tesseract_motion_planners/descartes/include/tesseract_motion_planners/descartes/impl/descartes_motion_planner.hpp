@@ -142,7 +142,7 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   response.data = std::move(solver);
 
   // Get Manipulator Information
-  tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(composite_mi.manipulator);
+  tesseract_kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(composite_mi.manipulator);
   const std::vector<std::string> joint_names = manip->getJointNames();
   const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
 

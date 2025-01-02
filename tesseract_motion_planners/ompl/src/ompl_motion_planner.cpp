@@ -316,7 +316,7 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 
     // Get end state kinematics data
     tesseract_common::ManipulatorInfo end_mi = composite_mi.getCombined(end_move_instruction.getManipulatorInfo());
-    tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(end_mi.manipulator);
+    tesseract_kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(end_mi.manipulator);
 
     // Create problem data
     const auto& start_move_instruction = start_instruction.get().as<MoveInstructionPoly>();

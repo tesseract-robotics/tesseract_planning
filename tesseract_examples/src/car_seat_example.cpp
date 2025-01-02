@@ -253,7 +253,7 @@ bool CarSeatExample::run()
   TaskComposerPluginFactory factory(config_path);
 
   // Get manipulator
-  JointGroup::UPtr joint_group = env_->getJointGroup("manipulator");
+  JointGroup::ConstPtr joint_group = env_->getJointGroup("manipulator");
 
   // Create seats and add it to the local environment
   Commands cmds = addSeats(env_->getResourceLocator());

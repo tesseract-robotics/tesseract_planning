@@ -65,9 +65,7 @@ TrajOptIfoptDefaultPlanProfile::create(const MoveInstructionPoly& move_instructi
   std::vector<std::string> joint_names = env->getGroupJointNames(mi.manipulator);
   assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
 
-  /** @todo Levi, is this expensive? I think we should update environment to return const shared pointer because it
-   * maintains an internal cache for you */
-  std::shared_ptr<const tesseract_kinematics::JointGroup> manip = env->getJointGroup(mi.manipulator);
+  tesseract_kinematics::JointGroup::ConstPtr manip = env->getJointGroup(mi.manipulator);
   Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
 
   TrajOptIfoptWaypointInfo info;

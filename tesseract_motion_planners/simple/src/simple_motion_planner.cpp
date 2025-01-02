@@ -87,7 +87,7 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
   const std::string manipulator = request.instructions.getManipulatorInfo().manipulator;
 
   // Initialize
-  tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(manipulator);
+  tesseract_kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(manipulator);
 
   // Start State
   tesseract_scene_graph::SceneState start_state = request.env->getState();
@@ -175,7 +175,7 @@ SimpleMotionPlanner::processCompositeInstruction(MoveInstructionPoly& prev_instr
       if (prev_instruction.isNull())
       {
         const std::string manipulator = request.instructions.getManipulatorInfo().manipulator;
-        tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(manipulator);
+        tesseract_kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(manipulator);
 
         prev_instruction = base_instruction;
         auto& start_waypoint = prev_instruction.getWaypoint();

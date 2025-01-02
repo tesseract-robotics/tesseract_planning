@@ -149,7 +149,7 @@ ContinuousContactCheckTask::runImpl(TaskComposerContext& context, OptionalTaskCo
 
   // Get state solver
   tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(input_manip_info);
-  tesseract_kinematics::JointGroup::UPtr manip = env->getJointGroup(manip_info.manipulator);
+  tesseract_kinematics::JointGroup::ConstPtr manip = env->getJointGroup(manip_info.manipulator);
   tesseract_scene_graph::StateSolver::UPtr state_solver = env->getStateSolver();
 
   tesseract_collision::ContinuousContactManager::Ptr manager = env->getContinuousContactManager();
