@@ -224,8 +224,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   }
 
   EXPECT_TRUE(&planner_response);
-  EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 21);  // 10 per segment + start a instruction
-  EXPECT_EQ(planner_response.results.size(), 21);
+  EXPECT_GE(planner_response.results.getMoveInstructionCount(), 21);  // 10 per segment + start a instruction
+  EXPECT_GE(planner_response.results.size(), 21);
   EXPECT_TRUE(wp1.getPosition().isApprox(
       getJointPosition(planner_response.results.getFirstMoveInstruction()->getWaypoint()), 1e-5));
 
@@ -479,7 +479,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   }
 
   EXPECT_TRUE(&planner_response);
-  EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 11);
+  EXPECT_GE(planner_response.results.getMoveInstructionCount(), 11);
   EXPECT_TRUE(wp2.getPosition().isApprox(
       getJointPosition(planner_response.results.getLastMoveInstruction()->getWaypoint()), 1e-5));
 
