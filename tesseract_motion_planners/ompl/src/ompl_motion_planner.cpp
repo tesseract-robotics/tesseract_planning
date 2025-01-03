@@ -181,7 +181,7 @@ std::pair<bool, std::string> parallelPlan(ompl::geometric::SimpleSetup& simple_s
   if (solver_config.simplify)
     simple_setup.simplifySolution();
 
-  // Interpolate the path there are currently fewer states than requested
+  // Interpolate the path if there are currently fewer states than requested
   if (simple_setup.getSolutionPath().getStateCount() < num_output_states)
     simple_setup.getSolutionPath().interpolate(num_output_states);
 
