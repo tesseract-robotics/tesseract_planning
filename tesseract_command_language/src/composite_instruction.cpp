@@ -28,6 +28,10 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <stdexcept>
 #include <iostream>
+#include <boost/version.hpp>
+#if (BOOST_VERSION >= 107400) && (BOOST_VERSION < 107500)
+#include <boost/serialization/library_version_type.hpp>
+#endif
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/unordered_map.hpp>
@@ -227,7 +231,10 @@ bool CompositeInstruction::operator==(const CompositeInstruction& rhs) const
 {
   bool equal = true;
   equal &= (static_cast<int>(order_) == static_cast<int>(rhs.order_));
+  equal &= (uuid_ == rhs.uuid_);
+  equal &= (parent_uuid_ == rhs.parent_uuid_);
   equal &= (profile_ == rhs.profile_);  // NOLINT
+  equal &= (profile_overrides_ == rhs.profile_overrides_);
   equal &= (manipulator_info_ == rhs.manipulator_info_);
   equal &= (user_data_ == rhs.user_data_);
   equal &= (container_.size() == rhs.container_.size());
@@ -530,6 +537,7 @@ void CompositeInstruction::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("description", description_);
   ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
   ar& boost::serialization::make_nvp("profile", profile_);
+  ar& boost::serialization::make_nvp("profile_overrides", profile_overrides_);
   ar& boost::serialization::make_nvp("order", order_);
   ar& boost::serialization::make_nvp("user_data", user_data_);
   ar& boost::serialization::make_nvp("container", container_);

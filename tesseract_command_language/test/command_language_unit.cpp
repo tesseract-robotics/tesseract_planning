@@ -465,6 +465,8 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_TRUE(insert_program != instr);
 
   T assign_program(profile, order, manip_info);
+  assign_program.setUUID(instr.getUUID());
+  assign_program.setParentUUID(instr.getParentUUID());
   assign_program.setInstructions(instr.getInstructions());
   EXPECT_FALSE(assign_program.getUUID().is_nil());
   EXPECT_TRUE(assign_program.getParentUUID().is_nil());

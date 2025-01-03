@@ -783,7 +783,12 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsResultTaskTests)  
   {  // Test run method
     auto data = std::make_unique<TaskComposerDataStorage>();
     CompositeInstruction compare = test_suite::jointInterpolateExampleProgramABB(false);
-    data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
+    CompositeInstruction input_data = test_suite::jointInterpolateExampleProgramABB(true);
+    input_data.setUUID(compare.getUUID());
+    for (std::size_t i = 0; i < compare.size(); ++i)
+      input_data.at(i).as<MoveInstructionPoly>().setUUID(compare.at(i).as<MoveInstructionPoly>().getUUID());
+
+    data->setData("input_data", input_data);
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     std::vector<std::string> input_keys{ "input_data" };
     std::vector<std::string> output_keys{ "output_data" };
