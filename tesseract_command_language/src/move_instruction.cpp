@@ -28,13 +28,14 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 #include <console_bridge/console.h>
+#include <boost/version.hpp>
+#if (BOOST_VERSION >= 107400) && (BOOST_VERSION < 107500)
+#include <boost/serialization/library_version_type.hpp>
+#endif
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
 #include <boost/serialization/unordered_map.hpp>
-#if (BOOST_VERSION >= 107400) && (BOOST_VERSION < 107500)
-#include <boost/serialization/library_version_type.hpp>
-#endif
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/move_instruction.h>
