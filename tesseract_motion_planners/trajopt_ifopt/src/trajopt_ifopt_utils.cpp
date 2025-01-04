@@ -182,7 +182,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
       auto active_link_names = manip->getActiveLinkNames();
       auto static_link_names = manip->getStaticLinkNames();
       auto cp = tesseract_collision::getCollisionObjectPairs(
-          active_link_names, static_link_names, env->getDiscreteContactManager()->getIsContactAllowedFn());
+          active_link_names, static_link_names, env->getDiscreteContactManager()->getContactAllowedValidator());
 
       constraints.push_back(std::make_shared<trajopt_ifopt::DiscreteCollisionConstraint>(
           collision_evaluator,
@@ -217,7 +217,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
       auto active_link_names = manip->getActiveLinkNames();
       auto static_link_names = manip->getStaticLinkNames();
       auto cp = tesseract_collision::getCollisionObjectPairs(
-          active_link_names, static_link_names, env->getDiscreteContactManager()->getIsContactAllowedFn());
+          active_link_names, static_link_names, env->getDiscreteContactManager()->getContactAllowedValidator());
 
       std::array<trajopt_ifopt::JointPosition::ConstPtr, 2> position_vars{ vars[i - 1], vars[i] };
       std::array<bool, 2> position_vars_fixed{ time0_fixed, time1_fixed };
@@ -264,7 +264,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
       auto active_link_names = manip->getActiveLinkNames();
       auto static_link_names = manip->getStaticLinkNames();
       auto cp = tesseract_collision::getCollisionObjectPairs(
-          active_link_names, static_link_names, env->getDiscreteContactManager()->getIsContactAllowedFn());
+          active_link_names, static_link_names, env->getDiscreteContactManager()->getContactAllowedValidator());
 
       std::array<trajopt_ifopt::JointPosition::ConstPtr, 2> position_vars{ vars[i - 1], vars[i] };
       std::array<bool, 2> position_vars_fixed{ time0_fixed, time1_fixed };
