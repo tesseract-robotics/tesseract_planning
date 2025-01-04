@@ -197,7 +197,7 @@ bool PuzzlePieceExample::run()
   TaskComposerPluginFactory factory(config_path);
 
   // Create Program
-  CompositeInstruction program("DEFAULT", CompositeInstructionOrder::ORDERED, mi);
+  CompositeInstruction program("DEFAULT", mi);
 
   // Create cartesian waypoint
   for (std::size_t i = 0; i < tool_poses.size(); ++i)

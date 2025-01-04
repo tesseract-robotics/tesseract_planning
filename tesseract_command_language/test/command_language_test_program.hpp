@@ -17,7 +17,7 @@ inline CompositeInstruction getTestProgram(std::string profile,
                                            CompositeInstructionOrder order,
                                            tesseract_common::ManipulatorInfo manipulator_info)
 {
-  CompositeInstruction program(std::move(profile), order, std::move(manipulator_info));
+  CompositeInstruction program(std::move(profile), std::move(manipulator_info), order);
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
@@ -88,7 +88,8 @@ inline CompositeInstruction getTestProgram(std::string profile,
     transition_from_start.setDescription("transition_from_start");
     transition_from_start.appendMoveInstruction(plan_f1);
 
-    CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
+    CompositeInstruction transitions(
+        DEFAULT_PROFILE_KEY, tesseract_common::ManipulatorInfo(), CompositeInstructionOrder::UNORDERED);
     transitions.setDescription("transitions");
     transitions.push_back(transition_from_start);
     transitions.push_back(transition_from_end);
@@ -117,7 +118,8 @@ inline CompositeInstruction getTestProgram(std::string profile,
     transition_from_start.setDescription("transition_from_start");
     transition_from_start.appendMoveInstruction(plan_f1);
 
-    CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
+    CompositeInstruction transitions(
+        DEFAULT_PROFILE_KEY, tesseract_common::ManipulatorInfo(), CompositeInstructionOrder::UNORDERED);
     transitions.setDescription("transitions");
     transitions.push_back(transition_from_start);
     transitions.push_back(transition_from_end);

@@ -167,8 +167,7 @@ bool FreespaceHybridExample::run()
   TaskComposerPluginFactory factory(config_path);
 
   // Create Program
-  CompositeInstruction program(
-      "FREESPACE", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start and End Joint Position for the program
   StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_start_pos) };

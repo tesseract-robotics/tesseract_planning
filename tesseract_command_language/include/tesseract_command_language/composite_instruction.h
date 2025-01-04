@@ -110,8 +110,8 @@ public:
   using const_reverse_iterator = typename std::vector<value_type>::const_reverse_iterator;
 
   CompositeInstruction(std::string profile = DEFAULT_PROFILE_KEY,
-                       CompositeInstructionOrder order = CompositeInstructionOrder::ORDERED,
-                       tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
+                       tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo(),
+                       CompositeInstructionOrder order = CompositeInstructionOrder::ORDERED);
 
   template <class InputIt>
   CompositeInstruction(InputIt first, InputIt last) : CompositeInstruction()
