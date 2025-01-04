@@ -113,19 +113,19 @@ public:
    * @brief Load plugins from yaml node
    * @param config The config node
    */
-  TaskComposerPluginFactory(const YAML::Node& config);
+  TaskComposerPluginFactory(const YAML::Node& config, const tesseract_common::ResourceLocator& locator);
 
   /**
    * @brief Load plugins from file path
    * @param config The config file path
    */
-  TaskComposerPluginFactory(const tesseract_common::fs::path& config);
+  TaskComposerPluginFactory(const tesseract_common::fs::path& config, const tesseract_common::ResourceLocator& locator);
 
   /**
    * @brief Load plugins from string
    * @param config The config string
    */
-  TaskComposerPluginFactory(const std::string& config);
+  TaskComposerPluginFactory(const std::string& config, const tesseract_common::ResourceLocator& locator);
 
   /**
    * @brief Loads plugins from a configuration object
@@ -137,19 +137,19 @@ public:
    * @brief Load plugins from yaml node
    * @param config The config node
    */
-  void loadConfig(const YAML::Node& config);
+  void loadConfig(const YAML::Node& config, const tesseract_common::ResourceLocator& locator);
 
   /**
    * @brief Load plugins from file path
    * @param config The config file path
    */
-  void loadConfig(const tesseract_common::fs::path& config);
+  void loadConfig(const tesseract_common::fs::path& config, const tesseract_common::ResourceLocator& locator);
 
   /**
    * @brief Load plugins from string
    * @param config The config string
    */
-  void loadConfig(const std::string& config);
+  void loadConfig(const std::string& config, const tesseract_common::ResourceLocator& locator);
 
   /**
    * @brief Add location for the plugin loader to search
@@ -307,6 +307,8 @@ public:
 private:
   struct Implementation;
   std::unique_ptr<Implementation> impl_;
+
+  void loadConfig(const YAML::Node& config);
 };
 }  // namespace tesseract_planning
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_FACTORY_H

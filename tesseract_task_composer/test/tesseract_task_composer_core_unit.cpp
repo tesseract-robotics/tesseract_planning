@@ -29,6 +29,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/nodes/sync_task.h>
 #include <tesseract_task_composer/core/test_suite/test_task.h>
 
+#include <tesseract_common/resource_locator.h>
+
 TESSERACT_ANY_EXPORT(tesseract_common::JointState, TesseractCommonJointState)
 
 using namespace tesseract_planning;
@@ -401,6 +403,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
 {
+  tesseract_common::GeneralResourceLocator locator;
   std::string name = "TaskComposerPipelineTests";
   std::string name1 = "TaskComposerPipelineTests1";
   std::string name2 = "TaskComposerPipelineTests2";
@@ -928,7 +931,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
                                        destinations: [DoneTask]
                                    terminals: [DoneTask])";
 
-    TaskComposerPluginFactory factory(str);
+    TaskComposerPluginFactory factory(str, locator);
 
     std::string str2 = R"(config:
                             conditional: true
@@ -1326,6 +1329,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
 // Graph is mostly tested through the Pipeline tests becasue they can be run
 TEST(TesseractTaskComposerCoreUnit, TaskComposerGraphTests)  // NOLINT
 {
+  tesseract_common::GeneralResourceLocator locator;
   std::string name{ "TaskComposerGraphTests" };
   auto graph = std::make_unique<TaskComposerGraph>(name);
   EXPECT_EQ(graph->getName(), name);
@@ -1412,7 +1416,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerGraphTests)  // NOLINT
                                        destinations: [DoneTask]
                                    terminals: [DoneTask])";
 
-    TaskComposerPluginFactory factory(str);
+    TaskComposerPluginFactory factory(str, locator);
 
     std::string str2 = R"(config:
                             conditional: true
@@ -1464,7 +1468,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerGraphTests)  // NOLINT
                                        destinations: [DoneTask]
                                    terminals: [DoneTask])";
 
-    TaskComposerPluginFactory factory(str);
+    TaskComposerPluginFactory factory(str, locator);
 
     std::string str2 = R"(config:
                             conditional: true
@@ -1527,7 +1531,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerGraphTests)  // NOLINT
                                        destinations: [ErrorTask, DoneTask]
                                    terminals: [ErrorTask, DoneTask])";
 
-    TaskComposerPluginFactory factory(str);
+    TaskComposerPluginFactory factory(str, locator);
 
     std::string str2 = R"(config:
                             conditional: true
@@ -1594,7 +1598,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerGraphTests)  // NOLINT
                                        destinations: [DuplicateTask]
                                    terminals: [ErrorTask, DoneTask])";
 
-    TaskComposerPluginFactory factory(str);
+    TaskComposerPluginFactory factory(str, locator);
 
     std::string str2 = R"(config:
                             conditional: true
@@ -2216,6 +2220,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerHasDataStorageEntryTaskTests)  /
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerServerTests)  // NOLINT
 {
+  tesseract_common::GeneralResourceLocator locator;
   std::string str = R"(task_composer_plugins:
                          search_paths:
                            - /usr/local/lib
@@ -2354,14 +2359,14 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerServerTests)  // NOLINT
 
   {  // String Constructor
     TaskComposerServer server;
-    server.loadConfig(str);
+    server.loadConfig(str, locator);
     runTest(server);
   }
 
   {  // YAML::Node Constructor
     TaskComposerServer server;
     YAML::Node config = YAML::Load(str);
-    server.loadConfig(config);
+    server.loadConfig(config, locator);
     runTest(server);
   }
 
@@ -2375,13 +2380,14 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerServerTests)  // NOLINT
     }
 
     TaskComposerServer server;
-    server.loadConfig(file_path);
+    server.loadConfig(file_path, locator);
     runTest(server);
   }
 }
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineWithGraphChild)  // NOLINT
 {
+  tesseract_common::GeneralResourceLocator locator;
   std::string str = R"(task_composer_plugins:
                          search_paths:
                            - /usr/local/lib
@@ -2460,7 +2466,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineWithGraphChild)  // NOLI
                                  terminals: [AbortTask, DoneTask])";
 
   TaskComposerServer server;
-  server.loadConfig(str);
+  server.loadConfig(str, locator);
 
   // Run method using TaskComposerContext
   const auto& pipeline = server.getTask("TestPipeline");

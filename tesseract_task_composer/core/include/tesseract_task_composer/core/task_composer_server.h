@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <map>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/fwd.h>
 #include <tesseract_common/filesystem.h>
 
 namespace YAML
@@ -62,19 +63,19 @@ public:
    * @brief Load plugins from yaml node
    * @param config The config node
    */
-  void loadConfig(const YAML::Node& config);
+  void loadConfig(const YAML::Node& config, const tesseract_common::ResourceLocator& locator);
 
   /**
    * @brief Load plugins from file path
    * @param config The config file path
    */
-  void loadConfig(const tesseract_common::fs::path& config);
+  void loadConfig(const tesseract_common::fs::path& config, const tesseract_common::ResourceLocator& locator);
 
   /**
    * @brief Load plugins from string
    * @param config The config string
    */
-  void loadConfig(const std::string& config);
+  void loadConfig(const std::string& config, const tesseract_common::ResourceLocator& locator);
 
   /**
    * @brief Add a executors (thread pool)
