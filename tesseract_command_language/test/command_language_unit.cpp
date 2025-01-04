@@ -464,7 +464,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_FALSE(insert_program == instr);
   EXPECT_TRUE(insert_program != instr);
 
-  T assign_program(profile, order, manip_info);
+  T assign_program(profile, manip_info, order);
   assign_program.setUUID(instr.getUUID());
   assign_program.setParentUUID(instr.getParentUUID());
   assign_program.setInstructions(instr.getInstructions());
@@ -535,7 +535,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_TRUE(copy_program == instr);
   EXPECT_FALSE(copy_program != instr);
 
-  T empty_program(profile, order, manip_info);
+  T empty_program(profile, manip_info, order);
   EXPECT_FALSE(empty_program.getUUID().is_nil());
   EXPECT_TRUE(empty_program.getParentUUID().is_nil());
   EXPECT_EQ(empty_program.getProfile(), profile);
@@ -662,7 +662,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
 
   // Flatten
   auto mis = instr.flatten(moveFilter);
-  T insert_mi_program(profile, order, manip_info);
+  T insert_mi_program(profile, manip_info, order);
   for (const auto& mi : mis)
     insert_mi_program.insertMoveInstruction(insert_mi_program.end(), mi.get().as<MoveInstructionPoly>());
 

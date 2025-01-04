@@ -54,8 +54,8 @@ bool moveFilter(const InstructionPoly& instruction, const CompositeInstruction& 
 }
 
 CompositeInstruction::CompositeInstruction(std::string profile,
-                                           CompositeInstructionOrder order,
-                                           tesseract_common::ManipulatorInfo manipulator_info)
+                                           tesseract_common::ManipulatorInfo manipulator_info,
+                                           CompositeInstructionOrder order)
   : uuid_(boost::uuids::random_generator()())
   , manipulator_info_(std::move(manipulator_info))
   , profile_(std::move(profile))

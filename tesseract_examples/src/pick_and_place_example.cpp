@@ -184,9 +184,7 @@ bool PickAndPlaceExample::run()
   TaskComposerPluginFactory factory(config_path);
 
   // Create Program
-  CompositeInstruction pick_program("DEFAULT",
-                                    CompositeInstructionOrder::ORDERED,
-                                    ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
+  CompositeInstruction pick_program("DEFAULT", ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
   StateWaypointPoly pick_swp{ StateWaypoint(joint_names, joint_pos) };
   MoveInstruction start_instruction(pick_swp, MoveInstructionType::FREESPACE, "FREESPACE");
@@ -384,9 +382,7 @@ bool PickAndPlaceExample::run()
   place_approach_pose.translation() += Eigen::Vector3d(0.0, -0.25, 0);
 
   // Create Program
-  CompositeInstruction place_program("DEFAULT",
-                                     CompositeInstructionOrder::ORDERED,
-                                     ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
+  CompositeInstruction place_program("DEFAULT", ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
   // Define the approach pose
   CartesianWaypointPoly place_wp0{ CartesianWaypoint(retreat_pose) };

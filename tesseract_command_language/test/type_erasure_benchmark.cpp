@@ -52,8 +52,7 @@ using tesseract_common::ManipulatorInfo;
 
 CompositeInstruction getProgram()
 {
-  CompositeInstruction program(
-      "raster_program", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "world", "tool0"));
+  CompositeInstruction program("raster_program", ManipulatorInfo("manipulator", "world", "tool0"));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
@@ -114,7 +113,8 @@ CompositeInstruction getProgram()
     transition_from_start.setDescription("transition_from_start");
     transition_from_start.appendMoveInstruction(plan_f1);
 
-    CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
+    CompositeInstruction transitions(
+        DEFAULT_PROFILE_KEY, tesseract_common::ManipulatorInfo(), CompositeInstructionOrder::UNORDERED);
     transitions.setDescription("transitions");
     transitions.push_back(transition_from_start);
     transitions.push_back(transition_from_end);
@@ -143,7 +143,8 @@ CompositeInstruction getProgram()
     transition_from_start.setDescription("transition_from_start");
     transition_from_start.appendMoveInstruction(plan_f1);
 
-    CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
+    CompositeInstruction transitions(
+        DEFAULT_PROFILE_KEY, tesseract_common::ManipulatorInfo(), CompositeInstructionOrder::UNORDERED);
     transitions.setDescription("transitions");
     transitions.push_back(transition_from_start);
     transitions.push_back(transition_from_end);
