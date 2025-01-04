@@ -178,7 +178,7 @@ bool BasicCartesianExample::run()
   // Create Task Composer Plugin Factory
   const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
   tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
-  TaskComposerPluginFactory factory(config_path);
+  TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
 
   // Create Program
   CompositeInstruction program("cartesian_program", ManipulatorInfo("manipulator", "base_link", "tool0"));

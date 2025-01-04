@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <tesseract_common/utils.h>
+#include <tesseract_common/resource_locator.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
@@ -124,8 +125,9 @@ int main()
   task_composer.addEdges(task2_id, { task3_id });
 
   const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
+  tesseract_common::GeneralResourceLocator locator;
   tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
-  TaskComposerPluginFactory factory(config_path);
+  TaskComposerPluginFactory factory(config_path, locator);
 
   auto task_executor = factory.createTaskComposerExecutor("TaskflowExecutor");
   TaskComposerFuture::UPtr future = task_executor->run(task_composer, std::move(task_data));

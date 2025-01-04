@@ -2729,9 +2729,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
 
 TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  // NOLINT
 {
+  tesseract_common::GeneralResourceLocator locator;
   tesseract_common::fs::path config_path(
       locator_->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
-  TaskComposerPluginFactory factory(config_path);
+  TaskComposerPluginFactory factory(config_path, locator);
 
   {  // Construction
     RasterMotionTask task;
@@ -3309,9 +3310,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
 
 TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)  // NOLINT
 {
+  tesseract_common::GeneralResourceLocator locator;
   tesseract_common::fs::path config_path(
       locator_->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
-  TaskComposerPluginFactory factory(config_path);
+  TaskComposerPluginFactory factory(config_path, locator);
 
   {  // Construction
     RasterOnlyMotionTask task;
