@@ -67,7 +67,8 @@ bool TimeOptimalTrajectoryGeneration::compute(TrajectoryContainer& trajectory,
                                               const Eigen::Ref<const Eigen::MatrixX2d>& /*jerk_limits*/,
                                               const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors,
                                               const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors,
-                                              const Eigen::Ref<const Eigen::VectorXd>& /*jerk_scaling_factors*/) const
+                                              const Eigen::Ref<const Eigen::VectorXd>& /*jerk_scaling_factors*/,
+                                              const double& /*minimum_time_delta*/) const
 {
   if (trajectory.empty())
     return true;

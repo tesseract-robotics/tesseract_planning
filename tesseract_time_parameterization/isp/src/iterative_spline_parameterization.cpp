@@ -57,7 +57,7 @@ static void adjust_two_positions(long n,
                                  double x2_i,        // NOLINT
                                  double x2_f);       // NOLINT
 static void
-init_times(long n, double dt[], const double x[], const double max_velocity[], double min_velocity[]);  // NOLINT
+init_times(long n, const double minimum_time_delta, double dt[], const double x[], const double max_velocity[], double min_velocity[]);  // NOLINT
 // static int fit_spline_and_adjust_times(const int n,
 //                                       double dt[],
 //                                       const double x[],
@@ -105,7 +105,8 @@ bool IterativeSplineParameterization::compute(TrajectoryContainer& trajectory,
                                               const Eigen::Ref<const Eigen::MatrixX2d>& /*jerk_limits*/,
                                               const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors,
                                               const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors,
-                                              const Eigen::Ref<const Eigen::VectorXd>& /*jerk_scaling_factors*/) const
+                                              const Eigen::Ref<const Eigen::VectorXd>& /*jerk_scaling_factors*/,
+                                              const double& minimum_time_delta) const
 {
   if (trajectory.empty())
     return true;
@@ -342,6 +343,7 @@ bool IterativeSplineParameterization::compute(TrajectoryContainer& trajectory,
   std::vector<double> time_diff(static_cast<std::size_t>(num_points - 1), std::numeric_limits<double>::epsilon());
   for (unsigned int j = 0; j < trajectory.dof(); j++)
     init_times(static_cast<long>(num_points),
+               minimum_time_delta,
                time_diff.data(),
                t2[j].positions_.data(),
                t2[j].max_velocity_.data(),
@@ -548,7 +550,7 @@ static void adjust_two_positions(const long n,
   Increase a segment's time interval if the current time isn't long enough.
 */
 // NOLINTNEXTLINE
-static void init_times(long n, double dt[], const double x[], const double max_velocity[], double min_velocity[])
+static void init_times(long n, const double minimum_time_delta, double dt[], const double x[], const double max_velocity[], double min_velocity[])
 {
   for (long i = 0; i < n - 1; i++)
   {
@@ -559,6 +561,10 @@ static void init_times(long n, double dt[], const double x[], const double max_v
     else
       time = (dx / min_velocity[i]);
     time += std::numeric_limits<double>::epsilon();  // prevent divide-by-zero
+
+    if (time < minimum_time_delta) {
+      time = minimum_time_delta;
+    }
 
     if (dt[i] < time)
       dt[i] = time;

@@ -50,6 +50,8 @@ struct IterativeSplineParameterizationProfile
 
   /** @brief max_velocity_scaling_factor The max acceleration scaling factor passed to the solver */
   double max_acceleration_scaling_factor{ 1.0 };
+
+  double minimum_time_delta{ std::numeric_limits<double>::epsilon() };
 };
 }  // namespace tesseract_planning
 
