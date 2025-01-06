@@ -43,6 +43,7 @@ public:
    * @param velocity_scaling_factor The velocity scaling factor. Size should be trajectory.size()
    * @param acceleration_scaling_factor The acceleration scaling factor. Size should be trajectory.size()
    * @param jerk_scaling_factor The jerk scaling factor. Size should be trajectory.size()
+   * @param minimum_time_delta The smallest-allowable difference in seconds between timestamps of consecutive trajectory points.
    * @return True if successful, otherwise false
    */
   virtual bool compute(TrajectoryContainer& trajectory,
@@ -51,7 +52,8 @@ public:
                        const Eigen::Ref<const Eigen::MatrixX2d>& jerk_limits,
                        const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors,
                        const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors,
-                       const Eigen::Ref<const Eigen::VectorXd>& jerk_scaling_factors) const = 0;
+                       const Eigen::Ref<const Eigen::VectorXd>& jerk_scaling_factors,
+                       const double& minimum_time_delta) const = 0;
 };
 }  // namespace tesseract_planning
 #endif  // TESSERACT_TIME_PARAMETERIZATION_TIME_PARAMETERIZATION_H

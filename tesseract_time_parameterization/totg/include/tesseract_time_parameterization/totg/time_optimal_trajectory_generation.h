@@ -67,7 +67,8 @@ public:
                const Eigen::Ref<const Eigen::MatrixX2d>& jerk_limits,
                const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors = Eigen::VectorXd::Ones(1),
                const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors = Eigen::VectorXd::Ones(1),
-               const Eigen::Ref<const Eigen::VectorXd>& jerk_scaling_factors = Eigen::VectorXd::Ones(1)) const override;
+               const Eigen::Ref<const Eigen::VectorXd>& jerk_scaling_factors = Eigen::VectorXd::Ones(1),
+               const double& minimum_time_delta = std::numeric_limits<double>::epsilon()) const override;
 
 private:
   double path_tolerance_;

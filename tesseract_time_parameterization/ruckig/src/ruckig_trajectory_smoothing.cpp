@@ -73,7 +73,8 @@ bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
                                         const Eigen::Ref<const Eigen::VectorXd>& max_jerk,
                                         const Eigen::Ref<const Eigen::VectorXd>& max_velocity_scaling_factors,
                                         const Eigen::Ref<const Eigen::VectorXd>& max_acceleration_scaling_factors,
-                                        const Eigen::Ref<const Eigen::VectorXd>& max_jerk_scaling_factors) const
+                                        const Eigen::Ref<const Eigen::VectorXd>& max_jerk_scaling_factors,
+                                        const double& /*minimum_time_delta*/) const
 {
   if (trajectory.size() < 2)
     return true;
@@ -208,7 +209,8 @@ bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
                                         const Eigen::Ref<const Eigen::MatrixX2d>& jerk_limits,
                                         const Eigen::Ref<const Eigen::VectorXd>& /*velocity_scaling_factors*/,
                                         const Eigen::Ref<const Eigen::VectorXd>& /*acceleration_scaling_factors*/,
-                                        const Eigen::Ref<const Eigen::VectorXd>& /*jerk_scaling_factors*/) const
+                                        const Eigen::Ref<const Eigen::VectorXd>& /*jerk_scaling_factors*/,
+                                        const double& /*minimum_time_delta*/) const
 {
   if (trajectory.size() < 2)
     return true;
