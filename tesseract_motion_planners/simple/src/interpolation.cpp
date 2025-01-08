@@ -373,6 +373,8 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
   tesseract_common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
 
   std::array<Eigen::VectorXd, 2> sol;
+  auto& j1 = sol[0];
+  auto& j2 = sol[1];
   const auto& base_cwp = base.instruction.getWaypoint().as<CartesianWaypointPoly>();
   const auto& prev_cwp = prev.instruction.getWaypoint().as<CartesianWaypointPoly>();
   const bool base_has_seed = base_cwp.hasSeed();
@@ -380,18 +382,18 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
 
   if (base_has_seed && prev_has_seed)
   {
-    sol[0] = prev_cwp.getSeed().position;
-    sol[1] = base_cwp.getSeed().position;
+    j1 = prev_cwp.getSeed().position;
+    j2 = base_cwp.getSeed().position;
   }
   else if (!base_has_seed && prev_has_seed)
   {
-    sol[0] = prev_cwp.getSeed().position;
-    sol[1] = getClosestJointSolution(base, sol[0]);
+    j1 = prev_cwp.getSeed().position;
+    j2 = getClosestJointSolution(base, j1);
   }
   else if (base_has_seed && !prev_has_seed)
   {
-    sol[1] = base_cwp.getSeed().position;
-    sol[0] = getClosestJointSolution(prev, sol[1]);
+    j2 = base_cwp.getSeed().position;
+    j1 = getClosestJointSolution(prev, j2);
   }
   else
   {
@@ -399,42 +401,42 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
   }
 
   Eigen::MatrixXd states;
-  if (sol[0].size() != 0 && sol[1].size() != 0)
+  if ((j1.size() != 0) && (j2.size() != 0))
   {
     if (base.instruction.isLinear())
     {
       if (linear_steps > 1)
-        states = interpolate(sol[0], sol[1], linear_steps);
+        states = interpolate(j1, j2, linear_steps);
       else
-        states = sol[1].replicate(1, 2);
+        states = j2.replicate(1, 2);
     }
     else if (base.instruction.isFreespace())
     {
       if (freespace_steps > 1)
-        states = interpolate(sol[0], sol[1], freespace_steps);
+        states = interpolate(j1, j2, freespace_steps);
       else
-        states = sol[1].replicate(1, 2);
+        states = j2.replicate(1, 2);
     }
     else
     {
       throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
     }
   }
-  else if (sol[0].size() != 0)
+  else if (j1.size() != 0)
   {
     if (base.instruction.isLinear())
-      states = sol[0].replicate(1, linear_steps + 1);
+      states = j1.replicate(1, linear_steps + 1);
     else if (base.instruction.isFreespace())
-      states = sol[0].replicate(1, freespace_steps + 1);
+      states = j1.replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
   }
-  else if (sol[1].size() != 0)
+  else if (j2.size() != 0)
   {
     if (base.instruction.isLinear())
-      states = sol[1].replicate(1, linear_steps + 1);
+      states = j2.replicate(1, linear_steps + 1);
     else if (base.instruction.isFreespace())
-      states = sol[1].replicate(1, freespace_steps + 1);
+      states = j2.replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
   }
@@ -676,24 +678,26 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
   int steps = std::max(trans_steps, rot_steps);
 
   std::array<Eigen::VectorXd, 2> sol;
+  auto& j1 = sol[0];
+  auto& j2 = sol[1];
   const auto& base_cwp = base.instruction.getWaypoint().as<CartesianWaypointPoly>();
   const auto& prev_cwp = prev.instruction.getWaypoint().as<CartesianWaypointPoly>();
   const bool base_has_seed = base_cwp.hasSeed();
   const bool prev_has_seed = prev_cwp.hasSeed();
   if (base_has_seed && prev_has_seed)
   {
-    sol[0] = prev_cwp.getSeed().position;
-    sol[1] = base_cwp.getSeed().position;
+    j1 = prev_cwp.getSeed().position;
+    j2 = base_cwp.getSeed().position;
   }
   else if (!base_has_seed && prev_has_seed)
   {
-    sol[0] = prev_cwp.getSeed().position;
-    sol[1] = getClosestJointSolution(base, sol[0]);
+    j1 = prev_cwp.getSeed().position;
+    j2 = getClosestJointSolution(base, j1);
   }
   else if (base_has_seed && !prev_has_seed)
   {
-    sol[1] = base_cwp.getSeed().position;
-    sol[0] = getClosestJointSolution(prev, sol[1]);
+    j2 = base_cwp.getSeed().position;
+    j1 = getClosestJointSolution(prev, j2);
   }
   else
   {
@@ -701,9 +705,9 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
   }
 
   Eigen::MatrixXd states;
-  if (sol[0].size() != 0 && sol[1].size() != 0)
+  if ((j1.size() != 0) && (j2.size() != 0))
   {
-    double joint_dist = (sol[1] - sol[0]).norm();
+    double joint_dist = (j2 - j1).norm();
     int state_steps = int(joint_dist / state_lvs_length) + 1;
     steps = std::max(steps, state_steps);
 
@@ -712,23 +716,23 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
     steps = std::min(steps, max_steps);
 
     // Interpolate
-    states = interpolate(sol[0], sol[1], steps);
+    states = interpolate(j1, j2, steps);
   }
-  else if (sol[0].size() != 0)
+  else if (j1.size() != 0)
   {
     // Check min steps requirement
     steps = std::max(steps, min_steps);
 
     // Interpolate
-    states = sol[0].replicate(1, steps + 1);
+    states = j1.replicate(1, steps + 1);
   }
-  else if (sol[1].size() != 0)
+  else if (j2.size() != 0)
   {
     // Check min steps requirement
     steps = std::max(steps, min_steps);
 
     // Interpolate
-    states = sol[1].replicate(1, steps + 1);
+    states = j2.replicate(1, steps + 1);
   }
   else
   {
