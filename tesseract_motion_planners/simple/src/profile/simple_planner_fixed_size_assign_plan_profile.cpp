@@ -24,7 +24,6 @@
  * limitations under the License.
  */
 
-#include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_plan_profile.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/core/types.h>
@@ -36,7 +35,6 @@
 #include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
-#include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 
 namespace tesseract_planning
@@ -124,7 +122,7 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
+    assert(poses.size() == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
