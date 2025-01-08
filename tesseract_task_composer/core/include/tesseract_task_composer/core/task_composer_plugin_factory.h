@@ -100,8 +100,8 @@ public:
   ~TaskComposerPluginFactory();
   TaskComposerPluginFactory(const TaskComposerPluginFactory&) = delete;
   TaskComposerPluginFactory& operator=(const TaskComposerPluginFactory&) = delete;
-  TaskComposerPluginFactory(TaskComposerPluginFactory&&) noexcept = default;
-  TaskComposerPluginFactory& operator=(TaskComposerPluginFactory&&) noexcept = default;
+  TaskComposerPluginFactory(TaskComposerPluginFactory&&) noexcept;
+  TaskComposerPluginFactory& operator=(TaskComposerPluginFactory&&) noexcept;
 
   /**
    * @brief Load plugins from a configuration object
