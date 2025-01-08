@@ -35,7 +35,6 @@
 #include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
-#include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 
 namespace tesseract_planning
@@ -123,7 +122,7 @@ SimplePlannerFixedSizeAssignMoveProfile::generate(const MoveInstructionPoly& pre
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
-    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
+    assert(poses.size() == states.cols());
     return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
