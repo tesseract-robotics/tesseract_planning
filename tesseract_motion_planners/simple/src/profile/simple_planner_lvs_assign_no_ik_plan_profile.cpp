@@ -24,14 +24,16 @@
  * limitations under the License.
  */
 
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_assign_no_ik_plan_profile.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_assign_no_ik_plan_profile.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/core/types.h>
+
+#include <boost/serialization/nvp.hpp>
 
 namespace tesseract_planning
 {
@@ -62,40 +64,34 @@ SimplePlannerLVSAssignNoIKPlanProfile::generate(const MoveInstructionPoly& prev_
 
   Eigen::VectorXd j1;
   Eigen::Isometry3d p1_world;
-  bool has_j1 = false;
   if (prev.has_cartesian_waypoint)
   {
     p1_world = prev.extractCartesianPose();
     if (prev.instruction.getWaypoint().as<CartesianWaypointPoly>().hasSeed())
     {
       j1 = prev.instruction.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
-      has_j1 = true;
     }
   }
   else
   {
     j1 = prev.extractJointPosition();
     p1_world = prev.calcCartesianPose(j1);
-    has_j1 = true;
   }
 
   Eigen::VectorXd j2;
   Eigen::Isometry3d p2_world;
-  bool has_j2 = false;
   if (base.has_cartesian_waypoint)
   {
     p2_world = base.extractCartesianPose();
     if (base.instruction.getWaypoint().as<CartesianWaypointPoly>().hasSeed())
     {
       j2 = base.instruction.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
-      has_j2 = true;
     }
   }
   else
   {
     j2 = base.extractJointPosition();
     p2_world = base.calcCartesianPose(j2);
-    has_j2 = true;
   }
 
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
@@ -105,7 +101,7 @@ SimplePlannerLVSAssignNoIKPlanProfile::generate(const MoveInstructionPoly& prev_
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
 
   int steps = std::max(trans_steps, rot_steps);
-  if (has_j1 && has_j2)
+  if ((j1.size() != 0) && (j2.size() != 0))
   {
     double joint_dist = (j2 - j1).norm();
     int joint_steps = int(joint_dist / state_longest_valid_segment_length) + 1;
@@ -115,16 +111,19 @@ SimplePlannerLVSAssignNoIKPlanProfile::generate(const MoveInstructionPoly& prev_
   steps = std::min(steps, max_steps);
 
   Eigen::MatrixXd states;
-  if (has_j2)
+  if (j2.size() != 0)
   {
+    // Replicate base_instruction joint position
     states = j2.replicate(1, steps + 1);
   }
-  else if (has_j1)
+  else if (j1.size() != 0)
   {
+    // Replicate prev_instruction joint position
     states = j1.replicate(1, steps + 1);
   }
   else
   {
+    // Replicate current joint position
     Eigen::VectorXd seed = env->getCurrentJointValues(base.manip->getJointNames());
     tesseract_common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
     states = seed.replicate(1, steps + 1);
