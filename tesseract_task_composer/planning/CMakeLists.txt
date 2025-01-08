@@ -58,7 +58,7 @@ set(LINUX_DEPENDS
     "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language"
     "${TESSERACT_PACKAGE_PREFIX}tesseract-motion-planners-core"
     "${TESSERACT_PACKAGE_PREFIX}tesseract-motion-planners-simple"
-    "${TESSERACT_PACKAGE_PREFIX}tesseract-time-parameterizaton-core")
+    "${TESSERACT_PACKAGE_PREFIX}tesseract-time-parameterization-core")
 
 set(WINDOWS_DEPENDS
     "console-bridge"
@@ -68,7 +68,7 @@ set(WINDOWS_DEPENDS
     "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language"
     "${TESSERACT_PACKAGE_PREFIX}tesseract-motion-planners-core"
     "${TESSERACT_PACKAGE_PREFIX}tesseract-motion-planners-simple"
-    "${TESSERACT_PACKAGE_PREFIX}tesseract-time-parameterizaton-core")
+    "${TESSERACT_PACKAGE_PREFIX}tesseract-time-parameterization-core")
 
 if(tesseract_motion_planners_trajopt_FOUND)
   list(APPEND FACTORIES_SOURCE_FILES src/factories/planning_task_composer_trajopt_plugin_factory.cpp)
@@ -94,8 +94,8 @@ endif()
 if(tesseract_motion_planners_trajopt_ifopt_FOUND)
   list(APPEND FACTORIES_SOURCE_FILES src/factories/planning_task_composer_trajopt_ifopt_plugin_factory.cpp)
   list(APPEND FACTORIES_SOURCE_LINK_LIBRARIES tesseract::tesseract_motion_planners_trajopt_ifopt)
-  list(APPEND LINUX_DEPENDS "${TESSERACT_PACKAGE_PREFIX}tesseract-motion-planners-trajopt-ifopt")
-  list(APPEND WINDOWS_DEPENDS "${TESSERACT_PACKAGE_PREFIX}tesseract-motion-planners-trajopt-ifopt")
+  list(APPEND LINUX_DEPENDS "${TESSERACT_PACKAGE_PREFIX}tesseract-motion-planners-trajopt_ifopt")
+  list(APPEND WINDOWS_DEPENDS "${TESSERACT_PACKAGE_PREFIX}tesseract-motion-planners-trajopt_ifopt")
 endif()
 
 if(tesseract_time_parameterization_isp_FOUND)

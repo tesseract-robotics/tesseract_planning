@@ -57,7 +57,7 @@ if(TESSERACT_PACKAGE)
     DESCRIPTION "Tesseract motion planners descartes components"
     COMPONENT_DEPENDS core simple
     LINUX_DEPENDS "${TESSERACT_PACKAGE_PREFIX}tesseract-collision-core"
-                  "${TESSERACT_PACKAGE_PREFIX}tesseract-descartes-core"
+                  "${TESSERACT_PACKAGE_PREFIX}descartes-light-core"
     WINDOWS_DEPENDS "${TESSERACT_PACKAGE_PREFIX}tesseract-collision-core"
-                    "${TESSERACT_PACKAGE_PREFIX}tesseract-descartes-core")
+                    "${TESSERACT_PACKAGE_PREFIX}descartes-light-core")
 endif()
