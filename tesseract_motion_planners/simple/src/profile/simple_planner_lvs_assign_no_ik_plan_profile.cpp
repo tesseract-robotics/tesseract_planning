@@ -1,0 +1,161 @@
+/**
+ * @file simple_planner_lvs_assign_no_ik_plan_profile.cpp
+ * @brief
+ *
+ * @author Roelof Oomen
+ * @date May 29, 2024
+ * @version TODO
+ * @bug No known bugs
+ *
+ * @copyright Copyright (c) 2024, ROS Industrial Consortium
+ *
+ * @par License
+ * Software License Agreement (Apache License)
+ * @par
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * @par
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_assign_no_ik_plan_profile.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_environment/environment.h>
+#include <tesseract_kinematics/core/kinematic_group.h>
+#include <tesseract_motion_planners/simple/interpolation.h>
+#include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/core/types.h>
+
+#include <boost/serialization/nvp.hpp>
+
+namespace tesseract_planning
+{
+SimplePlannerLVSAssignNoIKPlanProfile::SimplePlannerLVSAssignNoIKPlanProfile(
+    double state_longest_valid_segment_length,
+    double translation_longest_valid_segment_length,
+    double rotation_longest_valid_segment_length,
+    int min_steps,
+    int max_steps)
+  : state_longest_valid_segment_length(state_longest_valid_segment_length)
+  , translation_longest_valid_segment_length(translation_longest_valid_segment_length)
+  , rotation_longest_valid_segment_length(rotation_longest_valid_segment_length)
+  , min_steps(min_steps)
+  , max_steps(max_steps)
+{
+}
+
+std::vector<MoveInstructionPoly>
+SimplePlannerLVSAssignNoIKPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
+                                                const MoveInstructionPoly& /*prev_seed*/,
+                                                const MoveInstructionPoly& base_instruction,
+                                                const InstructionPoly& /*next_instruction*/,
+                                                const std::shared_ptr<const tesseract_environment::Environment>& env,
+                                                const tesseract_common::ManipulatorInfo& global_manip_info) const
+{
+  JointGroupInstructionInfo prev(prev_instruction, *env, global_manip_info);
+  JointGroupInstructionInfo base(base_instruction, *env, global_manip_info);
+
+  Eigen::VectorXd j1;
+  Eigen::Isometry3d p1_world;
+  if (prev.has_cartesian_waypoint)
+  {
+    p1_world = prev.extractCartesianPose();
+    if (prev.instruction.getWaypoint().as<CartesianWaypointPoly>().hasSeed())
+    {
+      j1 = prev.instruction.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
+    }
+  }
+  else
+  {
+    j1 = prev.extractJointPosition();
+    p1_world = prev.calcCartesianPose(j1);
+  }
+
+  Eigen::VectorXd j2;
+  Eigen::Isometry3d p2_world;
+  if (base.has_cartesian_waypoint)
+  {
+    p2_world = base.extractCartesianPose();
+    if (base.instruction.getWaypoint().as<CartesianWaypointPoly>().hasSeed())
+    {
+      j2 = base.instruction.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
+    }
+  }
+  else
+  {
+    j2 = base.extractJointPosition();
+    p2_world = base.calcCartesianPose(j2);
+  }
+
+  double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
+  double rot_dist = Eigen::Quaterniond(p1_world.linear()).angularDistance(Eigen::Quaterniond(p2_world.linear()));
+
+  int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
+  int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
+
+  int steps = std::max(trans_steps, rot_steps);
+  if ((j1.size() != 0) && (j2.size() != 0))
+  {
+    double joint_dist = (j2 - j1).norm();
+    int joint_steps = int(joint_dist / state_longest_valid_segment_length) + 1;
+    steps = std::max(steps, joint_steps);
+  }
+  steps = std::max(steps, min_steps);
+  steps = std::min(steps, max_steps);
+
+  Eigen::MatrixXd states;
+  if (j2.size() != 0)
+  {
+    // Replicate base_instruction joint position
+    states = j2.replicate(1, steps + 1);
+  }
+  else if (j1.size() != 0)
+  {
+    // Replicate prev_instruction joint position
+    states = j1.replicate(1, steps + 1);
+  }
+  else
+  {
+    // Replicate current joint position
+    Eigen::VectorXd seed = env->getCurrentJointValues(base.manip->getJointNames());
+    tesseract_common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
+    states = seed.replicate(1, steps + 1);
+  }
+
+  // Linearly interpolate in cartesian space if linear move
+  if (base_instruction.isLinear())
+  {
+    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, steps);
+    for (auto& pose : poses)
+      pose = base.working_frame_transform.inverse() * pose;
+
+    assert(poses.size() == states.cols());
+    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
+  }
+
+  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
+}
+
+template <class Archive>
+void SimplePlannerLVSAssignNoIKPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerPlanProfile);
+  ar& BOOST_SERIALIZATION_NVP(state_longest_valid_segment_length);
+  ar& BOOST_SERIALIZATION_NVP(translation_longest_valid_segment_length);
+  ar& BOOST_SERIALIZATION_NVP(rotation_longest_valid_segment_length);
+  ar& BOOST_SERIALIZATION_NVP(min_steps);
+  ar& BOOST_SERIALIZATION_NVP(max_steps);
+}
+
+}  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerLVSAssignNoIKPlanProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerLVSAssignNoIKPlanProfile)

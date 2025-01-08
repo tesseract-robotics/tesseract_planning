@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_default_lvs_plan_profile.cpp
+ * @file simple_planner_lvs_plan_profile.cpp
  * @brief
  *
  * @author Tyler Marr
@@ -33,7 +33,6 @@
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
-#include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 
 namespace tesseract_planning
@@ -59,38 +58,38 @@ SimplePlannerLVSPlanProfile::generate(const MoveInstructionPoly& prev_instructio
                                       const std::shared_ptr<const tesseract_environment::Environment>& env,
                                       const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
-  KinematicGroupInstructionInfo info1(prev_instruction, *env, global_manip_info);
-  KinematicGroupInstructionInfo info2(base_instruction, *env, global_manip_info);
+  KinematicGroupInstructionInfo prev(prev_instruction, *env, global_manip_info);
+  KinematicGroupInstructionInfo base(base_instruction, *env, global_manip_info);
 
-  if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
-    return interpolateJointJointWaypoint(info1,
-                                         info2,
+  if (!prev.has_cartesian_waypoint && !base.has_cartesian_waypoint)
+    return interpolateJointJointWaypoint(prev,
+                                         base,
                                          state_longest_valid_segment_length,
                                          translation_longest_valid_segment_length,
                                          rotation_longest_valid_segment_length,
                                          min_steps,
                                          max_steps);
 
-  if (!info1.has_cartesian_waypoint && info2.has_cartesian_waypoint)
-    return interpolateJointCartWaypoint(info1,
-                                        info2,
+  if (!prev.has_cartesian_waypoint && base.has_cartesian_waypoint)
+    return interpolateJointCartWaypoint(prev,
+                                        base,
                                         state_longest_valid_segment_length,
                                         translation_longest_valid_segment_length,
                                         rotation_longest_valid_segment_length,
                                         min_steps,
                                         max_steps);
 
-  if (info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
-    return interpolateCartJointWaypoint(info1,
-                                        info2,
+  if (prev.has_cartesian_waypoint && !base.has_cartesian_waypoint)
+    return interpolateCartJointWaypoint(prev,
+                                        base,
                                         state_longest_valid_segment_length,
                                         translation_longest_valid_segment_length,
                                         rotation_longest_valid_segment_length,
                                         min_steps,
                                         max_steps);
 
-  return interpolateCartCartWaypoint(info1,
-                                     info2,
+  return interpolateCartCartWaypoint(prev,
+                                     base,
                                      state_longest_valid_segment_length,
                                      translation_longest_valid_segment_length,
                                      rotation_longest_valid_segment_length,
