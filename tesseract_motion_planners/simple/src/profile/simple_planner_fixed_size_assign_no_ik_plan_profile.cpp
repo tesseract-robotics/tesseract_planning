@@ -33,8 +33,9 @@
 #include <tesseract_common/kinematic_limits.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
-
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+
+#include <boost/serialization/nvp.hpp>
 
 namespace tesseract_planning
 {
@@ -58,31 +59,31 @@ std::vector<MoveInstructionPoly> SimplePlannerFixedSizeAssignNoIKPlanProfile::ge
   Eigen::MatrixXd states;
   if (!prev.has_cartesian_waypoint && !base.has_cartesian_waypoint)
   {
-    const Eigen::VectorXd& jp = base.extractJointPosition();
+    const Eigen::VectorXd& j2 = base.extractJointPosition();
     if (base.instruction.isLinear())
-      states = jp.replicate(1, linear_steps + 1);
+      states = j2.replicate(1, linear_steps + 1);
     else if (base.instruction.isFreespace())
-      states = jp.replicate(1, freespace_steps + 1);
+      states = j2.replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
   }
   else if (!prev.has_cartesian_waypoint && base.has_cartesian_waypoint)
   {
-    const Eigen::VectorXd& jp = prev.extractJointPosition();
+    const Eigen::VectorXd& j1 = prev.extractJointPosition();
     if (base.instruction.isLinear())
-      states = jp.replicate(1, linear_steps + 1);
+      states = j1.replicate(1, linear_steps + 1);
     else if (base.instruction.isFreespace())
-      states = jp.replicate(1, freespace_steps + 1);
+      states = j1.replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
   }
   else if (prev.has_cartesian_waypoint && !base.has_cartesian_waypoint)
   {
-    const Eigen::VectorXd& jp = base.extractJointPosition();
+    const Eigen::VectorXd& j2 = base.extractJointPosition();
     if (base.instruction.isLinear())
-      states = jp.replicate(1, linear_steps + 1);
+      states = j2.replicate(1, linear_steps + 1);
     else if (base.instruction.isFreespace())
-      states = jp.replicate(1, freespace_steps + 1);
+      states = j2.replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
   }
