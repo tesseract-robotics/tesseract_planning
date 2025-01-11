@@ -85,10 +85,12 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
 
   // Assume all the plan instructions have the same manipulator as the composite
   const std::string manipulator = request.instructions.getManipulatorInfo().manipulator;
-  const std::string manipulator_ik_solver = request.instructions.getManipulatorInfo().manipulator_ik_solver;
 
   // Initialize
-  tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(manipulator);
+  tesseract_kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(manipulator);
+
+  // Start State
+  tesseract_scene_graph::SceneState start_state = request.env->getState();
 
   // Create seed
   CompositeInstruction seed;
@@ -101,8 +103,8 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
   {
     MoveInstructionPoly start_instruction_copy = null_instruction;
     MoveInstructionPoly start_instruction_seed_copy = null_instruction;
-    seed =
-        processCompositeInstruction(request.instructions, start_instruction_copy, start_instruction_seed_copy, request);
+    seed = processCompositeInstruction(
+        start_instruction_copy, start_instruction_seed_copy, request.instructions, start_state, request);
   }
   catch (std::exception& e)
   {
@@ -148,10 +150,12 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
   return response;
 }
 
-CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const CompositeInstruction& instructions,
-                                                                      MoveInstructionPoly& prev_instruction,
-                                                                      MoveInstructionPoly& prev_seed,
-                                                                      const PlannerRequest& request) const
+CompositeInstruction
+SimpleMotionPlanner::processCompositeInstruction(MoveInstructionPoly& prev_instruction,
+                                                 MoveInstructionPoly& prev_seed,
+                                                 const CompositeInstruction& instructions,
+                                                 const tesseract_scene_graph::SceneState& start_state,
+                                                 const PlannerRequest& request) const
 {
   CompositeInstruction seed(instructions);
   seed.clear();
@@ -162,8 +166,8 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
 
     if (instruction.isCompositeInstruction())
     {
-      seed.push_back(
-          processCompositeInstruction(instruction.as<CompositeInstruction>(), prev_instruction, prev_seed, request));
+      seed.push_back(processCompositeInstruction(
+          prev_instruction, prev_seed, instruction.as<CompositeInstruction>(), start_state, request));
     }
     else if (instruction.isMoveInstruction())
     {
@@ -171,8 +175,7 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
       if (prev_instruction.isNull())
       {
         const std::string manipulator = request.instructions.getManipulatorInfo().manipulator;
-        const std::string manipulator_ik_solver = request.instructions.getManipulatorInfo().manipulator_ik_solver;
-        tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(manipulator);
+        tesseract_kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(manipulator);
 
         prev_instruction = base_instruction;
         auto& start_waypoint = prev_instruction.getWaypoint();
@@ -185,8 +188,9 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
           if (!start_waypoint.as<CartesianWaypointPoly>().hasSeed())
           {
             // Run IK to find solution closest to start
-            KinematicGroupInstructionInfo info(prev_instruction, request, request.instructions.getManipulatorInfo());
-            auto start_seed = getClosestJointSolution(info, request.env_state.getJointValues(manip->getJointNames()));
+            KinematicGroupInstructionInfo info(
+                prev_instruction, *request.env, request.instructions.getManipulatorInfo());
+            auto start_seed = getClosestJointSolution(info, start_state.getJointValues(manip->getJointNames()));
             start_waypoint.as<CartesianWaypointPoly>().setSeed(
                 tesseract_common::JointState(manip->getJointNames(), start_seed));
           }
@@ -215,18 +219,17 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
       SimplePlannerPlanProfile::ConstPtr plan_profile;
       if (base_instruction.getPathProfile().empty())
       {
-        std::string profile = getProfileString(name_, base_instruction.getProfile(), request.plan_profile_remapping);
-        plan_profile = getProfile<SimplePlannerPlanProfile>(
-            name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
-        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.getProfileOverrides());
+        plan_profile = getProfile<SimplePlannerPlanProfile>(name_,
+                                                            base_instruction.getProfile(name_),
+                                                            *request.profiles,
+                                                            std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
       }
       else
       {
-        std::string profile =
-            getProfileString(name_, base_instruction.getPathProfile(), request.plan_profile_remapping);
-        plan_profile = getProfile<SimplePlannerPlanProfile>(
-            name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
-        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.getProfileOverrides());
+        plan_profile = getProfile<SimplePlannerPlanProfile>(name_,
+                                                            base_instruction.getPathProfile(name_),
+                                                            *request.profiles,
+                                                            std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
       }
 
       if (!plan_profile)
@@ -237,7 +240,7 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
                                  prev_seed,
                                  base_instruction,
                                  next_instruction,
-                                 request,
+                                 request.env,
                                  request.instructions.getManipulatorInfo());
 
       // The data for the last instruction should be unchanged with exception to seed or tolerance joint state

@@ -1,6 +1,6 @@
 /**
- * @file trajopt_ifopt_problem.cpp
- * @brief
+ * @file ompl_profile.cpp
+ * @brief Tesseract OMPL profile
  *
  * @author Levi Armstrong
  * @date June 18, 2020
@@ -24,25 +24,25 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <OsqpEigen/Settings.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
-#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
+#include <typeindex>
 
 namespace tesseract_planning
 {
-TrajOptIfoptProblem::TrajOptIfoptProblem()
+OMPLPlanProfile::OMPLPlanProfile() : Profile(OMPLPlanProfile::getStaticKey()) {}
+
+std::size_t OMPLPlanProfile::getStaticKey() { return std::type_index(typeid(OMPLPlanProfile)).hash_code(); }
+
+template <class Archive>
+void OMPLPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  convex_solver_settings = std::make_unique<OsqpEigen::Settings>();
-  convex_solver_settings->setVerbosity(false);
-  convex_solver_settings->setWarmStart(true);
-  convex_solver_settings->setPolish(true);
-  convex_solver_settings->setAdaptiveRho(true);
-  convex_solver_settings->setMaxIteration(8192);
-  convex_solver_settings->setAbsoluteTolerance(1e-4);
-  convex_solver_settings->setRelativeTolerance(1e-6);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
 }
 
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLPlanProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::OMPLPlanProfile)

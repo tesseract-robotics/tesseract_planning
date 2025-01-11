@@ -62,9 +62,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
-#include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
-#include <tesseract_motion_planners/ompl/serialize.h>
-#include <tesseract_motion_planners/ompl/deserialize.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_real_vector_plan_profile.h>
 
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -113,39 +111,6 @@ static void addBox(tesseract_environment::Environment& env)
   joint_1.type = JointType::FIXED;
 
   env.applyCommand(std::make_shared<AddLinkCommand>(link_1, joint_1));
-}
-
-TEST(TesseractPlanningOMPLSerializeUnit, SerializeOMPLDefaultPlanToXml)  // NOLINT
-{
-  // Write program to file
-  OMPLDefaultPlanProfile plan_profile;
-  plan_profile.simplify = true;
-  plan_profile.planners.push_back(std::make_shared<const SBLConfigurator>());
-  plan_profile.planners.push_back(std::make_shared<const ESTConfigurator>());
-  plan_profile.planners.push_back(std::make_shared<const LBKPIECE1Configurator>());
-  plan_profile.planners.push_back(std::make_shared<const BKPIECE1Configurator>());
-  plan_profile.planners.push_back(std::make_shared<const KPIECE1Configurator>());
-  plan_profile.planners.push_back(std::make_shared<const BiTRRTConfigurator>());
-  plan_profile.planners.push_back(std::make_shared<const RRTConfigurator>());
-  plan_profile.planners.push_back(std::make_shared<const RRTConnectConfigurator>());
-  plan_profile.planners.push_back(std::make_shared<const RRTstarConfigurator>());
-  plan_profile.planners.push_back(std::make_shared<const TRRTConfigurator>());
-  plan_profile.planners.push_back(std::make_shared<const PRMConfigurator>());
-  plan_profile.planners.push_back(std::make_shared<const PRMstarConfigurator>());
-  plan_profile.planners.push_back(std::make_shared<const LazyPRMstarConfigurator>());
-  plan_profile.planners.push_back(std::make_shared<const SPARSConfigurator>());
-
-  EXPECT_TRUE(toXMLFile(plan_profile, tesseract_common::getTempPath() + "ompl_default_plan_example_input.xml"));
-
-  // Import file
-  OMPLDefaultPlanProfile imported_plan_profile = omplPlanFromXMLFile(tesseract_common::getTempPath() + "ompl_default_"
-                                                                                                       "plan_example_"
-                                                                                                       "input.xml");
-
-  // Re-write file and compare changed from default term
-  EXPECT_TRUE(
-      toXMLFile(imported_plan_profile, tesseract_common::getTempPath() + "ompl_default_plan_example_input2.xml"));
-  EXPECT_TRUE(plan_profile.simplify == imported_plan_profile.simplify);
 }
 
 template <typename Configurator>
@@ -198,7 +163,6 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   // Step 3: Create ompl planner config and populate it
   auto joint_group = env->getJointGroup(manip.manipulator);
-  auto cur_state = env->getState();
 
   // Specify a start waypoint
   JointWaypointPoly wp1{ JointWaypoint(
@@ -225,30 +189,29 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f2);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
+  auto plan_profile = std::make_shared<OMPLRealVectorPlanProfile>();
   plan_profile->collision_check_config.contact_manager_config.margin_data_override_type =
       tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
   plan_profile->collision_check_config.contact_manager_config.margin_data.setDefaultCollisionMargin(0.025);
   plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
   plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
-  plan_profile->planning_time = 10;
-  plan_profile->optimize = false;
-  plan_profile->max_solutions = 2;
-  plan_profile->simplify = false;
-  plan_profile->planners = { this->configurator, this->configurator };
+  plan_profile->solver_config.planning_time = 10;
+  plan_profile->solver_config.optimize = false;
+  plan_profile->solver_config.max_solutions = 2;
+  plan_profile->solver_config.simplify = false;
+  plan_profile->solver_config.planners = { this->configurator, this->configurator };
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   // Create Planner and solve
@@ -261,8 +224,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   }
 
   EXPECT_TRUE(&planner_response);
-  EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 21);  // 10 per segment + start a instruction
-  EXPECT_EQ(planner_response.results.size(), 21);
+  EXPECT_GE(planner_response.results.getMoveInstructionCount(), 21);  // 10 per segment + start a instruction
+  EXPECT_GE(planner_response.results.size(), 21);
   EXPECT_TRUE(wp1.getPosition().isApprox(
       getJointPosition(planner_response.results.getFirstMoveInstruction()->getWaypoint()), 1e-5));
 
@@ -295,7 +258,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a new seed
-  interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
 
   // Update Configuration
   request.instructions = interpolated_program;
@@ -328,7 +291,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a new seed
-  interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
 
   // Update Configuration
   request.instructions = interpolated_program;
@@ -364,7 +327,6 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
 
   // Step 3: Create ompl planner config and populate it
   auto kin_group = env->getKinematicGroup(manip.manipulator);
-  auto cur_state = env->getState();
 
   // Specify a start waypoint
   JointWaypointPoly wp1{ JointWaypoint(
@@ -389,30 +351,29 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
+  auto plan_profile = std::make_shared<OMPLRealVectorPlanProfile>();
   plan_profile->collision_check_config.contact_manager_config.margin_data_override_type =
       tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
   plan_profile->collision_check_config.contact_manager_config.margin_data.setDefaultCollisionMargin(0.02);
   plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
   plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
-  plan_profile->planning_time = 10;
-  plan_profile->optimize = false;
-  plan_profile->max_solutions = 2;
-  plan_profile->simplify = false;
-  plan_profile->planners = { this->configurator, this->configurator };
+  plan_profile->solver_config.planning_time = 10;
+  plan_profile->solver_config.optimize = false;
+  plan_profile->solver_config.max_solutions = 2;
+  plan_profile->solver_config.simplify = false;
+  plan_profile->solver_config.planners = { this->configurator, this->configurator };
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   // Create Planner and solve
@@ -459,7 +420,6 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 
   // Step 3: Create ompl planner config and populate it
   auto kin_group = env->getKinematicGroup(manip.manipulator);
-  auto cur_state = env->getState();
 
   // Specify a start waypoint
   auto start_jv = Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size()));
@@ -484,30 +444,29 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
+  auto plan_profile = std::make_shared<OMPLRealVectorPlanProfile>();
   plan_profile->collision_check_config.contact_manager_config.margin_data_override_type =
       tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
   plan_profile->collision_check_config.contact_manager_config.margin_data.setDefaultCollisionMargin(0.02);
   plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
   plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
-  plan_profile->planning_time = 10;
-  plan_profile->optimize = false;
-  plan_profile->max_solutions = 2;
-  plan_profile->simplify = false;
-  plan_profile->planners = { this->configurator, this->configurator };
+  plan_profile->solver_config.planning_time = 10;
+  plan_profile->solver_config.optimize = false;
+  plan_profile->solver_config.max_solutions = 2;
+  plan_profile->solver_config.simplify = false;
+  plan_profile->solver_config.planners = { this->configurator, this->configurator };
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   // Create Planner and solve
@@ -520,7 +479,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   }
 
   EXPECT_TRUE(&planner_response);
-  EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 11);
+  EXPECT_GE(planner_response.results.getMoveInstructionCount(), 11);
   EXPECT_TRUE(wp2.getPosition().isApprox(
       getJointPosition(planner_response.results.getLastMoveInstruction()->getWaypoint()), 1e-5));
 

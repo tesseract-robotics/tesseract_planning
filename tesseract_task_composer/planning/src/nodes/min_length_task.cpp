@@ -57,9 +57,6 @@ const std::string MinLengthTask::INOUT_PROGRAM_PORT = "program";
 const std::string MinLengthTask::INPUT_ENVIRONMENT_PORT = "environment";
 const std::string MinLengthTask::INPUT_PROFILES_PORT = "profiles";
 
-// Optional
-const std::string MinLengthTask::INPUT_COMPOSITE_PROFILE_REMAPPING_PORT = "composite_profile_remapping";
-
 MinLengthTask::MinLengthTask() : TaskComposerTask("MinLengthTask", MinLengthTask::ports(), false) {}
 MinLengthTask::MinLengthTask(std::string name,
                              std::string input_program_key,
@@ -89,8 +86,6 @@ TaskComposerNodePorts MinLengthTask::ports()
   ports.input_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
-
-  ports.input_optional[INPUT_COMPOSITE_PROFILE_REMAPPING_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
 
@@ -129,14 +124,10 @@ std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext
 
   // Get Composite Profile
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
-  auto composite_profile_remapping_poly = getData(*context.data_storage, INPUT_COMPOSITE_PROFILE_REMAPPING_PORT, false);
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   long cnt = ci.getMoveInstructionCount();
-  std::string profile = ci.getProfile();
-  profile = getProfileString(ns_, profile, composite_profile_remapping_poly);
   auto cur_composite_profile =
-      getProfile<MinLengthProfile>(ns_, profile, *profiles, std::make_shared<MinLengthProfile>());
-  cur_composite_profile = applyProfileOverrides(ns_, profile, cur_composite_profile, ci.getProfileOverrides());
+      getProfile<MinLengthProfile>(ns_, ci.getProfile(ns_), *profiles, std::make_shared<MinLengthProfile>());
 
   if (cnt < cur_composite_profile->min_length)
   {
@@ -146,7 +137,6 @@ std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext
     // Fill out request and response
     PlannerRequest request;
     request.instructions = ci;
-    request.env_state = env->getState();
     request.env = env;
 
     // Set up planner
@@ -156,11 +146,10 @@ std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext
 
     // Create profile dictionary
     auto simple_profiles = std::make_shared<ProfileDictionary>();
-    simple_profiles->addProfile<SimplePlannerPlanProfile>(planner.getName(), ci.getProfile(), profile);
+    simple_profiles->addProfile(planner.getName(), ci.getProfile(), profile);
     auto flat = ci.flatten(&moveFilter);
     for (const auto& i : flat)
-      simple_profiles->addProfile<SimplePlannerPlanProfile>(
-          planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
+      simple_profiles->addProfile(planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
 
     // Assign profile dictionary
     request.profiles = simple_profiles;

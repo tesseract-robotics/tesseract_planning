@@ -61,7 +61,7 @@ public:
                                             const MoveInstructionPoly& prev_seed,
                                             const MoveInstructionPoly& base_instruction,
                                             const InstructionPoly& next_instruction,
-                                            const PlannerRequest& request,
+                                            const std::shared_ptr<const tesseract_environment::Environment>& env,
                                             const tesseract_common::ManipulatorInfo& global_manip_info) const override;
 
   /** @brief The maximum joint distance, the norm of changes to all joint positions between successive steps. */
@@ -78,8 +78,15 @@ public:
 
   /** @brief The maximum number of steps for the plan */
   int max_steps;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerLVSNoIKPlanProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_NO_IK_PLAN_PROFILE_H

@@ -29,24 +29,26 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_command_language/profile.h>
+
 namespace tesseract_planning
 {
-struct RuckigTrajectorySmoothingCompositeProfile
+struct RuckigTrajectorySmoothingCompositeProfile : public Profile
 {
   using Ptr = std::shared_ptr<RuckigTrajectorySmoothingCompositeProfile>;
   using ConstPtr = std::shared_ptr<const RuckigTrajectorySmoothingCompositeProfile>;
 
-  RuckigTrajectorySmoothingCompositeProfile() = default;
+  RuckigTrajectorySmoothingCompositeProfile();
   RuckigTrajectorySmoothingCompositeProfile(double duration_extension_fraction,
                                             double max_duration_extension_factor,
                                             double max_velocity_scaling_factor,
-                                            double max_acceleration_scaling_factor)
-    : duration_extension_fraction(duration_extension_fraction)
-    , max_duration_extension_factor(max_duration_extension_factor)
-    , max_velocity_scaling_factor(max_velocity_scaling_factor)
-    , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
-  {
-  }
+                                            double max_acceleration_scaling_factor);
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   /** @brief duration_extension_fraction The amount to scale the trajectory each time */
   double duration_extension_fraction{ 1.1 };
@@ -62,19 +64,26 @@ struct RuckigTrajectorySmoothingCompositeProfile
 
   /** @brief max_jerk_scaling_factor The max jerk scaling factor passed to the solver */
   double max_jerk_scaling_factor{ 1.0 };
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
-struct RuckigTrajectorySmoothingMoveProfile
+struct RuckigTrajectorySmoothingMoveProfile : public Profile
 {
   using Ptr = std::shared_ptr<RuckigTrajectorySmoothingMoveProfile>;
   using ConstPtr = std::shared_ptr<const RuckigTrajectorySmoothingMoveProfile>;
 
-  RuckigTrajectorySmoothingMoveProfile() = default;
-  RuckigTrajectorySmoothingMoveProfile(double max_velocity_scaling_factor, double max_acceleration_scaling_factor)
-    : max_velocity_scaling_factor(max_velocity_scaling_factor)
-    , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
-  {
-  }
+  RuckigTrajectorySmoothingMoveProfile();
+  RuckigTrajectorySmoothingMoveProfile(double max_velocity_scaling_factor, double max_acceleration_scaling_factor);
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   /** @brief max_velocity_scaling_factor The max velocity scaling factor passed to the solver */
   double max_velocity_scaling_factor{ 1.0 };
@@ -84,7 +93,15 @@ struct RuckigTrajectorySmoothingMoveProfile
 
   /** @brief max_jerk_scaling_factor The max jerk scaling factor passed to the solver */
   double max_jerk_scaling_factor{ 1.0 };
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::RuckigTrajectorySmoothingCompositeProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::RuckigTrajectorySmoothingMoveProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_RUCKIG_TRAJECTORY_SMOOTHING_PROFILE_H

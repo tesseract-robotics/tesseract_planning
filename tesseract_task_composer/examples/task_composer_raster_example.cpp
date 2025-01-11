@@ -52,7 +52,7 @@ int main()
   // Get plugin factory
   const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
   tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
-  TaskComposerPluginFactory factory(config_path);
+  TaskComposerPluginFactory factory(config_path, *locator);
 
   // Create raster task
   TaskComposerNode::UPtr task = factory.createTaskComposerNode("RasterFtPipeline");
@@ -61,6 +61,7 @@ int main()
 
   // Define profiles
   auto profiles = std::make_shared<ProfileDictionary>();
+  /** @todo Add default profiles */
 
   // Define the program
   CompositeInstruction program = test_suite::rasterExampleProgram();

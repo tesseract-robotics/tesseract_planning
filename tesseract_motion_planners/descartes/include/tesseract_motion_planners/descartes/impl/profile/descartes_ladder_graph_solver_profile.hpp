@@ -1,6 +1,6 @@
 /**
- * @file ompl_problem.h
- * @brief Tesseract OMPL problem definition
+ * @file descartes_ladder_graph_solver_profile.hpp
+ * @brief
  *
  * @author Levi Armstrong
  * @date June 18, 2020
@@ -23,25 +23,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DESCARTES_LADDER_GRAPH_SOLVER_PROFILE_HPP
+#define TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DESCARTES_LADDER_GRAPH_SOLVER_PROFILE_HPP
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <ompl/geometric/SimpleSetup.h>
-#include <ompl/base/OptimizationObjective.h>
-#include <ompl/tools/multiplan/ParallelPlan.h>
-#include <ompl/base/objectives/PathLengthOptimizationObjective.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
-#include <tesseract_motion_planners/ompl/ompl_problem.h>
-#include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
-#include <tesseract_motion_planners/ompl/utils.h>
+#include <tesseract_motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
+#include <descartes_light/solvers/ladder_graph/ladder_graph_solver.h>
 
 namespace tesseract_planning
 {
-tesseract_common::TrajArray OMPLProblem::getTrajectory() const
+template <typename FloatType>
+std::unique_ptr<descartes_light::Solver<FloatType>> DescartesLadderGraphSolverProfile<FloatType>::create() const
 {
-  assert(extractor != nullptr);
-  return toTrajArray(this->simple_setup->getSolutionPath(), extractor);
+  return std::make_unique<descartes_light::LadderGraphSolver<FloatType>>(num_threads);
 }
 
 }  // namespace tesseract_planning
+
+#endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DESCARTES_LADDER_GRAPH_SOLVER_PROFILE_HPP

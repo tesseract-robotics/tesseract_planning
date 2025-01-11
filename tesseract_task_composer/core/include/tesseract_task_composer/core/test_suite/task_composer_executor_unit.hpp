@@ -40,6 +40,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/core/nodes/done_task.h>
 
+#include <tesseract_common/resource_locator.h>
+#include <tesseract_common/yaml_utils.h>
+
 namespace tesseract_planning::test_suite
 {
 template <typename T>
@@ -78,6 +81,7 @@ void runTaskComposerExecutorTest()
     test_suite::runSerializationPointerTest(executor, "TaskComposerExecutorTests");
   }
 
+  tesseract_common::GeneralResourceLocator locator;
   std::string str = R"(task_composer_plugins:
                          search_paths:
                            - /usr/local/lib
@@ -154,7 +158,7 @@ void runTaskComposerExecutorTest()
                                      destinations: [AbortTask, DoneTask]
                                  terminals: [AbortTask, DoneTask])";
 
-  TaskComposerPluginFactory factory(str);
+  TaskComposerPluginFactory factory(str, locator);
 
   {  // Pipeline
     std::string str2 = R"(config:

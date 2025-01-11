@@ -30,13 +30,9 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/fwd.hpp>
 #include <trajopt/problem_description.hpp>
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
-namespace tinyxml2
-{
-class XMLElement;  // NOLINT
-class XMLDocument;
-}  // namespace tinyxml2
 
 namespace tesseract_planning
 {
@@ -46,7 +42,6 @@ namespace tesseract_planning
 struct CollisionCostConfig
 {
   CollisionCostConfig() = default;
-  CollisionCostConfig(const tinyxml2::XMLElement& xml_element);
 
   /** @brief If true, a collision cost term will be added to the problem. Default: true*/
   bool enabled = true;
@@ -69,7 +64,10 @@ struct CollisionCostConfig
   /** @brief The collision coeff/weight */
   double coeff = 20;
 
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const;
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 /**
@@ -78,7 +76,6 @@ struct CollisionCostConfig
 struct CollisionConstraintConfig
 {
   CollisionConstraintConfig() = default;
-  CollisionConstraintConfig(const tinyxml2::XMLElement& xml_element);
 
   /** @brief If true, a collision cost term will be added to the problem. Default: true*/
   bool enabled = true;
@@ -96,8 +93,14 @@ struct CollisionConstraintConfig
   /** @brief The collision coeff/weight */
   double coeff = 20;
 
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const;
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::CollisionCostConfig)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::CollisionConstraintConfig)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_CONFIG_TRAJOPT_COLLISION_CONFIG_H

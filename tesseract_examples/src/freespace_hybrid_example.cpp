@@ -49,7 +49,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/utils.h>
 
-#include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_real_vector_plan_profile.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -164,11 +164,10 @@ bool FreespaceHybridExample::run()
   // Create Task Composer Plugin Factory
   const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
   tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
-  TaskComposerPluginFactory factory(config_path);
+  TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
 
   // Create Program
-  CompositeInstruction program(
-      "FREESPACE", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start and End Joint Position for the program
   StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_start_pos) };
@@ -197,13 +196,13 @@ bool FreespaceHybridExample::run()
   auto profiles = std::make_shared<ProfileDictionary>();
 
   // Create OMPL Profile
-  auto ompl_profile = std::make_shared<OMPLDefaultPlanProfile>();
+  auto ompl_profile = std::make_shared<OMPLRealVectorPlanProfile>();
   auto ompl_planner_config = std::make_shared<RRTConnectConfigurator>();
   ompl_planner_config->range = range_;
-  ompl_profile->planning_time = planning_time_;
-  ompl_profile->planners = { ompl_planner_config, ompl_planner_config };
+  ompl_profile->solver_config.planning_time = planning_time_;
+  ompl_profile->solver_config.planners = { ompl_planner_config, ompl_planner_config };
 
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
 
   if (ifopt_)
   {
@@ -217,8 +216,7 @@ bool FreespaceHybridExample::run()
     trajopt_ifopt_composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
 
-    profiles->addProfile<TrajOptIfoptCompositeProfile>(
-        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_ifopt_composite_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "FREESPACE", trajopt_ifopt_composite_profile);
   }
 
   // Create task

@@ -16,6 +16,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
 #include <tesseract_common/utils.h>
+#include <tesseract_common/resource_locator.h>
 #include <tesseract_state_solver/state_solver.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/composite_instruction.h>
@@ -23,7 +24,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 #include <tesseract_visualization/visualization.h>
 #include <tesseract_visualization/visualization_loader.h>
-#include <tesseract_common/resource_locator.h>
 
 using namespace tesseract_planning;
 
@@ -53,7 +53,7 @@ int main()
   // Get plugin factory
   const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
   tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
-  TaskComposerPluginFactory factory(config_path);
+  TaskComposerPluginFactory factory(config_path, *locator);
 
   // Create trajopt pipeline
   TaskComposerNode::UPtr task = factory.createTaskComposerNode("TrajOptPipeline");
@@ -62,6 +62,7 @@ int main()
 
   // Define profiles
   auto profiles = std::make_shared<ProfileDictionary>();
+  /** @todo Add default profiles */
 
   // Define the program
   CompositeInstruction program = test_suite::freespaceExampleProgramIIWA();

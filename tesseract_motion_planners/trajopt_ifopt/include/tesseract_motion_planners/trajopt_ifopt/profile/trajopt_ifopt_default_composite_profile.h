@@ -41,7 +41,6 @@ class TrajOptIfoptDefaultCompositeProfile : public TrajOptIfoptCompositeProfile
 {
 public:
   TrajOptIfoptDefaultCompositeProfile();
-  TrajOptIfoptDefaultCompositeProfile(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Configuration info for collisions that are modeled as costs */
   std::shared_ptr<trajopt_common::TrajOptCollisionConfig> collision_cost_config;
@@ -77,20 +76,18 @@ public:
    */
   double longest_valid_segment_length = 0.5;
 
-  /** @brief Special link collision cost distances */
-  std::shared_ptr<trajopt_common::SafetyMarginData> special_collision_cost{ nullptr };
-  /** @brief Special link collision constraint distances */
-  std::shared_ptr<trajopt_common::SafetyMarginData> special_collision_constraint{ nullptr };
+  TrajOptIfoptTermInfos create(const tesseract_common::ManipulatorInfo& composite_manip_info,
+                               const std::shared_ptr<const tesseract_environment::Environment>& env,
+                               const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition> >& vars,
+                               const std::vector<int>& fixed_indices) const override;
 
-  void apply(TrajOptIfoptProblem& problem,
-             int start_index,
-             int end_index,
-             const tesseract_common::ManipulatorInfo& manip_info,
-             const std::vector<std::string>& active_links,
-             const std::vector<int>& fixed_indices) const override;
-
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptDefaultCompositeProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_DEFAULT_COMPOSITE_PROFILE_H

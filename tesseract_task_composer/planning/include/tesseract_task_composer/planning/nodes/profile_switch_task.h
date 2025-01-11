@@ -47,9 +47,6 @@ public:
   static const std::string INPUT_PROGRAM_PORT;
   static const std::string INPUT_PROFILES_PORT;
 
-  // Optional
-  static const std::string INPUT_COMPOSITE_PROFILE_REMAPPING_PORT;
-
   using Ptr = std::shared_ptr<ProfileSwitchTask>;
   using ConstPtr = std::shared_ptr<const ProfileSwitchTask>;
   using UPtr = std::unique_ptr<ProfileSwitchTask>;

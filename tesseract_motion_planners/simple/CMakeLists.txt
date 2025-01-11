@@ -2,6 +2,7 @@ add_library(
   ${PROJECT_NAME}_simple
   src/interpolation.cpp
   src/simple_motion_planner.cpp
+  src/profile/simple_planner_profile.cpp
   src/profile/simple_planner_lvs_plan_profile.cpp
   src/profile/simple_planner_lvs_no_ik_plan_profile.cpp
   src/profile/simple_planner_fixed_size_assign_plan_profile.cpp

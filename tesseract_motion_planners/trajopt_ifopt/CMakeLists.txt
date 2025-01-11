@@ -5,11 +5,12 @@ find_package(trajopt_sqp REQUIRED)
 add_library(
   ${PROJECT_NAME}_trajopt_ifopt SHARED
   src/trajopt_ifopt_motion_planner.cpp
-  src/trajopt_ifopt_problem.cpp
   src/trajopt_ifopt_utils.cpp
+  src/trajopt_ifopt_waypoint_config.cpp
+  src/profile/trajopt_ifopt_profile.cpp
   src/profile/trajopt_ifopt_default_plan_profile.cpp
   src/profile/trajopt_ifopt_default_composite_profile.cpp
-  src/profile/trajopt_ifopt_default_solver_profile.cpp)
+  src/profile/trajopt_ifopt_osqp_solver_profile.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_trajopt_ifopt
   PUBLIC ${PROJECT_NAME}_core

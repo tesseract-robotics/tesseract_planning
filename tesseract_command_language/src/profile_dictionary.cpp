@@ -25,19 +25,189 @@
  */
 
 #include <tesseract_command_language/profile_dictionary.h>
+#include <boost/serialization/nvp.hpp>
 #include <boost/serialization/shared_ptr.hpp>
+#include <boost/serialization/unordered_map.hpp>
 
 namespace tesseract_planning
 {
+bool ProfileDictionary::hasProfileEntry(std::size_t key, const std::string& ns) const
+{
+  const std::shared_lock lock(mutex_);
+  auto it = profiles_.find(ns);
+  if (it == profiles_.end())
+    return false;
+
+  return (it->second.find(key) != it->second.end());
+}
+
+void ProfileDictionary::removeProfileEntry(std::size_t key, const std::string& ns)
+{
+  const std::unique_lock lock(mutex_);
+
+  auto it = profiles_.find(ns);
+  if (it == profiles_.end())
+    return;
+
+  it->second.erase(key);
+}
+
+std::unordered_map<std::string, Profile::ConstPtr> ProfileDictionary::getProfileEntry(std::size_t key,
+                                                                                      const std::string& ns) const
+{
+  const std::shared_lock lock(mutex_);
+  auto it = profiles_.find(ns);
+  if (it == profiles_.end())
+    throw std::runtime_error("Profile namespace does not exist for '" + ns + "'!");
+
+  auto it2 = it->second.find(key);
+  if (it2 != it->second.end())
+    return it2->second;
+
+  throw std::runtime_error("Profile entry does not exist for type name '" + std::to_string(key) + "' in namespace '" +
+                           ns + "'!");
+}
+
+void ProfileDictionary::addProfile(const std::string& ns,
+                                   const std::string& profile_name,
+                                   const Profile::ConstPtr& profile)
+{
+  if (ns.empty())
+    throw std::runtime_error("Adding profile with an empty namespace!");
+
+  if (profile_name.empty())
+    throw std::runtime_error("Adding profile with an empty string as the key!");
+
+  if (profile == nullptr)
+    throw std::runtime_error("Adding profile that is a nullptr");
+
+  const std::unique_lock lock(mutex_);
+  auto it = profiles_.find(ns);
+  if (it == profiles_.end())
+  {
+    std::unordered_map<std::string, Profile::ConstPtr> new_entry;
+    new_entry[profile_name] = profile;
+    profiles_[ns][profile->getKey()] = new_entry;
+  }
+  else
+  {
+    auto it2 = it->second.find(profile->getKey());
+    if (it2 != it->second.end())
+    {
+      it2->second[profile_name] = profile;
+    }
+    else
+    {
+      std::unordered_map<std::string, Profile::ConstPtr> new_entry;
+      new_entry[profile_name] = profile;
+      it->second[profile->getKey()] = new_entry;
+    }
+  }
+}
+
+void ProfileDictionary::addProfile(const std::string& ns,
+                                   const std::vector<std::string>& profile_names,
+                                   const Profile::ConstPtr& profile)
+{
+  if (ns.empty())
+    throw std::runtime_error("Adding profile with an empty namespace!");
+
+  if (profile_names.empty())
+    throw std::runtime_error("Adding profile with an empty vector of keys!");
+
+  if (profile == nullptr)
+    throw std::runtime_error("Adding profile that is a nullptr");
+
+  const std::unique_lock lock(mutex_);
+  auto it = profiles_.find(ns);
+  if (it == profiles_.end())
+  {
+    std::unordered_map<std::string, Profile::ConstPtr> new_entry;
+    for (const auto& profile_name : profile_names)
+    {
+      if (profile_name.empty())
+        throw std::runtime_error("Adding profile with an empty string as the key!");
+
+      new_entry[profile_name] = profile;
+    }
+    profiles_[ns][profile->getKey()] = new_entry;
+  }
+  else
+  {
+    auto it2 = it->second.find(profile->getKey());
+    if (it2 != it->second.end())
+    {
+      for (const auto& profile_name : profile_names)
+      {
+        if (profile_name.empty())
+          throw std::runtime_error("Adding profile with an empty string as the key!");
+
+        it2->second[profile_name] = profile;
+      }
+    }
+    else
+    {
+      std::unordered_map<std::string, Profile::ConstPtr> new_entry;
+      for (const auto& profile_name : profile_names)
+      {
+        if (profile_name.empty())
+          throw std::runtime_error("Adding profile with an empty string as the key!");
+
+        new_entry[profile_name] = profile;
+      }
+      it->second[profile->getKey()] = new_entry;
+    }
+  }
+}
+
+bool ProfileDictionary::hasProfile(std::size_t key, const std::string& ns, const std::string& profile_name) const
+{
+  const std::shared_lock lock(mutex_);
+  auto it = profiles_.find(ns);
+  if (it == profiles_.end())
+    return false;
+
+  auto it2 = it->second.find(key);
+  if (it2 != it->second.end())
+  {
+    auto it3 = it2->second.find(profile_name);
+    if (it3 != it2->second.end())
+      return true;
+  }
+  return false;
+}
+
+Profile::ConstPtr ProfileDictionary::getProfile(std::size_t key,
+                                                const std::string& ns,
+                                                const std::string& profile_name) const
+{
+  const std::shared_lock lock(mutex_);
+  return profiles_.at(ns).at(key).at(profile_name);
+}
+
+void ProfileDictionary::removeProfile(std::size_t key, const std::string& ns, const std::string& profile_name)
+{
+  const std::unique_lock lock(mutex_);
+  auto it = profiles_.find(ns);
+  if (it == profiles_.end())
+    return;
+
+  auto it2 = it->second.find(key);
+  if (it2 != it->second.end())
+    it2->second.erase(profile_name);
+}
+
 void ProfileDictionary::clear()
 {
-  std::unique_lock lock(mutex_);
+  const std::unique_lock lock(mutex_);
   profiles_.clear();
 }
 
 template <class Archive>
-void ProfileDictionary::serialize(Archive& /*ar*/, const unsigned int /*version*/)
+void ProfileDictionary::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  const std::shared_lock lock(mutex_);
+  ar& boost::serialization::make_nvp("profiles", profiles_);
 }
 
 }  // namespace tesseract_planning

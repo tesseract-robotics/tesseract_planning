@@ -47,7 +47,7 @@ public:
                                             const MoveInstructionPoly& prev_seed,
                                             const MoveInstructionPoly& base_instruction,
                                             const InstructionPoly& next_instruction,
-                                            const PlannerRequest& request,
+                                            const std::shared_ptr<const tesseract_environment::Environment>& env,
                                             const tesseract_common::ManipulatorInfo& global_manip_info) const override;
 
   /** @brief The number of steps to use for freespace instruction */
@@ -55,8 +55,15 @@ public:
 
   /** @brief The number of steps to use for linear instruction */
   int linear_steps;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerFixedSizePlanProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_PLAN_PROFILE_H

@@ -70,13 +70,10 @@ protected:
 
 TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_JointInterpolation)  // NOLINT
 {
-  PlannerRequest request;
-  request.env = env_;
-  request.env_state = env_->getState();
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
+  instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_)));
 
   JointWaypointPoly wp2{ JointWaypoint(joint_names_, Eigen::VectorXd::Ones(7)) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
@@ -85,7 +82,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_Join
 
   SimplePlannerFixedSizePlanProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
   for (std::size_t i = 0; i < move_instructions.size() - 1; ++i)
   {
@@ -112,13 +109,10 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_Join
 
 TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_JointInterpolation)  // NOLINT
 {
-  PlannerRequest request;
-  request.env = env_;
-  request.env_state = env_->getState();
   JointWaypointPoly wp1{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
+  instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_)));
 
   CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0, 1);
@@ -128,7 +122,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_Joint
 
   SimplePlannerFixedSizePlanProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
   for (std::size_t i = 0; i < move_instructions.size() - 1; ++i)
   {
@@ -158,14 +152,11 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_Joint
 
 TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_JointInterpolation)  // NOLINT
 {
-  PlannerRequest request;
-  request.env = env_;
-  request.env_state = env_->getState();
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, 0, 1);
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
+  instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_)));
 
   JointWaypointPoly wp2{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
@@ -174,7 +165,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_Joint
 
   SimplePlannerFixedSizePlanProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
   for (std::size_t i = 0; i < move_instructions.size() - 1; ++i)
   {
@@ -201,14 +192,11 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_Joint
 
 TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartCart_JointInterpolation)  // NOLINT
 {
-  PlannerRequest request;
-  request.env = env_;
-  request.env_state = env_->getState();
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   wp1.getTransform().translation() = Eigen::Vector3d(0.25, -0.1, 1);
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
   MoveInstruction instr1_seed{ instr1 };
-  instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
+  instr1_seed.assignJointWaypoint(JointWaypoint(joint_names_, env_->getCurrentJointValues(joint_names_)));
 
   CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0.1, 1);
@@ -218,7 +206,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartCart_JointI
 
   SimplePlannerFixedSizePlanProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
   for (std::size_t i = 0; i < move_instructions.size() - 1; ++i)
   {

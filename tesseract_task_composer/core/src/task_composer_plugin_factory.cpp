@@ -30,8 +30,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <utility>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/resource_locator.h>
 #include <tesseract_common/plugin_loader.hpp>
 #include <tesseract_common/yaml_utils.h>
+#include <tesseract_common/yaml_extenstions.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_executor.h>
@@ -72,25 +74,32 @@ TaskComposerPluginFactory::TaskComposerPluginFactory(const tesseract_common::Tas
   loadConfig(config);
 }
 
-TaskComposerPluginFactory::TaskComposerPluginFactory(const YAML::Node& config) : TaskComposerPluginFactory()
-{
-  loadConfig(config);
-}
-
-TaskComposerPluginFactory::TaskComposerPluginFactory(const tesseract_common::fs::path& config)
+TaskComposerPluginFactory::TaskComposerPluginFactory(const YAML::Node& config,
+                                                     const tesseract_common::ResourceLocator& locator)
   : TaskComposerPluginFactory()
 {
-  loadConfig(config);
+  loadConfig(config, locator);
 }
 
-TaskComposerPluginFactory::TaskComposerPluginFactory(const std::string& config) : TaskComposerPluginFactory()
+TaskComposerPluginFactory::TaskComposerPluginFactory(const tesseract_common::fs::path& config,
+                                                     const tesseract_common::ResourceLocator& locator)
+  : TaskComposerPluginFactory()
 {
-  loadConfig(config);
+  loadConfig(config, locator);
+}
+
+TaskComposerPluginFactory::TaskComposerPluginFactory(const std::string& config,
+                                                     const tesseract_common::ResourceLocator& locator)
+  : TaskComposerPluginFactory()
+{
+  loadConfig(config, locator);
 }
 
 // This prevents it from being defined inline.
 // If not the forward declare of PluginLoader cause compiler error.
 TaskComposerPluginFactory::~TaskComposerPluginFactory() = default;
+TaskComposerPluginFactory::TaskComposerPluginFactory(TaskComposerPluginFactory&&) noexcept = default;
+TaskComposerPluginFactory& TaskComposerPluginFactory::operator=(TaskComposerPluginFactory&&) noexcept = default;
 
 void TaskComposerPluginFactory::loadConfig(const tesseract_common::TaskComposerPluginInfo& config)
 {
@@ -119,12 +128,21 @@ void TaskComposerPluginFactory::loadConfig(const YAML::Node& config)
   }
 }
 
-void TaskComposerPluginFactory::loadConfig(const tesseract_common::fs::path& config)
+void TaskComposerPluginFactory::loadConfig(const YAML::Node& config, const tesseract_common::ResourceLocator& locator)
 {
-  loadConfig(YAML::LoadFile(config.string()));
+  loadConfig(tesseract_common::processYamlIncludeDirective(config, locator));
 }
 
-void TaskComposerPluginFactory::loadConfig(const std::string& config) { loadConfig(YAML::Load(config)); }
+void TaskComposerPluginFactory::loadConfig(const tesseract_common::fs::path& config,
+                                           const tesseract_common::ResourceLocator& locator)
+{
+  loadConfig(tesseract_common::loadYamlFile(config.string(), locator));
+}
+
+void TaskComposerPluginFactory::loadConfig(const std::string& config, const tesseract_common::ResourceLocator& locator)
+{
+  loadConfig(tesseract_common::loadYamlString(config, locator));
+}
 
 void TaskComposerPluginFactory::addSearchPath(const std::string& path)
 {

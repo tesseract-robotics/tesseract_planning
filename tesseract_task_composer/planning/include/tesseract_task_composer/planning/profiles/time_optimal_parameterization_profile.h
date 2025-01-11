@@ -32,26 +32,27 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_command_language/profile.h>
+
 namespace tesseract_planning
 {
-struct TimeOptimalParameterizationProfile
+struct TimeOptimalParameterizationProfile : public Profile
 {
   using Ptr = std::shared_ptr<TimeOptimalParameterizationProfile>;
   using ConstPtr = std::shared_ptr<const TimeOptimalParameterizationProfile>;
 
-  TimeOptimalParameterizationProfile() = default;
+  TimeOptimalParameterizationProfile();
   TimeOptimalParameterizationProfile(double max_velocity_scaling_factor,
                                      double max_acceleration_scaling_factor,
                                      double max_jerk_scaling_factor,
                                      double path_tolerance,
-                                     double min_angle_change)
-    : max_velocity_scaling_factor(max_velocity_scaling_factor)
-    , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
-    , max_jerk_scaling_factor(max_jerk_scaling_factor)
-    , path_tolerance(path_tolerance)
-    , min_angle_change(min_angle_change)
-  {
-  }
+                                     double min_angle_change);
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   /** @brief The max velocity scaling factor passed to the solver. Default: 1.0*/
   double max_velocity_scaling_factor{ 1.0 };
@@ -67,7 +68,15 @@ struct TimeOptimalParameterizationProfile
 
   /** @brief At least one joint must change by greater than this amount for the point to be added. Default: 0.001*/
   double min_angle_change{ 0.001 };
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TimeOptimalParameterizationProfile)
+
 #endif  // TIME_OPTIMAL_PARAMETERIZATION_PROFILE_H

@@ -46,8 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
-#include <tesseract_motion_planners/trajopt/serialize.h>
-#include <tesseract_motion_planners/trajopt/deserialize.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -119,7 +118,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
 {
   auto joint_group = env_->getJointGroup(manip.manipulator);
   std::vector<std::string> joint_names = joint_group->getJointNames();
-  auto cur_state = env_->getState();
 
   // Specify a JointWaypoint as the start
   JointWaypointPoly wp1{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
@@ -142,17 +140,18 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
@@ -161,7 +160,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   // Loop over all combinations of these 4. 0001, 0010, 0011, ... , 1111
@@ -194,7 +192,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip.manipulator);
   std::vector<std::string> joint_names = joint_group->getJointNames();
-  auto cur_state = env_->getState();
 
   // Specify a JointWaypoint as the start
   JointWaypointPoly wp1{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
@@ -217,17 +214,18 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
@@ -236,7 +234,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   {
@@ -281,7 +278,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip.manipulator);
   std::vector<std::string> joint_names = joint_group->getJointNames();
-  auto cur_state = env_->getState();
 
   // Specify a JointWaypoint as the start
   JointWaypointPoly wp1{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
@@ -304,17 +300,18 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
@@ -323,7 +320,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   {
@@ -366,12 +362,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
 // This test tests freespace motion b/n 1 cartesian waypoint and 1 joint waypoint
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
 {
-  // Create the planner and the responses that will store the results
-  PlannerResponse planning_response;
-
   auto joint_group = env_->getJointGroup(manip.manipulator);
   std::vector<std::string> joint_names = joint_group->getJointNames();
-  auto cur_state = env_->getState();
 
   // Specify a JointWaypoint as the start
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
@@ -395,17 +387,18 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
@@ -414,7 +407,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   {
@@ -457,12 +449,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
 // This test tests freespace motion b/n 2 cartesian waypoints
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
 {
-  // Create the planner and the responses that will store the results
-  PlannerResponse planning_response;
-
-  auto joint_group = env_->getJointGroup(manip.manipulator);
-  auto cur_state = env_->getState();
-
   // Specify a CartesianWaypoint as the start
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
                                                Eigen::Quaterniond(0, 0, 1.0, 0)) };
@@ -486,17 +472,18 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
@@ -505,7 +492,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   {
@@ -548,12 +534,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
 // are / added correctly
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOLINT
 {
-  // Create the planner and the responses that will store the results
-  PlannerResponse planning_response;
-
-  auto joint_group = env_->getJointGroup(manip.manipulator);
-  auto cur_state = env_->getState();
-
   // Specify a JointWaypoint as the start
   CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.8) *
                                                Eigen::Quaterniond(0, 0, 1.0, 0)) };
@@ -577,17 +557,18 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
@@ -596,7 +577,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   std::shared_ptr<trajopt::ProblemConstructionInfo> pci;
@@ -642,12 +622,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
 // This test checks that the terms are being added correctly for joint cnts
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
 {
-  // Create the planner and the responses that will store the results
-  PlannerResponse planning_response;
-
   auto joint_group = env_->getJointGroup(manip.manipulator);
   std::vector<std::string> joint_names = joint_group->getJointNames();
-  auto cur_state = env_->getState();
 
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
@@ -664,8 +640,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   }
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -674,11 +649,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   plan_profile->joint_cost_config.enabled = false;
   plan_profile->joint_constraint_config.enabled = true;
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
@@ -687,7 +664,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
@@ -706,12 +682,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
 // This test checks that the terms are being added correctly for joint costs
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
 {
-  // Create the planner and the responses that will store the results
-  PlannerResponse planning_response;
-
   auto joint_group = env_->getJointGroup(manip.manipulator);
   const std::vector<std::string>& joint_names = joint_group->getJointNames();
-  auto cur_state = env_->getState();
 
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
@@ -728,8 +700,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   }
 
   // Create a seed
-  CompositeInstruction interpolated_program =
-      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -739,11 +710,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   plan_profile->joint_constraint_config.enabled = false;
 
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner(TRAJOPT_DEFAULT_NAMESPACE);
@@ -752,7 +725,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   PlannerRequest request;
   request.instructions = interpolated_program;
   request.env = env_;
-  request.env_state = cur_state;
   request.profiles = profiles;
 
   std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
@@ -766,79 +738,6 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   EXPECT_TRUE((tesseract_tests::vectorContainsType<sco::Cost::Ptr, trajopt::JointPosEqCost>(problem->getCosts())));
   EXPECT_FALSE(
       (tesseract_tests::vectorContainsType<sco::Cost::Ptr, trajopt::TrajOptCostFromErrFunc>(problem->getCosts())));
-}
-
-TEST(TesseractPlanningTrajoptSerializeUnit, SerializeTrajoptDefaultCompositeToXml)  // NOLINT
-{
-  // Write program to file
-  TrajOptDefaultCompositeProfile comp_profile;
-  CollisionCostConfig collision_cost_config;
-  comp_profile.collision_cost_config = collision_cost_config;
-
-  CollisionConstraintConfig collision_constraint_config;
-  comp_profile.collision_constraint_config = collision_constraint_config;
-
-  comp_profile.velocity_coeff = Eigen::VectorXd::Ones(6) * 10;
-  comp_profile.acceleration_coeff = Eigen::VectorXd::Ones(6) * 10;
-  comp_profile.jerk_coeff = Eigen::VectorXd::Ones(6) * 10;
-
-  comp_profile.smooth_velocities = false;
-
-  EXPECT_TRUE(toXMLFile(comp_profile, tesseract_common::getTempPath() + "trajopt_default_composite_example_input.xml"));
-
-  // Import file
-  TrajOptDefaultCompositeProfile imported_comp_profile =
-      trajOptCompositeFromXMLFile(tesseract_common::getTempPath() + "trajopt_default_composite_example_input.xml");
-
-  // Re-write file and compare changed from default term
-  EXPECT_TRUE(toXMLFile(imported_comp_profile,
-                        tesseract_common::getTempPath() + "trajopt_default_composite_example_input2.xml"));
-  EXPECT_TRUE(comp_profile.smooth_velocities == imported_comp_profile.smooth_velocities);
-}
-
-TEST(TesseractPlanningTrajoptSerializeUnit, SerializeTrajoptDefaultPlanToXml)  // NOLINT
-{
-  // Write program to file
-  TrajOptDefaultPlanProfile plan_profile;
-  plan_profile.cartesian_cost_config.coeff = Eigen::VectorXd::Ones(6) * 10;
-  plan_profile.joint_cost_config.coeff = Eigen::VectorXd::Ones(6) * 9;
-  plan_profile.cartesian_cost_config.enabled = true;
-  plan_profile.cartesian_constraint_config.enabled = false;
-  plan_profile.joint_cost_config.enabled = true;
-  plan_profile.joint_constraint_config.enabled = false;
-  plan_profile.cartesian_constraint_config.lower_tolerance = Eigen::VectorXd::Ones(6) * -0.01;
-  plan_profile.cartesian_constraint_config.upper_tolerance = Eigen::VectorXd::Ones(6) * 0.02;
-  plan_profile.joint_constraint_config.lower_tolerance = Eigen::VectorXd::Ones(6) * -0.03;
-  plan_profile.joint_constraint_config.upper_tolerance = Eigen::VectorXd::Ones(6) * 0.04;
-
-  EXPECT_TRUE(toXMLFile(plan_profile, tesseract_common::getTempPath() + "trajopt_default_plan_example_input.xml"));
-
-  // Import file
-  TrajOptDefaultPlanProfile imported_plan_profile = trajOptPlanFromXMLFile(tesseract_common::getTempPath() + "trajopt_"
-                                                                                                             "default_"
-                                                                                                             "plan_"
-                                                                                                             "example_"
-                                                                                                             "input."
-                                                                                                             "xml");
-
-  // Re-write file and compare changed from default term
-  EXPECT_TRUE(
-      toXMLFile(imported_plan_profile, tesseract_common::getTempPath() + "trajopt_default_plan_example_input2.xml"));
-  EXPECT_TRUE(plan_profile.cartesian_cost_config.enabled == imported_plan_profile.cartesian_cost_config.enabled);
-  EXPECT_TRUE(plan_profile.cartesian_constraint_config.enabled ==
-              imported_plan_profile.cartesian_constraint_config.enabled);
-  EXPECT_TRUE(plan_profile.joint_cost_config.enabled == imported_plan_profile.joint_cost_config.enabled);
-  EXPECT_TRUE(plan_profile.joint_constraint_config.enabled == imported_plan_profile.joint_constraint_config.enabled);
-  EXPECT_TRUE(plan_profile.cartesian_cost_config.coeff == imported_plan_profile.cartesian_cost_config.coeff);
-  EXPECT_TRUE(plan_profile.joint_cost_config.coeff == imported_plan_profile.joint_cost_config.coeff);
-  EXPECT_TRUE(plan_profile.cartesian_constraint_config.lower_tolerance ==
-              imported_plan_profile.cartesian_constraint_config.lower_tolerance);
-  EXPECT_TRUE(plan_profile.cartesian_constraint_config.upper_tolerance ==
-              imported_plan_profile.cartesian_constraint_config.upper_tolerance);
-  EXPECT_TRUE(plan_profile.joint_constraint_config.lower_tolerance ==
-              imported_plan_profile.joint_constraint_config.lower_tolerance);
-  EXPECT_TRUE(plan_profile.joint_constraint_config.upper_tolerance ==
-              imported_plan_profile.joint_constraint_config.upper_tolerance);
 }
 
 int main(int argc, char** argv)

@@ -50,8 +50,7 @@ CompositeInstruction createProgram(const Eigen::VectorXd& start_state,
                                    const Eigen::VectorXd& goal_state,
                                    const std::string& composite_profile)
 {
-  CompositeInstruction program(
-      composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  CompositeInstruction program(composite_profile, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
@@ -150,7 +149,7 @@ TEST_F(FixStateBoundsTaskUnit, stateInBounds)  // NOLINT
   state_bounds_profile->upper_bounds_reduction = 1e-3;
 
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<FixStateBoundsProfile>(FIX_STATE_BOUNDS_TASK_NAME, DEFAULT_PROFILE_KEY, state_bounds_profile);
+  profiles->addProfile(FIX_STATE_BOUNDS_TASK_NAME, DEFAULT_PROFILE_KEY, state_bounds_profile);
 
   Eigen::VectorXd mid_state = joint_limits.col(0) + (joint_limits.col(1) - joint_limits.col(0)) / 2.;
   {  // All are valid

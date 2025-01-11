@@ -2,6 +2,15 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.27.0 (2024-12-01)
+-------------------
+* Update online example to pause every 10 seconds
+* Update online planning example and toJointTrajectory to leverage trajectory uuid
+* Contributors: Levi Armstrong
+
+0.26.1 (2024-10-29)
+-------------------
+
 0.26.0 (2024-10-27)
 -------------------
 * Remove TesseractSupportResourceLocator

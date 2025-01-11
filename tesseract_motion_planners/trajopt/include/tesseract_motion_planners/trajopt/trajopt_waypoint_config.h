@@ -29,28 +29,22 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
-namespace tinyxml2
-{
-// NOLINTNEXTLINE(cppcoreguidelines-virtual-class-destructor)
-class XMLElement;
-class XMLDocument;
-}  // namespace tinyxml2
 
 namespace tesseract_planning
 {
 /**
  * @brief Config settings for cartesian waypoints
  */
-struct CartesianWaypointConfig
+struct TrajOptCartesianWaypointConfig
 {
   // LCOV_EXCL_START
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   // LCOV_EXCL_STOP
 
-  CartesianWaypointConfig() = default;
-  CartesianWaypointConfig(const tinyxml2::XMLElement& xml_element);
+  TrajOptCartesianWaypointConfig() = default;
 
   /** @brief If true, a cost/constraint term will be added to the problem. Default: true*/
   bool enabled{ true };
@@ -69,20 +63,22 @@ struct CartesianWaypointConfig
   /** @brief coefficients corresponsing to dx, dy, dz, rx, ry, rz*/
   Eigen::Matrix<double, 6, 1> coeff{ Eigen::VectorXd::Constant(6, 5) };
 
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const;
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 /**
  * @brief Config settings for joint waypoints.
  */
-struct JointWaypointConfig
+struct TrajOptJointWaypointConfig
 {
   // LCOV_EXCL_START
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   // LCOV_EXCL_STOP
 
-  JointWaypointConfig() = default;
-  JointWaypointConfig(const tinyxml2::XMLElement& xml_element);
+  TrajOptJointWaypointConfig() = default;
 
   /** @brief If true, a cost/constraint term will be added to the problem. Default: true*/
   bool enabled{ true };
@@ -99,8 +95,14 @@ struct JointWaypointConfig
   /** @brief coefficients corresponsing to joint values*/
   Eigen::VectorXd coeff{ Eigen::VectorXd::Constant(1, 1, 5) };
 
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const;
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptCartesianWaypointConfig)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptJointWaypointConfig)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_CONFIG_TRAJOPT_WAYPOINT_CONFIG_H

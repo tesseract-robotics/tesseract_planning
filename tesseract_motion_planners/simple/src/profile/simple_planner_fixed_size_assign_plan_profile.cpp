@@ -33,8 +33,11 @@
 #include <tesseract_common/kinematic_limits.h>
 
 #include <tesseract_kinematics/core/kinematic_group.h>
-
+#include <tesseract_environment/environment.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
 
 namespace tesseract_planning
 {
@@ -48,11 +51,11 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
                                                   const MoveInstructionPoly& /*prev_seed*/,
                                                   const MoveInstructionPoly& base_instruction,
                                                   const InstructionPoly& /*next_instruction*/,
-                                                  const PlannerRequest& request,
+                                                  const std::shared_ptr<const tesseract_environment::Environment>& env,
                                                   const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
-  KinematicGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
-  KinematicGroupInstructionInfo info2(base_instruction, request, global_manip_info);
+  KinematicGroupInstructionInfo info1(prev_instruction, *env, global_manip_info);
+  KinematicGroupInstructionInfo info2(base_instruction, *env, global_manip_info);
 
   Eigen::MatrixXd states;
   if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
@@ -87,7 +90,7 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
   }
   else
   {
-    Eigen::VectorXd seed = request.env_state.getJointValues(info2.manip->getJointNames());
+    Eigen::VectorXd seed = env->getCurrentJointValues(info2.manip->getJointNames());
     tesseract_common::enforceLimits<double>(seed, info2.manip->getLimits().joint_limits);
 
     if (info2.instruction.isLinear())
@@ -124,4 +127,16 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
   return getInterpolatedInstructions(info2.manip->getJointNames(), states, info2.instruction);
 }
 
+template <class Archive>
+void SimplePlannerFixedSizeAssignPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerPlanProfile);
+  ar& BOOST_SERIALIZATION_NVP(freespace_steps);
+  ar& BOOST_SERIALIZATION_NVP(linear_steps);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerFixedSizeAssignPlanProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerFixedSizeAssignPlanProfile)

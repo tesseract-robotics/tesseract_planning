@@ -44,7 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/geometric/planners/prm/LazyPRMstar.h>
 #include <ompl/geometric/planners/prm/SPARS.h>
 
-#include <tinyxml2.h>
+#include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
@@ -52,23 +52,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-SBLConfigurator::SBLConfigurator(const tinyxml2::XMLElement& xml_element)
+template <class Archive>
+void OMPLPlannerConfigurator::serialize(Archive& /*ar*/, const unsigned int /*version*/)
 {
-  const tinyxml2::XMLElement* sbl_element = xml_element.FirstChildElement("SBL");
-  const tinyxml2::XMLElement* range_element = sbl_element->FirstChildElement("Range");
-
-  if (range_element != nullptr)
-  {
-    std::string range_string;
-    int status = tesseract_common::QueryStringText(range_element, range_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: SBL: Error parsing Range string");
-
-    if (!tesseract_common::isNumeric(range_string))
-      throw std::runtime_error("OMPLConfigurator: SBL: Range is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(range_string, range);
-  }
 }
 
 ompl::base::PlannerPtr SBLConfigurator::create(ompl::base::SpaceInformationPtr si) const
@@ -80,50 +66,11 @@ ompl::base::PlannerPtr SBLConfigurator::create(ompl::base::SpaceInformationPtr s
 
 OMPLPlannerType SBLConfigurator::getType() const { return OMPLPlannerType::SBL; }
 
-tinyxml2::XMLElement* SBLConfigurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void SBLConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("SBL");
-
-  tinyxml2::XMLElement* range_xml = doc.NewElement("Range");
-  range_xml->SetText(range);
-  ompl_xml->InsertEndChild(range_xml);
-
-  return ompl_xml;
-}
-
-ESTConfigurator::ESTConfigurator(const tinyxml2::XMLElement& xml_element)
-{
-  const tinyxml2::XMLElement* est_element = xml_element.FirstChildElement("EST");
-  const tinyxml2::XMLElement* range_element = est_element->FirstChildElement("Range");
-  const tinyxml2::XMLElement* goal_bias_element = est_element->FirstChildElement("GoalBias");
-
-  int status{ tinyxml2::XMLError::XML_SUCCESS };
-
-  if (range_element != nullptr)
-  {
-    std::string range_string;
-    status = tesseract_common::QueryStringText(range_element, range_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: EST: Error parsing Range string");
-
-    if (!tesseract_common::isNumeric(range_string))
-      throw std::runtime_error("OMPLConfigurator: EST: Range is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(range_string, range);
-  }
-
-  if (goal_bias_element != nullptr)
-  {
-    std::string goal_bias_string;
-    status = tesseract_common::QueryStringText(goal_bias_element, goal_bias_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: EST: Error parsing GoalBias string");
-
-    if (!tesseract_common::isNumeric(goal_bias_string))
-      throw std::runtime_error("OMPLConfigurator: EST: GoalBias is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(goal_bias_string, goal_bias);
-  }
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
 }
 
 ompl::base::PlannerPtr ESTConfigurator::create(ompl::base::SpaceInformationPtr si) const
@@ -136,69 +83,12 @@ ompl::base::PlannerPtr ESTConfigurator::create(ompl::base::SpaceInformationPtr s
 
 OMPLPlannerType ESTConfigurator::getType() const { return OMPLPlannerType::EST; }
 
-tinyxml2::XMLElement* ESTConfigurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void ESTConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("EST");
-
-  tinyxml2::XMLElement* range_xml = doc.NewElement("Range");
-  range_xml->SetText(range);
-  ompl_xml->InsertEndChild(range_xml);
-
-  tinyxml2::XMLElement* goal_bias_xml = doc.NewElement("GoalBias");
-  goal_bias_xml->SetText(goal_bias);
-  ompl_xml->InsertEndChild(goal_bias_xml);
-
-  return ompl_xml;
-}
-
-LBKPIECE1Configurator::LBKPIECE1Configurator(const tinyxml2::XMLElement& xml_element)
-{
-  const tinyxml2::XMLElement* lbkpiece1_element = xml_element.FirstChildElement("LBKPIECE1");
-  const tinyxml2::XMLElement* range_element = lbkpiece1_element->FirstChildElement("Range");
-  const tinyxml2::XMLElement* border_fraction_element = lbkpiece1_element->FirstChildElement("BorderFraction");
-  const tinyxml2::XMLElement* min_valid_path_fraction_element = lbkpiece1_element->FirstChildElement("MinValidPathFract"
-                                                                                                     "ion");
-
-  int status{ tinyxml2::XMLError::XML_SUCCESS };
-
-  if (range_element != nullptr)
-  {
-    std::string range_string;
-    status = tesseract_common::QueryStringText(range_element, range_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: LBKPIECE1: Error parsing Range string");
-
-    if (!tesseract_common::isNumeric(range_string))
-      throw std::runtime_error("OMPLConfigurator: LBKPIECE1: Range is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(range_string, range);
-  }
-
-  if (border_fraction_element != nullptr)
-  {
-    std::string border_fraction_string;
-    status = tesseract_common::QueryStringText(border_fraction_element, border_fraction_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: LBKPIECE1: Error parsing BorderFraction string");
-
-    if (!tesseract_common::isNumeric(border_fraction_string))
-      throw std::runtime_error("OMPLConfigurator: LBKPIECE1: BorderFraction is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(border_fraction_string, border_fraction);
-  }
-
-  if (min_valid_path_fraction_element != nullptr)
-  {
-    std::string min_valid_path_fraction_string;
-    status = tesseract_common::QueryStringText(min_valid_path_fraction_element, min_valid_path_fraction_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: LBKPIECE1: Error parsing MinValidPathFraction string");
-
-    if (!tesseract_common::isNumeric(min_valid_path_fraction_string))
-      throw std::runtime_error("OMPLConfigurator: LBKPIECE1: MinValidPathFraction is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(min_valid_path_fraction_string, min_valid_path_fraction);
-  }
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(goal_bias);
 }
 
 ompl::base::PlannerPtr LBKPIECE1Configurator::create(ompl::base::SpaceInformationPtr si) const
@@ -212,90 +102,13 @@ ompl::base::PlannerPtr LBKPIECE1Configurator::create(ompl::base::SpaceInformatio
 
 OMPLPlannerType LBKPIECE1Configurator::getType() const { return OMPLPlannerType::LBKPIECE1; }
 
-tinyxml2::XMLElement* LBKPIECE1Configurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void LBKPIECE1Configurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("LBKPIECE1");
-
-  tinyxml2::XMLElement* range_xml = doc.NewElement("Range");
-  range_xml->SetText(range);
-  ompl_xml->InsertEndChild(range_xml);
-
-  tinyxml2::XMLElement* border_fraction_xml = doc.NewElement("BorderFraction");
-  border_fraction_xml->SetText(border_fraction);
-  ompl_xml->InsertEndChild(border_fraction_xml);
-
-  tinyxml2::XMLElement* min_valid_path_fraction_xml = doc.NewElement("MinValidPathFraction");
-  min_valid_path_fraction_xml->SetText(min_valid_path_fraction);
-  ompl_xml->InsertEndChild(min_valid_path_fraction_xml);
-
-  return ompl_xml;
-}
-
-BKPIECE1Configurator::BKPIECE1Configurator(const tinyxml2::XMLElement& xml_element)
-{
-  const tinyxml2::XMLElement* bkpiece1_element = xml_element.FirstChildElement("BKPIECE1");
-  const tinyxml2::XMLElement* range_element = bkpiece1_element->FirstChildElement("Range");
-  const tinyxml2::XMLElement* border_fraction_element = bkpiece1_element->FirstChildElement("BorderFraction");
-  const tinyxml2::XMLElement* failed_expansion_score_factor_element = bkpiece1_element->FirstChildElement("FailedExpans"
-                                                                                                          "ionScoreFact"
-                                                                                                          "or");
-  const tinyxml2::XMLElement* min_valid_path_fraction_element = bkpiece1_element->FirstChildElement("MinValidPathFracti"
-                                                                                                    "on");
-
-  int status{ tinyxml2::XMLError::XML_SUCCESS };
-
-  if (range_element != nullptr)
-  {
-    std::string range_string;
-    status = tesseract_common::QueryStringText(range_element, range_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: BKPIECE1: Error parsing Range string");
-
-    if (!tesseract_common::isNumeric(range_string))
-      throw std::runtime_error("OMPLConfigurator: BKPIECE1: Range is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(range_string, range);
-  }
-
-  if (border_fraction_element != nullptr)
-  {
-    std::string border_fraction_string;
-    status = tesseract_common::QueryStringText(border_fraction_element, border_fraction_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: BKPIECE1: Error parsing BorderFraction string");
-
-    if (!tesseract_common::isNumeric(border_fraction_string))
-      throw std::runtime_error("OMPLConfigurator: BKPIECE1: BorderFraction is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(border_fraction_string, border_fraction);
-  }
-
-  if (failed_expansion_score_factor_element != nullptr)
-  {
-    std::string failed_expansion_score_factor_string;
-    status =
-        tesseract_common::QueryStringText(failed_expansion_score_factor_element, failed_expansion_score_factor_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: BKPIECE1: Error parsing FailedExpansionScoreFactor string");
-
-    if (!tesseract_common::isNumeric(failed_expansion_score_factor_string))
-      throw std::runtime_error("OMPLConfigurator: BKPIECE1: FailedExpansionScoreFactor is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(failed_expansion_score_factor_string, failed_expansion_score_factor);
-  }
-
-  if (min_valid_path_fraction_element != nullptr)
-  {
-    std::string min_valid_path_fraction_string;
-    status = tesseract_common::QueryStringText(min_valid_path_fraction_element, min_valid_path_fraction_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: BKPIECE1: Error parsing MinValidPathFraction string");
-
-    if (!tesseract_common::isNumeric(min_valid_path_fraction_string))
-      throw std::runtime_error("OMPLConfigurator: BKPIECE1: MinValidPathFraction is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(min_valid_path_fraction_string, min_valid_path_fraction);
-  }
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(border_fraction);
+  ar& BOOST_SERIALIZATION_NVP(min_valid_path_fraction);
 }
 
 ompl::base::PlannerPtr BKPIECE1Configurator::create(ompl::base::SpaceInformationPtr si) const
@@ -310,108 +123,14 @@ ompl::base::PlannerPtr BKPIECE1Configurator::create(ompl::base::SpaceInformation
 
 OMPLPlannerType BKPIECE1Configurator::getType() const { return OMPLPlannerType::BKPIECE1; }
 
-tinyxml2::XMLElement* BKPIECE1Configurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void BKPIECE1Configurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("BKPIECE1");
-
-  tinyxml2::XMLElement* range_xml = doc.NewElement("Range");
-  range_xml->SetText(range);
-  ompl_xml->InsertEndChild(range_xml);
-
-  tinyxml2::XMLElement* border_fraction_xml = doc.NewElement("BorderFraction");
-  border_fraction_xml->SetText(border_fraction);
-  ompl_xml->InsertEndChild(border_fraction_xml);
-
-  tinyxml2::XMLElement* failed_expansion_score_factor_xml = doc.NewElement("FailedExpansionScoreFactor");
-  failed_expansion_score_factor_xml->SetText(failed_expansion_score_factor);
-  ompl_xml->InsertEndChild(failed_expansion_score_factor_xml);
-
-  tinyxml2::XMLElement* min_valid_path_fraction_xml = doc.NewElement("MinValidPathFraction");
-  min_valid_path_fraction_xml->SetText(min_valid_path_fraction);
-  ompl_xml->InsertEndChild(min_valid_path_fraction_xml);
-
-  return ompl_xml;
-}
-
-KPIECE1Configurator::KPIECE1Configurator(const tinyxml2::XMLElement& xml_element)
-{
-  const tinyxml2::XMLElement* kpiece1_element = xml_element.FirstChildElement("KPIECE1");
-  const tinyxml2::XMLElement* range_element = kpiece1_element->FirstChildElement("Range");
-  const tinyxml2::XMLElement* goal_bias_element = kpiece1_element->FirstChildElement("GoalBias");
-  const tinyxml2::XMLElement* border_fraction_element = kpiece1_element->FirstChildElement("BorderFraction");
-  const tinyxml2::XMLElement* failed_expansion_score_factor_element = kpiece1_element->FirstChildElement("FailedExpansi"
-                                                                                                         "onScoreFacto"
-                                                                                                         "r");
-  const tinyxml2::XMLElement* min_valid_path_fraction_element = kpiece1_element->FirstChildElement("MinValidPathFractio"
-                                                                                                   "n");
-
-  int status{ tinyxml2::XMLError::XML_SUCCESS };
-
-  if (range_element != nullptr)
-  {
-    std::string range_string;
-    status = tesseract_common::QueryStringText(range_element, range_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: KPIECE1Configurator: Error parsing Range string");
-
-    if (!tesseract_common::isNumeric(range_string))
-      throw std::runtime_error("OMPLConfigurator: KPIECE1Configurator: Range is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(range_string, range);
-  }
-
-  if (goal_bias_element != nullptr)
-  {
-    std::string goal_bias_string;
-    status = tesseract_common::QueryStringText(goal_bias_element, goal_bias_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: KPIECE1: Error parsing GoalBias string");
-
-    if (!tesseract_common::isNumeric(goal_bias_string))
-      throw std::runtime_error("OMPLConfigurator: KPIECE1: GoalBias is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(goal_bias_string, goal_bias);
-  }
-
-  if (border_fraction_element != nullptr)
-  {
-    std::string border_fraction_string;
-    status = tesseract_common::QueryStringText(border_fraction_element, border_fraction_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: KPIECE1: Error parsing BorderFraction string");
-
-    if (!tesseract_common::isNumeric(border_fraction_string))
-      throw std::runtime_error("OMPLConfigurator: KPIECE1: BorderFraction is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(border_fraction_string, border_fraction);
-  }
-
-  if (failed_expansion_score_factor_element != nullptr)
-  {
-    std::string failed_expansion_score_factor_string;
-    status =
-        tesseract_common::QueryStringText(failed_expansion_score_factor_element, failed_expansion_score_factor_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: KPIECE1: Error parsing FailedExpansionScoreFactor string");
-
-    if (!tesseract_common::isNumeric(failed_expansion_score_factor_string))
-      throw std::runtime_error("OMPLConfigurator: KPIECE1: FailedExpansionScoreFactor is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(failed_expansion_score_factor_string, failed_expansion_score_factor);
-  }
-
-  if (min_valid_path_fraction_element != nullptr)
-  {
-    std::string min_valid_path_fraction_string;
-    status = tesseract_common::QueryStringText(min_valid_path_fraction_element, min_valid_path_fraction_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: KPIECE1: Error parsing MinValidPathFraction string");
-
-    if (!tesseract_common::isNumeric(min_valid_path_fraction_string))
-      throw std::runtime_error("OMPLConfigurator: KPIECE1: MinValidPathFraction is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(min_valid_path_fraction_string, min_valid_path_fraction);
-  }
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(border_fraction);
+  ar& BOOST_SERIALIZATION_NVP(failed_expansion_score_factor);
+  ar& BOOST_SERIALIZATION_NVP(min_valid_path_fraction);
 }
 
 ompl::base::PlannerPtr KPIECE1Configurator::create(ompl::base::SpaceInformationPtr si) const
@@ -427,125 +146,15 @@ ompl::base::PlannerPtr KPIECE1Configurator::create(ompl::base::SpaceInformationP
 
 OMPLPlannerType KPIECE1Configurator::getType() const { return OMPLPlannerType::KPIECE1; }
 
-tinyxml2::XMLElement* KPIECE1Configurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void KPIECE1Configurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("KPIECE1");
-
-  tinyxml2::XMLElement* range_xml = doc.NewElement("Range");
-  range_xml->SetText(range);
-  ompl_xml->InsertEndChild(range_xml);
-
-  tinyxml2::XMLElement* goal_bias_xml = doc.NewElement("GoalBias");
-  goal_bias_xml->SetText(goal_bias);
-  ompl_xml->InsertEndChild(goal_bias_xml);
-
-  tinyxml2::XMLElement* border_fraction_xml = doc.NewElement("BorderFraction");
-  border_fraction_xml->SetText(border_fraction);
-  ompl_xml->InsertEndChild(border_fraction_xml);
-
-  tinyxml2::XMLElement* failed_expansion_score_factor_xml = doc.NewElement("FailedExpansionScoreFactor");
-  failed_expansion_score_factor_xml->SetText(failed_expansion_score_factor);
-  ompl_xml->InsertEndChild(failed_expansion_score_factor_xml);
-
-  tinyxml2::XMLElement* min_valid_path_fraction_xml = doc.NewElement("MinValidPathFraction");
-  min_valid_path_fraction_xml->SetText(min_valid_path_fraction);
-  ompl_xml->InsertEndChild(min_valid_path_fraction_xml);
-
-  return ompl_xml;
-}
-
-BiTRRTConfigurator::BiTRRTConfigurator(const tinyxml2::XMLElement& xml_element)
-{
-  const tinyxml2::XMLElement* bitrrt_element = xml_element.FirstChildElement("BiTRRT");
-  const tinyxml2::XMLElement* range_element = bitrrt_element->FirstChildElement("Range");
-  const tinyxml2::XMLElement* temp_change_factor_element = bitrrt_element->FirstChildElement("TempChangeFactor");
-  const tinyxml2::XMLElement* cost_threshold_element = bitrrt_element->FirstChildElement("CostThreshold");
-  const tinyxml2::XMLElement* init_temperature_element = bitrrt_element->FirstChildElement("InitTemperature");
-  const tinyxml2::XMLElement* frontier_threshold_element = bitrrt_element->FirstChildElement("FrontierThreshold");
-  const tinyxml2::XMLElement* frontier_node_ratio_element = bitrrt_element->FirstChildElement("FrontierNodeRatio");
-
-  int status{ tinyxml2::XMLError::XML_SUCCESS };
-
-  if (range_element != nullptr)
-  {
-    std::string range_string;
-    status = tesseract_common::QueryStringText(range_element, range_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: BiTRRT: Error parsing Range string");
-
-    if (!tesseract_common::isNumeric(range_string))
-      throw std::runtime_error("OMPLConfigurator: BiTRRT: Range is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(range_string, range);
-  }
-
-  if (temp_change_factor_element != nullptr)
-  {
-    std::string temp_change_factor_string;
-    status = tesseract_common::QueryStringText(temp_change_factor_element, temp_change_factor_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: BiTRRT: Error parsing TempChangeFactor string");
-
-    if (!tesseract_common::isNumeric(temp_change_factor_string))
-      throw std::runtime_error("OMPLConfigurator: BiTRRT: TempChangeFactor is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(temp_change_factor_string, temp_change_factor);
-  }
-
-  if (cost_threshold_element != nullptr)
-  {
-    std::string cost_threshold_string;
-    status = tesseract_common::QueryStringText(cost_threshold_element, cost_threshold_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: BiTRRT: Error parsing CostThreshold string");
-
-    if (!tesseract_common::isNumeric(cost_threshold_string))
-    {
-      if (cost_threshold_string != "inf")
-        throw std::runtime_error("OMPLConfigurator: BiTRRT: CostThreshold is not a numeric values.");
-    }
-    else
-      tesseract_common::toNumeric<double>(cost_threshold_string, cost_threshold);
-  }
-
-  if (init_temperature_element != nullptr)
-  {
-    std::string init_temperature_string;
-    status = tesseract_common::QueryStringText(init_temperature_element, init_temperature_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: BiTRRT: Error parsing InitTemperature string");
-
-    if (!tesseract_common::isNumeric(init_temperature_string))
-      throw std::runtime_error("OMPLConfigurator: BiTRRT: InitTemperature is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(init_temperature_string, init_temperature);
-  }
-
-  if (frontier_threshold_element != nullptr)
-  {
-    std::string frontier_threshold_string;
-    status = tesseract_common::QueryStringText(frontier_threshold_element, frontier_threshold_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: BiTRRT: Error parsing FrontierThreshold string");
-
-    if (!tesseract_common::isNumeric(frontier_threshold_string))
-      throw std::runtime_error("OMPLConfigurator: BiTRRT: FrontierThreshold is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(frontier_threshold_string, frontier_threshold);
-  }
-
-  if (frontier_node_ratio_element != nullptr)
-  {
-    std::string frontier_node_ratio_string;
-    status = tesseract_common::QueryStringText(frontier_node_ratio_element, frontier_node_ratio_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: BiTRRT: Error FrontierNodeRatio GoalBias string");
-
-    if (!tesseract_common::isNumeric(frontier_node_ratio_string))
-      throw std::runtime_error("OMPLConfigurator: BiTRRT: FrontierNodeRatio is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(frontier_node_ratio_string, frontier_node_ratio);
-  }
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(goal_bias);
+  ar& BOOST_SERIALIZATION_NVP(border_fraction);
+  ar& BOOST_SERIALIZATION_NVP(failed_expansion_score_factor);
+  ar& BOOST_SERIALIZATION_NVP(min_valid_path_fraction);
 }
 
 ompl::base::PlannerPtr BiTRRTConfigurator::create(ompl::base::SpaceInformationPtr si) const
@@ -562,70 +171,16 @@ ompl::base::PlannerPtr BiTRRTConfigurator::create(ompl::base::SpaceInformationPt
 
 OMPLPlannerType BiTRRTConfigurator::getType() const { return OMPLPlannerType::BiTRRT; }
 
-tinyxml2::XMLElement* BiTRRTConfigurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void BiTRRTConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("BiTRRT");
-
-  tinyxml2::XMLElement* range_xml = doc.NewElement("Range");
-  range_xml->SetText(range);
-  ompl_xml->InsertEndChild(range_xml);
-
-  tinyxml2::XMLElement* temp_change_factor_xml = doc.NewElement("TempChangeFactor");
-  temp_change_factor_xml->SetText(temp_change_factor);
-  ompl_xml->InsertEndChild(temp_change_factor_xml);
-
-  tinyxml2::XMLElement* cost_threshold_xml = doc.NewElement("CostThreshold");
-  cost_threshold_xml->SetText(cost_threshold);
-  ompl_xml->InsertEndChild(cost_threshold_xml);
-
-  tinyxml2::XMLElement* init_temperature_xml = doc.NewElement("InitTemperature");
-  init_temperature_xml->SetText(init_temperature);
-  ompl_xml->InsertEndChild(init_temperature_xml);
-
-  tinyxml2::XMLElement* frontier_threshold_xml = doc.NewElement("FrontierThreshold");
-  frontier_threshold_xml->SetText(frontier_threshold);
-  ompl_xml->InsertEndChild(frontier_threshold_xml);
-
-  tinyxml2::XMLElement* frontier_node_ratio_xml = doc.NewElement("FrontierNodeRatio");
-  frontier_node_ratio_xml->SetText(frontier_node_ratio);
-  ompl_xml->InsertEndChild(frontier_node_ratio_xml);
-
-  return ompl_xml;
-}
-
-RRTConfigurator::RRTConfigurator(const tinyxml2::XMLElement& xml_element)
-{
-  const tinyxml2::XMLElement* rrt_element = xml_element.FirstChildElement("RRT");
-  const tinyxml2::XMLElement* range_element = rrt_element->FirstChildElement("Range");
-  const tinyxml2::XMLElement* goal_bias_element = rrt_element->FirstChildElement("GoalBias");
-
-  int status{ tinyxml2::XMLError::XML_SUCCESS };
-
-  if (range_element != nullptr)
-  {
-    std::string range_string;
-    status = tesseract_common::QueryStringText(range_element, range_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: RRT: Error parsing Range string");
-
-    if (!tesseract_common::isNumeric(range_string))
-      throw std::runtime_error("OMPLConfigurator: RRT: Range is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(range_string, range);
-  }
-
-  if (goal_bias_element != nullptr)
-  {
-    std::string goal_bias_string;
-    status = tesseract_common::QueryStringText(goal_bias_element, goal_bias_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: RRT: Error parsing GoalBias string");
-
-    if (!tesseract_common::isNumeric(goal_bias_string))
-      throw std::runtime_error("OMPLConfigurator: RRT: GoalBias is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(goal_bias_string, goal_bias);
-  }
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(temp_change_factor);
+  ar& BOOST_SERIALIZATION_NVP(cost_threshold);
+  ar& BOOST_SERIALIZATION_NVP(init_temperature);
+  ar& BOOST_SERIALIZATION_NVP(frontier_threshold);
+  ar& BOOST_SERIALIZATION_NVP(frontier_node_ratio);
 }
 
 ompl::base::PlannerPtr RRTConfigurator::create(ompl::base::SpaceInformationPtr si) const
@@ -638,40 +193,12 @@ ompl::base::PlannerPtr RRTConfigurator::create(ompl::base::SpaceInformationPtr s
 
 OMPLPlannerType RRTConfigurator::getType() const { return OMPLPlannerType::RRT; }
 
-tinyxml2::XMLElement* RRTConfigurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void RRTConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("RRT");
-
-  tinyxml2::XMLElement* range_xml = doc.NewElement("Range");
-  range_xml->SetText(range);
-  ompl_xml->InsertEndChild(range_xml);
-
-  tinyxml2::XMLElement* goal_bias_xml = doc.NewElement("GoalBias");
-  goal_bias_xml->SetText(goal_bias);
-  ompl_xml->InsertEndChild(goal_bias_xml);
-
-  return ompl_xml;
-}
-
-RRTConnectConfigurator::RRTConnectConfigurator(const tinyxml2::XMLElement& xml_element)
-{
-  const tinyxml2::XMLElement* rrt_connect_element = xml_element.FirstChildElement("RRTConnect");
-  const tinyxml2::XMLElement* range_element = rrt_connect_element->FirstChildElement("Range");
-
-  int status{ tinyxml2::XMLError::XML_SUCCESS };
-
-  if (range_element != nullptr)
-  {
-    std::string range_string;
-    status = tesseract_common::QueryStringText(range_element, range_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: RRTConnect: Error parsing Range string");
-
-    if (!tesseract_common::isNumeric(range_string))
-      throw std::runtime_error("OMPLConfigurator: RRTConnect: Range is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(range_string, range);
-  }
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(goal_bias);
 }
 
 ompl::base::PlannerPtr RRTConnectConfigurator::create(ompl::base::SpaceInformationPtr si) const
@@ -683,60 +210,11 @@ ompl::base::PlannerPtr RRTConnectConfigurator::create(ompl::base::SpaceInformati
 
 OMPLPlannerType RRTConnectConfigurator::getType() const { return OMPLPlannerType::RRTConnect; }
 
-tinyxml2::XMLElement* RRTConnectConfigurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void RRTConnectConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("RRTConnect");
-
-  tinyxml2::XMLElement* range_xml = doc.NewElement("Range");
-  range_xml->SetText(range);
-  ompl_xml->InsertEndChild(range_xml);
-
-  return ompl_xml;
-}
-
-RRTstarConfigurator::RRTstarConfigurator(const tinyxml2::XMLElement& xml_element)
-{
-  const tinyxml2::XMLElement* rrt_star_element = xml_element.FirstChildElement("RRTstar");
-  const tinyxml2::XMLElement* range_element = rrt_star_element->FirstChildElement("Range");
-  const tinyxml2::XMLElement* goal_bias_element = rrt_star_element->FirstChildElement("GoalBias");
-  const tinyxml2::XMLElement* delay_collision_checking_element = rrt_star_element->FirstChildElement("DelayCollisionChe"
-                                                                                                     "cking");
-
-  int status{ tinyxml2::XMLError::XML_SUCCESS };
-
-  if (range_element != nullptr)
-  {
-    std::string range_string;
-    status = tesseract_common::QueryStringText(range_element, range_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: RRTstar: Error parsing Range string");
-
-    if (!tesseract_common::isNumeric(range_string))
-      throw std::runtime_error("OMPLConfigurator: RRTstar: Range is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(range_string, range);
-  }
-
-  if (goal_bias_element != nullptr)
-  {
-    std::string goal_bias_string;
-    status = tesseract_common::QueryStringText(goal_bias_element, goal_bias_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: RRTstar: Error parsing GoalBias string");
-
-    if (!tesseract_common::isNumeric(goal_bias_string))
-      throw std::runtime_error("OMPLConfigurator: RRTstar: GoalBias is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(goal_bias_string, goal_bias);
-  }
-
-  if (delay_collision_checking_element != nullptr)
-  {
-    std::string delay_collision_checking_string;
-    status = delay_collision_checking_element->QueryBoolText(&delay_collision_checking);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: RRTstar: Error parsing DelayCollisionChecking string");
-  }
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
 }
 
 ompl::base::PlannerPtr RRTstarConfigurator::create(ompl::base::SpaceInformationPtr si) const
@@ -750,114 +228,13 @@ ompl::base::PlannerPtr RRTstarConfigurator::create(ompl::base::SpaceInformationP
 
 OMPLPlannerType RRTstarConfigurator::getType() const { return OMPLPlannerType::RRTstar; }
 
-tinyxml2::XMLElement* RRTstarConfigurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void RRTstarConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("RRTstar");
-
-  tinyxml2::XMLElement* range_xml = doc.NewElement("Range");
-  range_xml->SetText(range);
-  ompl_xml->InsertEndChild(range_xml);
-
-  tinyxml2::XMLElement* goal_bias_xml = doc.NewElement("GoalBias");
-  goal_bias_xml->SetText(goal_bias);
-  ompl_xml->InsertEndChild(goal_bias_xml);
-
-  tinyxml2::XMLElement* delay_collision_checking_xml = doc.NewElement("DelayCollisionChecking");
-  delay_collision_checking_xml->SetText(delay_collision_checking);
-  ompl_xml->InsertEndChild(delay_collision_checking_xml);
-
-  return ompl_xml;
-}
-
-TRRTConfigurator::TRRTConfigurator(const tinyxml2::XMLElement& xml_element)
-{
-  const tinyxml2::XMLElement* trrt_element = xml_element.FirstChildElement("TRRT");
-  const tinyxml2::XMLElement* range_element = trrt_element->FirstChildElement("Range");
-  const tinyxml2::XMLElement* goal_bias_element = trrt_element->FirstChildElement("GoalBias");
-  const tinyxml2::XMLElement* temp_change_factor_element = trrt_element->FirstChildElement("TempChangeFactor");
-  const tinyxml2::XMLElement* init_temperature_element = trrt_element->FirstChildElement("InitTemp");
-  const tinyxml2::XMLElement* frontier_threshold_element = trrt_element->FirstChildElement("FrontierThreshold");
-  const tinyxml2::XMLElement* frontier_node_ratio_element = trrt_element->FirstChildElement("FrontierNodeRatio");
-
-  int status{ tinyxml2::XMLError::XML_SUCCESS };
-
-  if (range_element != nullptr)
-  {
-    std::string range_string;
-    status = tesseract_common::QueryStringText(range_element, range_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: TRRT: Error parsing Range string");
-
-    if (!tesseract_common::isNumeric(range_string))
-      throw std::runtime_error("OMPLConfigurator: TRRT: Range is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(range_string, range);
-  }
-
-  if (goal_bias_element != nullptr)
-  {
-    std::string goal_bias_string;
-    status = tesseract_common::QueryStringText(goal_bias_element, goal_bias_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: TRRT: Error parsing GoalBias string");
-
-    if (!tesseract_common::isNumeric(goal_bias_string))
-      throw std::runtime_error("OMPLConfigurator: TRRT: GoalBias is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(goal_bias_string, goal_bias);
-  }
-
-  if (temp_change_factor_element != nullptr)
-  {
-    std::string temp_change_factor_string;
-    status = tesseract_common::QueryStringText(temp_change_factor_element, temp_change_factor_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: TRRT: Error parsing TempChangeFactor string");
-
-    if (!tesseract_common::isNumeric(temp_change_factor_string))
-      throw std::runtime_error("OMPLConfigurator: TRRT: TempChangeFactor is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(temp_change_factor_string, temp_change_factor);
-  }
-
-  if (init_temperature_element != nullptr)
-  {
-    std::string init_temperature_string;
-    status = tesseract_common::QueryStringText(init_temperature_element, init_temperature_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: TRRT: Error parsing InitTemp string");
-
-    if (!tesseract_common::isNumeric(init_temperature_string))
-      throw std::runtime_error("OMPLConfigurator: TRRT: InitTemp is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(init_temperature_string, init_temperature);
-  }
-
-  if (frontier_threshold_element != nullptr)
-  {
-    std::string frontier_threshold_string;
-    status = tesseract_common::QueryStringText(frontier_threshold_element, frontier_threshold_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: TRRT: Error parsing FrontierThreshold string");
-
-    if (!tesseract_common::isNumeric(frontier_threshold_string))
-      throw std::runtime_error("OMPLConfigurator: TRRT: FrontierThreshold is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(frontier_threshold_string, frontier_threshold);
-  }
-
-  if (frontier_node_ratio_element != nullptr)
-  {
-    std::string frontier_node_ratio_string;
-    status = tesseract_common::QueryStringText(frontier_node_ratio_element, frontier_node_ratio_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: TRRT: Error parsing FrontierNodeRatio string");
-
-    if (!tesseract_common::isNumeric(frontier_node_ratio_string))
-      throw std::runtime_error("OMPLConfigurator: TRRT: FrontierNodeRatio is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(frontier_node_ratio_string, frontier_node_ratio);
-  }
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(goal_bias);
+  ar& BOOST_SERIALIZATION_NVP(delay_collision_checking);
 }
 
 ompl::base::PlannerPtr TRRTConfigurator::create(ompl::base::SpaceInformationPtr si) const
@@ -874,56 +251,16 @@ ompl::base::PlannerPtr TRRTConfigurator::create(ompl::base::SpaceInformationPtr 
 
 OMPLPlannerType TRRTConfigurator::getType() const { return OMPLPlannerType::TRRT; }
 
-tinyxml2::XMLElement* TRRTConfigurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void TRRTConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("TRRT");
-
-  tinyxml2::XMLElement* range_xml = doc.NewElement("Range");
-  range_xml->SetText(range);
-  ompl_xml->InsertEndChild(range_xml);
-
-  tinyxml2::XMLElement* goal_bias_xml = doc.NewElement("GoalBias");
-  goal_bias_xml->SetText(goal_bias);
-  ompl_xml->InsertEndChild(goal_bias_xml);
-
-  tinyxml2::XMLElement* temp_change_factor_xml = doc.NewElement("TempChangeFactor");
-  temp_change_factor_xml->SetText(temp_change_factor);
-  ompl_xml->InsertEndChild(temp_change_factor_xml);
-
-  tinyxml2::XMLElement* init_temperature_xml = doc.NewElement("InitTemp");
-  init_temperature_xml->SetText(init_temperature);
-  ompl_xml->InsertEndChild(init_temperature_xml);
-
-  tinyxml2::XMLElement* frontier_threshold_xml = doc.NewElement("FrontierThreshold");
-  frontier_threshold_xml->SetText(frontier_threshold);
-  ompl_xml->InsertEndChild(frontier_threshold_xml);
-
-  tinyxml2::XMLElement* frontier_node_ratio_xml = doc.NewElement("FrontierNodeRatio");
-  frontier_node_ratio_xml->SetText(frontier_node_ratio);
-  ompl_xml->InsertEndChild(frontier_node_ratio_xml);
-
-  return ompl_xml;
-}
-
-PRMConfigurator::PRMConfigurator(const tinyxml2::XMLElement& xml_element)
-{
-  const tinyxml2::XMLElement* prm_element = xml_element.FirstChildElement("PRM");
-  const tinyxml2::XMLElement* max_nearest_neighbors_element = prm_element->FirstChildElement("MaxNearestNeighbors");
-
-  int status{ tinyxml2::XMLError::XML_SUCCESS };
-
-  if (max_nearest_neighbors_element != nullptr)
-  {
-    std::string max_nearest_neighbors_string;
-    status = tesseract_common::QueryStringText(max_nearest_neighbors_element, max_nearest_neighbors_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: PRM: Error parsing MaxNearestNeighbors string");
-
-    if (!tesseract_common::isNumeric(max_nearest_neighbors_string))
-      throw std::runtime_error("OMPLConfigurator: PRM: MaxNearestNeighbors is not a numeric values.");
-
-    tesseract_common::toNumeric<int>(max_nearest_neighbors_string, max_nearest_neighbors);
-  }
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(range);
+  ar& BOOST_SERIALIZATION_NVP(goal_bias);
+  ar& BOOST_SERIALIZATION_NVP(temp_change_factor);
+  ar& BOOST_SERIALIZATION_NVP(init_temperature);
+  ar& BOOST_SERIALIZATION_NVP(frontier_threshold);
+  ar& BOOST_SERIALIZATION_NVP(frontier_node_ratio);
 }
 
 ompl::base::PlannerPtr PRMConfigurator::create(ompl::base::SpaceInformationPtr si) const
@@ -935,18 +272,12 @@ ompl::base::PlannerPtr PRMConfigurator::create(ompl::base::SpaceInformationPtr s
 
 OMPLPlannerType PRMConfigurator::getType() const { return OMPLPlannerType::PRM; }
 
-tinyxml2::XMLElement* PRMConfigurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void PRMConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("PRM");
-
-  tinyxml2::XMLElement* max_nearest_neighbors_xml = doc.NewElement("MaxNearestNeighbors");
-  max_nearest_neighbors_xml->SetText(max_nearest_neighbors);
-  ompl_xml->InsertEndChild(max_nearest_neighbors_xml);
-
-  return ompl_xml;
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(max_nearest_neighbors);
 }
-
-PRMstarConfigurator::PRMstarConfigurator(const tinyxml2::XMLElement&) {}
 
 ompl::base::PlannerPtr PRMstarConfigurator::create(ompl::base::SpaceInformationPtr si) const
 {
@@ -955,14 +286,11 @@ ompl::base::PlannerPtr PRMstarConfigurator::create(ompl::base::SpaceInformationP
 
 OMPLPlannerType PRMstarConfigurator::getType() const { return OMPLPlannerType::PRMstar; }
 
-tinyxml2::XMLElement* PRMstarConfigurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void PRMstarConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("PRMstar");
-
-  return ompl_xml;
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
 }
-
-LazyPRMstarConfigurator::LazyPRMstarConfigurator(const tinyxml2::XMLElement&) {}
 
 ompl::base::PlannerPtr LazyPRMstarConfigurator::create(ompl::base::SpaceInformationPtr si) const
 {
@@ -971,74 +299,10 @@ ompl::base::PlannerPtr LazyPRMstarConfigurator::create(ompl::base::SpaceInformat
 
 OMPLPlannerType LazyPRMstarConfigurator::getType() const { return OMPLPlannerType::LazyPRMstar; }
 
-tinyxml2::XMLElement* LazyPRMstarConfigurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void LazyPRMstarConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("LazyPRMstar");
-
-  return ompl_xml;
-}
-
-SPARSConfigurator::SPARSConfigurator(const tinyxml2::XMLElement& xml_element)
-{
-  const tinyxml2::XMLElement* spars_element = xml_element.FirstChildElement("SPARS");
-  const tinyxml2::XMLElement* max_failures_element = spars_element->FirstChildElement("MaxFailures");
-  const tinyxml2::XMLElement* dense_delta_fraction_element = spars_element->FirstChildElement("DenseDataFraction");
-  const tinyxml2::XMLElement* sparse_delta_fraction_element = spars_element->FirstChildElement("SparseDeltaFraction");
-  const tinyxml2::XMLElement* stretch_factor_element = spars_element->FirstChildElement("StretchFactor");
-
-  int status{ tinyxml2::XMLError::XML_SUCCESS };
-
-  if (max_failures_element != nullptr)
-  {
-    std::string max_failures_string;
-    status = tesseract_common::QueryStringText(max_failures_element, max_failures_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: SPARS: Error parsing MaxFailures string");
-
-    if (!tesseract_common::isNumeric(max_failures_string))
-      throw std::runtime_error("OMPLConfigurator: SPARS: MaxFailures is not a numeric values.");
-
-    tesseract_common::toNumeric<int>(max_failures_string, max_failures);
-  }
-
-  if (dense_delta_fraction_element != nullptr)
-  {
-    std::string dense_delta_fraction_string;
-    status = tesseract_common::QueryStringText(dense_delta_fraction_element, dense_delta_fraction_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: SPARS: Error parsing DenseDataFraction string");
-
-    if (!tesseract_common::isNumeric(dense_delta_fraction_string))
-      throw std::runtime_error("OMPLConfigurator: SPARS: DenseDataFraction is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(dense_delta_fraction_string, dense_delta_fraction);
-  }
-
-  if (sparse_delta_fraction_element != nullptr)
-  {
-    std::string sparse_delta_fraction_string;
-    status = tesseract_common::QueryStringText(sparse_delta_fraction_element, sparse_delta_fraction_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: SPARS: Error parsing SparseDeltaFraction string");
-
-    if (!tesseract_common::isNumeric(sparse_delta_fraction_string))
-      throw std::runtime_error("OMPLConfigurator: SPARS: SparseDeltaFraction is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(sparse_delta_fraction_string, sparse_delta_fraction);
-  }
-
-  if (stretch_factor_element != nullptr)
-  {
-    std::string stretch_factor_string;
-    status = tesseract_common::QueryStringText(stretch_factor_element, stretch_factor_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLConfigurator: SPARS: Error parsing StretchFactor string");
-
-    if (!tesseract_common::isNumeric(stretch_factor_string))
-      throw std::runtime_error("OMPLConfigurator: SPARS: StretchFactor is not a numeric values.");
-
-    tesseract_common::toNumeric<double>(stretch_factor_string, stretch_factor);
-  }
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
 }
 
 ompl::base::PlannerPtr SPARSConfigurator::create(ompl::base::SpaceInformationPtr si) const
@@ -1053,26 +317,46 @@ ompl::base::PlannerPtr SPARSConfigurator::create(ompl::base::SpaceInformationPtr
 
 OMPLPlannerType SPARSConfigurator::getType() const { return OMPLPlannerType::SPARS; }
 
-tinyxml2::XMLElement* SPARSConfigurator::toXML(tinyxml2::XMLDocument& doc) const
+template <class Archive>
+void SPARSConfigurator::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  tinyxml2::XMLElement* ompl_xml = doc.NewElement("SPARS");
-
-  tinyxml2::XMLElement* max_failures_xml = doc.NewElement("MaxFailures");
-  max_failures_xml->SetText(max_failures);
-  ompl_xml->InsertEndChild(max_failures_xml);
-
-  tinyxml2::XMLElement* dense_delta_fraction_xml = doc.NewElement("DenseDataFraction");
-  dense_delta_fraction_xml->SetText(dense_delta_fraction);
-  ompl_xml->InsertEndChild(dense_delta_fraction_xml);
-
-  tinyxml2::XMLElement* sparse_delta_fraction_xml = doc.NewElement("SparseDeltaFraction");
-  sparse_delta_fraction_xml->SetText(sparse_delta_fraction);
-  ompl_xml->InsertEndChild(sparse_delta_fraction_xml);
-
-  tinyxml2::XMLElement* stretch_factor_xml = doc.NewElement("StretchFactor");
-  stretch_factor_xml->SetText(stretch_factor);
-  ompl_xml->InsertEndChild(stretch_factor_xml);
-
-  return ompl_xml;
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlannerConfigurator);
+  ar& BOOST_SERIALIZATION_NVP(max_failures);
+  ar& BOOST_SERIALIZATION_NVP(dense_delta_fraction);
+  ar& BOOST_SERIALIZATION_NVP(sparse_delta_fraction);
+  ar& BOOST_SERIALIZATION_NVP(stretch_factor);
 }
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLPlannerConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SBLConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ESTConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::LBKPIECE1Configurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::BKPIECE1Configurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::KPIECE1Configurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::BiTRRTConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RRTConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RRTConnectConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RRTstarConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TRRTConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::PRMConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::PRMstarConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::LazyPRMstarConfigurator)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SPARSConfigurator)
+
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::OMPLPlannerConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SBLConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ESTConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::LBKPIECE1Configurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::BKPIECE1Configurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::KPIECE1Configurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::BiTRRTConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RRTConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RRTConnectConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RRTstarConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TRRTConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::PRMConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::PRMstarConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::LazyPRMstarConfigurator)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SPARSConfigurator)

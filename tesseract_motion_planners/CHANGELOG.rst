@@ -2,6 +2,14 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.27.0 (2024-12-01)
+-------------------
+* Add FormatPlanningInputTask
+* Contributors: Levi Armstrong
+
+0.26.1 (2024-10-29)
+-------------------
+
 0.26.0 (2024-10-27)
 -------------------
 * Fix use of trajopt composite profile cost and constraint collision config
@@ -60,7 +68,7 @@ Changelog for package tesseract_motion_planners
 * More compact descartes collision logging output (`#460 <https://github.com/tesseract-robotics/tesseract_planning/issues/460>`_)
 * Better debugging feedback on failed Descartes plan (`#401 <https://github.com/tesseract-robotics/tesseract_planning/issues/401>`_)
   Co-authored-by: Levi Armstrong <levi.armstrong@gmail.com>
-* Add convex_solver_settings to TrajOptIfoptDefaultSolverProfile (`#425 <https://github.com/tesseract-robotics/tesseract_planning/issues/425>`_)
+* Add convex_solver_settings to TrajOptIfoptOSQPSolverProfile (`#425 <https://github.com/tesseract-robotics/tesseract_planning/issues/425>`_)
   Co-authored-by: Levi Armstrong <levi.armstrong@gmail.com>
 * Fix descartes planner check if the graph built
 * Add time parameterization interface (`#455 <https://github.com/tesseract-robotics/tesseract_planning/issues/455>`_)

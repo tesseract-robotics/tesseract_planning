@@ -1,18 +1,18 @@
 find_package(trajopt REQUIRED)
 find_package(trajopt_sco REQUIRED)
+find_package(osqp REQUIRED)
 
 # Trajopt Planner
 add_library(
   ${PROJECT_NAME}_trajopt
   src/trajopt_collision_config.cpp
-  src/trajopt_waypoint_config.cpp
   src/trajopt_motion_planner.cpp
   src/trajopt_utils.cpp
+  src/trajopt_waypoint_config.cpp
+  src/profile/trajopt_profile.cpp
   src/profile/trajopt_default_plan_profile.cpp
   src/profile/trajopt_default_composite_profile.cpp
-  src/profile/trajopt_default_solver_profile.cpp
-  src/serialize.cpp
-  src/deserialize.cpp)
+  src/profile/trajopt_osqp_solver_profile.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_trajopt
   PUBLIC ${PROJECT_NAME}_core
@@ -20,8 +20,11 @@ target_link_libraries(
          trajopt::trajopt
          trajopt::trajopt_common
          trajopt::trajopt_sco
+         tesseract::tesseract_kinematics_core
+         tesseract::tesseract_environment
          Boost::boost
-         Eigen3::Eigen)
+         Eigen3::Eigen
+         osqp::osqp)
 target_compile_options(${PROJECT_NAME}_trajopt PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_trajopt PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_trajopt PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -49,7 +52,11 @@ configure_component(
   COMPONENT trajopt
   NAMESPACE tesseract
   TARGETS ${PROJECT_NAME}_trajopt
-  DEPENDENCIES "tesseract_motion_planners COMPONENTS core simple" trajopt trajopt_sco)
+  DEPENDENCIES
+    "tesseract_motion_planners COMPONENTS core simple"
+    trajopt
+    trajopt_sco
+    osqp)
 
 if(TESSERACT_PACKAGE)
   cpack_component(

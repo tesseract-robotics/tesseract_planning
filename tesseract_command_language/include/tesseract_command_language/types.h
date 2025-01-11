@@ -1,9 +1,9 @@
 /**
- * @file trajopt_default_solver_profile.cpp
- * @brief
+ * @file types.h
+ * @brief Contains common types used throughout command language
  *
  * @author Levi Armstrong
- * @date December 13, 2020
+ * @date July 22, 2020
  * @version TODO
  * @bug No known bugs
  *
@@ -23,25 +23,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#ifndef TESSERACT_COMMAND_LANGUAGE_TYPES_H
+#define TESSERACT_COMMAND_LANGUAGE_TYPES_H
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tinyxml2.h>
-#include <trajopt/problem_description.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
+#include <unordered_map>
+#include <string>
 
 namespace tesseract_planning
 {
-void TrajOptDefaultSolverProfile::apply(trajopt::ProblemConstructionInfo& pci) const
-{
-  pci.basic_info.convex_solver = convex_solver;
-  pci.basic_info.convex_solver_config = convex_solver_config;
-  pci.opt_info = opt_info;
-  pci.callbacks = callbacks;
-}
-
-tinyxml2::XMLElement* TrajOptDefaultSolverProfile::toXML(tinyxml2::XMLDocument& /*doc*/) const { return nullptr; }
+/**
+ * @brief Map that associates for override profile names (values) with specified task namespaces (keys)
+ * @details For example, a profile "default" might have the following override profiles names for various specific task
+ * namespaces
+ *   - ["ompl", "custom_profile_1"]
+ *   - ["time_parameterization", "custom_profile_2"]
+ */
+using ProfileOverrides = std::unordered_map<std::string, std::string>;
 
 }  // namespace tesseract_planning
+
+#endif  // TESSERACT_COMMAND_LANGUAGE_TYPES_H

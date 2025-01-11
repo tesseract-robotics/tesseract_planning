@@ -10,16 +10,14 @@ struct CollisionConstraintConfig;
 // trajopt_motion_planner.h
 class TrajOptMotionPlanner;
 
-// trajopt_waypoint_config.h
-struct CartesianWaypointConfig;
-struct JointWaypointConfig;
-
 // profiles
+struct TrajOptTermInfos;
+struct TrajOptWaypointInfo;
 class TrajOptPlanProfile;
 class TrajOptCompositeProfile;
 class TrajOptSolverProfile;
 
-class TrajOptDefaultSolverProfile;
+class TrajOptOSQPSolverProfile;
 class TrajOptDefaultPlanProfile;
 class TrajOptDefaultCompositeProfile;
 }  // namespace tesseract_planning

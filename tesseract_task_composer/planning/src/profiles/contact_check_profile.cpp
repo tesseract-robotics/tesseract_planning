@@ -27,15 +27,20 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
+#include <typeindex>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
+#include <tesseract_collision/core/serialization.h>
 
 namespace tesseract_planning
 {
 ContactCheckProfile::ContactCheckProfile() : ContactCheckProfile(0.05, 0) {}
 
 ContactCheckProfile::ContactCheckProfile(double longest_valid_segment_length, double contact_distance)
+  : Profile(ContactCheckProfile::getStaticKey())
 {
   config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
   config.longest_valid_segment_length = longest_valid_segment_length;
@@ -49,4 +54,18 @@ ContactCheckProfile::ContactCheckProfile(double longest_valid_segment_length, do
     config.longest_valid_segment_length = 0.05;
   }
 }
+
+std::size_t ContactCheckProfile::getStaticKey() { return std::type_index(typeid(ContactCheckProfile)).hash_code(); }
+
+template <class Archive>
+void ContactCheckProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
+  ar& BOOST_SERIALIZATION_NVP(config);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ContactCheckProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ContactCheckProfile)

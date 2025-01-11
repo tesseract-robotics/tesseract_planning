@@ -34,7 +34,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
 #include <tesseract_command_language/fwd.h>
+#include <tesseract_environment/fwd.h>
 #include <tesseract_motion_planners/core/fwd.h>
+#include <tesseract_command_language/profile.h>
 
 namespace tesseract_planning
 {
@@ -42,18 +44,19 @@ namespace tesseract_planning
  * @brief Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases. The
  * planner then simply loops over all of the plan instructions and calls the correct function
  */
-class SimplePlannerPlanProfile
+class SimplePlannerPlanProfile : public Profile
 {
 public:
   using Ptr = std::shared_ptr<SimplePlannerPlanProfile>;
   using ConstPtr = std::shared_ptr<const SimplePlannerPlanProfile>;
 
-  SimplePlannerPlanProfile() = default;
-  virtual ~SimplePlannerPlanProfile() = default;
-  SimplePlannerPlanProfile(const SimplePlannerPlanProfile&) = default;
-  SimplePlannerPlanProfile& operator=(const SimplePlannerPlanProfile&) = default;
-  SimplePlannerPlanProfile(SimplePlannerPlanProfile&&) noexcept = default;
-  SimplePlannerPlanProfile& operator=(SimplePlannerPlanProfile&&) noexcept = default;
+  SimplePlannerPlanProfile();
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   /**
    * @brief Generate a seed for the provided base_instruction
@@ -71,26 +74,38 @@ public:
            const MoveInstructionPoly& prev_seed,
            const MoveInstructionPoly& base_instruction,
            const InstructionPoly& next_instruction,
-           const PlannerRequest& request,
+           const std::shared_ptr<const tesseract_environment::Environment>& env,
            const tesseract_common::ManipulatorInfo& global_manip_info) const = 0;
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
-class SimplePlannerCompositeProfile
+class SimplePlannerCompositeProfile : public Profile
 {
 public:
   using Ptr = std::shared_ptr<SimplePlannerCompositeProfile>;
   using ConstPtr = std::shared_ptr<const SimplePlannerCompositeProfile>;
 
-  SimplePlannerCompositeProfile() = default;
-  virtual ~SimplePlannerCompositeProfile() = default;
-  SimplePlannerCompositeProfile(const SimplePlannerCompositeProfile&) = default;
-  SimplePlannerCompositeProfile& operator=(const SimplePlannerCompositeProfile&) = default;
-  SimplePlannerCompositeProfile(SimplePlannerCompositeProfile&&) noexcept = default;
-  SimplePlannerCompositeProfile& operator=(SimplePlannerCompositeProfile&&) noexcept = default;
+  SimplePlannerCompositeProfile();
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   // This contains functions for composite processing. Get start for example
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerPlanProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PROFILE_H

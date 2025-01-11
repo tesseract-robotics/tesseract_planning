@@ -33,10 +33,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_collision/core/types.h>
+#include <tesseract_command_language/profile.h>
 
 namespace tesseract_planning
 {
-struct FixStateCollisionProfile
+struct FixStateCollisionProfile : public Profile
 {
   using Ptr = std::shared_ptr<FixStateCollisionProfile>;
   using ConstPtr = std::shared_ptr<const FixStateCollisionProfile>;
@@ -60,11 +61,13 @@ struct FixStateCollisionProfile
     RANDOM_SAMPLER
   };
 
-  FixStateCollisionProfile(Settings mode = Settings::ALL) : mode(mode)
-  {
-    collision_check_config.contact_request.type = tesseract_collision::ContactTestType::FIRST;
-    collision_check_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
-  }
+  FixStateCollisionProfile(Settings mode = Settings::ALL);
+
+  /**
+   * @brief A utility function for getting profile ID
+   * @return The profile ID used when storing in profile dictionary
+   */
+  static std::size_t getStaticKey();
 
   /** @brief Sets which terms will be corrected  */
   Settings mode;
@@ -81,6 +84,14 @@ struct FixStateCollisionProfile
 
   /** @brief Number of sampling attempts if TrajOpt correction fails*/
   int sampling_attempts{ 100 };
+
+protected:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::FixStateCollisionProfile)
+
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_COLLISION_PROFILE_H

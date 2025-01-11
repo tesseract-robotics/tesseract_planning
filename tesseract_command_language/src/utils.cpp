@@ -63,6 +63,7 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
   std::vector<std::reference_wrapper<const InstructionPoly>> flattened_program =
       composite_instructions.flatten(toJointTrajectoryInstructionFilter);
   trajectory.reserve(flattened_program.size());
+  trajectory.uuid = composite_instructions.getUUID();
   trajectory.description = composite_instructions.getDescription();
 
   double last_time = 0;
@@ -240,11 +241,15 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPo
   else if (waypoint.isCartesianWaypoint())
   {
     auto& cwp = waypoint.as<CartesianWaypointPoly>();
-    if (!cwp.hasSeed())
-      throw std::runtime_error("Cartesian waypoint does not have a seed.");
-
-    jv = &(cwp.getSeed().position);
-    jn = &(cwp.getSeed().joint_names);
+    if (cwp.hasSeed())
+    {
+      jv = &(cwp.getSeed().position);
+      jn = &(cwp.getSeed().joint_names);
+    }
+    else
+    {
+      return false;
+    }
   }
   else
   {

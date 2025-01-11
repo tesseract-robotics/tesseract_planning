@@ -6,16 +6,18 @@ namespace tesseract_planning
 // trajopt_ifopt_motion_planner.h
 class TrajOptIfoptMotionPlanner;
 
-// trajopt_ifopt_problem.h
-enum class TrajOptIfoptTermType;
-struct TrajOptIfoptProblem;
+// trajopt_ifopt_waypoint_config.h
+struct TrajOptIfoptCartesianWaypointConfig;
+struct TrajOptIfoptJointWaypointConfig;
 
 // profiles
+struct TrajOptIfoptTermInfos;
+struct TrajOptIfoptWaypointInfo;
 class TrajOptIfoptPlanProfile;
 class TrajOptIfoptCompositeProfile;
 class TrajOptIfoptSolverProfile;
 
-class TrajOptIfoptDefaultSolverProfile;
+class TrajOptIfoptOSQPSolverProfile;
 class TrajOptIfoptDefaultPlanProfile;
 class TrajOptIfoptDefaultCompositeProfile;
 }  // namespace tesseract_planning

@@ -30,8 +30,6 @@
 
 namespace tesseract_planning
 {
-struct TrajOptIfoptProblem;
-
 class TrajOptIfoptMotionPlanner : public MotionPlanner
 {
 public:
@@ -51,8 +49,6 @@ public:
   void clear() override;
 
   std::unique_ptr<MotionPlanner> clone() const override;
-
-  virtual std::shared_ptr<TrajOptIfoptProblem> createProblem(const PlannerRequest& request) const;
 };
 
 }  // namespace tesseract_planning

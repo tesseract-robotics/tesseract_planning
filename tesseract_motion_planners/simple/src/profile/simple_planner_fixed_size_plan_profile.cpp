@@ -30,8 +30,11 @@
 #include <tesseract_motion_planners/core/utils.h>
 
 #include <tesseract_common/manipulator_info.h>
-
+#include <tesseract_environment/environment.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
 
 namespace tesseract_planning
 {
@@ -45,11 +48,11 @@ SimplePlannerFixedSizePlanProfile::generate(const MoveInstructionPoly& prev_inst
                                             const MoveInstructionPoly& /*prev_seed*/,
                                             const MoveInstructionPoly& base_instruction,
                                             const InstructionPoly& /*next_instruction*/,
-                                            const PlannerRequest& request,
+                                            const std::shared_ptr<const tesseract_environment::Environment>& env,
                                             const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
-  KinematicGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
-  KinematicGroupInstructionInfo info2(base_instruction, request, global_manip_info);
+  KinematicGroupInstructionInfo info1(prev_instruction, *env, global_manip_info);
+  KinematicGroupInstructionInfo info2(base_instruction, *env, global_manip_info);
 
   if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
     return interpolateJointJointWaypoint(info1, info2, linear_steps, freespace_steps);
@@ -60,7 +63,19 @@ SimplePlannerFixedSizePlanProfile::generate(const MoveInstructionPoly& prev_inst
   if (info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
     return interpolateCartJointWaypoint(info1, info2, linear_steps, freespace_steps);
 
-  return interpolateCartCartWaypoint(info1, info2, linear_steps, freespace_steps, request.env_state);
+  return interpolateCartCartWaypoint(info1, info2, linear_steps, freespace_steps, env->getState());
+}
+
+template <class Archive>
+void SimplePlannerFixedSizePlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerPlanProfile);
+  ar& BOOST_SERIALIZATION_NVP(freespace_steps);
+  ar& BOOST_SERIALIZATION_NVP(linear_steps);
 }
 
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerFixedSizePlanProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerFixedSizePlanProfile)

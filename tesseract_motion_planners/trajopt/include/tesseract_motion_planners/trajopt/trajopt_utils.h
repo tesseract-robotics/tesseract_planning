@@ -38,6 +38,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+std::shared_ptr<const tesseract_kinematics::JointGroup>
+createKinematicGroup(const tesseract_common::ManipulatorInfo& manip_info,
+                     const tesseract_environment::Environment& env);
+
 std::shared_ptr<trajopt::TermInfo>
 createCartesianWaypointTermInfo(int index,
                                 const std::string& working_frame,

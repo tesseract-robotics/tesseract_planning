@@ -48,7 +48,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
 
-#include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_real_vector_plan_profile.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_motion_planners/core/utils.h>
 
@@ -150,11 +150,10 @@ bool FreespaceOMPLExample::run()
   // Create Task Composer Plugin Factory
   const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
   tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
-  TaskComposerPluginFactory factory(config_path);
+  TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
 
   // Create Program
-  CompositeInstruction program(
-      "FREESPACE", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start and End Joint Position for the program
   StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_start_pos) };
@@ -180,15 +179,15 @@ bool FreespaceOMPLExample::run()
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
   // Create OMPL Profile
-  auto ompl_profile = std::make_shared<OMPLDefaultPlanProfile>();
+  auto ompl_profile = std::make_shared<OMPLRealVectorPlanProfile>();
   auto ompl_planner_config = std::make_shared<RRTConnectConfigurator>();
   ompl_planner_config->range = range_;
-  ompl_profile->planning_time = planning_time_;
-  ompl_profile->planners = { ompl_planner_config, ompl_planner_config };
+  ompl_profile->solver_config.planning_time = planning_time_;
+  ompl_profile->solver_config.planners = { ompl_planner_config, ompl_planner_config };
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
 
   // Create task
   TaskComposerNode::UPtr task = factory.createTaskComposerNode("OMPLPipeline");

@@ -28,16 +28,20 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 #include <console_bridge/console.h>
+#include <boost/version.hpp>
+#if (BOOST_VERSION >= 107400) && (BOOST_VERSION < 107500)
+#include <boost/serialization/library_version_type.hpp>
+#endif
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
+#include <boost/serialization/unordered_map.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/state_waypoint.h>
-#include <tesseract_command_language/profile_dictionary.h>
 
 namespace tesseract_planning
 {
@@ -191,25 +195,34 @@ const tesseract_common::ManipulatorInfo& MoveInstruction::getManipulatorInfo() c
 tesseract_common::ManipulatorInfo& MoveInstruction::getManipulatorInfo() { return manipulator_info_; }
 
 void MoveInstruction::setProfile(const std::string& profile) { profile_ = profile; }
-const std::string& MoveInstruction::getProfile() const { return profile_; }
+const std::string& MoveInstruction::getProfile(const std::string& ns) const
+{
+  if (ns.empty() || (profile_overrides_.find(ns) == profile_overrides_.end()))
+    return profile_;
+
+  return profile_overrides_.at(ns);
+}
 
 void MoveInstruction::setPathProfile(const std::string& profile) { path_profile_ = profile; }
-const std::string& MoveInstruction::getPathProfile() const { return path_profile_; }
+const std::string& MoveInstruction::getPathProfile(const std::string& ns) const
+{
+  if (ns.empty() || (path_profile_overrides_.find(ns) == path_profile_overrides_.end()))
+    return path_profile_;
 
-void MoveInstruction::setProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides)
+  return path_profile_overrides_.at(ns);
+}
+
+void MoveInstruction::setProfileOverrides(ProfileOverrides profile_overrides)
 {
   profile_overrides_ = std::move(profile_overrides);
 }
-std::shared_ptr<const ProfileDictionary> MoveInstruction::getProfileOverrides() const { return profile_overrides_; }
+const ProfileOverrides& MoveInstruction::getProfileOverrides() const { return profile_overrides_; }
 
-void MoveInstruction::setPathProfileOverrides(std::shared_ptr<const ProfileDictionary> profile_overrides)
+void MoveInstruction::setPathProfileOverrides(ProfileOverrides profile_overrides)
 {
   path_profile_overrides_ = std::move(profile_overrides);
 }
-std::shared_ptr<const ProfileDictionary> MoveInstruction::getPathProfileOverrides() const
-{
-  return path_profile_overrides_;
-}
+const ProfileOverrides& MoveInstruction::getPathProfileOverrides() const { return path_profile_overrides_; }
 
 const std::string& MoveInstruction::getDescription() const { return description_; }
 
@@ -233,12 +246,15 @@ StateWaypointPoly MoveInstruction::createStateWaypoint() { return StateWaypoint(
 bool MoveInstruction::operator==(const MoveInstruction& rhs) const
 {
   bool equal = true;
+  equal &= (uuid_ == rhs.uuid_);
+  equal &= (parent_uuid_ == rhs.parent_uuid_);
   equal &= (static_cast<int>(move_type_) == static_cast<int>(rhs.move_type_));
-  equal &= (waypoint_ == rhs.waypoint_);
-  equal &= (manipulator_info_ == rhs.manipulator_info_);
   equal &= (profile_ == rhs.profile_);            // NO LINT
   equal &= (path_profile_ == rhs.path_profile_);  // NO LINT
-  /** @todo Add profiles overrides when serialization is supported for profiles */
+  equal &= (profile_overrides_ == rhs.profile_overrides_);
+  equal &= (path_profile_overrides_ == rhs.path_profile_overrides_);
+  equal &= (waypoint_ == rhs.waypoint_);
+  equal &= (manipulator_info_ == rhs.manipulator_info_);
   return equal;
 }
 // LCOV_EXCL_START
@@ -254,9 +270,10 @@ void MoveInstruction::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("description", description_);
   ar& boost::serialization::make_nvp("profile", profile_);
   ar& boost::serialization::make_nvp("path_profile", path_profile_);
+  ar& boost::serialization::make_nvp("profile_overrides", profile_overrides_);
+  ar& boost::serialization::make_nvp("path_profile_overrides", path_profile_overrides_);
   ar& boost::serialization::make_nvp("waypoint", waypoint_);
   ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
-  /** @todo Add profiles overrides when serialization is supported for profiles */
 }
 
 }  // namespace tesseract_planning

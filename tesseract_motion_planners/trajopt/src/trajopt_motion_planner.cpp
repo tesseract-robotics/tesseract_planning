@@ -36,10 +36,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
+#include <tesseract_motion_planners/trajopt/trajopt_utils.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
@@ -180,43 +181,18 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   // Store fixed steps
   std::vector<int> fixed_steps;
 
-  // Create the problem
-  auto pci = std::make_shared<trajopt::ProblemConstructionInfo>(request.env);
-
   // Assume all the plan instructions have the same manipulator as the composite
   assert(!request.instructions.getManipulatorInfo().empty());
   const tesseract_common::ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
 
+  // Flatten the input for planning
+  auto move_instructions = request.instructions.flatten(&moveFilter);
+
+  // Create the problem
+  auto pci = std::make_shared<trajopt::ProblemConstructionInfo>(request.env);
+
   // Assign Kinematics object
-  try
-  {
-    tesseract_kinematics::KinematicGroup::Ptr kin_group;
-    std::string error_msg;
-    if (composite_mi.manipulator_ik_solver.empty())
-    {
-      kin_group = request.env->getKinematicGroup(composite_mi.manipulator);
-      error_msg = "Failed to find kinematic group for manipulator '" + composite_mi.manipulator + "'";
-    }
-    else
-    {
-      kin_group = request.env->getKinematicGroup(composite_mi.manipulator, composite_mi.manipulator_ik_solver);
-      error_msg = "Failed to find kinematic group for manipulator '" + composite_mi.manipulator + "' with solver '" +
-                  composite_mi.manipulator_ik_solver + "'";
-    }
-
-    if (kin_group == nullptr)
-    {
-      CONSOLE_BRIDGE_logError("%s", error_msg.c_str());
-      throw std::runtime_error(error_msg);
-    }
-
-    pci->kin = kin_group;
-  }
-  catch (...)
-  {
-    pci->kin = request.env->getJointGroup(composite_mi.manipulator);
-  }
-
+  pci->kin = createKinematicGroup(composite_mi, *request.env);
   if (pci->kin == nullptr)
   {
     std::string error_msg = "In TrajOpt problem generator, manipulator does not exist!";
@@ -224,25 +200,24 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
     throw std::runtime_error(error_msg);
   }
 
+  // Setup Basic Info
+  pci->basic_info.n_steps = static_cast<int>(move_instructions.size());
+  pci->basic_info.manip = composite_mi.manipulator;
+  pci->basic_info.use_time = false;
+
   // Apply Solver parameters
-  std::string profile = request.instructions.getProfile();
-  ProfileDictionary::ConstPtr profile_overrides = request.instructions.getProfileOverrides();
-  profile = getProfileString(name_, profile, request.plan_profile_remapping);
   TrajOptSolverProfile::ConstPtr solver_profile = getProfile<TrajOptSolverProfile>(
-      name_, profile, *request.profiles, std::make_shared<TrajOptDefaultSolverProfile>());
-  solver_profile = applyProfileOverrides(name_, profile, solver_profile, profile_overrides);
+      name_, request.instructions.getProfile(name_), *request.profiles, std::make_shared<TrajOptOSQPSolverProfile>());
   if (!solver_profile)
     throw std::runtime_error("TrajOptMotionPlanner: Invalid profile");
 
-  solver_profile->apply(*pci);
+  pci->basic_info.convex_solver = solver_profile->getSolverType();
+  pci->basic_info.convex_solver_config = solver_profile->createSolverConfig();
+  pci->opt_info = solver_profile->createOptimizationParameters();
+  pci->callbacks = solver_profile->createOptimizationCallbacks();
 
   // Get kinematics information
-  tesseract_environment::Environment::ConstPtr env = request.env;
   std::vector<std::string> active_links = pci->kin->getActiveLinkNames();
-  std::vector<std::string> joint_names = pci->kin->getJointNames();
-
-  // Flatten the input for planning
-  auto move_instructions = request.instructions.flatten(&moveFilter);
 
   // Create a temp seed storage.
   std::vector<Eigen::VectorXd> seed_states;
@@ -252,90 +227,29 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   {
     const auto& move_instruction = move_instructions[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>();
 
-    // If plan instruction has manipulator information then use it over the one provided by the composite.
-    tesseract_common::ManipulatorInfo mi = composite_mi.getCombined(move_instruction.getManipulatorInfo());
-
-    if (mi.manipulator.empty())
-      throw std::runtime_error("TrajOpt, manipulator is empty!");
-
-    if (mi.tcp_frame.empty())
-      throw std::runtime_error("TrajOpt, tcp_frame is empty!");
-
-    if (mi.working_frame.empty())
-      throw std::runtime_error("TrajOpt, working_frame is empty!");
-
     // Get Plan Profile
-    std::string profile = getProfileString(name_, move_instruction.getProfile(), request.plan_profile_remapping);
     TrajOptPlanProfile::ConstPtr cur_plan_profile = getProfile<TrajOptPlanProfile>(
-        name_, profile, *request.profiles, std::make_shared<TrajOptDefaultPlanProfile>());
-    cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile, move_instruction.getProfileOverrides());
+        name_, move_instruction.getProfile(name_), *request.profiles, std::make_shared<TrajOptDefaultPlanProfile>());
     if (!cur_plan_profile)
       throw std::runtime_error("TrajOptMotionPlanner: Invalid profile");
 
-    if (move_instruction.getWaypoint().isCartesianWaypoint())
-    {
-      const auto& cwp = move_instruction.getWaypoint().as<CartesianWaypointPoly>();
-      cur_plan_profile->apply(*pci, cwp, move_instruction, composite_mi, active_links, i);
+    TrajOptWaypointInfo wp_info =
+        cur_plan_profile->create(move_instruction, composite_mi, request.env, active_links, i);
 
-      // Seed state
-      if (cwp.hasSeed())
-      {
-        assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
-        seed_states.push_back(cwp.getSeed().position);
-      }
-      else
-      {
-        seed_states.push_back(request.env_state.getJointValues(joint_names));
-      }
+    if (wp_info.seed.rows() != pci->kin->numJoints())
+      throw std::runtime_error("TrajOptMotionPlanner, profile returned invalid seed");
 
-      /** @todo If fixed cartesian and not term_type cost add as fixed */
-    }
-    else if (move_instruction.getWaypoint().isJointWaypoint())
-    {
-      assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
+    if (!wp_info.term_infos.costs.empty())
+      pci->cost_infos.insert(pci->cost_infos.end(), wp_info.term_infos.costs.begin(), wp_info.term_infos.costs.end());
 
-      const auto& jwp = move_instruction.getWaypoint().as<JointWaypointPoly>();
-      if (jwp.isConstrained())
-      {
-        cur_plan_profile->apply(*pci, jwp, move_instruction, composite_mi, active_links, i);
+    if (!wp_info.term_infos.constraints.empty())
+      pci->cnt_infos.insert(
+          pci->cnt_infos.end(), wp_info.term_infos.constraints.begin(), wp_info.term_infos.constraints.end());
 
-        // Add to fixed indices
-        if (!jwp.isToleranced()) /** @todo Should not make fixed if term_type is cost */
-          fixed_steps.push_back(i);
-      }
-
-      // Add seed state
-      seed_states.push_back(jwp.getPosition());
-    }
-    else if (move_instruction.getWaypoint().isStateWaypoint())
-    {
-      assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
-      const auto& swp = move_instruction.getWaypoint().as<StateWaypointPoly>();
-      JointWaypointPoly jwp = move_instruction.createJointWaypoint();
-      jwp.setNames(swp.getNames());
-      jwp.setPosition(swp.getPosition());
-      cur_plan_profile->apply(*pci, jwp, move_instruction, composite_mi, active_links, i);
-
-      // Add seed state
-      seed_states.push_back(swp.getPosition());
-
-      // Add to fixed indices
-      fixed_steps.push_back(i); /** @todo Should not make fixed if term_type is cost */
-    }
-    else
-    {
-      throw std::runtime_error("TrajOptMotionPlanner: unknown waypoint type");
-    }
+    seed_states.push_back(wp_info.seed);
+    if (wp_info.fixed)
+      fixed_steps.push_back(i);
   }
-
-  // ----------------
-  // Create Problem
-  // ----------------
-
-  // Setup Basic Info
-  pci->basic_info.n_steps = static_cast<int>(move_instructions.size());
-  pci->basic_info.manip = composite_mi.manipulator;
-  pci->basic_info.use_time = false;
 
   // Add the fixed timesteps. TrajOpt will constrain the optimization such that any costs applied at these timesteps
   // will be ignored. Costs applied to variables at fixed timesteps generally causes solver failures
@@ -348,15 +262,23 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   for (long i = 0; i < pci->basic_info.n_steps; ++i)
     pci->init_info.data.row(i) = seed_states[static_cast<std::size_t>(i)];
 
-  profile = getProfileString(name_, request.instructions.getProfile(), request.composite_profile_remapping);
-  TrajOptCompositeProfile::ConstPtr cur_composite_profile = getProfile<TrajOptCompositeProfile>(
-      name_, profile, *request.profiles, std::make_shared<TrajOptDefaultCompositeProfile>());
-  cur_composite_profile =
-      applyProfileOverrides(name_, profile, cur_composite_profile, request.instructions.getProfileOverrides());
-  if (!cur_composite_profile)
-    throw std::runtime_error("TrajOptMotionPlanner: Invalid profile");
+  // Get composite cost and constraints
+  TrajOptCompositeProfile::ConstPtr composite_profile =
+      getProfile<TrajOptCompositeProfile>(name_,
+                                          request.instructions.getProfile(name_),
+                                          *request.profiles,
+                                          std::make_shared<TrajOptDefaultCompositeProfile>());
 
-  cur_composite_profile->apply(*pci, 0, pci->basic_info.n_steps - 1, composite_mi, active_links, fixed_steps);
+  if (!composite_profile)
+    throw std::runtime_error("TrajOptMotionPlanner: Invalid composite profile");
+
+  TrajOptTermInfos c_term_infos =
+      composite_profile->create(composite_mi, request.env, fixed_steps, 0, pci->basic_info.n_steps - 1);
+  if (!c_term_infos.costs.empty())
+    pci->cost_infos.insert(pci->cost_infos.end(), c_term_infos.costs.begin(), c_term_infos.costs.end());
+
+  if (!c_term_infos.constraints.empty())
+    pci->cnt_infos.insert(pci->cnt_infos.end(), c_term_infos.constraints.begin(), c_term_infos.constraints.end());
 
   return pci;
 }

@@ -39,6 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_graph.h>
 
 namespace tesseract_planning
@@ -65,6 +66,8 @@ TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode& node)
     triggers_abort = (graph.getAbortTerminalIndex() >= 0);
   }
 }
+
+TaskComposerNodeInfo::~TaskComposerNodeInfo() = default;
 
 bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
 {

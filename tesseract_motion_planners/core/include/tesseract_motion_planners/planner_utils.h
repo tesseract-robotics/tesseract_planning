@@ -93,38 +93,6 @@ bool isValidState(const tesseract_kinematics::ForwardKinematics::ConstPtr& robot
 }
 
 /**
- * @brief Get the profile string taking into account defaults and profile remapping
- * @param ns Used to look up if there are remappings available
- * @param profile The requested profile name in the instructions
- * @param profile_remapping Remapping used to remap a profile name based on the planner name
- * @param default_profile Default = DEFAULT. This is set if profile.empty()
- * @return The profile string taking into account defaults and profile remapping
- */
-inline std::string getProfileString(const std::string& ns,
-                                    const std::string& profile,
-                                    const tesseract_common::AnyPoly& profile_remapping_poly,
-                                    std::string default_profile = DEFAULT_PROFILE_KEY)
-{
-  std::string results = profile;
-  if (profile.empty())
-    results = std::move(default_profile);
-
-  if (profile_remapping_poly.isNull())
-    return results;
-
-  // Check for remapping of profile
-  const auto& profile_remapping = profile_remapping_poly.as<ProfileRemapping>();
-  auto remap = profile_remapping.find(ns);
-  if (remap != profile_remapping.end())
-  {
-    auto p = remap->second.find(profile);
-    if (p != remap->second.end())
-      results = p->second;
-  }
-  return results;
-}
-
-/**
  * @brief Gets the profile specified from the profile map
  * @param ns The namespace to search for requested profile
  * @param profile The requested profile
@@ -138,8 +106,9 @@ std::shared_ptr<const ProfileType> getProfile(const std::string& ns,
                                               const ProfileDictionary& profile_dictionary,
                                               std::shared_ptr<const ProfileType> default_profile = nullptr)
 {
-  if (profile_dictionary.hasProfile<ProfileType>(ns, profile))
-    return profile_dictionary.getProfile<ProfileType>(ns, profile);
+  if (profile_dictionary.hasProfile(ProfileType::getStaticKey(), ns, profile))
+    return std::static_pointer_cast<const ProfileType>(
+        profile_dictionary.getProfile(ProfileType::getStaticKey(), ns, profile));
 
   CONSOLE_BRIDGE_logDebug("Profile '%s' was not found in namespace '%s' for type '%s'. Using default if available. "
                           "Available "
@@ -148,9 +117,9 @@ std::shared_ptr<const ProfileType> getProfile(const std::string& ns,
                           ns.c_str(),
                           typeid(ProfileType).name());
 
-  if (profile_dictionary.hasProfileEntry<ProfileType>(ns))
+  if (profile_dictionary.hasProfileEntry(ProfileType::getStaticKey(), ns))
   {
-    for (const auto& pair : profile_dictionary.getProfileEntry<ProfileType>(ns))
+    for (const auto& pair : profile_dictionary.getProfileEntry(ProfileType::getStaticKey(), ns))
     {
       CONSOLE_BRIDGE_logDebug("%s", pair.first.c_str());
     }
@@ -158,31 +127,6 @@ std::shared_ptr<const ProfileType> getProfile(const std::string& ns,
 
   return default_profile;
 }
-
-/**
- * @brief Returns either nominal_profile or override based on task name passed in
- * @param ns The namespace to search for requested profile
- * @param profile The name used to look up if there is a profile override
- * @param nominal_profile Profile that will be used if no override is present
- * @param overrides Dictionary of profile overrides that will override the nominal profile if present for this task.
- * Default = nullptr
- * @return The nominal_profile or override based on the task name passed in
- */
-template <typename ProfileType>
-std::shared_ptr<const ProfileType> applyProfileOverrides(const std::string& ns,
-                                                         const std::string& profile,
-                                                         const std::shared_ptr<ProfileType>& nominal_profile,
-                                                         const ProfileDictionary::ConstPtr& overrides = nullptr)
-{
-  if (!overrides)
-    return nominal_profile;
-
-  if (overrides->hasProfile<ProfileType>(ns, profile))
-    return overrides->getProfile<ProfileType>(ns, profile);
-
-  return nominal_profile;
-}
-
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_MOTION_PLANNERS_PLANNER_UTILS_H

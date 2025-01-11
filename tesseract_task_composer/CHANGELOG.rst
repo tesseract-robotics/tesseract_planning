@@ -2,6 +2,16 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.27.0 (2024-12-01)
+-------------------
+* Add FormatPlanningInputTask
+* Contributors: Levi Armstrong
+
+0.26.1 (2024-10-29)
+-------------------
+* Fix format as input task to handle both joint and state waypoints
+* Contributors: Levi Armstrong
+
 0.26.0 (2024-10-27)
 -------------------
 * Store dotgraph in TaskComposerLog

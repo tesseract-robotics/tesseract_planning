@@ -44,10 +44,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
-#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_solver_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 
 #include <tesseract_command_language/profile_dictionary.h>
@@ -181,12 +181,10 @@ bool PickAndPlaceExample::run()
   // Create Task Composer Plugin Factory
   const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
   tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
-  TaskComposerPluginFactory factory(config_path);
+  TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
 
   // Create Program
-  CompositeInstruction pick_program("DEFAULT",
-                                    CompositeInstructionOrder::ORDERED,
-                                    ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
+  CompositeInstruction pick_program("DEFAULT", ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
   StateWaypointPoly pick_swp{ StateWaypoint(joint_names, joint_pos) };
   MoveInstruction start_instruction(pick_swp, MoveInstructionType::FREESPACE, "FREESPACE");
@@ -229,8 +227,10 @@ bool PickAndPlaceExample::run()
   {
     // Create TrajOpt_Ifopt Profile
     auto trajopt_ifopt_plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
-    trajopt_ifopt_plan_profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 10);
-    trajopt_ifopt_plan_profile->joint_coeff = Eigen::VectorXd::Ones(7);
+    trajopt_ifopt_plan_profile->joint_cost_config.enabled = false;
+    trajopt_ifopt_plan_profile->cartesian_cost_config.enabled = false;
+    trajopt_ifopt_plan_profile->cartesian_constraint_config.enabled = true;
+    trajopt_ifopt_plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);
 
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
     trajopt_ifopt_composite_profile->collision_constraint_config->type =
@@ -255,20 +255,18 @@ bool PickAndPlaceExample::run()
     trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->longest_valid_segment_length = 0.05;
 
-    auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptDefaultSolverProfile>();
-    trajopt_ifopt_solver_profile->opt_info.max_iterations = 100;
+    auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptOSQPSolverProfile>();
+    trajopt_ifopt_solver_profile->opt_params.max_iterations = 100;
 
-    profiles->addProfile<TrajOptIfoptPlanProfile>(
-        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_plan_profile);
-    profiles->addProfile<TrajOptIfoptCompositeProfile>(
-        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
-    profiles->addProfile<TrajOptIfoptSolverProfile>(
-        TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_solver_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_plan_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_solver_profile);
   }
   else
   {
     // Create TrajOpt Profile
     auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+    trajopt_plan_profile->joint_cost_config.enabled = false;
     trajopt_plan_profile->cartesian_cost_config.enabled = false;
     trajopt_plan_profile->cartesian_constraint_config.enabled = true;
     trajopt_plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);
@@ -283,18 +281,18 @@ bool PickAndPlaceExample::run()
     trajopt_composite_profile->collision_cost_config.safety_margin_buffer = 0.01;
     trajopt_composite_profile->collision_cost_config.coeff = 50;
 
-    auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
-    trajopt_solver_profile->opt_info.max_iter = 100;
+    auto trajopt_solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
+    trajopt_solver_profile->opt_params.max_iter = 100;
 
-    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
-    profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
-    profiles->addProfile<TrajOptSolverProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
   }
 
   auto post_check_profile = std::make_shared<ContactCheckProfile>();
 
-  profiles->addProfile<ContactCheckProfile>(DISCRETE_CONTACT_CHECK_TASK_NAME, "CARTESIAN", post_check_profile);
-  profiles->addProfile<ContactCheckProfile>(DISCRETE_CONTACT_CHECK_TASK_NAME, "DEFAULT", post_check_profile);
+  profiles->addProfile(DISCRETE_CONTACT_CHECK_TASK_NAME, "CARTESIAN", post_check_profile);
+  profiles->addProfile(DISCRETE_CONTACT_CHECK_TASK_NAME, "DEFAULT", post_check_profile);
 
   CONSOLE_BRIDGE_logInform("Pick plan");
 
@@ -384,9 +382,7 @@ bool PickAndPlaceExample::run()
   place_approach_pose.translation() += Eigen::Vector3d(0.0, -0.25, 0);
 
   // Create Program
-  CompositeInstruction place_program("DEFAULT",
-                                     CompositeInstructionOrder::ORDERED,
-                                     ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
+  CompositeInstruction place_program("DEFAULT", ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
   // Define the approach pose
   CartesianWaypointPoly place_wp0{ CartesianWaypoint(retreat_pose) };

@@ -36,26 +36,28 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
+#include <tesseract_common/resource_locator.h>
 
 namespace tesseract_planning
 {
 TaskComposerServer::TaskComposerServer() : plugin_factory_(std::make_shared<TaskComposerPluginFactory>()) {}
 
-void TaskComposerServer::loadConfig(const YAML::Node& config)
+void TaskComposerServer::loadConfig(const YAML::Node& config, const tesseract_common::ResourceLocator& locator)
 {
-  plugin_factory_->loadConfig(config);
+  plugin_factory_->loadConfig(config, locator);
   loadPlugins();
 }
 
-void TaskComposerServer::loadConfig(const tesseract_common::fs::path& config)
+void TaskComposerServer::loadConfig(const tesseract_common::fs::path& config,
+                                    const tesseract_common::ResourceLocator& locator)
 {
-  plugin_factory_->loadConfig(config);
+  plugin_factory_->loadConfig(config, locator);
   loadPlugins();
 }
 
-void TaskComposerServer::loadConfig(const std::string& config)
+void TaskComposerServer::loadConfig(const std::string& config, const tesseract_common::ResourceLocator& locator)
 {
-  plugin_factory_->loadConfig(config);
+  plugin_factory_->loadConfig(config, locator);
   loadPlugins();
 }
 
