@@ -53,9 +53,6 @@ const std::string FixStateBoundsTask::INOUT_PROGRAM_PORT = "program";
 const std::string FixStateBoundsTask::INPUT_ENVIRONMENT_PORT = "environment";
 const std::string FixStateBoundsTask::INPUT_PROFILES_PORT = "profiles";
 
-// Optional
-const std::string FixStateBoundsTask::INPUT_MANIP_INFO_PORT = "manip_info";
-
 FixStateBoundsTask::FixStateBoundsTask() : TaskComposerTask("FixStateBoundsTask", FixStateBoundsTask::ports(), true) {}
 FixStateBoundsTask::FixStateBoundsTask(std::string name,
                                        std::string input_program_key,
@@ -85,8 +82,6 @@ TaskComposerNodePorts FixStateBoundsTask::ports()
   ports.input_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
-
-  ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
 
@@ -124,14 +119,8 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateBoundsTask::runImpl(TaskComposerCo
 
   tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
 
-  tesseract_common::ManipulatorInfo input_manip_info;
-  auto manip_info_poly = getData(*context.data_storage, INPUT_MANIP_INFO_PORT, false);
-  if (!manip_info_poly.isNull())
-    input_manip_info = manip_info_poly.as<tesseract_common::ManipulatorInfo>();
-
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
   auto& ci = input_data_poly.as<CompositeInstruction>();
-  ci.setManipulatorInfo(ci.getManipulatorInfo().getCombined(input_manip_info));
   const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
   auto joint_group = env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();

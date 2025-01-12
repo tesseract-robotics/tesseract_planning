@@ -94,17 +94,15 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
                            inputs:
                              program: input_data
                              environment: environment
-                             profiles: profiles
-                             manip_info: manip_info)";
+                             profiles: profiles)";
     YAML::Node config = YAML::Load(str);
     ContinuousContactCheckTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 4);
+    EXPECT_EQ(task.getInputKeys().size(), 3);
     EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getInputKeys().get(ContinuousContactCheckTask::INPUT_MANIP_INFO_PORT), "manip_info");
     EXPECT_EQ(task.getOutputKeys().size(), 0);
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
@@ -268,17 +266,15 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
                            inputs:
                              program: input_data
                              environment: environment
-                             profiles: profiles
-                             manip_info: manip_info)";
+                             profiles: profiles)";
     YAML::Node config = YAML::Load(str);
     DiscreteContactCheckTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 4);
+    EXPECT_EQ(task.getInputKeys().size(), 3);
     EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getInputKeys().get(DiscreteContactCheckTask::INPUT_MANIP_INFO_PORT), "manip_info");
     EXPECT_EQ(task.getOutputKeys().size(), 0);
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
@@ -1109,18 +1105,16 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
                              program: input_data
                              environment: environment
                              profiles: profiles
-                             manip_info: manip_info
                            outputs:
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
     FixStateBoundsTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 4);
+    EXPECT_EQ(task.getInputKeys().size(), 3);
     EXPECT_EQ(task.getInputKeys().get(FixStateBoundsTask::INOUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(FixStateBoundsTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(FixStateBoundsTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getInputKeys().get(FixStateBoundsTask::INPUT_MANIP_INFO_PORT), "manip_info");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(FixStateBoundsTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -1281,18 +1275,16 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
                              program: input_data
                              environment: environment
                              profiles: profiles
-                             manip_info: manip_info
                            outputs:
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
     FixStateCollisionTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 4);
+    EXPECT_EQ(task.getInputKeys().size(), 3);
     EXPECT_EQ(task.getInputKeys().get(FixStateCollisionTask::INOUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(FixStateCollisionTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(FixStateCollisionTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getInputKeys().get(FixStateCollisionTask::INPUT_MANIP_INFO_PORT), "manip_info");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(FixStateCollisionTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -1993,7 +1985,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
                              program: input_data
                              environment: environment
                              profiles: profiles
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            add_points: true)";
@@ -2001,11 +1992,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     IterativeSplineParameterizationTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 4);
+    EXPECT_EQ(task.getInputKeys().size(), 3);
     EXPECT_EQ(task.getInputKeys().get(IterativeSplineParameterizationTask::INOUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(IterativeSplineParameterizationTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(IterativeSplineParameterizationTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getInputKeys().get(IterativeSplineParameterizationTask::INPUT_MANIP_INFO_PORT), "manip_info");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(IterativeSplineParameterizationTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -2180,18 +2170,16 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
                              program: input_data
                              environment: environment
                              profiles: profiles
-                             manip_info: manip_info
                            outputs:
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
     TimeOptimalParameterizationTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 4);
+    EXPECT_EQ(task.getInputKeys().size(), 3);
     EXPECT_EQ(task.getInputKeys().get(TimeOptimalParameterizationTask::INOUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(TimeOptimalParameterizationTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(TimeOptimalParameterizationTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getInputKeys().get(TimeOptimalParameterizationTask::INPUT_MANIP_INFO_PORT), "manip_info");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(TimeOptimalParameterizationTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -2368,18 +2356,16 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
                              program: input_data
                              environment: environment
                              profiles: profiles
-                             manip_info: manip_info
                            outputs:
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
     RuckigTrajectorySmoothingTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 4);
+    EXPECT_EQ(task.getInputKeys().size(), 3);
     EXPECT_EQ(task.getInputKeys().get(RuckigTrajectorySmoothingTask::INOUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(RuckigTrajectorySmoothingTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(RuckigTrajectorySmoothingTask::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getInputKeys().get(RuckigTrajectorySmoothingTask::INPUT_MANIP_INFO_PORT), "manip_info");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(RuckigTrajectorySmoothingTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -2563,7 +2549,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
                              program: input_data
                              environment: environment
                              profiles: profiles
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            format_result_as_input: false)";
@@ -2571,11 +2556,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     MotionPlannerTask<TrajOptMotionPlanner> task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 4);
+    EXPECT_EQ(task.getInputKeys().size(), 3);
     EXPECT_EQ(task.getInputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INOUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getInputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INPUT_PROFILES_PORT), "profiles");
-    EXPECT_EQ(task.getInputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INPUT_MANIP_INFO_PORT), "manip_info");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(MotionPlannerTask<TrajOptMotionPlanner>::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -2746,7 +2730,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -2765,10 +2748,9 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     RasterMotionTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
+    EXPECT_EQ(task.getInputKeys().size(), 2);
     EXPECT_EQ(task.getInputKeys().get(RasterMotionTask::INOUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(RasterMotionTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(RasterMotionTask::INPUT_MANIP_INFO_PORT), "manip_info");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(RasterMotionTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -2807,7 +2789,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -2823,7 +2804,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -2838,7 +2818,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -2855,7 +2834,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -2872,7 +2850,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -2889,7 +2866,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -2909,7 +2885,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -2928,7 +2903,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -2949,7 +2923,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -2970,7 +2943,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -2991,7 +2963,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -3015,7 +2986,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -3134,7 +3104,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -3178,7 +3147,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -3223,7 +3191,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -3268,7 +3235,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            freespace:
@@ -3327,7 +3293,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            raster:
@@ -3342,10 +3307,9 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     RasterOnlyMotionTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 3);
+    EXPECT_EQ(task.getInputKeys().size(), 2);
     EXPECT_EQ(task.getInputKeys().get(RasterOnlyMotionTask::INOUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(RasterOnlyMotionTask::INPUT_ENVIRONMENT_PORT), "environment");
-    EXPECT_EQ(task.getInputKeys().get(RasterOnlyMotionTask::INPUT_MANIP_INFO_PORT), "manip_info");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
     EXPECT_EQ(task.getOutputKeys().get(RasterOnlyMotionTask::INOUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
@@ -3364,8 +3328,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            conditional: true
                            inputs:
                              program: input_data
-                             environment: environment
-                             manip_info: manip_info)";
+                             environment: environment)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -3385,7 +3348,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            raster:
@@ -3401,7 +3363,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            raster:
@@ -3416,7 +3377,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            raster:
@@ -3433,7 +3393,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            raster:
@@ -3450,7 +3409,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            raster:
@@ -3467,7 +3425,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            raster:
@@ -3487,7 +3444,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            raster:
@@ -3601,7 +3557,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            raster:
@@ -3641,7 +3596,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            raster:
@@ -3682,7 +3636,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            raster:
@@ -3723,7 +3676,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
-                             manip_info: manip_info
                            outputs:
                              program: output_data
                            raster:

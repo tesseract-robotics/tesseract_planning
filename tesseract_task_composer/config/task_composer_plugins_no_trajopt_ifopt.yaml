@@ -49,7 +49,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -61,7 +60,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -70,7 +68,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
           edges:
@@ -155,7 +152,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -167,7 +163,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -176,7 +171,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
           edges:
@@ -261,7 +255,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -273,7 +266,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
           edges:
@@ -356,7 +348,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -368,7 +359,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
           edges:
@@ -451,7 +441,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -463,7 +452,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -472,7 +460,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
           edges:
@@ -557,7 +544,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -569,7 +555,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -578,7 +563,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
           edges:
@@ -663,7 +647,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -675,7 +658,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -687,7 +669,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -696,7 +677,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
           edges:
@@ -783,7 +763,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -795,7 +774,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -807,7 +785,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -816,7 +793,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
           edges:
@@ -903,7 +879,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -915,7 +890,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: false
@@ -927,7 +901,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -936,7 +909,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
           edges:
@@ -1013,7 +985,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1024,7 +995,6 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 freespace:
@@ -1116,7 +1086,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1127,7 +1096,6 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 freespace:
@@ -1219,7 +1187,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1230,7 +1197,6 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 raster:
@@ -1315,7 +1281,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1326,7 +1291,6 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 raster:
@@ -1411,7 +1375,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1423,7 +1386,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1434,7 +1396,6 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 freespace:
@@ -1528,7 +1489,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1540,7 +1500,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1551,7 +1510,6 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 freespace:
@@ -1645,7 +1603,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1657,7 +1614,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1668,7 +1624,6 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 raster:
@@ -1755,7 +1710,6 @@ task_composer_plugins:
                   program: input_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1767,7 +1721,6 @@ task_composer_plugins:
                   program: output_data
                   environment: environment
                   profiles: profiles
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 format_result_as_input: true
@@ -1778,7 +1731,6 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
-                  manip_info: manip_info
                 outputs:
                   program: output_data
                 raster:

@@ -61,7 +61,6 @@ This file allows you define Excutors and Tasks (aka Nodes).
                      program: input_data
                      environment: environment
                      profiles: profiles
-                     composite_profile_remapping: composite_profile_remapping
                    outputs:
                      program: output_data
                DescartesMotionPlannerTask:
@@ -72,9 +71,6 @@ This file allows you define Excutors and Tasks (aka Nodes).
                      program: output_data
                      environment: environment
                      profiles: profiles
-                     manip_info: manip_info
-                     composite_profile_remapping: composite_profile_remapping
-                     move_profile_remapping: move_profile_remapping
                    outputs:
                      program: output_data
                    format_result_as_input: false
@@ -86,8 +82,6 @@ This file allows you define Excutors and Tasks (aka Nodes).
                      program: output_data
                      environment: environment
                      profiles: profiles
-                     manip_info: manip_info
-                     composite_profile_remapping: composite_profile_remapping
                IterativeSplineParameterizationTask:
                  class: IterativeSplineParameterizationTaskFactory
                  config:
@@ -96,9 +90,6 @@ This file allows you define Excutors and Tasks (aka Nodes).
                      program: output_data
                      environment: environment
                      profiles: profiles
-                     manip_info: manip_info
-                     composite_profile_remapping: composite_profile_remapping
-                     move_profile_remapping: move_profile_remapping
                    outputs:
                      program: output_data
              edges:
@@ -183,7 +174,6 @@ Define the graph nodes and edges as shown in the config below.
                 program: input_data
                 environment: environment
                 profiles: profiles
-                composite_profile_remapping: composite_profile_remapping
               outputs:
                 program: output_data
           DescartesMotionPlannerTask:
@@ -194,9 +184,6 @@ Define the graph nodes and edges as shown in the config below.
                 program: output_data
                 environment: environment
                 profiles: profiles
-                manip_info: manip_info
-                composite_profile_remapping: composite_profile_remapping
-                move_profile_remapping: move_profile_remapping
               outputs:
                 program: output_data
               format_result_as_input: true
@@ -208,9 +195,6 @@ Define the graph nodes and edges as shown in the config below.
                 program: output_data
                 environment: environment
                 profiles: profiles
-                manip_info: manip_info
-                composite_profile_remapping: composite_profile_remapping
-                move_profile_remapping: move_profile_remapping
               outputs:
                 program: output_data
               format_result_as_input: false
@@ -222,8 +206,6 @@ Define the graph nodes and edges as shown in the config below.
                 program: output_data
                 environment: environment
                 profiles: profiles
-                manip_info: manip_info
-                composite_profile_remapping: composite_profile_remapping
           IterativeSplineParameterizationTask:
             class: IterativeSplineParameterizationTaskFactory
             config:
@@ -232,9 +214,6 @@ Define the graph nodes and edges as shown in the config below.
                 program: output_data
                 environment: environment
                 profiles: profiles
-                manip_info: manip_info
-                composite_profile_remapping: composite_profile_remapping
-                move_profile_remapping: move_profile_remapping
               outputs:
                 program: output_data
         edges:
@@ -277,7 +256,6 @@ Also you can indicate that it should abort if a terminal is reached by specifyin
                program: input_data
                environment: environment
                profiles: profiles
-               composite_profile_remapping: composite_profile_remapping
              outputs:
                program: output_data
          CartesianTask:
@@ -340,7 +318,6 @@ Here is an example where the namespace field is used to reuse a contact check co
                      program: input_data
                      environment: environment
                      profiles: profiles
-                     composite_profile_remapping: composite_profile_remapping
                    outputs:
                      program: output_data
                TrajOptMotionPlannerTask:
@@ -351,9 +328,6 @@ Here is an example where the namespace field is used to reuse a contact check co
                      program: output_data
                      environment: environment
                      profiles: profiles
-                     manip_info: manip_info
-                     composite_profile_remapping: composite_profile_remapping
-                     move_profile_remapping: move_profile_remapping
                    outputs:
                      program: output_data
                    format_result_as_input: false
@@ -366,8 +340,6 @@ Here is an example where the namespace field is used to reuse a contact check co
                      program: output_data
                      environment: environment
                      profiles: profiles
-                     manip_info: manip_info
-                     composite_profile_remapping: composite_profile_remapping
                OMPLMotionPlannerTask:
                  class: OMPLMotionPlannerTaskFactory
                  config:
@@ -384,8 +356,6 @@ Here is an example where the namespace field is used to reuse a contact check co
                      program: output_data
                      environment: environment
                      profiles: profiles
-                     manip_info: manip_info
-                     composite_profile_remapping: composite_profile_remapping
                IterativeSplineParameterizationTask:
                  class: IterativeSplineParameterizationTaskFactory
                  config:
@@ -394,9 +364,6 @@ Here is an example where the namespace field is used to reuse a contact check co
                      program: output_data
                      environment: environment
                      profiles: profiles
-                     manip_info: manip_info
-                     composite_profile_remapping: composite_profile_remapping
-                     move_profile_remapping: move_profile_remapping
                    outputs:
                      program: output_data
              edges:
@@ -432,9 +399,6 @@ Task for running Descartes motion planner
          program: output_data
          environment: environment
          profiles: profiles
-         manip_info: manip_info
-         composite_profile_remapping: composite_profile_remapping
-         move_profile_remapping: move_profile_remapping
        outputs:
          program: output_data
        format_result_as_input: false
@@ -453,9 +417,6 @@ Task for running Descartes motion planner
          program: output_data
          environment: environment
          profiles: profiles
-         manip_info: manip_info
-         composite_profile_remapping: composite_profile_remapping
-         move_profile_remapping: move_profile_remapping
        outputs:
          program: output_data
        format_result_as_input: false
@@ -476,9 +437,6 @@ Task for running OMPL motion planner
          program: output_data
          environment: environment
          profiles: profiles
-         manip_info: manip_info
-         composite_profile_remapping: composite_profile_remapping
-         move_profile_remapping: move_profile_remapping
        outputs:
          program: output_data
        format_result_as_input: false
@@ -499,9 +457,6 @@ Task for running TrajOpt motion planner
          program: output_data
          environment: environment
          profiles: profiles
-         manip_info: manip_info
-         composite_profile_remapping: composite_profile_remapping
-         move_profile_remapping: move_profile_remapping
        outputs:
          program: output_data
        format_result_as_input: false
@@ -522,9 +477,6 @@ Task for running TrajOpt Ifopt motion planner
          program: output_data
          environment: environment
          profiles: profiles
-         manip_info: manip_info
-         composite_profile_remapping: composite_profile_remapping
-         move_profile_remapping: move_profile_remapping
        outputs:
          program: output_data
        format_result_as_input: false
@@ -545,9 +497,6 @@ Task for running Simple motion planner
          program: output_data
          environment: environment
          profiles: profiles
-         manip_info: manip_info
-         composite_profile_remapping: composite_profile_remapping
-         move_profile_remapping: move_profile_remapping
        outputs:
          program: output_data
        format_result_as_input: true
@@ -568,9 +517,6 @@ Perform iterative spline time parameterization
          program: output_data
          environment: environment
          profiles: profiles
-         manip_info: manip_info
-         composite_profile_remapping: composite_profile_remapping
-         move_profile_remapping: move_profile_remapping
        outputs:
          program: output_data
        add_points: true # optional
@@ -591,9 +537,6 @@ Perform time optimal time parameterization
          program: output_data
          environment: environment
          profiles: profiles
-         manip_info: manip_info
-         composite_profile_remapping: composite_profile_remapping
-         move_profile_remapping: move_profile_remapping
        outputs:
          program: output_data
 
@@ -613,9 +556,6 @@ Perform trajectory smoothing leveraging Ruckig. Time parameterization must be ra
          program: output_data
          environment: environment
          profiles: profiles
-         manip_info: manip_info
-         composite_profile_remapping: composite_profile_remapping
-         move_profile_remapping: move_profile_remapping
        outputs:
          program: output_data
 
@@ -631,7 +571,6 @@ Raster Motion Task
        inputs:
          program: output_data
          environment: environment
-         manip_info: manip_info
        outputs:
          program: output_data
        freespace:
@@ -665,7 +604,6 @@ Raster Only Motion Task
        inputs:
          program: output_data
          environment: environment
-         manip_info: manip_info
        outputs:
          program: output_data
        raster:
@@ -698,8 +636,6 @@ Continuous collision check trajectory task
          program: output_data
          environment: environment
          profiles: profiles
-         manip_info: manip_info
-         composite_profile_remapping: composite_profile_remapping
 
 Discrete Contact Check Task
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -717,8 +653,6 @@ Discrete collision check trajectory task
          program: output_data
          environment: environment
          profiles: profiles
-         manip_info: manip_info
-         composite_profile_remapping: composite_profile_remapping
 
 Done Task
 ^^^^^^^^^
@@ -788,8 +722,6 @@ This task modifies the input instructions in order to push waypoints that are ou
          program: output_data
          environment: environment
          profiles: profiles
-         manip_info: manip_info
-         composite_profile_remapping: composite_profile_remapping
        outputs:
          program: output_data
 
@@ -812,8 +744,6 @@ This task modifies the input instructions in order to push waypoints that are in
          program: output_data
          environment: environment
          profiles: profiles
-         manip_info: manip_info
-         composite_profile_remapping: composite_profile_remapping
        outputs:
          program: output_data
 
@@ -833,7 +763,6 @@ Task for processing the input data so it meets a minimum length. Planners like t
          program: input_data
          environment: environment
          profiles: profiles
-         composite_profile_remapping: composite_profile_remapping
        outputs:
          program: output_data
 
@@ -852,7 +781,6 @@ This task simply returns a value specified in the composite profile. This can be
        inputs:
          program: input_data
          profiles: profiles
-         composite_profile_remapping: composite_profile_remapping
 
 Upsample Trajectory Task
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -872,7 +800,6 @@ This is used to upsample the results trajectory based on the longest valid segme
        inputs:
          program: input_data
          profiles: profiles
-         composite_profile_remapping: composite_profile_remapping
        outputs:
          program: output_data
 

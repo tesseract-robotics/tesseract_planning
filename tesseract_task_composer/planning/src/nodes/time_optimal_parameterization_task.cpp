@@ -60,9 +60,6 @@ const std::string TimeOptimalParameterizationTask::INOUT_PROGRAM_PORT = "program
 const std::string TimeOptimalParameterizationTask::INPUT_ENVIRONMENT_PORT = "environment";
 const std::string TimeOptimalParameterizationTask::INPUT_PROFILES_PORT = "profiles";
 
-// Optional
-const std::string TimeOptimalParameterizationTask::INPUT_MANIP_INFO_PORT = "manip_info";
-
 TimeOptimalParameterizationTask::TimeOptimalParameterizationTask()
   : TaskComposerTask("TimeOptimalParameterizationTask", TimeOptimalParameterizationTask::ports(), true)
 {
@@ -95,8 +92,6 @@ TaskComposerNodePorts TimeOptimalParameterizationTask::ports()
   ports.input_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
-
-  ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
 
@@ -134,13 +129,8 @@ TimeOptimalParameterizationTask::runImpl(TaskComposerContext& context, OptionalT
   }
   tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
 
-  tesseract_common::ManipulatorInfo input_manip_info;
-  auto manip_info_poly = getData(*context.data_storage, INPUT_MANIP_INFO_PORT, false);
-  if (!manip_info_poly.isNull())
-    input_manip_info = manip_info_poly.as<tesseract_common::ManipulatorInfo>();
-
   auto& ci = input_data_poly.as<CompositeInstruction>();
-  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(input_manip_info);
+  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo();
   auto joint_group = env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
 

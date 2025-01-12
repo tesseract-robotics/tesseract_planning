@@ -44,9 +44,6 @@ public:
   static const std::string INPUT_ENVIRONMENT_PORT;
   static const std::string INPUT_PROFILES_PORT;
 
-  // Optional
-  static const std::string INPUT_MANIP_INFO_PORT;
-
   using Ptr = std::shared_ptr<RuckigTrajectorySmoothingTask>;
   using ConstPtr = std::shared_ptr<const RuckigTrajectorySmoothingTask>;
   using UPtr = std::unique_ptr<RuckigTrajectorySmoothingTask>;

@@ -54,9 +54,6 @@ const std::string IterativeSplineParameterizationTask::INOUT_PROGRAM_PORT = "pro
 const std::string IterativeSplineParameterizationTask::INPUT_ENVIRONMENT_PORT = "environment";
 const std::string IterativeSplineParameterizationTask::INPUT_PROFILES_PORT = "profiles";
 
-// Optional
-const std::string IterativeSplineParameterizationTask::INPUT_MANIP_INFO_PORT = "manip_info";
-
 IterativeSplineParameterizationTask::IterativeSplineParameterizationTask()
   : TaskComposerTask("IterativeSplineParameterizationTask", IterativeSplineParameterizationTask::ports(), true)
 {
@@ -104,8 +101,6 @@ TaskComposerNodePorts IterativeSplineParameterizationTask::ports()
   ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
-  ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
-
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
 
   return ports;
@@ -143,19 +138,13 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
   }
   tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
 
-  tesseract_common::ManipulatorInfo input_manip_info;
-  auto manip_info_poly = getData(*context.data_storage, INPUT_MANIP_INFO_PORT, false);
-  if (!manip_info_poly.isNull())
-    input_manip_info = manip_info_poly.as<tesseract_common::ManipulatorInfo>();
-
   auto& ci = input_data_poly.as<CompositeInstruction>();
-  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(input_manip_info);
+  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo();
   auto joint_group = env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
 
   // Get Composite Profile
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
-  std::string profile = ci.getProfile();
   auto cur_composite_profile = getProfile<IterativeSplineParameterizationProfile>(
       ns_, ci.getProfile(ns_), *profiles, std::make_shared<IterativeSplineParameterizationProfile>());
 

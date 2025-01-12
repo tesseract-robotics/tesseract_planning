@@ -98,9 +98,6 @@ namespace tesseract_planning
 const std::string RasterOnlyMotionTask::INOUT_PROGRAM_PORT = "program";
 const std::string RasterOnlyMotionTask::INPUT_ENVIRONMENT_PORT = "environment";
 
-// Optional
-const std::string RasterOnlyMotionTask::INPUT_MANIP_INFO_PORT = "manip_info";
-
 RasterOnlyMotionTask::RasterOnlyMotionTask()
   : TaskComposerTask("RasterOnlyMotionTask", RasterOnlyMotionTask::ports(), true)
 {
@@ -274,7 +271,6 @@ TaskComposerNodePorts RasterOnlyMotionTask::ports()
   ports.input_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
 
-  ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   return ports;
 }
@@ -315,11 +311,6 @@ std::unique_ptr<TaskComposerNodeInfo> RasterOnlyMotionTask::runImpl(TaskComposer
       env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>()->clone();
   info->data_storage.setData("environment", env);
 
-  tesseract_common::ManipulatorInfo input_manip_info;
-  auto manip_info_poly = getData(*context.data_storage, INPUT_MANIP_INFO_PORT, false);
-  if (!manip_info_poly.isNull())
-    input_manip_info = manip_info_poly.as<tesseract_common::ManipulatorInfo>();
-
   auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
   try
   {
@@ -333,9 +324,9 @@ std::unique_ptr<TaskComposerNodeInfo> RasterOnlyMotionTask::runImpl(TaskComposer
   }
 
   auto& program = input_data_poly.template as<CompositeInstruction>();
-  TaskComposerGraph task_graph;
+  tesseract_common::ManipulatorInfo program_manip_info = program.getManipulatorInfo();
 
-  tesseract_common::ManipulatorInfo program_manip_info = program.getManipulatorInfo().getCombined(input_manip_info);
+  TaskComposerGraph task_graph;
 
   // Start Task
   auto start_task = std::make_unique<StartTask>();
