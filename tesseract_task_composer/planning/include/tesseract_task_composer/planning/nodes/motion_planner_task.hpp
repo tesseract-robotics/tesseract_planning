@@ -56,9 +56,6 @@ public:
   static const std::string INPUT_ENVIRONMENT_PORT;
   static const std::string INPUT_PROFILES_PORT;
 
-  // Optional
-  static const std::string INPUT_MANIP_INFO_PORT;
-
   MotionPlannerTask() : TaskComposerTask("MotionPlannerTask", MotionPlannerTask<MotionPlannerType>::ports(), true) {}
   explicit MotionPlannerTask(std::string name,  // NOLINT(performance-unnecessary-value-param)
                              std::string input_program_key,
@@ -127,8 +124,6 @@ protected:
     ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
     ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
-    ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
-
     ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
     return ports;
   }
@@ -167,16 +162,10 @@ protected:
     auto profiles =
         getData(*context.data_storage, INPUT_PROFILES_PORT).template as<std::shared_ptr<ProfileDictionary>>();
 
-    tesseract_common::ManipulatorInfo input_manip_info;
-    auto manip_info_poly = getData(*context.data_storage, INPUT_MANIP_INFO_PORT, false);
-    if (!manip_info_poly.isNull())
-      input_manip_info = manip_info_poly.template as<tesseract_common::ManipulatorInfo>();
-
     // Make a non-const copy of the input instructions to update the start/end
     auto& instructions = input_data_poly.template as<CompositeInstruction>();
-    if (input_manip_info.empty() && instructions.getManipulatorInfo().empty())
+    if (instructions.getManipulatorInfo().empty())
       throw std::runtime_error("Missing manipulator information");
-    instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input_manip_info));
 
     // --------------------
     // Fill out request
@@ -234,10 +223,6 @@ const std::string MotionPlannerTask<MotionPlannerType>::INPUT_ENVIRONMENT_PORT =
 
 template <typename MotionPlannerType>
 const std::string MotionPlannerTask<MotionPlannerType>::INPUT_PROFILES_PORT = "profiles";
-
-// Optional
-template <typename MotionPlannerType>
-const std::string MotionPlannerTask<MotionPlannerType>::INPUT_MANIP_INFO_PORT = "manip_info";
 
 }  // namespace tesseract_planning
 

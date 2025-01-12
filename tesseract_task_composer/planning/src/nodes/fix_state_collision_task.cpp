@@ -65,7 +65,6 @@ const std::string FixStateCollisionTask::INPUT_ENVIRONMENT_PORT = "environment";
 const std::string FixStateCollisionTask::INPUT_PROFILES_PORT = "profiles";
 
 // Optional
-const std::string FixStateCollisionTask::INPUT_MANIP_INFO_PORT = "manip_info";
 const std::string FixStateCollisionTask::OUTPUT_CONTACT_RESULTS_PORT = "contact_results";
 
 bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
@@ -380,8 +379,6 @@ TaskComposerNodePorts FixStateCollisionTask::ports()
   ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
-  ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
-
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   ports.output_optional[OUTPUT_CONTACT_RESULTS_PORT] = TaskComposerNodePorts::SINGLE;
 
@@ -419,11 +416,6 @@ std::unique_ptr<TaskComposerNodeInfo> FixStateCollisionTask::runImpl(TaskCompose
   }
 
   tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
-
-  tesseract_common::ManipulatorInfo input_manip_info;
-  auto manip_info_poly = getData(*context.data_storage, INPUT_MANIP_INFO_PORT, false);
-  if (!manip_info_poly.isNull())
-    input_manip_info = manip_info_poly.as<tesseract_common::ManipulatorInfo>();
 
   // Get Composite Profile
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();

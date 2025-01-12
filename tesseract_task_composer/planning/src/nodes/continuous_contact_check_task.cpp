@@ -62,7 +62,6 @@ const std::string ContinuousContactCheckTask::INPUT_ENVIRONMENT_PORT = "environm
 const std::string ContinuousContactCheckTask::INPUT_PROFILES_PORT = "profiles";
 
 // Optional
-const std::string ContinuousContactCheckTask::INPUT_MANIP_INFO_PORT = "manip_info";
 const std::string ContinuousContactCheckTask::OUTPUT_CONTACT_RESULTS_PORT = "contact_results";
 
 ContinuousContactCheckTask::ContinuousContactCheckTask()
@@ -97,7 +96,6 @@ TaskComposerNodePorts ContinuousContactCheckTask::ports()
   ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
-  ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
   ports.output_optional[OUTPUT_CONTACT_RESULTS_PORT] = TaskComposerNodePorts::SINGLE;
 
   return ports;
@@ -135,11 +133,6 @@ ContinuousContactCheckTask::runImpl(TaskComposerContext& context, OptionalTaskCo
     return info;
   }
 
-  tesseract_common::ManipulatorInfo input_manip_info;
-  auto manip_info_poly = getData(*context.data_storage, INPUT_MANIP_INFO_PORT, false);
-  if (!manip_info_poly.isNull())
-    input_manip_info = manip_info_poly.as<tesseract_common::ManipulatorInfo>();
-
   // Get Composite Profile
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
@@ -148,7 +141,7 @@ ContinuousContactCheckTask::runImpl(TaskComposerContext& context, OptionalTaskCo
   auto cur_composite_profile = getProfile<ContactCheckProfile>(ns_, ci.getProfile(ns_), *profiles, default_profile);
 
   // Get state solver
-  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(input_manip_info);
+  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo();
   tesseract_kinematics::JointGroup::ConstPtr manip = env->getJointGroup(manip_info.manipulator);
   tesseract_scene_graph::StateSolver::UPtr state_solver = env->getStateSolver();
 

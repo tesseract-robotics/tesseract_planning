@@ -62,7 +62,6 @@ const std::string DiscreteContactCheckTask::INPUT_ENVIRONMENT_PORT = "environmen
 const std::string DiscreteContactCheckTask::INPUT_PROFILES_PORT = "profiles";
 
 // Optional
-const std::string DiscreteContactCheckTask::INPUT_MANIP_INFO_PORT = "manip_info";
 const std::string DiscreteContactCheckTask::OUTPUT_CONTACT_RESULTS_PORT = "contact_results";
 
 DiscreteContactCheckTask::DiscreteContactCheckTask()
@@ -96,8 +95,6 @@ TaskComposerNodePorts DiscreteContactCheckTask::ports()
   ports.input_required[INPUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
-
-  ports.input_optional[INPUT_MANIP_INFO_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.output_optional[OUTPUT_CONTACT_RESULTS_PORT] = TaskComposerNodePorts::SINGLE;
   return ports;
@@ -133,11 +130,6 @@ std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTask::runImpl(TaskComp
     return info;
   }
 
-  tesseract_common::ManipulatorInfo input_manip_info;
-  auto manip_info_poly = getData(*context.data_storage, INPUT_MANIP_INFO_PORT, false);
-  if (!manip_info_poly.isNull())
-    input_manip_info = manip_info_poly.as<tesseract_common::ManipulatorInfo>();
-
   // Get Composite Profile
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
@@ -145,7 +137,7 @@ std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTask::runImpl(TaskComp
       getProfile<ContactCheckProfile>(ns_, ci.getProfile(ns_), *profiles, std::make_shared<ContactCheckProfile>());
 
   // Get state solver
-  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(input_manip_info);
+  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo();
   tesseract_kinematics::JointGroup::ConstPtr manip = env->getJointGroup(manip_info.manipulator);
   tesseract_scene_graph::StateSolver::UPtr state_solver = env->getStateSolver();
   tesseract_collision::DiscreteContactManager::Ptr manager = env->getDiscreteContactManager();
