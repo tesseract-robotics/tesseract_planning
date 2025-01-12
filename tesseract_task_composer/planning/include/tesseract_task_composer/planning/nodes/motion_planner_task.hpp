@@ -174,7 +174,8 @@ protected:
 
     // Make a non-const copy of the input instructions to update the start/end
     auto& instructions = input_data_poly.template as<CompositeInstruction>();
-    assert(!(input_manip_info.empty() && instructions.getManipulatorInfo().empty()));
+    if (input_manip_info.empty() && instructions.getManipulatorInfo().empty())
+      throw std::runtime_error("Missing manipulator information");
     instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input_manip_info));
 
     // --------------------
@@ -193,13 +194,14 @@ protected:
     if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
       request.verbose = true;
     PlannerResponse response = planner_->solve(request);
-    setData(*context.data_storage, INOUT_PROGRAM_PORT, response.results);
 
     // --------------------
     // Verify Success
     // --------------------
     if (response)
     {
+      // Should only set on success to support error branching
+      setData(*context.data_storage, INOUT_PROGRAM_PORT, response.results);
       info->return_value = 1;
       info->color = "green";
       info->status_code = 1;
