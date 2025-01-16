@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.28.0 (2025-01-16)
+-------------------
 * Include task composer in .run-cpack, fix typos in CMakeLists (`#577 <https://github.com/tesseract-robotics/tesseract_planning/issues/577>`_)
 * Update tesseract collision validator
 * Fix ompl so it only simplifies when requested (`#562 <https://github.com/tesseract-robotics/tesseract_planning/issues/562>`_)

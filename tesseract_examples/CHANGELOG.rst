@@ -2,8 +2,8 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.28.0 (2025-01-16)
+-------------------
 * Fix cpack build and enable during CI pipeline
 * Leverage tesseract_common loadYamlFile and loadYamlString
 * Modify composite instruction constructor

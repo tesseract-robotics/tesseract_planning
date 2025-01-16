@@ -2,8 +2,8 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.28.0 (2025-01-16)
+-------------------
 * Modify composite instruction constructor
 * Fix composite and move instruction equal operator and serialization (`#561 <https://github.com/tesseract-robotics/tesseract_planning/issues/561>`_)
 * Fix formatJointPosition handle of cartesian seed
