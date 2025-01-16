@@ -45,7 +45,7 @@ jobs:
       matrix:
         distro: [focal, jammy, noble]
     container:
-      image: ghcr.io/tesseract-robotics/tesseract_planning:${{ matrix.distro }}-${{ needs.get-tag.outputs.major }}.${{ needs.get-tag.outputs.minor }}
+      image: ghcr.io/tesseract-robotics/trajopt:${{ matrix.distro }}-${{ needs.get-tag.outputs.major }}.${{ needs.get-tag.outputs.minor }}
       env:
         DEBIAN_FRONTEND: noninteractive
         TZ: Etc/UTC
@@ -78,7 +78,7 @@ jobs:
       - name: Build and test
         uses: tesseract-robotics/colcon-action@v9
         with:
-          before-script: source /opt/tesseract/install/setup.bash && source /opt/tesseract_planning/install/setup.bash
+          before-script: source /opt/tesseract/install/setup.bash && source /opt/trajopt/install/setup.bash
           ccache-enabled: false
           vcs-file: dependencies.repos
           upstream-args: --cmake-args -DCMAKE_BUILD_TYPE=Release
