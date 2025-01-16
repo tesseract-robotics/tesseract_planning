@@ -2,6 +2,9 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.28.0 (2025-01-16)
 -------------------
 * Modify composite instruction constructor
