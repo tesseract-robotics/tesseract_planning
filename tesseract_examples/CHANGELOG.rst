@@ -2,6 +2,18 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix cpack build and enable during CI pipeline
+* Leverage tesseract_common loadYamlFile and loadYamlString
+* Modify composite instruction constructor
+* Changes required now that environment return const shared pointers for getKinematicGroup and getJointGroup
+* New TrajOpt IFOPT profiles
+* Add new TrajOpt Profiles
+* Add simple ompl profile interface
+* Add profile base class and update profile dictionary to not leverage template methods
+* Contributors: Levi Armstrong
+
 0.27.0 (2024-12-01)
 -------------------
 * Update online example to pause every 10 seconds

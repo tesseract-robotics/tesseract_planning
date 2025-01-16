@@ -2,6 +2,27 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Include task composer in .run-cpack, fix typos in CMakeLists (`#577 <https://github.com/tesseract-robotics/tesseract_planning/issues/577>`_)
+* Update tesseract collision validator
+* Fix ompl so it only simplifies when requested (`#562 <https://github.com/tesseract-robotics/tesseract_planning/issues/562>`_)
+* Changes required now that environment return const shared pointers for getKinematicGroup and getJointGroup
+* Fix ompl use of simplify
+* New TrajOpt IFOPT profiles
+* Improve descartes plan profile to include sample min, max and ik solver setting
+* Add new TrajOpt Profiles
+* Add simple ompl profile interface
+* Update descartes profiles (`#546 <https://github.com/tesseract-robotics/tesseract_planning/issues/546>`_)
+* Remove PlanningRequest form simple profile interface
+* Remove env_state from planning request
+* Fix windows build (`#542 <https://github.com/tesseract-robotics/tesseract_planning/issues/542>`_)
+  Co-authored-by: John Wason <wason@wasontech.com>
+* Modify the concept of profile overrides in Composite and Move Instruction
+* Add boost serialization to profiles
+* Add profile base class and update profile dictionary to not leverage template methods
+* Contributors: Levi Armstrong, Max DeSantis
+
 0.27.0 (2024-12-01)
 -------------------
 * Add FormatPlanningInputTask

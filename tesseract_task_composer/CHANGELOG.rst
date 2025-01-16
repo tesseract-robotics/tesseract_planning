@@ -2,6 +2,26 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix cpack build and enable during CI pipeline
+* Remove manip_info as option task input
+* Fix motion planner task to support error branching
+* Fix cpack name when components contain underscore
+* Include task composer in .run-cpack, fix typos in CMakeLists (`#577 <https://github.com/tesseract-robotics/tesseract_planning/issues/577>`_)
+* Fix MSVC compiler error in TaskComposerPluginFactory
+* Leverage tesseract_common loadYamlFile and loadYamlString
+* Modify composite instruction constructor
+* Fix composite and move instruction equal operator and serialization (`#561 <https://github.com/tesseract-robotics/tesseract_planning/issues/561>`_)
+* Changes required now that environment return const shared pointers for getKinematicGroup and getJointGroup
+* Add Ruckig composite profile serialization
+* Remove env_state from planning request
+* Address some windows build issues (`#541 <https://github.com/tesseract-robotics/tesseract_planning/issues/541>`_)
+* Modify the concept of profile overrides in Composite and Move Instruction
+* Add boost serialization to profiles
+* Add profile base class and update profile dictionary to not leverage template methods
+* Contributors: John Wason, Levi Armstrong, Max DeSantis, Roelof Oomen
+
 0.27.0 (2024-12-01)
 -------------------
 * Add FormatPlanningInputTask

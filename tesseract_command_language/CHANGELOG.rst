@@ -2,6 +2,18 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Modify composite instruction constructor
+* Fix composite and move instruction equal operator and serialization (`#561 <https://github.com/tesseract-robotics/tesseract_planning/issues/561>`_)
+* Fix formatJointPosition handle of cartesian seed
+* Fixed clang-format in command language test suite
+* Do not delete special member functions (`#551 <https://github.com/tesseract-robotics/tesseract_planning/issues/551>`_)
+* Modify the concept of profile overrides in Composite and Move Instruction
+* Add boost serialization to profiles
+* Add profile base class and update profile dictionary to not leverage template methods
+* Contributors: Levi Armstrong, Michael Ripperger, Roelof Oomen
+
 0.27.0 (2024-12-01)
 -------------------
 * Simplify the type erasure poly
