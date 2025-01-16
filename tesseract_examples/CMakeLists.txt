@@ -164,3 +164,44 @@ if(TESSERACT_ENABLE_TESTING)
   add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
   add_subdirectory(test)
 endif()
+
+if(TESSERACT_PACKAGE)
+  cpack(
+    VERSION ${pkg_extracted_version}
+    MAINTAINER_NAME ${pkg_extracted_maintainer_name}
+    MAINTAINER_EMAIL ${pkg_extracted_maintainer_email}
+    DESCRIPTION ${pkg_extracted_description}
+    LICENSE_FILE ${CMAKE_CURRENT_LIST_DIR}/../LICENSE
+    README_FILE ${CMAKE_CURRENT_LIST_DIR}/../README.md
+    LINUX_DEPENDS
+      "libconsole-bridge-dev"
+      "libpcl-dev"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-collision"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-environment"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-motion-planners"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-task-composer"
+      "${TESSERACT_PACKAGE_PREFIX}trajopt-sqp"
+      "${TESSERACT_PACKAGE_PREFIX}trajopt-ifopt"
+    WINDOWS_DEPENDS
+      "console-bridge"
+      "pcl"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-collision"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-environment"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-motion-planners"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-task-composer"
+      "${TESSERACT_PACKAGE_PREFIX}trajopt-sqp"
+      "${TESSERACT_PACKAGE_PREFIX}trajopt-ifopt")
+
+  if(UNIX AND TESSERACT_PACKAGE_SOURCE)
+    cpack_debian_source_package(
+      CHANGLELOG ${CMAKE_CURRENT_LIST_DIR}/CHANGELOG.rst
+      UPLOAD ${TESSERACT_PACKAGE_SOURCE_UPLOAD}
+      DPUT_HOST ${TESSERACT_PACKAGE_SOURCE_DPUT_HOST}
+      DEBIAN_INCREMENT ${TESSERACT_PACKAGE_SOURCE_DEBIAN_INCREMENT}
+      DISTRIBUTIONS ${TESSERACT_PACKAGE_SOURCE_DISTRIBUTIONS})
+  endif()
+endif()

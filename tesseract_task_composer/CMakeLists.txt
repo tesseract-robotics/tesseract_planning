@@ -78,6 +78,8 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE TESSERACT_TASK_COMPOSER_PLUGI
 
 # Examples
 if(TESSERACT_ENABLE_EXAMPLES)
+  message("Build task composer examples components")
+  list(APPEND SUPPORTED_COMPONENTS examples)
   add_subdirectory(examples)
 endif()
 
