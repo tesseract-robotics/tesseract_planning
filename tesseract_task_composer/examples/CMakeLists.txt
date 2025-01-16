@@ -53,9 +53,30 @@ target_cxx_version(${PROJECT_NAME}_raster_example PRIVATE VERSION ${TESSERACT_CX
 target_include_directories(${PROJECT_NAME}_raster_example PRIVATE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
 list(APPEND Examples ${PROJECT_NAME}_raster_example)
 
-install(
+# Configure Components
+configure_component(
+  COMPONENT examples
+  NAMESPACE tesseract
   TARGETS ${Examples}
-  EXPORT ${PROJECT_NAME}-targets
-  RUNTIME DESTINATION bin
-  LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION lib)
+  DEPENDENCIES
+    console_bridge
+    tesseract_environment
+    tesseract_command_language
+    tesseract_visualization)
+
+if(TESSERACT_PACKAGE)
+  cpack_component(
+    COMPONENT examples
+    VERSION ${pkg_extracted_version}
+    DESCRIPTION "Tesseract task composer examples components"
+    LINUX_DEPENDS
+      "libconsole-bridge-dev"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-environment"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-visualization"
+    WINDOWS_DEPENDS
+      "console-bridge"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-environment"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-visualization")
+endif()
