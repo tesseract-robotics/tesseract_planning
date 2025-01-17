@@ -24,6 +24,13 @@
  * limitations under the License.
  */
 
+#ifdef _WIN32
+// Macros to avoid Windows.h conflicts
+#define NOGDI
+#define NOMINMAX
+#define WIN32_LEAN_AND_MEAN
+#endif
+
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <OsqpEigen/Settings.hpp>
