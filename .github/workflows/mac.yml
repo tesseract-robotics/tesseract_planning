@@ -54,7 +54,7 @@ jobs:
         python-version: '3.12'
     - name: brew
       run: |
-        brew install libomp cmake automake autoconf libtool gcc ninja
+        brew install libomp cmake automake autoconf libtool gcc ninja pkgconf
     - name: vcpkg build
       uses: johnwason/vcpkg-action@v6
       with:
@@ -69,9 +69,6 @@ jobs:
     - name: pip3
       run: |
         python3 -m pip install numpy setuptools wheel pytest delvewheel colcon-common-extensions vcstool
-    - name: brew
-      run: |
-        brew install pkgconf
     - name: vcs import
       working-directory: ws/src
       run: vcs import --input tesseract_planning/.github/workflows/windows_dependencies.repos
