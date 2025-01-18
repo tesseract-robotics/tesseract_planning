@@ -41,6 +41,10 @@ jobs:
         cache-key: ci-${{ matrix.os }}
         github-binarycache: true
 
+    - name: choco
+      run: |
+        choco install pkgconfiglite -r
+
     - name: configure-msvc
       uses: ilammy/msvc-dev-cmd@v1
       with:
@@ -59,5 +63,5 @@ jobs:
         vcs-file: .github/workflows/windows_dependencies.repos
         upstream-args: --cmake-args -G "Ninja" -DVCPKG_TARGET_TRIPLET=x64-windows-release -DCMAKE_BUILD_TYPE=Release -DBUILD_IPOPT=ON -DBUILD_SNOPT=OFF -DTESSERACT_BUILD_TRAJOPT_IFOPT=OFF -DVCPKG_APPLOCAL_DEPS=OFF
         target-path: target_ws/src
-        target-args: --event-handlers console_cohesion+ --packages-ignore tesseract_examples --cmake-args -G "Ninja" -DVCPKG_TARGET_TRIPLET=x64-windows-release -DCMAKE_BUILD_TYPE=Release -DTESSERACT_ENABLE_TESTING=ON -DTESSERACT_BUILD_TRAJOPT_IFOPT=OFF -DVCPKG_APPLOCAL_DEPS=OFF
+        target-args: --event-handlers console_cohesion+ --packages-ignore tesseract_examples --cmake-args -G "Ninja" -DVCPKG_TARGET_TRIPLET=x64-windows-release -DCMAKE_BUILD_TYPE=Release -DTESSERACT_ENABLE_TESTING=ON -DTESSERACT_BUILD_TRAJOPT_IFOPT=ON -DVCPKG_APPLOCAL_DEPS=OFF
         run-tests-args: --packages-ignore tesseract_examples
