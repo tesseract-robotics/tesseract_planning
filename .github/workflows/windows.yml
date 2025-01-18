@@ -34,7 +34,7 @@ jobs:
           console-bridge eigen3 yaml-cpp benchmark tinyxml2 assimp orocos-kdl pcl
           lapack-reference boost-dll boost-filesystem boost-serialization boost-format boost-stacktrace
           boost-program-options boost-graph urdfdom ccd[double-precision] gtest
-          ompl taskflow jsoncpp flann benchmark
+          ompl taskflow jsoncpp flann benchmark coin-or-ipopt
         triplet: x64-windows-release
         extra-args: --clean-after-build
         token: ${{ github.token }}

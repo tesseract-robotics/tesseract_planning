@@ -24,7 +24,7 @@ env:
     urdfdom octomap orocos-kdl pcl
     gtest benchmark flann jsoncpp
     yaml-cpp eigen3
-    openblas
+    openblas coin-or-ipopt
     fcl ompl taskflow
     bullet3[multithreading,double-precision,rtti]
     ccd[double-precision] gperftools
