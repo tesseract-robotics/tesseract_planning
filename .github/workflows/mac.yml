@@ -104,6 +104,7 @@ jobs:
         set -e
         export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$GITHUB_WORKSPACE/vcpkg/installed/${{ matrix.config.vcpkg_triplet }}/lib
         export CMAKE_PREFIX_PATH=$GITHUB_WORKSPACE/vcpkg/installed/${{ matrix.config.vcpkg_triplet }}
+        export TESSERACT_RESOURCE_PATH=$GITHUB_WORKSPACE/ws/install/share
 
         colcon test --merge-install \
             --packages-ignore tesseract_examples trajopt_ifopt trajopt_sqp ifopt vhacd tesseract_python \
