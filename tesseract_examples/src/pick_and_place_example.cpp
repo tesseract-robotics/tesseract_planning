@@ -248,7 +248,7 @@ bool PickAndPlaceExample::run()
     trajopt_ifopt_composite_profile->collision_cost_config->collision_coeff_data =
         trajopt_common::CollisionCoeffData(50);
     trajopt_ifopt_composite_profile->smooth_velocities = true;
-    trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
+    trajopt_ifopt_composite_profile->velocity_coeff = 0.1 * Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->smooth_accelerations = true;
     trajopt_ifopt_composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->smooth_jerks = true;
