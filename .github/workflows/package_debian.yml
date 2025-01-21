@@ -92,7 +92,7 @@ jobs:
           mkdir $GITHUB_WORKSPACE/artifacts
 
       - name: Package ruckig
-        working-directory: target_ws/build/ruckig
+        working-directory: upstream_ws/build/ruckig
         shell: bash
         run: |
           cpack --config CPackConfig.cmake

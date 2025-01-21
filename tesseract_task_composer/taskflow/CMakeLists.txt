@@ -76,6 +76,6 @@ if(TESSERACT_PACKAGE)
     VERSION ${pkg_extracted_version}
     DESCRIPTION "Tesseract task composer taskflow components"
     COMPONENT_DEPENDS core
-    LINUX_DEPENDS "taskflow | ${TESSERACT_PACKAGE_PREFIX}taskflow"
-    WINDOWS_DEPENDS "taskflow | ${TESSERACT_PACKAGE_PREFIX}taskflow")
+    LINUX_DEPENDS "taskflow | libtaskflow-cpp-dev | ${TESSERACT_PACKAGE_PREFIX}taskflow"
+    WINDOWS_DEPENDS "taskflow | libtaskflow-cpp-dev | ${TESSERACT_PACKAGE_PREFIX}taskflow")
 endif()
