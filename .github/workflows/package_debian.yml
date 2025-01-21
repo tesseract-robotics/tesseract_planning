@@ -90,6 +90,14 @@ jobs:
         run: |
           mkdir $GITHUB_WORKSPACE/artifacts
 
+      - name: Package ruckig
+        working-directory: upstream_ws/build/ruckig
+        shell: bash
+        run: |
+          cpack --config CPackConfig.cmake
+          cp ./*.deb $GITHUB_WORKSPACE/artifacts
+          cp ./*.tar.xz $GITHUB_WORKSPACE/artifacts
+
       - name: Package tesseract_command_language
         working-directory: target_ws/build/tesseract_command_language
         shell: bash
