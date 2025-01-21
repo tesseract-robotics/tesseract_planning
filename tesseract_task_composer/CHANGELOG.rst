@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.28.2 (2025-01-21)
+-------------------
 * Fix cpack and add ruckig cpack generation and upload (`#585 <https://github.com/tesseract-robotics/tesseract_planning/issues/585>`_)
 * Contributors: Levi Armstrong
 
