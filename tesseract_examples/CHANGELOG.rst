@@ -2,6 +2,9 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.28.3 (2025-01-21)
 -------------------
 * Fix pick and place example

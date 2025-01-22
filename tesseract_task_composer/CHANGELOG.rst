@@ -2,6 +2,11 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update task composer examples to leverage resource url
+* Contributors: Levi Armstrong
+
 0.28.3 (2025-01-21)
 -------------------
 
