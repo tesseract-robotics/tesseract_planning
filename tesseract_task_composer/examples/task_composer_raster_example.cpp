@@ -50,9 +50,9 @@ int main()
       plotter->plotEnvironment(*env);
   }
   // Get plugin factory
-  const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
-  tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
-  TaskComposerPluginFactory factory(config_path, *locator);
+  auto resource = locator->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml");
+  tesseract_common::fs::path config_path(resource->getFilePath());
+  TaskComposerPluginFactory factory(config_path, *resource);
 
   // Create raster task
   TaskComposerNode::UPtr task = factory.createTaskComposerNode("RasterFtPipeline");
