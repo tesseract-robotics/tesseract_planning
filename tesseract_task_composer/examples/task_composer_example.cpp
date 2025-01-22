@@ -124,10 +124,10 @@ int main()
   task_composer.addEdges(task1_id, { task2_id });
   task_composer.addEdges(task2_id, { task3_id });
 
-  const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
   tesseract_common::GeneralResourceLocator locator;
-  tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
-  TaskComposerPluginFactory factory(config_path, locator);
+  auto resource = locator.locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml");
+  tesseract_common::fs::path config_path(resource->getFilePath());
+  TaskComposerPluginFactory factory(config_path, *resource);
 
   auto task_executor = factory.createTaskComposerExecutor("TaskflowExecutor");
   TaskComposerFuture::UPtr future = task_executor->run(task_composer, std::move(task_data));
