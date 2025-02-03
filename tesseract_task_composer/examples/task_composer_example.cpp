@@ -40,11 +40,11 @@ public:
     return ports;
   }
 
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
-                                     OptionalTaskComposerExecutor /*executor*/) const override final
+  TaskComposerNodeInfo runImpl(TaskComposerContext& context,
+                               OptionalTaskComposerExecutor /*executor*/) const override final
   {
-    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-    info->return_value = 0;
+    TaskComposerNodeInfo info(*this);
+    info.return_value = 0;
     std::cout << name_ << std::endl;
     double result = getData(*context.data_storage, INPUT_LEFT_PORT).as<double>() +
                     getData(*context.data_storage, INPUT_RIGHT_PORT).as<double>();
@@ -83,11 +83,11 @@ public:
     return ports;
   }
 
-  TaskComposerNodeInfo::UPtr runImpl(TaskComposerContext& context,
-                                     OptionalTaskComposerExecutor /*executor*/) const override final
+  TaskComposerNodeInfo runImpl(TaskComposerContext& context,
+                               OptionalTaskComposerExecutor /*executor*/) const override final
   {
-    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-    info->return_value = 0;
+    TaskComposerNodeInfo info(*this);
+    info.return_value = 0;
     std::cout << name_ << std::endl;
     double result = getData(*context.data_storage, INPUT_LEFT_PORT).as<double>() *
                     getData(*context.data_storage, INPUT_RIGHT_PORT).as<double>();

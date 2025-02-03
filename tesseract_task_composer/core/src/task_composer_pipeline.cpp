@@ -50,8 +50,8 @@ TaskComposerPipeline::TaskComposerPipeline(std::string name,
 {
 }
 
-std::unique_ptr<TaskComposerNodeInfo> TaskComposerPipeline::runImpl(TaskComposerContext& context,
-                                                                    OptionalTaskComposerExecutor executor) const
+TaskComposerNodeInfo TaskComposerPipeline::runImpl(TaskComposerContext& context,
+                                                   OptionalTaskComposerExecutor executor) const
 {
   if (terminals_.empty())
     throw std::runtime_error("TaskComposerPipeline, with name '" + name_ + "' does not have terminals!");
@@ -68,15 +68,15 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerPipeline::runImpl(TaskComposer
   for (std::size_t i = 0; i < terminals_.size(); ++i)
   {
     auto node_info = context.task_infos.getInfo(terminals_[i]);
-    if (node_info != nullptr)
+    if (node_info.has_value())
     {
       stopwatch.stop();
-      auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-      info->return_value = static_cast<int>(i);
-      info->color = node_info->color;
-      info->status_code = node_info->status_code;
-      info->status_message = node_info->status_message;
-      info->elapsed_time = stopwatch.elapsedSeconds();
+      TaskComposerNodeInfo info(*this);
+      info.return_value = static_cast<int>(i);
+      info.color = node_info->color;
+      info.status_code = node_info->status_code;
+      info.status_message = node_info->status_message;
+      info.elapsed_time = stopwatch.elapsedSeconds();
       return info;
     }
   }

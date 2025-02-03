@@ -43,14 +43,14 @@ SyncTask::SyncTask(std::string name, const YAML::Node& config, const TaskCompose
   if (conditional_)
     throw std::runtime_error("SyncTask, config is_conditional should not be true");
 }
-std::unique_ptr<TaskComposerNodeInfo> SyncTask::runImpl(TaskComposerContext& /*context*/,
-                                                        OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo SyncTask::runImpl(TaskComposerContext& /*context*/,
+                                       OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->color = "green";
-  info->return_value = 1;
-  info->status_code = 1;
-  info->status_message = "Successful";
+  TaskComposerNodeInfo info(*this);
+  info.color = "green";
+  info.return_value = 1;
+  info.status_code = 1;
+  info.status_message = "Successful";
   return info;
 }
 

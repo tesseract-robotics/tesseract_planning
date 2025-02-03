@@ -106,13 +106,12 @@ TaskComposerNodePorts IterativeSplineParameterizationTask::ports()
   return ports;
 }
 
-std::unique_ptr<TaskComposerNodeInfo>
-IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
-                                             OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
+                                                                  OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->return_value = 0;
-  info->status_code = 0;
+  TaskComposerNodeInfo info(*this);
+  info.return_value = 0;
+  info.status_code = 0;
 
   // --------------------
   // Check that inputs are valid
@@ -120,10 +119,10 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
   auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
-    info->status_code = 0;
-    info->status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
-    info->return_value = 0;
+    info.status_code = 0;
+    info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    info.return_value = 0;
     return info;
   }
 
@@ -132,8 +131,8 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
   auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->status_message = "Input results to iterative spline parameterization must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = "Input results to iterative spline parameterization must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
   tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
@@ -157,11 +156,11 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
     if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
       setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
 
-    info->color = "green";
-    info->status_code = 1;
-    info->status_message = "Iterative spline time parameterization found no MoveInstructions to process";
-    info->return_value = 1;
-    CONSOLE_BRIDGE_logWarn("%s", info->status_message.c_str());
+    info.color = "green";
+    info.status_code = 1;
+    info.status_message = "Iterative spline time parameterization found no MoveInstructions to process";
+    info.return_value = 1;
+    CONSOLE_BRIDGE_logWarn("%s", info.status_message.c_str());
     return info;
   }
 
@@ -203,17 +202,17 @@ IterativeSplineParameterizationTask::runImpl(TaskComposerContext& context,
     if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
       setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
 
-    info->status_message =
+    info.status_message =
         "Failed to perform iterative spline time parameterization for process input: " + ci.getDescription();
-    CONSOLE_BRIDGE_logInform("%s", info->status_message.c_str());
+    CONSOLE_BRIDGE_logInform("%s", info.status_message.c_str());
     return info;
   }
 
-  info->color = "green";
-  info->status_code = 1;
-  info->status_message = "Successful";
+  info.color = "green";
+  info.status_code = 1;
+  info.status_message = "Successful";
   setData(*context.data_storage, INOUT_PROGRAM_PORT, input_data_poly);
-  info->return_value = 1;
+  info.return_value = 1;
   CONSOLE_BRIDGE_logDebug("Iterative spline time parameterization succeeded");
   return info;
 }

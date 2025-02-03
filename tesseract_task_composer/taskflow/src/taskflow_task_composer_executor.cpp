@@ -57,11 +57,11 @@ tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
     stopwatch.start();
 
     // Node Info
-    auto info = std::make_unique<TaskComposerNodeInfo>(task_graph);
-    info->color = "green";
-    info->input_keys = task_graph.getInputKeys();
-    info->output_keys = task_graph.getOutputKeys();
-    info->start_time = std::chrono::system_clock::now();
+    TaskComposerNodeInfo info(task_graph);
+    info.color = "green";
+    info.input_keys = task_graph.getInputKeys();
+    info.output_keys = task_graph.getOutputKeys();
+    info.start_time = std::chrono::system_clock::now();
 
     // Generate process tasks for each node
     std::map<boost::uuids::uuid, tf::Task> tasks;
@@ -113,8 +113,8 @@ tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
     }
     subflow.join();
     stopwatch.stop();
-    info->elapsed_time = stopwatch.elapsedSeconds();
-    task_context.task_infos.addInfo(std::move(info));
+    info.elapsed_time = stopwatch.elapsedSeconds();
+    task_context.task_infos.addInfo(info);
   };
 
   if (parent_sbf != nullptr)

@@ -3049,45 +3049,44 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     std::vector<std::string> transition_output_keys;
     for (const auto& info : info_map)
     {
-      std::cout << info.second->name << std::endl;
-      if (boost::algorithm::starts_with(info.second->name, "Raster #"))
+      std::cout << info.second.name << std::endl;
+      if (boost::algorithm::starts_with(info.second.name, "Raster #"))
       {
-        auto it1 =
-            std::find(raster_input_keys.begin(), raster_input_keys.end(), info.second->input_keys.get("program"));
+        auto it1 = std::find(raster_input_keys.begin(), raster_input_keys.end(), info.second.input_keys.get("program"));
         ASSERT_TRUE(it1 == raster_input_keys.end());
-        raster_input_keys.push_back(info.second->input_keys.get("program"));
+        raster_input_keys.push_back(info.second.input_keys.get("program"));
 
         auto it2 =
-            std::find(raster_output_keys.begin(), raster_output_keys.end(), info.second->output_keys.get("program"));
+            std::find(raster_output_keys.begin(), raster_output_keys.end(), info.second.output_keys.get("program"));
         ASSERT_TRUE(it2 == raster_output_keys.end());
-        raster_output_keys.push_back(info.second->output_keys.get("program"));
+        raster_output_keys.push_back(info.second.output_keys.get("program"));
       }
-      else if (info.second->name == "UpdateStartAndEndStateTask" || info.second->name == "UpdateStartStateTask" ||
-               info.second->name == "UpdateEndStateTask")
+      else if (info.second.name == "UpdateStartAndEndStateTask" || info.second.name == "UpdateStartStateTask" ||
+               info.second.name == "UpdateEndStateTask")
       {
         auto it1 = std::find(
-            update_input_keys.begin(), update_input_keys.end(), info.second->input_keys.get("current_program"));
+            update_input_keys.begin(), update_input_keys.end(), info.second.input_keys.get("current_program"));
         ASSERT_TRUE(it1 == update_input_keys.end());
-        update_input_keys.push_back(info.second->input_keys.get("current_program"));
+        update_input_keys.push_back(info.second.input_keys.get("current_program"));
 
         auto it2 =
-            std::find(update_output_keys.begin(), update_output_keys.end(), info.second->output_keys.get("program"));
+            std::find(update_output_keys.begin(), update_output_keys.end(), info.second.output_keys.get("program"));
         ASSERT_TRUE(it2 == update_output_keys.end());
-        update_output_keys.push_back(info.second->output_keys.get("program"));
+        update_output_keys.push_back(info.second.output_keys.get("program"));
       }
-      else if (boost::algorithm::starts_with(info.second->name, "Transition #") ||
-               boost::algorithm::starts_with(info.second->name, "From Start") ||
-               boost::algorithm::starts_with(info.second->name, "To End"))
+      else if (boost::algorithm::starts_with(info.second.name, "Transition #") ||
+               boost::algorithm::starts_with(info.second.name, "From Start") ||
+               boost::algorithm::starts_with(info.second.name, "To End"))
       {
         auto it1 = std::find(
-            transition_input_keys.begin(), transition_input_keys.end(), info.second->input_keys.get("program"));
+            transition_input_keys.begin(), transition_input_keys.end(), info.second.input_keys.get("program"));
         ASSERT_TRUE(it1 == transition_input_keys.end());
-        transition_input_keys.push_back(info.second->input_keys.get("program"));
+        transition_input_keys.push_back(info.second.input_keys.get("program"));
 
         auto it2 = std::find(
-            transition_output_keys.begin(), transition_output_keys.end(), info.second->output_keys.get("program"));
+            transition_output_keys.begin(), transition_output_keys.end(), info.second.output_keys.get("program"));
         ASSERT_TRUE(it2 == transition_output_keys.end());
-        transition_output_keys.push_back(info.second->output_keys.get("program"));
+        transition_output_keys.push_back(info.second.output_keys.get("program"));
       }
     }
     EXPECT_FALSE(raster_input_keys.empty());
@@ -3503,44 +3502,43 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     std::vector<std::string> transition_output_keys;
     for (const auto& info : info_map)
     {
-      if (boost::algorithm::starts_with(info.second->name, "Raster #"))
+      if (boost::algorithm::starts_with(info.second.name, "Raster #"))
       {
-        auto it1 =
-            std::find(raster_input_keys.begin(), raster_input_keys.end(), info.second->input_keys.get("program"));
+        auto it1 = std::find(raster_input_keys.begin(), raster_input_keys.end(), info.second.input_keys.get("program"));
         ASSERT_TRUE(it1 == raster_input_keys.end());
-        raster_input_keys.push_back(info.second->input_keys.get("program"));
+        raster_input_keys.push_back(info.second.input_keys.get("program"));
 
         auto it2 =
-            std::find(raster_output_keys.begin(), raster_output_keys.end(), info.second->output_keys.get("program"));
+            std::find(raster_output_keys.begin(), raster_output_keys.end(), info.second.output_keys.get("program"));
         ASSERT_TRUE(it2 == raster_output_keys.end());
-        raster_output_keys.push_back(info.second->output_keys.get("program"));
+        raster_output_keys.push_back(info.second.output_keys.get("program"));
       }
-      else if (info.second->name == "UpdateStartAndEndStateTask" || info.second->name == "UpdateStartStateTask" ||
-               info.second->name == "UpdateEndStateTask")
+      else if (info.second.name == "UpdateStartAndEndStateTask" || info.second.name == "UpdateStartStateTask" ||
+               info.second.name == "UpdateEndStateTask")
       {
         auto it1 = std::find(
-            update_input_keys.begin(), update_input_keys.end(), info.second->input_keys.get("current_program"));
+            update_input_keys.begin(), update_input_keys.end(), info.second.input_keys.get("current_program"));
         ASSERT_TRUE(it1 == update_input_keys.end());
-        update_input_keys.push_back(info.second->input_keys.get("current_program"));
+        update_input_keys.push_back(info.second.input_keys.get("current_program"));
 
         auto it2 =
-            std::find(update_output_keys.begin(), update_output_keys.end(), info.second->output_keys.get("program"));
+            std::find(update_output_keys.begin(), update_output_keys.end(), info.second.output_keys.get("program"));
         ASSERT_TRUE(it2 == update_output_keys.end());
-        update_output_keys.push_back(info.second->output_keys.get("program"));
+        update_output_keys.push_back(info.second.output_keys.get("program"));
       }
-      else if (boost::algorithm::starts_with(info.second->name, "Transition #") ||
-               boost::algorithm::starts_with(info.second->name, "From Start") ||
-               boost::algorithm::starts_with(info.second->name, "To End"))
+      else if (boost::algorithm::starts_with(info.second.name, "Transition #") ||
+               boost::algorithm::starts_with(info.second.name, "From Start") ||
+               boost::algorithm::starts_with(info.second.name, "To End"))
       {
         auto it1 = std::find(
-            transition_input_keys.begin(), transition_input_keys.end(), info.second->input_keys.get("program"));
+            transition_input_keys.begin(), transition_input_keys.end(), info.second.input_keys.get("program"));
         ASSERT_TRUE(it1 == transition_input_keys.end());
-        transition_input_keys.push_back(info.second->input_keys.get("program"));
+        transition_input_keys.push_back(info.second.input_keys.get("program"));
 
         auto it2 = std::find(
-            transition_output_keys.begin(), transition_output_keys.end(), info.second->output_keys.get("program"));
+            transition_output_keys.begin(), transition_output_keys.end(), info.second.output_keys.get("program"));
         ASSERT_TRUE(it2 == transition_output_keys.end());
-        transition_output_keys.push_back(info.second->output_keys.get("program"));
+        transition_output_keys.push_back(info.second.output_keys.get("program"));
       }
     }
     EXPECT_FALSE(raster_input_keys.empty());
