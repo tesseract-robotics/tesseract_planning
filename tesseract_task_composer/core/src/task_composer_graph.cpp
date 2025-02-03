@@ -219,8 +219,8 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
     throw std::runtime_error(is_valid.second);
 }
 
-std::unique_ptr<TaskComposerNodeInfo> TaskComposerGraph::runImpl(TaskComposerContext& context,
-                                                                 OptionalTaskComposerExecutor executor) const
+TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
+                                                OptionalTaskComposerExecutor executor) const
 {
   if (terminals_.empty())
     throw std::runtime_error("TaskComposerGraph, with name '" + name_ + "' does not have terminals!");
@@ -236,7 +236,7 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerGraph::runImpl(TaskComposerCon
   if (future->context->isAborted())
     context.abort(future->context->task_infos.getAbortingNode());
 
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+  TaskComposerNodeInfo info(*this);
   auto info_map = context.task_infos.getInfoMap();
   if (context.dotgraph)
   {
@@ -245,22 +245,22 @@ std::unique_ptr<TaskComposerNodeInfo> TaskComposerGraph::runImpl(TaskComposerCon
               << uuid_str_ << ")\";\n";
     dump(dot_graph, this, info_map);  // dump the graph including dynamic tasks
     dot_graph << "}\n";
-    info->dotgraph = dot_graph.str();
+    info.dotgraph = dot_graph.str();
   }
 
   for (std::size_t i = 0; i < terminals_.size(); ++i)
   {
     auto node_info = context.task_infos.getInfo(terminals_[i]);
-    if (node_info != nullptr)
+    if (node_info.has_value())
     {
       stopwatch.stop();
-      info->input_keys = input_keys_;
-      info->output_keys = output_keys_;
-      info->return_value = static_cast<int>(i);
-      info->color = node_info->color;
-      info->status_code = node_info->status_code;
-      info->status_message = node_info->status_message;
-      info->elapsed_time = stopwatch.elapsedSeconds();
+      info.input_keys = input_keys_;
+      info.output_keys = output_keys_;
+      info.return_value = static_cast<int>(i);
+      info.color = node_info->color;
+      info.status_code = node_info->status_code;
+      info.status_message = node_info->status_message;
+      info.elapsed_time = stopwatch.elapsedSeconds();
       return info;
     }
   }
@@ -436,10 +436,9 @@ void TaskComposerGraph::renameOutputKeys(const std::map<std::string, std::string
     node.second->renameOutputKeys(output_keys);
 }
 
-std::string
-TaskComposerGraph::dump(std::ostream& os,
-                        const TaskComposerNode* parent,
-                        const std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>& results_map) const
+std::string TaskComposerGraph::dump(std::ostream& os,
+                                    const TaskComposerNode* parent,
+                                    const std::map<boost::uuids::uuid, TaskComposerNodeInfo>& results_map) const
 {
   if (parent == nullptr)
     os << "digraph TaskComposer {\n";
@@ -456,7 +455,7 @@ TaskComposerGraph::dump(std::ostream& os,
   {
     auto it = results_map.find(getUUID());
     if (it != results_map.end())
-      os << "Time: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s\\l";
+      os << "Time: " << std::fixed << std::setprecision(3) << it->second.elapsed_time << "s\\l";
   }
   os << "\";";
   for (const auto& pair : nodes_)
@@ -469,7 +468,7 @@ TaskComposerGraph::dump(std::ostream& os,
     else if (node->getType() == TaskComposerNodeType::GRAPH || node->getType() == TaskComposerNodeType::PIPELINE)
     {
       auto it = results_map.find(node->getUUID());
-      std::string color = (it != results_map.end() && it->second->color != "white") ? it->second->color : "blue";
+      std::string color = (it != results_map.end() && it->second.color != "white") ? it->second.color : "blue";
       const std::string tmp = toString(node->uuid_, "node_");
       const TaskComposerKeys& input_keys = node->getInputKeys();
       const TaskComposerKeys& output_keys = node->getOutputKeys();
@@ -481,7 +480,7 @@ TaskComposerGraph::dump(std::ostream& os,
       os << "Abort Terminal: " << static_cast<const TaskComposerGraph&>(*node).abort_terminal_ << "\\l";
       os << "Conditional: " << ((node->isConditional()) ? "True" : "False") << "\\l";
       if (it != results_map.end())
-        os << "Time: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s\\l";
+        os << "Time: " << std::fixed << std::setprecision(3) << it->second.elapsed_time << "s\\l";
 
       os << "\", margin=\"0.1\", color=" << color << "];\n";  // NOLINT
       node->dump(sub_graphs, this, results_map);
@@ -496,7 +495,7 @@ TaskComposerGraph::dump(std::ostream& os,
 
       auto it = results_map.find(uuid_);
       if (it != results_map.end())
-        return_value = it->second->return_value;
+        return_value = it->second.return_value;
 
       for (std::size_t i = 0; i < outbound_edges_.size(); ++i)
       {

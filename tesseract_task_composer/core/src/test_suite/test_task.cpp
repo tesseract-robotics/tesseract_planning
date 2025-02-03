@@ -37,10 +37,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning::test_suite
 {
-std::unique_ptr<TaskComposerNodeInfo> DummyTaskComposerNode::runImpl(TaskComposerContext& /*context*/,
-                                                                     OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo DummyTaskComposerNode::runImpl(TaskComposerContext& /*context*/,
+                                                    OptionalTaskComposerExecutor /*executor*/) const
 {
-  return std::make_unique<TaskComposerNodeInfo>(*this);
+  return TaskComposerNodeInfo(*this);
 }
 
 const std::string TestTask::INOUT_PORT1_PORT = "port1";
@@ -103,23 +103,22 @@ void TestTask::serialize(Archive& ar, const unsigned int /*version*/)
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-std::unique_ptr<TaskComposerNodeInfo> TestTask::runImpl(TaskComposerContext& context,
-                                                        OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo TestTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (throw_exception)
     throw std::runtime_error("TestTask, failure");
 
-  auto node_info = std::make_unique<TaskComposerNodeInfo>(*this);
+  TaskComposerNodeInfo node_info(*this);
   if (conditional_)
-    node_info->color = (return_value == 0) ? "red" : "green";
+    node_info.color = (return_value == 0) ? "red" : "green";
   else
-    node_info->color = "green";
-  node_info->return_value = return_value;
-  node_info->status_code = return_value;
+    node_info.color = "green";
+  node_info.return_value = return_value;
+  node_info.status_code = return_value;
 
   if (set_abort)
   {
-    node_info->color = "red";
+    node_info.color = "red";
     context.abort(uuid_);
   }
 

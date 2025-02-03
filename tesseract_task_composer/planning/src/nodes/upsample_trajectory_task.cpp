@@ -85,19 +85,19 @@ TaskComposerNodePorts UpsampleTrajectoryTask::ports()
   return ports;
 }
 
-std::unique_ptr<TaskComposerNodeInfo> UpsampleTrajectoryTask::runImpl(TaskComposerContext& context,
-                                                                      OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo UpsampleTrajectoryTask::runImpl(TaskComposerContext& context,
+                                                     OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->return_value = 0;
-  info->status_code = 0;
+  TaskComposerNodeInfo info(*this);
+  info.return_value = 0;
+  info.status_code = 0;
 
   // Check that inputs are valid
   auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->status_message = "Input seed to UpsampleTrajectoryTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = "Input seed to UpsampleTrajectoryTask must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
@@ -115,10 +115,10 @@ std::unique_ptr<TaskComposerNodeInfo> UpsampleTrajectoryTask::runImpl(TaskCompos
   upsample(new_results, ci, start_instruction, cur_composite_profile->longest_valid_segment_length);
   setData(*context.data_storage, INOUT_PROGRAM_PORT, new_results);
 
-  info->color = "green";
-  info->status_code = 1;
-  info->status_message = "Successful";
-  info->return_value = 1;
+  info.color = "green";
+  info.status_code = 1;
+  info.status_message = "Successful";
+  info.return_value = 1;
   return info;
 }
 

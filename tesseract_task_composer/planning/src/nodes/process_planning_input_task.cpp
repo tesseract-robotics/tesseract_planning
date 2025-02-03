@@ -76,17 +76,17 @@ TaskComposerNodePorts ProcessPlanningInputTask::ports()
   return ports;
 }
 
-std::unique_ptr<TaskComposerNodeInfo> ProcessPlanningInputTask::runImpl(TaskComposerContext& context,
-                                                                        OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo ProcessPlanningInputTask::runImpl(TaskComposerContext& context,
+                                                       OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+  TaskComposerNodeInfo info(*this);
   auto planning_input_poly = getData(*context.data_storage, INPUT_PLANNING_INPUT_PORT);
   if (planning_input_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->color = "red";
-    info->status_code = 0;
-    info->status_message = "Input is not a Composite Instruction, aborting...";
-    info->return_value = 0;
+    info.color = "red";
+    info.status_code = 0;
+    info.status_message = "Input is not a Composite Instruction, aborting...";
+    info.return_value = 0;
 
     // Abort
     context.abort(uuid_);
@@ -95,10 +95,10 @@ std::unique_ptr<TaskComposerNodeInfo> ProcessPlanningInputTask::runImpl(TaskComp
 
   setData(*context.data_storage, OUTPUT_PROGRAM_PORT, planning_input_poly.as<CompositeInstruction>());
 
-  info->color = "green";
-  info->status_code = 1;
-  info->status_message = "Successful";
-  info->return_value = 1;
+  info.color = "green";
+  info.status_code = 1;
+  info.status_message = "Successful";
+  info.return_value = 1;
   return info;
 }
 

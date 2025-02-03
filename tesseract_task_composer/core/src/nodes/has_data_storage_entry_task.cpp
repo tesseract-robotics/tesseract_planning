@@ -41,27 +41,27 @@ TaskComposerNodePorts HasDataStorageEntryTask::ports()
   return ports;
 }
 
-std::unique_ptr<TaskComposerNodeInfo> HasDataStorageEntryTask::runImpl(TaskComposerContext& context,
-                                                                       OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo HasDataStorageEntryTask::runImpl(TaskComposerContext& context,
+                                                      OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+  TaskComposerNodeInfo info(*this);
   const auto& keys = input_keys_.get<std::vector<std::string>>(INPUT_KEYS_PORT);
   for (const auto& key : keys)
   {
     if (!context.data_storage->hasKey(key))
     {
-      info->color = "red";
-      info->return_value = 0;
-      info->status_code = 0;
-      info->status_message = "Missing input key: " + key;
+      info.color = "red";
+      info.return_value = 0;
+      info.status_code = 0;
+      info.status_message = "Missing input key: " + key;
       return info;
     }
   }
 
-  info->color = "green";
-  info->return_value = 1;
-  info->status_code = 1;
-  info->status_message = "Successful";
+  info.color = "green";
+  info.return_value = 1;
+  info.status_code = 1;
+  info.status_message = "Successful";
   return info;
 }
 

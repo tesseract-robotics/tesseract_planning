@@ -100,12 +100,12 @@ TaskComposerNodePorts DiscreteContactCheckTask::ports()
   return ports;
 }
 
-std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTask::runImpl(TaskComposerContext& context,
-                                                                        OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo DiscreteContactCheckTask::runImpl(TaskComposerContext& context,
+                                                       OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->return_value = 0;
-  info->status_code = 0;
+  TaskComposerNodeInfo info(*this);
+  info.return_value = 0;
+  info.status_code = 0;
 
   // --------------------
   // Check that inputs are valid
@@ -113,10 +113,10 @@ std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTask::runImpl(TaskComp
   auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
-    info->status_code = 0;
-    info->status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
-    info->return_value = 0;
+    info.status_code = 0;
+    info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    info.return_value = 0;
     return info;
   }
 
@@ -125,8 +125,8 @@ std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTask::runImpl(TaskComp
   auto input_data_poly = getData(*context.data_storage, INPUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->status_message = "Input to DiscreteContactCheckTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = "Input to DiscreteContactCheckTask must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
@@ -148,24 +148,24 @@ std::unique_ptr<TaskComposerNodeInfo> DiscreteContactCheckTask::runImpl(TaskComp
   std::vector<tesseract_collision::ContactResultMap> contacts;
   if (contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->config))
   {
-    info->status_message = "Results are not contact free for process input: " + ci.getDescription();
-    CONSOLE_BRIDGE_logInform("%s", info->status_message.c_str());
+    info.status_message = "Results are not contact free for process input: " + ci.getDescription();
+    CONSOLE_BRIDGE_logInform("%s", info.status_message.c_str());
 
     // Save space
     for (auto& contact_map : contacts)
       contact_map.shrinkToFit();
 
-    info->data_storage.setData("contact_results", contacts);
+    info.data_storage.setData("contact_results", contacts);
     setData(*context.data_storage, OUTPUT_CONTACT_RESULTS_PORT, contacts, false);
 
     return info;
   }
 
-  info->color = "green";
-  info->status_code = 1;
-  info->status_message = "Discrete contact check succeeded";
-  info->return_value = 1;
-  CONSOLE_BRIDGE_logDebug("%s", info->status_message.c_str());
+  info.color = "green";
+  info.status_code = 1;
+  info.status_message = "Discrete contact check succeeded";
+  info.return_value = 1;
+  CONSOLE_BRIDGE_logDebug("%s", info.status_message.c_str());
   return info;
 }
 

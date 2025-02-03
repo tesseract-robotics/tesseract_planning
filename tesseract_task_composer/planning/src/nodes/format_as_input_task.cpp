@@ -88,12 +88,12 @@ TaskComposerNodePorts FormatAsInputTask::ports()
   return ports;
 }
 
-std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerContext& context,
-                                                                 OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
+                                                OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->return_value = 0;
-  info->status_code = 0;
+  TaskComposerNodeInfo info(*this);
+  info.return_value = 0;
+  info.status_code = 0;
 
   // --------------------
   // Check that inputs are valid
@@ -101,18 +101,18 @@ std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerCon
   auto input_formatted_data_poly = getData(*context.data_storage, INPUT_PRE_PLANNING_PROGRAM_PORT);
   if (input_formatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->status_message = "Input '" + input_keys_.get(INPUT_PRE_PLANNING_PROGRAM_PORT) +
-                           "' instruction to FormatAsInputTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = "Input '" + input_keys_.get(INPUT_PRE_PLANNING_PROGRAM_PORT) +
+                          "' instruction to FormatAsInputTask must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
   auto input_unformatted_data_poly = getData(*context.data_storage, INPUT_POST_PLANNING_PROGRAM_PORT);
   if (input_unformatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->status_message = "Input '" + input_keys_.get(INPUT_POST_PLANNING_PROGRAM_PORT) +
-                           "' instruction to FormatAsInputTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = "Input '" + input_keys_.get(INPUT_POST_PLANNING_PROGRAM_PORT) +
+                          "' instruction to FormatAsInputTask must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
@@ -125,8 +125,8 @@ std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerCon
 
   if (mi_formatted_data.size() != mi_unformatted_data.size())
   {
-    info->status_message = "FormatAsInputTask, input programs are not same size";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = "FormatAsInputTask, input programs are not same size";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
@@ -160,10 +160,10 @@ std::unique_ptr<TaskComposerNodeInfo> FormatAsInputTask::runImpl(TaskComposerCon
 
   setData(*context.data_storage, OUTPUT_PROGRAM_PORT, input_formatted_data_poly);
 
-  info->color = "green";
-  info->status_code = 1;
-  info->status_message = "Successful";
-  info->return_value = 1;
+  info.color = "green";
+  info.status_code = 1;
+  info.status_message = "Successful";
+  info.return_value = 1;
   return info;
 }
 

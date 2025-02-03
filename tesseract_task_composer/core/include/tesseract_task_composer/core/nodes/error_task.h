@@ -58,8 +58,8 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  std::unique_ptr<TaskComposerNodeInfo>
-  runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
+  TaskComposerNodeInfo runImpl(TaskComposerContext& context,
+                               OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
 }  // namespace tesseract_planning
