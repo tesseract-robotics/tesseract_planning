@@ -46,15 +46,15 @@ DoneTask::DoneTask(std::string name, const YAML::Node& config, const TaskCompose
 {
 }
 
-std::unique_ptr<TaskComposerNodeInfo> DoneTask::runImpl(TaskComposerContext& /*context*/,
-                                                        OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo DoneTask::runImpl(TaskComposerContext& /*context*/,
+                                       OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->color = "green";
-  info->return_value = 1;
-  info->status_code = 1;
-  info->status_message = "Successful";
-  CONSOLE_BRIDGE_logDebug("%s", info->status_message.c_str());
+  TaskComposerNodeInfo info(*this);
+  info.color = "green";
+  info.return_value = 1;
+  info.status_code = 1;
+  info.status_message = "Successful";
+  CONSOLE_BRIDGE_logDebug("%s", info.status_message.c_str());
   return info;
 }
 

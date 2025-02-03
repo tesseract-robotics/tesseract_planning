@@ -80,10 +80,9 @@ TaskComposerNodePorts RemapTask::ports()
   return ports;
 }
 
-std::unique_ptr<TaskComposerNodeInfo> RemapTask::runImpl(TaskComposerContext& context,
-                                                         OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo RemapTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
+  TaskComposerNodeInfo info(*this);
   const auto& ikeys = input_keys_.get<std::vector<std::string>>(INOUT_KEYS_PORT);
   const auto& okeys = output_keys_.get<std::vector<std::string>>(INOUT_KEYS_PORT);
   std::map<std::string, std::string> remapping;
@@ -92,17 +91,17 @@ std::unique_ptr<TaskComposerNodeInfo> RemapTask::runImpl(TaskComposerContext& co
 
   if (context.data_storage->remapData(remapping, copy_))
   {
-    info->color = "green";
-    info->return_value = 1;
-    info->status_code = 1;
-    info->status_message = "Successful";
+    info.color = "green";
+    info.return_value = 1;
+    info.status_code = 1;
+    info.status_message = "Successful";
   }
   else
   {
-    info->color = "red";
-    info->return_value = 0;
-    info->status_code = 0;
-    info->status_message = "Failed to remap data.";
+    info.color = "red";
+    info.return_value = 0;
+    info.status_code = 0;
+    info.status_message = "Failed to remap data.";
   }
   return info;
 }

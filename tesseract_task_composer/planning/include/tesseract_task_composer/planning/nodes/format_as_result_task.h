@@ -45,8 +45,8 @@ protected:
 
   static TaskComposerNodePorts ports();
 
-  std::unique_ptr<TaskComposerNodeInfo>
-  runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
+  TaskComposerNodeInfo runImpl(TaskComposerContext& context,
+                               OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
 }  // namespace tesseract_planning

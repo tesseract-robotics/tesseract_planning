@@ -287,12 +287,12 @@ void RasterOnlyMotionTask::serialize(Archive& ar, const unsigned int /*version*/
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-std::unique_ptr<TaskComposerNodeInfo> RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
-                                                                    OptionalTaskComposerExecutor executor) const
+TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
+                                                   OptionalTaskComposerExecutor executor) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->return_value = 0;
-  info->status_code = 0;
+  TaskComposerNodeInfo info(*this);
+  info.return_value = 0;
+  info.status_code = 0;
 
   // --------------------
   // Check that inputs are valid
@@ -300,16 +300,16 @@ std::unique_ptr<TaskComposerNodeInfo> RasterOnlyMotionTask::runImpl(TaskComposer
   auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
-    info->status_code = 0;
-    info->status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
-    info->return_value = 0;
+    info.status_code = 0;
+    info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    info.return_value = 0;
     return info;
   }
 
   std::shared_ptr<const tesseract_environment::Environment> env =
       env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>()->clone();
-  info->data_storage.setData("environment", env);
+  info.data_storage.setData("environment", env);
 
   auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
   try
@@ -318,8 +318,8 @@ std::unique_ptr<TaskComposerNodeInfo> RasterOnlyMotionTask::runImpl(TaskComposer
   }
   catch (const std::exception& e)
   {
-    info->status_message = e.what();
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = e.what();
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
@@ -431,13 +431,13 @@ std::unique_ptr<TaskComposerNodeInfo> RasterOnlyMotionTask::runImpl(TaskComposer
               << uuid_str_ << ")\";";
     task_graph.dump(dot_graph, this, info_map);  // dump the graph including dynamic tasks
     dot_graph << "}\n";
-    info->dotgraph = dot_graph.str();
+    info.dotgraph = dot_graph.str();
   }
 
   if (context.isAborted())
   {
-    info->status_message = "Raster only subgraph failed";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = "Raster only subgraph failed";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
@@ -462,10 +462,10 @@ std::unique_ptr<TaskComposerNodeInfo> RasterOnlyMotionTask::runImpl(TaskComposer
 
   setData(*context.data_storage, INOUT_PROGRAM_PORT, program);
 
-  info->color = "green";
-  info->status_code = 1;
-  info->status_message = "Successful";
-  info->return_value = 1;
+  info.color = "green";
+  info.status_code = 1;
+  info.status_message = "Successful";
+  info.return_value = 1;
   return info;
 }
 

@@ -43,14 +43,14 @@ StartTask::StartTask(std::string name, const YAML::Node& config, const TaskCompo
   if (conditional_)
     throw std::runtime_error("StartTask, config is_conditional should not be true");
 }
-std::unique_ptr<TaskComposerNodeInfo> StartTask::runImpl(TaskComposerContext& /*context*/,
-                                                         OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo StartTask::runImpl(TaskComposerContext& /*context*/,
+                                        OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->color = "green";
-  info->return_value = 1;
-  info->status_code = 1;
-  info->status_message = "Successful";
+  TaskComposerNodeInfo info(*this);
+  info.color = "green";
+  info.return_value = 1;
+  info.status_code = 1;
+  info.status_message = "Successful";
   return info;
 }
 
