@@ -110,6 +110,13 @@ public:
   void addTask(std::unique_ptr<TaskComposerNode> task);
 
   /**
+   * @brief Add a task
+   * @warning This is only available for python buindings and should not be used in c++
+   * @param task The task to add
+   */
+  void addTaskPython(std::shared_ptr<TaskComposerNode> task);
+
+  /**
    * @brief Get a task
    * @param name The the name of task to retrieve
    */
@@ -164,7 +171,7 @@ public:
 protected:
   std::shared_ptr<TaskComposerPluginFactory> plugin_factory_;
   std::unordered_map<std::string, std::shared_ptr<TaskComposerExecutor>> executors_;
-  std::unordered_map<std::string, std::unique_ptr<TaskComposerNode>> tasks_;
+  std::unordered_map<std::string, std::shared_ptr<TaskComposerNode>> tasks_;
 
   void loadPlugins();
 };
