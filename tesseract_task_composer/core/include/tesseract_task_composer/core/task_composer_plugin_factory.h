@@ -30,6 +30,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <map>
+#include <memory>
 #include <set>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
