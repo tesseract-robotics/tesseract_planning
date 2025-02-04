@@ -98,6 +98,14 @@ void TaskComposerServer::addTask(std::unique_ptr<TaskComposerNode> task)
   tasks_[task->getName()] = std::move(task);
 }
 
+void TaskComposerServer::addTaskPython(std::shared_ptr<TaskComposerNode> task)
+{
+  if (tasks_.find(task->getName()) != tasks_.end())
+    CONSOLE_BRIDGE_logDebug("Task %s already exist so replacing with new task.", task->getName().c_str());
+
+  tasks_[task->getName()] = std::move(task);
+}
+
 const TaskComposerNode& TaskComposerServer::getTask(const std::string& name)
 {
   auto it = tasks_.find(name);
