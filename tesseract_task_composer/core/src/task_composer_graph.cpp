@@ -290,6 +290,14 @@ boost::uuids::uuid TaskComposerGraph::addNode(std::unique_ptr<TaskComposerNode> 
   return uuid;
 }
 
+boost::uuids::uuid TaskComposerGraph::addNodePython(std::shared_ptr<TaskComposerNode> task_node)
+{
+  boost::uuids::uuid uuid = task_node->getUUID();
+  task_node->parent_uuid_ = uuid_;
+  nodes_[uuid] = std::move(task_node);
+  return uuid;
+}
+
 void TaskComposerGraph::addEdges(boost::uuids::uuid source, std::vector<boost::uuids::uuid> destinations)
 {
   TaskComposerNode::Ptr& node = nodes_.at(source);

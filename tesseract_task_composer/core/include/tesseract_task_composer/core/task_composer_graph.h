@@ -72,6 +72,13 @@ public:
   boost::uuids::uuid addNode(std::unique_ptr<TaskComposerNode> task_node);
 
   /**
+   * @brief Add a node to the pipeline
+   * @warning This is only available for python buindings and should not be used in c++
+   * @return The node ID which should be used with adding edges
+   */
+  boost::uuids::uuid addNodePython(std::shared_ptr<TaskComposerNode> task_node);
+
+  /**
    * @brief Adds directed edges from a source node to destination nodes in the taskflow graph
    * @details If source is a non-conditional task, it is only relevant to provide one destination as the output of a
    * non-conditional tf::Task is void. If source is a conditional task, the order of the destinations should correspond
