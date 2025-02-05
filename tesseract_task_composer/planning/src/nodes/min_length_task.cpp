@@ -92,12 +92,12 @@ TaskComposerNodePorts MinLengthTask::ports()
   return ports;
 }
 
-std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext& context,
-                                                             OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
+                                            OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->return_value = 0;
-  info->status_code = 0;
+  TaskComposerNodeInfo info(*this);
+  info.return_value = 0;
+  info.status_code = 0;
 
   // --------------------
   // Check that inputs are valid
@@ -105,10 +105,10 @@ std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext
   auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
-    info->status_code = 0;
-    info->status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
-    info->return_value = 0;
+    info.status_code = 0;
+    info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    info.return_value = 0;
     return info;
   }
 
@@ -117,8 +117,8 @@ std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext
   auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->status_message = "Input seed to MinLengthTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = "Input seed to MinLengthTask must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
@@ -159,8 +159,8 @@ std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext
 
     if (!response.successful)
     {
-      info->status_message = "MinLengthTask, failed to subdivid!";
-      CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+      info.status_message = "MinLengthTask, failed to subdivid!";
+      CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
       return info;
     }
 
@@ -171,10 +171,10 @@ std::unique_ptr<TaskComposerNodeInfo> MinLengthTask::runImpl(TaskComposerContext
     setData(*context.data_storage, INOUT_PROGRAM_PORT, ci);
   }
 
-  info->color = "green";
-  info->status_code = 1;
-  info->status_message = "Successful";
-  info->return_value = 1;
+  info.color = "green";
+  info.status_code = 1;
+  info.status_message = "Successful";
+  info.return_value = 1;
   CONSOLE_BRIDGE_logDebug("Seed Min Length Task Succeeded!");
   return info;
 }

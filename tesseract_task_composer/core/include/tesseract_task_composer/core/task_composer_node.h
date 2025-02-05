@@ -65,7 +65,7 @@ public:
   using ConstUPtr = std::unique_ptr<const TaskComposerNode>;
 
   // @brief The results map
-  using ResultsMap = std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerNodeInfo>>;
+  using ResultsMap = std::map<boost::uuids::uuid, TaskComposerNodeInfo>;
 
   /** @brief Most task will not require a executor so making it optional */
   using OptionalTaskComposerExecutor = std::optional<std::reference_wrapper<TaskComposerExecutor>>;
@@ -178,8 +178,8 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  virtual std::unique_ptr<TaskComposerNodeInfo> runImpl(TaskComposerContext& context,
-                                                        OptionalTaskComposerExecutor executor = std::nullopt) const = 0;
+  virtual TaskComposerNodeInfo runImpl(TaskComposerContext& context,
+                                       OptionalTaskComposerExecutor executor = std::nullopt) const = 0;
 
   /** @brief The name of the task */
   std::string name_;

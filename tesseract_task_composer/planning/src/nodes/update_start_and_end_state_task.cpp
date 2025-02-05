@@ -90,12 +90,12 @@ TaskComposerNodePorts UpdateStartAndEndStateTask::ports()
   return ports;
 }
 
-std::unique_ptr<TaskComposerNodeInfo>
-UpdateStartAndEndStateTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo UpdateStartAndEndStateTask::runImpl(TaskComposerContext& context,
+                                                         OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->return_value = 0;
-  info->status_code = 0;
+  TaskComposerNodeInfo info(*this);
+  info.return_value = 0;
+  info.status_code = 0;
 
   auto input_data_poly = getData(*context.data_storage, INPUT_CURRENT_PROGRAM_PORT);
   auto input_prev_data_poly = getData(*context.data_storage, INPUT_PREVIOUS_PROGRAM_PORT);
@@ -106,25 +106,25 @@ UpdateStartAndEndStateTask::runImpl(TaskComposerContext& context, OptionalTaskCo
   // --------------------
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->status_message = "UpdateStartAndEndStateTask: Input data for key '" +
-                           input_keys_.get(INPUT_CURRENT_PROGRAM_PORT) + "' must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = "UpdateStartAndEndStateTask: Input data for key '" +
+                          input_keys_.get(INPUT_CURRENT_PROGRAM_PORT) + "' must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
   if (input_prev_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->status_message = "UpdateStartAndEndStateTask: Input data for key '" +
-                           input_keys_.get(INPUT_PREVIOUS_PROGRAM_PORT) + "' must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = "UpdateStartAndEndStateTask: Input data for key '" +
+                          input_keys_.get(INPUT_PREVIOUS_PROGRAM_PORT) + "' must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
   if (input_next_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->status_message = "UpdateStartAndEndStateTask: Input data for key '" +
-                           input_keys_.get(INPUT_NEXT_PROGRAM_PORT) + "' must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = "UpdateStartAndEndStateTask: Input data for key '" +
+                          input_keys_.get(INPUT_NEXT_PROGRAM_PORT) + "' must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
@@ -159,10 +159,10 @@ UpdateStartAndEndStateTask::runImpl(TaskComposerContext& context, OptionalTaskCo
   // Store results
   setData(*context.data_storage, OUTPUT_PROGRAM_PORT, input_data_poly);
 
-  info->color = "green";
-  info->status_code = 1;
-  info->status_message = "Successful";
-  info->return_value = 1;
+  info.color = "green";
+  info.status_code = 1;
+  info.status_message = "Successful";
+  info.return_value = 1;
   CONSOLE_BRIDGE_logDebug("UpdateStartAndEndStateTask succeeded");
   return info;
 }

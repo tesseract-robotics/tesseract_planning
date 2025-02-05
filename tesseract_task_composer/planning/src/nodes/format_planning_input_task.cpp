@@ -78,8 +78,8 @@ TaskComposerNodePorts FormatPlanningInputTask::ports()
   return ports;
 }
 
-std::unique_ptr<TaskComposerNodeInfo> FormatPlanningInputTask::runImpl(TaskComposerContext& context,
-                                                                       OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo FormatPlanningInputTask::runImpl(TaskComposerContext& context,
+                                                      OptionalTaskComposerExecutor /*executor*/) const
 {
   // --------------------
   // Check that inputs are valid
@@ -87,11 +87,11 @@ std::unique_ptr<TaskComposerNodeInfo> FormatPlanningInputTask::runImpl(TaskCompo
   auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
-    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-    info->return_value = 0;
-    info->status_code = 0;
-    info->status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    TaskComposerNodeInfo info(*this);
+    info.return_value = 0;
+    info.status_code = 0;
+    info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
@@ -100,11 +100,11 @@ std::unique_ptr<TaskComposerNodeInfo> FormatPlanningInputTask::runImpl(TaskCompo
   auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-    info->return_value = 0;
-    info->status_code = 0;
-    info->status_message = "Input to FormatPlanningInputTask must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    TaskComposerNodeInfo info(*this);
+    info.return_value = 0;
+    info.status_code = 0;
+    info.status_message = "Input to FormatPlanningInputTask must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
@@ -113,18 +113,18 @@ std::unique_ptr<TaskComposerNodeInfo> FormatPlanningInputTask::runImpl(TaskCompo
   const bool formatting_required = formatProgram(ci, *env);
   setData(*context.data_storage, INOUT_PROGRAM_PORT, ci);
 
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->return_value = 1;
-  info->status_code = 1;
+  TaskComposerNodeInfo info(*this);
+  info.return_value = 1;
+  info.status_code = 1;
   if (formatting_required)
   {
-    info->color = "yellow";
-    info->status_message = "Successful (Formatting Required)";
+    info.color = "yellow";
+    info.status_message = "Successful (Formatting Required)";
   }
   else
   {
-    info->color = "green";
-    info->status_message = "Successful";
+    info.color = "green";
+    info.status_message = "Successful";
   }
   return info;
 }

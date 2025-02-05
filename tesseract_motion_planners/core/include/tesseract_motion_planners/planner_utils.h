@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/constants.h>
-#include <tesseract_kinematics/core/forward_kinematics.h>
+#include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_common/kinematic_limits.h>
 #include <tesseract_motion_planners/robot_config.h>
 #include <tesseract_motion_planners/core/types.h>
@@ -71,13 +71,17 @@ bool isWithinJointLimits(const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::
 
 /**
  * @brief Check if the robot is in a valid state
- * @param The robot kinematic representation
+ * @param joint_group The joint group
+ * @param base_link The base link to use.
+ * @param tcp_frame The tip link to use.
  * @param joint_values The joint values of the robot
  * @param limits The robot joint limits
  * @return True if within limits otherwise false
  */
 template <typename FloatType>
-bool isValidState(const tesseract_kinematics::ForwardKinematics::ConstPtr& robot_kin,
+bool isValidState(const tesseract_kinematics::JointGroup& joint_group,
+                  const std::string& base_link,
+                  const std::string& tcp_frame,
                   const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values,
                   const Eigen::Matrix<FloatType, Eigen::Dynamic, 2>& limits)
 {
@@ -86,8 +90,8 @@ bool isValidState(const tesseract_kinematics::ForwardKinematics::ConstPtr& robot
 
   Eigen::Vector2i sign_correction = Eigen::Vector2i::Ones();
   sign_correction(0) = -1;
-  RobotConfig robot_config =
-      getRobotConfig<FloatType>(joint_values.tail(robot_kin->numJoints()), robot_kin, sign_correction);
+  RobotConfig robot_config = getRobotConfig<FloatType>(
+      joint_group, base_link, tcp_frame, joint_values.tail(joint_group.numJoints()), sign_correction);
 
   return !(robot_config != RobotConfig::FUT && robot_config != RobotConfig::NUT);
 }

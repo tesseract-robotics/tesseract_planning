@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <map>
 #include <chrono>
 #include <functional>
+#include <optional>
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
 #include <boost/uuid/uuid.hpp>
@@ -52,11 +53,6 @@ class TaskComposerNode;
 class TaskComposerNodeInfo
 {
 public:
-  using Ptr = std::shared_ptr<TaskComposerNodeInfo>;
-  using ConstPtr = std::shared_ptr<const TaskComposerNodeInfo>;
-  using UPtr = std::unique_ptr<TaskComposerNodeInfo>;
-  using ConstUPtr = std::unique_ptr<const TaskComposerNodeInfo>;
-
   TaskComposerNodeInfo() = default;  // Required for serialization
   TaskComposerNodeInfo(const TaskComposerNode& node);
   ~TaskComposerNodeInfo();
@@ -181,14 +177,14 @@ public:
    * @brief Add info to the container
    * @param info The info to be added
    */
-  void addInfo(TaskComposerNodeInfo::UPtr info);
+  void addInfo(const TaskComposerNodeInfo& info);
 
   /**
    * @brief Get info for the provided key
    * @param key The key to retrieve info for
    * @return If key does not exist nullptr, otherwise a clone of the info
    */
-  TaskComposerNodeInfo::UPtr getInfo(const boost::uuids::uuid& key) const;
+  std::optional<TaskComposerNodeInfo> getInfo(const boost::uuids::uuid& key) const;
 
   /**
    * @brief Get task info by name
@@ -196,11 +192,11 @@ public:
    * @param ns The namespace to search under. If empty all namespace's are include
    * @return A list of task infos with the following name.
    */
-  std::vector<TaskComposerNodeInfo::UPtr>
+  std::vector<TaskComposerNodeInfo>
   find(const std::function<bool(const TaskComposerNodeInfo& node_info)>& search_fn) const;
 
   /** @brief Get a copy of the task_info_map_ in case it gets resized*/
-  std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> getInfoMap() const;
+  std::map<boost::uuids::uuid, TaskComposerNodeInfo> getInfoMap() const;
 
   /** @brief Insert the contents of another container's info map */
   void insertInfoMap(const TaskComposerNodeInfoContainer& container);
@@ -244,9 +240,9 @@ private:
   mutable std::shared_mutex mutex_;
   boost::uuids::uuid root_node_{};
   boost::uuids::uuid aborting_node_{};
-  std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> info_map_;
+  std::map<boost::uuids::uuid, TaskComposerNodeInfo> info_map_;
 
-  void updateParents(std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr>& info_map,
+  void updateParents(std::map<boost::uuids::uuid, TaskComposerNodeInfo>& info_map,
                      const boost::uuids::uuid& uuid) const;
 };
 }  // namespace tesseract_planning

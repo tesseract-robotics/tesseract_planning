@@ -109,13 +109,6 @@ public:
    */
   void abort(const boost::uuids::uuid& calling_node = boost::uuids::uuid());
 
-  /**
-   * @brief Abort the process input
-   * @note This method should be used if calling abort from within an node
-   * @param caller The node calling abort
-   */
-  void abort(const TaskComposerNode& caller);
-
   bool operator==(const TaskComposerContext& rhs) const;
   bool operator!=(const TaskComposerContext& rhs) const;
 

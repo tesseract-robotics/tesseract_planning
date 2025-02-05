@@ -92,12 +92,12 @@ TaskComposerNodePorts RuckigTrajectorySmoothingTask::ports()
   return ports;
 }
 
-std::unique_ptr<TaskComposerNodeInfo>
-RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context,
+                                                            OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->return_value = 0;
-  info->status_code = 0;
+  TaskComposerNodeInfo info(*this);
+  info.return_value = 0;
+  info.status_code = 0;
 
   // --------------------
   // Check that inputs are valid
@@ -105,10 +105,10 @@ RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTas
   auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
-    info->status_code = 0;
-    info->status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
-    info->return_value = 0;
+    info.status_code = 0;
+    info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+    info.return_value = 0;
     return info;
   }
 
@@ -117,8 +117,8 @@ RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTas
   auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->status_message = "Input results to ruckig trajectory smoothing must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = "Input results to ruckig trajectory smoothing must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
@@ -146,11 +146,11 @@ RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTas
     if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
       setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
 
-    info->color = "green";
-    info->status_code = 1;
-    info->status_message = "Ruckig trajectory smoothing found no MoveInstructions to process";
-    info->return_value = 1;
-    CONSOLE_BRIDGE_logWarn("%s", info->status_message.c_str());
+    info.color = "green";
+    info.status_code = 1;
+    info.status_message = "Ruckig trajectory smoothing found no MoveInstructions to process";
+    info.return_value = 1;
+    CONSOLE_BRIDGE_logWarn("%s", info.status_message.c_str());
     return info;
   }
 
@@ -194,17 +194,17 @@ RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext& context, OptionalTas
     if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
       setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
 
-    info->status_message = "Failed to perform ruckig trajectory smoothing for process input: %s" + ci.getDescription();
-    CONSOLE_BRIDGE_logInform("%s", info->status_message.c_str());
+    info.status_message = "Failed to perform ruckig trajectory smoothing for process input: %s" + ci.getDescription();
+    CONSOLE_BRIDGE_logInform("%s", info.status_message.c_str());
     return info;
   }
 
   setData(*context.data_storage, INOUT_PROGRAM_PORT, input_data_poly);
 
-  info->color = "green";
-  info->status_code = 1;
-  info->status_message = "Successful";
-  info->return_value = 1;
+  info.color = "green";
+  info.status_code = 1;
+  info.status_message = "Successful";
+  info.return_value = 1;
   CONSOLE_BRIDGE_logDebug("Ruckig trajectory smoothing succeeded");
   return info;
 }

@@ -75,12 +75,12 @@ TaskComposerNodePorts ProfileSwitchTask::ports()
   return ports;
 }
 
-std::unique_ptr<TaskComposerNodeInfo> ProfileSwitchTask::runImpl(TaskComposerContext& context,
-                                                                 OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo ProfileSwitchTask::runImpl(TaskComposerContext& context,
+                                                OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->return_value = 0;
-  info->status_code = 0;
+  TaskComposerNodeInfo info(*this);
+  info.return_value = 0;
+  info.status_code = 0;
 
   // --------------------
   // Check that inputs are valid
@@ -88,8 +88,8 @@ std::unique_ptr<TaskComposerNodeInfo> ProfileSwitchTask::runImpl(TaskComposerCon
   auto input_data_poly = getData(*context.data_storage, INPUT_PROGRAM_PORT);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->status_message = "Input instruction to ProfileSwitch must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+    info.status_message = "Input instruction to ProfileSwitch must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
@@ -102,10 +102,10 @@ std::unique_ptr<TaskComposerNodeInfo> ProfileSwitchTask::runImpl(TaskComposerCon
   // Return the value specified in the profile
   CONSOLE_BRIDGE_logDebug("ProfileSwitchProfile returning %d", cur_composite_profile->return_value);
 
-  info->color = "green";
-  info->status_code = 1;
-  info->status_message = "Successful";
-  info->return_value = cur_composite_profile->return_value;
+  info.color = "green";
+  info.status_code = 1;
+  info.status_message = "Successful";
+  info.return_value = cur_composite_profile->return_value;
   return info;
 }
 

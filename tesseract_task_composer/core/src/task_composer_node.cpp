@@ -141,19 +141,19 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
   auto start_time = std::chrono::system_clock::now();
   if (context.isAborted())
   {
-    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-    info->start_time = start_time;
-    info->return_value = 0;
-    info->color = "grey";
-    info->status_code = 0;
-    info->status_message = "Aborted";
-    info->aborted_ = true;
+    TaskComposerNodeInfo info(*this);
+    info.start_time = start_time;
+    info.return_value = 0;
+    info.color = "grey";
+    info.status_code = 0;
+    info.status_message = "Aborted";
+    info.aborted_ = true;
     context.task_infos.addInfo(std::move(info));
     return 0;
   }
 
   tesseract_common::Stopwatch stopwatch;
-  TaskComposerNodeInfo::UPtr results;
+  TaskComposerNodeInfo results;
   stopwatch.start();
   try
   {
@@ -161,29 +161,29 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
   }
   catch (const std::exception& e)
   {
-    results = std::make_unique<TaskComposerNodeInfo>(*this);
-    results->color = "red";
-    results->status_code = -1;
-    results->status_message = "Exception thrown: " + std::string(e.what());
-    results->return_value = 0;
+    results = TaskComposerNodeInfo(*this);
+    results.color = "red";
+    results.status_code = -1;
+    results.status_message = "Exception thrown: " + std::string(e.what());
+    results.return_value = 0;
   }
   stopwatch.stop();
-  results->input_keys = input_keys_;
-  results->output_keys = output_keys_;
-  results->start_time = start_time;
-  results->elapsed_time = stopwatch.elapsedSeconds();
+  results.input_keys = input_keys_;
+  results.output_keys = output_keys_;
+  results.start_time = start_time;
+  results.elapsed_time = stopwatch.elapsedSeconds();
 
-  int value = results->return_value;
+  int value = results.return_value;
   assert(value >= 0);
 
   // Call abort if required and is a task
   if (type_ == TaskComposerNodeType::TASK && trigger_abort_ && !context.isAborted())
   {
-    results->status_message += " (Abort Triggered)";
+    results.status_message += " (Abort Triggered)";
     context.abort(uuid_);
   }
 
-  context.task_infos.addInfo(std::move(results));
+  context.task_infos.addInfo(results);
   return value;
 }
 
@@ -445,9 +445,9 @@ std::string TaskComposerNode::dump(std::ostream& os,
   auto it = results_map.find(uuid_);
   if (it != results_map.end())
   {
-    return_value = it->second->return_value;
-    if (!it->second->isAborted())
-      color = it->second->color;
+    return_value = it->second.return_value;
+    if (!it->second.isAborted())
+      color = it->second.color;
   }
 
   if (conditional_)
@@ -460,9 +460,9 @@ std::string TaskComposerNode::dump(std::ostream& os,
 
     if (it != results_map.end())
     {
-      os << "Time: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s\\l"
-         << "Status Code: " << std::to_string(it->second->status_code) << "\\l"
-         << "Status Msg: " << it->second->status_message << "\\l";
+      os << "Time: " << std::fixed << std::setprecision(3) << it->second.elapsed_time << "s\\l"
+         << "Status Code: " << std::to_string(it->second.status_code) << "\\l"
+         << "Status Msg: " << it->second.status_message << "\\l";
     }
     os << "\", color=black, fillcolor=" << color << ", style=filled];\n";
 
@@ -484,9 +484,9 @@ std::string TaskComposerNode::dump(std::ostream& os,
 
     if (it != results_map.end())
     {
-      os << "Time: " << std::fixed << std::setprecision(3) << it->second->elapsed_time << "s\\l"
-         << "Status Code: " << std::to_string(it->second->status_code) << "\\l"
-         << "Status Msg: " << it->second->status_message << "\\l";
+      os << "Time: " << std::fixed << std::setprecision(3) << it->second.elapsed_time << "s\\l"
+         << "Status Code: " << std::to_string(it->second.status_code) << "\\l"
+         << "Status Msg: " << it->second.status_message << "\\l";
     }
     os << "\", color=black, fillcolor=" << color << ", style=filled];\n";
 
@@ -497,7 +497,7 @@ std::string TaskComposerNode::dump(std::ostream& os,
   if (it == results_map.end())
     return {};
 
-  return it->second->dotgraph;
+  return it->second.dotgraph;
 }
 
 bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const

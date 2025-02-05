@@ -52,8 +52,8 @@ TaskComposerNodePorts FormatAsResultTask::ports()
   return ports;
 }
 
-std::unique_ptr<TaskComposerNodeInfo> FormatAsResultTask::runImpl(TaskComposerContext& context,
-                                                                  OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo FormatAsResultTask::runImpl(TaskComposerContext& context,
+                                                 OptionalTaskComposerExecutor /*executor*/) const
 {
   auto input_data_container =
       getData<std::vector<tesseract_common::AnyPoly>>(*context.data_storage, INOUT_PROGRAMS_PORT);
@@ -87,11 +87,11 @@ std::unique_ptr<TaskComposerNodeInfo> FormatAsResultTask::runImpl(TaskComposerCo
 
   setData(*context.data_storage, INOUT_PROGRAMS_PORT, output_data_container);
 
-  auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-  info->color = "green";
-  info->return_value = 1;
-  info->status_code = 1;
-  info->status_message = "Successful";
+  TaskComposerNodeInfo info(*this);
+  info.color = "green";
+  info.return_value = 1;
+  info.status_code = 1;
+  info.status_message = "Successful";
   return info;
 }
 

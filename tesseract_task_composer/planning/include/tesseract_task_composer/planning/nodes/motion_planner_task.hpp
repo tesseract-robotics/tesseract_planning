@@ -128,12 +128,12 @@ protected:
     return ports;
   }
 
-  std::unique_ptr<TaskComposerNodeInfo> runImpl(TaskComposerContext& context,
-                                                OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override
+  TaskComposerNodeInfo runImpl(TaskComposerContext& context,
+                               OptionalTaskComposerExecutor /*executor*/ = std::nullopt) const override
   {
-    auto info = std::make_unique<TaskComposerNodeInfo>(*this);
-    info->return_value = 0;
-    info->status_code = 0;
+    TaskComposerNodeInfo info(*this);
+    info.return_value = 0;
+    info.status_code = 0;
 
     // --------------------
     // Check that inputs are valid
@@ -141,10 +141,10 @@ protected:
     auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
     if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
     {
-      info->status_code = 0;
-      info->status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
-      CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
-      info->return_value = 0;
+      info.status_code = 0;
+      info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
+      CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
+      info.return_value = 0;
       return info;
     }
 
@@ -153,8 +153,8 @@ protected:
     auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
     if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
     {
-      info->status_message = "Input instructions to MotionPlannerTask: " + name_ + " must be a composite instruction";
-      CONSOLE_BRIDGE_logError("%s", info->status_message.c_str());
+      info.status_message = "Input instructions to MotionPlannerTask: " + name_ + " must be a composite instruction";
+      CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
       return info;
     }
     tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
@@ -191,10 +191,10 @@ protected:
     {
       // Should only set on success to support error branching
       setData(*context.data_storage, INOUT_PROGRAM_PORT, response.results);
-      info->return_value = 1;
-      info->color = "green";
-      info->status_code = 1;
-      info->status_message = response.message;
+      info.return_value = 1;
+      info.color = "green";
+      info.status_code = 1;
+      info.status_message = response.message;
       CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
       return info;
     }
@@ -209,7 +209,7 @@ protected:
     if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
       setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
 
-    info->status_message = response.message;
+    info.status_message = response.message;
     return info;
   }
 };
