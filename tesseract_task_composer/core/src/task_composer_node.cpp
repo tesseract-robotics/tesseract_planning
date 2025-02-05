@@ -148,7 +148,7 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
     info.status_code = 0;
     info.status_message = "Aborted";
     info.aborted_ = true;
-    context.task_infos.addInfo(std::move(info));
+    context.task_infos.addInfo(info);
     return 0;
   }
 

@@ -40,7 +40,7 @@ namespace tesseract_planning::test_suite
 TaskComposerNodeInfo DummyTaskComposerNode::runImpl(TaskComposerContext& /*context*/,
                                                     OptionalTaskComposerExecutor /*executor*/) const
 {
-  return TaskComposerNodeInfo(*this);
+  return { *this };
 }
 
 const std::string TestTask::INOUT_PORT1_PORT = "port1";

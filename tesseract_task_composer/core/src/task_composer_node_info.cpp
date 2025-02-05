@@ -140,7 +140,7 @@ TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(const TaskComposerN
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
   aborting_node_ = other.aborting_node_;  // NOLINT(cppcoreguidelines-prefer-member-initializer)
-  info_map_ = other.info_map_;
+  info_map_ = other.info_map_;            // NOLINT(cppcoreguidelines-prefer-member-initializer)
 }
 TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(const TaskComposerNodeInfoContainer& other)
 {
@@ -149,7 +149,7 @@ TaskComposerNodeInfoContainer& TaskComposerNodeInfoContainer::operator=(const Ta
   std::scoped_lock lock{ lhs_lock, rhs_lock };
 
   aborting_node_ = other.aborting_node_;  // NOLINT(cppcoreguidelines-prefer-member-initializer)
-  info_map_ = other.info_map_;
+  info_map_ = other.info_map_;            // NOLINT(cppcoreguidelines-prefer-member-initializer)
 
   return *this;
 }
