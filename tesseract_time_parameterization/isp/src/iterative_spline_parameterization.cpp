@@ -56,8 +56,12 @@ static void adjust_two_positions(long n,
                                  double x2[],        // NOLINT
                                  double x2_i,        // NOLINT
                                  double x2_f);       // NOLINT
-static void
-init_times(long n, const double minimum_time_delta, double dt[], const double x[], const double max_velocity[], double min_velocity[]);  // NOLINT
+static void init_times(long n,
+                       const double minimum_time_delta,
+                       double dt[],
+                       const double x[],
+                       const double max_velocity[],
+                       double min_velocity[]);  // NOLINT
 // static int fit_spline_and_adjust_times(const int n,
 //                                       double dt[],
 //                                       const double x[],
@@ -550,7 +554,12 @@ static void adjust_two_positions(const long n,
   Increase a segment's time interval if the current time isn't long enough.
 */
 // NOLINTNEXTLINE
-static void init_times(long n, const double minimum_time_delta, double dt[], const double x[], const double max_velocity[], double min_velocity[])
+static void init_times(long n,
+                       const double minimum_time_delta,
+                       double dt[],
+                       const double x[],
+                       const double max_velocity[],
+                       double min_velocity[])
 {
   for (long i = 0; i < n - 1; i++)
   {
