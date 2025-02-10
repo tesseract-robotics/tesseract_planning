@@ -194,6 +194,44 @@ TEST(TestTimeParameterization, TestRepeatedPoint)  // NOLINT
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 0.001);
 }
 
+TEST(TestTimeParameterization, TestEnforceMinimumDelta)
+{
+  // GIVEN a single-joint trajectory that is straight in joint-space
+  IterativeSplineParameterization time_parameterization(false);
+  CompositeInstruction program = createStraightTrajectory();
+  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
+
+  // GIVEN valid limits for each joint
+  Eigen::MatrixX2d max_velocity(6, 2);
+  max_velocity.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  max_velocity.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  Eigen::MatrixX2d max_acceleration(6, 2);
+  max_acceleration.col(0) << -1, -1, -1, -1, -1, -1;
+  max_acceleration.col(1) << 1, 1, 1, 1, 1, 1;
+  Eigen::MatrixX2d max_jerk(6, 2);
+  max_jerk.col(0) << -1, -1, -1, -1, -1, -1;
+  max_jerk.col(1) << 1, 1, 1, 1, 1, 1;
+
+  // WHEN we compute time parameterization while enforcing a minimum time delta that is much larger than the optimal
+  // time delta given the specified limits
+  constexpr double minimum_time_delta = 10.0;
+  // THEN time parameterization succeeds
+  EXPECT_TRUE(time_parameterization.compute(*trajectory,
+                                            max_velocity,
+                                            max_acceleration,
+                                            max_jerk,
+                                            Eigen::VectorXd::Ones(1),
+                                            Eigen::VectorXd::Ones(1),
+                                            Eigen::VectorXd::Ones(1),
+                                            minimum_time_delta));
+  // THEN the timestamp of the first trajectory point is greater than or equal to the minimum time delta
+  ASSERT_GE(program[1].as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), minimum_time_delta);
+  // THEN the timestamp of the last trajectory point shows that the minimum time delta has been enforced for each
+  // previous trajectory point
+  ASSERT_GE(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(),
+            minimum_time_delta * static_cast<double>(program.size() - 1));
+}
+
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);
