@@ -562,7 +562,8 @@ static void init_times(long n, const double minimum_time_delta, double dt[], con
       time = (dx / min_velocity[i]);
     time += std::numeric_limits<double>::epsilon();  // prevent divide-by-zero
 
-    if (time < minimum_time_delta) {
+    if (time < minimum_time_delta)
+    {
       time = minimum_time_delta;
     }
 
