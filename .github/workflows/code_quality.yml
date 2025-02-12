@@ -24,7 +24,7 @@ jobs:
         include:
           - job_type: clang-tidy
             env:
-              TARGET_CMAKE_ARGS: "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CLANG_TIDY=ON -DTESSERACT_ENABLE_TESTING=ON"
+              TARGET_CMAKE_ARGS: "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CLANG_TIDY=ON -DTESSERACT_ENABLE_TESTING=ON -DCLANG_TIDY_NAMES=clang-tidy-17"
           - job_type: codecov
             env:
               TARGET_CMAKE_ARGS: "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CODE_COVERAGE=ON -DTESSERACT_WARNINGS_AS_ERRORS=OFF"
@@ -47,15 +47,20 @@ jobs:
           apt upgrade -y
           apt install -y wget software-properties-common
           add-apt-repository ppa:levi-armstrong/tesseract-robotics
-          apt install -y clang-tidy libompl-dev taskflow
+          echo "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-17 main" | tee /etc/apt/sources.list.d/llvm-toolchain.list
+          echo "deb-src http://apt.llvm.org/jammy/ llvm-toolchain-jammy-17 main" | tee -a /etc/apt/sources.list.d/llvm-toolchain.list
+          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | tee /etc/apt/trusted.gpg.d/llvm.asc
+          apt update -y
+          apt install -y clang-tidy-17 libomp-17-dev taskflow
 
       - name: Build and Tests
-        uses: tesseract-robotics/colcon-action@v10
+        uses: tesseract-robotics/colcon-action@v11
         with:
           before-script: source /opt/tesseract/install/setup.bash && source /opt/trajopt/install/setup.bash
           ccache-prefix: ${{ matrix.job_type }}
           vcs-file: dependencies_unstable.repos
           run-tests: false
+          rosdep-install-args: -iry --skip-keys=libomp-dev
           upstream-args: --cmake-args -DCMAKE_BUILD_TYPE=Release
           target-path: target_ws/src
           target-args: --cmake-args ${{ matrix.env.TARGET_CMAKE_ARGS }}
