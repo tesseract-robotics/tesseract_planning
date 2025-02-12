@@ -495,7 +495,7 @@ bool Trajectory::getNextSwitchingPoint(double path_pos,
   double acceleration_before_acceleration{ NAN };
   double acceleration_after_acceleration{ NAN };
   bool acceleration_reached_end{ false };
-  do
+  do // NOLINT(cppcoreguidelines-avoid-do-while)
   {
     acceleration_reached_end = getNextAccelerationSwitchingPoint(acceleration_switching_point.path_pos_,
                                                                  acceleration_switching_point,
@@ -508,7 +508,7 @@ bool Trajectory::getNextSwitchingPoint(double path_pos,
   double velocity_before_acceleration{ NAN };
   double velocity_after_acceleration{ NAN };
   bool velocity_reached_end{ false };
-  do
+  do // NOLINT(cppcoreguidelines-avoid-do-while)
   {
     velocity_reached_end = getNextVelocitySwitchingPoint(velocity_switching_point.path_pos_,
                                                          velocity_switching_point,
@@ -566,9 +566,9 @@ bool Trajectory::getNextAccelerationSwitchingPoint(double path_pos,
 
       if ((before_path_vel > after_path_vel ||
            getMinMaxPhaseSlope(switching_path_pos - EPS, switching_path_vel, false) >
-               getAccelerationMaxPathVelocityDeriv(switching_path_pos - 2.0 * EPS)) &&
+               getAccelerationMaxPathVelocityDeriv(switching_path_pos - (2.0 * EPS))) &&
           (before_path_vel < after_path_vel || getMinMaxPhaseSlope(switching_path_pos + EPS, switching_path_vel, true) <
-                                                   getAccelerationMaxPathVelocityDeriv(switching_path_pos + 2.0 * EPS)))
+                                                   getAccelerationMaxPathVelocityDeriv(switching_path_pos + (2.0 * EPS))))
       {
         break;
       }
@@ -601,7 +601,7 @@ bool Trajectory::getNextVelocitySwitchingPoint(double path_pos,
 
   bool start = false;
   path_pos -= step_size;
-  do
+  do // NOLINT(cppcoreguidelines-avoid-do-while)
   {
     path_pos += step_size;
 
@@ -777,7 +777,7 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
   {
     if (start1->path_pos_ < path_pos || tesseract_common::almostEqualRelativeAndAbs(start1->path_pos_, path_pos, EPS))
     {
-      trajectory.push_front(TrajectoryStep(path_pos, path_vel));
+      trajectory.emplace_front(path_pos, path_vel);
       path_vel -= time_step_ * acceleration;
       path_pos -= time_step_ * 0.5 * (path_vel + trajectory.front().path_vel_);
       acceleration = getMinMaxPathAcceleration(path_pos, path_vel, false);
@@ -822,7 +822,7 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
     if (check1 && check2)
     {
       const double intersection_path_vel =
-          start1->path_vel_ + start_slope * (intersection_path_pos - start1->path_pos_);
+          start1->path_vel_ + (start_slope * (intersection_path_pos - start1->path_pos_));
       start_trajectory.erase(start2, start_trajectory.end());
       start_trajectory.emplace_back(intersection_path_pos, intersection_path_vel);
       start_trajectory.splice(start_trajectory.end(), trajectory);
@@ -846,8 +846,8 @@ double Trajectory::getMinMaxPathAcceleration(double path_position, double path_v
     if (!tesseract_common::almostEqualRelativeAndAbs(config_deriv[i], 0.0, std::numeric_limits<double>::epsilon()))
     {
       max_path_acceleration = std::min(max_path_acceleration,
-                                       max_acceleration_[i] / std::abs(config_deriv[i]) -
-                                           factor * config_deriv2[i] * path_velocity * path_velocity / config_deriv[i]);
+                                       (max_acceleration_[i] / std::abs(config_deriv[i])) -
+                                           (factor * config_deriv2[i] * path_velocity * path_velocity / config_deriv[i]));
     }
   }
   return factor * max_path_acceleration;
@@ -871,7 +871,7 @@ double Trajectory::getAccelerationMaxPathVelocity(double path_pos) const
       {
         if (config_deriv[j] != 0.0)
         {
-          double a_ij = config_deriv2[i] / config_deriv[i] - config_deriv2[j] / config_deriv[j];
+          double a_ij = (config_deriv2[i] / config_deriv[i]) - (config_deriv2[j] / config_deriv[j]);
           if (a_ij != 0.0)
           {
             max_path_velocity = std::min(max_path_velocity,

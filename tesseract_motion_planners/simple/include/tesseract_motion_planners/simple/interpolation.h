@@ -56,7 +56,7 @@ struct JointGroupInstructionInfo
   JointGroupInstructionInfo(JointGroupInstructionInfo&&) = default;
   JointGroupInstructionInfo& operator=(JointGroupInstructionInfo&&) = delete;
 
-  const MoveInstructionPoly& instruction;
+  const MoveInstructionPoly& instruction; // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
   std::shared_ptr<const tesseract_kinematics::JointGroup> manip;
   std::string working_frame;
   Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };
@@ -107,7 +107,7 @@ struct KinematicGroupInstructionInfo
   KinematicGroupInstructionInfo(KinematicGroupInstructionInfo&&) = default;
   KinematicGroupInstructionInfo& operator=(KinematicGroupInstructionInfo&&) = delete;
 
-  const MoveInstructionPoly& instruction;
+  const MoveInstructionPoly& instruction; // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
   std::shared_ptr<const tesseract_kinematics::KinematicGroup> manip;
   std::string working_frame;
   Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };

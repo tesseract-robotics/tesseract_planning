@@ -62,7 +62,7 @@ void SetToolInstruction::setDescription(const std::string& description) { descri
 void SetToolInstruction::print(const std::string& prefix) const  // NOLINT
 {
   std::cout << prefix + "Set Tool Instruction, Tool ID: " << tool_id_;
-  std::cout << ", Description: " << getDescription() << std::endl;
+  std::cout << ", Description: " << getDescription() << "\n";
 }
 
 int SetToolInstruction::getTool() const { return tool_id_; }

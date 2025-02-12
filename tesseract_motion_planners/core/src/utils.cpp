@@ -299,13 +299,13 @@ void printContinuousDebugInfo(const std::vector<std::string>& joint_names,
   ss << "Continuous collision detected at step: " << step_idx << " of " << step_size;
   if (sub_step_idx >= 0)
     ss << " substep: " << sub_step_idx;
-  ss << std::endl;
+  ss << "\n";
 
   ss << "     Names:";
   for (const auto& name : joint_names)
     ss << " " << name;
 
-  ss << std::endl << "    State0: " << swp0 << std::endl << "    State1: " << swp1 << std::endl;
+  ss << "\n    State0: " << swp0 << "\n    State1: " << swp1 << "\n";
 
   CONSOLE_BRIDGE_logDebug(ss.str().c_str());
 }
@@ -320,13 +320,13 @@ void printDiscreteDebugInfo(const std::vector<std::string>& joint_names,
   ss << "Discrete collision detected at step: " << step_idx << " of " << step_size;
   if (sub_step_idx >= 0)
     ss << " substep: " << sub_step_idx;
-  ss << std::endl;
+  ss << "\n";
 
   ss << "     Names:";
   for (const auto& name : joint_names)
     ss << " " << name;
 
-  ss << std::endl << "    State: " << swp << std::endl;
+  ss << "\n    State: " << swp << "\n";
 
   CONSOLE_BRIDGE_logDebug(ss.str().c_str());
 }
@@ -514,7 +514,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
           if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_START ||
               config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
           {
-            contacts.emplace_back(tesseract_collision::ContactResultMap{});
+            contacts.emplace_back();
             continue;
           }
         }
@@ -577,7 +577,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_START ||
         config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
     {
-      contacts.emplace_back(tesseract_collision::ContactResultMap{});
+      contacts.emplace_back();
       ++start_idx;
     }
 
@@ -934,7 +934,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
           if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_START ||
               config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
           {
-            contacts.emplace_back(tesseract_collision::ContactResultMap{});
+            contacts.emplace_back();
             continue;
           }
         }
@@ -1013,7 +1013,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_START ||
         config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
     {
-      contacts.emplace_back(tesseract_collision::ContactResultMap{});
+      contacts.emplace_back();
       ++start_idx;
     }
 

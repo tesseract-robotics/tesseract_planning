@@ -45,7 +45,7 @@ public:
   {
     TaskComposerNodeInfo info(*this);
     info.return_value = 0;
-    std::cout << name_ << std::endl;
+    std::cout << name_ << "\n";
     double result = getData(*context.data_storage, INPUT_LEFT_PORT).as<double>() +
                     getData(*context.data_storage, INPUT_RIGHT_PORT).as<double>();
     setData(*context.data_storage, OUTPUT_RESULT_PORT, result);
@@ -88,7 +88,7 @@ public:
   {
     TaskComposerNodeInfo info(*this);
     info.return_value = 0;
-    std::cout << name_ << std::endl;
+    std::cout << name_ << "\n";
     double result = getData(*context.data_storage, INPUT_LEFT_PORT).as<double>() *
                     getData(*context.data_storage, INPUT_RIGHT_PORT).as<double>();
     setData(*context.data_storage, OUTPUT_RESULT_PORT, result);
@@ -133,5 +133,5 @@ int main()
   TaskComposerFuture::UPtr future = task_executor->run(task_composer, std::move(task_data));
   future->wait();
 
-  std::cout << "Output: " << future->context->data_storage->getData("task3_output").as<double>() << std::endl;
+  std::cout << "Output: " << future->context->data_storage->getData("task3_output").as<double>() << "\n";
 }

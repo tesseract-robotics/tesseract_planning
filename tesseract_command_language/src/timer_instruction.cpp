@@ -65,7 +65,7 @@ void TimerInstruction::print(const std::string& prefix) const  // NOLINT
 {
   std::cout << prefix + "Timer Instruction, Timer Type: " << static_cast<int>(timer_type_) << ", Time: " << timer_time_
             << ", IO: " << timer_io_;
-  std::cout << ", Description: " << getDescription() << std::endl;
+  std::cout << ", Description: " << getDescription() << "\n";
 }
 
 TimerInstructionType TimerInstruction::getTimerType() const { return timer_type_; }

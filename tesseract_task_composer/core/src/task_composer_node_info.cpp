@@ -265,6 +265,7 @@ void TaskComposerNodeInfoContainer::insertInfoMap(const TaskComposerNodeInfoCont
     info_map_[pair.first] = pair.second;
 }
 
+// NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
 void TaskComposerNodeInfoContainer::mergeInfoMap(TaskComposerNodeInfoContainer&& container)
 {
   std::unique_lock lhs_lock(mutex_, std::defer_lock);

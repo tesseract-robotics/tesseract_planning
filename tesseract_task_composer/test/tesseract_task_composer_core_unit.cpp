@@ -1667,6 +1667,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerErrorTaskTests)  // NOLINT
     ErrorTask task;
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
@@ -1715,6 +1719,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDoneTaskTests)  // NOLINT
     DoneTask task;
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1785,6 +1792,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     EXPECT_TRUE(context->data_storage->hasKey(remap_key));
     EXPECT_EQ(context->data_storage->getData(key), context->data_storage->getData(remap_key));
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1809,6 +1820,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     EXPECT_TRUE(context->data_storage->hasKey(remap_key));
     EXPECT_EQ(context->data_storage->getData(remap_key).as<tesseract_common::JointState>(), js);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1840,6 +1855,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     EXPECT_TRUE(context->data_storage->hasKey(remap_key));
     EXPECT_EQ(context->data_storage->getData(key), context->data_storage->getData(remap_key));
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1871,6 +1890,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     EXPECT_TRUE(context->data_storage->hasKey(remap_key));
     EXPECT_EQ(context->data_storage->getData(remap_key).as<tesseract_common::JointState>(), js);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1920,6 +1943,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     EXPECT_TRUE(context->data_storage->hasKey(key));
     EXPECT_FALSE(context->data_storage->hasKey(remap_key));
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
@@ -1943,6 +1970,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     EXPECT_TRUE(context->data_storage->hasKey(key));
     EXPECT_FALSE(context->data_storage->hasKey(remap_key));
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
@@ -2015,6 +2046,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerStartTaskTests)  // NOLINT
     StartTask task;
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -2087,6 +2122,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerSyncTaskTests)  // NOLINT
     SyncTask task;
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -2166,6 +2205,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerHasDataStorageEntryTaskTests)  /
     HasDataStorageEntryTask task("test_run", input_keys);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
@@ -2186,6 +2229,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerHasDataStorageEntryTaskTests)  /
     HasDataStorageEntryTask task("test_run", input_keys);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
@@ -2207,6 +2254,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerHasDataStorageEntryTaskTests)  /
     HasDataStorageEntryTask task("test_run", input_keys);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);

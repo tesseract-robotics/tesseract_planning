@@ -236,7 +236,7 @@ void MoveInstruction::print(const std::string& prefix) const
     std::cout << ", ";
     getWaypoint().print();
   }
-  std::cout << ", Description: " << getDescription() << std::endl;
+  std::cout << ", Description: " << getDescription() << "\n";
 }
 
 CartesianWaypointPoly MoveInstruction::createCartesianWaypoint() { return CartesianWaypoint(); }

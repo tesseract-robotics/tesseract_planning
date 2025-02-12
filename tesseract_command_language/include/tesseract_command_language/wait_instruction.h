@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-enum class WaitInstructionType : int
+enum class WaitInstructionType : std::uint8_t
 {
   TIME = 0,
   DIGITAL_INPUT_HIGH = 1,

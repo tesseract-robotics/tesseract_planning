@@ -247,7 +247,7 @@ bool IterativeSplineParameterization::compute(TrajectoryContainer& trajectory,
     // (required to force acceleration to specified values at endpoints)
     for (unsigned int j = 0; j < trajectory.dof(); j++)
     {
-      double value = 0.9 * t2[j].positions_[0] + 0.1 * t2[j].positions_[1];
+      double value = (0.9 * t2[j].positions_[0]) + (0.1 * t2[j].positions_[1]);
       t2[j].positions_.insert(t2[j].positions_.begin() + 1, value);
 
       value = t2[j].velocities_.front();
@@ -272,7 +272,7 @@ bool IterativeSplineParameterization::compute(TrajectoryContainer& trajectory,
 
     for (unsigned int j = 0; j < trajectory.dof(); j++)
     {
-      double value = 0.1 * t2[j].positions_[num_points - 2] + 0.9 * t2[j].positions_[num_points - 1];
+      double value = (0.1 * t2[j].positions_[num_points - 2]) + (0.9 * t2[j].positions_[num_points - 1]);
       t2[j].positions_.insert(t2[j].positions_.end() - 1, value);
 
       value = t2[j].velocities_.back();
@@ -482,7 +482,7 @@ static void fit_cubic_spline(const long n, const double dt[], const double x[], 
   {
     const double dt2 = dt[i - 1] + dt[i];
     const double a = dt[i - 1] / dt2;
-    const double denom = 2.0 - a * c[i - 1];
+    const double denom = 2.0 - (a * c[i - 1]);
     c[i] = (1.0 - a) / denom;
     d[i] = 6.0 * ((x[i + 1] - x[i]) / dt[i] - (x[i] - x[i - 1]) / dt[i - 1]) / dt2;
     d[i] = (d[i] - a * d[i - 1]) / denom;
@@ -560,8 +560,7 @@ static void init_times(long n, double dt[], const double x[], const double max_v
       time = (dx / min_velocity[i]);
     time += std::numeric_limits<double>::epsilon();  // prevent divide-by-zero
 
-    if (dt[i] < time)
-      dt[i] = time;
+    dt[i] = std::max(dt[i], time);
   }
 }
 
@@ -651,23 +650,19 @@ static double global_adjustment_factor(long n,
   {
     double tfactor{ NAN };
     tfactor = x1[i] / max_velocity[i];
-    if (tfactor2 < tfactor)
-      tfactor2 = tfactor;
+    tfactor2 = std::max(tfactor2, tfactor);
     tfactor = x1[i] / min_velocity[i];
-    if (tfactor2 < tfactor)
-      tfactor2 = tfactor;
+    tfactor2 = std::max(tfactor2, tfactor);
 
     if (x2[i] >= 0)
     {
       tfactor = sqrt(fabs(x2[i] / max_acceleration[i]));
-      if (tfactor2 < tfactor)
-        tfactor2 = tfactor;
+      tfactor2 = std::max(tfactor2, tfactor);
     }
     else
     {
       tfactor = sqrt(fabs(x2[i] / min_acceleration[i]));
-      if (tfactor2 < tfactor)
-        tfactor2 = tfactor;
+      tfactor2 = std::max(tfactor2, tfactor);
     }
   }
 
@@ -692,8 +687,7 @@ void globalAdjustment(std::vector<SingleJointTrajectory>& t2,
                                               t2[j].min_velocity_.data(),
                                               t2[j].max_acceleration_.data(),
                                               t2[j].min_acceleration_.data());
-    if (tfactor > gtfactor)
-      gtfactor = tfactor;
+    gtfactor = std::max(tfactor, gtfactor);
   }
 
   // printf("# Global adjustment: %0.4f%%\n", 100.0 * (gtfactor - 1.0));

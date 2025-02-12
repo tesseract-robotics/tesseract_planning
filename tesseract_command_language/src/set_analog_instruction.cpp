@@ -63,7 +63,7 @@ void SetAnalogInstruction::setDescription(const std::string& description) { desc
 void SetAnalogInstruction::print(const std::string& prefix) const  // NOLINT
 {
   std::cout << prefix + "Set Analog Instruction, Key: " << key_ << ", Index: " << index_ << ", Value: " << value_;
-  std::cout << ", Description: " << getDescription() << std::endl;
+  std::cout << ", Description: " << getDescription() << "\n";
 }
 
 std::string SetAnalogInstruction::getKey() const { return key_; }

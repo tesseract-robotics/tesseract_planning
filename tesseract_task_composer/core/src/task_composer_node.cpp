@@ -452,7 +452,7 @@ std::string TaskComposerNode::dump(std::ostream& os,
 
   if (conditional_)
   {
-    os << std::endl << tmp << " [shape=diamond, nojustify=true label=\"" << name_ << "\\n";
+    os << "\n" << tmp << " [shape=diamond, nojustify=true label=\"" << name_ << "\\n";
     os << "UUID: " << uuid_str_ << "\\l";
     os << "Namespace: " << ns_ << "\\l";
     os << "Inputs:\\l" << input_keys_;
@@ -476,7 +476,7 @@ std::string TaskComposerNode::dump(std::ostream& os,
   }
   else
   {
-    os << std::endl << tmp << " [nojustify=true label=\"" << name_ << "\\n";
+    os << "\n" << tmp << " [nojustify=true label=\"" << name_ << "\\n";
     os << "UUID: " << uuid_str_ << "\\l";
     os << "Namespace: " << ns_ << "\\l";
     os << "Inputs:\\l" << input_keys_;

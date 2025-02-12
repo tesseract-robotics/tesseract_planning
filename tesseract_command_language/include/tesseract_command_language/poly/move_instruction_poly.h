@@ -76,7 +76,7 @@ namespace tesseract_planning
 struct MoveInstructionPoly;
 class ProfileDictionary;
 
-enum class MoveInstructionType : int
+enum class MoveInstructionType : std::uint8_t
 {
   LINEAR = 0,
   FREESPACE = 1,

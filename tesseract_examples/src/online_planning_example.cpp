@@ -197,8 +197,8 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
   // Add the target pose constraint for the final step
   {
     target_pose_base_frame_ = manip_->calcFwdKin(target_joint_position).at("tool0");
-    std::cout << "Target Joint Position: " << target_joint_position.transpose() << std::endl;
-    std::cout << "Target TF:\n" << target_pose_base_frame_.matrix() << std::endl;
+    std::cout << "Target Joint Position: " << target_joint_position.transpose() << "\n";
+    std::cout << "Target TF:\n" << target_pose_base_frame_.matrix() << "\n";
 
     trajopt_ifopt::CartPosInfo cart_info(
         manip_, "tool0", "world", Eigen::Isometry3d::Identity(), target_pose_base_frame_);
@@ -399,8 +399,8 @@ bool OnlinePlanningExample::onlinePlan()
 
     std::string message =
         "Solver Frequency (Hz): " + std::to_string(1.0 / static_cast<double>(duration.count()) * 1000000.) +
-        "\nCost: " + std::to_string(nlp_->evaluateTotalExactCost(x));
-    std::cout << message << std::endl;
+        "\nCost: " + std::to_string(nlp_->evaluateTotalExactCost(x)) + "\n";
+    std::cout << message;
   }
 
   return true;

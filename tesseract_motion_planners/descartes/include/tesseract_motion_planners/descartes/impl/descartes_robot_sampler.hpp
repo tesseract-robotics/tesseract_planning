@@ -139,7 +139,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
     if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
     {
       error_string_stream << "For sample " << i << " " << ik_solutions.size()
-                          << " IK solutions were found, with a collision summary of:" << std::endl;
+                          << " IK solutions were found, with a collision summary of:\n";
       error_string_stream << traj_contacts.collisionFrequencyPerLink().str();
     }
   }
@@ -152,7 +152,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
       ss << "No IK solutions were found. ";
     else
       ss << "All IK solutions found were in collision or invalid. ";
-    ss << target_poses.size() << " samples tried." << std::endl;
+    ss << target_poses.size() << " samples tried.\n";
     if (found_ik_sol)
       ss << error_string_stream.str();
     error_string_ = ss.str();

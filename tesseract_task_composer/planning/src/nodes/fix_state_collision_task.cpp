@@ -259,7 +259,7 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     {
       std::stringstream ss;
       ss << "Discrete collision detected between '" << collision.first.first << "' and '" << collision.first.second
-         << "' with distance " << collision.second.front().distance << std::endl;
+         << "' with distance " << collision.second.front().distance << "\n";
 
       CONSOLE_BRIDGE_logError(ss.str().c_str());
     }

@@ -216,7 +216,7 @@ Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, co
       throw std::runtime_error("Joint names do not match!");
 
     long idx = std::distance(jn.begin(), it);
-    output(static_cast<long>(i)) = jv(static_cast<long>(idx));
+    output(static_cast<long>(i)) = jv(idx);
   }
 
   return output;
@@ -273,7 +273,7 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPo
       throw std::runtime_error("Joint names do not match!");
 
     long idx = std::distance(jn->begin(), it);
-    output(static_cast<long>(i)) = (*jv)(static_cast<long>(idx));
+    output(static_cast<long>(i)) = (*jv)(idx);
   }
 
   *jn = joint_names;
@@ -367,13 +367,13 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
   for (std::size_t i = 0; i < joint_names.size() - 1; ++i)
     myfile << joint_names[i] << separator;
 
-  myfile << joint_names.back() << std::endl;
+  myfile << joint_names.back() << "\n";
 
   // Write Positions
   for (const auto& i : mi)
   {
     const Eigen::VectorXd& p = getJointPosition(i.get().as<MoveInstructionPoly>().getWaypoint());
-    myfile << p.format(eigen_format) << std::endl;
+    myfile << p.format(eigen_format) << "\n";
   }
 
   myfile.close();
