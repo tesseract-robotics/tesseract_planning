@@ -228,7 +228,7 @@ TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
   tesseract_common::Stopwatch stopwatch;
   stopwatch.start();
 
-  if(!executor.has_value())
+  if (!executor.has_value())
     throw std::runtime_error("TaskComposerGraph, the optional executor is null!");
 
   TaskComposerFuture::UPtr future = executor.value().get().run(*this, context.data_storage, context.dotgraph);

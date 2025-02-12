@@ -495,7 +495,7 @@ bool Trajectory::getNextSwitchingPoint(double path_pos,
   double acceleration_before_acceleration{ NAN };
   double acceleration_after_acceleration{ NAN };
   bool acceleration_reached_end{ false };
-  do // NOLINT(cppcoreguidelines-avoid-do-while)
+  do  // NOLINT(cppcoreguidelines-avoid-do-while)
   {
     acceleration_reached_end = getNextAccelerationSwitchingPoint(acceleration_switching_point.path_pos_,
                                                                  acceleration_switching_point,
@@ -508,7 +508,7 @@ bool Trajectory::getNextSwitchingPoint(double path_pos,
   double velocity_before_acceleration{ NAN };
   double velocity_after_acceleration{ NAN };
   bool velocity_reached_end{ false };
-  do // NOLINT(cppcoreguidelines-avoid-do-while)
+  do  // NOLINT(cppcoreguidelines-avoid-do-while)
   {
     velocity_reached_end = getNextVelocitySwitchingPoint(velocity_switching_point.path_pos_,
                                                          velocity_switching_point,
@@ -567,8 +567,9 @@ bool Trajectory::getNextAccelerationSwitchingPoint(double path_pos,
       if ((before_path_vel > after_path_vel ||
            getMinMaxPhaseSlope(switching_path_pos - EPS, switching_path_vel, false) >
                getAccelerationMaxPathVelocityDeriv(switching_path_pos - (2.0 * EPS))) &&
-          (before_path_vel < after_path_vel || getMinMaxPhaseSlope(switching_path_pos + EPS, switching_path_vel, true) <
-                                                   getAccelerationMaxPathVelocityDeriv(switching_path_pos + (2.0 * EPS))))
+          (before_path_vel < after_path_vel ||
+           getMinMaxPhaseSlope(switching_path_pos + EPS, switching_path_vel, true) <
+               getAccelerationMaxPathVelocityDeriv(switching_path_pos + (2.0 * EPS))))
       {
         break;
       }
@@ -601,7 +602,7 @@ bool Trajectory::getNextVelocitySwitchingPoint(double path_pos,
 
   bool start = false;
   path_pos -= step_size;
-  do // NOLINT(cppcoreguidelines-avoid-do-while)
+  do  // NOLINT(cppcoreguidelines-avoid-do-while)
   {
     path_pos += step_size;
 
@@ -845,9 +846,10 @@ double Trajectory::getMinMaxPathAcceleration(double path_position, double path_v
   {
     if (!tesseract_common::almostEqualRelativeAndAbs(config_deriv[i], 0.0, std::numeric_limits<double>::epsilon()))
     {
-      max_path_acceleration = std::min(max_path_acceleration,
-                                       (max_acceleration_[i] / std::abs(config_deriv[i])) -
-                                           (factor * config_deriv2[i] * path_velocity * path_velocity / config_deriv[i]));
+      max_path_acceleration =
+          std::min(max_path_acceleration,
+                   (max_acceleration_[i] / std::abs(config_deriv[i])) -
+                       (factor * config_deriv2[i] * path_velocity * path_velocity / config_deriv[i]));
     }
   }
   return factor * max_path_acceleration;

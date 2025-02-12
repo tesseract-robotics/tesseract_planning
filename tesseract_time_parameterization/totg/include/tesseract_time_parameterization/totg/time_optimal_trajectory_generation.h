@@ -229,7 +229,7 @@ private:
   std::list<TrajectoryStep> trajectory_;
   std::list<TrajectoryStep> end_trajectory_;  // non-empty only if the trajectory generation failed.
 
-  const double time_step_; // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
+  const double time_step_;  // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
 
   mutable double cached_time_;
   mutable std::list<TrajectoryStep>::const_iterator cached_trajectory_segment_;

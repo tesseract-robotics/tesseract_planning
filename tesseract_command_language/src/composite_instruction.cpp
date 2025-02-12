@@ -216,15 +216,18 @@ const CompositeInstruction::UserData& CompositeInstruction::getUserData() const 
 void CompositeInstruction::print(const std::string& prefix) const
 {
   std::cout << prefix + "Composite Instruction, Description: " << getDescription() << "\n";
-  std::cout << prefix + "{" << "\n";
+  std::cout << prefix + "{"
+            << "\n";
   for (const auto& i : container_)
   {
     if (i.isNull())
-      std::cout << prefix + "  Null Instruction" << "\n";
+      std::cout << prefix + "  Null Instruction"
+                << "\n";
     else
       i.print(prefix + "  ");
   }
-  std::cout << prefix + "}" << "\n";
+  std::cout << prefix + "}"
+            << "\n";
 }
 
 bool CompositeInstruction::operator==(const CompositeInstruction& rhs) const

@@ -93,7 +93,7 @@ bool isValidState(const tesseract_kinematics::JointGroup& joint_group,
   RobotConfig robot_config = getRobotConfig<FloatType>(
       joint_group, base_link, tcp_frame, joint_values.tail(joint_group.numJoints()), sign_correction);
 
-  return !(robot_config != RobotConfig::FUT && robot_config != RobotConfig::NUT); // NOLINT
+  return !(robot_config != RobotConfig::FUT && robot_config != RobotConfig::NUT);  // NOLINT
 }
 
 /**

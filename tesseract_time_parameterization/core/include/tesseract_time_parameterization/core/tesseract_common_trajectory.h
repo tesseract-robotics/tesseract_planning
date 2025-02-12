@@ -54,7 +54,7 @@ public:
   bool empty() const override final;
 
 private:
-  tesseract_common::JointTrajectory& trajectory_; // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
+  tesseract_common::JointTrajectory& trajectory_;  // NOLINT(cppcoreguidelines-avoid-const-or-ref-data-members)
   Eigen::Index dof_;
 };
 }  // namespace tesseract_planning
