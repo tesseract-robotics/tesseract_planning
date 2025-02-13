@@ -448,7 +448,7 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
     auto transition_results = transition_task_factory_(task_name, transition_idx + 1);
     transition_results.node->setConditional(false);
     auto transition_uuid = task_graph.addNode(std::move(transition_results.node));
-    transition_keys.emplace_back(std::make_pair(transition_results.input_key, transition_results.output_key));
+    transition_keys.emplace_back(transition_results.input_key, transition_results.output_key);
 
     const auto& prev = raster_tasks[transition_idx];
     const auto& next = raster_tasks[transition_idx + 1];
@@ -515,6 +515,9 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
 
   task_graph.addEdges(update_start_state_uuid, { to_end_pipeline_uuid });
   task_graph.addEdges(raster_tasks.back().first, { update_start_state_uuid });
+
+  if (!executor.has_value())
+    throw std::runtime_error("RasterMotionTask, executor is null!");
 
   TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, context.data_storage, context.dotgraph);
   future->wait();

@@ -29,6 +29,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
+#include <cstdint>
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/base_object.hpp>
@@ -76,7 +77,7 @@ namespace tesseract_planning
 struct MoveInstructionPoly;
 class ProfileDictionary;
 
-enum class MoveInstructionType : int
+enum class MoveInstructionType : std::uint8_t
 {
   LINEAR = 0,
   FREESPACE = 1,

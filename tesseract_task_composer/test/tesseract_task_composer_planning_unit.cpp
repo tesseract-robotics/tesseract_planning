@@ -144,6 +144,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
         "TaskComposerContinuousContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -167,6 +171,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
         "TaskComposerContinuousContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -188,6 +196,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
         "TaskComposerContinuousContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -208,6 +220,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
         "TaskComposerContinuousContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -236,6 +252,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
         "TaskComposerContinuousContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
@@ -315,6 +335,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
         "TaskComposerDiscreteContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -337,6 +361,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
         "TaskComposerDiscreteContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -357,6 +385,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
         "TaskComposerDiscreteContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -376,6 +408,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
         "TaskComposerDiscreteContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -403,6 +439,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
         "TaskComposerDiscreteContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
@@ -520,6 +560,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -551,6 +595,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -577,6 +625,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -596,6 +648,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -614,6 +670,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -631,6 +691,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -649,6 +713,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
@@ -791,6 +859,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsResultTaskTests)  
     FormatAsResultTask task("abc", input_keys, output_keys, true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -810,6 +882,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsResultTaskTests)  
     FormatAsResultTask task("abc", input_keys, output_keys, true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);  // Indicates an exception was thrown
@@ -900,6 +976,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     MinLengthTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -920,6 +1000,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     MinLengthTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -939,6 +1023,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     MinLengthTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -957,6 +1045,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     MinLengthTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1043,6 +1135,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatPlanningInputTaskTes
     FormatPlanningInputTask task("abc", "input_data", "environment", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1061,6 +1157,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatPlanningInputTaskTes
     FormatPlanningInputTask task("abc", "input_data", "environment", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1078,6 +1178,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatPlanningInputTaskTes
     FormatPlanningInputTask task("abc", "input_data", "environment", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1168,6 +1272,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     FixStateBoundsTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1191,6 +1299,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     FixStateBoundsTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1211,6 +1323,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     FixStateBoundsTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1230,6 +1346,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     FixStateBoundsTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1248,6 +1368,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     FixStateBoundsTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1338,6 +1462,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     FixStateCollisionTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1360,6 +1488,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     FixStateCollisionTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1379,6 +1511,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     FixStateCollisionTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1397,6 +1533,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     FixStateCollisionTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1459,6 +1599,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     ProfileSwitchTask task("abc", "input_data", "profiles", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1477,6 +1621,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     ProfileSwitchTask task("abc", "input_data", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1494,6 +1642,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     ProfileSwitchTask task("abc", "input_data", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1558,6 +1710,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     UpdateEndStateTask task("abc", "input_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1580,6 +1736,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     UpdateEndStateTask task("abc", "input_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1597,6 +1757,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     UpdateEndStateTask task("abc", "input_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1661,6 +1825,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     UpdateStartStateTask task("abc", "input_data", "prev_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1683,6 +1851,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     UpdateStartStateTask task("abc", "input_data", "prev_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1700,6 +1872,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     UpdateStartStateTask task("abc", "input_data", "prev_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1773,6 +1949,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     UpdateStartAndEndStateTask task("abc", "input_data", "prev_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1800,6 +1980,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     UpdateStartAndEndStateTask task("abc", "input_data", "prev_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1818,6 +2002,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     UpdateStartAndEndStateTask task("abc", "input_data", "prev_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1836,6 +2024,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     UpdateStartAndEndStateTask task("abc", "input_data", "prev_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1922,6 +2114,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     UpsampleTrajectoryTask task("abc", "input_data", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -1941,6 +2137,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     UpsampleTrajectoryTask task("abc", "input_data", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -1958,6 +2158,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     UpsampleTrajectoryTask task("abc", "input_data", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -2063,6 +2267,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     IterativeSplineParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -2086,6 +2294,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     IterativeSplineParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -2106,6 +2318,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     IterativeSplineParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -2125,6 +2341,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     IterativeSplineParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -2143,6 +2363,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     IterativeSplineParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -2247,6 +2471,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     TimeOptimalParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -2272,6 +2500,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     TimeOptimalParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -2292,6 +2524,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     TimeOptimalParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -2311,6 +2547,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     TimeOptimalParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -2329,6 +2569,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     TimeOptimalParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -2442,6 +2686,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     RuckigTrajectorySmoothingTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -2465,6 +2713,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     RuckigTrajectorySmoothingTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -2485,6 +2737,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     RuckigTrajectorySmoothingTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -2504,6 +2760,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     RuckigTrajectorySmoothingTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -2522,6 +2782,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     RuckigTrajectorySmoothingTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -2632,6 +2896,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     EXPECT_EQ(task.run(*log.context), 1);
     log.dotgraph = task.getDotgraph(log.context->task_infos.getInfoMap());
     auto node_info = log.context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
@@ -2661,6 +2929,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
         "abc", "input_data", "environment", "profiles", "output_data", false, true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -2681,6 +2953,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
         "abc", "input_data", "environment", "profiles", "output_data", false, true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -2700,6 +2976,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
         "abc", "input_data", "environment", "profiles", "output_data", false, true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -3049,7 +3329,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     std::vector<std::string> transition_output_keys;
     for (const auto& info : info_map)
     {
-      std::cout << info.second.name << std::endl;
+      std::cout << info.second.name << "\n";
       if (boost::algorithm::starts_with(info.second.name, "Raster #"))
       {
         auto it1 = std::find(raster_input_keys.begin(), raster_input_keys.end(), info.second.input_keys.get("program"));
@@ -3130,6 +3410,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -3174,6 +3458,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -3218,6 +3506,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
@@ -3262,6 +3554,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
@@ -3578,6 +3874,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -3618,6 +3918,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
@@ -3658,6 +3962,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
@@ -3698,6 +4006,10 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "red");
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);

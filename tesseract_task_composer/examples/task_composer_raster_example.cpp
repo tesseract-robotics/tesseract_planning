@@ -92,7 +92,7 @@ int main()
     plotter->plotTrajectory(toJointTrajectory(output_program), *env->getStateSolver());
   }
 
-  std::cout << "Execution Complete" << std::endl;
+  std::cout << "Execution Complete\n";
 
   //  // Print summary statistics
   //  std::map<std::size_t, TaskInfo::UPtr> info_map = response.interface->getTaskInfoMap();

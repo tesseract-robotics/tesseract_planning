@@ -147,11 +147,11 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
 
     if (DEBUG)
     {
-      std::cout << "Request Instructions:" << std::endl;
+      std::cout << "Request Instructions:\n";
       request.instructions.print();
-      std::cout << "Single Planner Response Results:" << std::endl;
+      std::cout << "Single Planner Response Results:\n";
       single_planner_response.results.print();
-      std::cout << "Threaded Planner Response Results:" << std::endl;
+      std::cout << "Threaded Planner Response Results:\n";
       planner_response.results.print();
     }
 

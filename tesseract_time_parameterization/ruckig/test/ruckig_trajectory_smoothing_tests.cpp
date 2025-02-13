@@ -86,12 +86,12 @@ TEST(RuckigTrajectorySmoothingTest, Example)  // NOLINT
   ruckig::Result result = otg.calculate(input, trajectory);
   if (result == ruckig::Result::ErrorInvalidInput)
   {
-    std::cout << "Invalid input!" << std::endl;
+    std::cout << "Invalid input!\n";
     return;
   }
 
   // Get duration of the trajectory
-  std::cout << "Trajectory duration: " << trajectory.get_duration() << " [s]." << std::endl;
+  std::cout << "Trajectory duration: " << trajectory.get_duration() << " [s].\n";
 
   double new_time{ 1.0 };
 
@@ -100,12 +100,12 @@ TEST(RuckigTrajectorySmoothingTest, Example)  // NOLINT
   trajectory.at_time(new_time, new_position, new_velocity, new_acceleration);
 
   std::cout << "Position at time " << new_time << " [s]: " << new_position[0] << ", " << new_position[1] << ", "
-            << new_position[2] << std::endl;
+            << new_position[2] << "\n";
 
   // Get some info about the position extrema of the trajectory
   std::array<ruckig::PositionExtrema, 3> position_extrema = trajectory.get_position_extrema();
   std::cout << "Position extremas for DoF 4 are " << position_extrema[2].min << " (min) to " << position_extrema[2].max
-            << " (max)" << std::endl;
+            << " (max)\n";
 }
 
 TEST(RuckigTrajectorySmoothingTest, RuckigTrajectorySmoothingSolve)  // NOLINT

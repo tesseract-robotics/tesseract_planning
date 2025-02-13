@@ -228,6 +228,9 @@ TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
   tesseract_common::Stopwatch stopwatch;
   stopwatch.start();
 
+  if (!executor.has_value())
+    throw std::runtime_error("TaskComposerGraph, the optional executor is null!");
+
   TaskComposerFuture::UPtr future = executor.value().get().run(*this, context.data_storage, context.dotgraph);
   future->wait();
 
@@ -480,7 +483,7 @@ std::string TaskComposerGraph::dump(std::ostream& os,
       const std::string tmp = toString(node->uuid_, "node_");
       const TaskComposerKeys& input_keys = node->getInputKeys();
       const TaskComposerKeys& output_keys = node->getOutputKeys();
-      os << std::endl
+      os << "\n"
          << tmp << " [shape=box3d, nojustify=true label=\"Subgraph: " << node->name_ << "\\nUUID: " << node->uuid_str_
          << "\\l";
       os << "Inputs:\\l" << input_keys;

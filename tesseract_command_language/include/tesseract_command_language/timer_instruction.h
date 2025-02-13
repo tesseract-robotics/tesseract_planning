@@ -29,6 +29,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
+#include <cstdint>
 #include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -36,7 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-enum class TimerInstructionType : int
+enum class TimerInstructionType : std::uint8_t
 {
   DIGITAL_OUTPUT_HIGH = 0,
   DIGITAL_OUTPUT_LOW = 1

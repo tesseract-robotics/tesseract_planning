@@ -3,6 +3,7 @@ Checks: >
     -*,
     clang-diagnostic-*,
     -clang-diagnostic-unknown-warning-option,
+    -clang-diagnostic-enum-constexpr-conversion,
     clang-analyzer-*,
     -clang-analyzer-cplusplus*,
     bugprone-*,
@@ -21,6 +22,10 @@ Checks: >
     misc-*,
     -misc-non-private-member-variables-in-classes,
     -misc-no-recursion,
+    -misc-const-correctness,
+    -misc-include-cleaner,
+    -misc-use-internal-linkage,
+    -misc-use-anonymous-namespace,
     modernize-*,
     -modernize-use-trailing-return-type,
     -modernize-use-nodiscard,
@@ -39,6 +44,7 @@ WarningsAsErrors: >
     -*,
     clang-diagnostic-*,
     -clang-diagnostic-unknown-warning-option,
+    -clang-diagnostic-enum-constexpr-conversion,
     clang-analyzer-*,
     -clang-analyzer-cplusplus*,
     bugprone-*,
@@ -57,6 +63,10 @@ WarningsAsErrors: >
     misc-*,
     -misc-non-private-member-variables-in-classes,
     -misc-no-recursion,
+    -misc-const-correctness,
+    -misc-include-cleaner,
+    -misc-use-internal-linkage,
+    -misc-use-anonymous-namespace,
     modernize-*,
     -modernize-use-trailing-return-type,
     -modernize-use-nodiscard,
@@ -71,7 +81,7 @@ WarningsAsErrors: >
     -readability-identifier-length,
     -readability-suspicious-call-argument,
     -readability-function-size
-HeaderFilterRegex: '.*'
+HeaderFilterRegex: '^(?!.*_export\.h$).*'
 FormatStyle:     none
 CheckOptions:
   - key:             modernize-use-override.AllowOverrideAndFinal

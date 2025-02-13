@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <string>
 #include <variant>
+#include <cstdint>
 #include <Eigen/Core>
 #include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -59,7 +60,7 @@ using locateFilterFn = std::function<bool(const InstructionPoly&, const Composit
 
 bool moveFilter(const InstructionPoly& instruction, const CompositeInstruction& composite);
 
-enum class CompositeInstructionOrder
+enum class CompositeInstructionOrder : std::uint8_t
 {
   ORDERED,               // Must go in forward
   UNORDERED,             // Any order is allowed
@@ -384,7 +385,7 @@ public:
   void pop_back();
 
   /** @brief swaps the contents  */
-  void swap(std::vector<value_type>& other);
+  void swap(std::vector<value_type>& other) noexcept;
 
 private:
   std::vector<InstructionPoly> container_;

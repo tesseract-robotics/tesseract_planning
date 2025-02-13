@@ -124,7 +124,7 @@ CompositeInstruction::iterator CompositeInstruction::insertMoveInstruction(const
 }
 CompositeInstruction::iterator CompositeInstruction::insertMoveInstruction(const_iterator p, MoveInstructionPoly&& x)
 {
-  return container_.insert(p, x);
+  return container_.insert(p, std::move(x));
 }
 
 MoveInstructionPoly* CompositeInstruction::getFirstMoveInstruction()
@@ -215,16 +215,19 @@ const CompositeInstruction::UserData& CompositeInstruction::getUserData() const 
 
 void CompositeInstruction::print(const std::string& prefix) const
 {
-  std::cout << prefix + "Composite Instruction, Description: " << getDescription() << std::endl;
-  std::cout << prefix + "{" << std::endl;
+  std::cout << prefix + "Composite Instruction, Description: " << getDescription() << "\n";
+  std::cout << prefix + "{"
+            << "\n";
   for (const auto& i : container_)
   {
     if (i.isNull())
-      std::cout << prefix + "  Null Instruction" << std::endl;
+      std::cout << prefix + "  Null Instruction"
+                << "\n";
     else
       i.print(prefix + "  ");
   }
-  std::cout << prefix + "}" << std::endl;
+  std::cout << prefix + "}"
+            << "\n";
 }
 
 bool CompositeInstruction::operator==(const CompositeInstruction& rhs) const
@@ -305,7 +308,7 @@ CompositeInstruction::iterator CompositeInstruction::insert(const_iterator p, co
 }
 CompositeInstruction::iterator CompositeInstruction::insert(const_iterator p, value_type&& x)
 {
-  return container_.insert(p, x);
+  return container_.insert(p, std::move(x));
 }
 CompositeInstruction::iterator CompositeInstruction::insert(const_iterator p, std::initializer_list<value_type> l)
 {
@@ -328,7 +331,7 @@ void CompositeInstruction::push_back(const value_type& x) { container_.push_back
 void CompositeInstruction::push_back(const value_type&& x) { container_.push_back(x); }
 
 void CompositeInstruction::pop_back() { container_.pop_back(); }
-void CompositeInstruction::swap(std::vector<value_type>& other) { container_.swap(other); }
+void CompositeInstruction::swap(std::vector<value_type>& other) noexcept { container_.swap(other); }
 // LCOV_EXCL_STOP
 
 ///////////////////////////////////

@@ -114,7 +114,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
     // flatten the composite keeping the composite instructions
     flattenFilterFn filter = [](const InstructionPoly&, const CompositeInstruction&) { return true; };
     std::vector<std::reference_wrapper<InstructionPoly>> flattened = composite.flatten(filter);
-    EXPECT_EQ(flattened.size(), i_max * j_max * k_max + 16);  // Add 16 for the composite instructions
+    EXPECT_EQ(flattened.size(), (i_max * j_max * k_max) + 16);  // Add 16 for the composite instructions
 
     // Now change something in the flattened composite
     int num_composites = 0;
@@ -128,10 +128,10 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
 
     if (DEBUG)
     {
-      std::cout << "----- flattened -----" << std::endl;
+      std::cout << "----- flattened -----\n";
       for (auto& i : flattened)
         i.get().print();
-      std::cout << "----- Composite -----" << std::endl;
+      std::cout << "----- Composite -----\n";
       composite.print();
     }
 
@@ -595,7 +595,7 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
   file.close();
 
   std::string check = "1,2,3\n5,5,5\n10,10,10\n15,15,15\n";
-  std::cout << buffer.str() << std::endl;
+  std::cout << buffer.str() << "\n";
   EXPECT_EQ(check, buffer.str());
 }
 

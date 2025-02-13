@@ -64,7 +64,7 @@ void rescaleTimings(CompositeInstruction& program, std::vector<double> scalings)
 
           double temp = state.getTime();
           // scale dt and add to previous time
-          state.setTime(prev_time_scaled + (temp - prev_time_original) / scaling_factor);
+          state.setTime(prev_time_scaled + ((temp - prev_time_original) / scaling_factor));
           prev_time_scaled = state.getTime();
           prev_time_original = temp;
         }

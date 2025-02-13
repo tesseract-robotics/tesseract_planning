@@ -65,7 +65,7 @@ void WaitInstruction::setDescription(const std::string& description) { descripti
 void WaitInstruction::print(const std::string& prefix) const  // NOLINT
 {
   std::cout << prefix + "Wait Instruction, Wait Type: " << static_cast<int>(wait_type_);
-  std::cout << ", Description: " << getDescription() << std::endl;
+  std::cout << ", Description: " << getDescription() << "\n";
 }
 
 WaitInstructionType WaitInstruction::getWaitType() const { return wait_type_; }
