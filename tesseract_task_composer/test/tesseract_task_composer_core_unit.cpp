@@ -2423,7 +2423,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerServerTests)  // NOLINT
 
   {  // File Path Constructor
     YAML::Node config = YAML::Load(str);
-    tesseract_common::fs::path file_path{ tesseract_common::getTempPath() + "TaskComposerServerTests.yaml" };
+    std::filesystem::path file_path{ tesseract_common::getTempPath() + "TaskComposerServerTests.yaml" };
 
     {
       std::ofstream fout(file_path.string());

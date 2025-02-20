@@ -68,9 +68,9 @@ int main(int /*argc*/, char** /*argv*/)
     // Setup
     auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
     auto env = std::make_shared<tesseract_environment::Environment>();
-    tesseract_common::fs::path urdf_path(
+    std::filesystem::path urdf_path(
         locator->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
-    tesseract_common::fs::path srdf_path(
+    std::filesystem::path srdf_path(
         locator->locateResource("package://tesseract_support/urdf/abb_irb2400.srdf")->getFilePath());
     env->init(urdf_path, srdf_path, locator);
 

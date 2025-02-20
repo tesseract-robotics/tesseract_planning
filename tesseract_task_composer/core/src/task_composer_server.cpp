@@ -48,7 +48,7 @@ void TaskComposerServer::loadConfig(const YAML::Node& config, const tesseract_co
   loadPlugins();
 }
 
-void TaskComposerServer::loadConfig(const tesseract_common::fs::path& config,
+void TaskComposerServer::loadConfig(const std::filesystem::path& config,
                                     const tesseract_common::ResourceLocator& locator)
 {
   plugin_factory_->loadConfig(config, locator);

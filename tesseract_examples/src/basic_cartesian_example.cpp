@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_examples/basic_cartesian_example.h>
 
 #include <tesseract_common/stopwatch.h>
+#include <tesseract_common/resource_locator.h>
 
 #include <tesseract_collision/core/types.h>
 
@@ -176,8 +177,9 @@ bool BasicCartesianExample::run()
     console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
 
   // Create Task Composer Plugin Factory
-  const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
-  tesseract_common::fs::path config_path(share_dir + "/config/task_composer_plugins.yaml");
+  std::shared_ptr<const tesseract_common::ResourceLocator> locator = env_->getResourceLocator();
+  std::filesystem::path config_path(
+      locator->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
 
   // Create Program

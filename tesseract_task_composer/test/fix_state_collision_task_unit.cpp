@@ -33,9 +33,9 @@ protected:
     auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
     Environment::Ptr env = std::make_shared<Environment>();
 
-    tesseract_common::fs::path urdf_path(
+    std::filesystem::path urdf_path(
         locator->locateResource("package://tesseract_support/urdf/boxbot.urdf")->getFilePath());
-    tesseract_common::fs::path srdf_path(
+    std::filesystem::path srdf_path(
         locator->locateResource("package://tesseract_support/urdf/boxbot.srdf")->getFilePath());
     EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
     env_ = env;

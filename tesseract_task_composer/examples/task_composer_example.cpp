@@ -126,7 +126,7 @@ int main()
 
   tesseract_common::GeneralResourceLocator locator;
   auto resource = locator.locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml");
-  tesseract_common::fs::path config_path(resource->getFilePath());
+  std::filesystem::path config_path(resource->getFilePath());
   TaskComposerPluginFactory factory(config_path, *resource);
 
   auto task_executor = factory.createTaskComposerExecutor("TaskflowExecutor");

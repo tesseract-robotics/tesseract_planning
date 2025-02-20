@@ -147,9 +147,9 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   // Step 1: Load scene and srdf
   auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
   Environment::Ptr env = std::make_shared<Environment>();
-  tesseract_common::fs::path urdf_path(
+  std::filesystem::path urdf_path(
       locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());
-  tesseract_common::fs::path srdf_path(
+  std::filesystem::path srdf_path(
       locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath());
   EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
 
@@ -310,9 +310,9 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   // Step 1: Load scene and srdf
   auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
   Environment::Ptr env = std::make_shared<Environment>();
-  tesseract_common::fs::path urdf_path(
+  std::filesystem::path urdf_path(
       locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());
-  tesseract_common::fs::path srdf_path(
+  std::filesystem::path srdf_path(
       locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath());
   EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
 
@@ -403,9 +403,9 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   // Step 1: Load scene and srdf
   auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
   Environment::Ptr env = std::make_shared<Environment>();
-  tesseract_common::fs::path urdf_path(
+  std::filesystem::path urdf_path(
       locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());
-  tesseract_common::fs::path srdf_path(
+  std::filesystem::path srdf_path(
       locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath());
   EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
 
@@ -498,8 +498,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 //  tesseract_scene_graph::ResourceLocator::Ptr locator =
 //      std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
 //  Tesseract::Ptr tesseract = std::make_shared<Tesseract>();
-//  boost::filesystem::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
-//  boost::filesystem::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
+//  std::filesystem::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
+//  std::filesystem::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
 //  EXPECT_TRUE(tesseract->init(urdf_path, srdf_path, locator));
 
 //  // Step 2: Add box to environment

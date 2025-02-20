@@ -66,9 +66,9 @@ protected:
     locator_ = std::make_shared<tesseract_common::GeneralResourceLocator>();
     auto env = std::make_shared<tesseract_environment::Environment>();
 
-    tesseract_common::fs::path urdf_path(
+    std::filesystem::path urdf_path(
         locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
-    tesseract_common::fs::path srdf_path(
+    std::filesystem::path srdf_path(
         locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.srdf")->getFilePath());
     EXPECT_TRUE(env->init(urdf_path, srdf_path, locator_));
     env_ = env;
@@ -2994,7 +2994,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
 TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  // NOLINT
 {
   tesseract_common::GeneralResourceLocator locator;
-  tesseract_common::fs::path config_path(
+  std::filesystem::path config_path(
       locator_->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
   TaskComposerPluginFactory factory(config_path, locator);
 
@@ -3572,7 +3572,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
 TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)  // NOLINT
 {
   tesseract_common::GeneralResourceLocator locator;
-  tesseract_common::fs::path config_path(
+  std::filesystem::path config_path(
       locator_->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
   TaskComposerPluginFactory factory(config_path, locator);
 

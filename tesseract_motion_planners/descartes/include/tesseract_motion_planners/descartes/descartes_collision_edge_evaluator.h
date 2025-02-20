@@ -29,6 +29,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
+#include <mutex>
 #include <descartes_light/core/edge_evaluator.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
