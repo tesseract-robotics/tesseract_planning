@@ -129,8 +129,8 @@ TEST(OMPLConstraintPlanner, OMPLConstraintPlannerUnit)  // NOLINT
   tesseract_scene_graph::ResourceLocator::Ptr locator =
       std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
   Tesseract::Ptr tesseract = std::make_shared<Tesseract>();
-  tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
-  tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
+  std::filesystem::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
+  std::filesystem::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
   EXPECT_TRUE(tesseract->init(urdf_path, srdf_path, locator));
 
   // Step 3: Create ompl planner config and populate it

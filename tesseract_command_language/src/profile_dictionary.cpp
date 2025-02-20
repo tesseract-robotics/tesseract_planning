@@ -29,6 +29,8 @@
 #include <boost/serialization/shared_ptr.hpp>
 #include <boost/serialization/unordered_map.hpp>
 
+#include <mutex>
+
 namespace tesseract_planning
 {
 bool ProfileDictionary::hasProfileEntry(std::size_t key, const std::string& ns) const

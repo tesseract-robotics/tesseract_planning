@@ -25,7 +25,7 @@
  */
 
 #include <tesseract_examples/pick_and_place_example.h>
-#include <tesseract_common/filesystem.h>
+#include <filesystem>
 #include <tesseract_environment/environment.h>
 #include <tesseract_common/resource_locator.h>
 
@@ -36,9 +36,9 @@ using namespace tesseract_environment;
 int main(int /*argc*/, char** /*argv*/)
 {
   auto locator = std::make_shared<GeneralResourceLocator>();
-  tesseract_common::fs::path urdf_path =
+  std::filesystem::path urdf_path =
       locator->locateResource("package://tesseract_support/urdf/pick_and_place_plan.urdf")->getFilePath();
-  tesseract_common::fs::path srdf_path =
+  std::filesystem::path srdf_path =
       locator->locateResource("package://tesseract_support/urdf/pick_and_place_plan.srdf")->getFilePath();
   auto env = std::make_shared<Environment>();
   if (!env->init(urdf_path, srdf_path, locator))

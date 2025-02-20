@@ -33,9 +33,9 @@ int main()
   // --------------------
   auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
   auto env = std::make_shared<tesseract_environment::Environment>();
-  tesseract_common::fs::path urdf_path(
+  std::filesystem::path urdf_path(
       locator->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
-  tesseract_common::fs::path srdf_path(
+  std::filesystem::path srdf_path(
       locator->locateResource("package://tesseract_support/urdf/abb_irb2400.srdf")->getFilePath());
   env->init(urdf_path, srdf_path, locator);
 
@@ -51,7 +51,7 @@ int main()
   }
   // Get plugin factory
   auto resource = locator->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml");
-  tesseract_common::fs::path config_path(resource->getFilePath());
+  std::filesystem::path config_path(resource->getFilePath());
   TaskComposerPluginFactory factory(config_path, *resource);
 
   // Create raster task

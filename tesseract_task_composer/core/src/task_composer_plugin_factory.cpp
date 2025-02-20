@@ -81,7 +81,7 @@ TaskComposerPluginFactory::TaskComposerPluginFactory(const YAML::Node& config,
   loadConfig(config, locator);
 }
 
-TaskComposerPluginFactory::TaskComposerPluginFactory(const tesseract_common::fs::path& config,
+TaskComposerPluginFactory::TaskComposerPluginFactory(const std::filesystem::path& config,
                                                      const tesseract_common::ResourceLocator& locator)
   : TaskComposerPluginFactory()
 {
@@ -133,7 +133,7 @@ void TaskComposerPluginFactory::loadConfig(const YAML::Node& config, const tesse
   loadConfig(tesseract_common::processYamlIncludeDirective(config, locator));
 }
 
-void TaskComposerPluginFactory::loadConfig(const tesseract_common::fs::path& config,
+void TaskComposerPluginFactory::loadConfig(const std::filesystem::path& config,
                                            const tesseract_common::ResourceLocator& locator)
 {
   loadConfig(tesseract_common::loadYamlFile(config.string(), locator));
@@ -361,7 +361,7 @@ TaskComposerPluginFactory::createTaskComposerNode(const std::string& name,
   }
 }
 
-void TaskComposerPluginFactory::saveConfig(const tesseract_common::fs::path& file_path) const
+void TaskComposerPluginFactory::saveConfig(const std::filesystem::path& file_path) const
 {
   YAML::Node config = getConfig();
   std::ofstream fout(file_path.string());

@@ -4,7 +4,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/puzzle_piece_auxillary_axes_example.h>
-#include <tesseract_common/filesystem.h>
+#include <filesystem>
 #include <tesseract_environment/environment.h>
 #include <tesseract_common/resource_locator.h>
 
@@ -15,9 +15,9 @@ using namespace tesseract_environment;
 TEST(TesseractExamples, PuzzlePieceAuxillaryAxesCppTrajOptExampleUnit)  // NOLINT
 {
   auto locator = std::make_shared<GeneralResourceLocator>();
-  tesseract_common::fs::path urdf_path =
+  std::filesystem::path urdf_path =
       locator->locateResource("package://tesseract_support/urdf/puzzle_piece_workcell.urdf")->getFilePath();
-  tesseract_common::fs::path srdf_path =
+  std::filesystem::path srdf_path =
       locator->locateResource("package://tesseract_support/urdf/puzzle_piece_workcell.srdf")->getFilePath();
   auto env = std::make_shared<Environment>();
   if (!env->init(urdf_path, srdf_path, locator))
@@ -30,9 +30,9 @@ TEST(TesseractExamples, PuzzlePieceAuxillaryAxesCppTrajOptExampleUnit)  // NOLIN
 TEST(TesseractExamples, PuzzlePieceAuxillaryAxesCppTrajOptIfoptExampleUnit)  // NOLINT
 {
   auto locator = std::make_shared<GeneralResourceLocator>();
-  tesseract_common::fs::path urdf_path =
+  std::filesystem::path urdf_path =
       locator->locateResource("package://tesseract_support/urdf/puzzle_piece_workcell.urdf")->getFilePath();
-  tesseract_common::fs::path srdf_path =
+  std::filesystem::path srdf_path =
       locator->locateResource("package://tesseract_support/urdf/puzzle_piece_workcell.srdf")->getFilePath();
   auto env = std::make_shared<Environment>();
   if (!env->init(urdf_path, srdf_path, locator))
