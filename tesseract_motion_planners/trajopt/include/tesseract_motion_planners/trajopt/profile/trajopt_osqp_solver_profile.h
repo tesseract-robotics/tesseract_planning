@@ -52,6 +52,8 @@ public:
 
   OSQPSettings settings{};
 
+  bool update_workspace{ false };
+
   sco::ModelType getSolverType() const override;
 
   std::unique_ptr<sco::ModelConfig> createSolverConfig() const override;
