@@ -212,7 +212,7 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     auto collision = std::make_shared<CollisionTermInfo>();
     collision->name = "collision";
     collision->term_type = TermType::TT_CNT;
-    collision->evaluator_type = trajopt::CollisionEvaluatorType::SINGLE_TIMESTEP;
+    collision->evaluator_type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
     collision->first_step = 0;
     collision->last_step = 0;
     collision->info = trajopt_common::createSafetyMarginDataVector(
@@ -227,7 +227,7 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     auto collision = std::make_shared<CollisionTermInfo>();
     collision->name = "collision";
     collision->term_type = TermType::TT_COST;
-    collision->evaluator_type = trajopt::CollisionEvaluatorType::SINGLE_TIMESTEP;
+    collision->evaluator_type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
     collision->first_step = 0;
     collision->last_step = 0;
     collision->info = trajopt_common::createSafetyMarginDataVector(

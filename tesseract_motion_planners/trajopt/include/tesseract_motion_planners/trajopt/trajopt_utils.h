@@ -87,7 +87,7 @@ std::shared_ptr<trajopt::TermInfo> createCollisionTermInfo(
     int end_index,
     double collision_safety_margin,
     double collision_safety_margin_buffer,
-    trajopt::CollisionEvaluatorType evaluator_type,
+    tesseract_collision::CollisionEvaluatorType evaluator_type,
     bool use_weighted_sum = false,
     double coeff = 20.0,
     tesseract_collision::ContactTestType contact_test_type = tesseract_collision::ContactTestType::ALL,

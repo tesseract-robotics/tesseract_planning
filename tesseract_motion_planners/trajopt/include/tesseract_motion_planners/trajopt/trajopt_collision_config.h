@@ -53,7 +53,7 @@ struct CollisionCostConfig
   bool use_weighted_sum = false;
 
   /** @brief The evaluator type that will be used for collision checking. */
-  trajopt::CollisionEvaluatorType type{ trajopt::CollisionEvaluatorType::DISCRETE_CONTINUOUS };
+  tesseract_collision::CollisionEvaluatorType type{ tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE };
 
   /** @brief Max distance in which collision costs will be evaluated. */
   double safety_margin = 0.025;
@@ -85,7 +85,7 @@ struct CollisionConstraintConfig
    */
   bool use_weighted_sum = false;
   /** @brief The evaluator type that will be used for collision checking. */
-  trajopt::CollisionEvaluatorType type{ trajopt::CollisionEvaluatorType::DISCRETE_CONTINUOUS };
+  tesseract_collision::CollisionEvaluatorType type{ tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE };
   /** @brief Max distance in which collision constraints will be evaluated. */
   double safety_margin = 0.01;
   /** @brief Distance beyond safety_margin in which collision optimization will be evaluated. */
