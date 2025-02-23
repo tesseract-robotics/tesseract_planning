@@ -33,6 +33,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/glass_upright_example.h>
 
+#include <tesseract_common/resource_locator.h>
+
 #include <tesseract_scene_graph/link.h>
 #include <tesseract_scene_graph/joint.h>
 
@@ -164,8 +166,9 @@ bool GlassUprightExample::run()
   CONSOLE_BRIDGE_logInform("glass upright plan example");
 
   // Create Task Composer Plugin Factory
-  const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
-  std::filesystem::path config_path(share_dir + "/config/task_composer_plugins.yaml");
+  std::shared_ptr<const tesseract_common::ResourceLocator> locator = env_->getResourceLocator();
+  std::filesystem::path config_path(
+      locator->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
 
   // Create Program
@@ -227,12 +230,12 @@ bool GlassUprightExample::run()
   {
     auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
     composite_profile->collision_cost_config.enabled = true;
-    composite_profile->collision_cost_config.type = trajopt::CollisionEvaluatorType::DISCRETE_CONTINUOUS;
+    composite_profile->collision_cost_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
     composite_profile->collision_cost_config.safety_margin = 0.01;
     composite_profile->collision_cost_config.safety_margin_buffer = 0.01;
     composite_profile->collision_cost_config.coeff = 1;
     composite_profile->collision_constraint_config.enabled = true;
-    composite_profile->collision_constraint_config.type = trajopt::CollisionEvaluatorType::DISCRETE_CONTINUOUS;
+    composite_profile->collision_constraint_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
     composite_profile->collision_constraint_config.safety_margin = 0.01;
     composite_profile->collision_constraint_config.safety_margin_buffer = 0.01;
     composite_profile->collision_constraint_config.coeff = 1;
