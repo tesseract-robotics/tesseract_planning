@@ -33,10 +33,6 @@ namespace boost::serialization
 {
 template <class Archive>
 void serialize(Archive& ar, OSQPSettings& settings, const unsigned int version);  // NOLINT
-
-template <class Archive>
-void serialize(Archive& ar, sco::BasicTrustRegionSQPParameters& params, const unsigned int version);  // NOLINT
-
 }  // namespace boost::serialization
 
 namespace tesseract_planning
