@@ -31,6 +31,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/pick_and_place_example.h>
 
+#include <tesseract_common/resource_locator.h>
+
 #include <tesseract_scene_graph/link.h>
 #include <tesseract_scene_graph/joint.h>
 
@@ -179,8 +181,9 @@ bool PickAndPlaceExample::run()
     plotter_->waitForInput();
 
   // Create Task Composer Plugin Factory
-  const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
-  std::filesystem::path config_path(share_dir + "/config/task_composer_plugins.yaml");
+  std::shared_ptr<const tesseract_common::ResourceLocator> locator = env_->getResourceLocator();
+  std::filesystem::path config_path(
+      locator->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
 
   // Create Program

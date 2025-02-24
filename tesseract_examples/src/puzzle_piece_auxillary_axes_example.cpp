@@ -198,8 +198,9 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   mi.tcp_frame = "grinder_frame";
 
   // Create Task Composer Plugin Factory
-  const std::string share_dir(TESSERACT_TASK_COMPOSER_DIR);
-  std::filesystem::path config_path(share_dir + "/config/task_composer_plugins.yaml");
+  std::shared_ptr<const tesseract_common::ResourceLocator> locator = env_->getResourceLocator();
+  std::filesystem::path config_path(
+      locator->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
 
   // Create Program
@@ -279,7 +280,7 @@ bool PuzzlePieceAuxillaryAxesExample::run()
     trajopt_composite_profile->collision_constraint_config.enabled = false;
     trajopt_composite_profile->collision_cost_config.enabled = true;
     trajopt_composite_profile->collision_cost_config.safety_margin = 0.025;
-    trajopt_composite_profile->collision_cost_config.type = trajopt::CollisionEvaluatorType::SINGLE_TIMESTEP;
+    trajopt_composite_profile->collision_cost_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
     trajopt_composite_profile->collision_cost_config.coeff = 1;
 
     auto trajopt_solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
