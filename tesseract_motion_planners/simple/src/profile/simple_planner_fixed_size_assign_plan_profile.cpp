@@ -1,13 +1,13 @@
 /**
- * @file simple_planner_default_plan_profile.cpp
+ * @file simple_planner_fixed_size_assign_plan_profile.cpp
  * @brief
  *
- * @author Matthew Powelson
- * @date July 23, 2020
+ * @author Roelof Oomen
+ * @date May 29, 2024
  * @version TODO
  * @bug No known bugs
  *
- * @copyright Copyright (c) 2020, Southwest Research Institute
+ * @copyright Copyright (c) 2024, ROS Industrial Consortium
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -31,12 +31,10 @@
 
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/kinematic_limits.h>
-
-#include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_environment/environment.h>
+#include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
-#include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 
 namespace tesseract_planning
@@ -54,77 +52,81 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
                                                   const std::shared_ptr<const tesseract_environment::Environment>& env,
                                                   const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
-  KinematicGroupInstructionInfo info1(prev_instruction, *env, global_manip_info);
-  KinematicGroupInstructionInfo info2(base_instruction, *env, global_manip_info);
+  KinematicGroupInstructionInfo prev(prev_instruction, *env, global_manip_info);
+  KinematicGroupInstructionInfo base(base_instruction, *env, global_manip_info);
 
-  Eigen::MatrixXd states;
-  if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
+  Eigen::VectorXd j2;
+  if (!base.has_cartesian_waypoint)
   {
-    const Eigen::VectorXd& jp = info2.extractJointPosition();
-    if (info2.instruction.isLinear())
-      states = jp.replicate(1, linear_steps + 1);
-    else if (info2.instruction.isFreespace())
-      states = jp.replicate(1, freespace_steps + 1);
-    else
-      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
-  }
-  else if (!info1.has_cartesian_waypoint && info2.has_cartesian_waypoint)
-  {
-    const Eigen::VectorXd& jp = info1.extractJointPosition();
-    if (info2.instruction.isLinear())
-      states = jp.replicate(1, linear_steps + 1);
-    else if (info2.instruction.isFreespace())
-      states = jp.replicate(1, freespace_steps + 1);
-    else
-      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
-  }
-  else if (info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
-  {
-    const Eigen::VectorXd& jp = info2.extractJointPosition();
-    if (info2.instruction.isLinear())
-      states = jp.replicate(1, linear_steps + 1);
-    else if (info2.instruction.isFreespace())
-      states = jp.replicate(1, freespace_steps + 1);
-    else
-      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
+    j2 = base.extractJointPosition();
   }
   else
   {
-    Eigen::VectorXd seed = env->getCurrentJointValues(info2.manip->getJointNames());
-    tesseract_common::enforceLimits<double>(seed, info2.manip->getLimits().joint_limits);
-
-    if (info2.instruction.isLinear())
-      states = seed.replicate(1, linear_steps + 1);
-    else if (info2.instruction.isFreespace())
-      states = seed.replicate(1, freespace_steps + 1);
+    // Determine base_instruction joint position and replicate
+    const auto& base_cwp = base.instruction.getWaypoint().as<CartesianWaypointPoly>();
+    if (base_cwp.hasSeed())
+    {
+      // Use joint position of cartesian base_instruction
+      j2 = base_cwp.getSeed().position;
+    }
     else
-      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
+    {
+      if (prev.has_cartesian_waypoint)
+      {
+        const auto& prev_cwp = prev.instruction.getWaypoint().as<CartesianWaypointPoly>();
+        if (prev_cwp.hasSeed())
+        {
+          // Use joint position of cartesian prev_instruction as seed
+          j2 = getClosestJointSolution(base, prev_cwp.getSeed().position);
+        }
+        else
+        {
+          // Use current env_state as seed
+          j2 = getClosestJointSolution(base, env->getCurrentJointValues(base.manip->getJointNames()));
+        }
+      }
+      else
+      {
+        // Use prev_instruction as seed
+        j2 = getClosestJointSolution(base, prev.extractJointPosition());
+      }
+    }
+    tesseract_common::enforceLimits<double>(j2, base.manip->getLimits().joint_limits);
   }
+
+  Eigen::MatrixXd states;
+  // Replicate base_instruction joint position
+  if (base.instruction.isLinear())
+    states = j2.replicate(1, linear_steps + 1);
+  else if (base.instruction.isFreespace())
+    states = j2.replicate(1, freespace_steps + 1);
+  else
+    throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
 
   // Linearly interpolate in cartesian space if linear move
   if (base_instruction.isLinear())
   {
     Eigen::Isometry3d p1_world;
-    if (info1.has_cartesian_waypoint)
-      p1_world = info1.extractCartesianPose();
+    if (prev.has_cartesian_waypoint)
+      p1_world = prev.extractCartesianPose();
     else
-      p1_world = info1.calcCartesianPose(info1.extractJointPosition());
+      p1_world = prev.calcCartesianPose(prev.extractJointPosition());
 
     Eigen::Isometry3d p2_world;
-    if (info2.has_cartesian_waypoint)
-      p2_world = info2.extractCartesianPose();
+    if (base.has_cartesian_waypoint)
+      p2_world = base.extractCartesianPose();
     else
-      p2_world = info2.calcCartesianPose(info2.extractJointPosition());
+      p2_world = base.calcCartesianPose(base.extractJointPosition());
 
     tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, linear_steps);
     for (auto& pose : poses)
-      pose = info2.working_frame_transform.inverse() * pose;
+      pose = base.working_frame_transform.inverse() * pose;
 
-    assert(static_cast<Eigen::Index>(poses.size()) == states.cols());
-    return getInterpolatedInstructions(poses, info2.manip->getJointNames(), states, info2.instruction);
+    assert(poses.size() == states.cols());
+    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
-  return getInterpolatedInstructions(info2.manip->getJointNames(), states, info2.instruction);
+  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
 template <class Archive>

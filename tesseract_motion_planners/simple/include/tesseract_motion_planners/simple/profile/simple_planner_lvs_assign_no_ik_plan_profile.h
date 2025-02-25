@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_fixed_size_assign_plan_profile.h
+ * @file simple_planner_lvs_assign_no_ik_plan_profile.h
  * @brief
  *
  * @author Roelof Oomen
@@ -24,25 +24,34 @@
  * limitations under the License.
  */
 
-#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_PLAN_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_PLAN_PROFILE_H
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_PLANNER_LVS_ASSIGN_NO_IK_PLAN_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_PLANNER_LVS_ASSIGN_NO_IK_PLAN_PROFILE_H
+
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <Eigen/Geometry>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
 namespace tesseract_planning
 {
-class SimplePlannerFixedSizeAssignPlanProfile : public SimplePlannerPlanProfile
+class SimplePlannerLVSAssignNoIKPlanProfile : public SimplePlannerPlanProfile
 {
 public:
-  using Ptr = std::shared_ptr<SimplePlannerFixedSizeAssignPlanProfile>;
-  using ConstPtr = std::shared_ptr<const SimplePlannerFixedSizeAssignPlanProfile>;
+  using Ptr = std::shared_ptr<SimplePlannerLVSAssignNoIKPlanProfile>;
+  using ConstPtr = std::shared_ptr<const SimplePlannerLVSAssignNoIKPlanProfile>;
 
   /**
    * @brief SimplePlannerFixedSizeAssignPlanProfile
    * @param freespace_steps The number of steps to use for freespace instruction
    * @param linear_steps The number of steps to use for linear instruction
    */
-  SimplePlannerFixedSizeAssignPlanProfile(int freespace_steps = 10, int linear_steps = 10);
+  SimplePlannerLVSAssignNoIKPlanProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
+                                        double translation_longest_valid_segment_length = 0.1,
+                                        double rotation_longest_valid_segment_length = 5 * M_PI / 180,
+                                        int min_steps = 1,
+                                        int max_steps = std::numeric_limits<int>::max());
 
   std::vector<MoveInstructionPoly> generate(const MoveInstructionPoly& prev_instruction,
                                             const MoveInstructionPoly& prev_seed,
@@ -51,11 +60,20 @@ public:
                                             const std::shared_ptr<const tesseract_environment::Environment>& env,
                                             const tesseract_common::ManipulatorInfo& global_manip_info) const override;
 
-  /** @brief The number of steps to use for freespace instruction */
-  int freespace_steps;
+  /** @brief The maximum joint distance, the norm of changes to all joint positions between successive steps. */
+  double state_longest_valid_segment_length;
 
-  /** @brief The number of steps to use for linear instruction */
-  int linear_steps;
+  /** @brief The maximum translation distance between successive steps */
+  double translation_longest_valid_segment_length;
+
+  /** @brief The maximum rotational distance between successive steps */
+  double rotation_longest_valid_segment_length;
+
+  /** @brief The minimum number of steps for the plan */
+  int min_steps;
+
+  /** @brief The maximum number of steps for the plan */
+  int max_steps;
 
 protected:
   friend class boost::serialization::access;
@@ -65,6 +83,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerFixedSizeAssignPlanProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerLVSAssignNoIKPlanProfile)
 
-#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_PLAN_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PLANNER_LVS_ASSIGN_NO_IK_PLAN_PROFILE_H
