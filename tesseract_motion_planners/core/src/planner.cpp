@@ -105,7 +105,7 @@ void MotionPlanner::assignSolution(MoveInstructionPoly& mi,
   StateWaypointPoly swp = mi.createStateWaypoint();
   swp.setNames(joint_names);
   swp.setPosition(joint_values);
-  mi.assignStateWaypoint(swp);
+  mi.getWaypoint() = swp;
 }
 
 }  // namespace tesseract_planning

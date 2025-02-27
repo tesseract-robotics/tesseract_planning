@@ -33,18 +33,6 @@ void tesseract_planning::MoveInstructionPoly::setParentUUID(const boost::uuids::
   getInterface().setParentUUID(uuid);
 }
 
-void tesseract_planning::MoveInstructionPoly::assignCartesianWaypoint(CartesianWaypointPoly waypoint)
-{
-  getInterface().assignCartesianWaypoint(std::move(waypoint));
-}
-void tesseract_planning::MoveInstructionPoly::assignJointWaypoint(JointWaypointPoly waypoint)
-{
-  getInterface().assignJointWaypoint(std::move(waypoint));
-}
-void tesseract_planning::MoveInstructionPoly::assignStateWaypoint(StateWaypointPoly waypoint)
-{
-  getInterface().assignStateWaypoint(std::move(waypoint));
-}
 tesseract_planning::WaypointPoly& tesseract_planning::MoveInstructionPoly::getWaypoint()
 {
   return getInterface().getWaypoint();

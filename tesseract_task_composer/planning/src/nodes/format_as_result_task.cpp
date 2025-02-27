@@ -79,7 +79,7 @@ TaskComposerNodeInfo FormatAsResultTask::runImpl(TaskComposerContext& context,
       swp.setName(jwp.getName());
       swp.setNames(jwp.getNames());
       swp.setPosition(jwp.getPosition());
-      mi.assignStateWaypoint(swp);
+      mi.getWaypoint() = swp;
     }
 
     output_data_container.emplace_back(ci);

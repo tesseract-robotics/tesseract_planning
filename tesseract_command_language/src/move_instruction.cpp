@@ -63,48 +63,6 @@ MoveInstruction::MoveInstruction(WaypointPoly waypoint,
     path_profile_ = profile_;
 }
 
-MoveInstruction::MoveInstruction(CartesianWaypointPoly waypoint,
-                                 MoveInstructionType type,
-                                 std::string profile,
-                                 tesseract_common::ManipulatorInfo manipulator_info)
-  : uuid_(boost::uuids::random_generator()())
-  , move_type_(type)
-  , profile_(std::move(profile))
-  , waypoint_(std::move(waypoint))
-  , manipulator_info_(std::move(manipulator_info))
-{
-  if (move_type_ == MoveInstructionType::LINEAR || move_type_ == MoveInstructionType::CIRCULAR)
-    path_profile_ = profile_;
-}
-
-MoveInstruction::MoveInstruction(JointWaypointPoly waypoint,
-                                 MoveInstructionType type,
-                                 std::string profile,
-                                 tesseract_common::ManipulatorInfo manipulator_info)
-  : uuid_(boost::uuids::random_generator()())
-  , move_type_(type)
-  , profile_(std::move(profile))
-  , waypoint_(std::move(waypoint))
-  , manipulator_info_(std::move(manipulator_info))
-{
-  if (move_type_ == MoveInstructionType::LINEAR || move_type_ == MoveInstructionType::CIRCULAR)
-    path_profile_ = profile_;
-}
-
-MoveInstruction::MoveInstruction(StateWaypointPoly waypoint,
-                                 MoveInstructionType type,
-                                 std::string profile,
-                                 tesseract_common::ManipulatorInfo manipulator_info)
-  : uuid_(boost::uuids::random_generator()())
-  , move_type_(type)
-  , profile_(std::move(profile))
-  , waypoint_(std::move(waypoint))
-  , manipulator_info_(std::move(manipulator_info))
-{
-  if (move_type_ == MoveInstructionType::LINEAR || move_type_ == MoveInstructionType::CIRCULAR)
-    path_profile_ = profile_;
-}
-
 MoveInstruction::MoveInstruction(WaypointPoly waypoint,
                                  MoveInstructionType type,
                                  std::string profile,
@@ -120,48 +78,6 @@ MoveInstruction::MoveInstruction(WaypointPoly waypoint,
   if (!waypoint_.isCartesianWaypoint() && !waypoint_.isJointWaypoint() && !waypoint_.isStateWaypoint())
     throw std::runtime_error("MoveIntruction only supports waypoint types: CartesianWaypointPoly, JointWaypointPoly "
                              "and StateWaypointPoly");
-}
-
-MoveInstruction::MoveInstruction(CartesianWaypointPoly waypoint,
-                                 MoveInstructionType type,
-                                 std::string profile,
-                                 std::string path_profile,
-                                 tesseract_common::ManipulatorInfo manipulator_info)
-  : uuid_(boost::uuids::random_generator()())
-  , move_type_(type)
-  , profile_(std::move(profile))
-  , path_profile_(std::move(path_profile))
-  , waypoint_(std::move(waypoint))
-  , manipulator_info_(std::move(manipulator_info))
-{
-}
-
-MoveInstruction::MoveInstruction(JointWaypointPoly waypoint,
-                                 MoveInstructionType type,
-                                 std::string profile,
-                                 std::string path_profile,
-                                 tesseract_common::ManipulatorInfo manipulator_info)
-  : uuid_(boost::uuids::random_generator()())
-  , move_type_(type)
-  , profile_(std::move(profile))
-  , path_profile_(std::move(path_profile))
-  , waypoint_(std::move(waypoint))
-  , manipulator_info_(std::move(manipulator_info))
-{
-}
-
-MoveInstruction::MoveInstruction(StateWaypointPoly waypoint,
-                                 MoveInstructionType type,
-                                 std::string profile,
-                                 std::string path_profile,
-                                 tesseract_common::ManipulatorInfo manipulator_info)
-  : uuid_(boost::uuids::random_generator()())
-  , move_type_(type)
-  , profile_(std::move(profile))
-  , path_profile_(std::move(path_profile))
-  , waypoint_(std::move(waypoint))
-  , manipulator_info_(std::move(manipulator_info))
-{
 }
 
 const boost::uuids::uuid& MoveInstruction::getUUID() const { return uuid_; }
@@ -181,9 +97,6 @@ void MoveInstruction::setMoveType(MoveInstructionType move_type) { move_type_ = 
 
 MoveInstructionType MoveInstruction::getMoveType() const { return move_type_; }
 
-void MoveInstruction::assignCartesianWaypoint(CartesianWaypointPoly waypoint) { waypoint_ = waypoint; }
-void MoveInstruction::assignJointWaypoint(JointWaypointPoly waypoint) { waypoint_ = waypoint; }
-void MoveInstruction::assignStateWaypoint(StateWaypointPoly waypoint) { waypoint_ = waypoint; }
 WaypointPoly& MoveInstruction::getWaypoint() { return waypoint_; }
 const WaypointPoly& MoveInstruction::getWaypoint() const { return waypoint_; }
 

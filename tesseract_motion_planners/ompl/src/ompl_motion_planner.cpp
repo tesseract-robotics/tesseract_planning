@@ -219,14 +219,14 @@ long OMPLMotionPlanner::assignTrajectory(tesseract_planning::CompositeInstructio
             jwp.setIsConstrained(false);
             jwp.setNames(joint_names);
             jwp.setPosition(traj.row(row));
-            child.assignJointWaypoint(jwp);
+            child.getWaypoint() = jwp;
           }
           else
           {
             StateWaypointPoly swp = mi.createStateWaypoint();
             swp.setNames(joint_names);
             swp.setPosition(traj.row(row));
-            child.assignStateWaypoint(swp);
+            child.getWaypoint() = swp;
           }
 
           extra.emplace_back(child);

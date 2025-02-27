@@ -171,9 +171,6 @@ struct MoveInstructionInterface : tesseract_common::TypeErasureInterface
   virtual const boost::uuids::uuid& getParentUUID() const = 0;
   virtual void setParentUUID(const boost::uuids::uuid& uuid) = 0;
 
-  virtual void assignCartesianWaypoint(CartesianWaypointPoly waypoint) = 0;
-  virtual void assignJointWaypoint(JointWaypointPoly waypoint) = 0;
-  virtual void assignStateWaypoint(StateWaypointPoly waypoint) = 0;
   virtual WaypointPoly& getWaypoint() = 0;
   virtual const WaypointPoly& getWaypoint() const = 0;
 
@@ -229,12 +226,6 @@ struct MoveInstructionInstance : tesseract_common::TypeErasureInstance<T, MoveIn
   const boost::uuids::uuid& getParentUUID() const final { return this->get().getParentUUID(); }
   void setParentUUID(const boost::uuids::uuid& uuid) final { this->get().setParentUUID(uuid); }
 
-  void assignCartesianWaypoint(CartesianWaypointPoly waypoint) final
-  {
-    this->get().assignCartesianWaypoint(std::move(waypoint));
-  }
-  void assignJointWaypoint(JointWaypointPoly waypoint) final { this->get().assignJointWaypoint(std::move(waypoint)); }
-  void assignStateWaypoint(StateWaypointPoly waypoint) final { this->get().assignStateWaypoint(std::move(waypoint)); }
   WaypointPoly& getWaypoint() final { return this->get().getWaypoint(); }
   const WaypointPoly& getWaypoint() const final { return this->get().getWaypoint(); }
 
@@ -306,9 +297,6 @@ struct MoveInstructionPoly : MoveInstructionPolyBase
   const boost::uuids::uuid& getParentUUID() const;
   void setParentUUID(const boost::uuids::uuid& uuid);
 
-  void assignCartesianWaypoint(CartesianWaypointPoly waypoint);
-  void assignJointWaypoint(JointWaypointPoly waypoint);
-  void assignStateWaypoint(StateWaypointPoly waypoint);
   WaypointPoly& getWaypoint();
   const WaypointPoly& getWaypoint() const;
 
