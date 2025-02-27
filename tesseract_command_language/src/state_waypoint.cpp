@@ -27,19 +27,21 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
+#include <boost/serialization/vector.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/eigen_serialization.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_common/types.h>
 
 namespace tesseract_planning
 {
 StateWaypoint::StateWaypoint(std::vector<std::string> joint_names, const Eigen::Ref<const Eigen::VectorXd>& position)
-  : tesseract_common::JointState(std::move(joint_names), position)
+  : joint_names_(std::move(joint_names)), position_(position)
 {
-  if (static_cast<Eigen::Index>(this->joint_names.size()) != this->position.size())
+  if (static_cast<Eigen::Index>(joint_names_.size()) != position_.size())
     throw std::runtime_error("StateWaypoint: parameters are not the same size!");
 }
 StateWaypoint::StateWaypoint(const std::vector<std::string>& names,
@@ -47,15 +49,10 @@ StateWaypoint::StateWaypoint(const std::vector<std::string>& names,
                              const Eigen::VectorXd& velocity,
                              const Eigen::VectorXd& acceleration,
                              double time)
+  : joint_names_(names), position_(position), velocity_(velocity), acceleration_(acceleration), time_(time)
 {
-  this->joint_names = names;
-  this->position = position;
-  this->velocity = velocity;
-  this->acceleration = acceleration;
-  this->time = time;
-
-  if (static_cast<Eigen::Index>(joint_names.size()) != this->position.size() ||
-      this->position.size() != this->velocity.size() || this->position.size() != this->acceleration.size())
+  if (static_cast<Eigen::Index>(joint_names_.size()) != position_.size() || position_.size() != velocity_.size() ||
+      position_.size() != acceleration_.size())
     throw std::runtime_error("StateWaypoint: parameters are not the same size!");
 }
 
@@ -79,59 +76,70 @@ StateWaypoint::StateWaypoint(std::initializer_list<std::string> names,
 {
 }
 
-void StateWaypoint::setNames(const std::vector<std::string>& names) { joint_names = names; }
-std::vector<std::string>& StateWaypoint::getNames() { return joint_names; }
-const std::vector<std::string>& StateWaypoint::getNames() const { return joint_names; }
-
-void StateWaypoint::setPosition(const Eigen::VectorXd& position) { this->position = position; }
-Eigen::VectorXd& StateWaypoint::getPosition() { return position; }
-const Eigen::VectorXd& StateWaypoint::getPosition() const { return position; }
-
-void StateWaypoint::setVelocity(const Eigen::VectorXd& velocity) { this->velocity = velocity; }
-Eigen::VectorXd& StateWaypoint::getVelocity() { return velocity; }
-const Eigen::VectorXd& StateWaypoint::getVelocity() const { return velocity; }
-
-void StateWaypoint::setAcceleration(const Eigen::VectorXd& acceleration) { this->acceleration = acceleration; }
-Eigen::VectorXd& StateWaypoint::getAcceleration() { return acceleration; }
-const Eigen::VectorXd& StateWaypoint::getAcceleration() const { return acceleration; }
-
-void StateWaypoint::setEffort(const Eigen::VectorXd& effort) { this->effort = effort; }
-Eigen::VectorXd& StateWaypoint::getEffort() { return effort; }
-const Eigen::VectorXd& StateWaypoint::getEffort() const { return effort; }
-
-void StateWaypoint::setTime(double time) { this->time = time; }
-double StateWaypoint::getTime() const { return time; }
-
+// Waypoint
 void StateWaypoint::setName(const std::string& name) { name_ = name; }
 const std::string& StateWaypoint::getName() const { return name_; }
-
+// std::type_index StateWaypoint::getType() const { return typeid(StateWaypoint); }
 void StateWaypoint::print(const std::string& prefix) const
 {
-  std::cout << prefix << "State WP: Pos=" << position.transpose() << std::endl;  // NOLINT
+  std::cout << prefix << "State WP: Pos=" << position_.transpose() << std::endl;  // NOLINT
 }
 
-bool StateWaypoint::operator==(const StateWaypoint& rhs) const
+std::unique_ptr<StateWaypointInterface> StateWaypoint::clone() const { return std::make_unique<StateWaypoint>(*this); }
+
+// State Waypoint
+void StateWaypoint::setNames(const std::vector<std::string>& names) { joint_names_ = names; }
+std::vector<std::string>& StateWaypoint::getNames() { return joint_names_; }
+const std::vector<std::string>& StateWaypoint::getNames() const { return joint_names_; }
+
+void StateWaypoint::setPosition(const Eigen::VectorXd& position) { this->position_ = position; }
+Eigen::VectorXd& StateWaypoint::getPosition() { return position_; }
+const Eigen::VectorXd& StateWaypoint::getPosition() const { return position_; }
+
+void StateWaypoint::setVelocity(const Eigen::VectorXd& velocity) { this->velocity_ = velocity; }
+Eigen::VectorXd& StateWaypoint::getVelocity() { return velocity_; }
+const Eigen::VectorXd& StateWaypoint::getVelocity() const { return velocity_; }
+
+void StateWaypoint::setAcceleration(const Eigen::VectorXd& acceleration) { this->acceleration_ = acceleration; }
+Eigen::VectorXd& StateWaypoint::getAcceleration() { return acceleration_; }
+const Eigen::VectorXd& StateWaypoint::getAcceleration() const { return acceleration_; }
+
+void StateWaypoint::setEffort(const Eigen::VectorXd& effort) { this->effort_ = effort; }
+Eigen::VectorXd& StateWaypoint::getEffort() { return effort_; }
+const Eigen::VectorXd& StateWaypoint::getEffort() const { return effort_; }
+
+void StateWaypoint::setTime(double time) { this->time_ = time; }
+double StateWaypoint::getTime() const { return time_; }
+
+bool StateWaypoint::equals(const StateWaypointInterface& other) const
 {
+  const auto* rhs = dynamic_cast<const StateWaypoint*>(&other);
+  if (rhs == nullptr)
+    return false;
+
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= (name_ == rhs.name_);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(position, rhs.position, max_diff);
-  equal &= tesseract_common::isIdentical(joint_names, rhs.joint_names);
+  equal &= (name_ == rhs->name_);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(position_, rhs->position_, max_diff);
+  equal &= tesseract_common::isIdentical(joint_names_, rhs->joint_names_);
   return equal;
 }
-// LCOV_EXCL_START
-bool StateWaypoint::operator!=(const StateWaypoint& rhs) const { return !operator==(rhs); }
-// LCOV_EXCL_STOP
 
 template <class Archive>
 void StateWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(StateWaypointInterface);
   ar& BOOST_SERIALIZATION_NVP(name_);
-  ar& boost::serialization::make_nvp("base", boost::serialization::base_object<tesseract_common::JointState>(*this));
+  ar& BOOST_SERIALIZATION_NVP(joint_names_);
+  ar& BOOST_SERIALIZATION_NVP(position_);
+  ar& BOOST_SERIALIZATION_NVP(velocity_);
+  ar& BOOST_SERIALIZATION_NVP(acceleration_);
+  ar& BOOST_SERIALIZATION_NVP(effort_);
+  ar& BOOST_SERIALIZATION_NVP(time_);
 }
 
 }  // namespace tesseract_planning
 
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypoint)
-TESSERACT_STATE_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::StateWaypoint)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StateWaypoint)

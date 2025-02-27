@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class JointWaypoint
+class JointWaypoint final : public JointWaypointInterface
 {
 public:
   // LCOV_EXCL_START
@@ -57,32 +57,32 @@ public:
                 std::initializer_list<double> lower_tol,
                 std::initializer_list<double> upper_tol);
 
-  void setNames(const std::vector<std::string>& names);
-  std::vector<std::string>& getNames();
-  const std::vector<std::string>& getNames() const;
+  // Waypoint
+  void setName(const std::string& name) override final;
+  const std::string& getName() const override final;
+  // std::type_index getType() const override final;
+  void print(const std::string& prefix = "") const override final;
+  std::unique_ptr<JointWaypointInterface> clone() const override final;
 
-  void setPosition(const Eigen::VectorXd& position);
-  Eigen::VectorXd& getPosition();
-  const Eigen::VectorXd& getPosition() const;
+  // Joint Waypoint
+  void setNames(const std::vector<std::string>& names) override final;
+  std::vector<std::string>& getNames() override final;
+  const std::vector<std::string>& getNames() const override final;
 
-  void setUpperTolerance(const Eigen::VectorXd& upper_tol);
-  Eigen::VectorXd& getUpperTolerance();
-  const Eigen::VectorXd& getUpperTolerance() const;
+  void setPosition(const Eigen::VectorXd& position) override final;
+  Eigen::VectorXd& getPosition() override final;
+  const Eigen::VectorXd& getPosition() const override final;
 
-  void setLowerTolerance(const Eigen::VectorXd& lower_tol);
-  Eigen::VectorXd& getLowerTolerance();
-  const Eigen::VectorXd& getLowerTolerance() const;
+  void setUpperTolerance(const Eigen::VectorXd& upper_tol) override final;
+  Eigen::VectorXd& getUpperTolerance() override final;
+  const Eigen::VectorXd& getUpperTolerance() const override final;
 
-  void setIsConstrained(bool value);
-  bool isConstrained() const;
+  void setLowerTolerance(const Eigen::VectorXd& lower_tol) override final;
+  Eigen::VectorXd& getLowerTolerance() override final;
+  const Eigen::VectorXd& getLowerTolerance() const override final;
 
-  void setName(const std::string& name);
-  const std::string& getName() const;
-
-  void print(const std::string& prefix = "") const;
-
-  bool operator==(const JointWaypoint& rhs) const;
-  bool operator!=(const JointWaypoint& rhs) const;
+  void setIsConstrained(bool value) override final;
+  bool isConstrained() const override final;
 
 protected:
   /** @brief The name of the waypoint */
@@ -98,12 +98,15 @@ protected:
   /** @brief Indicates if it is constrained joint state */
   bool is_constrained_{ false };
 
+  bool equals(const JointWaypointInterface& other) const override final;
+
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
 
-TESSERACT_JOINT_WAYPOINT_EXPORT_KEY(tesseract_planning, JointWaypoint)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::JointWaypoint)
+BOOST_CLASS_TRACKING(tesseract_planning::JointWaypoint, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_H

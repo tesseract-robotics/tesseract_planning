@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class CartesianWaypoint
+class CartesianWaypoint final : public CartesianWaypointInterface
 {
 public:
   // LCOV_EXCL_START
@@ -49,29 +49,29 @@ public:
                     const Eigen::VectorXd& lower_tol,
                     const Eigen::VectorXd& upper_tol);
 
-  void setTransform(const Eigen::Isometry3d& transform);
-  Eigen::Isometry3d& getTransform();
-  const Eigen::Isometry3d& getTransform() const;
+  // Waypoint
+  void setName(const std::string& name) override final;
+  const std::string& getName() const override final;
+  // std::type_index getType() const override final;
+  void print(const std::string& prefix = "") const override final;
+  std::unique_ptr<CartesianWaypointInterface> clone() const override final;
 
-  void setUpperTolerance(const Eigen::VectorXd& upper_tol);
-  Eigen::VectorXd& getUpperTolerance();
-  const Eigen::VectorXd& getUpperTolerance() const;
+  // Cartesian Waypoint
+  void setTransform(const Eigen::Isometry3d& transform) override final;
+  Eigen::Isometry3d& getTransform() override final;
+  const Eigen::Isometry3d& getTransform() const override final;
 
-  void setLowerTolerance(const Eigen::VectorXd& lower_tol);
-  Eigen::VectorXd& getLowerTolerance();
-  const Eigen::VectorXd& getLowerTolerance() const;
+  void setUpperTolerance(const Eigen::VectorXd& upper_tol) override final;
+  Eigen::VectorXd& getUpperTolerance() override final;
+  const Eigen::VectorXd& getUpperTolerance() const override final;
 
-  void setSeed(const tesseract_common::JointState& seed);
-  tesseract_common::JointState& getSeed();
-  const tesseract_common::JointState& getSeed() const;
+  void setLowerTolerance(const Eigen::VectorXd& lower_tol) override final;
+  Eigen::VectorXd& getLowerTolerance() override final;
+  const Eigen::VectorXd& getLowerTolerance() const override final;
 
-  void setName(const std::string& name);
-  const std::string& getName() const;
-
-  void print(const std::string& prefix = "") const;
-
-  bool operator==(const CartesianWaypoint& rhs) const;
-  bool operator!=(const CartesianWaypoint& rhs) const;
+  void setSeed(const tesseract_common::JointState& seed) override final;
+  tesseract_common::JointState& getSeed() override final;
+  const tesseract_common::JointState& getSeed() const override final;
 
 protected:
   /** @brief The name of the waypoint */
@@ -94,6 +94,8 @@ protected:
    */
   tesseract_common::JointState seed_;
 
+  bool equals(const CartesianWaypointInterface& other) const override final;
+
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
@@ -101,6 +103,7 @@ protected:
 
 }  // namespace tesseract_planning
 
-TESSERACT_CARTESIAN_WAYPOINT_EXPORT_KEY(tesseract_planning, CartesianWaypoint)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::CartesianWaypoint)
+BOOST_CLASS_TRACKING(tesseract_planning::CartesianWaypoint, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_H

@@ -128,7 +128,7 @@ TEST_F(FixStateCollisionTaskUnit, WaypointInCollisionTest)  // NOLINT
   EXPECT_TRUE(contacts.empty());
 
   // Check that it catches invalid inputs correctly
-  CartesianWaypoint cart_wp(Eigen::Isometry3d::Identity());
+  CartesianWaypointPoly cart_wp{ CartesianWaypoint{ Eigen::Isometry3d::Identity() } };
   contacts.clear();
   EXPECT_FALSE(waypointInCollision(cart_wp, manip_, *env_, profile, contacts));
   EXPECT_TRUE(contacts.empty());

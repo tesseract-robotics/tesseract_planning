@@ -114,9 +114,9 @@ Command::Ptr addPointCloud()
   Visual::Ptr visual = std::make_shared<Visual>();
   visual->origin = Eigen::Isometry3d::Identity();
   visual->origin.translation() = Eigen::Vector3d(1, 0, 0);
-  auto ot = tesseract_geometry::createOctree(full_cloud, 2 * delta, true, true);
+  auto ot = tesseract_geometry::createOctree(full_cloud, 2 * delta, false, true);
   visual->geometry =
-      std::make_shared<tesseract_geometry::Octree>(std::move(ot), tesseract_geometry::OctreeSubType::BOX, true, true);
+      std::make_shared<tesseract_geometry::Octree>(std::move(ot), tesseract_geometry::OctreeSubType::BOX, false, true);
   link_octomap.visual.push_back(visual);
 
   Collision::Ptr collision = std::make_shared<Collision>();
