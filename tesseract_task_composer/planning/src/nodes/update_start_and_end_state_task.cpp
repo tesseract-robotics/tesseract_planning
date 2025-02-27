@@ -137,22 +137,16 @@ TaskComposerNodeInfo UpdateStartAndEndStateTask::runImpl(TaskComposerContext& co
   /** @todo Should the waypoint profile be updated to the path profile if it exists? **/
 
   // Update start instruction
-  if (prev_last_move->getWaypoint().isCartesianWaypoint())
-    first_move_instruction->assignCartesianWaypoint(prev_last_move->getWaypoint().as<CartesianWaypointPoly>());
-  else if (prev_last_move->getWaypoint().isJointWaypoint())
-    first_move_instruction->assignJointWaypoint(prev_last_move->getWaypoint().as<JointWaypointPoly>());
-  else if (prev_last_move->getWaypoint().isStateWaypoint())
-    first_move_instruction->assignStateWaypoint(prev_last_move->getWaypoint().as<StateWaypointPoly>());
+  if (prev_last_move->getWaypoint().isCartesianWaypoint() || prev_last_move->getWaypoint().isJointWaypoint() ||
+      prev_last_move->getWaypoint().isStateWaypoint())
+    first_move_instruction->getWaypoint() = prev_last_move->getWaypoint();
   else
     throw std::runtime_error("Invalid waypoint type");
 
   // Update end instruction
-  if (next_start_move->getWaypoint().isCartesianWaypoint())
-    last_move_instruction->assignCartesianWaypoint(next_start_move->getWaypoint().as<CartesianWaypointPoly>());
-  else if (next_start_move->getWaypoint().isJointWaypoint())
-    last_move_instruction->assignJointWaypoint(next_start_move->getWaypoint().as<JointWaypointPoly>());
-  else if (next_start_move->getWaypoint().isStateWaypoint())
-    last_move_instruction->assignStateWaypoint(next_start_move->getWaypoint().as<StateWaypointPoly>());
+  if (next_start_move->getWaypoint().isCartesianWaypoint() || next_start_move->getWaypoint().isJointWaypoint() ||
+      next_start_move->getWaypoint().isStateWaypoint())
+    last_move_instruction->getWaypoint() = next_start_move->getWaypoint();
   else
     throw std::runtime_error("Invalid waypoint type");
 

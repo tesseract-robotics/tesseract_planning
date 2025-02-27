@@ -1065,7 +1065,7 @@ std::vector<MoveInstructionPoly> getInterpolatedInstructions(const std::vector<s
     jwp.setNames(joint_names);
     jwp.setPosition(states.col(i));
     jwp.setIsConstrained(false);
-    move_instruction.assignJointWaypoint(jwp);
+    move_instruction.getWaypoint() = jwp;
     if (!base_instruction.getPathProfile().empty())
     {
       move_instruction.setProfile(base_instruction.getPathProfile());
@@ -1119,7 +1119,7 @@ std::vector<MoveInstructionPoly> getInterpolatedInstructions(const tesseract_com
       CartesianWaypointPoly cwp = move_instruction.createCartesianWaypoint();
       cwp.setTransform(poses[static_cast<std::size_t>(i)]);
       cwp.setSeed(tesseract_common::JointState(joint_names, states.col(i)));
-      move_instruction.assignCartesianWaypoint(cwp);
+      move_instruction.getWaypoint() = cwp;
       if (!base_instruction.getPathProfile().empty())
       {
         move_instruction.setProfile(base_instruction.getPathProfile());

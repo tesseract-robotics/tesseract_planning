@@ -120,12 +120,9 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
 
   // Update end instruction
   const auto* next_start_move = input_next_data_poly.as<CompositeInstruction>().getFirstMoveInstruction();
-  if (next_start_move->getWaypoint().isCartesianWaypoint())
-    last_move_instruction->assignCartesianWaypoint(next_start_move->getWaypoint().as<CartesianWaypointPoly>());
-  else if (next_start_move->getWaypoint().isJointWaypoint())
-    last_move_instruction->assignJointWaypoint(next_start_move->getWaypoint().as<JointWaypointPoly>());
-  else if (next_start_move->getWaypoint().isStateWaypoint())
-    last_move_instruction->assignStateWaypoint(next_start_move->getWaypoint().as<StateWaypointPoly>());
+  if (next_start_move->getWaypoint().isCartesianWaypoint() || next_start_move->getWaypoint().isJointWaypoint() ||
+      next_start_move->getWaypoint().isStateWaypoint())
+    last_move_instruction->getWaypoint() = next_start_move->getWaypoint();
   else
     throw std::runtime_error("Invalid waypoint type");
 

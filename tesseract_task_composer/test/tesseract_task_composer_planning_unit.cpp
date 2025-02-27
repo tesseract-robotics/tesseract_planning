@@ -584,7 +584,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     const auto& jwp = last.getWaypoint().as<JointWaypointPoly>();
     CartesianWaypoint cwp{ Eigen::Isometry3d::Identity() };
     cwp.setSeed(tesseract_common::JointState(jwp.getNames(), jwp.getPosition()));
-    last.assignCartesianWaypoint(cwp);
+    last.getWaypoint() = CartesianWaypointPoly(cwp);
     input_program.back() = last;
     EXPECT_EQ(input_program.size(), 2);
 
