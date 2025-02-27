@@ -26,87 +26,132 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
+#include <boost/serialization/unique_ptr.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_common/serialization.h>
 
-template <class Archive>
-void tesseract_planning::detail_state_waypoint::StateWaypointInterface::serialize(
-    Archive& ar,
-    const unsigned int /*version*/)  // NOLINT
+namespace tesseract_planning
 {
-  ar& boost::serialization::make_nvp("base",
-                                     boost::serialization::base_object<tesseract_common::TypeErasureInterface>(*this));
-}
+// Operators
+bool StateWaypointInterface::operator==(const StateWaypointInterface& rhs) const { return equals(rhs); }
 
-void tesseract_planning::StateWaypointPoly::setNames(const std::vector<std::string>& names)
-{
-  getInterface().setNames(names);
-}
-std::vector<std::string>& tesseract_planning::StateWaypointPoly::getNames() { return getInterface().getNames(); }
-const std::vector<std::string>& tesseract_planning::StateWaypointPoly::getNames() const
-{
-  return getInterface().getNames();
-}
-
-void tesseract_planning::StateWaypointPoly::setPosition(const Eigen::VectorXd& position)
-{
-  getInterface().setPosition(position);
-}
-Eigen::VectorXd& tesseract_planning::StateWaypointPoly::getPosition() { return getInterface().getPosition(); }
-const Eigen::VectorXd& tesseract_planning::StateWaypointPoly::getPosition() const
-{
-  return getInterface().getPosition();
-}
-
-void tesseract_planning::StateWaypointPoly::setVelocity(const Eigen::VectorXd& velocity)
-{
-  getInterface().setVelocity(velocity);
-}
-Eigen::VectorXd& tesseract_planning::StateWaypointPoly::getVelocity() { return getInterface().getVelocity(); }
-const Eigen::VectorXd& tesseract_planning::StateWaypointPoly::getVelocity() const
-{
-  return getInterface().getVelocity();
-}
-
-void tesseract_planning::StateWaypointPoly::setAcceleration(const Eigen::VectorXd& acceleration)
-{
-  getInterface().setAcceleration(acceleration);
-}
-Eigen::VectorXd& tesseract_planning::StateWaypointPoly::getAcceleration() { return getInterface().getAcceleration(); }
-const Eigen::VectorXd& tesseract_planning::StateWaypointPoly::getAcceleration() const
-{
-  return getInterface().getAcceleration();
-}
-
-void tesseract_planning::StateWaypointPoly::setEffort(const Eigen::VectorXd& effort)
-{
-  getInterface().setEffort(effort);
-}
-Eigen::VectorXd& tesseract_planning::StateWaypointPoly::getEffort() { return getInterface().getEffort(); }
-const Eigen::VectorXd& tesseract_planning::StateWaypointPoly::getEffort() const { return getInterface().getEffort(); }
-
-void tesseract_planning::StateWaypointPoly::setTime(double time) { getInterface().setTime(time); }
-double tesseract_planning::StateWaypointPoly::getTime() const { return getInterface().getTime(); }
-
-void tesseract_planning::StateWaypointPoly::setName(const std::string& name) { getInterface().setName(name); }
-const std::string& tesseract_planning::StateWaypointPoly::getName() const { return getInterface().getName(); }
-
-void tesseract_planning::StateWaypointPoly::print(const std::string& prefix) const { getInterface().print(prefix); }
+// LCOV_EXCL_START
+bool StateWaypointInterface::operator!=(const StateWaypointInterface& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
-void tesseract_planning::StateWaypointPoly::serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
+void StateWaypointInterface::serialize(Archive& /*ar*/, const unsigned int /*version*/)  // NOLINT
 {
-  ar& boost::serialization::make_nvp("base", boost::serialization::base_object<StateWaypointPolyBase>(*this));
 }
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_state_waypoint::StateWaypointInterface)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypointPolyBase)
+StateWaypointPoly::StateWaypointPoly(const StateWaypointPoly& other)
+{
+  if (other.impl_)
+  {
+    impl_ = other.impl_->clone();  // Deep copy
+  }
+}
+
+StateWaypointPoly& StateWaypointPoly::operator=(const StateWaypointPoly& other)
+{
+  if (this != &other)
+  {
+    impl_ = other.impl_ ? other.impl_->clone() : nullptr;
+  }
+  return *this;
+}
+
+StateWaypointPoly::StateWaypointPoly(const StateWaypointInterface& impl) : impl_(impl.clone()) {}
+
+void StateWaypointPoly::setName(const std::string& name) { impl_->setName(name); }
+const std::string& StateWaypointPoly::getName() const { return impl_->getName(); }
+
+std::type_index StateWaypointPoly::getType() const
+{
+  if (impl_ == nullptr)
+    return typeid(nullptr);
+
+  const StateWaypointInterface& value = *impl_;
+  return typeid(value);
+}
+
+bool StateWaypointPoly::equals(const WaypointInterface& other) const
+{
+  if (impl_ == nullptr)
+    return false;
+
+  const auto* derived_other = dynamic_cast<const StateWaypointPoly*>(&other);
+  if (derived_other == nullptr)
+    return false;
+
+  return (*this == *derived_other);
+}
+
+void StateWaypointPoly::print(const std::string& prefix) const { impl_->print(prefix); }
+
+void StateWaypointPoly::setNames(const std::vector<std::string>& names) { impl_->setNames(names); }
+std::vector<std::string>& StateWaypointPoly::getNames() { return impl_->getNames(); }
+const std::vector<std::string>& StateWaypointPoly::getNames() const { return impl_->getNames(); }
+
+void StateWaypointPoly::setPosition(const Eigen::VectorXd& position) { impl_->setPosition(position); }
+Eigen::VectorXd& StateWaypointPoly::getPosition() { return impl_->getPosition(); }
+const Eigen::VectorXd& StateWaypointPoly::getPosition() const { return impl_->getPosition(); }
+
+void StateWaypointPoly::setVelocity(const Eigen::VectorXd& velocity) { impl_->setVelocity(velocity); }
+Eigen::VectorXd& StateWaypointPoly::getVelocity() { return impl_->getVelocity(); }
+const Eigen::VectorXd& StateWaypointPoly::getVelocity() const { return impl_->getVelocity(); }
+
+void StateWaypointPoly::setAcceleration(const Eigen::VectorXd& acceleration) { impl_->setAcceleration(acceleration); }
+Eigen::VectorXd& StateWaypointPoly::getAcceleration() { return impl_->getAcceleration(); }
+const Eigen::VectorXd& StateWaypointPoly::getAcceleration() const { return impl_->getAcceleration(); }
+
+void StateWaypointPoly::setEffort(const Eigen::VectorXd& effort) { impl_->setEffort(effort); }
+Eigen::VectorXd& StateWaypointPoly::getEffort() { return impl_->getEffort(); }
+const Eigen::VectorXd& StateWaypointPoly::getEffort() const { return impl_->getEffort(); }
+
+void StateWaypointPoly::setTime(double time) { impl_->setTime(time); }
+double StateWaypointPoly::getTime() const { return impl_->getTime(); }
+
+std::unique_ptr<WaypointInterface> StateWaypointPoly::clone() const
+{
+  return (impl_ == nullptr) ? nullptr : std::make_unique<StateWaypointPoly>(*impl_);
+}
+
+bool StateWaypointPoly::isNull() const { return (impl_ == nullptr); }
+StateWaypointInterface& StateWaypointPoly::getStateWaypoint() { return *impl_; }
+const StateWaypointInterface& StateWaypointPoly::getStateWaypoint() const { return *impl_; }
+
+bool StateWaypointPoly::operator==(const StateWaypointPoly& rhs) const
+{
+  if (impl_ == nullptr && rhs.impl_ == nullptr)
+    return true;
+
+  if (impl_ == nullptr || rhs.impl_ == nullptr)
+    return false;
+
+  if (getType() != rhs.getType())
+    return false;
+
+  return (*impl_ == *rhs.impl_);
+}
+
+// LCOV_EXCL_START
+bool StateWaypointPoly::operator!=(const StateWaypointPoly& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
+
+template <class Archive>
+void StateWaypointPoly::serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(WaypointInterface);
+  ar& boost::serialization::make_nvp("impl", impl_);
+}
+
+}  // namespace tesseract_planning
+
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypointInterface)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypointPoly)
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_state_waypoint::StateWaypointInterface)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointPolyBase)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointInterface)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointPoly)
-
-TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointPoly)

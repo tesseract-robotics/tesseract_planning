@@ -32,106 +32,25 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/concept_check.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/waypoint_poly.h>
-#include <tesseract_common/type_erasure.h>
-#include <tesseract_common/joint_state.h>
 #include <tesseract_common/fwd.h>
 
-/** @brief If shared library, this must go in the header after the class definition */
-#define TESSERACT_CARTESIAN_WAYPOINT_EXPORT_KEY(N, C)                                                                  \
-  namespace N                                                                                                          \
-  {                                                                                                                    \
-  using C##InstanceBase = tesseract_common::                                                                           \
-      TypeErasureInstance<C, tesseract_planning::detail_cartesian_waypoint::CartesianWaypointInterface>;               \
-  using C##Instance = tesseract_planning::detail_cartesian_waypoint::CartesianWaypointInstance<C>;                     \
-  }                                                                                                                    \
-  BOOST_CLASS_EXPORT_KEY(N::C##InstanceBase)                                                                           \
-  BOOST_CLASS_EXPORT_KEY(N::C##Instance)                                                                               \
-  BOOST_CLASS_TRACKING(N::C##InstanceBase, boost::serialization::track_never)                                          \
-  BOOST_CLASS_TRACKING(N::C##Instance, boost::serialization::track_never)
-
-/** @brief If shared library, this must go in the cpp after the implicit instantiation of the serialize function */
-#define TESSERACT_CARTESIAN_WAYPOINT_EXPORT_IMPLEMENT(inst)                                                            \
-  BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceBase)                                                                     \
-  BOOST_CLASS_EXPORT_IMPLEMENT(inst##Instance)
-
-/**
- * @brief This should not be used within shared libraries use the two above.
- * If not in a shared library it can go in header or cpp
- */
-#define TESSERACT_CARTESIAN_WAYPOINT_EXPORT(N, C)                                                                      \
-  TESSERACT_CARTESIAN_WAYPOINT_EXPORT_KEY(N, C)                                                                        \
-  TESSERACT_CARTESIAN_WAYPOINT_EXPORT_IMPLEMENT(N::C)
-namespace tesseract_planning::detail_cartesian_waypoint
+namespace tesseract_planning
 {
-template <typename T>
-struct CartesianWaypointConcept  // NOLINT
-  : boost::Assignable<T>,
-    boost::CopyConstructible<T>,
-    boost::EqualityComparable<T>
+class CartesianWaypointInterface
 {
-  BOOST_CONCEPT_USAGE(CartesianWaypointConcept)
-  {
-    T cp(c);
-    T assign = c;
-    bool eq = (c == cp);
-    bool neq = (c != cp);
-    UNUSED(assign);
-    UNUSED(eq);
-    UNUSED(neq);
+public:
+  virtual ~CartesianWaypointInterface() = default;
 
-    Eigen::Isometry3d transform;
-    c.setTransform(transform);
+  // Waypoint
+  virtual void setName(const std::string& name) = 0;
+  virtual const std::string& getName() const = 0;
+  virtual void print(const std::string& prefix = "") const = 0;
+  virtual std::unique_ptr<CartesianWaypointInterface> clone() const = 0;
 
-    Eigen::Isometry3d& transform_ref = c.getTransform();
-    UNUSED(transform_ref);
-
-    const Eigen::Isometry3d& transform_const_ref = c.getTransform();
-    UNUSED(transform_const_ref);
-
-    Eigen::VectorXd lower_tol;
-    c.setLowerTolerance(lower_tol);
-
-    Eigen::VectorXd& lower_tol_ref = c.getLowerTolerance();
-    UNUSED(lower_tol_ref);
-
-    const Eigen::VectorXd& lower_tol_const_ref = c.getLowerTolerance();
-    UNUSED(lower_tol_const_ref);
-
-    Eigen::VectorXd upper_tol;
-    c.setUpperTolerance(upper_tol);
-
-    Eigen::VectorXd& upper_tol_ref = c.getUpperTolerance();
-    UNUSED(upper_tol_ref);
-
-    const Eigen::VectorXd& upper_tol_const_ref = c.getUpperTolerance();
-    UNUSED(upper_tol_const_ref);
-
-    tesseract_common::JointState js;
-    c.setSeed(js);
-
-    tesseract_common::JointState& seed_ref = c.getSeed();
-    UNUSED(seed_ref);
-
-    const tesseract_common::JointState& seed_const_ref = c.getSeed();
-    UNUSED(seed_const_ref);
-
-    c.setName("name");
-    c.getName();
-    c.print();
-    c.print("prefix_");
-  }
-
-private:
-  T c;
-};
-
-struct CartesianWaypointInterface : tesseract_common::TypeErasureInterface
-{
+  // Cartesian Waypoint
   virtual void setTransform(const Eigen::Isometry3d& transform) = 0;
   virtual Eigen::Isometry3d& getTransform() = 0;
   virtual const Eigen::Isometry3d& getTransform() const = 0;
@@ -148,10 +67,12 @@ struct CartesianWaypointInterface : tesseract_common::TypeErasureInterface
   virtual tesseract_common::JointState& getSeed() = 0;
   virtual const tesseract_common::JointState& getSeed() const = 0;
 
-  virtual void setName(const std::string& name) = 0;
-  virtual const std::string& getName() const = 0;
+  // Operators
+  bool operator==(const CartesianWaypointInterface& rhs) const;
+  bool operator!=(const CartesianWaypointInterface& rhs) const;
 
-  virtual void print(const std::string& prefix) const = 0;
+protected:
+  virtual bool equals(const CartesianWaypointInterface& other) const = 0;
 
 private:
   friend class boost::serialization::access;
@@ -160,60 +81,23 @@ private:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
-template <typename T>
-struct CartesianWaypointInstance : tesseract_common::TypeErasureInstance<T, CartesianWaypointInterface>  // NOLINT
+class CartesianWaypointPoly final : public WaypointInterface
 {
-  using BaseType = tesseract_common::TypeErasureInstance<T, CartesianWaypointInterface>;
-  CartesianWaypointInstance() = default;
-  CartesianWaypointInstance(const T& x) : BaseType(x) {}
-  CartesianWaypointInstance(CartesianWaypointInstance&& x) noexcept : BaseType(std::move(x)) {}
+public:
+  CartesianWaypointPoly() = default;  // Default constructor
+  CartesianWaypointPoly(const CartesianWaypointPoly& other);
+  CartesianWaypointPoly& operator=(const CartesianWaypointPoly& other);
+  CartesianWaypointPoly(CartesianWaypointPoly&& other) noexcept = default;
+  CartesianWaypointPoly& operator=(CartesianWaypointPoly&& other) noexcept = default;
+  CartesianWaypointPoly(const CartesianWaypointInterface& impl);
 
-  BOOST_CONCEPT_ASSERT((CartesianWaypointConcept<T>));
+  // Waypoint
+  void setName(const std::string& name) override final;
+  const std::string& getName() const override final;
+  void print(const std::string& prefix = "") const override final;
+  std::unique_ptr<WaypointInterface> clone() const override final;
 
-  void setTransform(const Eigen::Isometry3d& transform) final { this->get().setTransform(transform); }
-  Eigen::Isometry3d& getTransform() final { return this->get().getTransform(); }
-  const Eigen::Isometry3d& getTransform() const final { return this->get().getTransform(); }
-
-  void setUpperTolerance(const Eigen::VectorXd& upper_tol) final { this->get().setUpperTolerance(upper_tol); }
-  Eigen::VectorXd& getUpperTolerance() final { return this->get().getUpperTolerance(); }
-  const Eigen::VectorXd& getUpperTolerance() const final { return this->get().getUpperTolerance(); }
-
-  void setLowerTolerance(const Eigen::VectorXd& lower_tol) final { this->get().setLowerTolerance(lower_tol); }
-  Eigen::VectorXd& getLowerTolerance() final { return this->get().getLowerTolerance(); }
-  const Eigen::VectorXd& getLowerTolerance() const final { return this->get().getLowerTolerance(); }
-
-  void setSeed(const tesseract_common::JointState& seed) final { this->get().setSeed(seed); }
-  tesseract_common::JointState& getSeed() final { return this->get().getSeed(); }
-  const tesseract_common::JointState& getSeed() const final { return this->get().getSeed(); }
-
-  void setName(const std::string& name) final { this->get().setName(name); }
-  const std::string& getName() const final { return this->get().getName(); }
-  void print(const std::string& prefix) const final { this->get().print(prefix); }
-
-  std::unique_ptr<tesseract_common::TypeErasureInterface> clone() const final
-  {
-    return std::make_unique<CartesianWaypointInstance<T>>(this->get());
-  }
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
-  {
-    ar& boost::serialization::make_nvp("base", boost::serialization::base_object<BaseType>(*this));
-  }
-};
-}  // namespace tesseract_planning::detail_cartesian_waypoint
-namespace tesseract_planning
-{
-using CartesianWaypointPolyBase =
-    tesseract_common::TypeErasureBase<detail_cartesian_waypoint::CartesianWaypointInterface,
-                                      detail_cartesian_waypoint::CartesianWaypointInstance>;
-struct CartesianWaypointPoly : CartesianWaypointPolyBase
-{
-  using CartesianWaypointPolyBase::CartesianWaypointPolyBase;
-
+  // Joint Waypoint
   void setTransform(const Eigen::Isometry3d& transform);
   Eigen::Isometry3d& getTransform();
   const Eigen::Isometry3d& getTransform() const;
@@ -230,10 +114,26 @@ struct CartesianWaypointPoly : CartesianWaypointPolyBase
   tesseract_common::JointState& getSeed();
   const tesseract_common::JointState& getSeed() const;
 
-  void setName(const std::string& name);
-  const std::string& getName() const;
+  // Poly Methods
 
-  void print(const std::string& prefix = "") const;
+  /**
+   * @brief Get the stored derived type
+   * @return The derived type index
+   */
+  std::type_index getType() const;
+
+  /**
+   * @brief Check if the poly type is null
+   * @return True if null, otherwise false
+   */
+  bool isNull() const;
+
+  /**
+   * @brief Get the interface object
+   * @return The interface object
+   */
+  CartesianWaypointInterface& getCartesianWaypoint();
+  const CartesianWaypointInterface& getCartesianWaypoint() const;
 
   /**
    * @brief Check if it has a seed. If the position or joint names is empty this returns false
@@ -250,26 +150,49 @@ struct CartesianWaypointPoly : CartesianWaypointPolyBase
    */
   bool isToleranced() const;
 
+  template <typename T>
+  T& as()
+  {
+    if (getType() != typeid(T))
+      throw std::runtime_error("CartesianWaypointPoly, tried to cast '" + boost::core::demangle(getType().name()) +
+                               "' to '" + boost::core::demangle(typeid(T).name()) + "'\nBacktrace:\n" +
+                               boost::stacktrace::to_string(boost::stacktrace::stacktrace()) + "\n");
+
+    return *dynamic_cast<T*>(impl_.get());
+  }
+
+  template <typename T>
+  const T& as() const
+  {
+    if (getType() != typeid(T))
+      throw std::runtime_error("CartesianWaypointPoly, tried to cast '" + boost::core::demangle(getType().name()) +
+                               "' to '" + boost::core::demangle(typeid(T).name()) + "'\nBacktrace:\n" +
+                               boost::stacktrace::to_string(boost::stacktrace::stacktrace()) + "\n");
+
+    return *dynamic_cast<const T*>(impl_.get());
+  }
+
+  // Operators
+  bool operator==(const CartesianWaypointPoly& rhs) const;
+  bool operator!=(const CartesianWaypointPoly& rhs) const;
+
 private:
+  std::unique_ptr<CartesianWaypointInterface> impl_;
+
+  bool equals(const WaypointInterface& other) const override final;
+
   friend class boost::serialization::access;
   friend struct tesseract_common::Serialization;
-
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::detail_cartesian_waypoint::CartesianWaypointInterface)
-BOOST_CLASS_TRACKING(tesseract_planning::detail_cartesian_waypoint::CartesianWaypointInterface,
-                     boost::serialization::track_never)
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::CartesianWaypointPolyBase)
-BOOST_CLASS_TRACKING(tesseract_planning::CartesianWaypointPolyBase, boost::serialization::track_never)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::CartesianWaypointInterface)
+BOOST_CLASS_TRACKING(tesseract_planning::CartesianWaypointInterface, boost::serialization::track_never)
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::CartesianWaypointPoly)
 BOOST_CLASS_TRACKING(tesseract_planning::CartesianWaypointPoly, boost::serialization::track_never)
-
-TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning, CartesianWaypointPoly)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_POLY_H

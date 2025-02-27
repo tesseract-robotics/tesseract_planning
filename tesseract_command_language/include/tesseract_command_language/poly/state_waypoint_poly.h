@@ -31,121 +31,25 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/concept_check.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/waypoint_poly.h>
-#include <tesseract_common/type_erasure.h>
 #include <tesseract_common/fwd.h>
 
-/** @brief If shared library, this must go in the header after the class definition */
-#define TESSERACT_STATE_WAYPOINT_EXPORT_KEY(N, C)                                                                      \
-  namespace N                                                                                                          \
-  {                                                                                                                    \
-  using C##InstanceBase =                                                                                              \
-      tesseract_common::TypeErasureInstance<C, tesseract_planning::detail_state_waypoint::StateWaypointInterface>;     \
-  using C##Instance = tesseract_planning::detail_state_waypoint::StateWaypointInstance<C>;                             \
-  }                                                                                                                    \
-  BOOST_CLASS_EXPORT_KEY(N::C##InstanceBase)                                                                           \
-  BOOST_CLASS_EXPORT_KEY(N::C##Instance)                                                                               \
-  BOOST_CLASS_TRACKING(N::C##InstanceBase, boost::serialization::track_never)                                          \
-  BOOST_CLASS_TRACKING(N::C##Instance, boost::serialization::track_never)
-
-/** @brief If shared library, this must go in the cpp after the implicit instantiation of the serialize function */
-#define TESSERACT_STATE_WAYPOINT_EXPORT_IMPLEMENT(inst)                                                                \
-  BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceBase)                                                                     \
-  BOOST_CLASS_EXPORT_IMPLEMENT(inst##Instance)
-
-/**
- * @brief This should not be used within shared libraries use the two above.
- * If not in a shared library it can go in header or cpp
- */
-#define TESSERACT_STATE_WAYPOINT_EXPORT(N, C)                                                                          \
-  TESSERACT_JOINT_WAYPOINT_EXPORT_KEY(N, C)                                                                            \
-  TESSERACT_JOINT_WAYPOINT_EXPORT_IMPLEMENT(N::C)
-
-namespace tesseract_planning::detail_state_waypoint
+namespace tesseract_planning
 {
-template <typename T>
-struct StateWaypointConcept  // NOLINT
-  : boost::Assignable<T>,
-    boost::CopyConstructible<T>,
-    boost::EqualityComparable<T>
+class StateWaypointInterface
 {
-  BOOST_CONCEPT_USAGE(StateWaypointConcept)
-  {
-    T cp(c);
-    T assign = c;
-    bool eq = (c == cp);
-    bool neq = (c != cp);
-    UNUSED(assign);
-    UNUSED(eq);
-    UNUSED(neq);
+public:
+  virtual ~StateWaypointInterface() = default;
 
-    std::vector<std::string> names;
-    c.setNames(names);
+  // Waypoint
+  virtual void setName(const std::string& name) = 0;
+  virtual const std::string& getName() const = 0;
+  virtual void print(const std::string& prefix = "") const = 0;
+  virtual std::unique_ptr<StateWaypointInterface> clone() const = 0;
 
-    std::vector<std::string>& names_ref = c.getNames();
-    UNUSED(names_ref);
-
-    const std::vector<std::string>& names_const_ref = c.getNames();
-    UNUSED(names_const_ref);
-
-    Eigen::VectorXd position;
-    c.setPosition(position);
-
-    Eigen::VectorXd& position_ref = c.getPosition();
-    UNUSED(position_ref);
-
-    const Eigen::VectorXd& position_const_ref = c.getPosition();
-    UNUSED(position_const_ref);
-
-    Eigen::VectorXd velocity;
-    c.setVelocity(velocity);
-
-    Eigen::VectorXd& velocity_ref = c.getVelocity();
-    UNUSED(velocity_ref);
-
-    const Eigen::VectorXd& velocity_const_ref = c.getVelocity();
-    UNUSED(velocity_const_ref);
-
-    Eigen::VectorXd acceleration;
-    c.setAcceleration(acceleration);
-
-    Eigen::VectorXd& acceleration_ref = c.getAcceleration();
-    UNUSED(acceleration_ref);
-
-    const Eigen::VectorXd& acceleration_const_ref = c.getAcceleration();
-    UNUSED(acceleration_const_ref);
-
-    Eigen::VectorXd effort;
-    c.setEffort(effort);
-
-    Eigen::VectorXd& effort_ref = c.getEffort();
-    UNUSED(effort_ref);
-
-    const Eigen::VectorXd& effort_const_ref = c.getEffort();
-    UNUSED(effort_const_ref);
-
-    double time{ 0 };
-    c.setTime(time);
-
-    double time_copy = c.getTime();
-    UNUSED(time_copy);
-
-    c.setName("name");
-    c.getName();
-    c.print();
-    c.print("prefix_");
-  }
-
-private:
-  T c;
-};
-
-struct StateWaypointInterface : tesseract_common::TypeErasureInterface
-{
+  // State Waypoint
   virtual void setNames(const std::vector<std::string>& names) = 0;
   virtual std::vector<std::string>& getNames() = 0;
   virtual const std::vector<std::string>& getNames() const = 0;
@@ -169,10 +73,12 @@ struct StateWaypointInterface : tesseract_common::TypeErasureInterface
   virtual void setTime(double time) = 0;
   virtual double getTime() const = 0;
 
-  virtual void setName(const std::string& name) = 0;
-  virtual const std::string& getName() const = 0;
+  // Operators
+  bool operator==(const StateWaypointInterface& rhs) const;
+  bool operator!=(const StateWaypointInterface& rhs) const;
 
-  virtual void print(const std::string& prefix) const = 0;
+protected:
+  virtual bool equals(const StateWaypointInterface& other) const = 0;
 
 private:
   friend class boost::serialization::access;
@@ -181,66 +87,23 @@ private:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
-template <typename T>
-struct StateWaypointInstance : tesseract_common::TypeErasureInstance<T, StateWaypointInterface>  // NOLINT
+class StateWaypointPoly final : public WaypointInterface
 {
-  using BaseType = tesseract_common::TypeErasureInstance<T, StateWaypointInterface>;
-  StateWaypointInstance() = default;
-  StateWaypointInstance(const T& x) : BaseType(x) {}
-  StateWaypointInstance(StateWaypointInstance&& x) noexcept : BaseType(std::move(x)) {}
+public:
+  StateWaypointPoly() = default;  // Default constructor
+  StateWaypointPoly(const StateWaypointPoly& other);
+  StateWaypointPoly& operator=(const StateWaypointPoly& other);
+  StateWaypointPoly(StateWaypointPoly&& other) noexcept = default;
+  StateWaypointPoly& operator=(StateWaypointPoly&& other) noexcept = default;
+  StateWaypointPoly(const StateWaypointInterface& impl);
 
-  BOOST_CONCEPT_ASSERT((StateWaypointConcept<T>));
+  // Waypoint
+  void setName(const std::string& name) override final;
+  const std::string& getName() const override final;
+  void print(const std::string& prefix = "") const override final;
+  std::unique_ptr<WaypointInterface> clone() const override final;
 
-  void setNames(const std::vector<std::string>& names) final { this->get().setNames(names); }
-  std::vector<std::string>& getNames() final { return this->get().getNames(); }
-  const std::vector<std::string>& getNames() const final { return this->get().getNames(); }
-
-  void setPosition(const Eigen::VectorXd& position) final { this->get().setPosition(position); }
-  Eigen::VectorXd& getPosition() final { return this->get().getPosition(); }
-  const Eigen::VectorXd& getPosition() const final { return this->get().getPosition(); }
-
-  void setVelocity(const Eigen::VectorXd& velocity) final { this->get().setVelocity(velocity); }
-  Eigen::VectorXd& getVelocity() final { return this->get().getVelocity(); }
-  const Eigen::VectorXd& getVelocity() const final { return this->get().getVelocity(); }
-
-  void setAcceleration(const Eigen::VectorXd& acceleration) final { this->get().setAcceleration(acceleration); }
-  Eigen::VectorXd& getAcceleration() final { return this->get().getAcceleration(); }
-  const Eigen::VectorXd& getAcceleration() const final { return this->get().getAcceleration(); }
-
-  void setEffort(const Eigen::VectorXd& effort) final { this->get().setEffort(effort); }
-  Eigen::VectorXd& getEffort() final { return this->get().getEffort(); }
-  const Eigen::VectorXd& getEffort() const final { return this->get().getEffort(); }
-
-  void setTime(double time) final { this->get().setTime(time); }
-  double getTime() const final { return this->get().getTime(); }
-
-  void setName(const std::string& name) final { this->get().setName(name); }
-  const std::string& getName() const final { return this->get().getName(); }
-  void print(const std::string& prefix) const final { this->get().print(prefix); }
-
-  std::unique_ptr<tesseract_common::TypeErasureInterface> clone() const final
-  {
-    return std::make_unique<StateWaypointInstance<T>>(this->get());
-  }
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
-  {
-    ar& boost::serialization::make_nvp("base", boost::serialization::base_object<BaseType>(*this));
-  }
-};
-}  // namespace tesseract_planning::detail_state_waypoint
-namespace tesseract_planning
-{
-using StateWaypointPolyBase = tesseract_common::TypeErasureBase<detail_state_waypoint::StateWaypointInterface,
-                                                                detail_state_waypoint::StateWaypointInstance>;
-struct StateWaypointPoly : StateWaypointPolyBase
-{
-  using StateWaypointPolyBase::StateWaypointPolyBase;
-
+  // State Waypoint
   void setNames(const std::vector<std::string>& names);
   std::vector<std::string>& getNames();
   const std::vector<std::string>& getNames() const;
@@ -264,31 +127,70 @@ struct StateWaypointPoly : StateWaypointPolyBase
   void setTime(double time);
   double getTime() const;
 
-  void setName(const std::string& name);
-  const std::string& getName() const;
+  // Poly Methods
 
-  void print(const std::string& prefix = "") const;
+  /**
+   * @brief Get the stored derived type
+   * @return The derived type index
+   */
+  std::type_index getType() const;
+
+  /**
+   * @brief Check if the poly type is null
+   * @return True if null, otherwise false
+   */
+  bool isNull() const;
+
+  /**
+   * @brief Get the interface object
+   * @return The interface object
+   */
+  StateWaypointInterface& getStateWaypoint();
+  const StateWaypointInterface& getStateWaypoint() const;
+
+  template <typename T>
+  T& as()
+  {
+    if (getType() != typeid(T))
+      throw std::runtime_error("StateWaypointPoly, tried to cast '" + boost::core::demangle(getType().name()) +
+                               "' to '" + boost::core::demangle(typeid(T).name()) + "'\nBacktrace:\n" +
+                               boost::stacktrace::to_string(boost::stacktrace::stacktrace()) + "\n");
+
+    return *dynamic_cast<T*>(impl_.get());
+  }
+
+  template <typename T>
+  const T& as() const
+  {
+    if (getType() != typeid(T))
+      throw std::runtime_error("StateWaypointPoly, tried to cast '" + boost::core::demangle(getType().name()) +
+                               "' to '" + boost::core::demangle(typeid(T).name()) + "'\nBacktrace:\n" +
+                               boost::stacktrace::to_string(boost::stacktrace::stacktrace()) + "\n");
+
+    return *dynamic_cast<const T*>(impl_.get());
+  }
+
+  // Operators
+  bool operator==(const StateWaypointPoly& rhs) const;
+  bool operator!=(const StateWaypointPoly& rhs) const;
 
 private:
+  std::unique_ptr<StateWaypointInterface> impl_;
+
+  bool equals(const WaypointInterface& other) const override final;
+
   friend class boost::serialization::access;
   friend struct tesseract_common::Serialization;
-
   template <class Archive>
   void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
 };
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::detail_state_waypoint::StateWaypointInterface)
-BOOST_CLASS_TRACKING(tesseract_planning::detail_state_waypoint::StateWaypointInterface,
-                     boost::serialization::track_never)
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::StateWaypointPolyBase)
-BOOST_CLASS_TRACKING(tesseract_planning::StateWaypointPolyBase, boost::serialization::track_never)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::StateWaypointInterface)
+BOOST_CLASS_TRACKING(tesseract_planning::StateWaypointInterface, boost::serialization::track_never)
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::StateWaypointPoly)
 BOOST_CLASS_TRACKING(tesseract_planning::StateWaypointPoly, boost::serialization::track_never)
-
-TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning, StateWaypointPoly)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_STATE_WAYPOINT_POLY_H

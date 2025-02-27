@@ -198,7 +198,8 @@ std::vector<WaypointPoly> createVectorStateWaypointPoly()
   results.reserve(1000);
   for (std::size_t i = 0; i < 1000; ++i)
   {
-    WaypointPoly wp1 = JointWaypoint({ "j1", "j2", "j3", "j4", "j5", "j6" }, Eigen::VectorXd::Ones(6));
+    WaypointPoly wp1 =
+        JointWaypointPoly(JointWaypoint({ "j1", "j2", "j3", "j4", "j5", "j6" }, Eigen::VectorXd::Ones(6)));
 
     results.push_back(std::move(wp1));
   }
@@ -300,7 +301,7 @@ BENCHMARK(BM_InstructionPolyCopy);
 
 static void BM_WaypointPolyCopy(benchmark::State& state)
 {
-  WaypointPoly w{ StateWaypoint() };
+  WaypointPoly w{ StateWaypointPoly(StateWaypoint()) };
   for (auto _ : state)
     WaypointPoly copy(w);
 }
@@ -327,7 +328,7 @@ BENCHMARK(BM_InstructionPolyAssign);
 
 static void BM_WaypointPolyAssign(benchmark::State& state)
 {
-  WaypointPoly w{ StateWaypoint() };
+  WaypointPoly w{ StateWaypointPoly(StateWaypoint()) };
   for (auto _ : state)
     WaypointPoly copy = w;
 }
@@ -354,7 +355,7 @@ BENCHMARK(BM_InstructionPolyCast);
 
 static void BM_WaypointPolyCast(benchmark::State& state)
 {
-  WaypointPoly w{ StateWaypoint() };
+  WaypointPoly w{ StateWaypointPoly(StateWaypoint()) };
   for (auto _ : state)
     auto& sw = w.as<StateWaypoint>();  // NOLINT
 }
@@ -372,7 +373,7 @@ BENCHMARK(BM_InstructionPolyAccess);
 
 static void BM_WaypointPolyAccess(benchmark::State& state)
 {
-  WaypointPoly w{ StateWaypoint() };
+  WaypointPoly w{ StateWaypointPoly(StateWaypoint()) };
   for (auto _ : state)
     std::type_index type = w.getType();
 }

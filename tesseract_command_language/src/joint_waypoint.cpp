@@ -58,6 +58,18 @@ JointWaypoint::JointWaypoint(std::initializer_list<std::string> names,
 {
 }
 
+// Waypoint
+void JointWaypoint::setName(const std::string& name) { name_ = name; }
+const std::string& JointWaypoint::getName() const { return name_; }
+// std::type_index JointWaypoint::getType() const { return typeid(JointWaypoint); }
+void JointWaypoint::print(const std::string& prefix) const
+{
+  std::cout << prefix << "Joint WP: " << position_.transpose() << std::endl;  // NOLINT
+}
+
+std::unique_ptr<JointWaypointInterface> JointWaypoint::clone() const { return std::make_unique<JointWaypoint>(*this); }
+
+// Joint Waypoint
 void JointWaypoint::setNames(const std::vector<std::string>& names) { names_ = names; }
 std::vector<std::string>& JointWaypoint::getNames() { return names_; }
 const std::vector<std::string>& JointWaypoint::getNames() const { return names_; }
@@ -77,34 +89,28 @@ const Eigen::VectorXd& JointWaypoint::getLowerTolerance() const { return lower_t
 void JointWaypoint::setIsConstrained(bool value) { is_constrained_ = value; }
 bool JointWaypoint::isConstrained() const { return is_constrained_; }
 
-void JointWaypoint::setName(const std::string& name) { name_ = name; }
-const std::string& JointWaypoint::getName() const { return name_; }
-
-void JointWaypoint::print(const std::string& prefix) const
+bool JointWaypoint::equals(const JointWaypointInterface& other) const
 {
-  std::cout << prefix << "Joint WP: " << position_.transpose() << std::endl;  // NOLINT
-}
+  const auto* rhs = dynamic_cast<const JointWaypoint*>(&other);
+  if (rhs == nullptr)
+    return false;
 
-bool JointWaypoint::operator==(const JointWaypoint& rhs) const
-{
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= (name_ == rhs.name_);
-  equal &= tesseract_common::isIdentical(names_, rhs.names_);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(position_, rhs.position_, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance_, rhs.lower_tolerance_, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance_, rhs.upper_tolerance_, max_diff);
-  equal &= (is_constrained_ == rhs.is_constrained_);
+  equal &= (name_ == rhs->name_);
+  equal &= tesseract_common::isIdentical(names_, rhs->names_);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(position_, rhs->position_, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance_, rhs->lower_tolerance_, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance_, rhs->upper_tolerance_, max_diff);
+  equal &= (is_constrained_ == rhs->is_constrained_);
   return equal;
 }
-// LCOV_EXCL_START
-bool JointWaypoint::operator!=(const JointWaypoint& rhs) const { return !operator==(rhs); }
-// LCOV_EXCL_STOP
 
 template <class Archive>
 void JointWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(JointWaypointInterface);
   ar& BOOST_SERIALIZATION_NVP(name_);
   ar& BOOST_SERIALIZATION_NVP(names_);
   ar& BOOST_SERIALIZATION_NVP(position_);
@@ -115,4 +121,4 @@ void JointWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 }  // namespace tesseract_planning
 
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::JointWaypoint)
-TESSERACT_JOINT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::JointWaypoint)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::JointWaypoint)
