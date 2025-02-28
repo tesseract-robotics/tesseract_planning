@@ -40,35 +40,103 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+/**
+ * @brief The JointWaypointInterface class
+ */
 class JointWaypointInterface
 {
 public:
   virtual ~JointWaypointInterface() = default;
 
+  ///////////
   // Waypoint
+  ///////////
+
+  /**
+   * @brief Set the name of the waypoint
+   * @param name The name of the waypoint
+   */
   virtual void setName(const std::string& name) = 0;
+
+  /**
+   * @brief Get the name of the waypoint
+   * @return The name of the waypoint
+   */
   virtual const std::string& getName() const = 0;
+
+  /**
+   * @brief Output the contents to std::cout
+   * @param prefix The prefix to add to each variable
+   */
   virtual void print(const std::string& prefix = "") const = 0;
+
+  /**
+   * @brief Make a deep copy of the object
+   * @return A deep copy
+   */
   virtual std::unique_ptr<JointWaypointInterface> clone() const = 0;
 
+  /////////////////
   // Joint Waypoint
+  /////////////////
+
+  /**
+   * @brief Set the joint names
+   * @param names The joint names
+   */
   virtual void setNames(const std::vector<std::string>& names) = 0;
+  /**
+   * @brief Get the joint names
+   * @return The joint names
+   */
   virtual std::vector<std::string>& getNames() = 0;
   virtual const std::vector<std::string>& getNames() const = 0;
 
+  /**
+   * @brief Set the joint positions
+   * @param position The joint positions
+   */
   virtual void setPosition(const Eigen::VectorXd& position) = 0;
+  /**
+   * @brief Get the joint positions
+   * @return The joint positions
+   */
   virtual Eigen::VectorXd& getPosition() = 0;
   virtual const Eigen::VectorXd& getPosition() const = 0;
 
+  /**
+   * @brief Set the upper tolerance
+   * @param upper_tol The upper tolerance to assign
+   */
   virtual void setUpperTolerance(const Eigen::VectorXd& upper_tol) = 0;
+  /**
+   * @brief Get the upper tolerance
+   * @return The upper tolerance
+   */
   virtual Eigen::VectorXd& getUpperTolerance() = 0;
   virtual const Eigen::VectorXd& getUpperTolerance() const = 0;
 
+  /**
+   * @brief Set the lower tolerance
+   * @param lower_tol The lower tolerance to assign
+   */
   virtual void setLowerTolerance(const Eigen::VectorXd& lower_tol) = 0;
+  /**
+   * @brief Get the lower tolerance
+   * @return The lower tolerance
+   */
   virtual Eigen::VectorXd& getLowerTolerance() = 0;
   virtual const Eigen::VectorXd& getLowerTolerance() const = 0;
 
+  /**
+   * @brief Set if the waypoint should be considered constrained
+   * @param value True if constrained, otherwise false
+   */
   virtual void setIsConstrained(bool value) = 0;
+  /**
+   * @brief Check if constrained
+   * @return True if constrained, otherwise false
+   */
   virtual bool isConstrained() const = 0;
 
   // Operators
@@ -85,6 +153,9 @@ private:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
+/**
+ * @brief The JointWaypointPoly class
+ */
 class JointWaypointPoly final : public WaypointInterface
 {
 public:
@@ -95,30 +166,92 @@ public:
   JointWaypointPoly& operator=(JointWaypointPoly&& other) noexcept = default;
   JointWaypointPoly(const JointWaypointInterface& impl);
 
+  ///////////
   // Waypoint
+  ///////////
+
+  /**
+   * @brief Set the name of the waypoint
+   * @param name The name of the waypoint
+   */
   void setName(const std::string& name) override final;
+  /**
+   * @brief Get the name of the waypoint
+   * @return The name of the waypoint
+   */
   const std::string& getName() const override final;
+  /**
+   * @brief Output the contents to std::cout
+   * @param prefix The prefix to add to each variable
+   */
   void print(const std::string& prefix = "") const override final;
+  /**
+   * @brief Make a deep copy of the object
+   * @return A deep copy
+   */
   std::unique_ptr<WaypointInterface> clone() const override final;
 
+  /////////////////
   // Joint Waypoint
+  /////////////////
+
+  /**
+   * @brief Set the joint names
+   * @param names The joint names
+   */
   void setNames(const std::vector<std::string>& names);
+  /**
+   * @brief Get the joint names
+   * @return The joint names
+   */
   std::vector<std::string>& getNames();
   const std::vector<std::string>& getNames() const;
 
+  /**
+   * @brief Set the joint positions
+   * @param position The joint positions
+   */
   void setPosition(const Eigen::VectorXd& position);
+  /**
+   * @brief Get the joint positions
+   * @return The joint positions
+   */
   Eigen::VectorXd& getPosition();
   const Eigen::VectorXd& getPosition() const;
 
+  /**
+   * @brief Set the upper tolerance
+   * @param upper_tol The upper tolerance to assign
+   */
   void setUpperTolerance(const Eigen::VectorXd& upper_tol);
+  /**
+   * @brief Get the upper tolerance
+   * @return The upper tolerance
+   */
   Eigen::VectorXd& getUpperTolerance();
   const Eigen::VectorXd& getUpperTolerance() const;
 
+  /**
+   * @brief Set the lower tolerance
+   * @param lower_tol The lower tolerance to assign
+   */
   void setLowerTolerance(const Eigen::VectorXd& lower_tol);
+  /**
+   * @brief Get the lower tolerance
+   * @return The lower tolerance
+   */
   Eigen::VectorXd& getLowerTolerance();
   const Eigen::VectorXd& getLowerTolerance() const;
 
+  /**
+   * @brief Set if the waypoint should be considered constrained
+   * @param value True if constrained, otherwise false
+   */
   void setIsConstrained(bool value);
+  /**
+   * @brief Check if constrained
+   * @return True if constrained, otherwise false
+   */
   bool isConstrained() const;
 
   /**
@@ -140,8 +273,9 @@ public:
   bool isNull() const;
 
   /**
-   * @brief Get the interface object
-   * @return The interface object
+   * @brief Get the joint waypoint being stored
+   * @return The joint waypoint
+   * @throws If null
    */
   JointWaypointInterface& getJointWaypoint();
   const JointWaypointInterface& getJointWaypoint() const;
@@ -175,6 +309,11 @@ public:
 private:
   std::unique_ptr<JointWaypointInterface> impl_;
 
+  /**
+   * @brief Check if two objects are equal
+   * @param other The other object to compare with
+   * @return True if equal, otherwise false
+   */
   bool equals(const WaypointInterface& other) const override final;
 
   friend class boost::serialization::access;
