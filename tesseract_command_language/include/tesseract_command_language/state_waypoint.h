@@ -61,9 +61,7 @@ public:
   // Waypoint
   void setName(const std::string& name) override final;
   const std::string& getName() const override final;
-  // std::type_index getType() const override final;
   void print(const std::string& prefix = "") const override final;
-  std::unique_ptr<StateWaypointInterface> clone() const override final;
 
   // State Waypoint
   void setNames(const std::vector<std::string>& names) override final;
@@ -88,6 +86,8 @@ public:
 
   void setTime(double time) override final;
   double getTime() const override final;
+
+  std::unique_ptr<StateWaypointInterface> clone() const override final;
 
 private:
   /** @brief The name of the waypoint */

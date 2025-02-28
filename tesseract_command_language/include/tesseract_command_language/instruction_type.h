@@ -28,7 +28,7 @@
 
 namespace tesseract_planning
 {
-struct InstructionPoly;
+class InstructionPoly;
 
 bool isSetAnalogInstruction(const InstructionPoly& instruction);
 

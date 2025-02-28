@@ -61,7 +61,6 @@ JointWaypoint::JointWaypoint(std::initializer_list<std::string> names,
 // Waypoint
 void JointWaypoint::setName(const std::string& name) { name_ = name; }
 const std::string& JointWaypoint::getName() const { return name_; }
-// std::type_index JointWaypoint::getType() const { return typeid(JointWaypoint); }
 void JointWaypoint::print(const std::string& prefix) const
 {
   std::cout << prefix << "Joint WP: " << position_.transpose() << std::endl;  // NOLINT

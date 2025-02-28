@@ -79,7 +79,6 @@ StateWaypoint::StateWaypoint(std::initializer_list<std::string> names,
 // Waypoint
 void StateWaypoint::setName(const std::string& name) { name_ = name; }
 const std::string& StateWaypoint::getName() const { return name_; }
-// std::type_index StateWaypoint::getType() const { return typeid(StateWaypoint); }
 void StateWaypoint::print(const std::string& prefix) const
 {
   std::cout << prefix << "State WP: Pos=" << position_.transpose() << std::endl;  // NOLINT

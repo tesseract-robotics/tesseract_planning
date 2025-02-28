@@ -65,22 +65,29 @@ void SetToolInstruction::print(const std::string& prefix) const  // NOLINT
   std::cout << ", Description: " << getDescription() << "\n";
 }
 
+std::unique_ptr<InstructionInterface> SetToolInstruction::clone() const
+{
+  return std::make_unique<SetToolInstruction>(*this);
+}
+
 int SetToolInstruction::getTool() const { return tool_id_; }
 
-bool SetToolInstruction::operator==(const SetToolInstruction& rhs) const
+bool SetToolInstruction::equals(const InstructionInterface& other) const
 {
+  const auto* rhs = dynamic_cast<const SetToolInstruction*>(&other);
+  if (rhs == nullptr)
+    return false;
+
   bool equal = true;
-  equal &= (tool_id_ == rhs.tool_id_);
+  equal &= (tool_id_ == rhs->tool_id_);
 
   return equal;
 }
-// LCOV_EXCL_START
-bool SetToolInstruction::operator!=(const SetToolInstruction& rhs) const { return !operator==(rhs); }
-// LCOV_EXCL_STOP
 
 template <class Archive>
 void SetToolInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(InstructionInterface);
   ar& boost::serialization::make_nvp("uuid", uuid_);
   ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
   ar& boost::serialization::make_nvp("description", description_);
@@ -90,4 +97,4 @@ void SetToolInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 }  // namespace tesseract_planning
 
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SetToolInstruction)
-TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::SetToolInstruction)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SetToolInstruction)

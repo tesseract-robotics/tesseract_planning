@@ -32,50 +32,18 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <cstdint>
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/concept_check.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
-#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
-#include <tesseract_command_language/poly/joint_waypoint_poly.h>
-#include <tesseract_command_language/poly/state_waypoint_poly.h>
-#include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_command_language/types.h>
-#include <tesseract_common/manipulator_info.h>
-#include <tesseract_common/type_erasure.h>
 #include <tesseract_common/fwd.h>
-
-/** @brief If shared library, this must go in the header after the class definition */
-#define TESSERACT_MOVE_INSTRUCTION_EXPORT_KEY(N, C)                                                                    \
-  namespace N                                                                                                          \
-  {                                                                                                                    \
-  using C##InstanceBase =                                                                                              \
-      tesseract_common::TypeErasureInstance<C, tesseract_planning::detail_move_instruction::MoveInstructionInterface>; \
-  using C##Instance = tesseract_planning::detail_move_instruction::MoveInstructionInstance<C>;                         \
-  }                                                                                                                    \
-  BOOST_CLASS_EXPORT_KEY(N::C##InstanceBase)                                                                           \
-  BOOST_CLASS_EXPORT_KEY(N::C##Instance)                                                                               \
-  BOOST_CLASS_TRACKING(N::C##InstanceBase, boost::serialization::track_never)                                          \
-  BOOST_CLASS_TRACKING(N::C##Instance, boost::serialization::track_never)
-
-/** @brief If shared library, this must go in the cpp after the implicit instantiation of the serialize function */
-#define TESSERACT_MOVE_INSTRUCTION_EXPORT_IMPLEMENT(inst)                                                              \
-  BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceBase)                                                                     \
-  BOOST_CLASS_EXPORT_IMPLEMENT(inst##Instance)
-
-/**
- * @brief This should not be used within shared libraries use the two above.
- * If not in a shared library it can go in header or cpp
- */
-#define TESSERACT_MOVE_INSTRUCTION_EXPORT(N, C)                                                                        \
-  TESSERACT_MOVE_INSTRUCTION_EXPORT_KEY(N, C)                                                                          \
-  TESSERACT_MOVE_INSTRUCTION_EXPORT_IMPLEMENT(N::C)
 
 namespace tesseract_planning
 {
-struct MoveInstructionPoly;
-class ProfileDictionary;
+class WaypointPoly;
+class CartesianWaypointPoly;
+class JointWaypointPoly;
+class StateWaypointPoly;
 
 enum class MoveInstructionType : std::uint8_t
 {
@@ -83,93 +51,33 @@ enum class MoveInstructionType : std::uint8_t
   FREESPACE = 1,
   CIRCULAR = 2,
 };
-}  // namespace tesseract_planning
 
-namespace tesseract_planning::detail_move_instruction
+class MoveInstructionInterface
 {
-template <typename T>
-struct MoveInstructionConcept  // NOLINT
-  : boost::Assignable<T>,
-    boost::CopyConstructible<T>,
-    boost::EqualityComparable<T>
-{
-  BOOST_CONCEPT_USAGE(MoveInstructionConcept)
-  {
-    T cp(c);
-    T assign = c;
-    bool eq = (c == cp);
-    bool neq = (c != cp);
-    UNUSED(assign);
-    UNUSED(eq);
-    UNUSED(neq);
+public:
+  virtual ~MoveInstructionInterface() = default;
 
-    const auto& uuid = c.getUUID();
+  //////////////
+  // Instruction
+  //////////////
 
-    c.setUUID(uuid);
-    c.regenerateUUID();
-    c.setParentUUID(uuid);
-
-    const auto& parent_uuid = c.getParentUUID();
-    UNUSED(parent_uuid);
-
-    tesseract_common::ManipulatorInfo info;
-    c.setManipulatorInfo(info);
-
-    tesseract_common::ManipulatorInfo& info_ref = c.getManipulatorInfo();
-    UNUSED(info_ref);
-
-    const tesseract_common::ManipulatorInfo& info_const_ref = c.getManipulatorInfo();
-    UNUSED(info_const_ref);
-
-    c.setProfile("profile");
-    const std::string& profile_const = c.getProfile();
-    UNUSED(profile_const);
-
-    c.setPathProfile("path_profile");
-    const std::string& path_profile_const = c.getPathProfile();
-    UNUSED(path_profile_const);
-
-    c.setProfileOverrides(ProfileOverrides{});
-    auto profile_overrides = c.getProfileOverrides();
-    UNUSED(profile_overrides);
-
-    c.setPathProfileOverrides(ProfileOverrides{});
-    auto path_profile_overrides = c.getPathProfileOverrides();
-    UNUSED(path_profile_overrides);
-
-    c.setMoveType(MoveInstructionType::FREESPACE);
-    MoveInstructionType type = c.getMoveType();
-    UNUSED(type);
-
-    const std::string& desc = c.getDescription();
-    UNUSED(desc);
-
-    auto cwp = c.createCartesianWaypoint();
-    UNUSED(cwp);
-
-    auto jwp = c.createJointWaypoint();
-    UNUSED(jwp);
-
-    auto swp = c.createStateWaypoint();
-    UNUSED(swp);
-
-    c.setDescription("test");
-    c.print();
-    c.print("prefix_");
-  }
-
-private:
-  T c;
-};
-
-struct MoveInstructionInterface : tesseract_common::TypeErasureInterface
-{
   virtual const boost::uuids::uuid& getUUID() const = 0;
   virtual void setUUID(const boost::uuids::uuid& uuid) = 0;
   virtual void regenerateUUID() = 0;
 
   virtual const boost::uuids::uuid& getParentUUID() const = 0;
   virtual void setParentUUID(const boost::uuids::uuid& uuid) = 0;
+
+  virtual const std::string& getDescription() const = 0;
+  virtual void setDescription(const std::string& description) = 0;
+
+  virtual void print(const std::string& prefix) const = 0;
+
+  virtual std::unique_ptr<MoveInstructionInterface> clone() const = 0;
+
+  ///////////////////
+  // Move Instruction
+  ///////////////////
 
   virtual WaypointPoly& getWaypoint() = 0;
   virtual const WaypointPoly& getWaypoint() const = 0;
@@ -193,14 +101,21 @@ struct MoveInstructionInterface : tesseract_common::TypeErasureInterface
   virtual void setMoveType(MoveInstructionType move_type) = 0;
   virtual MoveInstructionType getMoveType() const = 0;
 
-  virtual const std::string& getDescription() const = 0;
-  virtual void setDescription(const std::string& description) = 0;
-
-  virtual void print(const std::string& prefix) const = 0;
-
   virtual CartesianWaypointPoly createCartesianWaypoint() const = 0;
   virtual JointWaypointPoly createJointWaypoint() const = 0;
   virtual StateWaypointPoly createStateWaypoint() const = 0;
+
+  // Operators
+  bool operator==(const MoveInstructionInterface& rhs) const;
+  bool operator!=(const MoveInstructionInterface& rhs) const;
+
+protected:
+  /**
+   * @brief Check if two objects are equal
+   * @param other The other object to compare with
+   * @return True if equal, otherwise false
+   */
+  virtual bool equals(const MoveInstructionInterface& other) const = 0;
 
 private:
   friend class boost::serialization::access;
@@ -209,93 +124,41 @@ private:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
-template <typename T>
-struct MoveInstructionInstance : tesseract_common::TypeErasureInstance<T, MoveInstructionInterface>  // NOLINT
+class MoveInstructionPoly final : public InstructionInterface
 {
-  using BaseType = tesseract_common::TypeErasureInstance<T, MoveInstructionInterface>;
-  MoveInstructionInstance() = default;
-  MoveInstructionInstance(const T& x) : BaseType(x) {}
-  MoveInstructionInstance(MoveInstructionInstance&& x) noexcept : BaseType(std::move(x)) {}
+public:
+  MoveInstructionPoly() = default;  // Default constructor
+  MoveInstructionPoly(const MoveInstructionPoly& other);
+  MoveInstructionPoly& operator=(const MoveInstructionPoly& other);
+  MoveInstructionPoly(MoveInstructionPoly&& other) noexcept = default;
+  MoveInstructionPoly& operator=(MoveInstructionPoly&& other) noexcept = default;
+  MoveInstructionPoly(const MoveInstructionInterface& impl);
 
-  BOOST_CONCEPT_ASSERT((MoveInstructionConcept<T>));
+  //////////////
+  // Instruction
+  //////////////
 
-  const boost::uuids::uuid& getUUID() const final { return this->get().getUUID(); }
-  void setUUID(const boost::uuids::uuid& uuid) final { this->get().setUUID(uuid); }
-  void regenerateUUID() final { this->get().regenerateUUID(); }
+  const boost::uuids::uuid& getUUID() const final override;
+  void setUUID(const boost::uuids::uuid& uuid) final override;
+  void regenerateUUID() final override;
 
-  const boost::uuids::uuid& getParentUUID() const final { return this->get().getParentUUID(); }
-  void setParentUUID(const boost::uuids::uuid& uuid) final { this->get().setParentUUID(uuid); }
+  const boost::uuids::uuid& getParentUUID() const final override;
+  void setParentUUID(const boost::uuids::uuid& uuid) final override;
 
-  WaypointPoly& getWaypoint() final { return this->get().getWaypoint(); }
-  const WaypointPoly& getWaypoint() const final { return this->get().getWaypoint(); }
+  const std::string& getDescription() const final override;
+  void setDescription(const std::string& description) final override;
 
-  void setManipulatorInfo(tesseract_common::ManipulatorInfo info) final
-  {
-    this->get().setManipulatorInfo(std::move(info));
-  }
-  const tesseract_common::ManipulatorInfo& getManipulatorInfo() const final { return this->get().getManipulatorInfo(); }
-  tesseract_common::ManipulatorInfo& getManipulatorInfo() final { return this->get().getManipulatorInfo(); }
+  void print(const std::string& prefix = "") const final override;
 
-  void setProfile(const std::string& profile) final { this->get().setProfile(profile); }
-  const std::string& getProfile(const std::string& ns = "") const final { return this->get().getProfile(ns); }
+  /**
+   * @brief Make a deep copy of the object
+   * @return A deep copy
+   */
+  std::unique_ptr<InstructionInterface> clone() const override final;
 
-  void setPathProfile(const std::string& profile) final { this->get().setPathProfile(profile); }
-  const std::string& getPathProfile(const std::string& ns = "") const final { return this->get().getPathProfile(ns); }
-
-  void setProfileOverrides(ProfileOverrides profile_overrides) final
-  {
-    this->get().setProfileOverrides(std::move(profile_overrides));
-  }
-  const ProfileOverrides& getProfileOverrides() const final { return this->get().getProfileOverrides(); }
-
-  void setPathProfileOverrides(ProfileOverrides profile_overrides) final
-  {
-    this->get().setPathProfileOverrides(std::move(profile_overrides));
-  }
-  const ProfileOverrides& getPathProfileOverrides() const final { return this->get().getPathProfileOverrides(); }
-
-  void setMoveType(MoveInstructionType move_type) final { this->get().setMoveType(move_type); }
-  MoveInstructionType getMoveType() const final { return this->get().getMoveType(); }
-
-  const std::string& getDescription() const final { return this->get().getDescription(); }
-  void setDescription(const std::string& description) final { this->get().setDescription(description); }
-
-  void print(const std::string& prefix) const final { this->get().print(prefix); }
-
-  CartesianWaypointPoly createCartesianWaypoint() const final { return this->get().createCartesianWaypoint(); }
-  JointWaypointPoly createJointWaypoint() const final { return this->get().createJointWaypoint(); }
-  StateWaypointPoly createStateWaypoint() const final { return this->get().createStateWaypoint(); }
-
-  std::unique_ptr<tesseract_common::TypeErasureInterface> clone() const final
-  {
-    return std::make_unique<MoveInstructionInstance<T>>(this->get());
-  }
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
-  {
-    ar& boost::serialization::make_nvp("base", boost::serialization::base_object<BaseType>(*this));
-  }
-};
-}  // namespace tesseract_planning::detail_move_instruction
-
-namespace tesseract_planning
-{
-using MoveInstructionPolyBase = tesseract_common::TypeErasureBase<detail_move_instruction::MoveInstructionInterface,
-                                                                  detail_move_instruction::MoveInstructionInstance>;
-struct MoveInstructionPoly : MoveInstructionPolyBase
-{
-  using MoveInstructionPolyBase::MoveInstructionPolyBase;
-
-  const boost::uuids::uuid& getUUID() const;
-  void setUUID(const boost::uuids::uuid& uuid);
-  void regenerateUUID();
-
-  const boost::uuids::uuid& getParentUUID() const;
-  void setParentUUID(const boost::uuids::uuid& uuid);
+  ///////////////////
+  // Move Instruction
+  ///////////////////
 
   WaypointPoly& getWaypoint();
   const WaypointPoly& getWaypoint() const;
@@ -319,16 +182,33 @@ struct MoveInstructionPoly : MoveInstructionPolyBase
   void setMoveType(MoveInstructionType move_type);
   MoveInstructionType getMoveType() const;
 
-  const std::string& getDescription() const;
-  void setDescription(const std::string& description);
-
-  void print(const std::string& prefix = "") const;
-
   CartesianWaypointPoly createCartesianWaypoint() const;
   JointWaypointPoly createJointWaypoint() const;
   StateWaypointPoly createStateWaypoint() const;
 
-  // MoveInstructionPoly methods
+  ///////////////
+  // Poly methods
+  ///////////////
+
+  /**
+   * @brief Get the stored derived type
+   * @return The derived type index
+   */
+  std::type_index getType() const;
+
+  /**
+   * @brief Check if the poly type is null
+   * @return True if null, otherwise false
+   */
+  bool isNull() const;
+
+  /**
+   * @brief Get the move instruction being stored
+   * @return The move instruction
+   * @throws If null
+   */
+  MoveInstructionInterface& getMoveInstruction();
+  const MoveInstructionInterface& getMoveInstruction() const;
 
   MoveInstructionPoly createChild() const;
 
@@ -340,26 +220,54 @@ struct MoveInstructionPoly : MoveInstructionPolyBase
 
   bool isChild() const;
 
+  template <typename T>
+  T& as()
+  {
+    if (getType() != typeid(T))
+      throw std::runtime_error("MoveInstructionPoly, tried to cast '" + boost::core::demangle(getType().name()) +
+                               "' to '" + boost::core::demangle(typeid(T).name()) + "'\nBacktrace:\n" +
+                               boost::stacktrace::to_string(boost::stacktrace::stacktrace()) + "\n");
+
+    return *dynamic_cast<T*>(impl_.get());
+  }
+
+  template <typename T>
+  const T& as() const
+  {
+    if (getType() != typeid(T))
+      throw std::runtime_error("MoveInstructionPoly, tried to cast '" + boost::core::demangle(getType().name()) +
+                               "' to '" + boost::core::demangle(typeid(T).name()) + "'\nBacktrace:\n" +
+                               boost::stacktrace::to_string(boost::stacktrace::stacktrace()) + "\n");
+
+    return *dynamic_cast<const T*>(impl_.get());
+  }
+
+  // Operators
+  bool operator==(const MoveInstructionPoly& rhs) const;
+  bool operator!=(const MoveInstructionPoly& rhs) const;
+
 private:
+  std::unique_ptr<MoveInstructionInterface> impl_;
+
+  /**
+   * @brief Check if two objects are equal
+   * @param other The other object to compare with
+   * @return True if equal, otherwise false
+   */
+  bool equals(const InstructionInterface& other) const override final;
+
   friend class boost::serialization::access;
   friend struct tesseract_common::Serialization;
-
   template <class Archive>
   void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
 };
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::detail_move_instruction::MoveInstructionInterface)
-BOOST_CLASS_TRACKING(tesseract_planning::detail_move_instruction::MoveInstructionInterface,
-                     boost::serialization::track_never)
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::MoveInstructionPolyBase)
-BOOST_CLASS_TRACKING(tesseract_planning::MoveInstructionPolyBase, boost::serialization::track_never)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::MoveInstructionInterface)
+BOOST_CLASS_TRACKING(tesseract_planning::MoveInstructionInterface, boost::serialization::track_never)
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::MoveInstructionPoly)
 BOOST_CLASS_TRACKING(tesseract_planning::MoveInstructionPoly, boost::serialization::track_never)
-
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, MoveInstructionPoly)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_MOVE_INSTRUCTION_POLY_H

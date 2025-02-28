@@ -15,6 +15,10 @@ namespace tesseract_planning
 // Operators
 bool WaypointInterface::operator==(const WaypointInterface& rhs) const { return equals(rhs); }
 
+// LCOV_EXCL_START
+bool WaypointInterface::operator!=(const WaypointInterface& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
+
 template <class Archive>
 void WaypointInterface::serialize(Archive& /*ar*/, const unsigned int /*version*/)
 {

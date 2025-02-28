@@ -36,24 +36,29 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class SetAnalogInstruction
+class SetAnalogInstruction final : public InstructionInterface
 {
 public:
   SetAnalogInstruction() = default;  // Required for boost serialization do not use
   SetAnalogInstruction(std::string key, int index, double value);
 
-  const boost::uuids::uuid& getUUID() const;
-  void setUUID(const boost::uuids::uuid& uuid);
-  void regenerateUUID();
+  // Instruction
+  const boost::uuids::uuid& getUUID() const override final;
+  void setUUID(const boost::uuids::uuid& uuid) override final;
+  void regenerateUUID() override final;
 
-  const boost::uuids::uuid& getParentUUID() const;
-  void setParentUUID(const boost::uuids::uuid& uuid);
+  const boost::uuids::uuid& getParentUUID() const override final;
+  void setParentUUID(const boost::uuids::uuid& uuid) override final;
 
-  const std::string& getDescription() const;
+  const std::string& getDescription() const override final;
 
-  void setDescription(const std::string& description);
+  void setDescription(const std::string& description) override final;
 
-  void print(const std::string& prefix = "") const;  // NOLINT
+  void print(const std::string& prefix = "") const override final;  // NOLINT
+
+  std::unique_ptr<InstructionInterface> clone() const override final;
+
+  // SetAnalogInstruction
 
   /** @brief Get the analog key */
   std::string getKey() const;
@@ -63,20 +68,6 @@ public:
 
   /** @brief Get the analgo value */
   double getValue() const;
-
-  /**
-   * @brief Equal operator. Does not compare descriptions
-   * @param rhs SetAnalogInstruction
-   * @return True if equal, otherwise false
-   */
-  bool operator==(const SetAnalogInstruction& rhs) const;
-
-  /**
-   * @brief Not equal operator. Does not compare descriptions
-   * @param rhs SetAnalogInstruction
-   * @return True if not equal, otherwise false
-   */
-  bool operator!=(const SetAnalogInstruction& rhs) const;
 
 private:
   /** @brief The instructions UUID */
@@ -92,12 +83,20 @@ private:
   /** @brief The analog value */
   double value_{ 0 };
 
+  /**
+   * @brief Check if two objects are equal
+   * @param other The other object to compare with
+   * @return True if equal, otherwise false
+   */
+  bool equals(const InstructionInterface& other) const override final;
+
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
 
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, SetAnalogInstruction)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SetAnalogInstruction)
+BOOST_CLASS_TRACKING(tesseract_planning::SetAnalogInstruction, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_SET_ANALOG_INSTRUCTION_H

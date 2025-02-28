@@ -6,10 +6,10 @@
 namespace tesseract_planning
 {
 // Waypoint Poly
-struct WaypointPoly;
-struct CartesianWaypointPoly;
-struct JointWaypointPoly;
-struct StateWaypointPoly;
+class WaypointPoly;
+class CartesianWaypointPoly;
+class JointWaypointPoly;
+class StateWaypointPoly;
 
 // Waypoints
 class CartesianWaypoint;
@@ -17,9 +17,9 @@ class JointWaypoint;
 class StateWaypoint;
 
 // Instruction Poly
-struct InstructionPoly;
+class InstructionPoly;
 enum class MoveInstructionType : std::uint8_t;
-struct MoveInstructionPoly;
+class MoveInstructionPoly;
 
 // Instructions
 enum class CompositeInstructionOrder : std::uint8_t;

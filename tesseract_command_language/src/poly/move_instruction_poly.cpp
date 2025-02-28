@@ -1,169 +1,185 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
+#include <boost/serialization/unique_ptr.hpp>
 #include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
-#include <tesseract_command_language/profile_dictionary.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/poly/joint_waypoint_poly.h>
+#include <tesseract_command_language/poly/state_waypoint_poly.h>
+#include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/serialization.h>
 
+namespace tesseract_planning
+{
+// Operators
+bool MoveInstructionInterface::operator==(const MoveInstructionInterface& rhs) const { return equals(rhs); }
+
+// LCOV_EXCL_START
+bool MoveInstructionInterface::operator!=(const MoveInstructionInterface& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
+
 template <class Archive>
-void tesseract_planning::detail_move_instruction::MoveInstructionInterface::serialize(
-    Archive& ar,
-    const unsigned int /*version*/)  // NOLINT
+void MoveInstructionInterface::serialize(Archive& /*ar*/, const unsigned int /*version*/)
 {
-  ar& boost::serialization::make_nvp("base",
-                                     boost::serialization::base_object<tesseract_common::TypeErasureInterface>(*this));
 }
 
-const boost::uuids::uuid& tesseract_planning::MoveInstructionPoly::getUUID() const { return getInterface().getUUID(); }
-
-void tesseract_planning::MoveInstructionPoly::setUUID(const boost::uuids::uuid& uuid) { getInterface().setUUID(uuid); }
-
-void tesseract_planning::MoveInstructionPoly::regenerateUUID() { getInterface().regenerateUUID(); }
-
-const boost::uuids::uuid& tesseract_planning::MoveInstructionPoly::getParentUUID() const
+MoveInstructionPoly::MoveInstructionPoly(const MoveInstructionPoly& other)
 {
-  return getInterface().getParentUUID();
+  if (other.impl_)
+  {
+    impl_ = other.impl_->clone();  // Deep copy
+  }
 }
 
-void tesseract_planning::MoveInstructionPoly::setParentUUID(const boost::uuids::uuid& uuid)
+MoveInstructionPoly& MoveInstructionPoly::operator=(const MoveInstructionPoly& other)
 {
-  getInterface().setParentUUID(uuid);
+  if (this != &other)
+  {
+    impl_ = other.impl_ ? other.impl_->clone() : nullptr;
+  }
+  return *this;
 }
 
-tesseract_planning::WaypointPoly& tesseract_planning::MoveInstructionPoly::getWaypoint()
+MoveInstructionPoly::MoveInstructionPoly(const MoveInstructionInterface& impl) : impl_(impl.clone()) {}
+
+const boost::uuids::uuid& MoveInstructionPoly::getUUID() const { return impl_->getUUID(); }
+
+void MoveInstructionPoly::setUUID(const boost::uuids::uuid& uuid) { impl_->setUUID(uuid); }
+
+void MoveInstructionPoly::regenerateUUID() { impl_->regenerateUUID(); }
+
+const boost::uuids::uuid& MoveInstructionPoly::getParentUUID() const { return impl_->getParentUUID(); }
+
+void MoveInstructionPoly::setParentUUID(const boost::uuids::uuid& uuid) { impl_->setParentUUID(uuid); }
+
+WaypointPoly& MoveInstructionPoly::getWaypoint() { return impl_->getWaypoint(); }
+const WaypointPoly& MoveInstructionPoly::getWaypoint() const { return impl_->getWaypoint(); }
+
+void MoveInstructionPoly::setManipulatorInfo(tesseract_common::ManipulatorInfo info)
 {
-  return getInterface().getWaypoint();
+  impl_->setManipulatorInfo(std::move(info));
 }
-const tesseract_planning::WaypointPoly& tesseract_planning::MoveInstructionPoly::getWaypoint() const
+const tesseract_common::ManipulatorInfo& MoveInstructionPoly::getManipulatorInfo() const
 {
-  return getInterface().getWaypoint();
+  return impl_->getManipulatorInfo();
+}
+tesseract_common::ManipulatorInfo& MoveInstructionPoly::getManipulatorInfo() { return impl_->getManipulatorInfo(); }
+
+void MoveInstructionPoly::setProfile(const std::string& profile) { impl_->setProfile(profile); }
+const std::string& MoveInstructionPoly::getProfile(const std::string& ns) const { return impl_->getProfile(ns); }
+
+void MoveInstructionPoly::setPathProfile(const std::string& profile) { impl_->setPathProfile(profile); }
+const std::string& MoveInstructionPoly::getPathProfile(const std::string& ns) const
+{
+  return impl_->getPathProfile(ns);
 }
 
-void tesseract_planning::MoveInstructionPoly::setManipulatorInfo(tesseract_common::ManipulatorInfo info)
+void MoveInstructionPoly::setProfileOverrides(ProfileOverrides profile_overrides)
 {
-  getInterface().setManipulatorInfo(std::move(info));
+  impl_->setProfileOverrides(std::move(profile_overrides));
 }
-const tesseract_common::ManipulatorInfo& tesseract_planning::MoveInstructionPoly::getManipulatorInfo() const
+const ProfileOverrides& MoveInstructionPoly::getProfileOverrides() const { return impl_->getProfileOverrides(); }
+
+void MoveInstructionPoly::setPathProfileOverrides(ProfileOverrides profile_overrides)
 {
-  return getInterface().getManipulatorInfo();
+  impl_->setPathProfileOverrides(std::move(profile_overrides));
 }
-tesseract_common::ManipulatorInfo& tesseract_planning::MoveInstructionPoly::getManipulatorInfo()
+const ProfileOverrides& MoveInstructionPoly::getPathProfileOverrides() const
 {
-  return getInterface().getManipulatorInfo();
+  return impl_->getPathProfileOverrides();
 }
 
-void tesseract_planning::MoveInstructionPoly::setProfile(const std::string& profile)
+void MoveInstructionPoly::setMoveType(MoveInstructionType move_type) { impl_->setMoveType(move_type); }
+MoveInstructionType MoveInstructionPoly::getMoveType() const { return impl_->getMoveType(); }
+
+const std::string& MoveInstructionPoly::getDescription() const { return impl_->getDescription(); }
+
+void MoveInstructionPoly::setDescription(const std::string& description) { impl_->setDescription(description); }
+
+std::type_index MoveInstructionPoly::getType() const
 {
-  getInterface().setProfile(profile);
-}
-const std::string& tesseract_planning::MoveInstructionPoly::getProfile(const std::string& ns) const
-{
-  return getInterface().getProfile(ns);
+  if (impl_ == nullptr)
+    return typeid(nullptr);
+
+  const MoveInstructionInterface& value = *impl_;
+  return typeid(value);
 }
 
-void tesseract_planning::MoveInstructionPoly::setPathProfile(const std::string& profile)
+bool MoveInstructionPoly::equals(const InstructionInterface& other) const
 {
-  getInterface().setPathProfile(profile);
-}
-const std::string& tesseract_planning::MoveInstructionPoly::getPathProfile(const std::string& ns) const
-{
-  return getInterface().getPathProfile(ns);
+  if (impl_ == nullptr)
+    return false;
+
+  const auto* derived_other = dynamic_cast<const MoveInstructionPoly*>(&other);
+  if (derived_other == nullptr)
+    return false;
+
+  return (*this == *derived_other);
 }
 
-void tesseract_planning::MoveInstructionPoly::setProfileOverrides(ProfileOverrides profile_overrides)
+std::unique_ptr<InstructionInterface> MoveInstructionPoly::clone() const
 {
-  getInterface().setProfileOverrides(std::move(profile_overrides));
-}
-const tesseract_planning::ProfileOverrides& tesseract_planning::MoveInstructionPoly::getProfileOverrides() const
-{
-  return getInterface().getProfileOverrides();
+  return (impl_ == nullptr) ? nullptr : std::make_unique<MoveInstructionPoly>(*impl_);
 }
 
-void tesseract_planning::MoveInstructionPoly::setPathProfileOverrides(ProfileOverrides profile_overrides)
-{
-  getInterface().setPathProfileOverrides(std::move(profile_overrides));
-}
-const tesseract_planning::ProfileOverrides& tesseract_planning::MoveInstructionPoly::getPathProfileOverrides() const
-{
-  return getInterface().getPathProfileOverrides();
-}
+void MoveInstructionPoly::print(const std::string& prefix) const { impl_->print(prefix); }
 
-void tesseract_planning::MoveInstructionPoly::setMoveType(tesseract_planning::MoveInstructionType move_type)
-{
-  getInterface().setMoveType(move_type);
-}
-tesseract_planning::MoveInstructionType tesseract_planning::MoveInstructionPoly::getMoveType() const
-{
-  return getInterface().getMoveType();
-}
+CartesianWaypointPoly MoveInstructionPoly::createCartesianWaypoint() const { return impl_->createCartesianWaypoint(); }
+JointWaypointPoly MoveInstructionPoly::createJointWaypoint() const { return impl_->createJointWaypoint(); }
+StateWaypointPoly MoveInstructionPoly::createStateWaypoint() const { return impl_->createStateWaypoint(); }
 
-const std::string& tesseract_planning::MoveInstructionPoly::getDescription() const
-{
-  return getInterface().getDescription();
-}
-
-void tesseract_planning::MoveInstructionPoly::setDescription(const std::string& description)
-{
-  getInterface().setDescription(description);
-}
-
-void tesseract_planning::MoveInstructionPoly::print(const std::string& prefix) const { getInterface().print(prefix); }
-
-tesseract_planning::CartesianWaypointPoly tesseract_planning::MoveInstructionPoly::createCartesianWaypoint() const
-{
-  return getInterface().createCartesianWaypoint();
-}
-tesseract_planning::JointWaypointPoly tesseract_planning::MoveInstructionPoly::createJointWaypoint() const
-{
-  return getInterface().createJointWaypoint();
-}
-tesseract_planning::StateWaypointPoly tesseract_planning::MoveInstructionPoly::createStateWaypoint() const
-{
-  return getInterface().createStateWaypoint();
-}
-
-tesseract_planning::MoveInstructionPoly tesseract_planning::MoveInstructionPoly::createChild() const
+MoveInstructionPoly MoveInstructionPoly::createChild() const
 {
   MoveInstructionPoly child(*this);
   child.setParentUUID(getUUID());
   child.regenerateUUID();
-  if (!getInterface().getWaypoint().getName().empty())
-    child.getWaypoint().setName(getInterface().getWaypoint().getName() + " (child)");
+  if (!impl_->getWaypoint().getName().empty())
+    child.getWaypoint().setName(impl_->getWaypoint().getName() + " (child)");
   return child;
 }
 
-bool tesseract_planning::MoveInstructionPoly::isLinear() const
-{
-  return (getInterface().getMoveType() == MoveInstructionType::LINEAR);
-}
+bool MoveInstructionPoly::isLinear() const { return (impl_->getMoveType() == MoveInstructionType::LINEAR); }
 
-bool tesseract_planning::MoveInstructionPoly::isFreespace() const
-{
-  return (getInterface().getMoveType() == MoveInstructionType::FREESPACE);
-}
+bool MoveInstructionPoly::isFreespace() const { return (impl_->getMoveType() == MoveInstructionType::FREESPACE); }
 
-bool tesseract_planning::MoveInstructionPoly::isCircular() const
-{
-  return (getInterface().getMoveType() == MoveInstructionType::CIRCULAR);
-}
+bool MoveInstructionPoly::isCircular() const { return (impl_->getMoveType() == MoveInstructionType::CIRCULAR); }
 
-bool tesseract_planning::MoveInstructionPoly::isChild() const { return (!getInterface().getParentUUID().is_nil()); }
+bool MoveInstructionPoly::isChild() const { return (!impl_->getParentUUID().is_nil()); }
+
+bool MoveInstructionPoly::isNull() const { return (impl_ == nullptr); }
+MoveInstructionInterface& MoveInstructionPoly::getMoveInstruction() { return *impl_; }
+const MoveInstructionInterface& MoveInstructionPoly::getMoveInstruction() const { return *impl_; }
+
+bool MoveInstructionPoly::operator==(const MoveInstructionPoly& rhs) const
+{
+  if (impl_ == nullptr && rhs.impl_ == nullptr)
+    return true;
+
+  if (impl_ == nullptr || rhs.impl_ == nullptr)
+    return false;
+
+  if (getType() != rhs.getType())
+    return false;
+
+  return (*impl_ == *rhs.impl_);
+}
+// LCOV_EXCL_START
+bool MoveInstructionPoly::operator!=(const MoveInstructionPoly& rhs) const { return !operator==(rhs); }
+// LCOV_EXCL_STOP
 
 template <class Archive>
-void tesseract_planning::MoveInstructionPoly::serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
+void MoveInstructionPoly::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& boost::serialization::make_nvp("base", boost::serialization::base_object<MoveInstructionPolyBase>(*this));
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(InstructionInterface);
+  ar& boost::serialization::make_nvp("impl", impl_);
 }
+}  // namespace tesseract_planning
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_move_instruction::MoveInstructionInterface)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstructionPolyBase)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstructionInterface)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstructionPoly)
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_move_instruction::MoveInstructionInterface)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionPolyBase)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionInterface)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionPoly)
-
-TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionPoly)

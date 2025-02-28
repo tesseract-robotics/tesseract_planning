@@ -51,7 +51,7 @@ class ProfileDictionary;
  *   - path_profile (Motion Options): is used to define a set of costs/constraints associated only with the path taken
  * to the waypoint assigned to this instruction
  */
-class MoveInstruction
+class MoveInstruction final : public MoveInstructionInterface
 {
 public:
   MoveInstruction() = default;  // Required for boost serialization do not use
@@ -85,48 +85,44 @@ public:
                            std::string path_profile,
                            tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
 
-  const boost::uuids::uuid& getUUID() const;
-  void setUUID(const boost::uuids::uuid& uuid);
-  void regenerateUUID();
+  // Instruction
+  const boost::uuids::uuid& getUUID() const override final;
+  void setUUID(const boost::uuids::uuid& uuid) override final;
+  void regenerateUUID() override final;
+  const boost::uuids::uuid& getParentUUID() const override final;
+  void setParentUUID(const boost::uuids::uuid& uuid) override final;
+  const std::string& getDescription() const override final;
+  void setDescription(const std::string& description) override final;
+  void print(const std::string& prefix = "") const override final;
 
-  const boost::uuids::uuid& getParentUUID() const;
-  void setParentUUID(const boost::uuids::uuid& uuid);
+  // Move Instruction
+  void setMoveType(MoveInstructionType move_type) override final;
+  MoveInstructionType getMoveType() const override final;
 
-  void setMoveType(MoveInstructionType move_type);
+  WaypointPoly& getWaypoint() override final;
+  const WaypointPoly& getWaypoint() const override final;
 
-  MoveInstructionType getMoveType() const;
+  void setManipulatorInfo(tesseract_common::ManipulatorInfo info) override final;
+  const tesseract_common::ManipulatorInfo& getManipulatorInfo() const override final;
+  tesseract_common::ManipulatorInfo& getManipulatorInfo() override final;
 
-  WaypointPoly& getWaypoint();
-  const WaypointPoly& getWaypoint() const;
+  void setProfile(const std::string& profile) override final;
+  const std::string& getProfile(const std::string& ns = "") const override final;
 
-  void setManipulatorInfo(tesseract_common::ManipulatorInfo info);
-  const tesseract_common::ManipulatorInfo& getManipulatorInfo() const;
-  tesseract_common::ManipulatorInfo& getManipulatorInfo();
+  void setPathProfile(const std::string& profile) override final;
+  const std::string& getPathProfile(const std::string& ns = "") const override final;
 
-  void setProfile(const std::string& profile);
-  const std::string& getProfile(const std::string& ns = "") const;
+  void setProfileOverrides(ProfileOverrides profile_overrides) override final;
+  const ProfileOverrides& getProfileOverrides() const override final;
 
-  void setPathProfile(const std::string& profile);
-  const std::string& getPathProfile(const std::string& ns = "") const;
+  void setPathProfileOverrides(ProfileOverrides profile_overrides) override final;
+  const ProfileOverrides& getPathProfileOverrides() const override final;
 
-  void setProfileOverrides(ProfileOverrides profile_overrides);
-  const ProfileOverrides& getProfileOverrides() const;
+  CartesianWaypointPoly createCartesianWaypoint() const override final;
+  JointWaypointPoly createJointWaypoint() const override final;
+  StateWaypointPoly createStateWaypoint() const override final;
 
-  void setPathProfileOverrides(ProfileOverrides profile_overrides);
-  const ProfileOverrides& getPathProfileOverrides() const;
-
-  const std::string& getDescription() const;
-
-  void setDescription(const std::string& description);
-
-  void print(const std::string& prefix = "") const;
-
-  static CartesianWaypointPoly createCartesianWaypoint();
-  static JointWaypointPoly createJointWaypoint();
-  static StateWaypointPoly createStateWaypoint();
-
-  bool operator==(const MoveInstruction& rhs) const;
-  bool operator!=(const MoveInstruction& rhs) const;
+  std::unique_ptr<MoveInstructionInterface> clone() const override final;
 
 private:
   /** @brief The instructions UUID */
@@ -159,6 +155,8 @@ private:
   /** @brief Contains information about the manipulator associated with this instruction*/
   tesseract_common::ManipulatorInfo manipulator_info_;
 
+  bool equals(const MoveInstructionInterface& other) const override final;
+
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
@@ -166,6 +164,7 @@ private:
 
 }  // namespace tesseract_planning
 
-TESSERACT_MOVE_INSTRUCTION_EXPORT_KEY(tesseract_planning, MoveInstruction)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::MoveInstruction)
+BOOST_CLASS_TRACKING(tesseract_planning::MoveInstruction, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_MOVE_INSTRUCTION_H

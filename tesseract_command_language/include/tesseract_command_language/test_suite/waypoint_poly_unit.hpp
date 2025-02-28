@@ -39,11 +39,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning::test_suite
 {
-template <typename PolyType, typename T>
-void runWaypointInterfaceTest()
+void runWaypointInterfaceTest(WaypointPoly waypoint)
 {
   const std::string name{ "tesseract_planning::test_suite::WaypointPoly" };
-  WaypointPoly waypoint{ PolyType(T()) };
   EXPECT_NE(name, waypoint.getName());
   waypoint.setName(name);
   EXPECT_EQ(name, waypoint.getName());

@@ -56,25 +56,30 @@ enum class WaitInstructionType : std::uint8_t
  *   - DIGITAL_OUTPUT_HIGH : This will wait for a digital output to go high(1) then continue
  *   - DIGITAL_OUTPUT_LOW  : This will wait for a digital output to go low(0) then continue
  */
-class WaitInstruction
+class WaitInstruction final : public InstructionInterface
 {
 public:
   WaitInstruction() = default;  // Required for boost serialization do not use
   WaitInstruction(double time);
   WaitInstruction(WaitInstructionType type, int io);
 
-  const boost::uuids::uuid& getUUID() const;
-  void setUUID(const boost::uuids::uuid& uuid);
-  void regenerateUUID();
+  // Instruction
+  const boost::uuids::uuid& getUUID() const override final;
+  void setUUID(const boost::uuids::uuid& uuid) override final;
+  void regenerateUUID() override final;
 
-  const boost::uuids::uuid& getParentUUID() const;
-  void setParentUUID(const boost::uuids::uuid& uuid);
+  const boost::uuids::uuid& getParentUUID() const override final;
+  void setParentUUID(const boost::uuids::uuid& uuid) override final;
 
-  const std::string& getDescription() const;
+  const std::string& getDescription() const override final;
 
-  void setDescription(const std::string& description);
+  void setDescription(const std::string& description) override final;
 
-  void print(const std::string& prefix = "") const;  // NOLINT
+  void print(const std::string& prefix = "") const override final;  // NOLINT
+
+  std::unique_ptr<InstructionInterface> clone() const override final;
+
+  // SetAnalogInstruction
 
   /**
    * @brief Get the wait type
@@ -111,20 +116,6 @@ public:
    */
   void setWaitIO(int io);
 
-  /**
-   * @brief Equal operator. Does not compare descriptions
-   * @param rhs TimerInstruction
-   * @return True if equal, otherwise false
-   */
-  bool operator==(const WaitInstruction& rhs) const;
-
-  /**
-   * @brief Not equal operator. Does not compare descriptions
-   * @param rhs TimerInstruction
-   * @return True if not equal, otherwise false
-   */
-  bool operator!=(const WaitInstruction& rhs) const;
-
 private:
   /** @brief The instructions UUID */
   boost::uuids::uuid uuid_{};
@@ -136,12 +127,20 @@ private:
   double wait_time_{ 0 };
   int wait_io_{ -1 };
 
+  /**
+   * @brief Check if two objects are equal
+   * @param other The other object to compare with
+   * @return True if equal, otherwise false
+   */
+  bool equals(const InstructionInterface& other) const override final;
+
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
 
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, WaitInstruction)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::WaitInstruction)
+BOOST_CLASS_TRACKING(tesseract_planning::WaitInstruction, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_WAIT_INSTRUCTION_H

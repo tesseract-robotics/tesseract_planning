@@ -45,7 +45,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 class CompositeInstruction;
-struct MoveInstructionPoly;
+class MoveInstructionPoly;
 
 /**
  * @brief This is used for filtering only what you want in the vector
@@ -67,7 +67,7 @@ enum class CompositeInstructionOrder : std::uint8_t
   ORDERED_AND_REVERABLE  // Can go forward or reverse the order
 };
 
-class CompositeInstruction
+class CompositeInstruction : public InstructionInterface
 {
 public:
   // LCOV_EXCL_START
@@ -120,19 +120,23 @@ public:
     container_.insert(container_.begin(), first, last);
   }
 
+  // Instruction
+  const boost::uuids::uuid& getUUID() const override final;
+  void setUUID(const boost::uuids::uuid& uuid) override final;
+  void regenerateUUID() override final;
+
+  const boost::uuids::uuid& getParentUUID() const override final;
+  void setParentUUID(const boost::uuids::uuid& uuid) override final;
+
+  void setDescription(const std::string& description) override final;
+  const std::string& getDescription() const override final;
+
+  void print(const std::string& prefix = "") const override final;
+
+  std::unique_ptr<InstructionInterface> clone() const override final;
+
+  // Composite Instruction
   CompositeInstructionOrder getOrder() const;
-
-  const boost::uuids::uuid& getUUID() const;
-  void setUUID(const boost::uuids::uuid& uuid);
-  void regenerateUUID();
-
-  const boost::uuids::uuid& getParentUUID() const;
-  void setParentUUID(const boost::uuids::uuid& uuid);
-
-  void setDescription(const std::string& description);
-  const std::string& getDescription() const;
-
-  void print(const std::string& prefix = "") const;
 
   void setProfile(const std::string& profile);
   const std::string& getProfile(const std::string& ns = "") const;
@@ -264,10 +268,6 @@ public:
 
   /** @brief Get user data (const) */
   const UserData& getUserData() const;
-
-  bool operator==(const CompositeInstruction& rhs) const;
-
-  bool operator!=(const CompositeInstruction& rhs) const;
 
   // C++ container support
 
@@ -460,6 +460,13 @@ private:
                      const CompositeInstruction& composite,
                      const flattenFilterFn& filter) const;
 
+  /**
+   * @brief Check if two objects are equal
+   * @param other The other object to compare with
+   * @return True if equal, otherwise false
+   */
+  bool equals(const InstructionInterface& other) const override final;
+
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
@@ -467,7 +474,9 @@ private:
 
 }  // namespace tesseract_planning
 
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, CompositeInstruction)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::CompositeInstruction)
+BOOST_CLASS_TRACKING(tesseract_planning::CompositeInstruction, boost::serialization::track_never)
+
 TESSERACT_ANY_EXPORT_KEY(tesseract_planning::CompositeInstruction, TesseractPlanningCompositeInstruction)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMPOSITE_INSTRUCTION_H

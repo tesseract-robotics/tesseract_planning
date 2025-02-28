@@ -38,8 +38,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-struct InstructionPoly;
-struct WaypointPoly;
+class InstructionPoly;
+class WaypointPoly;
 class CompositeInstruction;
 
 /**
