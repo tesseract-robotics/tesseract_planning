@@ -68,6 +68,11 @@ void WaitInstruction::print(const std::string& prefix) const  // NOLINT
   std::cout << ", Description: " << getDescription() << "\n";
 }
 
+std::unique_ptr<InstructionInterface> WaitInstruction::clone() const
+{
+  return std::make_unique<WaitInstruction>(*this);
+}
+
 WaitInstructionType WaitInstruction::getWaitType() const { return wait_type_; }
 
 void WaitInstruction::setWaitType(WaitInstructionType type) { wait_type_ = type; }
@@ -80,24 +85,26 @@ int WaitInstruction::getWaitIO() const { return wait_io_; }
 
 void WaitInstruction::setWaitIO(int io) { wait_io_ = io; }
 
-bool WaitInstruction::operator==(const WaitInstruction& rhs) const
+bool WaitInstruction::equals(const InstructionInterface& other) const
 {
+  const auto* rhs = dynamic_cast<const WaitInstruction*>(&other);
+  if (rhs == nullptr)
+    return false;
+
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= tesseract_common::almostEqualRelativeAndAbs(wait_time_, rhs.wait_time_, max_diff);
-  equal &= (wait_type_ == rhs.wait_type_);
-  equal &= (wait_io_ == rhs.wait_io_);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(wait_time_, rhs->wait_time_, max_diff);
+  equal &= (wait_type_ == rhs->wait_type_);
+  equal &= (wait_io_ == rhs->wait_io_);
 
   return equal;
 }
-// LCOV_EXCL_START
-bool WaitInstruction::operator!=(const WaitInstruction& rhs) const { return !operator==(rhs); }
-// LCOV_EXCL_STOP
 
 template <class Archive>
 void WaitInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(InstructionInterface);
   ar& boost::serialization::make_nvp("uuid", uuid_);
   ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
   ar& boost::serialization::make_nvp("description", description_);
@@ -107,6 +114,5 @@ void WaitInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 }
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::WaitInstruction)
-TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::WaitInstruction)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::WaitInstruction)

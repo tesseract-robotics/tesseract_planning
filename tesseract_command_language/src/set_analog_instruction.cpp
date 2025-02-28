@@ -66,30 +66,37 @@ void SetAnalogInstruction::print(const std::string& prefix) const  // NOLINT
   std::cout << ", Description: " << getDescription() << "\n";
 }
 
+std::unique_ptr<InstructionInterface> SetAnalogInstruction::clone() const
+{
+  return std::make_unique<SetAnalogInstruction>(*this);
+}
+
 std::string SetAnalogInstruction::getKey() const { return key_; }
 
 int SetAnalogInstruction::getIndex() const { return index_; }
 
 double SetAnalogInstruction::getValue() const { return value_; }
 
-bool SetAnalogInstruction::operator==(const SetAnalogInstruction& rhs) const
+bool SetAnalogInstruction::equals(const InstructionInterface& other) const
 {
+  const auto* rhs = dynamic_cast<const SetAnalogInstruction*>(&other);
+  if (rhs == nullptr)
+    return false;
+
   // Check if they are the same
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= (key_ == rhs.key_);
-  equal &= (index_ == rhs.index_);
-  equal &= (tesseract_common::almostEqualRelativeAndAbs(value_, rhs.value_, max_diff));
+  equal &= (key_ == rhs->key_);
+  equal &= (index_ == rhs->index_);
+  equal &= (tesseract_common::almostEqualRelativeAndAbs(value_, rhs->value_, max_diff));
   return equal;
 }
-// LCOV_EXCL_START
-bool SetAnalogInstruction::operator!=(const SetAnalogInstruction& rhs) const { return !operator==(rhs); }
-// LCOV_EXCL_STOP
 
 template <class Archive>
 void SetAnalogInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(InstructionInterface);
   ar& boost::serialization::make_nvp("uuid", uuid_);
   ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
   ar& boost::serialization::make_nvp("description", description_);
@@ -100,6 +107,5 @@ void SetAnalogInstruction::serialize(Archive& ar, const unsigned int /*version*/
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SetAnalogInstruction)
-TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::SetAnalogInstruction)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SetAnalogInstruction)

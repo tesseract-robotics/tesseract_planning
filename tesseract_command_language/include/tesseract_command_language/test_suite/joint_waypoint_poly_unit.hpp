@@ -34,7 +34,7 @@ namespace tesseract_planning::test_suite
 template <typename T>
 void runJointWaypointTest()
 {
-  runWaypointInterfaceTest<JointWaypointPoly, T>();
+  runWaypointInterfaceTest(JointWaypointPoly(T()));
 
   {  // WaypointPoly Interface Test
     const std::string name{ "tesseract_planning::test_suite::WaypointPoly" };

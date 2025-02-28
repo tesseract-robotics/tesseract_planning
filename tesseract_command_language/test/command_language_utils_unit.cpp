@@ -167,7 +167,7 @@ TEST(TesseractCommandLanguageUtilsUnit, toJointTrajectoryTests)  // NOLINT
   tesseract_common::JointTrajectory jt = toJointTrajectory(instr);
   EXPECT_EQ(jt.size(), 16);
 
-  InstructionPoly error_poly{ MoveInstruction() };
+  InstructionPoly error_poly{ MoveInstructionPoly(MoveInstruction()) };
   EXPECT_ANY_THROW(toJointTrajectory(error_poly));  // NOLINT
 }
 

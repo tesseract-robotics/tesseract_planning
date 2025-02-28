@@ -35,7 +35,7 @@ namespace tesseract_planning::test_suite
 template <typename T>
 void runCartesianWaypointTest()
 {
-  runWaypointInterfaceTest<CartesianWaypointPoly, T>();
+  runWaypointInterfaceTest(CartesianWaypointPoly(T()));
 
   {  // Cartesian WaypointPoly Interface Test
     const std::string name{ "tesseract_planning::test_suite::WaypointPoly" };

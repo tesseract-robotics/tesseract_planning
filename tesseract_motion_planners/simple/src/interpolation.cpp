@@ -48,6 +48,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/environment.h>
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/poly/waypoint_poly.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/poly/joint_waypoint_poly.h>
+#include <tesseract_command_language/poly/state_waypoint_poly.h>
+
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/utils.h>
 

@@ -27,7 +27,6 @@ CartesianWaypoint::CartesianWaypoint(const Eigen::Isometry3d& transform,  // NOL
 // Waypoint
 void CartesianWaypoint::setName(const std::string& name) { name_ = name; }
 const std::string& CartesianWaypoint::getName() const { return name_; }
-// std::type_index CartesianWaypoint::getType() const { return typeid(CartesianWaypoint); }
 void CartesianWaypoint::print(const std::string& prefix) const
 {
   std::cout << prefix << "Cart WP: xyz=" << transform_.translation().x() << ", " << transform_.translation().y()

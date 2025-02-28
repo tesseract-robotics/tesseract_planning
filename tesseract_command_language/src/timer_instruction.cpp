@@ -68,6 +68,11 @@ void TimerInstruction::print(const std::string& prefix) const  // NOLINT
   std::cout << ", Description: " << getDescription() << "\n";
 }
 
+std::unique_ptr<InstructionInterface> TimerInstruction::clone() const
+{
+  return std::make_unique<TimerInstruction>(*this);
+}
+
 TimerInstructionType TimerInstruction::getTimerType() const { return timer_type_; }
 
 void TimerInstruction::setTimerType(TimerInstructionType type) { timer_type_ = type; }
@@ -80,24 +85,26 @@ int TimerInstruction::getTimerIO() const { return timer_io_; }
 
 void TimerInstruction::setTimerIO(int io) { timer_io_ = io; }
 
-bool TimerInstruction::operator==(const TimerInstruction& rhs) const
+bool TimerInstruction::equals(const InstructionInterface& other) const
 {
+  const auto* rhs = dynamic_cast<const TimerInstruction*>(&other);
+  if (rhs == nullptr)
+    return false;
+
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= tesseract_common::almostEqualRelativeAndAbs(timer_time_, rhs.timer_time_, max_diff);
-  equal &= (timer_type_ == rhs.timer_type_);
-  equal &= (timer_io_ == rhs.timer_io_);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(timer_time_, rhs->timer_time_, max_diff);
+  equal &= (timer_type_ == rhs->timer_type_);
+  equal &= (timer_io_ == rhs->timer_io_);
 
   return equal;
 }
-// LCOV_EXCL_START
-bool TimerInstruction::operator!=(const TimerInstruction& rhs) const { return !operator==(rhs); }
-// LCOV_EXCL_STOP
 
 template <class Archive>
 void TimerInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(InstructionInterface);
   ar& boost::serialization::make_nvp("uuid", uuid_);
   ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
   ar& boost::serialization::make_nvp("description", description_);
@@ -108,4 +115,4 @@ void TimerInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 }  // namespace tesseract_planning
 
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimerInstruction)
-TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::TimerInstruction)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TimerInstruction)

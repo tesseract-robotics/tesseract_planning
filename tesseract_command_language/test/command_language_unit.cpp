@@ -167,7 +167,7 @@ TEST(TesseractCommandLanguageUnit, MoveInstructionTests)  // NOLINT
 TEST(TesseractCommandLanguageUnit, SetAnalogInstructionTests)  // NOLINT
 {
   using T = SetAnalogInstruction;
-  test_suite::runInstructionInterfaceTest<T>();
+  test_suite::runInstructionInterfaceTest(InstructionPoly(T()));
 
   {
     const std::string key{ "key" };
@@ -220,7 +220,7 @@ TEST(TesseractCommandLanguageUnit, SetAnalogInstructionTests)  // NOLINT
 TEST(TesseractCommandLanguageUnit, SetToolInstructionTests)  // NOLINT
 {
   using T = SetToolInstruction;
-  test_suite::runInstructionInterfaceTest<T>();
+  test_suite::runInstructionInterfaceTest(InstructionPoly(T()));
 
   {
     const int tool_id{ 5 };
@@ -253,8 +253,7 @@ TEST(TesseractCommandLanguageUnit, SetToolInstructionTests)  // NOLINT
 TEST(TesseractCommandLanguageUnit, TimerInstructionTests)  // NOLINT
 {
   using T = TimerInstruction;
-
-  test_suite::runInstructionInterfaceTest<T>();
+  test_suite::runInstructionInterfaceTest(InstructionPoly(T()));
 
   {
     const TimerInstructionType type{ TimerInstructionType::DIGITAL_OUTPUT_HIGH };
@@ -310,8 +309,7 @@ TEST(TesseractCommandLanguageUnit, TimerInstructionTests)  // NOLINT
 TEST(TesseractCommandLanguageUnit, WaitInstructionTests)  // NOLINT
 {
   using T = WaitInstruction;
-
-  test_suite::runInstructionInterfaceTest<T>();
+  test_suite::runInstructionInterfaceTest(InstructionPoly(T()));
 
   {
     const WaitInstructionType type{ WaitInstructionType::TIME };
@@ -395,8 +393,7 @@ bool notMoveFilter(const InstructionPoly& instruction, const CompositeInstructio
 TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
 {
   using T = CompositeInstruction;
-
-  test_suite::runInstructionInterfaceTest<T>(false);
+  test_suite::runInstructionInterfaceTest(InstructionPoly(T()), false);
 
   std::string profile{ "raster_program" };
   ManipulatorInfo manip_info("manipulator", "world", "tool0");

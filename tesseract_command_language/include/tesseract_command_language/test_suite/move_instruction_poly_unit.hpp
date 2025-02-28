@@ -33,6 +33,8 @@
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/constants.h>
 
+#include <tesseract_common/manipulator_info.h>
+
 namespace tesseract_planning::test_suite
 {
 namespace details
@@ -562,7 +564,7 @@ void runMoveInstructionSettersTest()
 template <typename T>
 void runMoveInstructionTest()
 {
-  runInstructionInterfaceTest<T>();
+  runInstructionInterfaceTest(MoveInstructionPoly(T()));
 
   details::runMoveInstructionInterfaceTest<T>();
   details::runMoveInstructionConstructorTest<T>();

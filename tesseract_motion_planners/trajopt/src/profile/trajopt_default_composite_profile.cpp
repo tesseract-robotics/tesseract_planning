@@ -43,6 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/joint_waypoint.h>
 
 #include <tesseract_common/eigen_serialization.h>
+#include <tesseract_common/manipulator_info.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_environment/environment.h>
 #include <trajopt_common/utils.hpp>

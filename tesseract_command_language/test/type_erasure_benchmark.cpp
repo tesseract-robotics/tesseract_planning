@@ -292,7 +292,7 @@ BENCHMARK(BM_ProgramCreation);
 
 static void BM_InstructionPolyCopy(benchmark::State& state)
 {
-  InstructionPoly i{ MoveInstruction() };
+  InstructionPoly i{ MoveInstructionPoly(MoveInstruction()) };
   for (auto _ : state)
     InstructionPoly copy(i);
 }
@@ -319,7 +319,7 @@ BENCHMARK(BM_CompositeInstructionCopy);
 
 static void BM_InstructionPolyAssign(benchmark::State& state)
 {
-  InstructionPoly i{ MoveInstruction() };
+  InstructionPoly i{ MoveInstructionPoly(MoveInstruction()) };
   for (auto _ : state)
     InstructionPoly copy = i;
 }
@@ -346,9 +346,9 @@ BENCHMARK(BM_CompositeInstructionAssign);
 
 static void BM_InstructionPolyCast(benchmark::State& state)
 {
-  InstructionPoly i{ MoveInstruction() };
+  InstructionPoly i{ MoveInstructionPoly(MoveInstruction()) };
   for (auto _ : state)
-    auto& mi = i.as<MoveInstruction>();  // NOLINT
+    auto& mi = i.as<MoveInstructionPoly>();  // NOLINT
 }
 
 BENCHMARK(BM_InstructionPolyCast);
@@ -364,7 +364,7 @@ BENCHMARK(BM_WaypointPolyCast);
 
 static void BM_InstructionPolyAccess(benchmark::State& state)
 {
-  InstructionPoly i{ MoveInstruction() };
+  InstructionPoly i{ MoveInstructionPoly(MoveInstruction()) };
   for (auto _ : state)
     const std::string& description = i.getDescription();  // NOLINT
 }

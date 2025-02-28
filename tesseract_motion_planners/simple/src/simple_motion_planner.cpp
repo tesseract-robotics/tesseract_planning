@@ -44,12 +44,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/environment.h>
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/poly/waypoint_poly.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/poly/joint_waypoint_poly.h>
+#include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/utils.h>
-
-// #include <tesseract_environment/utils.h>
-// #include <tesseract_motion_planners/core/utils.h>
-// #include <tesseract_command_language/poly/waypoint_poly.h>
-// #include <tesseract_command_language/composite_instruction.h>
 
 constexpr auto SOLUTION_FOUND{ "Found valid solution" };
 constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input: " };

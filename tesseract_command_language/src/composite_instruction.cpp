@@ -35,16 +35,18 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/unordered_map.hpp>
-#include <tesseract_common/std_variant_serialization.h>
-#include <console_bridge/console.h>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
+#include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/profile_dictionary.h>
+
+#include <tesseract_common/std_variant_serialization.h>
+#include <tesseract_common/serialization.h>
 
 namespace tesseract_planning
 {
@@ -81,6 +83,28 @@ CompositeInstructionOrder CompositeInstruction::getOrder() const { return order_
 const std::string& CompositeInstruction::getDescription() const { return description_; }
 
 void CompositeInstruction::setDescription(const std::string& description) { description_ = description; }
+
+void CompositeInstruction::print(const std::string& prefix) const
+{
+  std::cout << prefix + "Composite Instruction, Description: " << getDescription() << "\n";
+  std::cout << prefix + "{"
+            << "\n";
+  for (const auto& i : container_)
+  {
+    if (i.isNull())
+      std::cout << prefix + "  Null Instruction"
+                << "\n";
+    else
+      i.print(prefix + "  ");
+  }
+  std::cout << prefix + "}"
+            << "\n";
+}
+
+std::unique_ptr<InstructionInterface> CompositeInstruction::clone() const
+{
+  return std::make_unique<CompositeInstruction>(*this);
+}
 
 void CompositeInstruction::setProfile(const std::string& profile)
 {
@@ -213,39 +237,26 @@ CompositeInstruction::UserData& CompositeInstruction::getUserData() { return use
 
 const CompositeInstruction::UserData& CompositeInstruction::getUserData() const { return user_data_; }
 
-void CompositeInstruction::print(const std::string& prefix) const
+bool CompositeInstruction::equals(const InstructionInterface& other) const
 {
-  std::cout << prefix + "Composite Instruction, Description: " << getDescription() << "\n";
-  std::cout << prefix + "{"
-            << "\n";
-  for (const auto& i : container_)
-  {
-    if (i.isNull())
-      std::cout << prefix + "  Null Instruction"
-                << "\n";
-    else
-      i.print(prefix + "  ");
-  }
-  std::cout << prefix + "}"
-            << "\n";
-}
+  const auto* rhs = dynamic_cast<const CompositeInstruction*>(&other);
+  if (rhs == nullptr)
+    return false;
 
-bool CompositeInstruction::operator==(const CompositeInstruction& rhs) const
-{
   bool equal = true;
-  equal &= (static_cast<int>(order_) == static_cast<int>(rhs.order_));
-  equal &= (uuid_ == rhs.uuid_);
-  equal &= (parent_uuid_ == rhs.parent_uuid_);
-  equal &= (profile_ == rhs.profile_);  // NOLINT
-  equal &= (profile_overrides_ == rhs.profile_overrides_);
-  equal &= (manipulator_info_ == rhs.manipulator_info_);
-  equal &= (user_data_ == rhs.user_data_);
-  equal &= (container_.size() == rhs.container_.size());
+  equal &= (static_cast<int>(order_) == static_cast<int>(rhs->order_));
+  equal &= (uuid_ == rhs->uuid_);
+  equal &= (parent_uuid_ == rhs->parent_uuid_);
+  equal &= (profile_ == rhs->profile_);  // NOLINT
+  equal &= (profile_overrides_ == rhs->profile_overrides_);
+  equal &= (manipulator_info_ == rhs->manipulator_info_);
+  equal &= (user_data_ == rhs->user_data_);
+  equal &= (container_.size() == rhs->container_.size());
   if (equal)
   {
     for (std::size_t i = 0; i < container_.size(); ++i)
     {
-      equal &= (container_[i] == rhs.container_[i]);
+      equal &= (container_[i] == rhs->container_[i]);
 
       if (!equal)
         break;
@@ -253,9 +264,6 @@ bool CompositeInstruction::operator==(const CompositeInstruction& rhs) const
   }
   return equal;
 }
-
-// LCOV_EXCL_START
-bool CompositeInstruction::operator!=(const CompositeInstruction& rhs) const { return !operator==(rhs); }
 
 ///////////////
 // Iterators //
@@ -535,6 +543,7 @@ void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<cons
 template <class Archive>
 void CompositeInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(InstructionInterface);
   ar& boost::serialization::make_nvp("uuid", uuid_);
   ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
   ar& boost::serialization::make_nvp("description", description_);
@@ -548,8 +557,7 @@ void CompositeInstruction::serialize(Archive& ar, const unsigned int /*version*/
 
 }  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
-
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CompositeInstruction)
-TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::CompositeInstruction)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CompositeInstruction)
+
 TESSERACT_ANY_EXPORT_IMPLEMENT(TesseractPlanningCompositeInstruction)
