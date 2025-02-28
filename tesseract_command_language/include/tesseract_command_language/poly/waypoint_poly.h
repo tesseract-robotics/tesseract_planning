@@ -41,14 +41,36 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+/**
+ * @brief The WaypointInterface class
+ */
 class WaypointInterface
 {
 public:
   virtual ~WaypointInterface() = default;
 
+  /**
+   * @brief Set the name of the waypoint
+   * @param name The name of the waypoint
+   */
   virtual void setName(const std::string& name) = 0;
+
+  /**
+   * @brief Get the name of the waypoint
+   * @return The name of the waypoint
+   */
   virtual const std::string& getName() const = 0;
+
+  /**
+   * @brief Output the contents to std::cout
+   * @param prefix The prefix to add to each variable
+   */
   virtual void print(const std::string& prefix = "") const = 0;
+
+  /**
+   * @brief Make a deep copy of the object
+   * @return A deep copy
+   */
   virtual std::unique_ptr<WaypointInterface> clone() const = 0;
 
   // Operators
@@ -56,6 +78,11 @@ public:
   bool operator!=(const WaypointInterface& rhs) const;
 
 protected:
+  /**
+   * @brief Check if two objects are equal
+   * @param other The other object to compare with
+   * @return True if equal, otherwise false
+   */
   virtual bool equals(const WaypointInterface& other) const = 0;
 
 private:
@@ -64,6 +91,9 @@ private:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
+/**
+ * @brief The WaypointPoly class
+ */
 class WaypointPoly
 {
 public:
@@ -75,22 +105,60 @@ public:
 
   WaypointPoly(const WaypointInterface& impl);
 
+  /**
+   * @brief Set the name of the waypoint
+   * @param name The name of the waypoint
+   */
   void setName(const std::string& name);
+
+  /**
+   * @brief Get the name of the waypoint
+   * @return The name of the waypoint
+   */
   const std::string& getName() const;
 
-  std::type_index getType() const;
-
+  /**
+   * @brief Output the contents to std::cout
+   * @param prefix The prefix to add to each variable
+   */
   void print(const std::string& prefix = "") const;
 
+  /**
+   * @brief Get the stored derived type
+   * @return The derived type index
+   */
+  std::type_index getType() const;
+
+  /**
+   * @brief Check if the poly type is null
+   * @return True if null, otherwise false
+   */
   bool isNull() const;
 
+  /**
+   * @brief Get the waypoint being stored
+   * @return The waypoint
+   * @throws If null
+   */
   WaypointInterface& getWaypoint();
   const WaypointInterface& getWaypoint() const;
 
+  /**
+   * @brief Check if object being stored is of type CartesianWaypointPoly
+   * @return True if of type CartesianWaypoint, otherwise false
+   */
   bool isCartesianWaypoint() const;
 
+  /**
+   * @brief Check if object being stored is of type JointWaypointPoly
+   * @return True if of type JointWaypointPoly, otherwise false
+   */
   bool isJointWaypoint() const;
 
+  /**
+   * @brief Check if object being stored is of type StateWaypointPoly
+   * @return True if of type StateWaypointPoly, otherwise false
+   */
   bool isStateWaypoint() const;
 
   // Type Casting

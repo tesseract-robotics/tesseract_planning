@@ -39,31 +39,91 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+/**
+ * @brief The CartesianWaypointInterface class
+ */
 class CartesianWaypointInterface
 {
 public:
   virtual ~CartesianWaypointInterface() = default;
 
+  ///////////
   // Waypoint
+  ///////////
+
+  /**
+   * @brief Set the name of the waypoint
+   * @param name The name of the waypoint
+   */
   virtual void setName(const std::string& name) = 0;
+
+  /**
+   * @brief Get the name of the waypoint
+   * @return The name of the waypoint
+   */
   virtual const std::string& getName() const = 0;
+
+  /**
+   * @brief Output the contents to std::cout
+   * @param prefix The prefix to add to each variable
+   */
   virtual void print(const std::string& prefix = "") const = 0;
+
+  /**
+   * @brief Make a deep copy of the object
+   * @return A deep copy
+   */
   virtual std::unique_ptr<CartesianWaypointInterface> clone() const = 0;
 
+  /////////////////////
   // Cartesian Waypoint
+  /////////////////////
+
+  /**
+   * @brief Set transform
+   * @param transform The transform to assign
+   */
   virtual void setTransform(const Eigen::Isometry3d& transform) = 0;
+  /**
+   * @brief Get transform
+   * @return The transform
+   */
   virtual Eigen::Isometry3d& getTransform() = 0;
   virtual const Eigen::Isometry3d& getTransform() const = 0;
 
+  /**
+   * @brief Set the upper tolerance
+   * @param upper_tol The upper tolerance to assign
+   */
   virtual void setUpperTolerance(const Eigen::VectorXd& upper_tol) = 0;
+  /**
+   * @brief Get the upper tolerance
+   * @return The upper tolerance
+   */
   virtual Eigen::VectorXd& getUpperTolerance() = 0;
   virtual const Eigen::VectorXd& getUpperTolerance() const = 0;
 
+  /**
+   * @brief Set the lower tolerance
+   * @param lower_tol The lower tolerance to assign
+   */
   virtual void setLowerTolerance(const Eigen::VectorXd& lower_tol) = 0;
+  /**
+   * @brief Get the lower tolerance
+   * @return The lower tolerance
+   */
   virtual Eigen::VectorXd& getLowerTolerance() = 0;
   virtual const Eigen::VectorXd& getLowerTolerance() const = 0;
 
+  /**
+   * @brief Set the seed
+   * @param seed The seed
+   */
   virtual void setSeed(const tesseract_common::JointState& seed) = 0;
+  /**
+   * @brief Get the seed
+   * @return The seed
+   */
   virtual tesseract_common::JointState& getSeed() = 0;
   virtual const tesseract_common::JointState& getSeed() const = 0;
 
@@ -72,6 +132,11 @@ public:
   bool operator!=(const CartesianWaypointInterface& rhs) const;
 
 protected:
+  /**
+   * @brief Check if two objects are equal
+   * @param other The other object to compare with
+   * @return True if equal, otherwise false
+   */
   virtual bool equals(const CartesianWaypointInterface& other) const = 0;
 
 private:
@@ -81,6 +146,9 @@ private:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
+/**
+ * @brief The CartesianWaypointPoly class
+ */
 class CartesianWaypointPoly final : public WaypointInterface
 {
 public:
@@ -91,30 +159,86 @@ public:
   CartesianWaypointPoly& operator=(CartesianWaypointPoly&& other) noexcept = default;
   CartesianWaypointPoly(const CartesianWaypointInterface& impl);
 
+  ///////////
   // Waypoint
+  ///////////
+
+  /**
+   * @brief Set the name of the waypoint
+   * @param name The name of the waypoint
+   */
   void setName(const std::string& name) override final;
+  /**
+   * @brief Get the name of the waypoint
+   * @return The name of the waypoint
+   */
   const std::string& getName() const override final;
+  /**
+   * @brief Output the contents to std::cout
+   * @param prefix The prefix to add to each variable
+   */
   void print(const std::string& prefix = "") const override final;
+  /**
+   * @brief Make a deep copy of the object
+   * @return A deep copy
+   */
   std::unique_ptr<WaypointInterface> clone() const override final;
 
-  // Joint Waypoint
+  /////////////////////
+  // Cartesian Waypoint
+  /////////////////////
+
+  /**
+   * @brief Set transform
+   * @param transform The transform to assign
+   */
   void setTransform(const Eigen::Isometry3d& transform);
+  /**
+   * @brief Get transform
+   * @return The transform
+   */
   Eigen::Isometry3d& getTransform();
   const Eigen::Isometry3d& getTransform() const;
 
+  /**
+   * @brief Set the upper tolerance
+   * @param upper_tol The upper tolerance to assign
+   */
   void setUpperTolerance(const Eigen::VectorXd& upper_tol);
+  /**
+   * @brief Get the upper tolerance
+   * @return The upper tolerance
+   */
   Eigen::VectorXd& getUpperTolerance();
   const Eigen::VectorXd& getUpperTolerance() const;
 
+  /**
+   * @brief Set the lower tolerance
+   * @param lower_tol The lower tolerance to assign
+   */
   void setLowerTolerance(const Eigen::VectorXd& lower_tol);
+  /**
+   * @brief Get the lower tolerance
+   * @return The lower tolerance
+   */
   Eigen::VectorXd& getLowerTolerance();
   const Eigen::VectorXd& getLowerTolerance() const;
 
+  /**
+   * @brief Set the seed
+   * @param seed The seed
+   */
   void setSeed(const tesseract_common::JointState& seed);
+  /**
+   * @brief Get the seed
+   * @return The seed
+   */
   tesseract_common::JointState& getSeed();
   const tesseract_common::JointState& getSeed() const;
 
+  ///////////////
   // Poly Methods
+  ///////////////
 
   /**
    * @brief Get the stored derived type
@@ -129,8 +253,9 @@ public:
   bool isNull() const;
 
   /**
-   * @brief Get the interface object
-   * @return The interface object
+   * @brief Get the cartesian waypoint being stored
+   * @return The cartesian waypoint
+   * @throws If null
    */
   CartesianWaypointInterface& getCartesianWaypoint();
   const CartesianWaypointInterface& getCartesianWaypoint() const;
@@ -179,6 +304,11 @@ public:
 private:
   std::unique_ptr<CartesianWaypointInterface> impl_;
 
+  /**
+   * @brief Check if two objects are equal
+   * @param other The other object to compare with
+   * @return True if equal, otherwise false
+   */
   bool equals(const WaypointInterface& other) const override final;
 
   friend class boost::serialization::access;
