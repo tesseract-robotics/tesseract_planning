@@ -87,7 +87,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   auto cl = cl_profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   double dist = (wp1.getPosition() - wp2.getPosition()).norm();
   int steps = int(dist / longest_valid_segment_length) + 1;
-  EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
+  EXPECT_GT(static_cast<int>(cl.size()), min_steps);
   EXPECT_EQ(cl.size(), steps);
 }
 
@@ -143,7 +143,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2.getPosition()).at(manip_info_.tcp_frame);
   double trans_dist = (p2.translation() - p1.translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
-  EXPECT_TRUE(static_cast<int>(ctl.size()) > min_steps);
+  EXPECT_GT(static_cast<int>(ctl.size()), min_steps);
   EXPECT_EQ(ctl.size(), trans_steps);
 
   // Ensure rotation_longest_valid_segment_length is used
@@ -152,7 +152,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   auto crl = crl_profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   double rot_dist = Eigen::Quaterniond(p1.linear()).angularDistance(Eigen::Quaterniond(p2.linear()));
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
-  EXPECT_TRUE(static_cast<int>(crl.size()) > min_steps);
+  EXPECT_GT(static_cast<int>(crl.size()), min_steps);
   EXPECT_EQ(crl.size(), rot_steps);
 }
 
@@ -207,7 +207,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   double longest_valid_segment_length = 0.01;
   SimplePlannerLVSMoveProfile cl_profile(longest_valid_segment_length, 10, 6.28, min_steps);
   auto cl = cl_profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
-  EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
+  EXPECT_GT(static_cast<int>(cl.size()), min_steps);
 }
 
 TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_JointCart_Linear)  // NOLINT
@@ -262,7 +262,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1.getPosition()).at(manip_info_.tcp_frame);
   double trans_dist = (wp2.getTransform().translation() - p1.translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
-  EXPECT_TRUE(static_cast<int>(ctl.size()) > min_steps);
+  EXPECT_GT(static_cast<int>(ctl.size()), min_steps);
   EXPECT_EQ(ctl.size(), trans_steps);
 
   // Ensure rotation_longest_valid_segment_length is used
@@ -271,7 +271,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   auto crl = crl_profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   double rot_dist = Eigen::Quaterniond(p1.linear()).angularDistance(Eigen::Quaterniond(wp2.getTransform().linear()));
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
-  EXPECT_TRUE(static_cast<int>(crl.size()) > min_steps);
+  EXPECT_GT(static_cast<int>(crl.size()), min_steps);
   EXPECT_EQ(crl.size(), rot_steps);
 }
 
@@ -324,7 +324,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   double longest_valid_segment_length = 0.01;
   SimplePlannerLVSMoveProfile cl_profile(longest_valid_segment_length, 10, 6.28, min_steps);
   auto cl = cl_profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
-  EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
+  EXPECT_GT(static_cast<int>(cl.size()), min_steps);
 }
 
 TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_CartJoint_Linear)  // NOLINT
@@ -378,7 +378,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2.getPosition()).at(manip_info_.tcp_frame);
   double trans_dist = (p2.translation() - wp1.getTransform().translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
-  EXPECT_TRUE(static_cast<int>(ctl.size()) > min_steps);
+  EXPECT_GT(static_cast<int>(ctl.size()), min_steps);
   EXPECT_EQ(ctl.size(), trans_steps);
 
   // Ensure rotation_longest_valid_segment_length is used
@@ -387,7 +387,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   auto crl = crl_profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   double rot_dist = Eigen::Quaterniond(wp1.getTransform().linear()).angularDistance(Eigen::Quaterniond(p2.linear()));
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
-  EXPECT_TRUE(static_cast<int>(crl.size()) > min_steps);
+  EXPECT_GT(static_cast<int>(crl.size()), min_steps);
   EXPECT_EQ(crl.size(), rot_steps);
 }
 
@@ -441,7 +441,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   double longest_valid_segment_length = 0.01;
   SimplePlannerLVSMoveProfile cl_profile(longest_valid_segment_length, 10, 6.28, min_steps);
   auto cl = cl_profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
-  EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
+  EXPECT_GT(static_cast<int>(cl.size()), min_steps);
 }
 
 TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_CartCart_Linear)  // NOLINT
@@ -495,7 +495,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   auto ctl = ctl_profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   double trans_dist = (wp2.getTransform().translation() - wp1.getTransform().translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
-  EXPECT_TRUE(static_cast<int>(ctl.size()) > min_steps);
+  EXPECT_GT(static_cast<int>(ctl.size()), min_steps);
   EXPECT_EQ(ctl.size(), trans_steps);
 
   // Ensure rotation_longest_valid_segment_length is used
@@ -505,7 +505,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   double rot_dist =
       Eigen::Quaterniond(wp1.getTransform().linear()).angularDistance(Eigen::Quaterniond(wp2.getTransform().linear()));
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
-  EXPECT_TRUE(static_cast<int>(crl.size()) > min_steps);
+  EXPECT_GT(static_cast<int>(crl.size()), min_steps);
   EXPECT_EQ(crl.size(), rot_steps);
 }
 
