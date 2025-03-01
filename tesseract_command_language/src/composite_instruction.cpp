@@ -148,7 +148,7 @@ CompositeInstruction::iterator CompositeInstruction::insertMoveInstruction(const
 }
 CompositeInstruction::iterator CompositeInstruction::insertMoveInstruction(const_iterator p, MoveInstructionPoly&& x)
 {
-  return container_.insert(p, std::move(x));
+  return container_.insert(p, std::move(x));  // NOLINT
 }
 
 MoveInstructionPoly* CompositeInstruction::getFirstMoveInstruction()
