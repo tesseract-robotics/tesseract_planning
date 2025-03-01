@@ -86,42 +86,148 @@ public:
                            tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
 
   // Instruction
+
+  /**
+   * @brief Get the UUID
+   * @return The UUID
+   */
   const boost::uuids::uuid& getUUID() const override final;
+  /**
+   * @brief Set the UUID
+   * @param uuid The UUID
+   */
   void setUUID(const boost::uuids::uuid& uuid) override final;
+  /**
+   * @brief Regenerate the UUID
+   */
   void regenerateUUID() override final;
+
+  /**
+   * @brief Get the parent UUID
+   * @return The parent UUID
+   */
   const boost::uuids::uuid& getParentUUID() const override final;
+  /**
+   * @brief Set the parent UUID
+   * @param uuid The parent UUID
+   */
   void setParentUUID(const boost::uuids::uuid& uuid) override final;
+
+  /**
+   * @brief Get the description
+   * @return The description
+   */
   const std::string& getDescription() const override final;
+  /**
+   * @brief Set the description
+   * @param description The description
+   */
   void setDescription(const std::string& description) override final;
+
+  /**
+   * @brief Output the contents to std::cout
+   * @param prefix The prefix to add to each variable
+   */
   void print(const std::string& prefix = "") const override final;
 
   // Move Instruction
-  void setMoveType(MoveInstructionType move_type) override final;
-  MoveInstructionType getMoveType() const override final;
 
+  /**
+   * @brief Get the waypoint
+   * @return The waypoint
+   */
   WaypointPoly& getWaypoint() override final;
   const WaypointPoly& getWaypoint() const override final;
 
+  /**
+   * @brief Set the manipulator information
+   * @param info The manipulator information
+   */
   void setManipulatorInfo(tesseract_common::ManipulatorInfo info) override final;
+  /**
+   * @brief Get the manipulator information
+   * @return The manipulator information
+   */
   const tesseract_common::ManipulatorInfo& getManipulatorInfo() const override final;
   tesseract_common::ManipulatorInfo& getManipulatorInfo() override final;
 
+  /**
+   * @brief Set the waypoint profile
+   * @param profile The waypoint profile
+   */
   void setProfile(const std::string& profile) override final;
+  /**
+   * @brief Get the waypoint profile
+   * @param ns The namepace to lookup profile
+   * @return The profile associated with the namespace
+   */
   const std::string& getProfile(const std::string& ns = "") const override final;
 
+  /**
+   * @brief Set the waypoint path profile
+   * @param profile The waypoint path profile
+   */
   void setPathProfile(const std::string& profile) override final;
+  /**
+   * @brief Get the waypoint path profile
+   * @param ns The namepace to lookup profile
+   * @return The path profile associated with the namespace
+   */
   const std::string& getPathProfile(const std::string& ns = "") const override final;
 
+  /**
+   * @brief Set the profile overrides
+   * @param profile_overrides The profile overrides
+   */
   void setProfileOverrides(ProfileOverrides profile_overrides) override final;
+  /**
+   * @brief Get the profile overrides
+   * @return The profile overrides
+   */
   const ProfileOverrides& getProfileOverrides() const override final;
 
+  /**
+   * @brief Set the path profile overrides
+   * @param profile_overrides The path profile overrides
+   */
   void setPathProfileOverrides(ProfileOverrides profile_overrides) override final;
+  /**
+   * @brief Get the path profile overrides
+   * @return The path profile overrides
+   */
   const ProfileOverrides& getPathProfileOverrides() const override final;
 
+  /**
+   * @brief Set the move type
+   * @param move_type The move type
+   */
+  void setMoveType(MoveInstructionType move_type) override final;
+  /**
+   * @brief Get the move type
+   * @return The move type
+   */
+  MoveInstructionType getMoveType() const override final;
+
+  /**
+   * @brief Create cartesian waypoint poly
+   * @return A cartesian waypoint poly
+   */
   CartesianWaypointPoly createCartesianWaypoint() const override final;
+  /**
+   * @brief Create joint waypoint poly
+   * @return A joint waypoint poly
+   */
   JointWaypointPoly createJointWaypoint() const override final;
+  /**
+   * @brief Create state waypoint poly
+   * @return A state waypoint poly
+   */
   StateWaypointPoly createStateWaypoint() const override final;
 
+  /**
+   * @brief Make a deep copy of the object
+   * @return A deep copy
+   */
   std::unique_ptr<MoveInstructionInterface> clone() const override final;
 
 private:
@@ -155,6 +261,11 @@ private:
   /** @brief Contains information about the manipulator associated with this instruction*/
   tesseract_common::ManipulatorInfo manipulator_info_;
 
+  /**
+   * @brief Check if two objects are equal
+   * @param other The other object to compare with
+   * @return True if equal, otherwise false
+   */
   bool equals(const MoveInstructionInterface& other) const override final;
 
   friend class boost::serialization::access;

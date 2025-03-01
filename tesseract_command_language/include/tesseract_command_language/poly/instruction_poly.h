@@ -47,23 +47,61 @@ struct uuid;
 
 namespace tesseract_planning
 {
+/**
+ * @brief The InstructionInterface class
+ */
 class InstructionInterface
 {
 public:
   virtual ~InstructionInterface() = default;
 
+  /**
+   * @brief Get the UUID
+   * @return The UUID
+   */
   virtual const boost::uuids::uuid& getUUID() const = 0;
+  /**
+   * @brief Set the UUID
+   * @param uuid The UUID
+   */
   virtual void setUUID(const boost::uuids::uuid& uuid) = 0;
+  /**
+   * @brief Regenerate the UUID
+   */
   virtual void regenerateUUID() = 0;
 
+  /**
+   * @brief Get the parent UUID
+   * @return The parent UUID
+   */
   virtual const boost::uuids::uuid& getParentUUID() const = 0;
+  /**
+   * @brief Set the parent UUID
+   * @param uuid The parent UUID
+   */
   virtual void setParentUUID(const boost::uuids::uuid& uuid) = 0;
 
+  /**
+   * @brief Get the description
+   * @return The description
+   */
   virtual const std::string& getDescription() const = 0;
+  /**
+   * @brief Set the description
+   * @param description The description
+   */
   virtual void setDescription(const std::string& description) = 0;
 
+  /**
+   * @brief Output the contents to std::cout
+   * @param prefix The prefix to add to each variable
+   */
   virtual void print(const std::string& prefix) const = 0;
 
+  /**
+   * @brief Make a deep copy of the object
+   * @return A deep copy
+   */
   virtual std::unique_ptr<InstructionInterface> clone() const = 0;
 
   // Operators
@@ -93,20 +131,49 @@ public:
   InstructionPoly& operator=(const InstructionPoly& other);
   InstructionPoly(InstructionPoly&& other) noexcept = default;
   InstructionPoly& operator=(InstructionPoly&& other) noexcept = default;
-
   InstructionPoly(const InstructionInterface& impl);
 
+  /**
+   * @brief Get the UUID
+   * @return The UUID
+   */
   const boost::uuids::uuid& getUUID() const;
+  /**
+   * @brief Set the UUID
+   * @param uuid The UUID
+   */
   void setUUID(const boost::uuids::uuid& uuid);
+  /**
+   * @brief Regenerate the UUID
+   */
   void regenerateUUID();
 
+  /**
+   * @brief Get the parent UUID
+   * @return The parent UUID
+   */
   const boost::uuids::uuid& getParentUUID() const;
+  /**
+   * @brief Set the parent UUID
+   * @param uuid The parent UUID
+   */
   void setParentUUID(const boost::uuids::uuid& uuid);
 
+  /**
+   * @brief Get the description
+   * @return The description
+   */
   const std::string& getDescription() const;
-
+  /**
+   * @brief Set the description
+   * @param description The description
+   */
   void setDescription(const std::string& description);
 
+  /**
+   * @brief Output the contents to std::cout
+   * @param prefix The prefix to add to each variable
+   */
   void print(const std::string& prefix = "") const;
 
   /**
@@ -129,8 +196,16 @@ public:
   InstructionInterface& getInstruction();
   const InstructionInterface& getInstruction() const;
 
+  /**
+   * @brief Check if object being stored is of type CompositeInstruction
+   * @return True if of type CompositeInstruction, otherwise false
+   */
   bool isCompositeInstruction() const;
 
+  /**
+   * @brief Check if object being stored is of type MoveInstructionPoly
+   * @return True if of type MoveInstructionPoly, otherwise false
+   */
   bool isMoveInstruction() const;
 
   // Type Casting

@@ -121,21 +121,58 @@ public:
   }
 
   // Instruction
+
+  /**
+   * @brief Get the UUID
+   * @return The UUID
+   */
   const boost::uuids::uuid& getUUID() const override final;
+  /**
+   * @brief Set the UUID
+   * @param uuid The UUID
+   */
   void setUUID(const boost::uuids::uuid& uuid) override final;
+  /**
+   * @brief Regenerate the UUID
+   */
   void regenerateUUID() override final;
 
+  /**
+   * @brief Get the parent UUID
+   * @return The parent UUID
+   */
   const boost::uuids::uuid& getParentUUID() const override final;
+  /**
+   * @brief Set the parent UUID
+   * @param uuid The parent UUID
+   */
   void setParentUUID(const boost::uuids::uuid& uuid) override final;
 
+  /**
+   * @brief Get the description
+   * @return The description
+   */
   void setDescription(const std::string& description) override final;
+  /**
+   * @brief Set the description
+   * @param description The description
+   */
   const std::string& getDescription() const override final;
 
+  /**
+   * @brief Output the contents to std::cout
+   * @param prefix The prefix to add to each variable
+   */
   void print(const std::string& prefix = "") const override final;
 
+  /**
+   * @brief Make a deep copy of the object
+   * @return A deep copy
+   */
   std::unique_ptr<InstructionInterface> clone() const override final;
 
   // Composite Instruction
+
   CompositeInstructionOrder getOrder() const;
 
   void setProfile(const std::string& profile);
