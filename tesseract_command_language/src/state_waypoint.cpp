@@ -45,9 +45,9 @@ StateWaypoint::StateWaypoint(std::vector<std::string> joint_names, const Eigen::
     throw std::runtime_error("StateWaypoint: parameters are not the same size!");
 }
 StateWaypoint::StateWaypoint(const std::vector<std::string>& names,
-                             const Eigen::VectorXd& position,
-                             const Eigen::VectorXd& velocity,
-                             const Eigen::VectorXd& acceleration,
+                             const Eigen::VectorXd& position,      // NOLINT(modernize-pass-by-value)
+                             const Eigen::VectorXd& velocity,      // NOLINT(modernize-pass-by-value)
+                             const Eigen::VectorXd& acceleration,  // NOLINT(modernize-pass-by-value)
                              double time)
   : joint_names_(names), position_(position), velocity_(velocity), acceleration_(acceleration), time_(time)
 {
