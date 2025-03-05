@@ -31,8 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/resource_locator.h>
 
-TESSERACT_ANY_EXPORT(tesseract_common::JointState, TesseractCommonJointState)
-
 using namespace tesseract_planning;
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerDataStorageTests)  // NOLINT

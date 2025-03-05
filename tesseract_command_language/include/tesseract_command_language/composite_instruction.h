@@ -509,11 +509,13 @@ private:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
+using CompositeInstructionAnyPoly = tesseract_common::AnyWrapper<CompositeInstruction>;
 }  // namespace tesseract_planning
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::CompositeInstruction)
 BOOST_CLASS_TRACKING(tesseract_planning::CompositeInstruction, boost::serialization::track_never)
 
-TESSERACT_ANY_EXPORT_KEY(tesseract_planning::CompositeInstruction, TesseractPlanningCompositeInstruction)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::CompositeInstructionAnyPoly)
+BOOST_CLASS_TRACKING(tesseract_planning::CompositeInstructionAnyPoly, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMPOSITE_INSTRUCTION_H

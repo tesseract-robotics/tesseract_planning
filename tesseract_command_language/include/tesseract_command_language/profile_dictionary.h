@@ -124,10 +124,11 @@ protected:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
+using ProfileDictionaryPtrAnyPoly =
+    tesseract_common::AnyWrapper<std::shared_ptr<tesseract_planning::ProfileDictionary>>;
 }  // namespace tesseract_planning
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::ProfileDictionary)
-TESSERACT_ANY_EXPORT_KEY(std::shared_ptr<tesseract_planning::ProfileDictionary>,
-                         TesseractPlanningProfileDictionarySharedPtr)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::ProfileDictionaryPtrAnyPoly)
 
 #endif  // TESSERACT_MOTION_PLANNERS_PROFILE_DICTIONARY_H
