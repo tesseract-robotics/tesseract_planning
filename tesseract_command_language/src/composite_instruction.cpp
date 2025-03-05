@@ -560,4 +560,5 @@ void CompositeInstruction::serialize(Archive& ar, const unsigned int /*version*/
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CompositeInstruction)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CompositeInstruction)
 
-TESSERACT_ANY_EXPORT_IMPLEMENT(TesseractPlanningCompositeInstruction)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CompositeInstructionAnyPoly)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CompositeInstructionAnyPoly)
