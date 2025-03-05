@@ -203,7 +203,7 @@ bool PuzzlePieceExample::run()
   // Create cartesian waypoint
   for (std::size_t i = 0; i < tool_poses.size(); ++i)
   {
-    CartesianWaypointPoly wp{ CartesianWaypoint(tool_poses[i]) };
+    CartesianWaypoint wp{ tool_poses[i] };
     MoveInstruction plan_instruction(wp, MoveInstructionType::LINEAR, "CARTESIAN");
     plan_instruction.setDescription("waypoint_" + std::to_string(i));
     program.appendMoveInstruction(plan_instruction);

@@ -40,7 +40,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class ProfileDictionary;
 /**
  * @brief The move instruction is used when defining the results of a motion planning request
  * @details

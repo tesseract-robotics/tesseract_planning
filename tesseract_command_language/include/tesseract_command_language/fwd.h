@@ -6,6 +6,10 @@
 namespace tesseract_planning
 {
 // Waypoint Poly
+class WaypointInterface;
+class CartesianWaypointInterface;
+class JointWaypointInterface;
+class StateWaypointInterface;
 class WaypointPoly;
 class CartesianWaypointPoly;
 class JointWaypointPoly;
@@ -17,8 +21,10 @@ class JointWaypoint;
 class StateWaypoint;
 
 // Instruction Poly
+class InstructionInterface;
 class InstructionPoly;
 enum class MoveInstructionType : std::uint8_t;
+class MoveInstructionInterface;
 class MoveInstructionPoly;
 
 // Instructions

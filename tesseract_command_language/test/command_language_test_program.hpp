@@ -21,8 +21,8 @@ inline CompositeInstruction getTestProgram(std::string profile,
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
-  StateWaypointPoly wp0{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
-  JointWaypointPoly wp00{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+  StateWaypoint wp0{ joint_names, Eigen::VectorXd::Zero(6) };
+  JointWaypoint wp00{ joint_names, Eigen::VectorXd::Zero(6) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
@@ -33,22 +33,22 @@ inline CompositeInstruction getTestProgram(std::string profile,
   seed_state.position = Eigen::VectorXd::Zero(6);
 
   // Define raster poses
-  CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
   wp1.setSeed(seed_state);
-  CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  CartesianWaypointPoly wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.1, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp2(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp3(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.1, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
   wp3.setSeed(seed_state);
-  CartesianWaypointPoly wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.0, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  CartesianWaypointPoly wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.1, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp4(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.0, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp5(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.1, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
   wp5.setSeed(seed_state);
-  CartesianWaypointPoly wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.2, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  JointWaypointPoly wp7 = JointWaypoint(joint_names, Eigen::VectorXd::Ones(6));
+  CartesianWaypoint wp6(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.2, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
+  JointWaypoint wp7(joint_names, Eigen::VectorXd::Ones(6));
 
   // Define raster move instruction
   MoveInstruction plan_c0(wp2, MoveInstructionType::LINEAR, "RASTER");

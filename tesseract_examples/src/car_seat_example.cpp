@@ -357,8 +357,8 @@ bool CarSeatExample::run()
     // Start and End Joint Position for the program
     Eigen::VectorXd start_pos = getPositionVectorXd(*joint_group, saved_positions_["Home"]);
     Eigen::VectorXd pick_pose = getPositionVectorXd(*joint_group, saved_positions_["Pick1"]);
-    StateWaypointPoly wp0{ StateWaypoint(joint_group->getJointNames(), start_pos) };
-    StateWaypointPoly wp1{ StateWaypoint(joint_group->getJointNames(), pick_pose) };
+    StateWaypoint wp0{ joint_group->getJointNames(), start_pos };
+    StateWaypoint wp1{ joint_group->getJointNames(), pick_pose };
 
     // Start Joint Position for the program
     MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "FREESPACE");
@@ -443,8 +443,8 @@ bool CarSeatExample::run()
     // Start and End Joint Position for the program
     Eigen::VectorXd start_pos = getPositionVectorXd(*joint_group, saved_positions_["Pick1"]);
     Eigen::VectorXd pick_pose = getPositionVectorXd(*joint_group, saved_positions_["Place1"]);
-    StateWaypointPoly wp0{ StateWaypoint(joint_group->getJointNames(), start_pos) };
-    StateWaypointPoly wp1{ StateWaypoint(joint_group->getJointNames(), pick_pose) };
+    StateWaypoint wp0{ joint_group->getJointNames(), start_pos };
+    StateWaypoint wp1{ joint_group->getJointNames(), pick_pose };
 
     // Start Joint Position for the program
     MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "FREESPACE");

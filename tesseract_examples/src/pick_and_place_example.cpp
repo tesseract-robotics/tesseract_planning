@@ -189,7 +189,7 @@ bool PickAndPlaceExample::run()
   // Create Program
   CompositeInstruction pick_program("DEFAULT", ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
-  StateWaypointPoly pick_swp{ StateWaypoint(joint_names, joint_pos) };
+  StateWaypoint pick_swp{ joint_names, joint_pos };
   MoveInstruction start_instruction(pick_swp, MoveInstructionType::FREESPACE, "FREESPACE");
   start_instruction.setDescription("Start Instruction");
 
@@ -198,12 +198,12 @@ bool PickAndPlaceExample::run()
   pick_final_pose.linear() = Eigen::Quaterniond(0.0, 0.0, 1.0, 0.0).matrix();
   pick_final_pose.translation() =
       Eigen::Vector3d(box_position_[0], box_position_[1], box_size_ + 0.772 + OFFSET);  // Offset for the table
-  CartesianWaypointPoly pick_wp1{ CartesianWaypoint(pick_final_pose) };
+  CartesianWaypoint pick_wp1{ pick_final_pose };
 
   // Define the approach pose
   Eigen::Isometry3d pick_approach_pose = pick_final_pose;
   pick_approach_pose.translation() += Eigen::Vector3d(0.0, 0.0, 0.15);
-  CartesianWaypointPoly pick_wp0{ CartesianWaypoint(pick_approach_pose) };
+  CartesianWaypoint pick_wp0{ pick_approach_pose };
 
   // Plan freespace from start
   MoveInstruction pick_plan_a0(pick_wp0, MoveInstructionType::FREESPACE, "FREESPACE");
@@ -388,13 +388,13 @@ bool PickAndPlaceExample::run()
   CompositeInstruction place_program("DEFAULT", ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
   // Define the approach pose
-  CartesianWaypointPoly place_wp0{ CartesianWaypoint(retreat_pose) };
+  CartesianWaypoint place_wp0{ retreat_pose };
 
   // Define the final pose approach
-  CartesianWaypointPoly place_wp1{ CartesianWaypoint(place_approach_pose) };
+  CartesianWaypoint place_wp1{ place_approach_pose };
 
   // Define the final pose
-  CartesianWaypointPoly place_wp2{ CartesianWaypoint(place_pose) };
+  CartesianWaypoint place_wp2{ place_pose };
 
   // Plan cartesian retraction from picking up the box
   MoveInstruction place_plan_a0(place_wp0, MoveInstructionType::LINEAR, "CARTESIAN");
