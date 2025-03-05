@@ -56,24 +56,24 @@ CompositeInstruction getProgram()
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
-  StateWaypointPoly wp0{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+  StateWaypoint wp0{ joint_names, Eigen::VectorXd::Zero(6) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
 
   // Define raster poses
-  CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  CartesianWaypointPoly wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.1, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  CartesianWaypointPoly wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.0, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  CartesianWaypointPoly wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.1, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  CartesianWaypointPoly wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.2, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
-  JointWaypointPoly wp7 = JointWaypoint(joint_names, Eigen::VectorXd::Ones(6));
+  CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp2(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp3(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.1, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp4(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.0, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp5(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.1, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp6(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.2, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
+  JointWaypoint wp7(joint_names, Eigen::VectorXd::Ones(6));
 
   // Define raster move instruction
   MoveInstruction plan_c0(wp2, MoveInstructionType::LINEAR, "RASTER");
@@ -198,8 +198,7 @@ std::vector<WaypointPoly> createVectorStateWaypointPoly()
   results.reserve(1000);
   for (std::size_t i = 0; i < 1000; ++i)
   {
-    WaypointPoly wp1 =
-        JointWaypointPoly(JointWaypoint({ "j1", "j2", "j3", "j4", "j5", "j6" }, Eigen::VectorXd::Ones(6)));
+    WaypointPoly wp1 = JointWaypoint({ "j1", "j2", "j3", "j4", "j5", "j6" }, Eigen::VectorXd::Ones(6));
 
     results.push_back(std::move(wp1));
   }
@@ -301,7 +300,7 @@ BENCHMARK(BM_InstructionPolyCopy);
 
 static void BM_WaypointPolyCopy(benchmark::State& state)
 {
-  WaypointPoly w{ StateWaypointPoly(StateWaypoint()) };
+  WaypointPoly w{ StateWaypoint() };
   for (auto _ : state)
     WaypointPoly copy(w);
 }
@@ -328,7 +327,7 @@ BENCHMARK(BM_InstructionPolyAssign);
 
 static void BM_WaypointPolyAssign(benchmark::State& state)
 {
-  WaypointPoly w{ StateWaypointPoly(StateWaypoint()) };
+  WaypointPoly w{ StateWaypoint() };
   for (auto _ : state)
     WaypointPoly copy = w;
 }
@@ -355,7 +354,7 @@ BENCHMARK(BM_InstructionPolyCast);
 
 static void BM_WaypointPolyCast(benchmark::State& state)
 {
-  WaypointPoly w{ StateWaypointPoly(StateWaypoint()) };
+  WaypointPoly w{ StateWaypoint() };
   for (auto _ : state)
     auto& sw = w.as<StateWaypoint>();  // NOLINT
 }
@@ -373,7 +372,7 @@ BENCHMARK(BM_InstructionPolyAccess);
 
 static void BM_WaypointPolyAccess(benchmark::State& state)
 {
-  WaypointPoly w{ StateWaypointPoly(StateWaypoint()) };
+  WaypointPoly w{ StateWaypoint() };
   for (auto _ : state)
     std::type_index type = w.getType();
 }

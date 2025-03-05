@@ -95,25 +95,25 @@ int main(int /*argc*/, char** /*argv*/)
     auto cur_state = env->getState();
 
     // Specify start location
-    JointWaypointPoly wp0{ JointWaypoint(kin_group->getJointNames(), Eigen::VectorXd::Zero(6)) };
+    JointWaypoint wp0{ kin_group->getJointNames(), Eigen::VectorXd::Zero(6) };
 
     // Specify raster 1 start waypoint and end waypoint
-    CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
-                                                 Eigen::Quaterniond(0, 0, -1.0, 0)) };
-    CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *
-                                                 Eigen::Quaterniond(0, 0, -1.0, 0)) };
+    CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
+                           Eigen::Quaterniond(0, 0, -1.0, 0) };
+    CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *
+                           Eigen::Quaterniond(0, 0, -1.0, 0) };
 
     // Specify raster 2 start waypoint and end waypoint
-    CartesianWaypointPoly wp3{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.9, -.20, 0.8) *
-                                                 Eigen::Quaterniond(0, 0, -1.0, 0)) };
-    CartesianWaypointPoly wp4{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.9, .20, 0.8) *
-                                                 Eigen::Quaterniond(0, 0, -1.0, 0)) };
+    CartesianWaypoint wp3{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.9, -.20, 0.8) *
+                           Eigen::Quaterniond(0, 0, -1.0, 0) };
+    CartesianWaypoint wp4{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.9, .20, 0.8) *
+                           Eigen::Quaterniond(0, 0, -1.0, 0) };
 
     // Specify raster 4 start waypoint and end waypoint
-    CartesianWaypointPoly wp5{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(1.0, -.20, 0.8) *
-                                                 Eigen::Quaterniond(0, 0, -1.0, 0)) };
-    CartesianWaypointPoly wp6{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(1.0, .20, 0.8) *
-                                                 Eigen::Quaterniond(0, 0, -1.0, 0)) };
+    CartesianWaypoint wp5{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(1.0, -.20, 0.8) *
+                           Eigen::Quaterniond(0, 0, -1.0, 0) };
+    CartesianWaypoint wp6{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(1.0, .20, 0.8) *
+                           Eigen::Quaterniond(0, 0, -1.0, 0) };
 
     // Define Plan Instructions
     MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "DEFAULT");

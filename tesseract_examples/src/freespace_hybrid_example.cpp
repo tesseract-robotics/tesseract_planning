@@ -172,8 +172,8 @@ bool FreespaceHybridExample::run()
   CompositeInstruction program("FREESPACE", ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start and End Joint Position for the program
-  StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_start_pos) };
-  StateWaypointPoly wp1{ StateWaypoint(joint_names, joint_end_pos) };
+  StateWaypoint wp0{ joint_names, joint_start_pos };
+  StateWaypoint wp1{ joint_names, joint_end_pos };
 
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "FREESPACE");
   start_instruction.setDescription("Start Instruction");

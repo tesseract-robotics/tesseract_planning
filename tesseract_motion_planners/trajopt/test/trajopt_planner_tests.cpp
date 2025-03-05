@@ -120,11 +120,11 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   std::vector<std::string> joint_names = joint_group->getJointNames();
 
   // Specify a JointWaypoint as the start
-  JointWaypointPoly wp1{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  JointWaypoint wp1{ joint_names, Eigen::VectorXd::Zero(7) };
   wp1.getPosition() << 0, 0, 0, -1.57, 0, 0, 0;
 
   // Specify a Joint Waypoint as the finish
-  JointWaypointPoly wp2{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  JointWaypoint wp2{ joint_names, Eigen::VectorXd::Zero(7) };
   wp2.getPosition() << 0, 0, 0, 1.57, 0, 0, 0;
 
   // Define Start Instruction
@@ -194,11 +194,11 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   std::vector<std::string> joint_names = joint_group->getJointNames();
 
   // Specify a JointWaypoint as the start
-  JointWaypointPoly wp1{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  JointWaypoint wp1{ joint_names, Eigen::VectorXd::Zero(7) };
   wp1.getPosition() << 0, 0, 0, -1.57, 0, 0, 0;
 
   // Specify a Joint Waypoint as the finish
-  JointWaypointPoly wp2{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  JointWaypoint wp2{ joint_names, Eigen::VectorXd::Zero(7) };
   wp2.getPosition() << 0, 0, 0, 1.57, 0, 0, 0;
 
   // Define Start Instruction
@@ -280,12 +280,12 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   std::vector<std::string> joint_names = joint_group->getJointNames();
 
   // Specify a JointWaypoint as the start
-  JointWaypointPoly wp1{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  JointWaypoint wp1{ joint_names, Eigen::VectorXd::Zero(7) };
   wp1.getPosition() << 0, 0, 0, -1.57, 0, 0, 0;
 
   // Specify a CartesianWaypoint as the finish
-  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
-                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
+  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
+                         Eigen::Quaterniond(0, 0, 1.0, 0) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE");
@@ -366,11 +366,11 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   std::vector<std::string> joint_names = joint_group->getJointNames();
 
   // Specify a JointWaypoint as the start
-  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
-                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
+                         Eigen::Quaterniond(0, 0, 1.0, 0) };
 
   // Specify a Joint Waypoint as the finish
-  JointWaypointPoly wp2{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  JointWaypoint wp2{ joint_names, Eigen::VectorXd::Zero(7) };
   wp2.getPosition() << 0, 0, 0, -1.57, 0, 0, 0;
 
   // Define Start Instruction
@@ -450,12 +450,12 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
 {
   // Specify a CartesianWaypoint as the start
-  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
-                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
+                         Eigen::Quaterniond(0, 0, 1.0, 0) };
 
   // Specify a CartesianWaypoint as the finish
-  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
-                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
+  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
+                         Eigen::Quaterniond(0, 0, 1.0, 0) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE");
@@ -535,12 +535,12 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
 TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOLINT
 {
   // Specify a JointWaypoint as the start
-  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.8) *
-                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.8) *
+                         Eigen::Quaterniond(0, 0, 1.0, 0) };
 
   // Specify a Joint Waypoint as the finish
-  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(.20, .4, 0.8) *
-                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
+  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(.20, .4, 0.8) *
+                         Eigen::Quaterniond(0, 0, 1.0, 0) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE");
@@ -633,7 +633,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   for (int ind = 0; ind < NUM_STEPS; ind++)
   {
     // Specify a Joint Waypoint as the finish
-    JointWaypointPoly wp{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+    JointWaypoint wp{ joint_names, Eigen::VectorXd::Zero(7) };
     wp.getPosition() << 0, 0, 0, -1.57 + ind * 0.1, 0, 0, 0;
     MoveInstruction plan_f(wp, MoveInstructionType::FREESPACE, "TEST_PROFILE");
     program.appendMoveInstruction(plan_f);
@@ -693,7 +693,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   for (int ind = 0; ind < NUM_STEPS; ind++)
   {
     // Specify a Joint Waypoint as the finish
-    JointWaypointPoly wp{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+    JointWaypoint wp{ joint_names, Eigen::VectorXd::Zero(7) };
     wp.getPosition() << 0, 0, 0, -1.57 + ind * 0.1, 0, 0, 0;
     MoveInstruction plan_f(wp, MoveInstructionType::FREESPACE, "TEST_PROFILE");
     program.appendMoveInstruction(plan_f);

@@ -41,6 +41,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class CartesianWaypointInterface;
+class JointWaypointInterface;
+class StateWaypointInterface;
+
 /**
  * @brief The WaypointInterface class
  */
@@ -104,6 +108,9 @@ public:
   WaypointPoly& operator=(WaypointPoly&& other) noexcept = default;
 
   WaypointPoly(const WaypointInterface& impl);
+  WaypointPoly(const CartesianWaypointInterface& impl);
+  WaypointPoly(const JointWaypointInterface& impl);
+  WaypointPoly(const StateWaypointInterface& impl);
 
   /**
    * @brief Set the name of the waypoint

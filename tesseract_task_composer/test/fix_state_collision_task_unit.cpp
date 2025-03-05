@@ -97,7 +97,7 @@ TEST_F(FixStateCollisionTaskUnit, WaypointInCollisionTest)  // NOLINT
   FixStateCollisionProfile profile;
 
   Eigen::VectorXd state = Eigen::VectorXd::Zero(2);
-  JointWaypointPoly waypoint{ JointWaypoint({ "boxbot_x_joint", "boxbot_y_joint" }, state) };
+  JointWaypoint waypoint{ { "boxbot_x_joint", "boxbot_y_joint" }, state };
   tesseract_collision::ContactResultMap contacts;
 
   EXPECT_TRUE(waypointInCollision(waypoint, manip_, *env_, profile, contacts));
@@ -128,7 +128,7 @@ TEST_F(FixStateCollisionTaskUnit, WaypointInCollisionTest)  // NOLINT
   EXPECT_TRUE(contacts.empty());
 
   // Check that it catches invalid inputs correctly
-  CartesianWaypointPoly cart_wp{ CartesianWaypoint{ Eigen::Isometry3d::Identity() } };
+  CartesianWaypoint cart_wp{ Eigen::Isometry3d::Identity() };
   contacts.clear();
   EXPECT_FALSE(waypointInCollision(cart_wp, manip_, *env_, profile, contacts));
   EXPECT_TRUE(contacts.empty());
@@ -146,7 +146,7 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionRandomSamplerTest)  /
   FixStateCollisionProfile profile;
 
   Eigen::VectorXd state = Eigen::VectorXd::Zero(2);
-  JointWaypointPoly waypoint{ JointWaypoint({ "boxbot_x_joint", "boxbot_y_joint" }, state) };
+  JointWaypoint waypoint{ { "boxbot_x_joint", "boxbot_y_joint" }, state };
 
   // Check that the safety margin is obeyed
   profile.collision_check_config.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
@@ -180,7 +180,7 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionTrajoptTest)  // NOLI
   FixStateCollisionProfile profile;
 
   Eigen::VectorXd state = Eigen::VectorXd::Zero(2);
-  JointWaypointPoly waypoint{ JointWaypoint({ "boxbot_x_joint", "boxbot_y_joint" }, state) };
+  JointWaypoint waypoint{ { "boxbot_x_joint", "boxbot_y_joint" }, state };
 
   // Check that the safety margin is obeyed
   profile.collision_check_config.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);

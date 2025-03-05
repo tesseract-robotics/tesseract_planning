@@ -91,12 +91,12 @@ protected:
 TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
 {
   // Specify a start waypoint
-  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
-                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
 
   // Specify a end waypoint
-  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *
-                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
+  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
@@ -190,12 +190,12 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
 TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
 {
   // Specify a start waypoint
-  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
-                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
 
   // Specify a end waypoint
-  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *
-                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
+  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
@@ -283,12 +283,12 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
 TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  // NOLINT
 {
   // Specify a start waypoint
-  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.10, 0.8) *
-                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.10, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
 
   // Specify a end waypoint
-  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .10, 0.8) *
-                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
+  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .10, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);

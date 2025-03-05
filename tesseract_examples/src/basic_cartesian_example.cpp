@@ -186,16 +186,16 @@ bool BasicCartesianExample::run()
   CompositeInstruction program("cartesian_program", ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
-  StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_pos) };
+  StateWaypoint wp0{ joint_names, joint_pos };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
 
   // Create cartesian waypoint
-  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.5, -0.2, 0.62) *
-                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.5, -0.2, 0.62) *
+                         Eigen::Quaterniond(0, 0, 1.0, 0) };
 
-  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.5, 0.3, 0.62) *
-                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
+  CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.5, 0.3, 0.62) *
+                         Eigen::Quaterniond(0, 0, 1.0, 0) };
 
   // Plan freespace from start
   MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "freespace_profile");

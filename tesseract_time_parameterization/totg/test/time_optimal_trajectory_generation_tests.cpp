@@ -292,28 +292,28 @@ TEST(time_optimal_trajectory_generation, testCommandLanguageInterface)  // NOLIN
 
   {
     waypoint << 0, 0.7, -2.1, 0, -0.25, 0;
-    StateWaypointPoly wp{ StateWaypoint(joint_names, waypoint) };
+    StateWaypoint wp{ joint_names, waypoint };
     MoveInstruction plan_f0(wp, MoveInstructionType::FREESPACE, "profile_name");
     plan_f0.setDescription("freespace_motion");
     program.appendMoveInstruction(plan_f0);
   }
   {
     waypoint << 0, 0, 0, 0, 0, 0;
-    StateWaypointPoly wp{ StateWaypoint(joint_names, waypoint) };
+    StateWaypoint wp{ joint_names, waypoint };
     MoveInstruction plan_f0(wp, MoveInstructionType::FREESPACE, "profile_name");
     plan_f0.setDescription("freespace_motion");
     program.appendMoveInstruction(plan_f0);
   }
   {
     waypoint << 0, 0.70001, -2.1, 0, -0.25, 0;
-    StateWaypointPoly wp{ StateWaypoint(joint_names, waypoint) };
+    StateWaypoint wp{ joint_names, waypoint };
     MoveInstruction plan_f0(wp, MoveInstructionType::FREESPACE, "profile_name");
     plan_f0.setDescription("freespace_motion");
     program.appendMoveInstruction(plan_f0);
   }
   {
     waypoint << 0, 0, 0, 0, 0, 0.1;
-    StateWaypointPoly wp{ StateWaypoint(joint_names, waypoint) };
+    StateWaypoint wp{ joint_names, waypoint };
     MoveInstruction plan_f0(wp, MoveInstructionType::FREESPACE, "profile_name");
     plan_f0.setDescription("freespace_motion");
     program.appendMoveInstruction(plan_f0);
@@ -345,13 +345,13 @@ CompositeInstruction createStraightTrajectory()
   CompositeInstruction program;
   for (int i = 0; i < num; i++)
   {
-    StateWaypointPoly swp{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+    StateWaypoint swp{ joint_names, Eigen::VectorXd::Zero(6) };
     swp.getPosition()[0] = i * max / num;
     program.appendMoveInstruction(MoveInstruction(swp, MoveInstructionType::FREESPACE));
   }
 
   // leave final velocity/acceleration unset
-  StateWaypointPoly swp{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+  StateWaypoint swp{ joint_names, Eigen::VectorXd::Zero(6) };
   swp.getPosition()[0] = max;
   program.appendMoveInstruction(MoveInstruction(swp, MoveInstructionType::FREESPACE));
 

@@ -57,7 +57,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
       sub_sub_composite.setDescription("sub_sub_composite_" + std::to_string(j));
       for (std::size_t k = 0; k < k_max; k++)
       {
-        CartesianWaypointPoly wp{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
+        CartesianWaypoint wp{ Eigen::Isometry3d::Identity() };
         MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
         instruction.setDescription("instruction_" + std::to_string(i) + "_" + std::to_string(j) + "_" +
                                    std::to_string(k));
@@ -175,8 +175,8 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionTests)  // NOLINT
 {
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
-  StateWaypointPoly wp0{ StateWaypoint(joint_names, Eigen::VectorXd::Constant(6, 3)) };
-  JointWaypointPoly wp00{ JointWaypoint(joint_names, Eigen::VectorXd::Constant(6, 5)) };
+  StateWaypoint wp0{ joint_names, Eigen::VectorXd::Constant(6, 3) };
+  JointWaypoint wp00{ joint_names, Eigen::VectorXd::Constant(6, 5) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
@@ -187,11 +187,11 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionTests)  // NOLINT
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
 
   // Define raster poses
-  CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
   wp1.setSeed(seed_state);
-  CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp2(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
 
   WaypointPoly wp0_poly{ wp0 };
   const Eigen::VectorXd& p0 = getJointPosition(wp0_poly);
@@ -221,8 +221,8 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionFormatedTests)  // NOLIN
   Eigen::VectorXd position00 = Eigen::Vector2d(3, 4);
   Eigen::VectorXd format_position0 = Eigen::Vector2d(2, 1);
   Eigen::VectorXd format_position00 = Eigen::Vector2d(4, 3);
-  StateWaypointPoly wp0{ StateWaypoint(joint_names, position0) };
-  JointWaypointPoly wp00{ JointWaypoint(joint_names, position00) };
+  StateWaypoint wp0{ joint_names, position0 };
+  JointWaypoint wp00{ joint_names, position00 };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
@@ -235,11 +235,11 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionFormatedTests)  // NOLIN
   seed_state.position = seed_position;
 
   // Define raster poses
-  CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
   wp1.setSeed(seed_state);
-  CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp2(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
 
   WaypointPoly wp0_poly{ wp0 };
   const Eigen::VectorXd& p0 = getJointPosition(format_joint_names, wp0_poly);
@@ -276,8 +276,8 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionTests)  // NOLINT
   Eigen::VectorXd position00 = Eigen::Vector2d(3, 4);
   Eigen::VectorXd format_position0 = Eigen::Vector2d(2, 1);
   Eigen::VectorXd format_position00 = Eigen::Vector2d(4, 3);
-  StateWaypointPoly wp0{ StateWaypoint(joint_names, position0) };
-  JointWaypointPoly wp00{ JointWaypoint(joint_names, position00) };
+  StateWaypoint wp0{ joint_names, position0 };
+  JointWaypoint wp00{ joint_names, position00 };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
@@ -290,11 +290,11 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionTests)  // NOLINT
   seed_state.position = seed_position;
 
   // Define raster poses
-  CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
   wp1.setSeed(seed_state);
-  CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp2(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
 
   WaypointPoly wp0_poly{ wp0 };
   EXPECT_TRUE(formatJointPosition(format_joint_names, wp0_poly));
@@ -332,8 +332,8 @@ TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLIN
   Eigen::VectorXd position00 = Eigen::Vector2d(3, 4);
   Eigen::VectorXd format_position0 = Eigen::Vector2d(2, 1);
   Eigen::VectorXd format_position00 = Eigen::Vector2d(4, 3);
-  StateWaypointPoly wp0{ StateWaypoint(joint_names, position0) };
-  JointWaypointPoly wp00{ JointWaypoint(joint_names, position00) };
+  StateWaypoint wp0{ joint_names, position0 };
+  JointWaypoint wp00{ joint_names, position00 };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
@@ -346,11 +346,11 @@ TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLIN
   seed_state.position = seed_position;
 
   // Define raster poses
-  CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
   wp1.setSeed(seed_state);
-  CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp2(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
 
   WaypointPoly wp0_poly{ wp0 };
   EXPECT_TRUE(checkJointPositionFormat(joint_names, wp0_poly));
@@ -381,8 +381,8 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointNamesTests)  // NOLINT
 {
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
-  StateWaypointPoly wp0{ StateWaypoint(joint_names, Eigen::VectorXd::Constant(6, 3)) };
-  JointWaypointPoly wp00{ JointWaypoint(joint_names, Eigen::VectorXd::Constant(6, 5)) };
+  StateWaypoint wp0{ joint_names, Eigen::VectorXd::Constant(6, 3) };
+  JointWaypoint wp00{ joint_names, Eigen::VectorXd::Constant(6, 5) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
@@ -393,11 +393,11 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointNamesTests)  // NOLINT
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
 
   // Define raster poses
-  CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
   wp1.setSeed(seed_state);
-  CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp2(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
 
   WaypointPoly wp0_poly{ wp0 };
   const std::vector<std::string>& n0 = getJointNames(wp0_poly);
@@ -422,8 +422,8 @@ TEST(TesseractCommandLanguageUtilsUnit, setJointPositionTests)  // NOLINT
 {
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
-  StateWaypointPoly wp0{ StateWaypoint(joint_names, Eigen::VectorXd::Constant(6, 3)) };
-  JointWaypointPoly wp00{ JointWaypoint(joint_names, Eigen::VectorXd::Constant(6, 5)) };
+  StateWaypoint wp0{ joint_names, Eigen::VectorXd::Constant(6, 3) };
+  JointWaypoint wp00{ joint_names, Eigen::VectorXd::Constant(6, 5) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   MoveInstruction end_instruction(wp00, MoveInstructionType::FREESPACE, "freespace_profile");
   start_instruction.setDescription("Start Instruction");
@@ -436,11 +436,11 @@ TEST(TesseractCommandLanguageUtilsUnit, setJointPositionTests)  // NOLINT
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
 
   // Define raster poses
-  CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
   wp1.setSeed(seed_state);
-  CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
-                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypoint wp2(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
+                        Eigen::Quaterniond(0, 0, -1.0, 0));
 
   WaypointPoly wp0_poly{ wp0 };
   EXPECT_TRUE(setJointPosition(wp0_poly, set_position));
@@ -471,27 +471,27 @@ TEST(TesseractCommandLanguageUtilsUnit, isWithinJointLimits)  // NOLINT
   // Within limits
   {
     values << 1, 1, 1;
-    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    JointWaypoint jp{ joint_names, values };
     WaypointPoly tmp(jp);
     EXPECT_TRUE(isWithinJointLimits(tmp, limits));
   }
   // Above limits
   {
     values << 1, 1, 3;
-    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    JointWaypoint jp{ joint_names, values };
     WaypointPoly tmp(jp);
     EXPECT_FALSE(isWithinJointLimits(tmp, limits));
   }
   // Below limits
   {
     values << 1, -1, 1;
-    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    JointWaypoint jp{ joint_names, values };
     WaypointPoly tmp(jp);
     EXPECT_FALSE(isWithinJointLimits(tmp, limits));
   }
   // Cartesian Waypoint
   {
-    CartesianWaypointPoly jp{ CartesianWaypoint() };
+    CartesianWaypoint jp{};
     WaypointPoly tmp(jp);
     EXPECT_ANY_THROW(isWithinJointLimits(tmp, limits));  // NOLINT
   }
@@ -507,7 +507,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
   // Within limits
   {
     values << 1, 1, 1;
-    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    JointWaypoint jp{ joint_names, values };
     WaypointPoly tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
     EXPECT_TRUE(tmp.as<JointWaypointPoly>().getPosition().isApprox(values, 1e-5));
@@ -515,7 +515,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
   // Above limits
   {
     values << 1, 1, 3;
-    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    JointWaypoint jp{ joint_names, values };
     WaypointPoly tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
     EXPECT_FALSE(tmp.as<JointWaypointPoly>().getPosition().isApprox(values, 1e-5));
@@ -524,7 +524,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
   // Below limits
   {
     values << 1, -1, 1;
-    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    JointWaypoint jp{ joint_names, values };
     WaypointPoly tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
     EXPECT_FALSE(tmp.as<JointWaypointPoly>().getPosition().isApprox(values, 1e-5));
@@ -533,7 +533,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
   // Above limits with max deviation
   {
     values << 1, 1, 2.05;
-    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    JointWaypoint jp{ joint_names, values };
     WaypointPoly tmp(jp);
     // Outside max deviation
     EXPECT_FALSE(clampToJointLimits(tmp, limits, 0.01));
@@ -546,7 +546,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
   // Below limits with max deviation
   {
     values << 1, -0.05, 1;
-    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    JointWaypoint jp{ joint_names, values };
     WaypointPoly tmp(jp);
     // Outside max deviation
     EXPECT_FALSE(clampToJointLimits(tmp, limits, 0.01));
@@ -558,7 +558,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
   }
   // Type with no joint values
   {
-    CartesianWaypointPoly jp{ CartesianWaypoint() };
+    CartesianWaypoint jp{};
     WaypointPoly tmp(jp);
     EXPECT_ANY_THROW(clampToJointLimits(tmp, limits));  // NOLINT
   }
@@ -572,17 +572,17 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
   std::vector<std::string> joint_names = { "1", "2", "3" };
   Eigen::VectorXd values = Eigen::VectorXd::Constant(3, 5);
   {
-    JointWaypointPoly jwp{ JointWaypoint(joint_names, values) };
+    JointWaypoint jwp{ joint_names, values };
     composite.appendMoveInstruction(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
   }
   {
     values = Eigen::VectorXd::Constant(3, 10);
-    JointWaypointPoly jwp{ JointWaypoint(joint_names, values) };
+    JointWaypoint jwp{ joint_names, values };
     composite.appendMoveInstruction(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
   }
   {
     values = Eigen::VectorXd::Constant(3, 15);
-    JointWaypointPoly jwp{ JointWaypoint(joint_names, values) };
+    JointWaypoint jwp{ joint_names, values };
     composite.appendMoveInstruction(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
   }
 

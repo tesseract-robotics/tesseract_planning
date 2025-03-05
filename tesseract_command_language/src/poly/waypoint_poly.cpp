@@ -8,6 +8,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_common/serialization.h>
 
 namespace tesseract_planning
@@ -39,6 +42,12 @@ WaypointPoly& WaypointPoly::operator=(const WaypointPoly& other)
 }
 
 WaypointPoly::WaypointPoly(const WaypointInterface& impl) : impl_(impl.clone()) {}
+WaypointPoly::WaypointPoly(const CartesianWaypointInterface& impl)
+  : impl_(std::make_unique<CartesianWaypointPoly>(impl))
+{
+}
+WaypointPoly::WaypointPoly(const JointWaypointInterface& impl) : impl_(std::make_unique<JointWaypointPoly>(impl)) {}
+WaypointPoly::WaypointPoly(const StateWaypointInterface& impl) : impl_(std::make_unique<StateWaypointPoly>(impl)) {}
 
 void WaypointPoly::setName(const std::string& name) { impl_->setName(name); }
 const std::string& WaypointPoly::getName() const { return impl_->getName(); }

@@ -48,18 +48,18 @@ inline CompositeInstruction freespaceExampleProgramIIWA(
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_a1", "joint_a2", "joint_a3", "joint_a4",
                                            "joint_a5", "joint_a6", "joint_a7" };
-  StateWaypointPoly wp1{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  StateWaypoint wp1{ joint_names, Eigen::VectorXd::Zero(7) };
   MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
   start_instruction.setDescription("Start Instruction");
 
   // Define target pose
-  CartesianWaypointPoly wp2{ CartesianWaypoint(goal) };
+  CartesianWaypoint wp2{ goal };
   MoveInstruction plan_f0(wp2, MoveInstructionType::FREESPACE, freespace_profile);
   plan_f0.setDescription("freespace_motion");
   program.appendMoveInstruction(start_instruction);
   program.appendMoveInstruction(plan_f0);
 
-  JointWaypointPoly wp3{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  JointWaypoint wp3{ joint_names, Eigen::VectorXd::Zero(7) };
   MoveInstruction plan_f1(wp3, MoveInstructionType::FREESPACE);
   program.appendMoveInstruction(plan_f1);
 
@@ -75,18 +75,18 @@ inline CompositeInstruction freespaceExampleProgramABB(
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
-  StateWaypointPoly wp1{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+  StateWaypoint wp1{ joint_names, Eigen::VectorXd::Zero(6) };
   MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
   start_instruction.setDescription("Start Instruction");
 
   // Define target pose
-  CartesianWaypointPoly wp2{ CartesianWaypoint(goal) };
+  CartesianWaypoint wp2{ goal };
   MoveInstruction plan_f0(wp2, MoveInstructionType::FREESPACE, freespace_profile);
   plan_f0.setDescription("freespace_motion");
   program.appendMoveInstruction(start_instruction);
   program.appendMoveInstruction(plan_f0);
 
-  JointWaypointPoly wp3{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+  JointWaypoint wp3{ joint_names, Eigen::VectorXd::Zero(6) };
   MoveInstruction plan_f1(wp3, MoveInstructionType::FREESPACE);
   program.appendMoveInstruction(plan_f1);
 
@@ -110,11 +110,11 @@ jointInterpolatedExampleSolutionIIWA(bool use_joint_waypoint = false,
 
   if (use_joint_waypoint)
   {
-    JointWaypointPoly wp1{ JointWaypoint(joint_names, start_state) };
+    JointWaypoint wp1{ joint_names, start_state };
     MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
     start_instruction.setDescription("Start Instruction");
 
-    JointWaypointPoly wp2{ JointWaypoint(joint_names, end_state) };
+    JointWaypoint wp2{ joint_names, end_state };
     MoveInstruction end_instruction(wp2, MoveInstructionType::FREESPACE);
     end_instruction.setDescription("End Instruction");
 
@@ -123,11 +123,11 @@ jointInterpolatedExampleSolutionIIWA(bool use_joint_waypoint = false,
   }
   else
   {
-    StateWaypointPoly wp1{ StateWaypoint(joint_names, start_state) };
+    StateWaypoint wp1{ joint_names, start_state };
     MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
     start_instruction.setDescription("Start Instruction");
 
-    StateWaypointPoly wp2{ StateWaypoint(joint_names, end_state) };
+    StateWaypoint wp2{ joint_names, end_state };
     MoveInstruction end_instruction(wp2, MoveInstructionType::FREESPACE);
     end_instruction.setDescription("End Instruction");
 
@@ -154,11 +154,11 @@ jointInterpolateExampleProgramABB(bool use_joint_waypoint = false,
 
   if (use_joint_waypoint)
   {
-    JointWaypointPoly wp1{ JointWaypoint(joint_names, start_state) };
+    JointWaypoint wp1{ joint_names, start_state };
     MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
     start_instruction.setDescription("Start Instruction");
 
-    JointWaypointPoly wp2{ JointWaypoint(joint_names, end_state) };
+    JointWaypoint wp2{ joint_names, end_state };
     MoveInstruction end_instruction(wp2, MoveInstructionType::FREESPACE);
     end_instruction.setDescription("End Instruction");
 
@@ -167,11 +167,11 @@ jointInterpolateExampleProgramABB(bool use_joint_waypoint = false,
   }
   else
   {
-    StateWaypointPoly wp1{ StateWaypoint(joint_names, start_state) };
+    StateWaypoint wp1{ joint_names, start_state };
     MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
     start_instruction.setDescription("Start Instruction");
 
-    StateWaypointPoly wp2{ StateWaypoint(joint_names, end_state) };
+    StateWaypoint wp2{ joint_names, end_state };
     MoveInstruction end_instruction(wp2, MoveInstructionType::FREESPACE);
     end_instruction.setDescription("End Instruction");
 
@@ -189,12 +189,12 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
-  StateWaypointPoly swp1{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+  StateWaypoint swp1{ joint_names, Eigen::VectorXd::Zero(6) };
   MoveInstruction start_instruction(swp1, MoveInstructionType::FREESPACE, freespace_profile);
   start_instruction.setDescription("Start");
 
-  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
+  CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
+                         Eigen::Quaterniond(0, 0, -1.0, 0) };
 
   // Define from start composite instruction
   MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, freespace_profile);
@@ -209,20 +209,20 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
   for (int i = 0; i < 4; ++i)
   {
     double x = 0.8 + (i * 0.1);
-    CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.3, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
-    CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.2, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
-    CartesianWaypointPoly wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.1, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
-    CartesianWaypointPoly wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
-    CartesianWaypointPoly wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
-    CartesianWaypointPoly wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
-    CartesianWaypointPoly wp7 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.3, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp2(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.2, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp3(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.1, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp4(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp5(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp6(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp7(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
 
     CompositeInstruction raster_segment(process_profile);
     raster_segment.setDescription("Raster #" + std::to_string(i + 1));
@@ -249,8 +249,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
     // Add transition
     if (i == 0 || i == 2)
     {
-      CartesianWaypointPoly wp7 =
-          CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.8) *
+      CartesianWaypoint wp7(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.8) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 
       MoveInstruction plan_f1(wp7, MoveInstructionType::FREESPACE, freespace_profile);
@@ -263,8 +262,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
     }
     else if (i == 1)
     {
-      CartesianWaypointPoly wp1 =
-          CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -0.3, 0.8) *
+      CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -0.3, 0.8) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 
       MoveInstruction plan_f1(wp1, MoveInstructionType::FREESPACE, freespace_profile);
@@ -295,20 +293,20 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
   for (int i = 0; i < 4; ++i)
   {
     double x = 0.8 + (i * 0.1);
-    CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.3, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
-    CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.2, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
-    CartesianWaypointPoly wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.1, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
-    CartesianWaypointPoly wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
-    CartesianWaypointPoly wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
-    CartesianWaypointPoly wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
-    CartesianWaypointPoly wp7 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *
-                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.3, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp2(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.2, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp3(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.1, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp4(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp5(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp6(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp7(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
 
     CompositeInstruction raster_segment(process_profile);
     raster_segment.setDescription("Raster #" + std::to_string(i + 1));
@@ -336,8 +334,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
     // Add transition
     if (i == 0 || i == 2)
     {
-      CartesianWaypointPoly wp7 =
-          CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.8) *
+      CartesianWaypoint wp7(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.8) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 
       MoveInstruction plan_f1(wp7, MoveInstructionType::FREESPACE, freespace_profile);
@@ -350,8 +347,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
     }
     else if (i == 1)
     {
-      CartesianWaypointPoly wp1 =
-          CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -0.3, 0.8) *
+      CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -0.3, 0.8) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 
       MoveInstruction plan_f1(wp1, MoveInstructionType::FREESPACE, freespace_profile);
