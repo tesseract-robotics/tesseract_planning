@@ -128,19 +128,19 @@ int main(int /*argc*/, char** /*argv*/)
     plan_f0.setDescription("from_start_plan");
     CompositeInstruction from_start;
     from_start.setDescription("from_start");
-    from_start.appendMoveInstruction(start_instruction);
-    from_start.appendMoveInstruction(plan_f0);
+    from_start.push_back(start_instruction);
+    from_start.push_back(plan_f0);
     program.push_back(from_start);
 
     {
       CompositeInstruction raster_segment;
       raster_segment.setDescription("raster_segment");
-      raster_segment.appendMoveInstruction(plan_c0);
-      raster_segment.appendMoveInstruction(plan_c1);
-      raster_segment.appendMoveInstruction(plan_c2);
-      raster_segment.appendMoveInstruction(plan_c3);
-      raster_segment.appendMoveInstruction(plan_c4);
-      raster_segment.appendMoveInstruction(plan_c5);
+      raster_segment.push_back(plan_c0);
+      raster_segment.push_back(plan_c1);
+      raster_segment.push_back(plan_c2);
+      raster_segment.push_back(plan_c3);
+      raster_segment.push_back(plan_c4);
+      raster_segment.push_back(plan_c5);
       program.push_back(raster_segment);
     }
 
@@ -149,10 +149,10 @@ int main(int /*argc*/, char** /*argv*/)
       plan_f1.setDescription("transition_from_end_plan");
       CompositeInstruction transition_from_end;
       transition_from_end.setDescription("transition_from_end");
-      transition_from_end.appendMoveInstruction(plan_f1);
+      transition_from_end.push_back(plan_f1);
       CompositeInstruction transition_from_start;
       transition_from_start.setDescription("transition_from_start");
-      transition_from_start.appendMoveInstruction(plan_f1);
+      transition_from_start.push_back(plan_f1);
 
       CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
       transitions.setDescription("transitions");
@@ -164,12 +164,12 @@ int main(int /*argc*/, char** /*argv*/)
     {
       CompositeInstruction raster_segment;
       raster_segment.setDescription("raster_segment");
-      raster_segment.appendMoveInstruction(plan_c0);
-      raster_segment.appendMoveInstruction(plan_c1);
-      raster_segment.appendMoveInstruction(plan_c2);
-      raster_segment.appendMoveInstruction(plan_c3);
-      raster_segment.appendMoveInstruction(plan_c4);
-      raster_segment.appendMoveInstruction(plan_c5);
+      raster_segment.push_back(plan_c0);
+      raster_segment.push_back(plan_c1);
+      raster_segment.push_back(plan_c2);
+      raster_segment.push_back(plan_c3);
+      raster_segment.push_back(plan_c4);
+      raster_segment.push_back(plan_c5);
       program.push_back(raster_segment);
     }
 
@@ -178,10 +178,10 @@ int main(int /*argc*/, char** /*argv*/)
       plan_f1.setDescription("transition_from_end_plan");
       CompositeInstruction transition_from_end;
       transition_from_end.setDescription("transition_from_end");
-      transition_from_end.appendMoveInstruction(plan_f1);
+      transition_from_end.push_back(plan_f1);
       CompositeInstruction transition_from_start;
       transition_from_start.setDescription("transition_from_start");
-      transition_from_start.appendMoveInstruction(plan_f1);
+      transition_from_start.push_back(plan_f1);
 
       CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
       transitions.setDescription("transitions");
@@ -193,12 +193,12 @@ int main(int /*argc*/, char** /*argv*/)
     {
       CompositeInstruction raster_segment;
       raster_segment.setDescription("raster_segment");
-      raster_segment.appendMoveInstruction(plan_c0);
-      raster_segment.appendMoveInstruction(plan_c1);
-      raster_segment.appendMoveInstruction(plan_c2);
-      raster_segment.appendMoveInstruction(plan_c3);
-      raster_segment.appendMoveInstruction(plan_c4);
-      raster_segment.appendMoveInstruction(plan_c5);
+      raster_segment.push_back(plan_c0);
+      raster_segment.push_back(plan_c1);
+      raster_segment.push_back(plan_c2);
+      raster_segment.push_back(plan_c3);
+      raster_segment.push_back(plan_c4);
+      raster_segment.push_back(plan_c5);
       program.push_back(raster_segment);
     }
 
@@ -206,7 +206,7 @@ int main(int /*argc*/, char** /*argv*/)
     plan_f2.setDescription("to_end_plan");
     CompositeInstruction to_end;
     to_end.setDescription("to_end");
-    to_end.appendMoveInstruction(plan_f2);
+    to_end.push_back(plan_f2);
     program.push_back(to_end);
 
     // Plot Program

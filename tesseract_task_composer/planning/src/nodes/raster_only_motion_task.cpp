@@ -353,7 +353,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
       const auto& tci = pre_input_instruction.as<CompositeInstruction>();
       const auto* li = tci.getLastMoveInstruction();
       assert(li != nullptr);
-      raster_input.insertMoveInstruction(raster_input.begin(), *li);
+      raster_input.insert(raster_input.begin(), *li);
     }
 
     const std::string task_name = "Raster #" + std::to_string(raster_idx + 1) + ": " + raster_input.getDescription();
@@ -385,7 +385,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
     const auto& tci = pre_input_instruction.as<CompositeInstruction>();
     const auto* li = tci.getLastMoveInstruction();
     assert(li != nullptr);
-    transition_input.insertMoveInstruction(transition_input.begin(), *li);
+    transition_input.insert(transition_input.begin(), *li);
 
     const std::string task_name =
         "Transition #" + std::to_string(transition_idx + 1) + ": " + transition_input.getDescription();

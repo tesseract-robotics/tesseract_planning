@@ -369,8 +369,8 @@ bool CarSeatExample::run()
     plan_f0.setDescription("Freespace pick seat 1");
 
     // Add Instructions to program
-    program.appendMoveInstruction(start_instruction);
-    program.appendMoveInstruction(plan_f0);
+    program.push_back(start_instruction);
+    program.push_back(plan_f0);
 
     // Print Diagnostics
     program.print("Program: ");
@@ -455,8 +455,8 @@ bool CarSeatExample::run()
     plan_f0.setDescription("Freespace pick seat 1");
 
     // Add Instructions to program
-    program.appendMoveInstruction(start_instruction);
-    program.appendMoveInstruction(plan_f0);
+    program.push_back(start_instruction);
+    program.push_back(plan_f0);
 
     // Print Diagnostics
     program.print("Program: ");

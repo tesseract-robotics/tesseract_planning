@@ -182,9 +182,9 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   // Create a program
   CompositeInstruction program;
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
-  program.appendMoveInstruction(plan_f2);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
+  program.push_back(plan_f2);
 
   // Create a seed
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
@@ -252,8 +252,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   // Create a new program
   program = CompositeInstruction();
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
 
   // Create a new seed
   interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
@@ -285,8 +285,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   // Create a new program
   program = CompositeInstruction();
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
 
   // Create a new seed
   interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
@@ -344,8 +344,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   // Create a program
   CompositeInstruction program;
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
 
   // Create a seed
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
@@ -436,8 +436,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   // Create a program
   CompositeInstruction program;
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
 
   // Create a seed
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);

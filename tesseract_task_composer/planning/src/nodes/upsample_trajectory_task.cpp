@@ -170,7 +170,7 @@ void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
         {
           MoveInstructionPoly move_instruction(mi1);
           move_instruction.getWaypoint().as<StateWaypointPoly>().setPosition(states.col(i));
-          composite.appendMoveInstruction(move_instruction);
+          composite.push_back(move_instruction);
         }
       }
       else

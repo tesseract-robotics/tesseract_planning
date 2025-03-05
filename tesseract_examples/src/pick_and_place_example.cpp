@@ -214,9 +214,9 @@ bool PickAndPlaceExample::run()
   pick_plan_a1.setDescription("Pick Approach");
 
   // Add Instructions to program
-  pick_program.appendMoveInstruction(start_instruction);
-  pick_program.appendMoveInstruction(pick_plan_a0);
-  pick_program.appendMoveInstruction(pick_plan_a1);
+  pick_program.push_back(start_instruction);
+  pick_program.push_back(pick_plan_a0);
+  pick_program.push_back(pick_plan_a1);
 
   // Print Diagnostics
   pick_program.print("Program: ");
@@ -409,10 +409,10 @@ bool PickAndPlaceExample::run()
   place_plan_a2.setDescription("Place approach");
 
   // Add Instructions to program
-  place_program.appendMoveInstruction(*pick_final_state);
-  place_program.appendMoveInstruction(place_plan_a0);
-  place_program.appendMoveInstruction(place_plan_a1);
-  place_program.appendMoveInstruction(place_plan_a2);
+  place_program.push_back(*pick_final_state);
+  place_program.push_back(place_plan_a0);
+  place_program.push_back(place_plan_a1);
+  place_program.push_back(place_plan_a2);
 
   // Print Diagnostics
   place_program.print("Program: ");

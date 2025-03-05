@@ -661,7 +661,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   auto mis = instr.flatten(moveFilter);
   T insert_mi_program(profile, manip_info, order);
   for (const auto& mi : mis)
-    insert_mi_program.insertMoveInstruction(insert_mi_program.end(), mi.get().as<MoveInstructionPoly>());
+    insert_mi_program.insert(insert_mi_program.end(), mi.get().as<MoveInstructionPoly>());
 
   const auto& nmis = insert_mi_program.getInstructions();
   EXPECT_EQ(mis.size(), insert_mi_program.size());

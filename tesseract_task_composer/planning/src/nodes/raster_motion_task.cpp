@@ -409,7 +409,7 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
     const auto& tci = pre_input_instruction.as<CompositeInstruction>();
     const auto* li = tci.getLastMoveInstruction();
     assert(li != nullptr);
-    raster_input.insertMoveInstruction(raster_input.begin(), *li);
+    raster_input.insert(raster_input.begin(), *li);
 
     const std::string task_name = "Raster #" + std::to_string(raster_idx + 1) + ": " + raster_input.getDescription();
     auto raster_results = raster_task_factory_(task_name, raster_idx + 1);
@@ -441,7 +441,7 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
     const auto& tci = pre_input_instruction.as<CompositeInstruction>();
     const auto* li = tci.getLastMoveInstruction();
     assert(li != nullptr);
-    transition_input.insertMoveInstruction(transition_input.begin(), *li);
+    transition_input.insert(transition_input.begin(), *li);
 
     const std::string task_name =
         "Transition #" + std::to_string(transition_idx + 1) + ": " + transition_input.getDescription();
@@ -501,7 +501,7 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
   const auto& tci = pre_input_instruction.as<CompositeInstruction>();
   const auto* li = tci.getLastMoveInstruction();
   assert(li != nullptr);
-  to_end_input.insertMoveInstruction(to_end_input.begin(), *li);
+  to_end_input.insert(to_end_input.begin(), *li);
 
   auto to_end_results = freespace_task_factory_("To End: " + to_end_input.getDescription(), program.size());
   auto to_end_pipeline_uuid = task_graph.addNode(std::move(to_end_results.node));

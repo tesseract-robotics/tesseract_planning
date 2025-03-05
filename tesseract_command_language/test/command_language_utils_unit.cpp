@@ -61,7 +61,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
         MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
         instruction.setDescription("instruction_" + std::to_string(i) + "_" + std::to_string(j) + "_" +
                                    std::to_string(k));
-        sub_sub_composite.appendMoveInstruction(instruction);
+        sub_sub_composite.push_back(instruction);
       }
       sub_composite.push_back(sub_sub_composite);
     }
@@ -573,17 +573,17 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
   Eigen::VectorXd values = Eigen::VectorXd::Constant(3, 5);
   {
     JointWaypoint jwp{ joint_names, values };
-    composite.appendMoveInstruction(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
+    composite.push_back(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
   }
   {
     values = Eigen::VectorXd::Constant(3, 10);
     JointWaypoint jwp{ joint_names, values };
-    composite.appendMoveInstruction(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
+    composite.push_back(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
   }
   {
     values = Eigen::VectorXd::Constant(3, 15);
     JointWaypoint jwp{ joint_names, values };
-    composite.appendMoveInstruction(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
+    composite.push_back(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
   }
 
   std::string path = tesseract_common::getTempPath() + "to_delimited_file.csv";

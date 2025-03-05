@@ -206,7 +206,7 @@ bool PuzzlePieceExample::run()
     CartesianWaypoint wp{ tool_poses[i] };
     MoveInstruction plan_instruction(wp, MoveInstructionType::LINEAR, "CARTESIAN");
     plan_instruction.setDescription("waypoint_" + std::to_string(i));
-    program.appendMoveInstruction(plan_instruction);
+    program.push_back(plan_instruction);
   }
 
   // Assign the current state as the seed for cartesian waypoints

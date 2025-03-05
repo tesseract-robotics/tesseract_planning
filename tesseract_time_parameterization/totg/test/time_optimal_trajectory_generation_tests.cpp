@@ -295,28 +295,28 @@ TEST(time_optimal_trajectory_generation, testCommandLanguageInterface)  // NOLIN
     StateWaypoint wp{ joint_names, waypoint };
     MoveInstruction plan_f0(wp, MoveInstructionType::FREESPACE, "profile_name");
     plan_f0.setDescription("freespace_motion");
-    program.appendMoveInstruction(plan_f0);
+    program.push_back(plan_f0);
   }
   {
     waypoint << 0, 0, 0, 0, 0, 0;
     StateWaypoint wp{ joint_names, waypoint };
     MoveInstruction plan_f0(wp, MoveInstructionType::FREESPACE, "profile_name");
     plan_f0.setDescription("freespace_motion");
-    program.appendMoveInstruction(plan_f0);
+    program.push_back(plan_f0);
   }
   {
     waypoint << 0, 0.70001, -2.1, 0, -0.25, 0;
     StateWaypoint wp{ joint_names, waypoint };
     MoveInstruction plan_f0(wp, MoveInstructionType::FREESPACE, "profile_name");
     plan_f0.setDescription("freespace_motion");
-    program.appendMoveInstruction(plan_f0);
+    program.push_back(plan_f0);
   }
   {
     waypoint << 0, 0, 0, 0, 0, 0.1;
     StateWaypoint wp{ joint_names, waypoint };
     MoveInstruction plan_f0(wp, MoveInstructionType::FREESPACE, "profile_name");
     plan_f0.setDescription("freespace_motion");
-    program.appendMoveInstruction(plan_f0);
+    program.push_back(plan_f0);
   }
 
   Eigen::MatrixX2d max_velocities(6, 2);
@@ -347,13 +347,13 @@ CompositeInstruction createStraightTrajectory()
   {
     StateWaypoint swp{ joint_names, Eigen::VectorXd::Zero(6) };
     swp.getPosition()[0] = i * max / num;
-    program.appendMoveInstruction(MoveInstruction(swp, MoveInstructionType::FREESPACE));
+    program.push_back(MoveInstruction(swp, MoveInstructionType::FREESPACE));
   }
 
   // leave final velocity/acceleration unset
   StateWaypoint swp{ joint_names, Eigen::VectorXd::Zero(6) };
   swp.getPosition()[0] = max;
-  program.appendMoveInstruction(MoveInstruction(swp, MoveInstructionType::FREESPACE));
+  program.push_back(MoveInstruction(swp, MoveInstructionType::FREESPACE));
 
   return program;
 }
