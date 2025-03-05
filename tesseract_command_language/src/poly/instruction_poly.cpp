@@ -40,6 +40,11 @@ InstructionPoly& InstructionPoly::operator=(const InstructionPoly& other)
 
 InstructionPoly::InstructionPoly(const InstructionInterface& impl) : impl_(impl.clone()) {}
 
+InstructionPoly::InstructionPoly(const MoveInstructionInterface& impl)
+  : impl_(std::make_unique<MoveInstructionPoly>(impl))
+{
+}
+
 const boost::uuids::uuid& InstructionPoly::getUUID() const { return impl_->getUUID(); }
 
 void InstructionPoly::setUUID(const boost::uuids::uuid& uuid) { impl_->setUUID(uuid); }

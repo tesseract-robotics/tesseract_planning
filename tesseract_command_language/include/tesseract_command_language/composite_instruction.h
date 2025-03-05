@@ -189,12 +189,6 @@ public:
   std::vector<InstructionPoly>& getInstructions();
   const std::vector<InstructionPoly>& getInstructions() const;
 
-  void appendMoveInstruction(const MoveInstructionPoly& mi);
-  void appendMoveInstruction(const MoveInstructionPoly&& mi);
-
-  iterator insertMoveInstruction(const_iterator p, const MoveInstructionPoly& x);
-  iterator insertMoveInstruction(const_iterator p, MoveInstructionPoly&& x);
-
   /**
    * @brief Get the first Move Instruction in a Composite Instruction
    * This does not consider the start instruction in child composite instruction
@@ -383,9 +377,10 @@ public:
   void clear();
 
   /** @brief inserts element */
-  iterator insert(const_iterator p, const value_type& x);
   iterator insert(const_iterator p, value_type&& x);
+  iterator insert(const_iterator p, const value_type& x);
   iterator insert(const_iterator p, std::initializer_list<value_type> l);
+  iterator insert(const_iterator p, const MoveInstructionPoly& x);
   template <class InputIt>
   void insert(const_iterator pos, InputIt first, InputIt last)
   {

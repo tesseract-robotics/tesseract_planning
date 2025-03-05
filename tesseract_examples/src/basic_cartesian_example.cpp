@@ -209,10 +209,10 @@ bool BasicCartesianExample::run()
   plan_f1.setDescription("to_end_plan");
 
   // Add Instructions to program
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f0);
-  program.appendMoveInstruction(plan_c0);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f0);
+  program.push_back(plan_c0);
+  program.push_back(plan_f1);
 
   // Print Diagnostics
   program.print("Program: ");

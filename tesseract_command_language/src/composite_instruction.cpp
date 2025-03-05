@@ -137,20 +137,6 @@ std::vector<InstructionPoly>& CompositeInstruction::getInstructions() { return c
 
 const std::vector<InstructionPoly>& CompositeInstruction::getInstructions() const { return container_; }
 
-void CompositeInstruction::appendMoveInstruction(const MoveInstructionPoly& mi) { container_.emplace_back(mi); }
-
-void CompositeInstruction::appendMoveInstruction(const MoveInstructionPoly&& mi) { container_.emplace_back(mi); }
-
-CompositeInstruction::iterator CompositeInstruction::insertMoveInstruction(const_iterator p,
-                                                                           const MoveInstructionPoly& x)
-{
-  return container_.insert(p, x);
-}
-CompositeInstruction::iterator CompositeInstruction::insertMoveInstruction(const_iterator p, MoveInstructionPoly&& x)
-{
-  return container_.insert(p, std::move(x));  // NOLINT
-}
-
 MoveInstructionPoly* CompositeInstruction::getFirstMoveInstruction()
 {
   InstructionPoly* mi = getFirstInstruction(moveFilter);
@@ -310,17 +296,21 @@ CompositeInstruction::const_reference CompositeInstruction::operator[](size_type
 ///////////////
 void CompositeInstruction::clear() { container_.clear(); }
 
-CompositeInstruction::iterator CompositeInstruction::insert(const_iterator p, const value_type& x)
-{
-  return container_.insert(p, x);
-}
 CompositeInstruction::iterator CompositeInstruction::insert(const_iterator p, value_type&& x)
 {
   return container_.insert(p, std::move(x));
 }
+CompositeInstruction::iterator CompositeInstruction::insert(const_iterator p, const value_type& x)
+{
+  return container_.insert(p, x);
+}
 CompositeInstruction::iterator CompositeInstruction::insert(const_iterator p, std::initializer_list<value_type> l)
 {
   return container_.insert(p, l);
+}
+CompositeInstruction::iterator CompositeInstruction::insert(const_iterator p, const MoveInstructionPoly& x)
+{
+  return container_.insert(p, x);
 }
 
 template <class... Args>

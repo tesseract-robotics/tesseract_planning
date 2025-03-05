@@ -58,15 +58,15 @@ CompositeInstruction createProgram(const Eigen::VectorXd& start_state,
   JointWaypoint wp1{ joint_names, start_state };
   MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE);
   start_instruction.setDescription("Start Instruction");
-  program.appendMoveInstruction(start_instruction);
+  program.push_back(start_instruction);
 
   JointWaypoint wp2{ joint_names, start_state + ((goal_state - start_state) / 2) };
   MoveInstruction plan_f0(wp2, MoveInstructionType::FREESPACE);
-  program.appendMoveInstruction(plan_f0);
+  program.push_back(plan_f0);
 
   JointWaypoint wp3{ joint_names, goal_state };
   MoveInstruction plan_f1(wp3, MoveInstructionType::FREESPACE);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(plan_f1);
 
   return program;
 }

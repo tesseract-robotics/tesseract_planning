@@ -47,6 +47,8 @@ struct uuid;
 
 namespace tesseract_planning
 {
+class MoveInstructionInterface;
+
 /**
  * @brief The InstructionInterface class
  */
@@ -132,6 +134,7 @@ public:
   InstructionPoly(InstructionPoly&& other) noexcept = default;
   InstructionPoly& operator=(InstructionPoly&& other) noexcept = default;
   InstructionPoly(const InstructionInterface& impl);
+  InstructionPoly(const MoveInstructionInterface& impl);
 
   /**
    * @brief Get the UUID

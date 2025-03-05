@@ -107,8 +107,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   // Create a program
   CompositeInstruction program;
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
 
   // Create a seed
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
@@ -206,8 +206,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   // Create a program
   CompositeInstruction program;
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
 
   // Create a seed
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
@@ -299,8 +299,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   // Create a program
   CompositeInstruction program;
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
 
   // Create a seed
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 2);

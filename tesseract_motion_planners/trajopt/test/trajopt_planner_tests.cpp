@@ -136,8 +136,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
 
   // Create a seed
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
@@ -210,8 +210,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
 
   // Create a seed
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
@@ -296,8 +296,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
 
   // Create a seed
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
@@ -383,8 +383,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
 
   // Create a seed
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
@@ -468,8 +468,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
 
   // Create a seed
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
@@ -553,8 +553,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
   program.setManipulatorInfo(manip);
-  program.appendMoveInstruction(start_instruction);
-  program.appendMoveInstruction(plan_f1);
+  program.push_back(start_instruction);
+  program.push_back(plan_f1);
 
   // Create a seed
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
@@ -636,7 +636,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
     JointWaypoint wp{ joint_names, Eigen::VectorXd::Zero(7) };
     wp.getPosition() << 0, 0, 0, -1.57 + ind * 0.1, 0, 0, 0;
     MoveInstruction plan_f(wp, MoveInstructionType::FREESPACE, "TEST_PROFILE");
-    program.appendMoveInstruction(plan_f);
+    program.push_back(plan_f);
   }
 
   // Create a seed
@@ -696,7 +696,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
     JointWaypoint wp{ joint_names, Eigen::VectorXd::Zero(7) };
     wp.getPosition() << 0, 0, 0, -1.57 + ind * 0.1, 0, 0, 0;
     MoveInstruction plan_f(wp, MoveInstructionType::FREESPACE, "TEST_PROFILE");
-    program.appendMoveInstruction(plan_f);
+    program.push_back(plan_f);
   }
 
   // Create a seed
