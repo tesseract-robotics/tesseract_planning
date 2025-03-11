@@ -107,8 +107,6 @@ TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile()
   qp_settings->setRelativeTolerance(1e-6);
 }
 
-TrajOptIfoptOSQPSolverProfile::~TrajOptIfoptOSQPSolverProfile() = default;
-
 std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> TrajOptIfoptOSQPSolverProfile::create(bool verbose) const
 {
   // Create QP Solver

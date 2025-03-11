@@ -29,16 +29,12 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
+#include <OsqpEigen/Settings.hpp>
 #include <trajopt_sqp/fwd.h>
 #include <trajopt_sqp/types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
-
-namespace OsqpEigen
-{
-class Settings;
-}
 
 namespace boost::serialization
 {
@@ -60,11 +56,6 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptIfoptOSQPSolverProfile>;
 
   TrajOptIfoptOSQPSolverProfile();
-  ~TrajOptIfoptOSQPSolverProfile() override;
-  TrajOptIfoptOSQPSolverProfile(const TrajOptIfoptOSQPSolverProfile&) = delete;
-  TrajOptIfoptOSQPSolverProfile& operator=(const TrajOptIfoptOSQPSolverProfile&) = delete;
-  TrajOptIfoptOSQPSolverProfile(TrajOptIfoptOSQPSolverProfile&&) = delete;
-  TrajOptIfoptOSQPSolverProfile&& operator=(TrajOptIfoptOSQPSolverProfile&&) = delete;
 
   /** @brief The OSQP convex solver settings to use */
   std::unique_ptr<OsqpEigen::Settings> qp_settings{ nullptr };
