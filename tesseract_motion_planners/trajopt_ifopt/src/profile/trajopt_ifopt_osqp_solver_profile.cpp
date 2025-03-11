@@ -26,7 +26,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <OsqpEigen/Settings.hpp>
 #include <OsqpEigen/OsqpEigen.h>
 #include <trajopt_sqp/trust_region_sqp_solver.h>
 #include <trajopt_sqp/osqp_eigen_solver.h>
@@ -106,8 +105,6 @@ TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile()
   qp_settings->setAbsoluteTolerance(1e-4);
   qp_settings->setRelativeTolerance(1e-6);
 }
-
-TrajOptIfoptOSQPSolverProfile::~TrajOptIfoptOSQPSolverProfile() = default;
 
 std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> TrajOptIfoptOSQPSolverProfile::create(bool verbose) const
 {
