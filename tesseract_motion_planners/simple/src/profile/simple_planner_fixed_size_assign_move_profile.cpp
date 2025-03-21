@@ -29,11 +29,14 @@
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
 
+#include <tesseract_common/joint_state.h>
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/kinematic_limits.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/poly/waypoint_poly.h>
 
 #include <boost/serialization/nvp.hpp>
 
