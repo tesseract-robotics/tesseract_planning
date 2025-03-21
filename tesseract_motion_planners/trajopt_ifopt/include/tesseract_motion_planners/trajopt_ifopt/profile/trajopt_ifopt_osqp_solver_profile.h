@@ -56,9 +56,15 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptIfoptOSQPSolverProfile>;
 
   TrajOptIfoptOSQPSolverProfile();
+  TrajOptIfoptOSQPSolverProfile(TrajOptIfoptOSQPSolverProfile&&) = default;
+  TrajOptIfoptOSQPSolverProfile& operator=(TrajOptIfoptOSQPSolverProfile&&) = default;
+
+  // Delete because OsqpEigen::Settings stores raw pointer
+  TrajOptIfoptOSQPSolverProfile(const TrajOptIfoptOSQPSolverProfile&) = delete;
+  TrajOptIfoptOSQPSolverProfile& operator=(const TrajOptIfoptOSQPSolverProfile&) = delete;
 
   /** @brief The OSQP convex solver settings to use */
-  std::unique_ptr<OsqpEigen::Settings> qp_settings{ nullptr };
+  OsqpEigen::Settings qp_settings;
 
   /** @brief Optimization parameters */
   trajopt_sqp::SQPParameters opt_params{};

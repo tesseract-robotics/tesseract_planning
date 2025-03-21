@@ -45,6 +45,8 @@ namespace ifopt
 class ConstraintSet;
 }
 
+namespace tesseract_planning
+{
 /** @brief Structure to store TrajOpt IFOPT constrant and cost term infos */
 struct TrajOptIfoptTermInfos
 {
@@ -62,8 +64,6 @@ struct TrajOptIfoptWaypointInfo
   bool fixed{ false };
 };
 
-namespace tesseract_planning
-{
 class TrajOptIfoptPlanProfile : public Profile
 {
 public:
