@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.29.0 (2025-03-20)
+-------------------
 * Fix: deleted default constructors do not allow serialization (`#600 <https://github.com/tesseract-robotics/tesseract_planning/issues/600>`_)
 * Simplify the use of poly types
 * Add constructors to WaypointPoly to support State, Joint and Cartesian Interface class

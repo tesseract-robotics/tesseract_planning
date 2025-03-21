@@ -2,8 +2,8 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.29.0 (2025-03-20)
+-------------------
 * Simplify the use of poly types
 * Add constructors to WaypointPoly to support State, Joint and Cartesian Interface class
 * Leverage inheritance over type erasure for instructions
