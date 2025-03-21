@@ -2,6 +2,23 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Simplify the use of poly types
+* Add constructors to WaypointPoly to support State, Joint and Cartesian Interface class
+* Update because of changes with AnyPoly
+* Leverage inheritance over type erasure for instructions
+* Remove no longer needed methods from the move instruction
+* Leverage inheritance over type erasure for waypoints
+* Leverage tesseract_collision CollisionEvaluatorType
+* Update to leverage std::filesystem
+* Update to clang-tidy-17 (`#591 <https://github.com/tesseract-robotics/tesseract_planning/issues/591>`_)
+* Remove unimplemented method TaskComposerContext abort that takes a node
+* Add python specific method to task composer graph and server
+* Remove use of TaskComposerNodeInfo::UPtr and just use TaskComposerNodeInfo instead
+* Fix missing include for use of shared_ptr
+* Contributors: Joseph Schornak, Levi Armstrong
+
 0.28.4 (2025-01-22)
 -------------------
 * Update task composer examples to leverage resource url

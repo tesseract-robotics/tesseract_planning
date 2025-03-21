@@ -2,6 +2,21 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix: deleted default constructors do not allow serialization (`#600 <https://github.com/tesseract-robotics/tesseract_planning/issues/600>`_)
+* Simplify the use of poly types
+* Add constructors to WaypointPoly to support State, Joint and Cartesian Interface class
+* Leverage inheritance over type erasure for instructions
+* Remove no longer needed methods from the move instruction
+* Leverage inheritance over type erasure for waypoints
+* Remove duplicated serialize from different class (`#595 <https://github.com/tesseract-robotics/tesseract_planning/issues/595>`_)
+* Leverage tesseract_collision CollisionEvaluatorType
+* Update to leverage std::filesystem
+* Update to clang-tidy-17 (`#591 <https://github.com/tesseract-robotics/tesseract_planning/issues/591>`_)
+* Fix isValidState in planner_utils.h
+* Contributors: Levi Armstrong, Roelof Oomen
+
 0.28.4 (2025-01-22)
 -------------------
 

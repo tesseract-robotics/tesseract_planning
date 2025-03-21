@@ -2,6 +2,14 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Simplify the use of poly types
+* Add constructors to WaypointPoly to support State, Joint and Cartesian Interface class
+* Leverage inheritance over type erasure for instructions
+* Update to clang-tidy-17 (`#591 <https://github.com/tesseract-robotics/tesseract_planning/issues/591>`_)
+* Contributors: Levi Armstrong
+
 0.28.4 (2025-01-22)
 -------------------
 

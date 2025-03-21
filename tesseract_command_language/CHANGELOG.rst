@@ -2,6 +2,21 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Simplify the use of poly types
+* Add constructors to WaypointPoly to support State, Joint and Cartesian Interface class
+* Update because of changes with AnyPoly
+* Fix clang-tidy errors
+* Add documentation to instruction poly types
+* Leverage inheritance over type erasure for instructions
+* Add documentation to waypoint poly types
+* Remove no longer needed methods from the move instruction
+* Leverage inheritance over type erasure for waypoints
+* Update to leverage std::filesystem
+* Update to clang-tidy-17 (`#591 <https://github.com/tesseract-robotics/tesseract_planning/issues/591>`_)
+* Contributors: Levi Armstrong
+
 0.28.4 (2025-01-22)
 -------------------
 
