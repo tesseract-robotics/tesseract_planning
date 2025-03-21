@@ -34,12 +34,16 @@ jobs:
           console-bridge eigen3 yaml-cpp benchmark tinyxml2 assimp orocos-kdl pcl
           lapack-reference boost-dll boost-filesystem boost-serialization boost-format boost-stacktrace
           boost-program-options boost-graph urdfdom ccd[double-precision] gtest
-          ompl taskflow jsoncpp flann benchmark
+          ompl taskflow jsoncpp flann benchmark coin-or-ipopt
         triplet: x64-windows-release
         extra-args: --clean-after-build
         token: ${{ github.token }}
         cache-key: ci-${{ matrix.os }}
         github-binarycache: true
+
+    - name: choco
+      run: |
+        choco install pkgconfiglite -r
 
     - name: configure-msvc
       uses: ilammy/msvc-dev-cmd@v1
@@ -51,13 +55,14 @@ jobs:
       run: |
         echo "PATH=${{ env.PATH }};$GITHUB_WORKSPACE\vcpkg\installed\x64-windows-release\bin" >> "$GITHUB_ENV"
         echo "CMAKE_PREFIX_PATH=$GITHUB_WORKSPACE\vcpkg\installed\x64-windows-release" >> "$GITHUB_ENV"
+        echo "PKG_CONFIG_PATH=$GITHUB_WORKSPACE\vcpkg\installed\x64-windows-release\lib\pkgconfig" >> "$GITHUB_ENV"
 
     - name: Build and Tests
       uses: tesseract-robotics/colcon-action@v11
       with:
         ccache-prefix: ${{ matrix.distro }}
         vcs-file: .github/workflows/windows_dependencies.repos
-        upstream-args: --cmake-args -G "Ninja" -DVCPKG_TARGET_TRIPLET=x64-windows-release -DCMAKE_BUILD_TYPE=Release -DBUILD_IPOPT=OFF -DBUILD_SNOPT=OFF -DTESSERACT_BUILD_TRAJOPT_IFOPT=OFF -DVCPKG_APPLOCAL_DEPS=OFF
+        upstream-args: --cmake-args -G "Ninja" -DVCPKG_TARGET_TRIPLET=x64-windows-release -DCMAKE_BUILD_TYPE=Release -DBUILD_IPOPT=ON -DBUILD_SNOPT=OFF -DTESSERACT_BUILD_TRAJOPT_IFOPT=OFF -DVCPKG_APPLOCAL_DEPS=OFF
         target-path: target_ws/src
-        target-args: --event-handlers console_cohesion+ --packages-ignore tesseract_examples --cmake-args -G "Ninja" -DVCPKG_TARGET_TRIPLET=x64-windows-release -DCMAKE_BUILD_TYPE=Release -DTESSERACT_ENABLE_TESTING=ON -DTESSERACT_BUILD_TRAJOPT_IFOPT=OFF -DVCPKG_APPLOCAL_DEPS=OFF
+        target-args: --event-handlers console_cohesion+ --packages-ignore tesseract_examples --cmake-args -G "Ninja" -DVCPKG_TARGET_TRIPLET=x64-windows-release -DCMAKE_BUILD_TYPE=Release -DTESSERACT_ENABLE_TESTING=ON -DTESSERACT_BUILD_TRAJOPT_IFOPT=ON -DVCPKG_APPLOCAL_DEPS=OFF
         run-tests-args: --packages-ignore tesseract_examples
