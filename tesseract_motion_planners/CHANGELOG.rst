@@ -2,6 +2,11 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Store OSQPEigenSettings by value
+* Contributors: Levi Armstrong
+
 0.29.0 (2025-03-20)
 -------------------
 * Fix: deleted default constructors do not allow serialization (`#600 <https://github.com/tesseract-robotics/tesseract_planning/issues/600>`_)
