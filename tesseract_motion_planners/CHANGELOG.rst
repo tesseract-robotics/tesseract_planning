@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.29.1 (2025-03-21)
+-------------------
 * Store OSQPEigenSettings by value
 * Contributors: Levi Armstrong
 
