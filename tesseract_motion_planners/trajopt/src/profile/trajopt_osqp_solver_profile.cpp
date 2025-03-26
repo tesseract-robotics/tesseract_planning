@@ -73,6 +73,7 @@ std::unique_ptr<sco::ModelConfig> TrajOptOSQPSolverProfile::createSolverConfig()
 {
   auto config = std::make_unique<sco::OSQPModelConfig>();
   config->settings = settings;
+  config->update_workspace = update_workspace;
   return config;
 }
 
@@ -81,6 +82,7 @@ void TrajOptOSQPSolverProfile::serialize(Archive& ar, const unsigned int /*versi
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptSolverProfile);
   ar& BOOST_SERIALIZATION_NVP(settings);
+  ar& BOOST_SERIALIZATION_NVP(update_workspace);
 }
 
 }  // namespace tesseract_planning
