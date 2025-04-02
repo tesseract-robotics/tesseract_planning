@@ -82,17 +82,11 @@ std::shared_ptr<trajopt::TermInfo> createTolerancedJointWaypointTermInfo(const E
                                                                          const Eigen::VectorXd& coeffs,
                                                                          trajopt::TermType type);
 
-std::shared_ptr<trajopt::TermInfo> createCollisionTermInfo(
-    int start_index,
-    int end_index,
-    double collision_safety_margin,
-    double collision_safety_margin_buffer,
-    tesseract_collision::CollisionEvaluatorType evaluator_type,
-    bool use_weighted_sum = false,
-    double coeff = 20.0,
-    tesseract_collision::ContactTestType contact_test_type = tesseract_collision::ContactTestType::ALL,
-    double longest_valid_segment_length = 0.5,
-    trajopt::TermType type = trajopt::TermType::TT_COST);
+std::shared_ptr<trajopt::TermInfo> createCollisionTermInfo(int start_index,
+                                                           int end_index,
+                                                           std::vector<int> fixed_steps,
+                                                           trajopt_common::TrajOptCollisionConfig collision_config,
+                                                           trajopt::TermType type = trajopt::TermType::TT_COST);
 
 std::shared_ptr<trajopt::TermInfo> createSmoothVelocityTermInfo(int start_index,
                                                                 int end_index,

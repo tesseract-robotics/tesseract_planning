@@ -212,14 +212,18 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     auto collision = std::make_shared<CollisionTermInfo>();
     collision->name = "collision";
     collision->term_type = TermType::TT_CNT;
-    collision->evaluator_type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
     collision->first_step = 0;
     collision->last_step = 0;
-    collision->info = trajopt_common::createSafetyMarginDataVector(
-        pci.basic_info.n_steps,
-        profile.collision_check_config.contact_manager_config.margin_data.getMaxCollisionMargin(),
-        1);
-    collision->use_weighted_sum = true;
+
+    trajopt_common::TrajOptCollisionConfig config;
+    config.contact_manager_config = profile.collision_check_config.contact_manager_config;
+    config.contact_request = profile.collision_check_config.contact_request;
+    config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
+    config.longest_valid_segment_length = profile.collision_check_config.longest_valid_segment_length;
+    config.check_program_mode = profile.collision_check_config.check_program_mode;
+    config.use_weighted_sum = true;
+    config.collision_coeff_data = trajopt_common::CollisionCoeffData(1);
+    collision->config = { config };
     pci.cnt_infos.push_back(collision);
   }
   // Add an additional cost to collisions to help it converge
@@ -227,14 +231,17 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     auto collision = std::make_shared<CollisionTermInfo>();
     collision->name = "collision";
     collision->term_type = TermType::TT_COST;
-    collision->evaluator_type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
     collision->first_step = 0;
     collision->last_step = 0;
-    collision->info = trajopt_common::createSafetyMarginDataVector(
-        pci.basic_info.n_steps,
-        profile.collision_check_config.contact_manager_config.margin_data.getMaxCollisionMargin(),
-        20);
-    collision->use_weighted_sum = true;
+    trajopt_common::TrajOptCollisionConfig config;
+    config.contact_manager_config = profile.collision_check_config.contact_manager_config;
+    config.contact_request = profile.collision_check_config.contact_request;
+    config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
+    config.longest_valid_segment_length = profile.collision_check_config.longest_valid_segment_length;
+    config.check_program_mode = profile.collision_check_config.check_program_mode;
+    config.use_weighted_sum = true;
+    config.collision_coeff_data = trajopt_common::CollisionCoeffData(20);
+    collision->config = { config };
     pci.cost_infos.push_back(collision);
   }
   auto prob = ConstructProblem(pci);

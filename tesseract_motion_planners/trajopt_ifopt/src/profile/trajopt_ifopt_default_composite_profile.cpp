@@ -43,12 +43,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile()
-  : collision_cost_config(std::make_shared<trajopt_common::TrajOptCollisionConfig>())
-  , collision_constraint_config(std::make_shared<trajopt_common::TrajOptCollisionConfig>())
-{
-}
-
 TrajOptIfoptTermInfos TrajOptIfoptDefaultCompositeProfile::create(
     const tesseract_common::ManipulatorInfo& composite_manip_info,
     const std::shared_ptr<const tesseract_environment::Environment>& env,
@@ -60,14 +54,14 @@ TrajOptIfoptTermInfos TrajOptIfoptDefaultCompositeProfile::create(
 
   TrajOptIfoptTermInfos term_infos;
 
-  if (collision_constraint_config != nullptr)
+  if (collision_constraint_config.enabled)
   {
     auto constraints =
         createCollisionConstraints(vars, env, composite_manip_info, collision_constraint_config, fixed_indices, false);
     term_infos.constraints.insert(term_infos.constraints.end(), constraints.begin(), constraints.end());
   }
 
-  if (collision_cost_config != nullptr)
+  if (collision_cost_config.enabled)
   {
     // Coefficients are applied within the constraint
     auto constraints =
@@ -111,8 +105,6 @@ void TrajOptIfoptDefaultCompositeProfile::serialize(Archive& ar, const unsigned 
   ar& BOOST_SERIALIZATION_NVP(acceleration_coeff);
   ar& BOOST_SERIALIZATION_NVP(smooth_jerks);
   ar& BOOST_SERIALIZATION_NVP(jerk_coeff);
-  ar& BOOST_SERIALIZATION_NVP(longest_valid_segment_fraction);
-  ar& BOOST_SERIALIZATION_NVP(longest_valid_segment_length);
 }
 
 }  // namespace tesseract_planning
