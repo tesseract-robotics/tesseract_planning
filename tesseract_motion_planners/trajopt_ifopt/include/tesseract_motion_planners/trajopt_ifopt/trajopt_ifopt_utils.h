@@ -74,7 +74,7 @@ std::vector<std::shared_ptr<ifopt::ConstraintSet>>
 createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition>>& vars,
                            const std::shared_ptr<const tesseract_environment::Environment>& env,
                            const tesseract_common::ManipulatorInfo& manip_info,
-                           const std::shared_ptr<const trajopt_common::TrajOptCollisionConfig>& config,
+                           const trajopt_common::TrajOptCollisionConfig& config,
                            const std::vector<int>& fixed_indices,
                            bool fixed_sparsity);
 

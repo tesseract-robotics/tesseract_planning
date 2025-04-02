@@ -210,10 +210,8 @@ bool FreespaceHybridExample::run()
   {
     // Create TrajOpt_Ifopt Profile
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
-    trajopt_ifopt_composite_profile->collision_constraint_config->contact_manager_config =
-        tesseract_collision::ContactManagerConfig(0.025);
-    trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
-        tesseract_collision::ContactManagerConfig(0.025);
+    trajopt_ifopt_composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.025, 20);
+    trajopt_ifopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 20);
     trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);

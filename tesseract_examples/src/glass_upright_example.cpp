@@ -201,13 +201,14 @@ bool GlassUprightExample::run()
   if (ifopt_)
   {
     auto composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
-    composite_profile->collision_cost_config->type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
-    composite_profile->collision_cost_config->contact_manager_config = tesseract_collision::ContactManagerConfig(0.01);
-    composite_profile->collision_cost_config->collision_margin_buffer = 0.01;
-    composite_profile->collision_constraint_config->type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
-    composite_profile->collision_constraint_config->contact_manager_config =
-        tesseract_collision::ContactManagerConfig(0.01);
-    composite_profile->collision_constraint_config->collision_margin_buffer = 0.01;
+    composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.01, 20);
+    composite_profile->collision_cost_config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+    composite_profile->collision_cost_config.collision_margin_buffer = 0.01;
+
+    composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.01, 20);
+    composite_profile->collision_constraint_config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+    composite_profile->collision_constraint_config.collision_margin_buffer = 0.01;
+
     composite_profile->smooth_velocities = true;
     composite_profile->smooth_accelerations = false;
     composite_profile->smooth_jerks = false;
@@ -229,16 +230,14 @@ bool GlassUprightExample::run()
   else
   {
     auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-    composite_profile->collision_cost_config.enabled = true;
+    composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.01, 1);
     composite_profile->collision_cost_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
-    composite_profile->collision_cost_config.safety_margin = 0.01;
-    composite_profile->collision_cost_config.safety_margin_buffer = 0.01;
-    composite_profile->collision_cost_config.coeff = 1;
-    composite_profile->collision_constraint_config.enabled = true;
+    composite_profile->collision_cost_config.collision_margin_buffer = 0.01;
+
+    composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.01, 1);
     composite_profile->collision_constraint_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
-    composite_profile->collision_constraint_config.safety_margin = 0.01;
-    composite_profile->collision_constraint_config.safety_margin_buffer = 0.01;
-    composite_profile->collision_constraint_config.coeff = 1;
+    composite_profile->collision_constraint_config.collision_margin_buffer = 0.01;
+
     composite_profile->smooth_velocities = true;
     composite_profile->smooth_accelerations = false;
     composite_profile->smooth_jerks = false;
