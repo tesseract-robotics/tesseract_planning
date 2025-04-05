@@ -50,16 +50,19 @@ public:
    * @brief TesseractCollision
    * @param collision_env The collision Environment
    * @param manip The manipulator joint group
-   * @param edge_collision_check_config Config used to set up collision checking
+   * @param contact_manager_config Config used to set up the contact manager
+   * @param collision_check_config Config used to set up collision checking
    * @param longest_valid_segment_length Used to check collisions between two state if norm(state0-state1) >
    * longest_valid_segment_length.
    * @param debug If true, this print debug information to the terminal
    */
-  DescartesCollision(const tesseract_environment::Environment& collision_env,
-                     std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-                     tesseract_collision::CollisionCheckConfig collision_check_config =
-                         tesseract_collision::CollisionCheckConfig{ 0.025 },
-                     bool debug = false);
+  DescartesCollision(
+      const tesseract_environment::Environment& collision_env,
+      std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
+      const tesseract_collision::ContactManagerConfig& contact_manager_config =
+          tesseract_collision::ContactManagerConfig{ 0.025 },
+      tesseract_collision::CollisionCheckConfig collision_check_config = tesseract_collision::CollisionCheckConfig(),
+      bool debug = false);
   virtual ~DescartesCollision() = default;
 
   /**

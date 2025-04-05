@@ -202,11 +202,13 @@ bool GlassUprightExample::run()
   {
     auto composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
     composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.01, 20);
-    composite_profile->collision_cost_config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+    composite_profile->collision_cost_config.collision_check_config.type =
+        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     composite_profile->collision_cost_config.collision_margin_buffer = 0.01;
 
     composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.01, 20);
-    composite_profile->collision_constraint_config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+    composite_profile->collision_constraint_config.collision_check_config.type =
+        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     composite_profile->collision_constraint_config.collision_margin_buffer = 0.01;
 
     composite_profile->smooth_velocities = true;
@@ -231,11 +233,13 @@ bool GlassUprightExample::run()
   {
     auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
     composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.01, 1);
-    composite_profile->collision_cost_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
+    composite_profile->collision_cost_config.collision_check_config.type =
+        tesseract_collision::CollisionEvaluatorType::DISCRETE;
     composite_profile->collision_cost_config.collision_margin_buffer = 0.01;
 
     composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.01, 1);
-    composite_profile->collision_constraint_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
+    composite_profile->collision_constraint_config.collision_check_config.type =
+        tesseract_collision::CollisionEvaluatorType::DISCRETE;
     composite_profile->collision_constraint_config.collision_margin_buffer = 0.01;
 
     composite_profile->smooth_velocities = true;

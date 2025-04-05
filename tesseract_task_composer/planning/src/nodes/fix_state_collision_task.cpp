@@ -80,11 +80,11 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
 
   DiscreteContactManager::Ptr manager = env.getDiscreteContactManager();
   manager->setActiveCollisionObjects(joint_group->getActiveLinkNames());
-  manager->applyContactManagerConfig(profile.collision_check_config.contact_manager_config);
+  manager->applyContactManagerConfig(profile.contact_manager_config);
 
   tesseract_common::TransformMap state = joint_group->calcFwdKin(start_pos);
   contacts.clear();
-  checkTrajectoryState(contacts, *manager, state, profile.collision_check_config);
+  checkTrajectoryState(contacts, *manager, state, profile.collision_check_config.contact_request);
   if (contacts.empty())
   {
     CONSOLE_BRIDGE_logDebug("No collisions found");
@@ -216,11 +216,9 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     collision->last_step = 0;
 
     trajopt_common::TrajOptCollisionConfig config;
-    config.contact_manager_config = profile.collision_check_config.contact_manager_config;
-    config.contact_request = profile.collision_check_config.contact_request;
-    config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
-    config.longest_valid_segment_length = profile.collision_check_config.longest_valid_segment_length;
-    config.check_program_mode = profile.collision_check_config.check_program_mode;
+    config.contact_manager_config = profile.contact_manager_config;
+    config.collision_check_config = profile.collision_check_config;
+    config.collision_check_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
     config.use_weighted_sum = true;
     config.collision_coeff_data = trajopt_common::CollisionCoeffData(1);
     collision->config = { config };
@@ -234,11 +232,9 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     collision->first_step = 0;
     collision->last_step = 0;
     trajopt_common::TrajOptCollisionConfig config;
-    config.contact_manager_config = profile.collision_check_config.contact_manager_config;
-    config.contact_request = profile.collision_check_config.contact_request;
-    config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
-    config.longest_valid_segment_length = profile.collision_check_config.longest_valid_segment_length;
-    config.check_program_mode = profile.collision_check_config.check_program_mode;
+    config.contact_manager_config = profile.contact_manager_config;
+    config.collision_check_config = profile.collision_check_config;
+    config.collision_check_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
     config.use_weighted_sum = true;
     config.collision_coeff_data = trajopt_common::CollisionCoeffData(20);
     collision->config = { config };
@@ -258,7 +254,7 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     tesseract_collision::DiscreteContactManager::Ptr manager = pci.env->getDiscreteContactManager();
     tesseract_common::TransformMap state = pci.kin->calcFwdKin(start_pos);
     manager->setActiveCollisionObjects(pci.kin->getActiveLinkNames());
-    manager->applyContactManagerConfig(profile.collision_check_config.contact_manager_config);
+    manager->applyContactManagerConfig(profile.contact_manager_config);
     manager->setCollisionObjectsTransform(state);
     manager->contactTest(collisions, profile.collision_check_config.contact_request);
 

@@ -151,15 +151,13 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
                            bool fixed_sparsity)
 {
   std::vector<ifopt::ConstraintSet::Ptr> constraints;
-  if (config.type == tesseract_collision::CollisionEvaluatorType::NONE)
+  if (config.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::NONE)
     return constraints;
-
-  auto collision_config = std::make_shared<const trajopt_common::TrajOptCollisionConfig>(config);
 
   // Add a collision cost for all steps
   auto collision_cache = std::make_shared<trajopt_ifopt::CollisionCache>(vars.size());
   std::unordered_map<std::string, std::shared_ptr<const tesseract_kinematics::JointGroup>> manipulators;
-  if (collision_config->type == tesseract_collision::CollisionEvaluatorType::DISCRETE)
+  if (config.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::DISCRETE)
   {
     for (std::size_t i = 0; i < vars.size(); ++i)
     {
@@ -178,8 +176,8 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
         manipulators[manip_info.manipulator] = manip;
       }
 
-      auto collision_evaluator = std::make_shared<trajopt_ifopt::SingleTimestepCollisionEvaluator>(
-          collision_cache, manip, env, collision_config);
+      auto collision_evaluator =
+          std::make_shared<trajopt_ifopt::SingleTimestepCollisionEvaluator>(collision_cache, manip, env, config);
 
       auto active_link_names = manip->getActiveLinkNames();
       auto static_link_names = manip->getStaticLinkNames();
@@ -189,12 +187,12 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
       constraints.push_back(std::make_shared<trajopt_ifopt::DiscreteCollisionConstraint>(
           collision_evaluator,
           vars[i],
-          std::min(collision_config->max_num_cnt, static_cast<int>(cp.size())),
+          std::min(config.max_num_cnt, static_cast<int>(cp.size())),
           fixed_sparsity,
           "DiscreteCollision_" + std::to_string(i)));
     }
   }
-  else if (collision_config->type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
+  else if (config.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
   {
     bool time0_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), 0) != fixed_indices.end());
     for (std::size_t i = 1; i < vars.size(); ++i)
@@ -214,7 +212,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
       }
 
       auto collision_evaluator =
-          std::make_shared<trajopt_ifopt::LVSDiscreteCollisionEvaluator>(collision_cache, manip, env, collision_config);
+          std::make_shared<trajopt_ifopt::LVSDiscreteCollisionEvaluator>(collision_cache, manip, env, config);
 
       auto active_link_names = manip->getActiveLinkNames();
       auto static_link_names = manip->getStaticLinkNames();
@@ -222,12 +220,12 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
           active_link_names, static_link_names, env->getDiscreteContactManager()->getContactAllowedValidator());
 
       std::array<trajopt_ifopt::JointPosition::ConstPtr, 2> position_vars{ vars[i - 1], vars[i] };
-      std::array<bool, 2> position_vars_fixed{ time0_fixed, time1_fixed };
       constraints.push_back(std::make_shared<trajopt_ifopt::ContinuousCollisionConstraint>(
           collision_evaluator,
           position_vars,
-          position_vars_fixed,
-          std::min(collision_config->max_num_cnt, static_cast<int>(cp.size())),
+          time0_fixed,
+          time1_fixed,
+          std::min(config.max_num_cnt, static_cast<int>(cp.size())),
           fixed_sparsity,
           "LVSDiscreteCollision_" + std::to_string(i)));
 
@@ -236,14 +234,14 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
   }
   else
   {
-    const std::string prefix = (collision_config->type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS) ?
-                                   "LVSCont"
-                                   "inuousC"
-                                   "ollisio"
-                                   "n_" :
-                                   "Continu"
-                                   "ousColl"
-                                   "ision_";
+    const std::string prefix =
+        (config.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS) ? "LVSCont"
+                                                                                                              "inuousC"
+                                                                                                              "ollisio"
+                                                                                                              "n_" :
+                                                                                                              "Continu"
+                                                                                                              "ousColl"
+                                                                                                              "ision_";
     bool time0_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), 0) != fixed_indices.end());
     for (std::size_t i = 1; i < vars.size(); ++i)
     {
@@ -261,8 +259,8 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
         manipulators[manip_info.manipulator] = manip;
       }
 
-      auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSContinuousCollisionEvaluator>(
-          collision_cache, manip, env, collision_config);
+      auto collision_evaluator =
+          std::make_shared<trajopt_ifopt::LVSContinuousCollisionEvaluator>(collision_cache, manip, env, config);
 
       auto active_link_names = manip->getActiveLinkNames();
       auto static_link_names = manip->getStaticLinkNames();
@@ -270,12 +268,12 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
           active_link_names, static_link_names, env->getDiscreteContactManager()->getContactAllowedValidator());
 
       std::array<trajopt_ifopt::JointPosition::ConstPtr, 2> position_vars{ vars[i - 1], vars[i] };
-      std::array<bool, 2> position_vars_fixed{ time0_fixed, time1_fixed };
       constraints.push_back(std::make_shared<trajopt_ifopt::ContinuousCollisionConstraint>(
           collision_evaluator,
           position_vars,
-          position_vars_fixed,
-          std::min(collision_config->max_num_cnt, static_cast<int>(cp.size())),
+          time0_fixed,
+          time1_fixed,
+          std::min(config.max_num_cnt, static_cast<int>(cp.size())),
           fixed_sparsity,
           prefix + std::to_string(i)));
 

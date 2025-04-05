@@ -47,7 +47,8 @@ class DescartesCollisionEdgeEvaluator : public descartes_light::EdgeEvaluator<Fl
 public:
   DescartesCollisionEdgeEvaluator(const tesseract_environment::Environment& collision_env,
                                   std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-                                  tesseract_collision::CollisionCheckConfig config,
+                                  const tesseract_collision::ContactManagerConfig& contact_manager_config,
+                                  tesseract_collision::CollisionCheckConfig collision_check_config,
                                   bool allow_collision = false,
                                   bool debug = false);
 
@@ -63,7 +64,9 @@ protected:
   std::shared_ptr<tesseract_collision::DiscreteContactManager> discrete_contact_manager_;
   /** @brief The discrete contact manager */
   std::shared_ptr<tesseract_collision::ContinuousContactManager> continuous_contact_manager_;
-  /** @brief The minimum allowed collision distance */
+  /** @brief The collision margin data */
+  tesseract_common::CollisionMarginData contact_margin_data_;
+  /** @brief The contact request used during collision checking */
   tesseract_collision::CollisionCheckConfig collision_check_config_;
   /** @brief If true and no valid edges are found it will return the one with the lowest cost */
   bool allow_collision_;
@@ -88,23 +91,21 @@ protected:
 
   /**
    * @brief Perform a continuous collision check between two states
-   * @param segment Trajectory containing two states
    * @param results Store results from collision check.
+   * @param segment Trajectory containing two states
    * @return True if in collision otherwise false
    */
   bool continuousCollisionCheck(std::vector<tesseract_collision::ContactResultMap>& results,
-                                const tesseract_common::TrajArray& segment,
-                                bool find_best) const;
+                                const tesseract_common::TrajArray& segment) const;
 
   /**
    * @brief Perform a continuous discrete check between two states
-   * @param segment Trajectory containing two states
    * @param results Store results from collision check.
+   * @param segment Trajectory containing two states
    * @return True if in collision otherwise false
    */
   bool discreteCollisionCheck(std::vector<tesseract_collision::ContactResultMap>& results,
-                              const tesseract_common::TrajArray& segment,
-                              bool find_best) const;
+                              const tesseract_common::TrajArray& segment) const;
 };
 
 using DescartesCollisionEdgeEvaluatorF = DescartesCollisionEdgeEvaluator<float>;

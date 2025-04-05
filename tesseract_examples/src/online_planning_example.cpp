@@ -215,15 +215,15 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
   // Add a collision cost for all steps
   double margin_coeff = 10;
   double margin = 0.1;
-  auto collision_config = std::make_shared<trajopt_common::TrajOptCollisionConfig>(margin, margin_coeff);
-  collision_config->contact_request.type = tesseract_collision::ContactTestType::ALL;
-  collision_config->type = CollisionEvaluatorType::DISCRETE;
-  collision_config->collision_margin_buffer = 0.10;
+  trajopt_common::TrajOptCollisionConfig collision_config(margin, margin_coeff);
+  collision_config.collision_check_config.contact_request.type = tesseract_collision::ContactTestType::ALL;
+  collision_config.collision_check_config.type = CollisionEvaluatorType::DISCRETE;
+  collision_config.collision_margin_buffer = 0.10;
 
   auto collision_cache = std::make_shared<trajopt_ifopt::CollisionCache>(steps_);
   if (use_continuous_)
   {
-    std::array<bool, 2> position_vars_fixed{ true, false };
+    std::array<bool, 2> vars_fixed{ true, false };
     for (std::size_t i = 1; i < static_cast<std::size_t>(steps_); i++)
     {
       auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSDiscreteCollisionEvaluator>(
@@ -233,14 +233,15 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
       auto collision_constraint =
           std::make_shared<trajopt_ifopt::ContinuousCollisionConstraint>(collision_evaluator,
                                                                          position_vars,
-                                                                         position_vars_fixed,
-                                                                         collision_config->max_num_cnt,
+                                                                         vars_fixed[0],
+                                                                         vars_fixed[1],
+                                                                         collision_config.max_num_cnt,
                                                                          false,
                                                                          "LVSDiscreteCollision_" + std::to_string(i));
       //    nlp_->addCostSet(collision_constraint, trajopt_sqp::CostPenaltyType::HINGE);
       nlp_->addConstraintSet(collision_constraint);
 
-      position_vars_fixed = { false, false };
+      vars_fixed = { false, false };
     }
   }
   else
@@ -253,7 +254,7 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
       auto collision_constraint =
           std::make_shared<trajopt_ifopt::DiscreteCollisionConstraint>(collision_evaluator,
                                                                        vars[i],
-                                                                       collision_config->max_num_cnt,
+                                                                       collision_config.max_num_cnt,
                                                                        false,
                                                                        "SingleTimestepCollision_" + std::to_string(i));
       //    nlp_->addCostSet(collision_constraint, trajopt_sqp::CostPenaltyType::HINGE);

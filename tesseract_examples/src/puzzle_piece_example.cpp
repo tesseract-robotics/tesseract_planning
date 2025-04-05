@@ -233,7 +233,8 @@ bool PuzzlePieceExample::run()
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
     trajopt_ifopt_composite_profile->collision_constraint_config.enabled = false;
     trajopt_ifopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 20);
-    trajopt_ifopt_composite_profile->collision_cost_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
+    trajopt_ifopt_composite_profile->collision_cost_config.collision_check_config.type =
+        tesseract_collision::CollisionEvaluatorType::DISCRETE;
 
     trajopt_ifopt_composite_profile->smooth_velocities = false;
     trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
@@ -264,7 +265,8 @@ bool PuzzlePieceExample::run()
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
     trajopt_composite_profile->collision_constraint_config.enabled = false;
     trajopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 20);
-    trajopt_composite_profile->collision_cost_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
+    trajopt_composite_profile->collision_cost_config.collision_check_config.type =
+        tesseract_collision::CollisionEvaluatorType::DISCRETE;
 
     auto trajopt_solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
     trajopt_solver_profile->opt_params.num_threads = 0;
