@@ -55,7 +55,7 @@ public:
   StateCollisionValidator(const ompl::base::SpaceInformationPtr& space_info,
                           const tesseract_environment::Environment& env,
                           std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-                          const tesseract_collision::CollisionCheckConfig& collision_check_config,
+                          const tesseract_collision::ContactManagerConfig& contact_manager_config,
                           OMPLStateExtractor extractor);
 
   bool isValid(const ompl::base::State* state) const override;

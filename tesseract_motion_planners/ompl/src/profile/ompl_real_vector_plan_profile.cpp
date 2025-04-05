@@ -148,7 +148,7 @@ OMPLRealVectorPlanProfile::createSimpleSetup(const MoveInstructionPoly& start_in
 
   // Collision checker for validating start and goal states
   tesseract_collision::DiscreteContactManager::UPtr contact_checker = env->getDiscreteContactManager();
-  contact_checker->applyContactManagerConfig(collision_check_config.contact_manager_config);
+  contact_checker->applyContactManagerConfig(contact_manager_config);
   contact_checker->setCollisionObjectsTransform(env->getState().link_transforms);
 
   // Add start states
@@ -454,7 +454,7 @@ std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorPlanProfile::cre
       collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
   {
     return std::make_unique<StateCollisionValidator>(
-        simple_setup.getSpaceInformation(), *env, manip, collision_check_config, state_extractor);
+        simple_setup.getSpaceInformation(), *env, manip, contact_manager_config, state_extractor);
   }
 
   return nullptr;
@@ -476,7 +476,7 @@ std::unique_ptr<ompl::base::MotionValidator> OMPLRealVectorPlanProfile::createMo
                                                          svc_without_collision,
                                                          *env,
                                                          manip,
-                                                         collision_check_config,
+                                                         contact_manager_config,
                                                          state_extractor);
     }
 
@@ -501,6 +501,7 @@ void OMPLRealVectorPlanProfile::serialize(Archive& ar, const unsigned int /*vers
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlanProfile);
   ar& BOOST_SERIALIZATION_NVP(solver_config);
+  ar& BOOST_SERIALIZATION_NVP(contact_manager_config);
   ar& BOOST_SERIALIZATION_NVP(collision_check_config);
 }
 

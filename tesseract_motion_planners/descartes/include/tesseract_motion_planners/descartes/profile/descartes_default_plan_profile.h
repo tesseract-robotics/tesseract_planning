@@ -70,11 +70,13 @@ public:
 
   /** @brief Flag to apply collision checking during state sampling */
   bool enable_collision{ true };
-  tesseract_collision::CollisionCheckConfig vertex_collision_check_config{ 0 };
+  tesseract_collision::ContactManagerConfig vertex_contact_manager_config{ 0 };
+  tesseract_collision::CollisionCheckConfig vertex_collision_check_config;
 
   /** @brief Flag to apply collision checking during edge evaluation */
   bool enable_edge_collision{ false };
-  tesseract_collision::CollisionCheckConfig edge_collision_check_config{ 0 };
+  tesseract_collision::ContactManagerConfig edge_contact_manager_config{ 0 };
+  tesseract_collision::CollisionCheckConfig edge_collision_check_config;
 
   /**
    * @brief Flag for generating redundant solutions as additional vertices for the planning graph search
