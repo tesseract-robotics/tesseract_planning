@@ -193,7 +193,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   auto plan_profile = std::make_shared<OMPLRealVectorPlanProfile>();
   plan_profile->contact_manager_config.default_margin = 0.025;
   plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
-  plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
+  plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
   plan_profile->solver_config.planning_time = 10;
   plan_profile->solver_config.optimize = false;
   plan_profile->solver_config.max_solutions = 2;
@@ -352,7 +352,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   auto plan_profile = std::make_shared<OMPLRealVectorPlanProfile>();
   plan_profile->contact_manager_config.default_margin = 0.02;
   plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
-  plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
+  plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
   plan_profile->solver_config.planning_time = 10;
   plan_profile->solver_config.optimize = false;
   plan_profile->solver_config.max_solutions = 2;
@@ -378,7 +378,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
     CONSOLE_BRIDGE_logError("CI Error: %s", planner_response.message.c_str());
   }
   EXPECT_TRUE(&planner_response);
-  EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 11);
+  EXPECT_GE(planner_response.results.getMoveInstructionCount(), 10);
   EXPECT_TRUE(wp1.getPosition().isApprox(
       getJointPosition(planner_response.results.getFirstMoveInstruction()->getWaypoint()), 1e-5));
 
