@@ -157,7 +157,10 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   for (const auto& js : descartes_result.trajectory)
   {
     solution.push_back(js->values.template cast<double>());
-    assert(tesseract_common::satisfiesLimits<double>(solution.back(), joint_limits));
+    if (!tesseract_common::satisfiesLimits<double>(solution.back(), joint_limits))
+    {
+      CONSOLE_BRIDGE_logWarn("Descartes Motion Planner has solution state outside limits and will be clamped to limit");
+    }
     tesseract_common::enforceLimits<double>(solution.back(), joint_limits);
   }
 
