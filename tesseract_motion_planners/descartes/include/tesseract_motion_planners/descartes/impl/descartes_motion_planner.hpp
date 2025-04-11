@@ -161,7 +161,8 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
 
     if (!tesseract_common::satisfiesLimits<double>(solution.back(), joint_limits))
     {
-      CONSOLE_BRIDGE_logError("Descartes Motion Planner has solution state outside limits and will be clamped to limit");
+      CONSOLE_BRIDGE_logError("Descartes Motion Planner has solution state outside limits and will be clamped to "
+                              "limit");
       response.successful = false;
       response.message = ERROR_SOLUTION_OUTSIDE_LIMITS;
       return response;
