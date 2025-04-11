@@ -54,6 +54,7 @@ constexpr auto SOLUTION_FOUND{ "Found valid solution" };
 constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input: " };
 constexpr auto ERROR_FAILED_TO_BUILD_GRAPH{ "Failed to build graph" };
 constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
+constexpr auto ERROR_SOLUTION_OUTSIDE_LIMITS{ "The solution generated has states outside the limits" };
 
 namespace tesseract_planning
 {
@@ -157,7 +158,15 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   for (const auto& js : descartes_result.trajectory)
   {
     solution.push_back(js->values.template cast<double>());
-    assert(tesseract_common::satisfiesLimits<double>(solution.back(), joint_limits));
+
+    if (!tesseract_common::satisfiesLimits<double>(solution.back(), joint_limits))
+    {
+      CONSOLE_BRIDGE_logError("Descartes Motion Planner has solution state outside limits and will be clamped to "
+                              "limit");
+      response.successful = false;
+      response.message = ERROR_SOLUTION_OUTSIDE_LIMITS;
+      return response;
+    }
     tesseract_common::enforceLimits<double>(solution.back(), joint_limits);
   }
 
