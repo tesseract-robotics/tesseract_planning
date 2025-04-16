@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <OsqpEigen/Settings.hpp>
 #include <trajopt_sqp/fwd.h>
-#include <trajopt_sqp/types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
@@ -56,8 +55,10 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptIfoptOSQPSolverProfile>;
 
   TrajOptIfoptOSQPSolverProfile();
-  TrajOptIfoptOSQPSolverProfile(TrajOptIfoptOSQPSolverProfile&&) = default;
-  TrajOptIfoptOSQPSolverProfile& operator=(TrajOptIfoptOSQPSolverProfile&&) = default;
+  TrajOptIfoptOSQPSolverProfile(TrajOptIfoptOSQPSolverProfile&& other) noexcept;
+  TrajOptIfoptOSQPSolverProfile& operator=(TrajOptIfoptOSQPSolverProfile&& other) noexcept;
+
+  ~TrajOptIfoptOSQPSolverProfile() override = default;
 
   // Delete because OsqpEigen::Settings stores raw pointer
   TrajOptIfoptOSQPSolverProfile(const TrajOptIfoptOSQPSolverProfile&) = delete;
@@ -65,9 +66,6 @@ public:
 
   /** @brief The OSQP convex solver settings to use */
   OsqpEigen::Settings qp_settings;
-
-  /** @brief Optimization parameters */
-  trajopt_sqp::SQPParameters opt_params{};
 
   std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> create(bool verbose = false) const override;
 
