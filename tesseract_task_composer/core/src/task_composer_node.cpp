@@ -87,7 +87,8 @@ namespace tesseract_planning
 TaskComposerNode::TaskComposerNode(std::string name,
                                    TaskComposerNodeType type,
                                    TaskComposerNodePorts ports,
-                                   bool conditional)
+                                   bool conditional,
+                                   int return_value_override)
   : name_(std::move(name))
   , ns_(name_)
   , type_(type)
@@ -95,6 +96,7 @@ TaskComposerNode::TaskComposerNode(std::string name,
   , uuid_str_(boost::uuids::to_string(uuid_))
   , conditional_(conditional)
   , ports_(std::move(ports))
+  , return_value_override_(return_value_override)
 {
 }
 
@@ -126,6 +128,9 @@ TaskComposerNode::TaskComposerNode(std::string name,
 
       output_keys_ = n.as<TaskComposerKeys>();
     }
+
+    if (YAML::Node n = config["return_value_override"])
+      return_value_override_ = n.as<int>();
   }
   catch (const std::exception& e)
   {
@@ -158,6 +163,12 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
   try
   {
     results = runImpl(context, executor);
+    if (return_value_override_ >= 0)
+    {
+      results.return_value = return_value_override_;
+      results.status_message += " (Return value overridden to " + std::to_string(return_value_override_) + ")";
+      results.color = "yellow";
+    }
   }
   catch (const std::exception& e)
   {
