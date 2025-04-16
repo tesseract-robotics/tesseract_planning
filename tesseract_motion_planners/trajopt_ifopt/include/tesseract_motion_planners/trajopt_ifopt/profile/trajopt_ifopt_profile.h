@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 #include <trajopt_ifopt/fwd.h>
 #include <trajopt_sqp/fwd.h>
+#include <trajopt_sqp/types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
@@ -121,6 +122,9 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptIfoptSolverProfile>;
 
   TrajOptIfoptSolverProfile();
+
+  /** @brief Optimization parameters */
+  trajopt_sqp::SQPParameters opt_params{};
 
   virtual std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> create(bool verbose = false) const = 0;
 

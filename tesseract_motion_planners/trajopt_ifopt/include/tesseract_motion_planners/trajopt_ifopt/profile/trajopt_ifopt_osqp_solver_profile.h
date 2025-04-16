@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <OsqpEigen/Settings.hpp>
 #include <trajopt_sqp/fwd.h>
-#include <trajopt_sqp/types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
@@ -63,11 +62,10 @@ public:
   TrajOptIfoptOSQPSolverProfile(const TrajOptIfoptOSQPSolverProfile&) = delete;
   TrajOptIfoptOSQPSolverProfile& operator=(const TrajOptIfoptOSQPSolverProfile&) = delete;
 
+  ~TrajOptIfoptOSQPSolverProfile() override = default;
+
   /** @brief The OSQP convex solver settings to use */
   OsqpEigen::Settings qp_settings;
-
-  /** @brief Optimization parameters */
-  trajopt_sqp::SQPParameters opt_params{};
 
   std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> create(bool verbose = false) const override;
 
