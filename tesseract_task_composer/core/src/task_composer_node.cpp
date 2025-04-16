@@ -453,6 +453,7 @@ std::string TaskComposerNode::dump(std::ostream& os,
   if (conditional_)
   {
     os << "\n" << tmp << " [shape=diamond, nojustify=true label=\"" << name_ << "\\n";
+    os << "Type: " << boost::core::demangle(typeid(*this).name()) << "\\l";
     os << "UUID: " << uuid_str_ << "\\l";
     os << "Namespace: " << ns_ << "\\l";
     os << "Inputs:\\l" << input_keys_;
@@ -477,6 +478,7 @@ std::string TaskComposerNode::dump(std::ostream& os,
   else
   {
     os << "\n" << tmp << " [nojustify=true label=\"" << name_ << "\\n";
+    os << "Type: " << boost::core::demangle(typeid(*this).name()) << "\\l";
     os << "UUID: " << uuid_str_ << "\\l";
     os << "Namespace: " << ns_ << "\\l";
     os << "Inputs:\\l" << input_keys_;
