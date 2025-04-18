@@ -56,8 +56,6 @@ InstructionsTrajectory::InstructionsTrajectory(CompositeInstruction& program)
 
 const Eigen::VectorXd& InstructionsTrajectory::getPosition(Eigen::Index i) const
 {
-  assert(trajectory_[static_cast<std::size_t>(i)].get().isMoveInstruction());
-  assert(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
   return trajectory_[static_cast<std::size_t>(i)]
       .get()
       .as<MoveInstructionPoly>()
@@ -68,8 +66,6 @@ const Eigen::VectorXd& InstructionsTrajectory::getPosition(Eigen::Index i) const
 
 Eigen::VectorXd& InstructionsTrajectory::getPosition(Eigen::Index i)
 {
-  assert(trajectory_[static_cast<std::size_t>(i)].get().isMoveInstruction());
-  assert(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
   return trajectory_[static_cast<std::size_t>(i)]
       .get()
       .as<MoveInstructionPoly>()
@@ -80,8 +76,6 @@ Eigen::VectorXd& InstructionsTrajectory::getPosition(Eigen::Index i)
 
 const Eigen::VectorXd& InstructionsTrajectory::getVelocity(Eigen::Index i) const
 {
-  assert(trajectory_[static_cast<std::size_t>(i)].get().isMoveInstruction());
-  assert(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
   return trajectory_[static_cast<std::size_t>(i)]
       .get()
       .as<MoveInstructionPoly>()
@@ -92,8 +86,6 @@ const Eigen::VectorXd& InstructionsTrajectory::getVelocity(Eigen::Index i) const
 
 Eigen::VectorXd& InstructionsTrajectory::getVelocity(Eigen::Index i)
 {
-  assert(trajectory_[static_cast<std::size_t>(i)].get().isMoveInstruction());
-  assert(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
   return trajectory_[static_cast<std::size_t>(i)]
       .get()
       .as<MoveInstructionPoly>()
@@ -104,8 +96,6 @@ Eigen::VectorXd& InstructionsTrajectory::getVelocity(Eigen::Index i)
 
 const Eigen::VectorXd& InstructionsTrajectory::getAcceleration(Eigen::Index i) const
 {
-  assert(trajectory_[static_cast<std::size_t>(i)].get().isMoveInstruction());
-  assert(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
   return trajectory_[static_cast<std::size_t>(i)]
       .get()
       .as<MoveInstructionPoly>()
@@ -116,8 +106,6 @@ const Eigen::VectorXd& InstructionsTrajectory::getAcceleration(Eigen::Index i) c
 
 Eigen::VectorXd& InstructionsTrajectory::getAcceleration(Eigen::Index i)
 {
-  assert(trajectory_[static_cast<std::size_t>(i)].get().isMoveInstruction());
-  assert(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
   return trajectory_[static_cast<std::size_t>(i)]
       .get()
       .as<MoveInstructionPoly>()
@@ -128,8 +116,6 @@ Eigen::VectorXd& InstructionsTrajectory::getAcceleration(Eigen::Index i)
 
 double InstructionsTrajectory::getTimeFromStart(Eigen::Index i) const
 {
-  assert(trajectory_[static_cast<std::size_t>(i)].get().isMoveInstruction());
-  assert(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
   return trajectory_[static_cast<std::size_t>(i)]
       .get()
       .as<MoveInstructionPoly>()
@@ -143,8 +129,6 @@ void InstructionsTrajectory::setData(Eigen::Index i,
                                      const Eigen::VectorXd& acceleration,
                                      double time)
 {
-  assert(trajectory_[static_cast<std::size_t>(i)].get().isMoveInstruction());
-  assert(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
   auto& swp =
       trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
   swp.setVelocity(velocity);

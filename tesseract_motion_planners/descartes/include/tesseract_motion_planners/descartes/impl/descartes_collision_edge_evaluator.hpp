@@ -45,21 +45,26 @@ template <typename FloatType>
 DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
     const tesseract_environment::Environment& collision_env,
     std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-    tesseract_collision::CollisionCheckConfig config,
+    const tesseract_collision::ContactManagerConfig& contact_manager_config,
+    tesseract_collision::CollisionCheckConfig collision_check_config,
     bool allow_collision,
     bool debug)
   : manip_(std::move(manip))
   , active_link_names_(manip_->getActiveLinkNames())
   , discrete_contact_manager_(collision_env.getDiscreteContactManager())
   , continuous_contact_manager_(collision_env.getContinuousContactManager())
-  , collision_check_config_(std::move(config))
+  , collision_check_config_(std::move(collision_check_config))
   , allow_collision_(allow_collision)
   , debug_(debug)
 {
+  collision_check_config_.contact_request.type =
+      (allow_collision_) ? tesseract_collision::ContactTestType::CLOSEST : tesseract_collision::ContactTestType::FIRST;
+
   if (discrete_contact_manager_ != nullptr)
   {
     discrete_contact_manager_->setActiveCollisionObjects(active_link_names_);
-    discrete_contact_manager_->applyContactManagerConfig(collision_check_config_.contact_manager_config);
+    discrete_contact_manager_->applyContactManagerConfig(contact_manager_config);
+    contact_margin_data_ = discrete_contact_manager_->getCollisionMarginData();
   }
   else if (collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::DISCRETE ||
            collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
@@ -71,7 +76,8 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
   if (continuous_contact_manager_ != nullptr)
   {
     continuous_contact_manager_->setActiveCollisionObjects(active_link_names_);
-    continuous_contact_manager_->applyContactManagerConfig(collision_check_config_.contact_manager_config);
+    continuous_contact_manager_->applyContactManagerConfig(contact_manager_config);
+    contact_margin_data_ = discrete_contact_manager_->getCollisionMarginData();
   }
   else if (collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::CONTINUOUS ||
            collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
@@ -102,31 +108,38 @@ DescartesCollisionEdgeEvaluator<FloatType>::evaluate(const descartes_light::Stat
   if (collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::CONTINUOUS ||
       collision_check_config_.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
   {
-    in_contact = continuousCollisionCheck(contact_results, segment, allow_collision_);
+    in_contact = continuousCollisionCheck(contact_results, segment);
   }
   else
   {
-    in_contact = discreteCollisionCheck(contact_results, segment, allow_collision_);
+    in_contact = discreteCollisionCheck(contact_results, segment);
   }
 
   if (!in_contact)
     return std::make_pair(true, 0);
 
-  // TODO: Update this to consider link pairs
-  auto collision_safety_margin_ =
-      static_cast<FloatType>(collision_check_config_.contact_manager_config.margin_data.getMaxCollisionMargin());
+  if (!allow_collision_)
+    return std::make_pair(false, 0);
 
-  if (in_contact && allow_collision_)
-    return std::make_pair(true, collision_safety_margin_ - contact_results.begin()->begin()->second[0].distance);
+  // Compute worst cost
+  double cost{ std::numeric_limits<double>::lowest() };
+  for (const auto& contact_result_map : contact_results)
+  {
+    for (const auto& pair : contact_result_map)
+    {
+      const double margin = contact_margin_data_.getCollisionMargin(pair.first.first, pair.first.second);
+      for (const auto& contact_result : pair.second)
+        cost = std::max(cost, margin - contact_result.distance);
+    }
+  }
 
-  return std::make_pair(false, 0);
+  return std::make_pair(true, cost);
 }
 
 template <typename FloatType>
 bool DescartesCollisionEdgeEvaluator<FloatType>::continuousCollisionCheck(
     std::vector<tesseract_collision::ContactResultMap>& results,
-    const tesseract_common::TrajArray& segment,
-    bool find_best) const
+    const tesseract_common::TrajArray& segment) const
 {
   // It was time using chronos time elapsed and it was faster to cache the contact manager
   unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
@@ -143,18 +156,14 @@ bool DescartesCollisionEdgeEvaluator<FloatType>::continuousCollisionCheck(
     cm = it->second;
   }
   mutex_.unlock();
-  tesseract_collision::CollisionCheckConfig config = collision_check_config_;
-  config.contact_request.type =
-      (find_best) ? tesseract_collision::ContactTestType::CLOSEST : tesseract_collision::ContactTestType::FIRST;
 
-  return tesseract_environment::checkTrajectory(results, *cm, *manip_, segment, config);
+  return tesseract_environment::checkTrajectory(results, *cm, *manip_, segment, collision_check_config_);
 }
 
 template <typename FloatType>
 bool DescartesCollisionEdgeEvaluator<FloatType>::discreteCollisionCheck(
     std::vector<tesseract_collision::ContactResultMap>& results,
-    const tesseract_common::TrajArray& segment,
-    bool find_best) const
+    const tesseract_common::TrajArray& segment) const
 {
   // It was time using chronos time elapsed and it was faster to cache the contact manager
   unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
@@ -172,11 +181,7 @@ bool DescartesCollisionEdgeEvaluator<FloatType>::discreteCollisionCheck(
   }
   mutex_.unlock();
 
-  tesseract_collision::CollisionCheckConfig config = collision_check_config_;
-  config.contact_request.type =
-      (find_best) ? tesseract_collision::ContactTestType::CLOSEST : tesseract_collision::ContactTestType::FIRST;
-
-  return tesseract_environment::checkTrajectory(results, *cm, *manip_, segment, config);
+  return tesseract_environment::checkTrajectory(results, *cm, *manip_, segment, collision_check_config_);
 }
 
 }  // namespace tesseract_planning

@@ -57,7 +57,7 @@ public:
                             ompl::base::StateValidityCheckerPtr state_validator,
                             const tesseract_environment::Environment& env,
                             std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-                            const tesseract_collision::CollisionCheckConfig& collision_check_config,
+                            const tesseract_collision::ContactManagerConfig& contact_manager_config,
                             OMPLStateExtractor extractor);
 
   bool checkMotion(const ompl::base::State* s1, const ompl::base::State* s2) const override;

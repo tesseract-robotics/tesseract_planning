@@ -213,27 +213,17 @@ std::shared_ptr<trajopt::TermInfo> createTolerancedJointWaypointTermInfo(const E
 
 std::shared_ptr<trajopt::TermInfo> createCollisionTermInfo(int start_index,
                                                            int end_index,
-                                                           double collision_safety_margin,
-                                                           double collision_safety_margin_buffer,
-                                                           tesseract_collision::CollisionEvaluatorType evaluator_type,
-                                                           bool use_weighted_sum,
-                                                           double coeff,
-                                                           tesseract_collision::ContactTestType contact_test_type,
-                                                           double longest_valid_segment_length,
+                                                           std::vector<int> fixed_steps,
+                                                           trajopt_common::TrajOptCollisionConfig collision_config,
                                                            trajopt::TermType type)
 {
   std::shared_ptr<trajopt::CollisionTermInfo> collision = std::make_shared<trajopt::CollisionTermInfo>();
   collision->name = "collision";
   collision->term_type = type;
-  collision->evaluator_type = evaluator_type;
-  collision->use_weighted_sum = use_weighted_sum;
   collision->first_step = start_index;
   collision->last_step = end_index;
-  collision->contact_test_type = contact_test_type;
-  collision->longest_valid_segment_length = longest_valid_segment_length;
-  collision->info =
-      trajopt_common::createSafetyMarginDataVector((end_index - start_index) + 1, collision_safety_margin, coeff);
-  collision->safety_margin_buffer = collision_safety_margin_buffer;
+  collision->fixed_steps = std::move(fixed_steps);
+  collision->config = std::move(collision_config);
   return collision;
 }
 

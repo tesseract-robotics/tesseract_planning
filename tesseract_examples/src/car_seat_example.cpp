@@ -282,27 +282,25 @@ bool CarSeatExample::run()
   {
     // Create TrajOpt_Ifopt Profile
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
-    trajopt_ifopt_composite_profile->collision_constraint_config->type =
+    trajopt_ifopt_composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 1);
+    trajopt_ifopt_composite_profile->collision_constraint_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
-    trajopt_ifopt_composite_profile->collision_constraint_config->contact_manager_config =
-        tesseract_collision::ContactManagerConfig(0.00);
-    trajopt_ifopt_composite_profile->collision_constraint_config->collision_margin_buffer = 0.005;
-    trajopt_ifopt_composite_profile->collision_constraint_config->collision_coeff_data =
-        trajopt_common::CollisionCoeffData(1);
-    trajopt_ifopt_composite_profile->collision_cost_config->type =
+    trajopt_ifopt_composite_profile->collision_constraint_config.collision_check_config.longest_valid_segment_length =
+        0.1;
+    trajopt_ifopt_composite_profile->collision_constraint_config.collision_margin_buffer = 0.005;
+
+    trajopt_ifopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.005, 50);
+    trajopt_ifopt_composite_profile->collision_cost_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
-    trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
-        tesseract_collision::ContactManagerConfig(0.005);
-    trajopt_ifopt_composite_profile->collision_cost_config->collision_margin_buffer = 0.01;
-    trajopt_ifopt_composite_profile->collision_cost_config->collision_coeff_data =
-        trajopt_common::CollisionCoeffData(50);
+    trajopt_ifopt_composite_profile->collision_cost_config.collision_check_config.longest_valid_segment_length = 0.1;
+    trajopt_ifopt_composite_profile->collision_cost_config.collision_margin_buffer = 0.01;
+
     trajopt_ifopt_composite_profile->smooth_velocities = false;
     trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->smooth_accelerations = true;
     trajopt_ifopt_composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->smooth_jerks = true;
     trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
-    trajopt_ifopt_composite_profile->longest_valid_segment_length = 0.1;
 
     auto trajopt_ifopt_plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
     trajopt_ifopt_plan_profile->cartesian_cost_config.enabled = false;
@@ -323,13 +321,17 @@ bool CarSeatExample::run()
   {
     // Create TrajOpt Profile
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-    trajopt_composite_profile->collision_constraint_config.enabled = true;
-    trajopt_composite_profile->collision_constraint_config.safety_margin = 0.00;
-    trajopt_composite_profile->collision_constraint_config.safety_margin_buffer = 0.005;
-    trajopt_composite_profile->collision_constraint_config.coeff = 10;
-    trajopt_composite_profile->collision_cost_config.safety_margin = 0.005;
-    trajopt_composite_profile->collision_cost_config.safety_margin_buffer = 0.01;
-    trajopt_composite_profile->collision_cost_config.coeff = 50;
+    trajopt_composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 10);
+    trajopt_composite_profile->collision_constraint_config.collision_check_config.type =
+        tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+    trajopt_composite_profile->collision_constraint_config.collision_check_config.longest_valid_segment_length = 0.1;
+    trajopt_composite_profile->collision_constraint_config.collision_margin_buffer = 0.005;
+
+    trajopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.005, 50);
+    trajopt_composite_profile->collision_cost_config.collision_check_config.type =
+        tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+    trajopt_composite_profile->collision_cost_config.collision_check_config.longest_valid_segment_length = 0.1;
+    trajopt_composite_profile->collision_cost_config.collision_margin_buffer = 0.01;
 
     auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
     trajopt_plan_profile->cartesian_cost_config.enabled = false;

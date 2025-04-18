@@ -30,7 +30,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
-#include <trajopt_common/fwd.h>
+#include <trajopt_common/collision_types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
@@ -40,12 +40,12 @@ namespace tesseract_planning
 class TrajOptIfoptDefaultCompositeProfile : public TrajOptIfoptCompositeProfile
 {
 public:
-  TrajOptIfoptDefaultCompositeProfile();
+  TrajOptIfoptDefaultCompositeProfile() = default;
 
   /** @brief Configuration info for collisions that are modeled as costs */
-  std::shared_ptr<trajopt_common::TrajOptCollisionConfig> collision_cost_config;
+  trajopt_common::TrajOptCollisionConfig collision_cost_config;
   /** @brief Configuration info for collisions that are modeled as constraints */
-  std::shared_ptr<trajopt_common::TrajOptCollisionConfig> collision_constraint_config;
+  trajopt_common::TrajOptCollisionConfig collision_constraint_config;
   /** @brief If true, a joint velocity cost with a target of 0 will be applied for all timesteps Default: true*/
   bool smooth_velocities = true;
   /** @brief This default to all ones, but allows you to weight different joints */
@@ -58,23 +58,6 @@ public:
   bool smooth_jerks = false;
   /** @brief This default to all ones, but allows you to weight different joints */
   Eigen::VectorXd jerk_coeff;
-
-  /** @brief Set the resolution at which state validity needs to be verified in order for a motion between two states
-   * to be considered valid in post checking of trajectory returned by TrajOptIfopt.
-   *
-   * The resolution is equal to longest_valid_segment_fraction * state_space.getMaximumExtent()
-   *
-   * Note: The planner takes the conservative of either longest_valid_segment_fraction or longest_valid_segment_length.
-   */
-  double longest_valid_segment_fraction = 0.01;  // 1%
-
-  /** @brief Set the resolution at which state validity needs to be verified in order for a motion between two states
-   * to be considered valid. If norm(state1 - state0) > longest_valid_segment_length.
-   *
-   * Note: This gets converted to longest_valid_segment_fraction.
-   *       longest_valid_segment_fraction = longest_valid_segment_length / state_space.getMaximumExtent()
-   */
-  double longest_valid_segment_length = 0.5;
 
   TrajOptIfoptTermInfos create(const tesseract_common::ManipulatorInfo& composite_manip_info,
                                const std::shared_ptr<const tesseract_environment::Environment>& env,

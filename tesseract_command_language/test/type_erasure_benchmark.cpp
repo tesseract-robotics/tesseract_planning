@@ -356,7 +356,7 @@ static void BM_WaypointPolyCast(benchmark::State& state)
 {
   WaypointPoly w{ StateWaypoint() };
   for (auto _ : state)
-    auto& sw = w.as<StateWaypoint>();  // NOLINT
+    auto& sw = w.as<StateWaypointPoly>();  // NOLINT
 }
 
 BENCHMARK(BM_WaypointPolyCast);

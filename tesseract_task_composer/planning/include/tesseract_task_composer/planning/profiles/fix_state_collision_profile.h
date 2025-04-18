@@ -79,7 +79,10 @@ struct FixStateCollisionProfile : public Profile
   /** @brief Percent of the total joint range that a joint will be allowed to be adjusted */
   double jiggle_factor{ 0.02 };
 
-  /** @brief Safety margin applied to collision costs/cnts when using trajopt to correct collisions */
+  /** @brief The contact manager config */
+  tesseract_collision::ContactManagerConfig contact_manager_config;
+
+  /** @brief The collision check config */
   tesseract_collision::CollisionCheckConfig collision_check_config;
 
   /** @brief Number of sampling attempts if TrajOpt correction fails*/

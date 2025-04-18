@@ -42,16 +42,15 @@ ContactCheckProfile::ContactCheckProfile() : ContactCheckProfile(0.05, 0) {}
 ContactCheckProfile::ContactCheckProfile(double longest_valid_segment_length, double contact_distance)
   : Profile(ContactCheckProfile::getStaticKey())
 {
-  config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
-  config.longest_valid_segment_length = longest_valid_segment_length;
-  config.contact_manager_config.margin_data = tesseract_collision::CollisionMarginData(contact_distance);
-  config.contact_manager_config.margin_data_override_type =
-      tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
+  contact_manager_config.default_margin = contact_distance;
 
-  if (config.longest_valid_segment_length <= 0)
+  collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+  collision_check_config.longest_valid_segment_length = longest_valid_segment_length;
+
+  if (collision_check_config.longest_valid_segment_length <= 0)
   {
     CONSOLE_BRIDGE_logWarn("ContactCheckProfile: Invalid longest valid segment. Defaulting to 0.05");
-    config.longest_valid_segment_length = 0.05;
+    collision_check_config.longest_valid_segment_length = 0.05;
   }
 }
 
@@ -61,7 +60,8 @@ template <class Archive>
 void ContactCheckProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(config);
+  ar& BOOST_SERIALIZATION_NVP(contact_manager_config);
+  ar& BOOST_SERIALIZATION_NVP(collision_check_config);
 }
 
 }  // namespace tesseract_planning

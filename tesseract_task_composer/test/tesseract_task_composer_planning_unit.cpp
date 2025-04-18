@@ -238,8 +238,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     auto profiles = std::make_shared<ProfileDictionary>();
 
     auto profile = std::make_unique<ContactCheckProfile>();
-    profile->config.contact_manager_config = tesseract_collision::ContactManagerConfig(1.5);
-    profile->config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+    profile->contact_manager_config = tesseract_collision::ContactManagerConfig(1.5);
+    profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
     profiles->addProfile("TaskComposerContinuousContactCheckTaskTests", DEFAULT_PROFILE_KEY, std::move(profile));
 
     auto data = std::make_unique<TaskComposerDataStorage>();
@@ -426,8 +426,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     auto profiles = std::make_shared<ProfileDictionary>();
 
     auto profile = std::make_unique<ContactCheckProfile>();
-    profile->config.contact_manager_config = tesseract_collision::ContactManagerConfig(1.5);
-    profile->config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+    profile->contact_manager_config = tesseract_collision::ContactManagerConfig(1.5);
+    profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     profiles->addProfile("TaskComposerDiscreteContactCheckTaskTests", DEFAULT_PROFILE_KEY, std::move(profile));
 
     auto data = std::make_unique<TaskComposerDataStorage>();

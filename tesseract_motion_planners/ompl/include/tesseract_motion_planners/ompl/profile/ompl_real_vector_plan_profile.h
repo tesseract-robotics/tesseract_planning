@@ -71,6 +71,9 @@ public:
   /** @brief The OMPL parallel planner solver config */
   OMPLSolverConfig solver_config;
 
+  /** @brief The contact manager configuration */
+  tesseract_collision::ContactManagerConfig contact_manager_config;
+
   /** @brief The collision check configuration */
   tesseract_collision::CollisionCheckConfig collision_check_config;
 

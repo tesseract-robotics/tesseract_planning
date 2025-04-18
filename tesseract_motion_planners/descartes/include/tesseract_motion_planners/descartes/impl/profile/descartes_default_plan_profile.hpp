@@ -115,7 +115,8 @@ DescartesDefaultPlanProfile<FloatType>::createWaypointSampler(
 
   DescartesCollision::Ptr ci = nullptr;
   if (enable_collision)
-    ci = std::make_shared<DescartesCollision>(*env, manip, vertex_collision_check_config, debug);
+    ci = std::make_shared<DescartesCollision>(
+        *env, manip, vertex_contact_manager_config, vertex_collision_check_config, debug);
 
   auto ve = createVertexEvaluator(move_instruction, manip, env);
   auto pose_sampler = createPoseSampler(move_instruction, manip, env);
@@ -158,7 +159,7 @@ std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>> DescartesDefaultPlanP
     compound_evaluator->evaluators.push_back(
         std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
     compound_evaluator->evaluators.push_back(std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(
-        *env, manip, edge_collision_check_config, allow_collision, debug));
+        *env, manip, edge_contact_manager_config, edge_collision_check_config, allow_collision, debug));
 
     return compound_evaluator;
   }
@@ -170,7 +171,7 @@ std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>> DescartesDefaultPlanP
   compound_evaluator->evaluators.push_back(
       std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
   compound_evaluator->evaluators.push_back(std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(
-      *env, manip, edge_collision_check_config, allow_collision, debug));
+      *env, manip, edge_contact_manager_config, edge_collision_check_config, allow_collision, debug));
 
   return compound_evaluator;
 }

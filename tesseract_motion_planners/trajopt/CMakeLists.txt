@@ -5,7 +5,6 @@ find_package(osqp REQUIRED)
 # Trajopt Planner
 add_library(
   ${PROJECT_NAME}_trajopt
-  src/trajopt_collision_config.cpp
   src/trajopt_motion_planner.cpp
   src/trajopt_utils.cpp
   src/trajopt_waypoint_config.cpp
