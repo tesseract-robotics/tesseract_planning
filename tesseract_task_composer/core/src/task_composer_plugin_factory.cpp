@@ -31,12 +31,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/resource_locator.h>
-#include <tesseract_common/plugin_loader.h>
 #include <tesseract_common/yaml_utils.h>
 #include <tesseract_common/yaml_extenstions.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_executor.h>
+#include <boost_plugin_loader/plugin_loader.hpp>
+#include <boost/algorithm/string.hpp>
+#include <console_bridge/console.h>
 
 static const std::string TESSERACT_TASK_COMPOSER_PLUGIN_DIRECTORIES_ENV = "TESSERACT_TASK_COMPOSER_PLUGIN_"
                                                                           "DIRECTORIES";
@@ -44,8 +46,9 @@ static const std::string TESSERACT_TASK_COMPOSER_PLUGINS_ENV = "TESSERACT_TASK_C
 
 namespace tesseract_planning
 {
-const std::string TaskComposerExecutorFactory::SECTION_NAME = "TaskExec";
-const std::string TaskComposerNodeFactory::SECTION_NAME = "TaskNode";
+std::string TaskComposerExecutorFactory::getSection() { return "TaskExec"; }
+
+std::string TaskComposerNodeFactory::getSection() { return "TaskNode"; }
 
 struct TaskComposerPluginFactory::Implementation
 {
@@ -53,7 +56,7 @@ struct TaskComposerPluginFactory::Implementation
   mutable std::map<std::string, TaskComposerNodeFactory::Ptr> node_factories;
   tesseract_common::PluginInfoContainer executor_plugin_info;
   tesseract_common::PluginInfoContainer task_plugin_info;
-  tesseract_common::PluginLoader plugin_loader;
+  boost_plugin_loader::PluginLoader plugin_loader;
 };
 
 TaskComposerPluginFactory::TaskComposerPluginFactory() : impl_(std::make_unique<Implementation>())
@@ -303,7 +306,7 @@ TaskComposerPluginFactory::createTaskComposerExecutor(const std::string& name,
     if (it != executor_factories.end())
       return it->second->create(name, plugin_info.config);
 
-    auto plugin = impl_->plugin_loader.instantiate<TaskComposerExecutorFactory>(plugin_info.class_name);
+    auto plugin = impl_->plugin_loader.createInstance<TaskComposerExecutorFactory>(plugin_info.class_name);
     if (plugin == nullptr)
     {
       CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s'", plugin_info.class_name.c_str());
@@ -345,7 +348,7 @@ TaskComposerPluginFactory::createTaskComposerNode(const std::string& name,
     if (it != node_factories.end())
       return it->second->create(name, plugin_info.config, *this);
 
-    auto plugin = impl_->plugin_loader.instantiate<TaskComposerNodeFactory>(plugin_info.class_name);
+    auto plugin = impl_->plugin_loader.createInstance<TaskComposerNodeFactory>(plugin_info.class_name);
     if (plugin == nullptr)
     {
       CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s'", plugin_info.class_name.c_str());

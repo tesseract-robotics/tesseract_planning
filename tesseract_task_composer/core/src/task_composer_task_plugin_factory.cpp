@@ -37,6 +37,8 @@
 #include <tesseract_task_composer/core/nodes/sync_task.h>
 #include <tesseract_task_composer/core/test_suite/test_task.h>
 
+#include <boost_plugin_loader/macros.h>
+
 namespace tesseract_planning
 {
 using DoneTaskFactory = TaskComposerTaskFactory<DoneTask>;
@@ -49,7 +51,7 @@ using GraphTaskFactory = TaskComposerTaskFactory<TaskComposerGraph>;
 using PipelineTaskFactory = TaskComposerTaskFactory<TaskComposerPipeline>;
 
 // LCOV_EXCL_START
-TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerTaskFactoryAnchor)
+PLUGIN_ANCHOR_IMPL(TaskComposerTaskFactoryAnchor)
 // LCOV_EXCL_STOP
 
 }  // namespace tesseract_planning

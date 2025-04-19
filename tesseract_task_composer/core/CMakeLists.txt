@@ -22,6 +22,7 @@ target_link_libraries(
   ${PROJECT_NAME}
   PUBLIC console_bridge::console_bridge
          tesseract::tesseract_common
+         boost_plugin_loader::boost_plugin_loader
          Boost::boost
          Boost::serialization
          yaml-cpp)
@@ -125,6 +126,7 @@ configure_component(
   DEPENDENCIES
     console_bridge
     tesseract_common
+    boost_plugin_loader
     "Boost REQUIRED COMPONENTS serialization"
     yaml-cpp
   CFG_EXTRAS cmake/core-extras.cmake)
@@ -134,6 +136,10 @@ if(TESSERACT_PACKAGE)
     COMPONENT core
     VERSION ${pkg_extracted_version}
     DESCRIPTION "Tesseract task composer core components"
-    LINUX_DEPENDS "libconsole-bridge-dev" "libyaml-cpp-dev" "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
+    LINUX_DEPENDS
+      "libconsole-bridge-dev"
+      "libyaml-cpp-dev"
+      "boost-plugin-loader"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
     WINDOWS_DEPENDS "console-bridge" "yaml-cpp" "${TESSERACT_PACKAGE_PREFIX}tesseract-common")
 endif()
