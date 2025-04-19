@@ -219,7 +219,6 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     config.contact_manager_config = profile.contact_manager_config;
     config.collision_check_config = profile.collision_check_config;
     config.collision_check_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
-    config.use_weighted_sum = true;
     config.collision_coeff_data = trajopt_common::CollisionCoeffData(1);
     collision->config = { config };
     pci.cnt_infos.push_back(collision);
@@ -235,7 +234,6 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     config.contact_manager_config = profile.contact_manager_config;
     config.collision_check_config = profile.collision_check_config;
     config.collision_check_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
-    config.use_weighted_sum = true;
     config.collision_coeff_data = trajopt_common::CollisionCoeffData(20);
     collision->config = { config };
     pci.cost_infos.push_back(collision);
