@@ -35,14 +35,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
+#include <boost_plugin_loader/macros.h>
 #include <filesystem>
 
 // clang-format off
 #define TESSERACT_ADD_TASK_COMPOSER_EXECUTOR_PLUGIN(DERIVED_CLASS, ALIAS)                                                    \
-  TESSERACT_ADD_PLUGIN_SECTIONED(DERIVED_CLASS, ALIAS, TaskExec)
+  EXPORT_CLASS_SECTIONED(DERIVED_CLASS, ALIAS, TaskExec)
 
 #define TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(DERIVED_CLASS, ALIAS)                                                  \
-  TESSERACT_ADD_PLUGIN_SECTIONED(DERIVED_CLASS, ALIAS, TaskNode)
+  EXPORT_CLASS_SECTIONED(DERIVED_CLASS, ALIAS, TaskNode)
 // clang-format on
 
 namespace YAML
@@ -71,7 +72,7 @@ public:
                                                    const TaskComposerPluginFactory& plugin_factory) const = 0;
 
 protected:
-  static const std::string SECTION_NAME;
+  static std::string getSection();
   friend class PluginLoader;
 };
 
@@ -88,7 +89,7 @@ public:
   virtual std::unique_ptr<TaskComposerExecutor> create(const std::string& name, const YAML::Node& config) const = 0;
 
 protected:
-  static const std::string SECTION_NAME;
+  static std::string getSection();
   friend class PluginLoader;
 };
 

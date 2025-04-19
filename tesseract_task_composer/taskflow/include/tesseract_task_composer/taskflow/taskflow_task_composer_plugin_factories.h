@@ -26,12 +26,12 @@
 #ifndef TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_PLUGIN_FACTORIES_H
 #define TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_PLUGIN_FACTORIES_H
 
-#include <tesseract_common/class_loader.h>
+#include <boost_plugin_loader/macros.h>
 
 namespace tesseract_planning
 {
 // LCOV_EXCL_START
-TESSERACT_PLUGIN_ANCHOR_DECL(TaskComposerTaskflowFactoriesAnchor)
+PLUGIN_ANCHOR_DECL(TaskComposerTaskflowFactoriesAnchor)
 // LCOV_EXCL_STOP
 }  // namespace tesseract_planning
 

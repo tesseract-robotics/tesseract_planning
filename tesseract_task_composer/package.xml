@@ -18,6 +18,7 @@
   <depend>tesseract_command_language</depend>
   <depend>tesseract_motion_planners</depend>
   <depend>tesseract_time_parameterization</depend>
+  <depend>boost_plugin_loader</depend>
   <depend>taskflow</depend>
 
   <build_depend>eigen</build_depend>
