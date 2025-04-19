@@ -64,7 +64,7 @@ public:
   TrajOptIfoptOSQPSolverProfile& operator=(const TrajOptIfoptOSQPSolverProfile&) = delete;
 
   /** @brief The OSQP convex solver settings to use */
-  OsqpEigen::Settings qp_settings;
+  std::unique_ptr<OsqpEigen::Settings> qp_settings;
 
   /** @brief Optimization parameters */
   trajopt_sqp::SQPParameters opt_params{};
