@@ -137,7 +137,7 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
   auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   auto default_profile = std::make_shared<ContactCheckProfile>();
-  default_profile->config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+  default_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
   auto cur_composite_profile = getProfile<ContactCheckProfile>(ns_, ci.getProfile(ns_), *profiles, default_profile);
 
   // Get state solver
@@ -147,10 +147,10 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
 
   tesseract_collision::ContinuousContactManager::Ptr manager = env->getContinuousContactManager();
   manager->setActiveCollisionObjects(manip->getActiveLinkNames());
-  manager->applyContactManagerConfig(cur_composite_profile->config.contact_manager_config);
+  manager->applyContactManagerConfig(cur_composite_profile->contact_manager_config);
 
   std::vector<tesseract_collision::ContactResultMap> contacts;
-  if (contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->config))
+  if (contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->collision_check_config))
   {
     info.status_code = 0;
     info.status_message = "Results are not contact free for process input: " + ci.getDescription();

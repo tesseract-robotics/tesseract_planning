@@ -65,7 +65,7 @@ public:
   ~TrajOptIfoptOSQPSolverProfile() override = default;
 
   /** @brief The OSQP convex solver settings to use */
-  OsqpEigen::Settings qp_settings;
+  std::unique_ptr<OsqpEigen::Settings> qp_settings;
 
   std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> create(bool verbose = false) const override;
 

@@ -239,14 +239,11 @@ bool PuzzlePieceAuxillaryAxesExample::run()
     trajopt_ifopt_plan_profile->cartesian_constraint_config.coeff(5) = 0;
 
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
-    trajopt_ifopt_composite_profile->collision_constraint_config = nullptr;
-    trajopt_ifopt_composite_profile->collision_cost_config->type =
+    trajopt_ifopt_composite_profile->collision_constraint_config.enabled = false;
+    trajopt_ifopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 2);
+    trajopt_ifopt_composite_profile->collision_cost_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::DISCRETE;
-    trajopt_ifopt_composite_profile->collision_cost_config->contact_manager_config =
-        tesseract_collision::ContactManagerConfig(0.025);
-    trajopt_ifopt_composite_profile->collision_cost_config->collision_margin_buffer = 0.05;
-    trajopt_ifopt_composite_profile->collision_cost_config->collision_coeff_data =
-        trajopt_common::CollisionCoeffData(2);
+
     trajopt_ifopt_composite_profile->smooth_velocities = false;
     trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
     trajopt_ifopt_composite_profile->smooth_accelerations = true;
@@ -278,10 +275,9 @@ bool PuzzlePieceAuxillaryAxesExample::run()
 
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
     trajopt_composite_profile->collision_constraint_config.enabled = false;
-    trajopt_composite_profile->collision_cost_config.enabled = true;
-    trajopt_composite_profile->collision_cost_config.safety_margin = 0.025;
-    trajopt_composite_profile->collision_cost_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
-    trajopt_composite_profile->collision_cost_config.coeff = 1;
+    trajopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 1);
+    trajopt_composite_profile->collision_cost_config.collision_check_config.type =
+        tesseract_collision::CollisionEvaluatorType::DISCRETE;
 
     auto trajopt_solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
     trajopt_solver_profile->settings.adaptive_rho = 0;

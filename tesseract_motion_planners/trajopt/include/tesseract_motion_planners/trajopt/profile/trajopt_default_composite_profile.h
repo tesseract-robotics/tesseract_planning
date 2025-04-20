@@ -29,14 +29,12 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <vector>
 #include <memory>
 #include <Eigen/Core>
 #include <trajopt/fwd.hpp>
-#include <trajopt_common/fwd.h>
+#include <trajopt_common/collision_types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/trajopt/trajopt_collision_config.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
 
 #include <tesseract_collision/core/fwd.h>
@@ -52,12 +50,10 @@ public:
 
   TrajOptDefaultCompositeProfile() = default;
 
-  /** @brief The type of contact test to perform: FIRST, CLOSEST, ALL */
-  tesseract_collision::ContactTestType contact_test_type{ tesseract_collision::ContactTestType::ALL };
   /** @brief Configuration info for collisions that are modeled as costs */
-  CollisionCostConfig collision_cost_config;
+  trajopt_common::TrajOptCollisionConfig collision_cost_config;
   /** @brief Configuration info for collisions that are modeled as constraints */
-  CollisionConstraintConfig collision_constraint_config;
+  trajopt_common::TrajOptCollisionConfig collision_constraint_config;
   /** @brief If true, a joint velocity cost with a target of 0 will be applied for all timesteps Default: true*/
   bool smooth_velocities = true;
   /** @brief This default to all ones, but allows you to weight different joints */
@@ -75,37 +71,30 @@ public:
   /** @brief Optimization weight associated with kinematic singularity avoidance */
   double avoid_singularity_coeff = 5.0;
 
-  /** @brief Set the resolution at which state validity needs to be verified in order for a motion between two states
-   * to be considered valid in post checking of trajectory returned by trajopt.
-   *
-   * The resolution is equal to longest_valid_segment_fraction * state_space.getMaximumExtent()
-   *
-   * Note: The planner takes the conservative of either longest_valid_segment_fraction or longest_valid_segment_length.
-   */
-  double longest_valid_segment_fraction = 0.01;  // 1%
-
-  /** @brief Set the resolution at which state validity needs to be verified in order for a motion between two states
-   * to be considered valid. If norm(state1 - state0) > longest_valid_segment_length.
-   *
-   * Note: This gets converted to longest_valid_segment_fraction.
-   *       longest_valid_segment_fraction = longest_valid_segment_length / state_space.getMaximumExtent()
-   */
-  double longest_valid_segment_length = 0.1;
-
-  /**@brief Special link collision cost distances */
-  std::shared_ptr<trajopt_common::SafetyMarginData> special_collision_cost{ nullptr };
-  /**@brief Special link collision constraint distances */
-  std::shared_ptr<trajopt_common::SafetyMarginData> special_collision_constraint{ nullptr };
-
   TrajOptTermInfos create(const tesseract_common::ManipulatorInfo& composite_manip_info,
                           const std::shared_ptr<const tesseract_environment::Environment>& env,
                           const std::vector<int>& fixed_indices,
                           int start_index,
                           int end_index) const override;
 
-protected:
-  double computeLongestValidSegmentLength(const Eigen::MatrixX2d& joint_limits) const;
+  /**
+   * @brief Compute the longest valid segment length
+   * @param joint_limits
+   * @param longest_valid_segment_fraction Set the resolution at which state validity needs to be verified in order for
+   * a motion between two states to be considered valid in post checking of trajectory returned by trajopt. The
+   * resolution is equal to longest_valid_segment_fraction * state_space.getMaximumExtent() Note: The planner takes the
+   * conservative of either longest_valid_segment_fraction or longest_valid_segment_length.
+   * @param longest_valid_segment_length Set the resolution at which state validity needs to be verified in order for a
+   * motion between two states to be considered valid. If norm(state1 - state0) > longest_valid_segment_length. Note:
+   * This gets converted to longest_valid_segment_fraction. longest_valid_segment_fraction =
+   * longest_valid_segment_length / state_space.getMaximumExtent()
+   * @return The computed longest valid segment length given length and fraction
+   */
+  static double computeLongestValidSegmentLength(const Eigen::MatrixX2d& joint_limits,
+                                                 double longest_valid_segment_fraction,
+                                                 double longest_valid_segment_length);
 
+protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT

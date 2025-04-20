@@ -50,8 +50,10 @@ void DescartesDefaultPlanProfile<FloatType>::serialize(Archive& ar, const unsign
   ar& BOOST_SERIALIZATION_NVP(manipulator_ik_solver);
   ar& BOOST_SERIALIZATION_NVP(allow_collision);
   ar& BOOST_SERIALIZATION_NVP(enable_collision);
+  ar& BOOST_SERIALIZATION_NVP(vertex_contact_manager_config);
   ar& BOOST_SERIALIZATION_NVP(vertex_collision_check_config);
   ar& BOOST_SERIALIZATION_NVP(enable_edge_collision);
+  ar& BOOST_SERIALIZATION_NVP(edge_contact_manager_config);
   ar& BOOST_SERIALIZATION_NVP(edge_collision_check_config);
   ar& BOOST_SERIALIZATION_NVP(use_redundant_joint_solutions);
   ar& BOOST_SERIALIZATION_NVP(debug);

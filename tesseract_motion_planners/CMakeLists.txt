@@ -40,6 +40,8 @@ set(COVERAGE_EXCLUDE
     /usr/*
     /opt/*
     ${CMAKE_CURRENT_LIST_DIR}/test/*
+    /*/install/*
+    /*/devel/*
     /*/gtest/*
     /*/include/descartes_light/*
     /*/include/opw_kinematics/*

@@ -73,13 +73,14 @@ namespace tesseract_planning
 {
 TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile()
 {
-  qp_settings.setVerbosity(false);
-  qp_settings.setWarmStart(true);
-  qp_settings.setPolish(true);
-  qp_settings.setAdaptiveRho(true);
-  qp_settings.setMaxIteration(8192);
-  qp_settings.setAbsoluteTolerance(1e-4);
-  qp_settings.setRelativeTolerance(1e-6);
+  qp_settings = std::make_unique<OsqpEigen::Settings>();
+  qp_settings->setVerbosity(false);
+  qp_settings->setWarmStart(true);
+  qp_settings->setPolish(true);
+  qp_settings->setAdaptiveRho(true);
+  qp_settings->setMaxIteration(8192);
+  qp_settings->setAbsoluteTolerance(1e-4);
+  qp_settings->setRelativeTolerance(1e-6);
 }
 
 std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> TrajOptIfoptOSQPSolverProfile::create(bool verbose) const
@@ -89,8 +90,8 @@ std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> TrajOptIfoptOSQPSolverProfile
 
   // There seems to be no way to set objects solver_->settings() (OsqpEigen::Settings)
   // or solver_->settings()->getSettings() (OSQPSettings) at once
-  copyOSQPEigenSettings(*qp_solver->solver_->settings(), qp_settings);
-  qp_solver->solver_->settings()->setVerbosity((qp_settings.getSettings()->verbose != 0) || verbose);
+  copyOSQPEigenSettings(*qp_solver->solver_->settings(), *qp_settings);
+  qp_solver->solver_->settings()->setVerbosity((qp_settings->getSettings()->verbose != 0) || verbose);
 
   auto solver = std::make_unique<trajopt_sqp::TrustRegionSQPSolver>(qp_solver);
   solver->params = opt_params;

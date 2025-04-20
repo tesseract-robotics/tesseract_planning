@@ -30,6 +30,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 #include <console_bridge/console.h>
+#include <boost/core/demangle.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/constants.h>
@@ -114,20 +115,15 @@ std::shared_ptr<const ProfileType> getProfile(const std::string& ns,
     return std::static_pointer_cast<const ProfileType>(
         profile_dictionary.getProfile(ProfileType::getStaticKey(), ns, profile));
 
-  CONSOLE_BRIDGE_logDebug("Profile '%s' was not found in namespace '%s' for type '%s'. Using default if available. "
-                          "Available "
-                          "profiles:",
-                          profile.c_str(),
-                          ns.c_str(),
-                          typeid(ProfileType).name());
-
+  std::stringstream ss;
+  ss << "Profile '" << profile << "' was not found in namespace '" << ns << "' for type '"
+     << boost::core::demangle(typeid(ProfileType).name()) << "'. Using default if available. Available profiles: [";
   if (profile_dictionary.hasProfileEntry(ProfileType::getStaticKey(), ns))
-  {
     for (const auto& pair : profile_dictionary.getProfileEntry(ProfileType::getStaticKey(), ns))
-    {
-      CONSOLE_BRIDGE_logDebug("%s", pair.first.c_str());
-    }
-  }
+      ss << pair.first << ", ";
+  ss << "]";
+
+  CONSOLE_BRIDGE_logDebug(ss.str().c_str());
 
   return default_profile;
 }

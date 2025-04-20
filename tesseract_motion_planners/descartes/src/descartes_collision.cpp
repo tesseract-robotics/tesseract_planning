@@ -34,6 +34,7 @@ namespace tesseract_planning
 {
 DescartesCollision::DescartesCollision(const tesseract_environment::Environment& collision_env,
                                        std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
+                                       const tesseract_collision::ContactManagerConfig& contact_manager_config,
                                        tesseract_collision::CollisionCheckConfig collision_check_config,
                                        bool debug)
   : manip_(std::move(manip))
@@ -43,7 +44,7 @@ DescartesCollision::DescartesCollision(const tesseract_environment::Environment&
   , debug_(debug)
 {
   contact_manager_->setActiveCollisionObjects(active_link_names_);
-  contact_manager_->applyContactManagerConfig(collision_check_config_.contact_manager_config);
+  contact_manager_->applyContactManagerConfig(contact_manager_config);
 }
 
 DescartesCollision::DescartesCollision(const DescartesCollision& collision_interface)
@@ -53,7 +54,6 @@ DescartesCollision::DescartesCollision(const DescartesCollision& collision_inter
   , collision_check_config_(collision_interface.collision_check_config_)
   , debug_(collision_interface.debug_)
 {
-  contact_manager_->applyContactManagerConfig(collision_check_config_.contact_manager_config);
 }
 
 tesseract_collision::ContactResultMap DescartesCollision::validate(const Eigen::Ref<const Eigen::VectorXd>& pos)
@@ -62,11 +62,11 @@ tesseract_collision::ContactResultMap DescartesCollision::validate(const Eigen::
   // 1. Compute the transform of all objects
   tesseract_common::TransformMap state = manip_->calcFwdKin(pos);
 
-  tesseract_collision::CollisionCheckConfig config(collision_check_config_);
-  config.contact_request.type = tesseract_collision::ContactTestType::FIRST;
+  tesseract_collision::ContactRequest contact_request(collision_check_config_.contact_request);
+  contact_request.type = tesseract_collision::ContactTestType::FIRST;
 
   tesseract_collision::ContactResultMap results;
-  tesseract_environment::checkTrajectoryState(results, *contact_manager_, state, config);
+  tesseract_environment::checkTrajectoryState(results, *contact_manager_, state, contact_request);
   return results;
 }
 
@@ -76,11 +76,11 @@ double DescartesCollision::distance(const Eigen::Ref<const Eigen::VectorXd>& pos
   // 1. Compute the transform of all objects
   tesseract_common::TransformMap state = manip_->calcFwdKin(pos);
 
-  tesseract_collision::CollisionCheckConfig config(collision_check_config_);
-  config.contact_request.type = tesseract_collision::ContactTestType::CLOSEST;
+  tesseract_collision::ContactRequest contact_request(collision_check_config_.contact_request);
+  contact_request.type = tesseract_collision::ContactTestType::CLOSEST;
 
   tesseract_collision::ContactResultMap results;
-  tesseract_environment::checkTrajectoryState(results, *contact_manager_, state, config);
+  tesseract_environment::checkTrajectoryState(results, *contact_manager_, state, contact_request);
 
   if (results.empty())
     return contact_manager_->getCollisionMarginData().getMaxCollisionMargin();

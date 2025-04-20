@@ -143,10 +143,10 @@ TaskComposerNodeInfo DiscreteContactCheckTask::runImpl(TaskComposerContext& cont
   tesseract_collision::DiscreteContactManager::Ptr manager = env->getDiscreteContactManager();
 
   manager->setActiveCollisionObjects(manip->getActiveLinkNames());
-  manager->applyContactManagerConfig(cur_composite_profile->config.contact_manager_config);
+  manager->applyContactManagerConfig(cur_composite_profile->contact_manager_config);
 
   std::vector<tesseract_collision::ContactResultMap> contacts;
-  if (contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->config))
+  if (contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->collision_check_config))
   {
     info.status_message = "Results are not contact free for process input: " + ci.getDescription();
     CONSOLE_BRIDGE_logInform("%s", info.status_message.c_str());

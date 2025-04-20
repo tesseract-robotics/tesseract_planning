@@ -64,62 +64,22 @@ TrajOptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& 
   TrajOptTermInfos term_infos;
   tesseract_kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(composite_manip_info.manipulator);
   const Eigen::Index dof = joint_group->numJoints();
-  const Eigen::MatrixX2d joint_limits = joint_group->getLimits().joint_limits;
-  const double lvs_length = computeLongestValidSegmentLength(joint_limits);
 
   if (collision_constraint_config.enabled)
   {
-    trajopt::TermInfo::Ptr ti = createCollisionTermInfo(start_index,
-                                                        end_index,
-                                                        collision_constraint_config.safety_margin,
-                                                        collision_constraint_config.safety_margin_buffer,
-                                                        collision_constraint_config.type,
-                                                        collision_constraint_config.use_weighted_sum,
-                                                        collision_constraint_config.coeff,
-                                                        contact_test_type,
-                                                        lvs_length,
-                                                        trajopt::TermType::TT_CNT);
+    trajopt::TermInfo::Ptr ti = createCollisionTermInfo(
+        start_index, end_index, fixed_indices, collision_constraint_config, trajopt::TermType::TT_CNT);
 
-    // Update the term info with the (possibly) new start and end state indices for which to apply this cost
-    std::shared_ptr<trajopt::CollisionTermInfo> ct = std::static_pointer_cast<trajopt::CollisionTermInfo>(ti);
-    if (special_collision_constraint)
-    {
-      for (auto& info : ct->info)
-      {
-        info = special_collision_constraint;
-      }
-    }
-    ct->fixed_steps = fixed_indices;
-
-    term_infos.constraints.push_back(ct);
+    term_infos.constraints.push_back(ti);
   }
 
   if (collision_cost_config.enabled)
   {
     // Create a default collision term info
-    trajopt::TermInfo::Ptr ti = createCollisionTermInfo(start_index,
-                                                        end_index,
-                                                        collision_cost_config.safety_margin,
-                                                        collision_cost_config.safety_margin_buffer,
-                                                        collision_cost_config.type,
-                                                        collision_cost_config.use_weighted_sum,
-                                                        collision_cost_config.coeff,
-                                                        contact_test_type,
-                                                        lvs_length,
-                                                        trajopt::TermType::TT_COST);
+    trajopt::TermInfo::Ptr ti = createCollisionTermInfo(
+        start_index, end_index, fixed_indices, collision_cost_config, trajopt::TermType::TT_COST);
 
-    // Update the term info with the (possibly) new start and end state indices for which to apply this cost
-    std::shared_ptr<trajopt::CollisionTermInfo> ct = std::static_pointer_cast<trajopt::CollisionTermInfo>(ti);
-    if (special_collision_cost)
-    {
-      for (auto& info : ct->info)
-      {
-        info = special_collision_cost;
-      }
-    }
-    ct->fixed_steps = fixed_indices;
-
-    term_infos.costs.push_back(ct);
+    term_infos.costs.push_back(ti);
   }
 
   if (smooth_velocities)
@@ -153,7 +113,9 @@ TrajOptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& 
   return term_infos;
 }
 
-double TrajOptDefaultCompositeProfile::computeLongestValidSegmentLength(const Eigen::MatrixX2d& joint_limits) const
+double TrajOptDefaultCompositeProfile::computeLongestValidSegmentLength(const Eigen::MatrixX2d& joint_limits,
+                                                                        double longest_valid_segment_fraction,
+                                                                        double longest_valid_segment_length)
 {
   // Calculate longest valid segment length
   double extent = (joint_limits.col(1) - joint_limits.col(0)).norm();
@@ -173,7 +135,6 @@ template <class Archive>
 void TrajOptDefaultCompositeProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptCompositeProfile);
-  ar& BOOST_SERIALIZATION_NVP(contact_test_type);
   ar& BOOST_SERIALIZATION_NVP(collision_cost_config);
   ar& BOOST_SERIALIZATION_NVP(collision_constraint_config);
   ar& BOOST_SERIALIZATION_NVP(smooth_velocities);
@@ -184,10 +145,6 @@ void TrajOptDefaultCompositeProfile::serialize(Archive& ar, const unsigned int /
   ar& BOOST_SERIALIZATION_NVP(jerk_coeff);
   ar& BOOST_SERIALIZATION_NVP(avoid_singularity);
   ar& BOOST_SERIALIZATION_NVP(avoid_singularity_coeff);
-  ar& BOOST_SERIALIZATION_NVP(longest_valid_segment_fraction);
-  ar& BOOST_SERIALIZATION_NVP(longest_valid_segment_length);
-  ar& BOOST_SERIALIZATION_NVP(special_collision_cost);
-  ar& BOOST_SERIALIZATION_NVP(special_collision_constraint);
 }
 
 }  // namespace tesseract_planning

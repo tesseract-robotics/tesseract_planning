@@ -51,7 +51,10 @@ struct ContactCheckProfile : public Profile
   static std::size_t getStaticKey();
 
   /** @brief The contact manager config */
-  tesseract_collision::CollisionCheckConfig config;
+  tesseract_collision::ContactManagerConfig contact_manager_config;
+
+  /** @brief The collision check config */
+  tesseract_collision::CollisionCheckConfig collision_check_config;
 
 protected:
   friend class boost::serialization::access;

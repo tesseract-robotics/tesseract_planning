@@ -11,6 +11,7 @@ endif()
 
 find_package(console_bridge REQUIRED)
 find_package(tesseract_common REQUIRED)
+find_package(boost_plugin_loader REQUIRED)
 find_package(Boost REQUIRED COMPONENTS serialization)
 find_package(yaml-cpp REQUIRED)
 
@@ -35,6 +36,8 @@ set(COVERAGE_EXCLUDE
     /usr/*
     /opt/*
     ${CMAKE_CURRENT_LIST_DIR}/test/*
+    /*/install/*
+    /*/devel/*
     /*/gtest/*)
 add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 

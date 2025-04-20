@@ -349,8 +349,6 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     throw std::runtime_error("contactCheckProgram was given continuous contact manager with a trajectory that only has "
                              "one state.");
 
-  manager.applyContactManagerConfig(config.contact_manager_config);
-
   bool debug_logging = console_bridge::getLogLevel() < console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO;
 
   tesseract_collision::ContactTrajectoryResults::UPtr traj_contacts;
@@ -546,7 +544,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
         }
 
         tesseract_environment::checkTrajectorySegment(
-            state_results, manager, state0.link_transforms, state1.link_transforms, config);
+            state_results, manager, state0.link_transforms, state1.link_transforms, config.contact_request);
         if (!state_results.empty())
         {
           found = true;
@@ -609,7 +607,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       }
 
       tesseract_environment::checkTrajectorySegment(
-          state_results, manager, state0.link_transforms, state1.link_transforms, config);
+          state_results, manager, state0.link_transforms, state1.link_transforms, config.contact_request);
       if (!state_results.empty())
       {
         found = true;
@@ -655,8 +653,6 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
 
   if (mi.empty())
     throw std::runtime_error("contactCheckProgram was given continuous contact manager with empty trajectory.");
-
-  manager.applyContactManagerConfig(config.contact_manager_config);
 
   bool debug_logging = console_bridge::getLogLevel() < console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO;
 
@@ -824,7 +820,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
 
           tesseract_scene_graph::SceneState state = state_solver.getState(jn, subtraj.row(iSubStep));
           sub_state_results.clear();
-          tesseract_environment::checkTrajectoryState(sub_state_results, manager, state.link_transforms, config);
+          tesseract_environment::checkTrajectoryState(
+              sub_state_results, manager, state.link_transforms, config.contact_request);
           if (!sub_state_results.empty())
           {
             found = true;

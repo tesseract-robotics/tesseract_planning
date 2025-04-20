@@ -28,11 +28,13 @@
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory_utils.h>
 
+#include <boost_plugin_loader/macros.h>
+
 namespace tesseract_planning
 {
 using TaskflowTaskComposerExecutorFactory = TaskComposerExecutorFactoryImpl<TaskflowTaskComposerExecutor>;
 // LCOV_EXCL_START
-TESSERACT_PLUGIN_ANCHOR_IMPL(TaskComposerTaskflowFactoriesAnchor)
+PLUGIN_ANCHOR_IMPL(TaskComposerTaskflowFactoriesAnchor)
 // LCOV_EXCL_STOP
 }  // namespace tesseract_planning
 

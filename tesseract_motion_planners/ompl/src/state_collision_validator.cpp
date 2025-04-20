@@ -44,7 +44,7 @@ StateCollisionValidator::StateCollisionValidator(
     const ompl::base::SpaceInformationPtr& space_info,
     const tesseract_environment::Environment& env,
     std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-    const tesseract_collision::CollisionCheckConfig& collision_check_config,
+    const tesseract_collision::ContactManagerConfig& contact_manager_config,
     OMPLStateExtractor extractor)
   : StateValidityChecker(space_info)
   , manip_(std::move(manip))
@@ -54,7 +54,7 @@ StateCollisionValidator::StateCollisionValidator(
   links_ = manip_->getActiveLinkNames();
 
   contact_manager_->setActiveCollisionObjects(links_);
-  contact_manager_->applyContactManagerConfig(collision_check_config.contact_manager_config);
+  contact_manager_->applyContactManagerConfig(contact_manager_config);
 }
 
 bool StateCollisionValidator::isValid(const ompl::base::State* state) const
