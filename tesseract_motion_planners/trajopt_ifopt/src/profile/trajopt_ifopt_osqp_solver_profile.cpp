@@ -67,29 +67,6 @@ void serialize(Archive& ar, OsqpEigen::Settings& osqp_eigen_settings, const unsi
   ar& boost::serialization::make_nvp("warm_start", settings.warm_start);
   ar& boost::serialization::make_nvp("time_limit", settings.time_limit);
 }
-
-template <class Archive>
-void serialize(Archive& ar, trajopt_sqp::SQPParameters& params, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("improve_ratio_threshold", params.improve_ratio_threshold);
-  ar& boost::serialization::make_nvp("min_trust_box_size", params.min_trust_box_size);
-  ar& boost::serialization::make_nvp("min_approx_improve", params.min_approx_improve);
-  ar& boost::serialization::make_nvp("min_approx_improve_frac", params.min_approx_improve_frac);
-  ar& boost::serialization::make_nvp("max_iter", params.max_iterations);
-  ar& boost::serialization::make_nvp("trust_shrink_ratio", params.trust_shrink_ratio);
-  ar& boost::serialization::make_nvp("trust_expand_ratio", params.trust_expand_ratio);
-  ar& boost::serialization::make_nvp("cnt_tolerance", params.cnt_tolerance);
-  ar& boost::serialization::make_nvp("max_merit_coeff_increases", params.max_merit_coeff_increases);
-  ar& boost::serialization::make_nvp("max_qp_solver_failures", params.max_qp_solver_failures);
-  ar& boost::serialization::make_nvp("merit_coeff_increase_ratio", params.merit_coeff_increase_ratio);
-  ar& boost::serialization::make_nvp("max_time", params.max_time);
-  ar& boost::serialization::make_nvp("initial_merit_error_coeff", params.initial_merit_error_coeff);
-  ar& boost::serialization::make_nvp("inflate_constraints_individually", params.inflate_constraints_individually);
-  ar& boost::serialization::make_nvp("trust_box_size", params.initial_trust_box_size);
-  ar& boost::serialization::make_nvp("log_results", params.log_results);
-  ar& boost::serialization::make_nvp("log_dir", params.log_dir);
-  // ar& boost::serialization::make_nvp("num_threads", params.num_threads);
-}
 }  // namespace boost::serialization
 
 namespace tesseract_planning
@@ -139,13 +116,11 @@ void TrajOptIfoptOSQPSolverProfile::serialize(Archive& ar, const unsigned int /*
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptIfoptSolverProfile);
   ar& BOOST_SERIALIZATION_NVP(qp_settings);
-  ar& BOOST_SERIALIZATION_NVP(opt_params);
 }
 
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_FREE_ARCHIVES_INSTANTIATE(OsqpEigen::Settings)
-TESSERACT_SERIALIZE_FREE_ARCHIVES_INSTANTIATE(trajopt_sqp::SQPParameters)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptIfoptOSQPSolverProfile)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptIfoptOSQPSolverProfile)
