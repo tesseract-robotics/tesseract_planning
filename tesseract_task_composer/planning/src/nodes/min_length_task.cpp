@@ -45,7 +45,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_move_profile.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
@@ -142,7 +142,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
     // Set up planner
     SimpleMotionPlanner planner(ns_);
 
-    auto profile = std::make_shared<SimplePlannerFixedSizePlanProfile>(subdivisions, subdivisions);
+    auto profile = std::make_shared<SimplePlannerFixedSizeMoveProfile>(subdivisions, subdivisions);
 
     // Create profile dictionary
     auto simple_profiles = std::make_shared<ProfileDictionary>();

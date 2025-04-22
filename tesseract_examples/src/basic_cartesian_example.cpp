@@ -61,8 +61,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
-#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
@@ -240,15 +240,15 @@ bool BasicCartesianExample::run()
     composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "cartesian_program", composite_profile);
 
-    auto plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
-    plan_profile->cartesian_cost_config.enabled = false;
-    plan_profile->cartesian_constraint_config.enabled = true;
-    plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Ones(6);
-    plan_profile->joint_cost_config.enabled = false;
-    plan_profile->joint_constraint_config.enabled = true;
-    plan_profile->joint_constraint_config.coeff = Eigen::VectorXd::Ones(7);
-    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "RASTER", plan_profile);
-    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "freespace_profile", plan_profile);
+    auto move_profile = std::make_shared<TrajOptIfoptDefaultMoveProfile>();
+    move_profile->cartesian_cost_config.enabled = false;
+    move_profile->cartesian_constraint_config.enabled = true;
+    move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Ones(6);
+    move_profile->joint_cost_config.enabled = false;
+    move_profile->joint_constraint_config.enabled = true;
+    move_profile->joint_constraint_config.coeff = Eigen::VectorXd::Ones(7);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "RASTER", move_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "freespace_profile", move_profile);
   }
   else
   {
@@ -265,15 +265,15 @@ bool BasicCartesianExample::run()
     composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "cartesian_program", composite_profile);
 
-    auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
-    plan_profile->cartesian_cost_config.enabled = false;
-    plan_profile->cartesian_constraint_config.enabled = true;
-    plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Ones(6);
-    plan_profile->joint_cost_config.enabled = false;
-    plan_profile->joint_constraint_config.enabled = true;
-    plan_profile->joint_constraint_config.coeff = Eigen::VectorXd::Ones(7);
-    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "RASTER", plan_profile);
-    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "freespace_profile", plan_profile);
+    auto move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
+    move_profile->cartesian_cost_config.enabled = false;
+    move_profile->cartesian_constraint_config.enabled = true;
+    move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Ones(6);
+    move_profile->joint_cost_config.enabled = false;
+    move_profile->joint_constraint_config.enabled = true;
+    move_profile->joint_constraint_config.coeff = Eigen::VectorXd::Ones(7);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "RASTER", move_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "freespace_profile", move_profile);
   }
 
   // Create task

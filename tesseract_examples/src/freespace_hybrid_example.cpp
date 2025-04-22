@@ -50,7 +50,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/utils.h>
 
-#include <tesseract_motion_planners/ompl/profile/ompl_real_vector_plan_profile.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -198,7 +198,7 @@ bool FreespaceHybridExample::run()
   auto profiles = std::make_shared<ProfileDictionary>();
 
   // Create OMPL Profile
-  auto ompl_profile = std::make_shared<OMPLRealVectorPlanProfile>();
+  auto ompl_profile = std::make_shared<OMPLRealVectorMoveProfile>();
   auto ompl_planner_config = std::make_shared<RRTConnectConfigurator>();
   ompl_planner_config->range = range_;
   ompl_profile->solver_config.planning_time = planning_time_;

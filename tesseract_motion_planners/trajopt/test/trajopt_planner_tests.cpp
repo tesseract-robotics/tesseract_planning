@@ -44,7 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h>
 
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
@@ -143,13 +143,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+  auto move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
   auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
@@ -217,13 +217,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+  auto move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
   auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
@@ -237,10 +237,10 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   request.profiles = profiles;
 
   {
-    plan_profile->cartesian_cost_config.enabled = false;
-    plan_profile->cartesian_constraint_config.enabled = true;
-    plan_profile->joint_cost_config.enabled = false;
-    plan_profile->joint_constraint_config.enabled = true;
+    move_profile->cartesian_cost_config.enabled = false;
+    move_profile->cartesian_constraint_config.enabled = true;
+    move_profile->joint_cost_config.enabled = false;
+    move_profile->joint_constraint_config.enabled = true;
     std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
@@ -254,10 +254,10 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
         (tesseract_tests::vectorContainsType<sco::Cost::Ptr, trajopt::TrajOptCostFromErrFunc>(problem->getCosts())));
   }
   {
-    plan_profile->cartesian_cost_config.enabled = true;
-    plan_profile->cartesian_constraint_config.enabled = false;
-    plan_profile->joint_cost_config.enabled = true;
-    plan_profile->joint_constraint_config.enabled = false;
+    move_profile->cartesian_cost_config.enabled = true;
+    move_profile->cartesian_constraint_config.enabled = false;
+    move_profile->joint_cost_config.enabled = true;
+    move_profile->joint_constraint_config.enabled = false;
 
     std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
@@ -303,13 +303,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+  auto move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
   auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
@@ -323,10 +323,10 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   request.profiles = profiles;
 
   {
-    plan_profile->cartesian_cost_config.enabled = false;
-    plan_profile->cartesian_constraint_config.enabled = true;
-    plan_profile->joint_cost_config.enabled = false;
-    plan_profile->joint_constraint_config.enabled = true;
+    move_profile->cartesian_cost_config.enabled = false;
+    move_profile->cartesian_constraint_config.enabled = true;
+    move_profile->joint_cost_config.enabled = false;
+    move_profile->joint_constraint_config.enabled = true;
     std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
@@ -341,10 +341,10 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   }
 
   {
-    plan_profile->cartesian_cost_config.enabled = true;
-    plan_profile->cartesian_constraint_config.enabled = false;
-    plan_profile->joint_cost_config.enabled = true;
-    plan_profile->joint_constraint_config.enabled = false;
+    move_profile->cartesian_cost_config.enabled = true;
+    move_profile->cartesian_constraint_config.enabled = false;
+    move_profile->joint_cost_config.enabled = true;
+    move_profile->joint_constraint_config.enabled = false;
     std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
@@ -390,13 +390,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+  auto move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
   auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
@@ -410,10 +410,10 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   request.profiles = profiles;
 
   {
-    plan_profile->cartesian_cost_config.enabled = false;
-    plan_profile->cartesian_constraint_config.enabled = true;
-    plan_profile->joint_cost_config.enabled = false;
-    plan_profile->joint_constraint_config.enabled = true;
+    move_profile->cartesian_cost_config.enabled = false;
+    move_profile->cartesian_constraint_config.enabled = true;
+    move_profile->joint_cost_config.enabled = false;
+    move_profile->joint_constraint_config.enabled = true;
     std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
@@ -428,10 +428,10 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   }
 
   {
-    plan_profile->cartesian_cost_config.enabled = true;
-    plan_profile->cartesian_constraint_config.enabled = false;
-    plan_profile->joint_cost_config.enabled = true;
-    plan_profile->joint_constraint_config.enabled = false;
+    move_profile->cartesian_cost_config.enabled = true;
+    move_profile->cartesian_constraint_config.enabled = false;
+    move_profile->joint_cost_config.enabled = true;
+    move_profile->joint_constraint_config.enabled = false;
     std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
@@ -475,13 +475,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+  auto move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
   auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
@@ -495,10 +495,10 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   request.profiles = profiles;
 
   {
-    plan_profile->cartesian_cost_config.enabled = false;
-    plan_profile->cartesian_constraint_config.enabled = true;
-    plan_profile->joint_cost_config.enabled = false;
-    plan_profile->joint_constraint_config.enabled = true;
+    move_profile->cartesian_cost_config.enabled = false;
+    move_profile->cartesian_constraint_config.enabled = true;
+    move_profile->joint_cost_config.enabled = false;
+    move_profile->joint_constraint_config.enabled = true;
     std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
@@ -512,10 +512,10 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
         (tesseract_tests::vectorContainsType<sco::Cost::Ptr, trajopt::TrajOptCostFromErrFunc>(problem->getCosts())));
   }
   {
-    plan_profile->cartesian_cost_config.enabled = true;
-    plan_profile->cartesian_constraint_config.enabled = false;
-    plan_profile->joint_cost_config.enabled = true;
-    plan_profile->joint_constraint_config.enabled = false;
+    move_profile->cartesian_cost_config.enabled = true;
+    move_profile->cartesian_constraint_config.enabled = false;
+    move_profile->joint_cost_config.enabled = true;
+    move_profile->joint_constraint_config.enabled = false;
     std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
@@ -560,13 +560,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+  auto move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
   auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
@@ -596,10 +596,10 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
     composite_profile->collision_constraint_config.enabled = t4;
     composite_profile->collision_cost_config.enabled = t4;
 
-    plan_profile->cartesian_cost_config.enabled = false;
-    plan_profile->cartesian_constraint_config.enabled = true;
-    plan_profile->joint_cost_config.enabled = false;
-    plan_profile->joint_constraint_config.enabled = true;
+    move_profile->cartesian_cost_config.enabled = false;
+    move_profile->cartesian_constraint_config.enabled = true;
+    move_profile->joint_cost_config.enabled = false;
+    move_profile->joint_constraint_config.enabled = true;
 
     pci = test_planner.createProblem(request);
 
@@ -643,17 +643,17 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
-  plan_profile->cartesian_cost_config.enabled = false;
-  plan_profile->cartesian_constraint_config.enabled = true;
-  plan_profile->joint_cost_config.enabled = false;
-  plan_profile->joint_constraint_config.enabled = true;
+  auto move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
+  move_profile->cartesian_cost_config.enabled = false;
+  move_profile->cartesian_constraint_config.enabled = true;
+  move_profile->joint_cost_config.enabled = false;
+  move_profile->joint_constraint_config.enabled = true;
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
   auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
@@ -703,18 +703,18 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
-  plan_profile->cartesian_cost_config.enabled = true;
-  plan_profile->cartesian_constraint_config.enabled = false;
-  plan_profile->joint_cost_config.enabled = true;
-  plan_profile->joint_constraint_config.enabled = false;
+  auto move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
+  move_profile->cartesian_cost_config.enabled = true;
+  move_profile->cartesian_constraint_config.enabled = false;
+  move_profile->joint_cost_config.enabled = true;
+  move_profile->joint_constraint_config.enabled = false;
 
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
   auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
   profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 

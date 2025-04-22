@@ -34,7 +34,7 @@ namespace tesseract_planning
 {
 template <typename FloatType>
 std::shared_ptr<const tesseract_kinematics::KinematicGroup>
-DescartesPlanProfile<FloatType>::createKinematicGroup(const tesseract_common::ManipulatorInfo& manip_info,
+DescartesMoveProfile<FloatType>::createKinematicGroup(const tesseract_common::ManipulatorInfo& manip_info,
                                                       const tesseract_environment::Environment& env) const
 {
   // Get Manipulator Information

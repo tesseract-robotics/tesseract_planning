@@ -31,12 +31,12 @@
 
 namespace tesseract_planning
 {
-OMPLPlanProfile::OMPLPlanProfile() : Profile(OMPLPlanProfile::getStaticKey()) {}
+OMPLMoveProfile::OMPLMoveProfile() : Profile(OMPLMoveProfile::getStaticKey()) {}
 
-std::size_t OMPLPlanProfile::getStaticKey() { return std::type_index(typeid(OMPLPlanProfile)).hash_code(); }
+std::size_t OMPLMoveProfile::getStaticKey() { return std::type_index(typeid(OMPLMoveProfile)).hash_code(); }
 
 template <class Archive>
-void OMPLPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+void OMPLMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
 }
@@ -44,5 +44,5 @@ void OMPLPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLPlanProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::OMPLPlanProfile)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLMoveProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::OMPLMoveProfile)

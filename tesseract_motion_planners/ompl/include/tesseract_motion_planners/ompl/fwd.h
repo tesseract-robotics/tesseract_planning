@@ -43,8 +43,8 @@ class StateCollisionValidator;
 class WeightedRealVectorStateSampler;
 
 // profile
-class OMPLPlanProfile;
-class OMPLRealVectorPlanProfile;
+class OMPLMoveProfile;
+class OMPLRealVectorMoveProfile;
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_FWD_H

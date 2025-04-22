@@ -1,5 +1,5 @@
 /**
- * @file descartes_default_plan_profile.cpp
+ * @file descartes_default_move_profile.cpp
  * @brief
  *
  * @author Levi Armstrong
@@ -23,7 +23,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_motion_planners/descartes/impl/profile/descartes_default_plan_profile.hpp>
+#include <tesseract_motion_planners/descartes/impl/profile/descartes_default_move_profile.hpp>
 #include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
 #include <tesseract_collision/core/serialization.h>
 #include <tesseract_common/eigen_serialization.h>
@@ -34,14 +34,14 @@
 namespace tesseract_planning
 {
 // Explicit template instantiation
-template class DescartesDefaultPlanProfile<float>;
-template class DescartesDefaultPlanProfile<double>;
+template class DescartesDefaultMoveProfile<float>;
+template class DescartesDefaultMoveProfile<double>;
 
 template <typename FloatType>
 template <class Archive>
-void DescartesDefaultPlanProfile<FloatType>::serialize(Archive& ar, const unsigned int /*version*/)
+void DescartesDefaultMoveProfile<FloatType>::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(DescartesPlanProfile<FloatType>);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(DescartesMoveProfile<FloatType>);
   ar& BOOST_SERIALIZATION_NVP(target_pose_fixed);
   ar& BOOST_SERIALIZATION_NVP(target_pose_sample_axis);
   ar& BOOST_SERIALIZATION_NVP(target_pose_sample_resolution);
@@ -62,7 +62,7 @@ void DescartesDefaultPlanProfile<FloatType>::serialize(Archive& ar, const unsign
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesDefaultPlanProfile<float>)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesDefaultPlanProfile<float>)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesDefaultPlanProfile<double>)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesDefaultPlanProfile<double>)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesDefaultMoveProfile<float>)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesDefaultMoveProfile<float>)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesDefaultMoveProfile<double>)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesDefaultMoveProfile<double>)

@@ -8,7 +8,7 @@ add_library(
   src/trajopt_ifopt_utils.cpp
   src/trajopt_ifopt_waypoint_config.cpp
   src/profile/trajopt_ifopt_profile.cpp
-  src/profile/trajopt_ifopt_default_plan_profile.cpp
+  src/profile/trajopt_ifopt_default_move_profile.cpp
   src/profile/trajopt_ifopt_default_composite_profile.cpp
   src/profile/trajopt_ifopt_osqp_solver_profile.cpp)
 target_link_libraries(

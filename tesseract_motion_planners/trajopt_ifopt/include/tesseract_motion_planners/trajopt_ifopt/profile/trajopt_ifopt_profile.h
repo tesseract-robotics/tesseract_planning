@@ -65,13 +65,13 @@ struct TrajOptIfoptWaypointInfo
   bool fixed{ false };
 };
 
-class TrajOptIfoptPlanProfile : public Profile
+class TrajOptIfoptMoveProfile : public Profile
 {
 public:
-  using Ptr = std::shared_ptr<TrajOptIfoptPlanProfile>;
-  using ConstPtr = std::shared_ptr<const TrajOptIfoptPlanProfile>;
+  using Ptr = std::shared_ptr<TrajOptIfoptMoveProfile>;
+  using ConstPtr = std::shared_ptr<const TrajOptIfoptMoveProfile>;
 
-  TrajOptIfoptPlanProfile();
+  TrajOptIfoptMoveProfile();
 
   virtual TrajOptIfoptWaypointInfo create(const MoveInstructionPoly& move_instruction,
                                           const tesseract_common::ManipulatorInfo& composite_manip_info,
@@ -142,7 +142,7 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptPlanProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptMoveProfile)
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptCompositeProfile)
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptSolverProfile)
 

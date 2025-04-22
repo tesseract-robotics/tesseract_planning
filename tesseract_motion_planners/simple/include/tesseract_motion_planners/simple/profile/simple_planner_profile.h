@@ -44,13 +44,13 @@ namespace tesseract_planning
  * @brief Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases. The
  * planner then simply loops over all of the plan instructions and calls the correct function
  */
-class SimplePlannerPlanProfile : public Profile
+class SimplePlannerMoveProfile : public Profile
 {
 public:
-  using Ptr = std::shared_ptr<SimplePlannerPlanProfile>;
-  using ConstPtr = std::shared_ptr<const SimplePlannerPlanProfile>;
+  using Ptr = std::shared_ptr<SimplePlannerMoveProfile>;
+  using ConstPtr = std::shared_ptr<const SimplePlannerMoveProfile>;
 
-  SimplePlannerPlanProfile();
+  SimplePlannerMoveProfile();
 
   /**
    * @brief A utility function for getting profile ID
@@ -106,6 +106,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerPlanProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PROFILE_H

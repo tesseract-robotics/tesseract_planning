@@ -11,12 +11,12 @@ struct KinematicGroupInstructionInfo;
 class SimpleMotionPlanner;
 
 // profiles
-class SimplePlannerPlanProfile;
+class SimplePlannerMoveProfile;
 class SimplePlannerCompositeProfile;
-class SimplePlannerLVSPlanProfile;
-class SimplePlannerLVSNoIKPlanProfile;
-class SimplePlannerFixedSizePlanProfile;
-class SimplePlannerFixedSizeAssignPlanProfile;
+class SimplePlannerLVSMoveProfile;
+class SimplePlannerLVSNoIKMoveProfile;
+class SimplePlannerFixedSizeMoveProfile;
+class SimplePlannerFixedSizeAssignMoveProfile;
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FWD_H

@@ -56,12 +56,12 @@ void serialize(Archive& ar, sco::BasicTrustRegionSQPParameters& params, const un
 
 namespace tesseract_planning
 {
-TrajOptPlanProfile::TrajOptPlanProfile() : Profile(TrajOptPlanProfile::getStaticKey()) {}
+TrajOptMoveProfile::TrajOptMoveProfile() : Profile(TrajOptMoveProfile::getStaticKey()) {}
 
-std::size_t TrajOptPlanProfile::getStaticKey() { return std::type_index(typeid(TrajOptPlanProfile)).hash_code(); }
+std::size_t TrajOptMoveProfile::getStaticKey() { return std::type_index(typeid(TrajOptMoveProfile)).hash_code(); }
 
 template <class Archive>
-void TrajOptPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+void TrajOptMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
 }
@@ -98,8 +98,8 @@ void TrajOptSolverProfile::serialize(Archive& ar, const unsigned int /*version*/
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_FREE_ARCHIVES_INSTANTIATE(sco::BasicTrustRegionSQPParameters)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptPlanProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptPlanProfile)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptMoveProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptMoveProfile)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptCompositeProfile)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptCompositeProfile)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptSolverProfile)

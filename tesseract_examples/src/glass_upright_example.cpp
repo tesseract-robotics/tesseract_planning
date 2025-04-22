@@ -67,8 +67,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
-#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 
 #include <tesseract_geometry/impl/sphere.h>
 
@@ -218,16 +218,16 @@ bool GlassUprightExample::run()
     composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "UPRIGHT", composite_profile);
 
-    auto plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
-    plan_profile->joint_cost_config.enabled = false;
-    plan_profile->cartesian_cost_config.enabled = false;
-    plan_profile->cartesian_constraint_config.enabled = true;
-    plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 5);
-    plan_profile->cartesian_constraint_config.coeff(0) = 0;
-    plan_profile->cartesian_constraint_config.coeff(1) = 0;
-    plan_profile->cartesian_constraint_config.coeff(2) = 0;
+    auto move_profile = std::make_shared<TrajOptIfoptDefaultMoveProfile>();
+    move_profile->joint_cost_config.enabled = false;
+    move_profile->cartesian_cost_config.enabled = false;
+    move_profile->cartesian_constraint_config.enabled = true;
+    move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 5);
+    move_profile->cartesian_constraint_config.coeff(0) = 0;
+    move_profile->cartesian_constraint_config.coeff(1) = 0;
+    move_profile->cartesian_constraint_config.coeff(2) = 0;
 
-    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "UPRIGHT", plan_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "UPRIGHT", move_profile);
   }
   else
   {
@@ -249,17 +249,17 @@ bool GlassUprightExample::run()
     composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "UPRIGHT", composite_profile);
 
-    auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
-    plan_profile->joint_cost_config.enabled = false;
-    plan_profile->cartesian_cost_config.enabled = false;
-    plan_profile->cartesian_constraint_config.enabled = true;
-    plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 5);
-    plan_profile->cartesian_constraint_config.coeff(0) = 0;
-    plan_profile->cartesian_constraint_config.coeff(1) = 0;
-    plan_profile->cartesian_constraint_config.coeff(2) = 0;
+    auto move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
+    move_profile->joint_cost_config.enabled = false;
+    move_profile->cartesian_cost_config.enabled = false;
+    move_profile->cartesian_constraint_config.enabled = true;
+    move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 5);
+    move_profile->cartesian_constraint_config.coeff(0) = 0;
+    move_profile->cartesian_constraint_config.coeff(1) = 0;
+    move_profile->cartesian_constraint_config.coeff(2) = 0;
 
     // Add profile to Dictionary
-    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "UPRIGHT", plan_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "UPRIGHT", move_profile);
   }
 
   // Create task

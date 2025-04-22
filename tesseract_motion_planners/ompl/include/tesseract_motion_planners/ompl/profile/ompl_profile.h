@@ -52,13 +52,13 @@ namespace tesseract_planning
 struct OMPLSolverConfig;
 struct OMPLPlannerConfigurator;
 
-class OMPLPlanProfile : public Profile
+class OMPLMoveProfile : public Profile
 {
 public:
-  using Ptr = std::shared_ptr<OMPLPlanProfile>;
-  using ConstPtr = std::shared_ptr<const OMPLPlanProfile>;
+  using Ptr = std::shared_ptr<OMPLMoveProfile>;
+  using ConstPtr = std::shared_ptr<const OMPLMoveProfile>;
 
-  OMPLPlanProfile();
+  OMPLMoveProfile();
 
   /**
    * @brief A utility function for getting profile ID
@@ -100,6 +100,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::OMPLPlanProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::OMPLMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_PROFILE_H
