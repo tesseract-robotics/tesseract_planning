@@ -1,5 +1,5 @@
 /**
- * @file ompl_real_vector_plan_profile.cpp
+ * @file ompl_real_vector_move_profile.cpp
  * @brief
  *
  * @author Levi Armstrong
@@ -46,7 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 
 #include <tesseract_motion_planners/core/types.h>
-#include <tesseract_motion_planners/ompl/profile/ompl_real_vector_plan_profile.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
 #include <tesseract_motion_planners/ompl/utils.h>
 
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
@@ -64,18 +64,18 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-OMPLRealVectorPlanProfile::OMPLRealVectorPlanProfile()
+OMPLRealVectorMoveProfile::OMPLRealVectorMoveProfile()
 {
   solver_config.planners = { std::make_shared<const RRTConnectConfigurator>(),
                              std::make_shared<const RRTConnectConfigurator>() };
 }
 
-std::unique_ptr<OMPLSolverConfig> OMPLRealVectorPlanProfile::createSolverConfig() const
+std::unique_ptr<OMPLSolverConfig> OMPLRealVectorMoveProfile::createSolverConfig() const
 {
   return std::make_unique<OMPLSolverConfig>(solver_config);
 }
 
-OMPLStateExtractor OMPLRealVectorPlanProfile::createStateExtractor(const tesseract_kinematics::JointGroup& manip) const
+OMPLStateExtractor OMPLRealVectorMoveProfile::createStateExtractor(const tesseract_kinematics::JointGroup& manip) const
 {
   const auto dof = static_cast<unsigned>(manip.numJoints());
   return [dof](const ompl::base::State* state) -> Eigen::Map<Eigen::VectorXd> {
@@ -84,7 +84,7 @@ OMPLStateExtractor OMPLRealVectorPlanProfile::createStateExtractor(const tessera
 }
 
 std::unique_ptr<ompl::geometric::SimpleSetup>
-OMPLRealVectorPlanProfile::createSimpleSetup(const MoveInstructionPoly& start_instruction,
+OMPLRealVectorMoveProfile::createSimpleSetup(const MoveInstructionPoly& start_instruction,
                                              const MoveInstructionPoly& end_instruction,
                                              const tesseract_common::ManipulatorInfo& composite_mi,
                                              const std::shared_ptr<const tesseract_environment::Environment>& env) const
@@ -212,7 +212,7 @@ OMPLRealVectorPlanProfile::createSimpleSetup(const MoveInstructionPoly& start_in
   return simple_setup;
 }
 
-void OMPLRealVectorPlanProfile::applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
+void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
                                                 const tesseract_kinematics::KinGroupIKInput& ik_input,
                                                 const tesseract_kinematics::KinematicGroup& manip,
                                                 tesseract_collision::DiscreteContactManager& contact_checker)
@@ -235,7 +235,7 @@ void OMPLRealVectorPlanProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
     }
     else
     {
-      CONSOLE_BRIDGE_logDebug("In OMPLRealVectorPlanProfile: Goal state has invalid bounds");
+      CONSOLE_BRIDGE_logDebug("In OMPLRealVectorMoveProfile: Goal state has invalid bounds");
     }
 
     // Get discrete contact manager for testing provided start and end position
@@ -272,12 +272,12 @@ void OMPLRealVectorPlanProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
           CONSOLE_BRIDGE_logError(("Solution: " + std::to_string(i) + "  Links: " + contact.link_names[0] + ", " +
                                    contact.link_names[1] + "  Distance: " + std::to_string(contact.distance))
                                       .c_str());
-    throw std::runtime_error("In OMPLRealVectorPlanProfile: All goal states are either in collision or outside limits");
+    throw std::runtime_error("In OMPLRealVectorMoveProfile: All goal states are either in collision or outside limits");
   }
   simple_setup.setGoal(goal_states);
 }
 
-void OMPLRealVectorPlanProfile::applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
+void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
                                                 const Eigen::VectorXd& joint_waypoint,
                                                 const tesseract_kinematics::JointGroup& manip,
                                                 tesseract_collision::DiscreteContactManager& contact_checker)
@@ -293,7 +293,7 @@ void OMPLRealVectorPlanProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
   }
   else
   {
-    CONSOLE_BRIDGE_logDebug("In OMPLRealVectorPlanProfile: Goal state has invalid bounds");
+    CONSOLE_BRIDGE_logDebug("In OMPLRealVectorMoveProfile: Goal state has invalid bounds");
   }
 
   // Get discrete contact manager for testing provided start and end position
@@ -302,7 +302,7 @@ void OMPLRealVectorPlanProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
   tesseract_collision::ContactResultMap contact_map;
   if (checkStateInCollision(contact_map, contact_checker, manip, solution))
   {
-    CONSOLE_BRIDGE_logError("In OMPLRealVectorPlanProfile: Goal state is in collision");
+    CONSOLE_BRIDGE_logError("In OMPLRealVectorMoveProfile: Goal state is in collision");
     for (const auto& contact_vec : contact_map)
       for (const auto& contact : contact_vec.second)
         CONSOLE_BRIDGE_logError(("Links: " + contact.link_names[0] + ", " + contact.link_names[1] +
@@ -317,7 +317,7 @@ void OMPLRealVectorPlanProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
   simple_setup.setGoalState(goal_state);
 }
 
-void OMPLRealVectorPlanProfile::applyStartStates(ompl::geometric::SimpleSetup& simple_setup,
+void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& simple_setup,
                                                  const tesseract_kinematics::KinGroupIKInput& ik_input,
                                                  const tesseract_kinematics::KinematicGroup& manip,
                                                  tesseract_collision::DiscreteContactManager& contact_checker)
@@ -341,7 +341,7 @@ void OMPLRealVectorPlanProfile::applyStartStates(ompl::geometric::SimpleSetup& s
     }
     else
     {
-      CONSOLE_BRIDGE_logDebug("In OMPLRealVectorPlanProfile: Start state has invalid bounds");
+      CONSOLE_BRIDGE_logDebug("In OMPLRealVectorMoveProfile: Start state has invalid bounds");
     }
 
     // Get discrete contact manager for testing provided start and end position
@@ -384,7 +384,7 @@ void OMPLRealVectorPlanProfile::applyStartStates(ompl::geometric::SimpleSetup& s
   }
 }
 
-void OMPLRealVectorPlanProfile::applyStartStates(ompl::geometric::SimpleSetup& simple_setup,
+void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& simple_setup,
                                                  const Eigen::VectorXd& joint_waypoint,
                                                  const tesseract_kinematics::JointGroup& manip,
                                                  tesseract_collision::DiscreteContactManager& contact_checker)
@@ -399,7 +399,7 @@ void OMPLRealVectorPlanProfile::applyStartStates(ompl::geometric::SimpleSetup& s
   }
   else
   {
-    CONSOLE_BRIDGE_logDebug("In OMPLRealVectorPlanProfile: Start state is outside limits");
+    CONSOLE_BRIDGE_logDebug("In OMPLRealVectorMoveProfile: Start state is outside limits");
   }
 
   // Get discrete contact manager for testing provided start and end position
@@ -424,7 +424,7 @@ void OMPLRealVectorPlanProfile::applyStartStates(ompl::geometric::SimpleSetup& s
 }
 
 std::function<std::shared_ptr<ompl::base::StateSampler>(const ompl::base::StateSpace*)>
-OMPLRealVectorPlanProfile::createStateSamplerAllocator(
+OMPLRealVectorMoveProfile::createStateSamplerAllocator(
     const std::shared_ptr<const tesseract_environment::Environment>& /*env*/,
     const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip) const
 {
@@ -435,7 +435,7 @@ OMPLRealVectorPlanProfile::createStateSamplerAllocator(
   };
 }
 
-std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorPlanProfile::createStateValidator(
+std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorMoveProfile::createStateValidator(
     const ompl::geometric::SimpleSetup& /*simple_setup*/,
     const std::shared_ptr<const tesseract_environment::Environment>& /*env*/,
     const std::shared_ptr<const tesseract_kinematics::JointGroup>& /*manip*/,
@@ -444,7 +444,7 @@ std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorPlanProfile::cre
   return nullptr;
 }
 
-std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorPlanProfile::createCollisionStateValidator(
+std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorMoveProfile::createCollisionStateValidator(
     const ompl::geometric::SimpleSetup& simple_setup,
     const std::shared_ptr<const tesseract_environment::Environment>& env,
     const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
@@ -460,7 +460,7 @@ std::unique_ptr<ompl::base::StateValidityChecker> OMPLRealVectorPlanProfile::cre
   return nullptr;
 }
 
-std::unique_ptr<ompl::base::MotionValidator> OMPLRealVectorPlanProfile::createMotionValidator(
+std::unique_ptr<ompl::base::MotionValidator> OMPLRealVectorMoveProfile::createMotionValidator(
     const ompl::geometric::SimpleSetup& simple_setup,
     const std::shared_ptr<const tesseract_environment::Environment>& env,
     const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
@@ -487,7 +487,7 @@ std::unique_ptr<ompl::base::MotionValidator> OMPLRealVectorPlanProfile::createMo
   return nullptr;
 }
 
-std::unique_ptr<ompl::base::OptimizationObjective> OMPLRealVectorPlanProfile::createOptimizationObjective(
+std::unique_ptr<ompl::base::OptimizationObjective> OMPLRealVectorMoveProfile::createOptimizationObjective(
     const ompl::geometric::SimpleSetup& simple_setup,
     const std::shared_ptr<const tesseract_environment::Environment>& /*env*/,
     const std::shared_ptr<const tesseract_kinematics::JointGroup>& /*manip*/,
@@ -497,9 +497,9 @@ std::unique_ptr<ompl::base::OptimizationObjective> OMPLRealVectorPlanProfile::cr
 }
 
 template <class Archive>
-void OMPLRealVectorPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+void OMPLRealVectorMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLPlanProfile);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLMoveProfile);
   ar& BOOST_SERIALIZATION_NVP(solver_config);
   ar& BOOST_SERIALIZATION_NVP(contact_manager_config);
   ar& BOOST_SERIALIZATION_NVP(collision_check_config);
@@ -508,5 +508,5 @@ void OMPLRealVectorPlanProfile::serialize(Archive& ar, const unsigned int /*vers
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLRealVectorPlanProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::OMPLRealVectorPlanProfile)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLRealVectorMoveProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::OMPLRealVectorMoveProfile)

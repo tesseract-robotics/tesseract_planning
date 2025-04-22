@@ -1,5 +1,5 @@
 /**
- * @file TrajOptIfopt_default_plan_profile.h
+ * @file TrajOptIfopt_default_move_profile.h
  * @brief
  *
  * @author Levi Armstrong
@@ -24,8 +24,8 @@
  * limitations under the License.
  */
 
-#ifndef TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_DEFAULT_PLAN_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_DEFAULT_PLAN_PROFILE_H
+#ifndef TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_DEFAULT_MOVE_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_DEFAULT_MOVE_PROFILE_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -37,13 +37,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class TrajOptIfoptDefaultPlanProfile : public TrajOptIfoptPlanProfile
+class TrajOptIfoptDefaultMoveProfile : public TrajOptIfoptMoveProfile
 {
 public:
-  using Ptr = std::shared_ptr<TrajOptIfoptDefaultPlanProfile>;
-  using ConstPtr = std::shared_ptr<const TrajOptIfoptDefaultPlanProfile>;
+  using Ptr = std::shared_ptr<TrajOptIfoptDefaultMoveProfile>;
+  using ConstPtr = std::shared_ptr<const TrajOptIfoptDefaultMoveProfile>;
 
-  TrajOptIfoptDefaultPlanProfile();
+  TrajOptIfoptDefaultMoveProfile();
 
   TrajOptIfoptCartesianWaypointConfig cartesian_cost_config;
   TrajOptIfoptCartesianWaypointConfig cartesian_constraint_config;
@@ -62,6 +62,6 @@ protected:
 };
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptDefaultPlanProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptDefaultMoveProfile)
 
-#endif  // TESSERACT_MOTION_PLANNERS_TrajOptIfopt_IFOPT_DEFAULT_PLAN_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_TrajOptIfopt_IFOPT_DEFAULT_MOVE_PROFILE_H

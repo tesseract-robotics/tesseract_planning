@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_move_profile.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
@@ -215,27 +215,27 @@ SimpleMotionPlanner::processCompositeInstruction(MoveInstructionPoly& prev_instr
       }
 
       // If a path profile exists for the instruction it should use that instead of the termination profile
-      SimplePlannerPlanProfile::ConstPtr plan_profile;
+      SimplePlannerMoveProfile::ConstPtr move_profile;
       if (base_instruction.getPathProfile().empty())
       {
-        plan_profile = getProfile<SimplePlannerPlanProfile>(name_,
+        move_profile = getProfile<SimplePlannerMoveProfile>(name_,
                                                             base_instruction.getProfile(name_),
                                                             *request.profiles,
-                                                            std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
+                                                            std::make_shared<SimplePlannerLVSNoIKMoveProfile>());
       }
       else
       {
-        plan_profile = getProfile<SimplePlannerPlanProfile>(name_,
+        move_profile = getProfile<SimplePlannerMoveProfile>(name_,
                                                             base_instruction.getPathProfile(name_),
                                                             *request.profiles,
-                                                            std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
+                                                            std::make_shared<SimplePlannerLVSNoIKMoveProfile>());
       }
 
-      if (!plan_profile)
+      if (!move_profile)
         throw std::runtime_error("SimpleMotionPlanner: Invalid profile");
 
       std::vector<MoveInstructionPoly> instruction_seed =
-          plan_profile->generate(prev_instruction,
+          move_profile->generate(prev_instruction,
                                  prev_seed,
                                  base_instruction,
                                  next_instruction,

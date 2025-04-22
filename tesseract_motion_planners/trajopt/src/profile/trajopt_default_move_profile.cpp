@@ -1,5 +1,5 @@
 /**
- * @file trajopt_default_plan_profile.cpp
+ * @file trajopt_default_move_profile.cpp
  * @brief
  *
  * @author Levi Armstrong
@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/trajopt_utils.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/poly/waypoint_poly.h>
@@ -48,14 +48,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile()
+TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile()
 {
   cartesian_cost_config.enabled = false;
   joint_cost_config.enabled = false;
 }
 
 TrajOptWaypointInfo
-TrajOptDefaultPlanProfile::create(const MoveInstructionPoly& move_instruction,
+TrajOptDefaultMoveProfile::create(const MoveInstructionPoly& move_instruction,
                                   const tesseract_common::ManipulatorInfo& composite_manip_info,
                                   const std::shared_ptr<const tesseract_environment::Environment>& env,
                                   const std::vector<std::string>& active_links,
@@ -70,7 +70,7 @@ TrajOptDefaultPlanProfile::create(const MoveInstructionPoly& move_instruction,
   if (move_instruction.getWaypoint().isCartesianWaypoint())
   {
     if (mi.empty())
-      throw std::runtime_error("TrajOptPlanProfile, manipulator info is empty!");
+      throw std::runtime_error("TrajOptMoveProfile, manipulator info is empty!");
 
     const auto& cwp = move_instruction.getWaypoint().as<CartesianWaypointPoly>();
 
@@ -259,7 +259,7 @@ TrajOptDefaultPlanProfile::create(const MoveInstructionPoly& move_instruction,
 }
 
 std::shared_ptr<trajopt::TermInfo>
-TrajOptDefaultPlanProfile::createConstraintFromErrorFunction(sco::VectorOfVector::func error_function,
+TrajOptDefaultMoveProfile::createConstraintFromErrorFunction(sco::VectorOfVector::func error_function,
                                                              sco::MatrixOfVector::func jacobian_function,
                                                              sco::ConstraintType type,
                                                              const Eigen::VectorXd& coeff,
@@ -276,9 +276,9 @@ TrajOptDefaultPlanProfile::createConstraintFromErrorFunction(sco::VectorOfVector
 }
 
 template <class Archive>
-void TrajOptDefaultPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+void TrajOptDefaultMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptPlanProfile);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptMoveProfile);
   ar& BOOST_SERIALIZATION_NVP(cartesian_cost_config);
   ar& BOOST_SERIALIZATION_NVP(cartesian_constraint_config);
   ar& BOOST_SERIALIZATION_NVP(joint_cost_config);
@@ -287,5 +287,5 @@ void TrajOptDefaultPlanProfile::serialize(Archive& ar, const unsigned int /*vers
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptDefaultPlanProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptDefaultPlanProfile)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptDefaultMoveProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptDefaultMoveProfile)

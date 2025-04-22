@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
-#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/core/types.h>
@@ -102,16 +102,16 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
     const auto& move_instruction = move_instructions[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>();
 
     // Get Plan Profile
-    TrajOptIfoptPlanProfile::ConstPtr cur_plan_profile =
-        getProfile<TrajOptIfoptPlanProfile>(name_,
+    TrajOptIfoptMoveProfile::ConstPtr cur_move_profile =
+        getProfile<TrajOptIfoptMoveProfile>(name_,
                                             move_instruction.getProfile(name_),
                                             *request.profiles,
-                                            std::make_shared<TrajOptIfoptDefaultPlanProfile>());
-    if (!cur_plan_profile)
+                                            std::make_shared<TrajOptIfoptDefaultMoveProfile>());
+    if (!cur_move_profile)
       throw std::runtime_error("TrajOptIfoptMotionPlanner: Invalid profile");
 
     // Create waypoint info
-    TrajOptIfoptWaypointInfo wp_info = cur_plan_profile->create(move_instruction, composite_mi, request.env, i);
+    TrajOptIfoptWaypointInfo wp_info = cur_move_profile->create(move_instruction, composite_mi, request.env, i);
 
     // Update fixed steps
     if (wp_info.fixed)

@@ -51,11 +51,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
 
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
-#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 
@@ -223,12 +223,12 @@ bool PuzzlePieceExample::run()
   if (ifopt_)
   {
     // Create TrajOpt_Ifopt Profile
-    auto trajopt_ifopt_plan_profile = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
-    trajopt_ifopt_plan_profile->joint_cost_config.enabled = false;
-    trajopt_ifopt_plan_profile->cartesian_cost_config.enabled = false;
-    trajopt_ifopt_plan_profile->cartesian_constraint_config.enabled = true;
-    trajopt_ifopt_plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);
-    trajopt_ifopt_plan_profile->cartesian_constraint_config.coeff(5) = 0;
+    auto trajopt_ifopt_move_profile = std::make_shared<TrajOptIfoptDefaultMoveProfile>();
+    trajopt_ifopt_move_profile->joint_cost_config.enabled = false;
+    trajopt_ifopt_move_profile->cartesian_cost_config.enabled = false;
+    trajopt_ifopt_move_profile->cartesian_constraint_config.enabled = true;
+    trajopt_ifopt_move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);
+    trajopt_ifopt_move_profile->cartesian_constraint_config.coeff(5) = 0;
 
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
     trajopt_ifopt_composite_profile->collision_constraint_config.enabled = false;
@@ -248,19 +248,19 @@ bool PuzzlePieceExample::run()
     trajopt_ifopt_solver_profile->opt_params.min_approx_improve = 1e-3;
     trajopt_ifopt_solver_profile->opt_params.min_trust_box_size = 1e-3;
 
-    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_plan_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_move_profile);
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_solver_profile);
   }
   else
   {
     // Create TrajOpt Profile
-    auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
-    trajopt_plan_profile->joint_cost_config.enabled = false;
-    trajopt_plan_profile->cartesian_cost_config.enabled = false;
-    trajopt_plan_profile->cartesian_constraint_config.enabled = true;
-    trajopt_plan_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);
-    trajopt_plan_profile->cartesian_constraint_config.coeff(5) = 0;
+    auto trajopt_move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
+    trajopt_move_profile->joint_cost_config.enabled = false;
+    trajopt_move_profile->cartesian_cost_config.enabled = false;
+    trajopt_move_profile->cartesian_constraint_config.enabled = true;
+    trajopt_move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);
+    trajopt_move_profile->cartesian_constraint_config.coeff(5) = 0;
 
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
     trajopt_composite_profile->collision_constraint_config.enabled = false;
@@ -274,7 +274,7 @@ bool PuzzlePieceExample::run()
     trajopt_solver_profile->opt_params.min_approx_improve = 1e-3;
     trajopt_solver_profile->opt_params.min_trust_box_size = 1e-3;
 
-    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_plan_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_move_profile);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
   }

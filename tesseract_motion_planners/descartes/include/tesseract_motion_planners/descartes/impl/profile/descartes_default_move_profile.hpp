@@ -1,5 +1,5 @@
 /**
- * @file descartes_default_plan_profile.hpp
+ * @file descartes_default_move_profile.hpp
  * @brief
  *
  * @author Levi Armstrong
@@ -23,8 +23,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DEFAULT_PLAN_PROFILE_HPP
-#define TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DEFAULT_PLAN_PROFILE_HPP
+#ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DEFAULT_MOVE_PROFILE_HPP
+#define TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DEFAULT_MOVE_PROFILE_HPP
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/types.h>
-#include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
+#include <tesseract_motion_planners/descartes/profile/descartes_default_move_profile.h>
 #include <tesseract_motion_planners/descartes/impl/profile/descartes_profile.hpp>
 #include <tesseract_motion_planners/descartes/descartes_robot_sampler.h>
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
@@ -52,7 +52,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 template <typename FloatType>
-std::unique_ptr<DescartesVertexEvaluator> DescartesDefaultPlanProfile<FloatType>::createVertexEvaluator(
+std::unique_ptr<DescartesVertexEvaluator> DescartesDefaultMoveProfile<FloatType>::createVertexEvaluator(
     const MoveInstructionPoly& /*move_instruction*/,
     const std::shared_ptr<const tesseract_kinematics::KinematicGroup>& manip,
     const std::shared_ptr<const tesseract_environment::Environment>& /*env*/) const
@@ -61,7 +61,7 @@ std::unique_ptr<DescartesVertexEvaluator> DescartesDefaultPlanProfile<FloatType>
 }
 
 template <typename FloatType>
-PoseSamplerFn DescartesDefaultPlanProfile<FloatType>::createPoseSampler(
+PoseSamplerFn DescartesDefaultMoveProfile<FloatType>::createPoseSampler(
     const MoveInstructionPoly& /*move_instruction*/,
     const std::shared_ptr<const tesseract_kinematics::KinematicGroup>& /*manip*/,
     const std::shared_ptr<const tesseract_environment::Environment>& /*env*/) const
@@ -79,7 +79,7 @@ PoseSamplerFn DescartesDefaultPlanProfile<FloatType>::createPoseSampler(
 
 template <typename FloatType>
 std::unique_ptr<descartes_light::WaypointSampler<FloatType>>
-DescartesDefaultPlanProfile<FloatType>::createWaypointSampler(
+DescartesDefaultMoveProfile<FloatType>::createWaypointSampler(
     const MoveInstructionPoly& move_instruction,
     const tesseract_common::ManipulatorInfo& composite_manip_info,
     const std::shared_ptr<const tesseract_environment::Environment>& env) const
@@ -93,7 +93,7 @@ DescartesDefaultPlanProfile<FloatType>::createWaypointSampler(
   if (manip_info.empty())
     throw std::runtime_error("Descartes, manipulator info is empty!");
 
-  auto manip = DescartesPlanProfile<FloatType>::createKinematicGroup(manip_info, *env);
+  auto manip = DescartesMoveProfile<FloatType>::createKinematicGroup(manip_info, *env);
 
   if (!move_instruction.getWaypoint().isCartesianWaypoint())
   {
@@ -109,7 +109,7 @@ DescartesDefaultPlanProfile<FloatType>::createWaypointSampler(
    * (i.e. defined relative to a frame that will move with the kinematic chain) */
   //  auto it = std::find(active_links.begin(), active_links.end(), prob.manip_inv_kin->getBaseLinkName());
   //  if (it != active_links.end() && prob.manip_inv_kin->getBaseLinkName() != mi.working_frame)
-  //    throw std::runtime_error("DescartesDefaultPlanProfile: Assigned dynamic waypoint but parent instruction working
+  //    throw std::runtime_error("DescartesDefaultMoveProfile: Assigned dynamic waypoint but parent instruction working
   //    is "
   //                             "not set to the base link of manipulator!");
 
@@ -134,7 +134,7 @@ DescartesDefaultPlanProfile<FloatType>::createWaypointSampler(
 }
 
 template <typename FloatType>
-std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>> DescartesDefaultPlanProfile<FloatType>::createEdgeEvaluator(
+std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>> DescartesDefaultMoveProfile<FloatType>::createEdgeEvaluator(
     const MoveInstructionPoly& move_instruction,
     const tesseract_common::ManipulatorInfo& composite_manip_info,
     const std::shared_ptr<const tesseract_environment::Environment>& env) const
@@ -148,7 +148,7 @@ std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>> DescartesDefaultPlanP
   if (manip_info.empty())
     throw std::runtime_error("Descartes, manipulator info is empty!");
 
-  auto manip = DescartesPlanProfile<FloatType>::createKinematicGroup(manip_info, *env);
+  auto manip = DescartesMoveProfile<FloatType>::createKinematicGroup(manip_info, *env);
 
   if (move_instruction.getWaypoint().isCartesianWaypoint())
   {
@@ -178,7 +178,7 @@ std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>> DescartesDefaultPlanP
 
 template <typename FloatType>
 std::unique_ptr<descartes_light::StateEvaluator<FloatType>>
-DescartesDefaultPlanProfile<FloatType>::createStateEvaluator(
+DescartesDefaultMoveProfile<FloatType>::createStateEvaluator(
     const MoveInstructionPoly& /*move_instruction*/,
     const tesseract_common::ManipulatorInfo& /*composite_manip_info*/,
     const std::shared_ptr<const tesseract_environment::Environment>& /*env*/) const
@@ -188,4 +188,4 @@ DescartesDefaultPlanProfile<FloatType>::createStateEvaluator(
 
 }  // namespace tesseract_planning
 
-#endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DEFAULT_PLAN_PROFILE_HPP
+#endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DEFAULT_MOVE_PROFILE_HPP

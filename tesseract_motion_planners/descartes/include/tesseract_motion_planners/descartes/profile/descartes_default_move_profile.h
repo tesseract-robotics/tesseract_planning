@@ -1,5 +1,5 @@
 /**
- * @file descartes_default_plan_profile.h
+ * @file descartes_default_move_profile.h
  * @brief
  *
  * @author Levi Armstrong
@@ -23,8 +23,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_DEFAULT_PLAN_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_DEFAULT_PLAN_PROFILE_H
+#ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_DEFAULT_MOVE_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_DEFAULT_MOVE_PROFILE_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -41,13 +41,13 @@ namespace tesseract_planning
 class DescartesVertexEvaluator;
 
 template <typename FloatType>
-class DescartesDefaultPlanProfile : public DescartesPlanProfile<FloatType>
+class DescartesDefaultMoveProfile : public DescartesMoveProfile<FloatType>
 {
 public:
-  using Ptr = std::shared_ptr<DescartesDefaultPlanProfile<FloatType>>;
-  using ConstPtr = std::shared_ptr<const DescartesDefaultPlanProfile<FloatType>>;
+  using Ptr = std::shared_ptr<DescartesDefaultMoveProfile<FloatType>>;
+  using ConstPtr = std::shared_ptr<const DescartesDefaultMoveProfile<FloatType>>;
 
-  DescartesDefaultPlanProfile() = default;
+  DescartesDefaultMoveProfile() = default;
 
   /** @brief Target pose sampling params */
   bool target_pose_fixed{ true };
@@ -116,11 +116,11 @@ protected:
                                           const std::shared_ptr<const tesseract_environment::Environment>& env) const;
 };
 
-using DescartesDefaultPlanProfileF = DescartesDefaultPlanProfile<float>;
-using DescartesDefaultPlanProfileD = DescartesDefaultPlanProfile<double>;
+using DescartesDefaultMoveProfileF = DescartesDefaultMoveProfile<float>;
+using DescartesDefaultMoveProfileD = DescartesDefaultMoveProfile<double>;
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::DescartesDefaultPlanProfile<float>)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::DescartesDefaultPlanProfile<double>)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::DescartesDefaultMoveProfile<float>)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::DescartesDefaultMoveProfile<double>)
 
-#endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_DEFAULT_PLAN_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_DEFAULT_MOVE_PROFILE_H

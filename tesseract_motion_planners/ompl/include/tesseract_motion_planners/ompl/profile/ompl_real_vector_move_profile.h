@@ -1,5 +1,5 @@
 /**
- * @file ompl_real_vector_plan_profile.h
+ * @file ompl_real_vector_move_profile.h
  * @brief Tesseract OMPL real vector state space plan profile
  *
  * @author Levi Armstrong
@@ -23,8 +23,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_MOTION_PLANNERS_OMPL_OMPL_REAL_VECTOR_PLAN_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_OMPL_OMPL_REAL_VECTOR_PLAN_PROFILE_H
+#ifndef TESSERACT_MOTION_PLANNERS_OMPL_OMPL_REAL_VECTOR_MOVE_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_OMPL_OMPL_REAL_VECTOR_MOVE_PROFILE_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -60,13 +60,13 @@ namespace tesseract_planning
  * every plan instruction will be its a seperate ompl motion plan and therefore planning information is relevent
  * for this motion planner in the profile.
  */
-class OMPLRealVectorPlanProfile : public OMPLPlanProfile
+class OMPLRealVectorMoveProfile : public OMPLMoveProfile
 {
 public:
-  using Ptr = std::shared_ptr<OMPLRealVectorPlanProfile>;
-  using ConstPtr = std::shared_ptr<const OMPLRealVectorPlanProfile>;
+  using Ptr = std::shared_ptr<OMPLRealVectorMoveProfile>;
+  using ConstPtr = std::shared_ptr<const OMPLRealVectorMoveProfile>;
 
-  OMPLRealVectorPlanProfile();
+  OMPLRealVectorMoveProfile();
 
   /** @brief The OMPL parallel planner solver config */
   OMPLSolverConfig solver_config;
@@ -181,6 +181,6 @@ protected:
 };
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::OMPLRealVectorPlanProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::OMPLRealVectorMoveProfile)
 
-#endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_REAL_VECTOR_PLAN_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_REAL_VECTOR_MOVE_PROFILE_H

@@ -1,5 +1,5 @@
 /**
- * @file trajopt_default_plan_profile.cpp
+ * @file trajopt_default_move_profile.cpp
  * @brief
  *
  * @author Levi Armstrong
@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 
 #include <tesseract_common/joint_state.h>
@@ -52,14 +52,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TrajOptIfoptDefaultPlanProfile::TrajOptIfoptDefaultPlanProfile()
+TrajOptIfoptDefaultMoveProfile::TrajOptIfoptDefaultMoveProfile()
 {
   cartesian_cost_config.enabled = false;
   joint_cost_config.enabled = false;
 }
 
 TrajOptIfoptWaypointInfo
-TrajOptIfoptDefaultPlanProfile::create(const MoveInstructionPoly& move_instruction,
+TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instruction,
                                        const tesseract_common::ManipulatorInfo& composite_manip_info,
                                        const std::shared_ptr<const tesseract_environment::Environment>& env,
                                        int index) const
@@ -76,7 +76,7 @@ TrajOptIfoptDefaultPlanProfile::create(const MoveInstructionPoly& move_instructi
   if (move_instruction.getWaypoint().isCartesianWaypoint())
   {
     if (mi.empty())
-      throw std::runtime_error("TrajOptPlanProfile, manipulator info is empty!");
+      throw std::runtime_error("TrajOptMoveProfile, manipulator info is empty!");
 
     const auto& cwp = move_instruction.getWaypoint().as<CartesianWaypointPoly>();
 
@@ -223,9 +223,9 @@ TrajOptIfoptDefaultPlanProfile::create(const MoveInstructionPoly& move_instructi
 }
 
 template <class Archive>
-void TrajOptIfoptDefaultPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+void TrajOptIfoptDefaultMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptIfoptPlanProfile);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptIfoptMoveProfile);
   ar& BOOST_SERIALIZATION_NVP(cartesian_cost_config);
   ar& BOOST_SERIALIZATION_NVP(cartesian_constraint_config);
   ar& BOOST_SERIALIZATION_NVP(joint_cost_config);
@@ -235,5 +235,5 @@ void TrajOptIfoptDefaultPlanProfile::serialize(Archive& ar, const unsigned int /
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptIfoptDefaultPlanProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptIfoptDefaultPlanProfile)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptIfoptDefaultMoveProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptIfoptDefaultMoveProfile)

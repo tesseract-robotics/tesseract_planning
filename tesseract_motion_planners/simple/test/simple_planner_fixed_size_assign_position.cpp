@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/environment.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_move_profile.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
@@ -80,7 +80,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, JointCartesian
 
   InstructionPoly instr3;
 
-  SimplePlannerFixedSizeAssignPlanProfile profile(10, 10);
+  SimplePlannerFixedSizeAssignMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
       profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
@@ -119,7 +119,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianJoint
 
   InstructionPoly instr3;
 
-  SimplePlannerFixedSizeAssignPlanProfile profile(10, 10);
+  SimplePlannerFixedSizeAssignMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
       profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
@@ -157,7 +157,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCarte
 
   InstructionPoly instr3;
 
-  SimplePlannerFixedSizeAssignPlanProfile profile(10, 10);
+  SimplePlannerFixedSizeAssignMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
       profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   auto fwd_kin = env_->getJointGroup(manip_info_.manipulator);

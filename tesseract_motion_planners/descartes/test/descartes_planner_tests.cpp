@@ -46,7 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
-#include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
+#include <tesseract_motion_planners/descartes/profile/descartes_default_move_profile.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/core/types.h>
@@ -117,11 +117,11 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   auto solver_profile = std::make_shared<DescartesLadderGraphSolverProfileD>();
   solver_profile->num_threads = 1;
 
-  auto plan_profile = std::make_shared<DescartesDefaultPlanProfileD>();
+  auto move_profile = std::make_shared<DescartesDefaultMoveProfileD>();
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
@@ -216,16 +216,16 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   auto solver_profile = std::make_shared<DescartesLadderGraphSolverProfileD>();
   solver_profile->num_threads = 1;
 
-  auto plan_profile = std::make_shared<DescartesDefaultPlanProfileD>();
+  auto move_profile = std::make_shared<DescartesDefaultMoveProfileD>();
 
   // Make this a tool z-axis free sampler
-  plan_profile->target_pose_fixed = false;
-  plan_profile->target_pose_sample_axis = Eigen::Vector3d(0, 0, 1);
-  plan_profile->target_pose_sample_resolution = M_PI_4;
+  move_profile->target_pose_fixed = false;
+  move_profile->target_pose_sample_axis = Eigen::Vector3d(0, 0, 1);
+  move_profile->target_pose_sample_resolution = M_PI_4;
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
   // Create Planner
@@ -309,19 +309,19 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   auto solver_profile = std::make_shared<DescartesLadderGraphSolverProfileD>();
   solver_profile->num_threads = 1;
 
-  auto plan_profile = std::make_shared<DescartesDefaultPlanProfileD>();
+  auto move_profile = std::make_shared<DescartesDefaultMoveProfileD>();
 
   // Make this a tool z-axis free sampler
-  plan_profile->target_pose_fixed = false;
-  plan_profile->target_pose_sample_axis = Eigen::Vector3d(0, 0, 1);
-  plan_profile->target_pose_sample_resolution = 60 * M_PI * 180.0;
+  move_profile->target_pose_fixed = false;
+  move_profile->target_pose_sample_axis = Eigen::Vector3d(0, 0, 1);
+  move_profile->target_pose_sample_resolution = 60 * M_PI * 180.0;
 
   // Add collision edge evaluator
-  plan_profile->enable_edge_collision = true;
+  move_profile->enable_edge_collision = true;
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
 
   // Create Planning Request
   PlannerRequest request;

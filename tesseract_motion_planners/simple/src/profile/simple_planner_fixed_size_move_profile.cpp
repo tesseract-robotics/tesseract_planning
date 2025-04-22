@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_interpolation_plan_profile.cpp
+ * @file simple_planner_interpolation_move_profile.cpp
  * @brief
  *
  * @author Matthew Powelson
@@ -24,7 +24,7 @@
  * limitations under the License.
  */
 
-#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_move_profile.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -38,13 +38,13 @@
 
 namespace tesseract_planning
 {
-SimplePlannerFixedSizePlanProfile::SimplePlannerFixedSizePlanProfile(int freespace_steps, int linear_steps)
+SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(int freespace_steps, int linear_steps)
   : freespace_steps(freespace_steps), linear_steps(linear_steps)
 {
 }
 
 std::vector<MoveInstructionPoly>
-SimplePlannerFixedSizePlanProfile::generate(const MoveInstructionPoly& prev_instruction,
+SimplePlannerFixedSizeMoveProfile::generate(const MoveInstructionPoly& prev_instruction,
                                             const MoveInstructionPoly& /*prev_seed*/,
                                             const MoveInstructionPoly& base_instruction,
                                             const InstructionPoly& /*next_instruction*/,
@@ -67,9 +67,9 @@ SimplePlannerFixedSizePlanProfile::generate(const MoveInstructionPoly& prev_inst
 }
 
 template <class Archive>
-void SimplePlannerFixedSizePlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+void SimplePlannerFixedSizeMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerPlanProfile);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerMoveProfile);
   ar& BOOST_SERIALIZATION_NVP(freespace_steps);
   ar& BOOST_SERIALIZATION_NVP(linear_steps);
 }
@@ -77,5 +77,5 @@ void SimplePlannerFixedSizePlanProfile::serialize(Archive& ar, const unsigned in
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerFixedSizePlanProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerFixedSizePlanProfile)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerFixedSizeMoveProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerFixedSizeMoveProfile)

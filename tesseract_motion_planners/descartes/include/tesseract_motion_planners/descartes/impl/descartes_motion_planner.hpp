@@ -44,7 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
-#include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
+#include <tesseract_motion_planners/descartes/profile/descartes_default_move_profile.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
@@ -96,23 +96,23 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
     const auto& move_instruction = instruction.get().template as<MoveInstructionPoly>();
 
     // Get Plan Profile
-    auto cur_plan_profile =
-        getProfile<DescartesPlanProfile<FloatType>>(name_,
+    auto cur_move_profile =
+        getProfile<DescartesMoveProfile<FloatType>>(name_,
                                                     move_instruction.getProfile(name_),
                                                     *request.profiles,
-                                                    std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
+                                                    std::make_shared<DescartesDefaultMoveProfile<FloatType>>());
 
-    if (!cur_plan_profile)
+    if (!cur_move_profile)
       throw std::runtime_error("DescartesMotionPlanner: Invalid profile");
 
     if (move_instruction.getWaypoint().isJointWaypoint() &&
         !move_instruction.getWaypoint().as<JointWaypointPoly>().isConstrained())
       continue;
 
-    waypoint_samplers.push_back(cur_plan_profile->createWaypointSampler(move_instruction, composite_mi, request.env));
-    state_evaluators.push_back(cur_plan_profile->createStateEvaluator(move_instruction, composite_mi, request.env));
+    waypoint_samplers.push_back(cur_move_profile->createWaypointSampler(move_instruction, composite_mi, request.env));
+    state_evaluators.push_back(cur_move_profile->createStateEvaluator(move_instruction, composite_mi, request.env));
     if (index != 0)
-      edge_evaluators.push_back(cur_plan_profile->createEdgeEvaluator(move_instruction, composite_mi, request.env));
+      edge_evaluators.push_back(cur_move_profile->createEdgeEvaluator(move_instruction, composite_mi, request.env));
 
     ++index;
   }

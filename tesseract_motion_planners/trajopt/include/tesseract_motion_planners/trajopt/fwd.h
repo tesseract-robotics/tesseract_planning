@@ -13,12 +13,12 @@ class TrajOptMotionPlanner;
 // profiles
 struct TrajOptTermInfos;
 struct TrajOptWaypointInfo;
-class TrajOptPlanProfile;
+class TrajOptMoveProfile;
 class TrajOptCompositeProfile;
 class TrajOptSolverProfile;
 
 class TrajOptOSQPSolverProfile;
-class TrajOptDefaultPlanProfile;
+class TrajOptDefaultMoveProfile;
 class TrajOptDefaultCompositeProfile;
 }  // namespace tesseract_planning
 

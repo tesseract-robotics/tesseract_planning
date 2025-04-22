@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_lvs_plan_profile.h
+ * @file simple_planner_lvs_move_profile.h
  * @brief
  *
  * @author Tyler Marr
@@ -24,8 +24,8 @@
  * limitations under the License.
  */
 
-#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_PLAN_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_PLAN_PROFILE_H
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_MOVE_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_MOVE_PROFILE_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -36,21 +36,21 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class SimplePlannerLVSPlanProfile : public SimplePlannerPlanProfile
+class SimplePlannerLVSMoveProfile : public SimplePlannerMoveProfile
 {
 public:
-  using Ptr = std::shared_ptr<SimplePlannerLVSPlanProfile>;
-  using ConstPtr = std::shared_ptr<const SimplePlannerLVSPlanProfile>;
+  using Ptr = std::shared_ptr<SimplePlannerLVSMoveProfile>;
+  using ConstPtr = std::shared_ptr<const SimplePlannerLVSMoveProfile>;
 
   /**
-   * @brief SimplePlannerLVSPlanProfile
+   * @brief SimplePlannerLVSMoveProfile
    * @param state_longest_valid_segment_length The maximum joint distance (norm of changes to all joint positions)
    *between successive steps
    * @param translation_longest_valid_segment_length The maximum translation distance between successive steps
    * @param rotation_longest_valid_segment_length The maximum rotational distance between successive steps
    * @param min_steps The minimum number of steps for the plan
    */
-  SimplePlannerLVSPlanProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
+  SimplePlannerLVSMoveProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
                               double translation_longest_valid_segment_length = 0.1,
                               double rotation_longest_valid_segment_length = 5 * M_PI / 180,
                               int min_steps = 1,
@@ -86,6 +86,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerLVSPlanProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerLVSMoveProfile)
 
-#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_PLAN_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_MOVE_PROFILE_H

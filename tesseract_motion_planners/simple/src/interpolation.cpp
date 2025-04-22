@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_move_profile.h>
 
 #include <tesseract_motion_planners/core/types.h>
 
@@ -422,7 +422,7 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
     }
     else
     {
-      throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
+      throw std::runtime_error("SimplePlannerFixedSizeMoveProfile: Unsupported MoveInstructionType!");
     }
   }
   else if (sol[0].size() != 0)
@@ -432,7 +432,7 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
     else if (base.instruction.isFreespace())
       states = sol[0].replicate(1, freespace_steps + 1);
     else
-      throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
+      throw std::runtime_error("SimplePlannerFixedSizeMoveProfile: Unsupported MoveInstructionType!");
   }
   else if (sol[1].size() != 0)
   {
@@ -441,7 +441,7 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
     else if (base.instruction.isFreespace())
       states = sol[1].replicate(1, freespace_steps + 1);
     else
-      throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
+      throw std::runtime_error("SimplePlannerFixedSizeMoveProfile: Unsupported MoveInstructionType!");
   }
   else
   {
@@ -450,7 +450,7 @@ std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGrou
     else if (base.instruction.isFreespace())
       states = seed.replicate(1, freespace_steps + 1);
     else
-      throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
+      throw std::runtime_error("SimplePlannerFixedSizeMoveProfile: Unsupported MoveInstructionType!");
   }
 
   // Linearly interpolate in cartesian space if linear move
@@ -1330,7 +1330,7 @@ CompositeInstruction generateInterpolatedProgram(const CompositeInstruction& ins
   // Set up planner
   SimpleMotionPlanner planner("SimpleMotionPlannerTask");
 
-  auto profile = std::make_shared<SimplePlannerLVSNoIKPlanProfile>(state_longest_valid_segment_length,
+  auto profile = std::make_shared<SimplePlannerLVSNoIKMoveProfile>(state_longest_valid_segment_length,
                                                                    translation_longest_valid_segment_length,
                                                                    rotation_longest_valid_segment_length,
                                                                    min_steps);

@@ -41,7 +41,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/types.h>
 #include <tesseract_motion_planners/ompl/utils.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
-#include <tesseract_motion_planners/ompl/profile/ompl_real_vector_plan_profile.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
 #include <tesseract_motion_planners/core/types.h>
 
 #include <tesseract_kinematics/core/joint_group.h>
@@ -299,12 +299,12 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
       continue;
 
     // Get Plan Profile
-    auto cur_plan_profile = getProfile<OMPLPlanProfile>(name_,
+    auto cur_move_profile = getProfile<OMPLMoveProfile>(name_,
                                                         end_move_instruction.getProfile(name_),
                                                         *request.profiles,
-                                                        std::make_shared<OMPLRealVectorPlanProfile>());
+                                                        std::make_shared<OMPLRealVectorMoveProfile>());
 
-    if (!cur_plan_profile)
+    if (!cur_move_profile)
       throw std::runtime_error("OMPLMotionPlanner: Invalid profile");
 
     // Get end state kinematics data
@@ -313,14 +313,14 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 
     // Create problem data
     const auto& start_move_instruction = start_instruction.get().as<MoveInstructionPoly>();
-    std::unique_ptr<OMPLSolverConfig> solver_config = cur_plan_profile->createSolverConfig();
-    OMPLStateExtractor extractor = cur_plan_profile->createStateExtractor(*manip);
+    std::unique_ptr<OMPLSolverConfig> solver_config = cur_move_profile->createSolverConfig();
+    OMPLStateExtractor extractor = cur_move_profile->createStateExtractor(*manip);
     std::shared_ptr<ompl::geometric::SimpleSetup> simple_setup;
 
     if (cached_simple_setups.empty() || segment > cached_simple_setups.size())
     {
       simple_setup =
-          cur_plan_profile->createSimpleSetup(start_move_instruction, end_move_instruction, composite_mi, request.env);
+          cur_move_profile->createSimpleSetup(start_move_instruction, end_move_instruction, composite_mi, request.env);
       cached_simple_setups.push_back(simple_setup);
     }
     else

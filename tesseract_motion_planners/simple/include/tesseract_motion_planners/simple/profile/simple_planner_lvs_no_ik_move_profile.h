@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_lvs_no_ik_plan_profile.h
+ * @file simple_planner_lvs_no_ik_move_profile.h
  * @brief This does not use inverse kinematics
  *
  * @author Levi Armstrong
@@ -24,8 +24,8 @@
  * limitations under the License.
  */
 
-#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_NO_IK_PLAN_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_NO_IK_PLAN_PROFILE_H
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_NO_IK_MOVE_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_NO_IK_MOVE_PROFILE_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -36,14 +36,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class SimplePlannerLVSNoIKPlanProfile : public SimplePlannerPlanProfile
+class SimplePlannerLVSNoIKMoveProfile : public SimplePlannerMoveProfile
 {
 public:
-  using Ptr = std::shared_ptr<SimplePlannerLVSNoIKPlanProfile>;
-  using ConstPtr = std::shared_ptr<const SimplePlannerLVSNoIKPlanProfile>;
+  using Ptr = std::shared_ptr<SimplePlannerLVSNoIKMoveProfile>;
+  using ConstPtr = std::shared_ptr<const SimplePlannerLVSNoIKMoveProfile>;
 
   /**
-   * @brief SimplePlannerLVSNoIKPlanProfile
+   * @brief SimplePlannerLVSNoIKMoveProfile
    * @param state_longest_valid_segment_length The maximum joint distance (norm of changes to all joint positions)
    *between successive steps
    * @param translation_longest_valid_segment_length The maximum translation distance between successive steps
@@ -51,7 +51,7 @@ public:
    * @param min_steps The minimum number of steps for the plan
    * @param max_steps The maximum number of steps for the plan
    */
-  SimplePlannerLVSNoIKPlanProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
+  SimplePlannerLVSNoIKMoveProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
                                   double translation_longest_valid_segment_length = 0.1,
                                   double rotation_longest_valid_segment_length = 5 * M_PI / 180,
                                   int min_steps = 1,
@@ -87,6 +87,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerLVSNoIKPlanProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerLVSNoIKMoveProfile)
 
-#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_NO_IK_PLAN_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_NO_IK_MOVE_PROFILE_H

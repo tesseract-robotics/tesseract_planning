@@ -38,10 +38,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
-#include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
+#include <tesseract_motion_planners/descartes/profile/descartes_default_move_profile.h>
 
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
 
@@ -216,8 +216,8 @@ int main(int /*argc*/, char** /*argv*/)
     }
 
     // Create Profiles
-    auto descartes_plan_profile = std::make_shared<DescartesDefaultPlanProfileD>();
-    auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+    auto descartes_move_profile = std::make_shared<DescartesDefaultMoveProfileD>();
+    auto trajopt_move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
     auto trajopt_solver_profile = std::make_shared<TrajOptDefaultSolverProfile>();
 
@@ -226,8 +226,8 @@ int main(int /*argc*/, char** /*argv*/)
 
     // Profile Dictionary
     auto profiles = std::make_shared<ProfileDictionary>();
-    profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, descartes_plan_profile);
-    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, trajopt_plan_profile);
+    profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, descartes_move_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, trajopt_move_profile);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, trajopt_composite_profile);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, trajopt_solver_profile);
 

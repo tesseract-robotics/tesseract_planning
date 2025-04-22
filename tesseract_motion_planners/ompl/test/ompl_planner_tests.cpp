@@ -62,7 +62,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
-#include <tesseract_motion_planners/ompl/profile/ompl_real_vector_plan_profile.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
 
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -190,19 +190,19 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<OMPLRealVectorPlanProfile>();
-  plan_profile->contact_manager_config.default_margin = 0.025;
-  plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
-  plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
-  plan_profile->solver_config.planning_time = 10;
-  plan_profile->solver_config.optimize = false;
-  plan_profile->solver_config.max_solutions = 2;
-  plan_profile->solver_config.simplify = false;
-  plan_profile->solver_config.planners = { this->configurator, this->configurator };
+  auto move_profile = std::make_shared<OMPLRealVectorMoveProfile>();
+  move_profile->contact_manager_config.default_margin = 0.025;
+  move_profile->collision_check_config.longest_valid_segment_length = 0.1;
+  move_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+  move_profile->solver_config.planning_time = 10;
+  move_profile->solver_config.optimize = false;
+  move_profile->solver_config.max_solutions = 2;
+  move_profile->solver_config.simplify = false;
+  move_profile->solver_config.planners = { this->configurator, this->configurator };
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
 
   // Create Planner Request
   PlannerRequest request;
@@ -349,19 +349,19 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<OMPLRealVectorPlanProfile>();
-  plan_profile->contact_manager_config.default_margin = 0.02;
-  plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
-  plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
-  plan_profile->solver_config.planning_time = 10;
-  plan_profile->solver_config.optimize = false;
-  plan_profile->solver_config.max_solutions = 2;
-  plan_profile->solver_config.simplify = false;
-  plan_profile->solver_config.planners = { this->configurator, this->configurator };
+  auto move_profile = std::make_shared<OMPLRealVectorMoveProfile>();
+  move_profile->contact_manager_config.default_margin = 0.02;
+  move_profile->collision_check_config.longest_valid_segment_length = 0.1;
+  move_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+  move_profile->solver_config.planning_time = 10;
+  move_profile->solver_config.optimize = false;
+  move_profile->solver_config.max_solutions = 2;
+  move_profile->solver_config.simplify = false;
+  move_profile->solver_config.planners = { this->configurator, this->configurator };
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
 
   // Create Planner Request
   PlannerRequest request;
@@ -439,19 +439,19 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   CompositeInstruction interpolated_program = generateInterpolatedProgram(program, env, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
-  auto plan_profile = std::make_shared<OMPLRealVectorPlanProfile>();
-  plan_profile->contact_manager_config.default_margin = 0.02;
-  plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
-  plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
-  plan_profile->solver_config.planning_time = 10;
-  plan_profile->solver_config.optimize = false;
-  plan_profile->solver_config.max_solutions = 2;
-  plan_profile->solver_config.simplify = false;
-  plan_profile->solver_config.planners = { this->configurator, this->configurator };
+  auto move_profile = std::make_shared<OMPLRealVectorMoveProfile>();
+  move_profile->contact_manager_config.default_margin = 0.02;
+  move_profile->collision_check_config.longest_valid_segment_length = 0.1;
+  move_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
+  move_profile->solver_config.planning_time = 10;
+  move_profile->solver_config.optimize = false;
+  move_profile->solver_config.max_solutions = 2;
+  move_profile->solver_config.simplify = false;
+  move_profile->solver_config.planners = { this->configurator, this->configurator };
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
 
   // Create Planner Request
   PlannerRequest request;

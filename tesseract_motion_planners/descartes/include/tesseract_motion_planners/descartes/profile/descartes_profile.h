@@ -70,19 +70,19 @@ protected:
 };
 
 template <typename FloatType>
-class DescartesPlanProfile : public Profile
+class DescartesMoveProfile : public Profile
 {
 public:
-  using Ptr = std::shared_ptr<DescartesPlanProfile<FloatType>>;
-  using ConstPtr = std::shared_ptr<const DescartesPlanProfile<FloatType>>;
+  using Ptr = std::shared_ptr<DescartesMoveProfile<FloatType>>;
+  using ConstPtr = std::shared_ptr<const DescartesMoveProfile<FloatType>>;
 
-  DescartesPlanProfile() : Profile(DescartesPlanProfile<FloatType>::getStaticKey()) {}
+  DescartesMoveProfile() : Profile(DescartesMoveProfile<FloatType>::getStaticKey()) {}
 
   /**
    * @brief A utility function for getting profile ID
    * @return The profile ID used when storing in profile dictionary
    */
-  static std::size_t getStaticKey() { return std::type_index(typeid(DescartesPlanProfile<FloatType>)).hash_code(); }
+  static std::size_t getStaticKey() { return std::type_index(typeid(DescartesMoveProfile<FloatType>)).hash_code(); }
 
   std::shared_ptr<const tesseract_kinematics::KinematicGroup>
   createKinematicGroup(const tesseract_common::ManipulatorInfo& manip_info,

@@ -30,15 +30,15 @@
 
 namespace tesseract_planning
 {
-SimplePlannerPlanProfile::SimplePlannerPlanProfile() : Profile(SimplePlannerPlanProfile::getStaticKey()) {}
+SimplePlannerMoveProfile::SimplePlannerMoveProfile() : Profile(SimplePlannerMoveProfile::getStaticKey()) {}
 
-std::size_t SimplePlannerPlanProfile::getStaticKey()
+std::size_t SimplePlannerMoveProfile::getStaticKey()
 {
-  return std::type_index(typeid(SimplePlannerPlanProfile)).hash_code();
+  return std::type_index(typeid(SimplePlannerMoveProfile)).hash_code();
 }
 
 template <class Archive>
-void SimplePlannerPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+void SimplePlannerMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
 }
@@ -61,7 +61,7 @@ void SimplePlannerCompositeProfile::serialize(Archive& ar, const unsigned int /*
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerPlanProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerPlanProfile)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerMoveProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerMoveProfile)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerCompositeProfile)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerCompositeProfile)
