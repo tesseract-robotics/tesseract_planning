@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_lvs_assign_plan_profile.h
+ * @file simple_planner_lvs_assign_move_profile.h
  * @brief
  *
  * @author Roelof Oomen
@@ -24,8 +24,8 @@
  * limitations under the License.
  */
 
-#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_PLANNER_LVS_ASSIGN_PLAN_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_SIMPLE_PLANNER_LVS_ASSIGN_PLAN_PROFILE_H
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_PLANNER_LVS_ASSIGN_MOVE_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_PLANNER_LVS_ASSIGN_MOVE_PROFILE_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -36,18 +36,18 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class SimplePlannerLVSAssignPlanProfile : public SimplePlannerPlanProfile
+class SimplePlannerLVSAssignMoveProfile : public SimplePlannerMoveProfile
 {
 public:
-  using Ptr = std::shared_ptr<SimplePlannerLVSAssignPlanProfile>;
-  using ConstPtr = std::shared_ptr<const SimplePlannerLVSAssignPlanProfile>;
+  using Ptr = std::shared_ptr<SimplePlannerLVSAssignMoveProfile>;
+  using ConstPtr = std::shared_ptr<const SimplePlannerLVSAssignMoveProfile>;
 
   /**
-   * @brief SimplePlannerFixedSizeAssignPlanProfile
+   * @brief SimplePlannerFixedSizeAssignMoveProfile
    * @param freespace_steps The number of steps to use for freespace instruction
    * @param linear_steps The number of steps to use for linear instruction
    */
-  SimplePlannerLVSAssignPlanProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
+  SimplePlannerLVSAssignMoveProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
                                     double translation_longest_valid_segment_length = 0.1,
                                     double rotation_longest_valid_segment_length = 5 * M_PI / 180,
                                     int min_steps = 1,
@@ -83,6 +83,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerLVSAssignPlanProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerLVSAssignMoveProfile)
 
-#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PLANNER_LVS_ASSIGN_PLAN_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PLANNER_LVS_ASSIGN_MOVE_PROFILE_H
