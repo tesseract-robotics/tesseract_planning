@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_lvs_assign_no_ik_plan_profile.cpp
+ * @file simple_planner_lvs_assign_no_ik_move_profile.cpp
  * @brief
  *
  * @author Roelof Oomen
@@ -24,7 +24,7 @@
  * limitations under the License.
  */
 
-#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_assign_no_ik_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_assign_no_ik_move_profile.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_environment/environment.h>
@@ -37,7 +37,7 @@
 
 namespace tesseract_planning
 {
-SimplePlannerLVSAssignNoIKPlanProfile::SimplePlannerLVSAssignNoIKPlanProfile(
+SimplePlannerLVSAssignNoIKMoveProfile::SimplePlannerLVSAssignNoIKMoveProfile(
     double state_longest_valid_segment_length,
     double translation_longest_valid_segment_length,
     double rotation_longest_valid_segment_length,
@@ -52,7 +52,7 @@ SimplePlannerLVSAssignNoIKPlanProfile::SimplePlannerLVSAssignNoIKPlanProfile(
 }
 
 std::vector<MoveInstructionPoly>
-SimplePlannerLVSAssignNoIKPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
+SimplePlannerLVSAssignNoIKMoveProfile::generate(const MoveInstructionPoly& prev_instruction,
                                                 const MoveInstructionPoly& /*prev_seed*/,
                                                 const MoveInstructionPoly& base_instruction,
                                                 const InstructionPoly& /*next_instruction*/,
@@ -144,9 +144,9 @@ SimplePlannerLVSAssignNoIKPlanProfile::generate(const MoveInstructionPoly& prev_
 }
 
 template <class Archive>
-void SimplePlannerLVSAssignNoIKPlanProfile::serialize(Archive& ar, const unsigned int /*version*/)
+void SimplePlannerLVSAssignNoIKMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerPlanProfile);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerMoveProfile);
   ar& BOOST_SERIALIZATION_NVP(state_longest_valid_segment_length);
   ar& BOOST_SERIALIZATION_NVP(translation_longest_valid_segment_length);
   ar& BOOST_SERIALIZATION_NVP(rotation_longest_valid_segment_length);
@@ -157,5 +157,5 @@ void SimplePlannerLVSAssignNoIKPlanProfile::serialize(Archive& ar, const unsigne
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerLVSAssignNoIKPlanProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerLVSAssignNoIKPlanProfile)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerLVSAssignNoIKMoveProfile)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerLVSAssignNoIKMoveProfile)
