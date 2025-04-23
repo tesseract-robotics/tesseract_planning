@@ -123,7 +123,8 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
 
   tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
 
-  auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
+  auto profiles =
+      getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   auto& ci = input_data_poly.as<CompositeInstruction>();
   const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
   auto joint_group = env->getJointGroup(manip_info.manipulator);

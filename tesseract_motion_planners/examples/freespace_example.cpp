@@ -123,7 +123,7 @@ int main(int /*argc*/, char** /*argv*/)
     CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env);
 
     // Profile Dictionary
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "DEFAULT", ompl_move_profile);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_move_profile);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);

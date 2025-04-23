@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_examples/freespace_ompl_example.h>
 
 #include <tesseract_common/resource_locator.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_scene_graph/link.h>
 #include <tesseract_scene_graph/joint.h>
@@ -42,7 +43,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/utils.h>
 #include <tesseract_environment/commands/add_link_command.h>
 
-#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -189,7 +189,7 @@ bool FreespaceOMPLExample::run()
   ompl_profile->solver_config.planners = { ompl_planner_config, ompl_planner_config };
 
   // Create profile dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
   profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "FREESPACE", ompl_profile);
 
   // Create task

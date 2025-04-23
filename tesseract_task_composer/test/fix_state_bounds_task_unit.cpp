@@ -4,19 +4,19 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
+#include <tesseract_common/profile_dictionary.h>
+#include <tesseract_common/resource_locator.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_bounds_task.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
-#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
-#include <tesseract_common/resource_locator.h>
 
 using namespace tesseract_planning;
 using namespace tesseract_environment;
@@ -75,7 +75,7 @@ void checkProgram(const Environment::Ptr& env,
                   const ManipulatorInfo& manip,
                   const Eigen::VectorXd& start_state,
                   const Eigen::VectorXd& goal_state,
-                  std::shared_ptr<ProfileDictionary>& profiles,
+                  std::shared_ptr<tesseract_common::ProfileDictionary>& profiles,
                   FixStateBoundsProfile::Settings setting,
                   bool pre_check_return,
                   int expected_return)
@@ -148,7 +148,7 @@ TEST_F(FixStateBoundsTaskUnit, stateInBounds)  // NOLINT
   state_bounds_profile->lower_bounds_reduction = 1e-3;
   state_bounds_profile->upper_bounds_reduction = 1e-3;
 
-  auto profiles = std::make_shared<ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
   profiles->addProfile(FIX_STATE_BOUNDS_TASK_NAME, DEFAULT_PROFILE_KEY, state_bounds_profile);
 
   Eigen::VectorXd mid_state = joint_limits.col(0) + (joint_limits.col(1) - joint_limits.col(0)) / 2.;

@@ -38,7 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/fwd.h>
 #include <tesseract_environment/fwd.h>
 
-#include <tesseract_command_language/profile.h>
+#include <tesseract_common/profile.h>
 #include <descartes_light/core/solver.h>
 #include <descartes_light/core/waypoint_sampler.h>
 #include <descartes_light/core/edge_evaluator.h>
@@ -47,7 +47,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 template <typename FloatType>
-class DescartesSolverProfile : public Profile
+class DescartesSolverProfile : public tesseract_common::Profile
 {
 public:
   using Ptr = std::shared_ptr<DescartesSolverProfile<FloatType>>;
@@ -70,7 +70,7 @@ protected:
 };
 
 template <typename FloatType>
-class DescartesMoveProfile : public Profile
+class DescartesMoveProfile : public tesseract_common::Profile
 {
 public:
   using Ptr = std::shared_ptr<DescartesMoveProfile<FloatType>>;

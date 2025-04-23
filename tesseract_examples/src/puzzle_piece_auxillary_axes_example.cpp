@@ -42,8 +42,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/resource_locator.h>
 #include <tesseract_common/stopwatch.h>
+#include <tesseract_common/profile_dictionary.h>
 
-#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -225,7 +225,7 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
   // Create profile dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
   if (ifopt_)
   {
     // Create TrajOpt_Ifopt Profile

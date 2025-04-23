@@ -135,7 +135,8 @@ TaskComposerNodeInfo TimeOptimalParameterizationTask::runImpl(TaskComposerContex
   auto limits = joint_group->getLimits();
 
   // Get Composite Profile
-  auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
+  auto profiles =
+      getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   auto cur_composite_profile = getProfile<TimeOptimalParameterizationProfile>(
       ns_, ci.getProfile(ns_), *profiles, std::make_shared<TimeOptimalParameterizationProfile>());
 

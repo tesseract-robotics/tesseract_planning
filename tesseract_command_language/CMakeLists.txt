@@ -50,8 +50,6 @@ add_library(
   src/poly/state_waypoint_poly.cpp
   src/poly/waypoint_poly.cpp
   src/move_instruction.cpp
-  src/profile_dictionary.cpp
-  src/profile.cpp
   src/set_analog_instruction.cpp
   src/set_tool_instruction.cpp
   src/timer_instruction.cpp

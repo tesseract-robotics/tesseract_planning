@@ -38,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/joint_state.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_scene_graph/scene_state.h>
 
@@ -53,7 +54,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 
-#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/utils.h>
 
 // #include <tesseract_motion_planners/core/utils.h>
@@ -1336,7 +1336,7 @@ CompositeInstruction generateInterpolatedProgram(const CompositeInstruction& ins
                                                                    min_steps);
 
   // Create profile dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
   profiles->addProfile(planner.getName(), instructions.getProfile(), profile);
   auto flat = instructions.flatten(&moveFilter);
   for (const auto& i : flat)

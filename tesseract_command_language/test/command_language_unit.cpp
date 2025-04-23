@@ -43,7 +43,6 @@
 #include <tesseract_command_language/set_tool_instruction.h>
 #include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_command_language/wait_instruction.h>
-#include <tesseract_command_language/profile_dictionary.h>
 
 #include "command_language_test_program.hpp"
 

@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_examples/car_seat_example.h>
 
 #include <tesseract_common/allowed_collision_matrix.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_collision/bullet/convex_hull_utils.h>
 
@@ -55,7 +56,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/utils.h>
 
 #include <tesseract_task_composer/core/task_composer_context.h>
@@ -277,7 +277,7 @@ bool CarSeatExample::run()
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
   // Create profile dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
   if (ifopt_)
   {
     // Create TrajOpt_Ifopt Profile

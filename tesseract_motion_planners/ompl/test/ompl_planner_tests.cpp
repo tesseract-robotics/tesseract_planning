@@ -49,6 +49,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
@@ -68,9 +69,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 
-#include <tesseract_command_language/profile_dictionary.h>
-#include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
 
@@ -201,7 +201,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   move_profile->solver_config.planners = { this->configurator, this->configurator };
 
   // Profile Dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
   profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
 
   // Create Planner Request
@@ -360,7 +360,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   move_profile->solver_config.planners = { this->configurator, this->configurator };
 
   // Profile Dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
   profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
 
   // Create Planner Request
@@ -450,7 +450,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   move_profile->solver_config.planners = { this->configurator, this->configurator };
 
   // Profile Dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
   profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
 
   // Create Planner Request

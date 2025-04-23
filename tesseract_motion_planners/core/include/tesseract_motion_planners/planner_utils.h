@@ -36,9 +36,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/constants.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_common/kinematic_limits.h>
+#include <tesseract_common/profile_dictionary.h>
 #include <tesseract_motion_planners/robot_config.h>
 #include <tesseract_motion_planners/core/types.h>
-#include <tesseract_command_language/profile_dictionary.h>
 
 namespace tesseract_planning
 {
@@ -108,7 +108,7 @@ bool isValidState(const tesseract_kinematics::JointGroup& joint_group,
 template <typename ProfileType>
 std::shared_ptr<const ProfileType> getProfile(const std::string& ns,
                                               const std::string& profile,
-                                              const ProfileDictionary& profile_dictionary,
+                                              const tesseract_common::ProfileDictionary& profile_dictionary,
                                               std::shared_ptr<const ProfileType> default_profile = nullptr)
 {
   if (profile_dictionary.hasProfile(ProfileType::getStaticKey(), ns, profile))

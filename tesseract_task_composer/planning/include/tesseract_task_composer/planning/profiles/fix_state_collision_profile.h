@@ -33,11 +33,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_collision/core/types.h>
-#include <tesseract_command_language/profile.h>
+#include <tesseract_common/profile.h>
 
 namespace tesseract_planning
 {
-struct FixStateCollisionProfile : public Profile
+struct FixStateCollisionProfile : public tesseract_common::Profile
 {
   using Ptr = std::shared_ptr<FixStateCollisionProfile>;
   using ConstPtr = std::shared_ptr<const FixStateCollisionProfile>;

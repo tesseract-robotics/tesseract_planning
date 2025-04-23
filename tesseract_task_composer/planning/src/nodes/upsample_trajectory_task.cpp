@@ -102,7 +102,8 @@ TaskComposerNodeInfo UpsampleTrajectoryTask::runImpl(TaskComposerContext& contex
   }
 
   // Get Composite Profile
-  auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
+  auto profiles =
+      getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   auto cur_composite_profile = getProfile<UpsampleTrajectoryProfile>(
       ns_, ci.getProfile(ns_), *profiles, std::make_shared<UpsampleTrajectoryProfile>());
