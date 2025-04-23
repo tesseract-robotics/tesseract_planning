@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_lvs_plan_unit.cpp
+ * @file simple_planner_lvs_move_unit.cpp
  * @brief
  *
  * @author Matthew Powelson
@@ -34,11 +34,11 @@
 
 using namespace tesseract_planning;
 
-class TesseractPlanningSimplePlannerLVSPlanProfileUnit : public TesseractPlanningSimplePlannerUnit
+class TesseractPlanningSimplePlannerLVSMoveProfileUnit : public TesseractPlanningSimplePlannerUnit
 {
 };
 
-TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_JointJoint_Freespace)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoint_JointJoint_Freespace)  // NOLINT
 {
   JointWaypoint wp1{ joint_names_, Eigen::VectorXd::Zero(7) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
@@ -91,7 +91,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   EXPECT_EQ(cl.size(), steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_JointJoint_Linear)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoint_JointJoint_Linear)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
@@ -156,7 +156,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   EXPECT_EQ(crl.size(), rot_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_JointCart_Freespace)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoint_JointCart_Freespace)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
@@ -210,7 +210,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   EXPECT_GT(static_cast<int>(cl.size()), min_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_JointCart_Linear)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoint_JointCart_Linear)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
@@ -275,7 +275,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   EXPECT_EQ(crl.size(), rot_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_CartJoint_Freespace)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoint_CartJoint_Freespace)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
@@ -327,7 +327,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   EXPECT_GT(static_cast<int>(cl.size()), min_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_CartJoint_Linear)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoint_CartJoint_Linear)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
@@ -391,7 +391,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   EXPECT_EQ(crl.size(), rot_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_CartCart_Freespace)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoint_CartCart_Freespace)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
@@ -444,7 +444,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoin
   EXPECT_GT(static_cast<int>(cl.size()), min_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSPlanProfileUnit, InterpolateStateWaypoint_CartCart_Linear)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, InterpolateStateWaypoint_CartCart_Linear)  // NOLINT
 {
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 

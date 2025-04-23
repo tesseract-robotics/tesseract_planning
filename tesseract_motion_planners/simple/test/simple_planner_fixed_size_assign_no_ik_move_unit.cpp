@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_fixed_size_assign_no_ik_plan_unit.cpp
+ * @file simple_planner_fixed_size_assign_no_ik_move_unit.cpp
  * @brief
  *
  * @author Levi Armstrong
@@ -27,18 +27,18 @@
 
 #include <tesseract_common/types.h>
 #include <tesseract_motion_planners/core/types.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_no_ik_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_no_ik_move_profile.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 
 using namespace tesseract_planning;
 
-class TesseractPlanningSimplePlannerFixedSizeAssignNoIKPlanProfileUnit : public TesseractPlanningSimplePlannerUnit
+class TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit : public TesseractPlanningSimplePlannerUnit
 {
 };
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPlanProfileUnit, JointCartesian_AssignJointPosition)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit, JointCartesian_AssignJointPosition)  // NOLINT
 {
   JointWaypoint wp1{ joint_names_, Eigen::VectorXd::Zero(7) };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
@@ -50,7 +50,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPlanProfileUnit, JointCa
 
   InstructionPoly instr3;
 
-  SimplePlannerFixedSizeAssignNoIKPlanProfile profile(10, 10);
+  SimplePlannerFixedSizeAssignNoIKMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
       profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
@@ -77,7 +77,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPlanProfileUnit, JointCa
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPlanProfileUnit, CartesianJoint_AssignJointPosition)  // NOLINT
+TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit, CartesianJoint_AssignJointPosition)  // NOLINT
 {
   CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() };
   MoveInstruction instr1(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
@@ -89,7 +89,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPlanProfileUnit, Cartesi
 
   InstructionPoly instr3;
 
-  SimplePlannerFixedSizeAssignNoIKPlanProfile profile(10, 10);
+  SimplePlannerFixedSizeAssignNoIKMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
       profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
@@ -115,7 +115,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPlanProfileUnit, Cartesi
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPlanProfileUnit,
+TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit,
        CartesianCartesian_AssignJointPosition)  // NOLINT
 {
   CartesianWaypoint wp1{ Eigen::Isometry3d::Identity() };
@@ -128,7 +128,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKPlanProfileUnit,
 
   InstructionPoly instr3;
 
-  SimplePlannerFixedSizeAssignNoIKPlanProfile profile(10, 10);
+  SimplePlannerFixedSizeAssignNoIKMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
       profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
   auto fwd_kin = env_->getJointGroup(manip_info_.manipulator);

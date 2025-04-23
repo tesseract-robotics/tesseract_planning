@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_fixed_size_assign_no_ik_plan_profile.h
+ * @file simple_planner_fixed_size_assign_no_ik_move_profile.h
  * @brief
  *
  * @author Matthew Powelson
@@ -24,25 +24,25 @@
  * limitations under the License.
  */
 
-#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_PLAN_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_PLAN_PROFILE_H
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_MOVE_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_MOVE_PROFILE_H
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
 namespace tesseract_planning
 {
-class SimplePlannerFixedSizeAssignNoIKPlanProfile : public SimplePlannerPlanProfile
+class SimplePlannerFixedSizeAssignNoIKMoveProfile : public SimplePlannerMoveProfile
 {
 public:
-  using Ptr = std::shared_ptr<SimplePlannerFixedSizeAssignNoIKPlanProfile>;
-  using ConstPtr = std::shared_ptr<const SimplePlannerFixedSizeAssignNoIKPlanProfile>;
+  using Ptr = std::shared_ptr<SimplePlannerFixedSizeAssignNoIKMoveProfile>;
+  using ConstPtr = std::shared_ptr<const SimplePlannerFixedSizeAssignNoIKMoveProfile>;
 
   /**
-   * @brief SimplePlannerFixedSizeAssignPlanProfile
+   * @brief SimplePlannerFixedSizeAssignMoveProfile
    * @param freespace_steps The number of steps to use for freespace instruction
    * @param linear_steps The number of steps to use for linear instruction
    */
-  SimplePlannerFixedSizeAssignNoIKPlanProfile(int freespace_steps = 10, int linear_steps = 10);
+  SimplePlannerFixedSizeAssignNoIKMoveProfile(int freespace_steps = 10, int linear_steps = 10);
 
   std::vector<MoveInstructionPoly> generate(const MoveInstructionPoly& prev_instruction,
                                             const MoveInstructionPoly& prev_seed,
@@ -65,6 +65,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerFixedSizeAssignNoIKPlanProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerFixedSizeAssignNoIKMoveProfile)
 
-#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_PLAN_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_MOVE_PROFILE_H
