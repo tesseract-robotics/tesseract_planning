@@ -18,7 +18,11 @@ macro(add_gtest test_name test_file)
   add_dependencies(run_tests ${test_name})
 endmacro()
 
+add_gtest(${PROJECT_NAME}_simple_planner_fixed_size_assign_move_unit simple_planner_fixed_size_assign_move_unit.cpp)
 add_gtest(${PROJECT_NAME}_simple_planner_fixed_size_assign_no_ik_move_unit
           simple_planner_fixed_size_assign_no_ik_move_unit.cpp)
 add_gtest(${PROJECT_NAME}_simple_planner_fixed_size_move_unit simple_planner_fixed_size_move_unit.cpp)
+add_gtest(${PROJECT_NAME}_simple_planner_lvs_assign_move_unit simple_planner_lvs_assign_move_unit.cpp)
+add_gtest(${PROJECT_NAME}_simple_planner_lvs_assign_no_ik_move_unit simple_planner_lvs_assign_no_ik_move_unit.cpp)
 add_gtest(${PROJECT_NAME}_simple_planner_lvs_move_unit simple_planner_lvs_move_unit.cpp)
+add_gtest(${PROJECT_NAME}_simple_planner_lvs_no_ik_move_unit simple_planner_lvs_no_ik_move_unit.cpp)
