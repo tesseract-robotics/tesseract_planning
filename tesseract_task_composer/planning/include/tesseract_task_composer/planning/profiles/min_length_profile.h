@@ -33,11 +33,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/profile.h>
+#include <tesseract_common/profile.h>
 
 namespace tesseract_planning
 {
-struct MinLengthProfile : public Profile
+struct MinLengthProfile : public tesseract_common::Profile
 {
   using Ptr = std::shared_ptr<MinLengthProfile>;
   using ConstPtr = std::shared_ptr<const MinLengthProfile>;

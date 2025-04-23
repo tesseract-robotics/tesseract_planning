@@ -33,12 +33,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_kinematics/core/kinematic_group.h>
 
 #include <tesseract_environment/environment.h>
 
-#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
@@ -120,7 +120,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   auto move_profile = std::make_shared<DescartesDefaultMoveProfileD>();
 
   // Profile Dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
   profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
@@ -224,7 +224,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   move_profile->target_pose_sample_resolution = M_PI_4;
 
   // Profile Dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
   profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
@@ -320,7 +320,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   move_profile->enable_edge_collision = true;
 
   // Profile Dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
   profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
 
   // Create Planning Request

@@ -159,8 +159,8 @@ protected:
     }
     tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
 
-    auto profiles =
-        getData(*context.data_storage, INPUT_PROFILES_PORT).template as<std::shared_ptr<ProfileDictionary>>();
+    auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT)
+                        .template as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
 
     // Make a non-const copy of the input instructions to update the start/end
     auto& instructions = input_data_poly.template as<CompositeInstruction>();

@@ -38,7 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
 #include <tesseract_task_composer/core/test_suite/test_programs.hpp>
 
-#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -49,6 +48,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/resource_locator.h>
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/joint_state.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_environment/environment.h>
 
@@ -133,7 +133,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
   }
 
   {  // Test run method
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB());
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
@@ -161,7 +161,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
   }
 
   {  // Failure missing input data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
@@ -186,7 +186,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
   }
 
   {  // Failure missing environment data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB());
     data->setData("profiles", profiles);
@@ -235,7 +235,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
   }
 
   {  // Failure collision
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
 
     auto profile = std::make_unique<ContactCheckProfile>();
     profile->contact_manager_config = tesseract_collision::ContactManagerConfig(1.5);
@@ -325,7 +325,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
   }
 
   {  // Test run method
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB());
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
@@ -352,7 +352,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
   }
 
   {  // Failure missing input data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
@@ -376,7 +376,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
   }
 
   {  // Failure missing environment data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB());
     data->setData("profiles", profiles);
@@ -423,7 +423,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
   }
 
   {  // Failure collision
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
 
     auto profile = std::make_unique<ContactCheckProfile>();
     profile->contact_manager_config = tesseract_collision::ContactManagerConfig(1.5);
@@ -967,7 +967,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
   }
 
   {  // Test run method
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
@@ -992,7 +992,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
   }
 
   {  // Failure missing input data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
@@ -1015,7 +1015,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
   }
 
   {  // Failure missing environment data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
     data->setData("profiles", profiles);
@@ -1263,7 +1263,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
   }
 
   {  // Test run method
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
@@ -1288,7 +1288,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
   }
 
   {  // Test run method empty composite
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     auto program = test_suite::jointInterpolateExampleProgramABB(true);
     program.clear();
@@ -1315,7 +1315,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
   }
 
   {  // Failure missing input data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
@@ -1338,7 +1338,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
   }
 
   {  // Failure missing environment data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
     data->setData("profiles", profiles);
@@ -1453,7 +1453,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
   }
 
   {  // Test run method
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
@@ -1480,7 +1480,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
   }
 
   {  // Failure missing input data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
@@ -1503,7 +1503,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
   }
 
   {  // Failure missing environment data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
     data->setData("profiles", profiles);
@@ -1591,7 +1591,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
   }
 
   {  // Test run method
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
     data->setData("profiles", profiles);
@@ -1614,7 +1614,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
   }
 
   {  // Failure missing input data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("profiles", profiles);
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
@@ -2106,7 +2106,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
   }
 
   {  // Test run method
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
     data->setData("profiles", profiles);
@@ -2130,7 +2130,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
   }
 
   {  // Failure missing input data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("profiles", profiles);
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
@@ -2250,7 +2250,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     // Create input data
     auto data = std::make_unique<TaskComposerDataStorage>();
     {
-      auto profiles = std::make_shared<ProfileDictionary>();
+      auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
       auto data2 = std::make_unique<TaskComposerDataStorage>();
       data2->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
       data2->setData("profiles", profiles);
@@ -2260,7 +2260,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
       data->setData("input_data", context->data_storage->getData("output_data"));
       EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
     }
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
@@ -2283,7 +2283,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
   }
 
   {  // Test run method
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     auto program = test_suite::jointInterpolateExampleProgramABB(false);
     program.clear();
@@ -2310,7 +2310,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
   }
 
   {  // Failure missing input data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
@@ -2333,7 +2333,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
   }
 
   {  // Failure missing enviroment data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
     data->setData("profiles", profiles);
@@ -2454,7 +2454,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     // Create input data
     auto data = std::make_unique<TaskComposerDataStorage>();
     {
-      auto profiles = std::make_shared<ProfileDictionary>();
+      auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
       auto data2 = std::make_unique<TaskComposerDataStorage>();
       data2->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
       data2->setData("profiles", profiles);
@@ -2464,7 +2464,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
       data->setData("input_data", context->data_storage->getData("output_data"));
       EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
     }
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
@@ -2489,7 +2489,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
   }
 
   {  // Test run method
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     auto program = test_suite::jointInterpolateExampleProgramABB(false);
     program.clear();
@@ -2516,7 +2516,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
   }
 
   {  // Failure missing input data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
@@ -2539,7 +2539,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
   }
 
   {  // Failure missing environment data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
     data->setData("profiles", profiles);
@@ -2660,7 +2660,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     // Create input data
     auto data = std::make_unique<TaskComposerDataStorage>();
     {
-      auto profiles = std::make_shared<ProfileDictionary>();
+      auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
       auto data2 = std::make_unique<TaskComposerDataStorage>();
       data2->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
       data2->setData("profiles", profiles);
@@ -2679,7 +2679,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
       data->setData("input_data", context2->data_storage->getData("output_data"));
       EXPECT_EQ(context2->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
     }
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
@@ -2702,7 +2702,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
   }
 
   {  // Test run method
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     auto program = test_suite::jointInterpolateExampleProgramABB(false);
     program.clear();
@@ -2729,7 +2729,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
   }
 
   {  // Failure missing input data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
@@ -2752,7 +2752,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
   }
 
   {  // Failure missing environment data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
     data->setData("profiles", profiles);
@@ -2873,7 +2873,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
   {  // Test run method
     auto data = std::make_unique<TaskComposerDataStorage>();
     {
-      auto profiles = std::make_shared<ProfileDictionary>();
+      auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
       auto data2 = std::make_unique<TaskComposerDataStorage>();
       data2->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
       data2->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
@@ -2885,7 +2885,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
       EXPECT_GE(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
     }
     tesseract_planning::TaskComposerLog log("TaskComposerMotionPlannerNodeInfoTests");
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
     log.initial_data = *data;
@@ -2920,7 +2920,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
   }
 
   {  // Failure missing input data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
@@ -2944,7 +2944,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
   }
 
   {  // Failure missing environment data
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
     data->setData("profiles", profiles);
@@ -3295,7 +3295,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     const std::string output_key = { "output_data" };
 
     // Define profiles
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
 
     // Create Data Storage
     auto data_storage = std::make_unique<TaskComposerDataStorage>();
@@ -3401,7 +3401,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     RasterMotionTask task("abc", config["config"], factory);
 
     // Create Data Storage
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
@@ -3448,7 +3448,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     RasterMotionTask task("abc", config["config"], factory);
 
     // Create data storage
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", tesseract_common::AnyPoly());
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
@@ -3496,7 +3496,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     RasterMotionTask task("abc", config["config"], factory);
 
     // Create data storage
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", tesseract_common::AnyPoly(tesseract_common::JointState()));
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
@@ -3544,7 +3544,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     RasterMotionTask task("abc", config["config"], factory);
 
     // Create data storage
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
@@ -3764,7 +3764,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     const std::string output_key{ "output_data" };
 
     // Define profiles
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
 
     // Create Data Storage
     auto data_storage = std::make_unique<TaskComposerDataStorage>();
@@ -3865,7 +3865,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     RasterOnlyMotionTask task("abc", config["config"], factory);
 
     // Create Data Storage
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     data->setData("profiles", profiles);
@@ -3908,7 +3908,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     RasterOnlyMotionTask task("abc", config["config"], factory);
 
     // Create data storage
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", tesseract_common::AnyPoly());
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
@@ -3952,7 +3952,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     RasterOnlyMotionTask task("abc", config["config"], factory);
 
     // Create data storage
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", tesseract_common::AnyPoly(tesseract_common::JointState()));
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
@@ -3996,7 +3996,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     RasterOnlyMotionTask task("abc", config["config"], factory);
 
     // Create data storage
-    auto profiles = std::make_shared<ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(true));
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));

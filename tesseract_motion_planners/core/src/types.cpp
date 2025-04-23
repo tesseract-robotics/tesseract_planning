@@ -26,11 +26,11 @@
 
 #include <tesseract_motion_planners/core/types.h>
 
-#include <tesseract_command_language/profile_dictionary.h>
+#include <tesseract_common/profile_dictionary.h>
 
 namespace tesseract_planning
 {
-PlannerRequest::PlannerRequest() : profiles(std::make_shared<ProfileDictionary>()) {}
+PlannerRequest::PlannerRequest() : profiles(std::make_shared<tesseract_common::ProfileDictionary>()) {}
 
 PlannerResponse::operator bool() const noexcept { return successful; }
 }  // namespace tesseract_planning

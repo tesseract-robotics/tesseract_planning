@@ -39,7 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/fwd.h>
 #include <tesseract_environment/fwd.h>
 #include <tesseract_command_language/fwd.h>
-#include <tesseract_command_language/profile.h>
+#include <tesseract_common/profile.h>
 
 namespace boost::serialization
 {
@@ -64,7 +64,7 @@ struct TrajOptWaypointInfo
   bool fixed{ false };
 };
 
-class TrajOptMoveProfile : public Profile
+class TrajOptMoveProfile : public tesseract_common::Profile
 {
 public:
   using Ptr = std::shared_ptr<TrajOptMoveProfile>;
@@ -90,7 +90,7 @@ protected:
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
-class TrajOptCompositeProfile : public Profile
+class TrajOptCompositeProfile : public tesseract_common::Profile
 {
 public:
   using Ptr = std::shared_ptr<TrajOptCompositeProfile>;
@@ -116,7 +116,7 @@ protected:
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
-class TrajOptSolverProfile : public Profile
+class TrajOptSolverProfile : public tesseract_common::Profile
 {
 public:
   using Ptr = std::shared_ptr<TrajOptSolverProfile>;

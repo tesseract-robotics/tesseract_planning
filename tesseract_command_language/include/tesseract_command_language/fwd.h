@@ -38,8 +38,5 @@ class TimerInstruction;
 enum class WaitInstructionType : std::uint8_t;
 class WaitInstruction;
 
-// Profile Dictionary
-class Profile;
-class ProfileDictionary;
 }  // namespace tesseract_planning
 #endif  // TESSERACT_COMMAND_LANGUAGE_FWD_H

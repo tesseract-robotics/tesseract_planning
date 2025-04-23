@@ -123,7 +123,8 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
   }
 
   // Get Composite Profile
-  auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<ProfileDictionary>>();
+  auto profiles =
+      getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   long cnt = ci.getMoveInstructionCount();
   auto cur_composite_profile =
@@ -145,7 +146,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
     auto profile = std::make_shared<SimplePlannerFixedSizeMoveProfile>(subdivisions, subdivisions);
 
     // Create profile dictionary
-    auto simple_profiles = std::make_shared<ProfileDictionary>();
+    auto simple_profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     simple_profiles->addProfile(planner.getName(), ci.getProfile(), profile);
     auto flat = ci.flatten(&moveFilter);
     for (const auto& i : flat)

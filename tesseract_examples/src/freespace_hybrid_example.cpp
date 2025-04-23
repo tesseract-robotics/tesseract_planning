@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <trajopt_common/collision_types.h>
 #include <tesseract_common/resource_locator.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_scene_graph/link.h>
 #include <tesseract_scene_graph/joint.h>
@@ -47,7 +48,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/utils.h>
 
 #include <tesseract_motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
@@ -195,7 +195,7 @@ bool FreespaceHybridExample::run()
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
   // Create profile dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
 
   // Create OMPL Profile
   auto ompl_profile = std::make_shared<OMPLRealVectorMoveProfile>();

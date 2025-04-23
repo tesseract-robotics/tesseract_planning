@@ -29,11 +29,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/profile.h>
+#include <tesseract_common/profile.h>
 
 namespace tesseract_planning
 {
-struct RuckigTrajectorySmoothingCompositeProfile : public Profile
+struct RuckigTrajectorySmoothingCompositeProfile : public tesseract_common::Profile
 {
   using Ptr = std::shared_ptr<RuckigTrajectorySmoothingCompositeProfile>;
   using ConstPtr = std::shared_ptr<const RuckigTrajectorySmoothingCompositeProfile>;
@@ -71,7 +71,7 @@ protected:
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
-struct RuckigTrajectorySmoothingMoveProfile : public Profile
+struct RuckigTrajectorySmoothingMoveProfile : public tesseract_common::Profile
 {
   using Ptr = std::shared_ptr<RuckigTrajectorySmoothingMoveProfile>;
   using ConstPtr = std::shared_ptr<const RuckigTrajectorySmoothingMoveProfile>;

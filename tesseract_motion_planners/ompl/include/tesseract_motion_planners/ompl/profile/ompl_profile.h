@@ -40,7 +40,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/fwd.h>
 #include <tesseract_command_language/fwd.h>
 
-#include <tesseract_command_language/profile.h>
+#include <tesseract_common/profile.h>
 
 namespace ompl::geometric
 {
@@ -52,7 +52,7 @@ namespace tesseract_planning
 struct OMPLSolverConfig;
 struct OMPLPlannerConfigurator;
 
-class OMPLMoveProfile : public Profile
+class OMPLMoveProfile : public tesseract_common::Profile
 {
 public:
   using Ptr = std::shared_ptr<OMPLMoveProfile>;

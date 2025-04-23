@@ -57,7 +57,7 @@ struct PlannerRequest
   std::shared_ptr<const tesseract_environment::Environment> env;
 
   /** @brief The profile dictionary */
-  std::shared_ptr<const ProfileDictionary> profiles;
+  std::shared_ptr<const tesseract_common::ProfileDictionary> profiles;
 
   /**
    * @brief The program instruction
