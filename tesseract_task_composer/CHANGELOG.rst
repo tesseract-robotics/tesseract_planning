@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.30.0 (2025-04-23)
+-------------------
 * Move profile dictionary to tesseract_common
 * Rename PlanProfile to MoveProfile
 * Remove use of use_weighted_sum in trajopt config

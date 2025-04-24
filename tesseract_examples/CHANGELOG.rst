@@ -2,8 +2,8 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.30.0 (2025-04-23)
+-------------------
 * Move profile dictionary to tesseract_common
 * Rename PlanProfile to MoveProfile
 * Fix issues with how Collision Check Config was being used

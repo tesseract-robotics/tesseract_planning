@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.30.0 (2025-04-23)
+-------------------
 * Move profile dictionary to tesseract_common
 * Rename PlanProfile to MoveProfile
 * Allow enabling OSQP workspace update via settings
