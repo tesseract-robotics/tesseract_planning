@@ -2,6 +2,12 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Move profile dictionary to tesseract_common
+* Fix codecov CI
+* Contributors: Levi Armstrong
+
 0.29.1 (2025-03-21)
 -------------------
 

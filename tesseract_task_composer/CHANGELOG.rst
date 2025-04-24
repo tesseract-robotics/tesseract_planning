@@ -2,6 +2,18 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Move profile dictionary to tesseract_common
+* Rename PlanProfile to MoveProfile
+* Remove use of use_weighted_sum in trajopt config
+* Update to leverage boost_plugin_loader
+* Added class type to task composer dotgraph description
+* Fix codecov CI
+* Fix issues with how Collision Check Config was being used
+* Update to changes with legacy trajopt leveraging trajopt_common::TrajOptCollisionConfig
+* Contributors: Levi Armstrong, Michael Ripperger
+
 0.29.1 (2025-03-21)
 -------------------
 

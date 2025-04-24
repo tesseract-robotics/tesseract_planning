@@ -2,6 +2,14 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Move profile dictionary to tesseract_common
+* Rename PlanProfile to MoveProfile
+* Fix issues with how Collision Check Config was being used
+* Update to changes with legacy trajopt leveraging trajopt_common::TrajOptCollisionConfig
+* Contributors: Levi Armstrong
+
 0.29.1 (2025-03-21)
 -------------------
 

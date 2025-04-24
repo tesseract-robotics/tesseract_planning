@@ -2,6 +2,12 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Removed unnecessary asserts in time parameterization utility
+* Fix codecov CI
+* Contributors: Levi Armstrong, Michael Ripperger
+
 0.29.1 (2025-03-21)
 -------------------
 

@@ -2,6 +2,20 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Move profile dictionary to tesseract_common
+* Rename PlanProfile to MoveProfile
+* Allow enabling OSQP workspace update via settings
+* Moved opt_params to the TrajOptIfoptSolverProfile class to match the structure of TrajOptSolverProfile/TrajOpOSQPSolverProfile (`#608 <https://github.com/tesseract-robotics/tesseract_planning/issues/608>`_)
+* Store OSQPEigenSettings as unique_ptr (`#610 <https://github.com/tesseract-robotics/tesseract_planning/issues/610>`_)
+* Demangle profile class name
+* Swap descartes assert with motion planning failure (`#606 <https://github.com/tesseract-robotics/tesseract_planning/issues/606>`_)
+* Fix codecov CI
+* Fix issues with how Collision Check Config was being used
+* Update to changes with legacy trajopt leveraging trajopt_common::TrajOptCollisionConfig
+* Contributors: Levi Armstrong, Michael Ripperger, Roelof Oomen
+
 0.29.1 (2025-03-21)
 -------------------
 * Store OSQPEigenSettings by value
