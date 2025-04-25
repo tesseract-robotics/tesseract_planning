@@ -103,32 +103,38 @@ std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
                              std::to_string(coeffs.size()));
   }
 
-  if (lower_tolerance.size() == 1)
+  if (lower_tolerance.size() > 0)
   {
-    pose_info->lower_tolerance = Eigen::VectorXd::Constant(6, lower_tolerance(0));
-  }
-  else if (lower_tolerance.size() == 6)
-  {
-    pose_info->lower_tolerance = lower_tolerance;
-  }
-  else
-  {
-    throw std::runtime_error("Invalid lower tolerance size for Cartesian waypoint term info. Expected 1 or 6, got " +
-                             std::to_string(lower_tolerance.size()));
+    if (lower_tolerance.size() == 1)
+    {
+      pose_info->lower_tolerance = Eigen::VectorXd::Constant(6, lower_tolerance(0));
+    }
+    else if (lower_tolerance.size() == 6)
+    {
+      pose_info->lower_tolerance = lower_tolerance;
+    }
+    else
+    {
+      throw std::runtime_error("Invalid lower tolerance size for Cartesian waypoint term info. Expected 1 or 6, got " +
+                               std::to_string(lower_tolerance.size()));
+    }
   }
 
-  if (upper_tolerance.size() == 1)
+  if (upper_tolerance.size() > 0)
   {
-    pose_info->upper_tolerance = Eigen::VectorXd::Constant(6, upper_tolerance(0));
-  }
-  else if (upper_tolerance.size() == 6)
-  {
-    pose_info->upper_tolerance = upper_tolerance;
-  }
-  else
-  {
-    throw std::runtime_error("Invalid upper tolerance size for Cartesian waypoint term info. Expected 1 or 6, got " +
-                             std::to_string(upper_tolerance.size()));
+    if (upper_tolerance.size() == 1)
+    {
+      pose_info->upper_tolerance = Eigen::VectorXd::Constant(6, upper_tolerance(0));
+    }
+    else if (upper_tolerance.size() == 6)
+    {
+      pose_info->upper_tolerance = upper_tolerance;
+    }
+    else
+    {
+      throw std::runtime_error("Invalid upper tolerance size for Cartesian waypoint term info. Expected 1 or 6, got " +
+                               std::to_string(upper_tolerance.size()));
+    }
   }
 
   return pose_info;
