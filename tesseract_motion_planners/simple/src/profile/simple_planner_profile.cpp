@@ -62,6 +62,6 @@ void SimplePlannerCompositeProfile::serialize(Archive& ar, const unsigned int /*
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerMoveProfile)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerCompositeProfile)
+
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerCompositeProfile)

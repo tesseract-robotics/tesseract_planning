@@ -88,8 +88,9 @@ struct FixStateCollisionProfile : public tesseract_common::Profile
   /** @brief Number of sampling attempts if TrajOpt correction fails*/
   int sampling_attempts{ 100 };
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };

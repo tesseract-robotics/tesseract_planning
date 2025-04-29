@@ -92,14 +92,15 @@ public:
                     const tesseract_common::ManipulatorInfo& composite_mi,
                     const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::OMPLMoveProfile)
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::OMPLMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_PROFILE_H

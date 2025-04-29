@@ -91,6 +91,7 @@ protected:
 
 private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
@@ -206,7 +207,7 @@ private:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::WaypointInterface)
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::WaypointInterface)
 BOOST_CLASS_TRACKING(tesseract_planning::WaypointInterface, boost::serialization::track_never)
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::WaypointPoly)

@@ -84,8 +84,9 @@ public:
    */
   static std::size_t getStaticKey();
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
@@ -110,8 +111,9 @@ public:
    */
   static std::size_t getStaticKey();
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
@@ -145,16 +147,17 @@ public:
    */
   static std::size_t getStaticKey();
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptMoveProfile)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptCompositeProfile)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptSolverProfile)
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptMoveProfile)
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptCompositeProfile)
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptSolverProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_PROFILE_H

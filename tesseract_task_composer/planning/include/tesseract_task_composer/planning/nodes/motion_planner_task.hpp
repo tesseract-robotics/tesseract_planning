@@ -108,15 +108,6 @@ protected:
   std::shared_ptr<MotionPlannerType> planner_;
   bool format_result_as_input_{ true };
 
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
-  {
-    ar& BOOST_SERIALIZATION_NVP(format_result_as_input_);
-    ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-  }
-
   static TaskComposerNodePorts ports()
   {
     TaskComposerNodePorts ports;
@@ -211,6 +202,16 @@ protected:
 
     info.status_message = response.message;
     return info;
+  }
+
+private:
+  friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
+  {
+    ar& BOOST_SERIALIZATION_NVP(format_result_as_input_);
+    ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
   }
 };
 

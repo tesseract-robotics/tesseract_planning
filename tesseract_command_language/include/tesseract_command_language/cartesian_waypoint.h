@@ -73,7 +73,7 @@ public:
 
   std::unique_ptr<CartesianWaypointInterface> clone() const override final;
 
-protected:
+private:
   /** @brief The name of the waypoint */
   std::string name_;
   /** @brief The Cartesian Waypoint */
@@ -97,6 +97,7 @@ protected:
   bool equals(const CartesianWaypointInterface& other) const override final;
 
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };

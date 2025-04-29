@@ -114,16 +114,15 @@ public:
   bool operator==(const TaskComposerDataStorage& rhs) const;
   bool operator!=(const TaskComposerDataStorage& rhs) const;
 
-protected:
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
+private:
   mutable std::shared_mutex mutex_;
   std::string name_;
   std::unordered_map<std::string, tesseract_common::AnyPoly> data_;
+
+  friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning

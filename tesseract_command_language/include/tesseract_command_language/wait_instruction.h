@@ -170,6 +170,7 @@ private:
   bool equals(const InstructionInterface& other) const override final;
 
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };

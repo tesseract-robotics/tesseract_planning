@@ -69,8 +69,9 @@ struct TimeOptimalParameterizationProfile : public tesseract_common::Profile
   /** @brief At least one joint must change by greater than this amount for the point to be added. Default: 0.001*/
   double min_angle_change{ 0.001 };
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };

@@ -44,8 +44,9 @@ public:
 
   std::unique_ptr<descartes_light::Solver<FloatType>> create() const override;
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };

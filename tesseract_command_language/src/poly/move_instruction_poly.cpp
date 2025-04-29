@@ -181,5 +181,4 @@ void MoveInstructionPoly::serialize(Archive& ar, const unsigned int /*version*/)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstructionInterface)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstructionPoly)
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionInterface)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionPoly)

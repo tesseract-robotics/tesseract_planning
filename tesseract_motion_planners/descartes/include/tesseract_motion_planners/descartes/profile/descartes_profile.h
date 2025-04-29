@@ -63,8 +63,9 @@ public:
 
   virtual std::unique_ptr<descartes_light::Solver<FloatType>> create() const = 0;
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int);  // NOLINT
 };
@@ -103,8 +104,9 @@ public:
                        const tesseract_common::ManipulatorInfo& composite_manip_info,
                        const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int);  // NOLINT
 };

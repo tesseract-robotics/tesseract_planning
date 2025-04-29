@@ -175,7 +175,9 @@ protected:
                               const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
                               const OMPLStateExtractor& state_extractor) const;
 
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };

@@ -150,9 +150,6 @@ public:
   bool operator!=(const TaskComposerGraph& rhs) const;
 
 protected:
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-
   // These are protected and used by PIPELINE
   TaskComposerGraph(std::string name, TaskComposerNodeType type, bool conditional);
   TaskComposerGraph(std::string name,
@@ -160,15 +157,18 @@ protected:
                     const YAML::Node& config,
                     const TaskComposerPluginFactory& plugin_factory);
 
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override;
 
   std::map<boost::uuids::uuid, TaskComposerNode::Ptr> nodes_;
   std::vector<boost::uuids::uuid> terminals_;
   int abort_terminal_{ -1 };
+
+private:
+  friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning

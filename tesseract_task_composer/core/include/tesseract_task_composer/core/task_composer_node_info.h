@@ -146,8 +146,8 @@ public:
   bool isAborted() const;
 
 private:
-  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   friend class TaskComposerNode;
 
   /** @brief Indicate if task was not ran because abort flag was enabled */
@@ -232,8 +232,8 @@ public:
   bool operator!=(const TaskComposerNodeInfoContainer& rhs) const;
 
 private:
-  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 

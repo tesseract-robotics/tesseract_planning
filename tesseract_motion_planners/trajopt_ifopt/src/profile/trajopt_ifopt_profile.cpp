@@ -100,9 +100,6 @@ void TrajOptIfoptSolverProfile::serialize(Archive& ar, const unsigned int /*vers
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptIfoptMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptIfoptMoveProfile)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptIfoptCompositeProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptIfoptCompositeProfile)
 TESSERACT_SERIALIZE_FREE_ARCHIVES_INSTANTIATE(trajopt_sqp::SQPParameters)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptIfoptSolverProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptIfoptSolverProfile)

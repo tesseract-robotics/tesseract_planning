@@ -79,8 +79,9 @@ public:
   /** @brief The maximum number of steps for the plan */
   int max_steps;
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };

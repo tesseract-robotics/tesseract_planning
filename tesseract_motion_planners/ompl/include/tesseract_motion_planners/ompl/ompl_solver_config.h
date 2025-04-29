@@ -30,6 +30,7 @@
 #include <vector>
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/export.hpp>
+#include <tesseract_common/fwd.h>
 
 namespace tesseract_planning
 {
@@ -77,8 +78,9 @@ struct OMPLSolverConfig
    */
   std::vector<std::shared_ptr<const OMPLPlannerConfigurator>> planners;
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };

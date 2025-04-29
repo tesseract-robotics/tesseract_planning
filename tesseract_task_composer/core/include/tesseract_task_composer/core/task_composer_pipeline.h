@@ -65,19 +65,18 @@ public:
   bool operator==(const TaskComposerPipeline& rhs) const;
   bool operator!=(const TaskComposerPipeline& rhs) const;
 
-protected:
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
+private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   void runRecursive(const TaskComposerNode& node,
                     TaskComposerContext& context,
                     OptionalTaskComposerExecutor executor = std::nullopt) const;
+
+  friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning

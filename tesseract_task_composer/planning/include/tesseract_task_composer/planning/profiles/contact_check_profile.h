@@ -56,8 +56,9 @@ struct ContactCheckProfile : public tesseract_common::Profile
   /** @brief The collision check config */
   tesseract_collision::CollisionCheckConfig collision_check_config;
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };

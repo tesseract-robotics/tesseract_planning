@@ -172,11 +172,6 @@ public:
 protected:
   friend class TaskComposerGraph;
   friend class TaskComposerNodeInfo;
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   virtual TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                        OptionalTaskComposerExecutor executor = std::nullopt) const = 0;
@@ -251,8 +246,14 @@ protected:
                const std::string& port,
                const std::vector<tesseract_common::AnyPoly>& data,
                bool required = true) const;
+
+private:
+  friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerNode)
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TaskComposerNode)
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_H

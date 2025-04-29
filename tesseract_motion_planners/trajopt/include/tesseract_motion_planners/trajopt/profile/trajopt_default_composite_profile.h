@@ -94,8 +94,9 @@ public:
                                                  double longest_valid_segment_fraction,
                                                  double longest_valid_segment_length);
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };

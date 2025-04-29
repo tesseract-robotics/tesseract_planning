@@ -70,12 +70,14 @@ public:
   std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> create(bool verbose = false) const override;
 
 protected:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
-
   /** @brief Optimization callbacks */
   virtual std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> createOptimizationCallbacks() const;
+
+private:
+  friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
 

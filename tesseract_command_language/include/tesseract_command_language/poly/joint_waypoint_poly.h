@@ -324,7 +324,7 @@ private:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::JointWaypointInterface)
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::JointWaypointInterface)
 BOOST_CLASS_TRACKING(tesseract_planning::JointWaypointInterface, boost::serialization::track_never)
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::JointWaypointPoly)

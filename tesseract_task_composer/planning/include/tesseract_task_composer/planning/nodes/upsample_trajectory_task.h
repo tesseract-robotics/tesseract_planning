@@ -74,12 +74,7 @@ public:
   bool operator==(const UpsampleTrajectoryTask& rhs) const;
   bool operator!=(const UpsampleTrajectoryTask& rhs) const;
 
-protected:
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
+private:
   void upsample(CompositeInstruction& composite,
                 const CompositeInstruction& current_composite,
                 InstructionPoly& start_instruction,
@@ -89,6 +84,11 @@ protected:
 
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
+
+  friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning

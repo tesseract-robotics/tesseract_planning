@@ -57,10 +57,9 @@ struct TaskComposerNodePorts
   bool operator==(const TaskComposerNodePorts& rhs) const;
   bool operator!=(const TaskComposerNodePorts& rhs) const;
 
-protected:
-  friend struct tesseract_common::Serialization;
+private:
   friend class boost::serialization::access;
-
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };

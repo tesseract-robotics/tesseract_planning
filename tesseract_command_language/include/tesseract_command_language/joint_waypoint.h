@@ -84,7 +84,7 @@ public:
 
   std::unique_ptr<JointWaypointInterface> clone() const override final;
 
-protected:
+private:
   /** @brief The name of the waypoint */
   std::string name_;
   /** @brief The names of the joints */
@@ -101,6 +101,7 @@ protected:
   bool equals(const JointWaypointInterface& other) const override final;
 
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
