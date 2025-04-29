@@ -175,5 +175,4 @@ void CartesianWaypointPoly::serialize(Archive& ar, const unsigned int /*version*
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypointInterface)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypointPoly)
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypointInterface)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypointPoly)

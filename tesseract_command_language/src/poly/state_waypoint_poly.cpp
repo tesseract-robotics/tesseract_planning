@@ -153,5 +153,4 @@ void StateWaypointPoly::serialize(Archive& ar, const unsigned int /*version*/)  
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypointInterface)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypointPoly)
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointInterface)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointPoly)

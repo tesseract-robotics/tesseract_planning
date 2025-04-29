@@ -109,5 +109,4 @@ void WaypointPoly::serialize(Archive& ar, const unsigned int /*version*/)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::WaypointInterface)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::WaypointPoly)
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::WaypointInterface)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::WaypointPoly)

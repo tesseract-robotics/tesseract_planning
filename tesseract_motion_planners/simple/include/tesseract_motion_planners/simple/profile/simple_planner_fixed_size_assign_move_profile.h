@@ -57,8 +57,9 @@ public:
   /** @brief The number of steps to use for linear instruction */
   int linear_steps;
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };

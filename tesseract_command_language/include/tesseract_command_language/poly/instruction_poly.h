@@ -249,7 +249,7 @@ private:
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::InstructionInterface)
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::InstructionInterface)
 BOOST_CLASS_TRACKING(tesseract_planning::InstructionInterface, boost::serialization::track_never)
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::InstructionPoly)

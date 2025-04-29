@@ -59,18 +59,18 @@ public:
   bool operator==(const RemapTask& rhs) const;
   bool operator!=(const RemapTask& rhs) const;
 
-protected:
+private:
   bool copy_{ false };
-
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   static TaskComposerNodePorts ports();
 
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
+
+  friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning

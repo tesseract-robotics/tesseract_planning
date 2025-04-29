@@ -77,8 +77,9 @@ public:
            const std::shared_ptr<const tesseract_environment::Environment>& env,
            const tesseract_common::ManipulatorInfo& global_manip_info) const = 0;
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
@@ -98,14 +99,15 @@ public:
   static std::size_t getStaticKey();
 
   // This contains functions for composite processing. Get start for example
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerMoveProfile)
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::SimplePlannerMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PROFILE_H

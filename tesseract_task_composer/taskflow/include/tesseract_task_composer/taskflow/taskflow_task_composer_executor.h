@@ -85,19 +85,7 @@ public:
   bool operator==(const TaskflowTaskComposerExecutor& rhs) const;
   bool operator!=(const TaskflowTaskComposerExecutor& rhs) const;
 
-protected:
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-
-  template <class Archive>
-  void save(Archive& ar, const unsigned int version) const;  // NOLINT
-
-  template <class Archive>
-  void load(Archive& ar, const unsigned int version);  // NOLINT
-
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
+private:
   std::size_t num_threads_;
   std::unique_ptr<tf::Executor> executor_;
 
@@ -107,6 +95,17 @@ protected:
 
   std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node,
                                           std::shared_ptr<TaskComposerContext> context) override final;
+
+  friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
+  template <class Archive>
+  void save(Archive& ar, const unsigned int version) const;  // NOLINT
+
+  template <class Archive>
+  void load(Archive& ar, const unsigned int version);  // NOLINT
+
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
 

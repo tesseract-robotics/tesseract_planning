@@ -79,12 +79,6 @@ public:
   bool operator!=(const TaskComposerExecutor& rhs) const;
 
 protected:
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
   std::string name_;
 
   /**
@@ -96,9 +90,15 @@ protected:
    */
   virtual std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node,
                                                   std::shared_ptr<TaskComposerContext> context) = 0;
+
+private:
+  friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerExecutor)
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TaskComposerExecutor)
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_EXECUTOR_H

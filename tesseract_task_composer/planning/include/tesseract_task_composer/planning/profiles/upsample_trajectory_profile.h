@@ -50,8 +50,9 @@ struct UpsampleTrajectoryProfile : public tesseract_common::Profile
 
   double longest_valid_segment_length{ 0.1 };
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };

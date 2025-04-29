@@ -95,16 +95,10 @@ public:
   bool operator==(const RasterMotionTask& rhs) const;
   bool operator!=(const RasterMotionTask& rhs) const;
 
-protected:
+private:
   TaskFactory freespace_task_factory_;
   TaskFactory raster_task_factory_;
   TaskFactory transition_task_factory_;
-
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
 
   static void checkTaskInput(const tesseract_common::AnyPoly& input);
 
@@ -112,6 +106,12 @@ protected:
 
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor) const override final;
+
+  friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
+
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
 };
 }  // namespace tesseract_planning
 

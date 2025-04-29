@@ -170,5 +170,4 @@ void JointWaypointPoly::serialize(Archive& ar, const unsigned int /*version*/)  
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::JointWaypointInterface)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::JointWaypointPoly)
 
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::JointWaypointInterface)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::JointWaypointPoly)

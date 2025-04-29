@@ -33,6 +33,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/fwd.h>
+
 namespace tesseract_planning
 {
 /**
@@ -63,8 +65,9 @@ struct TrajOptIfoptCartesianWaypointConfig
   /** @brief coefficients corresponsing to dx, dy, dz, rx, ry, rz*/
   Eigen::Matrix<double, 6, 1> coeff{ Eigen::VectorXd::Constant(6, 5) };
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
@@ -95,8 +98,9 @@ struct TrajOptIfoptJointWaypointConfig
   /** @brief coefficients corresponsing to joint values*/
   Eigen::VectorXd coeff{ Eigen::VectorXd::Constant(1, 1, 5) };
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };

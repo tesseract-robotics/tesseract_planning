@@ -65,8 +65,9 @@ struct RuckigTrajectorySmoothingCompositeProfile : public tesseract_common::Prof
   /** @brief max_jerk_scaling_factor The max jerk scaling factor passed to the solver */
   double max_jerk_scaling_factor{ 1.0 };
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
@@ -94,8 +95,9 @@ struct RuckigTrajectorySmoothingMoveProfile : public tesseract_common::Profile
   /** @brief max_jerk_scaling_factor The max jerk scaling factor passed to the solver */
   double max_jerk_scaling_factor{ 1.0 };
 
-protected:
+private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };

@@ -73,12 +73,7 @@ public:
   bool operator==(const IterativeSplineParameterizationTask& rhs) const;
   bool operator!=(const IterativeSplineParameterizationTask& rhs) const;
 
-protected:
-  friend struct tesseract_common::Serialization;
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
+private:
   bool add_points_{ true };
   IterativeSplineParameterization solver_;
 
@@ -86,6 +81,11 @@ protected:
 
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
+
+  friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning

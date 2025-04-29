@@ -102,10 +102,6 @@ public:
                        const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
 
 protected:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
-
   virtual std::unique_ptr<DescartesVertexEvaluator>
   createVertexEvaluator(const MoveInstructionPoly& move_instruction,
                         const std::shared_ptr<const tesseract_kinematics::KinematicGroup>& manip,
@@ -114,6 +110,12 @@ protected:
   virtual PoseSamplerFn createPoseSampler(const MoveInstructionPoly& move_instruction,
                                           const std::shared_ptr<const tesseract_kinematics::KinematicGroup>& manip,
                                           const std::shared_ptr<const tesseract_environment::Environment>& env) const;
+
+private:
+  friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 using DescartesDefaultMoveProfileF = DescartesDefaultMoveProfile<float>;
