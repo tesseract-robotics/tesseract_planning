@@ -35,6 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
+#include <boost_plugin_loader/fwd.h>
 #include <boost_plugin_loader/macros.h>
 #include <filesystem>
 
@@ -73,7 +74,7 @@ public:
 
 protected:
   static std::string getSection();
-  friend class PluginLoader;
+  friend class boost_plugin_loader::PluginLoader;
 };
 
 /** @brief Task Composer Executor Factory class used by the TaskComposerServer for loading executors to be called by
@@ -90,7 +91,7 @@ public:
 
 protected:
   static std::string getSection();
-  friend class PluginLoader;
+  friend class boost_plugin_loader::PluginLoader;
 };
 
 class TaskComposerPluginFactory
