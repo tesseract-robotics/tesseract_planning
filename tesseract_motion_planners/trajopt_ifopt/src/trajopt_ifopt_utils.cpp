@@ -112,7 +112,11 @@ createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::Joi
       source_frame_offset,
       target_frame_offset,
       Eigen::Map<Eigen::VectorXi>(indices.data(), static_cast<Eigen::Index>(indices.size())));
-  auto constraint = std::make_shared<trajopt_ifopt::CartPosConstraint>(cart_info, var, "CartPos_" + var->GetName());
+  auto constraint = std::make_shared<trajopt_ifopt::CartPosConstraint>(
+      cart_info,
+      var,
+      Eigen::Map<Eigen::VectorXd>(constraint_coeffs.data(), static_cast<Eigen::Index>(constraint_coeffs.size())),
+      "CartPos_" + var->GetName());
   return constraint;
 }
 
