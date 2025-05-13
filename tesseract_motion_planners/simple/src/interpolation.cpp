@@ -1326,6 +1326,7 @@ CompositeInstruction generateInterpolatedProgram(const CompositeInstruction& ins
   PlannerRequest request;
   request.instructions = instructions;
   request.env = env;
+  request.format_result_as_input = true;
 
   // Set up planner
   SimpleMotionPlanner planner("SimpleMotionPlannerTask");
