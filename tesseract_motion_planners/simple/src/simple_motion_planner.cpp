@@ -116,7 +116,7 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
   // Fill out the response
   response.results = seed;
 
-  // Enforce limits
+  // Enforce limits, and format as output if requested
   const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
   auto results_flattened = response.results.flatten(&moveFilter);
   for (auto& inst : results_flattened)
@@ -128,6 +128,14 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
       assert(tesseract_common::satisfiesLimits<double>(jp, joint_limits));
       tesseract_common::enforceLimits<double>(jp, joint_limits);
       setJointPosition(mi.getWaypoint(), jp);
+
+      if (!request.format_result_as_input)
+      {
+        StateWaypointPoly swp = mi.createStateWaypoint();
+        swp.setNames(getJointNames(mi.getWaypoint()));
+        swp.setPosition(jp);
+        mi.getWaypoint() = swp;
+      }
     }
     else if (mi.getWaypoint().isCartesianWaypoint())
     {
@@ -137,6 +145,14 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
         Eigen::VectorXd& jp = cwp.getSeed().position;
         assert(tesseract_common::satisfiesLimits<double>(jp, joint_limits));
         tesseract_common::enforceLimits<double>(jp, joint_limits);
+
+        if (!request.format_result_as_input)
+        {
+          StateWaypointPoly swp = mi.createStateWaypoint();
+          swp.setNames(cwp.getSeed().joint_names);
+          swp.setPosition(jp);
+          mi.getWaypoint() = swp;
+        }
       }
     }
     else
