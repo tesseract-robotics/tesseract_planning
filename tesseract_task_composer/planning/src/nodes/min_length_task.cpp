@@ -139,6 +139,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
     PlannerRequest request;
     request.instructions = ci;
     request.env = env;
+    request.format_result_as_input = true;
 
     // Set up planner
     SimpleMotionPlanner planner(ns_);
