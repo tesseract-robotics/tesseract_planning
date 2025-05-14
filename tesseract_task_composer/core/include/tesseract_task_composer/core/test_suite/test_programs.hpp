@@ -167,11 +167,11 @@ jointInterpolateExampleProgramABB(bool use_joint_waypoint = false,
   }
   else
   {
-    StateWaypoint wp1{ joint_names, start_state };
+    StateWaypoint wp1{ joint_names, start_state, start_state, start_state, 0 };
     MoveInstruction start_instruction(wp1, MoveInstructionType::FREESPACE, freespace_profile);
     start_instruction.setDescription("Start Instruction");
 
-    StateWaypoint wp2{ joint_names, end_state };
+    StateWaypoint wp2{ joint_names, end_state, end_state, end_state, 1 };
     MoveInstruction end_instruction(wp2, MoveInstructionType::FREESPACE);
     end_instruction.setDescription("End Instruction");
 

@@ -21,6 +21,7 @@ set(LIB_SOURCE_FILES
     src/nodes/format_as_input_task.cpp
     src/nodes/format_as_result_task.cpp
     src/nodes/format_planning_input_task.cpp
+    src/nodes/kinematic_limits_check_task.cpp
     src/nodes/profile_switch_task.cpp
     src/nodes/min_length_task.cpp
     src/nodes/process_planning_input_task.cpp
@@ -34,6 +35,7 @@ set(LIB_SOURCE_FILES
     src/profiles/fix_state_bounds_profile.cpp
     src/profiles/fix_state_collision_profile.cpp
     src/profiles/iterative_spline_parameterization_profile.cpp
+    src/profiles/kinematic_limits_check_profile.cpp
     src/profiles/min_length_profile.cpp
     src/profiles/profile_switch_profile.cpp
     src/profiles/ruckig_trajectory_smoothing_profile.cpp
