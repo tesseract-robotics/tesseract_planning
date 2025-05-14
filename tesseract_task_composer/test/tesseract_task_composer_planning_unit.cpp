@@ -11,6 +11,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/nodes/format_as_input_task.h>
 #include <tesseract_task_composer/planning/nodes/format_as_result_task.h>
 #include <tesseract_task_composer/planning/nodes/format_planning_input_task.h>
+#include <tesseract_task_composer/planning/nodes/kinematic_limits_check_task.h>
 #include <tesseract_task_composer/planning/nodes/min_length_task.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_bounds_task.h>
 #include <tesseract_task_composer/planning/nodes/fix_state_collision_task.h>
@@ -1531,6 +1532,176 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FixStateCollisionTask task("abc", "input_data", "environment", "profiles", "output_data", true);
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, -1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckTaskTests)  // NOLINT
+{
+  {  // Construction
+    KinematicLimitsCheckTask task;
+    EXPECT_EQ(task.getName(), "KinematicLimitsCheckTask");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: false
+                           inputs:
+                             program: input_data
+                             environment: environment
+                             profiles: profiles)";
+    YAML::Node config = YAML::Load(str);
+    KinematicLimitsCheckTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), false);
+    EXPECT_EQ(task.getInputKeys().size(), 3);
+    EXPECT_EQ(task.getInputKeys().get(KinematicLimitsCheckTask::INPUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputKeys().get(KinematicLimitsCheckTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getInputKeys().get(KinematicLimitsCheckTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getOutputKeys().size(), 0);
+    EXPECT_EQ(task.getOutboundEdges().size(), 0);
+    EXPECT_EQ(task.getInboundEdges().size(), 0);
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<KinematicLimitsCheckTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             program: input_data
+                             environment: environment)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<KinematicLimitsCheckTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             program: input_data
+                             profiles: profiles)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<KinematicLimitsCheckTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             environment: environment
+                             profiles: profiles)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<KinematicLimitsCheckTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<KinematicLimitsCheckTask>();
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerKinematicLimitsCheckTaskTests");
+  }
+
+  {  // Test run method
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
+    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    data->setData("profiles", profiles);
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    KinematicLimitsCheckTask task("abc", "input_data", "environment", "profiles", true);
+    EXPECT_EQ(task.run(*context), 1);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure missing input data
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    data->setData("profiles", profiles);
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    KinematicLimitsCheckTask task("abc", "input_data", "environment", "profiles", true);
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, -1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure missing environment data
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
+    data->setData("profiles", profiles);
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    KinematicLimitsCheckTask task("abc", "input_data", "environment", "profiles", true);
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, -1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure missing profiles data
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
+    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    KinematicLimitsCheckTask task("abc", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
     if (!node_info.has_value())
