@@ -40,8 +40,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing.h>
-#include <tesseract_time_parameterization/core/trajectory_container.h>
+#include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing_profiles.h>
+#include <tesseract_time_parameterization/core/instructions_trajectory.h>
 #include <tesseract_common/kinematic_limits.h>
+#include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/profile_dictionary.h>
+#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract_environment/environment.h>
 
 #include <ruckig/input_parameter.hpp>
 #include <ruckig/ruckig.hpp>
@@ -49,22 +54,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-RuckigTrajectorySmoothing::RuckigTrajectorySmoothing(double duration_extension_fraction,
-                                                     double max_duration_extension_factor)
-  : duration_extension_fraction_(duration_extension_fraction)
-  , max_duration_extension_factor_(max_duration_extension_factor)
-{
-}
-
-void RuckigTrajectorySmoothing::setDurationExtensionFraction(double duration_extension_fraction)
-{
-  duration_extension_fraction_ = duration_extension_fraction;
-}
-
-void RuckigTrajectorySmoothing::setMaxDurationExtensionFactor(double max_duration_extension_factor)
-{
-  max_duration_extension_factor_ = max_duration_extension_factor;
-}
+RuckigTrajectorySmoothing::RuckigTrajectorySmoothing(std::string name) : TimeParameterization(std::move(name)) {}
 
 #ifdef WITH_ONLINE_CLIENT
 bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
@@ -134,7 +124,7 @@ bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
 #else
 
 void getNextRuckigInput(ruckig::InputParameter<ruckig::DynamicDOFs>& ruckig_input,
-                        TrajectoryContainer& trajectory,
+                        InstructionsTrajectory& trajectory,
                         Eigen::Index current_index,
                         Eigen::Index next_index,
                         const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
@@ -174,7 +164,7 @@ void getNextRuckigInput(ruckig::InputParameter<ruckig::DynamicDOFs>& ruckig_inpu
 
 void initializeRuckigState(ruckig::InputParameter<ruckig::DynamicDOFs>& ruckig_input,
                            ruckig::OutputParameter<ruckig::DynamicDOFs>& ruckig_output,
-                           TrajectoryContainer& trajectory,
+                           InstructionsTrajectory& trajectory,
                            const Eigen::Ref<const Eigen::VectorXd>& min_velocity,
                            const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
                            const Eigen::Ref<const Eigen::VectorXd>& min_acceleration,
@@ -202,24 +192,42 @@ void initializeRuckigState(ruckig::InputParameter<ruckig::DynamicDOFs>& ruckig_i
   ruckig_output.new_acceleration = ruckig_input.current_acceleration;
 }
 
-bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
-                                        const Eigen::Ref<const Eigen::MatrixX2d>& velocity_limits,
-                                        const Eigen::Ref<const Eigen::MatrixX2d>& acceleration_limits,
-                                        const Eigen::Ref<const Eigen::MatrixX2d>& jerk_limits,
-                                        const Eigen::Ref<const Eigen::VectorXd>& /*velocity_scaling_factors*/,
-                                        const Eigen::Ref<const Eigen::VectorXd>& /*acceleration_scaling_factors*/,
-                                        const Eigen::Ref<const Eigen::VectorXd>& /*jerk_scaling_factors*/) const
+bool RuckigTrajectorySmoothing::compute(CompositeInstruction& composite_instruction,
+                                        const tesseract_environment::Environment& env,
+                                        const tesseract_common::ProfileDictionary& profiles) const
 {
-  if (trajectory.size() < 2)
+  // Create data structures for checking for plan profile overrides
+  auto flattened = composite_instruction.flatten(moveFilter);
+  if (flattened.size() < 2)
     return true;
 
-  if (velocity_limits.rows() != trajectory.dof() || acceleration_limits.rows() != trajectory.dof() ||
-      jerk_limits.rows() != trajectory.dof())
+  const tesseract_common::ManipulatorInfo manip_info = composite_instruction.getManipulatorInfo();
+  auto jg = env.getJointGroup(manip_info.manipulator);
+  tesseract_common::KinematicLimits limits = jg->getLimits();
+  Eigen::MatrixX2d velocity_limits{ limits.velocity_limits };
+  Eigen::MatrixX2d acceleration_limits{ limits.acceleration_limits };
+  Eigen::MatrixX2d jerk_limits{ limits.jerk_limits };
+
+  auto ci_profile = profiles.getProfile<RuckigTrajectorySmoothingCompositeProfile>(
+      name_, composite_instruction.getProfile(name_), std::make_shared<RuckigTrajectorySmoothingCompositeProfile>());
+
+  if (!ci_profile)
+    throw std::runtime_error("RuckigTrajectorySmoothing: Invalid composite profile");
+
+  if (ci_profile->override_limits)
+  {
+    velocity_limits = ci_profile->velocity_limits;
+    acceleration_limits = ci_profile->acceleration_limits;
+    jerk_limits = ci_profile->jerk_limits;
+  }
+
+  if (velocity_limits.rows() != jg->numJoints() || acceleration_limits.rows() != jg->numJoints() ||
+      jerk_limits.rows() != jg->numJoints())
     return false;
 
   // Create input parameters
-  const auto dof = static_cast<std::size_t>(trajectory.dof());
-  const auto num_waypoints = static_cast<std::size_t>(trajectory.size());
+  const auto dof = static_cast<std::size_t>(jg->numJoints());
+  const auto num_waypoints = flattened.size();
   ruckig::InputParameter<ruckig::DynamicDOFs> ruckig_input{ dof };
   ruckig::OutputParameter<ruckig::DynamicDOFs> ruckig_output{ dof };
 
@@ -258,6 +266,7 @@ bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
   original_accelerations.reserve(num_waypoints);
   original_duration_from_previous.resize(static_cast<Eigen::Index>(num_waypoints));
 
+  InstructionsTrajectory trajectory(flattened);
   original_velocities.push_back(trajectory.getVelocity(0));
   original_accelerations.push_back(trajectory.getAcceleration(0));
   original_duration_from_previous[0] = trajectory.getTimeFromStart(0);
@@ -286,7 +295,7 @@ bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
   ruckig::Result ruckig_result{};
   double duration_extension_factor{ 1 };
   bool smoothing_complete{ false };
-  while ((duration_extension_factor < max_duration_extension_factor_) && !smoothing_complete)
+  while ((duration_extension_factor < ci_profile->max_duration_extension_factor) && !smoothing_complete)
   {
     for (Eigen::Index waypoint_idx = 0; waypoint_idx < static_cast<Eigen::Index>(num_waypoints) - 1; ++waypoint_idx)
     {
@@ -306,7 +315,7 @@ bool RuckigTrajectorySmoothing::compute(TrajectoryContainer& trajectory,
       // Extend the trajectory duration if Ruckig could not reach the waypoint successfully
       if (ruckig_result != ruckig::Result::Finished)
       {
-        duration_extension_factor *= duration_extension_fraction_;
+        duration_extension_factor *= ci_profile->duration_extension_fraction;
         Eigen::VectorXd new_duration_from_previous = original_duration_from_previous;
 
         double time_from_start = original_duration_from_previous(0);

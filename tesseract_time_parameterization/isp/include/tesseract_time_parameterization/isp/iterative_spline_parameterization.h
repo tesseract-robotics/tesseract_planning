@@ -78,28 +78,16 @@ namespace tesseract_planning
 class IterativeSplineParameterization : public TimeParameterization
 {
 public:
-  explicit IterativeSplineParameterization(bool add_points = true);
+  explicit IterativeSplineParameterization(std::string name);
   ~IterativeSplineParameterization() override = default;
-  IterativeSplineParameterization(const IterativeSplineParameterization&) = default;
-  IterativeSplineParameterization& operator=(const IterativeSplineParameterization&) = default;
-  IterativeSplineParameterization(IterativeSplineParameterization&&) = default;
-  IterativeSplineParameterization& operator=(IterativeSplineParameterization&&) = default;
+  IterativeSplineParameterization(const IterativeSplineParameterization&) = delete;
+  IterativeSplineParameterization& operator=(const IterativeSplineParameterization&) = delete;
+  IterativeSplineParameterization(IterativeSplineParameterization&&) = delete;
+  IterativeSplineParameterization& operator=(IterativeSplineParameterization&&) = delete;
 
-  bool compute(TrajectoryContainer& trajectory,
-               const Eigen::Ref<const Eigen::MatrixX2d>& velocity_limits,
-               const Eigen::Ref<const Eigen::MatrixX2d>& acceleration_limits,
-               const Eigen::Ref<const Eigen::MatrixX2d>& jerk_limits,
-               const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors = Eigen::VectorXd::Ones(1),
-               const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors = Eigen::VectorXd::Ones(1),
-               const Eigen::Ref<const Eigen::VectorXd>& jerk_scaling_factors = Eigen::VectorXd::Ones(1)) const override;
-
-private:
-  /**
-   * @brief If true, add two points to trajectory (first and last segments).
-   *
-   * If false, move the 2nd and 2nd-last points.
-   */
-  bool add_points_;
+  bool compute(CompositeInstruction& composite_instruction,
+               const tesseract_environment::Environment& env,
+               const tesseract_common::ProfileDictionary& profiles) const override;
 };
 }  // namespace tesseract_planning
 

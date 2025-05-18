@@ -1,6 +1,6 @@
 find_package(ruckig REQUIRED)
 
-add_library(${PROJECT_NAME}_ruckig src/ruckig_trajectory_smoothing.cpp)
+add_library(${PROJECT_NAME}_ruckig src/ruckig_trajectory_smoothing.cpp src/ruckig_trajectory_smoothing_profiles.cpp)
 target_link_libraries(${PROJECT_NAME}_ruckig PUBLIC ${PROJECT_NAME}_core ruckig::ruckig)
 target_include_directories(${PROJECT_NAME}_ruckig PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                          "$<INSTALL_INTERFACE:include>")

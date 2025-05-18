@@ -31,13 +31,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/string.hpp>
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/profile_dictionary.h>
 #include <tesseract_common/utils.h>
 
 #include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/time_optimal_parameterization_task.h>
-#include <tesseract_task_composer/planning/profiles/time_optimal_parameterization_profile.h>
 
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
@@ -129,20 +129,13 @@ TaskComposerNodeInfo TimeOptimalParameterizationTask::runImpl(TaskComposerContex
   }
   tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
 
-  auto& ci = input_data_poly.as<CompositeInstruction>();
-  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo();
-  auto joint_group = env->getJointGroup(manip_info.manipulator);
-  auto limits = joint_group->getLimits();
-
   // Get Composite Profile
   auto profiles =
       getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
-  auto cur_composite_profile = getProfile<TimeOptimalParameterizationProfile>(
-      ns_, ci.getProfile(ns_), *profiles, std::make_shared<TimeOptimalParameterizationProfile>());
 
   // Create data structures for checking for plan profile overrides
-  auto flattened = ci.flatten(moveFilter);
-  if (flattened.empty())
+  auto& ci = input_data_poly.as<CompositeInstruction>();
+  if (ci.getMoveInstructionCount() == 0)
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
@@ -157,24 +150,12 @@ TaskComposerNodeInfo TimeOptimalParameterizationTask::runImpl(TaskComposerContex
     return info;
   }
 
-  // Solve using parameters
-  TimeOptimalTrajectoryGeneration solver(cur_composite_profile->path_tolerance,
-                                         cur_composite_profile->min_angle_change);
-
-  // Store scaling factors
-  info.data_storage.setData("max_velocity_scaling_factor", cur_composite_profile->max_velocity_scaling_factor);
-  info.data_storage.setData("max_acceleration_scaling_factor", cur_composite_profile->max_acceleration_scaling_factor);
-
   // Copy the Composite before passing in because it will get flattened and resampled
   CompositeInstruction copy_ci(ci);
-  InstructionsTrajectory traj_wrapper(copy_ci);
-  if (!solver.compute(traj_wrapper,
-                      limits.velocity_limits,
-                      limits.acceleration_limits,
-                      limits.jerk_limits,
-                      Eigen::VectorXd::Constant(1, cur_composite_profile->max_velocity_scaling_factor),
-                      Eigen::VectorXd::Constant(1, cur_composite_profile->max_acceleration_scaling_factor),
-                      Eigen::VectorXd::Constant(1, cur_composite_profile->max_jerk_scaling_factor)))
+
+  // Solve using parameters
+  TimeOptimalTrajectoryGeneration solver(ns_);
+  if (!solver.compute(copy_ci, *env, *profiles))
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching

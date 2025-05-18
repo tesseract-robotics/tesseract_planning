@@ -29,14 +29,11 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
-#include <console_bridge/console.h>
-#include <boost/core/demangle.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/constants.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_common/kinematic_limits.h>
-#include <tesseract_common/profile_dictionary.h>
 #include <tesseract_motion_planners/robot_config.h>
 #include <tesseract_motion_planners/core/types.h>
 
@@ -97,36 +94,6 @@ bool isValidState(const tesseract_kinematics::JointGroup& joint_group,
   return !(robot_config != RobotConfig::FUT && robot_config != RobotConfig::NUT);  // NOLINT
 }
 
-/**
- * @brief Gets the profile specified from the profile map
- * @param ns The namespace to search for requested profile
- * @param profile The requested profile
- * @param profile_map map that contains the profiles
- * @param default_profile Profile that is returned if the requested profile is not found in the map. Default = nullptr
- * @return The profile requested if found. Otherwise the default_profile
- */
-template <typename ProfileType>
-std::shared_ptr<const ProfileType> getProfile(const std::string& ns,
-                                              const std::string& profile,
-                                              const tesseract_common::ProfileDictionary& profile_dictionary,
-                                              std::shared_ptr<const ProfileType> default_profile = nullptr)
-{
-  if (profile_dictionary.hasProfile(ProfileType::getStaticKey(), ns, profile))
-    return std::static_pointer_cast<const ProfileType>(
-        profile_dictionary.getProfile(ProfileType::getStaticKey(), ns, profile));
-
-  std::stringstream ss;
-  ss << "Profile '" << profile << "' was not found in namespace '" << ns << "' for type '"
-     << boost::core::demangle(typeid(ProfileType).name()) << "'. Using default if available. Available profiles: [";
-  if (profile_dictionary.hasProfileEntry(ProfileType::getStaticKey(), ns))
-    for (const auto& pair : profile_dictionary.getProfileEntry(ProfileType::getStaticKey(), ns))
-      ss << pair.first << ", ";
-  ss << "]";
-
-  CONSOLE_BRIDGE_logDebug(ss.str().c_str());
-
-  return default_profile;
-}
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_MOTION_PLANNERS_PLANNER_UTILS_H

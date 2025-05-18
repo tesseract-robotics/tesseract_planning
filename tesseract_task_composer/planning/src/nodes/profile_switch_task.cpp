@@ -28,6 +28,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/string.hpp>
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/profile_dictionary.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/profile_switch_task.h>
@@ -98,7 +99,7 @@ TaskComposerNodeInfo ProfileSwitchTask::runImpl(TaskComposerContext& context,
       getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   auto cur_composite_profile =
-      getProfile<ProfileSwitchProfile>(ns_, ci.getProfile(ns_), *profiles, std::make_shared<ProfileSwitchProfile>());
+      profiles->getProfile<ProfileSwitchProfile>(ns_, ci.getProfile(ns_), std::make_shared<ProfileSwitchProfile>());
 
   // Return the value specified in the profile
   CONSOLE_BRIDGE_logDebug("ProfileSwitchProfile returning %d", cur_composite_profile->return_value);

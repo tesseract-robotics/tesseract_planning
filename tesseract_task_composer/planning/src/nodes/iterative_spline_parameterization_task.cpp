@@ -31,13 +31,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/string.hpp>
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_task_composer/planning/nodes/iterative_spline_parameterization_task.h>
-#include <tesseract_task_composer/planning/profiles/iterative_spline_parameterization_profile.h>
 
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
@@ -56,6 +56,7 @@ const std::string IterativeSplineParameterizationTask::INPUT_PROFILES_PORT = "pr
 
 IterativeSplineParameterizationTask::IterativeSplineParameterizationTask()
   : TaskComposerTask("IterativeSplineParameterizationTask", IterativeSplineParameterizationTask::ports(), true)
+  , solver_(ns_)
 {
 }
 IterativeSplineParameterizationTask::IterativeSplineParameterizationTask(std::string name,
@@ -63,11 +64,8 @@ IterativeSplineParameterizationTask::IterativeSplineParameterizationTask(std::st
                                                                          std::string input_environment_key,
                                                                          std::string input_profiles_key,
                                                                          std::string output_program_key,
-                                                                         bool is_conditional,
-                                                                         bool add_points)
-  : TaskComposerTask(std::move(name), IterativeSplineParameterizationTask::ports(), is_conditional)
-  , add_points_(add_points)
-  , solver_(add_points)
+                                                                         bool is_conditional)
+  : TaskComposerTask(std::move(name), IterativeSplineParameterizationTask::ports(), is_conditional), solver_(ns_)
 {
   input_keys_.add(INOUT_PROGRAM_PORT, std::move(input_program_key));
   input_keys_.add(INPUT_ENVIRONMENT_PORT, std::move(input_environment_key));
@@ -80,18 +78,8 @@ IterativeSplineParameterizationTask::IterativeSplineParameterizationTask(
     std::string name,
     const YAML::Node& config,
     const TaskComposerPluginFactory& /*plugin_factory*/)
-  : TaskComposerTask(std::move(name), IterativeSplineParameterizationTask::ports(), config)
+  : TaskComposerTask(std::move(name), IterativeSplineParameterizationTask::ports(), config), solver_(ns_)
 {
-  try
-  {
-    if (YAML::Node n = config["add_points"])
-      add_points_ = n.as<bool>();
-  }
-  catch (const std::exception& e)
-  {
-    throw std::runtime_error("IterativeSplineParameterizationTask: Failed to parse yaml config data! Details: " +
-                             std::string(e.what()));
-  }
 }
 
 TaskComposerNodePorts IterativeSplineParameterizationTask::ports()
@@ -137,20 +125,12 @@ TaskComposerNodeInfo IterativeSplineParameterizationTask::runImpl(TaskComposerCo
   }
   tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
 
-  auto& ci = input_data_poly.as<CompositeInstruction>();
-  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo();
-  auto joint_group = env->getJointGroup(manip_info.manipulator);
-  auto limits = joint_group->getLimits();
-
   // Get Composite Profile
   auto profiles =
       getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
-  auto cur_composite_profile = getProfile<IterativeSplineParameterizationProfile>(
-      ns_, ci.getProfile(ns_), *profiles, std::make_shared<IterativeSplineParameterizationProfile>());
 
-  // Create data structures for checking for plan profile overrides
-  auto flattened = ci.flatten(moveFilter);
-  if (flattened.empty())
+  auto& ci = input_data_poly.as<CompositeInstruction>();
+  if (ci.getMoveInstructionCount() == 0)
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
@@ -165,38 +145,8 @@ TaskComposerNodeInfo IterativeSplineParameterizationTask::runImpl(TaskComposerCo
     return info;
   }
 
-  Eigen::VectorXd velocity_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(flattened.size())) *
-                                             cur_composite_profile->max_velocity_scaling_factor;
-  Eigen::VectorXd acceleration_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(flattened.size())) *
-                                                 cur_composite_profile->max_acceleration_scaling_factor;
-  Eigen::VectorXd jerk_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(flattened.size()));
-
-  // Loop over all MoveInstructions
-  for (Eigen::Index idx = 0; idx < static_cast<Eigen::Index>(flattened.size()); idx++)
-  {
-    const auto& mi = flattened[static_cast<std::size_t>(idx)].get().as<MoveInstructionPoly>();
-
-    // Check for remapping of the plan profil
-    auto cur_move_profile = getProfile<IterativeSplineParameterizationProfile>(
-        ns_, mi.getProfile(ns_), *profiles, std::make_shared<IterativeSplineParameterizationProfile>());
-
-    // If there is a move profile associated with it, override the parameters
-    if (cur_move_profile)
-    {
-      velocity_scaling_factors[idx] = cur_move_profile->max_velocity_scaling_factor;
-      acceleration_scaling_factors[idx] = cur_move_profile->max_acceleration_scaling_factor;
-    }
-  }
-
   // Solve using parameters
-  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(ci);
-  if (!solver_.compute(*trajectory,
-                       limits.velocity_limits,
-                       limits.acceleration_limits,
-                       limits.jerk_limits,
-                       velocity_scaling_factors,
-                       acceleration_scaling_factors,
-                       jerk_scaling_factors))
+  if (!solver_.compute(ci, *env, *profiles))
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
@@ -220,10 +170,7 @@ TaskComposerNodeInfo IterativeSplineParameterizationTask::runImpl(TaskComposerCo
 
 bool IterativeSplineParameterizationTask::operator==(const IterativeSplineParameterizationTask& rhs) const
 {
-  bool equal = true;
-  equal &= (add_points_ == rhs.add_points_);
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
+  return (TaskComposerTask::operator==(rhs));
 }
 bool IterativeSplineParameterizationTask::operator!=(const IterativeSplineParameterizationTask& rhs) const
 {
@@ -233,7 +180,6 @@ bool IterativeSplineParameterizationTask::operator!=(const IterativeSplineParame
 template <class Archive>
 void IterativeSplineParameterizationTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(add_points_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 

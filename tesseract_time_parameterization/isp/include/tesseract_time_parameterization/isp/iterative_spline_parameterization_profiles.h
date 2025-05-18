@@ -1,11 +1,8 @@
 /**
- * @file ruckig_trajectory_smoothing_profile.h
- * @brief Leveraging Ruckig to smooth trajectory
+ * @file iterative_spline_parameterization_profile.h
+ * @brief Iterative Spline Parameterization Profile
  *
- * @author Levi Armstrong
- * @date July 27, 2022
- * @version TODO
- * @bug No known bugs
+ * @copyright Copyright (c) 2025, Southwest Research Institute
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -21,28 +18,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_RUCKIG_TRAJECTORY_SMOOTHING_PROFILE_H
-#define TESSERACT_TASK_COMPOSER_RUCKIG_TRAJECTORY_SMOOTHING_PROFILE_H
+#ifndef TESSERACT_TIME_PARAMETERIZATION_ITERATIVE_SPLINE_PARAMETERIZATION_PROFILES_H
+#define TESSERACT_TIME_PARAMETERIZATION_ITERATIVE_SPLINE_PARAMETERIZATION_PROFILES_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <memory>
+#include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile.h>
 
 namespace tesseract_planning
 {
-struct RuckigTrajectorySmoothingCompositeProfile : public tesseract_common::Profile
+struct IterativeSplineParameterizationCompositeProfile : public tesseract_common::Profile
 {
-  using Ptr = std::shared_ptr<RuckigTrajectorySmoothingCompositeProfile>;
-  using ConstPtr = std::shared_ptr<const RuckigTrajectorySmoothingCompositeProfile>;
+  using Ptr = std::shared_ptr<IterativeSplineParameterizationCompositeProfile>;
+  using ConstPtr = std::shared_ptr<const IterativeSplineParameterizationCompositeProfile>;
 
-  RuckigTrajectorySmoothingCompositeProfile();
-  RuckigTrajectorySmoothingCompositeProfile(double duration_extension_fraction,
-                                            double max_duration_extension_factor,
-                                            double max_velocity_scaling_factor,
-                                            double max_acceleration_scaling_factor);
+  IterativeSplineParameterizationCompositeProfile();
+  IterativeSplineParameterizationCompositeProfile(double max_velocity_scaling_factor,
+                                                  double max_acceleration_scaling_factor);
 
   /**
    * @brief A utility function for getting profile ID
@@ -50,20 +45,25 @@ struct RuckigTrajectorySmoothingCompositeProfile : public tesseract_common::Prof
    */
   static std::size_t getStaticKey();
 
-  /** @brief duration_extension_fraction The amount to scale the trajectory each time */
-  double duration_extension_fraction{ 1.1 };
+  /**
+   * @brief If true, add two points to trajectory (first and last segments).
+   *
+   * If false, move the 2nd and 2nd-last points.
+   */
+  bool add_points{ true };
 
-  /** @brief The max allow extension factor */
-  double max_duration_extension_factor{ 10.0 };
+  /** @brief Indicate if overriding limits, otherwise manipulator limits will be used. */
+  bool override_limits{ false };
+  /** @brief The min/max velocities for each joint */
+  Eigen::MatrixX2d velocity_limits;
+  /** @brief The min/max acceleration for each joint */
+  Eigen::MatrixX2d acceleration_limits;
 
   /** @brief max_velocity_scaling_factor The max velocity scaling factor passed to the solver */
   double max_velocity_scaling_factor{ 1.0 };
 
   /** @brief max_velocity_scaling_factor The max acceleration scaling factor passed to the solver */
   double max_acceleration_scaling_factor{ 1.0 };
-
-  /** @brief max_jerk_scaling_factor The max jerk scaling factor passed to the solver */
-  double max_jerk_scaling_factor{ 1.0 };
 
 private:
   friend class boost::serialization::access;
@@ -72,13 +72,14 @@ private:
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
-struct RuckigTrajectorySmoothingMoveProfile : public tesseract_common::Profile
+struct IterativeSplineParameterizationMoveProfile : public tesseract_common::Profile
 {
-  using Ptr = std::shared_ptr<RuckigTrajectorySmoothingMoveProfile>;
-  using ConstPtr = std::shared_ptr<const RuckigTrajectorySmoothingMoveProfile>;
+  using Ptr = std::shared_ptr<IterativeSplineParameterizationMoveProfile>;
+  using ConstPtr = std::shared_ptr<const IterativeSplineParameterizationMoveProfile>;
 
-  RuckigTrajectorySmoothingMoveProfile();
-  RuckigTrajectorySmoothingMoveProfile(double max_velocity_scaling_factor, double max_acceleration_scaling_factor);
+  IterativeSplineParameterizationMoveProfile();
+  IterativeSplineParameterizationMoveProfile(double max_velocity_scaling_factor,
+                                             double max_acceleration_scaling_factor);
 
   /**
    * @brief A utility function for getting profile ID
@@ -91,9 +92,6 @@ struct RuckigTrajectorySmoothingMoveProfile : public tesseract_common::Profile
 
   /** @brief max_velocity_scaling_factor The max acceleration scaling factor passed to the solver */
   double max_acceleration_scaling_factor{ 1.0 };
-
-  /** @brief max_jerk_scaling_factor The max jerk scaling factor passed to the solver */
-  double max_jerk_scaling_factor{ 1.0 };
 
 private:
   friend class boost::serialization::access;
@@ -103,7 +101,7 @@ private:
 };
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::RuckigTrajectorySmoothingCompositeProfile)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::RuckigTrajectorySmoothingMoveProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::IterativeSplineParameterizationCompositeProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::IterativeSplineParameterizationMoveProfile)
 
-#endif  // TESSERACT_TASK_COMPOSER_RUCKIG_TRAJECTORY_SMOOTHING_PROFILE_H
+#endif  // TESSERACT_TIME_PARAMETERIZATION_ITERATIVE_SPLINE_PARAMETERIZATION_PROFILES_H

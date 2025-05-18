@@ -19,39 +19,45 @@
 #ifndef TESSERACT_TIME_PARAMETERIZATION_TIME_PARAMETERIZATION_H
 #define TESSERACT_TIME_PARAMETERIZATION_TIME_PARAMETERIZATION_H
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <Eigen/Core>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#include <tesseract_common/fwd.h>
+#include <tesseract_environment/fwd.h>
+#include <tesseract_command_language/composite_instruction.h>
+
+#include <string>
 
 namespace tesseract_planning
 {
-class TrajectoryContainer;
-
 /** @brief A generic container that the time parameterization classes use */
 class TimeParameterization
 {
 public:
+  TimeParameterization() = default;
+  TimeParameterization(std::string name);
   virtual ~TimeParameterization() = default;
+  TimeParameterization(const TimeParameterization&) = delete;
+  TimeParameterization& operator=(const TimeParameterization&) = delete;
+  TimeParameterization(TimeParameterization&&) = delete;
+  TimeParameterization& operator=(TimeParameterization&&) = delete;
+
+  /**
+   * @brief Get the name of this time parameterization
+   * @details This is also used as the namespace for the profiles in the profile dictionary
+   */
+  const std::string& getName() const;
 
   /**
    * @brief Compute the time stamps for a flattened vector of move instruction
-   * @param trajectory Flattended vector of move instruction
-   * @param velocity_limits The min/max velocities for each joint
-   * @param acceleration_limits The min/max acceleration for each joint
-   * @param jerk_limits The min/max jerk for each joint
-   * @param velocity_scaling_factor The velocity scaling factor. Size should be trajectory.size()
-   * @param acceleration_scaling_factor The acceleration scaling factor. Size should be trajectory.size()
-   * @param jerk_scaling_factor The jerk scaling factor. Size should be trajectory.size()
+   * @param composite_instruction The composite instruction
+   * @param env The environment
+   * @param profiles The profile dictionary
    * @return True if successful, otherwise false
    */
-  virtual bool compute(TrajectoryContainer& trajectory,
-                       const Eigen::Ref<const Eigen::MatrixX2d>& velocity_limits,
-                       const Eigen::Ref<const Eigen::MatrixX2d>& acceleration_limits,
-                       const Eigen::Ref<const Eigen::MatrixX2d>& jerk_limits,
-                       const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors,
-                       const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors,
-                       const Eigen::Ref<const Eigen::VectorXd>& jerk_scaling_factors) const = 0;
+  virtual bool compute(CompositeInstruction& composite_instruction,
+                       const tesseract_environment::Environment& env,
+                       const tesseract_common::ProfileDictionary& profiles) const = 0;
+
+protected:
+  std::string name_;
 };
 }  // namespace tesseract_planning
 #endif  // TESSERACT_TIME_PARAMETERIZATION_TIME_PARAMETERIZATION_H

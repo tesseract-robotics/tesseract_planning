@@ -48,6 +48,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 
 #include <tesseract_common/joint_state.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_kinematics/core/kinematic_group.h>
 
@@ -206,8 +207,8 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   pci->basic_info.use_time = false;
 
   // Apply Solver parameters
-  TrajOptSolverProfile::ConstPtr solver_profile = getProfile<TrajOptSolverProfile>(
-      name_, request.instructions.getProfile(name_), *request.profiles, std::make_shared<TrajOptOSQPSolverProfile>());
+  TrajOptSolverProfile::ConstPtr solver_profile = request.profiles->getProfile<TrajOptSolverProfile>(
+      name_, request.instructions.getProfile(name_), std::make_shared<TrajOptOSQPSolverProfile>());
   if (!solver_profile)
     throw std::runtime_error("TrajOptMotionPlanner: Invalid profile");
 
@@ -228,8 +229,8 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
     const auto& move_instruction = move_instructions[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>();
 
     // Get Plan Profile
-    TrajOptMoveProfile::ConstPtr cur_move_profile = getProfile<TrajOptMoveProfile>(
-        name_, move_instruction.getProfile(name_), *request.profiles, std::make_shared<TrajOptDefaultMoveProfile>());
+    TrajOptMoveProfile::ConstPtr cur_move_profile = request.profiles->getProfile<TrajOptMoveProfile>(
+        name_, move_instruction.getProfile(name_), std::make_shared<TrajOptDefaultMoveProfile>());
     if (!cur_move_profile)
       throw std::runtime_error("TrajOptMotionPlanner: Invalid profile");
 
@@ -263,11 +264,8 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
     pci->init_info.data.row(i) = seed_states[static_cast<std::size_t>(i)];
 
   // Get composite cost and constraints
-  TrajOptCompositeProfile::ConstPtr composite_profile =
-      getProfile<TrajOptCompositeProfile>(name_,
-                                          request.instructions.getProfile(name_),
-                                          *request.profiles,
-                                          std::make_shared<TrajOptDefaultCompositeProfile>());
+  TrajOptCompositeProfile::ConstPtr composite_profile = request.profiles->getProfile<TrajOptCompositeProfile>(
+      name_, request.instructions.getProfile(name_), std::make_shared<TrajOptDefaultCompositeProfile>());
 
   if (!composite_profile)
     throw std::runtime_error("TrajOptMotionPlanner: Invalid composite profile");

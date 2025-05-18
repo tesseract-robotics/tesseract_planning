@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/string.hpp>
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -128,7 +129,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   long cnt = ci.getMoveInstructionCount();
   auto cur_composite_profile =
-      getProfile<MinLengthProfile>(ns_, ci.getProfile(ns_), *profiles, std::make_shared<MinLengthProfile>());
+      profiles->getProfile<MinLengthProfile>(ns_, ci.getProfile(ns_), std::make_shared<MinLengthProfile>());
 
   if (cnt < cur_composite_profile->min_length)
   {

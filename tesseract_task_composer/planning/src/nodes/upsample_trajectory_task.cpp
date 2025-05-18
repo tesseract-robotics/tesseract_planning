@@ -29,6 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/string.hpp>
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/profile_dictionary.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/upsample_trajectory_task.h>
@@ -105,8 +106,8 @@ TaskComposerNodeInfo UpsampleTrajectoryTask::runImpl(TaskComposerContext& contex
   auto profiles =
       getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
-  auto cur_composite_profile = getProfile<UpsampleTrajectoryProfile>(
-      ns_, ci.getProfile(ns_), *profiles, std::make_shared<UpsampleTrajectoryProfile>());
+  auto cur_composite_profile = profiles->getProfile<UpsampleTrajectoryProfile>(
+      ns_, ci.getProfile(ns_), std::make_shared<UpsampleTrajectoryProfile>());
 
   assert(cur_composite_profile->longest_valid_segment_length > 0);
   InstructionPoly start_instruction;

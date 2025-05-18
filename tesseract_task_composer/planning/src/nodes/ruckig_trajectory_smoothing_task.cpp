@@ -28,12 +28,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/string.hpp>
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/ruckig_trajectory_smoothing_task.h>
-#include <tesseract_task_composer/planning/profiles/ruckig_trajectory_smoothing_profile.h>
 
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
@@ -124,23 +124,12 @@ TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext&
 
   tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
 
-  auto& ci = input_data_poly.as<CompositeInstruction>();
-  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo();
-  auto joint_group = env->getJointGroup(manip_info.manipulator);
-  auto limits = joint_group->getLimits();
-
   // Get Composite Profile
   auto profiles =
       getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
-  auto cur_composite_profile = getProfile<RuckigTrajectorySmoothingCompositeProfile>(
-      ns_, ci.getProfile(ns_), *profiles, std::make_shared<RuckigTrajectorySmoothingCompositeProfile>());
 
-  RuckigTrajectorySmoothing solver(cur_composite_profile->duration_extension_fraction,
-                                   cur_composite_profile->max_duration_extension_factor);
-
-  // Create data structures for checking for plan profile overrides
-  auto flattened = ci.flatten(moveFilter);
-  if (flattened.empty())
+  auto& ci = input_data_poly.as<CompositeInstruction>();
+  if (ci.getMoveInstructionCount() == 0)
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
@@ -155,40 +144,9 @@ TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext&
     return info;
   }
 
-  Eigen::VectorXd velocity_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(flattened.size())) *
-                                             cur_composite_profile->max_velocity_scaling_factor;
-  Eigen::VectorXd acceleration_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(flattened.size())) *
-                                                 cur_composite_profile->max_acceleration_scaling_factor;
-  Eigen::VectorXd jerk_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(flattened.size())) *
-                                         cur_composite_profile->max_jerk_scaling_factor;
-
-  // Loop over all MoveInstructions
-  for (Eigen::Index idx = 0; idx < static_cast<Eigen::Index>(flattened.size()); idx++)
-  {
-    const auto& mi = flattened[static_cast<std::size_t>(idx)].get().as<MoveInstructionPoly>();
-
-    // Check for remapping of the plan profile
-    auto cur_move_profile = getProfile<RuckigTrajectorySmoothingMoveProfile>(
-        ns_, mi.getProfile(ns_), *profiles, std::make_shared<RuckigTrajectorySmoothingMoveProfile>());
-
-    // If there is a move profile associated with it, override the parameters
-    if (cur_move_profile)
-    {
-      velocity_scaling_factors[idx] = cur_move_profile->max_velocity_scaling_factor;
-      acceleration_scaling_factors[idx] = cur_move_profile->max_acceleration_scaling_factor;
-      jerk_scaling_factors[idx] = cur_move_profile->max_jerk_scaling_factor;
-    }
-  }
-
   // Solve using parameters
-  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(ci);
-  if (!solver.compute(*trajectory,
-                      limits.velocity_limits,
-                      limits.acceleration_limits,
-                      limits.jerk_limits,  // Eigen::VectorXd::Constant(limits.velocity_limits.rows(), 1000)
-                      velocity_scaling_factors,
-                      acceleration_scaling_factors,
-                      jerk_scaling_factors))
+  RuckigTrajectorySmoothing solver(ns_);
+  if (!solver.compute(ci, *env, *profiles))
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching

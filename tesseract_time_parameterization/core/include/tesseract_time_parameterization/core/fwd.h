@@ -3,9 +3,7 @@
 
 namespace tesseract_planning
 {
-class TrajectoryContainer;
 class InstructionsTrajectory;
-class TesseractCommonTrajectory;
 
 // Implementations
 class IterativeSplineParameterization;

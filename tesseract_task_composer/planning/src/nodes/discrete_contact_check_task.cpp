@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/shared_ptr.hpp>
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_collision/core/discrete_contact_manager.h>
 #include <tesseract_collision/core/serialization.h>
@@ -135,7 +136,7 @@ TaskComposerNodeInfo DiscreteContactCheckTask::runImpl(TaskComposerContext& cont
       getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   auto cur_composite_profile =
-      getProfile<ContactCheckProfile>(ns_, ci.getProfile(ns_), *profiles, std::make_shared<ContactCheckProfile>());
+      profiles->getProfile<ContactCheckProfile>(ns_, ci.getProfile(ns_), std::make_shared<ContactCheckProfile>());
 
   // Get state solver
   tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo();
