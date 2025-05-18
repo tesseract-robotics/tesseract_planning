@@ -59,8 +59,7 @@ public:
                                                std::string input_environment_key,
                                                std::string input_profiles_key,
                                                std::string output_program_key,
-                                               bool conditional = true,
-                                               bool add_points = true);
+                                               bool conditional = true);
   explicit IterativeSplineParameterizationTask(std::string name,
                                                const YAML::Node& config,
                                                const TaskComposerPluginFactory& plugin_factory);
@@ -74,7 +73,6 @@ public:
   bool operator!=(const IterativeSplineParameterizationTask& rhs) const;
 
 private:
-  bool add_points_{ true };
   IterativeSplineParameterization solver_;
 
   static TaskComposerNodePorts ports();

@@ -142,4 +142,22 @@ Eigen::Index InstructionsTrajectory::dof() const { return dof_; }
 
 bool InstructionsTrajectory::empty() const { return trajectory_.empty(); }
 
+bool InstructionsTrajectory::isTimeStrictlyIncreasing() const
+{
+  if (size() < 2)
+    return true;
+
+  double t1 = getTimeFromStart(0);
+  for (Eigen::Index i = 1; i < size() - 1; ++i)
+  {
+    double t2 = getTimeFromStart(i);
+    if (t1 >= t2)
+      return false;
+
+    t1 = t2;
+  }
+
+  return true;
+}
+
 }  // namespace tesseract_planning

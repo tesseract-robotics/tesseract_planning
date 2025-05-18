@@ -38,30 +38,16 @@ namespace tesseract_planning
 class RuckigTrajectorySmoothing : public TimeParameterization
 {
 public:
-  RuckigTrajectorySmoothing(double duration_extension_fraction = 1.1, double max_duration_extension_factor = 10);
+  RuckigTrajectorySmoothing(std::string name);
   ~RuckigTrajectorySmoothing() override = default;
-  RuckigTrajectorySmoothing(const RuckigTrajectorySmoothing&) = default;
-  RuckigTrajectorySmoothing& operator=(const RuckigTrajectorySmoothing&) = default;
-  RuckigTrajectorySmoothing(RuckigTrajectorySmoothing&&) = default;
-  RuckigTrajectorySmoothing& operator=(RuckigTrajectorySmoothing&&) = default;
+  RuckigTrajectorySmoothing(const RuckigTrajectorySmoothing&) = delete;
+  RuckigTrajectorySmoothing& operator=(const RuckigTrajectorySmoothing&) = delete;
+  RuckigTrajectorySmoothing(RuckigTrajectorySmoothing&&) = delete;
+  RuckigTrajectorySmoothing& operator=(RuckigTrajectorySmoothing&&) = delete;
 
-  /** @brief Set the duration extension fraction */
-  void setDurationExtensionFraction(double duration_extension_fraction);
-
-  /** @brief Set the max duration extension factor */
-  void setMaxDurationExtensionFactor(double max_duration_extension_factor);
-
-  bool compute(TrajectoryContainer& trajectory,
-               const Eigen::Ref<const Eigen::MatrixX2d>& velocity_limits,
-               const Eigen::Ref<const Eigen::MatrixX2d>& acceleration_limits,
-               const Eigen::Ref<const Eigen::MatrixX2d>& jerk_limits,
-               const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors = Eigen::VectorXd::Ones(1),
-               const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors = Eigen::VectorXd::Ones(1),
-               const Eigen::Ref<const Eigen::VectorXd>& jerk_scaling_factors = Eigen::VectorXd::Ones(1)) const override;
-
-protected:
-  double duration_extension_fraction_;
-  double max_duration_extension_factor_;
+  bool compute(CompositeInstruction& composite_instruction,
+               const tesseract_environment::Environment& env,
+               const tesseract_common::ProfileDictionary& profiles) const override;
 };
 }  // namespace tesseract_planning
 

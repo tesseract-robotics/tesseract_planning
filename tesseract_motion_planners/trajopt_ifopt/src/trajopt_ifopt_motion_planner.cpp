@@ -102,11 +102,8 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
     const auto& move_instruction = move_instructions[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>();
 
     // Get Plan Profile
-    TrajOptIfoptMoveProfile::ConstPtr cur_move_profile =
-        getProfile<TrajOptIfoptMoveProfile>(name_,
-                                            move_instruction.getProfile(name_),
-                                            *request.profiles,
-                                            std::make_shared<TrajOptIfoptDefaultMoveProfile>());
+    TrajOptIfoptMoveProfile::ConstPtr cur_move_profile = request.profiles->getProfile<TrajOptIfoptMoveProfile>(
+        name_, move_instruction.getProfile(name_), std::make_shared<TrajOptIfoptDefaultMoveProfile>());
     if (!cur_move_profile)
       throw std::runtime_error("TrajOptIfoptMotionPlanner: Invalid profile");
 
@@ -139,10 +136,8 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   // Translate TCL for CompositeInstructions
   // ----------------
   TrajOptIfoptCompositeProfile::ConstPtr cur_composite_profile =
-      getProfile<TrajOptIfoptCompositeProfile>(name_,
-                                               request.instructions.getProfile(name_),
-                                               *request.profiles,
-                                               std::make_shared<TrajOptIfoptDefaultCompositeProfile>());
+      request.profiles->getProfile<TrajOptIfoptCompositeProfile>(
+          name_, request.instructions.getProfile(name_), std::make_shared<TrajOptIfoptDefaultCompositeProfile>());
 
   if (!cur_composite_profile)
     throw std::runtime_error("TrajOptIfoptMotionPlanner: Invalid profile");
@@ -166,11 +161,8 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   nlp->setup();
 
   // Create Solver
-  TrajOptIfoptSolverProfile::ConstPtr solver_profile =
-      getProfile<TrajOptIfoptSolverProfile>(name_,
-                                            request.instructions.getProfile(name_),
-                                            *request.profiles,
-                                            std::make_shared<TrajOptIfoptOSQPSolverProfile>());
+  TrajOptIfoptSolverProfile::ConstPtr solver_profile = request.profiles->getProfile<TrajOptIfoptSolverProfile>(
+      name_, request.instructions.getProfile(name_), std::make_shared<TrajOptIfoptOSQPSolverProfile>());
 
   if (!solver_profile)
     throw std::runtime_error("TrajOptIfoptMotionPlanner: Invalid profile");

@@ -38,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/planner_utils.h>
 
 #include <tesseract_common/joint_state.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_kinematics/core/joint_group.h>
 
@@ -234,17 +235,13 @@ SimpleMotionPlanner::processCompositeInstruction(MoveInstructionPoly& prev_instr
       SimplePlannerMoveProfile::ConstPtr move_profile;
       if (base_instruction.getPathProfile().empty())
       {
-        move_profile = getProfile<SimplePlannerMoveProfile>(name_,
-                                                            base_instruction.getProfile(name_),
-                                                            *request.profiles,
-                                                            std::make_shared<SimplePlannerLVSNoIKMoveProfile>());
+        move_profile = request.profiles->getProfile<SimplePlannerMoveProfile>(
+            name_, base_instruction.getProfile(name_), std::make_shared<SimplePlannerLVSNoIKMoveProfile>());
       }
       else
       {
-        move_profile = getProfile<SimplePlannerMoveProfile>(name_,
-                                                            base_instruction.getPathProfile(name_),
-                                                            *request.profiles,
-                                                            std::make_shared<SimplePlannerLVSNoIKMoveProfile>());
+        move_profile = request.profiles->getProfile<SimplePlannerMoveProfile>(
+            name_, base_instruction.getPathProfile(name_), std::make_shared<SimplePlannerLVSNoIKMoveProfile>());
       }
 
       if (!move_profile)

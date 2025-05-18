@@ -24,6 +24,7 @@
 
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/kinematic_limits.h>
+#include <tesseract_common/profile_dictionary.h>
 #include <tesseract_kinematics/core/joint_group.h>
 
 #include <tesseract_motion_planners/planner_utils.h>
@@ -119,8 +120,8 @@ TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& cont
   auto profiles =
       getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   auto& ci = input_data_poly.as<CompositeInstruction>();
-  auto cur_composite_profile = getProfile<KinematicLimitsCheckProfile>(
-      ns_, ci.getProfile(ns_), *profiles, std::make_shared<KinematicLimitsCheckProfile>());
+  auto cur_composite_profile = profiles->getProfile<KinematicLimitsCheckProfile>(
+      ns_, ci.getProfile(ns_), std::make_shared<KinematicLimitsCheckProfile>());
 
   const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
 
@@ -136,7 +137,7 @@ TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& cont
   }
 
   // Wrap the composite instruction in a trajectory container
-  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(flattened);
+  auto trajectory = std::make_shared<InstructionsTrajectory>(flattened);
 
   // Extract the motion group
   tesseract_kinematics::JointGroup::ConstPtr motion_group = env->getJointGroup(manip_info.manipulator);

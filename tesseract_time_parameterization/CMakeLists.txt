@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.15.0)
 # Extract package name and version
 find_package(ros_industrial_cmake_boilerplate REQUIRED)
 extract_package_metadata(pkg)
-project(${pkg_extracted_name} VERSION ${pkg_extracted_version} LANGUAGES CXX)
+project(${pkg_extracted_name} VERSION ${pkg_extracted_version} LANGUAGES C CXX)
 
 if(WIN32)
   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -11,6 +11,8 @@ endif()
 
 find_package(console_bridge REQUIRED)
 find_package(tesseract_common REQUIRED)
+find_package(tesseract_kinematics REQUIRED COMPONENTS core)
+find_package(tesseract_environment REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 find_package(Eigen3 REQUIRED)
 

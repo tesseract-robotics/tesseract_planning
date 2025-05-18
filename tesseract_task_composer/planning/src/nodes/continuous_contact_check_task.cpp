@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_collision/core/continuous_contact_manager.h>
 #include <tesseract_collision/core/serialization.h>
@@ -139,7 +140,7 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   auto default_profile = std::make_shared<ContactCheckProfile>();
   default_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
-  auto cur_composite_profile = getProfile<ContactCheckProfile>(ns_, ci.getProfile(ns_), *profiles, default_profile);
+  auto cur_composite_profile = profiles->getProfile<ContactCheckProfile>(ns_, ci.getProfile(ns_), default_profile);
 
   // Get state solver
   tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo();

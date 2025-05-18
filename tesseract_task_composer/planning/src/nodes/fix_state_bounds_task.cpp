@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/string.hpp>
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -132,7 +133,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
 
   // Get Composite Profile
   auto cur_composite_profile =
-      getProfile<FixStateBoundsProfile>(ns_, ci.getProfile(ns_), *profiles, std::make_shared<FixStateBoundsProfile>());
+      profiles->getProfile<FixStateBoundsProfile>(ns_, ci.getProfile(ns_), std::make_shared<FixStateBoundsProfile>());
 
   limits.joint_limits.col(0) = limits.joint_limits.col(0).array() + cur_composite_profile->lower_bounds_reduction;
   limits.joint_limits.col(1) = limits.joint_limits.col(1).array() - cur_composite_profile->upper_bounds_reduction;

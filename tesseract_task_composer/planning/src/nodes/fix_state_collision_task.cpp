@@ -36,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/utils.hpp>
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/profile_dictionary.h>
 
 #include <tesseract_collision/core/discrete_contact_manager.h>
 #include <tesseract_collision/core/serialization.h>
@@ -422,8 +423,8 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
   auto profiles =
       getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   auto& ci = input_data_poly.as<CompositeInstruction>();
-  auto cur_composite_profile = getProfile<FixStateCollisionProfile>(
-      ns_, ci.getProfile(ns_), *profiles, std::make_shared<FixStateCollisionProfile>());
+  auto cur_composite_profile = profiles->getProfile<FixStateCollisionProfile>(
+      ns_, ci.getProfile(ns_), std::make_shared<FixStateCollisionProfile>());
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;
   switch (cur_composite_profile->mode)

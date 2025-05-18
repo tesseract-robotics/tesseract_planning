@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/kinematic_limits.h>
+#include <tesseract_common/profile_dictionary.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_environment/environment.h>
 
@@ -69,11 +70,8 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   PlannerResponse response;
 
   // Get solver config
-  auto solver_profile =
-      getProfile<DescartesSolverProfile<FloatType>>(name_,
-                                                    request.instructions.getProfile(name_),
-                                                    *request.profiles,
-                                                    std::make_shared<DescartesLadderGraphSolverProfile<FloatType>>());
+  auto solver_profile = request.profiles->getProfile<DescartesSolverProfile<FloatType>>(
+      name_, request.instructions.getProfile(name_), std::make_shared<DescartesLadderGraphSolverProfile<FloatType>>());
 
   auto solver = solver_profile->create();
 
@@ -96,11 +94,8 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
     const auto& move_instruction = instruction.get().template as<MoveInstructionPoly>();
 
     // Get Plan Profile
-    auto cur_move_profile =
-        getProfile<DescartesMoveProfile<FloatType>>(name_,
-                                                    move_instruction.getProfile(name_),
-                                                    *request.profiles,
-                                                    std::make_shared<DescartesDefaultMoveProfile<FloatType>>());
+    auto cur_move_profile = request.profiles->getProfile<DescartesMoveProfile<FloatType>>(
+        name_, move_instruction.getProfile(name_), std::make_shared<DescartesDefaultMoveProfile<FloatType>>());
 
     if (!cur_move_profile)
       throw std::runtime_error("DescartesMotionPlanner: Invalid profile");

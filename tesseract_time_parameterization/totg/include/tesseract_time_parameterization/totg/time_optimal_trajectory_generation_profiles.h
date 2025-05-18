@@ -1,14 +1,13 @@
 /**
- * @file time_optimal_parameterization_profile.h
- * @brief Profile for TOTG process
+ * @file time_optimal_trajectory_generation_profile.h
+ * @brief Time Optimal Trajectory Generation Profile
  *
  * @author Levi Armstrong
- * @author Matthew Powelson
- * @date Jan 22, 2021
+ * @date May 15, 2025
  * @version TODO
  * @bug No known bugs
  *
- * @copyright Copyright (c) 2020, Southwest Research Institute
+ * @copyright Copyright (c) 2025, Southwest Research Institute
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -24,29 +23,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TIME_OPTIMAL_PARAMETERIZATION_PROFILE_H
-#define TIME_OPTIMAL_PARAMETERIZATION_PROFILE_H
+#ifndef TESSERACT_TIME_PARAMETERIZATION_TIME_OPTIMAL_TRAJECTORY_GENERATION_PROFILES_H
+#define TESSERACT_TIME_PARAMETERIZATION_TIME_OPTIMAL_TRAJECTORY_GENERATION_PROFILES_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <memory>
+#include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile.h>
 
 namespace tesseract_planning
 {
-struct TimeOptimalParameterizationProfile : public tesseract_common::Profile
+struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract_common::Profile
 {
-  using Ptr = std::shared_ptr<TimeOptimalParameterizationProfile>;
-  using ConstPtr = std::shared_ptr<const TimeOptimalParameterizationProfile>;
+  using Ptr = std::shared_ptr<TimeOptimalTrajectoryGenerationCompositeProfile>;
+  using ConstPtr = std::shared_ptr<const TimeOptimalTrajectoryGenerationCompositeProfile>;
 
-  TimeOptimalParameterizationProfile();
-  TimeOptimalParameterizationProfile(double max_velocity_scaling_factor,
-                                     double max_acceleration_scaling_factor,
-                                     double max_jerk_scaling_factor,
-                                     double path_tolerance,
-                                     double min_angle_change);
+  TimeOptimalTrajectoryGenerationCompositeProfile();
 
   /**
    * @brief A utility function for getting profile ID
@@ -54,14 +48,18 @@ struct TimeOptimalParameterizationProfile : public tesseract_common::Profile
    */
   static std::size_t getStaticKey();
 
+  /** @brief Indicate if overriding limits, otherwise manipulator limits will be used. */
+  bool override_limits{ false };
+  /** @brief The min/max velocities for each joint */
+  Eigen::MatrixX2d velocity_limits;
+  /** @brief The min/max acceleration for each joint */
+  Eigen::MatrixX2d acceleration_limits;
+
   /** @brief The max velocity scaling factor passed to the solver. Default: 1.0*/
   double max_velocity_scaling_factor{ 1.0 };
 
   /** @brief The max acceleration scaling factor passed to the solver. Default: 1.0 */
   double max_acceleration_scaling_factor{ 1.0 };
-
-  /** @brief The max acceleration scaling factor passed to the solver. Default: 1.0 */
-  double max_jerk_scaling_factor{ 1.0 };
 
   /** @brief path_tolerance. Default: 0.1*/
   double path_tolerance{ 0.1 };
@@ -75,9 +73,8 @@ private:
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
-
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TimeOptimalParameterizationProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile)
 
-#endif  // TIME_OPTIMAL_PARAMETERIZATION_PROFILE_H
+#endif  // TESSERACT_TIME_PARAMETERIZATION_TIME_OPTIMAL_TRAJECTORY_GENERATION_PROFILES_H

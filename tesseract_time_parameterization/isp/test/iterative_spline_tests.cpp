@@ -40,10 +40,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/resource_locator.h>
+#include <tesseract_common/profile_dictionary.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization.h>
+#include <tesseract_time_parameterization/isp/iterative_spline_parameterization_profiles.h>
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
 
 using namespace tesseract_planning;
@@ -89,108 +93,152 @@ CompositeInstruction createStraightTrajectory()
   return program;
 }
 
-TEST(IterativeSplineParameterizationUnit, Solve)  // NOLINT
+class IterativeSplineParameterizationUnit : public ::testing::Test
+{
+protected:
+  std::string name_{ "IterativeSplineParameterizationUnit" };
+  tesseract_common::GeneralResourceLocator::Ptr locator_;
+  tesseract_environment::Environment::Ptr env_;
+  tesseract_common::ManipulatorInfo manip_;
+
+  void SetUp() override
+  {
+    locator_ = std::make_shared<tesseract_common::GeneralResourceLocator>();
+    auto env = std::make_shared<tesseract_environment::Environment>();
+
+    std::filesystem::path urdf_path(
+        locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
+    std::filesystem::path srdf_path(
+        locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.srdf")->getFilePath());
+    EXPECT_TRUE(env->init(urdf_path, srdf_path, locator_));
+    env_ = env;
+
+    manip_.manipulator = "manipulator";
+    manip_.working_frame = "base_link";
+    manip_.tcp_frame = "tool0";
+  }
+};
+
+TEST_F(IterativeSplineParameterizationUnit, Solve)  // NOLINT
 {
   EXPECT_TRUE(true);
 }
 
-TEST(TestTimeParameterization, TestIterativeSpline)  // NOLINT
+TEST_F(IterativeSplineParameterizationUnit, TestIterativeSpline)  // NOLINT
 {
-  IterativeSplineParameterization time_parameterization(false);
   CompositeInstruction program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_);
 
-  // Limits
-  Eigen::MatrixX2d max_velocity(6, 2);
-  max_velocity.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
-  max_velocity.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
-  Eigen::MatrixX2d max_acceleration(6, 2);
-  max_acceleration.col(0) << -1, -1, -1, -1, -1, -1;
-  max_acceleration.col(1) << 1, 1, 1, 1, 1, 1;
-  Eigen::MatrixX2d max_jerk(6, 2);
-  max_jerk.col(0) << -1, -1, -1, -1, -1, -1;
-  max_jerk.col(1) << 1, 1, 1, 1, 1, 1;
+  // Profile
+  auto profile = std::make_shared<IterativeSplineParameterizationCompositeProfile>();
+  profile->add_points = false;
+  profile->override_limits = true;
+  profile->velocity_limits = Eigen::MatrixX2d(6, 2);
+  profile->velocity_limits.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  profile->velocity_limits.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
+  profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
 
-  // Trajectory
-  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
+  // Profile Dictionary
+  tesseract_common::ProfileDictionary profiles;
+  ;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
-  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration, max_jerk));
+  // Solve
+  IterativeSplineParameterization time_parameterization(name_);
+  EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 }
 
-TEST(TestTimeParameterization, TestIterativeSplineAddPoints)  // NOLINT
+TEST_F(IterativeSplineParameterizationUnit, TestIterativeSplineAddPoints)  // NOLINT
 {
-  IterativeSplineParameterization time_parameterization(true);
   CompositeInstruction program = createStraightTrajectory();
-  Eigen::MatrixX2d max_velocity(6, 2);
-  max_velocity.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
-  max_velocity.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
-  Eigen::MatrixX2d max_acceleration(6, 2);
-  max_acceleration.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_acceleration.col(1) = Eigen::VectorXd::Ones(6);
-  Eigen::MatrixX2d max_jerk(6, 2);
-  max_jerk.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_jerk.col(1) = Eigen::VectorXd::Ones(6);
-  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
-  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration, max_jerk));
+  program.setManipulatorInfo(manip_);
+
+  // Profile
+  auto profile = std::make_shared<IterativeSplineParameterizationCompositeProfile>();
+  profile->add_points = true;
+  profile->override_limits = true;
+  profile->velocity_limits = Eigen::MatrixX2d(6, 2);
+  profile->velocity_limits.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  profile->velocity_limits.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
+  profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
+
+  // Profile Dictionary
+  tesseract_common::ProfileDictionary profiles;
+  ;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+
+  // Solve
+  IterativeSplineParameterization time_parameterization(name_);
+  EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 }
 
-TEST(TestTimeParameterization, TestIterativeSplineDynamicParams)  // NOLINT
+TEST_F(IterativeSplineParameterizationUnit, TestIterativeSplineDynamicParams)  // NOLINT
 {
-  IterativeSplineParameterization time_parameterization(false);
   CompositeInstruction program = createStraightTrajectory();
-  Eigen::MatrixX2d max_velocity(6, 2);
-  max_velocity.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
-  max_velocity.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
-  Eigen::MatrixX2d max_acceleration(6, 2);
-  max_acceleration.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_acceleration.col(1) = Eigen::VectorXd::Ones(6);
-  Eigen::MatrixX2d max_jerk(6, 2);
-  max_jerk.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_jerk.col(1) = Eigen::VectorXd::Ones(6);
+  program.setManipulatorInfo(manip_);
 
-  Eigen::VectorXd max_velocity_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(program.size()));
-  Eigen::VectorXd max_acceleration_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(program.size()));
-  Eigen::VectorXd max_jerk_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(program.size()));
+  // Profile
+  auto profile = std::make_shared<IterativeSplineParameterizationCompositeProfile>();
+  profile->add_points = false;
+  profile->override_limits = true;
+  profile->velocity_limits = Eigen::MatrixX2d(6, 2);
+  profile->velocity_limits.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  profile->velocity_limits.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
+  profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
 
-  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
-  EXPECT_TRUE(time_parameterization.compute(*trajectory,
-                                            max_velocity,
-                                            max_acceleration,
-                                            max_jerk,
-                                            max_velocity_scaling_factors,
-                                            max_acceleration_scaling_factors,
-                                            max_jerk_scaling_factors));
+  auto move_profile = std::make_shared<IterativeSplineParameterizationMoveProfile>();
+  move_profile->max_velocity_scaling_factor = 0.5;
+  move_profile->max_acceleration_scaling_factor = 0.5;
+
+  // Profile Dictionary
+  tesseract_common::ProfileDictionary profiles;
+  ;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+  profiles.addProfile(name_, "FIRST_MOVE_KEY", profile);
+
+  IterativeSplineParameterization time_parameterization(name_);
+  EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
   EXPECT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 
+  // Solve
   program = createStraightTrajectory();
-  max_velocity_scaling_factors[0] = 0.5;
-  max_acceleration_scaling_factors[0] = 0.5;
-  trajectory = std::make_shared<InstructionsTrajectory>(program);
-  EXPECT_TRUE(time_parameterization.compute(*trajectory,
-                                            max_velocity,
-                                            max_acceleration,
-                                            max_jerk,
-                                            max_velocity_scaling_factors,
-                                            max_acceleration_scaling_factors,
-                                            max_jerk_scaling_factors));
+  program.setManipulatorInfo(manip_);
+  program.getFirstMoveInstruction()->setProfile("FIRST_MOVE_KEY");
+  EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
 }
 
-TEST(TestTimeParameterization, TestRepeatedPoint)  // NOLINT
+TEST_F(IterativeSplineParameterizationUnit, TestRepeatedPoint)  // NOLINT
 {
-  IterativeSplineParameterization time_parameterization(true);
   CompositeInstruction program = createRepeatedPointTrajectory();
-  Eigen::MatrixX2d max_velocity(6, 2);
-  max_velocity.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
-  max_velocity.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
-  Eigen::MatrixX2d max_acceleration(6, 2);
-  max_acceleration.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_acceleration.col(1) = Eigen::VectorXd::Ones(6);
-  Eigen::MatrixX2d max_jerk(6, 2);
-  max_jerk.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_jerk.col(1) = Eigen::VectorXd::Ones(6);
-  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
-  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration, max_jerk));
+  program.setManipulatorInfo(manip_);
+
+  // Profile
+  auto profile = std::make_shared<IterativeSplineParameterizationCompositeProfile>();
+  profile->add_points = true;
+  profile->override_limits = true;
+  profile->velocity_limits = Eigen::MatrixX2d(6, 2);
+  profile->velocity_limits.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  profile->velocity_limits.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
+  profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
+
+  // Profile Dictionary
+  tesseract_common::ProfileDictionary profiles;
+  ;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+
+  // Solve
+  IterativeSplineParameterization time_parameterization(name_);
+  EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 0.001);
 }
 

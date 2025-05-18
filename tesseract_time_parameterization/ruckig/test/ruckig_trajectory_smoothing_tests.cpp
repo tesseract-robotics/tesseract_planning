@@ -4,12 +4,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/resource_locator.h>
+#include <tesseract_common/profile_dictionary.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing.h>
+#include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing_profiles.h>
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization.h>
-#include <tesseract_time_parameterization/core/instructions_trajectory.h>
+#include <tesseract_time_parameterization/isp/iterative_spline_parameterization_profiles.h>
 
 #include <ruckig/input_parameter.hpp>
 #include <ruckig/ruckig.hpp>
@@ -58,7 +62,33 @@ CompositeInstruction createStraightTrajectory()
   return program;
 }
 
-TEST(RuckigTrajectorySmoothingTest, Example)  // NOLINT
+class RuckigTrajectorySmoothingUnit : public ::testing::Test
+{
+protected:
+  std::string name_{ "RuckigTrajectorySmoothingUnit" };
+  tesseract_common::GeneralResourceLocator::Ptr locator_;
+  tesseract_environment::Environment::Ptr env_;
+  tesseract_common::ManipulatorInfo manip_;
+
+  void SetUp() override
+  {
+    locator_ = std::make_shared<tesseract_common::GeneralResourceLocator>();
+    auto env = std::make_shared<tesseract_environment::Environment>();
+
+    std::filesystem::path urdf_path(
+        locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
+    std::filesystem::path srdf_path(
+        locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.srdf")->getFilePath());
+    EXPECT_TRUE(env->init(urdf_path, srdf_path, locator_));
+    env_ = env;
+
+    manip_.manipulator = "manipulator";
+    manip_.working_frame = "base_link";
+    manip_.tcp_frame = "tool0";
+  }
+};
+
+TEST_F(RuckigTrajectorySmoothingUnit, Example)  // NOLINT
 {
   // Create input parameters
   ruckig::InputParameter<3> input;
@@ -108,57 +138,99 @@ TEST(RuckigTrajectorySmoothingTest, Example)  // NOLINT
             << " (max)\n";
 }
 
-TEST(RuckigTrajectorySmoothingTest, RuckigTrajectorySmoothingSolve)  // NOLINT
+TEST_F(RuckigTrajectorySmoothingUnit, RuckigTrajectorySmoothingSolve)  // NOLINT
 {
-  IterativeSplineParameterization time_parameterization(false);
   CompositeInstruction program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_);
 
-  Eigen::MatrixX2d max_velocity(6, 2);
-  max_velocity.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
-  max_velocity.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
-  Eigen::MatrixX2d max_acceleration(6, 2);
-  max_acceleration.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_acceleration.col(1) = Eigen::VectorXd::Ones(6);
-  Eigen::MatrixX2d max_jerk(6, 2);
-  max_jerk.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_jerk.col(1) = Eigen::VectorXd::Ones(6);
+  {
+    // Profile
+    auto profile = std::make_shared<IterativeSplineParameterizationCompositeProfile>();
+    profile->add_points = true;
+    profile->override_limits = true;
+    profile->velocity_limits = Eigen::MatrixX2d(6, 2);
+    profile->velocity_limits.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+    profile->velocity_limits.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+    profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
+    profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
+    profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
 
-  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
-  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration, max_jerk));
-  ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
+    // Profile Dictionary
+    tesseract_common::ProfileDictionary profiles;
+    profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
-  max_jerk.col(0) << -1000, -1000, -1000, -1000, -1000, -1000;
-  max_jerk.col(1) << 1000, 1000, 1000, 1000, 1000, 1000;
+    IterativeSplineParameterization time_parameterization(name_);
+    EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+    ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
+  }
 
-  RuckigTrajectorySmoothing traj_smoothing;
-  EXPECT_TRUE(traj_smoothing.compute(*trajectory, max_velocity, max_acceleration, max_jerk));
+  // Profile
+  auto profile = std::make_shared<RuckigTrajectorySmoothingCompositeProfile>();
+  profile->override_limits = true;
+  profile->velocity_limits = Eigen::MatrixX2d(6, 2);
+  profile->velocity_limits.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  profile->velocity_limits.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
+  profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
+  profile->jerk_limits = Eigen::MatrixX2d(6, 2);
+  profile->jerk_limits.col(0) << -1000, -1000, -1000, -1000, -1000, -1000;
+  profile->jerk_limits.col(1) << 1000, 1000, 1000, 1000, 1000, 1000;
+
+  // Profile Dictionary
+  tesseract_common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+
+  RuckigTrajectorySmoothing traj_smoothing(name_);
+  EXPECT_TRUE(traj_smoothing.compute(program, *env_, profiles));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 8.0);
 }
 
-TEST(RuckigTrajectorySmoothingTest, RuckigTrajectorySmoothingRepeatedPointSolve)  // NOLINT
+TEST_F(RuckigTrajectorySmoothingUnit, RuckigTrajectorySmoothingRepeatedPointSolve)  // NOLINT
 {
-  IterativeSplineParameterization time_parameterization(true);
   CompositeInstruction program = createRepeatedPointTrajectory();
+  program.setManipulatorInfo(manip_);
 
-  Eigen::MatrixX2d max_velocity(6, 2);
-  max_velocity.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
-  max_velocity.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
-  Eigen::MatrixX2d max_acceleration(6, 2);
-  max_acceleration.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_acceleration.col(1) = Eigen::VectorXd::Ones(6);
-  Eigen::MatrixX2d max_jerk(6, 2);
-  max_jerk.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_jerk.col(1) = Eigen::VectorXd::Ones(6);
+  {
+    // Profile
+    auto profile = std::make_shared<IterativeSplineParameterizationCompositeProfile>();
+    profile->add_points = true;
+    profile->override_limits = true;
+    profile->velocity_limits = Eigen::MatrixX2d(6, 2);
+    profile->velocity_limits.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+    profile->velocity_limits.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+    profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
+    profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
+    profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
 
-  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
-  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration, max_jerk));
-  ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 0.001);
+    // Profile Dictionary
+    tesseract_common::ProfileDictionary profiles;
+    profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
-  max_jerk.col(0) << -1000, -1000, -1000, -1000, -1000, -1000;
-  max_jerk.col(1) << 1000, 1000, 1000, 1000, 1000, 1000;
+    IterativeSplineParameterization time_parameterization(name_);
+    EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+    ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 0.001);
+  }
 
-  RuckigTrajectorySmoothing traj_smoothing;
-  EXPECT_TRUE(traj_smoothing.compute(*trajectory, max_velocity, max_acceleration, max_jerk));
+  // Profile
+  auto profile = std::make_shared<RuckigTrajectorySmoothingCompositeProfile>();
+  profile->override_limits = true;
+  profile->velocity_limits = Eigen::MatrixX2d(6, 2);
+  profile->velocity_limits.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  profile->velocity_limits.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
+  profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
+  profile->jerk_limits = Eigen::MatrixX2d(6, 2);
+  profile->jerk_limits.col(0) << -1000, -1000, -1000, -1000, -1000, -1000;
+  profile->jerk_limits.col(1) << 1000, 1000, 1000, 1000, 1000, 1000;
+
+  // Profile Dictionary
+  tesseract_common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+
+  RuckigTrajectorySmoothing traj_smoothing(name_);
+  EXPECT_TRUE(traj_smoothing.compute(program, *env_, profiles));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 0.001);
 }
 

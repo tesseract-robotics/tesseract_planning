@@ -1,7 +1,9 @@
-add_library(${PROJECT_NAME}_core src/instructions_trajectory.cpp src/tesseract_common_trajectory.cpp src/utils.cpp)
+add_library(${PROJECT_NAME}_core src/instructions_trajectory.cpp src/time_parameterization.cpp src/utils.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_core
   PUBLIC tesseract::tesseract_common
+         tesseract::tesseract_kinematics_core
+         tesseract::tesseract_environment
          tesseract::tesseract_command_language
          console_bridge::console_bridge
          Eigen3::Eigen)
@@ -29,6 +31,8 @@ configure_component(
   TARGETS ${PROJECT_NAME}_core
   DEPENDENCIES
     tesseract_common
+    "tesseract_kinematics COMPONENTS core"
+    tesseract_environment
     tesseract_command_language
     console_bridge
     Eigen3
@@ -43,10 +47,14 @@ if(TESSERACT_PACKAGE)
       "libconsole-bridge-dev"
       "libeigen3-dev"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-kinematics-core"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-environment"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language"
     WINDOWS_DEPENDS
       "console-bridge"
       "Eigen3"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-kinematics-core"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-environment"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language")
 endif()

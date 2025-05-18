@@ -44,6 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
 #include <tesseract_motion_planners/core/types.h>
 
+#include <tesseract_common/profile_dictionary.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_collision/core/discrete_contact_manager.h>
@@ -299,10 +300,8 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
       continue;
 
     // Get Plan Profile
-    auto cur_move_profile = getProfile<OMPLMoveProfile>(name_,
-                                                        end_move_instruction.getProfile(name_),
-                                                        *request.profiles,
-                                                        std::make_shared<OMPLRealVectorMoveProfile>());
+    auto cur_move_profile = request.profiles->getProfile<OMPLMoveProfile>(
+        name_, end_move_instruction.getProfile(name_), std::make_shared<OMPLRealVectorMoveProfile>());
 
     if (!cur_move_profile)
       throw std::runtime_error("OMPLMotionPlanner: Invalid profile");

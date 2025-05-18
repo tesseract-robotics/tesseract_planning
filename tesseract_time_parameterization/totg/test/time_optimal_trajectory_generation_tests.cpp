@@ -38,6 +38,10 @@
 
 #include <gtest/gtest.h>
 #include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation.h>
+#include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
+#include <tesseract_common/resource_locator.h>
+#include <tesseract_common/profile_dictionary.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
@@ -46,19 +50,45 @@
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
 
 using tesseract_planning::CompositeInstruction;
-using tesseract_planning::InstructionsTrajectory;
+using tesseract_planning::DEFAULT_PROFILE_KEY;
 using tesseract_planning::MoveInstruction;
 using tesseract_planning::MoveInstructionPoly;
 using tesseract_planning::MoveInstructionType;
 using tesseract_planning::StateWaypoint;
 using tesseract_planning::StateWaypointPoly;
 using tesseract_planning::TimeOptimalTrajectoryGeneration;
-using tesseract_planning::TrajectoryContainer;
+using tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile;
 using tesseract_planning::totg::Path;
 using tesseract_planning::totg::PathData;
 using tesseract_planning::totg::Trajectory;
 
-TEST(time_optimal_trajectory_generation, test1)  // NOLINT
+class TimeOptimalTrajectoryGenerationUnit : public ::testing::Test
+{
+protected:
+  std::string name_{ "TimeOptimalTrajectoryGenerationUnit" };
+  tesseract_common::GeneralResourceLocator::Ptr locator_;
+  tesseract_environment::Environment::Ptr env_;
+  tesseract_common::ManipulatorInfo manip_;
+
+  void SetUp() override
+  {
+    locator_ = std::make_shared<tesseract_common::GeneralResourceLocator>();
+    auto env = std::make_shared<tesseract_environment::Environment>();
+
+    std::filesystem::path urdf_path(
+        locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
+    std::filesystem::path srdf_path(
+        locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.srdf")->getFilePath());
+    EXPECT_TRUE(env->init(urdf_path, srdf_path, locator_));
+    env_ = env;
+
+    manip_.manipulator = "manipulator";
+    manip_.working_frame = "base_link";
+    manip_.tcp_frame = "tool0";
+  }
+};
+
+TEST_F(TimeOptimalTrajectoryGenerationUnit, test1)  // NOLINT
 {
   Eigen::VectorXd waypoint(4);
   std::list<Eigen::VectorXd> waypoints;
@@ -94,7 +124,7 @@ TEST(time_optimal_trajectory_generation, test1)  // NOLINT
   EXPECT_DOUBLE_EQ(0.0, position[3]);
 }
 
-TEST(time_optimal_trajectory_generation, test2)  // NOLINT
+TEST_F(TimeOptimalTrajectoryGenerationUnit, test2)  // NOLINT
 {
   Eigen::VectorXd waypoint(4);
   std::list<Eigen::VectorXd> waypoints;
@@ -136,7 +166,7 @@ TEST(time_optimal_trajectory_generation, test2)  // NOLINT
   EXPECT_DOUBLE_EQ(90.0, position[3]);
 }
 
-TEST(time_optimal_trajectory_generation, test3)  // NOLINT
+TEST_F(TimeOptimalTrajectoryGenerationUnit, test3)  // NOLINT
 {
   Eigen::VectorXd waypoint(4);
   std::list<Eigen::VectorXd> waypoints;
@@ -179,7 +209,7 @@ TEST(time_optimal_trajectory_generation, test3)  // NOLINT
 }
 
 // Test that totg algorithm doesn't give large acceleration
-TEST(time_optimal_trajectory_generation, testLargeAccel)  // NOLINT
+TEST_F(TimeOptimalTrajectoryGenerationUnit, testLargeAccel)  // NOLINT
 {
   double path_tolerance = 0.1;
   double resample_dt = 0.1;
@@ -282,9 +312,11 @@ TEST(time_optimal_trajectory_generation, testLargeAccel)  // NOLINT
 //  EXPECT_TRUE(trajectory.isValid());
 //}
 
-TEST(time_optimal_trajectory_generation, testCommandLanguageInterface)  // NOLINT
+TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NOLINT
 {
   tesseract_planning::CompositeInstruction program;
+  program.setManipulatorInfo(manip_);
+
   Eigen::VectorXd waypoint(6);
   std::list<Eigen::VectorXd> waypoints;
 
@@ -319,19 +351,25 @@ TEST(time_optimal_trajectory_generation, testCommandLanguageInterface)  // NOLIN
     program.push_back(plan_f0);
   }
 
-  Eigen::MatrixX2d max_velocities(6, 2);
-  max_velocities.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_velocities.col(1) = Eigen::VectorXd::Ones(6);
-  Eigen::MatrixX2d max_accelerations(6, 2);
-  max_accelerations.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_accelerations.col(1) = Eigen::VectorXd::Ones(6);
-  Eigen::MatrixX2d max_jerks(6, 2);
-  max_jerks.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_jerks.col(1) = Eigen::VectorXd::Ones(6);
+  // Profile
+  auto profile = std::make_shared<tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile>();
+  profile->path_tolerance = 0.001;
+  profile->min_angle_change = 1e-3;
+  profile->override_limits = true;
+  profile->velocity_limits = Eigen::MatrixX2d(6, 2);
+  profile->velocity_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  profile->velocity_limits.col(1) = Eigen::VectorXd::Ones(6);
+  profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
+  profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
 
-  TimeOptimalTrajectoryGeneration solver(0.001, 1e-3);
-  InstructionsTrajectory traj_wrapper(program);
-  EXPECT_TRUE(solver.compute(traj_wrapper, max_velocities, max_accelerations, max_jerks));
+  // Profile Dictionary
+  tesseract_common::ProfileDictionary profiles;
+  ;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+
+  TimeOptimalTrajectoryGeneration solver(name_);
+  EXPECT_TRUE(solver.compute(program, *env_, profiles));
 }
 
 // Initialize one-joint, straight-line trajectory
@@ -358,31 +396,44 @@ CompositeInstruction createStraightTrajectory()
   return program;
 }
 
-void runTrajectoryContainerInterfaceTest(double path_tolerance)
+void runTrajectoryContainerInterfaceTest(const std::string& name,
+                                         const tesseract_environment::Environment& env,
+                                         const tesseract_common::ManipulatorInfo& manip_info,
+                                         double path_tolerance)
 {
-  TimeOptimalTrajectoryGeneration solver(path_tolerance, 1e-3);
   CompositeInstruction program = createStraightTrajectory();
-  Eigen::MatrixX2d max_velocity(6, 2);
-  max_velocity.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
-  max_velocity.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
-  Eigen::MatrixX2d max_acceleration(6, 2);
-  max_acceleration.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_acceleration.col(1) = Eigen::VectorXd::Ones(6);
-  Eigen::MatrixX2d max_jerk(6, 2);
-  max_jerk.col(0) = -1 * Eigen::VectorXd::Ones(6);
-  max_jerk.col(1) = Eigen::VectorXd::Ones(6);
-  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
-  EXPECT_TRUE(solver.compute(*trajectory, max_velocity, max_acceleration, max_jerk));
+  program.setManipulatorInfo(manip_info);
+
+  // Profile
+  auto profile = std::make_shared<tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile>();
+  profile->path_tolerance = path_tolerance;
+  profile->min_angle_change = 1e-3;
+  profile->override_limits = true;
+  profile->velocity_limits = Eigen::MatrixX2d(6, 2);
+  profile->velocity_limits.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  profile->velocity_limits.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
+  profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
+
+  // Profile Dictionary
+  tesseract_common::ProfileDictionary profiles;
+  ;
+  profiles.addProfile(name, DEFAULT_PROFILE_KEY, profile);
+
+  // Solve
+  TimeOptimalTrajectoryGeneration solver(name);
+  EXPECT_TRUE(solver.compute(program, env, profiles));
   ASSERT_LT(
       program.back().as<tesseract_planning::MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(),
       5.0);
 }
 
-TEST(time_optimal_trajectory_generation, testTrajectoryContainerInterface)  // NOLINT
+TEST_F(TimeOptimalTrajectoryGenerationUnit, testTrajectoryContainerInterface)  // NOLINT
 {
-  runTrajectoryContainerInterfaceTest(0.001);
-  runTrajectoryContainerInterfaceTest(0.01);
-  runTrajectoryContainerInterfaceTest(0.0001);
+  runTrajectoryContainerInterfaceTest(name_, *env_, manip_, 0.001);
+  runTrajectoryContainerInterfaceTest(name_, *env_, manip_, 0.01);
+  runTrajectoryContainerInterfaceTest(name_, *env_, manip_, 0.0001);
 }
 
 int main(int argc, char** argv)

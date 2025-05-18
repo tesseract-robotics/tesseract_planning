@@ -47,54 +47,59 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation.h>
-#include <tesseract_time_parameterization/core/trajectory_container.h>
-#include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/utils.h>
+#include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
+#include <tesseract_time_parameterization/core/instructions_trajectory.h>
+#include <tesseract_common/kinematic_limits.h>
+#include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/profile_dictionary.h>
 #include <tesseract_common/utils.h>
+#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract_environment/environment.h>
 
 constexpr double EPS = 0.000001;
 
 namespace tesseract_planning
 {
-TimeOptimalTrajectoryGeneration::TimeOptimalTrajectoryGeneration(double path_tolerance, double min_angle_change)
-  : path_tolerance_(path_tolerance), min_angle_change_(min_angle_change)
+TimeOptimalTrajectoryGeneration::TimeOptimalTrajectoryGeneration(std::string name)
+  : TimeParameterization(std::move(name))
 {
 }
 
-bool TimeOptimalTrajectoryGeneration::compute(TrajectoryContainer& trajectory,
-                                              const Eigen::Ref<const Eigen::MatrixX2d>& velocity_limits,
-                                              const Eigen::Ref<const Eigen::MatrixX2d>& acceleration_limits,
-                                              const Eigen::Ref<const Eigen::MatrixX2d>& /*jerk_limits*/,
-                                              const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors,
-                                              const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors,
-                                              const Eigen::Ref<const Eigen::VectorXd>& /*jerk_scaling_factors*/) const
+bool TimeOptimalTrajectoryGeneration::compute(CompositeInstruction& composite_instruction,
+                                              const tesseract_environment::Environment& env,
+                                              const tesseract_common::ProfileDictionary& profiles) const
 {
-  if (trajectory.empty())
+  auto flattened = composite_instruction.flatten(moveFilter);
+  if (flattened.empty())
     return true;
 
-  // Validate velocity scaling
-  double local_velocity_scaling_factor = 1;
-  if ((velocity_scaling_factors.rows() == 1) && (velocity_scaling_factors.array() > 0.0).all() &&
-      (velocity_scaling_factors.array() <= 1.0).all())
+  const tesseract_common::ManipulatorInfo manip_info = composite_instruction.getManipulatorInfo();
+  auto jg = env.getJointGroup(manip_info.manipulator);
+  tesseract_common::KinematicLimits limits = jg->getLimits();
+  Eigen::MatrixX2d velocity_limits{ limits.velocity_limits };
+  Eigen::MatrixX2d acceleration_limits{ limits.acceleration_limits };
+
+  auto ci_profile = profiles.getProfile<TimeOptimalTrajectoryGenerationCompositeProfile>(
+      name_,
+      composite_instruction.getProfile(name_),
+      std::make_shared<TimeOptimalTrajectoryGenerationCompositeProfile>());
+  if (!ci_profile)
+    throw std::runtime_error("TimeOptimalTrajectoryGeneration: Invalid composite profile");
+
+  if (ci_profile->override_limits)
   {
-    local_velocity_scaling_factor = velocity_scaling_factors(0);
-  }
-  else
-  {
-    CONSOLE_BRIDGE_logWarn("Invalid velocity_scaling_factor specified, defaulting to 1 instead.");
+    velocity_limits = ci_profile->velocity_limits;
+    acceleration_limits = ci_profile->acceleration_limits;
   }
 
-  // Validate acceleration scaling
-  double local_acceleration_scaling_factor = 1;
-  if ((acceleration_scaling_factors.rows() == 1) && (acceleration_scaling_factors.array() > 0.0).all() &&
-      (acceleration_scaling_factors.array() <= 1.0).all())
-  {
-    local_acceleration_scaling_factor = acceleration_scaling_factors(0);
-  }
-  else
-  {
-    CONSOLE_BRIDGE_logWarn("Invalid acceleration_scaling_factors specified, defaulting to 1 instead.");
-  }
+  // Set scaling factors
+  // NOLINTNEXTLINE(readability-simplify-boolean-expr)
+  if (!((ci_profile->max_velocity_scaling_factor > 0.0) && (ci_profile->max_velocity_scaling_factor <= 1.0)))
+    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+
+  // NOLINTNEXTLINE(readability-simplify-boolean-expr)
+  if (!((ci_profile->max_acceleration_scaling_factor > 0.0) && (ci_profile->max_acceleration_scaling_factor <= 1.0)))
+    throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
 
   // Validate limits
   if (velocity_limits.rows() != acceleration_limits.rows())
@@ -102,8 +107,8 @@ bool TimeOptimalTrajectoryGeneration::compute(TrajectoryContainer& trajectory,
     CONSOLE_BRIDGE_logError("Invalid velocity or acceleration specified. They should be the same length");
   }
 
-  // Flatten program
-  const Eigen::Index num_joints = trajectory.dof();
+  InstructionsTrajectory trajectory(flattened);
+  const Eigen::Index num_joints = jg->numJoints();
   auto num_points = static_cast<std::size_t>(trajectory.size());
 
   // This lib does not actually work properly when angles wrap around, so we need to unwind the path first
@@ -123,7 +128,7 @@ bool TimeOptimalTrajectoryGeneration::compute(TrajectoryContainer& trajectory,
       const Eigen::VectorXd& prev_point = points.back();
       for (Eigen::Index j = 0; j < num_joints; j++)
       {
-        if (std::abs(position[j] - prev_point[j]) > min_angle_change_)
+        if (std::abs(position[j] - prev_point[j]) > ci_profile->min_angle_change)
           diverse_point = true;
       }
     }
@@ -160,14 +165,14 @@ bool TimeOptimalTrajectoryGeneration::compute(TrajectoryContainer& trajectory,
   }
 
   Eigen::VectorXd max_velocity_dummy_appended(velocity_limits.rows() + 1);
-  max_velocity_dummy_appended << (velocity_limits.col(1) * local_velocity_scaling_factor),
+  max_velocity_dummy_appended << (velocity_limits.col(1) * ci_profile->max_velocity_scaling_factor),
       std::numeric_limits<double>::max();
   Eigen::VectorXd max_acceleration_dummy_appended(acceleration_limits.rows() + 1);
-  max_acceleration_dummy_appended << (acceleration_limits.col(1) * local_acceleration_scaling_factor),
+  max_acceleration_dummy_appended << (acceleration_limits.col(1) * ci_profile->max_acceleration_scaling_factor),
       std::numeric_limits<double>::max();
 
   // Now actually call the algorithm
-  totg::Path path(new_points, path_tolerance_);
+  totg::Path path(new_points, ci_profile->path_tolerance);
   totg::Trajectory parameterized(path, max_velocity_dummy_appended, max_acceleration_dummy_appended, 0.001);
   if (!parameterized.isValid())
   {
@@ -931,7 +936,7 @@ bool Trajectory::isValid() const { return valid_; }
 
 double Trajectory::getDuration() const { return trajectory_.back().time_; }
 
-bool Trajectory::assignData(TrajectoryContainer& trajectory, const std::vector<std::size_t>& mapping) const
+bool Trajectory::assignData(InstructionsTrajectory& trajectory, const std::vector<std::size_t>& mapping) const
 {
   const auto& dist_mapping = path_.getMapping();
   assert(trajectory.size() == static_cast<Eigen::Index>(mapping.size()));

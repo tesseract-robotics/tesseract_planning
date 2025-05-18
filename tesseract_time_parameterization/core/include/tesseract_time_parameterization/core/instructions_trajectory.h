@@ -32,31 +32,33 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_time_parameterization/core/trajectory_container.h>
 #include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/fwd.h>
 
 namespace tesseract_planning
 {
-class InstructionsTrajectory : public TrajectoryContainer
+class InstructionsTrajectory
 {
 public:
   InstructionsTrajectory(std::vector<std::reference_wrapper<InstructionPoly>> trajectory);
   InstructionsTrajectory(CompositeInstruction& program);
 
-  const Eigen::VectorXd& getPosition(Eigen::Index i) const final;
-  Eigen::VectorXd& getPosition(Eigen::Index i) final;
-  const Eigen::VectorXd& getVelocity(Eigen::Index i) const final;
-  Eigen::VectorXd& getVelocity(Eigen::Index i) final;
-  const Eigen::VectorXd& getAcceleration(Eigen::Index i) const final;
-  Eigen::VectorXd& getAcceleration(Eigen::Index i) final;
-  double getTimeFromStart(Eigen::Index i) const final;
+  const Eigen::VectorXd& getPosition(Eigen::Index i) const;
+  Eigen::VectorXd& getPosition(Eigen::Index i);
+  const Eigen::VectorXd& getVelocity(Eigen::Index i) const;
+  Eigen::VectorXd& getVelocity(Eigen::Index i);
+  const Eigen::VectorXd& getAcceleration(Eigen::Index i) const;
+  Eigen::VectorXd& getAcceleration(Eigen::Index i);
+  double getTimeFromStart(Eigen::Index i) const;
 
-  void setData(Eigen::Index i, const Eigen::VectorXd& velocity, const Eigen::VectorXd& acceleration, double time) final;
+  void setData(Eigen::Index i, const Eigen::VectorXd& velocity, const Eigen::VectorXd& acceleration, double time);
 
-  Eigen::Index size() const final;
-  Eigen::Index dof() const final;
-  bool empty() const final;
+  Eigen::Index size() const;
+  Eigen::Index dof() const;
+  bool empty() const;
+
+  /** @brief Check if time is strictly increasing */
+  bool isTimeStrictlyIncreasing() const;
 
 private:
   std::vector<std::reference_wrapper<InstructionPoly>> trajectory_;

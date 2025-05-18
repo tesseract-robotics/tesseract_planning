@@ -54,24 +54,11 @@ namespace tesseract_planning
 class TimeOptimalTrajectoryGeneration : public TimeParameterization
 {
 public:
-  TimeOptimalTrajectoryGeneration(double path_tolerance = 0.1, double min_angle_change = 0.001);
+  TimeOptimalTrajectoryGeneration(std::string name);
 
-  /**
-   * @brief Compute timestampes
-   * Currently this only supports using max velocity and acceleration so min values are ignored
-   * Currently only supports a single scale factor so the input must be of length one.
-   */
-  bool compute(TrajectoryContainer& trajectory,
-               const Eigen::Ref<const Eigen::MatrixX2d>& velocity_limits,
-               const Eigen::Ref<const Eigen::MatrixX2d>& acceleration_limits,
-               const Eigen::Ref<const Eigen::MatrixX2d>& jerk_limits,
-               const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors = Eigen::VectorXd::Ones(1),
-               const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors = Eigen::VectorXd::Ones(1),
-               const Eigen::Ref<const Eigen::VectorXd>& jerk_scaling_factors = Eigen::VectorXd::Ones(1)) const override;
-
-private:
-  double path_tolerance_;
-  double min_angle_change_;
+  bool compute(CompositeInstruction& composite_instruction,
+               const tesseract_environment::Environment& env,
+               const tesseract_common::ProfileDictionary& profiles) const override;
 };
 
 namespace totg
@@ -180,7 +167,7 @@ public:
    * @brief Assign trajectory velocity acceleration and time
    * @details This is brute force approach and should always return true
    */
-  bool assignData(TrajectoryContainer& trajectory, const std::vector<std::size_t>& mapping) const;
+  bool assignData(InstructionsTrajectory& trajectory, const std::vector<std::size_t>& mapping) const;
 
 private:
   struct TrajectoryStep

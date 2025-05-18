@@ -36,15 +36,22 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <vector>
 #include <limits>
 #include <cmath>
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization.h>
-#include <tesseract_time_parameterization/core/trajectory_container.h>
+#include <tesseract_time_parameterization/isp/iterative_spline_parameterization_profiles.h>
+#include <tesseract_time_parameterization/core/instructions_trajectory.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_common/kinematic_limits.h>
+#include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/profile_dictionary.h>
 #include <tesseract_common/utils.h>
+#include <tesseract_kinematics/core/joint_group.h>
+#include <tesseract_environment/environment.h>
 
 namespace tesseract_planning
 {
@@ -97,65 +104,88 @@ void globalAdjustment(std::vector<SingleJointTrajectory>& t2,
                       long num_points,
                       std::vector<double>& time_diff);
 
-IterativeSplineParameterization::IterativeSplineParameterization(bool add_points) : add_points_(add_points) {}
-
-bool IterativeSplineParameterization::compute(TrajectoryContainer& trajectory,
-                                              const Eigen::Ref<const Eigen::MatrixX2d>& velocity_limits,
-                                              const Eigen::Ref<const Eigen::MatrixX2d>& acceleration_limits,
-                                              const Eigen::Ref<const Eigen::MatrixX2d>& /*jerk_limits*/,
-                                              const Eigen::Ref<const Eigen::VectorXd>& velocity_scaling_factors,
-                                              const Eigen::Ref<const Eigen::VectorXd>& acceleration_scaling_factors,
-                                              const Eigen::Ref<const Eigen::VectorXd>& /*jerk_scaling_factors*/) const
+IterativeSplineParameterization::IterativeSplineParameterization(std::string name)
+  : TimeParameterization(std::move(name))
 {
-  if (trajectory.empty())
+}
+
+bool IterativeSplineParameterization::compute(CompositeInstruction& composite_instruction,
+                                              const tesseract_environment::Environment& env,
+                                              const tesseract_common::ProfileDictionary& profiles) const
+{
+  auto flattened = composite_instruction.flatten(moveFilter);
+  if (flattened.empty())
     return true;
 
-  Eigen::VectorXd local_velocity_scaling_factor = Eigen::VectorXd::Ones(trajectory.size());
-  Eigen::VectorXd local_acceleration_scaling_factor = Eigen::VectorXd::Ones(trajectory.size());
-  auto num_points = static_cast<std::size_t>(trajectory.size());
+  const tesseract_common::ManipulatorInfo manip_info = composite_instruction.getManipulatorInfo();
+  auto jg = env.getJointGroup(manip_info.manipulator);
+  tesseract_common::KinematicLimits limits = jg->getLimits();
+  Eigen::MatrixX2d velocity_limits{ limits.velocity_limits };
+  Eigen::MatrixX2d acceleration_limits{ limits.acceleration_limits };
 
-  if (velocity_limits.rows() != trajectory.dof() || acceleration_limits.rows() != trajectory.dof())
-    return false;
+  auto ci_profile = profiles.getProfile<IterativeSplineParameterizationCompositeProfile>(
+      name_,
+      composite_instruction.getProfile(name_),
+      std::make_shared<IterativeSplineParameterizationCompositeProfile>());
+
+  if (!ci_profile)
+    throw std::runtime_error("IterativeSplineParameterization: Invalid composite profile");
+
+  if (ci_profile->override_limits)
+  {
+    velocity_limits = ci_profile->velocity_limits;
+    acceleration_limits = ci_profile->acceleration_limits;
+  }
 
   // Set scaling factors
-  if (!((velocity_scaling_factors.array() > 0.0).all() && (velocity_scaling_factors.array() <= 1.0).all()))
+  // NOLINTNEXTLINE(readability-simplify-boolean-expr)
+  if (!((ci_profile->max_velocity_scaling_factor > 0.0) && (ci_profile->max_velocity_scaling_factor <= 1.0)))
     throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
 
-  if (!((acceleration_scaling_factors.array() > 0.0).all() && (acceleration_scaling_factors.array() <= 1.0).all()))
+  // NOLINTNEXTLINE(readability-simplify-boolean-expr)
+  if (!((ci_profile->max_acceleration_scaling_factor > 0.0) && (ci_profile->max_acceleration_scaling_factor <= 1.0)))
     throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
 
-  if (velocity_scaling_factors.rows() == 1)
-  {
-    local_velocity_scaling_factor *= velocity_scaling_factors(0);
-  }
-  else if (velocity_scaling_factors.rows() == local_velocity_scaling_factor.rows())
-  {
-    local_velocity_scaling_factor = velocity_scaling_factors;
-  }
-  else
-  {
-    CONSOLE_BRIDGE_logWarn("Invalid velocity_scaling_factors specified, defaulting to 1 instead.");
-  }
+  const auto flattened_size = static_cast<Eigen::Index>(flattened.size());
+  Eigen::VectorXd local_velocity_scaling_factors =
+      Eigen::VectorXd::Ones(flattened_size) * ci_profile->max_velocity_scaling_factor;
+  Eigen::VectorXd local_acceleration_scaling_factors =
+      Eigen::VectorXd::Ones(flattened_size) * ci_profile->max_acceleration_scaling_factor;
 
-  if (acceleration_scaling_factors.rows() == 1)
+  // Loop over all MoveInstructions
+  for (Eigen::Index idx = 0; idx < flattened_size; idx++)
   {
-    local_acceleration_scaling_factor *= acceleration_scaling_factors(0);
-  }
-  else if (acceleration_scaling_factors.rows() == local_acceleration_scaling_factor.rows())
-  {
-    local_acceleration_scaling_factor = acceleration_scaling_factors;
-  }
-  else
-  {
-    CONSOLE_BRIDGE_logWarn("Invalid acceleration_scaling_factor specified, defaulting to 1 instead.");
+    const auto& mi = flattened[static_cast<std::size_t>(idx)].get().as<MoveInstructionPoly>();
+
+    // Check for remapping of the plan profil
+    auto move_profile = profiles.getProfile<IterativeSplineParameterizationMoveProfile>(name_, mi.getProfile(name_));
+
+    // If there is a move profile associated with it, override the parameters
+    if (move_profile)
+    {
+      // Set scaling factors
+      // NOLINTNEXTLINE(readability-simplify-boolean-expr)
+      if (!((move_profile->max_velocity_scaling_factor > 0.0) && (move_profile->max_velocity_scaling_factor <= 1.0)))
+        throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+
+      // NOLINTNEXTLINE(readability-simplify-boolean-expr)
+      if (!((move_profile->max_acceleration_scaling_factor > 0.0) &&
+            (move_profile->max_acceleration_scaling_factor <= 1.0)))
+        throw std::runtime_error("IterativeSplineParameterization, velocity scale factor must be greater than zero!");
+
+      local_velocity_scaling_factors[idx] = move_profile->max_velocity_scaling_factor;
+      local_acceleration_scaling_factors[idx] = move_profile->max_acceleration_scaling_factor;
+    }
   }
 
   // JointTrajectory indexes in [point][joint] order.
   // We need [joint][point] order to solve efficiently,
   // so convert form here.
 
+  InstructionsTrajectory trajectory(flattened);
   std::vector<SingleJointTrajectory> t2(static_cast<std::size_t>(trajectory.dof()));
 
+  auto num_points = flattened.size();
   const Eigen::VectorXd& start_vel = trajectory.getVelocity(0);
   const Eigen::VectorXd& last_vel = trajectory.getVelocity(static_cast<Eigen::Index>(num_points - 1));
   const Eigen::VectorXd& start_acc = trajectory.getAcceleration(0);
@@ -206,15 +236,15 @@ bool IterativeSplineParameterization::compute(TrajectoryContainer& trajectory,
         Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * velocity_limits(static_cast<Eigen::Index>(j), 1);
     min_velocity_eigen =
         Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * velocity_limits(static_cast<Eigen::Index>(j), 0);
-    max_velocity_eigen.array() *= local_velocity_scaling_factor.array();
-    min_velocity_eigen.array() *= local_velocity_scaling_factor.array();
+    max_velocity_eigen.array() *= local_velocity_scaling_factors.array();
+    min_velocity_eigen.array() *= local_velocity_scaling_factors.array();
 
     max_acceleration_eigen = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) *
                              acceleration_limits(static_cast<Eigen::Index>(j), 1);
     min_acceleration_eigen = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) *
                              acceleration_limits(static_cast<Eigen::Index>(j), 0);
-    max_acceleration_eigen.array() *= local_acceleration_scaling_factor.array();
-    min_acceleration_eigen.array() *= local_acceleration_scaling_factor.array();
+    max_acceleration_eigen.array() *= local_acceleration_scaling_factors.array();
+    min_acceleration_eigen.array() *= local_acceleration_scaling_factors.array();
 
     // Error out if bounds don't make sense
     if ((max_velocity_eigen.array() <= 0.0).any() || (max_acceleration_eigen.array() <= 0.0).any())
@@ -237,7 +267,7 @@ bool IterativeSplineParameterization::compute(TrajectoryContainer& trajectory,
     }
   }
 
-  bool add_points = add_points_;
+  bool add_points = ci_profile->add_points;
   if (num_points < 2)
     add_points = false;
 

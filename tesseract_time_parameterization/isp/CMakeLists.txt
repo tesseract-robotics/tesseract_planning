@@ -1,4 +1,5 @@
-add_library(${PROJECT_NAME}_isp src/iterative_spline_parameterization.cpp)
+add_library(${PROJECT_NAME}_isp src/iterative_spline_parameterization.cpp
+                                src/iterative_spline_parameterization_profiles.cpp)
 target_link_libraries(${PROJECT_NAME}_isp PUBLIC ${PROJECT_NAME}_core)
 target_include_directories(${PROJECT_NAME}_isp PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                       "$<INSTALL_INTERFACE:include>")
