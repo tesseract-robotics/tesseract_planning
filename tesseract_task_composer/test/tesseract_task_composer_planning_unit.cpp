@@ -21,6 +21,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/nodes/update_start_state_task.h>
 #include <tesseract_task_composer/planning/nodes/upsample_trajectory_task.h>
 #include <tesseract_task_composer/planning/nodes/iterative_spline_parameterization_task.h>
+#include <tesseract_task_composer/planning/nodes/constant_tcp_speed_parameterization_task.h>
 #include <tesseract_task_composer/planning/nodes/time_optimal_parameterization_task.h>
 #include <tesseract_task_composer/planning/nodes/ruckig_trajectory_smoothing_task.h>
 #include <tesseract_task_composer/planning/nodes/motion_planner_task.hpp>
@@ -2532,6 +2533,210 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     IterativeSplineParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, -1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerConstantTCPSpeedParameterizationTaskTests)  // NOLINT
+{
+  {  // Construction
+    ConstantTCPSpeedParameterizationTask task;
+    EXPECT_EQ(task.getName(), "ConstantTCPSpeedParameterizationTask");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             program: input_data
+                             environment: environment
+                             profiles: profiles
+                           outputs:
+                             program: output_data)";
+    YAML::Node config = YAML::Load(str);
+    ConstantTCPSpeedParameterizationTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+    EXPECT_EQ(task.getInputKeys().size(), 3);
+    EXPECT_EQ(task.getInputKeys().get(ConstantTCPSpeedParameterizationTask::INOUT_PROGRAM_PORT), "input_data");
+    EXPECT_EQ(task.getInputKeys().get(ConstantTCPSpeedParameterizationTask::INPUT_ENVIRONMENT_PORT), "environment");
+    EXPECT_EQ(task.getInputKeys().get(ConstantTCPSpeedParameterizationTask::INPUT_PROFILES_PORT), "profiles");
+    EXPECT_EQ(task.getOutputKeys().size(), 1);
+    EXPECT_EQ(task.getOutputKeys().get(ConstantTCPSpeedParameterizationTask::INOUT_PROGRAM_PORT), "output_data");
+    EXPECT_EQ(task.getOutboundEdges().size(), 0);
+    EXPECT_EQ(task.getInboundEdges().size(), 0);
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(std::make_unique<ConstantTCPSpeedParameterizationTask>("abc", config["config"], factory));
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             program: input_data
+                             environment: environment
+                             profiles: profiles)";
+    YAML::Node config = YAML::Load(str);
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(std::make_unique<ConstantTCPSpeedParameterizationTask>("abc", config["config"], factory));
+  }
+
+  {  // Construction failure
+    TaskComposerPluginFactory factory;
+    std::string str = R"(config:
+                           conditional: true
+                           outputs:
+                             program: output_data)";
+    YAML::Node config = YAML::Load(str);
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(std::make_unique<ConstantTCPSpeedParameterizationTask>("abc", config["config"], factory));
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<ConstantTCPSpeedParameterizationTask>();
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerConstantTCPSpeedParameterizationTaskTests");
+  }
+
+  {  // Test run method
+    // Create input data
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    {
+      auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+      auto data2 = std::make_unique<TaskComposerDataStorage>();
+      data2->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
+      data2->setData("profiles", profiles);
+      auto context = std::make_unique<TaskComposerContext>("abc", std::move(data2));
+      UpsampleTrajectoryTask task("abc", "input_data", "profiles", "output_data", true);
+      EXPECT_EQ(task.run(*context), 1);
+      data->setData("input_data", context->data_storage->getData("output_data"));
+      EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
+    }
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    data->setData("profiles", profiles);
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    ConstantTCPSpeedParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
+    EXPECT_EQ(task.run(*context), 1);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Test run method
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    auto program = test_suite::jointInterpolateExampleProgramABB(false);
+    program.clear();
+    data->setData("input_data", program);
+    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    data->setData("profiles", profiles);
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    ConstantTCPSpeedParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
+    EXPECT_EQ(task.run(*context), 1);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->data_storage->hasKey("output_data"));
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure missing input data
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    data->setData("profiles", profiles);
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    ConstantTCPSpeedParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, -1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure missing enviroment data
+    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
+    data->setData("profiles", profiles);
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    ConstantTCPSpeedParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, -1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure missing profiles data
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    data->setData("input_data", test_suite::jointInterpolateExampleProgramABB(false));
+    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    ConstantTCPSpeedParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos.getInfo(task.getUUID());
     if (!node_info.has_value())

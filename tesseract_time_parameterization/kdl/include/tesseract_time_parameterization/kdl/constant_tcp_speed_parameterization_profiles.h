@@ -46,10 +46,10 @@ struct ConstantTCPSpeedParameterizationCompositeProfile : public tesseract_commo
    */
   static std::size_t getStaticKey();
 
-  double max_translational_velocity{ -1.0 };
-  double max_rotational_velocity{ -1.0 };
-  double max_translational_acceleration{ -1.0 };
-  double max_rotational_acceleration{ -1.0 };
+  double max_translational_velocity{ 1.0 };
+  double max_rotational_velocity{ 1.0 };
+  double max_translational_acceleration{ 1.0 };
+  double max_rotational_acceleration{ 1.0 };
   double max_velocity_scaling_factor{ 1.0 };
   double max_acceleration_scaling_factor{ 1.0 };
 
