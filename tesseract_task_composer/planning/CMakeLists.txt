@@ -10,7 +10,14 @@ find_package(
     ompl
     trajopt
     trajopt_ifopt)
-find_package(tesseract_time_parameterization REQUIRED COMPONENTS core OPTIONAL_COMPONENTS isp totg ruckig)
+find_package(
+  tesseract_time_parameterization REQUIRED
+  COMPONENTS core
+  OPTIONAL_COMPONENTS
+    isp
+    kdl
+    totg
+    ruckig)
 find_package(trajopt REQUIRED)
 
 set(LIB_SOURCE_FILES
@@ -115,6 +122,15 @@ if(tesseract_time_parameterization_isp_FOUND)
   list(APPEND WINDOWS_DEPENDS "${TESSERACT_PACKAGE_PREFIX}tesseract-time-parameterization-isp")
 endif()
 
+if(tesseract_time_parameterization_kdl_FOUND)
+  list(APPEND LIB_SOURCE_FILES src/nodes/constant_tcp_speed_parameterization_task.cpp)
+  list(APPEND LIB_SOURCE_LINK_LIBRARIES tesseract::tesseract_time_parameterization_kdl)
+  list(APPEND FACTORIES_SOURCE_FILES src/factories/planning_task_composer_kdl_plugin_factory.cpp)
+  list(APPEND FACTORIES_SOURCE_LINK_LIBRARIES tesseract::tesseract_time_parameterization_kdl)
+  list(APPEND LINUX_DEPENDS "${TESSERACT_PACKAGE_PREFIX}tesseract-time-parameterization-kdl")
+  list(APPEND WINDOWS_DEPENDS "${TESSERACT_PACKAGE_PREFIX}tesseract-time-parameterization-kdl")
+endif()
+
 if(tesseract_time_parameterization_totg_FOUND)
   list(APPEND LIB_SOURCE_FILES src/nodes/time_optimal_parameterization_task.cpp)
   list(APPEND LIB_SOURCE_LINK_LIBRARIES tesseract::tesseract_time_parameterization_totg)
@@ -204,7 +220,7 @@ configure_component(
     tesseract_command_language
     trajopt
     "tesseract_motion_planners REQUIRED COMPONENTS core simple OPTIONAL_COMPONENTS descartes ompl trajopt trajopt_ifopt"
-    "tesseract_time_parameterization REQUIRED COMPONENTS core OPTIONAL_COMPONENTS isp totg ruckig")
+    "tesseract_time_parameterization REQUIRED COMPONENTS core OPTIONAL_COMPONENTS isp kdl totg ruckig")
 
 if(TESSERACT_PACKAGE)
   cpack_component(
