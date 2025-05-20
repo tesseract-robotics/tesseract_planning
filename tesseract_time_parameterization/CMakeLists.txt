@@ -61,6 +61,15 @@ if(TESSERACT_BUILD_ISP)
   add_subdirectory(isp)
 endif()
 
+# KDL
+option(TESSERACT_BUILD_KDL "Build the Constant TCP Speed Parameterization (KDL) time parameterization implementation"
+       ON)
+if(TESSERACT_BUILD_KDL)
+  message("Building KDL")
+  list(APPEND SUPPORTED_COMPONENTS kdl)
+  add_subdirectory(kdl)
+endif()
+
 # TOTG
 option(TESSERACT_BUILD_TOTG "Build the Time Optimal Trajectory Generation (TOTG) time parameterization implementation"
        ON)
