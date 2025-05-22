@@ -37,6 +37,7 @@
 #include <kdl/path_composite.hpp>
 #include <kdl/rotational_interpolation_sa.hpp>
 #include <kdl/trajectory_segment.hpp>
+#include <kdl/trajectory_composite.hpp>
 #include <kdl/velocityprofile_trap.hpp>
 #include <kdl/velocityprofile_traphalf.hpp>
 #include <kdl/utilities/error.h>
@@ -58,15 +59,15 @@ Eigen::VectorXd computeJointVelocity(const Eigen::MatrixXd& jac, const KDL::Twis
 {
   const Eigen::Index dof = q.size();
   Eigen::VectorXd q_dot(dof);
-  if (dof == 6)
-  {
-    q_dot = jac.colPivHouseholderQr().solve(fromKDL(x_dot));
-  }
-  else
-  {
-    if (!tesseract_kinematics::solvePInv(jac, fromKDL(x_dot), q_dot))
-      throw std::runtime_error("Failed to solve pseudo-inverse for joint velocity calculation");
-  }
+  // if (dof == 6)
+  // {
+  //   q_dot = jac.colPivHouseholderQr().solve(fromKDL(x_dot));
+  // }
+  // else
+  // {
+  if (!tesseract_kinematics::solvePInv(jac, fromKDL(x_dot), q_dot))
+    throw std::runtime_error("Failed to solve pseudo-inverse for joint velocity calculation");
+  // }
 
   return q_dot;
 }
@@ -96,15 +97,15 @@ Eigen::VectorXd computeJointAcceleration(KDL::ChainJntToJacDotSolver& solver,
 
   Eigen::Index dof = q.size();
   Eigen::VectorXd q_dot_dot(dof);
-  if (dof == 6)
-  {
-    q_dot_dot = jac.colPivHouseholderQr().solve(twist);
-  }
-  else
-  {
-    if (!tesseract_kinematics::solvePInv(jac, twist, q_dot_dot))
-      throw std::runtime_error("Failed to solve pseudo-inverse for acceleration calculation");
-  }
+  // if (dof == 6)
+  // {
+  //   q_dot_dot = jac.colPivHouseholderQr().solve(twist);
+  // }
+  // else
+  // {
+  if (!tesseract_kinematics::solvePInv(jac, twist, q_dot_dot))
+    throw std::runtime_error("Failed to solve pseudo-inverse for acceleration calculation");
+  // }
 
   return q_dot_dot;
 }
@@ -157,9 +158,16 @@ bool ConstantTCPSpeedParameterization::compute(CompositeInstruction& composite_i
   if (!((ci_profile->max_acceleration_scaling_factor > 0.0) && (ci_profile->max_acceleration_scaling_factor <= 1.0)))
     throw std::runtime_error("ConstantTCPSpeedParameterization, acceleration scale factor must be greater than zero!");
 
-  const double eq_radius =
-      std::max((ci_profile->max_translational_velocity / ci_profile->max_rotational_velocity),
-               (ci_profile->max_translational_acceleration / ci_profile->max_rotational_acceleration));
+  // Compute
+  const double max_translational_vel = ci_profile->max_velocity_scaling_factor * ci_profile->max_translational_velocity;
+  const double max_translational_acc =
+      ci_profile->max_acceleration_scaling_factor * ci_profile->max_translational_acceleration;
+  const double max_rotational_vel = ci_profile->max_velocity_scaling_factor * ci_profile->max_rotational_velocity;
+  const double max_rotational_acc =
+      ci_profile->max_acceleration_scaling_factor * ci_profile->max_rotational_acceleration;
+  const double eqr_vel = max_translational_vel / max_rotational_vel;  // from velocity ratio
+  const double eqr_acc = max_translational_acc / max_rotational_acc;  // from acceleration ratio
+  const double eq_radius = std::min(eqr_vel, eqr_acc);
 
   // Construct the KDL chain
   tesseract_kinematics::KDLChainData data;
@@ -174,19 +182,7 @@ bool ConstantTCPSpeedParameterization::compute(CompositeInstruction& composite_i
     InstructionsTrajectory trajectory(composite_instruction);
 
     // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
-    auto* path = new KDL::Path_Composite();
-
-    // Create a container for the times of each waypoint in the newly parameterized trajectory
-    std::vector<double> times;
-    times.reserve(static_cast<std::size_t>(trajectory.size()));
-    times.push_back(0.0);
-
-    const double max_vel = ci_profile->max_velocity_scaling_factor * ci_profile->max_translational_velocity;
-    const double max_acc = ci_profile->max_acceleration_scaling_factor * ci_profile->max_translational_acceleration;
-    KDL::VelocityProfile_TrapHalf v_trap_half(max_vel, max_acc, true);
-    // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
-    auto* v_trap = new KDL::VelocityProfile_Trap(max_vel, max_acc);
-
+    KDL::Path_Composite path;
     for (Eigen::Index i = 1; i < trajectory.size(); ++i)
     {
       const Eigen::VectorXd& start_joints = trajectory.getPosition(i - 1);
@@ -206,67 +202,51 @@ bool ConstantTCPSpeedParameterization::compute(CompositeInstruction& composite_i
       KDL::Path* segment = new KDL::Path_Line(start, end, rot_interp, eq_radius);
 
       // Add the segment to the full path
-      path->Add(segment);
-
-      const double path_length = std::max(path->PathLength(), std::numeric_limits<double>::epsilon());
-
-      /* KDL does not provide the ability to determine the time at which a particular waypoint occurs in velocity
-       * profile parameterized trajectory. Therefore, we need to estimate the time to each waypoint. We can do this by
-       * applying a half-trapezoid (front) velocity profile to the path constructed so far and calculating the
-       * duration.
-       */
-      v_trap_half.SetProfile(0.0, path_length);
-      times.push_back(v_trap_half.Duration());
+      path.Add(segment);
     }
 
-    // Apply a double-ended trapezoidal velocity profile to the full path
-    const double path_length = path->PathLength();
-    v_trap->SetProfile(0.0, path_length);
-    const double duration = v_trap->Duration();
+    // Total "distance" in s-domain (linear + eqradius*rotational)
+    double s_total = path.PathLength();
 
-    // Add the last time with the duration from a double ended trapezoidal velocity profile
-    times.back() = duration;
+    // Create a single trapezoidal profile over the full path
+    KDL::VelocityProfile_Trap profile(max_translational_vel, max_translational_acc);
+    profile.SetProfile(0.0, s_total);
 
-    /* In some cases, the deceleration may not occur completely in the last path segment, so estimating the time to a
-     * waypoint using the forward half-trapezoidal velocity profile can be incorrect. Instead we need to work
-     * backwards from the end of the trajectory to each waypoint until we reach the halfway point or until we reach a
-     * waypoint that is at full speed
-     */
-    {
-      // Construct a reverse path
-      KDL::Path_Composite reverse_path;
-      const int n_segments = path->GetNrOfSegments();
-      const int middle_segment = n_segments / 2;
+    // Use one Trajectory_Segment for the composite path + profile
+    KDL::Trajectory_Segment traj(&path, &profile, /*aggregate=*/false);
 
-      // Iterate in reverse through the path until we hit a point whose velocity is
-      for (int i = path->GetNrOfSegments(); i-- > middle_segment;)
-      {
-        reverse_path.Add(path->GetSegment(i), false);
+    // Get end-distances of each segment
+    const auto nseg = static_cast<std::size_t>(path.GetNrOfSegments());
+    std::vector<double> s_end(nseg);
+    for (std::size_t i = 0; i < nseg; ++i)
+      s_end[i] = path.GetLengthToEndOfSegment(static_cast<int>(i));
 
-        const double reverse_path_length = std::max(reverse_path.PathLength(), std::numeric_limits<double>::epsilon());
-        v_trap_half.SetProfile(0.0, reverse_path_length);
-        const double reverse_path_duration = v_trap_half.Duration();
-        const double vel = v_trap_half.Vel(reverse_path_duration);
+    // Precompute trapezoid timing params for inversion
+    // Note: s_end and s_total already include eqradius scaling for rotations,
+    // so timeAt(s) inherently accounts for eqradius.
+    const double t_acc = max_translational_vel / max_translational_acc;
+    const double s_acc = 0.5 * max_translational_acc * t_acc * t_acc;
+    const double s_flat = std::max(0.0, s_total - 2.0 * s_acc);
+    const double t_flat = (s_flat > 0.0 ? s_flat / max_translational_vel : 0.0);
+    const double t_tot = 2.0 * t_acc + t_flat;
 
-        if (std::abs(vel - max_vel) > std::numeric_limits<double>::epsilon())
-        {
-          times[static_cast<std::size_t>(i)] = duration - reverse_path_duration;
-        }
-        else
-        {
-          break;
-        }
-      }
-    }
+    auto timeAt = [&](double s) {
+      if (s <= s_acc)
+        return std::sqrt(2.0 * s / max_translational_acc);
+
+      if (s <= s_acc + s_flat)
+        return t_acc + (s - s_acc) / max_translational_vel;
+
+      return t_tot - std::sqrt(2.0 * (s_total - s) / max_translational_acc);
+    };
 
     // Update the trajectory
-    for (Eigen::Index i = 0; i < trajectory.size(); ++i)
+    assert(s_end.size() == trajectory.size() - 1);
+    for (Eigen::Index i = 1; i < trajectory.size(); ++i)
     {
-      const Eigen::VectorXd& joints = trajectory.getPosition(i);
-      const double t = times[static_cast<std::size_t>(i)];
-
       // Compute the joint velocity and acceleration
-      KDL::Trajectory_Segment traj(path, v_trap, false);
+      const Eigen::VectorXd& joints = trajectory.getPosition(i);
+      const double t = (i == 0) ? 0 : timeAt(s_end[static_cast<std::size_t>(i - 1)]);
       const KDL::Twist vel = traj.Vel(t);
       const KDL::Twist acc = traj.Acc(t);
       const Eigen::MatrixXd jac = jg->calcJacobian(joints, manip_info.tcp_frame, tcp_offset.translation());
