@@ -89,23 +89,45 @@ TEST_F(ConstantTCPSpeedParameterizationUnit, ConstantTCPSpeedParameterizationTes
   CompositeInstruction program = createStraightTrajectory();
   program.setManipulatorInfo(manip_);
 
-  // Profile
-  auto profile = std::make_shared<ConstantTCPSpeedParameterizationCompositeProfile>();
-  profile->max_translational_velocity = 0.5;
-  profile->max_rotational_velocity = 0.5;
-  profile->max_translational_acceleration = 0.5;
-  profile->max_rotational_acceleration = 0.5;
-  profile->max_velocity_scaling_factor = 1.0;
-  profile->max_acceleration_scaling_factor = 1.0;
+  {
+    // Profile
+    auto profile = std::make_shared<ConstantTCPSpeedParameterizationCompositeProfile>();
+    profile->max_translational_velocity = 0.5;
+    profile->max_rotational_velocity = 0.5;
+    profile->max_translational_acceleration = 0.5;
+    profile->max_rotational_acceleration = 0.5;
+    profile->max_velocity_scaling_factor = 1.0;
+    profile->max_acceleration_scaling_factor = 1.0;
 
-  // Profile Dictionary
-  tesseract_common::ProfileDictionary profiles;
-  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+    // Profile Dictionary
+    tesseract_common::ProfileDictionary profiles;
+    profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
-  // Solve
-  ConstantTCPSpeedParameterization time_parameterization(name_);
-  EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
-  ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.001);
+    // Solve
+    ConstantTCPSpeedParameterization time_parameterization(name_);
+    EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+    ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.001);
+  }
+
+  {
+    // Profile
+    auto profile = std::make_shared<ConstantTCPSpeedParameterizationCompositeProfile>();
+    profile->max_translational_velocity = 1.0;
+    profile->max_rotational_velocity = 0.5;
+    profile->max_translational_acceleration = 0.5;
+    profile->max_rotational_acceleration = 0.5;
+    profile->max_velocity_scaling_factor = 1.0;
+    profile->max_acceleration_scaling_factor = 1.0;
+
+    // Profile Dictionary
+    tesseract_common::ProfileDictionary profiles;
+    profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+
+    // Solve
+    ConstantTCPSpeedParameterization time_parameterization(name_);
+    EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+    ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 4.001);
+  }
 }
 
 int main(int argc, char** argv)
