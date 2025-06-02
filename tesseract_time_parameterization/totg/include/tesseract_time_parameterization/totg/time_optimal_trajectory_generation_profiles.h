@@ -41,6 +41,10 @@ struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract_common
   using ConstPtr = std::shared_ptr<const TimeOptimalTrajectoryGenerationCompositeProfile>;
 
   TimeOptimalTrajectoryGenerationCompositeProfile();
+  TimeOptimalTrajectoryGenerationCompositeProfile(double max_velocity_scaling_factor,
+                                                  double max_acceleration_scaling_factor,
+                                                  double path_tolerance,
+                                                  double min_angle_change);
 
   /**
    * @brief A utility function for getting profile ID
