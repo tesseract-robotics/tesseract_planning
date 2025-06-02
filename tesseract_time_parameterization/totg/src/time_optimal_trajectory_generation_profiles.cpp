@@ -33,6 +33,19 @@ TimeOptimalTrajectoryGenerationCompositeProfile::TimeOptimalTrajectoryGeneration
 {
 }
 
+TimeOptimalTrajectoryGenerationCompositeProfile::TimeOptimalTrajectoryGenerationCompositeProfile(
+    double max_velocity_scaling_factor,
+    double max_acceleration_scaling_factor,
+    double path_tolerance,
+    double min_angle_change)
+  : Profile(TimeOptimalTrajectoryGenerationCompositeProfile::getStaticKey())
+  , max_velocity_scaling_factor(max_velocity_scaling_factor)
+  , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
+  , path_tolerance(path_tolerance)
+  , min_angle_change(min_angle_change)
+{
+}
+
 std::size_t TimeOptimalTrajectoryGenerationCompositeProfile::getStaticKey()
 {
   return std::type_index(typeid(TimeOptimalTrajectoryGenerationCompositeProfile)).hash_code();
