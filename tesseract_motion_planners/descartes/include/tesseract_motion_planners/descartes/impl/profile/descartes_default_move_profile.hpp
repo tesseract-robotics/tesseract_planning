@@ -150,20 +150,6 @@ std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>> DescartesDefaultMoveP
 
   auto manip = DescartesMoveProfile<FloatType>::createKinematicGroup(manip_info, *env);
 
-  if (move_instruction.getWaypoint().isCartesianWaypoint())
-  {
-    if (!enable_edge_collision)
-      return std::make_unique<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>();
-
-    auto compound_evaluator = std::make_unique<descartes_light::CompoundEdgeEvaluator<FloatType>>();
-    compound_evaluator->evaluators.push_back(
-        std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
-    compound_evaluator->evaluators.push_back(std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(
-        *env, manip, edge_contact_manager_config, edge_collision_check_config, allow_collision, debug));
-
-    return compound_evaluator;
-  }
-
   if (!enable_edge_collision)
     return std::make_unique<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>();
 
