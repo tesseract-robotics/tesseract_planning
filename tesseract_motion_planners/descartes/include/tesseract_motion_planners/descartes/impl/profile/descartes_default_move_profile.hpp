@@ -113,9 +113,9 @@ DescartesDefaultMoveProfile<FloatType>::createWaypointSampler(
   //    is "
   //                             "not set to the base link of manipulator!");
 
-  DescartesCollision::Ptr ci = nullptr;
+  DescartesCollision::Ptr descartes_collision = nullptr;
   if (enable_collision)
-    ci = std::make_shared<DescartesCollision>(
+    descartes_collision = std::make_shared<DescartesCollision>(
         *env, manip, vertex_contact_manager_config, vertex_collision_check_config, debug);
 
   auto ve = createVertexEvaluator(move_instruction, manip, env);
@@ -125,7 +125,7 @@ DescartesDefaultMoveProfile<FloatType>::createWaypointSampler(
       move_instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform(),
       pose_sampler,
       manip,
-      ci,
+      descartes_collision,
       manip_info.tcp_frame,
       tcp_offset,
       allow_collision,
