@@ -41,7 +41,8 @@ template <typename FloatType>
 template <class Archive>
 void DescartesDefaultMoveProfile<FloatType>::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(DescartesMoveProfile<FloatType>);
+  ar& boost::serialization::make_nvp("DescartesMoveProfile",
+                                     boost::serialization::base_object<DescartesMoveProfile<FloatType>>(*this));
   ar& BOOST_SERIALIZATION_NVP(target_pose_fixed);
   ar& BOOST_SERIALIZATION_NVP(target_pose_sample_axis);
   ar& BOOST_SERIALIZATION_NVP(target_pose_sample_resolution);

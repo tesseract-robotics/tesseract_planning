@@ -37,7 +37,8 @@ template <typename FloatType>
 template <class Archive>
 void DescartesLadderGraphSolverProfile<FloatType>::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(DescartesSolverProfile<FloatType>);
+  ar& boost::serialization::make_nvp("DescartesSolverProfile",
+                                     boost::serialization::base_object<DescartesSolverProfile<FloatType>>(*this));
   ar& BOOST_SERIALIZATION_NVP(num_threads);
 }
 
