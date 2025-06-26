@@ -133,7 +133,7 @@ void TaskComposerPluginFactory::loadConfig(const YAML::Node& config)
 
 void TaskComposerPluginFactory::loadConfig(const YAML::Node& config, const tesseract_common::ResourceLocator& locator)
 {
-  loadConfig(tesseract_common::processYamlIncludeDirective(config, locator));
+  loadConfig(tesseract_common::processYamlIncludeDirective(YAML::Clone(config), locator));
 }
 
 void TaskComposerPluginFactory::loadConfig(const std::filesystem::path& config,
