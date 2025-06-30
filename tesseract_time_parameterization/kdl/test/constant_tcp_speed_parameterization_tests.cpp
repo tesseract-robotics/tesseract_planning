@@ -58,6 +58,18 @@ CompositeInstruction createStraightTrajectory()
   return program;
 }
 
+bool checkForVelocityAndAcceleration(const CompositeInstruction& program)
+{
+  for (const auto& i : program)
+  {
+    const auto& swp = i.as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+    if (swp.getVelocity().size() == 0 || swp.getAcceleration().size() == 0)
+      return false;
+  }
+
+  return true;
+}
+
 class ConstantTCPSpeedParameterizationUnit : public ::testing::Test
 {
 protected:
@@ -106,6 +118,7 @@ TEST_F(ConstantTCPSpeedParameterizationUnit, ConstantTCPSpeedParameterizationTes
     // Solve
     ConstantTCPSpeedParameterization time_parameterization(name_);
     EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+    EXPECT_TRUE(checkForVelocityAndAcceleration(program));
     ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.001);
   }
 
@@ -126,6 +139,7 @@ TEST_F(ConstantTCPSpeedParameterizationUnit, ConstantTCPSpeedParameterizationTes
     // Solve
     ConstantTCPSpeedParameterization time_parameterization(name_);
     EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+    EXPECT_TRUE(checkForVelocityAndAcceleration(program));
     ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 4.001);
   }
 }

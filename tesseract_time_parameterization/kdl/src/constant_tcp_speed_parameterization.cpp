@@ -242,7 +242,7 @@ bool ConstantTCPSpeedParameterization::compute(CompositeInstruction& composite_i
 
     // Update the trajectory
     assert(s_end.size() == trajectory.size() - 1);
-    for (Eigen::Index i = 1; i < trajectory.size(); ++i)
+    for (Eigen::Index i = 0; i < trajectory.size(); ++i)
     {
       // Compute the joint velocity and acceleration
       const Eigen::VectorXd& joints = trajectory.getPosition(i);
