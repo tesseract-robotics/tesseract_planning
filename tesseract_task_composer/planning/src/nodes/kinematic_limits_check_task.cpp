@@ -164,6 +164,9 @@ TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& cont
 
     if (cur_composite_profile->check_velocity)
     {
+      if (joint_vel.size() == 0)
+        throw std::runtime_error("Trajectory has no velocity data!");
+
       // Check for joint velocity limit violations
       if (!tesseract_common::satisfiesLimits<double>(joint_vel, limits.velocity_limits))
       {
@@ -180,6 +183,9 @@ TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& cont
 
     if (cur_composite_profile->check_acceleration)
     {
+      if (joint_acc.size() == 0)
+        throw std::runtime_error("Trajectory has no acceleration data!");
+
       // Check for joint velocity acceleration limit violations
       if (!tesseract_common::satisfiesLimits<double>(joint_acc, limits.acceleration_limits))
       {
