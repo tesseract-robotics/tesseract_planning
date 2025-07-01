@@ -402,7 +402,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
                                                                             transition_results.input_key,
                                                                             prev_output,
                                                                             next_output,
-                                                                            transition_results.output_key,
+                                                                            transition_results.input_key,
                                                                             false);
     auto transition_mux_uuid = task_graph.addNode(std::move(transition_mux_task));
 
