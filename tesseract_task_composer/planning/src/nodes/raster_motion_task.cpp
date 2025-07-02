@@ -458,7 +458,7 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
                                                                             transition_results.input_key,
                                                                             prev_output,
                                                                             next_output,
-                                                                            transition_results.output_key,
+                                                                            transition_results.input_key,
                                                                             false);
     auto transition_mux_uuid = task_graph.addNode(std::move(transition_mux_task));
 
@@ -479,11 +479,8 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
   auto from_start_pipeline_uuid = task_graph.addNode(std::move(from_start_results.node));
 
   const auto& first_raster_output_key = raster_tasks[0].second.second;
-  auto update_end_state_task = std::make_unique<UpdateEndStateTask>("UpdateEndStateTask",
-                                                                    from_start_results.input_key,
-                                                                    first_raster_output_key,
-                                                                    from_start_results.output_key,
-                                                                    false);
+  auto update_end_state_task = std::make_unique<UpdateEndStateTask>(
+      "UpdateEndStateTask", from_start_results.input_key, first_raster_output_key, from_start_results.input_key, false);
   auto update_end_state_uuid = task_graph.addNode(std::move(update_end_state_task));
 
   context.data_storage->setData(from_start_results.input_key, from_start_input);
@@ -508,7 +505,7 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
 
   const auto& last_raster_output_key = raster_tasks.back().second.second;
   auto update_start_state_task = std::make_unique<UpdateStartStateTask>(
-      "UpdateStartStateTask", to_end_results.input_key, last_raster_output_key, to_end_results.output_key, false);
+      "UpdateStartStateTask", to_end_results.input_key, last_raster_output_key, to_end_results.input_key, false);
   auto update_start_state_uuid = task_graph.addNode(std::move(update_start_state_task));
 
   context.data_storage->setData(to_end_results.input_key, to_end_input);
