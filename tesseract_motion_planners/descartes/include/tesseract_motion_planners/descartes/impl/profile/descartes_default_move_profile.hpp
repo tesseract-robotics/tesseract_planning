@@ -113,9 +113,9 @@ DescartesDefaultMoveProfile<FloatType>::createWaypointSampler(
   //    is "
   //                             "not set to the base link of manipulator!");
 
-  DescartesCollision::Ptr ci = nullptr;
+  DescartesCollision::Ptr descartes_collision = nullptr;
   if (enable_collision)
-    ci = std::make_shared<DescartesCollision>(
+    descartes_collision = std::make_shared<DescartesCollision>(
         *env, manip, vertex_contact_manager_config, vertex_collision_check_config, debug);
 
   auto ve = createVertexEvaluator(move_instruction, manip, env);
@@ -125,7 +125,7 @@ DescartesDefaultMoveProfile<FloatType>::createWaypointSampler(
       move_instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform(),
       pose_sampler,
       manip,
-      ci,
+      descartes_collision,
       manip_info.tcp_frame,
       tcp_offset,
       allow_collision,
@@ -149,20 +149,6 @@ std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>> DescartesDefaultMoveP
     throw std::runtime_error("Descartes, manipulator info is empty!");
 
   auto manip = DescartesMoveProfile<FloatType>::createKinematicGroup(manip_info, *env);
-
-  if (move_instruction.getWaypoint().isCartesianWaypoint())
-  {
-    if (!enable_edge_collision)
-      return std::make_unique<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>();
-
-    auto compound_evaluator = std::make_unique<descartes_light::CompoundEdgeEvaluator<FloatType>>();
-    compound_evaluator->evaluators.push_back(
-        std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
-    compound_evaluator->evaluators.push_back(std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(
-        *env, manip, edge_contact_manager_config, edge_collision_check_config, allow_collision, debug));
-
-    return compound_evaluator;
-  }
 
   if (!enable_edge_collision)
     return std::make_unique<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>();
