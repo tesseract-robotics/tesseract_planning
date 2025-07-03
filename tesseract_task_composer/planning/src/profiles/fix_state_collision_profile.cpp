@@ -55,6 +55,8 @@ void FixStateCollisionProfile::serialize(Archive& ar, const unsigned int /*versi
   ar& BOOST_SERIALIZATION_NVP(contact_manager_config);
   ar& BOOST_SERIALIZATION_NVP(collision_check_config);
   ar& BOOST_SERIALIZATION_NVP(sampling_attempts);
+  ar& BOOST_SERIALIZATION_NVP(trajopt_joint_constraint_config);
+  ar& BOOST_SERIALIZATION_NVP(trajopt_joint_cost_config);
 }
 
 }  // namespace tesseract_planning
