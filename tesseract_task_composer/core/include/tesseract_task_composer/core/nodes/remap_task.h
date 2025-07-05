@@ -56,6 +56,8 @@ public:
   explicit RemapTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~RemapTask() override = default;
 
+  tesseract_common::PropertyTree getSchema() const override final;
+
   bool operator==(const RemapTask& rhs) const;
   bool operator!=(const RemapTask& rhs) const;
 

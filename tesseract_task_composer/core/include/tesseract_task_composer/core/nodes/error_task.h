@@ -49,6 +49,8 @@ public:
   explicit ErrorTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~ErrorTask() override = default;
 
+  tesseract_common::PropertyTree getSchema() const override final;
+
   bool operator==(const ErrorTask& rhs) const;
   bool operator!=(const ErrorTask& rhs) const;
 

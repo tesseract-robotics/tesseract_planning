@@ -29,10 +29,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/string.hpp>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/property_tree.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/nodes/done_task.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_schema.h>
 
 namespace tesseract_planning
 {
@@ -44,6 +46,27 @@ DoneTask::DoneTask(std::string name, bool is_conditional)
 DoneTask::DoneTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), TaskComposerNodePorts{}, config)
 {
+}
+
+tesseract_common::PropertyTree DoneTask::getSchema() const
+{
+  using namespace tesseract_common;
+
+  PropertyTree schema;
+  schema.setAttribute(property_attribute::TYPE, property_type::CONTAINER);
+  schema.setAttribute(property_attribute::REQUIRED, true);
+  schema.setAttribute(property_attribute::TASK_NAME, "DoneTask");
+  schema.setAttribute(property_attribute::FACTORY_NAME, "DoneTaskFactory");
+  schema.setAttribute(property_attribute::DOC,
+                      "A task which is typically called last to indicate success of a pipeline");
+  std::map<int, std::string> return_options;
+  return_options[1] = "Successful";
+  schema.setAttribute("return_options", YAML::Node(return_options));
+
+  addConditionalProperty(schema, false);
+  addTriggerAbortProperty(schema);
+
+  return schema;
 }
 
 TaskComposerNodeInfo DoneTask::runImpl(TaskComposerContext& /*context*/,

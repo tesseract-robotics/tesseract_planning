@@ -15,6 +15,7 @@ add_library(
   src/task_composer_node.cpp
   src/task_composer_pipeline.cpp
   src/task_composer_plugin_factory.cpp
+  src/task_composer_schema.cpp
   src/task_composer_server.cpp
   src/task_composer_task.cpp)
 

@@ -49,6 +49,8 @@ public:
   explicit DoneTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~DoneTask() override = default;
 
+  tesseract_common::PropertyTree getSchema() const override final;
+
   bool operator==(const DoneTask& rhs) const;
   bool operator!=(const DoneTask& rhs) const;
 
