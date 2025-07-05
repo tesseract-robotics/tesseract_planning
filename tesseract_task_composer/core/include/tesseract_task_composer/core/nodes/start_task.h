@@ -48,6 +48,8 @@ public:
   explicit StartTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~StartTask() override = default;
 
+  tesseract_common::PropertyTree getSchema() const override final;
+
   bool operator==(const StartTask& rhs) const;
   bool operator!=(const StartTask& rhs) const;
 

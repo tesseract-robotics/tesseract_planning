@@ -4,12 +4,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/map.hpp>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/property_tree.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/nodes/has_data_storage_entry_task.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_schema.h>
 
 namespace tesseract_planning
 {
@@ -32,6 +34,36 @@ HasDataStorageEntryTask::HasDataStorageEntryTask(std::string name,
                                                  const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), HasDataStorageEntryTask::ports(), config)
 {
+}
+
+tesseract_common::PropertyTree HasDataStorageEntryTask::getSchema() const
+{
+  using namespace tesseract_common;
+
+  PropertyTree schema;
+  schema.setAttribute(property_attribute::TYPE, property_type::CONTAINER);
+  schema.setAttribute(property_attribute::REQUIRED, true);
+  schema.setAttribute(property_attribute::TASK_NAME, "HasDataStorageEntryTask");
+  schema.setAttribute(property_attribute::FACTORY_NAME, "HasDataStorageEntryTaskFactory");
+  schema.setAttribute(property_attribute::DOC, "A task to check for entries in the data storage");
+
+  std::map<int, std::string> return_options;
+  return_options[0] = "Error";
+  return_options[0] = "Successful";
+  schema.setAttribute("return_options", YAML::Node(return_options));
+
+  addConditionalProperty(schema, false);
+  addTriggerAbortProperty(schema);
+
+  PropertyTree& inputs = addInputsProperty(schema);
+  {
+    auto& prop = inputs[INPUT_KEYS_PORT];
+    prop.setAttribute(property_attribute::TYPE, property_type::createList(property_type::STRING));
+    prop.setAttribute(property_attribute::DOC, "A list of keys to check for entries in data storage");
+    prop.setAttribute(property_attribute::REQUIRED, true);
+  }
+
+  return schema;
 }
 
 TaskComposerNodePorts HasDataStorageEntryTask::ports()

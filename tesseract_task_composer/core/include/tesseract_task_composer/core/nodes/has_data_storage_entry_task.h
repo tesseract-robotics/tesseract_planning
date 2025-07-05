@@ -33,6 +33,8 @@ public:
                                    const TaskComposerPluginFactory& plugin_factory);
   ~HasDataStorageEntryTask() override = default;
 
+  tesseract_common::PropertyTree getSchema() const override final;
+
   bool operator==(const HasDataStorageEntryTask& rhs) const;
   bool operator!=(const HasDataStorageEntryTask& rhs) const;
 

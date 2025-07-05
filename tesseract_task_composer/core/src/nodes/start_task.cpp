@@ -29,10 +29,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/string.hpp>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/property_tree.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/nodes/start_task.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_schema.h>
 
 namespace tesseract_planning
 {
@@ -43,6 +45,28 @@ StartTask::StartTask(std::string name, const YAML::Node& config, const TaskCompo
   if (conditional_)
     throw std::runtime_error("StartTask, config is_conditional should not be true");
 }
+
+tesseract_common::PropertyTree StartTask::getSchema() const
+{
+  using namespace tesseract_common;
+
+  PropertyTree schema;
+  schema.setAttribute(property_attribute::TYPE, property_type::CONTAINER);
+  schema.setAttribute(property_attribute::REQUIRED, true);
+  schema.setAttribute(property_attribute::TASK_NAME, "StartTask");
+  schema.setAttribute(property_attribute::FACTORY_NAME, "StartTaskFactory");
+  schema.setAttribute(property_attribute::DOC, "A syncronization task");
+  std::map<int, std::string> return_options;
+  return_options[1] = "Successful";
+  schema.setAttribute("return_options", YAML::Node(return_options));
+
+  /** @todo These should be removed completely for this task */
+  addConditionalProperty(schema, false);
+  addTriggerAbortProperty(schema);
+
+  return schema;
+}
+
 TaskComposerNodeInfo StartTask::runImpl(TaskComposerContext& /*context*/,
                                         OptionalTaskComposerExecutor /*executor*/) const
 {

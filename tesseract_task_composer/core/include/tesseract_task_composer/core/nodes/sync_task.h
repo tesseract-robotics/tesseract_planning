@@ -58,6 +58,8 @@ public:
   explicit SyncTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~SyncTask() override = default;
 
+  tesseract_common::PropertyTree getSchema() const override final;
+
   bool operator==(const SyncTask& rhs) const;
   bool operator!=(const SyncTask& rhs) const;
 

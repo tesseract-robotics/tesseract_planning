@@ -146,6 +146,8 @@ public:
        const TaskComposerNode* parent = nullptr,
        const std::map<boost::uuids::uuid, tesseract_planning::TaskComposerNodeInfo>& results_map = {}) const override;
 
+  tesseract_common::PropertyTree getSchema() const override final;
+
   bool operator==(const TaskComposerGraph& rhs) const;
   bool operator!=(const TaskComposerGraph& rhs) const;
 

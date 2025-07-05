@@ -166,6 +166,12 @@ public:
                            const TaskComposerNode* parent = nullptr,
                            const ResultsMap& results_map = ResultsMap()) const;
 
+  /**
+   * @brief Get the tasks schema for yaml validation
+   * @return The tasks schema
+   */
+  virtual tesseract_common::PropertyTree getSchema() const;
+
   bool operator==(const TaskComposerNode& rhs) const;
   bool operator!=(const TaskComposerNode& rhs) const;
 

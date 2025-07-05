@@ -29,12 +29,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/map.hpp>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/property_tree.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/nodes/remap_task.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/task_composer_schema.h>
 
 namespace tesseract_planning
 {
@@ -70,6 +72,51 @@ RemapTask::RemapTask(std::string name, const YAML::Node& config, const TaskCompo
 
   if (YAML::Node n = config["copy"])
     copy_ = n.as<bool>();
+}
+
+tesseract_common::PropertyTree RemapTask::getSchema() const
+{
+  using namespace tesseract_common;
+
+  PropertyTree schema;
+  schema.setAttribute(property_attribute::TYPE, property_type::CONTAINER);
+  schema.setAttribute(property_attribute::REQUIRED, true);
+  schema.setAttribute(property_attribute::TASK_NAME, "RemapTask");
+  schema.setAttribute(property_attribute::FACTORY_NAME, "RemapTaskFactory");
+  schema.setAttribute(property_attribute::DOC, "A task to remap data stored in data storage from one key to another");
+
+  std::map<int, std::string> return_options;
+  return_options[0] = "Error";
+  return_options[0] = "Successful";
+  schema.setAttribute("return_options", YAML::Node(return_options));
+
+  addConditionalProperty(schema, false);
+  addTriggerAbortProperty(schema);
+  {
+    auto& prop = schema["copy"];
+    prop.setAttribute(property_attribute::TYPE, property_type::BOOL);
+    prop.setAttribute(property_attribute::DEFAULT, false);
+    prop.setAttribute(property_attribute::DOC, "Indicate if data should be copied, otherwise it is moved");
+    prop.setAttribute(property_attribute::REQUIRED, false);
+  }
+
+  PropertyTree& inputs = addInputsProperty(schema);
+  {
+    auto& prop = inputs[INOUT_KEYS_PORT];
+    prop.setAttribute(property_attribute::TYPE, property_type::createList(property_type::STRING));
+    prop.setAttribute(property_attribute::DOC, "A list of keys in data storage to copy/move");
+    prop.setAttribute(property_attribute::REQUIRED, true);
+  }
+
+  PropertyTree& outputs = addInputsProperty(schema);
+  {
+    auto& prop = outputs[INOUT_KEYS_PORT];
+    prop.setAttribute(property_attribute::TYPE, property_type::createList(property_type::STRING));
+    prop.setAttribute(property_attribute::DOC, "A list of keys in data storage to copy/move");
+    prop.setAttribute(property_attribute::REQUIRED, true);
+  }
+
+  return schema;
 }
 
 TaskComposerNodePorts RemapTask::ports()

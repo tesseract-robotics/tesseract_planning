@@ -36,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/stopwatch.h>
+#include <tesseract_common/property_tree.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_context.h>
@@ -501,6 +502,8 @@ std::string TaskComposerNode::dump(std::ostream& os,
 
   return it->second.dotgraph;
 }
+
+tesseract_common::PropertyTree TaskComposerNode::getSchema() const { return {}; }
 
 bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
 {

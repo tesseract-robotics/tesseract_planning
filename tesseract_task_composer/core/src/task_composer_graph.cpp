@@ -36,7 +36,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/plugin_info.h>
 #include <tesseract_common/yaml_utils.h>
-#include <tesseract_common/yaml_extenstions.h>
+#include <tesseract_common/yaml_extensions.h>
+#include <tesseract_common/property_tree.h>
+#include <tesseract_common/schema_registry.h>
 #include <tesseract_common/stopwatch.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -48,6 +50,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/core/task_composer_schema.h>
 
 namespace tesseract_planning
 {
@@ -542,6 +545,31 @@ std::string TaskComposerGraph::dump(std::ostream& os,
     os << "}\n";
 
   return {};
+}
+
+tesseract_common::PropertyTree TaskComposerGraph::getSchema() const
+{
+  using namespace tesseract_common;
+
+  PropertyTree schema;
+  schema.setAttribute(property_attribute::TYPE, property_type::CONTAINER);
+  schema.setAttribute(property_attribute::REQUIRED, true);
+  schema.setAttribute(property_attribute::TASK_NAME, "TaskComposerGraph");
+  schema.setAttribute(property_attribute::FACTORY_NAME, "TaskComposerGraphFactory");
+  schema.setAttribute(property_attribute::DOC, "A graph task");
+
+  /** @todo These should be removed completely for this task */
+  addConditionalProperty(schema, false);
+  addTriggerAbortProperty(schema);
+
+  addInputsProperty(schema, false);
+  addOutputsProperty(schema, false);
+
+  addNodesProperty(schema);
+  addEdgesProperty(schema);
+  addTerminalsProperty(schema);
+
+  return schema;
 }
 
 bool TaskComposerGraph::operator==(const TaskComposerGraph& rhs) const
