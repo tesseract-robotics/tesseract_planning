@@ -6,6 +6,7 @@ link_directories(BEFORE ${OMPL_LIBRARY_DIRS})
 set(OMPL_SRC
     src/profile/ompl_profile.cpp
     src/profile/ompl_real_vector_move_profile.cpp
+    src/collision_cost_objective.cpp
     src/compound_state_validator.cpp
     src/continuous_motion_validator.cpp
     src/discrete_motion_validator.cpp
