@@ -2,6 +2,25 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix yaml extensions file name spelling
+* Improve processYamlIncludeDirective peformance
+* Clang formatting
+* Correctly update input key rather than output key for raster task
+* Add check to for missing velocity and acceleration data in kinematic limits check task
+* Add missing contact_manager_config in FixStateCollisionProfile setialization
+* Add constant tcp speed parameterization task
+* Update time parameterization interface to leverage profiles to support cartesian time parameterization
+* Port KinematicLimitsCheckTask from SNP Workshop
+* Implement the option to format result as output for SimplePlanner (`#622 <https://github.com/tesseract-robotics/tesseract_planning/issues/622>`_)
+  * Implement the option to format result as output for SimplePlanner
+  * Fix format_result_as_input default for generateInterpolatedProgram
+  * Fix format_result_as_input default for MinLengthTask
+* Remove PluginLoader and ClassLoader from tesseract_common fwd.h
+* Make sure serialized objects have friend struct tesseract_common::Serialization
+* Contributors: Levi Armstrong, Roelof Oomen, Tyler Marr
+
 0.30.0 (2025-04-23)
 -------------------
 * Move profile dictionary to tesseract_common

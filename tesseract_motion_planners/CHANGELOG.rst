@@ -2,6 +2,22 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix yaml extensions file name spelling
+* Add OMPL collision cost objective
+* Removed redundant edge evaluator check for cartesian waypoint (`#628 <https://github.com/tesseract-robotics/tesseract_planning/issues/628>`_)
+* Fix descartes profile serialization (`#634 <https://github.com/tesseract-robotics/tesseract_planning/issues/634>`_)
+* Update time parameterization interface to leverage profiles to support cartesian time parameterization
+* Port KinematicLimitsCheckTask from SNP Workshop
+* Implement the option to format result as output for SimplePlanner (`#622 <https://github.com/tesseract-robotics/tesseract_planning/issues/622>`_)
+  * Implement the option to format result as output for SimplePlanner
+  * Fix format_result_as_input default for generateInterpolatedProgram
+  * Fix format_result_as_input default for MinLengthTask
+* Fix createCartesianPositionConstraint not using coeffs
+* Make sure serialized objects have friend struct tesseract_common::Serialization
+* Contributors: Levi Armstrong, Roelof Oomen, Tyler Marr
+
 0.30.0 (2025-04-23)
 -------------------
 * Move profile dictionary to tesseract_common

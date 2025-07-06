@@ -2,6 +2,16 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix constant tcp speed parameterization not populating first state
+* TOTG profile: Restore constructor with parameters
+* Update constant tcp speed parameterization duration calcuation method
+* Add constant tcp speed parameterization task
+* Add constant tcp speed parameterization leveraging kdl library
+* Update time parameterization interface to leverage profiles to support cartesian time parameterization
+* Contributors: Levi Armstrong, Roelof Oomen
+
 0.30.0 (2025-04-23)
 -------------------
 * Removed unnecessary asserts in time parameterization utility
