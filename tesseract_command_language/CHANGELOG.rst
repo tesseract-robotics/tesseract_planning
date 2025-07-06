@@ -2,8 +2,8 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.31.0 (2025-07-06)
+-------------------
 * Remove PluginLoader and ClassLoader from tesseract_common fwd.h
 * Make sure serialized objects have friend struct tesseract_common::Serialization
 * Contributors: Levi Armstrong

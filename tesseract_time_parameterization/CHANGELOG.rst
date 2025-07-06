@@ -2,8 +2,8 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.31.0 (2025-07-06)
+-------------------
 * Fix constant tcp speed parameterization not populating first state
 * TOTG profile: Restore constructor with parameters
 * Update constant tcp speed parameterization duration calcuation method

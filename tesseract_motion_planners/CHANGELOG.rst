@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.31.0 (2025-07-06)
+-------------------
 * Fix yaml extensions file name spelling
 * Add OMPL collision cost objective
 * Removed redundant edge evaluator check for cartesian waypoint (`#628 <https://github.com/tesseract-robotics/tesseract_planning/issues/628>`_)

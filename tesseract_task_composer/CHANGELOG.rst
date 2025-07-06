@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.31.0 (2025-07-06)
+-------------------
 * Fix yaml extensions file name spelling
 * Improve processYamlIncludeDirective peformance
 * Clang formatting
