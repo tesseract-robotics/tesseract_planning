@@ -140,7 +140,7 @@ public:
    * @brief Load plugins from yaml node
    * @param config The config node
    */
-  void loadConfig(const YAML::Node& config, const tesseract_common::ResourceLocator& locator);
+  void loadConfig(YAML::Node config, const tesseract_common::ResourceLocator& locator);
 
   /**
    * @brief Load plugins from file path
@@ -311,7 +311,7 @@ private:
   struct Implementation;
   std::unique_ptr<Implementation> impl_;
 
-  void loadConfig(const YAML::Node& config);
+  void loadConfig(YAML::Node config);
 };
 }  // namespace tesseract_planning
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_FACTORY_H

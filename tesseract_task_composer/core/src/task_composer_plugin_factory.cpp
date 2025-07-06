@@ -118,7 +118,7 @@ void TaskComposerPluginFactory::loadConfig(const tesseract_common::TaskComposerP
   impl_->task_plugin_info.default_plugin = config.task_plugin_infos.default_plugin;
 }
 
-void TaskComposerPluginFactory::loadConfig(const YAML::Node& config)
+void TaskComposerPluginFactory::loadConfig(YAML::Node config)
 {
   if (const YAML::Node& plugin_info = config[tesseract_common::TaskComposerPluginInfo::CONFIG_KEY])
   {
@@ -131,9 +131,10 @@ void TaskComposerPluginFactory::loadConfig(const YAML::Node& config)
   }
 }
 
-void TaskComposerPluginFactory::loadConfig(const YAML::Node& config, const tesseract_common::ResourceLocator& locator)
+void TaskComposerPluginFactory::loadConfig(YAML::Node config, const tesseract_common::ResourceLocator& locator)
 {
-  loadConfig(tesseract_common::processYamlIncludeDirective(config, locator));
+  tesseract_common::processYamlIncludeDirective(config, locator);
+  loadConfig(config);
 }
 
 void TaskComposerPluginFactory::loadConfig(const std::filesystem::path& config,
