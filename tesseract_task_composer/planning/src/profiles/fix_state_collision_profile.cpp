@@ -29,6 +29,7 @@
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/vector.hpp>
+#include <tesseract_common/eigen_serialization.h>
 #include <typeindex>
 
 namespace tesseract_planning
