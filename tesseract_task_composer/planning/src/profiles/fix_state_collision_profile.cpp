@@ -39,6 +39,8 @@ FixStateCollisionProfile::FixStateCollisionProfile(Settings mode)
 {
   collision_check_config.contact_request.type = tesseract_collision::ContactTestType::FIRST;
   collision_check_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
+  trajopt_joint_constraint_config.coeff = Eigen::VectorXd::Constant(1, 1, 1);
+  trajopt_joint_cost_config.coeff = Eigen::VectorXd::Constant(1, 1, 5);
 }
 
 std::size_t FixStateCollisionProfile::getStaticKey()
