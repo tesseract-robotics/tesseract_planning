@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 class TaskComposerPluginFactory;
-class KinematicLimitsCheckTask : public TaskComposerTask
+class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT KinematicLimitsCheckTask : public TaskComposerTask
 {
 public:
   // Requried
