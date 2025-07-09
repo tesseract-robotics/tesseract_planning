@@ -195,6 +195,70 @@ TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionTrajoptTest)  // NOLI
   EXPECT_FALSE(waypointInCollision(wp, manip_, *env_, profile, contacts));
 }
 
+TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionTrajoptNoJointCostTest)
+{
+  CompositeInstruction program = test_suite::freespaceExampleProgramABB();
+
+  // Create data storage
+  auto task_data = std::make_shared<TaskComposerDataStorage>();
+  task_data->setData("input_program", program);
+  task_data->setData("environment", std::shared_ptr<const Environment>(env_));
+
+  FixStateCollisionProfile profile;
+
+  Eigen::VectorXd state = Eigen::VectorXd::Zero(2);
+  JointWaypoint waypoint{ { "boxbot_x_joint", "boxbot_y_joint" }, state };
+
+  // Check that the safety margin is obeyed
+  profile.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
+  profile.jiggle_factor = 1.0;
+  profile.trajopt_joint_constraint_config.enabled = false;  // Disable joint constraint
+  profile.trajopt_joint_cost_config.enabled = false;        // Disable joint cost
+  waypoint.getPosition()[0] = 0.0;
+  waypoint.getPosition()[1] = 1.09;
+  WaypointPoly wp(waypoint);
+  tesseract_collision::ContactResultMap contacts;
+
+  EXPECT_TRUE(waypointInCollision(wp, manip_, *env_, profile, contacts));
+  EXPECT_TRUE(moveWaypointFromCollisionTrajopt(wp, manip_, env_, profile));
+  EXPECT_FALSE(waypointInCollision(wp, manip_, *env_, profile, contacts));
+}
+
+TEST_F(FixStateCollisionTaskUnit, MoveWaypointFromCollisionTrajoptFailsWithZeroToleranceTest)
+{
+  CompositeInstruction program = test_suite::freespaceExampleProgramABB();
+
+  // Create data storage
+  auto task_data = std::make_shared<TaskComposerDataStorage>();
+  task_data->setData("input_program", program);
+  task_data->setData("environment", std::shared_ptr<const Environment>(env_));
+
+  FixStateCollisionProfile profile;
+
+  Eigen::VectorXd state = Eigen::VectorXd::Zero(2);
+  JointWaypoint waypoint{ { "boxbot_x_joint", "boxbot_y_joint" }, state };
+
+  // Set up the profile to use zero tolerance override and large coeff
+  profile.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
+  profile.jiggle_factor = 1.0;
+  profile.trajopt_joint_constraint_config.enabled = true;
+  profile.trajopt_joint_constraint_config.use_tolerance_override = true;
+  profile.trajopt_joint_constraint_config.lower_tolerance = Eigen::VectorXd::Zero(2);
+  profile.trajopt_joint_constraint_config.upper_tolerance = Eigen::VectorXd::Zero(2);
+  profile.trajopt_joint_constraint_config.coeff = Eigen::VectorXd::Constant(2, 1000.0);  // Large coeff
+  profile.trajopt_joint_cost_config.enabled = false;                                     // No cost
+
+  waypoint.getPosition()[0] = 0.0;
+  waypoint.getPosition()[1] = 1.09;
+  WaypointPoly wp(waypoint);
+  tesseract_collision::ContactResultMap contacts;
+
+  EXPECT_TRUE(waypointInCollision(wp, manip_, *env_, profile, contacts));
+  // Should fail to move out of collision due to zero tolerance and large coeff
+  EXPECT_FALSE(moveWaypointFromCollisionTrajopt(wp, manip_, env_, profile));
+  EXPECT_TRUE(waypointInCollision(wp, manip_, *env_, profile, contacts));
+}
+
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);
