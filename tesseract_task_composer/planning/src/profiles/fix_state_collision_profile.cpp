@@ -29,6 +29,7 @@
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/vector.hpp>
+#include <tesseract_common/eigen_serialization.h>
 #include <typeindex>
 
 namespace tesseract_planning
@@ -38,6 +39,8 @@ FixStateCollisionProfile::FixStateCollisionProfile(Settings mode)
 {
   collision_check_config.contact_request.type = tesseract_collision::ContactTestType::FIRST;
   collision_check_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
+  trajopt_joint_constraint_config.coeff = Eigen::VectorXd::Constant(1, 1, 1);
+  trajopt_joint_cost_config.coeff = Eigen::VectorXd::Constant(1, 1, 5);
 }
 
 std::size_t FixStateCollisionProfile::getStaticKey()
@@ -55,6 +58,8 @@ void FixStateCollisionProfile::serialize(Archive& ar, const unsigned int /*versi
   ar& BOOST_SERIALIZATION_NVP(contact_manager_config);
   ar& BOOST_SERIALIZATION_NVP(collision_check_config);
   ar& BOOST_SERIALIZATION_NVP(sampling_attempts);
+  ar& BOOST_SERIALIZATION_NVP(trajopt_joint_constraint_config);
+  ar& BOOST_SERIALIZATION_NVP(trajopt_joint_cost_config);
 }
 
 }  // namespace tesseract_planning
