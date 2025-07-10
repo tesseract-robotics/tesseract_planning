@@ -32,6 +32,7 @@ enum class CompositeInstructionOrder : std::uint8_t;
 class CompositeInstruction;
 class MoveInstruction;
 class SetAnalogInstruction;
+class SetDigitalInstruction;
 class SetToolInstruction;
 enum class TimerInstructionType : std::uint8_t;
 class TimerInstruction;

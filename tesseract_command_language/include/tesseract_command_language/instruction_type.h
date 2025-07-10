@@ -32,6 +32,8 @@ class InstructionPoly;
 
 bool isSetAnalogInstruction(const InstructionPoly& instruction);
 
+bool isSetDigitalInstruction(const InstructionPoly& instruction);
+
 bool isSetToolInstruction(const InstructionPoly& instruction);
 
 bool isTimerInstruction(const InstructionPoly& instruction);
