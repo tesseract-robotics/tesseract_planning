@@ -25,6 +25,7 @@
  */
 
 #include <tesseract_command_language/set_analog_instruction.h>
+#include <tesseract_command_language/set_digital_instruction.h>
 #include <tesseract_command_language/set_tool_instruction.h>
 #include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_command_language/wait_instruction.h>
@@ -34,6 +35,11 @@ namespace tesseract_planning
 bool isSetAnalogInstruction(const InstructionPoly& instruction)
 {
   return (instruction.getType() == std::type_index(typeid(SetAnalogInstruction)));
+}
+
+bool isSetDigitalInstruction(const InstructionPoly& instruction)
+{
+  return (instruction.getType() == std::type_index(typeid(SetDigitalInstruction)));
 }
 
 bool isSetToolInstruction(const InstructionPoly& instruction)

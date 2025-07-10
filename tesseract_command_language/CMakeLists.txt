@@ -51,6 +51,7 @@ add_library(
   src/poly/waypoint_poly.cpp
   src/move_instruction.cpp
   src/set_analog_instruction.cpp
+  src/set_digital_instruction.cpp
   src/set_tool_instruction.cpp
   src/timer_instruction.cpp
   src/wait_instruction.cpp
