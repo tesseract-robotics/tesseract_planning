@@ -33,6 +33,19 @@ ProfileSwitchProfile::ProfileSwitchProfile(int return_value)
   : Profile(ProfileSwitchProfile::getStaticKey()), return_value(return_value)
 {
 }
+ProfileSwitchProfile::ProfileSwitchProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : ProfileSwitchProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["return_value"])
+      return_value = n.as<int>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("ProfileSwitchProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+  }
+}
 
 std::size_t ProfileSwitchProfile::getStaticKey() { return std::type_index(typeid(ProfileSwitchProfile)).hash_code(); }
 

@@ -36,6 +36,19 @@ UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(double longest_valid_segmen
   : Profile(UpsampleTrajectoryProfile::getStaticKey()), longest_valid_segment_length(longest_valid_segment_length)
 {
 }
+UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : UpsampleTrajectoryProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["longest_valid_segment_length"])
+      longest_valid_segment_length = n.as<double>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("UpsampleTrajectoryProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+  }
+}
 
 std::size_t UpsampleTrajectoryProfile::getStaticKey()
 {

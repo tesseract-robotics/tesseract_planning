@@ -31,6 +31,8 @@
 #include <boost/serialization/vector.hpp>
 #include <tesseract_common/eigen_serialization.h>
 #include <typeindex>
+#include <tesseract_task_composer/core/yaml_extensions.h>
+#include <tesseract_collision/core/yaml_extensions.h>
 
 namespace tesseract_planning
 {
@@ -41,6 +43,30 @@ FixStateCollisionProfile::FixStateCollisionProfile(Settings mode)
   collision_check_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
   trajopt_joint_constraint_config.coeff = Eigen::VectorXd::Constant(1, 1, 1);
   trajopt_joint_cost_config.coeff = Eigen::VectorXd::Constant(1, 1, 5);
+}
+
+FixStateCollisionProfile::FixStateCollisionProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : FixStateCollisionProfile()
+{
+  try 
+  {
+    if (YAML::Node n = config["mode"])
+      mode = n.as<Settings>();
+    if (YAML::Node n = config["correction_workflow"])
+      correction_workflow = n.as<std::vector<CorrectionMethod>>();
+    if (YAML::Node n = config["jiggle_factor"])
+      jiggle_factor = n.as<double>();
+    if (YAML::Node n = config["contact_manager_config"])
+      contact_manager_config = n.as<tesseract_collision::ContactManagerConfig>();
+    if (YAML::Node n = config["collision_check_config"])
+      collision_check_config = n.as<tesseract_collision::CollisionCheckConfig>();
+    if (YAML::Node n = config["sampling_attempts"])
+      sampling_attempts = n.as<int>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("FixStateCollisionProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+  }
 }
 
 std::size_t FixStateCollisionProfile::getStaticKey()

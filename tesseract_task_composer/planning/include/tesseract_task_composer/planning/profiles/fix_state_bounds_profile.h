@@ -30,9 +30,11 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <limits>
 #include <memory>
+#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
@@ -50,6 +52,7 @@ struct FixStateBoundsProfile : public tesseract_common::Profile
   };
 
   FixStateBoundsProfile(Settings mode = Settings::ALL);
+  FixStateBoundsProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/);
 
   /**
    * @brief A utility function for getting profile ID

@@ -29,6 +29,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/nodes/raster_only_motion_task.h>
 
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
+#include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
+#include <tesseract_task_composer/planning/profiles/fix_state_collision_profile.h>
+#include <tesseract_task_composer/planning/profiles/kinematic_limits_check_profile.h>
+#include <tesseract_task_composer/planning/profiles/min_length_profile.h>
+#include <tesseract_task_composer/planning/profiles/profile_switch_profile.h>
+#include <tesseract_task_composer/planning/profiles/upsample_trajectory_profile.h>
 
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
 
@@ -51,6 +57,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/joint_state.h>
 #include <tesseract_common/profile_dictionary.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 #include <tesseract_environment/environment.h>
 
@@ -4394,6 +4401,285 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContactCheckProfileTest)  // NOLINT
+{
+  { // Constructor
+    ContactCheckProfile profile;
+
+    EXPECT_EQ(profile.contact_manager_config.default_margin, 0);
+    EXPECT_EQ(profile.collision_check_config.type, tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE);
+    EXPECT_EQ(profile.collision_check_config.longest_valid_segment_length, 0.05);
+  }
+
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                         contact_manager_config:
+                                           default_margin: 0
+                                         collision_check_config:
+                                           type: LVS_DISCRETE
+                                           longest_valid_segment_length: 0.05)";
+                                  
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    ContactCheckProfile profile("contact_check_profile", config["config"], plugin_factory);
+
+    EXPECT_EQ(profile.contact_manager_config.default_margin, 0);
+    EXPECT_EQ(profile.collision_check_config.type, tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE);
+    EXPECT_EQ(profile.collision_check_config.longest_valid_segment_length, 0.05);
+  }
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                      )";
+                                  
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    ContactCheckProfile profile("contact_check_profile", config["config"], plugin_factory);
+
+    EXPECT_EQ(profile.contact_manager_config.default_margin, 0);
+    EXPECT_EQ(profile.collision_check_config.type, tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE);
+    EXPECT_EQ(profile.collision_check_config.longest_valid_segment_length, 0.05);
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsProfileTest) // NOLINT
+{
+  { // Constructor
+
+    FixStateBoundsProfile profile;
+
+    EXPECT_EQ(profile.mode, tesseract_planning::FixStateBoundsProfile::Settings::ALL);
+    EXPECT_EQ(profile.max_deviation_global, std::numeric_limits<double>::max());
+    EXPECT_EQ(profile.upper_bounds_reduction, std::numeric_limits<float>::epsilon());
+    EXPECT_EQ(profile.lower_bounds_reduction, std::numeric_limits<float>::epsilon());
+  }
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                      mode: START_ONLY
+                                      max_deviation_global: 1000.0
+                                      upper_bounds_reduction: 1000.0
+                                      lower_bounds_reduction: 100.0)";
+    
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    FixStateBoundsProfile profile("fix_state_bounds_profile", config["config"], plugin_factory);
+
+    EXPECT_EQ(profile.mode, tesseract_planning::FixStateBoundsProfile::Settings::START_ONLY);
+    EXPECT_EQ(profile.max_deviation_global, 1000.0);
+    EXPECT_EQ(profile.upper_bounds_reduction, 1000.0);
+    EXPECT_EQ(profile.lower_bounds_reduction, 100.0);
+  }
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                      )";
+    
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    FixStateBoundsProfile profile("fix_state_bounds_profile", config["config"], plugin_factory);
+
+    EXPECT_EQ(profile.mode, tesseract_planning::FixStateBoundsProfile::Settings::ALL);
+    EXPECT_EQ(profile.max_deviation_global, std::numeric_limits<double>::max());
+    EXPECT_EQ(profile.upper_bounds_reduction, std::numeric_limits<float>::epsilon());
+    EXPECT_EQ(profile.lower_bounds_reduction, std::numeric_limits<float>::epsilon());
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionProfileTest) // NOLINT
+{
+  { // Constructor
+
+    FixStateCollisionProfile profile;
+
+    EXPECT_EQ(profile.mode, tesseract_planning::FixStateCollisionProfile::Settings::ALL);
+    std::vector<tesseract_planning::FixStateCollisionProfile::CorrectionMethod> 
+                                             workflow{ tesseract_planning::FixStateCollisionProfile::CorrectionMethod::TRAJOPT, 
+                                             tesseract_planning::FixStateCollisionProfile::CorrectionMethod::RANDOM_SAMPLER };
+    EXPECT_EQ(profile.correction_workflow, workflow);
+    EXPECT_EQ(profile.jiggle_factor, 0.02);
+    EXPECT_EQ(profile.sampling_attempts, 100);
+
+  }
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                         mode: ALL
+                                         correction_workflow:
+                                           - TRAJOPT
+                                           - RANDOM_SAMPLER
+                                         jiggle_factor: 0.02
+                                         contact_manager_config:
+                                           default_margin: 0
+                                         collision_check_config:
+                                           type: LVS_DISCRETE
+                                           longest_valid_segment_length: 0.05
+                                         sampling_attempts: 100)";
+    
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    FixStateCollisionProfile profile("fix_state_collision_profile", config["config"], plugin_factory);
+
+        EXPECT_EQ(profile.mode, tesseract_planning::FixStateCollisionProfile::Settings::ALL);
+    std::vector<tesseract_planning::FixStateCollisionProfile::CorrectionMethod> 
+                                             workflow{ tesseract_planning::FixStateCollisionProfile::CorrectionMethod::TRAJOPT, 
+                                             tesseract_planning::FixStateCollisionProfile::CorrectionMethod::RANDOM_SAMPLER };
+    EXPECT_EQ(profile.correction_workflow, workflow);
+    EXPECT_EQ(profile.jiggle_factor, 0.02);
+    EXPECT_EQ(profile.contact_manager_config.default_margin, 0);
+    EXPECT_EQ(profile.collision_check_config.type, tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE);
+    EXPECT_EQ(profile.collision_check_config.longest_valid_segment_length, 0.05);
+    EXPECT_EQ(profile.sampling_attempts, 100);
+  }
+
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                      )";
+    
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    FixStateCollisionProfile profile("fix_state_collision_profile", config["config"], plugin_factory);
+
+        EXPECT_EQ(profile.mode, tesseract_planning::FixStateCollisionProfile::Settings::ALL);
+    std::vector<tesseract_planning::FixStateCollisionProfile::CorrectionMethod> 
+                                             workflow{ tesseract_planning::FixStateCollisionProfile::CorrectionMethod::TRAJOPT, 
+                                             tesseract_planning::FixStateCollisionProfile::CorrectionMethod::RANDOM_SAMPLER };
+    EXPECT_EQ(profile.correction_workflow, workflow);
+    EXPECT_EQ(profile.jiggle_factor, 0.02);
+    EXPECT_EQ(profile.collision_check_config.type, tesseract_collision::CollisionEvaluatorType::DISCRETE);
+    EXPECT_EQ(profile.collision_check_config.longest_valid_segment_length, 0.005);
+    EXPECT_EQ(profile.sampling_attempts, 100);
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckProfileTest) // NOLINT
+{
+  { // Constructor
+
+    KinematicLimitsCheckProfile profile;
+
+    EXPECT_EQ(profile.check_position, true);
+    EXPECT_EQ(profile.check_velocity, true);
+    EXPECT_EQ(profile.check_acceleration, true);
+  }
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                        check_position: false
+                                        check_velocity: false
+                                        check_acceleration: true)";
+    
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    KinematicLimitsCheckProfile profile("kinematic_limits_check_profile", config["config"], plugin_factory);
+
+    EXPECT_EQ(profile.check_position, false);
+    EXPECT_EQ(profile.check_velocity, false);
+    EXPECT_EQ(profile.check_acceleration, true);
+  }
+
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                        check_position: false
+                                        check_velocity: false
+                                      )";
+    
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    KinematicLimitsCheckProfile profile("kinematic_limits_check_profile", config["config"], plugin_factory);
+
+    EXPECT_EQ(profile.check_position, false);
+    EXPECT_EQ(profile.check_velocity, false);
+    EXPECT_EQ(profile.check_acceleration, true);
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthProfileTest) // NOLINT
+{
+  { // Constructor
+
+    MinLengthProfile profile;
+
+    EXPECT_EQ(profile.min_length, 10);
+  }
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                        min_length: 300)";
+    
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    MinLengthProfile profile("min_length_profile", config["config"], plugin_factory);
+
+    EXPECT_EQ(profile.min_length, 300);
+  }
+
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                      )";
+    
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    MinLengthProfile profile("min_length_profile", config["config"], plugin_factory);
+
+    EXPECT_EQ(profile.min_length, 10);
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchProfileTest) // NOLINT
+{
+  { // Constructor
+
+    ProfileSwitchProfile profile;
+
+    EXPECT_EQ(profile.return_value, 1);
+  }
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                        return_value: 0)";
+    
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    ProfileSwitchProfile profile("profile_switch_profile", config["config"], plugin_factory);
+
+    EXPECT_EQ(profile.return_value, 0);
+  }
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                      )";
+    
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    ProfileSwitchProfile profile("profile_switch_profile", config["config"], plugin_factory);
+
+    EXPECT_EQ(profile.return_value, 1);
+  }
+}
+
+TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryProfileTest) // NOLINT
+{
+  { // Constructor
+
+    UpsampleTrajectoryProfile profile;
+
+    EXPECT_EQ(profile.longest_valid_segment_length, 0.1);
+  }
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                        longest_valid_segment_length: 0.5)";
+    
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    UpsampleTrajectoryProfile profile("upsample_trajectory_profile", config["config"], plugin_factory);
+
+    EXPECT_EQ(profile.longest_valid_segment_length, 0.5);
+  }
+  { // Constructor
+    const std::string yaml_string = R"(config:
+                                        )";
+    
+    YAML::Node config = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    UpsampleTrajectoryProfile profile("upsample_trajectory_profile", config["config"], plugin_factory);
+
+    EXPECT_EQ(profile.longest_valid_segment_length, 0.1);
   }
 }
 

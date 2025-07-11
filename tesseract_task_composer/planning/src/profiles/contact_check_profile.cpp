@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
 #include <tesseract_collision/core/serialization.h>
+#include <tesseract_collision/core/yaml_extensions.h>
 
 namespace tesseract_planning
 {
@@ -51,6 +52,23 @@ ContactCheckProfile::ContactCheckProfile(double longest_valid_segment_length, do
   {
     CONSOLE_BRIDGE_logWarn("ContactCheckProfile: Invalid longest valid segment. Defaulting to 0.05");
     collision_check_config.longest_valid_segment_length = 0.05;
+  }
+}
+
+ContactCheckProfile::ContactCheckProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : ContactCheckProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["contact_manager_config"])
+      contact_manager_config = n.as<tesseract_collision::ContactManagerConfig>();
+
+    if (YAML::Node n = config["collision_check_config"])
+      collision_check_config = n.as<tesseract_collision::CollisionCheckConfig>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("ContactCheckProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
   }
 }
 

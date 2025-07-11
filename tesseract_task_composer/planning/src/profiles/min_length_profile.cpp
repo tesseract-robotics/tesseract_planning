@@ -37,6 +37,19 @@ MinLengthProfile::MinLengthProfile() : Profile(MinLengthProfile::getStaticKey())
 MinLengthProfile::MinLengthProfile(long min_length) : Profile(MinLengthProfile::getStaticKey()), min_length(min_length)
 {
 }
+MinLengthProfile::MinLengthProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : MinLengthProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["min_length"])
+      min_length = n.as<long>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("MinLengthProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+  }
+}
 
 std::size_t MinLengthProfile::getStaticKey() { return std::type_index(typeid(MinLengthProfile)).hash_code(); }
 
