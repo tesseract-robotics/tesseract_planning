@@ -26,6 +26,7 @@
 
 #include <tesseract_examples/freespace_hybrid_example.h>
 #include <filesystem>
+#include <console_bridge/console.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_common/resource_locator.h>
 
@@ -46,5 +47,10 @@ int main(int /*argc*/, char** /*argv*/)
 
   FreespaceHybridExample example(env, nullptr);
   if (!example.run())
+  {
+    CONSOLE_BRIDGE_logError("FreespaceHybridExample failed");
     exit(1);
+  }
+
+  CONSOLE_BRIDGE_logInform("FreespaceHybridExample successful");
 }
