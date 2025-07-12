@@ -26,6 +26,7 @@
 
 #include <tesseract_examples/glass_upright_ompl_example.h>
 #include <filesystem>
+#include <console_bridge/console.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_common/resource_locator.h>
 
@@ -46,5 +47,10 @@ int main(int argc, char** argv)
 
   GlassUprightOMPLExample example(env, nullptr);
   if (!example.run())
+  {
+    CONSOLE_BRIDGE_logError("GlassUprightOMPLExample failed");
     exit(1);
+  }
+
+  CONSOLE_BRIDGE_logInform("GlassUprightOMPLExample successful");
 }
