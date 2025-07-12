@@ -323,7 +323,6 @@ bool PuzzlePieceAuxillaryAxesExample::run()
     plotter_->plotTrajectory(trajectory, *state_solver);
   }
 
-  CONSOLE_BRIDGE_logInform("Final trajectory is collision free");
   return future->context->isSuccessful();
 }
 }  // namespace tesseract_examples

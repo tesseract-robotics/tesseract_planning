@@ -40,6 +40,7 @@
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/set_analog_instruction.h>
+#include <tesseract_command_language/set_digital_instruction.h>
 #include <tesseract_command_language/set_tool_instruction.h>
 #include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_command_language/wait_instruction.h>
@@ -208,6 +209,59 @@ TEST(TesseractCommandLanguageUnit, SetAnalogInstructionTests)  // NOLINT
       }
       {
         InstructionPoly ne_poly{ T(key, index, 20) };
+        EXPECT_FALSE(poly == ne_poly);
+        EXPECT_FALSE(ne_poly == poly);
+        EXPECT_TRUE(ne_poly != poly);
+      }
+    }
+  }
+}
+
+TEST(TesseractCommandLanguageUnit, SetDigitalInstructionTests)  // NOLINT
+{
+  using T = SetDigitalInstruction;
+  test_suite::runInstructionInterfaceTest(InstructionPoly(T()));
+
+  {
+    const std::string key{ "key" };
+    const int index{ 5 };
+    const bool value{ true };
+    T instr(key, index, value);
+    EXPECT_EQ(instr.getKey(), key);
+    EXPECT_EQ(instr.getIndex(), index);
+    EXPECT_EQ(instr.getValue(), value);
+
+    // Copy
+    InstructionPoly poly{ instr };
+    InstructionPoly copy(poly);
+    EXPECT_EQ(copy.as<T>().getKey(), key);
+    EXPECT_EQ(copy.as<T>().getIndex(), index);
+    EXPECT_EQ(copy.as<T>().getValue(), value);
+    EXPECT_TRUE(isSetDigitalInstruction(poly));
+    EXPECT_TRUE(isSetDigitalInstruction(copy));
+    test_suite::runInstructionSerializationTest(poly);
+    test_suite::runInstructionSerializationTest(copy);
+
+    // Equal
+    EXPECT_TRUE(poly == copy);
+    EXPECT_TRUE(copy == poly);
+    EXPECT_FALSE(copy != poly);
+
+    {  // Not Equal
+      {
+        InstructionPoly ne_poly{ T("ne", index, value) };
+        EXPECT_FALSE(poly == ne_poly);
+        EXPECT_FALSE(ne_poly == poly);
+        EXPECT_TRUE(ne_poly != poly);
+      }
+      {
+        InstructionPoly ne_poly{ T(key, 1, value) };
+        EXPECT_FALSE(poly == ne_poly);
+        EXPECT_FALSE(ne_poly == poly);
+        EXPECT_TRUE(ne_poly != poly);
+      }
+      {
+        InstructionPoly ne_poly{ T(key, index, false) };
         EXPECT_FALSE(poly == ne_poly);
         EXPECT_FALSE(ne_poly == poly);
         EXPECT_TRUE(ne_poly != poly);

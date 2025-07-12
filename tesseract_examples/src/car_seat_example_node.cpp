@@ -26,6 +26,7 @@
 
 #include <tesseract_examples/car_seat_example.h>
 #include <filesystem>
+#include <console_bridge/console.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_common/resource_locator.h>
 
@@ -46,5 +47,10 @@ int main(int /*argc*/, char** /*argv*/)
 
   CarSeatExample example(env, nullptr, false);
   if (!example.run())
+  {
+    CONSOLE_BRIDGE_logError("CarSeatExample failed");
     exit(1);
+  }
+
+  CONSOLE_BRIDGE_logInform("CarSeatExample successful");
 }
