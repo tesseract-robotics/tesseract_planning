@@ -160,7 +160,6 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     CONSOLE_BRIDGE_logError("MoveWaypointFromCollision error: %s", e.what());
     return false;
   }
-  auto num_jnts = static_cast<std::size_t>(start_pos.size());
 
   // Setup trajopt problem with basic info
   ProblemConstructionInfo pci(env);
@@ -183,12 +182,55 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
     Eigen::VectorXd pos_tolerance = range * profile.jiggle_factor;
     Eigen::VectorXd neg_tolerance = range * -profile.jiggle_factor;
 
-    {  // Add Constraint
+    // Use trajopt_joint_constraint_config if enabled
+    if (profile.trajopt_joint_constraint_config.enabled)
+    {
       auto jp_cnt = std::make_shared<JointPosTermInfo>();
-      jp_cnt->coeffs = std::vector<double>(num_jnts, 1.0);
+      jp_cnt->coeffs = std::vector<double>(profile.trajopt_joint_constraint_config.coeff.data(),
+                                           profile.trajopt_joint_constraint_config.coeff.data() +
+                                               profile.trajopt_joint_constraint_config.coeff.size());
       jp_cnt->targets = std::vector<double>(start_pos.data(), start_pos.data() + start_pos.size());
-      jp_cnt->upper_tols = std::vector<double>(pos_tolerance.data(), pos_tolerance.data() + pos_tolerance.size());
-      jp_cnt->lower_tols = std::vector<double>(neg_tolerance.data(), neg_tolerance.data() + neg_tolerance.size());
+      if (profile.trajopt_joint_constraint_config.use_tolerance_override)
+      {
+        // Handle lower tolerance
+        if (profile.trajopt_joint_constraint_config.lower_tolerance.size() == 1)
+        {
+          jp_cnt->lower_tols = std::vector<double>(static_cast<std::size_t>(start_pos.size()),
+                                                   profile.trajopt_joint_constraint_config.lower_tolerance[0]);
+        }
+        else if (profile.trajopt_joint_constraint_config.lower_tolerance.size() == start_pos.size())
+        {
+          jp_cnt->lower_tols = std::vector<double>(profile.trajopt_joint_constraint_config.lower_tolerance.data(),
+                                                   profile.trajopt_joint_constraint_config.lower_tolerance.data() +
+                                                       profile.trajopt_joint_constraint_config.lower_tolerance.size());
+        }
+        else
+        {
+          jp_cnt->lower_tols = std::vector<double>(neg_tolerance.data(), neg_tolerance.data() + neg_tolerance.size());
+        }
+
+        // Handle upper tolerance
+        if (profile.trajopt_joint_constraint_config.upper_tolerance.size() == 1)
+        {
+          jp_cnt->upper_tols = std::vector<double>(static_cast<std::size_t>(start_pos.size()),
+                                                   profile.trajopt_joint_constraint_config.upper_tolerance[0]);
+        }
+        else if (profile.trajopt_joint_constraint_config.upper_tolerance.size() == start_pos.size())
+        {
+          jp_cnt->upper_tols = std::vector<double>(profile.trajopt_joint_constraint_config.upper_tolerance.data(),
+                                                   profile.trajopt_joint_constraint_config.upper_tolerance.data() +
+                                                       profile.trajopt_joint_constraint_config.upper_tolerance.size());
+        }
+        else
+        {
+          jp_cnt->upper_tols = std::vector<double>(pos_tolerance.data(), pos_tolerance.data() + pos_tolerance.size());
+        }
+      }
+      else
+      {
+        jp_cnt->lower_tols = std::vector<double>(neg_tolerance.data(), neg_tolerance.data() + neg_tolerance.size());
+        jp_cnt->upper_tols = std::vector<double>(pos_tolerance.data(), pos_tolerance.data() + pos_tolerance.size());
+      }
       jp_cnt->first_step = 0;
       jp_cnt->last_step = 0;
       jp_cnt->name = "joint_pos_cnt";
@@ -196,10 +238,50 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
       pci.cnt_infos.push_back(jp_cnt);
     }
 
-    {  // Add Costs
+    // Use trajopt_joint_cost_config if enabled
+    if (profile.trajopt_joint_cost_config.enabled)
+    {
       auto jp_cost = std::make_shared<JointPosTermInfo>();
-      jp_cost->coeffs = std::vector<double>(num_jnts, 5.0);
+      jp_cost->coeffs = std::vector<double>(profile.trajopt_joint_cost_config.coeff.data(),
+                                            profile.trajopt_joint_cost_config.coeff.data() +
+                                                profile.trajopt_joint_cost_config.coeff.size());
       jp_cost->targets = std::vector<double>(start_pos.data(), start_pos.data() + start_pos.size());
+      if (profile.trajopt_joint_cost_config.use_tolerance_override)
+      {
+        // Handle lower tolerance
+        if (profile.trajopt_joint_cost_config.lower_tolerance.size() == 1)
+        {
+          jp_cost->lower_tols = std::vector<double>(static_cast<std::size_t>(start_pos.size()),
+                                                    profile.trajopt_joint_cost_config.lower_tolerance[0]);
+        }
+        else if (profile.trajopt_joint_cost_config.lower_tolerance.size() == start_pos.size())
+        {
+          jp_cost->lower_tols = std::vector<double>(profile.trajopt_joint_cost_config.lower_tolerance.data(),
+                                                    profile.trajopt_joint_cost_config.lower_tolerance.data() +
+                                                        profile.trajopt_joint_cost_config.lower_tolerance.size());
+        }
+        else
+        {
+          jp_cost->lower_tols = std::vector<double>(neg_tolerance.data(), neg_tolerance.data() + neg_tolerance.size());
+        }
+
+        // Handle upper tolerance
+        if (profile.trajopt_joint_cost_config.upper_tolerance.size() == 1)
+        {
+          jp_cost->upper_tols = std::vector<double>(static_cast<std::size_t>(start_pos.size()),
+                                                    profile.trajopt_joint_cost_config.upper_tolerance[0]);
+        }
+        else if (profile.trajopt_joint_cost_config.upper_tolerance.size() == start_pos.size())
+        {
+          jp_cost->upper_tols = std::vector<double>(profile.trajopt_joint_cost_config.upper_tolerance.data(),
+                                                    profile.trajopt_joint_cost_config.upper_tolerance.data() +
+                                                        profile.trajopt_joint_cost_config.upper_tolerance.size());
+        }
+        else
+        {
+          jp_cost->upper_tols = std::vector<double>(pos_tolerance.data(), pos_tolerance.data() + pos_tolerance.size());
+        }
+      }
       jp_cost->first_step = 0;
       jp_cost->last_step = 0;
       jp_cost->name = "joint_pos_cost";

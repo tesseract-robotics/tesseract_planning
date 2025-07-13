@@ -88,6 +88,7 @@ set(WINDOWS_DEPENDS
 if(tesseract_motion_planners_trajopt_FOUND)
   list(APPEND FACTORIES_SOURCE_FILES src/factories/planning_task_composer_trajopt_plugin_factory.cpp)
   list(APPEND FACTORIES_SOURCE_LINK_LIBRARIES tesseract::tesseract_motion_planners_trajopt)
+  list(APPEND LIB_SOURCE_LINK_LIBRARIES tesseract::tesseract_motion_planners_trajopt)
   list(APPEND LINUX_DEPENDS "${TESSERACT_PACKAGE_PREFIX}tesseract-motion-planners-trajopt")
   list(APPEND WINDOWS_DEPENDS "${TESSERACT_PACKAGE_PREFIX}tesseract-motion-planners-trajopt")
 endif()
