@@ -62,7 +62,7 @@ void SetDigitalInstruction::setDescription(const std::string& description) { des
 
 void SetDigitalInstruction::print(const std::string& prefix) const  // NOLINT
 {
-  std::cout << prefix + "Set Analog Instruction, Key: " << key_ << ", Index: " << index_ << ", Value: " << value_;
+  std::cout << prefix + "Set Digital Instruction, Key: " << key_ << ", Index: " << index_ << ", Value: " << value_;
   std::cout << ", Description: " << getDescription() << "\n";
 }
 
