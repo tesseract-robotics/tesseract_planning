@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_fixed_size_move_profile.h
+ * @file simple_planner_fixed_size_assign_no_ik_move_profile.h
  * @brief
  *
  * @author Matthew Powelson
@@ -23,25 +23,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_MOVE_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_MOVE_PROFILE_H
+
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_MOVE_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_MOVE_PROFILE_H
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
 namespace tesseract_planning
 {
-class SimplePlannerFixedSizeMoveProfile : public SimplePlannerMoveProfile
+class SimplePlannerFixedSizeAssignNoIKMoveProfile : public SimplePlannerMoveProfile
 {
 public:
-  using Ptr = std::shared_ptr<SimplePlannerFixedSizeMoveProfile>;
-  using ConstPtr = std::shared_ptr<const SimplePlannerFixedSizeMoveProfile>;
+  using Ptr = std::shared_ptr<SimplePlannerFixedSizeAssignNoIKMoveProfile>;
+  using ConstPtr = std::shared_ptr<const SimplePlannerFixedSizeAssignNoIKMoveProfile>;
 
   /**
-   * @brief SimplePlannerFixedSizeMoveProfile
+   * @brief SimplePlannerFixedSizeAssignMoveProfile
    * @param freespace_steps The number of steps to use for freespace instruction
    * @param linear_steps The number of steps to use for linear instruction
    */
-  SimplePlannerFixedSizeMoveProfile(int freespace_steps = 10, int linear_steps = 10);
+  SimplePlannerFixedSizeAssignNoIKMoveProfile(int freespace_steps = 10, int linear_steps = 10);
 
   std::vector<MoveInstructionPoly> generate(const MoveInstructionPoly& prev_instruction,
                                             const MoveInstructionPoly& prev_seed,
@@ -56,15 +57,14 @@ public:
   /** @brief The number of steps to use for linear instruction */
   int linear_steps;
 
-private:
+protected:
   friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerFixedSizeMoveProfile)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerFixedSizeAssignNoIKMoveProfile)
 
-#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_MOVE_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_MOVE_PROFILE_H
