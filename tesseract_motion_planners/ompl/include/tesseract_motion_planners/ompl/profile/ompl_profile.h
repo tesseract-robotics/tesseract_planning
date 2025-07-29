@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <memory>
 #include <Eigen/Geometry>
+#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/types.h>
@@ -41,6 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/fwd.h>
 
 #include <tesseract_common/profile.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace ompl::geometric
 {
@@ -59,6 +61,7 @@ public:
   using ConstPtr = std::shared_ptr<const OMPLMoveProfile>;
 
   OMPLMoveProfile();
+  OMPLMoveProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/);
 
   /**
    * @brief A utility function for getting profile ID
