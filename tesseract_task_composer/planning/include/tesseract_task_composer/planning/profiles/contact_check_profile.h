@@ -33,16 +33,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_collision/core/types.h>
 #include <tesseract_common/profile.h>
+#include <tesseract_common/fwd.h>
 
 namespace YAML
 {
 class Node;
 }
 
-namespace tesseract_common
-{
-class ProfilePluginFactory;
-}
 namespace tesseract_planning
 {
 struct ContactCheckProfile : public tesseract_common::Profile
