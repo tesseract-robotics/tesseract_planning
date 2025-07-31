@@ -30,11 +30,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <typeindex>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
+#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
 #include <tesseract_collision/core/serialization.h>
 #include <tesseract_collision/core/yaml_extensions.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {

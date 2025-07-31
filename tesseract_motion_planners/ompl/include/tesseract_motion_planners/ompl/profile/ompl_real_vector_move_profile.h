@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <functional>
 #include <Eigen/Geometry>
-#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
@@ -44,7 +43,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/fwd.h>
 #include <tesseract_kinematics/core/fwd.h>
 #include <tesseract_common/fwd.h>
-#include <tesseract_common/profile_plugin_factory.h>
+
+namespace YAML
+{
+class Node;
+}
+
+namespace tesseract_common
+{
+class ProfilePluginFactory;
+}
 
 namespace ompl::base
 {
@@ -69,7 +77,7 @@ public:
   using ConstPtr = std::shared_ptr<const OMPLRealVectorMoveProfile>;
 
   OMPLRealVectorMoveProfile();
-  OMPLRealVectorMoveProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/);
+  OMPLRealVectorMoveProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /** @brief The OMPL parallel planner solver config */
   OMPLSolverConfig solver_config;

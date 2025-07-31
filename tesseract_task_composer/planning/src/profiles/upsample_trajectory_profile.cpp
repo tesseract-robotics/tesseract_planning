@@ -27,6 +27,8 @@
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <typeindex>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
@@ -41,8 +43,7 @@ UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(std::string name, const YAM
 {
   try
   {
-    if (YAML::Node n = config["longest_valid_segment_length"])
-      longest_valid_segment_length = n.as<double>();
+    longest_valid_segment_length = config["longest_valid_segment_length"].as<double>();
   }
   catch (const std::exception& e)
   {

@@ -30,13 +30,21 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <vector>
-#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_collision/core/types.h>
 #include <tesseract_common/profile.h>
-#include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_motion_planners/trajopt/trajopt_waypoint_config.h>
+
+namespace YAML
+{
+class Node;
+}
+
+namespace tesseract_common
+{
+class ProfilePluginFactory;
+}
 
 namespace tesseract_planning
 {
@@ -65,7 +73,7 @@ struct FixStateCollisionProfile : public tesseract_common::Profile
   };
 
   FixStateCollisionProfile(Settings mode = Settings::ALL);
-  FixStateCollisionProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/);
+  FixStateCollisionProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /**
    * @brief A utility function for getting profile ID

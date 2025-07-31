@@ -33,6 +33,8 @@
 #include <typeindex>
 #include <tesseract_task_composer/core/yaml_extensions.h>
 #include <tesseract_collision/core/yaml_extensions.h>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
