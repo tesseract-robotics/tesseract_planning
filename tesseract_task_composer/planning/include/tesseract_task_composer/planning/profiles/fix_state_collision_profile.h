@@ -35,6 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_collision/core/types.h>
 #include <tesseract_common/profile.h>
 #include <tesseract_motion_planners/trajopt/trajopt_waypoint_config.h>
+#include <tesseract_common/fwd.h>
 
 namespace YAML
 {
