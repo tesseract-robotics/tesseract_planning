@@ -83,8 +83,10 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   manager->setActiveCollisionObjects(joint_group->getActiveLinkNames());
   manager->applyContactManagerConfig(profile.contact_manager_config);
 
-  tesseract_common::TransformMap state = joint_group->calcFwdKin(start_pos);
+  thread_local tesseract_common::TransformMap state;
+  state.clear();
   contacts.clear();
+  joint_group->calcFwdKin(state, start_pos);
   checkTrajectoryState(contacts, *manager, state, profile.collision_check_config.contact_request);
   if (contacts.empty())
   {
@@ -331,9 +333,14 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
   {
     CONSOLE_BRIDGE_logError("MoveWaypointFromCollision did not converge");
 
-    tesseract_collision::ContactResultMap collisions;
+    thread_local tesseract_collision::ContactResultMap collisions;
+    collisions.clear();
+
+    thread_local tesseract_common::TransformMap state;
+    state.clear();
+
+    pci.kin->calcFwdKin(state, start_pos);
     tesseract_collision::DiscreteContactManager::Ptr manager = pci.env->getDiscreteContactManager();
-    tesseract_common::TransformMap state = pci.kin->calcFwdKin(start_pos);
     manager->setActiveCollisionObjects(pci.kin->getActiveLinkNames());
     manager->applyContactManagerConfig(profile.contact_manager_config);
     manager->setCollisionObjectsTransform(state);

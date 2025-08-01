@@ -363,6 +363,9 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   contacts.clear();
   contacts.reserve(mi.size());
 
+  tesseract_common::TransformMap link_transforms;
+  tesseract_common::TransformMap link_transforms1;
+
   /** @brief Making this thread_local does not help because it is not called enough during planning */
   tesseract_collision::ContactResultMap state_results;
   tesseract_collision::ContactResultMap sub_state_results;
@@ -372,10 +375,9 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   {
     const auto& joint_names = getJointNames(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
     const auto& joint_positions = getJointPosition(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
-    tesseract_scene_graph::SceneState state = state_solver.getState(joint_names, joint_positions);
+    state_solver.getLinkTransforms(link_transforms, joint_names, joint_positions);
     sub_state_results.clear();
-    tesseract_environment::checkTrajectoryState(
-        sub_state_results, manager, state.link_transforms, config.contact_request);
+    tesseract_environment::checkTrajectoryState(sub_state_results, manager, link_transforms, config.contact_request);
 
     if (!sub_state_results.empty())
     {
@@ -394,10 +396,9 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   {
     const auto& joint_names = getJointNames(mi.back().get().as<MoveInstructionPoly>().getWaypoint());
     const auto& joint_positions = getJointPosition(mi.back().get().as<MoveInstructionPoly>().getWaypoint());
-    tesseract_scene_graph::SceneState state = state_solver.getState(joint_names, joint_positions);
+    state_solver.getLinkTransforms(link_transforms, joint_names, joint_positions);
     sub_state_results.clear();
-    tesseract_environment::checkTrajectoryState(
-        sub_state_results, manager, state.link_transforms, config.contact_request);
+    tesseract_environment::checkTrajectoryState(sub_state_results, manager, link_transforms, config.contact_request);
 
     if (!sub_state_results.empty())
     {
@@ -468,11 +469,11 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
                 static_cast<int>(iSubStep) + 1, subtraj.row(iSubStep), subtraj.row(iSubStep + 1));
           }
 
-          tesseract_scene_graph::SceneState state0 = state_solver.getState(joint_names, subtraj.row(iSubStep));
-          tesseract_scene_graph::SceneState state1 = state_solver.getState(joint_names, subtraj.row(iSubStep + 1));
+          state_solver.getLinkTransforms(link_transforms, joint_names, subtraj.row(iSubStep));
+          state_solver.getLinkTransforms(link_transforms1, joint_names, subtraj.row(iSubStep + 1));
           sub_state_results.clear();
           tesseract_environment::checkTrajectorySegment(
-              sub_state_results, manager, state0.link_transforms, state1.link_transforms, config.contact_request);
+              sub_state_results, manager, link_transforms, link_transforms1, config.contact_request);
           if (!sub_state_results.empty())
           {
             found = true;
@@ -529,8 +530,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
         const auto& joint_names1 = getJointNames(mi.at(iStep + 1).get().as<MoveInstructionPoly>().getWaypoint());
         const auto& joint_positions1 = getJointPosition(mi.at(iStep + 1).get().as<MoveInstructionPoly>().getWaypoint());
 
-        tesseract_scene_graph::SceneState state0 = state_solver.getState(joint_names0, joint_positions0);
-        tesseract_scene_graph::SceneState state1 = state_solver.getState(joint_names1, joint_positions1);
+        state_solver.getLinkTransforms(link_transforms, joint_names0, joint_positions0);
+        state_solver.getLinkTransforms(link_transforms1, joint_names1, joint_positions1);
 
         tesseract_collision::ContactTrajectoryStepResults::UPtr step_contacts;
         tesseract_collision::ContactTrajectorySubstepResults::UPtr substep_contacts;
@@ -544,7 +545,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
         }
 
         tesseract_environment::checkTrajectorySegment(
-            state_results, manager, state0.link_transforms, state1.link_transforms, config.contact_request);
+            state_results, manager, link_transforms, link_transforms1, config.contact_request);
         if (!state_results.empty())
         {
           found = true;
@@ -593,8 +594,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       const auto& joint_names1 = getJointNames(mi.at(iStep + 1).get().as<MoveInstructionPoly>().getWaypoint());
       const auto& joint_positions1 = getJointPosition(mi.at(iStep + 1).get().as<MoveInstructionPoly>().getWaypoint());
 
-      tesseract_scene_graph::SceneState state0 = state_solver.getState(joint_names0, joint_positions0);
-      tesseract_scene_graph::SceneState state1 = state_solver.getState(joint_names1, joint_positions1);
+      state_solver.getLinkTransforms(link_transforms, joint_names0, joint_positions0);
+      state_solver.getLinkTransforms(link_transforms1, joint_names1, joint_positions1);
 
       tesseract_collision::ContactTrajectoryStepResults::UPtr step_contacts;
       tesseract_collision::ContactTrajectorySubstepResults::UPtr substep_contacts;
@@ -607,7 +608,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       }
 
       tesseract_environment::checkTrajectorySegment(
-          state_results, manager, state0.link_transforms, state1.link_transforms, config.contact_request);
+          state_results, manager, link_transforms, link_transforms1, config.contact_request);
       if (!state_results.empty())
       {
         found = true;
@@ -668,6 +669,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   contacts.clear();
   contacts.reserve(mi.size());
 
+  tesseract_common::TransformMap link_transforms;
+
   /** @brief Making this thread_local does not help because it is not called enough during planning */
   tesseract_collision::ContactResultMap state_results;
   tesseract_collision::ContactResultMap sub_state_results;
@@ -677,10 +680,9 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   {
     const auto& joint_names = getJointNames(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
     const auto& joint_positions = getJointPosition(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
-    tesseract_scene_graph::SceneState state = state_solver.getState(joint_names, joint_positions);
+    state_solver.getLinkTransforms(link_transforms, joint_names, joint_positions);
     sub_state_results.clear();
-    tesseract_environment::checkTrajectoryState(
-        sub_state_results, manager, state.link_transforms, config.contact_request);
+    tesseract_environment::checkTrajectoryState(sub_state_results, manager, link_transforms, config.contact_request);
 
     if (!sub_state_results.empty())
     {
@@ -699,10 +701,9 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   {
     const auto& joint_names = getJointNames(mi.back().get().as<MoveInstructionPoly>().getWaypoint());
     const auto& joint_positions = getJointPosition(mi.back().get().as<MoveInstructionPoly>().getWaypoint());
-    tesseract_scene_graph::SceneState state = state_solver.getState(joint_names, joint_positions);
+    state_solver.getLinkTransforms(link_transforms, joint_names, joint_positions);
     sub_state_results.clear();
-    tesseract_environment::checkTrajectoryState(
-        sub_state_results, manager, state.link_transforms, config.contact_request);
+    tesseract_environment::checkTrajectoryState(sub_state_results, manager, link_transforms, config.contact_request);
 
     if (!sub_state_results.empty())
     {
@@ -726,7 +727,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     state_results.clear();
     const auto& joint_names = getJointNames(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
     const auto& joint_positions = getJointPosition(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
-    tesseract_scene_graph::SceneState state = state_solver.getState(joint_names, joint_positions);
+    state_solver.getLinkTransforms(link_transforms, joint_names, joint_positions);
 
     tesseract_collision::ContactTrajectoryStepResults::UPtr step_contacts;
     tesseract_collision::ContactTrajectorySubstepResults::UPtr substep_contacts;
@@ -737,8 +738,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     }
 
     sub_state_results.clear();
-    tesseract_environment::checkTrajectoryState(
-        sub_state_results, manager, state.link_transforms, config.contact_request);
+    tesseract_environment::checkTrajectoryState(sub_state_results, manager, link_transforms, config.contact_request);
 
     if (debug_logging)
     {
@@ -818,10 +818,10 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
                 static_cast<int>(iSubStep) + 1, subtraj.row(iSubStep));
           }
 
-          tesseract_scene_graph::SceneState state = state_solver.getState(jn, subtraj.row(iSubStep));
+          state_solver.getLinkTransforms(link_transforms, jn, subtraj.row(iSubStep));
           sub_state_results.clear();
           tesseract_environment::checkTrajectoryState(
-              sub_state_results, manager, state.link_transforms, config.contact_request);
+              sub_state_results, manager, link_transforms, config.contact_request);
           if (!sub_state_results.empty())
           {
             found = true;
@@ -870,10 +870,10 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
           if (config.check_program_mode != tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_START &&
               config.check_program_mode != tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
           {
-            tesseract_scene_graph::SceneState state = state_solver.getState(jn, p0);
+            state_solver.getLinkTransforms(link_transforms, jn, p0);
             sub_state_results.clear();
             tesseract_environment::checkTrajectoryState(
-                sub_state_results, manager, state.link_transforms, config.contact_request);
+                sub_state_results, manager, link_transforms, config.contact_request);
             if (!sub_state_results.empty())
             {
               found = true;
@@ -898,10 +898,10 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
           if (config.check_program_mode != tesseract_collision::CollisionCheckProgramType::ALL_EXCEPT_END &&
               config.check_program_mode != tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
           {
-            tesseract_scene_graph::SceneState state = state_solver.getState(jn, p1);
+            state_solver.getLinkTransforms(link_transforms, jn, p1);
             sub_state_results.clear();
             tesseract_environment::checkTrajectoryState(
-                sub_state_results, manager, state.link_transforms, config.contact_request);
+                sub_state_results, manager, link_transforms, config.contact_request);
             if (!sub_state_results.empty())
             {
               found = true;
@@ -936,10 +936,10 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
           }
         }
 
-        tesseract_scene_graph::SceneState state = state_solver.getState(jn, p0);
+        state_solver.getLinkTransforms(link_transforms, jn, p0);
         sub_state_results.clear();
         tesseract_environment::checkTrajectoryState(
-            sub_state_results, manager, state.link_transforms, config.contact_request);
+            sub_state_results, manager, link_transforms, config.contact_request);
         if (!sub_state_results.empty())
         {
           found = true;
@@ -969,10 +969,10 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
             continue;
           }
 
-          tesseract_scene_graph::SceneState state = state_solver.getState(jn, p1);
+          state_solver.getLinkTransforms(link_transforms, jn, p1);
           sub_state_results.clear();
           tesseract_environment::checkTrajectoryState(
-              sub_state_results, manager, state.link_transforms, config.contact_request);
+              sub_state_results, manager, link_transforms, config.contact_request);
           if (!sub_state_results.empty())
           {
             found = true;
@@ -1035,10 +1035,9 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
         substep_contacts = std::make_unique<tesseract_collision::ContactTrajectorySubstepResults>(1, p0);
       }
 
-      tesseract_scene_graph::SceneState state = state_solver.getState(jn, p0);
+      state_solver.getLinkTransforms(link_transforms, jn, p0);
       sub_state_results.clear();
-      tesseract_environment::checkTrajectoryState(
-          sub_state_results, manager, state.link_transforms, config.contact_request);
+      tesseract_environment::checkTrajectoryState(sub_state_results, manager, link_transforms, config.contact_request);
       if (!sub_state_results.empty())
       {
         found = true;
