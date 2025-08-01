@@ -30,11 +30,17 @@
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <typeindex>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
 MinLengthProfile::MinLengthProfile() : Profile(MinLengthProfile::getStaticKey()) {}
 MinLengthProfile::MinLengthProfile(long min_length) : Profile(MinLengthProfile::getStaticKey()), min_length(min_length)
+{
+}
+MinLengthProfile::MinLengthProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : MinLengthProfile()
 {
 }
 

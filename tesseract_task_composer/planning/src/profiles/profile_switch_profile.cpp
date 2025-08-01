@@ -26,11 +26,17 @@
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <typeindex>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
 ProfileSwitchProfile::ProfileSwitchProfile(int return_value)
   : Profile(ProfileSwitchProfile::getStaticKey()), return_value(return_value)
+{
+}
+ProfileSwitchProfile::ProfileSwitchProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : ProfileSwitchProfile()
 {
 }
 

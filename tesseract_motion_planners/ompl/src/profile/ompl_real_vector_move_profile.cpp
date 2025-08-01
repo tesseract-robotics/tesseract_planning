@@ -36,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/shared_ptr.hpp>
+#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
@@ -55,6 +56,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/state_collision_validator.h>
 #include <tesseract_motion_planners/ompl/compound_state_validator.h>
 
+#include <tesseract_motion_planners/ompl/yaml_extensions.h>
+#include <tesseract_collision/core/yaml_extensions.h>
+
 #include <tesseract_kinematics/core/utils.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
@@ -62,12 +66,34 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_collision/core/serialization.h>
 #include <tesseract_environment/environment.h>
 
+#include <tesseract_common/profile_plugin_factory.h>
+
 namespace tesseract_planning
 {
 OMPLRealVectorMoveProfile::OMPLRealVectorMoveProfile()
 {
   solver_config.planners = { std::make_shared<const RRTConnectConfigurator>(),
                              std::make_shared<const RRTConnectConfigurator>() };
+}
+OMPLRealVectorMoveProfile::OMPLRealVectorMoveProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+: OMPLRealVectorMoveProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["solver_config"])
+      solver_config = n.as<tesseract_planning::OMPLSolverConfig>();
+
+    if (YAML::Node n = config["contact_manager_config"])
+      contact_manager_config = n.as<tesseract_collision::ContactManagerConfig>();
+      
+    if (YAML::Node n = config["collision_check_config"])
+      collision_check_config = n.as<tesseract_collision::CollisionCheckConfig>();
+
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("OMPLRealVectorMoveProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+  }
 }
 
 std::unique_ptr<OMPLSolverConfig> OMPLRealVectorMoveProfile::createSolverConfig() const
