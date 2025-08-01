@@ -39,10 +39,6 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_common
-{
-class ProfilePluginFactory;
-}
 namespace tesseract_planning
 {
 struct FixStateBoundsProfile : public tesseract_common::Profile

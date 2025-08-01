@@ -29,10 +29,6 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_common
-{
-class ProfilePluginFactory;
-}
 namespace tesseract_planning
 {
 struct KinematicLimitsCheckProfile : public tesseract_common::Profile
