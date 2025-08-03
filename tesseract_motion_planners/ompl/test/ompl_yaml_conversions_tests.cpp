@@ -87,7 +87,7 @@ using namespace tesseract_planning;
 class OMPLYAMLTestFixture : public ::testing::Test
 {
 public:
-  OMPLYAMLTestFixture() {}
+  OMPLYAMLTestFixture() = default;
   using ::testing::Test::Test;
 };
 
@@ -518,7 +518,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLPRMstarConfiguratorConversionsUnit)  // NOLINT
     PRMstarConfigurator configurator;
   }
 
-  const std::string yaml_string = R"()";
+  const std::string yaml_string;
   {  // decode
     PRMstarConfigurator configurator;
     YAML::Node n = YAML::Load(yaml_string);
@@ -539,7 +539,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLLazyPRMstarConfiguratorConversionsUnit)  // NO
     LazyPRMstarConfigurator configurator;
   }
 
-  const std::string yaml_string = R"()";
+  const std::string yaml_string;
   {  // decode
     LazyPRMstarConfigurator configurator;
     YAML::Node n = YAML::Load(yaml_string);
@@ -599,7 +599,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLSPARSConfiguratorConversionsUnit)  // NOLINT
 }
 
 bool containsType(OMPLPlannerType type,
-                  std::vector<std::shared_ptr<const tesseract_planning::OMPLPlannerConfigurator>> planners)
+                  const std::vector<std::shared_ptr<const tesseract_planning::OMPLPlannerConfigurator>>& planners)
 {
   for (const auto& planner : planners)
   {
@@ -612,7 +612,7 @@ bool containsType(OMPLPlannerType type,
   return false;
 }
 
-bool containsPlanner(std::string planner_type, YAML::Node n)
+bool containsPlanner(const std::string& planner_type, YAML::Node n)
 {
   return std::any_of(n.begin(), n.end(), [planner_type](const YAML::Node& n) { return n[planner_type]; });
 }
