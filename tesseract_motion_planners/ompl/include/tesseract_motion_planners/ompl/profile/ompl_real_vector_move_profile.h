@@ -49,7 +49,6 @@ namespace YAML
 class Node;
 }
 
-
 namespace ompl::base
 {
 class StateSampler;
@@ -73,7 +72,9 @@ public:
   using ConstPtr = std::shared_ptr<const OMPLRealVectorMoveProfile>;
 
   OMPLRealVectorMoveProfile();
-  OMPLRealVectorMoveProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  OMPLRealVectorMoveProfile(std::string name,
+                            const YAML::Node& config,
+                            const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /** @brief The OMPL parallel planner solver config */
   OMPLSolverConfig solver_config;

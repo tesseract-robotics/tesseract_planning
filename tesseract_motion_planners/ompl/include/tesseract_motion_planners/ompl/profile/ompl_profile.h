@@ -64,7 +64,6 @@ public:
   using ConstPtr = std::shared_ptr<const OMPLMoveProfile>;
 
   OMPLMoveProfile();
-  OMPLMoveProfile(std::string name, const YAML::Node& /*config*/, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/);
 
   /**
    * @brief A utility function for getting profile ID

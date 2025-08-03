@@ -93,7 +93,7 @@ public:
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLSBLConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     SBLConfigurator configurator;
 
     EXPECT_NEAR(configurator.range, 0, 1e-6);
@@ -120,7 +120,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLSBLConfiguratorConversionsUnit)  // NOLINT
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLESTConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     ESTConfigurator configurator;
 
     EXPECT_NEAR(configurator.range, 0, 1e-6);
@@ -153,7 +153,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLESTConfiguratorConversionsUnit)  // NOLINT
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLLBKPIECE1ConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     LBKPIECE1Configurator configurator;
 
     EXPECT_NEAR(configurator.range, 0, 1e-6);
@@ -174,7 +174,6 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLLBKPIECE1ConfiguratorConversionsUnit)  // NOLI
     EXPECT_NEAR(configurator.range, 1.0, 1e-6);
     EXPECT_NEAR(configurator.border_fraction, 0.04, 1e-6);
     EXPECT_NEAR(configurator.min_valid_path_fraction, 0.05, 1e-6);
-
   }
 
   {  // encode
@@ -192,7 +191,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLLBKPIECE1ConfiguratorConversionsUnit)  // NOLI
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLBKPIECE1ConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     BKPIECE1Configurator configurator;
 
     EXPECT_NEAR(configurator.range, 0, 1e-6);
@@ -216,7 +215,6 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLBKPIECE1ConfiguratorConversionsUnit)  // NOLIN
     EXPECT_NEAR(configurator.border_fraction, 0.04, 1e-6);
     EXPECT_NEAR(configurator.failed_expansion_score_factor, 0.6, 1e-6);
     EXPECT_NEAR(configurator.min_valid_path_fraction, 0.05, 1e-6);
-
   }
 
   {  // encode
@@ -236,7 +234,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLBKPIECE1ConfiguratorConversionsUnit)  // NOLIN
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLKPIECE1ConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     KPIECE1Configurator configurator;
 
     EXPECT_NEAR(configurator.range, 0, 1e-6);
@@ -263,7 +261,6 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLKPIECE1ConfiguratorConversionsUnit)  // NOLINT
     EXPECT_NEAR(configurator.border_fraction, 0.04, 1e-6);
     EXPECT_NEAR(configurator.failed_expansion_score_factor, 0.6, 1e-6);
     EXPECT_NEAR(configurator.min_valid_path_fraction, 0.05, 1e-6);
-
   }
 
   {  // encode
@@ -285,7 +282,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLKPIECE1ConfiguratorConversionsUnit)  // NOLINT
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLBiTRRTConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     BiTRRTConfigurator configurator;
 
     EXPECT_NEAR(configurator.range, 0, 1e-6);
@@ -315,7 +312,6 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLBiTRRTConfiguratorConversionsUnit)  // NOLINT
     EXPECT_NEAR(configurator.init_temperature, 0.6, 1e-6);
     EXPECT_NEAR(configurator.frontier_threshold, 0.05, 1e-6);
     EXPECT_NEAR(configurator.frontier_node_ratio, 0.5, 1e-6);
-
   }
 
   {  // encode
@@ -339,7 +335,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLBiTRRTConfiguratorConversionsUnit)  // NOLINT
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLRRTConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     RRTConfigurator configurator;
 
     EXPECT_NEAR(configurator.range, 0, 1e-6);
@@ -372,7 +368,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLRRTConfiguratorConversionsUnit)  // NOLINT
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLRRTConnectConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     RRTConnectConfigurator configurator;
 
     EXPECT_NEAR(configurator.range, 0, 1e-6);
@@ -399,7 +395,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLRRTConnectConfiguratorConversionsUnit)  // NOL
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLRRTstarConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     RRTstarConfigurator configurator;
 
     EXPECT_NEAR(configurator.range, 0, 1e-6);
@@ -437,7 +433,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLRRTstarConfiguratorConversionsUnit)  // NOLINT
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLTRRTConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     TRRTConfigurator configurator;
 
     EXPECT_NEAR(configurator.range, 0, 1e-6);
@@ -467,7 +463,6 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLTRRTConfiguratorConversionsUnit)  // NOLINT
     EXPECT_NEAR(configurator.init_temperature, 0.6, 1e-6);
     EXPECT_NEAR(configurator.frontier_threshold, 0.05, 1e-6);
     EXPECT_NEAR(configurator.frontier_node_ratio, 0.5, 1e-6);
-
   }
 
   {  // encode
@@ -492,7 +487,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLTRRTConfiguratorConversionsUnit)  // NOLINT
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLPRMConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     PRMConfigurator configurator;
 
     EXPECT_EQ(configurator.max_nearest_neighbors, 10);
@@ -519,7 +514,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLPRMConfiguratorConversionsUnit)  // NOLINT
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLPRMstarConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     PRMstarConfigurator configurator;
   }
 
@@ -540,7 +535,7 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLPRMstarConfiguratorConversionsUnit)  // NOLINT
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLLazyPRMstarConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     LazyPRMstarConfigurator configurator;
   }
 
@@ -561,14 +556,13 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLLazyPRMstarConfiguratorConversionsUnit)  // NO
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLSPARSConfiguratorConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     SPARSConfigurator configurator;
 
     EXPECT_EQ(configurator.max_failures, 1000);
     EXPECT_NEAR(configurator.dense_delta_fraction, 0.001, 1e-6);
     EXPECT_NEAR(configurator.sparse_delta_fraction, 0.25, 1e-6);
     EXPECT_NEAR(configurator.stretch_factor, 3, 1e-6);
-
   }
 
   const std::string yaml_string = R"(
@@ -586,7 +580,6 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLSPARSConfiguratorConversionsUnit)  // NOLINT
     EXPECT_NEAR(configurator.dense_delta_fraction, 0.5, 1e-6);
     EXPECT_NEAR(configurator.sparse_delta_fraction, 0.4, 1e-6);
     EXPECT_NEAR(configurator.stretch_factor, 0.3, 1e-6);
-
   }
 
   {  // encode
@@ -605,10 +598,13 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLSPARSConfiguratorConversionsUnit)  // NOLINT
   }
 }
 
-bool containsType(OMPLPlannerType type, std::vector<std::shared_ptr<const tesseract_planning::OMPLPlannerConfigurator>> planners)
+bool containsType(OMPLPlannerType type,
+                  std::vector<std::shared_ptr<const tesseract_planning::OMPLPlannerConfigurator>> planners)
 {
-  for (const auto& planner : planners) {
-    if (planner->getType() == type) {
+  for (const auto& planner : planners)
+  {
+    if (planner->getType() == type)
+    {
       return true;
     }
   }
@@ -616,17 +612,14 @@ bool containsType(OMPLPlannerType type, std::vector<std::shared_ptr<const tesser
   return false;
 }
 
-bool containsPlanner(std::string planner_type, YAML::Node n) {
-  return std::any_of(
-                    n.begin(),
-                    n.end(),
-                    [planner_type](const YAML::Node& n) { return n[planner_type]; }
-                  );
+bool containsPlanner(std::string planner_type, YAML::Node n)
+{
+  return std::any_of(n.begin(), n.end(), [planner_type](const YAML::Node& n) { return n[planner_type]; });
 }
 
 TEST(OMPLYAMLTestFixture, OMPLYAMLOMPLSolverConfigConversionsUnit)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     OMPLSolverConfig configurator;
 
     EXPECT_NEAR(configurator.planning_time, 5.0, 1e-6);
@@ -634,7 +627,6 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLOMPLSolverConfigConversionsUnit)  // NOLINT
     EXPECT_EQ(configurator.simplify, false);
     EXPECT_EQ(configurator.optimize, true);
     EXPECT_EQ(configurator.planners.size(), 0);
-
   }
 
   const std::string yaml_string = R"(
@@ -690,48 +682,34 @@ TEST(OMPLYAMLTestFixture, OMPLYAMLOMPLSolverConfigConversionsUnit)  // NOLINT
     configurator.max_solutions = 4;
     configurator.simplify = true;
     configurator.optimize = false;
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::SBLConfigurator>()));    
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::ESTConfigurator>()));    
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::LBKPIECE1Configurator>()));    
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::BKPIECE1Configurator>()));    
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::KPIECE1Configurator>()));    
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::BiTRRTConfigurator>()));    
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::RRTConfigurator>()));    
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::RRTConnectConfigurator>()));    
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::RRTstarConfigurator>()));    
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::TRRTConfigurator>()));    
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::PRMConfigurator>()));    
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::PRMstarConfigurator>()));    
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::LazyPRMstarConfigurator>()));    
-    configurator.planners.push_back(
-        std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::SPARSConfigurator>()));    
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::SBLConfigurator>()));
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::ESTConfigurator>()));
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::LBKPIECE1Configurator>()));
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::BKPIECE1Configurator>()));
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::KPIECE1Configurator>()));
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::BiTRRTConfigurator>()));
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::RRTConfigurator>()));
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::RRTConnectConfigurator>()));
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::RRTstarConfigurator>()));
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::TRRTConfigurator>()));
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::PRMConfigurator>()));
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::PRMstarConfigurator>()));
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::LazyPRMstarConfigurator>()));
+    configurator.planners.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
+        std::make_shared<tesseract_planning::SPARSConfigurator>()));
 
     YAML::Node n = YAML::Load(yaml_string);
     YAML::Node output_n = YAML::convert<OMPLSolverConfig>::encode(configurator);

@@ -47,10 +47,12 @@ FixStateCollisionProfile::FixStateCollisionProfile(Settings mode)
   trajopt_joint_cost_config.coeff = Eigen::VectorXd::Constant(1, 1, 5);
 }
 
-FixStateCollisionProfile::FixStateCollisionProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+FixStateCollisionProfile::FixStateCollisionProfile(std::string name,
+                                                   const YAML::Node& config,
+                                                   const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
   : FixStateCollisionProfile()
 {
-  try 
+  try
   {
     if (YAML::Node n = config["mode"])
       mode = n.as<Settings>();
@@ -67,7 +69,8 @@ FixStateCollisionProfile::FixStateCollisionProfile(std::string name, const YAML:
   }
   catch (const std::exception& e)
   {
-    throw std::runtime_error("FixStateCollisionProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+    throw std::runtime_error("FixStateCollisionProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
   }
 }
 

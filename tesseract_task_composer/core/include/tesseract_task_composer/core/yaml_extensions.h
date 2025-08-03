@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
 #include <tesseract_task_composer/planning/profiles/fix_state_collision_profile.h>
 
-
 namespace YAML
 {
 //=========================== Fix State Bounds Settings Enum ===========================
@@ -161,7 +160,6 @@ struct convert<tesseract_planning::FixStateCollisionProfile::CorrectionMethod>
     return true;
   }
 };
-
 
 }  // namespace YAML
 

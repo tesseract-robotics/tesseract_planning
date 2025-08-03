@@ -31,13 +31,9 @@
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
-
 namespace tesseract_planning
 {
 OMPLMoveProfile::OMPLMoveProfile() : Profile(OMPLMoveProfile::getStaticKey()) {}
-OMPLMoveProfile::OMPLMoveProfile(std::string name, const YAML::Node& /*config*/, const tesseract_common::ProfilePluginFactory& plugin_factory) 
-  : OMPLMoveProfile::OMPLMoveProfile()
-{}
 
 std::size_t OMPLMoveProfile::getStaticKey() { return std::type_index(typeid(OMPLMoveProfile)).hash_code(); }
 

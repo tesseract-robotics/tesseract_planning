@@ -39,8 +39,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
-
-
 namespace YAML
 {
 //=========================== SBLConfigurator ===========================
@@ -334,7 +332,6 @@ struct convert<tesseract_planning::PRMConfigurator>
   }
 };
 
-
 //=========================== PRMstarConfigurator ===========================
 template <>
 struct convert<tesseract_planning::PRMstarConfigurator>
@@ -411,91 +408,93 @@ struct convert<std::vector<std::shared_ptr<const tesseract_planning::OMPLPlanner
       bool valid_type = true;
       tesseract_planning::OMPLPlannerType type = ompl_configurator->getType();
 
-      switch (type) {
+      switch (type)
+      {
         case tesseract_planning::OMPLPlannerType::SBL:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::SBLConfigurator>(ompl_configurator);
-            p_node["SBLConfigurator"] = *planner;
-            break;
-          }
+        {
+          auto planner = std::dynamic_pointer_cast<const tesseract_planning::SBLConfigurator>(ompl_configurator);
+          p_node["SBLConfigurator"] = *planner;
+          break;
+        }
         case tesseract_planning::OMPLPlannerType::EST:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::ESTConfigurator>(ompl_configurator);
-            p_node["ESTConfigurator"] = *planner;
-            break;
-          }
+        {
+          auto planner = std::dynamic_pointer_cast<const tesseract_planning::ESTConfigurator>(ompl_configurator);
+          p_node["ESTConfigurator"] = *planner;
+          break;
+        }
         case tesseract_planning::OMPLPlannerType::LBKPIECE1:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::LBKPIECE1Configurator>(ompl_configurator);
-            p_node["LBKPIECE1Configurator"] = *planner;
-            break;
-          }
+        {
+          auto planner = std::dynamic_pointer_cast<const tesseract_planning::LBKPIECE1Configurator>(ompl_configurator);
+          p_node["LBKPIECE1Configurator"] = *planner;
+          break;
+        }
         case tesseract_planning::OMPLPlannerType::BKPIECE1:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::BKPIECE1Configurator>(ompl_configurator);
-            p_node["BKPIECE1Configurator"] = *planner;
-            break;
-          }
+        {
+          auto planner = std::dynamic_pointer_cast<const tesseract_planning::BKPIECE1Configurator>(ompl_configurator);
+          p_node["BKPIECE1Configurator"] = *planner;
+          break;
+        }
         case tesseract_planning::OMPLPlannerType::KPIECE1:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::KPIECE1Configurator>(ompl_configurator);
-            p_node["KPIECE1Configurator"] = *planner;
-            break;
-          }
+        {
+          auto planner = std::dynamic_pointer_cast<const tesseract_planning::KPIECE1Configurator>(ompl_configurator);
+          p_node["KPIECE1Configurator"] = *planner;
+          break;
+        }
         case tesseract_planning::OMPLPlannerType::BiTRRT:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::BiTRRTConfigurator>(ompl_configurator);
-            p_node["BiTRRTConfigurator"] = *planner;
-            break;
-          }
+        {
+          auto planner = std::dynamic_pointer_cast<const tesseract_planning::BiTRRTConfigurator>(ompl_configurator);
+          p_node["BiTRRTConfigurator"] = *planner;
+          break;
+        }
         case tesseract_planning::OMPLPlannerType::RRT:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::RRTConfigurator>(ompl_configurator);
-            p_node["RRTConfigurator"] = *planner;
-            break;
-          }
+        {
+          auto planner = std::dynamic_pointer_cast<const tesseract_planning::RRTConfigurator>(ompl_configurator);
+          p_node["RRTConfigurator"] = *planner;
+          break;
+        }
         case tesseract_planning::OMPLPlannerType::RRTConnect:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::RRTConnectConfigurator>(ompl_configurator);
-            p_node["RRTConnectConfigurator"] = *planner;
-            break;
-          }
+        {
+          auto planner = std::dynamic_pointer_cast<const tesseract_planning::RRTConnectConfigurator>(ompl_configurator);
+          p_node["RRTConnectConfigurator"] = *planner;
+          break;
+        }
         case tesseract_planning::OMPLPlannerType::RRTstar:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::RRTstarConfigurator>(ompl_configurator);
-            p_node["RRTstarConfigurator"] = *planner;
-            break;
-          }
+        {
+          auto planner = std::dynamic_pointer_cast<const tesseract_planning::RRTstarConfigurator>(ompl_configurator);
+          p_node["RRTstarConfigurator"] = *planner;
+          break;
+        }
         case tesseract_planning::OMPLPlannerType::TRRT:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::TRRTConfigurator>(ompl_configurator);
-            p_node["TRRTConfigurator"] = *planner;
-            break;
-          }
+        {
+          auto planner = std::dynamic_pointer_cast<const tesseract_planning::TRRTConfigurator>(ompl_configurator);
+          p_node["TRRTConfigurator"] = *planner;
+          break;
+        }
         case tesseract_planning::OMPLPlannerType::PRM:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::PRMConfigurator>(ompl_configurator);
-            p_node["PRMConfigurator"] = *planner;
-            break;
-          }
+        {
+          auto planner = std::dynamic_pointer_cast<const tesseract_planning::PRMConfigurator>(ompl_configurator);
+          p_node["PRMConfigurator"] = *planner;
+          break;
+        }
         case tesseract_planning::OMPLPlannerType::PRMstar:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::PRMstarConfigurator>(ompl_configurator);
-            p_node["PRMstarConfigurator"] = *planner;
-            break;
-          }
+        {
+          auto planner = std::dynamic_pointer_cast<const tesseract_planning::PRMstarConfigurator>(ompl_configurator);
+          p_node["PRMstarConfigurator"] = *planner;
+          break;
+        }
         case tesseract_planning::OMPLPlannerType::LazyPRMstar:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::LazyPRMstarConfigurator>(ompl_configurator);
-            p_node["LazyPRMstarConfigurator"] = *planner;
-            break;
-          }
+        {
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract_planning::LazyPRMstarConfigurator>(ompl_configurator);
+          p_node["LazyPRMstarConfigurator"] = *planner;
+          break;
+        }
         case tesseract_planning::OMPLPlannerType::SPARS:
-          {
-            auto planner = std::dynamic_pointer_cast<const tesseract_planning::SPARSConfigurator>(ompl_configurator);
-            p_node["SPARSConfigurator"] = *planner;
-            break;
-          }
+        {
+          auto planner = std::dynamic_pointer_cast<const tesseract_planning::SPARSConfigurator>(ompl_configurator);
+          p_node["SPARSConfigurator"] = *planner;
+          break;
+        }
         default:
           valid_type = false;
           break;
@@ -506,77 +505,85 @@ struct convert<std::vector<std::shared_ptr<const tesseract_planning::OMPLPlanner
     return node;
   }
 
-  static bool decode(const Node& node, std::vector<std::shared_ptr<const tesseract_planning::OMPLPlannerConfigurator>>& rhs)
+  static bool decode(const Node& node,
+                     std::vector<std::shared_ptr<const tesseract_planning::OMPLPlannerConfigurator>>& rhs)
   {
     // Check for required entries
     for (const auto& planner : node)
     {
-      if (const YAML::Node& n = planner["SBLConfigurator"]) 
+      if (const YAML::Node& n = planner["SBLConfigurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
             std::make_shared<tesseract_planning::SBLConfigurator>(n.as<tesseract_planning::SBLConfigurator>())));
       }
-      else if (const YAML::Node& n = planner["ESTConfigurator"]) 
+      else if (const YAML::Node& n = planner["ESTConfigurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
             std::make_shared<tesseract_planning::ESTConfigurator>(n.as<tesseract_planning::ESTConfigurator>())));
       }
-      else if (const YAML::Node& n = planner["LBKPIECE1Configurator"]) 
+      else if (const YAML::Node& n = planner["LBKPIECE1Configurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::LBKPIECE1Configurator>(n.as<tesseract_planning::LBKPIECE1Configurator>())));
+            std::make_shared<tesseract_planning::LBKPIECE1Configurator>(
+                n.as<tesseract_planning::LBKPIECE1Configurator>())));
       }
-      else if (const YAML::Node& n = planner["BKPIECE1Configurator"]) 
+      else if (const YAML::Node& n = planner["BKPIECE1Configurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::BKPIECE1Configurator>(n.as<tesseract_planning::BKPIECE1Configurator>())));
+            std::make_shared<tesseract_planning::BKPIECE1Configurator>(
+                n.as<tesseract_planning::BKPIECE1Configurator>())));
       }
-      else if (const YAML::Node& n = planner["KPIECE1Configurator"]) 
+      else if (const YAML::Node& n = planner["KPIECE1Configurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::KPIECE1Configurator>(n.as<tesseract_planning::KPIECE1Configurator>())));
+            std::make_shared<tesseract_planning::KPIECE1Configurator>(
+                n.as<tesseract_planning::KPIECE1Configurator>())));
       }
-      else if (const YAML::Node& n = planner["BiTRRTConfigurator"]) 
+      else if (const YAML::Node& n = planner["BiTRRTConfigurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
             std::make_shared<tesseract_planning::BiTRRTConfigurator>(n.as<tesseract_planning::BiTRRTConfigurator>())));
       }
-      else if (const YAML::Node& n = planner["RRTConfigurator"]) 
+      else if (const YAML::Node& n = planner["RRTConfigurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
             std::make_shared<tesseract_planning::RRTConfigurator>(n.as<tesseract_planning::RRTConfigurator>())));
       }
-      else if (const YAML::Node& n = planner["RRTConnectConfigurator"]) 
+      else if (const YAML::Node& n = planner["RRTConnectConfigurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::RRTConnectConfigurator>(n.as<tesseract_planning::RRTConnectConfigurator>())));
+            std::make_shared<tesseract_planning::RRTConnectConfigurator>(
+                n.as<tesseract_planning::RRTConnectConfigurator>())));
       }
-      else if (const YAML::Node& n = planner["RRTstarConfigurator"]) 
+      else if (const YAML::Node& n = planner["RRTstarConfigurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::RRTstarConfigurator>(n.as<tesseract_planning::RRTstarConfigurator>())));
+            std::make_shared<tesseract_planning::RRTstarConfigurator>(
+                n.as<tesseract_planning::RRTstarConfigurator>())));
       }
-      else if (const YAML::Node& n = planner["TRRTConfigurator"]) 
+      else if (const YAML::Node& n = planner["TRRTConfigurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
             std::make_shared<tesseract_planning::TRRTConfigurator>(n.as<tesseract_planning::TRRTConfigurator>())));
       }
-      else if (const YAML::Node& n = planner["PRMConfigurator"]) 
+      else if (const YAML::Node& n = planner["PRMConfigurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
             std::make_shared<tesseract_planning::PRMConfigurator>(n.as<tesseract_planning::PRMConfigurator>())));
       }
-      else if (const YAML::Node& n = planner["PRMstarConfigurator"]) 
+      else if (const YAML::Node& n = planner["PRMstarConfigurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::PRMstarConfigurator>(n.as<tesseract_planning::PRMstarConfigurator>())));
+            std::make_shared<tesseract_planning::PRMstarConfigurator>(
+                n.as<tesseract_planning::PRMstarConfigurator>())));
       }
-      else if (const YAML::Node& n = planner["LazyPRMstarConfigurator"]) 
+      else if (const YAML::Node& n = planner["LazyPRMstarConfigurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
-            std::make_shared<tesseract_planning::LazyPRMstarConfigurator>(n.as<tesseract_planning::LazyPRMstarConfigurator>())));
+            std::make_shared<tesseract_planning::LazyPRMstarConfigurator>(
+                n.as<tesseract_planning::LazyPRMstarConfigurator>())));
       }
-      else if (const YAML::Node& n = planner["SPARSConfigurator"]) 
+      else if (const YAML::Node& n = planner["SPARSConfigurator"])
       {
         rhs.push_back(std::static_pointer_cast<const tesseract_planning::OMPLPlannerConfigurator>(
             std::make_shared<tesseract_planning::SPARSConfigurator>(n.as<tesseract_planning::SPARSConfigurator>())));
@@ -600,7 +607,7 @@ struct convert<tesseract_planning::OMPLSolverConfig>
     node["simplify"] = rhs.simplify;
     node["optimize"] = rhs.optimize;
     node["planners"] = rhs.planners;
-    
+
     return node;
   }
 

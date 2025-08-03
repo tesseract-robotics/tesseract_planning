@@ -37,7 +37,6 @@ namespace YAML
 class Node;
 }
 
-
 namespace tesseract_planning
 {
 struct ProfileSwitchProfile : public tesseract_common::Profile
@@ -46,7 +45,9 @@ struct ProfileSwitchProfile : public tesseract_common::Profile
   using ConstPtr = std::shared_ptr<const ProfileSwitchProfile>;
 
   ProfileSwitchProfile(int return_value = 1);
-  ProfileSwitchProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  ProfileSwitchProfile(std::string name,
+                       const YAML::Node& config,
+                       const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /**
    * @brief A utility function for getting profile ID

@@ -57,7 +57,9 @@ ContactCheckProfile::ContactCheckProfile(double longest_valid_segment_length, do
   }
 }
 
-ContactCheckProfile::ContactCheckProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+ContactCheckProfile::ContactCheckProfile(std::string name,
+                                         const YAML::Node& config,
+                                         const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
   : ContactCheckProfile()
 {
   try

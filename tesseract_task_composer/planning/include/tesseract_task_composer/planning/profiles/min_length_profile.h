@@ -41,7 +41,6 @@ namespace YAML
 class Node;
 }
 
-
 namespace tesseract_planning
 {
 struct MinLengthProfile : public tesseract_common::Profile
@@ -51,7 +50,9 @@ struct MinLengthProfile : public tesseract_common::Profile
 
   MinLengthProfile();
   MinLengthProfile(long min_length);
-  MinLengthProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  MinLengthProfile(std::string name,
+                   const YAML::Node& config,
+                   const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /**
    * @brief A utility function for getting profile ID

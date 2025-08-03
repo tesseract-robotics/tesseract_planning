@@ -35,7 +35,9 @@ ProfileSwitchProfile::ProfileSwitchProfile(int return_value)
   : Profile(ProfileSwitchProfile::getStaticKey()), return_value(return_value)
 {
 }
-ProfileSwitchProfile::ProfileSwitchProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+ProfileSwitchProfile::ProfileSwitchProfile(std::string name,
+                                           const YAML::Node& config,
+                                           const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
   : ProfileSwitchProfile()
 {
 }

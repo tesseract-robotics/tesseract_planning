@@ -75,8 +75,10 @@ OMPLRealVectorMoveProfile::OMPLRealVectorMoveProfile()
   solver_config.planners = { std::make_shared<const RRTConnectConfigurator>(),
                              std::make_shared<const RRTConnectConfigurator>() };
 }
-OMPLRealVectorMoveProfile::OMPLRealVectorMoveProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
-: OMPLRealVectorMoveProfile()
+OMPLRealVectorMoveProfile::OMPLRealVectorMoveProfile(std::string name,
+                                                     const YAML::Node& config,
+                                                     const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : OMPLRealVectorMoveProfile()
 {
   try
   {
@@ -85,14 +87,14 @@ OMPLRealVectorMoveProfile::OMPLRealVectorMoveProfile(std::string name, const YAM
 
     if (YAML::Node n = config["contact_manager_config"])
       contact_manager_config = n.as<tesseract_collision::ContactManagerConfig>();
-      
+
     if (YAML::Node n = config["collision_check_config"])
       collision_check_config = n.as<tesseract_collision::CollisionCheckConfig>();
-
   }
   catch (const std::exception& e)
   {
-    throw std::runtime_error("OMPLRealVectorMoveProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+    throw std::runtime_error("OMPLRealVectorMoveProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
   }
 }
 
@@ -246,7 +248,11 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
   /** @todo Need to add Descartes pose sample to ompl profile */
   const auto dof = manip.numJoints();
   tesseract_common::KinematicLimits limits = manip.getLimits();
-  tesseract_kinematics::IKSolutions joint_solutions = manip.calcInvKin({ ik_input }, Eigen::VectorXd::Zero(dof));
+
+  thread_local tesseract_kinematics::IKSolutions joint_solutions;
+  joint_solutions.clear();
+
+  manip.calcInvKin(joint_solutions, { ik_input }, Eigen::VectorXd::Zero(dof));
   auto goal_states = std::make_shared<ompl::base::GoalStates>(simple_setup.getSpaceInformation());
   std::vector<tesseract_collision::ContactResultMap> contact_map_vec(static_cast<std::size_t>(joint_solutions.size()));
 
@@ -352,7 +358,12 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
   /** @todo Need to also provide the seed instruction to use here */
   const auto dof = manip.numJoints();
   tesseract_common::KinematicLimits limits = manip.getLimits();
-  tesseract_kinematics::IKSolutions joint_solutions = manip.calcInvKin({ ik_input }, Eigen::VectorXd::Zero(dof));
+
+  thread_local tesseract_kinematics::IKSolutions joint_solutions;
+  joint_solutions
+      .clear()
+
+          manip.calcInvKin({ ik_input }, Eigen::VectorXd::Zero(dof));
   bool found_start_state = false;
   std::vector<tesseract_collision::ContactResultMap> contact_map_vec(joint_solutions.size());
 

@@ -37,9 +37,11 @@ FixStateBoundsProfile::FixStateBoundsProfile(Settings mode) : Profile(FixStateBo
 {
 }
 
-FixStateBoundsProfile::FixStateBoundsProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+FixStateBoundsProfile::FixStateBoundsProfile(std::string name,
+                                             const YAML::Node& config,
+                                             const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
   : FixStateBoundsProfile()
-{   
+{
   try
   {
     if (YAML::Node n = config["mode"])

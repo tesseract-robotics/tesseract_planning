@@ -38,7 +38,6 @@ namespace YAML
 class Node;
 }
 
-
 namespace tesseract_planning
 {
 struct UpsampleTrajectoryProfile : public tesseract_common::Profile
@@ -48,7 +47,9 @@ struct UpsampleTrajectoryProfile : public tesseract_common::Profile
 
   UpsampleTrajectoryProfile();
   UpsampleTrajectoryProfile(double longest_valid_segment_length);
-  UpsampleTrajectoryProfile(std::string name, const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  UpsampleTrajectoryProfile(std::string name,
+                            const YAML::Node& config,
+                            const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /**
    * @brief A utility function for getting profile ID
