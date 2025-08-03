@@ -39,7 +39,6 @@ KinematicLimitsCheckProfile::KinematicLimitsCheckProfile(bool check_position,
 }
 
 KinematicLimitsCheckProfile::KinematicLimitsCheckProfile(
-    std::string name,
     const YAML::Node& config,
     const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
   : KinematicLimitsCheckProfile()

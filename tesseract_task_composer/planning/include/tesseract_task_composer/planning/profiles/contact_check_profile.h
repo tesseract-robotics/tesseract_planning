@@ -49,9 +49,7 @@ struct ContactCheckProfile : public tesseract_common::Profile
 
   ContactCheckProfile();
   ContactCheckProfile(double longest_valid_segment_length, double contact_distance);
-  ContactCheckProfile(std::string name,
-                      const YAML::Node& config,
-                      const tesseract_common::ProfilePluginFactory& plugin_factory);
+  ContactCheckProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /**
    * @brief A utility function for getting profile ID

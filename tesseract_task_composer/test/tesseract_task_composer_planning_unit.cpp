@@ -4424,7 +4424,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContactCheckProfileTest)  
 
     YAML::Node config = YAML::Load(yaml_string);
     tesseract_common::ProfilePluginFactory plugin_factory;
-    ContactCheckProfile profile("contact_check_profile", config["config"], plugin_factory);
+    ContactCheckProfile profile(config["config"], plugin_factory);
 
     EXPECT_EQ(profile.contact_manager_config.default_margin, 0);
     EXPECT_EQ(profile.collision_check_config.type, tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE);
@@ -4436,7 +4436,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContactCheckProfileTest)  
 
     YAML::Node config = YAML::Load(yaml_string);
     tesseract_common::ProfilePluginFactory plugin_factory;
-    ContactCheckProfile profile("contact_check_profile", config["config"], plugin_factory);
+    ContactCheckProfile profile(config["config"], plugin_factory);
 
     EXPECT_EQ(profile.contact_manager_config.default_margin, 0);
     EXPECT_EQ(profile.collision_check_config.type, tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE);
@@ -4464,7 +4464,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsProfileTest)
 
     YAML::Node config = YAML::Load(yaml_string);
     tesseract_common::ProfilePluginFactory plugin_factory;
-    FixStateBoundsProfile profile("fix_state_bounds_profile", config["config"], plugin_factory);
+    FixStateBoundsProfile profile(config["config"], plugin_factory);
 
     EXPECT_EQ(profile.mode, tesseract_planning::FixStateBoundsProfile::Settings::START_ONLY);
     EXPECT_NEAR(profile.max_deviation_global, 1000.0, 1e-6);
@@ -4477,7 +4477,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsProfileTest)
 
     YAML::Node config = YAML::Load(yaml_string);
     tesseract_common::ProfilePluginFactory plugin_factory;
-    FixStateBoundsProfile profile("fix_state_bounds_profile", config["config"], plugin_factory);
+    FixStateBoundsProfile profile(config["config"], plugin_factory);
 
     EXPECT_EQ(profile.mode, tesseract_planning::FixStateBoundsProfile::Settings::ALL);
     EXPECT_EQ(profile.max_deviation_global, std::numeric_limits<double>::max());
@@ -4517,7 +4517,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionProfileTe
 
     YAML::Node config = YAML::Load(yaml_string);
     tesseract_common::ProfilePluginFactory plugin_factory;
-    FixStateCollisionProfile profile("fix_state_collision_profile", config["config"], plugin_factory);
+    FixStateCollisionProfile profile(config["config"], plugin_factory);
 
     EXPECT_EQ(profile.mode, tesseract_planning::FixStateCollisionProfile::Settings::ALL);
     std::vector<tesseract_planning::FixStateCollisionProfile::CorrectionMethod> workflow{
@@ -4538,7 +4538,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionProfileTe
 
     YAML::Node config = YAML::Load(yaml_string);
     tesseract_common::ProfilePluginFactory plugin_factory;
-    FixStateCollisionProfile profile("fix_state_collision_profile", config["config"], plugin_factory);
+    FixStateCollisionProfile profile(config["config"], plugin_factory);
 
     EXPECT_EQ(profile.mode, tesseract_planning::FixStateCollisionProfile::Settings::ALL);
     std::vector<tesseract_planning::FixStateCollisionProfile::CorrectionMethod> workflow{
@@ -4571,7 +4571,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckProfil
 
     YAML::Node config = YAML::Load(yaml_string);
     tesseract_common::ProfilePluginFactory plugin_factory;
-    KinematicLimitsCheckProfile profile("kinematic_limits_check_profile", config["config"], plugin_factory);
+    KinematicLimitsCheckProfile profile(config["config"], plugin_factory);
 
     EXPECT_EQ(profile.check_position, false);
     EXPECT_EQ(profile.check_velocity, false);
@@ -4586,7 +4586,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckProfil
 
     YAML::Node config = YAML::Load(yaml_string);
     tesseract_common::ProfilePluginFactory plugin_factory;
-    KinematicLimitsCheckProfile profile("kinematic_limits_check_profile", config["config"], plugin_factory);
+    KinematicLimitsCheckProfile profile(config["config"], plugin_factory);
 
     EXPECT_EQ(profile.check_position, false);
     EXPECT_EQ(profile.check_velocity, false);
@@ -4604,14 +4604,15 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthProfileTest)  // 
   }
 
   {  // Constructor
-    const std::string yaml_string = R"(config:
-                                      )";
+    const std::string yaml_string = R"(
+config:
+  min_length: 5)";
 
     YAML::Node config = YAML::Load(yaml_string);
     tesseract_common::ProfilePluginFactory plugin_factory;
-    MinLengthProfile profile("min_length_profile", config["config"], plugin_factory);
+    MinLengthProfile profile(config["config"], plugin_factory);
 
-    EXPECT_EQ(profile.min_length, 10);
+    EXPECT_EQ(profile.min_length, 5);
   }
 }
 
@@ -4624,14 +4625,15 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchProfileTest) 
     EXPECT_EQ(profile.return_value, 1);
   }
   {  // Constructor
-    const std::string yaml_string = R"(config:
-                                      )";
+    const std::string yaml_string = R"(
+config:
+  return_value: 5)";
 
     YAML::Node config = YAML::Load(yaml_string);
     tesseract_common::ProfilePluginFactory plugin_factory;
-    ProfileSwitchProfile profile("profile_switch_profile", config["config"], plugin_factory);
+    ProfileSwitchProfile profile(config["config"], plugin_factory);
 
-    EXPECT_EQ(profile.return_value, 1);
+    EXPECT_EQ(profile.return_value, 5);
   }
 }
 
@@ -4649,7 +4651,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryProfileT
 
     YAML::Node config = YAML::Load(yaml_string);
     tesseract_common::ProfilePluginFactory plugin_factory;
-    UpsampleTrajectoryProfile profile("upsample_trajectory_profile", config["config"], plugin_factory);
+    UpsampleTrajectoryProfile profile(config["config"], plugin_factory);
 
     EXPECT_NEAR(profile.longest_valid_segment_length, 0.5, 1e-6);
   }

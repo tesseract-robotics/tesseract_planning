@@ -47,8 +47,7 @@ FixStateCollisionProfile::FixStateCollisionProfile(Settings mode)
   trajopt_joint_cost_config.coeff = Eigen::VectorXd::Constant(1, 1, 5);
 }
 
-FixStateCollisionProfile::FixStateCollisionProfile(std::string name,
-                                                   const YAML::Node& config,
+FixStateCollisionProfile::FixStateCollisionProfile(const YAML::Node& config,
                                                    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
   : FixStateCollisionProfile()
 {

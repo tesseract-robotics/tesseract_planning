@@ -56,9 +56,7 @@ struct FixStateBoundsProfile : public tesseract_common::Profile
   };
 
   FixStateBoundsProfile(Settings mode = Settings::ALL);
-  FixStateBoundsProfile(std::string name,
-                        const YAML::Node& config,
-                        const tesseract_common::ProfilePluginFactory& plugin_factory);
+  FixStateBoundsProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /**
    * @brief A utility function for getting profile ID

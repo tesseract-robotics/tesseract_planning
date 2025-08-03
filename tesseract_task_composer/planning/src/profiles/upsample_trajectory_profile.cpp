@@ -38,8 +38,7 @@ UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(double longest_valid_segmen
   : Profile(UpsampleTrajectoryProfile::getStaticKey()), longest_valid_segment_length(longest_valid_segment_length)
 {
 }
-UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(std::string name,
-                                                     const YAML::Node& config,
+UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(const YAML::Node& config,
                                                      const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
   : UpsampleTrajectoryProfile()
 {
