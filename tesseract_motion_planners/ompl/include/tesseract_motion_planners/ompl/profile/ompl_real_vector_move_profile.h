@@ -44,6 +44,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/fwd.h>
 #include <tesseract_common/fwd.h>
 
+namespace YAML
+{
+class Node;
+}
+
 namespace ompl::base
 {
 class StateSampler;
@@ -67,6 +72,7 @@ public:
   using ConstPtr = std::shared_ptr<const OMPLRealVectorMoveProfile>;
 
   OMPLRealVectorMoveProfile();
+  OMPLRealVectorMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /** @brief The OMPL parallel planner solver config */
   OMPLSolverConfig solver_config;

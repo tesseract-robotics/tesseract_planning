@@ -23,6 +23,8 @@
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <typeindex>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
@@ -34,6 +36,27 @@ KinematicLimitsCheckProfile::KinematicLimitsCheckProfile(bool check_position,
   , check_velocity(check_velocity)
   , check_acceleration(check_acceleration)
 {
+}
+
+KinematicLimitsCheckProfile::KinematicLimitsCheckProfile(
+    const YAML::Node& config,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : KinematicLimitsCheckProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["check_position"])
+      check_position = n.as<bool>();
+    if (YAML::Node n = config["check_velocity"])
+      check_velocity = n.as<bool>();
+    if (YAML::Node n = config["check_acceleration"])
+      check_acceleration = n.as<bool>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("KinematicLimitsCheckProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
 }
 
 std::size_t KinematicLimitsCheckProfile::getStaticKey()

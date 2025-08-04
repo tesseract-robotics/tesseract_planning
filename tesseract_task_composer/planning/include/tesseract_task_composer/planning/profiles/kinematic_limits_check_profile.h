@@ -23,6 +23,12 @@
 
 #include <memory>
 #include <tesseract_common/profile.h>
+#include <tesseract_common/fwd.h>
+
+namespace YAML
+{
+class Node;
+}
 
 namespace tesseract_planning
 {
@@ -32,6 +38,7 @@ struct KinematicLimitsCheckProfile : public tesseract_common::Profile
   using ConstPtr = std::shared_ptr<const KinematicLimitsCheckProfile>;
 
   KinematicLimitsCheckProfile(bool check_position = true, bool check_velocity = true, bool check_acceleration = true);
+  KinematicLimitsCheckProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /**
    * @brief A utility function for getting profile ID

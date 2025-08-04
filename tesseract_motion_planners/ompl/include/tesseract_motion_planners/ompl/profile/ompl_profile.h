@@ -42,6 +42,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile.h>
 
+namespace YAML
+{
+class Node;
+}
+
 namespace ompl::geometric
 {
 class SimpleSetup;

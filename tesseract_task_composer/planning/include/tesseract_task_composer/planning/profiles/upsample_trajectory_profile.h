@@ -31,6 +31,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile.h>
+#include <tesseract_common/fwd.h>
+
+namespace YAML
+{
+class Node;
+}
 
 namespace tesseract_planning
 {
@@ -41,6 +47,7 @@ struct UpsampleTrajectoryProfile : public tesseract_common::Profile
 
   UpsampleTrajectoryProfile();
   UpsampleTrajectoryProfile(double longest_valid_segment_length);
+  UpsampleTrajectoryProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /**
    * @brief A utility function for getting profile ID

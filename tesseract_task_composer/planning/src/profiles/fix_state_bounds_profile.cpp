@@ -27,11 +27,35 @@
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <typeindex>
+#include <tesseract_task_composer/core/yaml_extensions.h>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
 FixStateBoundsProfile::FixStateBoundsProfile(Settings mode) : Profile(FixStateBoundsProfile::getStaticKey()), mode(mode)
 {
+}
+
+FixStateBoundsProfile::FixStateBoundsProfile(const YAML::Node& config,
+                                             const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : FixStateBoundsProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["mode"])
+      mode = n.as<Settings>();
+    if (YAML::Node n = config["max_deviation_global"])
+      max_deviation_global = n.as<double>();
+    if (YAML::Node n = config["upper_bounds_reduction"])
+      upper_bounds_reduction = n.as<double>();
+    if (YAML::Node n = config["lower_bounds_reduction"])
+      lower_bounds_reduction = n.as<double>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("FixStateBoundsProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+  }
 }
 
 std::size_t FixStateBoundsProfile::getStaticKey() { return std::type_index(typeid(FixStateBoundsProfile)).hash_code(); }

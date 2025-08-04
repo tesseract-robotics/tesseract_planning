@@ -33,6 +33,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_collision/core/types.h>
 #include <tesseract_common/profile.h>
+#include <tesseract_common/fwd.h>
+
+namespace YAML
+{
+class Node;
+}
 
 namespace tesseract_planning
 {
@@ -43,6 +49,7 @@ struct ContactCheckProfile : public tesseract_common::Profile
 
   ContactCheckProfile();
   ContactCheckProfile(double longest_valid_segment_length, double contact_distance);
+  ContactCheckProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /**
    * @brief A utility function for getting profile ID
