@@ -29,6 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/algorithm/string.hpp>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
+#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/trajopt_utils.h>
@@ -45,13 +46,38 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_environment/environment.h>
-
+#include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 namespace tesseract_planning
 {
 TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile()
 {
   cartesian_cost_config.enabled = false;
   joint_cost_config.enabled = false;
+}
+
+TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+: TrajOptDefaultMoveProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["cartesian_cost_config"])
+      cartesian_cost_config = n.as<tesseract_planning::TrajOptCartesianWaypointConfig>();
+
+    if (YAML::Node n = config["cartesian_constraint_config"])
+      cartesian_constraint_config = n.as<tesseract_planning::TrajOptCartesianWaypointConfig>();
+    
+      if (YAML::Node n = config["joint_cost_config"])
+      joint_cost_config = n.as<tesseract_planning::TrajOptJointWaypointConfig>();
+
+    if (YAML::Node n = config["joint_constraint_config"])
+      joint_constraint_config = n.as<tesseract_planning::TrajOptJointWaypointConfig>();
+
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+  }
 }
 
 TrajOptWaypointInfo
