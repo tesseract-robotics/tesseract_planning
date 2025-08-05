@@ -33,10 +33,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/unique_ptr.hpp>
+#include <yaml-cpp/yaml.h>
+
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
+#include <tesseract_common/profile_plugin_factory.h>
+
 
 namespace boost::serialization
 {
@@ -81,6 +85,11 @@ TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile()
   qp_settings->setMaxIteration(8192);
   qp_settings->setAbsoluteTolerance(1e-4);
   qp_settings->setRelativeTolerance(1e-6);
+}
+
+TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+: TrajOptIfoptOSQPSolverProfile()
+{
 }
 
 std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> TrajOptIfoptOSQPSolverProfile::create(bool verbose) const
