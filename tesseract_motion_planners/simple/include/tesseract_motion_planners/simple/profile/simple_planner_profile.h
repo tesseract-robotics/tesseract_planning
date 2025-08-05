@@ -38,6 +38,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/fwd.h>
 #include <tesseract_common/profile.h>
 
+namespace YAML
+{
+class Node;
+}
+
 namespace tesseract_planning
 {
 /**
@@ -52,6 +57,8 @@ public:
 
   SimplePlannerMoveProfile();
 
+  SimplePlannerMoveProfile(const YAML::Node& /*config*/, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  
   /**
    * @brief A utility function for getting profile ID
    * @return The profile ID used when storing in profile dictionary
