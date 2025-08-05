@@ -52,7 +52,7 @@ SimplePlannerLVSAssignMoveProfile::SimplePlannerLVSAssignMoveProfile(double stat
 {
 }
 
-SimplePlannerLVSAssignMoveProfile::SimplePlannerLVSAssignMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+SimplePlannerLVSAssignMoveProfile::SimplePlannerLVSAssignMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
 : SimplePlannerLVSAssignMoveProfile()
 {  
   if (YAML::Node n = config["state_longest_valid_segment_length"])

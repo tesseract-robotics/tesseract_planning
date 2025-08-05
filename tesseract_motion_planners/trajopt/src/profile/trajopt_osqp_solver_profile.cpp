@@ -70,7 +70,7 @@ namespace tesseract_planning
 {
 TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile() { sco::OSQPModelConfig::setDefaultOSQPSettings(settings); }
 
-TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
 : TrajOptOSQPSolverProfile()
 {
   try

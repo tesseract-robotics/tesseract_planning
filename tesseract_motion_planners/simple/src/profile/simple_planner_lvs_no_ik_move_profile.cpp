@@ -52,7 +52,7 @@ SimplePlannerLVSNoIKMoveProfile::SimplePlannerLVSNoIKMoveProfile(double state_lo
 {
 }
 
-SimplePlannerLVSNoIKMoveProfile::SimplePlannerLVSNoIKMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+SimplePlannerLVSNoIKMoveProfile::SimplePlannerLVSNoIKMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
 : SimplePlannerLVSNoIKMoveProfile()
 {  
   if (YAML::Node n = config["state_longest_valid_segment_length"])

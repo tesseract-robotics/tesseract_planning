@@ -44,7 +44,7 @@ SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(int freespa
 {
 }
 
-SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
 : SimplePlannerFixedSizeMoveProfile()
 {
   if (YAML::Node n = config["freespace_steps"]) 

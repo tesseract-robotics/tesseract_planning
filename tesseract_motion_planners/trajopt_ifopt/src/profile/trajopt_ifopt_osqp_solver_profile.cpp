@@ -87,7 +87,7 @@ TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile()
   qp_settings->setRelativeTolerance(1e-6);
 }
 
-TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile(const YAML::Node& /*config*/, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
 : TrajOptIfoptOSQPSolverProfile()
 {
 }

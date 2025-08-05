@@ -60,7 +60,7 @@ void serialize(Archive& ar, trajopt_sqp::SQPParameters& params, const unsigned i
 namespace tesseract_planning
 {
 TrajOptIfoptMoveProfile::TrajOptIfoptMoveProfile() : Profile(TrajOptIfoptMoveProfile::getStaticKey()) {}
-TrajOptIfoptMoveProfile::TrajOptIfoptMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+TrajOptIfoptMoveProfile::TrajOptIfoptMoveProfile(const YAML::Node& /*config*/, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
 : TrajOptIfoptMoveProfile()
 {
 }

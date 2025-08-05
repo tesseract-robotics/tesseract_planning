@@ -57,7 +57,7 @@ namespace tesseract_planning
 {
 
 
-TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
 : TrajOptDefaultCompositeProfile()
 {
   try

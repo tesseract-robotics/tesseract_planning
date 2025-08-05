@@ -56,7 +56,7 @@ TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile()
   joint_cost_config.enabled = false;
 }
 
-TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
 : TrajOptDefaultMoveProfile()
 {
   try

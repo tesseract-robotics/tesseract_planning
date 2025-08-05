@@ -131,14 +131,14 @@ struct convert<trajopt_common::TrajOptCollisionConfig>
 template <>
 struct convert<trajopt_common::CollisionCoeffData>
 {
-  static Node encode(const trajopt_common::CollisionCoeffData& rhs)
+  static Node encode(const trajopt_common::CollisionCoeffData& /*rhs*/)
   {
     Node node;
     // only contains private variables
     return node;
   }
 
-  static bool decode(const Node& node, trajopt_common::CollisionCoeffData& rhs)
+  static bool decode(const Node& node, trajopt_common::CollisionCoeffData& /*rhs*/)
   {
     // Check for required entries
     return true;
