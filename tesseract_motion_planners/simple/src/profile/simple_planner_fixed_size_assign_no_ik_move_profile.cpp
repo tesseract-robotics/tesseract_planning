@@ -47,7 +47,7 @@ SimplePlannerFixedSizeAssignNoIKMoveProfile::SimplePlannerFixedSizeAssignNoIKMov
 {
 }
 
-SimplePlannerFixedSizeAssignNoIKMoveProfile::SimplePlannerFixedSizeAssignNoIKMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+SimplePlannerFixedSizeAssignNoIKMoveProfile::SimplePlannerFixedSizeAssignNoIKMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
 : SimplePlannerFixedSizeAssignNoIKMoveProfile()
 {
   if (YAML::Node n = config["freespace_steps"]) 

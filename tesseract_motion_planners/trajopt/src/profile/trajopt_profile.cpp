@@ -59,7 +59,7 @@ void serialize(Archive& ar, sco::BasicTrustRegionSQPParameters& params, const un
 namespace tesseract_planning
 {
 TrajOptMoveProfile::TrajOptMoveProfile() : Profile(TrajOptMoveProfile::getStaticKey()) {}
-TrajOptMoveProfile::TrajOptMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+TrajOptMoveProfile::TrajOptMoveProfile(const YAML::Node& /*config*/, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
 : TrajOptMoveProfile()
 {
 }

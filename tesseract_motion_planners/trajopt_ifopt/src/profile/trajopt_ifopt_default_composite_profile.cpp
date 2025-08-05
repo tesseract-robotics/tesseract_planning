@@ -47,7 +47,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory) 
+TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/) 
 : TrajOptIfoptDefaultCompositeProfile()
 {
   try

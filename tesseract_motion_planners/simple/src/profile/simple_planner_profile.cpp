@@ -33,7 +33,7 @@
 namespace tesseract_planning
 {
 SimplePlannerMoveProfile::SimplePlannerMoveProfile() : Profile(SimplePlannerMoveProfile::getStaticKey()) {}
-SimplePlannerMoveProfile::SimplePlannerMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+SimplePlannerMoveProfile::SimplePlannerMoveProfile(const YAML::Node& /*config*/, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
 : SimplePlannerMoveProfile()
 { 
 }

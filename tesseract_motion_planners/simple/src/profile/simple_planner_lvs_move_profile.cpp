@@ -52,7 +52,7 @@ SimplePlannerLVSMoveProfile::SimplePlannerLVSMoveProfile(double state_longest_va
 {
 }
 
-SimplePlannerLVSMoveProfile::SimplePlannerLVSMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory)
+SimplePlannerLVSMoveProfile::SimplePlannerLVSMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
 : SimplePlannerLVSMoveProfile()
 {  
   if (YAML::Node n = config["state_longest_valid_segment_length"])
