@@ -102,6 +102,12 @@ struct FixStateCollisionProfile : public tesseract_common::Profile
   /** @brief The TrajOpt joint waypoint cost config */
   TrajOptJointWaypointConfig trajopt_joint_cost_config;
 
+  /** @brief Coefficient for collision constraint in TrajOpt optimization */
+  double collision_constraint_coeff{ 1.0 };
+
+  /** @brief Coefficient for collision cost in TrajOpt optimization */
+  double collision_cost_coeff{ 20.0 };
+
 private:
   friend class boost::serialization::access;
   friend struct tesseract_common::Serialization;
