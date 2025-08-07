@@ -375,7 +375,8 @@ bool CarSeatExample::run()
     program.push_back(plan_f0);
 
     // Print Diagnostics
-    program.print("Program: ");
+    if (debug_)
+      program.print("Program: ");
 
     CONSOLE_BRIDGE_logInform("Freespace plan to pick seat 1 example");
 
@@ -461,7 +462,8 @@ bool CarSeatExample::run()
     program.push_back(plan_f0);
 
     // Print Diagnostics
-    program.print("Program: ");
+    if (debug_)
+      program.print("Program: ");
 
     CONSOLE_BRIDGE_logInform("Freespace plan to pick seat 1 example");
 

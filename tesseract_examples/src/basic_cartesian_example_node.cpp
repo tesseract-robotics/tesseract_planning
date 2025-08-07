@@ -45,7 +45,7 @@ int main(int /*argc*/, char** /*argv*/)
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  BasicCartesianExample example(env, nullptr, false, true);
+  BasicCartesianExample example(env, nullptr, false, false);
   if (!example.run())
   {
     CONSOLE_BRIDGE_logError("BasicCartesianExample failed");

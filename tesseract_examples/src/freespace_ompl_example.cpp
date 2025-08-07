@@ -80,8 +80,9 @@ namespace tesseract_examples
 FreespaceOMPLExample::FreespaceOMPLExample(std::shared_ptr<tesseract_environment::Environment> env,
                                            std::shared_ptr<tesseract_visualization::Visualization> plotter,
                                            double range,
-                                           double planning_time)
-  : Example(std::move(env), std::move(plotter)), range_(range), planning_time_(planning_time)
+                                           double planning_time,
+                                           bool debug)
+  : Example(std::move(env), std::move(plotter)), range_(range), planning_time_(planning_time), debug_(debug)
 {
 }
 
@@ -149,6 +150,11 @@ bool FreespaceOMPLExample::run()
 
   env_->setState(joint_names, joint_start_pos);
 
+  if (debug_)
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  else
+    console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
+
   // Create Task Composer Plugin Factory
   std::shared_ptr<const tesseract_common::ResourceLocator> locator = env_->getResourceLocator();
   std::filesystem::path config_path(
@@ -174,7 +180,8 @@ bool FreespaceOMPLExample::run()
   program.push_back(plan_f0);
 
   // Print Diagnostics
-  program.print("Program: ");
+  if (debug_)
+    program.print("Program: ");
 
   CONSOLE_BRIDGE_logInform("freespace OMPL plan example");
 

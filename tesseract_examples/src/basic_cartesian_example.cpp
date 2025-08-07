@@ -215,7 +215,8 @@ bool BasicCartesianExample::run()
   program.push_back(plan_f1);
 
   // Print Diagnostics
-  program.print("Program: ");
+  if (debug_)
+    program.print("Program: ");
 
   CONSOLE_BRIDGE_logInform("basic cartesian plan example");
 
