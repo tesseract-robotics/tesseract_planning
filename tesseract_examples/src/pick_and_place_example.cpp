@@ -219,7 +219,8 @@ bool PickAndPlaceExample::run()
   pick_program.push_back(pick_plan_a1);
 
   // Print Diagnostics
-  pick_program.print("Program: ");
+  if (debug_)
+    pick_program.print("Program: ");
 
   // Create Executor
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
@@ -416,7 +417,8 @@ bool PickAndPlaceExample::run()
   place_program.push_back(place_plan_a2);
 
   // Print Diagnostics
-  place_program.print("Program: ");
+  if (debug_)
+    place_program.print("Program: ");
 
   // Create task
   TaskComposerNode::UPtr place_task = factory.createTaskComposerNode(task_name);

@@ -213,7 +213,8 @@ bool PuzzlePieceExample::run()
   assignCurrentStateAsSeed(program, *env_);
 
   // Print Diagnostics
-  program.print("Program: ");
+  if (debug_)
+    program.print("Program: ");
 
   // Create Executor
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
