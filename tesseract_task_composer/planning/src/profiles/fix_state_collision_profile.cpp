@@ -45,6 +45,8 @@ FixStateCollisionProfile::FixStateCollisionProfile(Settings mode)
   collision_check_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
   trajopt_joint_constraint_config.coeff = Eigen::VectorXd::Constant(1, 1, 1);
   trajopt_joint_cost_config.coeff = Eigen::VectorXd::Constant(1, 1, 5);
+  collision_constraint_coeff = trajopt_common::CollisionCoeffData(1.0);
+  collision_cost_coeff = trajopt_common::CollisionCoeffData(20.0);
 }
 
 FixStateCollisionProfile::FixStateCollisionProfile(const YAML::Node& config,
