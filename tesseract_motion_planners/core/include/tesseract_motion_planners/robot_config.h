@@ -78,7 +78,9 @@ inline RobotConfig getRobotConfig(const tesseract_kinematics::JointGroup& joint_
                                   const Eigen::Ref<const Eigen::Vector2i>& sign_correction = Eigen::Vector2i::Ones())
 {
   // Get state
-  tesseract_common::TransformMap state = joint_group.calcFwdKin(joint_values.template cast<double>());
+  thread_local tesseract_common::TransformMap state;
+  state.clear();
+  joint_group.calcFwdKin(state, joint_values.template cast<double>());
 
   // Get the pose at tool0
   Eigen::Isometry3d pose = state.at(base_link).inverse() * state.at(tcp_frame);

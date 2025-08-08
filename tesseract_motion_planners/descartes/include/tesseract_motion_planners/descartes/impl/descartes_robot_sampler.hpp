@@ -79,6 +79,10 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
   bool found_ik_sol = false;
   std::stringstream error_string_stream;
 
+  // Solve IK (TODO Should tcp_offset be stored in KinGroupIKInput?)
+  tesseract_kinematics::KinGroupIKInputs ik_inputs;
+  ik_inputs.emplace_back(Eigen::Isometry3d::Identity(), target_working_frame_, tcp_frame_);
+
   // Generate the IK solutions for those poses
   std::vector<descartes_light::StateSample<FloatType>> samples;
   for (std::size_t i = 0; i < target_poses.size(); i++)
@@ -86,12 +90,12 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
     const auto& pose = target_poses[i];
 
     // Get the transformation to the kinematic tip link
-    Eigen::Isometry3d target_pose = pose * tcp_offset_.inverse();
+    ik_inputs.front().pose = pose * tcp_offset_.inverse();
 
-    // Solve IK (TODO Should tcp_offset be stored in KinGroupIKInput?)
-    tesseract_kinematics::KinGroupIKInput ik_input(target_pose, target_working_frame_, tcp_frame_);
-    tesseract_kinematics::IKSolutions ik_solutions = manip_->calcInvKin({ ik_input }, ik_seed_);
+    thread_local tesseract_kinematics::IKSolutions ik_solutions;
+    ik_solutions.clear();
 
+    manip_->calcInvKin(ik_solutions, ik_inputs, ik_seed_);
     if (ik_solutions.empty())
       continue;
 
@@ -99,6 +103,10 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
                                                                 static_cast<int>(ik_solutions.size()));
 
     found_ik_sol = true;
+
+    // These get cleared in the validate and distance calls
+    thread_local tesseract_collision::ContactResultMap coll_results;
+    thread_local tesseract_common::TransformMap transforms;
 
     // Check each individual joint solution
     for (std::size_t j = 0; j < ik_solutions.size(); j++)
@@ -115,8 +123,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
       }
       else if (!allow_collision_)
       {
-        tesseract_collision::ContactResultMap coll_results = collision_->validate(sol);
-        if (coll_results.empty())
+        if (collision_->validate(coll_results, transforms, sol))
         {
           samples.push_back(descartes_light::StateSample<FloatType>{ state, 0.0 });
         }
@@ -131,7 +138,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
       }
       else
       {
-        const FloatType cost = static_cast<FloatType>(collision_->distance(sol));
+        const FloatType cost = static_cast<FloatType>(collision_->distance(coll_results, transforms, sol));
         samples.push_back(descartes_light::StateSample<FloatType>{ state, cost });
       }
     }
@@ -188,24 +195,25 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
   {
     const Eigen::MatrixX2d& limits = manip_->getLimits().joint_limits;
     std::vector<Eigen::Index> redundancy_capable_joints = manip_->getRedundancyCapableJointIndices();
-    std::vector<descartes_light::StateSample<FloatType>> redundant_samples;
-    for (const descartes_light::StateSample<FloatType>& sample : samples)
+    const std::size_t ns = samples.size();
+    for (std::size_t i = 0; i < ns; ++i)
     {
-      const auto redundant_solutions =
-          tesseract_kinematics::getRedundantSolutions<FloatType>(*(sample.state), limits, redundancy_capable_joints);
+      thread_local std::vector<tesseract_kinematics::VectorX<FloatType>> redundant_solutions;
+      redundant_solutions.clear();
+
+      const auto& sample = samples[i];
+      const FloatType cost = sample.cost;
+
+      tesseract_kinematics::getRedundantSolutions<FloatType>(
+          redundant_solutions, sample.state->values, limits, redundancy_capable_joints);
 
       // Add the redundant samples with the same cost as the nominal sample
-      std::transform(redundant_solutions.begin(),
-                     redundant_solutions.end(),
-                     std::back_inserter(redundant_samples),
-                     [&sample](const auto& sol) {
-                       auto state = std::make_shared<descartes_light::State<FloatType>>(sol.template cast<FloatType>());
-                       return descartes_light::StateSample<FloatType>{ state, sample.cost };
-                     });
+      std::transform(
+          redundant_solutions.begin(), redundant_solutions.end(), std::back_inserter(samples), [&](const auto& sol) {
+            auto state = std::make_shared<descartes_light::State<FloatType>>(sol.template cast<FloatType>());
+            return descartes_light::StateSample<FloatType>{ state, cost };
+          });
     }
-
-    // Combine the nominal samples with the redundant samples
-    samples.insert(samples.end(), redundant_samples.begin(), redundant_samples.end());
   }
 
   error_string_ = "Found at least 1 valid solution";
