@@ -32,6 +32,5 @@ target_code_coverage(
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 add_gtest_discover_tests(${PROJECT_NAME}_trajopt_yaml_unit)
-
 add_dependencies(${PROJECT_NAME}_trajopt_yaml_unit ${PROJECT_NAME}_trajopt)
 add_dependencies(run_tests ${PROJECT_NAME}_trajopt_yaml_unit)
