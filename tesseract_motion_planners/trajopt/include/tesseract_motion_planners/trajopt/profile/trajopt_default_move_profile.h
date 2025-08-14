@@ -35,6 +35,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/trajopt_waypoint_config.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
+#include <tesseract_collision/core/fwd.h>
+#include <tesseract_collision/core/types.h>
+
+namespace YAML
+{
+class Node;
+}
 
 namespace tesseract_planning
 {
@@ -45,6 +52,7 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptDefaultMoveProfile>;
 
   TrajOptDefaultMoveProfile();
+  TrajOptDefaultMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   TrajOptCartesianWaypointConfig cartesian_cost_config;
   TrajOptCartesianWaypointConfig cartesian_constraint_config;

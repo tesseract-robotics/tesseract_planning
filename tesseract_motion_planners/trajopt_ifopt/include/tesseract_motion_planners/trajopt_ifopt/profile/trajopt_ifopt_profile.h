@@ -40,10 +40,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/fwd.h>
 #include <tesseract_command_language/fwd.h>
 #include <tesseract_common/profile.h>
-
+#include <tesseract_collision/core/fwd.h>
+#include <tesseract_collision/core/types.h>
 namespace ifopt
 {
 class ConstraintSet;
+}
+
+namespace YAML
+{
+class Node;
 }
 
 namespace tesseract_planning
@@ -72,6 +78,7 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptIfoptMoveProfile>;
 
   TrajOptIfoptMoveProfile();
+  TrajOptIfoptMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   virtual TrajOptIfoptWaypointInfo create(const MoveInstructionPoly& move_instruction,
                                           const tesseract_common::ManipulatorInfo& composite_manip_info,
