@@ -462,8 +462,8 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_NE(instr.size(), instr.getInstructionCount());  // Because of nested composites
   EXPECT_EQ(instr.size(), instr.getInstructions().size());
   EXPECT_EQ(instr.size(), std::as_const(instr).getInstructions().size());
-  EXPECT_EQ(instr.size(), 12);
-  EXPECT_EQ(instr.getInstructionCount(), 41);
+  EXPECT_EQ(instr.size(), 13);
+  EXPECT_EQ(instr.getInstructionCount(), 42);
   EXPECT_NE(instr.getFirstInstruction(), nullptr);
   EXPECT_NE(std::as_const(instr).getFirstInstruction(), nullptr);
   EXPECT_EQ(std::as_const(instr).getFirstInstruction(), instr.getFirstInstruction());
@@ -491,8 +491,8 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_NE(insert_program.size(), insert_program.getInstructionCount());  // Because of nested composites
   EXPECT_EQ(insert_program.size(), insert_program.getInstructions().size());
   EXPECT_EQ(insert_program.size(), std::as_const(insert_program).getInstructions().size());
-  EXPECT_EQ(insert_program.size(), 12);
-  EXPECT_EQ(insert_program.getInstructionCount(), 41);
+  EXPECT_EQ(insert_program.size(), 13);
+  EXPECT_EQ(insert_program.getInstructionCount(), 42);
   EXPECT_NE(insert_program.getFirstInstruction(), nullptr);
   EXPECT_NE(std::as_const(insert_program).getFirstInstruction(), nullptr);
   EXPECT_EQ(std::as_const(insert_program).getFirstInstruction(), insert_program.getFirstInstruction());
@@ -528,8 +528,8 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_NE(assign_program.size(), assign_program.getInstructionCount());  // Because of nested composites
   EXPECT_EQ(assign_program.size(), assign_program.getInstructions().size());
   EXPECT_EQ(assign_program.size(), std::as_const(assign_program).getInstructions().size());
-  EXPECT_EQ(assign_program.size(), 12);
-  EXPECT_EQ(assign_program.getInstructionCount(), 41);
+  EXPECT_EQ(assign_program.size(), 13);
+  EXPECT_EQ(assign_program.getInstructionCount(), 42);
   EXPECT_NE(assign_program.getFirstInstruction(), nullptr);
   EXPECT_NE(std::as_const(assign_program).getFirstInstruction(), nullptr);
   EXPECT_EQ(std::as_const(assign_program).getFirstInstruction(), assign_program.getFirstInstruction());
@@ -562,8 +562,8 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_NE(copy_program.size(), copy_program.getInstructionCount());  // Because of nested composites
   EXPECT_EQ(copy_program.size(), copy_program.getInstructions().size());
   EXPECT_EQ(copy_program.size(), std::as_const(copy_program).getInstructions().size());
-  EXPECT_EQ(copy_program.size(), 12);
-  EXPECT_EQ(copy_program.getInstructionCount(), 41);
+  EXPECT_EQ(copy_program.size(), 13);
+  EXPECT_EQ(copy_program.getInstructionCount(), 42);
   EXPECT_NE(copy_program.getFirstInstruction(), nullptr);
   EXPECT_NE(std::as_const(copy_program).getFirstInstruction(), nullptr);
   EXPECT_EQ(std::as_const(copy_program).getFirstInstruction(), copy_program.getFirstInstruction());
@@ -700,7 +700,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_EQ(std::as_const(instr).getLastInstruction(moveFilter, false), nullptr);
   EXPECT_EQ(std::as_const(instr).getLastInstruction(moveFilter, false), instr.getLastInstruction(moveFilter, false));
 
-  EXPECT_EQ(instr.getInstructionCount(notMoveFilter, false), 12);
+  EXPECT_EQ(instr.getInstructionCount(notMoveFilter, false), 13);
   EXPECT_NE(instr.getFirstInstruction(notMoveFilter, false), nullptr);
   EXPECT_NE(std::as_const(instr).getFirstInstruction(notMoveFilter, false), nullptr);
   EXPECT_EQ(std::as_const(instr).getFirstInstruction(notMoveFilter, false),

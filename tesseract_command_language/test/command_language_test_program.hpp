@@ -6,6 +6,7 @@
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/set_digital_instruction.h>
 #include <tesseract_command_language/set_analog_instruction.h>
 #include <tesseract_command_language/set_tool_instruction.h>
 #include <tesseract_command_language/timer_instruction.h>
@@ -158,9 +159,13 @@ inline CompositeInstruction getTestProgram(std::string profile,
   SetToolInstruction set_tool_instruction(5);
   program.push_back(set_tool_instruction);
 
-  // Add a set tool instruction
+  // Add a set analog instruction
   SetAnalogInstruction set_analog_instruction("R", 0, 1.5);
   program.push_back(set_analog_instruction);
+
+  // Add a set digital instruction
+  SetDigitalInstruction set_digital_instruction("D", 0, true);
+  program.push_back(set_digital_instruction);
 
   return program;
 }

@@ -599,6 +599,66 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
   EXPECT_EQ(check, buffer.str());
 }
 
+TEST(TesseractCommandLanguageUtilsUnit, makeTimeContinuous)  // NOLINT
+{
+  std::string profile{ "profile" };
+  ManipulatorInfo manip_info("manipulator", "world", "tool0");
+  CompositeInstruction program(profile, manip_info);
+
+  // Start Joint Position for the program
+  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
+
+  for (std::size_t i = 0; i < 10; ++i)
+  {
+    CompositeInstruction raster_segment;
+    raster_segment.setDescription("raster_segment");
+
+    raster_segment.push_back(SetDigitalInstruction("signal", 0, true));
+    for (std::size_t i = 0; i < 10; ++i)
+    {
+      StateWaypoint wp{ joint_names, Eigen::VectorXd::Zero(6) };
+      wp.setTime(static_cast<double>(i));
+      raster_segment.push_back(MoveInstruction(wp, MoveInstructionType::LINEAR, "RASTER"));
+    }
+    raster_segment.push_back(SetDigitalInstruction("signal", 0, false));
+
+    program.push_back(raster_segment);
+  }
+
+  auto check = [](const tesseract_planning::CompositeInstruction& ci) {
+    double total_time{ 0 };
+    const std::vector<std::reference_wrapper<const tesseract_planning::InstructionPoly>> instructions =
+        ci.flatten(moveFilter);
+    for (const auto& instruction : instructions)
+    {
+      const auto& mvi = instruction.get().as<tesseract_planning::MoveInstructionPoly>();
+      const auto& swp = mvi.getWaypoint().as<tesseract_planning::StateWaypointPoly>();
+      if (swp.getTime() < total_time)
+        return false;
+
+      total_time = swp.getTime();
+    }
+    return true;
+  };
+
+  EXPECT_FALSE(check(program));
+  tesseract_planning::makeTimeMonotonicallyIncreasing(program);
+  EXPECT_TRUE(check(program));
+
+  for (std::size_t i = 0; i < 10; ++i)
+  {
+    const auto& segment = program[i].as<tesseract_planning::CompositeInstruction>();
+
+    const MoveInstructionPoly* fmvi = segment.getFirstMoveInstruction();
+    const double ft = fmvi->getWaypoint().as<tesseract_planning::StateWaypointPoly>().getTime();
+    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(ft, static_cast<double>(i * 9)));
+
+    const MoveInstructionPoly* lmvi = segment.getLastMoveInstruction();
+    const double lt = lmvi->getWaypoint().as<tesseract_planning::StateWaypointPoly>().getTime();
+    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(lt, static_cast<double>((i * 9) + 9)));
+  }
+}
+
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);
