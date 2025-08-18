@@ -380,4 +380,29 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
   return true;
 }
 
+void makeTimeMonotonicallyIncreasing(CompositeInstruction& composite_instructions)
+{
+  const std::vector<std::reference_wrapper<tesseract_planning::InstructionPoly>> instructions =
+      composite_instructions.flatten(moveFilter);
+  double total_time{ 0 };
+  double segment_time{ 0 };
+  for (const auto& instruction : instructions)
+  {
+    auto& mvi = instruction.get().as<tesseract_planning::MoveInstructionPoly>();
+    auto& swp = mvi.getWaypoint().as<tesseract_planning::StateWaypointPoly>();
+    if (swp.getTime() < segment_time)
+    {
+      segment_time = swp.getTime();
+      total_time += segment_time;
+      swp.setTime(total_time);
+    }
+    else
+    {
+      total_time += (swp.getTime() - segment_time);
+      segment_time = swp.getTime();
+      swp.setTime(total_time);
+    }
+  }
+}
+
 }  // namespace tesseract_planning

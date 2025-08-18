@@ -244,6 +244,12 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions,
 bool validateSeedStructure(const CompositeInstruction& composite_instructions,
                            const CompositeInstruction& composite_seed);
 
+/**
+ * @brief This will make time monotonically increasing throughout the whole program
+ * @param composite_instructions The composite instruction to modify
+ */
+void makeTimeMonotonicallyIncreasing(CompositeInstruction& composite_instructions);
+
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMMAND_LANGUAGE_UTILS_H
