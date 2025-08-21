@@ -36,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/profile.h>
 #include <tesseract_motion_planners/trajopt/trajopt_waypoint_config.h>
 #include <tesseract_common/fwd.h>
+#include <trajopt_common/collision_types.h>
 
 namespace YAML
 {
@@ -101,6 +102,12 @@ struct FixStateCollisionProfile : public tesseract_common::Profile
 
   /** @brief The TrajOpt joint waypoint cost config */
   TrajOptJointWaypointConfig trajopt_joint_cost_config;
+
+  /** @brief Coefficient for collision constraint in TrajOpt optimization */
+  trajopt_common::CollisionCoeffData collision_constraint_coeff;
+
+  /** @brief Coefficient for collision cost in TrajOpt optimization */
+  trajopt_common::CollisionCoeffData collision_cost_coeff;
 
 private:
   friend class boost::serialization::access;
