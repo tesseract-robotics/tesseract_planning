@@ -58,7 +58,8 @@ public:
                                         int min_steps = 1,
                                         int max_steps = std::numeric_limits<int>::max());
 
-  SimplePlannerLVSAssignNoIKMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);                                      
+  SimplePlannerLVSAssignNoIKMoveProfile(const YAML::Node& config,
+                                        const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   std::vector<MoveInstructionPoly> generate(const MoveInstructionPoly& prev_instruction,
                                             const MoveInstructionPoly& prev_seed,

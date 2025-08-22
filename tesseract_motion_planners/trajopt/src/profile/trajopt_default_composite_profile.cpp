@@ -36,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/trajopt_utils.h>
+#include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 #include <tesseract_motion_planners/core/utils.h>
 
 #include <tesseract_command_language/poly/instruction_poly.h>
@@ -45,20 +46,19 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/eigen_serialization.h>
 #include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_environment/environment.h>
 #include <trajopt_common/utils.hpp>
-#include <tesseract_common/profile_plugin_factory.h>
-#include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 
 static const double LONGEST_VALID_SEGMENT_FRACTION_DEFAULT = 0.01;
 
 namespace tesseract_planning
 {
-
-
-TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
-: TrajOptDefaultCompositeProfile()
+TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(
+    const YAML::Node& config,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : TrajOptDefaultCompositeProfile()
 {
   try
   {
@@ -94,11 +94,13 @@ TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(const YAML::Node&
   }
   catch (const std::exception& e)
   {
-    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
   }
 }
 
-TrajOptTermInfos TrajOptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& composite_manip_info,
+TrajOptTermInfos
+TrajOptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& composite_manip_info,
                                        const std::shared_ptr<const tesseract_environment::Environment>& env,
                                        const std::vector<int>& fixed_indices,
                                        int start_index,

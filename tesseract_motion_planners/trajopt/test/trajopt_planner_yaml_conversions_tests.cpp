@@ -42,17 +42,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 
-
-
 using namespace tesseract_planning;
 using namespace trajopt_common;
 
 class TesseractPlanningTrajoptYAMLConversionsUnit : public ::testing::Test
-{};
+{
+};
 
 TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, EigenVectorFixedSizeYAMLConversion)  // NOLINT
 {
-  { // Encode test
+  {  // Encode test
     Eigen::Matrix<double, 3, 1> vec;
     vec << 1.1, 2.2, 3.3;
 
@@ -65,7 +64,7 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, EigenVectorFixedSizeYAMLConv
     EXPECT_NEAR(node[2].as<double>(), 3.3, 1e-6);
   }
 
-  { // Decode test
+  {  // Decode test
     const std::string yaml_string = R"(
       - 4.4
       - 5.5
@@ -90,7 +89,7 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptCollisionConfigYAMLCo
                                       collision_margin_buffer: 0.5
                                       max_num_cnt: 5
                                 )";
-  { // decode
+  {  // decode
 
     TrajOptCollisionConfig config;
     YAML::Node n = YAML::Load(yaml_string);
@@ -100,7 +99,7 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptCollisionConfigYAMLCo
     EXPECT_EQ(config.max_num_cnt, 5);
   }
 
-  { // encode
+  {  // encode
     TrajOptCollisionConfig config;
     config.collision_margin_buffer = 0.5;
     config.max_num_cnt = 5;
@@ -137,8 +136,8 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptCartesianWaypointConf
                                         - 5.0
                                         - 6.0
                                 )";
-  
-  { // decode
+
+  {  // decode
 
     TrajOptCartesianWaypointConfig config;
     YAML::Node n = YAML::Load(yaml_string);
@@ -146,14 +145,15 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptCartesianWaypointConf
     EXPECT_TRUE(success);
     EXPECT_EQ(config.enabled, false);
     EXPECT_EQ(config.use_tolerance_override, true);
-    for (int i = 0; i < 6; i ++) {
-      EXPECT_NEAR(config.lower_tolerance[i], (double)(i+1), 1e-6);
-      EXPECT_NEAR(config.upper_tolerance[i], (double)(i+1), 1e-6);
-      EXPECT_NEAR(config.coeff[i], (double)(i+1), 1e-6);
+    for (int i = 0; i < 6; i++)
+    {
+      EXPECT_NEAR(config.lower_tolerance[i], (double)(i + 1), 1e-6);
+      EXPECT_NEAR(config.upper_tolerance[i], (double)(i + 1), 1e-6);
+      EXPECT_NEAR(config.coeff[i], (double)(i + 1), 1e-6);
     }
   }
 
-  { // encode
+  {  // encode
     TrajOptCartesianWaypointConfig config;
     config.enabled = false;
     config.use_tolerance_override = true;
@@ -171,7 +171,8 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptCartesianWaypointConf
     ASSERT_EQ(upper_tol_node.size(), 6);
     ASSERT_EQ(coeff_node.size(), 6);
 
-    for (int i = 0; i < 6; ++i) {
+    for (int i = 0; i < 6; ++i)
+    {
       EXPECT_NEAR(config.lower_tolerance[i], lower_tol_node[i].as<double>(), 1e-6);
       EXPECT_NEAR(config.upper_tolerance[i], upper_tol_node[i].as<double>(), 1e-6);
       EXPECT_NEAR(config.coeff[i], coeff_node[i].as<double>(), 1e-6);
@@ -206,8 +207,8 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptJointWaypointConfigYA
                                         - 5.0
                                         - 6.0
                                 )";
-  
-  { // decode
+
+  {  // decode
 
     TrajOptJointWaypointConfig config;
     YAML::Node n = YAML::Load(yaml_string);
@@ -215,14 +216,15 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptJointWaypointConfigYA
     EXPECT_TRUE(success);
     EXPECT_EQ(config.enabled, false);
     EXPECT_EQ(config.use_tolerance_override, true);
-    for (int i = 0; i < 6; i ++) {
-      EXPECT_NEAR(config.lower_tolerance[i], (double)(i+1), 1e-6);
-      EXPECT_NEAR(config.upper_tolerance[i], (double)(i+1), 1e-6);
-      EXPECT_NEAR(config.coeff[i], (double)(i+1), 1e-6);
+    for (int i = 0; i < 6; i++)
+    {
+      EXPECT_NEAR(config.lower_tolerance[i], (double)(i + 1), 1e-6);
+      EXPECT_NEAR(config.upper_tolerance[i], (double)(i + 1), 1e-6);
+      EXPECT_NEAR(config.coeff[i], (double)(i + 1), 1e-6);
     }
   }
 
-  { // encode
+  {  // encode
     TrajOptJointWaypointConfig config;
     config.enabled = false;
     config.use_tolerance_override = true;
@@ -240,7 +242,8 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptJointWaypointConfigYA
     ASSERT_EQ(upper_tol_node.size(), 6);
     ASSERT_EQ(coeff_node.size(), 6);
 
-    for (int i = 0; i < 6; ++i) {
+    for (int i = 0; i < 6; ++i)
+    {
       EXPECT_NEAR(config.lower_tolerance[i], lower_tol_node[i].as<double>(), 1e-6);
       EXPECT_NEAR(config.upper_tolerance[i], upper_tol_node[i].as<double>(), 1e-6);
       EXPECT_NEAR(config.coeff[i], coeff_node[i].as<double>(), 1e-6);
@@ -250,7 +253,7 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptJointWaypointConfigYA
 
 TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptDefaultCompositeProfileYAMLConversion)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
@@ -263,7 +266,7 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptDefaultCompositeProfi
     EXPECT_EQ(profile.avoid_singularity, def_constructor.avoid_singularity);
   }
 
-    { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                         smooth_velocities: false
                                         smooth_accelerations: true
@@ -279,10 +282,9 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptDefaultCompositeProfi
   }
 }
 
-
 TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptDefaultMoveProfileYAMLConversion)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
@@ -295,7 +297,7 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptDefaultMoveProfileYAM
     EXPECT_EQ(profile.joint_constraint_config.enabled, def_constructor.joint_constraint_config.enabled);
   }
 
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                         cartesian_cost_config:
                                           enabled: true
@@ -309,12 +311,11 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptDefaultMoveProfileYAM
     EXPECT_EQ(profile.joint_cost_config.enabled, def_constructor.joint_cost_config.enabled);
     EXPECT_EQ(profile.joint_constraint_config.enabled, def_constructor.joint_constraint_config.enabled);
   }
-
 }
 
 TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptOSQPSolverProfileYAMLConversion)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
@@ -325,7 +326,7 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptOSQPSolverProfileYAML
     EXPECT_EQ(profile.settings.rho, def_constructor.settings.rho);
   }
 
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                         update_workspace: false
                                     )";
@@ -336,7 +337,6 @@ TEST_F(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptOSQPSolverProfileYAML
     EXPECT_EQ(profile.update_workspace, false);
     EXPECT_EQ(profile.settings.rho, def_constructor.settings.rho);
   }
-
 }
 
 int main(int argc, char** argv)

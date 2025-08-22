@@ -48,7 +48,8 @@ public:
    * @param linear_steps The number of steps to use for linear instruction
    */
   SimplePlannerFixedSizeAssignNoIKMoveProfile(int freespace_steps = 10, int linear_steps = 10);
-  SimplePlannerFixedSizeAssignNoIKMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  SimplePlannerFixedSizeAssignNoIKMoveProfile(const YAML::Node& config,
+                                              const tesseract_common::ProfilePluginFactory& plugin_factory);
   std::vector<MoveInstructionPoly> generate(const MoveInstructionPoly& prev_instruction,
                                             const MoveInstructionPoly& prev_seed,
                                             const MoveInstructionPoly& base_instruction,

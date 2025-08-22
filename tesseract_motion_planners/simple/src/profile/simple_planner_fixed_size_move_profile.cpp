@@ -44,15 +44,16 @@ SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(int freespa
 {
 }
 
-SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
-: SimplePlannerFixedSizeMoveProfile()
+SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(
+    const YAML::Node& config,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : SimplePlannerFixedSizeMoveProfile()
 {
-  if (YAML::Node n = config["freespace_steps"]) 
+  if (YAML::Node n = config["freespace_steps"])
     freespace_steps = n.as<int>();
   if (YAML::Node n = config["linear_steps"])
     linear_steps = n.as<int>();
 }
-
 
 std::vector<MoveInstructionPoly>
 SimplePlannerFixedSizeMoveProfile::generate(const MoveInstructionPoly& prev_instruction,

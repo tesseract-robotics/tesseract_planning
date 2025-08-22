@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/trajopt_utils.h>
+#include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
@@ -44,10 +45,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/joint_state.h>
 #include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_environment/environment.h>
-#include <tesseract_common/profile_plugin_factory.h>
-#include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 namespace tesseract_planning
 {
 TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile()
@@ -56,8 +56,9 @@ TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile()
   joint_cost_config.enabled = false;
 }
 
-TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
-: TrajOptDefaultMoveProfile()
+TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile(const YAML::Node& config,
+                                                     const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : TrajOptDefaultMoveProfile()
 {
   try
   {
@@ -66,17 +67,17 @@ TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile(const YAML::Node& config, c
 
     if (YAML::Node n = config["cartesian_constraint_config"])
       cartesian_constraint_config = n.as<tesseract_planning::TrajOptCartesianWaypointConfig>();
-    
-      if (YAML::Node n = config["joint_cost_config"])
+
+    if (YAML::Node n = config["joint_cost_config"])
       joint_cost_config = n.as<tesseract_planning::TrajOptJointWaypointConfig>();
 
     if (YAML::Node n = config["joint_constraint_config"])
       joint_constraint_config = n.as<tesseract_planning::TrajOptJointWaypointConfig>();
-
   }
   catch (const std::exception& e)
   {
-    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
   }
 }
 

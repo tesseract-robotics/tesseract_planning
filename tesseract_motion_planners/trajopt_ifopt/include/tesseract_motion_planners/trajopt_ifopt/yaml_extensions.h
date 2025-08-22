@@ -29,122 +29,14 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
-#include <set>
-#include <vector>
-#include <osqp.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/plugin_info.h>
-#include <tesseract_common/profile_plugin_factory.h>
-#include <tesseract_collision/core/fwd.h>
-#include <tesseract_collision/core/types.h>
-#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_waypoint_config.h>
-#include <tesseract_motion_planners/core/utils.h>
-#include <trajopt_common/collision_types.h>
-
-
-
-
-
+#include <tesseract_common/yaml_extensions.h>
+#include <trajopt_common/yaml_extensions.h>
 
 namespace YAML
 {
-
-//=========================== Eigen::VectorXd ===========================
-
-template <>
-struct convert<Eigen::VectorXd>
-{
-  static Node encode(const Eigen::VectorXd& rhs)
-  {
-    Node node;
-    for (int i = 0; i < rhs.size(); ++i)
-      node.push_back(rhs(i));
-    return node;
-  }
-
-  static bool decode(const Node& node, Eigen::VectorXd& rhs)
-  {
-    if (!node.IsSequence())
-      return false;
-
-    rhs.resize(node.size());
-    for (std::size_t i = 0; i < node.size(); ++i)
-      rhs(static_cast<Eigen::Index>(i)) = node[i].as<double>();
-
-    return true;
-  }
-};
-
-//=========================== Eigen::Matrix<Scalar, Rows, 1> ===========================
-template <typename Scalar, int Rows>
-struct convert<Eigen::Matrix<Scalar, Rows, 1>>
-{
-  static Node encode(const Eigen::Matrix<Scalar, Rows, 1>& rhs)
-  {
-    Node node;
-    for (int i = 0; i < rhs.rows(); ++i)
-      node.push_back(rhs(i));
-    return node;
-  }
-
-  static bool decode(const Node& node, Eigen::Matrix<Scalar, Rows, 1>& rhs)
-  {
-    if (!node.IsSequence() || node.size() != static_cast<std::size_t>(Rows))
-      return false;
-
-    for (int i = 0; i < Rows; ++i)
-      rhs(i) = node[i].as<Scalar>();
-
-    return true;
-  }
-};
-
-//=========================== TrajOptCollisionConfig ===========================
-template <>
-struct convert<trajopt_common::TrajOptCollisionConfig>
-{
-  static Node encode(const trajopt_common::TrajOptCollisionConfig& rhs)
-  {
-    Node node;
-    node["collision_coeff_data"] = rhs.collision_coeff_data;
-    node["collision_margin_buffer"] = rhs.collision_margin_buffer;
-    node["max_num_cnt"] = rhs.max_num_cnt;
-    return node;
-  }
-
-  static bool decode(const Node& node, trajopt_common::TrajOptCollisionConfig& rhs)
-  {
-    // Check for required entries
-    if (const YAML::Node& n = node["collision_coeff_data"])
-      rhs.collision_coeff_data = n.as<trajopt_common::CollisionCoeffData>();
-    if (const YAML::Node& n = node["collision_margin_buffer"])
-      rhs.collision_margin_buffer = n.as<double>();
-    if (const YAML::Node& n = node["max_num_cnt"])
-      rhs.max_num_cnt = n.as<int>();
-    return true;
-  }
-};
-
-//=========================== CollisionCoeffData ===========================
-template <>
-struct convert<trajopt_common::CollisionCoeffData>
-{
-  static Node encode(const trajopt_common::CollisionCoeffData& /*rhs*/)
-  {
-    Node node;
-    // only contains private variables
-    return node;
-  }
-
-  static bool decode(const Node& node, trajopt_common::CollisionCoeffData& /*rhs*/)
-  {
-    // Check for required entries
-    return true;
-  }
-};
-
 //=========================== TrajOptCartesianWaypointConfig ===========================
 template <>
 struct convert<tesseract_planning::TrajOptIfoptCartesianWaypointConfig>
@@ -208,7 +100,6 @@ struct convert<tesseract_planning::TrajOptIfoptJointWaypointConfig>
     return true;
   }
 };
-
 
 }  // namespace YAML
 

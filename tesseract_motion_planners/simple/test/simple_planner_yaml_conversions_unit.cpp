@@ -50,7 +50,7 @@ class TesseractPlanningSimplePlannerYAMLConversionsUnit : public TesseractPlanni
 
 TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSizeAssignMoveProfileYAML)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                         freespace_steps: 6
                                         linear_steps: 5
@@ -62,7 +62,7 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSize
     EXPECT_EQ(profile.linear_steps, 5);
   }
 
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
@@ -75,7 +75,7 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSize
 
 TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSizeAssignNoIKMoveProfileYAML)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                         freespace_steps: 6
                                         linear_steps: 5
@@ -87,7 +87,7 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSize
     EXPECT_EQ(profile.linear_steps, 5);
   }
 
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
@@ -100,7 +100,7 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSize
 
 TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSizeMoveProfileYAML)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                         freespace_steps: 6
                                         linear_steps: 5
@@ -112,7 +112,7 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSize
     EXPECT_EQ(profile.linear_steps, 5);
   }
 
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
@@ -125,7 +125,7 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSize
 
 TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSAssignMoveProfileYAML)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                         state_longest_valid_segment_length: 0.5
                                         translation_longest_valid_segment_length: 0.2
@@ -143,7 +143,7 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSAssign
     EXPECT_EQ(profile.max_steps, 5);
   }
 
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
@@ -159,7 +159,7 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSAssign
 
 TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSAssignNoIKMoveProfileYAML)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                         state_longest_valid_segment_length: 0.5
                                         translation_longest_valid_segment_length: 0.2
@@ -177,7 +177,7 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSAssign
     EXPECT_EQ(profile.max_steps, 5);
   }
 
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
@@ -193,7 +193,7 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSAssign
 
 TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSMoveProfileYAML)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                         state_longest_valid_segment_length: 0.5
                                         translation_longest_valid_segment_length: 0.2
@@ -211,7 +211,7 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSMovePr
     EXPECT_EQ(profile.max_steps, 5);
   }
 
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
@@ -227,7 +227,7 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSMovePr
 
 TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSNoIKMoveProfileYAML)  // NOLINT
 {
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                         state_longest_valid_segment_length: 0.5
                                         translation_longest_valid_segment_length: 0.2
@@ -245,7 +245,7 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSNoIKMo
     EXPECT_EQ(profile.max_steps, 5);
   }
 
-  { // Constructor
+  {  // Constructor
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);

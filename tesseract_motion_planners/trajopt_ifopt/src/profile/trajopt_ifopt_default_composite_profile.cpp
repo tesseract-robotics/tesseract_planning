@@ -44,11 +44,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_motion_planners/trajopt_ifopt/yaml_extensions.h>
 
-
 namespace tesseract_planning
 {
-TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/) 
-: TrajOptIfoptDefaultCompositeProfile()
+TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(
+    const YAML::Node& config,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : TrajOptIfoptDefaultCompositeProfile()
 {
   try
   {
@@ -78,11 +79,11 @@ TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(const Y
   }
   catch (const std::exception& e)
   {
-    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
   }
 }
 
-  
 TrajOptIfoptTermInfos TrajOptIfoptDefaultCompositeProfile::create(
     const tesseract_common::ManipulatorInfo& composite_manip_info,
     const std::shared_ptr<const tesseract_environment::Environment>& env,

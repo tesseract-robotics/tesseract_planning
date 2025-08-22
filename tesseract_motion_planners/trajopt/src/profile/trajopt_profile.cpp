@@ -27,9 +27,7 @@
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <typeindex>
-#include <yaml-cpp/yaml.h>
 
-#include <tesseract_common/profile_plugin_factory.h>
 namespace boost::serialization
 {
 template <class Archive>
@@ -59,10 +57,6 @@ void serialize(Archive& ar, sco::BasicTrustRegionSQPParameters& params, const un
 namespace tesseract_planning
 {
 TrajOptMoveProfile::TrajOptMoveProfile() : Profile(TrajOptMoveProfile::getStaticKey()) {}
-TrajOptMoveProfile::TrajOptMoveProfile(const YAML::Node& /*config*/, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
-: TrajOptMoveProfile()
-{
-}
 
 std::size_t TrajOptMoveProfile::getStaticKey() { return std::type_index(typeid(TrajOptMoveProfile)).hash_code(); }
 

@@ -32,10 +32,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <OsqpEigen/Settings.hpp>
 #include <trajopt_sqp/fwd.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_collision/core/fwd.h>
-#include <tesseract_collision/core/types.h>
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
+
+namespace YAML
+{
+class Node;
+}
 
 namespace boost::serialization
 {
@@ -46,12 +49,6 @@ template <class Archive>
 void serialize(Archive& ar, trajopt_sqp::SQPParameters& params, const unsigned int version);  // NOLINT
 
 }  // namespace boost::serialization
-
-namespace YAML
-{
-class Node;
-}
-
 
 namespace tesseract_planning
 {

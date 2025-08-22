@@ -70,17 +70,25 @@ namespace tesseract_planning
 {
 TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile() { sco::OSQPModelConfig::setDefaultOSQPSettings(settings); }
 
-TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
-: TrajOptOSQPSolverProfile()
+TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile(const YAML::Node& config,
+                                                   const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : TrajOptOSQPSolverProfile()
 {
   try
   {
+    if (YAML::Node n = config["opt_params"])
+      opt_params = n.as<trajopt_sco::BasicTrustRegionSQPParameters>();
+
+    if (YAML::Node n = config["settings"])
+      settings = n.as<OSQPSettings>();
+
     if (YAML::Node n = config["update_workspace"])
       update_workspace = n.as<bool>();
   }
   catch (const std::exception& e)
   {
-    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
   }
 }
 

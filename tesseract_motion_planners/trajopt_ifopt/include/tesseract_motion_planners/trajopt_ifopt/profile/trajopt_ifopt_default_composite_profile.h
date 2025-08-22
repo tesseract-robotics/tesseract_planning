@@ -32,8 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 #include <trajopt_common/collision_types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_collision/core/fwd.h>
-#include <tesseract_collision/core/types.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
 
 namespace YAML
@@ -47,7 +45,8 @@ class TrajOptIfoptDefaultCompositeProfile : public TrajOptIfoptCompositeProfile
 {
 public:
   TrajOptIfoptDefaultCompositeProfile() = default;
-  TrajOptIfoptDefaultCompositeProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  TrajOptIfoptDefaultCompositeProfile(const YAML::Node& config,
+                                      const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /** @brief Configuration info for collisions that are modeled as costs */
   trajopt_common::TrajOptCollisionConfig collision_cost_config;

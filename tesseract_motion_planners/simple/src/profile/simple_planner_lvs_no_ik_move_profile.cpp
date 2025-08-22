@@ -52,16 +52,18 @@ SimplePlannerLVSNoIKMoveProfile::SimplePlannerLVSNoIKMoveProfile(double state_lo
 {
 }
 
-SimplePlannerLVSNoIKMoveProfile::SimplePlannerLVSNoIKMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
-: SimplePlannerLVSNoIKMoveProfile()
-{  
+SimplePlannerLVSNoIKMoveProfile::SimplePlannerLVSNoIKMoveProfile(
+    const YAML::Node& config,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : SimplePlannerLVSNoIKMoveProfile()
+{
   if (YAML::Node n = config["state_longest_valid_segment_length"])
     state_longest_valid_segment_length = n.as<double>();
   if (YAML::Node n = config["translation_longest_valid_segment_length"])
     translation_longest_valid_segment_length = n.as<double>();
   if (YAML::Node n = config["rotation_longest_valid_segment_length"])
     rotation_longest_valid_segment_length = n.as<double>();
-  if (YAML::Node n = config["min_steps"]) 
+  if (YAML::Node n = config["min_steps"])
     min_steps = n.as<int>();
   if (YAML::Node n = config["max_steps"])
     max_steps = n.as<int>();

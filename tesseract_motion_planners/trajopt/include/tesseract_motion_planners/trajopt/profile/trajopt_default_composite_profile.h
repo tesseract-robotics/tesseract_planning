@@ -55,7 +55,8 @@ public:
 
   TrajOptDefaultCompositeProfile() = default;
 
-  TrajOptDefaultCompositeProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  TrajOptDefaultCompositeProfile(const YAML::Node& config,
+                                 const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /** @brief Configuration info for collisions that are modeled as costs */
   trajopt_common::TrajOptCollisionConfig collision_cost_config;

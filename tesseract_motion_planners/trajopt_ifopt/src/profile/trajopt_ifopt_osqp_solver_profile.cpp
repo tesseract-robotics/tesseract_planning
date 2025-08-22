@@ -41,7 +41,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
-
 namespace boost::serialization
 {
 template <class Archive>
@@ -87,8 +86,10 @@ TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile()
   qp_settings->setRelativeTolerance(1e-6);
 }
 
-TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile(const YAML::Node& /*config*/, const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
-: TrajOptIfoptOSQPSolverProfile()
+TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile(
+    const YAML::Node& /*config*/,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : TrajOptIfoptOSQPSolverProfile()
 {
 }
 
