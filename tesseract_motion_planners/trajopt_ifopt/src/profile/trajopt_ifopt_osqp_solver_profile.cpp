@@ -39,6 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
+#include <tesseract_motion_planners/trajopt_ifopt/yaml_extensions.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
 namespace boost::serialization
@@ -77,20 +78,44 @@ namespace tesseract_planning
 TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile()
 {
   qp_settings = std::make_unique<OsqpEigen::Settings>();
-  qp_settings->setVerbosity(false);
-  qp_settings->setWarmStart(true);
-  qp_settings->setPolish(true);
-  qp_settings->setAdaptiveRho(true);
-  qp_settings->setMaxIteration(8192);
-  qp_settings->setAbsoluteTolerance(1e-4);
-  qp_settings->setRelativeTolerance(1e-6);
+  setDefaultOSQPSettings(*qp_settings);
 }
 
 TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile(
-    const YAML::Node& /*config*/,
+    const YAML::Node& config,
     const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
   : TrajOptIfoptOSQPSolverProfile()
 {
+  try
+  {
+    if (YAML::Node n = config["opt_params"])
+    {
+      if (!YAML::convert<trajopt_sqp::SQPParameters>::decode(n, opt_params))
+        throw std::runtime_error("Failed to decode 'opt_params'");
+    }
+
+    if (YAML::Node n = config["settings"])
+    {
+      if (!YAML::convert<OsqpEigen::Settings>::decode(n, *qp_settings))
+        throw std::runtime_error("Failed to decode 'qp_settings'");
+    }
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("TrajOptOSQPSolverProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
+}
+
+void TrajOptIfoptOSQPSolverProfile::setDefaultOSQPSettings(OsqpEigen::Settings& settings)
+{
+  settings.setVerbosity(false);
+  settings.setWarmStart(true);
+  settings.setPolish(true);
+  settings.setAdaptiveRho(true);
+  settings.setMaxIteration(8192);
+  settings.setAbsoluteTolerance(1e-4);
+  settings.setRelativeTolerance(1e-6);
 }
 
 std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> TrajOptIfoptOSQPSolverProfile::create(bool verbose) const

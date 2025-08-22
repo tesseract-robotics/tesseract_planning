@@ -75,6 +75,8 @@ public:
 
   std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> create(bool verbose = false) const override;
 
+  static void setDefaultOSQPSettings(OsqpEigen::Settings& settings);
+
 protected:
   /** @brief Optimization callbacks */
   virtual std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> createOptimizationCallbacks() const;

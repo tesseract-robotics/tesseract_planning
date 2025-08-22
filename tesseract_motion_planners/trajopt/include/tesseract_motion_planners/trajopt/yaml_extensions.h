@@ -34,8 +34,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/trajopt_waypoint_config.h>
 #include <tesseract_common/yaml_extensions.h>
 #include <trajopt_common/yaml_extensions.h>
-#include <trajopt_sco/optimizer.hpp>
-#include <osqp/types.h>
+#include <trajopt_sco/optimizers.hpp>
+#include <trajopt_sco/osqp_interface.hpp>
 
 namespace YAML
 {
@@ -97,7 +97,7 @@ struct convert<OSQPSettings>
     node["eps_prim_inf"] = rhs.eps_prim_inf;
     node["eps_dual_inf"] = rhs.eps_dual_inf;
     node["alpha"] = rhs.alpha;
-    node["linsys_solver_type"] = rhs.linsys_solver_type;
+    node["linsys_solver"] = rhs.linsys_solver;
     node["delta"] = rhs.delta;
     node["polish"] = rhs.polish;
     node["polish_refine_iter"] = rhs.polish_refine_iter;
@@ -112,7 +112,6 @@ struct convert<OSQPSettings>
 
   static bool decode(const Node& node, OSQPSettings& rhs)
   {
-    sco::OSQPModelConfig::setDefaultOSQPSettings(rhs);
     // Check for required entries
     if (const YAML::Node& n = node["rho"])
       rhs.rho = n.as<c_float>();
@@ -165,9 +164,9 @@ struct convert<OSQPSettings>
 
 //==================== trajopt_sco::BasicTrustRegionSQPParameters ======================
 template <>
-struct convert<trajopt_sco::BasicTrustRegionSQPParameters>
+struct convert<sco::BasicTrustRegionSQPParameters>
 {
-  static Node encode(const trajopt_sco::BasicTrustRegionSQPParameters& rhs)
+  static Node encode(const sco::BasicTrustRegionSQPParameters& rhs)
   {
     Node node;
     node["improve_ratio_threshold"] = rhs.improve_ratio_threshold;
@@ -191,7 +190,7 @@ struct convert<trajopt_sco::BasicTrustRegionSQPParameters>
     return node;
   }
 
-  static bool decode(const Node& node, trajopt_sco::BasicTrustRegionSQPParameters& rhs)
+  static bool decode(const Node& node, sco::BasicTrustRegionSQPParameters& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["improve_ratio_threshold"])

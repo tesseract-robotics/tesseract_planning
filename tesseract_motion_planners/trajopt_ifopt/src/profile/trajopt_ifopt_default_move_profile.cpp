@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <yaml-cpp/yaml.h>
-
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
@@ -40,6 +39,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/joint_state.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/eigen_serialization.h>
+#include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/utils.h>
@@ -49,10 +50,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
-
-#include <tesseract_common/eigen_serialization.h>
-
-#include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_motion_planners/trajopt_ifopt/yaml_extensions.h>
 
 namespace tesseract_planning
@@ -84,7 +81,7 @@ TrajOptIfoptDefaultMoveProfile::TrajOptIfoptDefaultMoveProfile(
   }
   catch (const std::exception& e)
   {
-    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " +
+    throw std::runtime_error("TrajOptIfoptDefaultMoveProfile: Failed to parse yaml config! Details: " +
                              std::string(e.what()));
   }
 }

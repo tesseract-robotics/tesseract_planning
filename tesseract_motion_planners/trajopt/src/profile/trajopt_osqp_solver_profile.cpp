@@ -77,17 +77,23 @@ TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile(const YAML::Node& config,
   try
   {
     if (YAML::Node n = config["opt_params"])
-      opt_params = n.as<trajopt_sco::BasicTrustRegionSQPParameters>();
+    {
+      if (!YAML::convert<sco::BasicTrustRegionSQPParameters>::decode(n, opt_params))
+        throw std::runtime_error("Failed to decode 'opt_params'");
+    }
 
     if (YAML::Node n = config["settings"])
-      settings = n.as<OSQPSettings>();
+    {
+      if (!YAML::convert<OSQPSettings>::decode(n, settings))
+        throw std::runtime_error("Failed to decode 'settings'");
+    }
 
     if (YAML::Node n = config["update_workspace"])
       update_workspace = n.as<bool>();
   }
   catch (const std::exception& e)
   {
-    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " +
+    throw std::runtime_error("TrajOptOSQPSolverProfile: Failed to parse yaml config! Details: " +
                              std::string(e.what()));
   }
 }

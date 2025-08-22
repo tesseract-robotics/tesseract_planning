@@ -76,7 +76,7 @@ TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile(const YAML::Node& config,
   }
   catch (const std::exception& e)
   {
-    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " +
+    throw std::runtime_error("TrajOptDefaultMoveProfile: Failed to parse yaml config! Details: " +
                              std::string(e.what()));
   }
 }

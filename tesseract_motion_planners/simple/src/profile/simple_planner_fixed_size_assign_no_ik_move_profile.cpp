@@ -52,10 +52,18 @@ SimplePlannerFixedSizeAssignNoIKMoveProfile::SimplePlannerFixedSizeAssignNoIKMov
     const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
   : SimplePlannerFixedSizeAssignNoIKMoveProfile()
 {
-  if (YAML::Node n = config["freespace_steps"])
-    freespace_steps = n.as<int>();
-  if (YAML::Node n = config["linear_steps"])
-    linear_steps = n.as<int>();
+  try
+  {
+    if (YAML::Node n = config["freespace_steps"])
+      freespace_steps = n.as<int>();
+    if (YAML::Node n = config["linear_steps"])
+      linear_steps = n.as<int>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("SimplePlannerFixedSizeAssignNoIKMoveProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
 }
 
 std::vector<MoveInstructionPoly> SimplePlannerFixedSizeAssignNoIKMoveProfile::generate(
