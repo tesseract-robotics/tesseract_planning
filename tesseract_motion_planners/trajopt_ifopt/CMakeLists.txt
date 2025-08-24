@@ -36,6 +36,11 @@ target_include_directories(${PROJECT_NAME}_trajopt_ifopt PUBLIC "$<BUILD_INTERFA
 # Mark cpp header files for installation
 install(DIRECTORY include/${PROJECT_NAME} DESTINATION include COMPONENT trajopt_ifopt)
 
+# Testing
+if(TESSERACT_ENABLE_TESTING)
+  add_subdirectory(test)
+endif()
+
 # Configure Components
 configure_component(
   COMPONENT trajopt_ifopt

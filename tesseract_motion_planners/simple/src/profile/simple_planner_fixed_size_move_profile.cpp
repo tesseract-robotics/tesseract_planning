@@ -34,12 +34,33 @@
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
 #include <boost/serialization/nvp.hpp>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
 SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(int freespace_steps, int linear_steps)
   : freespace_steps(freespace_steps), linear_steps(linear_steps)
 {
+}
+
+SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(
+    const YAML::Node& config,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : SimplePlannerFixedSizeMoveProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["freespace_steps"])
+      freespace_steps = n.as<int>();
+    if (YAML::Node n = config["linear_steps"])
+      linear_steps = n.as<int>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("SimplePlannerFixedSizeMoveProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
 }
 
 std::vector<MoveInstructionPoly>

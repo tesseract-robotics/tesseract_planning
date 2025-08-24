@@ -31,10 +31,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/shared_ptr.hpp>
+#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/trajopt_utils.h>
+#include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 #include <tesseract_motion_planners/core/utils.h>
 
 #include <tesseract_command_language/poly/instruction_poly.h>
@@ -44,6 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/eigen_serialization.h>
 #include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_environment/environment.h>
 #include <trajopt_common/utils.hpp>
@@ -52,6 +55,50 @@ static const double LONGEST_VALID_SEGMENT_FRACTION_DEFAULT = 0.01;
 
 namespace tesseract_planning
 {
+TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(
+    const YAML::Node& config,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : TrajOptDefaultCompositeProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["collision_cost_config"])
+      collision_cost_config = n.as<trajopt_common::TrajOptCollisionConfig>();
+
+    if (YAML::Node n = config["collision_constraint_config"])
+      collision_constraint_config = n.as<trajopt_common::TrajOptCollisionConfig>();
+
+    if (YAML::Node n = config["smooth_velocities"])
+      smooth_velocities = n.as<bool>();
+
+    if (YAML::Node n = config["velocity_coeff"])
+      velocity_coeff = n.as<Eigen::VectorXd>();
+
+    if (YAML::Node n = config["smooth_accelerations"])
+      smooth_accelerations = n.as<bool>();
+
+    if (YAML::Node n = config["acceleration_coeff"])
+      acceleration_coeff = n.as<Eigen::VectorXd>();
+
+    if (YAML::Node n = config["smooth_jerks"])
+      smooth_jerks = n.as<bool>();
+
+    if (YAML::Node n = config["jerk_coeff"])
+      jerk_coeff = n.as<Eigen::VectorXd>();
+
+    if (YAML::Node n = config["avoid_singularity"])
+      avoid_singularity = n.as<bool>();
+
+    if (YAML::Node n = config["avoid_singularity_coeff"])
+      avoid_singularity_coeff = n.as<double>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
+}
+
 TrajOptTermInfos
 TrajOptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& composite_manip_info,
                                        const std::shared_ptr<const tesseract_environment::Environment>& env,

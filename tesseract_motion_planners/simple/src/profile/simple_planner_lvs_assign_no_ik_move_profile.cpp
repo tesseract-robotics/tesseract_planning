@@ -34,6 +34,8 @@
 #include <tesseract_motion_planners/core/types.h>
 
 #include <boost/serialization/nvp.hpp>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
@@ -49,6 +51,31 @@ SimplePlannerLVSAssignNoIKMoveProfile::SimplePlannerLVSAssignNoIKMoveProfile(
   , min_steps(min_steps)
   , max_steps(max_steps)
 {
+}
+
+SimplePlannerLVSAssignNoIKMoveProfile::SimplePlannerLVSAssignNoIKMoveProfile(
+    const YAML::Node& config,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : SimplePlannerLVSAssignNoIKMoveProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["state_longest_valid_segment_length"])
+      state_longest_valid_segment_length = n.as<double>();
+    if (YAML::Node n = config["translation_longest_valid_segment_length"])
+      translation_longest_valid_segment_length = n.as<double>();
+    if (YAML::Node n = config["rotation_longest_valid_segment_length"])
+      rotation_longest_valid_segment_length = n.as<double>();
+    if (YAML::Node n = config["min_steps"])
+      min_steps = n.as<int>();
+    if (YAML::Node n = config["max_steps"])
+      max_steps = n.as<int>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("SimplePlannerLVSAssignNoIKMoveProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
 }
 
 std::vector<MoveInstructionPoly>

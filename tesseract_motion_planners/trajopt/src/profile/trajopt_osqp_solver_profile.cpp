@@ -29,7 +29,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/problem_description.hpp>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
+#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 
@@ -66,6 +69,34 @@ void serialize(Archive& ar, OSQPSettings& settings, const unsigned int /*version
 namespace tesseract_planning
 {
 TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile() { sco::OSQPModelConfig::setDefaultOSQPSettings(settings); }
+
+TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile(const YAML::Node& config,
+                                                   const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : TrajOptOSQPSolverProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["opt_params"])
+    {
+      if (!YAML::convert<sco::BasicTrustRegionSQPParameters>::decode(n, opt_params))
+        throw std::runtime_error("Failed to decode 'opt_params'");
+    }
+
+    if (YAML::Node n = config["settings"])
+    {
+      if (!YAML::convert<OSQPSettings>::decode(n, settings))
+        throw std::runtime_error("Failed to decode 'settings'");
+    }
+
+    if (YAML::Node n = config["update_workspace"])
+      update_workspace = n.as<bool>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("TrajOptOSQPSolverProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
+}
 
 sco::ModelType TrajOptOSQPSolverProfile::getSolverType() const { return sco::ModelType::OSQP; }
 

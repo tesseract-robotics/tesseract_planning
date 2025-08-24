@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/fwd.h>
 #include <tesseract_command_language/fwd.h>
 #include <tesseract_environment/fwd.h>
-#include <tesseract_motion_planners/core/fwd.h>
 #include <tesseract_common/profile.h>
 
 namespace tesseract_planning
