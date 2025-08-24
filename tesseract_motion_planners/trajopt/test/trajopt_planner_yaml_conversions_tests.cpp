@@ -119,7 +119,7 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptJointWaypointConfig)  /
     config.coeff = Eigen::VectorXd::Ones(6);
     YAML::Node output_n(config);
 
-    auto output_config = output_n.as<TrajOptCartesianWaypointConfig>();
+    auto output_config = output_n.as<TrajOptJointWaypointConfig>();
     EXPECT_EQ(output_config.enabled, config.enabled);
     EXPECT_EQ(output_config.use_tolerance_override, config.use_tolerance_override);
     EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(output_config.lower_tolerance, config.lower_tolerance));
