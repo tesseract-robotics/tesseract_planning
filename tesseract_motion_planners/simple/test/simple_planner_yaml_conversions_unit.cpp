@@ -44,11 +44,7 @@
 
 using namespace tesseract_planning;
 
-class TesseractPlanningSimplePlannerYAMLConversionsUnit : public TesseractPlanningSimplePlannerUnit
-{
-};
-
-TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSizeAssignMoveProfileYAML)  // NOLINT
+TEST(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSizeAssignMoveProfile)  // NOLINT
 {
   {  // Constructor
     const std::string yaml_string = R"(config:
@@ -71,9 +67,20 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSize
     EXPECT_EQ(profile.freespace_steps, 10);
     EXPECT_EQ(profile.linear_steps, 10);
   }
+
+  {  // Throw Exception
+    const std::string yaml_string = R"(config:
+                                        freespace_steps: 'abcd'
+                                        linear_steps: 5
+                                    )";
+    YAML::Node n = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(SimplePlannerFixedSizeAssignMoveProfile(n["config"], plugin_factory));
+  }
 }
 
-TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSizeAssignNoIKMoveProfileYAML)  // NOLINT
+TEST(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSizeAssignNoIKMoveProfile)  // NOLINT
 {
   {  // Constructor
     const std::string yaml_string = R"(config:
@@ -96,9 +103,20 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSize
     EXPECT_EQ(profile.freespace_steps, 10);
     EXPECT_EQ(profile.linear_steps, 10);
   }
+
+  {  // Throw Exception
+    const std::string yaml_string = R"(config:
+                                        freespace_steps: 'abcd'
+                                        linear_steps: 5
+                                    )";
+    YAML::Node n = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(SimplePlannerFixedSizeAssignNoIKMoveProfile(n["config"], plugin_factory));
+  }
 }
 
-TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSizeMoveProfileYAML)  // NOLINT
+TEST(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSizeMoveProfile)  // NOLINT
 {
   {  // Constructor
     const std::string yaml_string = R"(config:
@@ -121,9 +139,20 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerFixedSize
     EXPECT_EQ(profile.freespace_steps, 10);
     EXPECT_EQ(profile.linear_steps, 10);
   }
+
+  {  // Throw Exception
+    const std::string yaml_string = R"(config:
+                                        freespace_steps: 'abcd'
+                                        linear_steps: 5
+                                    )";
+    YAML::Node n = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(SimplePlannerFixedSizeMoveProfile(n["config"], plugin_factory));
+  }
 }
 
-TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSAssignMoveProfileYAML)  // NOLINT
+TEST(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSAssignMoveProfile)  // NOLINT
 {
   {  // Constructor
     const std::string yaml_string = R"(config:
@@ -155,9 +184,23 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSAssign
     EXPECT_EQ(profile.min_steps, 1);
     EXPECT_EQ(profile.max_steps, std::numeric_limits<int>::max());
   }
+
+  {  // Throw Exception
+    const std::string yaml_string = R"(config:
+                                        state_longest_valid_segment_length: 'abcd'
+                                        translation_longest_valid_segment_length: 0.2
+                                        rotation_longest_valid_segment_length: 0.4
+                                        min_steps: 6
+                                        max_steps: 5
+                                    )";
+    YAML::Node n = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(SimplePlannerLVSAssignMoveProfile(n["config"], plugin_factory));
+  }
 }
 
-TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSAssignNoIKMoveProfileYAML)  // NOLINT
+TEST(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSAssignNoIKMoveProfile)  // NOLINT
 {
   {  // Constructor
     const std::string yaml_string = R"(config:
@@ -189,9 +232,23 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSAssign
     EXPECT_EQ(profile.min_steps, 1);
     EXPECT_EQ(profile.max_steps, std::numeric_limits<int>::max());
   }
+
+  {  // Throw Exception
+    const std::string yaml_string = R"(config:
+                                        state_longest_valid_segment_length: 'abcd'
+                                        translation_longest_valid_segment_length: 0.2
+                                        rotation_longest_valid_segment_length: 0.4
+                                        min_steps: 6
+                                        max_steps: 5
+                                    )";
+    YAML::Node n = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(SimplePlannerLVSAssignNoIKMoveProfile(n["config"], plugin_factory));
+  }
 }
 
-TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSMoveProfileYAML)  // NOLINT
+TEST(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSMoveProfile)  // NOLINT
 {
   {  // Constructor
     const std::string yaml_string = R"(config:
@@ -223,9 +280,23 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSMovePr
     EXPECT_EQ(profile.min_steps, 1);
     EXPECT_EQ(profile.max_steps, std::numeric_limits<int>::max());
   }
+
+  {  // Throw Exception
+    const std::string yaml_string = R"(config:
+                                        state_longest_valid_segment_length: 'abcd'
+                                        translation_longest_valid_segment_length: 0.2
+                                        rotation_longest_valid_segment_length: 0.4
+                                        min_steps: 6
+                                        max_steps: 5
+                                    )";
+    YAML::Node n = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(SimplePlannerLVSMoveProfile(n["config"], plugin_factory));
+  }
 }
 
-TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSNoIKMoveProfileYAML)  // NOLINT
+TEST(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSNoIKMoveProfile)  // NOLINT
 {
   {  // Constructor
     const std::string yaml_string = R"(config:
@@ -256,6 +327,20 @@ TEST_F(TesseractPlanningSimplePlannerYAMLConversionsUnit, SimplePlannerLVSNoIKMo
     EXPECT_NEAR(profile.rotation_longest_valid_segment_length, 5 * M_PI / 180, 1e-6);
     EXPECT_EQ(profile.min_steps, 1);
     EXPECT_EQ(profile.max_steps, std::numeric_limits<int>::max());
+  }
+
+  {  // Throw Exception
+    const std::string yaml_string = R"(config:
+                                        state_longest_valid_segment_length: 'abcd'
+                                        translation_longest_valid_segment_length: 0.2
+                                        rotation_longest_valid_segment_length: 0.4
+                                        min_steps: 6
+                                        max_steps: 5
+                                    )";
+    YAML::Node n = YAML::Load(yaml_string);
+    tesseract_common::ProfilePluginFactory plugin_factory;
+    // NOLINTNEXTLINE
+    EXPECT_ANY_THROW(SimplePlannerLVSNoIKMoveProfile(n["config"], plugin_factory));
   }
 }
 
