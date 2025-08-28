@@ -18,20 +18,20 @@ RUN apt update -y -qq \
     apt install -y libompl-dev libtaskflow-cpp-dev \
   ; fi
 
+# Install the dependency repositories
+# Use a tmpfs mount for the workspace so as not to unnecessarily copy files into the final image
 # Bind mount the source directory so as not to unnecessarily copy source code into the docker image
-ARG WORKSPACE_DIR=/opt/tesseract_planning
-RUN --mount=type=bind,target=${WORKSPACE_DIR}/src/tesseract_planning \
+ARG WORKSPACE_DIR=/tmpfs/tesseract_planning
+ARG INSTALL_DIR=/opt/tesseract_planning
+RUN mkdir -p ${INSTALL_DIR}
+
+RUN --mount=type=tmpfs,target=${WORKSPACE_DIR} --mount=type=bind,target=${WORKSPACE_DIR}/src/tesseract_planning \
   cd ${WORKSPACE_DIR} \
   && vcs import src < src/tesseract_planning/dependencies.repos --shallow \
   && rosdep install \
     --from-paths ${WORKSPACE_DIR}/src \
-    -iry
-
-# Build the repository
-# Bind mount the source directory so as not to unnecessarily copy source code into the docker image
-RUN --mount=type=bind,target=${WORKSPACE_DIR}/src/tesseract_planning \
-  source /opt/tesseract/install/setup.bash \
+    -iry \
+  && source /opt/tesseract/install/setup.bash \
   && source /opt/trajopt/install/setup.bash \
-  && cd ${WORKSPACE_DIR} \ 
   && colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release \
-  && rm -rf build log
+  && cp -r ${WORKSPACE_DIR}/install ${INSTALL_DIR}
