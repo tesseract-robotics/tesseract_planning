@@ -39,29 +39,65 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace YAML
 {
-//=========================== linsys_solver_type Enum ===========================
+//=========================== osqp_linsys_solver_type Enum ===========================
 template <>
-struct convert<linsys_solver_type>
+struct convert<osqp_linsys_solver_type>
 {
-  static Node encode(const linsys_solver_type& rhs)
+  static Node encode(const osqp_linsys_solver_type& rhs)
   {
     // LCOV_EXCL_START
-    static const std::map<linsys_solver_type, std::string> m = {
-      { linsys_solver_type::QDLDL_SOLVER, "QDLDL_SOLVER" },
-      { linsys_solver_type::MKL_PARDISO_SOLVER, "MKL_PARDISO_SOLVER" },
-      { linsys_solver_type::UNKNOWN_SOLVER, "UNKNOWN_SOLVER" }
+    static const std::map<osqp_linsys_solver_type, std::string> m = {
+      { osqp_linsys_solver_type::OSQP_DIRECT_SOLVER, "OSQP_DIRECT_SOLVER" },
+      { osqp_linsys_solver_type::OSQP_INDIRECT_SOLVER, "OSQP_INDIRECT_SOLVER" },
+      { osqp_linsys_solver_type::OSQP_UNKNOWN_SOLVER, "OSQP_UNKNOWN_SOLVER" }
     };
     // LCOV_EXCL_STOP
     return Node(m.at(rhs));
   }
 
-  static bool decode(const Node& node, linsys_solver_type& rhs)
+  static bool decode(const Node& node, osqp_linsys_solver_type& rhs)
   {
     // LCOV_EXCL_START
-    static const std::map<std::string, linsys_solver_type> inv = {
-      { "QDLDL_SOLVER", linsys_solver_type::QDLDL_SOLVER },
-      { "MKL_PARDISO_SOLVER", linsys_solver_type::MKL_PARDISO_SOLVER },
-      { "UNKNOWN_SOLVER", linsys_solver_type::UNKNOWN_SOLVER }
+    static const std::map<std::string, osqp_linsys_solver_type> inv = {
+      { "OSQP_DIRECT_SOLVER", osqp_linsys_solver_type::OSQP_DIRECT_SOLVER },
+      { "OSQP_INDIRECT_SOLVER", osqp_linsys_solver_type::OSQP_INDIRECT_SOLVER },
+      { "OSQP_UNKNOWN_SOLVER", osqp_linsys_solver_type::OSQP_UNKNOWN_SOLVER }
+    };
+    // LCOV_EXCL_STOP
+
+    if (!node.IsScalar())
+      return false;
+
+    auto it = inv.find(node.Scalar());
+    if (it == inv.end())
+      return false;
+
+    rhs = it->second;
+    return true;
+  }
+};
+
+//=========================== osqp_precond_type Enum ===========================
+template <>
+struct convert<osqp_precond_type>
+{
+  static Node encode(const osqp_precond_type& rhs)
+  {
+    // LCOV_EXCL_START
+    static const std::map<osqp_precond_type, std::string> m = {
+      { osqp_precond_type::OSQP_NO_PRECONDITIONER, "OSQP_NO_PRECONDITIONER" },
+      { osqp_precond_type::OSQP_DIAGONAL_PRECONDITIONER, "OSQP_DIAGONAL_PRECONDITIONER" }
+    };
+    // LCOV_EXCL_STOP
+    return Node(m.at(rhs));
+  }
+
+  static bool decode(const Node& node, osqp_precond_type& rhs)
+  {
+    // LCOV_EXCL_START
+    static const std::map<std::string, osqp_precond_type> inv = {
+      { "OSQP_NO_PRECONDITIONER", osqp_precond_type::OSQP_NO_PRECONDITIONER },
+      { "OSQP_DIAGONAL_PRECONDITIONER", osqp_precond_type::OSQP_DIAGONAL_PRECONDITIONER }
     };
     // LCOV_EXCL_STOP
 
@@ -99,13 +135,22 @@ struct convert<OSQPSettings>
     node["alpha"] = rhs.alpha;
     node["linsys_solver"] = rhs.linsys_solver;
     node["delta"] = rhs.delta;
-    node["polish"] = rhs.polish;
+    node["polishing"] = rhs.polishing;
     node["polish_refine_iter"] = rhs.polish_refine_iter;
     node["verbose"] = rhs.verbose;
     node["scaled_termination"] = rhs.scaled_termination;
     node["check_termination"] = rhs.check_termination;
-    node["warm_start"] = rhs.warm_start;
+    node["warm_starting"] = rhs.warm_starting;
     node["time_limit"] = rhs.time_limit;
+    node["allocate_solution"] = rhs.allocate_solution;
+    node["cg_max_iter"] = rhs.cg_max_iter;
+    node["cg_precond"] = rhs.cg_precond;
+    node["cg_tol_fraction"] = rhs.cg_tol_fraction;
+    node["cg_tol_reduction"] = rhs.cg_tol_reduction;
+    node["check_dualgap"] = rhs.check_dualgap;
+    node["device"] = rhs.device;
+    node["profiler_level"] = rhs.profiler_level;
+    node["rho_is_vec"] = rhs.rho_is_vec;
 
     return node;
   }
@@ -114,49 +159,67 @@ struct convert<OSQPSettings>
   {
     // Check for required entries
     if (const YAML::Node& n = node["rho"])
-      rhs.rho = n.as<c_float>();
+      rhs.rho = n.as<OSQPFloat>();
     if (const YAML::Node& n = node["sigma"])
-      rhs.sigma = n.as<c_float>();
+      rhs.sigma = n.as<OSQPFloat>();
     if (const YAML::Node& n = node["scaling"])
-      rhs.scaling = n.as<c_int>();
+      rhs.scaling = n.as<OSQPInt>();
     if (const YAML::Node& n = node["adaptive_rho"])
-      rhs.adaptive_rho = n.as<c_int>();
+      rhs.adaptive_rho = n.as<OSQPInt>();
     if (const YAML::Node& n = node["adaptive_rho_interval"])
-      rhs.adaptive_rho_interval = n.as<c_int>();
+      rhs.adaptive_rho_interval = n.as<OSQPInt>();
     if (const YAML::Node& n = node["adaptive_rho_tolerance"])
-      rhs.adaptive_rho_tolerance = n.as<c_float>();
+      rhs.adaptive_rho_tolerance = n.as<OSQPFloat>();
     if (const YAML::Node& n = node["adaptive_rho_fraction"])
-      rhs.adaptive_rho_fraction = n.as<c_float>();
+      rhs.adaptive_rho_fraction = n.as<OSQPFloat>();
     if (const YAML::Node& n = node["max_iter"])
-      rhs.max_iter = n.as<c_int>();
+      rhs.max_iter = n.as<OSQPInt>();
     if (const YAML::Node& n = node["eps_abs"])
-      rhs.eps_abs = n.as<c_float>();
+      rhs.eps_abs = n.as<OSQPFloat>();
     if (const YAML::Node& n = node["eps_rel"])
-      rhs.eps_rel = n.as<c_float>();
+      rhs.eps_rel = n.as<OSQPFloat>();
     if (const YAML::Node& n = node["eps_prim_inf"])
-      rhs.eps_prim_inf = n.as<c_float>();
+      rhs.eps_prim_inf = n.as<OSQPFloat>();
     if (const YAML::Node& n = node["eps_dual_inf"])
-      rhs.eps_dual_inf = n.as<c_float>();
+      rhs.eps_dual_inf = n.as<OSQPFloat>();
     if (const YAML::Node& n = node["alpha"])
-      rhs.alpha = n.as<c_float>();
+      rhs.alpha = n.as<OSQPFloat>();
     if (const YAML::Node& n = node["linsys_solver"])
-      rhs.linsys_solver = n.as<linsys_solver_type>();
+      rhs.linsys_solver = n.as<osqp_linsys_solver_type>();
     if (const YAML::Node& n = node["delta"])
-      rhs.delta = n.as<c_float>();
-    if (const YAML::Node& n = node["polish"])
-      rhs.polish = n.as<c_int>();
+      rhs.delta = n.as<OSQPFloat>();
+    if (const YAML::Node& n = node["polishing"])
+      rhs.polishing = n.as<OSQPInt>();
     if (const YAML::Node& n = node["polish_refine_iter"])
-      rhs.polish_refine_iter = n.as<c_int>();
+      rhs.polish_refine_iter = n.as<OSQPInt>();
     if (const YAML::Node& n = node["verbose"])
-      rhs.verbose = n.as<c_int>();
+      rhs.verbose = n.as<OSQPInt>();
     if (const YAML::Node& n = node["scaled_termination"])
-      rhs.scaled_termination = n.as<c_int>();
+      rhs.scaled_termination = n.as<OSQPInt>();
     if (const YAML::Node& n = node["check_termination"])
-      rhs.check_termination = n.as<c_int>();
-    if (const YAML::Node& n = node["warm_start"])
-      rhs.warm_start = n.as<c_int>();
+      rhs.check_termination = n.as<OSQPInt>();
+    if (const YAML::Node& n = node["warm_starting"])
+      rhs.warm_starting = n.as<OSQPInt>();
     if (const YAML::Node& n = node["time_limit"])
-      rhs.time_limit = n.as<c_float>();
+      rhs.time_limit = n.as<OSQPFloat>();
+    if (const YAML::Node& n = node["allocate_solution"])
+      rhs.allocate_solution = n.as<OSQPInt>();
+    if (const YAML::Node& n = node["cg_max_iter"])
+      rhs.cg_max_iter = n.as<OSQPInt>();
+    if (const YAML::Node& n = node["cg_precond"])
+      rhs.cg_precond = n.as<osqp_precond_type>();
+    if (const YAML::Node& n = node["cg_tol_fraction"])
+      rhs.cg_tol_fraction = n.as<OSQPFloat>();
+    if (const YAML::Node& n = node["cg_tol_reduction"])
+      rhs.cg_tol_reduction = n.as<OSQPInt>();
+    if (const YAML::Node& n = node["check_dualgap"])
+      rhs.check_dualgap = n.as<OSQPInt>();
+    if (const YAML::Node& n = node["device"])
+      rhs.device = n.as<OSQPInt>();
+    if (const YAML::Node& n = node["profiler_level"])
+      rhs.profiler_level = n.as<OSQPInt>();
+    if (const YAML::Node& n = node["rho_is_vec"])
+      rhs.rho_is_vec = n.as<OSQPInt>();
 
     return true;
   }

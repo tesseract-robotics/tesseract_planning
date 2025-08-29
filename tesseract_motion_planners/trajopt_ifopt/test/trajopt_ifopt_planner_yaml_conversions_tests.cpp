@@ -268,7 +268,7 @@ bool compare(const OSQPSettings& lhs, const OSQPSettings& rhs)  // NOLINT
   if (lhs.delta != rhs.delta)
     return false;
 
-  if (lhs.polish != rhs.polish)
+  if (lhs.polishing != rhs.polishing)
     return false;
 
   if (lhs.polish_refine_iter != rhs.polish_refine_iter)
@@ -283,11 +283,40 @@ bool compare(const OSQPSettings& lhs, const OSQPSettings& rhs)  // NOLINT
   if (lhs.check_termination != rhs.check_termination)
     return false;
 
-  if (lhs.warm_start != rhs.warm_start)
+  if (lhs.warm_starting != rhs.warm_starting)
     return false;
 
   if (!tesseract_common::almostEqualRelativeAndAbs(lhs.time_limit, rhs.time_limit))
     return false;
+
+  // Following OSQP settings are not available in OsqpEigen
+
+  // if (lhs.allocate_solution != rhs.allocate_solution)
+  //   return false;
+
+  // if (lhs.cg_max_iter != rhs.cg_max_iter)
+  //   return false;
+
+  // if (lhs.cg_precond != rhs.cg_precond)
+  //   return false;
+
+  // if (!tesseract_common::almostEqualRelativeAndAbs(lhs.cg_tol_fraction, rhs.cg_tol_fraction))
+  //   return false;
+
+  // if (lhs.cg_tol_reduction != rhs.cg_tol_reduction)
+  //   return false;
+
+  if (lhs.check_dualgap != rhs.check_dualgap)
+    return false;
+
+  // if (lhs.device != rhs.device)
+  //   return false;
+
+  // if (lhs.profiler_level != rhs.profiler_level)
+  //   return false;
+
+  // if (lhs.rho_is_vec != rhs.rho_is_vec)
+  //   return false;
 
   return true;
 }
@@ -382,15 +411,16 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
                                           eps_prim_inf: 12
                                           eps_dual_inf: 14
                                           alpha: 3.6
-                                          linsys_solver: 'MKL_PARDISO_SOLVER'
+                                          linsys_solver: 'OSQP_INDIRECT_SOLVER'
                                           delta: 0.1
-                                          polish: 1
+                                          polishing: 1
                                           polish_refine_iter: 17
                                           verbose: 0
                                           scaled_termination: 40
                                           check_termination: 28
-                                          warm_start: 0
+                                          warm_starting: 0
                                           time_limit: 60
+                                          check_dualgap: 0
                                         opt_params:
                                           improve_ratio_threshold: 0.1
                                           min_trust_box_size: 1
@@ -430,15 +460,16 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
     settings.eps_prim_inf = 12;
     settings.eps_dual_inf = 14;
     settings.alpha = 3.6;
-    settings.linsys_solver = MKL_PARDISO_SOLVER;
+    settings.linsys_solver = OSQP_INDIRECT_SOLVER;
     settings.delta = 0.1;
-    settings.polish = 1;
+    settings.polishing = 1;
     settings.polish_refine_iter = 17;
     settings.verbose = 0;
     settings.scaled_termination = 40;
     settings.check_termination = 28;
-    settings.warm_start = 0;
+    settings.warm_starting = 0;
     settings.time_limit = 60;
+    settings.check_dualgap = 0;
 
     def_constructor.opt_params.improve_ratio_threshold = 0.1;
     def_constructor.opt_params.min_trust_box_size = 1;

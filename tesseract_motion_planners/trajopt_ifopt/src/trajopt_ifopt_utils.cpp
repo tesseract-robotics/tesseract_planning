@@ -71,18 +71,28 @@ void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& 
   lhs.setMaxIteration(static_cast<int>(settings.max_iter));
   lhs.setAbsoluteTolerance(settings.eps_abs);
   lhs.setRelativeTolerance(settings.eps_rel);
-  lhs.setPrimalInfeasibilityTollerance(settings.eps_prim_inf);
-  lhs.setDualInfeasibilityTollerance(settings.eps_dual_inf);
+  lhs.setPrimalInfeasibilityTolerance(settings.eps_prim_inf);
+  lhs.setDualInfeasibilityTolerance(settings.eps_dual_inf);
   lhs.setAlpha(settings.alpha);
   lhs.setLinearSystemSolver(settings.linsys_solver);
   lhs.setDelta(settings.delta);
-  lhs.setPolish(static_cast<bool>(settings.polish));
+  lhs.setPolish(static_cast<bool>(settings.polishing));
   lhs.setPolishRefineIter(static_cast<int>(settings.polish_refine_iter));
   lhs.setVerbosity(static_cast<bool>(settings.verbose));
   lhs.setScaledTerimination(static_cast<bool>(settings.scaled_termination));
   lhs.setCheckTermination(static_cast<int>(settings.check_termination));
-  lhs.setWarmStart(static_cast<bool>(settings.warm_start));
+  lhs.setWarmStart(static_cast<bool>(settings.warm_starting));
   lhs.setTimeLimit(settings.time_limit);
+  // Following OSQP settings are not available in OsqpEigen
+  // settings.allocate_solution
+  // settings.cg_max_iter
+  // settings.cg_precond
+  // settings.cg_tol_fraction
+  // settings.cg_tol_reduction
+  lhs.setCheckDualGap(static_cast<bool>(settings.check_dualgap));
+  // settings.device
+  // settings.profiler_level
+  // settings.rho_is_vec
 }
 
 std::shared_ptr<ifopt::ConstraintSet>
