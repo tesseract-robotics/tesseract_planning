@@ -6,7 +6,7 @@
 
 Platform             | CI Status
 ---------------------|:---------
-Linux (Focal)        | [![Ubuntu](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/ubuntu.yml)
+Linux (Stable)        | [![Ubuntu](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/ubuntu.yml)
 Linux (Unstable)     | [![Unstable](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/unstable.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/unstable.yml)
 Windows              | [![Windows-Noetic-Build](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/windows.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/windows.yml)
 Lint  (Clang-Format) | [![Clang-Format](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/clang_format.yml/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions/workflows/clang_format.yml)
