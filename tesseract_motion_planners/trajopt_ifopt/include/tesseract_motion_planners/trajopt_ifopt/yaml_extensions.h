@@ -77,6 +77,42 @@ struct convert<osqp_linsys_solver_type>
   }
 };
 
+//=========================== osqp_precond_type Enum ===========================
+template <>
+struct convert<osqp_precond_type>
+{
+  static Node encode(const osqp_precond_type& rhs)
+  {
+    // LCOV_EXCL_START
+    static const std::map<osqp_precond_type, std::string> m = {
+      { osqp_precond_type::OSQP_NO_PRECONDITIONER, "OSQP_NO_PRECONDITIONER" },
+      { osqp_precond_type::OSQP_DIAGONAL_PRECONDITIONER, "OSQP_DIAGONAL_PRECONDITIONER" }
+    };
+    // LCOV_EXCL_STOP
+    return Node(m.at(rhs));
+  }
+
+  static bool decode(const Node& node, osqp_precond_type& rhs)
+  {
+    // LCOV_EXCL_START
+    static const std::map<std::string, osqp_precond_type> inv = {
+      { "OSQP_NO_PRECONDITIONER", osqp_precond_type::OSQP_NO_PRECONDITIONER },
+      { "OSQP_DIAGONAL_PRECONDITIONER", osqp_precond_type::OSQP_DIAGONAL_PRECONDITIONER }
+    };
+    // LCOV_EXCL_STOP
+
+    if (!node.IsScalar())
+      return false;
+
+    auto it = inv.find(node.Scalar());
+    if (it == inv.end())
+      return false;
+
+    rhs = it->second;
+    return true;
+  }
+};
+
 //=========================== OSQPSettings ===========================
 template <>
 struct convert<OsqpEigen::Settings>
@@ -108,16 +144,15 @@ struct convert<OsqpEigen::Settings>
     node["check_termination"] = settings.check_termination;
     node["warm_starting"] = settings.warm_starting;
     node["time_limit"] = settings.time_limit;
-    // Following OSQP settings are not available in OsqpEigen
-    // node["allocate_solution"] = settings.allocate_solution;
-    // node["cg_max_iter"] = settings.cg_max_iter;
-    // node["cg_precond"] = settings.cg_precond;
-    // node["cg_tol_fraction"] = settings.cg_tol_fraction;
-    // node["cg_tol_reduction"] = settings.cg_tol_reduction;
+    node["allocate_solution"] = settings.allocate_solution;
+    node["cg_max_iter"] = settings.cg_max_iter;
+    node["cg_precond"] = settings.cg_precond;
+    node["cg_tol_fraction"] = settings.cg_tol_fraction;
+    node["cg_tol_reduction"] = settings.cg_tol_reduction;
     node["check_dualgap"] = settings.check_dualgap;
-    // node["device"] = settings.device;
-    // node["profiler_level"] = settings.profiler_level;
-    // node["rho_is_vec"] = settings.rho_is_vec;
+    node["device"] = settings.device;
+    node["profiler_level"] = settings.profiler_level;
+    node["rho_is_vec"] = settings.rho_is_vec;
 
     return node;
   }
@@ -171,25 +206,24 @@ struct convert<OsqpEigen::Settings>
       settings.warm_starting = n.as<OSQPInt>();
     if (const YAML::Node& n = node["time_limit"])
       settings.time_limit = n.as<OSQPFloat>();
-    // Following OSQP settings are not available in OsqpEigen
-    // if (const YAML::Node& n = node["allocate_solution"])
-    //   settings.allocate_solution = n.as<OSQPInt>();
-    // if (const YAML::Node& n = node["cg_max_iter"])
-    //   settings.cg_max_iter = n.as<OSQPInt>();
-    // if (const YAML::Node& n = node["cg_precond"])
-    //   settings.cg_precond = n.as<osqp_precond_type>();
-    // if (const YAML::Node& n = node["cg_tol_fraction"])
-    //   settings.cg_tol_fraction = n.as<OSQPFloat>();
-    // if (const YAML::Node& n = node["cg_tol_reduction"])
-    //   settings.cg_tol_reduction = n.as<OSQPInt>();
+    if (const YAML::Node& n = node["allocate_solution"])
+      settings.allocate_solution = n.as<OSQPInt>();
+    if (const YAML::Node& n = node["cg_max_iter"])
+      settings.cg_max_iter = n.as<OSQPInt>();
+    if (const YAML::Node& n = node["cg_precond"])
+      settings.cg_precond = n.as<osqp_precond_type>();
+    if (const YAML::Node& n = node["cg_tol_fraction"])
+      settings.cg_tol_fraction = n.as<OSQPFloat>();
+    if (const YAML::Node& n = node["cg_tol_reduction"])
+      settings.cg_tol_reduction = n.as<OSQPInt>();
     if (const YAML::Node& n = node["check_dualgap"])
       settings.check_dualgap = n.as<OSQPInt>();
-    // if (const YAML::Node& n = node["device"])
-    //   settings.device = n.as<OSQPInt>();
-    // if (const YAML::Node& n = node["profiler_level"])
-    //   settings.profiler_level = n.as<OSQPInt>();
-    // if (const YAML::Node& n = node["rho_is_vec"])
-    //   settings.rho_is_vec = n.as<OSQPInt>();
+    if (const YAML::Node& n = node["device"])
+      settings.device = n.as<OSQPInt>();
+    if (const YAML::Node& n = node["profiler_level"])
+      settings.profiler_level = n.as<OSQPInt>();
+    if (const YAML::Node& n = node["rho_is_vec"])
+      settings.rho_is_vec = n.as<OSQPInt>();
 
     return true;
   }

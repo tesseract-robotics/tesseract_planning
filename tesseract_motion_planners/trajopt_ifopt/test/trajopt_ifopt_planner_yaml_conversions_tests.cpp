@@ -289,34 +289,32 @@ bool compare(const OSQPSettings& lhs, const OSQPSettings& rhs)  // NOLINT
   if (!tesseract_common::almostEqualRelativeAndAbs(lhs.time_limit, rhs.time_limit))
     return false;
 
-  // Following OSQP settings are not available in OsqpEigen
+  if (lhs.allocate_solution != rhs.allocate_solution)
+    return false;
 
-  // if (lhs.allocate_solution != rhs.allocate_solution)
-  //   return false;
+  if (lhs.cg_max_iter != rhs.cg_max_iter)
+    return false;
 
-  // if (lhs.cg_max_iter != rhs.cg_max_iter)
-  //   return false;
+  if (lhs.cg_precond != rhs.cg_precond)
+    return false;
 
-  // if (lhs.cg_precond != rhs.cg_precond)
-  //   return false;
+  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.cg_tol_fraction, rhs.cg_tol_fraction))
+    return false;
 
-  // if (!tesseract_common::almostEqualRelativeAndAbs(lhs.cg_tol_fraction, rhs.cg_tol_fraction))
-  //   return false;
-
-  // if (lhs.cg_tol_reduction != rhs.cg_tol_reduction)
-  //   return false;
+  if (lhs.cg_tol_reduction != rhs.cg_tol_reduction)
+    return false;
 
   if (lhs.check_dualgap != rhs.check_dualgap)
     return false;
 
-  // if (lhs.device != rhs.device)
-  //   return false;
+  if (lhs.device != rhs.device)
+    return false;
 
-  // if (lhs.profiler_level != rhs.profiler_level)
-  //   return false;
+  if (lhs.profiler_level != rhs.profiler_level)
+    return false;
 
-  // if (lhs.rho_is_vec != rhs.rho_is_vec)
-  //   return false;
+  if (lhs.rho_is_vec != rhs.rho_is_vec)
+    return false;
 
   return true;
 }
@@ -420,7 +418,15 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
                                           check_termination: 28
                                           warm_starting: 0
                                           time_limit: 60
-                                          check_dualgap: 0
+                                          allocate_solution: 0
+                                          cg_max_iter: 30
+                                          cg_precond: 'OSQP_NO_PRECONDITIONER'
+                                          cg_tol_fraction: 0.1
+                                          cg_tol_reduction: 5
+                                          check_dualgap: 1
+                                          device: 1
+                                          profiler_level: 1
+                                          rho_is_vec: 0
                                         opt_params:
                                           improve_ratio_threshold: 0.1
                                           min_trust_box_size: 1
@@ -470,6 +476,16 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
     settings.warm_starting = 0;
     settings.time_limit = 60;
     settings.check_dualgap = 0;
+    // OSQP v1.0.0 params
+    settings.allocate_solution = 0;
+    settings.cg_max_iter = 30;
+    settings.cg_precond = OSQP_NO_PRECONDITIONER;
+    settings.cg_tol_fraction = 0.1;
+    settings.cg_tol_reduction = 5;
+    settings.check_dualgap = 1;
+    settings.device = 1;
+    settings.profiler_level = 1;
+    settings.rho_is_vec = 0;
 
     def_constructor.opt_params.improve_ratio_threshold = 0.1;
     def_constructor.opt_params.min_trust_box_size = 1;
