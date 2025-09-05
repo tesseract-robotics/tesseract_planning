@@ -83,16 +83,15 @@ void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& 
   lhs.setCheckTermination(static_cast<int>(settings.check_termination));
   lhs.setWarmStart(static_cast<bool>(settings.warm_starting));
   lhs.setTimeLimit(settings.time_limit);
-  // Following OSQP settings are not available in OsqpEigen
-  // settings.allocate_solution
-  // settings.cg_max_iter
-  // settings.cg_precond
-  // settings.cg_tol_fraction
-  // settings.cg_tol_reduction
+  lhs.setAllocateSolution(static_cast<bool>(settings.allocate_solution));
+  lhs.setCgMaxIter(static_cast<int>(settings.cg_max_iter));
+  lhs.setCgPrecond(settings.cg_precond);
+  lhs.setCgTolFraction(settings.cg_tol_fraction);
+  lhs.setCgTolReduction(static_cast<int>(settings.cg_tol_reduction));
   lhs.setCheckDualGap(static_cast<bool>(settings.check_dualgap));
-  // settings.device
-  // settings.profiler_level
-  // settings.rho_is_vec
+  lhs.setDevice(static_cast<int>(settings.device));
+  lhs.setProfilerLevel(static_cast<int>(settings.profiler_level));
+  lhs.setRhoIsVec(static_cast<bool>(settings.rho_is_vec));
 }
 
 std::shared_ptr<ifopt::ConstraintSet>
