@@ -70,16 +70,15 @@ void serialize(Archive& ar, OsqpEigen::Settings& osqp_eigen_settings, const unsi
   ar& boost::serialization::make_nvp("check_termination", settings.check_termination);
   ar& boost::serialization::make_nvp("warm_starting", settings.warm_starting);
   ar& boost::serialization::make_nvp("time_limit", settings.time_limit);
-  // Following OSQP settings are not available in OsqpEigen
-  // ar& boost::serialization::make_nvp("allocate_solution", settings.allocate_solution);
-  // ar& boost::serialization::make_nvp("cg_max_iter", settings.cg_max_iter);
-  // ar& boost::serialization::make_nvp("cg_precond", settings.cg_precond);
-  // ar& boost::serialization::make_nvp("cg_tol_fraction", settings.cg_tol_fraction);
-  // ar& boost::serialization::make_nvp("cg_tol_reduction", settings.cg_tol_reduction);
+  ar& boost::serialization::make_nvp("allocate_solution", settings.allocate_solution);
+  ar& boost::serialization::make_nvp("cg_max_iter", settings.cg_max_iter);
+  ar& boost::serialization::make_nvp("cg_precond", settings.cg_precond);
+  ar& boost::serialization::make_nvp("cg_tol_fraction", settings.cg_tol_fraction);
+  ar& boost::serialization::make_nvp("cg_tol_reduction", settings.cg_tol_reduction);
   ar& boost::serialization::make_nvp("check_dualgap", settings.check_dualgap);
-  // ar& boost::serialization::make_nvp("device", settings.device);
-  // ar& boost::serialization::make_nvp("profiler_level", settings.profiler_level);
-  // ar& boost::serialization::make_nvp("rho_is_vec", settings.rho_is_vec);
+  ar& boost::serialization::make_nvp("device", settings.device);
+  ar& boost::serialization::make_nvp("profiler_level", settings.profiler_level);
+  ar& boost::serialization::make_nvp("rho_is_vec", settings.rho_is_vec);
 }
 }  // namespace boost::serialization
 
