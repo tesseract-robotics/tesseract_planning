@@ -418,6 +418,15 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptOSQPSolverProfile)  // 
                                           check_termination: 28
                                           warm_starting: 0
                                           time_limit: 60
+                                          allocate_solution: 0
+                                          cg_max_iter: 30
+                                          cg_precond: 'OSQP_NO_PRECONDITIONER'
+                                          cg_tol_fraction: 0.1
+                                          cg_tol_reduction: 5
+                                          check_dualgap: 1
+                                          device: 1
+                                          profiler_level: 1
+                                          rho_is_vec: 0
                                         opt_params:
                                           improve_ratio_threshold: 0.1
                                           min_trust_box_size: 1
@@ -465,6 +474,16 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptOSQPSolverProfile)  // 
     def_constructor.settings.check_termination = 28;
     def_constructor.settings.warm_starting = 0;
     def_constructor.settings.time_limit = 60;
+    // OSQP v1.0.0 params
+    def_constructor.settings.allocate_solution = 0;
+    def_constructor.settings.cg_max_iter = 30;
+    def_constructor.settings.cg_precond = OSQP_NO_PRECONDITIONER;
+    def_constructor.settings.cg_tol_fraction = 0.1;
+    def_constructor.settings.cg_tol_reduction = 5;
+    def_constructor.settings.check_dualgap = 1;
+    def_constructor.settings.device = 1;
+    def_constructor.settings.profiler_level = 1;
+    def_constructor.settings.rho_is_vec = 0;
 
     def_constructor.opt_params.improve_ratio_threshold = 0.1;
     def_constructor.opt_params.min_trust_box_size = 1;
