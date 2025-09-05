@@ -88,13 +88,14 @@ bool formatProgram(CompositeInstruction& composite_instructions, const tesseract
  * @param state_solver The environment state solver
  * @param program The program to check for contacts
  * @param config CollisionCheckConfig used to specify collision check settings
- * @return True if collision was found, otherwise false.
+ * @return ContactTrajectoryResults containing contact step/substep locations and joint values.
  */
-bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts,
-                         tesseract_collision::ContinuousContactManager& manager,
-                         const tesseract_scene_graph::StateSolver& state_solver,
-                         const CompositeInstruction& program,
-                         const tesseract_collision::CollisionCheckConfig& config);
+tesseract_collision::ContactTrajectoryResults
+contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts,
+                    tesseract_collision::ContinuousContactManager& manager,
+                    const tesseract_scene_graph::StateSolver& state_solver,
+                    const CompositeInstruction& program,
+                    const tesseract_collision::CollisionCheckConfig& config);
 
 /**
  * @brief Should perform a discrete collision check over the trajectory
@@ -103,13 +104,14 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
  * @param state_solver The environment state solver
  * @param program The program to check for contacts
  * @param config CollisionCheckConfig used to specify collision check settings
- * @return True if collision was found, otherwise false.
+ * @return ContactTrajectoryResults containing contact step/substep locations and joint values.
  */
-bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts,
-                         tesseract_collision::DiscreteContactManager& manager,
-                         const tesseract_scene_graph::StateSolver& state_solver,
-                         const CompositeInstruction& program,
-                         const tesseract_collision::CollisionCheckConfig& config);
+tesseract_collision::ContactTrajectoryResults
+contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts,
+                    tesseract_collision::DiscreteContactManager& manager,
+                    const tesseract_scene_graph::StateSolver& state_solver,
+                    const CompositeInstruction& program,
+                    const tesseract_collision::CollisionCheckConfig& config);
 
 }  // namespace tesseract_planning
 
