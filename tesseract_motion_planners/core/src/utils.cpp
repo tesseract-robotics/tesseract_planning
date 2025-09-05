@@ -634,7 +634,6 @@ contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts
   tesseract_collision::ContactResultMap state_results;
   tesseract_collision::ContactResultMap sub_state_results;
 
-  bool found = false;
   if (config.check_program_mode == tesseract_collision::CollisionCheckProgramType::START_ONLY)
   {
     const auto& joint_positions = getJointPosition(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
@@ -644,7 +643,6 @@ contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts
 
     if (!sub_state_results.empty())
     {
-      found = true;
       traj_contacts.addContact(
           0, 0, 1, joint_positions, joint_positions, joint_positions, joint_positions, sub_state_results);
       // Always use addInterpolatedCollisionResults so cc_type is defined correctly
@@ -666,7 +664,6 @@ contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts
 
     if (!sub_state_results.empty())
     {
-      found = true;
       traj_contacts.addContact(static_cast<int>(mi.size() - 1),
                                0,
                                1,
@@ -700,7 +697,6 @@ contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts
 
     if (!sub_state_results.empty())
     {
-      found = true;
       traj_contacts.addContact(
           0, 0, 1, joint_positions, joint_positions, joint_positions, joint_positions, sub_state_results);
 
@@ -723,6 +719,7 @@ contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts
   {
     assert(config.longest_valid_segment_length > 0);
 
+    bool found = false;
     for (std::size_t iStep = 0; iStep < (mi.size() - 1); ++iStep)
     {
       state_results.clear();
@@ -949,6 +946,7 @@ contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts
         config.check_program_mode == tesseract_collision::CollisionCheckProgramType::INTERMEDIATE_ONLY)
       --end_idx;
 
+    bool found = false;
     for (std::size_t iStep = start_idx; iStep < end_idx; ++iStep)
     {
       state_results.clear();
