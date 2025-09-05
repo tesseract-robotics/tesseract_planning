@@ -33,6 +33,8 @@
 #include <typeindex>
 #include <tesseract_task_composer/core/yaml_extensions.h>
 #include <tesseract_collision/core/yaml_extensions.h>
+#include <tesseract_motion_planners/trajopt/yaml_extensions.h>
+#include <trajopt_common/yaml_extensions.h>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
@@ -45,6 +47,8 @@ FixStateCollisionProfile::FixStateCollisionProfile(Settings mode)
   collision_check_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
   trajopt_joint_constraint_config.coeff = Eigen::VectorXd::Constant(1, 1, 1);
   trajopt_joint_cost_config.coeff = Eigen::VectorXd::Constant(1, 1, 5);
+  collision_constraint_coeff = trajopt_common::CollisionCoeffData(1.0);
+  collision_cost_coeff = trajopt_common::CollisionCoeffData(20.0);
 }
 
 FixStateCollisionProfile::FixStateCollisionProfile(const YAML::Node& config,
@@ -65,6 +69,14 @@ FixStateCollisionProfile::FixStateCollisionProfile(const YAML::Node& config,
       collision_check_config = n.as<tesseract_collision::CollisionCheckConfig>();
     if (YAML::Node n = config["sampling_attempts"])
       sampling_attempts = n.as<int>();
+    if (YAML::Node n = config["trajopt_joint_constraint_config"])
+      trajopt_joint_constraint_config = n.as<tesseract_planning::TrajOptJointWaypointConfig>();
+    if (YAML::Node n = config["trajopt_joint_cost_config"])
+      trajopt_joint_cost_config = n.as<tesseract_planning::TrajOptJointWaypointConfig>();
+    if (YAML::Node n = config["collision_constraint_coeff"])
+      collision_constraint_coeff = n.as<trajopt_common::CollisionCoeffData>();
+    if (YAML::Node n = config["collision_cost_coeff"])
+      collision_cost_coeff = n.as<trajopt_common::CollisionCoeffData>();
   }
   catch (const std::exception& e)
   {
@@ -90,6 +102,8 @@ void FixStateCollisionProfile::serialize(Archive& ar, const unsigned int /*versi
   ar& BOOST_SERIALIZATION_NVP(sampling_attempts);
   ar& BOOST_SERIALIZATION_NVP(trajopt_joint_constraint_config);
   ar& BOOST_SERIALIZATION_NVP(trajopt_joint_cost_config);
+  ar& BOOST_SERIALIZATION_NVP(collision_constraint_coeff);
+  ar& BOOST_SERIALIZATION_NVP(collision_cost_coeff);
 }
 
 }  // namespace tesseract_planning
