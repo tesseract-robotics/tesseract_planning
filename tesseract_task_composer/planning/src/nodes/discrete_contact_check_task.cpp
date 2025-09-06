@@ -148,9 +148,12 @@ TaskComposerNodeInfo DiscreteContactCheckTask::runImpl(TaskComposerContext& cont
   manager->applyContactManagerConfig(cur_composite_profile->contact_manager_config);
 
   std::vector<tesseract_collision::ContactResultMap> contacts;
-  if (contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->collision_check_config))
+  tesseract_collision::ContactTrajectoryResults traj_results =
+      contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->collision_check_config);
+  info.status_message = traj_results.condensedSummary().str();
+  if (traj_results)
   {
-    info.status_message = "Results are not contact free for process input: " + ci.getDescription();
+    info.status_code = 0;
     CONSOLE_BRIDGE_logInform("%s", info.status_message.c_str());
 
     // Save space
@@ -165,7 +168,6 @@ TaskComposerNodeInfo DiscreteContactCheckTask::runImpl(TaskComposerContext& cont
 
   info.color = "green";
   info.status_code = 1;
-  info.status_message = "Discrete contact check succeeded";
   info.return_value = 1;
   CONSOLE_BRIDGE_logDebug("%s", info.status_message.c_str());
   return info;
