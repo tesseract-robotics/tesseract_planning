@@ -465,7 +465,7 @@ contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts
             found = true;
             traj_contacts.addContact(static_cast<int>(iStep),
                                      static_cast<int>(iSubStep),
-                                     sub_segment_last_index,
+                                     subtraj.rows(),
                                      joint_positions0,
                                      joint_positions1,
                                      subtraj.row(iSubStep),
@@ -778,7 +778,7 @@ contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts
             found = true;
             traj_contacts.addContact(static_cast<int>(iStep),
                                      static_cast<int>(iSubStep),
-                                     sub_segment_last_index,
+                                     subtraj.rows(),
                                      p0,
                                      p1,
                                      subtraj.row(iSubStep),
