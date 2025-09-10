@@ -45,6 +45,8 @@ int main(int /*argc*/, char** /*argv*/)
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
+  CONSOLE_BRIDGE_logInform("basic cartesian plan example");
+
   BasicCartesianExample example(env, nullptr, false, false);
   if (!example.run())
   {

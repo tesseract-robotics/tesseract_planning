@@ -40,7 +40,8 @@ public:
   GlassUprightExample(std::shared_ptr<tesseract_environment::Environment> env,
                       std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
                       bool ifopt = false,
-                      bool debug = false);
+                      bool debug = false,
+                      bool benchmark = false);
   ~GlassUprightExample() override = default;
   GlassUprightExample(const GlassUprightExample&) = default;
   GlassUprightExample& operator=(const GlassUprightExample&) = default;
@@ -52,6 +53,7 @@ public:
 private:
   bool ifopt_;
   bool debug_;
+  bool benchmark_;
 };
 
 }  // namespace tesseract_examples

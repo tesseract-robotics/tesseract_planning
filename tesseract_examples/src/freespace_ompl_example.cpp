@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/resource_locator.h>
 #include <tesseract_common/profile_dictionary.h>
+#include <tesseract_common/stopwatch.h>
 
 #include <tesseract_scene_graph/link.h>
 #include <tesseract_scene_graph/joint.h>
@@ -81,8 +82,13 @@ FreespaceOMPLExample::FreespaceOMPLExample(std::shared_ptr<tesseract_environment
                                            std::shared_ptr<tesseract_visualization::Visualization> plotter,
                                            double range,
                                            double planning_time,
-                                           bool debug)
-  : Example(std::move(env), std::move(plotter)), range_(range), planning_time_(planning_time), debug_(debug)
+                                           bool debug,
+                                           bool benchmark)
+  : Example(std::move(env), std::move(plotter))
+  , range_(range)
+  , planning_time_(planning_time)
+  , debug_(debug)
+  , benchmark_(benchmark)
 {
 }
 
@@ -183,11 +189,6 @@ bool FreespaceOMPLExample::run()
   if (debug_)
     program.print("Program: ");
 
-  CONSOLE_BRIDGE_logInform("freespace OMPL plan example");
-
-  // Create Executor
-  auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
-
   // Create OMPL Profile
   auto ompl_profile = std::make_shared<OMPLRealVectorMoveProfile>();
   auto ompl_planner_config = std::make_shared<RRTConnectConfigurator>();
@@ -203,15 +204,66 @@ bool FreespaceOMPLExample::run()
   TaskComposerNode::UPtr task = factory.createTaskComposerNode("OMPLPipeline");
   const std::string output_key = task->getOutputKeys().get("program");
 
-  // Create Task Composer Data Storage
-  auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
-  data->setData("planning_input", program);
-  data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
-  data->setData("profiles", profiles);
-
   // Solve task
-  TaskComposerFuture::UPtr future = executor->run(*task, std::move(data));
-  future->wait();
+  TaskComposerFuture::UPtr future;
+  if (!benchmark_)
+  {
+    // Create Executor
+    auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
+
+    // Create Task Composer Data Storage
+    auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+    data->setData("planning_input", program);
+    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    data->setData("profiles", profiles);
+
+    tesseract_common::Stopwatch stopwatch;
+    stopwatch.start();
+    future = executor->run(*task, std::move(data));
+    future->wait();
+    stopwatch.stop();
+    CONSOLE_BRIDGE_logInform("Planning took %f seconds.", stopwatch.elapsedSeconds());
+  }
+  else
+  {
+    const int cnt{ 100 };
+    std::vector<std::string> contact_managers{ "BulletDiscreteBVHManager", "BulletDiscreteSimpleManager" };
+
+    for (const auto& contact_manager : contact_managers)
+    {
+      // Create Executor
+      auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
+
+      double initial_planning_time{ 0 };
+      double accumulated_time{ 0 };
+      for (int i = 0; i < cnt; ++i)
+      {
+        // Set the active contact manager
+        env_->setActiveDiscreteContactManager(contact_manager);
+
+        // Create Task Composer Data Storage
+        auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+        data->setData("planning_input", program);
+        data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+        data->setData("profiles", profiles);
+
+        tesseract_common::Stopwatch stopwatch;
+        stopwatch.start();
+        future = executor->run(*task, std::move(data));
+        future->wait();
+        stopwatch.stop();
+        if (i == 0)
+          initial_planning_time = stopwatch.elapsedSeconds();
+        else
+          accumulated_time += stopwatch.elapsedSeconds();
+      }
+      CONSOLE_BRIDGE_logInform("FreespaceOMPLExample, %s, %f, %f, %d",
+                               contact_manager.c_str(),
+                               initial_planning_time,
+                               accumulated_time / (cnt - 1),
+                               (cnt - 1));
+    }
+  }
 
   // Plot Process Trajectory
   if (plotter_ != nullptr && plotter_->isConnected())

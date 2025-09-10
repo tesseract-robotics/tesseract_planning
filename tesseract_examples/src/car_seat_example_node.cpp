@@ -45,6 +45,8 @@ int main(int /*argc*/, char** /*argv*/)
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
+  CONSOLE_BRIDGE_logInform("Freespace plan to pick seat 1 example");
+
   CarSeatExample example(env, nullptr, false);
   if (!example.run())
   {
