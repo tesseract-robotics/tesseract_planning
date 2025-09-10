@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/goals/GoalStates.h>
 #include <ompl/geometric/SimpleSetup.h>
 #include <ompl/tools/multiplan/ParallelPlan.h>
+#include <ompl/util/Console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/planner_utils.h>
@@ -259,6 +260,11 @@ long OMPLMotionPlanner::assignTrajectory(tesseract_planning::CompositeInstructio
 
 PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 {
+  if (request.verbose)
+    ompl::msg::setLogLevel(ompl::msg::LOG_DEBUG);
+  else
+    ompl::msg::setLogLevel(ompl::msg::LOG_ERROR);
+
   PlannerResponse response;
   response.results = request.instructions;
 
