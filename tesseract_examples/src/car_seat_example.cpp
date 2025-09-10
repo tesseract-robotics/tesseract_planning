@@ -378,8 +378,6 @@ bool CarSeatExample::run()
     if (debug_)
       program.print("Program: ");
 
-    CONSOLE_BRIDGE_logInform("Freespace plan to pick seat 1 example");
-
     // Create task
     const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";
     TaskComposerNode::UPtr task = factory.createTaskComposerNode(task_name);

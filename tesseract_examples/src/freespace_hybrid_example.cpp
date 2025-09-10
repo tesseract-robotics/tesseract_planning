@@ -190,8 +190,6 @@ bool FreespaceHybridExample::run()
   if (debug_)
     program.print("Program: ");
 
-  CONSOLE_BRIDGE_logInform("freespace hybrid plan example");
-
   // Create Executor
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 

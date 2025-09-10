@@ -41,7 +41,8 @@ public:
   PuzzlePieceExample(std::shared_ptr<tesseract_environment::Environment> env,
                      std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
                      bool ifopt = false,
-                     bool debug = false);
+                     bool debug = false,
+                     bool benchmark = false);
   ~PuzzlePieceExample() override = default;
   PuzzlePieceExample(const PuzzlePieceExample&) = default;
   PuzzlePieceExample& operator=(const PuzzlePieceExample&) = default;
@@ -53,6 +54,7 @@ public:
 private:
   bool ifopt_;
   bool debug_;
+  bool benchmark_;
 };
 
 }  // namespace tesseract_examples

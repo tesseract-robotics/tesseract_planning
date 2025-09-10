@@ -45,6 +45,8 @@ int main(int /*argc*/, char** /*argv*/)
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
+  CONSOLE_BRIDGE_logInform("freespace OMPL plan example");
+
   FreespaceOMPLExample example(env, nullptr);
   if (!example.run())
   {
