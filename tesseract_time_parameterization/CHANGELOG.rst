@@ -2,6 +2,11 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Improve memory allocations
+* Contributors: Levi Armstrong
+
 0.31.0 (2025-07-06)
 -------------------
 * Fix constant tcp speed parameterization not populating first state

@@ -2,6 +2,16 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Print a collision summary to status of failed contact check (`#543 <https://github.com/tesseract-robotics/tesseract_planning/issues/543>`_)
+* Add trajopt collision coefficients to fix state collision profile (`#655 <https://github.com/tesseract-robotics/tesseract_planning/issues/655>`_)
+* Improve memory allocations
+* Added Profiles constructors for YAML conversions (`#652 <https://github.com/tesseract-robotics/tesseract_planning/issues/652>`_)
+* Add trajopt joint configs for fix state collision task (`#637 <https://github.com/tesseract-robotics/tesseract_planning/issues/637>`_)
+* Fix missing export in kinematic_limits_check_task.h
+* Contributors: John Wason, Levi Armstrong, Samantha Smith, Tyler Marr
+
 0.31.0 (2025-07-06)
 -------------------
 * Fix yaml extensions file name spelling
