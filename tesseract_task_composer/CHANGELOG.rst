@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.32.0 (2025-09-10)
+-------------------
 * Print a collision summary to status of failed contact check (`#543 <https://github.com/tesseract-robotics/tesseract_planning/issues/543>`_)
 * Add trajopt collision coefficients to fix state collision profile (`#655 <https://github.com/tesseract-robotics/tesseract_planning/issues/655>`_)
 * Improve memory allocations

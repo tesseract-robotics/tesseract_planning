@@ -2,8 +2,8 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.32.0 (2025-09-10)
+-------------------
 * Add custom benchmarking executable for tesseract examples
 * Update examples to only print program when debug is enabled
 * Fix error and success reporting in examples

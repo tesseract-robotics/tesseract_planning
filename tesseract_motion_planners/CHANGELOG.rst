@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.32.0 (2025-09-10)
+-------------------
 * Set ompl log level based on request verbose flag
 * Fixed incorrect number of substeps when adding contact (`#668 <https://github.com/tesseract-robotics/tesseract_planning/issues/668>`_)
 * Print a collision summary to status of failed contact check (`#543 <https://github.com/tesseract-robotics/tesseract_planning/issues/543>`_)
