@@ -9,6 +9,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
+#include <tesseract_task_composer/core/task_composer_executor.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
@@ -23,6 +24,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/nodes/done_task.h>
 #include <tesseract_task_composer/core/nodes/error_task.h>
+#include <tesseract_task_composer/core/nodes/for_each_task.h>
 #include <tesseract_task_composer/core/nodes/has_data_storage_entry_task.h>
 #include <tesseract_task_composer/core/nodes/remap_task.h>
 #include <tesseract_task_composer/core/nodes/start_task.h>
@@ -2260,6 +2262,374 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerHasDataStorageEntryTaskTests)  /
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
     EXPECT_EQ(node_info->status_message, "Successful");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+}
+
+TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
+{
+  std::string task_composer_plugins_str = R"(task_composer_plugins:
+                         search_paths:
+                           - /usr/local/lib
+                         search_libraries:
+                           - tesseract_task_composer_factories
+                           - tesseract_task_composer_taskflow_factories
+                         executors:
+                           default: TaskflowExecutor
+                           plugins:
+                             TaskflowExecutor:
+                               class: TaskflowTaskComposerExecutorFactory
+                               config:
+                                 threads: 5
+                         tasks:
+                           plugins:
+                             TestPipeline:
+                               class: PipelineTaskFactory
+                               config:
+                                 conditional: true
+                                 inputs:
+                                   program: input_data
+                                 outputs:
+                                   program: output_data
+                                 nodes:
+                                   StartTask:
+                                     class: StartTaskFactory
+                                     config:
+                                       conditional: false
+                                   TestTask:
+                                     class: TestTaskFactory
+                                     config:
+                                       conditional: true
+                                       return_value: 1
+                                       inputs:
+                                         port1: input_data
+                                         port2: [input_data2]
+                                       outputs:
+                                         port1: output_data
+                                         port2: [output_data2]
+                                   DoneTask:
+                                     class: DoneTaskFactory
+                                     config:
+                                       conditional: false
+                                   AbortTask:
+                                     class: DoneTaskFactory
+                                     config:
+                                       conditional: false
+                                 edges:
+                                   - source: StartTask
+                                     destinations: [TestTask]
+                                   - source: TestTask
+                                     destinations: [AbortTask, DoneTask]
+                                 terminals: [AbortTask, DoneTask])";
+
+  tesseract_common::GeneralResourceLocator locator;
+  TaskComposerPluginFactory factory(task_composer_plugins_str, locator);
+
+  {  // Construction
+    ForEachTask task;
+    EXPECT_EQ(task.getName(), "ForEachTask");
+    EXPECT_EQ(task.isConditional(), true);
+  }
+
+  {  // Construction
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             container: input_data
+                           outputs:
+                             container: output_data
+                           operation:
+                             task: TestPipeline
+                             config:
+                               input_port: program
+                               output_port: program
+                               indexing: [input_data, output_data])";
+    YAML::Node config = YAML::Load(str);
+    ForEachTask task("abc", config["config"], factory);
+    EXPECT_EQ(task.getName(), "abc");
+    EXPECT_EQ(task.isConditional(), true);
+    EXPECT_EQ(task.getInputKeys().size(), 1);
+    EXPECT_EQ(task.getInputKeys().get(ForEachTask::INOUT_PORT), "input_data");
+    EXPECT_EQ(task.getOutputKeys().size(), 1);
+    EXPECT_EQ(task.getOutputKeys().get(ForEachTask::INOUT_PORT), "output_data");
+    EXPECT_EQ(task.getOutboundEdges().size(), 0);
+    EXPECT_EQ(task.getInboundEdges().size(), 0);
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<ForEachTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             container: input_data)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<ForEachTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             container: input_data
+                           outputs:
+                             container: output_data
+                           operation:
+                             config:
+                               input_port: program
+                               output_port: program
+                               indexing: [input_data, output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<ForEachTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             container: input_data
+                           outputs:
+                             container: output_data
+                           operation:
+                             task: TestPipeline)";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<ForEachTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             container: input_data
+                           outputs:
+                             container: output_data
+                           operation:
+                             task: TestPipeline
+                             config:
+                               output_port: program
+                               indexing: [input_data, output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<ForEachTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Construction failure
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             container: input_data
+                           outputs:
+                             container: output_data
+                           operation:
+                             task: TestPipeline
+                             config:
+                               input_port: program
+                               indexing: [input_data, output_data])";
+    YAML::Node config = YAML::Load(str);
+    EXPECT_ANY_THROW(std::make_unique<ForEachTask>("abc", config["config"], factory));  // NOLINT
+  }
+
+  {  // Serialization
+    auto task = std::make_unique<ForEachTask>();
+
+    // Serialization
+    test_suite::runSerializationPointerTest(task, "TaskComposerForEachTaskTests");
+  }
+
+  {  // Success
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             container: input_data
+                           outputs:
+                             container: output_data
+                           operation:
+                             task: TestPipeline
+                             config:
+                               input_port: program
+                               output_port: program
+                               indexing: [input_data, output_data])";
+    YAML::Node config = YAML::Load(str);
+    ForEachTask task("abc", config["config"], factory);
+
+    // Create Data Storage
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    std::vector<tesseract_common::AnyPoly> input_data;
+    input_data.emplace_back(true);
+    input_data.emplace_back(false);
+    data->setData("input_data", input_data);
+
+    // Solve
+    auto executor = factory.createTaskComposerExecutor(factory.getDefaultTaskComposerExecutorPlugin());
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    EXPECT_EQ(task.run(*context, *executor), 1);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "green");
+    EXPECT_EQ(node_info->return_value, 1);
+    EXPECT_EQ(node_info->status_code, 1);
+    EXPECT_EQ(node_info->status_message, "Successful");
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure missing input data
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             container: input_data
+                           outputs:
+                             container: output_data
+                           operation:
+                             task: TestPipeline
+                             config:
+                               input_port: program
+                               output_port: program
+                               indexing: [input_data, output_data])";
+    YAML::Node config = YAML::Load(str);
+    ForEachTask task("abc", config["config"], factory);
+
+    // Create Data Storage
+    auto data = std::make_unique<TaskComposerDataStorage>();
+
+    // Solve
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, -1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure null input data
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             container: input_data
+                           outputs:
+                             container: output_data
+                           operation:
+                             task: TestPipeline
+                             config:
+                               input_port: program
+                               output_port: program
+                               indexing: [input_data, output_data])";
+    YAML::Node config = YAML::Load(str);
+    ForEachTask task("abc", config["config"], factory);
+
+    // Create data storage
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    data->setData("input_data", tesseract_common::AnyPoly());
+
+    // Solve
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, -1);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure input data is not composite
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             container: input_data
+                           outputs:
+                             container: output_data
+                           operation:
+                             task: TestPipeline
+                             config:
+                               input_port: program
+                               output_port: program
+                               indexing: [input_data, output_data])";
+    YAML::Node config = YAML::Load(str);
+    ForEachTask task("abc", config["config"], factory);
+
+    // Create data storage
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    data->setData("input_data", tesseract_common::AnyPoly(tesseract_common::JointState()));
+
+    // Solve
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
+    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(context->isAborted(), false);
+    EXPECT_EQ(context->isSuccessful(), true);
+    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+  }
+
+  {  // Failure input data is not composite
+    std::string str = R"(config:
+                           conditional: true
+                           inputs:
+                             container: input_data
+                           outputs:
+                             container: output_data
+                           operation:
+                             task: TestPipeline
+                             config:
+                               input_port: program
+                               output_port: program
+                               indexing: [input_data, output_data])";
+    YAML::Node config = YAML::Load(str);
+    ForEachTask task("abc", config["config"], factory);
+
+    // Create data storage
+    auto data = std::make_unique<TaskComposerDataStorage>();
+    data->setData("input_data", std::vector<bool>{ true, true, false });
+
+    // Solve
+    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    EXPECT_EQ(task.run(*context), 0);
+    auto node_info = context->task_infos.getInfo(task.getUUID());
+    if (!node_info.has_value())
+      throw std::runtime_error("failed");
+
+    EXPECT_TRUE(node_info.has_value());
+    EXPECT_EQ(node_info->color, "red");
+    EXPECT_EQ(node_info->return_value, 0);
+    EXPECT_EQ(node_info->status_code, 0);
+    EXPECT_EQ(node_info->status_message.empty(), false);
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
