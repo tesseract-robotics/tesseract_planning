@@ -49,6 +49,7 @@ add_library(
   ${PROJECT_NAME}_nodes
   src/nodes/done_task.cpp
   src/nodes/error_task.cpp
+  src/nodes/for_each_task.cpp
   src/nodes/has_data_storage_entry_task.cpp
   src/nodes/remap_task.cpp
   src/nodes/start_task.cpp
