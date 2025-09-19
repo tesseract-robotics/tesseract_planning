@@ -706,6 +706,28 @@ Remap data from one key to another, by copying or moving the data.
          key1: remap_key1
          key2: remap_key2
 
+ForEach Task
+^^^^^^^^^^
+
+For each element in a std::vector<tesseract_common::AnyPoly> it will run the operation and store the results in a std::vector<tesseract_common::AnyPoly>
+
+.. code-block:: yaml
+
+   ForEachTask:
+     class: ForEachTaskFactory
+     config:
+       conditional: true
+       inputs:
+         container: input_data
+       outputs:
+         container: output_data
+       operation:
+         task: TestPipeline
+         config:
+           input_port: program
+           output_port: program
+           indexing: [input_data, output_data]
+
 Fix State Bounds Task
 ^^^^^^^^^^^^^^^^^^^^^
 
