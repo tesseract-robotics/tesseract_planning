@@ -547,6 +547,21 @@ std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::s
   return (prefix + result);
 }
 
+TaskComposerDataStorage::Ptr TaskComposerNode::getDataStorage(TaskComposerContext& context) const
+{
+  if (type_ == TaskComposerNodeType::NODE || type_ == TaskComposerNodeType::TASK)
+  {
+    tesseract_common::AnyPoly data_storage_any = context.data_storage->getData(boost::uuids::to_string(parent_uuid_));
+    return (data_storage_any.isNull()) ? context.data_storage : data_storage_any.as<TaskComposerDataStorage::Ptr>();
+  }
+
+  if (parent_uuid_.is_nil())
+    return context.data_storage;
+
+  const std::string parent_data_storage_key{ boost::uuids::to_string(parent_uuid_) };
+  return context.data_storage->getData(parent_data_storage_key).as<TaskComposerDataStorage::Ptr>();
+}
+
 template <>
 tesseract_common::AnyPoly TaskComposerNode::getData(const TaskComposerDataStorage& data_storage,
                                                     const std::string& port,
@@ -619,6 +634,7 @@ void TaskComposerNode::setData(TaskComposerDataStorage& data_storage,
   }
 
   const auto& key = std::get<std::string>(it->second);
+
   data_storage.setData(key, std::move(data));
 }
 

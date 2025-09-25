@@ -28,6 +28,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_common/stopwatch.h>
 #include <tesseract_common/serialization.h>
+#include <boost/uuid/uuid_io.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
@@ -63,7 +64,22 @@ TaskComposerNodeInfo TaskComposerPipeline::runImpl(TaskComposerContext& context,
   if (root_node.is_nil())
     throw std::runtime_error("TaskComposerPipeline, with name '" + name_ + "' does not have a root node!");
 
+  // Create local data storage for graph
+  TaskComposerDataStorage::Ptr parent_data_storage = getDataStorage(context);
+
+  // Create new data storage and copy input data
+  const std::string data_storage_key{ boost::uuids::to_string(uuid_) };
+  auto data_storage = std::make_shared<TaskComposerDataStorage>(data_storage_key);
+  data_storage->copyData(*parent_data_storage, input_keys_);
+
+  // Store the new data storage for access by child nodes
+  context.data_storage->setData(data_storage_key, data_storage);
+
+  // Run
   runRecursive(*(nodes_.at(root_node)), context, executor);
+
+  // Copy output data to parent data storage
+  parent_data_storage->copyData(*data_storage, output_keys_);
 
   for (std::size_t i = 0; i < terminals_.size(); ++i)
   {

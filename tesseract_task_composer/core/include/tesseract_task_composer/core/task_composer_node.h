@@ -222,6 +222,13 @@ protected:
   static std::string toString(const boost::uuids::uuid& u, const std::string& prefix = "");
 
   /**
+   * @brief A utility function to get the correct data storage
+   * @param context The context
+   * @return The data storage object to use
+   */
+  TaskComposerDataStorage::Ptr getDataStorage(TaskComposerContext& context) const;
+
+  /**
    * @brief A utility function for extracting data from data storage
    * @param data_storage The data storage to retrieve data from
    * @param port The port associated with the key

@@ -231,8 +231,23 @@ TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
   if (!executor.has_value())
     throw std::runtime_error("TaskComposerGraph, the optional executor is null!");
 
-  TaskComposerFuture::UPtr future = executor.value().get().run(*this, context.data_storage, context.dotgraph);
+  // Create local data storage for graph
+  TaskComposerDataStorage::Ptr parent_data_storage = getDataStorage(context);
+
+  // Create new data storage and copy input data
+  const std::string data_storage_key{ boost::uuids::to_string(uuid_) };
+  auto data_storage = std::make_shared<TaskComposerDataStorage>(data_storage_key);
+  data_storage->copyData(*parent_data_storage, input_keys_);
+
+  // Store the new data storage for access by child nodes
+  context.data_storage->setData(data_storage_key, data_storage);
+
+  // Run
+  TaskComposerFuture::UPtr future = executor.value().get().run(*this, data_storage, context.dotgraph);
   future->wait();
+
+  // Copy output data to parent data storage
+  parent_data_storage->copyData(*data_storage, output_keys_);
 
   // Merge child context data into parent context
   context.task_infos.mergeInfoMap(std::move(future->context->task_infos));
