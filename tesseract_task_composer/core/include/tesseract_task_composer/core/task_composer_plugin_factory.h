@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <map>
 #include <memory>
 #include <set>
+#include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
@@ -72,6 +73,8 @@ public:
                                                    const YAML::Node& config,
                                                    const TaskComposerPluginFactory& plugin_factory) const = 0;
 
+  virtual std::unique_ptr<TaskComposerNode> create() const = 0;
+
 protected:
   static std::string getSection();
   friend class boost_plugin_loader::PluginLoader;
@@ -88,6 +91,8 @@ public:
   virtual ~TaskComposerExecutorFactory() = default;
 
   virtual std::unique_ptr<TaskComposerExecutor> create(const std::string& name, const YAML::Node& config) const = 0;
+
+  virtual std::unique_ptr<TaskComposerExecutor> create() const = 0;
 
 protected:
   static std::string getSection();
@@ -306,6 +311,16 @@ public:
    * @return The plugin information config yaml node/
    */
   YAML::Node getConfig() const;
+
+  /**
+   * @brief Returns a list of available task composer node plugins
+   */
+  std::vector<std::string> getAvailableTaskComposerNodePlugins() const;
+
+  /**
+   * @brief Returns a list of available task composer executor plugins
+   */
+  std::vector<std::string> getAvailableTaskComposerExecutorPlugins() const;
 
 private:
   struct Implementation;

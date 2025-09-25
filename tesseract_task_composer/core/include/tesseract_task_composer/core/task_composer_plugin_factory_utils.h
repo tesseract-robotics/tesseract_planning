@@ -40,6 +40,8 @@ public:
   {
     return std::make_unique<TaskType>(name, config, plugin_factory);
   }
+
+  std::unique_ptr<TaskComposerNode> create() const override { return std::make_unique<TaskType>(); }
 };
 
 template <typename ExecutorType>
@@ -50,6 +52,8 @@ public:
   {
     return std::make_unique<ExecutorType>(name, config);
   }
+
+  std::unique_ptr<TaskComposerExecutor> create() const override { return std::make_unique<ExecutorType>(); }
 };
 }  // namespace tesseract_planning
 

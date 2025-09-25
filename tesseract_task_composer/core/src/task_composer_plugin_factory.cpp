@@ -283,17 +283,42 @@ std::string TaskComposerPluginFactory::getDefaultTaskComposerNodePlugin() const
 std::unique_ptr<TaskComposerExecutor>
 TaskComposerPluginFactory::createTaskComposerExecutor(const std::string& name) const
 {
-  const auto& executor_plugin_info = impl_->executor_plugin_info;
-  auto cm_it = executor_plugin_info.plugins.find(name);
-  if (cm_it == executor_plugin_info.plugins.end())
+  try
   {
-    CONSOLE_BRIDGE_logWarn("TaskComposerPluginFactory, tried to get task composer executor '%s' that does not "
-                           "exist!",
-                           name.c_str());
+    // Check if the input name has associated plugin information
+    const auto& executor_plugin_info = impl_->executor_plugin_info;
+    auto cm_it = executor_plugin_info.plugins.find(name);
+    if (cm_it != executor_plugin_info.plugins.end())
+      return createTaskComposerExecutor(name, cm_it->second);
+
+    // Check if a plugin factory has already been loaded for the input plugin name
+    auto& executor_factories = impl_->executor_factories;
+    auto it = executor_factories.find(name);
+    if (it != executor_factories.end())
+    {
+      // Default create a task composer node from the plugin since no configuration information exists
+      return it->second->create();
+    }
+
+    // Load the plugin since one has not already been loaded
+    auto plugin = impl_->plugin_loader.instantiate<TaskComposerExecutorFactory>(name);
+    if (plugin == nullptr)
+    {
+      CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s'", name.c_str());
+      return nullptr;
+    }
+
+    // Store the plugin internally to keep the plugin in scope for the lifetime of this factory object
+    executor_factories[name] = plugin;
+
+    // Default create a task composer node from the plugin since no configuration information exists
+    return plugin->create();
+  }
+  catch (const std::exception& e)
+  {
+    CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s', Details: %s", name.c_str(), e.what());
     return nullptr;
   }
-
-  return createTaskComposerExecutor(name, cm_it->second);
 }
 
 std::unique_ptr<TaskComposerExecutor>
@@ -325,17 +350,42 @@ TaskComposerPluginFactory::createTaskComposerExecutor(const std::string& name,
 
 std::unique_ptr<TaskComposerNode> TaskComposerPluginFactory::createTaskComposerNode(const std::string& name) const
 {
-  const auto& task_plugin_info = impl_->task_plugin_info;
-  auto cm_it = task_plugin_info.plugins.find(name);
-  if (cm_it == task_plugin_info.plugins.end())
+  try
   {
-    CONSOLE_BRIDGE_logWarn("TaskComposerPluginFactory, tried to get task composer node '%s' that does not "
-                           "exist!",
-                           name.c_str());
+    // Check if the input name has associated plugin information
+    const auto& task_plugin_info = impl_->task_plugin_info;
+    auto cm_it = task_plugin_info.plugins.find(name);
+    if (cm_it != task_plugin_info.plugins.end())
+      return createTaskComposerNode(name, cm_it->second);
+
+    // Check if a plugin factory has already been loaded for the input plugin name
+    auto& node_factories = impl_->node_factories;
+    auto it = node_factories.find(name);
+    if (it != node_factories.end())
+    {
+      // Default create a task composer node from the plugin since no configuration information exists
+      return it->second->create();
+    }
+
+    // Load the plugin since one has not already been loaded
+    auto plugin = impl_->plugin_loader.instantiate<TaskComposerNodeFactory>(name);
+    if (plugin == nullptr)
+    {
+      CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s'", name.c_str());
+      return nullptr;
+    }
+
+    // Store the plugin internally to keep the plugin in scope for the lifetime of this factory object
+    node_factories[name] = plugin;
+
+    // Default create a task composer node from the plugin since no configuration information exists
+    return plugin->create();
+  }
+  catch (const std::exception& e)
+  {
+    CONSOLE_BRIDGE_logWarn("Failed to load symbol '%s', Details: %s", name.c_str(), e.what());
     return nullptr;
   }
-
-  return createTaskComposerNode(name, cm_it->second);
 }
 
 std::unique_ptr<TaskComposerNode>
@@ -385,4 +435,15 @@ YAML::Node TaskComposerPluginFactory::getConfig() const
 
   return config;
 }
+
+std::vector<std::string> TaskComposerPluginFactory::getAvailableTaskComposerNodePlugins() const
+{
+  return impl_->plugin_loader.getAvailablePlugins("TaskNode");
+}
+
+std::vector<std::string> TaskComposerPluginFactory::getAvailableTaskComposerExecutorPlugins() const
+{
+  return impl_->plugin_loader.getAvailablePlugins("TaskExec");
+}
+
 }  // namespace tesseract_planning
