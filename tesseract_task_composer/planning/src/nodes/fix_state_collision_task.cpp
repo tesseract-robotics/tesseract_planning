@@ -169,6 +169,13 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
   pci.basic_info.manip = manip_info.manipulator;
   pci.basic_info.use_time = false;
 
+  // Apply solver settings
+  auto config = std::make_unique<sco::OSQPModelConfig>();
+  config->settings = profile.osqp_settings;
+  config->update_workspace = profile.update_workspace;
+  pci.basic_info.convex_solver_config = std::move(config);
+  pci.opt_info = profile.opt_params;
+
   // Create Kinematic Object
   pci.kin = pci.env->getJointGroup(pci.basic_info.manip);
 
