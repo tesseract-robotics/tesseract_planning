@@ -60,8 +60,7 @@ TaskComposerNodePorts FormatAsResultTask::ports()
 TaskComposerNodeInfo FormatAsResultTask::runImpl(TaskComposerContext& context,
                                                  OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto input_data_container =
-      getData<std::vector<tesseract_common::AnyPoly>>(*context.data_storage, INOUT_PROGRAMS_PORT);
+  auto input_data_container = getData<std::vector<tesseract_common::AnyPoly>>(context, INOUT_PROGRAMS_PORT);
   std::vector<tesseract_common::AnyPoly> output_data_container;
   output_data_container.reserve(input_data_container.size());
   for (auto& input_data : input_data_container)
@@ -90,7 +89,7 @@ TaskComposerNodeInfo FormatAsResultTask::runImpl(TaskComposerContext& context,
     output_data_container.emplace_back(ci);
   }
 
-  setData(*context.data_storage, INOUT_PROGRAMS_PORT, output_data_container);
+  setData(context, INOUT_PROGRAMS_PORT, output_data_container);
 
   TaskComposerNodeInfo info(*this);
   info.color = "green";

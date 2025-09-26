@@ -114,11 +114,11 @@ public:
   bool remapData(const std::map<std::string, std::string>& remapping, bool copy = false);
 
   /**
-   * @brief Copy data from another data storage under the same key
-   * @param input_data The input data storage to copy data from
-   * @param input_keys The input_keys to copy
+   * @brief Copy data from the specified keys from another data storage
+   * @param data_storage The input data storage from which to copy data
+   * @param keys The keys from which to copy data from the input data storage
    */
-  void copyData(const TaskComposerDataStorage& input_data, const TaskComposerKeys& input_keys);
+  void copyData(const TaskComposerDataStorage& data_storage, const TaskComposerKeys& keys);
 
   bool operator==(const TaskComposerDataStorage& rhs) const;
   bool operator!=(const TaskComposerDataStorage& rhs) const;

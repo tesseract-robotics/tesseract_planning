@@ -178,20 +178,20 @@ bool TaskComposerDataStorage::remapData(const std::map<std::string, std::string>
   return true;
 }
 
-void TaskComposerDataStorage::copyData(const TaskComposerDataStorage& input_data, const TaskComposerKeys& input_keys)
+void TaskComposerDataStorage::copyData(const TaskComposerDataStorage& data_storage, const TaskComposerKeys& keys)
 {
-  for (const auto& pair : input_keys.data())
+  for (const auto& pair : keys.data())
   {
     if (pair.second.index() == 0)
     {
       const auto& key = std::get<std::string>(pair.second);
-      setData(key, input_data.getData(key));
+      setData(key, data_storage.getData(key));
     }
     else
     {
       const auto& keys = std::get<std::vector<std::string>>(pair.second);
       for (const auto& key : keys)
-        setData(key, input_data.getData(key));
+        setData(key, data_storage.getData(key));
     }
   }
 }

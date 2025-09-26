@@ -45,10 +45,14 @@ TaskComposerNodeInfo HasDataStorageEntryTask::runImpl(TaskComposerContext& conte
                                                       OptionalTaskComposerExecutor /*executor*/) const
 {
   TaskComposerNodeInfo info(*this);
+
+  // Get local data storage
+  TaskComposerDataStorage::Ptr data_storage = getDataStorage(context);
+
   const auto& keys = input_keys_.get<std::vector<std::string>>(INPUT_KEYS_PORT);
   for (const auto& key : keys)
   {
-    if (!context.data_storage->hasKey(key))
+    if (!data_storage->hasKey(key))
     {
       info.color = "red";
       info.return_value = 0;

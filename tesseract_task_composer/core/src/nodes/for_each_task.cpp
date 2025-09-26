@@ -194,7 +194,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = getData(*context.data_storage, INOUT_PORT);
+  auto input_data_poly = getData(context, INOUT_PORT);
   try
   {
     checkTaskInput(input_data_poly);
@@ -271,7 +271,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
       output.emplace_back(context.data_storage->getData(task.second.second));
   }
 
-  setData(*context.data_storage, INOUT_PORT, tesseract_common::AnyPoly(output));
+  setData(context, INOUT_PORT, tesseract_common::AnyPoly(output));
 
   info.color = "green";
   info.status_code = 1;

@@ -91,8 +91,8 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
   info.return_value = 0;
   info.status_code = 0;
 
-  auto input_data_poly = getData(*context.data_storage, INPUT_CURRENT_PROGRAM_PORT);
-  auto input_next_data_poly = getData(*context.data_storage, INPUT_NEXT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INPUT_CURRENT_PROGRAM_PORT);
+  auto input_next_data_poly = getData(context, INPUT_NEXT_PROGRAM_PORT);
 
   // --------------------
   // Check that inputs are valid
@@ -127,7 +127,7 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
     throw std::runtime_error("Invalid waypoint type");
 
   // Store results
-  setData(*context.data_storage, OUTPUT_PROGRAM_PORT, input_data_poly);
+  setData(context, OUTPUT_PROGRAM_PORT, input_data_poly);
 
   info.color = "green";
   info.status_code = 1;

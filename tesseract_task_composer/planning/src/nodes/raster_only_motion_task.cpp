@@ -297,7 +297,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
+  auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
     info.status_code = 0;
@@ -311,7 +311,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
       env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>()->clone();
   info.data_storage.setData("environment", env);
 
-  auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
   try
   {
     checkTaskInput(input_data_poly);
@@ -463,7 +463,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
     }
   }
 
-  setData(*context.data_storage, INOUT_PROGRAM_PORT, program);
+  setData(context, INOUT_PROGRAM_PORT, program);
 
   info.color = "green";
   info.status_code = 1;

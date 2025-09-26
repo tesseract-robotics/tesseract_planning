@@ -129,7 +129,7 @@ protected:
     // --------------------
     // Check that inputs are valid
     // --------------------
-    auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
+    auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
     if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
     {
       info.status_code = 0;
@@ -141,7 +141,7 @@ protected:
 
     auto env = env_poly.template as<std::shared_ptr<const tesseract_environment::Environment>>();
 
-    auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
+    auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
     if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
     {
       info.status_message = "Input instructions to MotionPlannerTask: " + name_ + " must be a composite instruction";
@@ -150,8 +150,8 @@ protected:
     }
     tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
 
-    auto profiles = getData(*context.data_storage, INPUT_PROFILES_PORT)
-                        .template as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
+    auto profiles =
+        getData(context, INPUT_PROFILES_PORT).template as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
 
     // Make a non-const copy of the input instructions to update the start/end
     auto& instructions = input_data_poly.template as<CompositeInstruction>();
@@ -181,7 +181,7 @@ protected:
     if (response)
     {
       // Should only set on success to support error branching
-      setData(*context.data_storage, INOUT_PROGRAM_PORT, response.results);
+      setData(context, INOUT_PROGRAM_PORT, response.results);
       info.return_value = 1;
       info.color = "green";
       info.status_code = 1;
@@ -198,7 +198,7 @@ protected:
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
     if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
-      setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
+      setData(context, INOUT_PROGRAM_PORT, original_input_data_poly);
 
     info.status_message = response.message;
     return info;
