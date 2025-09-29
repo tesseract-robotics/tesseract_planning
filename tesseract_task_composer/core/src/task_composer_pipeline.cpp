@@ -68,12 +68,11 @@ TaskComposerNodeInfo TaskComposerPipeline::runImpl(TaskComposerContext& context,
   TaskComposerDataStorage::Ptr parent_data_storage = getDataStorage(context);
 
   // Create new data storage and copy input data
-  const std::string data_storage_key{ boost::uuids::to_string(uuid_) };
-  auto data_storage = std::make_shared<TaskComposerDataStorage>(data_storage_key);
+  auto data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
   data_storage->copyData(*parent_data_storage, input_keys_);
 
   // Store the new data storage for access by child nodes
-  context.data_storage->setData(data_storage_key, data_storage);
+  context.data_storage->setData(uuid_str_, data_storage);
 
   // Run
   runRecursive(*(nodes_.at(root_node)), context, executor);

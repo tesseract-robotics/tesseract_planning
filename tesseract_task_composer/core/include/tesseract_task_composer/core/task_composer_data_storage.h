@@ -118,7 +118,9 @@ public:
    * @param data_storage The input data storage from which to copy data
    * @param keys The keys from which to copy data from the input data storage
    */
-  void copyData(const TaskComposerDataStorage& data_storage, const TaskComposerKeys& keys);
+  void copyData(const TaskComposerDataStorage& data_storage,
+                const TaskComposerKeys& keys,
+                const std::vector<std::string>& exclude_keys = {});
 
   bool operator==(const TaskComposerDataStorage& rhs) const;
   bool operator!=(const TaskComposerDataStorage& rhs) const;

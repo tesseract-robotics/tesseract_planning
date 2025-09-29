@@ -3393,6 +3393,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3411,7 +3412,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     RasterMotionTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 2);
+    EXPECT_EQ(task.getInputKeys().size(), 3);
     EXPECT_EQ(task.getInputKeys().get(RasterMotionTask::INOUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(RasterMotionTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
@@ -3432,7 +3433,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            conditional: true
                            inputs:
                              program: input_data
-                             environment: environment)";
+                             environment: environment
+                             profiles: profiles)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -3452,6 +3454,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3467,6 +3470,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3481,6 +3485,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3497,6 +3502,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3513,6 +3519,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3529,6 +3536,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3548,6 +3556,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3566,6 +3575,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3586,6 +3596,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3606,6 +3617,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3626,6 +3638,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3649,6 +3662,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3766,6 +3780,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3813,6 +3828,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3861,6 +3877,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3909,6 +3926,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            freespace:
@@ -3971,6 +3989,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            raster:
@@ -3985,7 +4004,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     RasterOnlyMotionTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-    EXPECT_EQ(task.getInputKeys().size(), 2);
+    EXPECT_EQ(task.getInputKeys().size(), 3);
     EXPECT_EQ(task.getInputKeys().get(RasterOnlyMotionTask::INOUT_PROGRAM_PORT), "input_data");
     EXPECT_EQ(task.getInputKeys().get(RasterOnlyMotionTask::INPUT_ENVIRONMENT_PORT), "environment");
     EXPECT_EQ(task.getOutputKeys().size(), 1);
@@ -4006,7 +4025,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            conditional: true
                            inputs:
                              program: input_data
-                             environment: environment)";
+                             environment: environment
+                             profiles: profiles)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -4026,6 +4046,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            raster:
@@ -4041,6 +4062,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            raster:
@@ -4055,6 +4077,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            raster:
@@ -4071,6 +4094,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            raster:
@@ -4087,6 +4111,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            raster:
@@ -4103,6 +4128,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            raster:
@@ -4122,6 +4148,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            raster:
@@ -4234,6 +4261,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            raster:
@@ -4277,6 +4305,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            raster:
@@ -4321,6 +4350,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            raster:
@@ -4365,6 +4395,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                            inputs:
                              program: input_data
                              environment: environment
+                             profiles: profiles
                            outputs:
                              program: output_data
                            raster:

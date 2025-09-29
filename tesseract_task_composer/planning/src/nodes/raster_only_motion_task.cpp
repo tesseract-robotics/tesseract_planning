@@ -97,6 +97,7 @@ namespace tesseract_planning
 // Requried
 const std::string RasterOnlyMotionTask::INOUT_PROGRAM_PORT = "program";
 const std::string RasterOnlyMotionTask::INPUT_ENVIRONMENT_PORT = "environment";
+const std::string RasterOnlyMotionTask::INPUT_PROFILES_PORT = "profiles";
 
 RasterOnlyMotionTask::RasterOnlyMotionTask()
   : TaskComposerTask("RasterOnlyMotionTask", RasterOnlyMotionTask::ports(), true)
@@ -105,6 +106,7 @@ RasterOnlyMotionTask::RasterOnlyMotionTask()
 RasterOnlyMotionTask::RasterOnlyMotionTask(std::string name,
                                            std::string input_program_key,
                                            std::string input_environment_key,
+                                           std::string input_profiles_key,
                                            std::string output_program_key,
                                            bool is_conditional,
                                            TaskFactory raster_task_factory,
@@ -115,6 +117,7 @@ RasterOnlyMotionTask::RasterOnlyMotionTask(std::string name,
 {
   input_keys_.add(INOUT_PROGRAM_PORT, std::move(input_program_key));
   input_keys_.add(INPUT_ENVIRONMENT_PORT, std::move(input_environment_key));
+  input_keys_.add(INPUT_PROFILES_PORT, std::move(input_profiles_key));
   output_keys_.add(INOUT_PROGRAM_PORT, std::move(output_program_key));
   validatePorts();
 }
@@ -270,6 +273,7 @@ TaskComposerNodePorts RasterOnlyMotionTask::ports()
   TaskComposerNodePorts ports;
   ports.input_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   return ports;
@@ -326,7 +330,10 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
   auto& program = input_data_poly.template as<CompositeInstruction>();
   tesseract_common::ManipulatorInfo program_manip_info = program.getManipulatorInfo();
 
+  // Task and Task Data Storage
   TaskComposerGraph task_graph;
+  auto task_graph_data_storage = std::make_shared<TaskComposerDataStorage>(task_graph.getUUIDString());
+  task_graph_data_storage->copyData(*context.data_storage, input_keys_, { input_keys_.get(INOUT_PROGRAM_PORT) });
 
   // Start Task
   auto start_task = std::make_unique<StartTask>();
@@ -361,7 +368,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
     raster_results.node->setConditional(false);
     auto raster_uuid = task_graph.addNode(std::move(raster_results.node));
     raster_tasks.emplace_back(raster_uuid, std::make_pair(raster_results.input_key, raster_results.output_key));
-    context.data_storage->setData(raster_results.input_key, raster_input);
+    task_graph_data_storage->setData(raster_results.input_key, raster_input);
 
     task_graph.addEdges(start_uuid, { raster_uuid });
 
@@ -406,7 +413,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
                                                                             false);
     auto transition_mux_uuid = task_graph.addNode(std::move(transition_mux_task));
 
-    context.data_storage->setData(transition_results.input_key, transition_input);
+    task_graph_data_storage->setData(transition_results.input_key, transition_input);
 
     task_graph.addEdges(transition_mux_uuid, { transition_uuid });
     task_graph.addEdges(prev.first, { transition_mux_uuid });
@@ -418,8 +425,11 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
   if (!executor.has_value())
     throw std::runtime_error("RasterOnlyMotionTask, executor is null!");
 
-  TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, context.data_storage, context.dotgraph);
+  TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, task_graph_data_storage, context.dotgraph);
   future->wait();
+
+  // Store sub data storage in parent data storage
+  context.data_storage->setData(task_graph.getUUIDString(), task_graph_data_storage);
 
   // Merge child context data into parent context
   context.task_infos.mergeInfoMap(std::move(future->context->task_infos));
@@ -447,8 +457,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
   program.clear();
   for (std::size_t i = 0; i < raster_tasks.size(); ++i)
   {
-    CompositeInstruction segment =
-        context.data_storage->getData(raster_tasks[i].second.second).as<CompositeInstruction>();
+    auto segment = task_graph_data_storage->getData(raster_tasks[i].second.second).as<CompositeInstruction>();
     if (i != 0)
       segment.erase(segment.begin());
 
@@ -456,8 +465,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
 
     if (i < raster_tasks.size() - 1)
     {
-      CompositeInstruction transition =
-          context.data_storage->getData(transition_keys[i].second).as<CompositeInstruction>();
+      auto transition = task_graph_data_storage->getData(transition_keys[i].second).as<CompositeInstruction>();
       transition.erase(transition.begin());
       program.emplace_back(transition);
     }

@@ -178,20 +178,63 @@ bool TaskComposerDataStorage::remapData(const std::map<std::string, std::string>
   return true;
 }
 
-void TaskComposerDataStorage::copyData(const TaskComposerDataStorage& data_storage, const TaskComposerKeys& keys)
+void TaskComposerDataStorage::copyData(const TaskComposerDataStorage& data_storage,
+                                       const TaskComposerKeys& keys,
+                                       const std::vector<std::string>& exclude_keys)
 {
   for (const auto& pair : keys.data())
   {
     if (pair.second.index() == 0)
     {
       const auto& key = std::get<std::string>(pair.second);
-      setData(key, data_storage.getData(key));
+      if (exclude_keys.empty())
+      {
+        tesseract_common::AnyPoly entry = data_storage.getData(key);
+        if (entry.isNull())
+          throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" + key);
+
+        setData(key, data_storage.getData(key));
+      }
+      else
+      {
+        if (std::find(exclude_keys.begin(), exclude_keys.end(), key) == exclude_keys.end())
+        {
+          tesseract_common::AnyPoly entry = data_storage.getData(key);
+          if (entry.isNull())
+            throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" + key);
+
+          setData(key, data_storage.getData(key));
+        }
+      }
     }
     else
     {
       const auto& keys = std::get<std::vector<std::string>>(pair.second);
-      for (const auto& key : keys)
-        setData(key, data_storage.getData(key));
+      if (exclude_keys.empty())
+      {
+        for (const auto& key : keys)
+        {
+          tesseract_common::AnyPoly entry = data_storage.getData(key);
+          if (entry.isNull())
+            throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" + key);
+
+          setData(key, data_storage.getData(key));
+        }
+      }
+      else
+      {
+        for (const auto& key : keys)
+        {
+          if (std::find(exclude_keys.begin(), exclude_keys.end(), key) == exclude_keys.end())
+          {
+            tesseract_common::AnyPoly entry = data_storage.getData(key);
+            if (entry.isNull())
+              throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" + key);
+
+            setData(key, data_storage.getData(key));
+          }
+        }
+      }
     }
   }
 }

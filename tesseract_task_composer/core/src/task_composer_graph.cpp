@@ -235,12 +235,11 @@ TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
   TaskComposerDataStorage::Ptr parent_data_storage = getDataStorage(context);
 
   // Create new data storage and copy input data
-  const std::string data_storage_key{ boost::uuids::to_string(uuid_) };
-  auto data_storage = std::make_shared<TaskComposerDataStorage>(data_storage_key);
+  auto data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
   data_storage->copyData(*parent_data_storage, input_keys_);
 
   // Store the new data storage for access by child nodes
-  context.data_storage->setData(data_storage_key, data_storage);
+  context.data_storage->setData(uuid_str_, data_storage);
 
   // Run
   TaskComposerFuture::UPtr future = executor.value().get().run(*this, data_storage, context.dotgraph);
@@ -304,6 +303,7 @@ boost::uuids::uuid TaskComposerGraph::addNode(std::unique_ptr<TaskComposerNode> 
 {
   boost::uuids::uuid uuid = task_node->getUUID();
   task_node->parent_uuid_ = uuid_;
+  task_node->parent_uuid_str_ = uuid_str_;
   nodes_[uuid] = std::move(task_node);
   return uuid;
 }
@@ -312,6 +312,7 @@ boost::uuids::uuid TaskComposerGraph::addNodePython(std::shared_ptr<TaskComposer
 {
   boost::uuids::uuid uuid = task_node->getUUID();
   task_node->parent_uuid_ = uuid_;
+  task_node->parent_uuid_str_ = uuid_str_;
   nodes_[uuid] = std::move(task_node);
   return uuid;
 }
@@ -506,7 +507,11 @@ std::string TaskComposerGraph::dump(std::ostream& os,
       os << "Abort Terminal: " << static_cast<const TaskComposerGraph&>(*node).abort_terminal_ << "\\l";
       os << "Conditional: " << ((node->isConditional()) ? "True" : "False") << "\\l";
       if (it != results_map.end())
-        os << "Time: " << std::fixed << std::setprecision(3) << it->second.elapsed_time << "s\\l";
+      {
+        os << "Time: " << std::fixed << std::setprecision(3) << it->second.elapsed_time << "s\\l"
+           << "Status Code: " << std::to_string(it->second.status_code) << "\\l"
+           << "Status Msg: " << it->second.status_message << "\\l";
+      }
 
       os << "\", margin=\"0.1\", color=" << color << "];\n";  // NOLINT
       node->dump(sub_graphs, this, results_map);

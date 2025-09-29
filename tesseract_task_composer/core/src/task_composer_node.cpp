@@ -93,6 +93,7 @@ TaskComposerNode::TaskComposerNode(std::string name,
   , type_(type)
   , uuid_(boost::uuids::random_generator()())
   , uuid_str_(boost::uuids::to_string(uuid_))
+  , parent_uuid_str_(boost::uuids::to_string(parent_uuid_))
   , conditional_(conditional)
   , ports_(std::move(ports))
 {
@@ -200,6 +201,8 @@ const boost::uuids::uuid& TaskComposerNode::getUUID() const { return uuid_; }
 const std::string& TaskComposerNode::getUUIDString() const { return uuid_str_; }
 
 const boost::uuids::uuid& TaskComposerNode::getParentUUID() const { return parent_uuid_; }
+
+const std::string& TaskComposerNode::getParentUUIDString() const { return parent_uuid_str_; }
 
 bool TaskComposerNode::isConditional() const { return conditional_; }
 
@@ -511,6 +514,7 @@ bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
   equal &= uuid_ == rhs.uuid_;
   equal &= uuid_str_ == rhs.uuid_str_;
   equal &= parent_uuid_ == rhs.parent_uuid_;
+  equal &= parent_uuid_str_ == rhs.parent_uuid_str_;
   equal &= outbound_edges_ == rhs.outbound_edges_;
   equal &= inbound_edges_ == rhs.inbound_edges_;
   equal &= input_keys_ == rhs.input_keys_;
@@ -531,6 +535,7 @@ void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("uuid", uuid_);
   ar& boost::serialization::make_nvp("uuid_str", uuid_str_);
   ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
+  ar& boost::serialization::make_nvp("parent_uuid_str", parent_uuid_str_);
   ar& boost::serialization::make_nvp("outbound_edges", outbound_edges_);
   ar& boost::serialization::make_nvp("inbound_edges", inbound_edges_);
   ar& boost::serialization::make_nvp("input_keys", input_keys_);
@@ -552,23 +557,20 @@ TaskComposerDataStorage::Ptr TaskComposerNode::getDataStorage(const TaskComposer
   if (parent_uuid_.is_nil())
     return context.data_storage;
 
+  if (context.task_infos.getRootNode() == parent_uuid_)
+    return context.data_storage;
+
   if (type_ == TaskComposerNodeType::NODE || type_ == TaskComposerNodeType::TASK)
   {
-    tesseract_common::AnyPoly data_storage_any = context.data_storage->getData(boost::uuids::to_string(parent_uuid_));
-
+    tesseract_common::AnyPoly data_storage_any = context.data_storage->getData(parent_uuid_str_);
     if (data_storage_any.isNull())
       throw std::runtime_error("TaskComposerNode, unable to find parent data storage!");
 
     return data_storage_any.as<TaskComposerDataStorage::Ptr>();
   }
 
-  const std::string parent_data_storage_key{ boost::uuids::to_string(parent_uuid_) };
+  const std::string parent_data_storage_key{ parent_uuid_str_ };
   tesseract_common::AnyPoly parent_data_storage_any = context.data_storage->getData(parent_data_storage_key);
-
-  // This can/will be null if the parent is the top level node
-  if (parent_data_storage_any.isNull())
-    return context.data_storage;
-
   return parent_data_storage_any.as<TaskComposerDataStorage::Ptr>();
 }
 
