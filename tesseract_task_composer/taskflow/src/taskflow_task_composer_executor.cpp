@@ -63,6 +63,16 @@ tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
     info.output_keys = task_graph.getOutputKeys();
     info.start_time = std::chrono::system_clock::now();
 
+    // Create local data storage for graph
+    TaskComposerDataStorage::Ptr parent_data_storage = task_graph.getDataStorage(task_context);
+
+    // Create new data storage and copy input data (this will be nullptr if it has no parent)
+    auto local_data_storage = task_graph.createLocalDataStorage(parent_data_storage);
+
+    // Store the new data storage for access by child nodes
+    if (!task_graph.getParentUUID().is_nil())
+      task_context.data_storage->setData(task_graph.getUUIDString(), local_data_storage);
+
     // Generate process tasks for each node
     std::map<boost::uuids::uuid, tf::Task> tasks;
     const auto& nodes = task_graph.getNodes();
@@ -112,9 +122,14 @@ tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
         tasks[pair.first].precede(tasks[e]);
     }
     subflow.join();
+
+    // Copy output data to parent data storage
+    if (!task_graph.getParentUUID().is_nil())
+      parent_data_storage->copyData(*local_data_storage, task_graph.getOutputKeys());
+
     stopwatch.stop();
     info.elapsed_time = stopwatch.elapsedSeconds();
-    task_context.task_infos.addInfo(info);
+    task_context.task_infos->addInfo(info);
   };
 
   if (parent_sbf != nullptr)

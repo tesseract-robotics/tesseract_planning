@@ -47,8 +47,9 @@ namespace tesseract_planning
 {
 TaskComposerContext::TaskComposerContext(std::string name,
                                          std::shared_ptr<TaskComposerDataStorage> data_storage,
+                                         std::shared_ptr<tesseract_planning::TaskComposerNodeInfoContainer> task_infos,
                                          bool dotgraph)
-  : name(std::move(name)), dotgraph(dotgraph), data_storage(std::move(data_storage))
+  : name(std::move(name)), dotgraph(dotgraph), data_storage(std::move(data_storage)), task_infos(std::move(task_infos))
 {
 }
 
@@ -59,7 +60,7 @@ bool TaskComposerContext::isSuccessful() const { return !aborted_; }
 void TaskComposerContext::abort(const boost::uuids::uuid& calling_node)
 {
   if (!calling_node.is_nil())
-    task_infos.setAborted(calling_node);
+    task_infos->setAborted(calling_node);
 
   aborted_ = true;
 }
@@ -75,7 +76,11 @@ bool TaskComposerContext::operator==(const TaskComposerContext& rhs) const
   else
     equal &= (data_storage == nullptr && rhs.data_storage == nullptr);
 
-  equal &= task_infos == rhs.task_infos;
+  if (task_infos != nullptr && rhs.task_infos != nullptr)
+    equal &= (*task_infos == *rhs.task_infos);
+  else
+    equal &= (task_infos == nullptr && rhs.task_infos == nullptr);
+
   equal &= aborted_ == rhs.aborted_;
   return equal;
 }

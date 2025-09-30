@@ -67,22 +67,23 @@ TaskComposerNodeInfo TaskComposerPipeline::runImpl(TaskComposerContext& context,
   // Create local data storage for graph
   TaskComposerDataStorage::Ptr parent_data_storage = getDataStorage(context);
 
-  // Create new data storage and copy input data
-  auto data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
-  data_storage->copyData(*parent_data_storage, input_keys_);
+  // Create new data storage and copy input data (this will be nullptr if it has no parent)
+  auto local_data_storage = createLocalDataStorage(parent_data_storage);
 
   // Store the new data storage for access by child nodes
-  context.data_storage->setData(uuid_str_, data_storage);
+  if (!parent_uuid_.is_nil())
+    context.data_storage->setData(uuid_str_, local_data_storage);
 
   // Run
   runRecursive(*(nodes_.at(root_node)), context, executor);
 
   // Copy output data to parent data storage
-  parent_data_storage->copyData(*data_storage, output_keys_);
+  if (!parent_uuid_.is_nil())
+    parent_data_storage->copyData(*local_data_storage, output_keys_);
 
   for (std::size_t i = 0; i < terminals_.size(); ++i)
   {
-    auto node_info = context.task_infos.getInfo(terminals_[i]);
+    auto node_info = context.task_infos->getInfo(terminals_[i]);
     if (node_info.has_value())
     {
       stopwatch.stop();

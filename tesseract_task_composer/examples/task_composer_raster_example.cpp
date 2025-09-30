@@ -81,7 +81,7 @@ int main()
   // Save dot graph
   std::ofstream tc_out_data;
   tc_out_data.open(tesseract_common::getTempPath() + "task_composer_raster_example.dot");
-  task->dump(tc_out_data, nullptr, future->context->task_infos.getInfoMap());
+  task->dump(tc_out_data, nullptr, future->context->task_infos->getInfoMap());
   tc_out_data.close();
 
   // Plot Process Trajectory

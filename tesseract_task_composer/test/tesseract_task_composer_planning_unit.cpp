@@ -152,7 +152,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     ContinuousContactCheckTask task(
         "TaskComposerContinuousContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -164,7 +164,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
 
     test_suite::runSerializationTest(*node_info, "TaskComposerContinuousContactCheckNodeInfoTests");
   }
@@ -179,7 +179,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     ContinuousContactCheckTask task(
         "TaskComposerContinuousContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -191,7 +191,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing environment data
@@ -204,7 +204,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     ContinuousContactCheckTask task(
         "TaskComposerContinuousContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -216,7 +216,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing profiles data
@@ -228,7 +228,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     ContinuousContactCheckTask task(
         "TaskComposerContinuousContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -240,7 +240,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure collision
@@ -260,7 +260,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     ContinuousContactCheckTask task(
         "TaskComposerContinuousContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -276,7 +276,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
               false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -343,7 +343,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     DiscreteContactCheckTask task(
         "TaskComposerDiscreteContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -355,7 +355,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
 
     test_suite::runSerializationTest(*node_info, "TaskComposerDiscreteContactCheckNodeInfoTests");
   }
@@ -369,7 +369,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     DiscreteContactCheckTask task(
         "TaskComposerDiscreteContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -381,7 +381,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing environment data
@@ -393,7 +393,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     DiscreteContactCheckTask task(
         "TaskComposerDiscreteContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -405,7 +405,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing profiles dat
@@ -416,7 +416,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     DiscreteContactCheckTask task(
         "TaskComposerDiscreteContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -428,7 +428,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure collision
@@ -447,7 +447,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     DiscreteContactCheckTask task(
         "TaskComposerDiscreteContactCheckTaskTests", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -463,7 +463,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
               false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -568,7 +568,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -581,7 +581,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_EQ(context->data_storage->getData("output_data2"), context->data_storage->getData("input_data"));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Test run method with cartesian in input
@@ -603,7 +603,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -616,7 +616,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_EQ(context->data_storage->getData("output_data2"), context->data_storage->getData("input_data"));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Test run method with unconstraint joint waypoint
@@ -633,7 +633,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -646,7 +646,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_EQ(context->data_storage->getData("output_data2"), context->data_storage->getData("input_data"));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Test run method with input is state waypoints
@@ -656,7 +656,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -669,7 +669,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_EQ(context->data_storage->getData("output_data2"), context->data_storage->getData("input_data"));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -678,7 +678,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -690,7 +690,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data [1]
@@ -699,7 +699,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -711,7 +711,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure inputs are not the same size
@@ -721,7 +721,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FormatAsInputTask task("abc", "input_data", "output_data", "output_data2", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -733,7 +733,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -867,7 +867,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsResultTaskTests)  
     std::vector<std::string> output_keys{ "output_data" };
     FormatAsResultTask task("abc", input_keys, output_keys, true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -880,7 +880,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsResultTaskTests)  
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_EQ(context->data_storage->getData("output_data"), compare);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data [0]
@@ -890,7 +890,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsResultTaskTests)  
     std::vector<std::string> output_keys{ "output_data" };
     FormatAsResultTask task("abc", input_keys, output_keys, true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -902,7 +902,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsResultTaskTests)  
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -984,7 +984,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     MinLengthTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -997,7 +997,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_GE(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -1008,7 +1008,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     MinLengthTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1020,7 +1020,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing environment data
@@ -1031,7 +1031,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     MinLengthTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1043,7 +1043,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing profiles data
@@ -1053,7 +1053,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     MinLengthTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1065,7 +1065,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -1143,7 +1143,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatPlanningInputTaskTes
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FormatPlanningInputTask task("abc", "input_data", "environment", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1156,7 +1156,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatPlanningInputTaskTes
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_GE(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), input_data.size());
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -1165,7 +1165,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatPlanningInputTaskTes
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FormatPlanningInputTask task("abc", "input_data", "environment", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1177,7 +1177,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatPlanningInputTaskTes
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing environment data
@@ -1186,7 +1186,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatPlanningInputTaskTes
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FormatPlanningInputTask task("abc", "input_data", "environment", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1198,7 +1198,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatPlanningInputTaskTes
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -1280,7 +1280,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FixStateBoundsTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1293,7 +1293,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->data_storage->hasKey("output_data"));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Test run method empty composite
@@ -1307,7 +1307,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FixStateBoundsTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1320,7 +1320,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->data_storage->hasKey("output_data"));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -1331,7 +1331,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FixStateBoundsTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1343,7 +1343,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing environment data
@@ -1354,7 +1354,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FixStateBoundsTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1366,7 +1366,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing profiles data
@@ -1376,7 +1376,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FixStateBoundsTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1388,7 +1388,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -1470,7 +1470,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FixStateCollisionTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1483,7 +1483,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->data_storage->hasKey("output_data"));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
 
     test_suite::runSerializationTest(*node_info, "TaskComposerFixStateCollisionNodeInfoTests");
   }
@@ -1496,7 +1496,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FixStateCollisionTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1508,7 +1508,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing environment data
@@ -1519,7 +1519,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FixStateCollisionTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1531,7 +1531,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing profiles data
@@ -1541,7 +1541,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     FixStateCollisionTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1553,7 +1553,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -1643,7 +1643,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckTaskTe
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     KinematicLimitsCheckTask task("abc", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1655,7 +1655,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckTaskTe
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -1666,7 +1666,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckTaskTe
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     KinematicLimitsCheckTask task("abc", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1678,7 +1678,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckTaskTe
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing environment data
@@ -1689,7 +1689,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckTaskTe
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     KinematicLimitsCheckTask task("abc", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1701,7 +1701,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckTaskTe
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing profiles data
@@ -1711,7 +1711,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckTaskTe
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     KinematicLimitsCheckTask task("abc", "input_data", "environment", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1723,7 +1723,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckTaskTe
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -1777,7 +1777,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     ProfileSwitchTask task("abc", "input_data", "profiles", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1789,7 +1789,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -1799,7 +1799,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     ProfileSwitchTask task("abc", "input_data", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1811,7 +1811,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing profiles data
@@ -1820,7 +1820,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     ProfileSwitchTask task("abc", "input_data", "profiles", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1832,7 +1832,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -1888,7 +1888,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     UpdateEndStateTask task("abc", "input_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1905,7 +1905,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     EXPECT_EQ(output_program.back().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint(), true);
     EXPECT_EQ(getJointPosition(output_program.back().as<MoveInstructionPoly>().getWaypoint()),
               getJointPosition(next_program.front().as<MoveInstructionPoly>().getWaypoint()));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -1914,7 +1914,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     UpdateEndStateTask task("abc", "input_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1926,7 +1926,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing next data
@@ -1935,7 +1935,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     UpdateEndStateTask task("abc", "input_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -1947,7 +1947,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -2003,7 +2003,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     UpdateStartStateTask task("abc", "input_data", "prev_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2020,7 +2020,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     EXPECT_EQ(output_program.front().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint(), true);
     EXPECT_EQ(getJointPosition(output_program.front().as<MoveInstructionPoly>().getWaypoint()),
               getJointPosition(prev_program.back().as<MoveInstructionPoly>().getWaypoint()));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -2029,7 +2029,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     UpdateStartStateTask task("abc", "input_data", "prev_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2041,7 +2041,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing prev data
@@ -2050,7 +2050,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     UpdateStartStateTask task("abc", "input_data", "prev_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2062,7 +2062,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -2127,7 +2127,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     UpdateStartAndEndStateTask task("abc", "input_data", "prev_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2148,7 +2148,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     EXPECT_EQ(output_program.back().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint(), true);
     EXPECT_EQ(getJointPosition(output_program.back().as<MoveInstructionPoly>().getWaypoint()),
               getJointPosition(next_program.front().as<MoveInstructionPoly>().getWaypoint()));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -2158,7 +2158,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     UpdateStartAndEndStateTask task("abc", "input_data", "prev_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2170,7 +2170,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing prev data
@@ -2180,7 +2180,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     UpdateStartAndEndStateTask task("abc", "input_data", "prev_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2192,7 +2192,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing next data
@@ -2202,7 +2202,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     UpdateStartAndEndStateTask task("abc", "input_data", "prev_data", "next_data", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2214,7 +2214,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -2292,7 +2292,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     UpsampleTrajectoryTask task("abc", "input_data", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2305,7 +2305,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -2315,7 +2315,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     UpsampleTrajectoryTask task("abc", "input_data", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2327,7 +2327,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing profiles data
@@ -2336,7 +2336,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     UpsampleTrajectoryTask task("abc", "input_data", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2348,7 +2348,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -2445,7 +2445,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     IterativeSplineParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2458,7 +2458,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Test run method
@@ -2472,7 +2472,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     IterativeSplineParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2485,7 +2485,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->data_storage->hasKey("output_data"));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -2496,7 +2496,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     IterativeSplineParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2508,7 +2508,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing enviroment data
@@ -2519,7 +2519,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     IterativeSplineParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2531,7 +2531,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing profiles data
@@ -2541,7 +2541,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     IterativeSplineParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2553,7 +2553,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -2649,7 +2649,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerConstantTCPSpeedParameteri
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     ConstantTCPSpeedParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2662,7 +2662,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerConstantTCPSpeedParameteri
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Test run method
@@ -2676,7 +2676,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerConstantTCPSpeedParameteri
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     ConstantTCPSpeedParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2689,7 +2689,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerConstantTCPSpeedParameteri
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->data_storage->hasKey("output_data"));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -2700,7 +2700,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerConstantTCPSpeedParameteri
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     ConstantTCPSpeedParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2712,7 +2712,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerConstantTCPSpeedParameteri
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing enviroment data
@@ -2723,7 +2723,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerConstantTCPSpeedParameteri
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     ConstantTCPSpeedParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2735,7 +2735,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerConstantTCPSpeedParameteri
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing profiles data
@@ -2745,7 +2745,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerConstantTCPSpeedParameteri
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     ConstantTCPSpeedParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2757,7 +2757,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerConstantTCPSpeedParameteri
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -2853,7 +2853,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     TimeOptimalParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2866,7 +2866,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
 
     test_suite::runSerializationTest(*node_info, "TaskComposerTimeOptimalParameterizationNodeInfoTests");
   }
@@ -2882,7 +2882,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     TimeOptimalParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2895,7 +2895,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->data_storage->hasKey("output_data"));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -2906,7 +2906,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     TimeOptimalParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2918,7 +2918,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing environment data
@@ -2929,7 +2929,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     TimeOptimalParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2941,7 +2941,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing profiles data
@@ -2951,7 +2951,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     TimeOptimalParameterizationTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -2963,7 +2963,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -3068,7 +3068,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     RuckigTrajectorySmoothingTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -3081,7 +3081,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Test run method
@@ -3095,7 +3095,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     RuckigTrajectorySmoothingTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 1);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -3108,7 +3108,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->data_storage->hasKey("output_data"));
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing input data
@@ -3119,7 +3119,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     RuckigTrajectorySmoothingTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -3131,7 +3131,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing environment data
@@ -3142,7 +3142,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     RuckigTrajectorySmoothingTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -3154,7 +3154,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing profiles data
@@ -3164,7 +3164,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     RuckigTrajectorySmoothingTask task("abc", "input_data", "environment", "profiles", "output_data", true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -3176,7 +3176,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -3277,8 +3277,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     MotionPlannerTask<TrajOptMotionPlanner> task(
         "abc", "input_data", "environment", "profiles", "output_data", false, true);
     EXPECT_EQ(task.run(*log.context), 1);
-    log.dotgraph = task.getDotgraph(log.context->task_infos.getInfoMap());
-    auto node_info = log.context->task_infos.getInfo(task.getUUID());
+    log.dotgraph = task.getDotgraph(log.context->task_infos->getInfoMap());
+    auto node_info = log.context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -3291,7 +3291,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     EXPECT_EQ(log.context->isAborted(), false);
     EXPECT_EQ(log.context->isSuccessful(), true);
     EXPECT_GE(log.context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
-    EXPECT_TRUE(log.context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(log.context->task_infos->getAbortingNode().is_nil());
 
     test_suite::runSerializationTest(*node_info, "TaskComposerMotionPlannerNodeInfoTests");
     {
@@ -3311,7 +3311,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     MotionPlannerTask<TrajOptMotionPlanner> task(
         "abc", "input_data", "environment", "profiles", "output_data", false, true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -3323,7 +3323,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing environment data
@@ -3335,7 +3335,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     MotionPlannerTask<TrajOptMotionPlanner> task(
         "abc", "input_data", "environment", "profiles", "output_data", false, true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -3347,7 +3347,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure missing profiles data
@@ -3358,7 +3358,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     MotionPlannerTask<TrajOptMotionPlanner> task(
         "abc", "input_data", "environment", "profiles", "output_data", false, true);
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -3370,7 +3370,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -3707,14 +3707,14 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
 
     std::ofstream os1;
     os1.open(tesseract_common::getTempPath() + "TaskComposerRasterMotionTaskTests.dot");
-    EXPECT_NO_THROW(task->dump(os1, nullptr, future->context->task_infos.getInfoMap()));  // NOLINT
+    EXPECT_NO_THROW(task->dump(os1, nullptr, future->context->task_infos->getInfoMap()));  // NOLINT
     os1.close();
 
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
     EXPECT_TRUE(future->context->data_storage->hasKey(output_key));
-    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
-    auto info_map = future->context->task_infos.getInfoMap();
+    EXPECT_TRUE(future->context->task_infos->getAbortingNode().is_nil());
+    auto info_map = future->context->task_infos->getInfoMap();
     EXPECT_EQ(info_map.size(), 77);
 
     // Make sure keys are unique
@@ -3807,7 +3807,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     // Solve
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -3819,7 +3819,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure null input data
@@ -3856,7 +3856,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     // Solve
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -3868,7 +3868,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure input data is not composite
@@ -3905,7 +3905,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     // Solve
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -3917,7 +3917,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure input data is not composite
@@ -3954,7 +3954,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     // Solve
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -3966,7 +3966,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -4189,14 +4189,14 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
 
     std::ofstream os1;
     os1.open(tesseract_common::getTempPath() + "TaskComposerRasterOnlyMotionTaskTests.dot");
-    EXPECT_NO_THROW(task->dump(os1, nullptr, future->context->task_infos.getInfoMap()));  // NOLINT
+    EXPECT_NO_THROW(task->dump(os1, nullptr, future->context->task_infos->getInfoMap()));  // NOLINT
     os1.close();
 
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
     EXPECT_TRUE(future->context->data_storage->hasKey(output_key));
-    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
-    auto info_map = future->context->task_infos.getInfoMap();
+    EXPECT_TRUE(future->context->task_infos->getAbortingNode().is_nil());
+    auto info_map = future->context->task_infos->getInfoMap();
     EXPECT_EQ(info_map.size(), 61);
 
     // Make sure keys are unique
@@ -4284,7 +4284,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     // Solve
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -4296,7 +4296,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure null input data
@@ -4329,7 +4329,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     // Solve
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -4341,7 +4341,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure input data is not composite
@@ -4374,7 +4374,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     // Solve
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -4386,7 +4386,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure input data is not composite
@@ -4419,7 +4419,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     // Solve
     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
-    auto node_info = context->task_infos.getInfo(task.getUUID());
+    auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
 
@@ -4431,7 +4431,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
     EXPECT_EQ(node_info->isAborted(), false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
   }
 }
 
@@ -4556,14 +4556,14 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
 
 //     std::ofstream os1;
 //     os1.open(tesseract_common::getTempPath() + "TaskComposerRasterSegmentsOnlyMotionTaskTests.dot");
-//     EXPECT_NO_THROW(task->dump(os1, nullptr, future->context->task_infos.getInfoMap()));  // NOLINT
+//     EXPECT_NO_THROW(task->dump(os1, nullptr, future->context->task_infos->getInfoMap()));  // NOLINT
 //     os1.close();
 
 //     EXPECT_EQ(future->context->isAborted(), false);
 //     EXPECT_EQ(future->context->isSuccessful(), true);
 //     EXPECT_TRUE(future->context->data_storage->hasKey(output_key));
-//     EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
-//     auto info_map = future->context->task_infos.getInfoMap();
+//     EXPECT_TRUE(future->context->task_infos->getAbortingNode().is_nil());
+//     auto info_map = future->context->task_infos->getInfoMap();
 //     EXPECT_EQ(info_map.size(), 37);
 
 //     // Make sure keys are unique
@@ -4611,7 +4611,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
 //     // Solve
 //     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
 //     EXPECT_EQ(task.run(*context), 0);
-//     auto node_info = context->task_infos.getInfo(task.getUUID());
+//     auto node_info = context->task_infos->getInfo(task.getUUID());
 //     if (!node_info.has_value())
 //       throw std::runtime_error("failed");
 
@@ -4623,7 +4623,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
 //     EXPECT_EQ(node_info->isAborted(), false);
 //     EXPECT_EQ(context->isAborted(), false);
 //     EXPECT_EQ(context->isSuccessful(), true);
-//     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+//     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
 //   }
 
 //   {  // Failure null input data
@@ -4651,7 +4651,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
 //     // Solve
 //     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
 //     EXPECT_EQ(task.run(*context), 0);
-//     auto node_info = context->task_infos.getInfo(task.getUUID());
+//     auto node_info = context->task_infos->getInfo(task.getUUID());
 //     if (!node_info.has_value())
 //       throw std::runtime_error("failed");
 
@@ -4663,7 +4663,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
 //     EXPECT_EQ(node_info->isAborted(), false);
 //     EXPECT_EQ(context->isAborted(), false);
 //     EXPECT_EQ(context->isSuccessful(), true);
-//     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+//     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
 //   }
 
 //   {  // Failure input data is not composite
@@ -4691,7 +4691,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
 //     // Solve
 //     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
 //     EXPECT_EQ(task.run(*context), 0);
-//     auto node_info = context->task_infos.getInfo(task.getUUID());
+//     auto node_info = context->task_infos->getInfo(task.getUUID());
 //     if (!node_info.has_value())
 //       throw std::runtime_error("failed");
 
@@ -4703,7 +4703,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
 //     EXPECT_EQ(node_info->isAborted(), false);
 //     EXPECT_EQ(context->isAborted(), false);
 //     EXPECT_EQ(context->isSuccessful(), true);
-//     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+//     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
 //   }
 
 //   {  // Failure input data is not composite
@@ -4731,7 +4731,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
 //     // Solve
 //     auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
 //     EXPECT_EQ(task.run(*context), 0);
-//     auto node_info = context->task_infos.getInfo(task.getUUID());
+//     auto node_info = context->task_infos->getInfo(task.getUUID());
 //     if (!node_info.has_value())
 //       throw std::runtime_error("failed");
 
@@ -4743,7 +4743,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
 //     EXPECT_EQ(node_info->isAborted(), false);
 //     EXPECT_EQ(context->isAborted(), false);
 //     EXPECT_EQ(context->isSuccessful(), true);
-//     EXPECT_TRUE(context->task_infos.getAbortingNode().is_nil());
+//     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
 //   }
 // }
 

@@ -71,8 +71,8 @@ void runTaskComposerExecutorTest()
     EXPECT_FALSE(task->isConditional());
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 1);
-    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos->getInfoMap().size(), 1);
+    EXPECT_TRUE(future->context->task_infos->getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
@@ -211,8 +211,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task2->getOutboundEdges().size(), 0);
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 6);
-    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos->getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->task_infos->getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
@@ -272,8 +272,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task2->getOutboundEdges().size(), 0);
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 6);
-    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos->getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->task_infos->getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
@@ -342,8 +342,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task3->getOutboundEdges().size(), 0);
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 6);
-    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos->getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->task_infos->getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
@@ -403,8 +403,8 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task2->getOutboundEdges().size(), 0);
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 6);
-    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos->getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->task_infos->getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());

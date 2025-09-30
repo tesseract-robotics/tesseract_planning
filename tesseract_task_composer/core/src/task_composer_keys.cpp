@@ -29,6 +29,8 @@ void TaskComposerKeys::add(const std::string& port, std::string key) { keys_[por
 
 void TaskComposerKeys::add(const std::string& port, std::vector<std::string> keys) { keys_[port] = std::move(keys); }
 
+void TaskComposerKeys::remove(const std::string& port) { keys_.erase(port); }
+
 void TaskComposerKeys::rename(const std::map<std::string, std::string>& keys)
 {
   for (auto& key : keys_)

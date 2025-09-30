@@ -43,6 +43,7 @@ class TaskComposerContext;
 class TaskComposerDataStorage;
 class TaskComposerFuture;
 class TaskComposerNode;
+class TaskComposerNodeInfoContainer;
 
 class TaskComposerExecutor
 {
@@ -69,6 +70,11 @@ public:
                                           std::shared_ptr<TaskComposerDataStorage> data_storage,
                                           bool dotgraph = false);
 
+  std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node,
+                                          std::shared_ptr<TaskComposerDataStorage> data_storage,
+                                          std::shared_ptr<TaskComposerNodeInfoContainer> task_infos,
+                                          bool dotgraph = false);
+
   /** @brief Queries the number of workers (example: number of threads) */
   virtual long getWorkerCount() const = 0;
 
@@ -92,6 +98,7 @@ protected:
                                                   std::shared_ptr<TaskComposerContext> context) = 0;
 
 private:
+  friend class TaskComposerGraph;
   friend class boost::serialization::access;
   friend struct tesseract_common::Serialization;
   template <class Archive>

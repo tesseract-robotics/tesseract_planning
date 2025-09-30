@@ -117,6 +117,12 @@ public:
   const std::string& getParentUUIDString() const;
 
   /**
+   * @brief Set the parent uuid
+   * @param parent_uuid The parent uuid
+   */
+  void setParentUUID(const boost::uuids::uuid& parent_uuid);
+
+  /**
    * @brief Check if node is conditional
    * @return
    */
@@ -151,6 +157,13 @@ public:
 
   /** @brief Generate the Dotgraph and save to file */
   bool saveDotgraph(const std::string& filepath, const ResultsMap& results_map = ResultsMap()) const;  // NOLINT
+
+  /**
+   * @brief A utility function to get the correct data storage
+   * @param context The context
+   * @return The data storage object to use
+   */
+  TaskComposerDataStorage::Ptr getDataStorage(const TaskComposerContext& context) const;
 
   /** @brief Rename input keys */
   virtual void renameInputKeys(const std::map<std::string, std::string>& input_keys);
@@ -226,13 +239,6 @@ protected:
 
   /** @brief This will create a UUID string with no hyphens used when creating dot graph */
   static std::string toString(const boost::uuids::uuid& u, const std::string& prefix = "");
-
-  /**
-   * @brief A utility function to get the correct data storage
-   * @param context The context
-   * @return The data storage object to use
-   */
-  TaskComposerDataStorage::Ptr getDataStorage(const TaskComposerContext& context) const;
 
   /**
    * @brief A utility function for extracting data from data storage

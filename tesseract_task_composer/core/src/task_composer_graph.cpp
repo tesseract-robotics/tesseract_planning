@@ -219,6 +219,19 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
     throw std::runtime_error(is_valid.second);
 }
 
+TaskComposerDataStorage::Ptr
+TaskComposerGraph::createLocalDataStorage(const TaskComposerDataStorage::Ptr& parent_data_storage) const
+{
+  if (parent_uuid_.is_nil())
+    return parent_data_storage;
+
+  // Create new data storage and copy input data
+  auto local_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
+  local_data_storage->copyData(*parent_data_storage, input_keys_);
+
+  return local_data_storage;
+}
+
 TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
                                                 OptionalTaskComposerExecutor executor) const
 {
@@ -234,27 +247,29 @@ TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
   // Create local data storage for graph
   TaskComposerDataStorage::Ptr parent_data_storage = getDataStorage(context);
 
-  // Create new data storage and copy input data
-  auto data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
-  data_storage->copyData(*parent_data_storage, input_keys_);
+  // Create new data storage and copy input data (this will be nullptr if it has no parent)
+  auto local_data_storage = createLocalDataStorage(parent_data_storage);
 
   // Store the new data storage for access by child nodes
-  context.data_storage->setData(uuid_str_, data_storage);
+  if (!parent_uuid_.is_nil())
+    context.data_storage->setData(uuid_str_, local_data_storage);
 
   // Run
-  TaskComposerFuture::UPtr future = executor.value().get().run(*this, data_storage, context.dotgraph);
+  TaskComposerFuture::UPtr future =
+      executor.value().get().run(*this, context.data_storage, context.task_infos, context.dotgraph);
   future->wait();
 
   // Copy output data to parent data storage
-  parent_data_storage->copyData(*data_storage, output_keys_);
+  if (!parent_uuid_.is_nil())
+    parent_data_storage->copyData(*local_data_storage, output_keys_);
 
-  // Merge child context data into parent context
-  context.task_infos.mergeInfoMap(std::move(future->context->task_infos));
-  if (future->context->isAborted())
-    context.abort(future->context->task_infos.getAbortingNode());
+  // // Merge child context data into parent context
+  // context.task_infos.mergeInfoMap(std::move(future->context->task_infos));
+  // if (future->context->isAborted())
+  //   context.abort(future->context->task_infos.getAbortingNode());
 
   TaskComposerNodeInfo info(*this);
-  auto info_map = context.task_infos.getInfoMap();
+  auto info_map = context.task_infos->getInfoMap();
   if (context.dotgraph)
   {
     std::stringstream dot_graph;
@@ -267,7 +282,7 @@ TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
 
   for (std::size_t i = 0; i < terminals_.size(); ++i)
   {
-    auto node_info = context.task_infos.getInfo(terminals_[i]);
+    auto node_info = context.task_infos->getInfo(terminals_[i]);
     if (node_info.has_value())
     {
       stopwatch.stop();
@@ -302,8 +317,7 @@ boost::uuids::uuid TaskComposerGraph::getRootNode() const
 boost::uuids::uuid TaskComposerGraph::addNode(std::unique_ptr<TaskComposerNode> task_node)
 {
   boost::uuids::uuid uuid = task_node->getUUID();
-  task_node->parent_uuid_ = uuid_;
-  task_node->parent_uuid_str_ = uuid_str_;
+  task_node->setParentUUID(uuid_);
   nodes_[uuid] = std::move(task_node);
   return uuid;
 }
@@ -311,8 +325,7 @@ boost::uuids::uuid TaskComposerGraph::addNode(std::unique_ptr<TaskComposerNode> 
 boost::uuids::uuid TaskComposerGraph::addNodePython(std::shared_ptr<TaskComposerNode> task_node)
 {
   boost::uuids::uuid uuid = task_node->getUUID();
-  task_node->parent_uuid_ = uuid_;
-  task_node->parent_uuid_str_ = uuid_str_;
+  task_node->setParentUUID(uuid_);
   nodes_[uuid] = std::move(task_node);
   return uuid;
 }

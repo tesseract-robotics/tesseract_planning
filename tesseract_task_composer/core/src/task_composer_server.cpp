@@ -141,7 +141,8 @@ std::unique_ptr<TaskComposerFuture> TaskComposerServer::run(const std::string& t
     throw std::runtime_error("Task with name '" + task_name + "' does not exist!");
 
   data_storage->setName(task_name);
-  return e_it->second->run(*t_it->second, std::move(data_storage), dotgraph);
+  return e_it->second->run(
+      *t_it->second, std::move(data_storage), std::make_shared<TaskComposerNodeInfoContainer>(), dotgraph);
 }
 
 std::unique_ptr<TaskComposerFuture> TaskComposerServer::run(const TaskComposerNode& node,
@@ -154,7 +155,7 @@ std::unique_ptr<TaskComposerFuture> TaskComposerServer::run(const TaskComposerNo
     throw std::runtime_error("Executor with name '" + executor_name + "' does not exist!");
 
   data_storage->setName(node.getName());
-  return it->second->run(node, std::move(data_storage), dotgraph);
+  return it->second->run(node, std::move(data_storage), std::make_shared<TaskComposerNodeInfoContainer>(), dotgraph);
 }
 
 long TaskComposerServer::getWorkerCount(const std::string& name) const

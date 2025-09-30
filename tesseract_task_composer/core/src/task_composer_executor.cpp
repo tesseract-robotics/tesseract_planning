@@ -35,6 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
+#include <tesseract_task_composer/core/task_composer_node_info.h>
 
 namespace tesseract_planning
 {
@@ -46,8 +47,20 @@ std::unique_ptr<TaskComposerFuture> TaskComposerExecutor::run(const TaskComposer
                                                               std::shared_ptr<TaskComposerDataStorage> data_storage,
                                                               bool dotgraph)
 {
-  auto context = std::make_shared<TaskComposerContext>(node.getName(), std::move(data_storage), dotgraph);
-  context->task_infos.setRootNode(node.getUUID());
+  return run(node, std::move(data_storage), std::make_shared<TaskComposerNodeInfoContainer>(), dotgraph);
+}
+
+std::unique_ptr<TaskComposerFuture> TaskComposerExecutor::run(const TaskComposerNode& node,
+                                                              std::shared_ptr<TaskComposerDataStorage> data_storage,
+                                                              std::shared_ptr<TaskComposerNodeInfoContainer> task_infos,
+                                                              bool dotgraph)
+{
+  auto context =
+      std::make_shared<TaskComposerContext>(node.getName(), std::move(data_storage), std::move(task_infos), dotgraph);
+
+  if (context->task_infos->getRootNode().is_nil())
+    context->task_infos->setRootNode(node.getUUID());
+
   return run(node, context);
 }
 

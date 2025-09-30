@@ -149,13 +149,18 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
     info.status_code = 0;
     info.status_message = "Aborted";
     info.aborted_ = true;
-    context.task_infos.addInfo(info);
+    context.task_infos->addInfo(info);
     return 0;
   }
 
   tesseract_common::Stopwatch stopwatch;
   TaskComposerNodeInfo results;
   stopwatch.start();
+
+  // Set the root node in task_infos
+  if (parent_uuid_.is_nil())
+    context.task_infos->setRootNode(uuid_);
+
   try
   {
     results = runImpl(context, executor);
@@ -184,7 +189,7 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
     context.abort(uuid_);
   }
 
-  context.task_infos.addInfo(results);
+  context.task_infos->addInfo(results);
   return value;
 }
 
@@ -203,6 +208,12 @@ const std::string& TaskComposerNode::getUUIDString() const { return uuid_str_; }
 const boost::uuids::uuid& TaskComposerNode::getParentUUID() const { return parent_uuid_; }
 
 const std::string& TaskComposerNode::getParentUUIDString() const { return parent_uuid_str_; }
+
+void TaskComposerNode::setParentUUID(const boost::uuids::uuid& parent_uuid)
+{
+  parent_uuid_ = parent_uuid;
+  parent_uuid_str_ = boost::uuids::to_string(parent_uuid);
+}
 
 bool TaskComposerNode::isConditional() const { return conditional_; }
 
@@ -557,7 +568,7 @@ TaskComposerDataStorage::Ptr TaskComposerNode::getDataStorage(const TaskComposer
   if (parent_uuid_.is_nil())
     return context.data_storage;
 
-  if (context.task_infos.getRootNode() == parent_uuid_)
+  if (context.task_infos->getRootNode() == parent_uuid_)
     return context.data_storage;
 
   if (type_ == TaskComposerNodeType::NODE || type_ == TaskComposerNodeType::TASK)

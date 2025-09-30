@@ -232,15 +232,16 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   if (!executor.has_value())
     throw std::runtime_error("ForEachTask, executor is null!");
 
-  TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, context.data_storage, context.dotgraph);
+  TaskComposerFuture::UPtr future =
+      executor.value().get().run(task_graph, context.data_storage, context.task_infos, context.dotgraph);
   future->wait();
 
-  // Merge child context data into parent context
-  context.task_infos.mergeInfoMap(std::move(future->context->task_infos));
-  if (future->context->isAborted())
-    context.abort(future->context->task_infos.getAbortingNode());
+  // // Merge child context data into parent context
+  // context.task_infos.mergeInfoMap(std::move(future->context->task_infos));
+  // if (future->context->isAborted())
+  //   context.abort(future->context->task_infos.getAbortingNode());
 
-  auto info_map = context.task_infos.getInfoMap();
+  auto info_map = context.task_infos->getInfoMap();
   if (context.dotgraph)
   {
     std::stringstream dot_graph;
@@ -262,7 +263,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   output.reserve(inputs.size());
   for (const auto& task : tasks)
   {
-    std::optional<TaskComposerNodeInfo> task_info = context.task_infos.getInfo(task.first);
+    std::optional<TaskComposerNodeInfo> task_info = context.task_infos->getInfo(task.first);
     if (!task_info.has_value())
       continue;
 
