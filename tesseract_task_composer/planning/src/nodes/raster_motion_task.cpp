@@ -72,13 +72,7 @@ createTask(const std::string& name,
   {
     std::map<std::string, std::string> renaming;
     for (const auto& x : indexing)
-    {
-      std::string name = task_name;
-      name.append("_");
-      name.append(x);
-      name.append(std::to_string(index));
-      renaming[x] = name;
-    }
+      renaming[x] = x + std::to_string(index);
 
     tf_results.node->renameInputKeys(renaming);
     tf_results.node->renameOutputKeys(renaming);
