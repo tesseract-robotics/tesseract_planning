@@ -148,7 +148,7 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
     info.color = "grey";
     info.status_code = 0;
     info.status_message = "Aborted";
-    info.aborted_ = true;
+    info.aborted = true;
     context.task_infos->addInfo(info);
     return 0;
   }
@@ -161,12 +161,14 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
   if (parent_uuid_.is_nil())
     context.task_infos->setRootNode(uuid_);
 
+  bool exception_occured{ false };
   try
   {
     results = runImpl(context, executor);
   }
   catch (const std::exception& e)
   {
+    exception_occured = true;
     results = TaskComposerNodeInfo(*this);
     results.color = "red";
     results.status_code = -1;
@@ -182,8 +184,9 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
   int value = results.return_value;
   assert(value >= 0);
 
-  // Call abort if required and is a task
-  if (type_ == TaskComposerNodeType::TASK && trigger_abort_ && !context.isAborted())
+  // Call abort if exception or required and is a task
+  if ((exception_occured && !context.isAborted()) ||
+      (type_ == TaskComposerNodeType::TASK && trigger_abort_ && !context.isAborted()))
   {
     results.status_message += " (Abort Triggered)";
     context.abort(uuid_);
@@ -460,7 +463,7 @@ std::string TaskComposerNode::dump(std::ostream& os,
   if (it != results_map.end())
   {
     return_value = it->second.return_value;
-    if (!it->second.isAborted())
+    if (!it->second.aborted)
       color = it->second.color;
   }
 
@@ -566,9 +569,6 @@ std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::s
 TaskComposerDataStorage::Ptr TaskComposerNode::getDataStorage(const TaskComposerContext& context) const
 {
   if (parent_uuid_.is_nil())
-    return context.data_storage;
-
-  if (context.task_infos->getRootNode() == parent_uuid_)
     return context.data_storage;
 
   if (type_ == TaskComposerNodeType::NODE || type_ == TaskComposerNodeType::TASK)

@@ -55,8 +55,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*task, std::move(data_storage));
+    auto future = executor->run(*task, std::make_shared<TaskComposerContext>(task->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -185,8 +184,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*pipeline, std::move(data_storage));
+    auto future = executor->run(*pipeline, std::make_shared<TaskComposerContext>(pipeline->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -246,8 +244,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*graph, std::move(data_storage));
+    auto future = executor->run(*graph, std::make_shared<TaskComposerContext>(graph->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -311,8 +308,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*graph, std::move(data_storage));
+    auto future = executor->run(*graph, std::make_shared<TaskComposerContext>(graph->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -377,8 +373,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*graph, std::move(data_storage));
+    auto future = executor->run(*graph, std::make_shared<TaskComposerContext>(graph->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());

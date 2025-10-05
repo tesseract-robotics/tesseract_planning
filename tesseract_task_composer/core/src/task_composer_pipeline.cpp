@@ -71,15 +71,13 @@ TaskComposerNodeInfo TaskComposerPipeline::runImpl(TaskComposerContext& context,
   auto local_data_storage = createLocalDataStorage(parent_data_storage);
 
   // Store the new data storage for access by child nodes
-  if (!parent_uuid_.is_nil())
-    context.data_storage->setData(uuid_str_, local_data_storage);
+  context.data_storage->setData(uuid_str_, local_data_storage);
 
   // Run
   runRecursive(*(nodes_.at(root_node)), context, executor);
 
   // Copy output data to parent data storage
-  if (!parent_uuid_.is_nil())
-    parent_data_storage->copyData(*local_data_storage, output_keys_);
+  parent_data_storage->copyData(*local_data_storage, output_keys_);
 
   for (std::size_t i = 0; i < terminals_.size(); ++i)
   {

@@ -68,13 +68,7 @@ createTask(const std::string& name,
   {
     std::map<std::string, std::string> renaming;
     for (const auto& x : indexing)
-    {
-      std::string name = task_name;
-      name.append("_");
-      name.append(x);
-      name.append(std::to_string(index));
-      renaming[x] = name;
-    }
+      renaming[x] = x + std::to_string(index);
 
     tf_results.node->renameInputKeys(renaming);
     tf_results.node->renameOutputKeys(renaming);
@@ -100,8 +94,6 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
   if (YAML::Node operation_config = config["operation"])
   {
     std::string task_name;
-    std::string input_port;
-    std::string output_port;
     bool has_abort_terminal_entry{ false };
     int abort_terminal_index{ -1 };
     std::vector<std::string> indexing;
@@ -129,12 +121,12 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
         throw std::runtime_error("ForEachTask, entry 'operation' missing 'indexing' entry");
 
       if (YAML::Node n = task_config["input_port"])
-        input_port = n.as<std::string>();
+        task_input_port_ = n.as<std::string>();
       else
         throw std::runtime_error("ForEachTask, entry 'operation' missing 'input_port' entry");
 
       if (YAML::Node n = task_config["output_port"])
-        output_port = n.as<std::string>();
+        task_output_port_ = n.as<std::string>();
       else
         throw std::runtime_error("ForEachTask, entry 'operation' missing 'output_port' entry");
     }
@@ -145,8 +137,13 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
 
     if (has_abort_terminal_entry)
     {
-      task_factory_ = [task_name, input_port, output_port, abort_terminal_index, remapping, indexing, &plugin_factory](
-                          const std::string& name, std::size_t index) {
+      task_factory_ = [task_name,
+                       input_port = task_input_port_,
+                       output_port = task_output_port_,
+                       abort_terminal_index,
+                       remapping,
+                       indexing,
+                       &plugin_factory](const std::string& name, std::size_t index) {
         auto tr = createTask(name, task_name, input_port, output_port, remapping, indexing, plugin_factory, index);
 
         static_cast<TaskComposerGraph&>(*tr.node).setTerminalTriggerAbortByIndex(abort_terminal_index);
@@ -156,8 +153,12 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
     }
     else
     {
-      task_factory_ = [task_name, input_port, output_port, remapping, indexing, &plugin_factory](
-                          const std::string& name, std::size_t index) {
+      task_factory_ = [task_name,
+                       input_port = task_input_port_,
+                       output_port = task_output_port_,
+                       remapping,
+                       indexing,
+                       &plugin_factory](const std::string& name, std::size_t index) {
         return createTask(name, task_name, input_port, output_port, remapping, indexing, plugin_factory, index);
       };
     }
@@ -208,7 +209,21 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
 
   auto& inputs = input_data_poly.template as<std::vector<tesseract_common::AnyPoly>>();
 
-  TaskComposerGraph task_graph;
+  // Task and Task Data Storage
+  TaskComposerGraph task_graph(name_ + " (Subgraph)");
+  task_graph.setParentUUID(uuid_);
+  TaskComposerKeys task_input_keys{ input_keys_ };
+  TaskComposerKeys task_output_keys{ output_keys_ };
+  task_input_keys.remove(INOUT_PORT);
+  task_output_keys.remove(INOUT_PORT);
+
+  std::vector<std::string> input_keys;
+  std::vector<std::string> output_keys;
+  input_keys.reserve(inputs.size());
+  output_keys.reserve(inputs.size());
+
+  auto task_graph_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
+  task_graph_data_storage->copyData(*context.data_storage, task_input_keys);
 
   // Start Task
   auto start_task = std::make_unique<StartTask>();
@@ -225,21 +240,26 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
     task_results.node->setConditional(false);
     auto task_uuid = task_graph.addNode(std::move(task_results.node));
     tasks.emplace_back(task_uuid, std::make_pair(task_results.input_key, task_results.output_key));
-    context.data_storage->setData(task_results.input_key, inputs[idx]);
+    input_keys.push_back(task_results.input_key);
+    output_keys.push_back(task_results.output_key);
+    task_graph_data_storage->setData(task_results.input_key, inputs[idx]);
     task_graph.addEdges(start_uuid, { task_uuid });
   }
 
   if (!executor.has_value())
     throw std::runtime_error("ForEachTask, executor is null!");
 
-  TaskComposerFuture::UPtr future =
-      executor.value().get().run(task_graph, context.data_storage, context.task_infos, context.dotgraph);
-  future->wait();
+  // Set graph input and output keys
+  task_input_keys.add(task_input_port_, input_keys);
+  task_output_keys.add(task_output_port_, output_keys);
+  task_graph.setInputKeys(task_input_keys);
+  task_graph.setOutputKeys(task_output_keys);
 
-  // // Merge child context data into parent context
-  // context.task_infos.mergeInfoMap(std::move(future->context->task_infos));
-  // if (future->context->isAborted())
-  //   context.abort(future->context->task_infos.getAbortingNode());
+  // Store sub data storage in parent data storage
+  context.data_storage->setData(uuid_str_, task_graph_data_storage);
+
+  TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, context.shared_from_this());
+  future->wait();
 
   auto info_map = context.task_infos->getInfoMap();
   if (context.dotgraph)
@@ -269,7 +289,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
 
     // Zero is always reserved for error
     if (task_info.value().return_value > 0)
-      output.emplace_back(context.data_storage->getData(task.second.second));
+      output.emplace_back(task_graph_data_storage->getData(task.second.second));
   }
 
   setData(context, INOUT_PORT, tesseract_common::AnyPoly(output));

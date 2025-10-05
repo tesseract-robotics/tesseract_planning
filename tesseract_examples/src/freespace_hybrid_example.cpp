@@ -230,7 +230,8 @@ bool FreespaceHybridExample::run()
   data->setData("profiles", profiles);
 
   // Solve task
-  TaskComposerFuture::UPtr future = executor->run(*task, std::move(data));
+  auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+  TaskComposerFuture::UPtr future = executor->run(*task, std::move(context));
   future->wait();
 
   // Plot Process Trajectory

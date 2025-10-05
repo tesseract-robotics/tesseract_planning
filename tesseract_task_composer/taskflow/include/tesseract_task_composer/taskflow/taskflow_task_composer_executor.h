@@ -93,8 +93,8 @@ private:
   std::map<boost::uuids::uuid, std::unique_ptr<TaskComposerFuture>> futures_;
   void removeFuture(const boost::uuids::uuid& uuid);
 
-  std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node,
-                                          std::shared_ptr<TaskComposerContext> context) override final;
+  std::unique_ptr<TaskComposerFuture> runImpl(const TaskComposerNode& node,
+                                              std::shared_ptr<TaskComposerContext> context) override final;
 
   friend class boost::serialization::access;
   friend struct tesseract_common::Serialization;

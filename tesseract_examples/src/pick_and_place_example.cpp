@@ -313,7 +313,9 @@ bool PickAndPlaceExample::run()
   pick_data->setData("profiles", profiles);
 
   // Solve task
-  TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, std::move(pick_data));
+  auto pick_context =
+      std::make_shared<tesseract_planning::TaskComposerContext>(pick_task->getName(), std::move(pick_data));
+  TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, std::move(pick_context));
   pick_future->wait();
 
   if (!pick_future->context->isSuccessful())
@@ -431,7 +433,9 @@ bool PickAndPlaceExample::run()
   place_data->setData("profiles", profiles);
 
   // Solve task
-  TaskComposerFuture::UPtr place_future = executor->run(*place_task, std::move(place_data));
+  auto place_context =
+      std::make_shared<tesseract_planning::TaskComposerContext>(place_task->getName(), std::move(place_data));
+  TaskComposerFuture::UPtr place_future = executor->run(*place_task, std::move(place_context));
   place_future->wait();
 
   if (!place_future->context->isSuccessful())

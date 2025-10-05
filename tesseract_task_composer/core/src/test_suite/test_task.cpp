@@ -46,10 +46,20 @@ TaskComposerNodeInfo DummyTaskComposerNode::runImpl(TaskComposerContext& /*conte
 const std::string TestTask::INOUT_PORT1_PORT = "port1";
 const std::string TestTask::INOUT_PORT2_PORT = "port2";
 
-TestTask::TestTask() : TaskComposerTask("TestTask", TestTask::ports(), true) {}
+TestTask::TestTask() : TaskComposerTask("TestTask", TestTask::ports(), true)
+{
+  input_keys_.add(INOUT_PORT1_PORT, "input_data");
+  input_keys_.add(INOUT_PORT2_PORT, std::vector<std::string>{ "input_data2" });
+  output_keys_.add(INOUT_PORT1_PORT, "output_data");
+  output_keys_.add(INOUT_PORT2_PORT, std::vector<std::string>{ "output_data2" });
+}
 TestTask::TestTask(std::string name, bool is_conditional)
   : TaskComposerTask(std::move(name), TestTask::ports(), is_conditional)
 {
+  input_keys_.add(INOUT_PORT1_PORT, "input_data");
+  input_keys_.add(INOUT_PORT2_PORT, std::vector<std::string>{ "input_data2" });
+  output_keys_.add(INOUT_PORT1_PORT, "output_data");
+  output_keys_.add(INOUT_PORT2_PORT, std::vector<std::string>{ "output_data2" });
 }
 TestTask::TestTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), TestTask::ports(), config)
@@ -121,6 +131,10 @@ TaskComposerNodeInfo TestTask::runImpl(TaskComposerContext& context, OptionalTas
     node_info.color = "red";
     context.abort(uuid_);
   }
+
+  setData(context, INOUT_PORT1_PORT, true);
+  std::vector<tesseract_common::AnyPoly> data{ false };
+  setData(context, INOUT_PORT2_PORT, data);
 
   return node_info;
 }

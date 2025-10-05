@@ -45,6 +45,24 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+TaskComposerContext::TaskComposerContext(std::string name, bool dotgraph)
+  : name(std::move(name))
+  , dotgraph(dotgraph)
+  , data_storage(std::make_shared<tesseract_planning::TaskComposerDataStorage>())
+  , task_infos(std::make_shared<tesseract_planning::TaskComposerNodeInfoContainer>())
+{
+}
+
+TaskComposerContext::TaskComposerContext(std::string name,
+                                         std::shared_ptr<TaskComposerDataStorage> data_storage,
+                                         bool dotgraph)
+  : name(std::move(name))
+  , dotgraph(dotgraph)
+  , data_storage(std::move(data_storage))
+  , task_infos(std::make_shared<tesseract_planning::TaskComposerNodeInfoContainer>())
+{
+}
+
 TaskComposerContext::TaskComposerContext(std::string name,
                                          std::shared_ptr<TaskComposerDataStorage> data_storage,
                                          std::shared_ptr<tesseract_planning::TaskComposerNodeInfoContainer> task_infos,

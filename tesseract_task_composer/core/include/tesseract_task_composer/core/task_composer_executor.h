@@ -62,18 +62,10 @@ public:
   /**
    * @brief Execute the provided node
    * @param node The node to execute
-   * @param data_storage The data storage object to leverage
-   * @param dotgraph Indicate if dotgraph should be generated
+   * @param context The contex
    * @return The future associated with execution
    */
-  std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node,
-                                          std::shared_ptr<TaskComposerDataStorage> data_storage,
-                                          bool dotgraph = false);
-
-  std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node,
-                                          std::shared_ptr<TaskComposerDataStorage> data_storage,
-                                          std::shared_ptr<TaskComposerNodeInfoContainer> task_infos,
-                                          bool dotgraph = false);
+  std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node, std::shared_ptr<TaskComposerContext> context);
 
   /** @brief Queries the number of workers (example: number of threads) */
   virtual long getWorkerCount() const = 0;
@@ -94,8 +86,8 @@ protected:
    * @param context The context
    * @return The future associated with execution
    */
-  virtual std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node,
-                                                  std::shared_ptr<TaskComposerContext> context) = 0;
+  virtual std::unique_ptr<TaskComposerFuture> runImpl(const TaskComposerNode& node,
+                                                      std::shared_ptr<TaskComposerContext> context) = 0;
 
 private:
   friend class TaskComposerGraph;

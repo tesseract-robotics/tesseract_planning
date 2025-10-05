@@ -139,19 +139,12 @@ public:
   bool operator==(const TaskComposerNodeInfo& rhs) const;
   bool operator!=(const TaskComposerNodeInfo& rhs) const;
 
-  /**
-   * @brief Check if task was not ran because process was aborted
-   * @return True if aborted otherwise false;
-   */
-  bool isAborted() const;
+  /** @brief Indicate if task was not ran because abort flag was enabled */
+  bool aborted{ false };
 
 private:
   friend class boost::serialization::access;
   friend struct tesseract_common::Serialization;
-  friend class TaskComposerNode;
-
-  /** @brief Indicate if task was not ran because abort flag was enabled */
-  bool aborted_{ false };
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT

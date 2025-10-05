@@ -330,6 +330,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
   TaskComposerKeys task_input_keys{ input_keys_ };
   TaskComposerKeys task_output_keys{ output_keys_ };
   task_input_keys.remove(INOUT_PROGRAM_PORT);
+  task_output_keys.remove(INOUT_PROGRAM_PORT);
 
   std::vector<std::string> input_keys;
   std::vector<std::string> output_keys;
@@ -442,14 +443,8 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
   // Store sub data storage in parent data storage
   context.data_storage->setData(uuid_str_, task_graph_data_storage);
 
-  TaskComposerFuture::UPtr future =
-      executor.value().get().run(task_graph, context.data_storage, context.task_infos, context.dotgraph);
+  TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, context.shared_from_this());
   future->wait();
-
-  // // Merge child context data into parent context
-  // context.task_infos->mergeInfoMap(std::move(*future->context->task_infos));
-  // if (future->context->isAborted())
-  //   context.abort(future->context->task_infos->getAbortingNode());
 
   auto info_map = context.task_infos->getInfoMap();
   if (context.dotgraph)

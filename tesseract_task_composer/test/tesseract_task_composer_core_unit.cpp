@@ -125,8 +125,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDataStorageTests)  // NOLINT
 TEST(TesseractTaskComposerCoreUnit, TaskComposerContextTests)  // NOLINT
 {
   test_suite::DummyTaskComposerNode node;
-  auto context =
-      std::make_unique<TaskComposerContext>("TaskComposerContextTests", std::make_unique<TaskComposerDataStorage>());
+  auto context = std::make_shared<TaskComposerContext>("TaskComposerContextTests");
   EXPECT_EQ(context->name, "TaskComposerContextTests");
   EXPECT_TRUE(context->data_storage != nullptr);
   EXPECT_FALSE(context->isAborted());
@@ -146,8 +145,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerContextTests)  // NOLINT
 TEST(TesseractTaskComposerCoreUnit, TaskComposerLogTests)  // NOLINT
 {
   tesseract_planning::TaskComposerLog log;
-  log.context =
-      std::make_unique<TaskComposerContext>("TaskComposerLogTests", std::make_unique<TaskComposerDataStorage>());
+  log.context = std::make_shared<TaskComposerContext>("TaskComposerLogTests");
 
   // Serialization
   test_suite::runSerializationTest(log, "TaskComposerLogTests");
@@ -285,18 +283,21 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoTests)  // NOLINT
 TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
 {
   std::string name = "TaskComposerTaskTests";
+  TaskComposerDataStorage test_data;
+  test_data.setData("input_data", true);
+  test_data.setData("input_data2", std::vector<tesseract_common::AnyPoly>{ false });
   {  // Not Conditional
     auto task = std::make_unique<test_suite::TestTask>(name, false);
     EXPECT_EQ(task->getName(), name);
     EXPECT_FALSE(task->isConditional());
-    EXPECT_TRUE(task->getInputKeys().empty());
-    EXPECT_TRUE(task->getOutputKeys().empty());
+    EXPECT_FALSE(task->getInputKeys().empty());
+    EXPECT_FALSE(task->getOutputKeys().empty());
 
     // Serialization
     test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
 
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerTaskTests", std::make_unique<TaskComposerDataStorage>());
+    auto data = std::make_shared<TaskComposerDataStorage>(test_data);
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerTaskTests", data);
     EXPECT_EQ(task->run(*context), 0);
     EXPECT_TRUE(context->isSuccessful());
     EXPECT_FALSE(context->isAborted());
@@ -314,14 +315,13 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
     task->return_value = 1;
     EXPECT_EQ(task->getName(), name);
     EXPECT_TRUE(task->isConditional());
-    EXPECT_TRUE(task->getInputKeys().empty());
-    EXPECT_TRUE(task->getOutputKeys().empty());
+    EXPECT_FALSE(task->getInputKeys().empty());
+    EXPECT_FALSE(task->getOutputKeys().empty());
 
     // Serialization
     test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
 
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerTaskTests", std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerTaskTests");
     EXPECT_EQ(task->run(*context), 1);
     EXPECT_TRUE(context->isSuccessful());
     EXPECT_FALSE(context->isAborted());
@@ -358,8 +358,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
     // Serialization
     test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
 
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerTaskTests", std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerTaskTests");
     EXPECT_EQ(task->run(*context), 0);
     EXPECT_TRUE(context->isSuccessful());
     EXPECT_FALSE(context->isAborted());
@@ -411,14 +410,24 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   std::string name4 = "TaskComposerPipelineTests4";
   TaskComposerKeys input_keys;
   input_keys.add("port1", "input_data");
+  input_keys.add("port2", std::vector<std::string>{ "input_data2" });
   TaskComposerKeys output_keys;
   output_keys.add("port1", "output_data");
-  std::map<std::string, std::string> rename_input_keys{ { "input_data", "id" }, { "output_data", "od" } };
-  std::map<std::string, std::string> rename_output_keys{ { "output_data", "od" } };
+  output_keys.add("port2", std::vector<std::string>{ "output_data2" });
+  std::map<std::string, std::string> rename_input_keys{
+    { "input_data", "id" }, { "output_data", "od" }, { "input_data2", "id2" }, { "output_data2", "od2" }
+  };
+  std::map<std::string, std::string> rename_output_keys{ { "output_data", "od" }, { "output_data2", "od2" } };
   TaskComposerKeys new_input_keys;
   new_input_keys.add("port1", "id");
+  new_input_keys.add("port2", std::vector<std::string>{ "id2" });
   TaskComposerKeys new_output_keys;
   new_output_keys.add("port1", "od");
+  new_output_keys.add("port2", std::vector<std::string>{ "od2" });
+
+  TaskComposerDataStorage test_data;
+  test_data.setData("input_data", true);
+  test_data.setData("input_data2", std::vector<tesseract_common::AnyPoly>{ false });
 
   {  // Not Conditional
     auto task1 = std::make_unique<test_suite::TestTask>(name1, false);
@@ -482,8 +491,8 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     // Serialization
     test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
 
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerPipelineTests", std::make_unique<TaskComposerDataStorage>());
+    auto data = std::make_shared<TaskComposerDataStorage>(test_data);
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests", std::move(data));
     EXPECT_EQ(pipeline->run(*context), 0);
     EXPECT_TRUE(context->isSuccessful());
     EXPECT_FALSE(context->isAborted());
@@ -539,8 +548,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     // Serialization
     test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
 
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerPipelineTests", std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline->run(*context), 1);
     EXPECT_TRUE(context->isSuccessful());
     EXPECT_FALSE(context->isAborted());
@@ -597,11 +605,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     // Serialization
     test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
 
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerPipelineTests", std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline->run(*context), 0);
-    EXPECT_TRUE(context->isSuccessful());
-    EXPECT_FALSE(context->isAborted());
+    EXPECT_FALSE(context->isSuccessful());
+    EXPECT_TRUE(context->isAborted());
     EXPECT_EQ(context->task_infos->getInfoMap().size(), 4);
     EXPECT_EQ(context->task_infos->getInfoMap().at(pipeline->getUUID()).return_value, 0);
     EXPECT_EQ(context->task_infos->getInfoMap().at(pipeline->getUUID()).status_code, 0);
@@ -655,8 +662,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     // Serialization
     test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
 
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerPipelineTests", std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline->run(*context), 0);
     EXPECT_FALSE(context->isSuccessful());
     EXPECT_TRUE(context->isAborted());
@@ -715,8 +721,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     // Serialization
     test_suite::runSerializationPointerTest(pipeline3, "TaskComposerPipelineTests");
 
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerPipelineTests", std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline3->run(*context), 0);
     EXPECT_TRUE(context->isSuccessful());
     EXPECT_FALSE(context->isAborted());
@@ -777,8 +782,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     // Serialization
     test_suite::runSerializationPointerTest(pipeline3, "TaskComposerPipelineTests");
 
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerPipelineTests", std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline3->run(*context), 1);
     EXPECT_TRUE(context->isSuccessful());
     EXPECT_FALSE(context->isAborted());
@@ -840,8 +844,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     // Serialization
     test_suite::runSerializationPointerTest(pipeline3, "TaskComposerPipelineTests");
 
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerPipelineTests", std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline3->run(*context), 1);
     EXPECT_FALSE(context->isSuccessful());
     EXPECT_TRUE(context->isAborted());
@@ -1019,11 +1022,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     // Serialization
     test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
 
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerPipelineTests", std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline->run(*context), 0);
-    EXPECT_TRUE(context->isSuccessful());
-    EXPECT_FALSE(context->isAborted());
+    EXPECT_FALSE(context->isSuccessful());
+    EXPECT_TRUE(context->isAborted());
     EXPECT_EQ(context->task_infos->getInfoMap().size(), 1);
     EXPECT_EQ(context->task_infos->getInfoMap().at(pipeline->getUUID()).return_value, 0);
     EXPECT_EQ(context->task_infos->getInfoMap().at(pipeline->getUUID()).status_code, -1);
@@ -1052,11 +1054,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     pipeline->addEdges(uuid2, { uuid3 });
     pipeline->addEdges(uuid3, { uuid1 });
 
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerPipelineTests", std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline->run(*context), 0);
-    EXPECT_TRUE(context->isSuccessful());
-    EXPECT_FALSE(context->isAborted());
+    EXPECT_FALSE(context->isSuccessful());
+    EXPECT_TRUE(context->isAborted());
     EXPECT_EQ(context->task_infos->getInfoMap().size(), 1);
     EXPECT_EQ(context->task_infos->getInfoMap().at(pipeline->getUUID()).return_value, 0);
     EXPECT_EQ(context->task_infos->getInfoMap().at(pipeline->getUUID()).status_code, -1);
@@ -1084,11 +1085,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     pipeline->addEdges(uuid1, { uuid3 });
     pipeline->setTerminals({ uuid2, uuid3 });
 
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerPipelineTests", std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline->run(*context), 0);
-    EXPECT_TRUE(context->isSuccessful());
-    EXPECT_FALSE(context->isAborted());
+    EXPECT_FALSE(context->isSuccessful());
+    EXPECT_TRUE(context->isAborted());
     EXPECT_EQ(context->task_infos->getInfoMap().size(), 2);
     EXPECT_EQ(context->task_infos->getInfoMap().at(pipeline->getUUID()).return_value, 0);
     EXPECT_EQ(context->task_infos->getInfoMap().at(pipeline->getUUID()).status_code, -1);
@@ -1662,8 +1662,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerErrorTaskTests)  // NOLINT
   }
 
   {  // Test run method
-    auto context = std::make_shared<TaskComposerContext>("TaskComposerErrorTaskTests",
-                                                         std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerErrorTaskTests");
     ErrorTask task;
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos->getInfo(task.getUUID());
@@ -1675,7 +1674,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerErrorTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
     EXPECT_EQ(node_info->status_message, "Error");
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -1714,8 +1713,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDoneTaskTests)  // NOLINT
   }
 
   {  // Test run method
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerDoneTaskTests", std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerDoneTaskTests");
     DoneTask task;
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos->getInfo(task.getUUID());
@@ -1726,7 +1724,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDoneTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
     EXPECT_EQ(node_info->status_message, "Successful");
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -1800,7 +1798,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
     EXPECT_EQ(node_info->status_message, "Successful");
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -1828,7 +1826,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
     EXPECT_EQ(node_info->status_message, "Successful");
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -1863,7 +1861,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
     EXPECT_EQ(node_info->status_message, "Successful");
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -1898,7 +1896,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
     EXPECT_EQ(node_info->status_message, "Successful");
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -1951,7 +1949,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
     EXPECT_FALSE(node_info->status_message.empty());
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -1978,7 +1976,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
     EXPECT_FALSE(node_info->status_message.empty());
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -2054,7 +2052,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerStartTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
     EXPECT_EQ(node_info->status_message, "Successful");
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -2117,8 +2115,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerSyncTaskTests)  // NOLINT
   }
 
   {  // Test run method
-    auto context =
-        std::make_shared<TaskComposerContext>("TaskComposerSyncTaskTests", std::make_unique<TaskComposerDataStorage>());
+    auto context = std::make_shared<TaskComposerContext>("TaskComposerSyncTaskTests");
     SyncTask task;
     EXPECT_EQ(task.run(*context), 1);
     auto node_info = context->task_infos->getInfo(task.getUUID());
@@ -2130,7 +2127,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerSyncTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
     EXPECT_EQ(node_info->status_message, "Successful");
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -2213,7 +2210,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerHasDataStorageEntryTaskTests)  /
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
     EXPECT_EQ(node_info->status_message, "Missing input key: input1");
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -2237,7 +2234,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerHasDataStorageEntryTaskTests)  /
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
     EXPECT_EQ(node_info->status_message, "Missing input key: input2");
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -2262,7 +2259,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerHasDataStorageEntryTaskTests)  /
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
     EXPECT_EQ(node_info->status_message, "Successful");
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -2468,18 +2465,23 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
 
     // Solve
     auto executor = factory.createTaskComposerExecutor(factory.getDefaultTaskComposerExecutorPlugin());
-    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    auto context = std::make_shared<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context, *executor), 1);
     auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
       throw std::runtime_error("failed");
+
+    std::ofstream os1;
+    os1.open(tesseract_common::getTempPath() + "TaskComposerForEachTaskTests_success.dot");
+    EXPECT_NO_THROW(task.dump(os1, nullptr, context->task_infos->getInfoMap()));  // NOLINT
+    os1.close();
 
     EXPECT_TRUE(node_info.has_value());
     EXPECT_EQ(node_info->color, "green");
     EXPECT_EQ(node_info->return_value, 1);
     EXPECT_EQ(node_info->status_code, 1);
     EXPECT_EQ(node_info->status_message, "Successful");
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -2505,7 +2507,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
     auto data = std::make_unique<TaskComposerDataStorage>();
 
     // Solve
-    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    auto context = std::make_shared<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
@@ -2516,10 +2518,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
     EXPECT_EQ(node_info->status_message.empty(), false);
-    EXPECT_EQ(node_info->isAborted(), false);
-    EXPECT_EQ(context->isAborted(), false);
-    EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
+    EXPECT_EQ(node_info->aborted, false);
+    EXPECT_EQ(context->isAborted(), true);
+    EXPECT_EQ(context->isSuccessful(), false);
+    EXPECT_FALSE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure null input data
@@ -2543,7 +2545,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
     data->setData("input_data", tesseract_common::AnyPoly());
 
     // Solve
-    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    auto context = std::make_shared<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
@@ -2554,10 +2556,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, -1);
     EXPECT_EQ(node_info->status_message.empty(), false);
-    EXPECT_EQ(node_info->isAborted(), false);
-    EXPECT_EQ(context->isAborted(), false);
-    EXPECT_EQ(context->isSuccessful(), true);
-    EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
+    EXPECT_EQ(node_info->aborted, false);
+    EXPECT_EQ(context->isAborted(), true);
+    EXPECT_EQ(context->isSuccessful(), false);
+    EXPECT_FALSE(context->task_infos->getAbortingNode().is_nil());
   }
 
   {  // Failure input data is not composite
@@ -2581,7 +2583,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
     data->setData("input_data", tesseract_common::AnyPoly(tesseract_common::JointState()));
 
     // Solve
-    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    auto context = std::make_shared<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
@@ -2592,7 +2594,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
     EXPECT_EQ(node_info->status_message.empty(), false);
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
@@ -2619,7 +2621,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
     data->setData("input_data", std::vector<bool>{ true, true, false });
 
     // Solve
-    auto context = std::make_unique<TaskComposerContext>("abc", std::move(data));
+    auto context = std::make_shared<TaskComposerContext>("abc", std::move(data));
     EXPECT_EQ(task.run(*context), 0);
     auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
@@ -2630,7 +2632,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
     EXPECT_EQ(node_info->return_value, 0);
     EXPECT_EQ(node_info->status_code, 0);
     EXPECT_EQ(node_info->status_message.empty(), false);
-    EXPECT_EQ(node_info->isAborted(), false);
+    EXPECT_EQ(node_info->aborted, false);
     EXPECT_EQ(context->isAborted(), false);
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());

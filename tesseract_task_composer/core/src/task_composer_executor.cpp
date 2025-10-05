@@ -44,24 +44,12 @@ TaskComposerExecutor::TaskComposerExecutor(std::string name) : name_(std::move(n
 const std::string& TaskComposerExecutor::getName() const { return name_; }
 
 std::unique_ptr<TaskComposerFuture> TaskComposerExecutor::run(const TaskComposerNode& node,
-                                                              std::shared_ptr<TaskComposerDataStorage> data_storage,
-                                                              bool dotgraph)
+                                                              std::shared_ptr<TaskComposerContext> context)
 {
-  return run(node, std::move(data_storage), std::make_shared<TaskComposerNodeInfoContainer>(), dotgraph);
-}
-
-std::unique_ptr<TaskComposerFuture> TaskComposerExecutor::run(const TaskComposerNode& node,
-                                                              std::shared_ptr<TaskComposerDataStorage> data_storage,
-                                                              std::shared_ptr<TaskComposerNodeInfoContainer> task_infos,
-                                                              bool dotgraph)
-{
-  auto context =
-      std::make_shared<TaskComposerContext>(node.getName(), std::move(data_storage), std::move(task_infos), dotgraph);
-
   if (context->task_infos->getRootNode().is_nil())
     context->task_infos->setRootNode(node.getUUID());
 
-  return run(node, context);
+  return runImpl(node, std::move(context));
 }
 
 bool TaskComposerExecutor::operator==(const TaskComposerExecutor& rhs) const { return (name_ == rhs.name_); }

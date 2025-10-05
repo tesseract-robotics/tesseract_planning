@@ -75,7 +75,8 @@ int main()
 
   // Solve raster plan
   auto task_executor = factory.createTaskComposerExecutor("TaskflowExecutor");
-  TaskComposerFuture::UPtr future = task_executor->run(*task, std::move(task_data), true);
+  auto context = std::make_shared<TaskComposerContext>(task->getName(), std::move(task_data), true);
+  TaskComposerFuture::UPtr future = task_executor->run(*task, std::move(context));
   future->wait();
 
   // Save dot graph
