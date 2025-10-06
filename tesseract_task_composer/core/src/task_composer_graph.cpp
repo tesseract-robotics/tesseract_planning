@@ -219,16 +219,6 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
     throw std::runtime_error(is_valid.second);
 }
 
-TaskComposerDataStorage::Ptr
-TaskComposerGraph::createLocalDataStorage(const TaskComposerDataStorage::Ptr& parent_data_storage) const
-{
-  // Create new data storage and copy input data
-  auto local_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
-  local_data_storage->copyData(*parent_data_storage, input_keys_);
-
-  return local_data_storage;
-}
-
 TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
                                                 OptionalTaskComposerExecutor executor) const
 {
@@ -244,8 +234,9 @@ TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
   // Create local data storage for graph
   TaskComposerDataStorage::Ptr parent_data_storage = getDataStorage(context);
 
-  // Create new data storage and copy input data (this will be nullptr if it has no parent)
-  auto local_data_storage = createLocalDataStorage(parent_data_storage);
+  // Create new data storage and copy input data
+  auto local_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
+  local_data_storage->copyData(*parent_data_storage, input_keys_);
 
   // Store the new data storage for access by child nodes
   context.data_storage->setData(uuid_str_, local_data_storage);

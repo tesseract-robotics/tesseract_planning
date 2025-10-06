@@ -141,14 +141,6 @@ public:
 
   void renameOutputKeys(const std::map<std::string, std::string>& output_keys) override;
 
-  /**
-   * @brief Create a local data storage for the graph
-   * @details If this is the root task the provided parent data storage is returned
-   * @param parent_data_storage The parent data storage to copy input keys from
-   * @return A local data storage object
-   */
-  TaskComposerDataStorage::Ptr createLocalDataStorage(const TaskComposerDataStorage::Ptr& parent_data_storage) const;
-
   std::string
   dump(std::ostream& os,
        const TaskComposerNode* parent = nullptr,
