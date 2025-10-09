@@ -50,7 +50,7 @@ void runTaskComposerNodeInfoTest()
     EXPECT_TRUE(node_info.uuid.is_nil());
     EXPECT_TRUE(node_info.parent_uuid.is_nil());
     EXPECT_EQ(node_info.color, "red");
-    EXPECT_FALSE(node_info.isAborted());
+    EXPECT_FALSE(node_info.aborted);
     EXPECT_EQ(node_info, TaskComposerNodeInfo(node_info));
 
     // Serialization
@@ -67,7 +67,7 @@ void runTaskComposerNodeInfoTest()
     EXPECT_EQ(node_info.uuid, node.getUUID());
     EXPECT_EQ(node_info.parent_uuid, node.getParentUUID());
     EXPECT_EQ(node_info.color, "red");
-    EXPECT_FALSE(node_info.isAborted());
+    EXPECT_FALSE(node_info.aborted);
     EXPECT_EQ(node_info, TaskComposerNodeInfo(node_info));
 
     // Serialization

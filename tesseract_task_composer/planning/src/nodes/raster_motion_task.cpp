@@ -72,13 +72,7 @@ createTask(const std::string& name,
   {
     std::map<std::string, std::string> renaming;
     for (const auto& x : indexing)
-    {
-      std::string name = task_name;
-      name.append("_");
-      name.append(x);
-      name.append(std::to_string(index));
-      renaming[x] = name;
-    }
+      renaming[x] = x + std::to_string(index);
 
     tf_results.node->renameInputKeys(renaming);
     tf_results.node->renameOutputKeys(renaming);
@@ -96,11 +90,13 @@ namespace tesseract_planning
 // Requried
 const std::string RasterMotionTask::INOUT_PROGRAM_PORT = "program";
 const std::string RasterMotionTask::INPUT_ENVIRONMENT_PORT = "environment";
+const std::string RasterMotionTask::INPUT_PROFILES_PORT = "profiles";
 
 RasterMotionTask::RasterMotionTask() : TaskComposerTask("RasterMotionTask", RasterMotionTask::ports(), true) {}
 RasterMotionTask::RasterMotionTask(std::string name,
                                    std::string input_program_key,
                                    std::string input_environment_key,
+                                   std::string input_profiles_key,
                                    std::string output_program_key,
                                    bool conditional,
                                    TaskFactory freespace_task_factory,
@@ -113,6 +109,7 @@ RasterMotionTask::RasterMotionTask(std::string name,
 {
   input_keys_.add(INOUT_PROGRAM_PORT, std::move(input_program_key));
   input_keys_.add(INPUT_ENVIRONMENT_PORT, std::move(input_environment_key));
+  input_keys_.add(INPUT_PROFILES_PORT, std::move(input_profiles_key));
   output_keys_.add(INOUT_PROGRAM_PORT, std::move(output_program_key));
   validatePorts();
 }
@@ -332,6 +329,7 @@ TaskComposerNodePorts RasterMotionTask::ports()
   TaskComposerNodePorts ports;
   ports.input_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   ports.input_required[INPUT_ENVIRONMENT_PORT] = TaskComposerNodePorts::SINGLE;
+  ports.input_required[INPUT_PROFILES_PORT] = TaskComposerNodePorts::SINGLE;
 
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   return ports;
@@ -356,7 +354,7 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
+  auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
     info.status_code = 0;
@@ -370,7 +368,7 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
       env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>()->clone();
   info.data_storage.setData("environment", env);
 
-  auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
   try
   {
     checkTaskInput(input_data_poly);
@@ -384,7 +382,25 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
   auto& program = input_data_poly.template as<CompositeInstruction>();
   tesseract_common::ManipulatorInfo program_manip_info = program.getManipulatorInfo();
 
-  TaskComposerGraph task_graph;
+  // Create Sub Graph Task
+  TaskComposerGraph task_graph(name_ + " (Subgraph)", uuid_);
+
+  // Create Sub Graph Task Input and Output Keys
+  // Must copy the existing parent input/output keys, but remove program port key which will get assigned later.
+  TaskComposerKeys task_input_keys{ input_keys_ };
+  TaskComposerKeys task_output_keys{ output_keys_ };
+  task_input_keys.remove(INOUT_PROGRAM_PORT);
+  task_output_keys.remove(INOUT_PROGRAM_PORT);
+
+  // Create a sub graph data storage and copy the input data relevant to this graph.
+  auto task_graph_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
+  task_graph_data_storage->copyData(*context.data_storage, task_input_keys);
+
+  // Create container to store the sub graph program port keys
+  std::vector<std::string> input_keys;
+  std::vector<std::string> output_keys;
+  input_keys.reserve(program.size());
+  output_keys.reserve(program.size());
 
   // Start Task
   auto start_task = std::make_unique<StartTask>();
@@ -416,7 +432,9 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
     raster_results.node->setConditional(false);
     auto raster_uuid = task_graph.addNode(std::move(raster_results.node));
     raster_tasks.emplace_back(raster_uuid, std::make_pair(raster_results.input_key, raster_results.output_key));
-    context.data_storage->setData(raster_results.input_key, raster_input);
+    input_keys.push_back(raster_results.input_key);
+    output_keys.push_back(raster_results.output_key);
+    task_graph_data_storage->setData(raster_results.input_key, raster_input);
 
     task_graph.addEdges(start_uuid, { raster_uuid });
 
@@ -462,7 +480,9 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
                                                                             false);
     auto transition_mux_uuid = task_graph.addNode(std::move(transition_mux_task));
 
-    context.data_storage->setData(transition_results.input_key, transition_input);
+    input_keys.push_back(transition_results.input_key);
+    output_keys.push_back(transition_results.output_key);
+    task_graph_data_storage->setData(transition_results.input_key, transition_input);
 
     task_graph.addEdges(transition_mux_uuid, { transition_uuid });
     task_graph.addEdges(prev.first, { transition_mux_uuid });
@@ -483,7 +503,9 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
       "UpdateEndStateTask", from_start_results.input_key, first_raster_output_key, from_start_results.input_key, false);
   auto update_end_state_uuid = task_graph.addNode(std::move(update_end_state_task));
 
-  context.data_storage->setData(from_start_results.input_key, from_start_input);
+  input_keys.push_back(from_start_results.input_key);
+  output_keys.push_back(from_start_results.output_key);
+  task_graph_data_storage->setData(from_start_results.input_key, from_start_input);
 
   task_graph.addEdges(update_end_state_uuid, { from_start_pipeline_uuid });
   task_graph.addEdges(raster_tasks[0].first, { update_end_state_uuid });
@@ -508,7 +530,9 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
       "UpdateStartStateTask", to_end_results.input_key, last_raster_output_key, to_end_results.input_key, false);
   auto update_start_state_uuid = task_graph.addNode(std::move(update_start_state_task));
 
-  context.data_storage->setData(to_end_results.input_key, to_end_input);
+  input_keys.push_back(to_end_results.input_key);
+  output_keys.push_back(to_end_results.output_key);
+  task_graph_data_storage->setData(to_end_results.input_key, to_end_input);
 
   task_graph.addEdges(update_start_state_uuid, { to_end_pipeline_uuid });
   task_graph.addEdges(raster_tasks.back().first, { update_start_state_uuid });
@@ -516,15 +540,19 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
   if (!executor.has_value())
     throw std::runtime_error("RasterMotionTask, executor is null!");
 
-  TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, context.data_storage, context.dotgraph);
+  // Set sub graph input and output keys
+  task_input_keys.add(INOUT_PROGRAM_PORT, input_keys);
+  task_output_keys.add(INOUT_PROGRAM_PORT, output_keys);
+  task_graph.setInputKeys(task_input_keys);
+  task_graph.setOutputKeys(task_output_keys);
+
+  // Store sub data storage in parent data storage
+  context.data_storage->setData(uuid_str_, task_graph_data_storage);
+
+  TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, context.shared_from_this());
   future->wait();
 
-  // Merge child context data into parent context
-  context.task_infos.mergeInfoMap(std::move(future->context->task_infos));
-  if (future->context->isAborted())
-    context.abort(future->context->task_infos.getAbortingNode());
-
-  auto info_map = context.task_infos.getInfoMap();
+  auto info_map = context.task_infos->getInfoMap();
   if (context.dotgraph)
   {
     std::stringstream dot_graph;
@@ -543,27 +571,28 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
   }
 
   program.clear();
-  program.emplace_back(context.data_storage->getData(from_start_results.output_key).as<CompositeInstruction>());
+  program.emplace_back(task_graph_data_storage->getData(from_start_results.output_key).as<CompositeInstruction>());
   for (std::size_t i = 0; i < raster_tasks.size(); ++i)
   {
     const auto& raster_output_key = raster_tasks[i].second.second;
-    CompositeInstruction segment = context.data_storage->getData(raster_output_key).as<CompositeInstruction>();
+    CompositeInstruction segment = task_graph_data_storage->getData(raster_output_key).as<CompositeInstruction>();
     segment.erase(segment.begin());
     program.emplace_back(segment);
 
     if (i < raster_tasks.size() - 1)
     {
       const auto& transition_output_key = transition_keys[i].second;
-      CompositeInstruction transition = context.data_storage->getData(transition_output_key).as<CompositeInstruction>();
+      CompositeInstruction transition =
+          task_graph_data_storage->getData(transition_output_key).as<CompositeInstruction>();
       transition.erase(transition.begin());
       program.emplace_back(transition);
     }
   }
-  CompositeInstruction to_end = context.data_storage->getData(to_end_results.output_key).as<CompositeInstruction>();
+  CompositeInstruction to_end = task_graph_data_storage->getData(to_end_results.output_key).as<CompositeInstruction>();
   to_end.erase(to_end.begin());
   program.emplace_back(to_end);
 
-  setData(*context.data_storage, INOUT_PROGRAM_PORT, program);
+  setData(context, INOUT_PROGRAM_PORT, program);
 
   info.color = "green";
   info.status_code = 1;

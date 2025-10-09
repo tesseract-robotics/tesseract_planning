@@ -68,6 +68,8 @@ public:
 
 private:
   TaskFactory task_factory_;
+  std::string task_input_port_;
+  std::string task_output_port_;
 
   static TaskComposerNodePorts ports();
 

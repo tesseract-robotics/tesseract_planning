@@ -84,7 +84,7 @@ TaskComposerNodeInfo FormatPlanningInputTask::runImpl(TaskComposerContext& conte
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
+  auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
     TaskComposerNodeInfo info(*this);
@@ -97,7 +97,7 @@ TaskComposerNodeInfo FormatPlanningInputTask::runImpl(TaskComposerContext& conte
 
   auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
 
-  auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     TaskComposerNodeInfo info(*this);
@@ -111,7 +111,7 @@ TaskComposerNodeInfo FormatPlanningInputTask::runImpl(TaskComposerContext& conte
   auto& ci = input_data_poly.as<CompositeInstruction>();
 
   const bool formatting_required = formatProgram(ci, *env);
-  setData(*context.data_storage, INOUT_PROGRAM_PORT, ci);
+  setData(context, INOUT_PROGRAM_PORT, ci);
 
   TaskComposerNodeInfo info(*this);
   info.return_value = 1;

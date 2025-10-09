@@ -103,7 +103,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
+  auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
     info.status_code = 0;
@@ -115,7 +115,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
 
   auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
 
-  auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info.status_message = "Input seed to MinLengthTask must be a composite instruction";
@@ -124,8 +124,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
   }
 
   // Get Composite Profile
-  auto profiles =
-      getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   long cnt = ci.getMoveInstructionCount();
   auto cur_composite_profile =
@@ -167,11 +166,11 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
       return info;
     }
 
-    setData(*context.data_storage, INOUT_PROGRAM_PORT, response.results);
+    setData(context, INOUT_PROGRAM_PORT, response.results);
   }
   else
   {
-    setData(*context.data_storage, INOUT_PROGRAM_PORT, ci);
+    setData(context, INOUT_PROGRAM_PORT, ci);
   }
 
   info.color = "green";

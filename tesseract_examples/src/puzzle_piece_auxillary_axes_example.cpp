@@ -312,7 +312,8 @@ bool PuzzlePieceAuxillaryAxesExample::run()
 
     tesseract_common::Stopwatch stopwatch;
     stopwatch.start();
-    future = executor->run(*task, std::move(data));
+    auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+    future = executor->run(*task, std::move(context));
     future->wait();
     stopwatch.stop();
     CONSOLE_BRIDGE_logInform("Planning took %f seconds.", stopwatch.elapsedSeconds());
@@ -342,7 +343,8 @@ bool PuzzlePieceAuxillaryAxesExample::run()
 
         tesseract_common::Stopwatch stopwatch;
         stopwatch.start();
-        future = executor->run(*task, std::move(data));
+        auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+        future = executor->run(*task, std::move(context));
         future->wait();
         stopwatch.stop();
         if (i == 0)

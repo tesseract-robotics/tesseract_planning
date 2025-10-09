@@ -80,7 +80,7 @@ TaskComposerNodeInfo ProcessPlanningInputTask::runImpl(TaskComposerContext& cont
                                                        OptionalTaskComposerExecutor /*executor*/) const
 {
   TaskComposerNodeInfo info(*this);
-  auto planning_input_poly = getData(*context.data_storage, INPUT_PLANNING_INPUT_PORT);
+  auto planning_input_poly = getData(context, INPUT_PLANNING_INPUT_PORT);
   if (planning_input_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info.color = "red";
@@ -93,7 +93,7 @@ TaskComposerNodeInfo ProcessPlanningInputTask::runImpl(TaskComposerContext& cont
     return info;
   }
 
-  setData(*context.data_storage, OUTPUT_PROGRAM_PORT, planning_input_poly.as<CompositeInstruction>());
+  setData(context, OUTPUT_PROGRAM_PORT, planning_input_poly.as<CompositeInstruction>());
 
   info.color = "green";
   info.status_code = 1;

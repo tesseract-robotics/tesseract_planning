@@ -75,13 +75,14 @@ int main()
   task_data->setData("profiles", profiles);
 
   auto task_executor = factory.createTaskComposerExecutor("TaskflowExecutor");
-  TaskComposerFuture::UPtr future = task_executor->run(*task, std::move(task_data));
+  auto context = std::make_shared<TaskComposerContext>(task->getName(), std::move(task_data));
+  TaskComposerFuture::UPtr future = task_executor->run(*task, std::move(context));
   future->wait();
 
   // Save dot graph
   std::ofstream tc_out_data;
   tc_out_data.open(tesseract_common::getTempPath() + "task_composer_trajopt_graph_example.dot");
-  task->dump(tc_out_data, nullptr, future->context->task_infos.getInfoMap());
+  task->dump(tc_out_data, nullptr, future->context->task_infos->getInfoMap());
   tc_out_data.close();
 
   // Plot Process Trajectory

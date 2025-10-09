@@ -51,7 +51,7 @@ public:
   using UPtr = std::unique_ptr<TaskComposerGraph>;
   using ConstUPtr = std::unique_ptr<const TaskComposerGraph>;
 
-  TaskComposerGraph(std::string name = "TaskComposerGraph");
+  TaskComposerGraph(std::string name = "TaskComposerGraph", boost::uuids::uuid parent_uuid = {});
   TaskComposerGraph(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~TaskComposerGraph() override = default;
   TaskComposerGraph(const TaskComposerGraph&) = delete;

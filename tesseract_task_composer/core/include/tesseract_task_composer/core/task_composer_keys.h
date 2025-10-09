@@ -52,6 +52,12 @@ public:
   void add(const std::string& port, std::vector<std::string> keys);
 
   /**
+   * @brief Remove port entry
+   * @param port The port to remove
+   */
+  void remove(const std::string& port);
+
+  /**
    * @brief Rename keys
    * @param keys The key renamming map
    */
