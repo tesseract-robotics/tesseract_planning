@@ -51,9 +51,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerGraph::TaskComposerGraph(std::string name)
+TaskComposerGraph::TaskComposerGraph(std::string name, boost::uuids::uuid parent_uuid)
   : TaskComposerGraph(std::move(name), TaskComposerNodeType::GRAPH, false)
 {
+  parent_uuid_ = parent_uuid;
+  parent_uuid_str_ = boost::uuids::to_string(parent_uuid);
 }
 
 TaskComposerGraph::TaskComposerGraph(std::string name, TaskComposerNodeType type, bool conditional)
@@ -234,11 +236,10 @@ TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
   // Create local data storage for graph
   TaskComposerDataStorage::Ptr parent_data_storage = getDataStorage(context);
 
-  // Create new data storage and copy input data
+  // Create a new data storage and copy the input data relevant to this graph.
+  // Store the new data storage for access by child nodes of this graph
   auto local_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
   local_data_storage->copyData(*parent_data_storage, input_keys_);
-
-  // Store the new data storage for access by child nodes
   context.data_storage->setData(uuid_str_, local_data_storage);
 
   // Run
@@ -297,7 +298,8 @@ boost::uuids::uuid TaskComposerGraph::getRootNode() const
 boost::uuids::uuid TaskComposerGraph::addNode(std::unique_ptr<TaskComposerNode> task_node)
 {
   boost::uuids::uuid uuid = task_node->getUUID();
-  task_node->setParentUUID(uuid_);
+  task_node->parent_uuid_ = uuid_;
+  task_node->parent_uuid_str_ = uuid_str_;
   nodes_[uuid] = std::move(task_node);
   return uuid;
 }
@@ -305,7 +307,8 @@ boost::uuids::uuid TaskComposerGraph::addNode(std::unique_ptr<TaskComposerNode> 
 boost::uuids::uuid TaskComposerGraph::addNodePython(std::shared_ptr<TaskComposerNode> task_node)
 {
   boost::uuids::uuid uuid = task_node->getUUID();
-  task_node->setParentUUID(uuid_);
+  task_node->parent_uuid_ = uuid_;
+  task_node->parent_uuid_str_ = uuid_str_;
   nodes_[uuid] = std::move(task_node);
   return uuid;
 }

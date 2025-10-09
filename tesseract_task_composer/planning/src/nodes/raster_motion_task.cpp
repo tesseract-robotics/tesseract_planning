@@ -382,21 +382,25 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
   auto& program = input_data_poly.template as<CompositeInstruction>();
   tesseract_common::ManipulatorInfo program_manip_info = program.getManipulatorInfo();
 
-  // Task and Task Data Storage
-  TaskComposerGraph task_graph(name_ + " (Subgraph)");
-  task_graph.setParentUUID(uuid_);
+  // Create Sub Graph Task
+  TaskComposerGraph task_graph(name_ + " (Subgraph)", uuid_);
+
+  // Create Sub Graph Task Input and Output Keys
+  // Must copy the existing parent input/output keys, but remove program port key which will get assigned later.
   TaskComposerKeys task_input_keys{ input_keys_ };
   TaskComposerKeys task_output_keys{ output_keys_ };
   task_input_keys.remove(INOUT_PROGRAM_PORT);
   task_output_keys.remove(INOUT_PROGRAM_PORT);
 
+  // Create a sub graph data storage and copy the input data relevant to this graph.
+  auto task_graph_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
+  task_graph_data_storage->copyData(*context.data_storage, task_input_keys);
+
+  // Create container to store the sub graph program port keys
   std::vector<std::string> input_keys;
   std::vector<std::string> output_keys;
   input_keys.reserve(program.size());
   output_keys.reserve(program.size());
-
-  auto task_graph_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
-  task_graph_data_storage->copyData(*context.data_storage, task_input_keys);
 
   // Start Task
   auto start_task = std::make_unique<StartTask>();
@@ -536,7 +540,7 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
   if (!executor.has_value())
     throw std::runtime_error("RasterMotionTask, executor is null!");
 
-  // Set graph input and output keys
+  // Set sub graph input and output keys
   task_input_keys.add(INOUT_PROGRAM_PORT, input_keys);
   task_output_keys.add(INOUT_PROGRAM_PORT, output_keys);
   task_graph.setInputKeys(task_input_keys);

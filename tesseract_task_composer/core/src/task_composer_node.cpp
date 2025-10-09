@@ -212,12 +212,6 @@ const boost::uuids::uuid& TaskComposerNode::getParentUUID() const { return paren
 
 const std::string& TaskComposerNode::getParentUUIDString() const { return parent_uuid_str_; }
 
-void TaskComposerNode::setParentUUID(const boost::uuids::uuid& parent_uuid)
-{
-  parent_uuid_ = parent_uuid;
-  parent_uuid_str_ = boost::uuids::to_string(parent_uuid);
-}
-
 bool TaskComposerNode::isConditional() const { return conditional_; }
 
 void TaskComposerNode::validatePorts() const
@@ -571,18 +565,11 @@ TaskComposerDataStorage::Ptr TaskComposerNode::getDataStorage(const TaskComposer
   if (parent_uuid_.is_nil())
     return context.data_storage;
 
-  if (type_ == TaskComposerNodeType::NODE || type_ == TaskComposerNodeType::TASK)
-  {
-    tesseract_common::AnyPoly data_storage_any = context.data_storage->getData(parent_uuid_str_);
-    if (data_storage_any.isNull())
-      throw std::runtime_error("TaskComposerNode, unable to find parent data storage!");
+  tesseract_common::AnyPoly data_storage_any = context.data_storage->getData(parent_uuid_str_);
+  if (data_storage_any.isNull())
+    throw std::runtime_error("TaskComposerNode, unable to find parent data storage!");
 
-    return data_storage_any.as<TaskComposerDataStorage::Ptr>();
-  }
-
-  const std::string parent_data_storage_key{ parent_uuid_str_ };
-  tesseract_common::AnyPoly parent_data_storage_any = context.data_storage->getData(parent_data_storage_key);
-  return parent_data_storage_any.as<TaskComposerDataStorage::Ptr>();
+  return data_storage_any.as<TaskComposerDataStorage::Ptr>();
 }
 
 template <>

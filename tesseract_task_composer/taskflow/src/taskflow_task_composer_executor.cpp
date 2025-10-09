@@ -79,11 +79,10 @@ tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
       // Create local data storage for graph
       TaskComposerDataStorage::Ptr parent_data_storage = task_graph.getDataStorage(task_context);
 
-      // Create new data storage and copy input data
+      // Create a new data storage and copy the input data relevant to this graph.
+      // Store the new data storage for access by child nodes of this graph
       auto local_data_storage = std::make_shared<TaskComposerDataStorage>(task_graph.getUUIDString());
       local_data_storage->copyData(*parent_data_storage, task_graph.getInputKeys());
-
-      // Store the new data storage for access by child nodes
       task_context.data_storage->setData(task_graph.getUUIDString(), local_data_storage);
 
       // Generate process tasks for each node

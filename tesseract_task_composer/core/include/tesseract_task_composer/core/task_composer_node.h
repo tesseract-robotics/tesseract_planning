@@ -113,14 +113,8 @@ public:
    */
   const boost::uuids::uuid& getParentUUID() const;
 
-  /** @brief The parent uuid string*/
+  /** @brief The UUID string of this node's parent */
   const std::string& getParentUUIDString() const;
-
-  /**
-   * @brief Set the parent uuid
-   * @param parent_uuid The parent uuid
-   */
-  void setParentUUID(const boost::uuids::uuid& parent_uuid);
 
   /**
    * @brief Check if node is conditional

@@ -210,20 +210,24 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   auto& inputs = input_data_poly.template as<std::vector<tesseract_common::AnyPoly>>();
 
   // Task and Task Data Storage
-  TaskComposerGraph task_graph(name_ + " (Subgraph)");
-  task_graph.setParentUUID(uuid_);
+  TaskComposerGraph task_graph(name_ + " (Subgraph)", uuid_);
+
+  // Create Sub Graph Task Input and Output Keys
+  // Must copy the existing parent input/output keys, but remove program port key which will get assigned later.
   TaskComposerKeys task_input_keys{ input_keys_ };
   TaskComposerKeys task_output_keys{ output_keys_ };
   task_input_keys.remove(INOUT_PORT);
   task_output_keys.remove(INOUT_PORT);
 
+  // Create a sub graph data storage and copy the input data relevant to this graph.
+  auto task_graph_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
+  task_graph_data_storage->copyData(*context.data_storage, task_input_keys);
+
+  // Create container to store the sub graph program port keys
   std::vector<std::string> input_keys;
   std::vector<std::string> output_keys;
   input_keys.reserve(inputs.size());
   output_keys.reserve(inputs.size());
-
-  auto task_graph_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
-  task_graph_data_storage->copyData(*context.data_storage, task_input_keys);
 
   // Start Task
   auto start_task = std::make_unique<StartTask>();
@@ -249,7 +253,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   if (!executor.has_value())
     throw std::runtime_error("ForEachTask, executor is null!");
 
-  // Set graph input and output keys
+  // Set sub graph input and output keys
   task_input_keys.add(task_input_port_, input_keys);
   task_output_keys.add(task_output_port_, output_keys);
   task_graph.setInputKeys(task_input_keys);

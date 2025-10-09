@@ -39,7 +39,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerPipeline::TaskComposerPipeline(std::string name) : TaskComposerPipeline(std::move(name), true) {}
+TaskComposerPipeline::TaskComposerPipeline(std::string name, boost::uuids::uuid parent_uuid)
+  : TaskComposerPipeline(std::move(name), true)
+{
+  parent_uuid_ = parent_uuid;
+  parent_uuid_str_ = boost::uuids::to_string(parent_uuid);
+}
+
 TaskComposerPipeline::TaskComposerPipeline(std::string name, bool conditional)
   : TaskComposerGraph(std::move(name), TaskComposerNodeType::PIPELINE, conditional)
 {
@@ -67,11 +73,10 @@ TaskComposerNodeInfo TaskComposerPipeline::runImpl(TaskComposerContext& context,
   // Create local data storage for graph
   TaskComposerDataStorage::Ptr parent_data_storage = getDataStorage(context);
 
-  // Create new data storage and copy input data
+  // Create a new data storage and copy the input data relevant to this graph.
+  // Store the new data storage for access by child nodes of this graph
   auto local_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
   local_data_storage->copyData(*parent_data_storage, input_keys_);
-
-  // Store the new data storage for access by child nodes
   context.data_storage->setData(uuid_str_, local_data_storage);
 
   // Run
