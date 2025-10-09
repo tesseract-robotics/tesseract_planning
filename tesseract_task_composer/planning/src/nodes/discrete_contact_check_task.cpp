@@ -111,7 +111,7 @@ TaskComposerNodeInfo DiscreteContactCheckTask::runImpl(TaskComposerContext& cont
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
+  auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
     info.status_code = 0;
@@ -123,7 +123,7 @@ TaskComposerNodeInfo DiscreteContactCheckTask::runImpl(TaskComposerContext& cont
 
   auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
 
-  auto input_data_poly = getData(*context.data_storage, INPUT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INPUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info.status_message = "Input to DiscreteContactCheckTask must be a composite instruction";
@@ -132,8 +132,7 @@ TaskComposerNodeInfo DiscreteContactCheckTask::runImpl(TaskComposerContext& cont
   }
 
   // Get Composite Profile
-  auto profiles =
-      getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   auto cur_composite_profile =
       profiles->getProfile<ContactCheckProfile>(ns_, ci.getProfile(ns_), std::make_shared<ContactCheckProfile>());
@@ -161,7 +160,7 @@ TaskComposerNodeInfo DiscreteContactCheckTask::runImpl(TaskComposerContext& cont
       contact_map.shrinkToFit();
 
     info.data_storage.setData("contact_results", contacts);
-    setData(*context.data_storage, OUTPUT_CONTACT_RESULTS_PORT, contacts, false);
+    setData(context, OUTPUT_CONTACT_RESULTS_PORT, contacts, false);
 
     return info;
   }

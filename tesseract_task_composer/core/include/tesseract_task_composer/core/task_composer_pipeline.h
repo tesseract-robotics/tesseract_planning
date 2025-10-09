@@ -53,7 +53,7 @@ public:
   using UPtr = std::unique_ptr<TaskComposerPipeline>;
   using ConstUPtr = std::unique_ptr<const TaskComposerPipeline>;
 
-  TaskComposerPipeline(std::string name = "TaskComposerPipeline");
+  TaskComposerPipeline(std::string name = "TaskComposerPipeline", boost::uuids::uuid parent_uuid = {});
   TaskComposerPipeline(std::string name, bool conditional);
   TaskComposerPipeline(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~TaskComposerPipeline() override = default;

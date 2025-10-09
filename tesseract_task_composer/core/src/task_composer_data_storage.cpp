@@ -31,14 +31,19 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/library_version_type.hpp>
 #endif
 #include <boost/serialization/unordered_map.hpp>
+#include <boost/serialization/shared_ptr.hpp>
 #include <mutex>
 #include <console_bridge/console.h>
 #include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
+#include <tesseract_task_composer/core/task_composer_keys.h>
+
 namespace tesseract_planning
 {
+TaskComposerDataStorage::TaskComposerDataStorage(std::string name) : name_(std::move(name)) {}
+
 // NOLINTNEXTLINE(cppcoreguidelines-prefer-member-initializer)
 TaskComposerDataStorage::TaskComposerDataStorage(const TaskComposerDataStorage& other)
 {
@@ -173,6 +178,34 @@ bool TaskComposerDataStorage::remapData(const std::map<std::string, std::string>
   return true;
 }
 
+void TaskComposerDataStorage::copyData(const TaskComposerDataStorage& data_storage, const TaskComposerKeys& keys)
+{
+  for (const auto& pair : keys.data())
+  {
+    if (pair.second.index() == 0)
+    {
+      const auto& key = std::get<std::string>(pair.second);
+      tesseract_common::AnyPoly entry = data_storage.getData(key);
+      if (entry.isNull())
+        throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" + key);
+
+      setData(key, data_storage.getData(key));
+    }
+    else
+    {
+      const auto& keys = std::get<std::vector<std::string>>(pair.second);
+      for (const auto& key : keys)
+      {
+        tesseract_common::AnyPoly entry = data_storage.getData(key);
+        if (entry.isNull())
+          throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" + key);
+
+        setData(key, data_storage.getData(key));
+      }
+    }
+  }
+}
+
 bool TaskComposerDataStorage::operator==(const TaskComposerDataStorage& rhs) const
 {
   std::shared_lock lhs_lock(mutex_, std::defer_lock);
@@ -194,3 +227,6 @@ void TaskComposerDataStorage::serialize(Archive& ar, const unsigned int /*versio
 }  // namespace tesseract_planning
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerDataStorage)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerDataStorage)
+
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerDataStoragePtrAnyPoly)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerDataStoragePtrAnyPoly)

@@ -94,7 +94,7 @@ TaskComposerNodeInfo UpsampleTrajectoryTask::runImpl(TaskComposerContext& contex
   info.status_code = 0;
 
   // Check that inputs are valid
-  auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info.status_message = "Input seed to UpsampleTrajectoryTask must be a composite instruction";
@@ -103,8 +103,7 @@ TaskComposerNodeInfo UpsampleTrajectoryTask::runImpl(TaskComposerContext& contex
   }
 
   // Get Composite Profile
-  auto profiles =
-      getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   auto cur_composite_profile = profiles->getProfile<UpsampleTrajectoryProfile>(
       ns_, ci.getProfile(ns_), std::make_shared<UpsampleTrajectoryProfile>());
@@ -115,7 +114,7 @@ TaskComposerNodeInfo UpsampleTrajectoryTask::runImpl(TaskComposerContext& contex
   new_results.clear();
 
   upsample(new_results, ci, start_instruction, cur_composite_profile->longest_valid_segment_length);
-  setData(*context.data_storage, INOUT_PROGRAM_PORT, new_results);
+  setData(context, INOUT_PROGRAM_PORT, new_results);
 
   info.color = "green";
   info.status_code = 1;

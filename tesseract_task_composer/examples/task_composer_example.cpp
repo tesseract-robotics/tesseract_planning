@@ -46,9 +46,8 @@ public:
     TaskComposerNodeInfo info(*this);
     info.return_value = 0;
     std::cout << name_ << "\n";
-    double result = getData(*context.data_storage, INPUT_LEFT_PORT).as<double>() +
-                    getData(*context.data_storage, INPUT_RIGHT_PORT).as<double>();
-    setData(*context.data_storage, OUTPUT_RESULT_PORT, result);
+    double result = getData(context, INPUT_LEFT_PORT).as<double>() + getData(context, INPUT_RIGHT_PORT).as<double>();
+    setData(context, OUTPUT_RESULT_PORT, result);
     return info;
   }
 };
@@ -89,9 +88,8 @@ public:
     TaskComposerNodeInfo info(*this);
     info.return_value = 0;
     std::cout << name_ << "\n";
-    double result = getData(*context.data_storage, INPUT_LEFT_PORT).as<double>() *
-                    getData(*context.data_storage, INPUT_RIGHT_PORT).as<double>();
-    setData(*context.data_storage, OUTPUT_RESULT_PORT, result);
+    double result = getData(context, INPUT_LEFT_PORT).as<double>() * getData(context, INPUT_RIGHT_PORT).as<double>();
+    setData(context, OUTPUT_RESULT_PORT, result);
     return info;
   }
 };
@@ -130,7 +128,8 @@ int main()
   TaskComposerPluginFactory factory(config_path, *resource);
 
   auto task_executor = factory.createTaskComposerExecutor("TaskflowExecutor");
-  TaskComposerFuture::UPtr future = task_executor->run(task_composer, std::move(task_data));
+  auto context = std::make_shared<TaskComposerContext>(task_composer.getName(), std::move(task_data));
+  TaskComposerFuture::UPtr future = task_executor->run(task_composer, std::move(context));
   future->wait();
 
   std::cout << "Output: " << future->context->data_storage->getData("task3_output").as<double>() << "\n";

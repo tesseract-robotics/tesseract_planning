@@ -51,9 +51,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerGraph::TaskComposerGraph(std::string name)
+TaskComposerGraph::TaskComposerGraph(std::string name, boost::uuids::uuid parent_uuid)
   : TaskComposerGraph(std::move(name), TaskComposerNodeType::GRAPH, false)
 {
+  parent_uuid_ = parent_uuid;
+  parent_uuid_str_ = boost::uuids::to_string(parent_uuid);
 }
 
 TaskComposerGraph::TaskComposerGraph(std::string name, TaskComposerNodeType type, bool conditional)
@@ -231,16 +233,24 @@ TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
   if (!executor.has_value())
     throw std::runtime_error("TaskComposerGraph, the optional executor is null!");
 
-  TaskComposerFuture::UPtr future = executor.value().get().run(*this, context.data_storage, context.dotgraph);
+  // Create local data storage for graph
+  TaskComposerDataStorage::Ptr parent_data_storage = getDataStorage(context);
+
+  // Create a new data storage and copy the input data relevant to this graph.
+  // Store the new data storage for access by child nodes of this graph
+  auto local_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
+  local_data_storage->copyData(*parent_data_storage, input_keys_);
+  context.data_storage->setData(uuid_str_, local_data_storage);
+
+  // Run
+  TaskComposerFuture::UPtr future = executor.value().get().run(*this, context.shared_from_this());
   future->wait();
 
-  // Merge child context data into parent context
-  context.task_infos.mergeInfoMap(std::move(future->context->task_infos));
-  if (future->context->isAborted())
-    context.abort(future->context->task_infos.getAbortingNode());
+  // Copy output data to parent data storage
+  parent_data_storage->copyData(*local_data_storage, output_keys_);
 
   TaskComposerNodeInfo info(*this);
-  auto info_map = context.task_infos.getInfoMap();
+  auto info_map = context.task_infos->getInfoMap();
   if (context.dotgraph)
   {
     std::stringstream dot_graph;
@@ -253,7 +263,7 @@ TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
 
   for (std::size_t i = 0; i < terminals_.size(); ++i)
   {
-    auto node_info = context.task_infos.getInfo(terminals_[i]);
+    auto node_info = context.task_infos->getInfo(terminals_[i]);
     if (node_info.has_value())
     {
       stopwatch.stop();
@@ -289,6 +299,7 @@ boost::uuids::uuid TaskComposerGraph::addNode(std::unique_ptr<TaskComposerNode> 
 {
   boost::uuids::uuid uuid = task_node->getUUID();
   task_node->parent_uuid_ = uuid_;
+  task_node->parent_uuid_str_ = uuid_str_;
   nodes_[uuid] = std::move(task_node);
   return uuid;
 }
@@ -297,6 +308,7 @@ boost::uuids::uuid TaskComposerGraph::addNodePython(std::shared_ptr<TaskComposer
 {
   boost::uuids::uuid uuid = task_node->getUUID();
   task_node->parent_uuid_ = uuid_;
+  task_node->parent_uuid_str_ = uuid_str_;
   nodes_[uuid] = std::move(task_node);
   return uuid;
 }
@@ -491,7 +503,11 @@ std::string TaskComposerGraph::dump(std::ostream& os,
       os << "Abort Terminal: " << static_cast<const TaskComposerGraph&>(*node).abort_terminal_ << "\\l";
       os << "Conditional: " << ((node->isConditional()) ? "True" : "False") << "\\l";
       if (it != results_map.end())
-        os << "Time: " << std::fixed << std::setprecision(3) << it->second.elapsed_time << "s\\l";
+      {
+        os << "Time: " << std::fixed << std::setprecision(3) << it->second.elapsed_time << "s\\l"
+           << "Status Code: " << std::to_string(it->second.status_code) << "\\l"
+           << "Status Msg: " << it->second.status_message << "\\l";
+      }
 
       os << "\", margin=\"0.1\", color=" << color << "];\n";  // NOLINT
       node->dump(sub_graphs, this, results_map);
