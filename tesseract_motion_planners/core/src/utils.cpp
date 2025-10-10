@@ -483,6 +483,9 @@ contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts
                                                           manager.getActiveCollisionObjects(),
                                                           segment_dt,
                                                           false);
+            // If only one contact per step is requested, stop checking additional substates for this step
+            if (config.exit_condition == tesseract_collision::CollisionCheckExitType::ONE_PER_STEP)
+              break;
           }
 
           if (found && (config.exit_condition == tesseract_collision::CollisionCheckExitType::FIRST))
@@ -795,6 +798,9 @@ contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts
                                                           manager.getActiveCollisionObjects(),
                                                           segment_dt,
                                                           true);
+            // If only one contact per step is requested, stop checking additional substates for this step
+            if (config.exit_condition == tesseract_collision::CollisionCheckExitType::ONE_PER_STEP)
+              break;
           }
 
           if (found && (config.exit_condition == tesseract_collision::CollisionCheckExitType::FIRST))
