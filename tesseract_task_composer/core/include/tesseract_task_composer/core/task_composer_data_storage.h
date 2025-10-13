@@ -117,8 +117,11 @@ public:
    * @brief Copy data from the specified keys from another data storage
    * @param data_storage The input data storage from which to copy data
    * @param keys The keys from which to copy data from the input data storage
+   * @param override_keys
    */
-  void copyData(const TaskComposerDataStorage& data_storage, const TaskComposerKeys& keys);
+  void copyData(const TaskComposerDataStorage& data_storage,
+                const TaskComposerKeys& keys,
+                const TaskComposerKeys& override_keys);
 
   bool operator==(const TaskComposerDataStorage& rhs) const;
   bool operator!=(const TaskComposerDataStorage& rhs) const;

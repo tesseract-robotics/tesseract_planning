@@ -130,16 +130,17 @@ public:
   /** Get the abort terminal index if set */
   int getAbortTerminalIndex() const;
 
+  void setOverrideInputKeys(TaskComposerKeys override_input_keys);
+  void setOverrideOutputKeys(TaskComposerKeys override_output_keys);
+  const TaskComposerKeys& getOverrideInputKeys() const;
+  const TaskComposerKeys& getOverrideOutputKeys() const;
+
   /**
    * @brief Check if the current state of the graph is valid
    * @todo Replace return type with std::expected when upgraded to use c++23
    * @return True if valid otherwise false with a reason
    */
   virtual std::pair<bool, std::string> isValid() const;
-
-  void renameInputKeys(const std::map<std::string, std::string>& input_keys) override;
-
-  void renameOutputKeys(const std::map<std::string, std::string>& output_keys) override;
 
   std::string
   dump(std::ostream& os,
@@ -162,6 +163,8 @@ protected:
 
   std::map<boost::uuids::uuid, TaskComposerNode::Ptr> nodes_;
   std::vector<boost::uuids::uuid> terminals_;
+  TaskComposerKeys override_input_keys_;
+  TaskComposerKeys override_output_keys_;
   int abort_terminal_{ -1 };
 
 private:

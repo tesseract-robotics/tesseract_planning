@@ -40,6 +40,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_common/stopwatch.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_task_composer/core/task_composer_keys.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_executor.h>
@@ -48,6 +49,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
+#include <tesseract_task_composer/core/yaml_extensions.h>
+#include <tesseract_task_composer/core/yaml_utils.h>
 
 namespace tesseract_planning
 {
@@ -70,6 +73,25 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
 {
   if (conditional_)
     throw std::runtime_error("TaskComposerGraph, conditional should not be true");
+
+  if (YAML::Node override_keys = config["override"])
+  {
+    if (YAML::Node n = override_keys["inputs"])
+    {
+      if (!n.IsMap())
+        throw std::runtime_error("TaskComposerGraph, override inputs must be a map type");
+
+      override_input_keys_ = n.as<TaskComposerKeys>();
+    }
+
+    if (YAML::Node n = override_keys["outputs"])
+    {
+      if (!n.IsMap())
+        throw std::runtime_error("TaskComposerGraph, override outputs must be a map type");
+
+      override_output_keys_ = n.as<TaskComposerKeys>();
+    }
+  }
 }
 
 TaskComposerGraph::TaskComposerGraph(std::string name,
@@ -118,27 +140,10 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
 
       if (YAML::Node tc = node_it->second["config"])
       {
-        static const std::set<std::string> tasks_expected_keys{ "conditional", "abort_terminal", "remapping" };
+        static const std::set<std::string> tasks_expected_keys{ "conditional", "abort_terminal", "overrides" };
         tesseract_common::checkForUnknownKeys(tc, tasks_expected_keys);
 
-        if (YAML::Node n = tc["conditional"])
-          task_node->setConditional(n.as<bool>());
-
-        if (YAML::Node n = tc["abort_terminal"])
-        {
-          if (task_node->getType() == TaskComposerNodeType::GRAPH ||
-              task_node->getType() == TaskComposerNodeType::PIPELINE)
-            static_cast<TaskComposerGraph&>(*task_node).setTerminalTriggerAbortByIndex(n.as<int>());
-          else
-            throw std::runtime_error("YAML entry 'abort_terminal' is only supported for GRAPH and PIPELINE types");
-        }
-
-        if (YAML::Node n = tc["remapping"])
-        {
-          auto remapping = n.as<std::map<std::string, std::string>>();
-          task_node->renameInputKeys(remapping);
-          task_node->renameOutputKeys(remapping);
-        }
+        loadSubTaskConfig(*task_node, tc);
       }
 
       node_uuids[node_name] = addNode(std::move(task_node));
@@ -239,7 +244,7 @@ TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
   // Create a new data storage and copy the input data relevant to this graph.
   // Store the new data storage for access by child nodes of this graph
   auto local_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
-  local_data_storage->copyData(*parent_data_storage, input_keys_);
+  local_data_storage->copyData(*parent_data_storage, input_keys_, override_input_keys_);
   context.data_storage->setData(uuid_str_, local_data_storage);
 
   // Run
@@ -247,7 +252,7 @@ TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
   future->wait();
 
   // Copy output data to parent data storage
-  parent_data_storage->copyData(*local_data_storage, output_keys_);
+  parent_data_storage->copyData(*local_data_storage, output_keys_, override_output_keys_);
 
   TaskComposerNodeInfo info(*this);
   auto info_map = context.task_infos->getInfoMap();
@@ -445,19 +450,19 @@ std::pair<bool, std::string> TaskComposerGraph::isValid() const
   return { true, "Task Composer Graph Valid" };
 }
 
-void TaskComposerGraph::renameInputKeys(const std::map<std::string, std::string>& input_keys)
+void TaskComposerGraph::setOverrideInputKeys(TaskComposerKeys override_input_keys)
 {
-  input_keys_.rename(input_keys);
-  for (auto& node : nodes_)
-    node.second->renameInputKeys(input_keys);
+  override_input_keys_ = std::move(override_input_keys);
 }
 
-void TaskComposerGraph::renameOutputKeys(const std::map<std::string, std::string>& output_keys)
+void TaskComposerGraph::setOverrideOutputKeys(TaskComposerKeys override_output_keys)
 {
-  output_keys_.rename(output_keys);
-  for (auto& node : nodes_)
-    node.second->renameOutputKeys(output_keys);
+  override_output_keys_ = std::move(override_output_keys);
 }
+
+const TaskComposerKeys& TaskComposerGraph::getOverrideInputKeys() const { return override_input_keys_; }
+
+const TaskComposerKeys& TaskComposerGraph::getOverrideOutputKeys() const { return override_output_keys_; }
 
 std::string TaskComposerGraph::dump(std::ostream& os,
                                     const TaskComposerNode* parent,

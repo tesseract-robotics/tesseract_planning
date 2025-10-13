@@ -159,12 +159,6 @@ public:
    */
   TaskComposerDataStorage::Ptr getDataStorage(const TaskComposerContext& context) const;
 
-  /** @brief Rename input keys */
-  virtual void renameInputKeys(const std::map<std::string, std::string>& input_keys);
-
-  /** @brief Rename output keys */
-  virtual void renameOutputKeys(const std::map<std::string, std::string>& output_keys);
-
   /** @brief Set if conditional */
   virtual void setConditional(bool enable);
 

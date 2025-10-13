@@ -178,29 +178,47 @@ bool TaskComposerDataStorage::remapData(const std::map<std::string, std::string>
   return true;
 }
 
-void TaskComposerDataStorage::copyData(const TaskComposerDataStorage& data_storage, const TaskComposerKeys& keys)
+void TaskComposerDataStorage::copyData(const TaskComposerDataStorage& data_storage,
+                                       const TaskComposerKeys& keys,
+                                       const TaskComposerKeys& override_keys)
 {
   for (const auto& pair : keys.data())
   {
     if (pair.second.index() == 0)
     {
       const auto& key = std::get<std::string>(pair.second);
-      tesseract_common::AnyPoly entry = data_storage.getData(key);
-      if (entry.isNull())
-        throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" + key);
 
-      setData(key, data_storage.getData(key));
+      // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
+      // Otherwise use the original key for retrieving the data
+      const std::string& lookup_key = override_keys.has(pair.first) ? override_keys.get<std::string>(pair.first) : key;
+      tesseract_common::AnyPoly entry = data_storage.getData(lookup_key);
+
+      if (entry.isNull())
+        throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" + lookup_key);
+
+      setData(key, entry);
     }
     else
     {
       const auto& keys = std::get<std::vector<std::string>>(pair.second);
-      for (const auto& key : keys)
-      {
-        tesseract_common::AnyPoly entry = data_storage.getData(key);
-        if (entry.isNull())
-          throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" + key);
 
-        setData(key, data_storage.getData(key));
+      // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
+      // Otherwise use the original key for retrieving the data
+      const std::vector<std::string>& lookup_keys =
+          override_keys.has(pair.first) ? override_keys.get<std::vector<std::string>>(pair.first) : keys;
+
+      if (keys.size() != lookup_keys.size())
+        throw std::runtime_error("TaskComposerDataStorage, unable to copy data for port '" + pair.first +
+                                 "' with override because size is not the same.");
+
+      for (std::size_t i = 0; i < lookup_keys.size(); ++i)
+      {
+        const std::string& lookup_key = lookup_keys[i];
+        tesseract_common::AnyPoly entry = data_storage.getData(lookup_key);
+        if (entry.isNull())
+          throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" + lookup_key);
+
+        setData(keys[i], entry);
       }
     }
   }

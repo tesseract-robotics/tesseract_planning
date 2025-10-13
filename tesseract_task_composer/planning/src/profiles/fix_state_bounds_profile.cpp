@@ -24,10 +24,10 @@
  * limitations under the License.
  */
 #include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
+#include <tesseract_task_composer/planning/yaml_extensions.h>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <typeindex>
-#include <tesseract_task_composer/core/yaml_extensions.h>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 

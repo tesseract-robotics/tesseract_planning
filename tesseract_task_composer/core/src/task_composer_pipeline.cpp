@@ -76,14 +76,14 @@ TaskComposerNodeInfo TaskComposerPipeline::runImpl(TaskComposerContext& context,
   // Create a new data storage and copy the input data relevant to this graph.
   // Store the new data storage for access by child nodes of this graph
   auto local_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
-  local_data_storage->copyData(*parent_data_storage, input_keys_);
+  local_data_storage->copyData(*parent_data_storage, input_keys_, override_input_keys_);
   context.data_storage->setData(uuid_str_, local_data_storage);
 
   // Run
   runRecursive(*(nodes_.at(root_node)), context, executor);
 
   // Copy output data to parent data storage
-  parent_data_storage->copyData(*local_data_storage, output_keys_);
+  parent_data_storage->copyData(*local_data_storage, output_keys_, override_output_keys_);
 
   for (std::size_t i = 0; i < terminals_.size(); ++i)
   {

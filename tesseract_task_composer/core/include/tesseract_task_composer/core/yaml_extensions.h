@@ -32,131 +32,43 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/yaml_extensions.h>
-#include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
-#include <tesseract_task_composer/planning/profiles/fix_state_collision_profile.h>
+#include <tesseract_task_composer/core/task_composer_keys.h>
 
 namespace YAML
 {
-//=========================== Fix State Bounds Settings Enum ===========================
+//=========================== Task Composer Keys ===========================
 template <>
-struct convert<tesseract_planning::FixStateBoundsProfile::Settings>
+struct convert<tesseract_planning::TaskComposerKeys>
 {
-  static Node encode(const tesseract_planning::FixStateBoundsProfile::Settings& rhs)
+  static Node encode(const tesseract_planning::TaskComposerKeys& rhs)
   {
-    // LCOV_EXCL_START
-    static const std::map<tesseract_planning::FixStateBoundsProfile::Settings, std::string> m = {
-      { tesseract_planning::FixStateBoundsProfile::Settings::START_ONLY, "START_ONLY" },
-      { tesseract_planning::FixStateBoundsProfile::Settings::END_ONLY, "END_ONLY" },
-      { tesseract_planning::FixStateBoundsProfile::Settings::ALL, "ALL" },
-      { tesseract_planning::FixStateBoundsProfile::Settings::DISABLED, "DISABLED" }
-    };
-    // LCOV_EXCL_STOP
-    return Node(m.at(rhs));
+    Node node;
+    for (const auto& entry : rhs.data())
+    {
+      if (entry.second.index() == 0)
+        node[entry.first] = std::get<std::string>(entry.second);
+      else
+        node[entry.first] = std::get<std::vector<std::string>>(entry.second);
+    }
+
+    return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::FixStateBoundsProfile::Settings& rhs)
+  static bool decode(const Node& node, tesseract_planning::TaskComposerKeys& rhs)
   {
-    // LCOV_EXCL_START
-    static const std::map<std::string, tesseract_planning::FixStateBoundsProfile::Settings> inv = {
-      { "START_ONLY", tesseract_planning::FixStateBoundsProfile::Settings::START_ONLY },
-      { "END_ONLY", tesseract_planning::FixStateBoundsProfile::Settings::END_ONLY },
-      { "ALL", tesseract_planning::FixStateBoundsProfile::Settings::ALL },
-      { "DISABLED", tesseract_planning::FixStateBoundsProfile::Settings::DISABLED }
-    };
-    // LCOV_EXCL_STOP
+    if (!node.IsMap())
+      throw std::runtime_error("TaskComposerKeys, must be a yaml map");
 
-    if (!node.IsScalar())
-      return false;
+    for (const auto& dict : node)
+    {
+      if (dict.second.IsSequence())
+        rhs.add(dict.first.as<std::string>(), dict.second.as<std::vector<std::string>>());
+      else if (dict.second.IsScalar())
+        rhs.add(dict.first.as<std::string>(), dict.second.as<std::string>());
+      else
+        throw std::runtime_error("TaskComposerKeys, allowed port type is std::string or std::vector<std::string>");
+    }
 
-    auto it = inv.find(node.Scalar());
-    if (it == inv.end())
-      return false;
-
-    rhs = it->second;
-    return true;
-  }
-};
-
-//=========================== Fix State Collision Settings Enum ===========================
-template <>
-struct convert<tesseract_planning::FixStateCollisionProfile::Settings>
-{
-  static Node encode(const tesseract_planning::FixStateCollisionProfile::Settings& rhs)
-  {
-    // LCOV_EXCL_START
-    static const std::map<tesseract_planning::FixStateCollisionProfile::Settings, std::string> m = {
-      { tesseract_planning::FixStateCollisionProfile::Settings::START_ONLY, "START_ONLY" },
-      { tesseract_planning::FixStateCollisionProfile::Settings::END_ONLY, "END_ONLY" },
-      { tesseract_planning::FixStateCollisionProfile::Settings::INTERMEDIATE_ONLY, "INTERMEDIATE_ONLY" },
-      { tesseract_planning::FixStateCollisionProfile::Settings::ALL, "ALL" },
-      { tesseract_planning::FixStateCollisionProfile::Settings::ALL_EXCEPT_START, "ALL_EXCEPT_START" },
-      { tesseract_planning::FixStateCollisionProfile::Settings::ALL_EXCEPT_END, "ALL_EXCEPT_END" },
-      { tesseract_planning::FixStateCollisionProfile::Settings::DISABLED, "DISABLED" }
-    };
-    // LCOV_EXCL_STOP
-    return Node(m.at(rhs));
-  }
-
-  static bool decode(const Node& node, tesseract_planning::FixStateCollisionProfile::Settings& rhs)
-  {
-    // LCOV_EXCL_START
-    static const std::map<std::string, tesseract_planning::FixStateCollisionProfile::Settings> inv = {
-      { "START_ONLY", tesseract_planning::FixStateCollisionProfile::Settings::START_ONLY },
-      { "END_ONLY", tesseract_planning::FixStateCollisionProfile::Settings::END_ONLY },
-      { "INTERMEDIATE_ONLY", tesseract_planning::FixStateCollisionProfile::Settings::INTERMEDIATE_ONLY },
-      { "ALL", tesseract_planning::FixStateCollisionProfile::Settings::ALL },
-      { "ALL_EXCEPT_START", tesseract_planning::FixStateCollisionProfile::Settings::ALL_EXCEPT_START },
-      { "ALL_EXCEPT_END", tesseract_planning::FixStateCollisionProfile::Settings::ALL_EXCEPT_END },
-      { "DISABLED", tesseract_planning::FixStateCollisionProfile::Settings::DISABLED }
-    };
-    // LCOV_EXCL_STOP
-
-    if (!node.IsScalar())
-      return false;
-
-    auto it = inv.find(node.Scalar());
-    if (it == inv.end())
-      return false;
-
-    rhs = it->second;
-    return true;
-  }
-};
-
-//=========================== Fix State Collision CorrectionMethod Enum ===========================
-template <>
-struct convert<tesseract_planning::FixStateCollisionProfile::CorrectionMethod>
-{
-  static Node encode(const tesseract_planning::FixStateCollisionProfile::CorrectionMethod& rhs)
-  {
-    // LCOV_EXCL_START
-    static const std::map<tesseract_planning::FixStateCollisionProfile::CorrectionMethod, std::string> m = {
-      { tesseract_planning::FixStateCollisionProfile::CorrectionMethod::NONE, "NONE" },
-      { tesseract_planning::FixStateCollisionProfile::CorrectionMethod::TRAJOPT, "TRAJOPT" },
-      { tesseract_planning::FixStateCollisionProfile::CorrectionMethod::RANDOM_SAMPLER, "RANDOM_SAMPLER" }
-    };
-    // LCOV_EXCL_STOP
-    return Node(m.at(rhs));
-  }
-
-  static bool decode(const Node& node, tesseract_planning::FixStateCollisionProfile::CorrectionMethod& rhs)
-  {
-    // LCOV_EXCL_START
-    static const std::map<std::string, tesseract_planning::FixStateCollisionProfile::CorrectionMethod> inv = {
-      { "NONE", tesseract_planning::FixStateCollisionProfile::CorrectionMethod::NONE },
-      { "TRAJOPT", tesseract_planning::FixStateCollisionProfile::CorrectionMethod::TRAJOPT },
-      { "RANDOM_SAMPLER", tesseract_planning::FixStateCollisionProfile::CorrectionMethod::RANDOM_SAMPLER }
-    };
-    // LCOV_EXCL_STOP
-
-    if (!node.IsScalar())
-      return false;
-
-    auto it = inv.find(node.Scalar());
-    if (it == inv.end())
-      return false;
-
-    rhs = it->second;
     return true;
   }
 };
