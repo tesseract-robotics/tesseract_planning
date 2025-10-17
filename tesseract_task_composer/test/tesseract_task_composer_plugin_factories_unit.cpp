@@ -48,22 +48,22 @@ void runTaskComposerFactoryTest(TaskComposerPluginFactory& factory, YAML::Node p
   const YAML::Node& task_plugins = plugin_info["tasks"]["plugins"];
 
   {
-    std::set<std::string> sp = factory.getSearchPaths();
+    std::vector<std::string> sp = factory.getSearchPaths();
     EXPECT_EQ(sp.size(), 2);
 
     for (auto it = search_paths.begin(); it != search_paths.end(); ++it)
     {
-      EXPECT_TRUE(sp.find(it->as<std::string>()) != sp.end());
+      EXPECT_TRUE(std::find(sp.begin(), sp.end(), it->as<std::string>()) != sp.end());
     }
   }
 
   {
-    std::set<std::string> sl = factory.getSearchLibraries();
+    std::vector<std::string> sl = factory.getSearchLibraries();
     EXPECT_EQ(sl.size(), 3);
 
     for (auto it = search_libraries.begin(); it != search_libraries.end(); ++it)
     {
-      EXPECT_TRUE(sl.find(it->as<std::string>()) != sl.end());
+      EXPECT_TRUE(std::find(sl.begin(), sl.end(), it->as<std::string>()) != sl.end());
     }
   }
 
@@ -196,8 +196,8 @@ TEST(TesseractTaskComposerFactoryUnit, LoadAndExportPluginTest)  // NOLINT
     const auto search_libraries = plugins["search_libraries"].as<std::vector<std::string>>();
 
     tesseract_common::TaskComposerPluginInfo info;
-    info.search_paths.insert(search_paths.begin(), search_paths.end());
-    info.search_libraries.insert(search_libraries.begin(), search_libraries.end());
+    info.search_paths.insert(info.search_paths.end(), search_paths.begin(), search_paths.end());
+    info.search_libraries.insert(info.search_libraries.end(), search_libraries.begin(), search_libraries.end());
     info.task_plugin_infos.plugins = plugins["tasks"]["plugins"].as<tesseract_common::PluginInfoMap>();
     info.executor_plugin_infos.plugins = plugins["executors"]["plugins"].as<tesseract_common::PluginInfoMap>();
     info.executor_plugin_infos.default_plugin = plugins["executors"]["default"].as<std::string>();
