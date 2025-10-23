@@ -49,6 +49,7 @@ FixStateCollisionProfile::FixStateCollisionProfile(Settings mode)
   trajopt_joint_cost_config.coeff = Eigen::VectorXd::Constant(1, 1, 5);
   collision_constraint_coeff = trajopt_common::CollisionCoeffData(1.0);
   collision_cost_coeff = trajopt_common::CollisionCoeffData(20.0);
+  sco::OSQPModelConfig::setDefaultOSQPSettings(osqp_settings);
 }
 
 FixStateCollisionProfile::FixStateCollisionProfile(const YAML::Node& config,
