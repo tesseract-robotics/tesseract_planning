@@ -28,6 +28,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 #include <boost/serialization/vector.hpp>
+#include <boost/serialization/map.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
@@ -422,6 +423,12 @@ std::string TaskComposerNode::dump(std::ostream& os,
     os << "Inputs:\\l" << input_keys_;
     os << "Outputs:\\l" << output_keys_;
 
+    if (!override_input_keys_.empty())
+      os << "Override Inputs:\\l" << override_input_keys_;
+
+    if (!override_output_keys_.empty())
+      os << "Override Outputs:\\l" << override_output_keys_;
+
     if (it != results_map.end())
     {
       os << "Time: " << std::fixed << std::setprecision(3) << it->second.elapsed_time << "s\\l"
@@ -446,6 +453,12 @@ std::string TaskComposerNode::dump(std::ostream& os,
     os << "Namespace: " << ns_ << "\\l";
     os << "Inputs:\\l" << input_keys_;
     os << "Outputs:\\l" << output_keys_;
+
+    if (!override_input_keys_.empty())
+      os << "Override Inputs:\\l" << override_input_keys_;
+
+    if (!override_output_keys_.empty())
+      os << "Override Outputs:\\l" << override_output_keys_;
 
     if (it != results_map.end())
     {
@@ -479,6 +492,8 @@ bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
   equal &= inbound_edges_ == rhs.inbound_edges_;
   equal &= input_keys_ == rhs.input_keys_;
   equal &= output_keys_ == rhs.output_keys_;
+  equal &= override_input_keys_ == rhs.override_input_keys_;
+  equal &= override_output_keys_ == rhs.override_output_keys_;
   equal &= conditional_ == rhs.conditional_;
   equal &= ports_ == rhs.ports_;
   equal &= trigger_abort_ == rhs.trigger_abort_;
@@ -500,6 +515,8 @@ void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("inbound_edges", inbound_edges_);
   ar& boost::serialization::make_nvp("input_keys", input_keys_);
   ar& boost::serialization::make_nvp("output_keys", output_keys_);
+  ar& boost::serialization::make_nvp("input_keys", override_input_keys_);
+  ar& boost::serialization::make_nvp("output_keys", override_output_keys_);
   ar& boost::serialization::make_nvp("conditional", conditional_);
   ar& boost::serialization::make_nvp("ports", ports_);
   ar& boost::serialization::make_nvp("trigger_abort", trigger_abort_);

@@ -130,9 +130,28 @@ public:
   /** Get the abort terminal index if set */
   int getAbortTerminalIndex() const;
 
+  /**
+   * @brief Set the override input keys
+   * @param override_input_keys The overrides
+   */
   void setOverrideInputKeys(TaskComposerKeys override_input_keys);
+
+  /**
+   * @brief Set the override output keys
+   * @param override_output_keys The overrides
+   */
   void setOverrideOutputKeys(TaskComposerKeys override_output_keys);
+
+  /**
+   * @brief Get the override input keys
+   * @return The overrides
+   */
   const TaskComposerKeys& getOverrideInputKeys() const;
+
+  /**
+   * @brief Get the override output keys
+   * @return The overrides
+   */
   const TaskComposerKeys& getOverrideOutputKeys() const;
 
   /**
@@ -161,11 +180,16 @@ protected:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override;
 
+  /** @brief The graph nodes */
   std::map<boost::uuids::uuid, TaskComposerNode::Ptr> nodes_;
+  /** @brief The graph terminal nodes */
   std::vector<boost::uuids::uuid> terminals_;
-  TaskComposerKeys override_input_keys_;
-  TaskComposerKeys override_output_keys_;
+  /** @brief The abort terminal if assigned */
   int abort_terminal_{ -1 };
+  /** @brief The overrride input keys */
+  TaskComposerKeys override_input_keys_;
+  /** @brief The overrride output keys */
+  TaskComposerKeys override_output_keys_;
 
 private:
   friend class boost::serialization::access;

@@ -54,34 +54,25 @@ namespace
 tesseract_planning::RasterMotionTask::TaskFactoryResults
 createTask(const std::string& name,
            const std::string& task_name,
-           const std::map<std::string, std::string>& remapping,
-           const std::vector<std::string>& indexing,
            const tesseract_planning::TaskComposerPluginFactory& plugin_factory,
            std::size_t index)
 {
-  tesseract_planning::RasterMotionTask::TaskFactoryResults tf_results;
-  tf_results.node = plugin_factory.createTaskComposerNode(task_name);
-  tf_results.node->setName(name);
-  if (!remapping.empty())
-  {
-    tf_results.node->renameInputKeys(remapping);
-    tf_results.node->renameOutputKeys(remapping);
-  }
+  static const std::string inout_port{ "program" };
+  tesseract_planning::RasterMotionTask::TaskFactoryResults tr;
+  tr.node = plugin_factory.createTaskComposerNode(task_name);
+  tr.node->setName(name);
+  tr.node->setConditional(false);
+  tr.input_key = tr.node->getInputKeys().get(inout_port) + std::to_string(index);
+  tr.output_key = tr.node->getOutputKeys().get(inout_port) + std::to_string(index);
 
-  if (!indexing.empty())
-  {
-    std::map<std::string, std::string> renaming;
-    for (const auto& x : indexing)
-      renaming[x] = x + std::to_string(index);
+  tesseract_planning::TaskComposerKeys override_input_keys;
+  tesseract_planning::TaskComposerKeys override_output_keys;
+  override_input_keys.add(inout_port, tr.input_key);
+  override_output_keys.add(inout_port, tr.output_key);
+  tr.node->setOverrideInputKeys(override_input_keys);
+  tr.node->setOverrideOutputKeys(override_output_keys);
 
-    tf_results.node->renameInputKeys(renaming);
-    tf_results.node->renameOutputKeys(renaming);
-  }
-
-  tf_results.input_key = tf_results.node->getInputKeys().get("program");
-  tf_results.output_key = tf_results.node->getOutputKeys().get("program");
-
-  return tf_results;
+  return tr;
 }
 }  // namespace
 
@@ -122,10 +113,7 @@ RasterMotionTask::RasterMotionTask(std::string name,
   if (YAML::Node freespace_config = config["freespace"])
   {
     std::string task_name;
-    bool has_abort_terminal_entry{ false };
     int abort_terminal_index{ -1 };
-    std::vector<std::string> indexing;
-    std::map<std::string, std::string> remapping;
 
     if (YAML::Node n = freespace_config["task"])
       task_name = n.as<std::string>();
@@ -135,52 +123,20 @@ RasterMotionTask::RasterMotionTask(std::string name,
     if (YAML::Node task_config = freespace_config["config"])
     {
       if (YAML::Node n = task_config["abort_terminal"])
-      {
-        has_abort_terminal_entry = true;
         abort_terminal_index = n.as<int>();
-      }
-
-      if (task_config["input_remapping"])  // NOLINT
-        throw std::runtime_error("RasterMotionTask, input_remapping is no longer supported use 'remapping'");
-
-      if (task_config["output_remapping"])  // NOLINT
-        throw std::runtime_error("RasterMotionTask, output_remapping is no longer supported use 'remapping'");
-
-      if (YAML::Node n = task_config["remapping"])
-        remapping = n.as<std::map<std::string, std::string>>();
-
-      if (task_config["input_indexing"])  // NOLINT
-        throw std::runtime_error("RasterMotionTask, input_indexing is no longer supported use 'indexing'");
-
-      if (task_config["output_indexing"])  // NOLINT
-        throw std::runtime_error("RasterMotionTask, output_indexing is no longer supported use 'indexing'");
-
-      if (YAML::Node n = task_config["indexing"])
-        indexing = n.as<std::vector<std::string>>();
-      else
-        throw std::runtime_error("RasterMotionTask, entry 'freespace' missing 'indexing' entry");
     }
     else
     {
       throw std::runtime_error("RasterMotionTask, entry 'freespace' missing 'config' entry");
     }
 
-    if (has_abort_terminal_entry)
-    {
-      freespace_task_factory_ = [task_name, abort_terminal_index, remapping, indexing, &plugin_factory](
-                                    const std::string& name, std::size_t index) {
-        auto tr = createTask(name, task_name, remapping, indexing, plugin_factory, index);
+    freespace_task_factory_ = [task_name, abort_terminal_index, &plugin_factory](const std::string& name,
+                                                                                 std::size_t index) {
+      auto tr = createTask(name, task_name, plugin_factory, index);
+      if (abort_terminal_index >= 0)
         static_cast<TaskComposerGraph&>(*tr.node).setTerminalTriggerAbortByIndex(abort_terminal_index);
-        return tr;
-      };
-    }
-    else
-    {
-      freespace_task_factory_ = [task_name, remapping, indexing, &plugin_factory](const std::string& name,
-                                                                                  std::size_t index) {
-        return createTask(name, task_name, remapping, indexing, plugin_factory, index);
-      };
-    }
+      return tr;
+    };
   }
   else
   {
@@ -190,10 +146,7 @@ RasterMotionTask::RasterMotionTask(std::string name,
   if (YAML::Node raster_config = config["raster"])
   {
     std::string task_name;
-    bool has_abort_terminal_entry{ false };
     int abort_terminal_index{ -1 };
-    std::vector<std::string> indexing;
-    std::map<std::string, std::string> remapping;
 
     if (YAML::Node n = raster_config["task"])
       task_name = n.as<std::string>();
@@ -203,52 +156,22 @@ RasterMotionTask::RasterMotionTask(std::string name,
     if (YAML::Node task_config = raster_config["config"])
     {
       if (YAML::Node n = task_config["abort_terminal"])
-      {
-        has_abort_terminal_entry = true;
         abort_terminal_index = n.as<int>();
-      }
-
-      if (task_config["input_remapping"])  // NOLINT
-        throw std::runtime_error("RasterMotionTask, input_remapping is no longer supported use 'remapping'");
-
-      if (task_config["output_remapping"])  // NOLINT
-        throw std::runtime_error("RasterMotionTask, output_remapping is no longer supported use 'remapping'");
-
-      if (YAML::Node n = task_config["remapping"])
-        remapping = n.as<std::map<std::string, std::string>>();
-
-      if (task_config["input_indexing"])  // NOLINT
-        throw std::runtime_error("RasterMotionTask, input_indexing is no longer supported use 'indexing'");
-
-      if (task_config["output_indexing"])  // NOLINT
-        throw std::runtime_error("RasterMotionTask, output_indexing is no longer supported use 'indexing'");
-
-      if (YAML::Node n = task_config["indexing"])
-        indexing = n.as<std::vector<std::string>>();
-      else
-        throw std::runtime_error("RasterMotionTask, entry 'raster' missing 'indexing' entry");
     }
     else
     {
       throw std::runtime_error("RasterMotionTask, entry 'raster' missing 'config' entry");
     }
 
-    if (has_abort_terminal_entry)
-    {
-      raster_task_factory_ = [task_name, abort_terminal_index, remapping, indexing, &plugin_factory](
-                                 const std::string& name, std::size_t index) {
-        auto tr = createTask(name, task_name, remapping, indexing, plugin_factory, index);
+    raster_task_factory_ = [task_name, abort_terminal_index, &plugin_factory](const std::string& name,
+                                                                              std::size_t index) {
+      auto tr = createTask(name, task_name, plugin_factory, index);
+
+      if (abort_terminal_index >= 0)
         static_cast<TaskComposerGraph&>(*tr.node).setTerminalTriggerAbortByIndex(abort_terminal_index);
-        return tr;
-      };
-    }
-    else
-    {
-      raster_task_factory_ = [task_name, remapping, indexing, &plugin_factory](const std::string& name,
-                                                                               std::size_t index) {
-        return createTask(name, task_name, remapping, indexing, plugin_factory, index);
-      };
-    }
+
+      return tr;
+    };
   }
   else
   {
@@ -258,10 +181,7 @@ RasterMotionTask::RasterMotionTask(std::string name,
   if (YAML::Node transition_config = config["transition"])
   {
     std::string task_name;
-    bool has_abort_terminal_entry{ false };
     int abort_terminal_index{ -1 };
-    std::vector<std::string> indexing;
-    std::map<std::string, std::string> remapping;
 
     if (YAML::Node n = transition_config["task"])
       task_name = n.as<std::string>();
@@ -271,52 +191,22 @@ RasterMotionTask::RasterMotionTask(std::string name,
     if (YAML::Node task_config = transition_config["config"])
     {
       if (YAML::Node n = task_config["abort_terminal"])
-      {
-        has_abort_terminal_entry = true;
         abort_terminal_index = n.as<int>();
-      }
-
-      if (task_config["input_remapping"])  // NOLINT
-        throw std::runtime_error("RasterMotionTask, input_remapping is no longer supported use 'remapping'");
-
-      if (task_config["output_remapping"])  // NOLINT
-        throw std::runtime_error("RasterMotionTask, output_remapping is no longer supported use 'remapping'");
-
-      if (YAML::Node n = task_config["remapping"])
-        remapping = n.as<std::map<std::string, std::string>>();
-
-      if (task_config["input_indexing"])  // NOLINT
-        throw std::runtime_error("RasterMotionTask, input_indexing is no longer supported use 'indexing'");
-
-      if (task_config["output_indexing"])  // NOLINT
-        throw std::runtime_error("RasterMotionTask, output_indexing is no longer supported use 'indexing'");
-
-      if (YAML::Node n = task_config["indexing"])
-        indexing = n.as<std::vector<std::string>>();
-      else
-        throw std::runtime_error("RasterMotionTask, entry 'transition' missing 'indexing' entry");
     }
     else
     {
       throw std::runtime_error("RasterMotionTask, entry 'transition' missing 'config' entry");
     }
 
-    if (has_abort_terminal_entry)
-    {
-      transition_task_factory_ = [task_name, abort_terminal_index, remapping, indexing, &plugin_factory](
-                                     const std::string& name, std::size_t index) {
-        auto tr = createTask(name, task_name, remapping, indexing, plugin_factory, index);
+    transition_task_factory_ = [task_name, abort_terminal_index, &plugin_factory](const std::string& name,
+                                                                                  std::size_t index) {
+      auto tr = createTask(name, task_name, plugin_factory, index);
+
+      if (abort_terminal_index >= 0)
         static_cast<TaskComposerGraph&>(*tr.node).setTerminalTriggerAbortByIndex(abort_terminal_index);
-        return tr;
-      };
-    }
-    else
-    {
-      transition_task_factory_ = [task_name, remapping, indexing, &plugin_factory](const std::string& name,
-                                                                                   std::size_t index) {
-        return createTask(name, task_name, remapping, indexing, plugin_factory, index);
-      };
-    }
+
+      return tr;
+    };
   }
   else
   {
@@ -394,7 +284,7 @@ TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
 
   // Create a sub graph data storage and copy the input data relevant to this graph.
   auto task_graph_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
-  task_graph_data_storage->copyData(*context.data_storage, task_input_keys);
+  task_graph_data_storage->copyInputData(*context.data_storage, task_input_keys, {});
 
   // Create container to store the sub graph program port keys
   std::vector<std::string> input_keys;

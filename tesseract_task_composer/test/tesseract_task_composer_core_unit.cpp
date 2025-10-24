@@ -223,23 +223,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
   EXPECT_EQ(node->isConditional(), true);
   EXPECT_NO_THROW(node->dump(os));  // NOLINT
 
-  // Utils
-  std::map<std::string, std::string> rename_input_keys{ { "I1", "I3" }, { "I2", "I4" } };
-  std::map<std::string, std::string> rename_output_keys{ { "O1", "O3" }, { "O2", "O4" } };
-  node->renameInputKeys(rename_input_keys);
-  node->renameOutputKeys(rename_output_keys);
-
-  TaskComposerKeys check_input_keys;
-  check_input_keys.add("first", "I3");
-  check_input_keys.add("second", "I4");
-  TaskComposerKeys check_output_keys;
-  check_output_keys.add("first", "O3");
-  check_output_keys.add("second", "O4");
-
-  EXPECT_EQ(node->getInputKeys(), check_input_keys);
-  EXPECT_EQ(node->getOutputKeys(), check_output_keys);
-  EXPECT_NO_THROW(node->dump(os));  // NOLINT
-
   // Serialization
   test_suite::runSerializationPointerTest(node, "TaskComposerNodeTests");
 
@@ -408,22 +391,13 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
   std::string name2 = "TaskComposerPipelineTests2";
   std::string name3 = "TaskComposerPipelineTests3";
   std::string name4 = "TaskComposerPipelineTests4";
+
   TaskComposerKeys input_keys;
   input_keys.add("port1", "input_data");
   input_keys.add("port2", std::vector<std::string>{ "input_data2" });
   TaskComposerKeys output_keys;
   output_keys.add("port1", "output_data");
   output_keys.add("port2", std::vector<std::string>{ "output_data2" });
-  std::map<std::string, std::string> rename_input_keys{
-    { "input_data", "id" }, { "output_data", "od" }, { "input_data2", "id2" }, { "output_data2", "od2" }
-  };
-  std::map<std::string, std::string> rename_output_keys{ { "output_data", "od" }, { "output_data2", "od2" } };
-  TaskComposerKeys new_input_keys;
-  new_input_keys.add("port1", "id");
-  new_input_keys.add("port2", std::vector<std::string>{ "id2" });
-  TaskComposerKeys new_output_keys;
-  new_output_keys.add("port1", "od");
-  new_output_keys.add("port2", std::vector<std::string>{ "od2" });
 
   TaskComposerDataStorage test_data;
   test_data.setData("input_data", true);
@@ -477,16 +451,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     EXPECT_EQ(nodes_map.at(uuid3)->getOutputKeys(), output_keys);
     EXPECT_EQ(nodes_map.at(uuid4)->getInputKeys(), output_keys);
     EXPECT_EQ(nodes_map.at(uuid4)->getOutputKeys(), output_keys);
-    pipeline->renameInputKeys(rename_input_keys);
-    pipeline->renameOutputKeys(rename_output_keys);
-    EXPECT_EQ(nodes_map.at(uuid1)->getInputKeys(), new_input_keys);
-    EXPECT_EQ(nodes_map.at(uuid1)->getOutputKeys(), new_output_keys);
-    EXPECT_EQ(nodes_map.at(uuid2)->getInputKeys(), new_output_keys);
-    EXPECT_EQ(nodes_map.at(uuid2)->getOutputKeys(), new_output_keys);
-    EXPECT_EQ(nodes_map.at(uuid3)->getInputKeys(), new_output_keys);
-    EXPECT_EQ(nodes_map.at(uuid3)->getOutputKeys(), new_output_keys);
-    EXPECT_EQ(nodes_map.at(uuid4)->getInputKeys(), new_output_keys);
-    EXPECT_EQ(nodes_map.at(uuid4)->getOutputKeys(), new_output_keys);
 
     // Serialization
     test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");

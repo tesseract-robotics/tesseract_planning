@@ -42,45 +42,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_graph.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 
-namespace
-{
-tesseract_planning::ForEachTask::TaskFactoryResults
-createTask(const std::string& name,
-           const std::string& task_name,
-           const std::string& input_port,
-           const std::string& output_port,
-           const std::map<std::string, std::string>& remapping,
-           const std::vector<std::string>& indexing,
-           const tesseract_planning::TaskComposerPluginFactory& plugin_factory,
-           std::size_t index)
-{
-  tesseract_planning::ForEachTask::TaskFactoryResults tf_results;
-  tf_results.node = plugin_factory.createTaskComposerNode(task_name);
-  tf_results.node->setName(name);
-
-  if (!remapping.empty())
-  {
-    tf_results.node->renameInputKeys(remapping);
-    tf_results.node->renameOutputKeys(remapping);
-  }
-
-  if (!indexing.empty())
-  {
-    std::map<std::string, std::string> renaming;
-    for (const auto& x : indexing)
-      renaming[x] = x + std::to_string(index);
-
-    tf_results.node->renameInputKeys(renaming);
-    tf_results.node->renameOutputKeys(renaming);
-  }
-
-  tf_results.input_key = tf_results.node->getInputKeys().get(input_port);
-  tf_results.output_key = tf_results.node->getOutputKeys().get(output_port);
-
-  return tf_results;
-}
-}  // namespace
-
 namespace tesseract_planning
 {
 // Requried
@@ -94,10 +55,7 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
   if (YAML::Node operation_config = config["operation"])
   {
     std::string task_name;
-    bool has_abort_terminal_entry{ false };
     int abort_terminal_index{ -1 };
-    std::vector<std::string> indexing;
-    std::map<std::string, std::string> remapping;
 
     if (YAML::Node n = operation_config["task"])
       task_name = n.as<std::string>();
@@ -107,18 +65,7 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
     if (YAML::Node task_config = operation_config["config"])
     {
       if (YAML::Node n = task_config["abort_terminal"])
-      {
-        has_abort_terminal_entry = true;
         abort_terminal_index = n.as<int>();
-      }
-
-      if (YAML::Node n = task_config["remapping"])
-        remapping = n.as<std::map<std::string, std::string>>();
-
-      if (YAML::Node n = task_config["indexing"])
-        indexing = n.as<std::vector<std::string>>();
-      else
-        throw std::runtime_error("ForEachTask, entry 'operation' missing 'indexing' entry");
 
       if (YAML::Node n = task_config["input_port"])
         task_input_port_ = n.as<std::string>();
@@ -135,33 +82,30 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
       throw std::runtime_error("ForEachTask, entry 'operation' missing 'config' entry");
     }
 
-    if (has_abort_terminal_entry)
-    {
-      task_factory_ = [task_name,
-                       input_port = task_input_port_,
-                       output_port = task_output_port_,
-                       abort_terminal_index,
-                       remapping,
-                       indexing,
-                       &plugin_factory](const std::string& name, std::size_t index) {
-        auto tr = createTask(name, task_name, input_port, output_port, remapping, indexing, plugin_factory, index);
+    task_factory_ = [task_name,
+                     input_port = task_input_port_,
+                     output_port = task_output_port_,
+                     abort_terminal_index,
+                     &plugin_factory](const std::string& name, std::size_t index) {
+      tesseract_planning::ForEachTask::TaskFactoryResults tr;
+      tr.node = plugin_factory.createTaskComposerNode(task_name);
+      tr.node->setName(name);
+      tr.node->setConditional(false);
+      tr.input_key = tr.node->getInputKeys().get(input_port) + std::to_string(index);
+      tr.output_key = tr.node->getOutputKeys().get(output_port) + std::to_string(index);
 
+      TaskComposerKeys override_input_keys;
+      TaskComposerKeys override_output_keys;
+      override_input_keys.add(input_port, tr.input_key);
+      override_output_keys.add(output_port, tr.output_key);
+      tr.node->setOverrideInputKeys(override_input_keys);
+      tr.node->setOverrideOutputKeys(override_output_keys);
+
+      if (abort_terminal_index >= 0)
         static_cast<TaskComposerGraph&>(*tr.node).setTerminalTriggerAbortByIndex(abort_terminal_index);
 
-        return tr;
-      };
-    }
-    else
-    {
-      task_factory_ = [task_name,
-                       input_port = task_input_port_,
-                       output_port = task_output_port_,
-                       remapping,
-                       indexing,
-                       &plugin_factory](const std::string& name, std::size_t index) {
-        return createTask(name, task_name, input_port, output_port, remapping, indexing, plugin_factory, index);
-      };
-    }
+      return tr;
+    };
   }
   else
   {
@@ -221,7 +165,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
 
   // Create a sub graph data storage and copy the input data relevant to this graph.
   auto task_graph_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
-  task_graph_data_storage->copyData(*context.data_storage, task_input_keys);
+  task_graph_data_storage->copyInputData(*context.data_storage, task_input_keys, {});
 
   // Create container to store the sub graph program port keys
   std::vector<std::string> input_keys;
@@ -241,7 +185,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   {
     const std::string task_name = "Task #" + std::to_string(idx + 1);
     auto task_results = task_factory_(task_name, idx + 1);
-    task_results.node->setConditional(false);
+
     auto task_uuid = task_graph.addNode(std::move(task_results.node));
     tasks.emplace_back(task_uuid, std::make_pair(task_results.input_key, task_results.output_key));
     input_keys.push_back(task_results.input_key);

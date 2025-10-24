@@ -26,6 +26,8 @@
 #ifndef TESSERACT_TASK_COMPOSER_CORE_YAML_UTILS_H
 #define TESSERACT_TASK_COMPOSER_CORE_YAML_UTILS_H
 
+#include <memory>
+
 namespace YAML
 {
 class Node;
@@ -34,6 +36,26 @@ class Node;
 namespace tesseract_planning
 {
 class TaskComposerNode;
+class TaskComposerPluginFactory;
+
+/**
+ * @brief Load sub task yaml entry
+ * @param parent_name The parent name
+ * @param name The sub task name
+ * @param entry The yaml entry
+ * @param plugin_factory The plugin factory
+ * @return The sub task
+ */
+std::unique_ptr<TaskComposerNode> loadSubTask(const std::string& parent_name,
+                                              const std::string& name,
+                                              const YAML::Node& entry,
+                                              const TaskComposerPluginFactory& plugin_factory);
+
+/**
+ * @brief Load sub task config
+ * @param node The sub task
+ * @param config The sub task config
+ */
 void loadSubTaskConfig(TaskComposerNode& node, const YAML::Node& config);
 
 }  // namespace tesseract_planning

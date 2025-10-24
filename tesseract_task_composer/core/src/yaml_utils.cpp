@@ -29,6 +29,9 @@
 #include <tesseract_task_composer/core/task_composer_keys.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_graph.h>
+#include <tesseract_task_composer/core/task_composer_plugin_factory.h>
+
+#include <tesseract_common/yaml_utils.h>
 
 #include <yaml-cpp/yaml.h>
 
@@ -36,29 +39,25 @@ namespace tesseract_planning
 {
 void loadSubTaskConfig(TaskComposerNode& node, const YAML::Node& config)
 {
+  if (node.getType() != TaskComposerNodeType::GRAPH && node.getType() != TaskComposerNodeType::PIPELINE)
+    throw std::runtime_error("Sub task is only supported for GRAPH and PIPELINE types");
+
   if (YAML::Node n = config["conditional"])
     node.setConditional(n.as<bool>());
 
-  if (YAML::Node n = config["abort_terminal"])
-  {
-    if (node.getType() != TaskComposerNodeType::GRAPH && node.getType() != TaskComposerNodeType::PIPELINE)
-      throw std::runtime_error("YAML entry 'abort_terminal' is only supported for GRAPH and PIPELINE types");
+  auto& graph_node = static_cast<TaskComposerGraph&>(node);
 
-    static_cast<TaskComposerGraph&>(node).setTerminalTriggerAbortByIndex(n.as<int>());
-  }
+  if (YAML::Node n = config["abort_terminal"])
+    graph_node.setTerminalTriggerAbortByIndex(n.as<int>());
 
   if (YAML::Node override_keys = config["overrides"])
   {
-    if (node.getType() != TaskComposerNodeType::GRAPH && node.getType() != TaskComposerNodeType::PIPELINE)
-      throw std::runtime_error("YAML entry 'overrides' is only supported for GRAPH and PIPELINE types");
-
-    auto& task_graph = static_cast<TaskComposerGraph&>(node);
     if (YAML::Node n = override_keys["inputs"])
     {
       if (!n.IsMap())
         throw std::runtime_error("YAML entry 'overrides' inputs must be a map type");
 
-      task_graph.setOverrideInputKeys(n.as<TaskComposerKeys>());
+      graph_node.setOverrideInputKeys(n.as<TaskComposerKeys>());
     }
 
     if (YAML::Node n = override_keys["outputs"])
@@ -66,8 +65,52 @@ void loadSubTaskConfig(TaskComposerNode& node, const YAML::Node& config)
       if (!n.IsMap())
         throw std::runtime_error("YAML entry 'overrides' outputs must be a map type");
 
-      task_graph.setOverrideOutputKeys(n.as<TaskComposerKeys>());
+      graph_node.setOverrideOutputKeys(n.as<TaskComposerKeys>());
     }
   }
+}
+
+std::unique_ptr<TaskComposerNode> loadSubTask(const std::string& parent_name,
+                                              const std::string& name,
+                                              const YAML::Node& entry,
+                                              const TaskComposerPluginFactory& plugin_factory)
+{
+  if (YAML::Node fn = entry["class"])
+  {
+    tesseract_common::PluginInfo plugin_info;
+    plugin_info.class_name = fn.as<std::string>();
+    if (YAML::Node cn = entry["config"])
+      plugin_info.config = cn;
+
+    std::unique_ptr<TaskComposerNode> task_node = plugin_factory.createTaskComposerNode(name, plugin_info);
+    if (task_node == nullptr)
+      throw std::runtime_error("Task Composer Graph '" + parent_name + "' failed to create node '" + name + "'");
+
+    return task_node;
+  }
+
+  if (YAML::Node tn = entry["task"])
+  {
+    auto task_name = tn.as<std::string>();
+    std::unique_ptr<TaskComposerNode> task_node = plugin_factory.createTaskComposerNode(task_name);
+    if (task_node == nullptr)
+      throw std::runtime_error("Task Composer Graph '" + parent_name + "' failed to create task '" + task_name +
+                               "' for node '" + name + "'");
+
+    task_node->setName(name);
+
+    if (YAML::Node tc = entry["config"])
+    {
+      static const std::set<std::string> tasks_expected_keys{ "conditional", "abort_terminal", "overrides" };
+      tesseract_common::checkForUnknownKeys(tc, tasks_expected_keys);
+
+      loadSubTaskConfig(*task_node, tc);
+    }
+
+    return task_node;
+  }
+
+  throw std::runtime_error("Task Composer Graph '" + parent_name + "' node '" + name +
+                           "' missing 'class' or 'task' entry");
 }
 }  // namespace tesseract_planning
