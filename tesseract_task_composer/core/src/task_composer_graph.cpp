@@ -543,6 +543,8 @@ bool TaskComposerGraph::operator==(const TaskComposerGraph& rhs) const
   }
   equal &= (terminals_ == rhs.terminals_);
   equal &= (abort_terminal_ == rhs.abort_terminal_);
+  equal &= override_input_keys_ == rhs.override_input_keys_;
+  equal &= override_output_keys_ == rhs.override_output_keys_;
   equal &= TaskComposerNode::operator==(rhs);
   return equal;
 }
@@ -557,6 +559,8 @@ void TaskComposerGraph::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("nodes", nodes_);
   ar& boost::serialization::make_nvp("terminals", terminals_);
   ar& boost::serialization::make_nvp("abort_terminal", abort_terminal_);
+  ar& boost::serialization::make_nvp("override_input_keys", override_input_keys_);
+  ar& boost::serialization::make_nvp("override_output_keys", override_output_keys_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
 }
 

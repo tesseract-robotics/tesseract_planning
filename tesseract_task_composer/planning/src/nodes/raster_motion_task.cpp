@@ -65,12 +65,13 @@ createTask(const std::string& name,
   tr.input_key = tr.node->getInputKeys().get(inout_port) + std::to_string(index);
   tr.output_key = tr.node->getOutputKeys().get(inout_port) + std::to_string(index);
 
+  auto& graph_node = static_cast<tesseract_planning::TaskComposerGraph&>(*tr.node);
   tesseract_planning::TaskComposerKeys override_input_keys;
   tesseract_planning::TaskComposerKeys override_output_keys;
   override_input_keys.add(inout_port, tr.input_key);
   override_output_keys.add(inout_port, tr.output_key);
-  tr.node->setOverrideInputKeys(override_input_keys);
-  tr.node->setOverrideOutputKeys(override_output_keys);
+  graph_node.setOverrideInputKeys(override_input_keys);
+  graph_node.setOverrideOutputKeys(override_output_keys);
 
   return tr;
 }

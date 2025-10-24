@@ -94,15 +94,16 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
       tr.input_key = tr.node->getInputKeys().get(input_port) + std::to_string(index);
       tr.output_key = tr.node->getOutputKeys().get(output_port) + std::to_string(index);
 
+      auto& graph_node = static_cast<TaskComposerGraph&>(*tr.node);
       TaskComposerKeys override_input_keys;
       TaskComposerKeys override_output_keys;
       override_input_keys.add(input_port, tr.input_key);
       override_output_keys.add(output_port, tr.output_key);
-      tr.node->setOverrideInputKeys(override_input_keys);
-      tr.node->setOverrideOutputKeys(override_output_keys);
+      graph_node.setOverrideInputKeys(override_input_keys);
+      graph_node.setOverrideOutputKeys(override_output_keys);
 
       if (abort_terminal_index >= 0)
-        static_cast<TaskComposerGraph&>(*tr.node).setTerminalTriggerAbortByIndex(abort_terminal_index);
+        graph_node.setTerminalTriggerAbortByIndex(abort_terminal_index);
 
       return tr;
     };
