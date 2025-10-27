@@ -112,4 +112,27 @@ std::unique_ptr<TaskComposerNode> loadSubTask(const std::string& parent_name,
 
   throw std::runtime_error("Sub task for '" + parent_name + "' node '" + name + "' missing 'class' or 'task' entry");
 }
+
+void validateSubTask(const std::string& parent_name, const std::string& key, const YAML::Node& node)
+{
+  if (!node.IsMap())
+    throw std::runtime_error("Sub task for '" + parent_name + "' node '" + key + "' should be a map");
+
+  bool is_class{ false };
+  bool is_task{ false };
+  for (YAML::const_iterator it = node.begin(); it != node.end(); ++it)
+  {
+    auto key = it->first.as<std::string>();
+    if (key == "class")
+      is_class = true;
+    else if (key == "task")
+      is_task = true;
+  }
+
+  if (is_class && is_task)
+    throw std::runtime_error("Sub task for '" + parent_name + "' node '" + key + "' has both 'class' and 'task' entry");
+
+  if (!is_class && !is_task)
+    throw std::runtime_error("Sub task for '" + parent_name + "' node '" + key + "' missing 'class' or 'task' entry");
+}
 }  // namespace tesseract_planning

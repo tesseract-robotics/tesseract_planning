@@ -911,8 +911,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
                                 task: TestPipeline
                                 config:
                                   conditional: false
-                                  remapping:
-                                    input_data: output_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:
@@ -1388,8 +1386,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerGraphTests)  // NOLINT
                               StartTask:
                                 task:
                                   conditional: false
-                                  remapping:
-                                    input_data: output_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:
@@ -1441,8 +1437,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerGraphTests)  // NOLINT
                                 task: DoesNotExist
                                 config:
                                   conditional: false
-                                  remapping:
-                                    input_data: output_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:

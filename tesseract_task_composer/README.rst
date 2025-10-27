@@ -579,21 +579,15 @@ Raster Motion Task
        freespace:
          task: FreespacePipeline
          config:
-           remapping:
-             input_data: output_data
-           indexing: [output_data]
+           abort_terminal: 0
        raster:
          task: CartesianPipeline
          config:
-           remapping:
-             input_data: output_data
-           indexing: [output_data]
+           abort_terminal: 0
        transition:
          task: FreespacePipeline
          config:
-           remapping:
-             input_data: output_data
-           indexing: [output_data]
+           abort_terminal: 0
 
 Raster Only Motion Task
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -612,15 +606,11 @@ Raster Only Motion Task
        raster:
          task: CartesianPipeline
          config:
-           remapping:
-             input_data: output_data
-           indexing: [output_data]
+           abort_terminal: 0
        transition:
          task: FreespacePipeline
          config:
-           remapping:
-             input_data: output_data
-           indexing: [output_data]
+           abort_terminal: 0
 
 
 Continuous Contact Check Task

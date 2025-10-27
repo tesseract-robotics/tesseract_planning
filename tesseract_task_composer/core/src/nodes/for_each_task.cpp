@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/yaml_utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/nodes/for_each_task.h>
@@ -53,14 +54,19 @@ ForEachTask::ForEachTask() : TaskComposerTask("ForEachTask", ForEachTask::ports(
 ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory)
   : TaskComposerTask(std::move(name), ForEachTask::ports(), config)
 {
-  if (YAML::Node operation_config = config["operation"])
+  static const std::string operation_key{ "operation" };
+  if (YAML::Node operation_config = config[operation_key])
   {
-    if (YAML::Node n = config["input_port"])
+    static const std::set<std::string> tasks_expected_keys{ "input_port", "output_port", "task", "class", "config" };
+    tesseract_common::checkForUnknownKeys(operation_config, tasks_expected_keys);
+    validateSubTask(name_, operation_key, operation_config);
+
+    if (YAML::Node n = operation_config["input_port"])
       task_input_port_ = n.as<std::string>();
     else
       throw std::runtime_error("ForEachTask, missing 'input_port' entry");
 
-    if (YAML::Node n = config["output_port"])
+    if (YAML::Node n = operation_config["output_port"])
       task_output_port_ = n.as<std::string>();
     else
       throw std::runtime_error("ForEachTask, missing 'output_port' entry");

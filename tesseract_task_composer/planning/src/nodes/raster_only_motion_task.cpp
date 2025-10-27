@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <yaml-cpp/yaml.h>
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/yaml_utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/raster_only_motion_task.h>
@@ -113,8 +114,15 @@ RasterOnlyMotionTask::RasterOnlyMotionTask(std::string name,
                                            const TaskComposerPluginFactory& plugin_factory)
   : TaskComposerTask(std::move(name), RasterOnlyMotionTask::ports(), config)
 {
-  if (YAML::Node raster_config = config["raster"])
+  static const std::set<std::string> tasks_expected_keys{ "task", "class", "config" };
+  static const std::string raster_key{ "raster" };
+  static const std::string transition_key{ "transition" };
+
+  if (YAML::Node raster_config = config[raster_key])
   {
+    tesseract_common::checkForUnknownKeys(raster_config, tasks_expected_keys);
+    validateSubTask(name_, raster_key, raster_config);
+
     raster_task_factory_ =
         [raster_config, &plugin_factory](const std::string& parent_name, const std::string& name, std::size_t index) {
           return createTask(raster_config, parent_name, name, plugin_factory, index);
@@ -125,8 +133,11 @@ RasterOnlyMotionTask::RasterOnlyMotionTask(std::string name,
     throw std::runtime_error("RasterOnlyMotionTask: missing 'raster' entry");
   }
 
-  if (YAML::Node transition_config = config["transition"])
+  if (YAML::Node transition_config = config[transition_key])
   {
+    tesseract_common::checkForUnknownKeys(transition_config, tasks_expected_keys);
+    validateSubTask(name_, transition_key, transition_config);
+
     transition_task_factory_ = [transition_config, &plugin_factory](
                                    const std::string& parent_name, const std::string& name, std::size_t index) {
       return createTask(transition_config, parent_name, name, plugin_factory, index);
