@@ -45,6 +45,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/core/task_composer_graph.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/yaml_utils.h>
 
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_environment/environment.h>
@@ -52,15 +53,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace
 {
 tesseract_planning::RasterOnlyMotionTask::TaskFactoryResults
-createTask(const std::string& name,
-           const std::string& task_name,
+createTask(YAML::Node config,
+           const std::string& parent_name,
+           const std::string& name,
            const tesseract_planning::TaskComposerPluginFactory& plugin_factory,
            std::size_t index)
 {
   static const std::string inout_port{ "program" };
   tesseract_planning::RasterOnlyMotionTask::TaskFactoryResults tr;
-  tr.node = plugin_factory.createTaskComposerNode(task_name);
-  tr.node->setName(name);
+  tr.node = loadSubTask(parent_name, name, config, plugin_factory);
   tr.node->setConditional(false);
   tr.input_key = tr.node->getInputKeys().get(inout_port) + std::to_string(index);
   tr.output_key = tr.node->getOutputKeys().get(inout_port) + std::to_string(index);
@@ -114,33 +115,10 @@ RasterOnlyMotionTask::RasterOnlyMotionTask(std::string name,
 {
   if (YAML::Node raster_config = config["raster"])
   {
-    std::string task_name;
-    int abort_terminal_index{ -1 };
-
-    if (YAML::Node n = raster_config["task"])
-      task_name = n.as<std::string>();
-    else
-      throw std::runtime_error("RasterOnlyMotionTask, entry 'raster' missing 'task' entry");
-
-    if (YAML::Node task_config = raster_config["config"])
-    {
-      if (YAML::Node n = task_config["abort_terminal"])
-        abort_terminal_index = n.as<int>();
-    }
-    else
-    {
-      throw std::runtime_error("RasterOnlyMotionTask, entry 'raster' missing 'config' entry");
-    }
-
-    raster_task_factory_ = [task_name, abort_terminal_index, &plugin_factory](const std::string& name,
-                                                                              std::size_t index) {
-      auto tr = createTask(name, task_name, plugin_factory, index);
-
-      if (abort_terminal_index >= 0)
-        static_cast<TaskComposerGraph&>(*tr.node).setTerminalTriggerAbortByIndex(abort_terminal_index);
-
-      return tr;
-    };
+    raster_task_factory_ =
+        [raster_config, &plugin_factory](const std::string& parent_name, const std::string& name, std::size_t index) {
+          return createTask(raster_config, parent_name, name, plugin_factory, index);
+        };
   }
   else
   {
@@ -149,32 +127,9 @@ RasterOnlyMotionTask::RasterOnlyMotionTask(std::string name,
 
   if (YAML::Node transition_config = config["transition"])
   {
-    std::string task_name;
-    int abort_terminal_index{ -1 };
-
-    if (YAML::Node n = transition_config["task"])
-      task_name = n.as<std::string>();
-    else
-      throw std::runtime_error("RasterOnlyMotionTask, entry 'transition' missing 'task' entry");
-
-    if (YAML::Node task_config = transition_config["config"])
-    {
-      if (YAML::Node n = task_config["abort_terminal"])
-        abort_terminal_index = n.as<int>();
-    }
-    else
-    {
-      throw std::runtime_error("RasterOnlyMotionTask, entry 'transition' missing 'config' entry");
-    }
-
-    transition_task_factory_ = [task_name, abort_terminal_index, &plugin_factory](const std::string& name,
-                                                                                  std::size_t index) {
-      auto tr = createTask(name, task_name, plugin_factory, index);
-
-      if (abort_terminal_index >= 0)
-        static_cast<TaskComposerGraph&>(*tr.node).setTerminalTriggerAbortByIndex(abort_terminal_index);
-
-      return tr;
+    transition_task_factory_ = [transition_config, &plugin_factory](
+                                   const std::string& parent_name, const std::string& name, std::size_t index) {
+      return createTask(transition_config, parent_name, name, plugin_factory, index);
     };
   }
   else
@@ -292,8 +247,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
     }
 
     const std::string task_name = "Raster #" + std::to_string(raster_idx + 1) + ": " + raster_input.getDescription();
-    auto raster_results = raster_task_factory_(task_name, raster_idx + 1);
-    raster_results.node->setConditional(false);
+    auto raster_results = raster_task_factory_(name_, task_name, raster_idx + 1);
     auto raster_uuid = task_graph.addNode(std::move(raster_results.node));
     raster_tasks.emplace_back(raster_uuid, std::make_pair(raster_results.input_key, raster_results.output_key));
     input_keys.push_back(raster_results.input_key);
@@ -326,8 +280,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
 
     const std::string task_name =
         "Transition #" + std::to_string(transition_idx + 1) + ": " + transition_input.getDescription();
-    auto transition_results = transition_task_factory_(task_name, transition_idx + 1);
-    transition_results.node->setConditional(false);
+    auto transition_results = transition_task_factory_(name_, task_name, transition_idx + 1);
     auto transition_uuid = task_graph.addNode(std::move(transition_results.node));
     transition_keys.emplace_back(transition_results.input_key, transition_results.output_key);
 

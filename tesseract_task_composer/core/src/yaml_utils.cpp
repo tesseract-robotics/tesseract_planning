@@ -84,7 +84,7 @@ std::unique_ptr<TaskComposerNode> loadSubTask(const std::string& parent_name,
 
     std::unique_ptr<TaskComposerNode> task_node = plugin_factory.createTaskComposerNode(name, plugin_info);
     if (task_node == nullptr)
-      throw std::runtime_error("Task Composer Graph '" + parent_name + "' failed to create node '" + name + "'");
+      throw std::runtime_error("Sub task for '" + parent_name + "' failed to create node '" + name + "'");
 
     return task_node;
   }
@@ -94,7 +94,7 @@ std::unique_ptr<TaskComposerNode> loadSubTask(const std::string& parent_name,
     auto task_name = tn.as<std::string>();
     std::unique_ptr<TaskComposerNode> task_node = plugin_factory.createTaskComposerNode(task_name);
     if (task_node == nullptr)
-      throw std::runtime_error("Task Composer Graph '" + parent_name + "' failed to create task '" + task_name +
+      throw std::runtime_error("Sub task for '" + parent_name + "' failed to create task '" + task_name +
                                "' for node '" + name + "'");
 
     task_node->setName(name);
@@ -110,7 +110,6 @@ std::unique_ptr<TaskComposerNode> loadSubTask(const std::string& parent_name,
     return task_node;
   }
 
-  throw std::runtime_error("Task Composer Graph '" + parent_name + "' node '" + name +
-                           "' missing 'class' or 'task' entry");
+  throw std::runtime_error("Sub task for '" + parent_name + "' node '" + name + "' missing 'class' or 'task' entry");
 }
 }  // namespace tesseract_planning

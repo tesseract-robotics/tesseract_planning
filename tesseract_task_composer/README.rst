@@ -725,11 +725,9 @@ For each element in a std::vector<tesseract_common::AnyPoly> it will run the ope
        outputs:
          container: output_data
        operation:
+         input_port: program
+         output_port: program
          task: TestPipeline
-         config:
-           input_port: program
-           output_port: program
-           indexing: [input_data, output_data]
 
 Fix State Bounds Task
 ^^^^^^^^^^^^^^^^^^^^^

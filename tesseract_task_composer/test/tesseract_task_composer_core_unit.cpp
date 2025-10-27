@@ -2303,11 +2303,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
                            outputs:
                              container: output_data
                            operation:
-                             task: TestPipeline
-                             config:
-                               input_port: program
-                               output_port: program
-                               indexing: [input_data, output_data])";
+                             input_port: program
+                             output_port: program
+                             task: TestPipeline)";
     YAML::Node config = YAML::Load(str);
     ForEachTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
@@ -2344,10 +2342,8 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
                            outputs:
                              container: output_data
                            operation:
-                             config:
-                               input_port: program
-                               output_port: program
-                               indexing: [input_data, output_data])";
+                             input_port: program
+                             output_port: program)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<ForEachTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2373,10 +2369,8 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
                            outputs:
                              container: output_data
                            operation:
-                             task: TestPipeline
-                             config:
-                               output_port: program
-                               indexing: [input_data, output_data])";
+                             output_port: program
+                             task: TestPipeline)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<ForEachTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2389,10 +2383,8 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
                            outputs:
                              container: output_data
                            operation:
-                             task: TestPipeline
-                             config:
-                               input_port: program
-                               indexing: [input_data, output_data])";
+                             input_port: program
+                             task: TestPipeline)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<ForEachTask>("abc", config["config"], factory));  // NOLINT
   }
@@ -2412,11 +2404,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
                            outputs:
                              container: output_data
                            operation:
-                             task: TestPipeline
-                             config:
-                               input_port: program
-                               output_port: program
-                               indexing: [input_data, output_data])";
+                             input_port: program
+                             output_port: program
+                             task: TestPipeline)";
     YAML::Node config = YAML::Load(str);
     ForEachTask task("abc", config["config"], factory);
 
@@ -2459,11 +2449,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
                            outputs:
                              container: output_data
                            operation:
-                             task: TestPipeline
-                             config:
-                               input_port: program
-                               output_port: program
-                               indexing: [input_data, output_data])";
+                             input_port: program
+                             output_port: program
+                             task: TestPipeline)";
     YAML::Node config = YAML::Load(str);
     ForEachTask task("abc", config["config"], factory);
 
@@ -2496,11 +2484,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
                            outputs:
                              container: output_data
                            operation:
-                             task: TestPipeline
-                             config:
-                               input_port: program
-                               output_port: program
-                               indexing: [input_data, output_data])";
+                             input_port: program
+                             output_port: program
+                             task: TestPipeline)";
     YAML::Node config = YAML::Load(str);
     ForEachTask task("abc", config["config"], factory);
 
@@ -2534,11 +2520,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
                            outputs:
                              container: output_data
                            operation:
-                             task: TestPipeline
-                             config:
-                               input_port: program
-                               output_port: program
-                               indexing: [input_data, output_data])";
+                             input_port: program
+                             output_port: program
+                             task: TestPipeline)";
     YAML::Node config = YAML::Load(str);
     ForEachTask task("abc", config["config"], factory);
 
@@ -2572,11 +2556,9 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
                            outputs:
                              container: output_data
                            operation:
-                             task: TestPipeline
-                             config:
-                               input_port: program
-                               output_port: program
-                               indexing: [input_data, output_data])";
+                             input_port: program
+                             output_port: program
+                             task: TestPipeline)";
     YAML::Node config = YAML::Load(str);
     ForEachTask task("abc", config["config"], factory);
 

@@ -41,6 +41,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/core/task_composer_graph.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
+#include <tesseract_task_composer/core/yaml_utils.h>
 
 namespace tesseract_planning
 {
@@ -54,42 +55,20 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
 {
   if (YAML::Node operation_config = config["operation"])
   {
-    std::string task_name;
-    int abort_terminal_index{ -1 };
-
-    if (YAML::Node n = operation_config["task"])
-      task_name = n.as<std::string>();
+    if (YAML::Node n = config["input_port"])
+      task_input_port_ = n.as<std::string>();
     else
-      throw std::runtime_error("ForEachTask, entry 'operation' missing 'task' entry");
+      throw std::runtime_error("ForEachTask, missing 'input_port' entry");
 
-    if (YAML::Node task_config = operation_config["config"])
-    {
-      if (YAML::Node n = task_config["abort_terminal"])
-        abort_terminal_index = n.as<int>();
-
-      if (YAML::Node n = task_config["input_port"])
-        task_input_port_ = n.as<std::string>();
-      else
-        throw std::runtime_error("ForEachTask, entry 'operation' missing 'input_port' entry");
-
-      if (YAML::Node n = task_config["output_port"])
-        task_output_port_ = n.as<std::string>();
-      else
-        throw std::runtime_error("ForEachTask, entry 'operation' missing 'output_port' entry");
-    }
+    if (YAML::Node n = config["output_port"])
+      task_output_port_ = n.as<std::string>();
     else
-    {
-      throw std::runtime_error("ForEachTask, entry 'operation' missing 'config' entry");
-    }
+      throw std::runtime_error("ForEachTask, missing 'output_port' entry");
 
-    task_factory_ = [task_name,
-                     input_port = task_input_port_,
-                     output_port = task_output_port_,
-                     abort_terminal_index,
-                     &plugin_factory](const std::string& name, std::size_t index) {
+    task_factory_ = [operation_config, input_port = task_input_port_, output_port = task_output_port_, &plugin_factory](
+                        const std::string& parent_name, const std::string& name, std::size_t index) {
       tesseract_planning::ForEachTask::TaskFactoryResults tr;
-      tr.node = plugin_factory.createTaskComposerNode(task_name);
-      tr.node->setName(name);
+      tr.node = loadSubTask(parent_name, name, operation_config, plugin_factory);
       tr.node->setConditional(false);
       tr.input_key = tr.node->getInputKeys().get(input_port) + std::to_string(index);
       tr.output_key = tr.node->getOutputKeys().get(output_port) + std::to_string(index);
@@ -101,9 +80,6 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
       override_output_keys.add(output_port, tr.output_key);
       graph_node.setOverrideInputKeys(override_input_keys);
       graph_node.setOverrideOutputKeys(override_output_keys);
-
-      if (abort_terminal_index >= 0)
-        graph_node.setTerminalTriggerAbortByIndex(abort_terminal_index);
 
       return tr;
     };
@@ -185,7 +161,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   for (std::size_t idx = 0; idx < inputs.size(); ++idx)
   {
     const std::string task_name = "Task #" + std::to_string(idx + 1);
-    auto task_results = task_factory_(task_name, idx + 1);
+    auto task_results = task_factory_(name_, task_name, idx + 1);
 
     auto task_uuid = task_graph.addNode(std::move(task_results.node));
     tasks.emplace_back(task_uuid, std::make_pair(task_results.input_key, task_results.output_key));
