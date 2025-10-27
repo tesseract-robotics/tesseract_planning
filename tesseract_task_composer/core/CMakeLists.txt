@@ -17,8 +17,7 @@ add_library(
   src/task_composer_plugin_factory.cpp
   src/task_composer_server.cpp
   src/task_composer_task.cpp
-  src/yaml_utils.cpp
-)
+  src/yaml_utils.cpp)
 
 target_link_libraries(
   ${PROJECT_NAME}
