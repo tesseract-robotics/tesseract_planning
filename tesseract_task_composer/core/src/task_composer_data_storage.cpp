@@ -178,51 +178,6 @@ bool TaskComposerDataStorage::remapData(const std::map<std::string, std::string>
   return true;
 }
 
-// void TaskComposerDataStorage::copyData(const TaskComposerDataStorage& data_storage,
-//                                        const TaskComposerKeys& keys,
-//                                        const std::map<std::string, std::string> &override_keys)
-// {
-//   for (const auto& pair : keys.data())
-//   {
-//     if (pair.second.index() == 0)
-//     {
-//       const auto& key = std::get<std::string>(pair.second);
-
-//       // Check if the port has an override and if so use its key for retrieving the data from the parent data
-//       storage.
-//       // Otherwise use the original key for retrieving the data
-//       auto it = override_keys.find(key);
-//       const std::string& lookup_key = (it == override_keys.end()) ? key : it->second;
-//       tesseract_common::AnyPoly entry = data_storage.getData(lookup_key);
-
-//       if (entry.isNull())
-//         throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" +
-//         lookup_key);
-
-//       setData(key, entry);
-//     }
-//     else
-//     {
-//       const auto& keys = std::get<std::vector<std::string>>(pair.second);
-//       for (const auto& key : keys)
-//       {
-//         // Check if the port has an override and if so use its key for retrieving the data from the parent data
-//         storage.
-//         // Otherwise use the original key for retrieving the data
-//         auto it = override_keys.find(key);
-//         const std::string& lookup_key = (it == override_keys.end()) ? key : it->second;
-//         tesseract_common::AnyPoly entry = data_storage.getData(lookup_key);
-
-//         if (entry.isNull())
-//           throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" +
-//           lookup_key);
-
-//         setData(key, entry);
-//       }
-//     }
-//   }
-// }
-
 void copyDataHelper(TaskComposerDataStorage& ods,
                     const TaskComposerDataStorage& ids,
                     const std::string& lookup_key,
@@ -236,9 +191,9 @@ void copyDataHelper(TaskComposerDataStorage& ods,
   ods.setData(storage_key, entry);
 }
 
-void TaskComposerDataStorage::copyInputData(const TaskComposerDataStorage& data_storage,
-                                            const TaskComposerKeys& keys,
-                                            const TaskComposerKeys& override_keys)
+void TaskComposerDataStorage::copyAsInputData(const TaskComposerDataStorage& data_storage,
+                                              const TaskComposerKeys& keys,
+                                              const TaskComposerKeys& override_keys)
 {
   for (const auto& pair : keys.data())
   {
@@ -270,9 +225,9 @@ void TaskComposerDataStorage::copyInputData(const TaskComposerDataStorage& data_
   }
 }
 
-void TaskComposerDataStorage::copyOutputData(const TaskComposerDataStorage& data_storage,
-                                             const TaskComposerKeys& keys,
-                                             const TaskComposerKeys& override_keys)
+void TaskComposerDataStorage::copyAsOutputData(const TaskComposerDataStorage& data_storage,
+                                               const TaskComposerKeys& keys,
+                                               const TaskComposerKeys& override_keys)
 {
   for (const auto& pair : keys.data())
   {

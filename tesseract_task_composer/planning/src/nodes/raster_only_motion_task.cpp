@@ -210,7 +210,7 @@ TaskComposerNodeInfo RasterOnlyMotionTask::runImpl(TaskComposerContext& context,
 
   // Create a sub graph data storage and copy the input data relevant to this graph.
   auto task_graph_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
-  task_graph_data_storage->copyInputData(*context.data_storage, task_input_keys, {});
+  task_graph_data_storage->copyAsInputData(*context.data_storage, task_input_keys, {});
 
   // Create container to store the sub graph program port keys
   std::vector<std::string> input_keys;
