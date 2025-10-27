@@ -54,7 +54,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace
 {
 tesseract_planning::RasterOnlyMotionTask::TaskFactoryResults
-createTask(YAML::Node config,
+createTask(const YAML::Node& config,
            const std::string& parent_name,
            const std::string& name,
            const tesseract_planning::TaskComposerPluginFactory& plugin_factory,
