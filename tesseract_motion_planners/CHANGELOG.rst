@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.33.0 (2025-10-28)
+-------------------
 * Update now that osqp_eigen supports osqp v1.0.0 params
 * Fix getRobotConfig utility to work with positioners
 * Add missing ONE_PER_STEP check in contactCheckProgram (`#671 <https://github.com/tesseract-robotics/tesseract_planning/issues/671>`_)

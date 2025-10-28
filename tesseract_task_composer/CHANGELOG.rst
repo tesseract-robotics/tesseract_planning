@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.33.0 (2025-10-28)
+-------------------
 * Remove renaming and indexing (`#674 <https://github.com/tesseract-robotics/tesseract_planning/issues/674>`_)
 * Add solver settings to fix state collision task (`#672 <https://github.com/tesseract-robotics/tesseract_planning/issues/672>`_)
 * Update based on changes in boost plugin loaders latest release
