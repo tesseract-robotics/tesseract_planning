@@ -2,6 +2,18 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remove renaming and indexing (`#674 <https://github.com/tesseract-robotics/tesseract_planning/issues/674>`_)
+* Add solver settings to fix state collision task (`#672 <https://github.com/tesseract-robotics/tesseract_planning/issues/672>`_)
+* Update based on changes in boost plugin loaders latest release
+* Add and leverage nested data storage to avoid key reuse issues (`#673 <https://github.com/tesseract-robotics/tesseract_planning/issues/673>`_)
+  * Add and leverage nested data storage to avoid key reuse issues
+  * Remove task name from keys in raster tasks
+  * Abort when exception is thrown
+* Add For Each Task (`#670 <https://github.com/tesseract-robotics/tesseract_planning/issues/670>`_)
+* Contributors: Levi Armstrong, Tyler Marr
+
 0.32.0 (2025-09-10)
 -------------------
 * Print a collision summary to status of failed contact check (`#543 <https://github.com/tesseract-robotics/tesseract_planning/issues/543>`_)

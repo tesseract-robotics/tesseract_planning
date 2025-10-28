@@ -2,6 +2,14 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add and leverage nested data storage to avoid key reuse issues (`#673 <https://github.com/tesseract-robotics/tesseract_planning/issues/673>`_)
+  * Add and leverage nested data storage to avoid key reuse issues
+  * Remove task name from keys in raster tasks
+  * Abort when exception is thrown
+* Contributors: Levi Armstrong
+
 0.32.0 (2025-09-10)
 -------------------
 * Add custom benchmarking executable for tesseract examples

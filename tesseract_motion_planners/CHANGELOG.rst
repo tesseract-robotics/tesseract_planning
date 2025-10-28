@@ -2,6 +2,13 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update now that osqp_eigen supports osqp v1.0.0 params
+* Fix getRobotConfig utility to work with positioners
+* Add missing ONE_PER_STEP check in contactCheckProgram (`#671 <https://github.com/tesseract-robotics/tesseract_planning/issues/671>`_)
+* Contributors: Levi Armstrong, Tyler Marr
+
 0.32.0 (2025-09-10)
 -------------------
 * Set ompl log level based on request verbose flag
