@@ -25,13 +25,13 @@
  */
 
 #include <tesseract_task_composer/planning/profiles/fix_state_collision_profile.h>
+#include <tesseract_task_composer/planning/yaml_extensions.h>
 #include <tesseract_collision/core/serialization.h>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/vector.hpp>
 #include <tesseract_common/eigen_serialization.h>
 #include <typeindex>
-#include <tesseract_task_composer/core/yaml_extensions.h>
 #include <tesseract_collision/core/yaml_extensions.h>
 #include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 #include <trajopt_common/yaml_extensions.h>

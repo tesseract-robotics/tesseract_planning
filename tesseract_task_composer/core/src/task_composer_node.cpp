@@ -42,45 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
-
-namespace YAML
-{
-template <>
-struct convert<tesseract_planning::TaskComposerKeys>
-{
-  static Node encode(const tesseract_planning::TaskComposerKeys& rhs)
-  {
-    Node node;
-    for (const auto& entry : rhs.data())
-    {
-      if (entry.second.index() == 0)
-        node[entry.first] = std::get<std::string>(entry.second);
-      else
-        node[entry.first] = std::get<std::vector<std::string>>(entry.second);
-    }
-
-    return node;
-  }
-
-  static bool decode(const Node& node, tesseract_planning::TaskComposerKeys& rhs)
-  {
-    if (!node.IsMap())
-      throw std::runtime_error("TaskComposerKeys, must be a yaml map");
-
-    for (const auto& dict : node)
-    {
-      if (dict.second.IsSequence())
-        rhs.add(dict.first.as<std::string>(), dict.second.as<std::vector<std::string>>());
-      else if (dict.second.IsScalar())
-        rhs.add(dict.first.as<std::string>(), dict.second.as<std::string>());
-      else
-        throw std::runtime_error("TaskComposerKeys, allowed port type is std::string or std::vector<std::string>");
-    }
-
-    return true;
-  }
-};
-}  // namespace YAML
+#include <tesseract_task_composer/core/yaml_extensions.h>
 
 namespace tesseract_planning
 {
@@ -430,16 +392,6 @@ bool TaskComposerNode::saveDotgraph(const std::string& filepath, const ResultsMa
   }
 
   return false;
-}
-
-void TaskComposerNode::renameInputKeys(const std::map<std::string, std::string>& input_keys)
-{
-  input_keys_.rename(input_keys);
-}
-
-void TaskComposerNode::renameOutputKeys(const std::map<std::string, std::string>& output_keys)
-{
-  output_keys_.rename(output_keys);
 }
 
 void TaskComposerNode::setConditional(bool enable) { conditional_ = enable; }

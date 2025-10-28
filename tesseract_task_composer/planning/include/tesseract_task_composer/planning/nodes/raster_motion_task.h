@@ -71,7 +71,8 @@ public:
     std::string input_key;
     std::string output_key;
   };
-  using TaskFactory = std::function<TaskFactoryResults(const std::string& name, std::size_t index)>;
+  using TaskFactory =
+      std::function<TaskFactoryResults(const std::string& parent_name, const std::string& name, std::size_t index)>;
 
   RasterMotionTask();
   explicit RasterMotionTask(std::string name,

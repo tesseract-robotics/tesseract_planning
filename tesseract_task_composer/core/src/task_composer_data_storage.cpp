@@ -178,30 +178,83 @@ bool TaskComposerDataStorage::remapData(const std::map<std::string, std::string>
   return true;
 }
 
-void TaskComposerDataStorage::copyData(const TaskComposerDataStorage& data_storage, const TaskComposerKeys& keys)
+void copyDataHelper(TaskComposerDataStorage& ods,
+                    const TaskComposerDataStorage& ids,
+                    const std::string& lookup_key,
+                    const std::string& storage_key)
+{
+  tesseract_common::AnyPoly entry = ids.getData(lookup_key);
+
+  if (entry.isNull())
+    throw std::runtime_error("TaskComposerDataStorage, unable to copy data for '" + lookup_key + "'");
+
+  ods.setData(storage_key, entry);
+}
+
+void TaskComposerDataStorage::copyAsInputData(const TaskComposerDataStorage& data_storage,
+                                              const TaskComposerKeys& keys,
+                                              const TaskComposerKeys& override_keys)
 {
   for (const auto& pair : keys.data())
   {
     if (pair.second.index() == 0)
     {
       const auto& key = std::get<std::string>(pair.second);
-      tesseract_common::AnyPoly entry = data_storage.getData(key);
-      if (entry.isNull())
-        throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" + key);
 
-      setData(key, data_storage.getData(key));
+      // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
+      // Otherwise use the original key for retrieving the data
+      const std::string& lookup_key = override_keys.has(pair.first) ? override_keys.get<std::string>(pair.first) : key;
+      copyDataHelper(*this, data_storage, lookup_key, key);
     }
     else
     {
       const auto& keys = std::get<std::vector<std::string>>(pair.second);
-      for (const auto& key : keys)
-      {
-        tesseract_common::AnyPoly entry = data_storage.getData(key);
-        if (entry.isNull())
-          throw std::runtime_error("TaskComposerDataStorage, unable to copy data for " + pair.first + ":" + key);
 
-        setData(key, data_storage.getData(key));
-      }
+      // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
+      // Otherwise use the original key for retrieving the data
+      const std::vector<std::string>& lookup_keys =
+          override_keys.has(pair.first) ? override_keys.get<std::vector<std::string>>(pair.first) : keys;
+
+      if (keys.size() != lookup_keys.size())
+        throw std::runtime_error("TaskComposerDataStorage, unable to copy data for port '" + pair.first +
+                                 "' with override because size is not the same.");
+
+      for (std::size_t i = 0; i < lookup_keys.size(); ++i)
+        copyDataHelper(*this, data_storage, lookup_keys[i], keys[i]);
+    }
+  }
+}
+
+void TaskComposerDataStorage::copyAsOutputData(const TaskComposerDataStorage& data_storage,
+                                               const TaskComposerKeys& keys,
+                                               const TaskComposerKeys& override_keys)
+{
+  for (const auto& pair : keys.data())
+  {
+    if (pair.second.index() == 0)
+    {
+      const auto& key = std::get<std::string>(pair.second);
+
+      // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
+      // Otherwise use the original key for retrieving the data
+      const std::string& storage_key = override_keys.has(pair.first) ? override_keys.get<std::string>(pair.first) : key;
+      copyDataHelper(*this, data_storage, key, storage_key);
+    }
+    else
+    {
+      const auto& keys = std::get<std::vector<std::string>>(pair.second);
+
+      // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
+      // Otherwise use the original key for retrieving the data
+      const std::vector<std::string>& storage_keys =
+          override_keys.has(pair.first) ? override_keys.get<std::vector<std::string>>(pair.first) : keys;
+
+      if (keys.size() != storage_keys.size())
+        throw std::runtime_error("TaskComposerDataStorage, unable to copy data for port '" + pair.first +
+                                 "' with override because size is not the same.");
+
+      for (std::size_t i = 0; i < keys.size(); ++i)
+        copyDataHelper(*this, data_storage, keys[i], storage_keys[i]);
     }
   }
 }

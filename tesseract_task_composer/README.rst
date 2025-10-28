@@ -234,7 +234,7 @@ Leveraging a previously defined task
 
 When using a perviously defined task it is referenced using `task:` instead of `class:`. 
 
-Also in most case the tasks inputs and sometimes the outputs must be renamed. This accomplished by leveraging the `remapping:`.
+Also in most case the tasks inputs and sometimes the outputs must be overriden. This accomplished by leveraging the `overrides:`.
 
 Also you can indicate that it should abort if a terminal is reached by specifying the terminal index `abort_terminal:`. If set to anything less than zero it will set all terminal tasks trigger abort to `false`.
 
@@ -246,7 +246,7 @@ Also you can indicate that it should abort if a terminal is reached by specifyin
        inputs:
          program: input_data
        outputs:
-         program: output_data
+         program: output_data1
        nodes:
          MinLengthTask:
            class: MinLengthTaskFactory
@@ -257,14 +257,17 @@ Also you can indicate that it should abort if a terminal is reached by specifyin
                environment: environment
                profiles: profiles
              outputs:
-               program: output_data
+               program: output_data1
          CartesianTask:
             task: CartesianTask
             config:
               conditional: false         # Optional
               abort_terminal: 0          # Optional
-              remapping:           # Optional
-                input_data: output_data
+              override:                  # Optional
+                inputs:
+                  program: output_data1
+                outputs:
+                  program: output_data1
        edges:
          - source: MinLengthTask
            destinations: [CartesianPipelineTask]
@@ -576,21 +579,15 @@ Raster Motion Task
        freespace:
          task: FreespacePipeline
          config:
-           remapping:
-             input_data: output_data
-           indexing: [output_data]
+           abort_terminal: 0
        raster:
          task: CartesianPipeline
          config:
-           remapping:
-             input_data: output_data
-           indexing: [output_data]
+           abort_terminal: 0
        transition:
          task: FreespacePipeline
          config:
-           remapping:
-             input_data: output_data
-           indexing: [output_data]
+           abort_terminal: 0
 
 Raster Only Motion Task
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -609,15 +606,11 @@ Raster Only Motion Task
        raster:
          task: CartesianPipeline
          config:
-           remapping:
-             input_data: output_data
-           indexing: [output_data]
+           abort_terminal: 0
        transition:
          task: FreespacePipeline
          config:
-           remapping:
-             input_data: output_data
-           indexing: [output_data]
+           abort_terminal: 0
 
 
 Continuous Contact Check Task
@@ -722,11 +715,9 @@ For each element in a std::vector<tesseract_common::AnyPoly> it will run the ope
        outputs:
          container: output_data
        operation:
+         input_port: program
+         output_port: program
          task: TestPipeline
-         config:
-           input_port: program
-           output_port: program
-           indexing: [input_data, output_data]
 
 Fix State Bounds Task
 ^^^^^^^^^^^^^^^^^^^^^

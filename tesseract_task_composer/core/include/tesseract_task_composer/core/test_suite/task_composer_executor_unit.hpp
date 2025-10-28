@@ -167,8 +167,6 @@ void runTaskComposerExecutorTest()
                                 task: TestPipeline
                                 config:
                                   conditional: false
-                                  remapping:
-                                    input_data: output_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:
@@ -227,8 +225,6 @@ void runTaskComposerExecutorTest()
                                 task: TestPipeline
                                 config:
                                   conditional: false
-                                  remapping:
-                                    input_data: output_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:
@@ -287,8 +283,6 @@ void runTaskComposerExecutorTest()
                                 task: TestPipeline
                                 config:
                                   conditional: true
-                                  remapping:
-                                    input_data: output_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:
@@ -356,8 +350,6 @@ void runTaskComposerExecutorTest()
                                 task: TestGraph
                                 config:
                                   conditional: false
-                                  remapping:
-                                    input_data: output_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:

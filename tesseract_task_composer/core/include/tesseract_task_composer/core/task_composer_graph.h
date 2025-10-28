@@ -131,15 +131,35 @@ public:
   int getAbortTerminalIndex() const;
 
   /**
+   * @brief Set the override input keys
+   * @param override_input_keys The overrides
+   */
+  void setOverrideInputKeys(TaskComposerKeys override_input_keys);
+
+  /**
+   * @brief Set the override output keys
+   * @param override_output_keys The overrides
+   */
+  void setOverrideOutputKeys(TaskComposerKeys override_output_keys);
+
+  /**
+   * @brief Get the override input keys
+   * @return The overrides
+   */
+  const TaskComposerKeys& getOverrideInputKeys() const;
+
+  /**
+   * @brief Get the override output keys
+   * @return The overrides
+   */
+  const TaskComposerKeys& getOverrideOutputKeys() const;
+
+  /**
    * @brief Check if the current state of the graph is valid
    * @todo Replace return type with std::expected when upgraded to use c++23
    * @return True if valid otherwise false with a reason
    */
   virtual std::pair<bool, std::string> isValid() const;
-
-  void renameInputKeys(const std::map<std::string, std::string>& input_keys) override;
-
-  void renameOutputKeys(const std::map<std::string, std::string>& output_keys) override;
 
   std::string
   dump(std::ostream& os,
@@ -160,9 +180,16 @@ protected:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override;
 
+  /** @brief The graph nodes */
   std::map<boost::uuids::uuid, TaskComposerNode::Ptr> nodes_;
+  /** @brief The graph terminal nodes */
   std::vector<boost::uuids::uuid> terminals_;
+  /** @brief The abort terminal if assigned */
   int abort_terminal_{ -1 };
+  /** @brief The overrride input keys */
+  TaskComposerKeys override_input_keys_;
+  /** @brief The overrride output keys */
+  TaskComposerKeys override_output_keys_;
 
 private:
   friend class boost::serialization::access;
