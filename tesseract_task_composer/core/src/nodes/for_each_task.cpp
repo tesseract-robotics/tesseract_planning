@@ -57,7 +57,8 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
   static const std::string operation_key{ "operation" };
   if (YAML::Node operation_config = config[operation_key])
   {
-    static const std::set<std::string> tasks_expected_keys{ "input_port", "output_port", "task", "class", "config" };
+    static const std::set<std::string> tasks_expected_keys{ "input_port", "output_port", "task",
+                                                            "class",      "config",      "override" };
     tesseract_common::checkForUnknownKeys(operation_config, tasks_expected_keys);
     validateSubTask(name_, operation_key, operation_config);
 

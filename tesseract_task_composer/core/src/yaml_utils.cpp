@@ -101,7 +101,7 @@ std::unique_ptr<TaskComposerNode> loadSubTask(const std::string& parent_name,
 
     if (YAML::Node tc = entry["config"])
     {
-      static const std::set<std::string> tasks_expected_keys{ "conditional", "abort_terminal", "overrides" };
+      static const std::set<std::string> tasks_expected_keys{ "conditional", "abort_terminal", "override" };
       tesseract_common::checkForUnknownKeys(tc, tasks_expected_keys);
 
       loadSubTaskConfig(*task_node, tc);
