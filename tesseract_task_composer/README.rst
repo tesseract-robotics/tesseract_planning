@@ -263,7 +263,7 @@ Also you can indicate that it should abort if a terminal is reached by specifyin
             config:
               conditional: false         # Optional
               abort_terminal: 0          # Optional
-              overrides:                 # Optional
+              override:                  # Optional
                 inputs:
                   program: output_data1
                 outputs:

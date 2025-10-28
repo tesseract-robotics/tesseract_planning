@@ -50,12 +50,12 @@ void loadSubTaskConfig(TaskComposerNode& node, const YAML::Node& config)
   if (YAML::Node n = config["abort_terminal"])
     graph_node.setTerminalTriggerAbortByIndex(n.as<int>());
 
-  if (YAML::Node override_keys = config["overrides"])
+  if (YAML::Node override_keys = config["override"])
   {
     if (YAML::Node n = override_keys["inputs"])
     {
       if (!n.IsMap())
-        throw std::runtime_error("YAML entry 'overrides' inputs must be a map type");
+        throw std::runtime_error("YAML entry 'override' inputs must be a map type");
 
       graph_node.setOverrideInputKeys(n.as<TaskComposerKeys>());
     }
@@ -63,7 +63,7 @@ void loadSubTaskConfig(TaskComposerNode& node, const YAML::Node& config)
     if (YAML::Node n = override_keys["outputs"])
     {
       if (!n.IsMap())
-        throw std::runtime_error("YAML entry 'overrides' outputs must be a map type");
+        throw std::runtime_error("YAML entry 'override' outputs must be a map type");
 
       graph_node.setOverrideOutputKeys(n.as<TaskComposerKeys>());
     }
