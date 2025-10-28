@@ -113,7 +113,7 @@ RasterMotionTask::RasterMotionTask(std::string name,
                                    const TaskComposerPluginFactory& plugin_factory)
   : TaskComposerTask(std::move(name), RasterMotionTask::ports(), config)
 {
-  static const std::set<std::string> tasks_expected_keys{ "task", "class", "config" };
+  static const std::set<std::string> tasks_expected_keys{ "task", "class", "config", "override" };
   static const std::string freespace_key{ "freespace" };
   static const std::string raster_key{ "raster" };
   static const std::string transition_key{ "transition" };
