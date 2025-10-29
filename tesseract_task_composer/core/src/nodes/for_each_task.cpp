@@ -80,13 +80,25 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
       tr.input_key = tr.node->getInputKeys().get(input_port) + std::to_string(index);
       tr.output_key = tr.node->getOutputKeys().get(output_port) + std::to_string(index);
 
-      auto& graph_node = static_cast<TaskComposerGraph&>(*tr.node);
-      TaskComposerKeys override_input_keys;
-      TaskComposerKeys override_output_keys;
-      override_input_keys.add(input_port, tr.input_key);
-      override_output_keys.add(output_port, tr.output_key);
-      graph_node.setOverrideInputKeys(override_input_keys);
-      graph_node.setOverrideOutputKeys(override_output_keys);
+      if (tr.node->getType() == tesseract_planning::TaskComposerNodeType::TASK)
+      {
+        tesseract_planning::TaskComposerKeys input_keys = tr.node->getInputKeys();
+        tesseract_planning::TaskComposerKeys output_keys = tr.node->getOutputKeys();
+        input_keys.add(input_port, tr.input_key);
+        output_keys.add(output_port, tr.output_key);
+        tr.node->setInputKeys(input_keys);
+        tr.node->setOutputKeys(output_keys);
+      }
+      else
+      {
+        auto& graph_node = static_cast<TaskComposerGraph&>(*tr.node);
+        TaskComposerKeys override_input_keys;
+        TaskComposerKeys override_output_keys;
+        override_input_keys.add(input_port, tr.input_key);
+        override_output_keys.add(output_port, tr.output_key);
+        graph_node.setOverrideInputKeys(override_input_keys);
+        graph_node.setOverrideOutputKeys(override_output_keys);
+      }
 
       return tr;
     };
@@ -148,8 +160,9 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   task_output_keys.remove(INOUT_PORT);
 
   // Create a sub graph data storage and copy the input data relevant to this graph.
+  const TaskComposerDataStorage::Ptr parent_data_storage = getDataStorage(context);
   auto task_graph_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
-  task_graph_data_storage->copyAsInputData(*context.data_storage, task_input_keys, {});
+  task_graph_data_storage->copyAsInputData(*parent_data_storage, task_input_keys, {});
 
   // Create container to store the sub graph program port keys
   std::vector<std::string> input_keys;
