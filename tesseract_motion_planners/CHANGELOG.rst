@@ -2,6 +2,9 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.33.0 (2025-10-28)
 -------------------
 * Update now that osqp_eigen supports osqp v1.0.0 params

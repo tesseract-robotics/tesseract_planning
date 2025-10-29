@@ -2,6 +2,12 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update raster tasks to use correct parent data storage
+* Add expected key override
+* Contributors: Levi Armstrong
+
 0.33.0 (2025-10-28)
 -------------------
 * Remove renaming and indexing (`#674 <https://github.com/tesseract-robotics/tesseract_planning/issues/674>`_)
