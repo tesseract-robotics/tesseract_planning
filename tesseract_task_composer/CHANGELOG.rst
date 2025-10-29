@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.33.1 (2025-10-29)
+-------------------
 * Update raster tasks to use correct parent data storage
 * Add expected key override
 * Contributors: Levi Armstrong
