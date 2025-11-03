@@ -27,7 +27,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_common/stopwatch.h>
-#include <tesseract_common/serialization.h>
 #include <boost/uuid/uuid_io.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -129,19 +128,4 @@ void TaskComposerPipeline::runRecursive(const TaskComposerNode& node,
   }
 }
 
-bool TaskComposerPipeline::operator==(const TaskComposerPipeline& rhs) const
-{
-  return (TaskComposerGraph::operator==(rhs));
-}
-bool TaskComposerPipeline::operator!=(const TaskComposerPipeline& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void TaskComposerPipeline::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerGraph);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerPipeline)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerPipeline)

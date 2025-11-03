@@ -28,11 +28,8 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
 
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/profile_dictionary.h>
-
 #include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -181,16 +178,4 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-bool MinLengthTask::operator==(const MinLengthTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
-bool MinLengthTask::operator!=(const MinLengthTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void MinLengthTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MinLengthTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MinLengthTask)

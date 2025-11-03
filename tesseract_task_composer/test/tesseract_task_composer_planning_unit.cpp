@@ -134,13 +134,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_ANY_THROW(std::make_unique<ContinuousContactCheckTask>("abc", config["config"], factory));  // NOLINT
   }
 
-  {  // Serialization
-    auto task = std::make_unique<ContinuousContactCheckTask>("abc", "input_data", "environment", "profiles", true);
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerContinuousContactCheckTaskTests");
-  }
-
   {  // Test run method
     auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
@@ -324,13 +317,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
                            conditional: true)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<DiscreteContactCheckTask>("abc", config["config"], factory));  // NOLINT
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<DiscreteContactCheckTask>("abc", "input_data", "environment", "profiles", true);
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerDiscreteContactCheckTaskTests");
   }
 
   {  // Test run method
@@ -552,13 +538,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsInputTaskTests)  /
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<FormatAsInputTask>("abc", config["config"], factory));  // NOLINT
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<FormatAsInputTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerFormatAsInputTaskTests");
   }
 
   {  // Test run method
@@ -846,13 +825,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatAsResultTaskTests)  
     EXPECT_ANY_THROW(std::make_unique<FormatAsResultTask>("abc", config["config"], factory));  // NOLINT
   }
 
-  {  // Serialization
-    auto task = std::make_unique<FormatAsResultTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerFormatAsResultTaskTests");
-  }
-
   {  // Test run method
     auto data = std::make_unique<TaskComposerDataStorage>();
     CompositeInstruction compare = test_suite::jointInterpolateExampleProgramABB(false);
@@ -966,13 +938,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMinLengthTaskTests)  // NO
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<MinLengthTask>("abc", config["config"], factory));  // NOLINT
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<MinLengthTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerMinLengthTaskTests");
   }
 
   {  // Test run method
@@ -1128,13 +1093,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFormatPlanningInputTaskTes
     EXPECT_ANY_THROW(std::make_unique<FormatPlanningInputTask>("abc", config["config"], factory));  // NOLINT
   }
 
-  {  // Serialization
-    auto task = std::make_unique<FormatPlanningInputTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerFormatPlanningInputTaskTests");
-  }
-
   {  // Test run method
     auto data = std::make_unique<TaskComposerDataStorage>();
     auto input_data = test_suite::jointInterpolateExampleProgramABB(true);
@@ -1262,13 +1220,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateBoundsTaskTests)  
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<FixStateBoundsTask>("abc", config["config"], factory));  // NOLINT
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<FixStateBoundsTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerFixStateBoundsTaskTests");
   }
 
   {  // Test run method
@@ -1454,13 +1405,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     EXPECT_ANY_THROW(std::make_unique<FixStateCollisionTask>("abc", config["config"], factory));  // NOLINT
   }
 
-  {  // Serialization
-    auto task = std::make_unique<FixStateCollisionTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerFixStateCollisionTaskTests");
-  }
-
   {  // Test run method
     auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
@@ -1627,13 +1571,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerKinematicLimitsCheckTaskTe
     EXPECT_ANY_THROW(std::make_unique<KinematicLimitsCheckTask>("abc", config["config"], factory));  // NOLINT
   }
 
-  {  // Serialization
-    auto task = std::make_unique<KinematicLimitsCheckTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerKinematicLimitsCheckTaskTests");
-  }
-
   {  // Test run method
     auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
@@ -1762,13 +1699,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerProfileSwitchTaskTests)  /
     EXPECT_ANY_THROW(std::make_unique<ProfileSwitchTask>("abc", config["config"], factory));  // NOLINT
   }
 
-  {  // Serialization
-    auto task = std::make_unique<ProfileSwitchTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerProfileSwitchTaskTests");
-  }
-
   {  // Test run method
     auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
@@ -1862,13 +1792,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateEndStateTaskTests)  
     EXPECT_EQ(task.getOutputKeys().get(UpdateEndStateTask::OUTPUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<UpdateEndStateTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerUpdateEndStateTaskTests");
   }
 
   {  // Test run method
@@ -1979,13 +1902,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartStateTaskTests)
     EXPECT_EQ(task.getInboundEdges().size(), 0);
   }
 
-  {  // Serialization
-    auto task = std::make_unique<UpdateStartStateTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerUpdateStartStateTaskTests");
-  }
-
   {  // Test run method
     Eigen::VectorXd start_position;
     start_position.resize(6);
@@ -2094,13 +2010,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpdateStartAndEndStateTask
     EXPECT_EQ(task.getOutputKeys().get(UpdateStartAndEndStateTask::OUTPUT_PROGRAM_PORT), "output_data");
     EXPECT_EQ(task.getOutboundEdges().size(), 0);
     EXPECT_EQ(task.getInboundEdges().size(), 0);
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<UpdateStartAndEndStateTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerUpdateStartAndEndStateTaskTests");
   }
 
   {  // Test run method
@@ -2277,13 +2186,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerUpsampleTrajectoryTaskTest
     EXPECT_ANY_THROW(std::make_unique<UpsampleTrajectoryTask>("abc", config["config"], factory));  // NOLINT
   }
 
-  {  // Serialization
-    auto task = std::make_unique<UpsampleTrajectoryTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerUpsampleTrajectoryTaskTests");
-  }
-
   {  // Test run method
     auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
     auto data = std::make_unique<TaskComposerDataStorage>();
@@ -2416,13 +2318,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerIterativeSplineParameteriz
     YAML::Node config = YAML::Load(str);
     // NOLINTNEXTLINE
     EXPECT_ANY_THROW(std::make_unique<IterativeSplineParameterizationTask>("abc", config["config"], factory));
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<IterativeSplineParameterizationTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerIterativeSplineParameterizationTaskTests");
   }
 
   {  // Test run method
@@ -2622,13 +2517,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerConstantTCPSpeedParameteri
     EXPECT_ANY_THROW(std::make_unique<ConstantTCPSpeedParameterizationTask>("abc", config["config"], factory));
   }
 
-  {  // Serialization
-    auto task = std::make_unique<ConstantTCPSpeedParameterizationTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerConstantTCPSpeedParameterizationTaskTests");
-  }
-
   {  // Test run method
     // Create input data
     auto data = std::make_unique<TaskComposerDataStorage>();
@@ -2824,13 +2712,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<TimeOptimalParameterizationTask>("abc", config["config"], factory));  // NOLINT
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<TimeOptimalParameterizationTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerTimeOptimalParameterizationTaskTests");
   }
 
   {  // Test run method
@@ -3030,13 +2911,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRuckigTrajectorySmoothingT
                              program: output_data)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RuckigTrajectorySmoothingTask>("abc", config["config"], factory));  // NOLINT
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<RuckigTrajectorySmoothingTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerRuckigTrajectorySmoothingTaskTests");
   }
 
   {  // Test run method
@@ -3244,13 +3118,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     YAML::Node config = YAML::Load(str);
     // NOLINTNEXTLINE
     EXPECT_ANY_THROW(std::make_unique<MotionPlannerTask<TrajOptMotionPlanner>>("abc", config["config"], factory));
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<MotionPlannerTask<TrajOptMotionPlanner>>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerMotionPlannerTaskTests");
   }
 
   {  // Test run method
@@ -3684,13 +3551,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterMotionTaskTests)  //
     EXPECT_ANY_THROW(std::make_unique<RasterMotionTask>("abc", config["config"], factory));  // NOLINT
   }
 
-  {  // Serialization
-    auto task = std::make_unique<RasterMotionTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerRasterMotionTaskTests");
-  }
-
   {  // Test run method
     // Create raster task
     TaskComposerNode::UPtr task = factory.createTaskComposerNode("RasterFtPipeline");
@@ -4116,13 +3976,6 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerRasterOnlyMotionTaskTests)
                                abort_terminal: 0)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<RasterOnlyMotionTask>("abc", config["config"], factory));  // NOLINT
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<RasterOnlyMotionTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerRasterOnlyMotionTaskTests");
   }
 
   {  // Test run method

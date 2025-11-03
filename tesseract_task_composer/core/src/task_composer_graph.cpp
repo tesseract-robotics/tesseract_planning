@@ -27,13 +27,9 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/map.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/shared_ptr.hpp>
-#include <boost/uuid/uuid_io.hpp>
-#include <boost/uuid/uuid_serialize.hpp>
 #include <yaml-cpp/yaml.h>
-#include <tesseract_common/serialization.h>
+#include <boost/uuid/uuid_io.hpp>
+
 #include <tesseract_common/plugin_info.h>
 #include <tesseract_common/yaml_utils.h>
 #include <tesseract_common/yaml_extensions.h>
@@ -527,44 +523,4 @@ std::string TaskComposerGraph::dump(std::ostream& os,
   return {};
 }
 
-bool TaskComposerGraph::operator==(const TaskComposerGraph& rhs) const
-{
-  bool equal = true;
-  equal &= (nodes_.size() == rhs.nodes_.size());
-  if (equal)
-  {
-    for (const auto& pair : nodes_)
-    {
-      auto it = rhs.nodes_.find(pair.first);
-      equal &= (it != rhs.nodes_.end());
-      if (equal)
-        equal &= (*(pair.second) == *(it->second));
-    }
-  }
-  equal &= (terminals_ == rhs.terminals_);
-  equal &= (abort_terminal_ == rhs.abort_terminal_);
-  equal &= override_input_keys_ == rhs.override_input_keys_;
-  equal &= override_output_keys_ == rhs.override_output_keys_;
-  equal &= TaskComposerNode::operator==(rhs);
-  return equal;
-}
-
-// LCOV_EXCL_START
-bool TaskComposerGraph::operator!=(const TaskComposerGraph& rhs) const { return !operator==(rhs); }
-// LCOV_EXCL_STOP
-
-template <class Archive>
-void TaskComposerGraph::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("nodes", nodes_);
-  ar& boost::serialization::make_nvp("terminals", terminals_);
-  ar& boost::serialization::make_nvp("abort_terminal", abort_terminal_);
-  ar& boost::serialization::make_nvp("override_input_keys", override_input_keys_);
-  ar& boost::serialization::make_nvp("override_output_keys", override_output_keys_);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerGraph)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerGraph)

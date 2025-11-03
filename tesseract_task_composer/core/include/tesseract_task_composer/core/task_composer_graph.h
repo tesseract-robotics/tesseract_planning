@@ -166,9 +166,6 @@ public:
        const TaskComposerNode* parent = nullptr,
        const std::map<boost::uuids::uuid, tesseract_planning::TaskComposerNodeInfo>& results_map = {}) const override;
 
-  bool operator==(const TaskComposerGraph& rhs) const;
-  bool operator!=(const TaskComposerGraph& rhs) const;
-
 protected:
   // These are protected and used by PIPELINE
   TaskComposerGraph(std::string name, TaskComposerNodeType type, bool conditional);
@@ -190,16 +187,8 @@ protected:
   TaskComposerKeys override_input_keys_;
   /** @brief The overrride output keys */
   TaskComposerKeys override_output_keys_;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerGraph)
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_GRAPH_H

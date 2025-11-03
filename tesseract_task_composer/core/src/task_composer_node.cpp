@@ -27,14 +27,11 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
-#include <boost/serialization/vector.hpp>
-#include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
-#include <boost/uuid/uuid_serialize.hpp>
+#include <boost/uuid/random_generator.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <yaml-cpp/yaml.h>
 #include <console_bridge/console.h>
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/stopwatch.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -465,46 +462,6 @@ std::string TaskComposerNode::dump(std::ostream& os,
   return it->second.dotgraph;
 }
 
-bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
-{
-  bool equal = true;
-  equal &= name_ == rhs.name_;
-  equal &= ns_ == rhs.ns_;
-  equal &= type_ == rhs.type_;
-  equal &= uuid_ == rhs.uuid_;
-  equal &= uuid_str_ == rhs.uuid_str_;
-  equal &= parent_uuid_ == rhs.parent_uuid_;
-  equal &= parent_uuid_str_ == rhs.parent_uuid_str_;
-  equal &= outbound_edges_ == rhs.outbound_edges_;
-  equal &= inbound_edges_ == rhs.inbound_edges_;
-  equal &= input_keys_ == rhs.input_keys_;
-  equal &= output_keys_ == rhs.output_keys_;
-  equal &= conditional_ == rhs.conditional_;
-  equal &= ports_ == rhs.ports_;
-  equal &= trigger_abort_ == rhs.trigger_abort_;
-  return equal;
-}
-bool TaskComposerNode::operator!=(const TaskComposerNode& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("name", name_);
-  ar& boost::serialization::make_nvp("ns", ns_);
-  ar& boost::serialization::make_nvp("type", type_);
-  ar& boost::serialization::make_nvp("uuid", uuid_);
-  ar& boost::serialization::make_nvp("uuid_str", uuid_str_);
-  ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
-  ar& boost::serialization::make_nvp("parent_uuid_str", parent_uuid_str_);
-  ar& boost::serialization::make_nvp("outbound_edges", outbound_edges_);
-  ar& boost::serialization::make_nvp("inbound_edges", inbound_edges_);
-  ar& boost::serialization::make_nvp("input_keys", input_keys_);
-  ar& boost::serialization::make_nvp("output_keys", output_keys_);
-  ar& boost::serialization::make_nvp("conditional", conditional_);
-  ar& boost::serialization::make_nvp("ports", ports_);
-  ar& boost::serialization::make_nvp("trigger_abort", trigger_abort_);
-}
-
 std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::string& prefix)
 {
   auto result = boost::uuids::to_string(u);
@@ -628,5 +585,3 @@ void TaskComposerNode::setData(TaskComposerContext& context,
 }
 
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerNode)

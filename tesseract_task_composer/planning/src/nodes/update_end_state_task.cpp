@@ -26,9 +26,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
-
-#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/update_end_state_task.h>
@@ -136,16 +133,4 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-bool UpdateEndStateTask::operator==(const UpdateEndStateTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
-bool UpdateEndStateTask::operator!=(const UpdateEndStateTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void UpdateEndStateTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::UpdateEndStateTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::UpdateEndStateTask)

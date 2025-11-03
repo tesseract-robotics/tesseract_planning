@@ -27,20 +27,12 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/map.hpp>
-#include <boost/serialization/shared_ptr.hpp>
 
 #include <trajopt/problem_description.hpp>
 #include <trajopt/utils.hpp>
 
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/profile_dictionary.h>
-
 #include <tesseract_collision/core/discrete_contact_manager.h>
-#include <tesseract_collision/core/serialization.h>
-
 #include <tesseract_environment/environment.h>
 #include <tesseract_environment/utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -847,19 +839,4 @@ TaskComposerNodeInfo FixStateCollisionTask::runImpl(TaskComposerContext& context
   return info;
 }
 
-bool FixStateCollisionTask::operator==(const FixStateCollisionTask& rhs) const
-{
-  return (TaskComposerTask::operator==(rhs));
-}
-bool FixStateCollisionTask::operator!=(const FixStateCollisionTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void FixStateCollisionTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FixStateCollisionTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FixStateCollisionTask)

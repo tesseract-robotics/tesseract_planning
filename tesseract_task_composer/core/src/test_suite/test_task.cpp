@@ -26,9 +26,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
 #include <yaml-cpp/yaml.h>
-#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/test_suite/test_task.h>
@@ -93,26 +91,6 @@ TaskComposerNodePorts TestTask::ports()
   return ports;
 }
 
-bool TestTask::operator==(const TestTask& rhs) const
-{
-  bool equal = true;
-  equal &= (throw_exception == rhs.throw_exception);
-  equal &= (set_abort == rhs.set_abort);
-  equal &= (return_value == rhs.return_value);
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
-}
-bool TestTask::operator!=(const TestTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void TestTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_NVP(throw_exception);
-  ar& BOOST_SERIALIZATION_NVP(set_abort);
-  ar& BOOST_SERIALIZATION_NVP(return_value);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 TaskComposerNodeInfo TestTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (throw_exception)
@@ -140,6 +118,3 @@ TaskComposerNodeInfo TestTask::runImpl(TaskComposerContext& context, OptionalTas
 }
 
 }  // namespace tesseract_planning::test_suite
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::test_suite::TestTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::test_suite::TestTask)
