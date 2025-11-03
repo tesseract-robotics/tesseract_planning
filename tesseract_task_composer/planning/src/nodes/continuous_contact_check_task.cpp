@@ -26,23 +26,14 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/string.hpp>
-#include <boost/serialization/map.hpp>
-#include <boost/serialization/shared_ptr.hpp>
 #include <console_bridge/console.h>
 
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/profile_dictionary.h>
-
 #include <tesseract_collision/core/continuous_contact_manager.h>
-#include <tesseract_collision/core/serialization.h>
-
 #include <tesseract_state_solver/state_solver.h>
 #include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-//#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_task_composer/planning/nodes/continuous_contact_check_task.h>
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
 
@@ -177,19 +168,4 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
   return info;
 }
 
-bool ContinuousContactCheckTask::operator==(const ContinuousContactCheckTask& rhs) const
-{
-  return (TaskComposerTask::operator==(rhs));
-}
-bool ContinuousContactCheckTask::operator!=(const ContinuousContactCheckTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void ContinuousContactCheckTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ContinuousContactCheckTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ContinuousContactCheckTask)

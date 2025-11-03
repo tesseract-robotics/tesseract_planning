@@ -23,11 +23,8 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <yaml-cpp/yaml.h>
-#include <boost/serialization/string.hpp>
 
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/profile_dictionary.h>
-
 #include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -162,22 +159,4 @@ TaskComposerNodeInfo ConstantTCPSpeedParameterizationTask::runImpl(TaskComposerC
   return info;
 }
 
-bool ConstantTCPSpeedParameterizationTask::operator==(const ConstantTCPSpeedParameterizationTask& rhs) const
-{
-  return (TaskComposerTask::operator==(rhs));
-}
-bool ConstantTCPSpeedParameterizationTask::operator!=(const ConstantTCPSpeedParameterizationTask& rhs) const
-{
-  return !operator==(rhs);
-}
-
-template <class Archive>
-void ConstantTCPSpeedParameterizationTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ConstantTCPSpeedParameterizationTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ConstantTCPSpeedParameterizationTask)

@@ -30,11 +30,8 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
-#include <boost/uuid/uuid_io.hpp>
 
 #include <tesseract_common/joint_state.h>
-#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/format_as_input_task.h>
@@ -168,16 +165,4 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-bool FormatAsInputTask::operator==(const FormatAsInputTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
-bool FormatAsInputTask::operator!=(const FormatAsInputTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void FormatAsInputTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FormatAsInputTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FormatAsInputTask)

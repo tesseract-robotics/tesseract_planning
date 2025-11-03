@@ -29,7 +29,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <yaml-cpp/yaml.h>
 
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/yaml_utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -173,15 +172,6 @@ TaskComposerNodePorts RasterMotionTask::ports()
 
   ports.output_required[INOUT_PROGRAM_PORT] = TaskComposerNodePorts::SINGLE;
   return ports;
-}
-
-bool RasterMotionTask::operator==(const RasterMotionTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
-bool RasterMotionTask::operator!=(const RasterMotionTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void RasterMotionTask::serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
 TaskComposerNodeInfo RasterMotionTask::runImpl(TaskComposerContext& context,
@@ -471,6 +461,3 @@ void RasterMotionTask::checkTaskInput(const tesseract_common::AnyPoly& input)
 }
 
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterMotionTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterMotionTask)

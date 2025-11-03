@@ -223,9 +223,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
   EXPECT_EQ(node->isConditional(), true);
   EXPECT_NO_THROW(node->dump(os));  // NOLINT
 
-  // Serialization
-  test_suite::runSerializationPointerTest(node, "TaskComposerNodeTests");
-
   {
     std::string str = R"(config:)";
     YAML::Node config = YAML::Load(str);
@@ -236,9 +233,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
     EXPECT_TRUE(task->getInputKeys().empty());
     EXPECT_TRUE(task->getOutputKeys().empty());
     EXPECT_FALSE(task->isConditional());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerNodeTests");
   }
 
   {
@@ -252,9 +246,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeTests)  // NOLINT
     EXPECT_TRUE(task->getInputKeys().empty());
     EXPECT_TRUE(task->getOutputKeys().empty());
     EXPECT_TRUE(task->isConditional());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerNodeTests");
   }
 }
 
@@ -275,9 +266,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
     EXPECT_FALSE(task->isConditional());
     EXPECT_FALSE(task->getInputKeys().empty());
     EXPECT_FALSE(task->getOutputKeys().empty());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
 
     auto data = std::make_shared<TaskComposerDataStorage>(test_data);
     auto context = std::make_shared<TaskComposerContext>("TaskComposerTaskTests", data);
@@ -300,9 +288,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
     EXPECT_TRUE(task->isConditional());
     EXPECT_FALSE(task->getInputKeys().empty());
     EXPECT_FALSE(task->getOutputKeys().empty());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
 
     auto context = std::make_shared<TaskComposerContext>("TaskComposerTaskTests");
     EXPECT_EQ(task->run(*context), 1);
@@ -337,9 +322,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerTaskTests)  // NOLINT
     EXPECT_EQ(task->getOutputKeys().get("port1"), "output_data");
     EXPECT_EQ(task->getInputKeys().get<std::vector<std::string>>("port2"), std::vector<std::string>{ "input_data2" });
     EXPECT_EQ(task->getOutputKeys().get<std::vector<std::string>>("port2"), std::vector<std::string>{ "output_data2" });
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerTaskTests");
 
     auto context = std::make_shared<TaskComposerContext>("TaskComposerTaskTests");
     EXPECT_EQ(task->run(*context), 0);
@@ -452,9 +434,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     EXPECT_EQ(nodes_map.at(uuid4)->getInputKeys(), output_keys);
     EXPECT_EQ(nodes_map.at(uuid4)->getOutputKeys(), output_keys);
 
-    // Serialization
-    test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
-
     auto data = std::make_shared<TaskComposerDataStorage>(test_data);
     auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests", std::move(data));
     EXPECT_EQ(pipeline->run(*context), 0);
@@ -508,9 +487,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().size(), 1);
     EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().front(), uuid2);
     EXPECT_EQ(nodes_map.at(uuid4)->getOutboundEdges().size(), 0);
-
-    // Serialization
-    test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
 
     auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline->run(*context), 1);
@@ -566,9 +542,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().front(), uuid2);
     EXPECT_EQ(nodes_map.at(uuid4)->getOutboundEdges().size(), 0);
 
-    // Serialization
-    test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
-
     auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline->run(*context), 0);
     EXPECT_FALSE(context->isSuccessful());
@@ -622,9 +595,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().size(), 1);
     EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().front(), uuid2);
     EXPECT_EQ(nodes_map.at(uuid4)->getOutboundEdges().size(), 0);
-
-    // Serialization
-    test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
 
     auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline->run(*context), 0);
@@ -681,9 +651,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     boost::uuids::uuid uuid10 = pipeline3->addNode(std::move(pipeline2));
     pipeline3->addEdges(uuid9, { uuid10 });
     pipeline3->setTerminals({ uuid10 });
-
-    // Serialization
-    test_suite::runSerializationPointerTest(pipeline3, "TaskComposerPipelineTests");
 
     auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline3->run(*context), 0);
@@ -743,9 +710,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     pipeline3->addEdges(uuid9, { uuid11, uuid10 });
     pipeline3->setTerminals({ uuid11, uuid10 });
 
-    // Serialization
-    test_suite::runSerializationPointerTest(pipeline3, "TaskComposerPipelineTests");
-
     auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline3->run(*context), 1);
     EXPECT_TRUE(context->isSuccessful());
@@ -804,9 +768,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     boost::uuids::uuid uuid11 = pipeline3->addNode(std::move(task11));
     pipeline3->addEdges(uuid9, { uuid11, uuid10 });
     pipeline3->setTerminals({ uuid11, uuid10 });
-
-    // Serialization
-    test_suite::runSerializationPointerTest(pipeline3, "TaskComposerPipelineTests");
 
     auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline3->run(*context), 1);
@@ -980,9 +941,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerPipelineTests)  // NOLINT
     EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().size(), 1);
     EXPECT_EQ(nodes_map.at(uuid4)->getInboundEdges().front(), uuid2);
     EXPECT_EQ(nodes_map.at(uuid4)->getOutboundEdges().size(), 0);
-
-    // Serialization
-    test_suite::runSerializationPointerTest(pipeline, "TaskComposerPipelineTests");
 
     auto context = std::make_shared<TaskComposerContext>("TaskComposerPipelineTests");
     EXPECT_EQ(pipeline->run(*context), 0);
@@ -1612,13 +1570,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerErrorTaskTests)  // NOLINT
     EXPECT_EQ(task.isConditional(), true);
   }
 
-  {  // Serialization
-    auto task = std::make_unique<ErrorTask>("abc", true);
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerErrorTaskTests");
-  }
-
   {  // Test run method
     auto context = std::make_shared<TaskComposerContext>("TaskComposerErrorTaskTests");
     ErrorTask task;
@@ -1661,13 +1612,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDoneTaskTests)  // NOLINT
     DoneTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<DoneTask>("abc", true);
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerDoneTaskTests");
   }
 
   {  // Test run method
@@ -1718,15 +1662,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerRemapTaskTests)  // NOLINT
     RemapTask task("abc", config["config"], factory);
     EXPECT_EQ(task.getName(), "abc");
     EXPECT_EQ(task.isConditional(), true);
-  }
-
-  {  // Serialization
-    std::map<std::string, std::string> remap;
-    remap["test"] = "test2";
-    auto task = std::make_unique<RemapTask>("abc", remap, false, true);
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerRemapTaskTests");
   }
 
   std::string key = "joint_state";
@@ -1989,13 +1924,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerStartTaskTests)  // NOLINT
     EXPECT_ANY_THROW(std::make_unique<StartTask>("abc", config["config"], factory));  // NOLINT
   }
 
-  {  // Serialization
-    auto task = std::make_unique<StartTask>("abc");
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerStartTaskTests");
-  }
-
   {  // Test run method
     auto context = std::make_shared<TaskComposerContext>("TaskComposerStartTaskTests",
                                                          std::make_unique<TaskComposerDataStorage>());
@@ -2063,13 +1991,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerSyncTaskTests)  // NOLINT
                              port1: [output_data])";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<SyncTask>("abc", config["config"], factory));  // NOLINT
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<SyncTask>("abc");
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerSyncTaskTests");
   }
 
   {  // Test run method
@@ -2142,14 +2063,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerHasDataStorageEntryTaskTests)  /
                            conditional: true)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<HasDataStorageEntryTask>("abc", config["config"], factory));  // NOLINT
-  }
-
-  {  // Serialization
-    std::vector<std::string> input_keys{ "input1", "input2" };
-    auto task = std::make_unique<HasDataStorageEntryTask>("abc", input_keys, true);
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerHasDataStorageEntryTaskTests");
   }
 
   {  // Test run method
@@ -2381,13 +2294,6 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
                              task: TestPipeline)";
     YAML::Node config = YAML::Load(str);
     EXPECT_ANY_THROW(std::make_unique<ForEachTask>("abc", config["config"], factory));  // NOLINT
-  }
-
-  {  // Serialization
-    auto task = std::make_unique<ForEachTask>();
-
-    // Serialization
-    test_suite::runSerializationPointerTest(task, "TaskComposerForEachTaskTests");
   }
 
   {  // Success

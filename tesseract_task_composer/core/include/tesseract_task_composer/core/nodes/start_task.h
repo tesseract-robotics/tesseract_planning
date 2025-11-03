@@ -25,12 +25,6 @@
 #ifndef TESSERACT_TASK_COMPOSER_START_TASK_H
 #define TESSERACT_TASK_COMPOSER_START_TASK_H
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
 #include <tesseract_task_composer/core/task_composer_task.h>
 
 namespace tesseract_planning
@@ -48,21 +42,11 @@ public:
   explicit StartTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~StartTask() override = default;
 
-  bool operator==(const StartTask& rhs) const;
-  bool operator!=(const StartTask& rhs) const;
-
 private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
-
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::StartTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_START_TASK_H

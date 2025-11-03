@@ -33,8 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <map>
 #include <optional>
 #include <boost/uuid/uuid.hpp>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
@@ -170,9 +168,6 @@ public:
                            const TaskComposerNode* parent = nullptr,
                            const ResultsMap& results_map = ResultsMap()) const;
 
-  bool operator==(const TaskComposerNode& rhs) const;
-  bool operator!=(const TaskComposerNode& rhs) const;
-
 protected:
   friend class TaskComposerGraph;
   friend class TaskComposerNodeInfo;
@@ -253,14 +248,8 @@ protected:
                const std::string& port,
                const std::vector<tesseract_common::AnyPoly>& data,
                bool required = true) const;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TaskComposerNode)
+
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_H

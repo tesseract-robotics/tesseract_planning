@@ -22,7 +22,6 @@
 #include <tesseract_task_composer/planning/nodes/kinematic_limits_check_task.h>
 #include <tesseract_task_composer/planning/profiles/kinematic_limits_check_profile.h>
 
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/kinematic_limits.h>
 #include <tesseract_common/profile_dictionary.h>
 #include <tesseract_kinematics/core/joint_group.h>
@@ -75,12 +74,6 @@ TaskComposerNodePorts KinematicLimitsCheckTask::ports()
   ports.input_required["profiles"] = TaskComposerNodePorts::SINGLE;
   return ports;
 }
-
-bool KinematicLimitsCheckTask::operator==(const KinematicLimitsCheckTask& rhs) const
-{
-  return TaskComposerTask::operator==(rhs);
-}
-bool KinematicLimitsCheckTask::operator!=(const KinematicLimitsCheckTask& rhs) const { return !operator==(rhs); }
 
 TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& context,
                                                        OptionalTaskComposerExecutor /*executor*/) const
@@ -207,13 +200,4 @@ TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& cont
   return info;
 }
 
-template <class Archive>
-void KinematicLimitsCheckTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::KinematicLimitsCheckTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::KinematicLimitsCheckTask)

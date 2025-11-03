@@ -94,16 +94,6 @@ public:
   }
   ~MotionPlannerTask() override = default;
 
-  bool operator==(const MotionPlannerTask& rhs) const
-  {
-    bool equal = true;
-    equal &= (format_result_as_input_ == rhs.format_result_as_input_);
-    equal &= TaskComposerTask::operator==(rhs);
-    return equal;
-  }
-
-  bool operator!=(const MotionPlannerTask& rhs) const { return !operator==(rhs); }
-
 protected:
   std::shared_ptr<MotionPlannerType> planner_;
   bool format_result_as_input_{ true };
@@ -202,16 +192,6 @@ protected:
 
     info.status_message = response.message;
     return info;
-  }
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
-  {
-    ar& BOOST_SERIALIZATION_NVP(format_result_as_input_);
-    ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
   }
 };
 
