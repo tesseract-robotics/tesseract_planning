@@ -94,8 +94,11 @@ public:
 
   TrajOptSolverProfile();
 
-  /** @brief Optimization paramters */
+  /** @brief Optimization parameters */
   sco::BasicTrustRegionSQPParameters opt_params;
+
+  /** @brief Optimization callbacks */
+  std::vector<sco::Optimizer::Callback> callbacks;
 
   /** @brief Get the convex solver to use */
   virtual sco::ModelType getSolverType() const = 0;

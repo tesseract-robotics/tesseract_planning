@@ -33,6 +33,6 @@ TrajOptSolverProfile::TrajOptSolverProfile() : Profile(createKey<TrajOptSolverPr
 
 sco::BasicTrustRegionSQPParameters TrajOptSolverProfile::createOptimizationParameters() const { return opt_params; }
 
-std::vector<sco::Optimizer::Callback> TrajOptSolverProfile::createOptimizationCallbacks() const { return {}; }
+std::vector<sco::Optimizer::Callback> TrajOptSolverProfile::createOptimizationCallbacks() const { return callbacks; }
 
 }  // namespace tesseract_planning

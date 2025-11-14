@@ -31,4 +31,9 @@ TrajOptIfoptCompositeProfile::TrajOptIfoptCompositeProfile() : Profile(createKey
 
 TrajOptIfoptSolverProfile::TrajOptIfoptSolverProfile() : Profile(createKey<TrajOptIfoptSolverProfile>()) {}
 
+std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> TrajOptIfoptSolverProfile::createOptimizationCallbacks() const
+{
+  return callbacks;
+}
+
 }  // namespace tesseract_planning
