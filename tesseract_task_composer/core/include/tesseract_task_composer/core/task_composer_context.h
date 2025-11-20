@@ -30,7 +30,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <atomic>
-#include <boost/serialization/export.hpp>
 #include <tesseract_common/fwd.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -45,6 +44,10 @@ namespace tesseract_planning
 {
 class TaskComposerDataStorage;
 class TaskComposerNode;
+class TaskComposerContext;
+
+template <class Archive>
+void serialize(Archive& ar, TaskComposerContext& obj);
 
 /**
  * @brief This class is passed as an input to each process in the decision tree
@@ -120,11 +123,9 @@ public:
 private:
   mutable std::atomic<bool> aborted_{ false };
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, TaskComposerContext& obj);
 };
 }  // namespace tesseract_planning
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerContext)
+
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_CONTEXT_H

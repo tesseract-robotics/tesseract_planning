@@ -28,8 +28,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 #include <boost/stacktrace.hpp>
 #include <boost/core/demangle.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -37,13 +35,21 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <string>
 #include <memory>
 #include <typeindex>
-#include <tesseract_common/serialization.h>
 
 namespace tesseract_planning
 {
 class CartesianWaypointInterface;
 class JointWaypointInterface;
 class StateWaypointInterface;
+
+class WaypointInterface;
+class WaypointPoly;
+
+template <class Archive>
+void serialize(Archive& ar, WaypointInterface& obj);
+
+template <class Archive>
+void serialize(Archive& ar, WaypointPoly& obj);
 
 /**
  * @brief The WaypointInterface class
@@ -90,15 +96,11 @@ protected:
   virtual bool equals(const WaypointInterface& other) const = 0;
 
 private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, WaypointInterface& obj);
 };
 
-/**
- * @brief The WaypointPoly class
- */
+/** @brief The WaypointPoly class */
 class WaypointPoly
 {
 public:
@@ -199,18 +201,10 @@ public:
 private:
   std::unique_ptr<WaypointInterface> impl_;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, WaypointPoly& obj);
 };
 
 }  // namespace tesseract_planning
-
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::WaypointInterface)
-BOOST_CLASS_TRACKING(tesseract_planning::WaypointInterface, boost::serialization::track_never)
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::WaypointPoly)
-BOOST_CLASS_TRACKING(tesseract_planning::WaypointPoly, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_WAYPOINT_H

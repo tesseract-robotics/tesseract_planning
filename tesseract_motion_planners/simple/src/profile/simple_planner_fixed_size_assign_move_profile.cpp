@@ -38,7 +38,6 @@
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/poly/waypoint_poly.h>
 
-#include <boost/serialization/nvp.hpp>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
@@ -153,16 +152,4 @@ SimplePlannerFixedSizeAssignMoveProfile::generate(const MoveInstructionPoly& pre
   return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-template <class Archive>
-void SimplePlannerFixedSizeAssignMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerMoveProfile);
-  ar& BOOST_SERIALIZATION_NVP(freespace_steps);
-  ar& BOOST_SERIALIZATION_NVP(linear_steps);
-}
-
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerFixedSizeAssignMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerFixedSizeAssignMoveProfile)

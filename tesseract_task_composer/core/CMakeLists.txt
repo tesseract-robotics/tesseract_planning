@@ -25,7 +25,7 @@ target_link_libraries(
          tesseract::tesseract_common
          boost_plugin_loader::boost_plugin_loader
          Boost::boost
-         Boost::serialization
+         cereal::cereal
          yaml-cpp)
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -65,7 +65,6 @@ target_link_libraries(
          console_bridge::console_bridge
          tesseract::tesseract_common
          Boost::boost
-         Boost::serialization
          yaml-cpp)
 target_compile_options(${PROJECT_NAME}_nodes PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_nodes PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})

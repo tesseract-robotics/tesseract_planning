@@ -25,45 +25,10 @@
  */
 #include <tesseract_motion_planners/descartes/impl/profile/descartes_default_move_profile.hpp>
 #include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
-#include <tesseract_collision/core/serialization.h>
-#include <tesseract_common/eigen_serialization.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/shared_ptr.hpp>
 
 namespace tesseract_planning
 {
 // Explicit template instantiation
 template class DescartesDefaultMoveProfile<float>;
 template class DescartesDefaultMoveProfile<double>;
-
-template <typename FloatType>
-template <class Archive>
-void DescartesDefaultMoveProfile<FloatType>::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("DescartesMoveProfile",
-                                     boost::serialization::base_object<DescartesMoveProfile<FloatType>>(*this));
-  ar& BOOST_SERIALIZATION_NVP(target_pose_fixed);
-  ar& BOOST_SERIALIZATION_NVP(target_pose_sample_axis);
-  ar& BOOST_SERIALIZATION_NVP(target_pose_sample_resolution);
-  ar& BOOST_SERIALIZATION_NVP(target_pose_sample_min);
-  ar& BOOST_SERIALIZATION_NVP(target_pose_sample_max);
-  ar& BOOST_SERIALIZATION_NVP(manipulator_ik_solver);
-  ar& BOOST_SERIALIZATION_NVP(allow_collision);
-  ar& BOOST_SERIALIZATION_NVP(enable_collision);
-  ar& BOOST_SERIALIZATION_NVP(vertex_contact_manager_config);
-  ar& BOOST_SERIALIZATION_NVP(vertex_collision_check_config);
-  ar& BOOST_SERIALIZATION_NVP(enable_edge_collision);
-  ar& BOOST_SERIALIZATION_NVP(edge_contact_manager_config);
-  ar& BOOST_SERIALIZATION_NVP(edge_collision_check_config);
-  ar& BOOST_SERIALIZATION_NVP(use_redundant_joint_solutions);
-  ar& BOOST_SERIALIZATION_NVP(debug);
-}
-
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesDefaultMoveProfile<float>)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesDefaultMoveProfile<float>)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesDefaultMoveProfile<double>)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesDefaultMoveProfile<double>)

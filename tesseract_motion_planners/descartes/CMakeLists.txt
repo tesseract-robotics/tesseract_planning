@@ -9,7 +9,6 @@ add_library(
   src/descartes_collision_edge_evaluator.cpp
   src/descartes_robot_sampler.cpp
   src/descartes_utils.cpp
-  src/profile/descartes_profile.cpp
   src/profile/descartes_default_move_profile.cpp
   src/profile/descartes_ladder_graph_solver_profile.cpp)
 target_link_libraries(

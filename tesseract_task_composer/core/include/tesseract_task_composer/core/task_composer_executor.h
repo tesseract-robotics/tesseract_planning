@@ -30,8 +30,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <string>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
@@ -88,16 +86,7 @@ protected:
    */
   virtual std::unique_ptr<TaskComposerFuture> runImpl(const TaskComposerNode& node,
                                                       std::shared_ptr<TaskComposerContext> context) = 0;
-
-private:
-  friend class TaskComposerGraph;
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
-
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TaskComposerExecutor)
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_EXECUTOR_H

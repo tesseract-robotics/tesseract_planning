@@ -23,14 +23,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/unique_ptr.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
-#include <tesseract_common/serialization.h>
 
 namespace tesseract_planning
 {
@@ -40,11 +34,6 @@ bool StateWaypointInterface::operator==(const StateWaypointInterface& rhs) const
 // LCOV_EXCL_START
 bool StateWaypointInterface::operator!=(const StateWaypointInterface& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
-
-template <class Archive>
-void StateWaypointInterface::serialize(Archive& /*ar*/, const unsigned int /*version*/)  // NOLINT
-{
-}
 
 StateWaypointPoly::StateWaypointPoly(const StateWaypointPoly& other)
 {
@@ -141,16 +130,4 @@ bool StateWaypointPoly::operator==(const StateWaypointPoly& rhs) const
 bool StateWaypointPoly::operator!=(const StateWaypointPoly& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-template <class Archive>
-void StateWaypointPoly::serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(WaypointInterface);
-  ar& boost::serialization::make_nvp("impl", impl_);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypointInterface)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypointPoly)
-
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StateWaypointPoly)

@@ -26,15 +26,8 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/version.hpp>
-#if (BOOST_VERSION >= 107400) && (BOOST_VERSION < 107500)
-#include <boost/serialization/library_version_type.hpp>
-#endif
-#include <boost/serialization/unordered_map.hpp>
-#include <boost/serialization/shared_ptr.hpp>
 #include <mutex>
 #include <console_bridge/console.h>
-#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
@@ -269,17 +262,4 @@ bool TaskComposerDataStorage::operator==(const TaskComposerDataStorage& rhs) con
 
 bool TaskComposerDataStorage::operator!=(const TaskComposerDataStorage& rhs) const { return !operator==(rhs); }
 
-template <class Archive>
-void TaskComposerDataStorage::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  std::unique_lock lock(mutex_);
-  ar& boost::serialization::make_nvp("name", name_);
-  ar& boost::serialization::make_nvp("data", data_);
-}
-
 }  // namespace tesseract_planning
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerDataStorage)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerDataStorage)
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerDataStoragePtrAnyPoly)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerDataStoragePtrAnyPoly)

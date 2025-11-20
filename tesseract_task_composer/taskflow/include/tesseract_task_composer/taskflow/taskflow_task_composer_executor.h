@@ -95,20 +95,7 @@ private:
 
   std::unique_ptr<TaskComposerFuture> runImpl(const TaskComposerNode& node,
                                               std::shared_ptr<TaskComposerContext> context) override final;
-
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void save(Archive& ar, const unsigned int version) const;  // NOLINT
-
-  template <class Archive>
-  void load(Archive& ar, const unsigned int version);  // NOLINT
-
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskflowTaskComposerExecutor)
 
 #endif  // TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_EXECUTOR_H

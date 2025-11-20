@@ -28,8 +28,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 #include <boost/stacktrace.hpp>
 #include <boost/core/demangle.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -38,7 +36,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <memory>
 #include <typeindex>
 #include <tesseract_common/fwd.h>
-#include <tesseract_common/serialization.h>
 
 namespace boost::uuids
 {
@@ -48,6 +45,15 @@ struct uuid;
 namespace tesseract_planning
 {
 class MoveInstructionInterface;
+
+class InstructionInterface;
+class InstructionPoly;
+
+template <class Archive>
+void serialize(Archive& ar, InstructionInterface& obj);
+
+template <class Archive>
+void serialize(Archive& ar, InstructionPoly& obj);
 
 /**
  * @brief The InstructionInterface class
@@ -119,10 +125,8 @@ protected:
   virtual bool equals(const InstructionInterface& other) const = 0;
 
 private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, InstructionInterface& obj);
 };
 
 class InstructionPoly
@@ -241,18 +245,10 @@ public:
 private:
   std::unique_ptr<InstructionInterface> impl_;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, InstructionPoly& obj);
 };
 
 }  // namespace tesseract_planning
-
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::InstructionInterface)
-BOOST_CLASS_TRACKING(tesseract_planning::InstructionInterface, boost::serialization::track_never)
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::InstructionPoly)
-BOOST_CLASS_TRACKING(tesseract_planning::InstructionPoly, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_H

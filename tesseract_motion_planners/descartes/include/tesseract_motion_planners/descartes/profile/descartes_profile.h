@@ -62,12 +62,6 @@ public:
   static std::size_t getStaticKey() { return std::type_index(typeid(DescartesSolverProfile<FloatType>)).hash_code(); }
 
   virtual std::unique_ptr<descartes_light::Solver<FloatType>> create() const = 0;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int);  // NOLINT
 };
 
 template <typename FloatType>
@@ -103,13 +97,13 @@ public:
   createStateEvaluator(const MoveInstructionPoly& move_instruction,
                        const tesseract_common::ManipulatorInfo& composite_manip_info,
                        const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int);  // NOLINT
 };
+
+using DescartesSolverProfileF = DescartesSolverProfile<float>;
+using DescartesSolverProfileD = DescartesSolverProfile<double>;
+
+using DescartesMoveProfileF = DescartesMoveProfile<float>;
+using DescartesMoveProfileD = DescartesMoveProfile<double>;
 
 }  // namespace tesseract_planning
 

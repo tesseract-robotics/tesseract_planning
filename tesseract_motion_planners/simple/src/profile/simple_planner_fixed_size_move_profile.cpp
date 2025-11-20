@@ -33,7 +33,6 @@
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
-#include <boost/serialization/nvp.hpp>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
@@ -86,16 +85,4 @@ SimplePlannerFixedSizeMoveProfile::generate(const MoveInstructionPoly& prev_inst
   return interpolateCartCartWaypoint(prev, base, linear_steps, freespace_steps, env->getState());
 }
 
-template <class Archive>
-void SimplePlannerFixedSizeMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerMoveProfile);
-  ar& BOOST_SERIALIZATION_NVP(freespace_steps);
-  ar& BOOST_SERIALIZATION_NVP(linear_steps);
-}
-
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerFixedSizeMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerFixedSizeMoveProfile)

@@ -12,7 +12,8 @@ endif()
 find_package(console_bridge REQUIRED)
 find_package(tesseract_common REQUIRED)
 find_package(Eigen3 REQUIRED)
-find_package(Boost REQUIRED COMPONENTS serialization)
+find_package(Boost REQUIRED)
+find_package(cereal REQUIRED)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)
@@ -46,7 +47,7 @@ add_library(
   src/poly/instruction_poly.cpp
   src/poly/joint_waypoint_poly.cpp
   src/poly/move_instruction_poly.cpp
-  src/poly/serialization.cpp
+  # src/poly/serialization.cpp
   src/poly/state_waypoint_poly.cpp
   src/poly/waypoint_poly.cpp
   src/move_instruction.cpp
@@ -67,7 +68,7 @@ target_link_libraries(
          console_bridge::console_bridge
          tesseract::tesseract_common
          Boost::boost
-         Boost::serialization)
+         cereal::cereal)
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -90,7 +91,8 @@ configure_package(
     console_bridge
     tesseract_common
     Eigen3
-    "Boost COMPONENTS serialization"
+    Boost
+    cereal
   CFG_EXTRAS cmake/tesseract_command_language-extras.cmake)
 
 # Mark header files for installation
@@ -119,12 +121,12 @@ if(TESSERACT_PACKAGE)
     LINUX_DEPENDS
       "libconsole-bridge-dev"
       "libeigen3-dev"
-      "libboost-serialization-dev"
+      "cereal"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
     WINDOWS_DEPENDS
       "console-bridge"
       "Eigen3"
-      "boost-serialization"
+      "cereal"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common")
 
   if(UNIX AND TESSERACT_PACKAGE_SOURCE)

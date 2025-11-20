@@ -110,19 +110,10 @@ protected:
   virtual PoseSamplerFn createPoseSampler(const MoveInstructionPoly& move_instruction,
                                           const std::shared_ptr<const tesseract_kinematics::KinematicGroup>& manip,
                                           const std::shared_ptr<const tesseract_environment::Environment>& env) const;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 using DescartesDefaultMoveProfileF = DescartesDefaultMoveProfile<float>;
 using DescartesDefaultMoveProfileD = DescartesDefaultMoveProfile<double>;
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::DescartesDefaultMoveProfile<float>)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::DescartesDefaultMoveProfile<double>)
 
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_DEFAULT_MOVE_PROFILE_H

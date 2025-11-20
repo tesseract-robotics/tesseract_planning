@@ -1,14 +1,11 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/unique_ptr.hpp>
 #include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_common/serialization.h>
 
 namespace tesseract_planning
 {
@@ -18,11 +15,6 @@ bool InstructionInterface::operator==(const InstructionInterface& rhs) const { r
 // LCOV_EXCL_START
 bool InstructionInterface::operator!=(const InstructionInterface& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
-
-template <class Archive>
-void InstructionInterface::serialize(Archive& /*ar*/, const unsigned int /*version*/)
-{
-}
 
 InstructionPoly::InstructionPoly(const InstructionPoly& other)
 {
@@ -101,14 +93,4 @@ bool InstructionPoly::operator==(const InstructionPoly& rhs) const
 bool InstructionPoly::operator!=(const InstructionPoly& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-template <class Archive>
-void InstructionPoly::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("impl", impl_);
-}
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::InstructionInterface)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::InstructionPoly)
-
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::InstructionPoly)

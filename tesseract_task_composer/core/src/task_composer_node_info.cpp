@@ -25,16 +25,7 @@
  */
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/map.hpp>
-#include <boost/serialization/unique_ptr.hpp>
-#include <boost/serialization/shared_ptr.hpp>
-#include <boost/serialization/string.hpp>
-#include <boost/serialization/binary_object.hpp>
-#include <boost/uuid/uuid_io.hpp>
-#include <boost/uuid/uuid_serialize.hpp>
 #include <mutex>
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -101,35 +92,6 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
 }
 
 bool TaskComposerNodeInfo::operator!=(const TaskComposerNodeInfo& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("name", name);
-  ar& boost::serialization::make_nvp("ns", ns);
-  ar& boost::serialization::make_nvp("uuid", uuid);
-  ar& boost::serialization::make_nvp("root_uuid", root_uuid);
-  ar& boost::serialization::make_nvp("parent_uuid", parent_uuid);
-  ar& boost::serialization::make_nvp("type", type);
-  ar& boost::serialization::make_nvp("type_hash_code", type_hash_code);
-  ar& boost::serialization::make_nvp("conditional", conditional);
-  ar& boost::serialization::make_nvp("return_value", return_value);
-  ar& boost::serialization::make_nvp("status_code", status_code);
-  ar& boost::serialization::make_nvp("status_message", status_message);
-  ar& boost::serialization::make_nvp("start_time",
-                                     boost::serialization::make_binary_object(&start_time, sizeof(start_time)));
-  ar& boost::serialization::make_nvp("elapsed_time", elapsed_time);
-  ar& boost::serialization::make_nvp("inbound_edges", inbound_edges);
-  ar& boost::serialization::make_nvp("outbound_edges", outbound_edges);
-  ar& boost::serialization::make_nvp("input_keys", input_keys);
-  ar& boost::serialization::make_nvp("output_keys", output_keys);
-  ar& boost::serialization::make_nvp("terminals", terminals);
-  ar& boost::serialization::make_nvp("triggers_abort", triggers_abort);
-  ar& boost::serialization::make_nvp("color", color);
-  ar& boost::serialization::make_nvp("dotgraph", dotgraph);
-  ar& boost::serialization::make_nvp("data_storage", data_storage);
-  ar& boost::serialization::make_nvp("aborted", aborted);
-}
 
 TaskComposerNodeInfoContainer::TaskComposerNodeInfoContainer(const TaskComposerNodeInfoContainer& other)
 {
@@ -317,19 +279,4 @@ bool TaskComposerNodeInfoContainer::operator!=(const TaskComposerNodeInfoContain
   return !operator==(rhs);
 }
 
-template <class Archive>
-void TaskComposerNodeInfoContainer::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  std::unique_lock<std::shared_mutex> lock(mutex_);
-  ar& BOOST_SERIALIZATION_NVP(root_node_);
-  ar& BOOST_SERIALIZATION_NVP(aborting_node_);
-  ar& BOOST_SERIALIZATION_NVP(info_map_);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerNodeInfo)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerNodeInfoContainer)
-
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerNodeInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerNodeInfoContainer)

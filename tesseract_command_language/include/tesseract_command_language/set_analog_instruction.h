@@ -36,6 +36,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class SetAnalogInstruction;
+
+template <class Archive>
+void serialize(Archive& ar, SetAnalogInstruction& obj);
+
 class SetAnalogInstruction final : public InstructionInterface
 {
 public:
@@ -125,14 +130,9 @@ private:
    */
   bool equals(const InstructionInterface& other) const override final;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, SetAnalogInstruction& obj);
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SetAnalogInstruction)
-BOOST_CLASS_TRACKING(tesseract_planning::SetAnalogInstruction, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_SET_ANALOG_INSTRUCTION_H

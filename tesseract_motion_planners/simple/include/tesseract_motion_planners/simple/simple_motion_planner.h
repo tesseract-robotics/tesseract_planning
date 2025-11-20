@@ -25,8 +25,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_PLANNER_H
-#define TESSERACT_MOTION_PLANNERS_SIMPLE_PLANNER_H
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_SIMPLE_PLANNER_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_SIMPLE_PLANNER_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -75,4 +75,4 @@ protected:
 };
 
 }  // namespace tesseract_planning
-#endif  // TESSERACT_PLANNING_SIMPLE_PLANNER_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_SIMPLE_PLANNER_H

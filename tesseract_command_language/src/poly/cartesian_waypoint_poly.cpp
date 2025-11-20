@@ -23,11 +23,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/unique_ptr.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract_common/joint_state.h>
@@ -41,11 +36,6 @@ bool CartesianWaypointInterface::operator==(const CartesianWaypointInterface& rh
 // LCOV_EXCL_START
 bool CartesianWaypointInterface::operator!=(const CartesianWaypointInterface& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
-
-template <class Archive>
-void CartesianWaypointInterface::serialize(Archive& /*ar*/, const unsigned int /*version*/)
-{
-}
 
 CartesianWaypointPoly::CartesianWaypointPoly(const CartesianWaypointPoly& other)
 {
@@ -164,15 +154,4 @@ bool CartesianWaypointPoly::operator==(const CartesianWaypointPoly& rhs) const
 bool CartesianWaypointPoly::operator!=(const CartesianWaypointPoly& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-template <class Archive>
-void CartesianWaypointPoly::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(WaypointInterface);
-  ar& boost::serialization::make_nvp("impl", impl_);
-}
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypointInterface)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypointPoly)
-
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypointPoly)

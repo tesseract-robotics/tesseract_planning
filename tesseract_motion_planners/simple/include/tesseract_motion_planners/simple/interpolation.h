@@ -23,8 +23,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_MOTION_PLANNERS_INTERPOLATION_H
-#define TESSERACT_MOTION_PLANNERS_INTERPOLATION_H
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_INTERPOLATION_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_INTERPOLATION_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -515,4 +515,4 @@ CompositeInstruction generateInterpolatedProgram(const CompositeInstruction& ins
 
 }  // namespace tesseract_planning
 
-#endif  // TESSERACT_MOTION_PLANNERS_INTERPOLATION_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_INTERPOLATION_H
