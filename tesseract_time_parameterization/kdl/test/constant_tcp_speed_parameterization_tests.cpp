@@ -24,10 +24,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/resource_locator.h>
 #include <tesseract_common/profile_dictionary.h>
+#include <tesseract_common/unit_test_utils.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_time_parameterization/kdl/cereal_serialization.h>
 #include <tesseract_time_parameterization/kdl/constant_tcp_speed_parameterization.h>
 #include <tesseract_time_parameterization/kdl/constant_tcp_speed_parameterization_profiles.h>
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
@@ -110,6 +112,13 @@ TEST_F(ConstantTCPSpeedParameterizationUnit, ConstantTCPSpeedParameterizationTes
     profile->max_rotational_acceleration = 0.5;
     profile->max_velocity_scaling_factor = 1.0;
     profile->max_acceleration_scaling_factor = 1.0;
+
+    // Serialization
+    tesseract_common::testSerializationDerivedClass<tesseract_common::Profile,
+                                                    ConstantTCPSpeedParameterizationCompositeProfile>(profile,
+                                                                                                      "ConstantTCPSpeed"
+                                                                                                      "Parameterization"
+                                                                                                      "Test");
 
     // Profile Dictionary
     tesseract_common::ProfileDictionary profiles;

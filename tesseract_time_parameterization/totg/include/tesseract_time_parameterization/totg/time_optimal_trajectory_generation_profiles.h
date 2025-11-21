@@ -71,14 +71,9 @@ struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract_common
   /** @brief At least one joint must change by greater than this amount for the point to be added. Default: 0.001*/
   double min_angle_change{ 0.001 };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;
+  bool operator!=(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile)
 
 #endif  // TESSERACT_TIME_PARAMETERIZATION_TIME_OPTIMAL_TRAJECTORY_GENERATION_PROFILES_H

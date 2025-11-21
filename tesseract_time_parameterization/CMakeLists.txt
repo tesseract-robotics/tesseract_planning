@@ -15,6 +15,7 @@ find_package(tesseract_kinematics REQUIRED COMPONENTS core)
 find_package(tesseract_environment REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 find_package(Eigen3 REQUIRED)
+find_package(cereal REQUIRED)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)

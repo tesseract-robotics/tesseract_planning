@@ -42,10 +42,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/resource_locator.h>
 #include <tesseract_common/profile_dictionary.h>
+#include <tesseract_common/unit_test_utils.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_time_parameterization/isp/cereal_serialization.h>
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization.h>
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization_profiles.h>
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
@@ -139,6 +141,12 @@ TEST_F(IterativeSplineParameterizationUnit, TestIterativeSpline)  // NOLINT
   profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
   profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
   profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
+
+  // Serialization
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile,
+                                                  IterativeSplineParameterizationCompositeProfile>(profile,
+                                                                                                   "TestIterativeSplin"
+                                                                                                   "e");
 
   // Profile Dictionary
   tesseract_common::ProfileDictionary profiles;

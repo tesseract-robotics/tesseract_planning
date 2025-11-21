@@ -1,6 +1,6 @@
 add_library(${PROJECT_NAME}_totg src/time_optimal_trajectory_generation.cpp
                                  src/time_optimal_trajectory_generation_profiles.cpp)
-target_link_libraries(${PROJECT_NAME}_totg PUBLIC ${PROJECT_NAME}_core)
+target_link_libraries(${PROJECT_NAME}_totg PUBLIC ${PROJECT_NAME}_core cereal::cereal)
 target_include_directories(${PROJECT_NAME}_totg PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                        "$<INSTALL_INTERFACE:include>")
 target_compile_options(${PROJECT_NAME}_totg PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
@@ -28,7 +28,7 @@ configure_component(
   COMPONENT totg
   NAMESPACE tesseract
   TARGETS ${PROJECT_NAME}_totg
-  DEPENDENCIES "tesseract_time_parameterization COMPONENTS core")
+  DEPENDENCIES "tesseract_time_parameterization COMPONENTS core" cereal)
 
 if(TESSERACT_PACKAGE)
   cpack_component(
