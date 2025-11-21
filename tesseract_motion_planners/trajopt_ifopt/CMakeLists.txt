@@ -18,6 +18,7 @@ target_link_libraries(
          trajopt::trajopt_ifopt
          trajopt::trajopt_sqp
          Boost::boost
+         cereal::cereal
          Eigen3::Eigen)
 target_compile_options(${PROJECT_NAME}_trajopt_ifopt PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_trajopt_ifopt PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -46,7 +47,11 @@ configure_component(
   COMPONENT trajopt_ifopt
   NAMESPACE tesseract
   TARGETS ${PROJECT_NAME}_trajopt_ifopt
-  DEPENDENCIES "tesseract_motion_planners COMPONENTS core simple" trajopt_ifopt trajopt_sqp)
+  DEPENDENCIES
+    "tesseract_motion_planners COMPONENTS core simple"
+    trajopt_ifopt
+    trajopt_sqp
+    cereal)
 
 if(TESSERACT_PACKAGE)
   cpack_component(

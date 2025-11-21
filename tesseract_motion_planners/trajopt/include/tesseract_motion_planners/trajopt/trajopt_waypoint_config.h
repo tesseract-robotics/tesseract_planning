@@ -29,8 +29,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
@@ -65,11 +63,8 @@ struct TrajOptCartesianWaypointConfig
   /** @brief coefficients corresponsing to dx, dy, dz, rx, ry, rz*/
   Eigen::Matrix<double, 6, 1> coeff{ Eigen::VectorXd::Constant(6, 5) };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const TrajOptCartesianWaypointConfig& rhs) const;
+  bool operator!=(const TrajOptCartesianWaypointConfig& rhs) const;
 };
 
 /**
@@ -98,15 +93,9 @@ struct TrajOptJointWaypointConfig
   /** @brief coefficients corresponsing to joint values*/
   Eigen::VectorXd coeff{ Eigen::VectorXd::Constant(1, 1, 5) };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const TrajOptJointWaypointConfig& rhs) const;
+  bool operator!=(const TrajOptJointWaypointConfig& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptCartesianWaypointConfig)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptJointWaypointConfig)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_CONFIG_TRAJOPT_WAYPOINT_CONFIG_H

@@ -31,19 +31,36 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
+#include <tesseract_common/unit_test_utils.h>
 #include <tesseract_motion_planners/core/types.h>
 
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_motion_planners/trajopt_ifopt/yaml_extensions.h>
-
+#include <tesseract_motion_planners/trajopt_ifopt/cereal_serialization.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_osqp_solver_profile.h>
 
 using namespace tesseract_planning;
 using namespace trajopt_common;
+
+TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, Serialization)  // NOLINT
+{
+  // Create Profiles
+  auto move_profile = std::make_shared<TrajOptIfoptDefaultMoveProfile>();
+  auto composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
+  auto solver_profile = std::make_shared<TrajOptIfoptOSQPSolverProfile>();
+
+  // Serialization
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, TrajOptIfoptDefaultMoveProfile>(
+      move_profile, "trajopt_ifopt_move_profile");
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, TrajOptIfoptDefaultCompositeProfile>(
+      composite_profile, "trajopt_ifopt_composite_profile");
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, TrajOptIfoptOSQPSolverProfile>(
+      solver_profile, "trajopt_ifopt_solver_profile");
+}
 
 TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptCartesianWaypointConfig)  // NOLINT
 {
@@ -221,163 +238,6 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptDefaultMovePr
   }
 }
 
-bool compare(const OSQPSettings& lhs, const OSQPSettings& rhs)  // NOLINT
-{
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.rho, rhs.rho))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.sigma, rhs.sigma))
-    return false;
-
-  if (lhs.scaling != rhs.scaling)
-    return false;
-
-  if (lhs.adaptive_rho != rhs.adaptive_rho)
-    return false;
-
-  if (lhs.adaptive_rho_interval != rhs.adaptive_rho_interval)
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.adaptive_rho_tolerance, rhs.adaptive_rho_tolerance))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.adaptive_rho_fraction, rhs.adaptive_rho_fraction))
-    return false;
-
-  if (lhs.max_iter != rhs.max_iter)
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.eps_abs, rhs.eps_abs))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.eps_rel, rhs.eps_rel))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.eps_prim_inf, rhs.eps_prim_inf))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.eps_dual_inf, rhs.eps_dual_inf))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.alpha, rhs.alpha))
-    return false;
-
-  if (lhs.linsys_solver != rhs.linsys_solver)
-    return false;
-
-  if (lhs.delta != rhs.delta)
-    return false;
-
-  if (lhs.polishing != rhs.polishing)
-    return false;
-
-  if (lhs.polish_refine_iter != rhs.polish_refine_iter)
-    return false;
-
-  if (lhs.verbose != rhs.verbose)
-    return false;
-
-  if (lhs.scaled_termination != rhs.scaled_termination)
-    return false;
-
-  if (lhs.check_termination != rhs.check_termination)
-    return false;
-
-  if (lhs.warm_starting != rhs.warm_starting)
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.time_limit, rhs.time_limit))
-    return false;
-
-  if (lhs.allocate_solution != rhs.allocate_solution)
-    return false;
-
-  if (lhs.cg_max_iter != rhs.cg_max_iter)
-    return false;
-
-  if (lhs.cg_precond != rhs.cg_precond)
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.cg_tol_fraction, rhs.cg_tol_fraction))
-    return false;
-
-  if (lhs.cg_tol_reduction != rhs.cg_tol_reduction)
-    return false;
-
-  if (lhs.check_dualgap != rhs.check_dualgap)
-    return false;
-
-  if (lhs.device != rhs.device)
-    return false;
-
-  if (lhs.profiler_level != rhs.profiler_level)
-    return false;
-
-  if (lhs.rho_is_vec != rhs.rho_is_vec)
-    return false;
-
-  return true;
-}
-
-bool compare(const trajopt_sqp::SQPParameters& lhs, const trajopt_sqp::SQPParameters& rhs)  // NOLINT
-{
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.improve_ratio_threshold, rhs.improve_ratio_threshold))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.min_trust_box_size, rhs.min_trust_box_size))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.min_approx_improve, rhs.min_approx_improve))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.min_approx_improve_frac, rhs.min_approx_improve_frac))
-    return false;
-
-  if (lhs.max_iterations != rhs.max_iterations)
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.trust_shrink_ratio, rhs.trust_shrink_ratio))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.trust_expand_ratio, rhs.trust_expand_ratio))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.cnt_tolerance, rhs.cnt_tolerance))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.max_merit_coeff_increases, rhs.max_merit_coeff_increases))
-    return false;
-
-  if (lhs.max_qp_solver_failures != rhs.max_qp_solver_failures)
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.merit_coeff_increase_ratio, rhs.merit_coeff_increase_ratio))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.max_time, rhs.max_time))
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.initial_merit_error_coeff, rhs.initial_merit_error_coeff))
-    return false;
-
-  if (lhs.inflate_constraints_individually != rhs.inflate_constraints_individually)
-    return false;
-
-  if (!tesseract_common::almostEqualRelativeAndAbs(lhs.initial_trust_box_size, rhs.initial_trust_box_size))
-    return false;
-
-  if (lhs.log_results != rhs.log_results)
-    return false;
-
-  if (lhs.log_dir != rhs.log_dir)
-    return false;
-
-  // if (lhs.num_threads != rhs.num_threads)
-  //   return false;
-
-  return true;
-}
-
 TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverProfile)  // NOLINT
 {
   {  // Constructor
@@ -388,8 +248,8 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
     TrajOptIfoptOSQPSolverProfile profile(n["config"], plugin_factory);
     TrajOptIfoptOSQPSolverProfile def_constructor;
     // EXPECT_EQ(profile.update_workspace, def_constructor.update_workspace);
-    EXPECT_TRUE(compare(*profile.qp_settings->getSettings(), *def_constructor.qp_settings->getSettings()));
-    EXPECT_TRUE(compare(profile.opt_params, def_constructor.opt_params));
+    EXPECT_TRUE(profile.qp_settings == def_constructor.qp_settings);
+    EXPECT_TRUE(profile.opt_params == def_constructor.opt_params);
   }
 
   {  // Constructor
@@ -507,8 +367,8 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
     // def_constructor.opt_params.num_threads = 100;
 
     // EXPECT_EQ(profile.update_workspace, def_constructor.update_workspace);
-    EXPECT_TRUE(compare(*profile.qp_settings->getSettings(), *def_constructor.qp_settings->getSettings()));
-    EXPECT_TRUE(compare(profile.opt_params, def_constructor.opt_params));
+    EXPECT_TRUE(profile.qp_settings == def_constructor.qp_settings);
+    EXPECT_TRUE(profile.opt_params == def_constructor.opt_params);
   }
 }
 

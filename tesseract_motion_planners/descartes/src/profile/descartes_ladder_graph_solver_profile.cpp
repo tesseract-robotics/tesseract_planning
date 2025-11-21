@@ -27,6 +27,20 @@
 
 namespace tesseract_planning
 {
+template <typename FloatType>
+bool DescartesLadderGraphSolverProfile<FloatType>::operator==(
+    const DescartesLadderGraphSolverProfile<FloatType>& rhs) const
+{
+  return (num_threads == rhs.num_threads);
+}
+
+template <typename FloatType>
+bool DescartesLadderGraphSolverProfile<FloatType>::operator!=(
+    const DescartesLadderGraphSolverProfile<FloatType>& rhs) const
+{
+  return !operator==(rhs);
+}
+
 // Explicit template instantiation
 template class DescartesLadderGraphSolverProfile<float>;
 template class DescartesLadderGraphSolverProfile<double>;

@@ -93,6 +93,9 @@ public:
                     const tesseract_common::ManipulatorInfo& composite_mi,
                     const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
 
+  bool operator==(const OMPLRealVectorMoveProfile& rhs) const;
+  bool operator!=(const OMPLRealVectorMoveProfile& rhs) const;
+
 protected:
   static void applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
                               const tesseract_kinematics::KinGroupIKInput& ik_input,
@@ -180,15 +183,7 @@ protected:
                               const std::shared_ptr<const tesseract_environment::Environment>& env,
                               const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
                               const OMPLStateExtractor& state_extractor) const;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::OMPLRealVectorMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_REAL_VECTOR_MOVE_PROFILE_H

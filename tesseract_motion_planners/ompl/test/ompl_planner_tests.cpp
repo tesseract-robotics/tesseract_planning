@@ -50,6 +50,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
 #include <tesseract_common/profile_dictionary.h>
+#include <tesseract_common/serialization.h>
+#include <tesseract_common/unit_test_utils.h>
 
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
@@ -63,6 +65,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
+#include <tesseract_motion_planners/ompl/cereal_serialization.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
 
 #include <tesseract_motion_planners/core/types.h>
@@ -448,6 +451,11 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   move_profile->solver_config.max_solutions = 2;
   move_profile->solver_config.simplify = false;
   move_profile->solver_config.planners = { this->configurator, this->configurator };
+
+  // Serialization
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, OMPLRealVectorMoveProfile>(move_profile,
+                                                                                                        "ompl_move_"
+                                                                                                        "profile");
 
   // Profile Dictionary
   auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();

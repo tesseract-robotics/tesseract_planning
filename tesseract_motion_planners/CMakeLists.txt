@@ -18,6 +18,7 @@ find_package(tesseract_common REQUIRED)
 find_package(tesseract_kinematics REQUIRED)
 find_package(tesseract_environment REQUIRED)
 find_package(tesseract_command_language REQUIRED)
+find_package(cereal REQUIRED)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)
@@ -64,8 +65,13 @@ add_subdirectory(core)
 list(APPEND SUPPORTED_COMPONENTS simple)
 add_subdirectory(simple)
 
-# # OMPL option(TESSERACT_BUILD_OMPL "Build the OMPL planner" ON) if(TESSERACT_BUILD_OMPL) message("Building OMPL
-# Planner") list(APPEND SUPPORTED_COMPONENTS ompl) add_subdirectory(ompl) endif()
+# OMPL
+option(TESSERACT_BUILD_OMPL "Build the OMPL planner" ON)
+if(TESSERACT_BUILD_OMPL)
+  message("Building OMPL Planner")
+  list(APPEND SUPPORTED_COMPONENTS ompl)
+  add_subdirectory(ompl)
+endif()
 
 # Descartes
 option(TESSERACT_BUILD_DESCARTES "Build the Descartes planner" ON)
@@ -75,14 +81,26 @@ if(TESSERACT_BUILD_DESCARTES)
   add_subdirectory(descartes)
 endif()
 
-# # Trajopt option(TESSERACT_BUILD_TRAJOPT "Build the Trajopt planner" ON) if(TESSERACT_BUILD_TRAJOPT) message("Building
-# Trajopt Planner") list(APPEND SUPPORTED_COMPONENTS trajopt) add_subdirectory(trajopt) endif()
+# Trajopt
+option(TESSERACT_BUILD_TRAJOPT "Build the Trajopt planner" ON)
+if(TESSERACT_BUILD_TRAJOPT)
+  message("Building Trajopt Planner")
+  list(APPEND SUPPORTED_COMPONENTS trajopt)
+  add_subdirectory(trajopt)
+endif()
 
-# # Trajopt IFOPT option(TESSERACT_BUILD_TRAJOPT_IFOPT "Build the Trajopt IFOPT planner" ON)
-# if(TESSERACT_BUILD_TRAJOPT_IFOPT) message("Building Trajopt IFOPT Planner") list(APPEND SUPPORTED_COMPONENTS
-# trajopt_ifopt) add_subdirectory(trajopt_ifopt) endif()
+# Trajopt IFOPT
+option(TESSERACT_BUILD_TRAJOPT_IFOPT "Build the Trajopt IFOPT planner" ON)
+if(TESSERACT_BUILD_TRAJOPT_IFOPT)
+  message("Building Trajopt IFOPT Planner")
+  list(APPEND SUPPORTED_COMPONENTS trajopt_ifopt)
+  add_subdirectory(trajopt_ifopt)
+endif()
 
-# # Examples if(TESSERACT_ENABLE_EXAMPLES) add_subdirectory(examples) endif()
+# Examples
+if(TESSERACT_ENABLE_EXAMPLES)
+  add_subdirectory(examples)
+endif()
 
 # Package configuration
 configure_package(COMPONENT core SUPPORTED_COMPONENTS ${SUPPORTED_COMPONENTS})

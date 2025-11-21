@@ -63,6 +63,9 @@ public:
 
   /** @brief The number of steps to use for linear instruction */
   int linear_steps;
+
+  bool operator==(const SimplePlannerFixedSizeAssignMoveProfile& rhs) const;
+  bool operator!=(const SimplePlannerFixedSizeAssignMoveProfile& rhs) const;
 };
 
 }  // namespace tesseract_planning

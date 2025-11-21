@@ -25,9 +25,41 @@
  */
 #include <tesseract_motion_planners/descartes/impl/profile/descartes_default_move_profile.hpp>
 #include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
+template <typename FloatType>
+bool DescartesDefaultMoveProfile<FloatType>::operator==(const DescartesDefaultMoveProfile<FloatType>& rhs) const
+{
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= (target_pose_fixed == rhs.target_pose_fixed);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(target_pose_sample_axis, rhs.target_pose_sample_axis, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      target_pose_sample_resolution, rhs.target_pose_sample_resolution, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(target_pose_sample_min, rhs.target_pose_sample_min, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(target_pose_sample_max, rhs.target_pose_sample_max, max_diff);
+  equal &= (manipulator_ik_solver == rhs.manipulator_ik_solver);
+  equal &= (allow_collision == rhs.allow_collision);
+  equal &= (enable_collision == rhs.enable_collision);
+  equal &= (vertex_contact_manager_config == rhs.vertex_contact_manager_config);
+  equal &= (vertex_collision_check_config == rhs.vertex_collision_check_config);
+  equal &= (enable_edge_collision == rhs.enable_edge_collision);
+  equal &= (edge_contact_manager_config == rhs.edge_contact_manager_config);
+  equal &= (edge_collision_check_config == rhs.edge_collision_check_config);
+  equal &= (use_redundant_joint_solutions == rhs.use_redundant_joint_solutions);
+  equal &= (debug == rhs.debug);
+  return equal;
+}
+
+template <typename FloatType>
+bool DescartesDefaultMoveProfile<FloatType>::operator!=(const DescartesDefaultMoveProfile<FloatType>& rhs) const
+{
+  return !operator==(rhs);
+}
+
 // Explicit template instantiation
 template class DescartesDefaultMoveProfile<float>;
 template class DescartesDefaultMoveProfile<double>;

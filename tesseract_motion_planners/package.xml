@@ -26,7 +26,7 @@
   <depend>trajopt_ifopt</depend>
   <depend>trajopt_sco</depend>
   <depend>trajopt_sqp</depend>
-
+  <depend>cereal</depend>
   <test_depend>gtest</test_depend>
   <test_depend>tesseract_support</test_depend>
 

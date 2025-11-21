@@ -1,7 +1,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_CEREAL_SERIALIZATION_H
 #define TESSERACT_MOTION_PLANNERS_SIMPLE_CEREAL_SERIALIZATION_H
 
-#include <tesseract_motion_planners/simple/simple_planner_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_move_profile.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_no_ik_move_profile.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_move_profile.h>

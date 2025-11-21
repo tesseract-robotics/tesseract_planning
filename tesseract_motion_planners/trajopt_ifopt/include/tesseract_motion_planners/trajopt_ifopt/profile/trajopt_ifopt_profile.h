@@ -83,12 +83,6 @@ public:
    * @return The profile ID used when storing in profile dictionary
    */
   static std::size_t getStaticKey();
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 class TrajOptIfoptCompositeProfile : public tesseract_common::Profile
@@ -109,12 +103,6 @@ public:
    * @return The profile ID used when storing in profile dictionary
    */
   static std::size_t getStaticKey();
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 class TrajOptIfoptSolverProfile : public tesseract_common::Profile
@@ -135,18 +123,8 @@ public:
    * @return The profile ID used when storing in profile dictionary
    */
   static std::size_t getStaticKey();
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptIfoptMoveProfile)
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptIfoptCompositeProfile)
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptIfoptSolverProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_PROFILE_H

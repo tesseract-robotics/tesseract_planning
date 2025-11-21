@@ -28,8 +28,6 @@
 
 #include <memory>
 #include <vector>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 #include <tesseract_common/fwd.h>
 
 namespace tesseract_planning
@@ -78,15 +76,10 @@ struct OMPLSolverConfig
    */
   std::vector<std::shared_ptr<const OMPLPlannerConfigurator>> planners;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const OMPLSolverConfig& rhs) const;
+  bool operator!=(const OMPLSolverConfig& rhs) const;
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::OMPLSolverConfig)
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_SOLVER_CONFIG_H

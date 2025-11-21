@@ -27,8 +27,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/algorithm/string.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -302,17 +300,16 @@ TrajOptDefaultMoveProfile::createConstraintFromErrorFunction(sco::VectorOfVector
   return ef;
 }
 
-template <class Archive>
-void TrajOptDefaultMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool TrajOptDefaultMoveProfile::operator==(const TrajOptDefaultMoveProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptMoveProfile);
-  ar& BOOST_SERIALIZATION_NVP(cartesian_cost_config);
-  ar& BOOST_SERIALIZATION_NVP(cartesian_constraint_config);
-  ar& BOOST_SERIALIZATION_NVP(joint_cost_config);
-  ar& BOOST_SERIALIZATION_NVP(joint_constraint_config);
+  bool equal = true;
+  equal &= (cartesian_cost_config == rhs.cartesian_cost_config);
+  equal &= (cartesian_constraint_config == rhs.cartesian_constraint_config);
+  equal &= (joint_cost_config == rhs.joint_cost_config);
+  equal &= (joint_constraint_config == rhs.joint_constraint_config);
+  return equal;
 }
-}  // namespace tesseract_planning
 
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptDefaultMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptDefaultMoveProfile)
+bool TrajOptDefaultMoveProfile::operator!=(const TrajOptDefaultMoveProfile& rhs) const { return !operator==(rhs); }
+
+}  // namespace tesseract_planning

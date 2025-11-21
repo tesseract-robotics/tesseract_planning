@@ -29,8 +29,8 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
-#include <OsqpEigen/Settings.hpp>
 #include <trajopt_sqp/fwd.h>
+#include <OsqpEigen/Settings.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
@@ -40,18 +40,10 @@ namespace YAML
 class Node;
 }
 
-namespace boost::serialization
-{
-template <class Archive>
-void serialize(Archive& ar, OsqpEigen::Settings& osqp_eigen_settings, const unsigned int version);  // NOLINT
-
-template <class Archive>
-void serialize(Archive& ar, trajopt_sqp::SQPParameters& params, const unsigned int version);  // NOLINT
-
-}  // namespace boost::serialization
-
 namespace tesseract_planning
 {
+bool operator==(const OsqpEigen::Settings& lhs, const OsqpEigen::Settings& rhs);
+
 /** @brief The contains the default solver parameters available for setting up TrajOpt */
 class TrajOptIfoptOSQPSolverProfile : public TrajOptIfoptSolverProfile
 {
@@ -75,18 +67,13 @@ public:
 
   std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> create(bool verbose = false) const override;
 
+  bool operator==(const TrajOptIfoptOSQPSolverProfile& rhs) const;
+  bool operator!=(const TrajOptIfoptOSQPSolverProfile& rhs) const;
+
 protected:
   /** @brief Optimization callbacks */
   virtual std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> createOptimizationCallbacks() const;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptOSQPSolverProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_OSQP_SOLVER_PROFILE_H

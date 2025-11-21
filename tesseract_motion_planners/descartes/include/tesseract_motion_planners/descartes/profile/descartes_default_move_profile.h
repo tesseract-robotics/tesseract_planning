@@ -101,6 +101,9 @@ public:
                        const tesseract_common::ManipulatorInfo& composite_manip_info,
                        const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
 
+  bool operator==(const DescartesDefaultMoveProfile<FloatType>& rhs) const;
+  bool operator!=(const DescartesDefaultMoveProfile<FloatType>& rhs) const;
+
 protected:
   virtual std::unique_ptr<DescartesVertexEvaluator>
   createVertexEvaluator(const MoveInstructionPoly& move_instruction,

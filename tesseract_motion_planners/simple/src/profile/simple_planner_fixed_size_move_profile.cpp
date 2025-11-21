@@ -85,4 +85,17 @@ SimplePlannerFixedSizeMoveProfile::generate(const MoveInstructionPoly& prev_inst
   return interpolateCartCartWaypoint(prev, base, linear_steps, freespace_steps, env->getState());
 }
 
+bool SimplePlannerFixedSizeMoveProfile::operator==(const SimplePlannerFixedSizeMoveProfile& rhs) const
+{
+  bool equal = true;
+  equal &= (freespace_steps == rhs.freespace_steps);
+  equal &= (linear_steps == rhs.linear_steps);
+  return equal;
+}
+
+bool SimplePlannerFixedSizeMoveProfile::operator!=(const SimplePlannerFixedSizeMoveProfile& rhs) const
+{
+  return !operator==(rhs);
+}
+
 }  // namespace tesseract_planning

@@ -152,4 +152,17 @@ SimplePlannerFixedSizeAssignMoveProfile::generate(const MoveInstructionPoly& pre
   return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
+bool SimplePlannerFixedSizeAssignMoveProfile::operator==(const SimplePlannerFixedSizeAssignMoveProfile& rhs) const
+{
+  bool equal = true;
+  equal &= (freespace_steps == rhs.freespace_steps);
+  equal &= (linear_steps == rhs.linear_steps);
+  return equal;
+}
+
+bool SimplePlannerFixedSizeAssignMoveProfile::operator!=(const SimplePlannerFixedSizeAssignMoveProfile& rhs) const
+{
+  return !operator==(rhs);
+}
+
 }  // namespace tesseract_planning

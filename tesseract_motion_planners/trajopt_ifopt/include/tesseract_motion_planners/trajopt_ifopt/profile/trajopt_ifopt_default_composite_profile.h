@@ -70,14 +70,9 @@ public:
                                const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition> >& vars,
                                const std::vector<int>& fixed_indices) const override;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const TrajOptIfoptDefaultCompositeProfile& rhs) const;
+  bool operator!=(const TrajOptIfoptDefaultCompositeProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptDefaultCompositeProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_DEFAULT_COMPOSITE_PROFILE_H

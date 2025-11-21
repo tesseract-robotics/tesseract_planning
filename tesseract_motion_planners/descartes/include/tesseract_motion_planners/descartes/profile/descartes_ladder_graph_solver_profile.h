@@ -43,6 +43,9 @@ public:
   int num_threads{ 1 };
 
   std::unique_ptr<descartes_light::Solver<FloatType>> create() const override;
+
+  bool operator==(const DescartesLadderGraphSolverProfile<FloatType>& rhs) const;
+  bool operator!=(const DescartesLadderGraphSolverProfile<FloatType>& rhs) const;
 };
 
 using DescartesLadderGraphSolverProfileF = DescartesLadderGraphSolverProfile<float>;

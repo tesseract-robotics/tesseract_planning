@@ -18,6 +18,7 @@ target_link_libraries(
          tesseract::tesseract_collision_core
          descartes::descartes_light
          Boost::boost
+         cereal::cereal
          ${CMAKE_THREAD_LIBS_INIT})
 target_compile_options(${PROJECT_NAME}_descartes PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_descartes PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -46,8 +47,11 @@ configure_component(
   COMPONENT descartes
   NAMESPACE tesseract
   TARGETS ${PROJECT_NAME}_descartes
-  DEPENDENCIES "tesseract_motion_planners COMPONENTS core simple" "descartes_light REQUIRED COMPONENTS core"
-               "tesseract_collision COMPONENTS core")
+  DEPENDENCIES
+    "tesseract_motion_planners COMPONENTS core simple"
+    "descartes_light REQUIRED COMPONENTS core"
+    "tesseract_collision COMPONENTS core"
+    cereal)
 
 if(TESSERACT_PACKAGE)
   cpack_component(

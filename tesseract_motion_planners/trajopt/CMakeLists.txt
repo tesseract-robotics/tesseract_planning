@@ -22,6 +22,7 @@ target_link_libraries(
          tesseract::tesseract_kinematics_core
          tesseract::tesseract_environment
          Boost::boost
+         cereal::cereal
          Eigen3::Eigen
          osqp::osqp)
 target_compile_options(${PROJECT_NAME}_trajopt PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
@@ -55,7 +56,8 @@ configure_component(
     "tesseract_motion_planners COMPONENTS core simple"
     trajopt
     trajopt_sco
-    osqp)
+    osqp
+    cereal)
 
 if(TESSERACT_PACKAGE)
   cpack_component(

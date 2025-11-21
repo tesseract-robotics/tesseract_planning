@@ -35,6 +35,7 @@
 
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
@@ -123,5 +124,23 @@ SimplePlannerLVSMoveProfile::generate(const MoveInstructionPoly& prev_instructio
                                      max_steps,
                                      env->getState());
 }
+
+bool SimplePlannerLVSMoveProfile::operator==(const SimplePlannerLVSMoveProfile& rhs) const
+{
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      state_longest_valid_segment_length, rhs.state_longest_valid_segment_length, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      translation_longest_valid_segment_length, rhs.translation_longest_valid_segment_length, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      rotation_longest_valid_segment_length, rhs.rotation_longest_valid_segment_length, max_diff);
+  equal &= (min_steps == rhs.min_steps);
+  equal &= (max_steps == rhs.max_steps);
+  return equal;
+}
+
+bool SimplePlannerLVSMoveProfile::operator!=(const SimplePlannerLVSMoveProfile& rhs) const { return !operator==(rhs); }
 
 }  // namespace tesseract_planning

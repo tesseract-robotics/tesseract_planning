@@ -5,6 +5,9 @@
 #include <tesseract_motion_planners/descartes/profile/descartes_default_move_profile.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
 
+#include <tesseract_common/cereal_serialization.h>
+#include <tesseract_collision/core/cereal_serialization.h>
+
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 

@@ -28,8 +28,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_sqp/qp_problem.h>
 #include <trajopt_ifopt/variable_sets/joint_position_variable.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -39,7 +37,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/joint_state.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_common/manipulator_info.h>
-#include <tesseract_common/eigen_serialization.h>
 #include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_environment/environment.h>
@@ -250,18 +247,19 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
   return info;
 }
 
-template <class Archive>
-void TrajOptIfoptDefaultMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool TrajOptIfoptDefaultMoveProfile::operator==(const TrajOptIfoptDefaultMoveProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptIfoptMoveProfile);
-  ar& BOOST_SERIALIZATION_NVP(cartesian_cost_config);
-  ar& BOOST_SERIALIZATION_NVP(cartesian_constraint_config);
-  ar& BOOST_SERIALIZATION_NVP(joint_cost_config);
-  ar& BOOST_SERIALIZATION_NVP(joint_constraint_config);
+  bool equal = true;
+  equal &= (cartesian_cost_config == rhs.cartesian_cost_config);
+  equal &= (cartesian_constraint_config == rhs.cartesian_constraint_config);
+  equal &= (joint_cost_config == rhs.joint_cost_config);
+  equal &= (joint_constraint_config == rhs.joint_constraint_config);
+  return equal;
+}
+
+bool TrajOptIfoptDefaultMoveProfile::operator!=(const TrajOptIfoptDefaultMoveProfile& rhs) const
+{
+  return !operator==(rhs);
 }
 
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptIfoptDefaultMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptIfoptDefaultMoveProfile)

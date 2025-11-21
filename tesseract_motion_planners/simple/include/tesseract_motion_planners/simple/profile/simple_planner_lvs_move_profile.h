@@ -84,6 +84,9 @@ public:
 
   /** @brief The maximum number of steps for the plan */
   int max_steps;
+
+  bool operator==(const SimplePlannerLVSMoveProfile& rhs) const;
+  bool operator!=(const SimplePlannerLVSMoveProfile& rhs) const;
 };
 
 }  // namespace tesseract_planning

@@ -27,6 +27,7 @@ target_link_libraries(
          ${PROJECT_NAME}_simple
          ${OMPL_LIBRARIES}
          Boost::boost
+         cereal::cereal
          ${CMAKE_THREAD_LIBS_INIT})
 target_compile_options(${PROJECT_NAME}_ompl PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_ompl PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -59,7 +60,7 @@ configure_component(
   COMPONENT ompl
   NAMESPACE tesseract
   TARGETS ${PROJECT_NAME}_ompl
-  DEPENDENCIES "tesseract_motion_planners COMPONENTS core simple" ompl)
+  DEPENDENCIES "tesseract_motion_planners COMPONENTS core simple" ompl cereal)
 
 if(TESSERACT_PACKAGE)
   cpack_component(

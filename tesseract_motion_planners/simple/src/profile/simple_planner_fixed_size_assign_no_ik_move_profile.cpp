@@ -146,4 +146,19 @@ std::vector<MoveInstructionPoly> SimplePlannerFixedSizeAssignNoIKMoveProfile::ge
   return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
+bool SimplePlannerFixedSizeAssignNoIKMoveProfile::operator==(
+    const SimplePlannerFixedSizeAssignNoIKMoveProfile& rhs) const
+{
+  bool equal = true;
+  equal &= (freespace_steps == rhs.freespace_steps);
+  equal &= (linear_steps == rhs.linear_steps);
+  return equal;
+}
+
+bool SimplePlannerFixedSizeAssignNoIKMoveProfile::operator!=(
+    const SimplePlannerFixedSizeAssignNoIKMoveProfile& rhs) const
+{
+  return !operator==(rhs);
+}
+
 }  // namespace tesseract_planning

@@ -10,7 +10,7 @@ add_library(
   src/profile/simple_planner_lvs_no_ik_move_profile.cpp
   src/profile/simple_planner_lvs_move_profile.cpp
   src/profile/simple_planner_profile.cpp)
-target_link_libraries(${PROJECT_NAME}_simple PUBLIC ${PROJECT_NAME}_core Boost::boost)
+target_link_libraries(${PROJECT_NAME}_simple PUBLIC ${PROJECT_NAME}_core Boost::boost cereal::cereal)
 target_compile_options(${PROJECT_NAME}_simple PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_simple PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_simple PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -39,7 +39,11 @@ configure_component(
   COMPONENT simple
   NAMESPACE tesseract
   TARGETS ${PROJECT_NAME}_simple
-  DEPENDENCIES "tesseract_motion_planners COMPONENTS core" tesseract_environment tesseract_command_language)
+  DEPENDENCIES
+    "tesseract_motion_planners COMPONENTS core"
+    tesseract_environment
+    tesseract_command_language
+    cereal)
 
 if(TESSERACT_PACKAGE)
   cpack_component(
