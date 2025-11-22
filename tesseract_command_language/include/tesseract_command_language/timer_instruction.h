@@ -58,7 +58,7 @@ void serialize(Archive& ar, TimerInstruction& obj);
 class TimerInstruction final : public InstructionInterface
 {
 public:
-  TimerInstruction() = default;  // Required for boost serialization do not use
+  TimerInstruction() = default;  // Required for serialization do not use
   TimerInstruction(TimerInstructionType type, double time, int io);
 
   // Instruction

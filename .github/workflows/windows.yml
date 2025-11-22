@@ -32,9 +32,9 @@ jobs:
         pkgs: >-
           fcl bullet3[multithreading,double-precision,rtti] octomap
           console-bridge eigen3 yaml-cpp benchmark tinyxml2 assimp orocos-kdl pcl
-          lapack-reference boost-dll boost-filesystem boost-serialization boost-format boost-stacktrace
+          lapack-reference boost-dll boost-filesystem boost-format boost-stacktrace
           boost-program-options boost-graph urdfdom ccd[double-precision] gtest
-          ompl taskflow jsoncpp flann benchmark
+          ompl taskflow jsoncpp flann benchmark cereal
         triplet: x64-windows-release
         extra-args: --clean-after-build
         token: ${{ github.token }}

@@ -6,6 +6,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/joint_state.h>
 #include <tesseract_common/utils.h>
+#include <tesseract_common/cereal_serialization.h>
+#include <tesseract_common/unit_test_utils.h>
+#include <tesseract_common/resource_locator.h>
 
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
@@ -18,9 +21,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_server.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/core/task_composer_log.h>
+#include <tesseract_task_composer/core/cereal_serialization.h>
 
 #include <tesseract_task_composer/core/test_suite/task_composer_node_info_unit.hpp>
-#include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
 
 #include <tesseract_task_composer/core/nodes/done_task.h>
 #include <tesseract_task_composer/core/nodes/error_task.h>
@@ -30,8 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/nodes/start_task.h>
 #include <tesseract_task_composer/core/nodes/sync_task.h>
 #include <tesseract_task_composer/core/test_suite/test_task.h>
-
-#include <tesseract_common/resource_locator.h>
 
 using namespace tesseract_planning;
 
@@ -72,7 +73,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerDataStorageTests)  // NOLINT
   EXPECT_TRUE(move_assign.getData(key).as<tesseract_common::JointState>() == js);
 
   // Serialization
-  test_suite::runSerializationTest<TaskComposerDataStorage>(move_assign, "TaskComposerDataStorageTests");
+  tesseract_common::testSerialization<TaskComposerDataStorage>(move_assign, "TaskComposerDataStorageTests");
 
   // Test Remove
   move_assign.removeData(key);
@@ -139,7 +140,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerContextTests)  // NOLINT
   EXPECT_EQ(context->task_infos->getInfoMap().size(), 1);
 
   // Serialization
-  test_suite::runSerializationPointerTest(context, "TaskComposerContextTests");
+  tesseract_common::testSerialization<TaskComposerContext::Ptr>(
+      context,
+      "TaskComposerContextTests",
+      tesseract_common::testSerializationComparePtrEqual<TaskComposerContext::Ptr>);
 }
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerLogTests)  // NOLINT
@@ -148,7 +152,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerLogTests)  // NOLINT
   log.context = std::make_shared<TaskComposerContext>("TaskComposerLogTests");
 
   // Serialization
-  test_suite::runSerializationTest(log, "TaskComposerLogTests");
+  tesseract_common::testSerialization(log, "TaskComposerLogTests");
 }
 
 TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoContainerTests)  // NOLINT
@@ -167,7 +171,10 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerNodeInfoContainerTests)  // NOLI
   EXPECT_TRUE(node_info_container->getAbortingNode() == aborted_uuid);
 
   // Serialization
-  test_suite::runSerializationPointerTest(node_info_container, "TaskComposerNodeInfoContainerTests");
+  tesseract_common::testSerialization<TaskComposerNodeInfoContainer::UPtr>(
+      node_info_container,
+      "TaskComposerNodeInfoContainerTests",
+      tesseract_common::testSerializationComparePtrEqual<TaskComposerNodeInfoContainer::UPtr>);
 
   // Copy
   auto copy_node_info_container = std::make_unique<TaskComposerNodeInfoContainer>(*node_info_container);

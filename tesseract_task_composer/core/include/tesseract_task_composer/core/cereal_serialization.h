@@ -86,9 +86,9 @@ void serialize(Archive& ar, TaskComposerContext& obj)
 {
   ar(cereal::make_nvp("name", obj.name));
   ar(cereal::make_nvp("dotgraph", obj.dotgraph));
-  ar(cereal::make_nvp("data_storage", obj.data_storage));
-  ar(cereal::make_nvp("task_infos", obj.task_infos));
-  ar(cereal::make_nvp("aborted", obj.aborted_));
+  // ar(cereal::make_nvp("data_storage", obj.data_storage));
+  // ar(cereal::make_nvp("task_infos", obj.task_infos));
+  // ar(cereal::make_nvp("aborted", obj.aborted_));
 }
 
 template <class Archive>

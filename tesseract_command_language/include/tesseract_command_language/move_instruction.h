@@ -58,7 +58,7 @@ void serialize(Archive& ar, MoveInstruction& obj);
 class MoveInstruction final : public MoveInstructionInterface
 {
 public:
-  MoveInstruction() = default;  // Required for boost serialization do not use
+  MoveInstruction() = default;  // Required for serialization do not use
 
   /**
    * @brief Move Instruction Constructor

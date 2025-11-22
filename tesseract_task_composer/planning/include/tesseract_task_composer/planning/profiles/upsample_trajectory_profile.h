@@ -57,14 +57,9 @@ struct UpsampleTrajectoryProfile : public tesseract_common::Profile
 
   double longest_valid_segment_length{ 0.1 };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const UpsampleTrajectoryProfile& rhs) const;
+  bool operator!=(const UpsampleTrajectoryProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::UpsampleTrajectoryProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_UPSAMPLE_TRAJECTORY_PROFILE_H

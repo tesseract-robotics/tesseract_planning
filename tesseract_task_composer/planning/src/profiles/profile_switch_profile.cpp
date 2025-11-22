@@ -23,8 +23,6 @@
  */
 
 #include <tesseract_task_composer/planning/profiles/profile_switch_profile.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <typeindex>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
@@ -51,15 +49,11 @@ ProfileSwitchProfile::ProfileSwitchProfile(const YAML::Node& config,
 
 std::size_t ProfileSwitchProfile::getStaticKey() { return std::type_index(typeid(ProfileSwitchProfile)).hash_code(); }
 
-template <class Archive>
-void ProfileSwitchProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool ProfileSwitchProfile::operator==(const ProfileSwitchProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(return_value);
+  return (return_value == rhs.return_value);
 }
 
-}  // namespace tesseract_planning
+bool ProfileSwitchProfile::operator!=(const ProfileSwitchProfile& rhs) const { return !operator==(rhs); }
 
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ProfileSwitchProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ProfileSwitchProfile)
+}  // namespace tesseract_planning

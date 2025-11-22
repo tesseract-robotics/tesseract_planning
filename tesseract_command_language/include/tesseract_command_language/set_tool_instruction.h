@@ -44,7 +44,7 @@ void serialize(Archive& ar, SetToolInstruction& obj);
 class SetToolInstruction final : public InstructionInterface
 {
 public:
-  SetToolInstruction() = default;  // Required for boost serialization do not use
+  SetToolInstruction() = default;  // Required for serialization do not use
   SetToolInstruction(int tool_id);
 
   // Instruction

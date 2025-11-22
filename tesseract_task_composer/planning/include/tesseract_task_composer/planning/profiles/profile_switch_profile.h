@@ -55,14 +55,9 @@ struct ProfileSwitchProfile : public tesseract_common::Profile
 
   int return_value;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const ProfileSwitchProfile& rhs) const;
+  bool operator!=(const ProfileSwitchProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::ProfileSwitchProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_PROFILE_SWITCH_PROFILE_H

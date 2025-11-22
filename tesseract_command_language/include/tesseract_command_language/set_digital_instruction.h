@@ -44,7 +44,7 @@ void serialize(Archive& ar, SetDigitalInstruction& obj);
 class SetDigitalInstruction final : public InstructionInterface
 {
 public:
-  SetDigitalInstruction() = default;  // Required for boost serialization do not use
+  SetDigitalInstruction() = default;  // Required for serialization do not use
   SetDigitalInstruction(std::string key, int index, bool value);
 
   // Instruction

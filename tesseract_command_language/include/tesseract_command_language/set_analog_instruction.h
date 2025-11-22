@@ -44,7 +44,7 @@ void serialize(Archive& ar, SetAnalogInstruction& obj);
 class SetAnalogInstruction final : public InstructionInterface
 {
 public:
-  SetAnalogInstruction() = default;  // Required for boost serialization do not use
+  SetAnalogInstruction() = default;  // Required for serialization do not use
   SetAnalogInstruction(std::string key, int index, double value);
 
   // Instruction

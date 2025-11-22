@@ -64,7 +64,7 @@ void serialize(Archive& ar, WaitInstruction& obj);
 class WaitInstruction final : public InstructionInterface
 {
 public:
-  WaitInstruction() = default;  // Required for boost serialization do not use
+  WaitInstruction() = default;  // Required for serialization do not use
   WaitInstruction(double time);
   WaitInstruction(WaitInstructionType type, int io);
 

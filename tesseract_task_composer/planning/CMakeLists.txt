@@ -55,9 +55,10 @@ set(LIB_SOURCE_LINK_LIBRARIES
     tesseract::tesseract_command_language
     tesseract::tesseract_motion_planners_core
     tesseract::tesseract_motion_planners_simple
+    tesseract::tesseract_motion_planners_trajopt
     tesseract::tesseract_time_parameterization_core
     Boost::boost
-    Boost::serialization
+    cereal::cereal
     yaml-cpp)
 
 set(FACTORIES_SOURCE_FILES src/factories/planning_task_composer_core_plugin_factories.cpp)
@@ -67,7 +68,7 @@ set(FACTORIES_SOURCE_LINK_LIBRARIES ${PROJECT_NAME} ${PROJECT_NAME}_planning_nod
 
 set(LINUX_DEPENDS
     "libconsole-bridge-dev"
-    "libboost-serialization-dev"
+    "cereal"
     "${TESSERACT_PACKAGE_PREFIX}trajopt"
     "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
     "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language"
@@ -77,7 +78,7 @@ set(LINUX_DEPENDS
 
 set(WINDOWS_DEPENDS
     "console-bridge"
-    "boost-serialization"
+    "cereal"
     "${TESSERACT_PACKAGE_PREFIX}trajopt"
     "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
     "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language"
@@ -220,6 +221,7 @@ configure_component(
     "tesseract_task_composer COMPONENTS core"
     tesseract_command_language
     trajopt
+    cereal
     "tesseract_motion_planners REQUIRED COMPONENTS core simple OPTIONAL_COMPONENTS descartes ompl trajopt trajopt_ifopt"
     "tesseract_time_parameterization REQUIRED COMPONENTS core OPTIONAL_COMPONENTS isp kdl totg ruckig")
 

@@ -25,11 +25,10 @@
  */
 #include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
 #include <tesseract_task_composer/planning/yaml_extensions.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <typeindex>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
@@ -60,18 +59,18 @@ FixStateBoundsProfile::FixStateBoundsProfile(const YAML::Node& config,
 
 std::size_t FixStateBoundsProfile::getStaticKey() { return std::type_index(typeid(FixStateBoundsProfile)).hash_code(); }
 
-template <class Archive>
-void FixStateBoundsProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool FixStateBoundsProfile::operator==(const FixStateBoundsProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(mode);
-  ar& BOOST_SERIALIZATION_NVP(max_deviation_global);
-  ar& BOOST_SERIALIZATION_NVP(upper_bounds_reduction);
-  ar& BOOST_SERIALIZATION_NVP(lower_bounds_reduction);
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= (mode == rhs.mode);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(max_deviation_global, rhs.max_deviation_global, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(upper_bounds_reduction, rhs.upper_bounds_reduction, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(lower_bounds_reduction, rhs.lower_bounds_reduction, max_diff);
+  return equal;
 }
 
-}  // namespace tesseract_planning
+bool FixStateBoundsProfile::operator!=(const FixStateBoundsProfile& rhs) const { return !operator==(rhs); }
 
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FixStateBoundsProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FixStateBoundsProfile)
+}  // namespace tesseract_planning

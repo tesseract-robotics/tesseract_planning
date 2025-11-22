@@ -121,14 +121,9 @@ struct FixStateCollisionProfile : public tesseract_common::Profile
   /** @brief Update the OSQP workspace for subsequent optimizations, instead of recreating it each time */
   bool update_workspace{ false };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const FixStateCollisionProfile& rhs) const;
+  bool operator!=(const FixStateCollisionProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::FixStateCollisionProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_COLLISION_PROFILE_H

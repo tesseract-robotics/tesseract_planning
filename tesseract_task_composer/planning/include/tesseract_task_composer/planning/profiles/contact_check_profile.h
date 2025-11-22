@@ -63,14 +63,9 @@ struct ContactCheckProfile : public tesseract_common::Profile
   /** @brief The collision check config */
   tesseract_collision::CollisionCheckConfig collision_check_config;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const ContactCheckProfile& rhs) const;
+  bool operator!=(const ContactCheckProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::ContactCheckProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_CONTACT_CHECK_PROFILE_H

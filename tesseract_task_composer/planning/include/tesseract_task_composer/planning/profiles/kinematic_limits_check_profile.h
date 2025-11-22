@@ -50,15 +50,10 @@ struct KinematicLimitsCheckProfile : public tesseract_common::Profile
   bool check_velocity{ true };
   bool check_acceleration{ true };
 
-protected:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const KinematicLimitsCheckProfile& rhs) const;
+  bool operator!=(const KinematicLimitsCheckProfile& rhs) const;
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::KinematicLimitsCheckProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_PLANNING_PROFILES_KINEMATIC_LIMITS_CHECK_PROFILE_H
