@@ -26,6 +26,7 @@
 
 #include <tesseract_task_composer/planning/profiles/fix_state_collision_profile.h>
 #include <tesseract_task_composer/planning/yaml_extensions.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <typeindex>
 #include <tesseract_collision/core/yaml_extensions.h>
 #include <tesseract_motion_planners/trajopt/yaml_extensions.h>
