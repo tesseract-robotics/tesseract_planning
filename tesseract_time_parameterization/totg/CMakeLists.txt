@@ -1,4 +1,4 @@
-add_library(${PROJECT_NAME}_totg src/time_optimal_trajectory_generation.cpp
+add_library(${PROJECT_NAME}_totg src/cereal_serialization.cpp src/time_optimal_trajectory_generation.cpp
                                  src/time_optimal_trajectory_generation_profiles.cpp)
 target_link_libraries(${PROJECT_NAME}_totg PUBLIC ${PROJECT_NAME}_core cereal::cereal)
 target_include_directories(${PROJECT_NAME}_totg PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"

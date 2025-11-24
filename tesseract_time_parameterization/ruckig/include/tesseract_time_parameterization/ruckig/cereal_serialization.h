@@ -23,14 +23,4 @@ void serialize(Archive& ar, RuckigTrajectorySmoothingCompositeProfile& obj)
 }
 }  // namespace tesseract_planning
 
-// These must be include before calling macro CEREAL_REGISTER_TYPE
-#include <cereal/archives/binary.hpp>
-#include <cereal/archives/xml.hpp>
-#include <cereal/archives/json.hpp>
-
-CEREAL_REGISTER_TYPE(tesseract_planning::RuckigTrajectorySmoothingCompositeProfile)
-
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile,
-                                     tesseract_planning::RuckigTrajectorySmoothingCompositeProfile)
-
 #endif  // TESSERACT_TIME_PARAMETERIZATION_RUCKIG_TRAJECTORY_SMOOTHING_CEREAL_SERIALIZATION_H

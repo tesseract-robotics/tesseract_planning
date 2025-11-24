@@ -31,17 +31,4 @@ void serialize(Archive& ar, IterativeSplineParameterizationMoveProfile& obj)
 
 }  // namespace tesseract_planning
 
-// These must be include before calling macro CEREAL_REGISTER_TYPE
-#include <cereal/archives/binary.hpp>
-#include <cereal/archives/xml.hpp>
-#include <cereal/archives/json.hpp>
-
-CEREAL_REGISTER_TYPE(tesseract_planning::IterativeSplineParameterizationCompositeProfile)
-CEREAL_REGISTER_TYPE(tesseract_planning::IterativeSplineParameterizationMoveProfile)
-
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile,
-                                     tesseract_planning::IterativeSplineParameterizationCompositeProfile)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile,
-                                     tesseract_planning::IterativeSplineParameterizationMoveProfile)
-
 #endif  // TESSERACT_TIME_PARAMETERIZATION_ITERATIVE_SPLINE_PARAMETERIZATION_CEREAL_SERIALIZATION_H

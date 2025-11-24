@@ -1,5 +1,6 @@
 add_library(
   ${PROJECT_NAME}_simple
+  src/cereal_serialization.cpp
   src/interpolation.cpp
   src/simple_motion_planner.cpp
   src/profile/simple_planner_fixed_size_assign_no_ik_move_profile.cpp

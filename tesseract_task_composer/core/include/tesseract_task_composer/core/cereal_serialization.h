@@ -95,20 +95,11 @@ template <class Archive>
 void serialize(Archive& ar, TaskComposerLog& obj)
 {
   ar(cereal::make_nvp("description", obj.description));
-  ar(cereal::make_nvp("description", obj.description));
+  ar(cereal::make_nvp("initial_data", obj.initial_data));
   ar(cereal::make_nvp("context", obj.context));
   ar(cereal::make_nvp("dotgraph", obj.dotgraph));
 }
 
 }  // namespace tesseract_planning
-
-// These must be include before calling macro CEREAL_REGISTER_TYPE
-#include <cereal/archives/binary.hpp>
-#include <cereal/archives/xml.hpp>
-#include <cereal/archives/json.hpp>
-
-CEREAL_REGISTER_TYPE(tesseract_planning::TaskComposerDataStoragePtrAnyPoly)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::AnyInterface,
-                                     tesseract_planning::TaskComposerDataStoragePtrAnyPoly)
 
 #endif  // TESSERACT_TASK_COMPOSER_CEREAL_SERIALIZATION_H

@@ -4,6 +4,7 @@ find_package(tesseract_collision REQUIRED COMPONENTS core)
 # Descartes Planner
 add_library(
   ${PROJECT_NAME}_descartes
+  src/cereal_serialization.cpp
   src/descartes_motion_planner.cpp
   src/descartes_collision.cpp
   src/descartes_collision_edge_evaluator.cpp

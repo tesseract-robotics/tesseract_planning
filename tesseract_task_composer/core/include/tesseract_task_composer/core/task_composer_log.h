@@ -42,6 +42,6 @@ public:
 };
 }  // namespace tesseract_planning
 
-TESSERACT_CLASS_EXTENSION(tesseract_planning::TaskComposerLog, ".tclx", ".tclb")
+TESSERACT_CLASS_EXTENSION(tesseract_planning::TaskComposerLog, ".tclx", ".tclj", ".tclb")
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_LOG_H

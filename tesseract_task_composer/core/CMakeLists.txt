@@ -3,6 +3,7 @@ include(GenerateExportHeader)
 
 add_library(
   ${PROJECT_NAME}
+  src/cereal_serialization.cpp
   src/task_composer_data_storage.cpp
   src/task_composer_context.cpp
   src/task_composer_executor.cpp

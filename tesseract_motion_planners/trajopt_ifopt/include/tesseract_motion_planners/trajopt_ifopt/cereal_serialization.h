@@ -156,29 +156,4 @@ void serialize(Archive& ar, TrajOptIfoptOSQPSolverProfile& obj)
 
 }  // namespace tesseract_planning
 
-// These must be include before calling macro CEREAL_REGISTER_TYPE
-#include <cereal/archives/binary.hpp>
-#include <cereal/archives/xml.hpp>
-#include <cereal/archives/json.hpp>
-
-CEREAL_REGISTER_TYPE(tesseract_planning::TrajOptIfoptMoveProfile)
-CEREAL_REGISTER_TYPE(tesseract_planning::TrajOptIfoptCompositeProfile)
-CEREAL_REGISTER_TYPE(tesseract_planning::TrajOptIfoptSolverProfile)
-CEREAL_REGISTER_TYPE(tesseract_planning::TrajOptIfoptDefaultMoveProfile)
-CEREAL_REGISTER_TYPE(tesseract_planning::TrajOptIfoptDefaultCompositeProfile)
-CEREAL_REGISTER_TYPE(tesseract_planning::TrajOptIfoptOSQPSolverProfile)
-
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::TrajOptIfoptMoveProfile)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::TrajOptIfoptCompositeProfile)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::TrajOptIfoptSolverProfile)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::TrajOptIfoptDefaultMoveProfile)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::TrajOptIfoptDefaultCompositeProfile)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::TrajOptIfoptOSQPSolverProfile)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_planning::TrajOptIfoptMoveProfile,
-                                     tesseract_planning::TrajOptIfoptDefaultMoveProfile)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_planning::TrajOptIfoptCompositeProfile,
-                                     tesseract_planning::TrajOptIfoptDefaultCompositeProfile)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_planning::TrajOptIfoptSolverProfile,
-                                     tesseract_planning::TrajOptIfoptOSQPSolverProfile)
-
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_CEREAL_SERIALIZATION_H
