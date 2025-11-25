@@ -19,9 +19,6 @@
  * limitations under the License.
  */
 #include <tesseract_task_composer/planning/profiles/kinematic_limits_check_profile.h>
-#include <tesseract_common/serialization.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <typeindex>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
@@ -64,15 +61,15 @@ std::size_t KinematicLimitsCheckProfile::getStaticKey()
   return std::type_index(typeid(KinematicLimitsCheckProfile)).hash_code();
 }
 
-template <class Archive>
-void KinematicLimitsCheckProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool KinematicLimitsCheckProfile::operator==(const KinematicLimitsCheckProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(check_position);
-  ar& BOOST_SERIALIZATION_NVP(check_velocity);
-  ar& BOOST_SERIALIZATION_NVP(check_acceleration);
+  bool equal = true;
+  equal &= (check_position == rhs.check_position);
+  equal &= (check_velocity == rhs.check_velocity);
+  equal &= (check_acceleration == rhs.check_acceleration);
+  return equal;
 }
-}  // namespace tesseract_planning
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::KinematicLimitsCheckProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::KinematicLimitsCheckProfile)
+bool KinematicLimitsCheckProfile::operator!=(const KinematicLimitsCheckProfile& rhs) const { return !operator==(rhs); }
+
+}  // namespace tesseract_planning

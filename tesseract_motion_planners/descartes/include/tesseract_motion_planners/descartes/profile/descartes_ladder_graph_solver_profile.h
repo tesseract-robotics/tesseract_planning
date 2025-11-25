@@ -44,18 +44,12 @@ public:
 
   std::unique_ptr<descartes_light::Solver<FloatType>> create() const override;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const DescartesLadderGraphSolverProfile<FloatType>& rhs) const;
+  bool operator!=(const DescartesLadderGraphSolverProfile<FloatType>& rhs) const;
 };
 
 using DescartesLadderGraphSolverProfileF = DescartesLadderGraphSolverProfile<float>;
 using DescartesLadderGraphSolverProfileD = DescartesLadderGraphSolverProfile<double>;
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::DescartesLadderGraphSolverProfile<float>)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::DescartesLadderGraphSolverProfile<double>)
 
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_LADDER_GRAPH_SOLVER_PROFILE_H

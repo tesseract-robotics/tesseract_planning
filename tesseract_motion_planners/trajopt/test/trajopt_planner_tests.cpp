@@ -31,6 +31,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
 #include <tesseract_common/profile_dictionary.h>
+#include <tesseract_common/cereal_serialization.h>
+#include <tesseract_common/unit_test_utils.h>
 
 #include <tesseract_kinematics/core/joint_group.h>
 
@@ -44,6 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h>
 
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
+#include <tesseract_motion_planners/trajopt/cereal_serialization.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
@@ -146,6 +149,16 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   auto move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
   auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
   auto solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
+
+  // Serialization
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, TrajOptDefaultMoveProfile>(move_profile,
+                                                                                                        "trajopt_move_"
+                                                                                                        "profile");
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, TrajOptDefaultCompositeProfile>(
+      composite_profile, "trajopt_composite_profile");
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, TrajOptOSQPSolverProfile>(solver_profile,
+                                                                                                       "trajopt_solver_"
+                                                                                                       "profile");
 
   // Profile Dictionary
   auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();

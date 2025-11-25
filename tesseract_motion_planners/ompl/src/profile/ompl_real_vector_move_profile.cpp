@@ -32,10 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/goals/GoalStates.h>
 #include <boost/algorithm/string.hpp>
 #include <console_bridge/console.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/shared_ptr.hpp>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -63,7 +59,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_collision/core/discrete_contact_manager.h>
-#include <tesseract_collision/core/serialization.h>
 #include <tesseract_environment/environment.h>
 
 #include <tesseract_common/profile_plugin_factory.h>
@@ -529,17 +524,15 @@ std::unique_ptr<ompl::base::OptimizationObjective> OMPLRealVectorMoveProfile::cr
   return std::make_unique<ompl::base::PathLengthOptimizationObjective>(simple_setup.getSpaceInformation());
 }
 
-template <class Archive>
-void OMPLRealVectorMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool OMPLRealVectorMoveProfile::operator==(const OMPLRealVectorMoveProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLMoveProfile);
-  ar& BOOST_SERIALIZATION_NVP(solver_config);
-  ar& BOOST_SERIALIZATION_NVP(contact_manager_config);
-  ar& BOOST_SERIALIZATION_NVP(collision_check_config);
+  bool equal = true;
+  equal &= (solver_config == rhs.solver_config);
+  equal &= (contact_manager_config == rhs.contact_manager_config);
+  equal &= (collision_check_config == rhs.collision_check_config);
+  return equal;
 }
 
-}  // namespace tesseract_planning
+bool OMPLRealVectorMoveProfile::operator!=(const OMPLRealVectorMoveProfile& rhs) const { return !operator==(rhs); }
 
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLRealVectorMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::OMPLRealVectorMoveProfile)
+}  // namespace tesseract_planning

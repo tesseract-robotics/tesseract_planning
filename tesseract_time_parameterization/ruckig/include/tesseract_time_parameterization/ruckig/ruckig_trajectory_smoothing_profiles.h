@@ -63,15 +63,10 @@ struct RuckigTrajectorySmoothingCompositeProfile : public tesseract_common::Prof
   /** @brief The min/max jerk for each joint */
   Eigen::MatrixX2d jerk_limits;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const RuckigTrajectorySmoothingCompositeProfile& rhs) const;
+  bool operator!=(const RuckigTrajectorySmoothingCompositeProfile& rhs) const;
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::RuckigTrajectorySmoothingCompositeProfile)
 
 #endif  // TESSERACT_TIME_PARAMETERIZATION_RUCKIG_TRAJECTORY_SMOOTHING_PROFILES_H

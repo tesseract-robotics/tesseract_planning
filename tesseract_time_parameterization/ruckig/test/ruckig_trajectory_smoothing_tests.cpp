@@ -6,10 +6,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/resource_locator.h>
 #include <tesseract_common/profile_dictionary.h>
+#include <tesseract_common/unit_test_utils.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_time_parameterization/ruckig/cereal_serialization.h>
 #include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing.h>
 #include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing_profiles.h>
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization.h>
@@ -224,6 +226,10 @@ TEST_F(RuckigTrajectorySmoothingUnit, RuckigTrajectorySmoothingRepeatedPointSolv
   profile->jerk_limits = Eigen::MatrixX2d(6, 2);
   profile->jerk_limits.col(0) << -1000, -1000, -1000, -1000, -1000, -1000;
   profile->jerk_limits.col(1) << 1000, 1000, 1000, 1000, 1000, 1000;
+
+  // Serialization
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, RuckigTrajectorySmoothingCompositeProfile>(
+      profile, "RuckigTrajectorySmoothingCompositeProfile");
 
   // Profile Dictionary
   tesseract_common::ProfileDictionary profiles;

@@ -75,12 +75,6 @@ public:
            const InstructionPoly& next_instruction,
            const std::shared_ptr<const tesseract_environment::Environment>& env,
            const tesseract_common::ManipulatorInfo& global_manip_info) const = 0;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 class SimplePlannerCompositeProfile : public tesseract_common::Profile
@@ -96,17 +90,8 @@ public:
    * @return The profile ID used when storing in profile dictionary
    */
   static std::size_t getStaticKey();
-
-  // This contains functions for composite processing. Get start for example
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::SimplePlannerMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PROFILE_H

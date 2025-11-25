@@ -21,12 +21,6 @@
 #include <memory>
 #include <tesseract_common/fwd.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
-#include <boost/serialization/export.hpp>
-
-namespace boost::serialization
-{
-class access;
-}
 
 namespace tesseract_planning
 {
@@ -45,16 +39,9 @@ public:
 
   bool operator==(const TaskComposerLog& rhs) const;
   bool operator!=(const TaskComposerLog& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerLog)
-TESSERACT_CLASS_EXTENSION(tesseract_planning::TaskComposerLog, ".tclx", ".tclb")
+TESSERACT_CLASS_EXTENSION(tesseract_planning::TaskComposerLog, ".tclx", ".tclj", ".tclb")
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_LOG_H

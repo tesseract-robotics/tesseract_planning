@@ -25,45 +25,42 @@
  */
 #include <tesseract_motion_planners/descartes/impl/profile/descartes_default_move_profile.hpp>
 #include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
-#include <tesseract_collision/core/serialization.h>
-#include <tesseract_common/eigen_serialization.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/shared_ptr.hpp>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
+template <typename FloatType>
+bool DescartesDefaultMoveProfile<FloatType>::operator==(const DescartesDefaultMoveProfile<FloatType>& rhs) const
+{
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= (target_pose_fixed == rhs.target_pose_fixed);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(target_pose_sample_axis, rhs.target_pose_sample_axis, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      target_pose_sample_resolution, rhs.target_pose_sample_resolution, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(target_pose_sample_min, rhs.target_pose_sample_min, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(target_pose_sample_max, rhs.target_pose_sample_max, max_diff);
+  equal &= (manipulator_ik_solver == rhs.manipulator_ik_solver);
+  equal &= (allow_collision == rhs.allow_collision);
+  equal &= (enable_collision == rhs.enable_collision);
+  equal &= (vertex_contact_manager_config == rhs.vertex_contact_manager_config);
+  equal &= (vertex_collision_check_config == rhs.vertex_collision_check_config);
+  equal &= (enable_edge_collision == rhs.enable_edge_collision);
+  equal &= (edge_contact_manager_config == rhs.edge_contact_manager_config);
+  equal &= (edge_collision_check_config == rhs.edge_collision_check_config);
+  equal &= (use_redundant_joint_solutions == rhs.use_redundant_joint_solutions);
+  equal &= (debug == rhs.debug);
+  return equal;
+}
+
+template <typename FloatType>
+bool DescartesDefaultMoveProfile<FloatType>::operator!=(const DescartesDefaultMoveProfile<FloatType>& rhs) const
+{
+  return !operator==(rhs);
+}
+
 // Explicit template instantiation
 template class DescartesDefaultMoveProfile<float>;
 template class DescartesDefaultMoveProfile<double>;
-
-template <typename FloatType>
-template <class Archive>
-void DescartesDefaultMoveProfile<FloatType>::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("DescartesMoveProfile",
-                                     boost::serialization::base_object<DescartesMoveProfile<FloatType>>(*this));
-  ar& BOOST_SERIALIZATION_NVP(target_pose_fixed);
-  ar& BOOST_SERIALIZATION_NVP(target_pose_sample_axis);
-  ar& BOOST_SERIALIZATION_NVP(target_pose_sample_resolution);
-  ar& BOOST_SERIALIZATION_NVP(target_pose_sample_min);
-  ar& BOOST_SERIALIZATION_NVP(target_pose_sample_max);
-  ar& BOOST_SERIALIZATION_NVP(manipulator_ik_solver);
-  ar& BOOST_SERIALIZATION_NVP(allow_collision);
-  ar& BOOST_SERIALIZATION_NVP(enable_collision);
-  ar& BOOST_SERIALIZATION_NVP(vertex_contact_manager_config);
-  ar& BOOST_SERIALIZATION_NVP(vertex_collision_check_config);
-  ar& BOOST_SERIALIZATION_NVP(enable_edge_collision);
-  ar& BOOST_SERIALIZATION_NVP(edge_contact_manager_config);
-  ar& BOOST_SERIALIZATION_NVP(edge_collision_check_config);
-  ar& BOOST_SERIALIZATION_NVP(use_redundant_joint_solutions);
-  ar& BOOST_SERIALIZATION_NVP(debug);
-}
-
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesDefaultMoveProfile<float>)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesDefaultMoveProfile<float>)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesDefaultMoveProfile<double>)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesDefaultMoveProfile<double>)

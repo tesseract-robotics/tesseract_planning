@@ -28,13 +28,10 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <typeindex>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
-#include <tesseract_collision/core/serialization.h>
 #include <tesseract_collision/core/yaml_extensions.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
@@ -77,16 +74,14 @@ ContactCheckProfile::ContactCheckProfile(const YAML::Node& config,
 
 std::size_t ContactCheckProfile::getStaticKey() { return std::type_index(typeid(ContactCheckProfile)).hash_code(); }
 
-template <class Archive>
-void ContactCheckProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool ContactCheckProfile::operator==(const ContactCheckProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(contact_manager_config);
-  ar& BOOST_SERIALIZATION_NVP(collision_check_config);
+  bool equal = true;
+  equal &= (contact_manager_config == rhs.contact_manager_config);
+  equal &= (collision_check_config == rhs.collision_check_config);
+  return equal;
 }
 
-}  // namespace tesseract_planning
+bool ContactCheckProfile::operator!=(const ContactCheckProfile& rhs) const { return !operator==(rhs); }
 
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ContactCheckProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ContactCheckProfile)
+}  // namespace tesseract_planning

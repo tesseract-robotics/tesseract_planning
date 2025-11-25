@@ -28,8 +28,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 #include <functional>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -78,15 +76,8 @@ private:
                                OptionalTaskComposerExecutor executor) const override final;
 
   static void checkTaskInput(const tesseract_common::AnyPoly& input);
-
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::ForEachTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_FOR_EACH_TASK_H

@@ -45,6 +45,9 @@
 #include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_command_language/wait_instruction.h>
 
+#include <tesseract_command_language/cereal_serialization.h>
+#include <tesseract_common/serialization.h>
+
 #include "command_language_test_program.hpp"
 
 using namespace tesseract_planning;

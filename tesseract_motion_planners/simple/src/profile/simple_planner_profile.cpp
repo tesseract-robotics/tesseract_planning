@@ -24,8 +24,6 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <typeindex>
 
 namespace tesseract_planning
@@ -37,12 +35,6 @@ std::size_t SimplePlannerMoveProfile::getStaticKey()
   return std::type_index(typeid(SimplePlannerMoveProfile)).hash_code();
 }
 
-template <class Archive>
-void SimplePlannerMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-}
-
 SimplePlannerCompositeProfile::SimplePlannerCompositeProfile() : Profile(SimplePlannerCompositeProfile::getStaticKey())
 {
 }
@@ -52,16 +44,4 @@ std::size_t SimplePlannerCompositeProfile::getStaticKey()
   return std::type_index(typeid(SimplePlannerCompositeProfile)).hash_code();
 }
 
-template <class Archive>
-void SimplePlannerCompositeProfile::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-}
-
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerMoveProfile)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerCompositeProfile)
-
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerCompositeProfile)

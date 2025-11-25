@@ -76,14 +76,9 @@ struct FixStateBoundsProfile : public tesseract_common::Profile
   /** @brief Amount to increase the lower bounds before clamping limits. Should be > 1 */
   double lower_bounds_reduction{ std::numeric_limits<float>::epsilon() };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const FixStateBoundsProfile& rhs) const;
+  bool operator!=(const FixStateBoundsProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::FixStateBoundsProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_BOUNDS_PROFILE_H

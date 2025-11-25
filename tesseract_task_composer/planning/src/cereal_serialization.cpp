@@ -1,0 +1,24 @@
+#include <tesseract_task_composer/planning/cereal_serialization.h>
+
+// These must be include before calling macro CEREAL_REGISTER_TYPE
+#include <cereal/archives/binary.hpp>
+#include <cereal/archives/xml.hpp>
+#include <cereal/archives/json.hpp>
+
+CEREAL_REGISTER_TYPE(tesseract_planning::ContactCheckProfile)
+CEREAL_REGISTER_TYPE(tesseract_planning::FixStateBoundsProfile)
+CEREAL_REGISTER_TYPE(tesseract_planning::FixStateCollisionProfile)
+CEREAL_REGISTER_TYPE(tesseract_planning::KinematicLimitsCheckProfile)
+CEREAL_REGISTER_TYPE(tesseract_planning::MinLengthProfile)
+CEREAL_REGISTER_TYPE(tesseract_planning::ProfileSwitchProfile)
+CEREAL_REGISTER_TYPE(tesseract_planning::UpsampleTrajectoryProfile)
+
+CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::ContactCheckProfile)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::FixStateBoundsProfile)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::FixStateCollisionProfile)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::KinematicLimitsCheckProfile)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::MinLengthProfile)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::ProfileSwitchProfile)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::UpsampleTrajectoryProfile)
+
+CEREAL_REGISTER_DYNAMIC_INIT(tesseract_task_composer_planning_cereal)

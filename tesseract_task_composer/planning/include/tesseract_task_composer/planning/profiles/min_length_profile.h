@@ -60,14 +60,9 @@ struct MinLengthProfile : public tesseract_common::Profile
 
   long min_length{ 10 };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const MinLengthProfile& rhs) const;
+  bool operator!=(const MinLengthProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::MinLengthProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_MIN_LENGTH_PROFILE_H

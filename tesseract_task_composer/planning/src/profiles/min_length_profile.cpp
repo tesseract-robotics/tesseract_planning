@@ -27,8 +27,6 @@
  */
 
 #include <tesseract_task_composer/planning/profiles/min_length_profile.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <typeindex>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
@@ -55,14 +53,8 @@ MinLengthProfile::MinLengthProfile(const YAML::Node& config,
 
 std::size_t MinLengthProfile::getStaticKey() { return std::type_index(typeid(MinLengthProfile)).hash_code(); }
 
-template <class Archive>
-void MinLengthProfile::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(min_length);
-}
-}  // namespace tesseract_planning
+bool MinLengthProfile::operator==(const MinLengthProfile& rhs) const { return (min_length == rhs.min_length); }
 
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MinLengthProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MinLengthProfile)
+bool MinLengthProfile::operator!=(const MinLengthProfile& rhs) const { return !operator==(rhs); }
+
+}  // namespace tesseract_planning

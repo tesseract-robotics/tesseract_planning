@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
@@ -75,9 +74,6 @@ void runTaskComposerExecutorTest()
 
     future->clear();
     EXPECT_FALSE(future->valid());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(executor, "TaskComposerExecutorTests");
   }
 
   tesseract_common::GeneralResourceLocator locator;
@@ -212,9 +208,6 @@ void runTaskComposerExecutorTest()
 
     future->clear();
     EXPECT_FALSE(future->valid());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(executor, "TaskComposerExecutorTests");
   }
 
   {  // Graph with child pipeline task not conditional
@@ -270,9 +263,6 @@ void runTaskComposerExecutorTest()
 
     future->clear();
     EXPECT_FALSE(future->valid());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(executor, "TaskComposerExecutorTests");
   }
 
   {  // Graph with child pipeline task conditional
@@ -337,9 +327,6 @@ void runTaskComposerExecutorTest()
 
     future->clear();
     EXPECT_FALSE(future->valid());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(executor, "TaskComposerExecutorTests");
   }
 
   {  // Graph with child graph task
@@ -395,9 +382,6 @@ void runTaskComposerExecutorTest()
 
     future->clear();
     EXPECT_FALSE(future->valid());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(executor, "TaskComposerExecutorTests");
   }
 }
 }  // namespace tesseract_planning::test_suite

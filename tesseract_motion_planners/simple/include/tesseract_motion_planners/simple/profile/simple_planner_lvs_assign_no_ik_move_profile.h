@@ -83,14 +83,10 @@ public:
   /** @brief The maximum number of steps for the plan */
   int max_steps;
 
-protected:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const SimplePlannerLVSAssignNoIKMoveProfile& rhs) const;
+  bool operator!=(const SimplePlannerLVSAssignNoIKMoveProfile& rhs) const;
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerLVSAssignNoIKMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PLANNER_LVS_ASSIGN_NO_IK_MOVE_PROFILE_H

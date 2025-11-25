@@ -29,9 +29,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/variable_sets/joint_position_variable.h>
 #include <trajopt_common/collision_types.h>
 #include <trajopt_common/utils.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/shared_ptr.hpp>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -39,8 +36,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 
 #include <tesseract_common/manipulator_info.h>
-#include <tesseract_common/eigen_serialization.h>
-#include <tesseract_collision/core/serialization.h>
 #include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_motion_planners/trajopt_ifopt/yaml_extensions.h>
 
@@ -134,22 +129,25 @@ TrajOptIfoptTermInfos TrajOptIfoptDefaultCompositeProfile::create(
   return term_infos;
 }
 
-template <class Archive>
-void TrajOptIfoptDefaultCompositeProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool TrajOptIfoptDefaultCompositeProfile::operator==(const TrajOptIfoptDefaultCompositeProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptIfoptCompositeProfile);
-  ar& BOOST_SERIALIZATION_NVP(collision_cost_config);
-  ar& BOOST_SERIALIZATION_NVP(collision_constraint_config);
-  ar& BOOST_SERIALIZATION_NVP(smooth_velocities);
-  ar& BOOST_SERIALIZATION_NVP(velocity_coeff);
-  ar& BOOST_SERIALIZATION_NVP(smooth_accelerations);
-  ar& BOOST_SERIALIZATION_NVP(acceleration_coeff);
-  ar& BOOST_SERIALIZATION_NVP(smooth_jerks);
-  ar& BOOST_SERIALIZATION_NVP(jerk_coeff);
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= (collision_cost_config == rhs.collision_cost_config);
+  equal &= (collision_constraint_config == rhs.collision_constraint_config);
+  equal &= (smooth_velocities == rhs.smooth_velocities);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_coeff, rhs.velocity_coeff, max_diff);
+  equal &= (smooth_accelerations == rhs.smooth_accelerations);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(acceleration_coeff, rhs.acceleration_coeff, max_diff);
+  equal &= (smooth_jerks == rhs.smooth_jerks);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(jerk_coeff, rhs.jerk_coeff, max_diff);
+  return equal;
+}
+
+bool TrajOptIfoptDefaultCompositeProfile::operator!=(const TrajOptIfoptDefaultCompositeProfile& rhs) const
+{
+  return !operator==(rhs);
 }
 
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptIfoptDefaultCompositeProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptIfoptDefaultCompositeProfile)

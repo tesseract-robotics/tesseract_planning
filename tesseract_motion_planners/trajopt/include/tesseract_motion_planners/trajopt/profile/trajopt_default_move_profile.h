@@ -63,6 +63,9 @@ public:
                              const std::vector<std::string>& active_links,
                              int index) const override;
 
+  bool operator==(const TrajOptDefaultMoveProfile& rhs) const;
+  bool operator!=(const TrajOptDefaultMoveProfile& rhs) const;
+
 protected:
   /**
    * @brief Error function that is set as a constraint for each timestep.
@@ -89,15 +92,7 @@ protected:
                                     sco::ConstraintType type,
                                     const Eigen::VectorXd& coeff,
                                     int index);
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptDefaultMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_DEFAULT_MOVE_PROFILE_H

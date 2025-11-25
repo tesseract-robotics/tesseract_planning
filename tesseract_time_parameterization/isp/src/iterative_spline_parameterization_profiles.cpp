@@ -20,10 +20,7 @@
  */
 
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization_profiles.h>
-#include <tesseract_common/serialization.h>
-#include <tesseract_common/eigen_serialization.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
+#include <tesseract_common/utils.h>
 #include <typeindex>
 
 namespace tesseract_planning
@@ -46,15 +43,31 @@ std::size_t IterativeSplineParameterizationCompositeProfile::getStaticKey()
   return std::type_index(typeid(IterativeSplineParameterizationCompositeProfile)).hash_code();
 }
 
-template <class Archive>
-void IterativeSplineParameterizationCompositeProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool IterativeSplineParameterizationCompositeProfile::operator==(
+    const IterativeSplineParameterizationCompositeProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(add_points);
-  ar& BOOST_SERIALIZATION_NVP(override_limits);
-  ar& BOOST_SERIALIZATION_NVP(velocity_limits);
-  ar& BOOST_SERIALIZATION_NVP(max_velocity_scaling_factor);
-  ar& BOOST_SERIALIZATION_NVP(max_acceleration_scaling_factor);
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= (add_points == rhs.add_points);
+  equal &= (override_limits == rhs.override_limits);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_limits.col(0), rhs.velocity_limits.col(0), max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_limits.col(1), rhs.velocity_limits.col(1), max_diff);
+  equal &=
+      tesseract_common::almostEqualRelativeAndAbs(acceleration_limits.col(0), rhs.acceleration_limits.col(0), max_diff);
+  equal &=
+      tesseract_common::almostEqualRelativeAndAbs(acceleration_limits.col(1), rhs.acceleration_limits.col(1), max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_velocity_scaling_factor, rhs.max_velocity_scaling_factor, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_acceleration_scaling_factor, rhs.max_acceleration_scaling_factor, max_diff);
+  return equal;
+}
+
+bool IterativeSplineParameterizationCompositeProfile::operator!=(
+    const IterativeSplineParameterizationCompositeProfile& rhs) const
+{
+  return !operator==(rhs);
 }
 
 IterativeSplineParameterizationMoveProfile::IterativeSplineParameterizationMoveProfile()
@@ -75,17 +88,21 @@ std::size_t IterativeSplineParameterizationMoveProfile::getStaticKey()
   return std::type_index(typeid(IterativeSplineParameterizationMoveProfile)).hash_code();
 }
 
-template <class Archive>
-void IterativeSplineParameterizationMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool IterativeSplineParameterizationMoveProfile::operator==(const IterativeSplineParameterizationMoveProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(max_velocity_scaling_factor);
-  ar& BOOST_SERIALIZATION_NVP(max_acceleration_scaling_factor);
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_velocity_scaling_factor, rhs.max_velocity_scaling_factor, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_acceleration_scaling_factor, rhs.max_acceleration_scaling_factor, max_diff);
+  return equal;
+}
+
+bool IterativeSplineParameterizationMoveProfile::operator!=(const IterativeSplineParameterizationMoveProfile& rhs) const
+{
+  return !operator==(rhs);
 }
 
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::IterativeSplineParameterizationCompositeProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::IterativeSplineParameterizationCompositeProfile)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::IterativeSplineParameterizationMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::IterativeSplineParameterizationMoveProfile)

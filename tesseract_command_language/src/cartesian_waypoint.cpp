@@ -1,13 +1,9 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/nvp.hpp>
 #include <iostream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/serialization.h>
-#include <tesseract_common/eigen_serialization.h>
 #include <tesseract_common/utils.h>
-
 #include <tesseract_command_language/cartesian_waypoint.h>
 
 namespace tesseract_planning
@@ -74,17 +70,4 @@ bool CartesianWaypoint::equals(const CartesianWaypointInterface& other) const
   return equal;
 }
 
-template <class Archive>
-void CartesianWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(CartesianWaypointInterface);
-  ar& BOOST_SERIALIZATION_NVP(name_);
-  ar& BOOST_SERIALIZATION_NVP(transform_);
-  ar& BOOST_SERIALIZATION_NVP(upper_tolerance_);
-  ar& BOOST_SERIALIZATION_NVP(lower_tolerance_);
-  ar& BOOST_SERIALIZATION_NVP(seed_);
-}
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypoint)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypoint)

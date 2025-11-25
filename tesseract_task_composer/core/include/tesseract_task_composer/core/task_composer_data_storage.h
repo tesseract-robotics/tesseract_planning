@@ -32,8 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <unordered_map>
 #include <shared_mutex>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/any_poly.h>
@@ -41,6 +39,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 class TaskComposerKeys;
+class TaskComposerDataStorage;
+
+template <class Archive>
+void serialize(Archive& ar, TaskComposerDataStorage& obj);
 
 /** @brief A thread save data storage */
 class TaskComposerDataStorage
@@ -141,18 +143,12 @@ private:
   std::string name_;
   std::unordered_map<std::string, tesseract_common::AnyPoly> data_;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, TaskComposerDataStorage& obj);
 };
 
 using TaskComposerDataStoragePtrAnyPoly = tesseract_common::AnyWrapper<TaskComposerDataStorage::Ptr>;
 
 }  // namespace tesseract_planning
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerDataStorage)
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerDataStoragePtrAnyPoly)
-BOOST_CLASS_TRACKING(tesseract_planning::TaskComposerDataStoragePtrAnyPoly, boost::serialization::track_never)
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_DATA_STORAGE_H

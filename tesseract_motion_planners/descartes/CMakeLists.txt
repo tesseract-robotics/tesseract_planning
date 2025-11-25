@@ -4,12 +4,12 @@ find_package(tesseract_collision REQUIRED COMPONENTS core)
 # Descartes Planner
 add_library(
   ${PROJECT_NAME}_descartes
+  src/cereal_serialization.cpp
   src/descartes_motion_planner.cpp
   src/descartes_collision.cpp
   src/descartes_collision_edge_evaluator.cpp
   src/descartes_robot_sampler.cpp
   src/descartes_utils.cpp
-  src/profile/descartes_profile.cpp
   src/profile/descartes_default_move_profile.cpp
   src/profile/descartes_ladder_graph_solver_profile.cpp)
 target_link_libraries(
@@ -19,6 +19,7 @@ target_link_libraries(
          tesseract::tesseract_collision_core
          descartes::descartes_light
          Boost::boost
+         cereal::cereal
          ${CMAKE_THREAD_LIBS_INIT})
 target_compile_options(${PROJECT_NAME}_descartes PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_descartes PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -47,8 +48,11 @@ configure_component(
   COMPONENT descartes
   NAMESPACE tesseract
   TARGETS ${PROJECT_NAME}_descartes
-  DEPENDENCIES "tesseract_motion_planners COMPONENTS core simple" "descartes_light REQUIRED COMPONENTS core"
-               "tesseract_collision COMPONENTS core")
+  DEPENDENCIES
+    "tesseract_motion_planners COMPONENTS core simple"
+    "descartes_light REQUIRED COMPONENTS core"
+    "tesseract_collision COMPONENTS core"
+    cereal)
 
 if(TESSERACT_PACKAGE)
   cpack_component(

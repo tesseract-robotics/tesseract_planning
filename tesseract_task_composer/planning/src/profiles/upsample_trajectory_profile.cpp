@@ -24,11 +24,10 @@
  */
 
 #include <tesseract_task_composer/planning/profiles/upsample_trajectory_profile.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <typeindex>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
@@ -58,15 +57,14 @@ std::size_t UpsampleTrajectoryProfile::getStaticKey()
   return std::type_index(typeid(UpsampleTrajectoryProfile)).hash_code();
 }
 
-template <class Archive>
-void UpsampleTrajectoryProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool UpsampleTrajectoryProfile::operator==(const UpsampleTrajectoryProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(longest_valid_segment_length);
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  return tesseract_common::almostEqualRelativeAndAbs(
+      longest_valid_segment_length, rhs.longest_valid_segment_length, max_diff);
 }
 
-}  // namespace tesseract_planning
+bool UpsampleTrajectoryProfile::operator!=(const UpsampleTrajectoryProfile& rhs) const { return !operator==(rhs); }
 
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::UpsampleTrajectoryProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::UpsampleTrajectoryProfile)
+}  // namespace tesseract_planning

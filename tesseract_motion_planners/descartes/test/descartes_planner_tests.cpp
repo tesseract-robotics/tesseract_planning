@@ -34,6 +34,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
 #include <tesseract_common/profile_dictionary.h>
+#include <tesseract_common/unit_test_utils.h>
+#include <tesseract_common/resource_locator.h>
+#include <tesseract_common/serialization.h>
 
 #include <tesseract_kinematics/core/kinematic_group.h>
 
@@ -46,13 +49,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
+#include <tesseract_motion_planners/descartes/cereal_serialization.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_default_move_profile.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
 #include <tesseract_motion_planners/simple/interpolation.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
-
-#include <tesseract_common/resource_locator.h>
 
 using namespace tesseract_environment;
 using namespace tesseract_scene_graph;
@@ -118,6 +120,14 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   solver_profile->num_threads = 1;
 
   auto move_profile = std::make_shared<DescartesDefaultMoveProfileD>();
+
+  // Serialization
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, DescartesLadderGraphSolverProfileD>(
+      solver_profile, "descartes_solver_profile");
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, DescartesDefaultMoveProfileD>(move_profile,
+                                                                                                           "descartes_"
+                                                                                                           "move_"
+                                                                                                           "profile");
 
   // Profile Dictionary
   auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();

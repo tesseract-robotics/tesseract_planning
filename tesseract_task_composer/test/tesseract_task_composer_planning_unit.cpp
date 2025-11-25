@@ -36,6 +36,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/planning/profiles/profile_switch_profile.h>
 #include <tesseract_task_composer/planning/profiles/upsample_trajectory_profile.h>
 
+#include <tesseract_task_composer/planning/cereal_serialization.h>
+
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
 
 #include <tesseract_task_composer/core/task_composer_context.h>
@@ -43,7 +45,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_log.h>
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
-#include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
+#include <tesseract_task_composer/core/cereal_serialization.h>
 #include <tesseract_task_composer/core/test_suite/test_programs.hpp>
 
 #include <tesseract_command_language/composite_instruction.h>
@@ -51,6 +53,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
+#include <tesseract_command_language/cereal_serialization.h>
 
 #include <tesseract_common/types.h>
 #include <tesseract_common/resource_locator.h>
@@ -58,6 +61,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/joint_state.h>
 #include <tesseract_common/profile_dictionary.h>
 #include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract_common/unit_test_utils.h>
+#include <tesseract_common/serialization.h>
 
 #include <tesseract_environment/environment.h>
 
@@ -159,7 +164,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerContinuousContactCheckTask
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
 
-    test_suite::runSerializationTest(*node_info, "TaskComposerContinuousContactCheckNodeInfoTests");
+    tesseract_common::testSerialization<TaskComposerNodeInfo>(*node_info,
+                                                              "TaskComposerContinuousContactCheckNodeInfoTests");
   }
 
   {  // Failure missing input data
@@ -343,7 +349,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerDiscreteContactCheckTaskTe
     EXPECT_EQ(context->isSuccessful(), true);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
 
-    test_suite::runSerializationTest(*node_info, "TaskComposerDiscreteContactCheckNodeInfoTests");
+    tesseract_common::testSerialization<TaskComposerNodeInfo>(*node_info,
+                                                              "TaskComposerDiscreteContactCheckNodeInfoTests");
   }
 
   {  // Failure missing input data
@@ -1429,7 +1436,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerFixStateCollisionTaskTests
     EXPECT_TRUE(context->data_storage->hasKey("output_data"));
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
 
-    test_suite::runSerializationTest(*node_info, "TaskComposerFixStateCollisionNodeInfoTests");
+    tesseract_common::testSerialization<TaskComposerNodeInfo>(*node_info, "TaskComposerFixStateCollisionNodeInfoTests");
   }
 
   {  // Failure missing input data
@@ -2749,7 +2756,8 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerTimeOptimalParameterizatio
     EXPECT_EQ(context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 18);
     EXPECT_TRUE(context->task_infos->getAbortingNode().is_nil());
 
-    test_suite::runSerializationTest(*node_info, "TaskComposerTimeOptimalParameterizationNodeInfoTests");
+    tesseract_common::testSerialization<TaskComposerNodeInfo>(*node_info,
+                                                              "TaskComposerTimeOptimalParameterizationNodeInfoTests");
   }
 
   {  // Test run method
@@ -3160,7 +3168,7 @@ TEST_F(TesseractTaskComposerPlanningUnit, TaskComposerMotionPlannerTaskTests)  /
     EXPECT_GE(log.context->data_storage->getData("output_data").as<CompositeInstruction>().size(), 10);
     EXPECT_TRUE(log.context->task_infos->getAbortingNode().is_nil());
 
-    test_suite::runSerializationTest(*node_info, "TaskComposerMotionPlannerNodeInfoTests");
+    tesseract_common::testSerialization<TaskComposerNodeInfo>(*node_info, "TaskComposerMotionPlannerNodeInfoTests");
     {
       const std::string filepath = tesseract_common::getTempPath() + "TaskComposerMotionPlannerLogTests.xml";
       tesseract_common::Serialization::toArchiveFileXML<tesseract_planning::TaskComposerLog>(log, filepath);

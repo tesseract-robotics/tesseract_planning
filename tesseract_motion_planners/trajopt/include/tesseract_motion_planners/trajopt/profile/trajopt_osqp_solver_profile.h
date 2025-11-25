@@ -34,14 +34,10 @@ namespace YAML
 class Node;
 }
 
-namespace boost::serialization
-{
-template <class Archive>
-void serialize(Archive& ar, OSQPSettings& settings, const unsigned int version);  // NOLINT
-}  // namespace boost::serialization
-
 namespace tesseract_planning
 {
+bool operator==(const OSQPSettings& lhs, const OSQPSettings& rhs);
+
 /** @brief The contains the OSQP Solver and Trust Region Parameters available for setting up TrajOpt */
 class TrajOptOSQPSolverProfile : public TrajOptSolverProfile
 {
@@ -60,14 +56,9 @@ public:
 
   std::unique_ptr<sco::ModelConfig> createSolverConfig() const override;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const TrajOptOSQPSolverProfile& rhs) const;
+  bool operator!=(const TrajOptOSQPSolverProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptOSQPSolverProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_OSQP_SOLVER_PROFILE_H

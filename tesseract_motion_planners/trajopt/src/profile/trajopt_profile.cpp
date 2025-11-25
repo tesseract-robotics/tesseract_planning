@@ -24,35 +24,7 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <typeindex>
-
-namespace boost::serialization
-{
-template <class Archive>
-void serialize(Archive& ar, sco::BasicTrustRegionSQPParameters& params, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("improve_ratio_threshold", params.improve_ratio_threshold);
-  ar& boost::serialization::make_nvp("min_trust_box_size", params.min_trust_box_size);
-  ar& boost::serialization::make_nvp("min_approx_improve", params.min_approx_improve);
-  ar& boost::serialization::make_nvp("min_approx_improve_frac", params.min_approx_improve_frac);
-  ar& boost::serialization::make_nvp("max_iter", params.max_iter);
-  ar& boost::serialization::make_nvp("trust_shrink_ratio", params.trust_shrink_ratio);
-  ar& boost::serialization::make_nvp("trust_expand_ratio", params.trust_expand_ratio);
-  ar& boost::serialization::make_nvp("cnt_tolerance", params.cnt_tolerance);
-  ar& boost::serialization::make_nvp("max_merit_coeff_increases", params.max_merit_coeff_increases);
-  ar& boost::serialization::make_nvp("max_qp_solver_failures", params.max_qp_solver_failures);
-  ar& boost::serialization::make_nvp("merit_coeff_increase_ratio", params.merit_coeff_increase_ratio);
-  ar& boost::serialization::make_nvp("max_time", params.max_time);
-  ar& boost::serialization::make_nvp("initial_merit_error_coeff", params.initial_merit_error_coeff);
-  ar& boost::serialization::make_nvp("inflate_constraints_individually", params.inflate_constraints_individually);
-  ar& boost::serialization::make_nvp("trust_box_size", params.trust_box_size);
-  ar& boost::serialization::make_nvp("log_results", params.log_results);
-  ar& boost::serialization::make_nvp("log_dir", params.log_dir);
-  ar& boost::serialization::make_nvp("num_threads", params.num_threads);
-}
-}  // namespace boost::serialization
 
 namespace tesseract_planning
 {
@@ -60,23 +32,11 @@ TrajOptMoveProfile::TrajOptMoveProfile() : Profile(TrajOptMoveProfile::getStatic
 
 std::size_t TrajOptMoveProfile::getStaticKey() { return std::type_index(typeid(TrajOptMoveProfile)).hash_code(); }
 
-template <class Archive>
-void TrajOptMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-}
-
 TrajOptCompositeProfile::TrajOptCompositeProfile() : Profile(TrajOptCompositeProfile::getStaticKey()) {}
 
 std::size_t TrajOptCompositeProfile::getStaticKey()
 {
   return std::type_index(typeid(TrajOptCompositeProfile)).hash_code();
-}
-
-template <class Archive>
-void TrajOptCompositeProfile::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
 }
 
 TrajOptSolverProfile::TrajOptSolverProfile() : Profile(TrajOptSolverProfile::getStaticKey()) {}
@@ -87,17 +47,4 @@ sco::BasicTrustRegionSQPParameters TrajOptSolverProfile::createOptimizationParam
 
 std::vector<sco::Optimizer::Callback> TrajOptSolverProfile::createOptimizationCallbacks() const { return {}; }
 
-template <class Archive>
-void TrajOptSolverProfile::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(opt_params);
-}
-
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_FREE_ARCHIVES_INSTANTIATE(sco::BasicTrustRegionSQPParameters)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptMoveProfile)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptCompositeProfile)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptSolverProfile)

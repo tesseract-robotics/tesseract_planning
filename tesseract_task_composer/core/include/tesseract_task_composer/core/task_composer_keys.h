@@ -24,13 +24,15 @@
 #include <vector>
 #include <variant>
 
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
-
 #include <tesseract_common/fwd.h>
 
 namespace tesseract_planning
 {
+class TaskComposerKeys;
+
+template <class Archive>
+void serialize(Archive& ar, TaskComposerKeys& obj);
+
 class TaskComposerKeys
 {
 public:
@@ -96,14 +98,11 @@ public:
 private:
   ContainerType keys_;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, TaskComposerKeys& obj);
 };
 
 std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys);
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerKeys)
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_KEYS_H

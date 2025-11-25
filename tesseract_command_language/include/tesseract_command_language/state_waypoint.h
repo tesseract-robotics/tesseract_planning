@@ -36,6 +36,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class StateWaypoint;
+
+template <class Archive>
+void serialize(Archive& ar, StateWaypoint& obj);
+
 class StateWaypoint final : public StateWaypointInterface
 {
 public:
@@ -107,14 +112,9 @@ private:
 
   bool equals(const StateWaypointInterface& other) const override final;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, StateWaypoint& obj);
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::StateWaypoint)
-BOOST_CLASS_TRACKING(tesseract_planning::StateWaypoint, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_H

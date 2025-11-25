@@ -26,11 +26,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <boost/uuid/uuid_generators.hpp>
-#include <boost/uuid/uuid_io.hpp>
-#include <boost/uuid/uuid_serialize.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/wait_instruction.h>
@@ -101,18 +97,4 @@ bool WaitInstruction::equals(const InstructionInterface& other) const
   return equal;
 }
 
-template <class Archive>
-void WaitInstruction::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(InstructionInterface);
-  ar& boost::serialization::make_nvp("uuid", uuid_);
-  ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
-  ar& boost::serialization::make_nvp("description", description_);
-  ar& boost::serialization::make_nvp("wait_type", wait_type_);
-  ar& boost::serialization::make_nvp("wait_time", wait_time_);
-  ar& boost::serialization::make_nvp("wait_io", wait_io_);
-}
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::WaitInstruction)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::WaitInstruction)

@@ -29,8 +29,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <Eigen/Core>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/waypoint_poly.h>
@@ -38,6 +36,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class StateWaypointInterface;
+class StateWaypointPoly;
+
+template <class Archive>
+void serialize(Archive& ar, StateWaypointInterface& obj);
+
+template <class Archive>
+void serialize(Archive& ar, StateWaypointPoly& obj);
+
 /**
  * @brief The StateWaypointInterface class
  */
@@ -157,10 +164,8 @@ protected:
   virtual bool equals(const StateWaypointInterface& other) const = 0;
 
 private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, StateWaypointInterface& obj);
 };
 
 /**
@@ -337,18 +342,10 @@ private:
    */
   bool equals(const WaypointInterface& other) const override final;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, StateWaypointPoly& obj);
 };
 
 }  // namespace tesseract_planning
-
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::StateWaypointInterface)
-BOOST_CLASS_TRACKING(tesseract_planning::StateWaypointInterface, boost::serialization::track_never)
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::StateWaypointPoly)
-BOOST_CLASS_TRACKING(tesseract_planning::StateWaypointPoly, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_STATE_WAYPOINT_POLY_H

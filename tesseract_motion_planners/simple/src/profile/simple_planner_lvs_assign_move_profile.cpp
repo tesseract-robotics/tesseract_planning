@@ -33,9 +33,9 @@
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/core/types.h>
 
-#include <boost/serialization/nvp.hpp>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
@@ -201,19 +201,25 @@ SimplePlannerLVSAssignMoveProfile::generate(const MoveInstructionPoly& prev_inst
   return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-template <class Archive>
-void SimplePlannerLVSAssignMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool SimplePlannerLVSAssignMoveProfile::operator==(const SimplePlannerLVSAssignMoveProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerMoveProfile);
-  ar& BOOST_SERIALIZATION_NVP(state_longest_valid_segment_length);
-  ar& BOOST_SERIALIZATION_NVP(translation_longest_valid_segment_length);
-  ar& BOOST_SERIALIZATION_NVP(rotation_longest_valid_segment_length);
-  ar& BOOST_SERIALIZATION_NVP(min_steps);
-  ar& BOOST_SERIALIZATION_NVP(max_steps);
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      state_longest_valid_segment_length, rhs.state_longest_valid_segment_length, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      translation_longest_valid_segment_length, rhs.translation_longest_valid_segment_length, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      rotation_longest_valid_segment_length, rhs.rotation_longest_valid_segment_length, max_diff);
+  equal &= (min_steps == rhs.min_steps);
+  equal &= (max_steps == rhs.max_steps);
+  return equal;
+}
+
+bool SimplePlannerLVSAssignMoveProfile::operator!=(const SimplePlannerLVSAssignMoveProfile& rhs) const
+{
+  return !operator==(rhs);
 }
 
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerLVSAssignMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerLVSAssignMoveProfile)

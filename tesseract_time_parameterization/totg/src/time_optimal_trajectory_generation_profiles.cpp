@@ -20,10 +20,7 @@
  */
 
 #include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
-#include <tesseract_common/serialization.h>
-#include <tesseract_common/eigen_serialization.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
+#include <tesseract_common/utils.h>
 #include <typeindex>
 
 namespace tesseract_planning
@@ -51,20 +48,32 @@ std::size_t TimeOptimalTrajectoryGenerationCompositeProfile::getStaticKey()
   return std::type_index(typeid(TimeOptimalTrajectoryGenerationCompositeProfile)).hash_code();
 }
 
-template <class Archive>
-void TimeOptimalTrajectoryGenerationCompositeProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool TimeOptimalTrajectoryGenerationCompositeProfile::operator==(
+    const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(path_tolerance);
-  ar& BOOST_SERIALIZATION_NVP(min_angle_change);
-  ar& BOOST_SERIALIZATION_NVP(override_limits);
-  ar& BOOST_SERIALIZATION_NVP(velocity_limits);
-  ar& BOOST_SERIALIZATION_NVP(acceleration_limits);
-  ar& BOOST_SERIALIZATION_NVP(max_velocity_scaling_factor);
-  ar& BOOST_SERIALIZATION_NVP(max_acceleration_scaling_factor);
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= (override_limits == rhs.override_limits);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_limits.col(0), rhs.velocity_limits.col(0), max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_limits.col(1), rhs.velocity_limits.col(1), max_diff);
+  equal &=
+      tesseract_common::almostEqualRelativeAndAbs(acceleration_limits.col(0), rhs.acceleration_limits.col(0), max_diff);
+  equal &=
+      tesseract_common::almostEqualRelativeAndAbs(acceleration_limits.col(1), rhs.acceleration_limits.col(1), max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_velocity_scaling_factor, rhs.max_velocity_scaling_factor, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_acceleration_scaling_factor, rhs.max_acceleration_scaling_factor, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(path_tolerance, rhs.path_tolerance, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(min_angle_change, rhs.min_angle_change, max_diff);
+  return equal;
+}
+
+bool TimeOptimalTrajectoryGenerationCompositeProfile::operator!=(
+    const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const
+{
+  return !operator==(rhs);
 }
 
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile)

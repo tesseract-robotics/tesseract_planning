@@ -24,12 +24,6 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/nvp.hpp>
-#include <tesseract_common/serialization.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_executor.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
@@ -58,12 +52,4 @@ bool TaskComposerExecutor::operator==(const TaskComposerExecutor& rhs) const { r
 bool TaskComposerExecutor::operator!=(const TaskComposerExecutor& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-template <class Archive>
-void TaskComposerExecutor::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("name", name_);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerExecutor)

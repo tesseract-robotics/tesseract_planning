@@ -30,8 +30,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <Eigen/Geometry>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/waypoint_poly.h>
@@ -39,6 +37,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class CartesianWaypointInterface;
+class CartesianWaypointPoly;
+
+template <class Archive>
+void serialize(Archive& ar, CartesianWaypointInterface& obj);
+
+template <class Archive>
+void serialize(Archive& ar, CartesianWaypointPoly& obj);
+
 /**
  * @brief The CartesianWaypointInterface class
  */
@@ -140,10 +147,8 @@ protected:
   virtual bool equals(const CartesianWaypointInterface& other) const = 0;
 
 private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, CartesianWaypointInterface& obj);
 };
 
 /**
@@ -311,18 +316,11 @@ private:
    */
   bool equals(const WaypointInterface& other) const override final;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
+private:
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, CartesianWaypointPoly& obj);
 };
 
 }  // namespace tesseract_planning
-
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::CartesianWaypointInterface)
-BOOST_CLASS_TRACKING(tesseract_planning::CartesianWaypointInterface, boost::serialization::track_never)
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::CartesianWaypointPoly)
-BOOST_CLASS_TRACKING(tesseract_planning::CartesianWaypointPoly, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_POLY_H

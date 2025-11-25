@@ -26,17 +26,7 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/version.hpp>
-#if (BOOST_VERSION >= 107400) && (BOOST_VERSION < 107500)
-#include <boost/serialization/library_version_type.hpp>
-#endif
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/shared_ptr.hpp>
-#include <boost/serialization/unique_ptr.hpp>
-#include <boost/serialization/unordered_map.hpp>
 #include <boost/uuid/uuid.hpp>
-#include <tesseract_common/serialization.h>
-#include <tesseract_common/atomic_serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_context.h>
@@ -105,16 +95,4 @@ bool TaskComposerContext::operator==(const TaskComposerContext& rhs) const
 
 bool TaskComposerContext::operator!=(const TaskComposerContext& rhs) const { return !operator==(rhs); }
 
-template <class Archive>
-void TaskComposerContext::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("name", name);
-  ar& boost::serialization::make_nvp("dotgraph", dotgraph);
-  ar& boost::serialization::make_nvp("data_storage", data_storage);
-  ar& boost::serialization::make_nvp("task_infos", task_infos);
-  ar& boost::serialization::make_nvp("aborted", aborted_);
-}
-
 }  // namespace tesseract_planning
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerContext)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerContext)

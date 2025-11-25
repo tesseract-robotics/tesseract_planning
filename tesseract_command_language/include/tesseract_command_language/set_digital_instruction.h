@@ -36,10 +36,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class SetDigitalInstruction;
+
+template <class Archive>
+void serialize(Archive& ar, SetDigitalInstruction& obj);
+
 class SetDigitalInstruction final : public InstructionInterface
 {
 public:
-  SetDigitalInstruction() = default;  // Required for boost serialization do not use
+  SetDigitalInstruction() = default;  // Required for serialization do not use
   SetDigitalInstruction(std::string key, int index, bool value);
 
   // Instruction
@@ -125,14 +130,9 @@ private:
    */
   bool equals(const InstructionInterface& other) const override final;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, SetDigitalInstruction& obj);
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SetDigitalInstruction)
-BOOST_CLASS_TRACKING(tesseract_planning::SetDigitalInstruction, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_SET_DIGITAL_INSTRUCTION_H

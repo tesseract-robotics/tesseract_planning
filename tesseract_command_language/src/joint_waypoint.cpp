@@ -1,16 +1,9 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/array.hpp>
-#include <boost/serialization/vector.hpp>
 #include <iostream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/eigen_serialization.h>
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
-
 #include <tesseract_command_language/joint_waypoint.h>
 
 namespace tesseract_planning
@@ -106,18 +99,4 @@ bool JointWaypoint::equals(const JointWaypointInterface& other) const
   return equal;
 }
 
-template <class Archive>
-void JointWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(JointWaypointInterface);
-  ar& BOOST_SERIALIZATION_NVP(name_);
-  ar& BOOST_SERIALIZATION_NVP(names_);
-  ar& BOOST_SERIALIZATION_NVP(position_);
-  ar& BOOST_SERIALIZATION_NVP(upper_tolerance_);
-  ar& BOOST_SERIALIZATION_NVP(lower_tolerance_);
-  ar& BOOST_SERIALIZATION_NVP(is_constrained_);
-}
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::JointWaypoint)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::JointWaypoint)

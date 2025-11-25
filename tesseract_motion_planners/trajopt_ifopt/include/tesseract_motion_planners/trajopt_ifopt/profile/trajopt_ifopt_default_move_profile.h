@@ -62,14 +62,9 @@ public:
                                   const std::shared_ptr<const tesseract_environment::Environment>& env,
                                   int index) const override;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const TrajOptIfoptDefaultMoveProfile& rhs) const;
+  bool operator!=(const TrajOptIfoptDefaultMoveProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptDefaultMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TrajOptIfopt_IFOPT_DEFAULT_MOVE_PROFILE_H

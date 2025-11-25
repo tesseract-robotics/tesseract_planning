@@ -18,8 +18,6 @@
 
 #include <tesseract_task_composer/core/task_composer_log.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
-#include <tesseract_common/serialization.h>
-#include <boost/serialization/shared_ptr.hpp>
 
 namespace tesseract_planning
 {
@@ -35,16 +33,4 @@ bool TaskComposerLog::operator==(const TaskComposerLog& rhs) const
 bool TaskComposerLog::operator!=(const TaskComposerLog& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-template <class Archive>
-void TaskComposerLog::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_NVP(description);
-  ar& BOOST_SERIALIZATION_NVP(initial_data);
-  ar& BOOST_SERIALIZATION_NVP(context);
-  ar& BOOST_SERIALIZATION_NVP(dotgraph);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerLog)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerLog)

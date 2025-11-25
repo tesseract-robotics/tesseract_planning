@@ -63,14 +63,10 @@ public:
   /** @brief The number of steps to use for linear instruction */
   int linear_steps;
 
-protected:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const SimplePlannerFixedSizeAssignNoIKMoveProfile& rhs) const;
+  bool operator!=(const SimplePlannerFixedSizeAssignNoIKMoveProfile& rhs) const;
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerFixedSizeAssignNoIKMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_MOVE_PROFILE_H

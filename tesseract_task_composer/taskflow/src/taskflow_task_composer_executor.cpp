@@ -26,7 +26,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_common/stopwatch.h>
 #include <taskflow/taskflow.hpp>
@@ -267,29 +266,4 @@ bool TaskflowTaskComposerExecutor::operator!=(const TaskflowTaskComposerExecutor
   return !operator==(rhs);
 }
 
-template <class Archive>
-void TaskflowTaskComposerExecutor::save(Archive& ar, const unsigned int /*version*/) const
-{
-  ar& BOOST_SERIALIZATION_NVP(num_threads_);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerExecutor);
-}
-
-template <class Archive>
-void TaskflowTaskComposerExecutor::load(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_NVP(num_threads_);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerExecutor);
-
-  executor_ = std::make_unique<tf::Executor>(num_threads_);
-}
-
-template <class Archive>
-void TaskflowTaskComposerExecutor::serialize(Archive& ar, const unsigned int version)
-{
-  boost::serialization::split_member(ar, *this, version);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskflowTaskComposerExecutor)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskflowTaskComposerExecutor)

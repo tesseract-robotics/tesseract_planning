@@ -1,8 +1,3 @@
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/unique_ptr.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
@@ -11,7 +6,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/state_waypoint.h>
-#include <tesseract_common/serialization.h>
 
 namespace tesseract_planning
 {
@@ -21,11 +15,6 @@ bool WaypointInterface::operator==(const WaypointInterface& rhs) const { return 
 // LCOV_EXCL_START
 bool WaypointInterface::operator!=(const WaypointInterface& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
-
-template <class Archive>
-void WaypointInterface::serialize(Archive& /*ar*/, const unsigned int /*version*/)
-{
-}
 
 WaypointPoly::WaypointPoly(const WaypointPoly& other)
 {
@@ -99,14 +88,4 @@ bool WaypointPoly::operator==(const WaypointPoly& rhs) const
 bool WaypointPoly::operator!=(const WaypointPoly& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-template <class Archive>
-void WaypointPoly::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("impl", impl_);
-}
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::WaypointInterface)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::WaypointPoly)
-
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::WaypointPoly)

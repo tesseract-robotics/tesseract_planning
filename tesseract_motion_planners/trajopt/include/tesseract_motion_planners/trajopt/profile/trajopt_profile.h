@@ -41,12 +41,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/fwd.h>
 #include <tesseract_common/profile.h>
 
-namespace boost::serialization
-{
-template <class Archive>
-void serialize(Archive& ar, sco::BasicTrustRegionSQPParameters& params, const unsigned int version);  // NOLINT
-}  // namespace boost::serialization
-
 namespace tesseract_planning
 {
 /** @brief Structure to store TrajOpt cost and constrant term infos */
@@ -83,12 +77,6 @@ public:
    * @return The profile ID used when storing in profile dictionary
    */
   static std::size_t getStaticKey();
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 class TrajOptCompositeProfile : public tesseract_common::Profile
@@ -110,12 +98,6 @@ public:
    * @return The profile ID used when storing in profile dictionary
    */
   static std::size_t getStaticKey();
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 class TrajOptSolverProfile : public tesseract_common::Profile
@@ -146,18 +128,8 @@ public:
    * @return The profile ID used when storing in profile dictionary
    */
   static std::size_t getStaticKey();
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptMoveProfile)
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptCompositeProfile)
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptSolverProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_PROFILE_H

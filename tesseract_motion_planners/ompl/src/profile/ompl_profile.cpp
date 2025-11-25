@@ -25,8 +25,6 @@
  */
 
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <typeindex>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
@@ -37,13 +35,4 @@ OMPLMoveProfile::OMPLMoveProfile() : Profile(OMPLMoveProfile::getStaticKey()) {}
 
 std::size_t OMPLMoveProfile::getStaticKey() { return std::type_index(typeid(OMPLMoveProfile)).hash_code(); }
 
-template <class Archive>
-void OMPLMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-}
-
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLMoveProfile)

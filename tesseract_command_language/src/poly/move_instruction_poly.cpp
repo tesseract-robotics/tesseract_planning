@@ -1,7 +1,5 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/unique_ptr.hpp>
 #include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -10,7 +8,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_common/manipulator_info.h>
-#include <tesseract_common/serialization.h>
 
 namespace tesseract_planning
 {
@@ -20,11 +17,6 @@ bool MoveInstructionInterface::operator==(const MoveInstructionInterface& rhs) c
 // LCOV_EXCL_START
 bool MoveInstructionInterface::operator!=(const MoveInstructionInterface& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
-
-template <class Archive>
-void MoveInstructionInterface::serialize(Archive& /*ar*/, const unsigned int /*version*/)
-{
-}
 
 MoveInstructionPoly::MoveInstructionPoly(const MoveInstructionPoly& other)
 {
@@ -170,15 +162,4 @@ bool MoveInstructionPoly::operator==(const MoveInstructionPoly& rhs) const
 bool MoveInstructionPoly::operator!=(const MoveInstructionPoly& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-template <class Archive>
-void MoveInstructionPoly::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(InstructionInterface);
-  ar& boost::serialization::make_nvp("impl", impl_);
-}
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstructionInterface)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstructionPoly)
-
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionPoly)

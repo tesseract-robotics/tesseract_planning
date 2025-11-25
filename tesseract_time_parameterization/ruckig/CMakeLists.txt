@@ -1,7 +1,8 @@
 find_package(ruckig REQUIRED)
 
-add_library(${PROJECT_NAME}_ruckig src/ruckig_trajectory_smoothing.cpp src/ruckig_trajectory_smoothing_profiles.cpp)
-target_link_libraries(${PROJECT_NAME}_ruckig PUBLIC ${PROJECT_NAME}_core ruckig::ruckig)
+add_library(${PROJECT_NAME}_ruckig src/cereal_serialization.cpp src/ruckig_trajectory_smoothing.cpp
+                                   src/ruckig_trajectory_smoothing_profiles.cpp)
+target_link_libraries(${PROJECT_NAME}_ruckig PUBLIC ${PROJECT_NAME}_core ruckig::ruckig cereal::cereal)
 target_include_directories(${PROJECT_NAME}_ruckig PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                          "$<INSTALL_INTERFACE:include>")
 target_compile_options(${PROJECT_NAME}_ruckig PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
@@ -29,7 +30,7 @@ configure_component(
   COMPONENT ruckig
   NAMESPACE tesseract
   TARGETS ${PROJECT_NAME}_ruckig
-  DEPENDENCIES "tesseract_time_parameterization COMPONENTS core" ruckig)
+  DEPENDENCIES "tesseract_time_parameterization COMPONENTS core" ruckig cereal)
 
 if(TESSERACT_PACKAGE)
   cpack_component(

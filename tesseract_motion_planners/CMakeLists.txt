@@ -18,6 +18,7 @@ find_package(tesseract_common REQUIRED)
 find_package(tesseract_kinematics REQUIRED)
 find_package(tesseract_environment REQUIRED)
 find_package(tesseract_command_language REQUIRED)
+find_package(cereal REQUIRED)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)

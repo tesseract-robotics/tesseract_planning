@@ -1,7 +1,5 @@
 #include <tesseract_time_parameterization/kdl/constant_tcp_speed_parameterization_profiles.h>
-#include <tesseract_common/serialization.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
+#include <tesseract_common/utils.h>
 #include <typeindex>
 
 namespace tesseract_planning
@@ -32,18 +30,30 @@ std::size_t ConstantTCPSpeedParameterizationCompositeProfile::getStaticKey()
   return std::type_index(typeid(ConstantTCPSpeedParameterizationCompositeProfile)).hash_code();
 }
 
-template <class Archive>
-void ConstantTCPSpeedParameterizationCompositeProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool ConstantTCPSpeedParameterizationCompositeProfile::operator==(
+    const ConstantTCPSpeedParameterizationCompositeProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(max_translational_velocity);
-  ar& BOOST_SERIALIZATION_NVP(max_rotational_velocity);
-  ar& BOOST_SERIALIZATION_NVP(max_translational_acceleration);
-  ar& BOOST_SERIALIZATION_NVP(max_rotational_acceleration);
-  ar& BOOST_SERIALIZATION_NVP(max_velocity_scaling_factor);
-  ar& BOOST_SERIALIZATION_NVP(max_acceleration_scaling_factor);
-}
-}  // namespace tesseract_planning
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ConstantTCPSpeedParameterizationCompositeProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ConstantTCPSpeedParameterizationCompositeProfile)
+  bool equal = true;
+  equal &=
+      tesseract_common::almostEqualRelativeAndAbs(max_translational_velocity, rhs.max_translational_velocity, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(max_rotational_velocity, rhs.max_rotational_velocity, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_translational_acceleration, rhs.max_translational_acceleration, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_rotational_acceleration, rhs.max_rotational_acceleration, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_velocity_scaling_factor, rhs.max_velocity_scaling_factor, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_acceleration_scaling_factor, rhs.max_acceleration_scaling_factor, max_diff);
+  return equal;
+}
+
+bool ConstantTCPSpeedParameterizationCompositeProfile::operator!=(
+    const ConstantTCPSpeedParameterizationCompositeProfile& rhs) const
+{
+  return !operator==(rhs);
+}
+
+}  // namespace tesseract_planning

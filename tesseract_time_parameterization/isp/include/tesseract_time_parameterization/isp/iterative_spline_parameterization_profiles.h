@@ -65,11 +65,8 @@ struct IterativeSplineParameterizationCompositeProfile : public tesseract_common
   /** @brief max_velocity_scaling_factor The max acceleration scaling factor passed to the solver */
   double max_acceleration_scaling_factor{ 1.0 };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const IterativeSplineParameterizationCompositeProfile& rhs) const;
+  bool operator!=(const IterativeSplineParameterizationCompositeProfile& rhs) const;
 };
 
 struct IterativeSplineParameterizationMoveProfile : public tesseract_common::Profile
@@ -93,15 +90,9 @@ struct IterativeSplineParameterizationMoveProfile : public tesseract_common::Pro
   /** @brief max_velocity_scaling_factor The max acceleration scaling factor passed to the solver */
   double max_acceleration_scaling_factor{ 1.0 };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const IterativeSplineParameterizationMoveProfile& rhs) const;
+  bool operator!=(const IterativeSplineParameterizationMoveProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::IterativeSplineParameterizationCompositeProfile)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::IterativeSplineParameterizationMoveProfile)
 
 #endif  // TESSERACT_TIME_PARAMETERIZATION_ITERATIVE_SPLINE_PARAMETERIZATION_PROFILES_H

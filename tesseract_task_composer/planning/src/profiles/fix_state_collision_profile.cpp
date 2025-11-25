@@ -26,17 +26,14 @@
 
 #include <tesseract_task_composer/planning/profiles/fix_state_collision_profile.h>
 #include <tesseract_task_composer/planning/yaml_extensions.h>
-#include <tesseract_collision/core/serialization.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/vector.hpp>
-#include <tesseract_common/eigen_serialization.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <typeindex>
 #include <tesseract_collision/core/yaml_extensions.h>
 #include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 #include <trajopt_common/yaml_extensions.h>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
@@ -91,24 +88,27 @@ std::size_t FixStateCollisionProfile::getStaticKey()
   return std::type_index(typeid(FixStateCollisionProfile)).hash_code();
 }
 
-template <class Archive>
-void FixStateCollisionProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool FixStateCollisionProfile::operator==(const FixStateCollisionProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(mode);
-  ar& BOOST_SERIALIZATION_NVP(correction_workflow);
-  ar& BOOST_SERIALIZATION_NVP(jiggle_factor);
-  ar& BOOST_SERIALIZATION_NVP(contact_manager_config);
-  ar& BOOST_SERIALIZATION_NVP(collision_check_config);
-  ar& BOOST_SERIALIZATION_NVP(sampling_attempts);
-  ar& BOOST_SERIALIZATION_NVP(trajopt_joint_constraint_config);
-  ar& BOOST_SERIALIZATION_NVP(trajopt_joint_cost_config);
-  ar& BOOST_SERIALIZATION_NVP(collision_constraint_coeff);
-  ar& BOOST_SERIALIZATION_NVP(collision_cost_coeff);
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= (mode == rhs.mode);
+  equal &= (correction_workflow == rhs.correction_workflow);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(jiggle_factor, rhs.jiggle_factor, max_diff);
+  equal &= (contact_manager_config == rhs.contact_manager_config);
+  equal &= (collision_check_config == rhs.collision_check_config);
+  equal &= (sampling_attempts == rhs.sampling_attempts);
+  equal &= (trajopt_joint_constraint_config == rhs.trajopt_joint_constraint_config);
+  equal &= (trajopt_joint_cost_config == rhs.trajopt_joint_cost_config);
+  equal &= (collision_constraint_coeff == rhs.collision_constraint_coeff);
+  equal &= (collision_cost_coeff == rhs.collision_cost_coeff);
+  equal &= (opt_params == rhs.opt_params);
+  equal &= (osqp_settings == rhs.osqp_settings);
+  equal &= (update_workspace == rhs.update_workspace);
+  return equal;
 }
 
-}  // namespace tesseract_planning
+bool FixStateCollisionProfile::operator!=(const FixStateCollisionProfile& rhs) const { return !operator==(rhs); }
 
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FixStateCollisionProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FixStateCollisionProfile)
+}  // namespace tesseract_planning
