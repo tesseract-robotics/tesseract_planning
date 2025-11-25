@@ -17,6 +17,7 @@ void serialize(Archive& ar, IterativeSplineParameterizationCompositeProfile& obj
   ar(cereal::make_nvp("add_points", obj.add_points));
   ar(cereal::make_nvp("override_limits", obj.override_limits));
   ar(cereal::make_nvp("velocity_limits", obj.velocity_limits));
+  ar(cereal::make_nvp("acceleration_limits", obj.acceleration_limits));
   ar(cereal::make_nvp("max_velocity_scaling_factor", obj.max_velocity_scaling_factor));
   ar(cereal::make_nvp("max_acceleration_scaling_factor", obj.max_acceleration_scaling_factor));
 }

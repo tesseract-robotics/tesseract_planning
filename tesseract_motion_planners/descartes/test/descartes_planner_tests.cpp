@@ -124,8 +124,10 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   // Serialization
   tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, DescartesLadderGraphSolverProfileD>(
       solver_profile, "descartes_solver_profile");
-  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, DescartesDefaultMoveProfileD>(
-      solver_profile, "descartes_move_profile");
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, DescartesDefaultMoveProfileD>(move_profile,
+                                                                                                           "descartes_"
+                                                                                                           "move_"
+                                                                                                           "profile");
 
   // Profile Dictionary
   auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();

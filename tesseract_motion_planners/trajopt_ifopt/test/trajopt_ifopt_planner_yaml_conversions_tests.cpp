@@ -248,7 +248,7 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
     TrajOptIfoptOSQPSolverProfile profile(n["config"], plugin_factory);
     TrajOptIfoptOSQPSolverProfile def_constructor;
     // EXPECT_EQ(profile.update_workspace, def_constructor.update_workspace);
-    EXPECT_TRUE(profile.qp_settings == def_constructor.qp_settings);
+    EXPECT_TRUE(*profile.qp_settings == *def_constructor.qp_settings);
     EXPECT_TRUE(profile.opt_params == def_constructor.opt_params);
   }
 
@@ -367,7 +367,7 @@ TEST(TesseractPlanningTrajoptIfoptYAMLConversionsUnit, TrajOptIfoptOSQPSolverPro
     // def_constructor.opt_params.num_threads = 100;
 
     // EXPECT_EQ(profile.update_workspace, def_constructor.update_workspace);
-    EXPECT_TRUE(profile.qp_settings == def_constructor.qp_settings);
+    EXPECT_TRUE(*profile.qp_settings == *def_constructor.qp_settings);
     EXPECT_TRUE(profile.opt_params == def_constructor.opt_params);
   }
 }
