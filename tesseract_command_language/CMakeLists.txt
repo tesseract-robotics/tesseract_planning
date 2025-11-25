@@ -47,7 +47,6 @@ add_library(
   src/poly/instruction_poly.cpp
   src/poly/joint_waypoint_poly.cpp
   src/poly/move_instruction_poly.cpp
-  # src/poly/serialization.cpp
   src/poly/state_waypoint_poly.cpp
   src/poly/waypoint_poly.cpp
   src/cereal_serialization.cpp
