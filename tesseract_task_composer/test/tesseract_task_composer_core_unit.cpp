@@ -6,7 +6,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/joint_state.h>
 #include <tesseract_common/utils.h>
-#include <tesseract_common/cereal_serialization.h>
 #include <tesseract_common/unit_test_utils.h>
 #include <tesseract_common/resource_locator.h>
 
