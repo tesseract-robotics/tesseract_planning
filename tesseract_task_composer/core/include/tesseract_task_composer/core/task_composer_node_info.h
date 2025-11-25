@@ -134,11 +134,11 @@ public:
   /** @brief This provides a location for task data may be stored */
   TaskComposerDataStorage data_storage;
 
-  bool operator==(const TaskComposerNodeInfo& rhs) const;
-  bool operator!=(const TaskComposerNodeInfo& rhs) const;
-
   /** @brief Indicate if task was not ran because abort flag was enabled */
   bool aborted{ false };
+
+  bool operator==(const TaskComposerNodeInfo& rhs) const;
+  bool operator!=(const TaskComposerNodeInfo& rhs) const;
 };
 
 class TaskComposerNodeInfoContainer;

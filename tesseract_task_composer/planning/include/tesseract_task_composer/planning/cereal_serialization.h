@@ -49,6 +49,9 @@ void serialize(Archive& ar, FixStateCollisionProfile& obj)
   ar(cereal::make_nvp("trajopt_joint_cost_config", obj.trajopt_joint_cost_config));
   ar(cereal::make_nvp("collision_constraint_coeff", obj.collision_constraint_coeff));
   ar(cereal::make_nvp("collision_cost_coeff", obj.collision_cost_coeff));
+  ar(cereal::make_nvp("opt_params", obj.opt_params));
+  ar(cereal::make_nvp("osqp_settings", obj.osqp_settings));
+  ar(cereal::make_nvp("update_workspace", obj.update_workspace));
 }
 
 template <class Archive>
