@@ -82,6 +82,15 @@ TEST(TesseractCommandLanguageUnit, WaypointPolyTests)  // NOLINT
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
   }
+
+  {  // Bad Cast
+    CartesianWaypointPoly cwp{ CartesianWaypoint{} };
+    WaypointPoly wp1{ cwp };
+    EXPECT_ANY_THROW(wp1.as<StateWaypointPoly>());  // NOLINT
+
+    const WaypointPoly wp2{ cwp };
+    EXPECT_ANY_THROW(wp2.as<StateWaypointPoly>());  // NOLINT
+  }
 }
 
 TEST(TesseractCommandLanguageUnit, CartesianWaypointPolyTests)  // NOLINT
@@ -102,6 +111,11 @@ TEST(TesseractCommandLanguageUnit, CartesianWaypointPolyTests)  // NOLINT
     EXPECT_TRUE(wp1 == wp2);
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
+  }
+
+  {  // Bad Cast
+    CartesianWaypointPoly wp1{ CartesianWaypoint{} };
+    EXPECT_ANY_THROW(wp1.as<StateWaypoint>());  // NOLINT
   }
 }
 
@@ -124,6 +138,11 @@ TEST(TesseractCommandLanguageUnit, JointWaypointPolyTests)  // NOLINT
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
   }
+
+  {  // Bad Cast
+    JointWaypointPoly wp1{ JointWaypoint{} };
+    EXPECT_ANY_THROW(wp1.as<CartesianWaypoint>());  // NOLINT
+  }
 }
 
 TEST(TesseractCommandLanguageUnit, StateWaypointPolyTests)  // NOLINT
@@ -145,6 +164,11 @@ TEST(TesseractCommandLanguageUnit, StateWaypointPolyTests)  // NOLINT
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
   }
+
+  {  // Bad Cast
+    StateWaypointPoly wp1{ StateWaypoint{} };
+    EXPECT_ANY_THROW(wp1.as<CartesianWaypoint>());  // NOLINT
+  }
 }
 
 TEST(TesseractCommandLanguageUnit, CartesianWaypointTests)  // NOLINT
@@ -165,6 +189,42 @@ TEST(TesseractCommandLanguageUnit, StateWaypointTests)  // NOLINT
 TEST(TesseractCommandLanguageUnit, MoveInstructionTests)  // NOLINT
 {
   test_suite::runMoveInstructionTest<MoveInstruction>();
+}
+
+TEST(TesseractCommandLanguageUnit, InstructionPolyTests)  // NOLINT
+{
+  {  // Null waypoint and serialization
+    InstructionPoly null_wp;
+    EXPECT_TRUE(null_wp.isNull());
+    EXPECT_FALSE(null_wp.isMoveInstruction());
+    EXPECT_FALSE(null_wp.isCompositeInstruction());
+
+    test_suite::runInstructionSerializationTest(null_wp);
+  }
+
+  {  // Equality
+    InstructionPoly wp1;
+    EXPECT_TRUE(wp1.isNull());
+    EXPECT_FALSE(wp1.isMoveInstruction());
+    EXPECT_FALSE(wp1.isCompositeInstruction());
+
+    InstructionPoly wp2(wp1);  // NOLINT
+    EXPECT_TRUE(wp2.isNull());
+    EXPECT_FALSE(wp2.isMoveInstruction());
+    EXPECT_FALSE(wp2.isCompositeInstruction());
+
+    EXPECT_TRUE(wp1 == wp2);
+    EXPECT_TRUE(wp2 == wp1);
+    EXPECT_FALSE(wp2 != wp1);
+  }
+
+  {  // Bad Cast
+    InstructionPoly wp1{ CompositeInstruction() };
+    EXPECT_ANY_THROW(wp1.as<SetAnalogInstruction>());  // NOLINT
+
+    const InstructionPoly wp2{ CompositeInstruction() };
+    EXPECT_ANY_THROW(wp2.as<SetAnalogInstruction>());  // NOLINT
+  }
 }
 
 TEST(TesseractCommandLanguageUnit, SetAnalogInstructionTests)  // NOLINT

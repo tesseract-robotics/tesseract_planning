@@ -55,7 +55,7 @@ StateWaypointPoly& StateWaypointPoly::operator=(const StateWaypointPoly& other)
 StateWaypointPoly::StateWaypointPoly(const StateWaypointInterface& impl) : impl_(impl.clone()) {}
 
 void StateWaypointPoly::setName(const std::string& name) { impl_->setName(name); }
-const std::string& StateWaypointPoly::getName() const { return impl_->getName(); }
+const std::string& StateWaypointPoly::getName() const { return std::as_const(*impl_).getName(); }
 
 std::type_index StateWaypointPoly::getType() const
 {
@@ -78,30 +78,30 @@ bool StateWaypointPoly::equals(const WaypointInterface& other) const
   return (*this == *derived_other);
 }
 
-void StateWaypointPoly::print(const std::string& prefix) const { impl_->print(prefix); }
+void StateWaypointPoly::print(const std::string& prefix) const { std::as_const(*impl_).print(prefix); }
 
 void StateWaypointPoly::setNames(const std::vector<std::string>& names) { impl_->setNames(names); }
 std::vector<std::string>& StateWaypointPoly::getNames() { return impl_->getNames(); }
-const std::vector<std::string>& StateWaypointPoly::getNames() const { return impl_->getNames(); }
+const std::vector<std::string>& StateWaypointPoly::getNames() const { return std::as_const(*impl_).getNames(); }
 
 void StateWaypointPoly::setPosition(const Eigen::VectorXd& position) { impl_->setPosition(position); }
 Eigen::VectorXd& StateWaypointPoly::getPosition() { return impl_->getPosition(); }
-const Eigen::VectorXd& StateWaypointPoly::getPosition() const { return impl_->getPosition(); }
+const Eigen::VectorXd& StateWaypointPoly::getPosition() const { return std::as_const(*impl_).getPosition(); }
 
 void StateWaypointPoly::setVelocity(const Eigen::VectorXd& velocity) { impl_->setVelocity(velocity); }
 Eigen::VectorXd& StateWaypointPoly::getVelocity() { return impl_->getVelocity(); }
-const Eigen::VectorXd& StateWaypointPoly::getVelocity() const { return impl_->getVelocity(); }
+const Eigen::VectorXd& StateWaypointPoly::getVelocity() const { return std::as_const(*impl_).getVelocity(); }
 
 void StateWaypointPoly::setAcceleration(const Eigen::VectorXd& acceleration) { impl_->setAcceleration(acceleration); }
 Eigen::VectorXd& StateWaypointPoly::getAcceleration() { return impl_->getAcceleration(); }
-const Eigen::VectorXd& StateWaypointPoly::getAcceleration() const { return impl_->getAcceleration(); }
+const Eigen::VectorXd& StateWaypointPoly::getAcceleration() const { return std::as_const(*impl_).getAcceleration(); }
 
 void StateWaypointPoly::setEffort(const Eigen::VectorXd& effort) { impl_->setEffort(effort); }
 Eigen::VectorXd& StateWaypointPoly::getEffort() { return impl_->getEffort(); }
-const Eigen::VectorXd& StateWaypointPoly::getEffort() const { return impl_->getEffort(); }
+const Eigen::VectorXd& StateWaypointPoly::getEffort() const { return std::as_const(*impl_).getEffort(); }
 
 void StateWaypointPoly::setTime(double time) { impl_->setTime(time); }
-double StateWaypointPoly::getTime() const { return impl_->getTime(); }
+double StateWaypointPoly::getTime() const { return std::as_const(*impl_).getTime(); }
 
 std::unique_ptr<WaypointInterface> StateWaypointPoly::clone() const
 {
@@ -110,7 +110,7 @@ std::unique_ptr<WaypointInterface> StateWaypointPoly::clone() const
 
 bool StateWaypointPoly::isNull() const { return (impl_ == nullptr); }
 StateWaypointInterface& StateWaypointPoly::getStateWaypoint() { return *impl_; }
-const StateWaypointInterface& StateWaypointPoly::getStateWaypoint() const { return *impl_; }
+const StateWaypointInterface& StateWaypointPoly::getStateWaypoint() const { return std::as_const(*impl_); }
 
 bool StateWaypointPoly::operator==(const StateWaypointPoly& rhs) const
 {

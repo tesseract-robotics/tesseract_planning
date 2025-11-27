@@ -37,21 +37,21 @@ InstructionPoly::InstructionPoly(const MoveInstructionInterface& impl)
 {
 }
 
-const boost::uuids::uuid& InstructionPoly::getUUID() const { return impl_->getUUID(); }
+const boost::uuids::uuid& InstructionPoly::getUUID() const { return std::as_const(*impl_).getUUID(); }
 
 void InstructionPoly::setUUID(const boost::uuids::uuid& uuid) { impl_->setUUID(uuid); }
 
 void InstructionPoly::regenerateUUID() { impl_->regenerateUUID(); }
 
-const boost::uuids::uuid& InstructionPoly::getParentUUID() const { return impl_->getParentUUID(); }
+const boost::uuids::uuid& InstructionPoly::getParentUUID() const { return std::as_const(*impl_).getParentUUID(); }
 
 void InstructionPoly::setParentUUID(const boost::uuids::uuid& uuid) { impl_->setParentUUID(uuid); }
 
-const std::string& InstructionPoly::getDescription() const { return impl_->getDescription(); }
+const std::string& InstructionPoly::getDescription() const { return std::as_const(*impl_).getDescription(); }
 
 void InstructionPoly::setDescription(const std::string& description) { impl_->setDescription(description); }
 
-void InstructionPoly::print(const std::string& prefix) const { impl_->print(prefix); }
+void InstructionPoly::print(const std::string& prefix) const { std::as_const(*impl_).print(prefix); }
 
 std::type_index InstructionPoly::getType() const
 {
@@ -64,7 +64,7 @@ std::type_index InstructionPoly::getType() const
 
 bool InstructionPoly::isNull() const { return (impl_ == nullptr); }
 InstructionInterface& InstructionPoly::getInstruction() { return *impl_; }
-const InstructionInterface& InstructionPoly::getInstruction() const { return *impl_; }
+const InstructionInterface& InstructionPoly::getInstruction() const { return std::as_const(*impl_); }
 
 bool InstructionPoly::isCompositeInstruction() const
 {
