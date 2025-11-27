@@ -57,10 +57,20 @@ void runCartesianWaypointTest()
   {  // Test default construction
     CartesianWaypointPoly wp{ T() };
     EXPECT_TRUE(wp.getTransform().isApprox(Eigen::Isometry3d::Identity()));
+    EXPECT_TRUE(std::as_const(wp).getTransform().isApprox(Eigen::Isometry3d::Identity()));
+    EXPECT_TRUE(wp.getUpperTolerance().rows() == 0);
     EXPECT_TRUE(std::as_const(wp).getUpperTolerance().rows() == 0);
+    EXPECT_TRUE(wp.getLowerTolerance().rows() == 0);
     EXPECT_TRUE(std::as_const(wp).getLowerTolerance().rows() == 0);
     EXPECT_FALSE(wp.hasSeed());
     EXPECT_FALSE(wp.isToleranced());
+  }
+
+  {  // Test assignment
+    CartesianWaypointPoly wp{ T() };
+    CartesianWaypointPoly wp2;
+    wp2 = wp;
+    EXPECT_EQ(wp, wp2);
   }
 
   {    // Set/Get Transform
@@ -69,6 +79,7 @@ void runCartesianWaypointTest()
       pose.translation() = Eigen::Vector3d(1, 2, 3);
       CartesianWaypointPoly wp{ T(pose) };
       EXPECT_TRUE(wp.getTransform().isApprox(pose));
+      EXPECT_TRUE(std::as_const(wp).getTransform().isApprox(pose));
       EXPECT_FALSE(wp.isToleranced());
     }
 
@@ -79,6 +90,9 @@ void runCartesianWaypointTest()
       EXPECT_TRUE(wp.getTransform().isApprox(pose));
       EXPECT_TRUE(wp.getLowerTolerance().isApprox(Eigen::VectorXd::Constant(3, -5)));
       EXPECT_TRUE(wp.getUpperTolerance().isApprox(Eigen::VectorXd::Constant(3, 5)));
+      EXPECT_TRUE(std::as_const(wp).getTransform().isApprox(pose));
+      EXPECT_TRUE(std::as_const(wp).getLowerTolerance().isApprox(Eigen::VectorXd::Constant(3, -5)));
+      EXPECT_TRUE(std::as_const(wp).getUpperTolerance().isApprox(Eigen::VectorXd::Constant(3, 5)));
       EXPECT_TRUE(wp.isToleranced());
     }
 
@@ -88,6 +102,7 @@ void runCartesianWaypointTest()
       CartesianWaypointPoly wp{ T() };
       wp.setTransform(pose);
       EXPECT_TRUE(wp.getTransform().isApprox(pose));
+      EXPECT_TRUE(std::as_const(wp).getTransform().isApprox(pose));
       EXPECT_FALSE(wp.isToleranced());
     }
 

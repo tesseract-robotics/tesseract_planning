@@ -98,6 +98,7 @@ TEST(TesseractCommandLanguageUnit, CartesianWaypointPolyTests)  // NOLINT
   {  // Null waypoint and serialization
     CartesianWaypointPoly null_wp;
     EXPECT_TRUE(null_wp.isNull());
+    EXPECT_TRUE(null_wp.getType() == typeid(nullptr));
     test_suite::runWaypointSerializationTest(null_wp);
   }
 
