@@ -56,7 +56,7 @@ JointWaypointPoly& JointWaypointPoly::operator=(const JointWaypointPoly& other)
 JointWaypointPoly::JointWaypointPoly(const JointWaypointInterface& impl) : impl_(impl.clone()) {}
 
 void JointWaypointPoly::setName(const std::string& name) { impl_->setName(name); }
-const std::string& JointWaypointPoly::getName() const { return impl_->getName(); }
+const std::string& JointWaypointPoly::getName() const { return std::as_const(*impl_).getName(); }
 
 std::type_index JointWaypointPoly::getType() const
 {
@@ -84,31 +84,37 @@ std::unique_ptr<WaypointInterface> JointWaypointPoly::clone() const
   return (impl_ == nullptr) ? nullptr : std::make_unique<JointWaypointPoly>(*impl_);
 }
 
-void JointWaypointPoly::print(const std::string& prefix) const { impl_->print(prefix); }
+void JointWaypointPoly::print(const std::string& prefix) const { std::as_const(*impl_).print(prefix); }
 
 void JointWaypointPoly::setNames(const std::vector<std::string>& names) { impl_->setNames(names); }
 std::vector<std::string>& JointWaypointPoly::getNames() { return impl_->getNames(); }
-const std::vector<std::string>& JointWaypointPoly::getNames() const { return impl_->getNames(); }
+const std::vector<std::string>& JointWaypointPoly::getNames() const { return std::as_const(*impl_).getNames(); }
 
 void JointWaypointPoly::setPosition(const Eigen::VectorXd& position) { impl_->setPosition(position); }
 Eigen::VectorXd& JointWaypointPoly::getPosition() { return impl_->getPosition(); }
-const Eigen::VectorXd& JointWaypointPoly::getPosition() const { return impl_->getPosition(); }
+const Eigen::VectorXd& JointWaypointPoly::getPosition() const { return std::as_const(*impl_).getPosition(); }
 
 void JointWaypointPoly::setUpperTolerance(const Eigen::VectorXd& upper_tol) { impl_->setUpperTolerance(upper_tol); }
 Eigen::VectorXd& JointWaypointPoly::getUpperTolerance() { return impl_->getUpperTolerance(); }
-const Eigen::VectorXd& JointWaypointPoly::getUpperTolerance() const { return impl_->getUpperTolerance(); }
+const Eigen::VectorXd& JointWaypointPoly::getUpperTolerance() const
+{
+  return std::as_const(*impl_).getUpperTolerance();
+}
 
 void JointWaypointPoly::setLowerTolerance(const Eigen::VectorXd& lower_tol) { impl_->setLowerTolerance(lower_tol); }
 Eigen::VectorXd& JointWaypointPoly::getLowerTolerance() { return impl_->getLowerTolerance(); }
-const Eigen::VectorXd& JointWaypointPoly::getLowerTolerance() const { return impl_->getLowerTolerance(); }
+const Eigen::VectorXd& JointWaypointPoly::getLowerTolerance() const
+{
+  return std::as_const(*impl_).getLowerTolerance();
+}
 
 void JointWaypointPoly::setIsConstrained(bool value) { impl_->setIsConstrained(value); }
-bool JointWaypointPoly::isConstrained() const { return impl_->isConstrained(); }
+bool JointWaypointPoly::isConstrained() const { return std::as_const(*impl_).isConstrained(); }
 
 bool JointWaypointPoly::isToleranced() const
 {
-  const auto& lower_tolerance = impl_->getLowerTolerance();
-  const auto& upper_tolerance = impl_->getUpperTolerance();
+  const auto& lower_tolerance = std::as_const(*impl_).getLowerTolerance();
+  const auto& upper_tolerance = std::as_const(*impl_).getUpperTolerance();
 
   // Check if they are empty
   if (lower_tolerance.size() == 0 || upper_tolerance.size() == 0)
@@ -128,7 +134,7 @@ bool JointWaypointPoly::isToleranced() const
 
 bool JointWaypointPoly::isNull() const { return (impl_ == nullptr); }
 JointWaypointInterface& JointWaypointPoly::getJointWaypoint() { return *impl_; }
-const JointWaypointInterface& JointWaypointPoly::getJointWaypoint() const { return *impl_; }
+const JointWaypointInterface& JointWaypointPoly::getJointWaypoint() const { return std::as_const(*impl_); }
 
 bool JointWaypointPoly::operator==(const JointWaypointPoly& rhs) const
 {

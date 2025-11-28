@@ -43,8 +43,10 @@ void runStateWaypointTest()
     EXPECT_NE(name, wp.getName());
     wp.setName(name);
     EXPECT_EQ(name, wp.getName());
-    EXPECT_NO_THROW(wp.print());         // NOLINT
-    EXPECT_NO_THROW(wp.print("test_"));  // NOLINT
+    EXPECT_NO_THROW(wp.print());                            // NOLINT
+    EXPECT_NO_THROW(wp.print("test_"));                     // NOLINT
+    EXPECT_NO_THROW(wp.getStateWaypoint());                 // NOLINT
+    EXPECT_NO_THROW(std::as_const(wp).getStateWaypoint());  // NOLINT
     EXPECT_TRUE(wp.getType() == std::type_index(typeid(T)));
     WaypointPoly base = wp;
     EXPECT_FALSE(base.isCartesianWaypoint());
@@ -217,7 +219,8 @@ void runStateWaypointTest()
     }
     {
       StateWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, -1e6, 1e6 }) };
-      StateWaypointPoly wp2(wp1);  // NOLINT
+      StateWaypointPoly wp2;
+      wp2 = wp1;
       EXPECT_TRUE(wp1 == wp2);
       EXPECT_TRUE(wp2 == wp1);
       EXPECT_FALSE(wp2 != wp1);

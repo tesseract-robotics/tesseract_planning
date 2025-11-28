@@ -39,7 +39,7 @@ WaypointPoly::WaypointPoly(const JointWaypointInterface& impl) : impl_(std::make
 WaypointPoly::WaypointPoly(const StateWaypointInterface& impl) : impl_(std::make_unique<StateWaypointPoly>(impl)) {}
 
 void WaypointPoly::setName(const std::string& name) { impl_->setName(name); }
-const std::string& WaypointPoly::getName() const { return impl_->getName(); }
+const std::string& WaypointPoly::getName() const { return std::as_const(*impl_).getName(); }
 
 std::type_index WaypointPoly::getType() const
 {
@@ -50,11 +50,11 @@ std::type_index WaypointPoly::getType() const
   return typeid(value);
 }
 
-void WaypointPoly::print(const std::string& prefix) const { impl_->print(prefix); }
+void WaypointPoly::print(const std::string& prefix) const { std::as_const(*impl_).print(prefix); }
 
 bool WaypointPoly::isNull() const { return (impl_ == nullptr); }
 WaypointInterface& WaypointPoly::getWaypoint() { return *impl_; }
-const WaypointInterface& WaypointPoly::getWaypoint() const { return *impl_; }
+const WaypointInterface& WaypointPoly::getWaypoint() const { return std::as_const(*impl_); }
 
 bool WaypointPoly::isCartesianWaypoint() const
 {

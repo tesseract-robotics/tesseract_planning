@@ -57,7 +57,7 @@ CartesianWaypointPoly& CartesianWaypointPoly::operator=(const CartesianWaypointP
 CartesianWaypointPoly::CartesianWaypointPoly(const CartesianWaypointInterface& impl) : impl_(impl.clone()) {}
 
 void CartesianWaypointPoly::setName(const std::string& name) { impl_->setName(name); }
-const std::string& CartesianWaypointPoly::getName() const { return impl_->getName(); }
+const std::string& CartesianWaypointPoly::getName() const { return std::as_const(*impl_).getName(); }
 
 std::type_index CartesianWaypointPoly::getType() const
 {
@@ -85,27 +85,33 @@ std::unique_ptr<WaypointInterface> CartesianWaypointPoly::clone() const
   return (impl_ == nullptr) ? nullptr : std::make_unique<CartesianWaypointPoly>(*impl_);
 }
 
-void CartesianWaypointPoly::print(const std::string& prefix) const { impl_->print(prefix); }
+void CartesianWaypointPoly::print(const std::string& prefix) const { std::as_const(*impl_).print(prefix); }
 
 void CartesianWaypointPoly::setTransform(const Eigen::Isometry3d& transform) { impl_->setTransform(transform); }
 Eigen::Isometry3d& CartesianWaypointPoly::getTransform() { return impl_->getTransform(); }
-const Eigen::Isometry3d& CartesianWaypointPoly::getTransform() const { return impl_->getTransform(); }
+const Eigen::Isometry3d& CartesianWaypointPoly::getTransform() const { return std::as_const(*impl_).getTransform(); }
 
 void CartesianWaypointPoly::setUpperTolerance(const Eigen::VectorXd& upper_tol) { impl_->setUpperTolerance(upper_tol); }
 Eigen::VectorXd& CartesianWaypointPoly::getUpperTolerance() { return impl_->getUpperTolerance(); }
-const Eigen::VectorXd& CartesianWaypointPoly::getUpperTolerance() const { return impl_->getUpperTolerance(); }
+const Eigen::VectorXd& CartesianWaypointPoly::getUpperTolerance() const
+{
+  return std::as_const(*impl_).getUpperTolerance();
+}
 
 void CartesianWaypointPoly::setLowerTolerance(const Eigen::VectorXd& lower_tol) { impl_->setLowerTolerance(lower_tol); }
 Eigen::VectorXd& CartesianWaypointPoly::getLowerTolerance() { return impl_->getLowerTolerance(); }
-const Eigen::VectorXd& CartesianWaypointPoly::getLowerTolerance() const { return impl_->getLowerTolerance(); }
+const Eigen::VectorXd& CartesianWaypointPoly::getLowerTolerance() const
+{
+  return std::as_const(*impl_).getLowerTolerance();
+}
 
 void CartesianWaypointPoly::setSeed(const tesseract_common::JointState& seed) { impl_->setSeed(seed); }
 tesseract_common::JointState& CartesianWaypointPoly::getSeed() { return impl_->getSeed(); }
-const tesseract_common::JointState& CartesianWaypointPoly::getSeed() const { return impl_->getSeed(); }
+const tesseract_common::JointState& CartesianWaypointPoly::getSeed() const { return std::as_const(*impl_).getSeed(); }
 
 bool tesseract_planning::CartesianWaypointPoly::hasSeed() const
 {
-  const auto& seed = impl_->getSeed();
+  const auto& seed = std::as_const(*impl_).getSeed();
   return (seed.position.size() != 0 && !seed.joint_names.empty() &&
           static_cast<std::size_t>(seed.position.size()) == seed.joint_names.size());
 }
@@ -114,8 +120,8 @@ void tesseract_planning::CartesianWaypointPoly::clearSeed() { impl_->setSeed(tes
 
 bool tesseract_planning::CartesianWaypointPoly::isToleranced() const
 {
-  const auto& lower_tolerance = impl_->getLowerTolerance();
-  const auto& upper_tolerance = impl_->getUpperTolerance();
+  const auto& lower_tolerance = std::as_const(*impl_).getLowerTolerance();
+  const auto& upper_tolerance = std::as_const(*impl_).getUpperTolerance();
 
   // Check if they are empty
   if (lower_tolerance.size() == 0 || upper_tolerance.size() == 0)
@@ -135,7 +141,7 @@ bool tesseract_planning::CartesianWaypointPoly::isToleranced() const
 
 bool CartesianWaypointPoly::isNull() const { return (impl_ == nullptr); }
 CartesianWaypointInterface& CartesianWaypointPoly::getCartesianWaypoint() { return *impl_; }
-const CartesianWaypointInterface& CartesianWaypointPoly::getCartesianWaypoint() const { return *impl_; }
+const CartesianWaypointInterface& CartesianWaypointPoly::getCartesianWaypoint() const { return std::as_const(*impl_); }
 
 bool CartesianWaypointPoly::operator==(const CartesianWaypointPoly& rhs) const
 {
