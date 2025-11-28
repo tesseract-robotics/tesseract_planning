@@ -230,7 +230,8 @@ TEST(TesseractCommandLanguageUnit, InstructionPolyTests)  // NOLINT
     EXPECT_FALSE(wp1.isMoveInstruction());
     EXPECT_FALSE(wp1.isCompositeInstruction());
 
-    InstructionPoly wp2(wp1);  // NOLINT
+    InstructionPoly wp2;
+    wp2 = wp1;
     EXPECT_TRUE(wp2.isNull());
     EXPECT_FALSE(wp2.isMoveInstruction());
     EXPECT_FALSE(wp2.isCompositeInstruction());
