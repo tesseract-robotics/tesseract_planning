@@ -44,8 +44,10 @@ void runCartesianWaypointTest()
     EXPECT_NE(name, wp.getName());
     wp.setName(name);
     EXPECT_EQ(name, wp.getName());
-    EXPECT_NO_THROW(wp.print());         // NOLINT
-    EXPECT_NO_THROW(wp.print("test_"));  // NOLINT
+    EXPECT_NO_THROW(wp.print());                                // NOLINT
+    EXPECT_NO_THROW(wp.print("test_"));                         // NOLINT
+    EXPECT_NO_THROW(wp.getCartesianWaypoint());                 // NOLINT
+    EXPECT_NO_THROW(std::as_const(wp).getCartesianWaypoint());  // NOLINT
     EXPECT_TRUE(wp.getType() == std::type_index(typeid(T)));
 
     WaypointPoly base = wp;

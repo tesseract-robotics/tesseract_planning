@@ -63,6 +63,13 @@ TEST(TesseractCommandLanguageUnit, WaypointPolyTests)  // NOLINT
     EXPECT_FALSE(null_wp.isStateWaypoint());
 
     test_suite::runWaypointSerializationTest(null_wp);
+
+    CartesianWaypointPoly cwp{ CartesianWaypoint{} };
+    WaypointPoly wp1{ cwp };
+    EXPECT_NO_THROW(wp1.getWaypoint());                 // NOLINT;
+    EXPECT_NO_THROW(std::as_const(wp1).getWaypoint());  // NOLINT;
+
+    test_suite::runWaypointSerializationTest(wp1);
   }
 
   {  // Equality
@@ -81,6 +88,14 @@ TEST(TesseractCommandLanguageUnit, WaypointPolyTests)  // NOLINT
     EXPECT_TRUE(wp1 == wp2);
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
+  }
+
+  {  // Assignment
+    CartesianWaypointPoly cwp{ CartesianWaypoint{} };
+    WaypointPoly wp1{ cwp };
+    WaypointPoly wp2;
+    wp2 = wp1;
+    EXPECT_TRUE(wp1 == wp2);
   }
 
   {  // Bad Cast
@@ -201,6 +216,12 @@ TEST(TesseractCommandLanguageUnit, InstructionPolyTests)  // NOLINT
     EXPECT_FALSE(null_wp.isCompositeInstruction());
 
     test_suite::runInstructionSerializationTest(null_wp);
+
+    InstructionPoly instr{ CompositeInstruction() };
+    EXPECT_NO_THROW(instr.getInstruction());                 // NOLINT;
+    EXPECT_NO_THROW(std::as_const(instr).getInstruction());  // NOLINT;
+
+    test_suite::runInstructionSerializationTest(instr);
   }
 
   {  // Equality
