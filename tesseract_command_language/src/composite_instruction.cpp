@@ -239,6 +239,7 @@ bool CompositeInstruction::equals(const InstructionInterface& other) const
   return equal;
 }
 
+// LCOV_EXCL_START
 ///////////////
 // Iterators //
 ///////////////
