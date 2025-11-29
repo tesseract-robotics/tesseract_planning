@@ -52,12 +52,6 @@ struct MinLengthProfile : public tesseract_common::Profile
   MinLengthProfile(long min_length);
   MinLengthProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
   long min_length{ 10 };
 
   bool operator==(const MinLengthProfile& rhs) const;

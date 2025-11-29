@@ -40,12 +40,6 @@ struct IterativeSplineParameterizationCompositeProfile : public tesseract_common
                                                   double max_acceleration_scaling_factor);
 
   /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
-  /**
    * @brief If true, add two points to trajectory (first and last segments).
    *
    * If false, move the 2nd and 2nd-last points.
@@ -77,12 +71,6 @@ struct IterativeSplineParameterizationMoveProfile : public tesseract_common::Pro
   IterativeSplineParameterizationMoveProfile();
   IterativeSplineParameterizationMoveProfile(double max_velocity_scaling_factor,
                                              double max_acceleration_scaling_factor);
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
 
   /** @brief max_velocity_scaling_factor The max velocity scaling factor passed to the solver */
   double max_velocity_scaling_factor{ 1.0 };

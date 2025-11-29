@@ -51,12 +51,6 @@ struct ContactCheckProfile : public tesseract_common::Profile
   ContactCheckProfile(double longest_valid_segment_length, double contact_distance);
   ContactCheckProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
   /** @brief The contact manager config */
   tesseract_collision::ContactManagerConfig contact_manager_config;
 

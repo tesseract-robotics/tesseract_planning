@@ -71,12 +71,6 @@ public:
                                      const std::shared_ptr<const tesseract_environment::Environment>& env,
                                      const std::vector<std::string>& active_links,
                                      int index) const = 0;
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
 };
 
 class TrajOptCompositeProfile : public tesseract_common::Profile
@@ -92,12 +86,6 @@ public:
                                   const std::vector<int>& fixed_indices,
                                   int start_index,
                                   int end_index) const = 0;
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
 };
 
 class TrajOptSolverProfile : public tesseract_common::Profile
@@ -122,12 +110,6 @@ public:
 
   /** @brief Optimization callbacks */
   virtual std::vector<sco::Optimizer::Callback> createOptimizationCallbacks() const;
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
 };
 
 }  // namespace tesseract_planning

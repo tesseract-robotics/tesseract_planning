@@ -43,12 +43,6 @@ struct RuckigTrajectorySmoothingCompositeProfile : public tesseract_common::Prof
   RuckigTrajectorySmoothingCompositeProfile();
   RuckigTrajectorySmoothingCompositeProfile(double duration_extension_fraction, double max_duration_extension_factor);
 
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
   /** @brief The duration extension fraction */
   double duration_extension_fraction{ 1.1 };
   /** @brief The max duration extension factor */

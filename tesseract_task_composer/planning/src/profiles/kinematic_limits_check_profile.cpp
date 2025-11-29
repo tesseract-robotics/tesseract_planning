@@ -19,7 +19,6 @@
  * limitations under the License.
  */
 #include <tesseract_task_composer/planning/profiles/kinematic_limits_check_profile.h>
-#include <typeindex>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
@@ -28,7 +27,7 @@ namespace tesseract_planning
 KinematicLimitsCheckProfile::KinematicLimitsCheckProfile(bool check_position,
                                                          bool check_velocity,
                                                          bool check_acceleration)
-  : Profile(KinematicLimitsCheckProfile::getStaticKey())
+  : Profile(createKey<KinematicLimitsCheckProfile>())
   , check_position(check_position)
   , check_velocity(check_velocity)
   , check_acceleration(check_acceleration)
@@ -54,11 +53,6 @@ KinematicLimitsCheckProfile::KinematicLimitsCheckProfile(
     throw std::runtime_error("KinematicLimitsCheckProfile: Failed to parse yaml config! Details: " +
                              std::string(e.what()));
   }
-}
-
-std::size_t KinematicLimitsCheckProfile::getStaticKey()
-{
-  return std::type_index(typeid(KinematicLimitsCheckProfile)).hash_code();
 }
 
 bool KinematicLimitsCheckProfile::operator==(const KinematicLimitsCheckProfile& rhs) const

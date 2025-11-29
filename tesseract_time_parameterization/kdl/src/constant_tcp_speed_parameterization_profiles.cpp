@@ -1,11 +1,10 @@
 #include <tesseract_time_parameterization/kdl/constant_tcp_speed_parameterization_profiles.h>
 #include <tesseract_common/utils.h>
-#include <typeindex>
 
 namespace tesseract_planning
 {
 ConstantTCPSpeedParameterizationCompositeProfile::ConstantTCPSpeedParameterizationCompositeProfile()
-  : Profile(ConstantTCPSpeedParameterizationCompositeProfile::getStaticKey())
+  : Profile(createKey<ConstantTCPSpeedParameterizationCompositeProfile>())
 {
 }
 ConstantTCPSpeedParameterizationCompositeProfile::ConstantTCPSpeedParameterizationCompositeProfile(
@@ -15,7 +14,7 @@ ConstantTCPSpeedParameterizationCompositeProfile::ConstantTCPSpeedParameterizati
     double max_rotational_acceleration,
     double max_velocity_scaling_factor,
     double max_acceleration_scaling_factor)
-  : Profile(ConstantTCPSpeedParameterizationCompositeProfile::getStaticKey())
+  : Profile(createKey<ConstantTCPSpeedParameterizationCompositeProfile>())
   , max_translational_velocity(max_translational_velocity)
   , max_rotational_velocity(max_rotational_velocity)
   , max_translational_acceleration(max_translational_acceleration)
@@ -23,11 +22,6 @@ ConstantTCPSpeedParameterizationCompositeProfile::ConstantTCPSpeedParameterizati
   , max_velocity_scaling_factor(max_velocity_scaling_factor)
   , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
 {
-}
-
-std::size_t ConstantTCPSpeedParameterizationCompositeProfile::getStaticKey()
-{
-  return std::type_index(typeid(ConstantTCPSpeedParameterizationCompositeProfile)).hash_code();
 }
 
 bool ConstantTCPSpeedParameterizationCompositeProfile::operator==(

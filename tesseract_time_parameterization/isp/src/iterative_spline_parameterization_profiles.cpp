@@ -21,26 +21,20 @@
 
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization_profiles.h>
 #include <tesseract_common/utils.h>
-#include <typeindex>
 
 namespace tesseract_planning
 {
 IterativeSplineParameterizationCompositeProfile::IterativeSplineParameterizationCompositeProfile()
-  : Profile(IterativeSplineParameterizationCompositeProfile::getStaticKey())
+  : Profile(createKey<IterativeSplineParameterizationCompositeProfile>())
 {
 }
 IterativeSplineParameterizationCompositeProfile::IterativeSplineParameterizationCompositeProfile(
     double max_velocity_scaling_factor,
     double max_acceleration_scaling_factor)
-  : Profile(IterativeSplineParameterizationCompositeProfile::getStaticKey())
+  : Profile(createKey<IterativeSplineParameterizationCompositeProfile>())
   , max_velocity_scaling_factor(max_velocity_scaling_factor)
   , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
 {
-}
-
-std::size_t IterativeSplineParameterizationCompositeProfile::getStaticKey()
-{
-  return std::type_index(typeid(IterativeSplineParameterizationCompositeProfile)).hash_code();
 }
 
 bool IterativeSplineParameterizationCompositeProfile::operator==(
@@ -71,21 +65,16 @@ bool IterativeSplineParameterizationCompositeProfile::operator!=(
 }
 
 IterativeSplineParameterizationMoveProfile::IterativeSplineParameterizationMoveProfile()
-  : Profile(IterativeSplineParameterizationMoveProfile::getStaticKey())
+  : Profile(createKey<IterativeSplineParameterizationMoveProfile>())
 {
 }
 IterativeSplineParameterizationMoveProfile::IterativeSplineParameterizationMoveProfile(
     double max_velocity_scaling_factor,
     double max_acceleration_scaling_factor)
-  : Profile(IterativeSplineParameterizationMoveProfile::getStaticKey())
+  : Profile(createKey<IterativeSplineParameterizationMoveProfile>())
   , max_velocity_scaling_factor(max_velocity_scaling_factor)
   , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
 {
-}
-
-std::size_t IterativeSplineParameterizationMoveProfile::getStaticKey()
-{
-  return std::type_index(typeid(IterativeSplineParameterizationMoveProfile)).hash_code();
 }
 
 bool IterativeSplineParameterizationMoveProfile::operator==(const IterativeSplineParameterizationMoveProfile& rhs) const
