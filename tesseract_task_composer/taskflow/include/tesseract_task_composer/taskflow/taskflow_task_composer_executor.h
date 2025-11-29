@@ -80,9 +80,6 @@ public:
 
   long getTaskCount() const override final;
 
-  bool operator==(const TaskflowTaskComposerExecutor& rhs) const;
-  bool operator!=(const TaskflowTaskComposerExecutor& rhs) const;
-
 private:
   std::size_t num_threads_;
   std::unique_ptr<tf::Executor> executor_;
