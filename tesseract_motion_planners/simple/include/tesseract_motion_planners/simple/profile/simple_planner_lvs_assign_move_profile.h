@@ -4,8 +4,6 @@
  *
  * @author Roelof Oomen
  * @date March 19, 2024
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2024, ROS Industrial Consortium
  *

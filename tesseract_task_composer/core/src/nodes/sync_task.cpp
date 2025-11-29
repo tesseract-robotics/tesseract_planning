@@ -3,8 +3,6 @@
  *
  * @author Levi Armstrong
  * @date August 13, 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2023, Plectix Robotics
  *

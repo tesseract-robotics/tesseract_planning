@@ -3,8 +3,6 @@
  *
  * @author Levi Armstrong
  * @date December 15, 2021
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2021, Levi Armstrong
  *
