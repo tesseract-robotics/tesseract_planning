@@ -40,8 +40,7 @@ configure_component(
     tesseract_environment
     tesseract_command_language
     console_bridge
-    Eigen3
-  CFG_EXTRAS cmake/core-extras.cmake)
+    Eigen3)
 
 if(TESSERACT_PACKAGE)
   cpack_component(
