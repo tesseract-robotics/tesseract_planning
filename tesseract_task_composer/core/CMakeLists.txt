@@ -131,8 +131,7 @@ configure_component(
     tesseract_common
     boost_plugin_loader
     cereal
-    yaml-cpp
-  CFG_EXTRAS cmake/core-extras.cmake)
+    yaml-cpp)
 
 if(TESSERACT_PACKAGE)
   cpack_component(

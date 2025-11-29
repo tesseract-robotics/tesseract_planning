@@ -35,8 +35,7 @@ configure_component(
     tesseract_command_language
     console_bridge
     Threads
-    Boost
-  CFG_EXTRAS cmake/core-extras.cmake)
+    Boost)
 
 if(TESSERACT_PACKAGE)
   cpack_component(
