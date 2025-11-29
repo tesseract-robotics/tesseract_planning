@@ -4,8 +4,6 @@
  *
  * @author Tyler Marr
  * @date Septemeber 16, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *

@@ -4,8 +4,6 @@
  *
  * @author Matthew Powelson
  * @date October 26. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @par License
  * Software License Agreement (Apache License)

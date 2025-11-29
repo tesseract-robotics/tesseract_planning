@@ -4,8 +4,6 @@
  *
  * @author Jonathan Meyer
  * @date April 18, 2018
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2017, Southwest Research Institute
  *

@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 27, 2022
- * @version TODO
- * @bug No known bugs
  *
  * @par License
  * Software License Agreement (Apache License)

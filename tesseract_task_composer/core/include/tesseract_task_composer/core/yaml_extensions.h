@@ -4,8 +4,6 @@
  *
  * @author Samantha Smith
  * @date July 14, 2025
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2025, Southwest Research Institute
  *

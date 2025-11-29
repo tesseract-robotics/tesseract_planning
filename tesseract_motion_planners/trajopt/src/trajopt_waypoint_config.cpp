@@ -4,8 +4,6 @@
  *
  * @author Tyler Marr
  * @date November 2, 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
