@@ -90,6 +90,13 @@ protected:
   }
 };
 
+TEST_F(RuckigTrajectorySmoothingUnit, profileConstructor)  // NOLINT
+{
+  tesseract_planning::RuckigTrajectorySmoothingCompositeProfile profile(2.2, 5);
+  EXPECT_NEAR(profile.duration_extension_fraction, 2.2, 1e-6);
+  EXPECT_NEAR(profile.max_duration_extension_factor, 5, 1e-6);
+}
+
 TEST_F(RuckigTrajectorySmoothingUnit, Example)  // NOLINT
 {
   // Create input parameters
@@ -236,8 +243,13 @@ TEST_F(RuckigTrajectorySmoothingUnit, RuckigTrajectorySmoothingRepeatedPointSolv
   profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
   RuckigTrajectorySmoothing traj_smoothing(name_);
+  EXPECT_EQ(traj_smoothing.getName(), name_);
   EXPECT_TRUE(traj_smoothing.compute(program, *env_, profiles));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 0.001);
+
+  // Error
+  std::string empty_name;
+  EXPECT_ANY_THROW(RuckigTrajectorySmoothing(std::move(empty_name)));  // NOLINT
 }
 
 int main(int argc, char** argv)

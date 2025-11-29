@@ -98,6 +98,17 @@ protected:
   }
 };
 
+TEST_F(ConstantTCPSpeedParameterizationUnit, profileConstructor)  // NOLINT
+{
+  ConstantTCPSpeedParameterizationCompositeProfile profile(3, 5, 7, 9, 11, 13);
+  EXPECT_NEAR(profile.max_translational_velocity, 3, 1e-6);
+  EXPECT_NEAR(profile.max_rotational_velocity, 5, 1e-6);
+  EXPECT_NEAR(profile.max_translational_acceleration, 7, 1e-6);
+  EXPECT_NEAR(profile.max_rotational_acceleration, 9, 1e-6);
+  EXPECT_NEAR(profile.max_velocity_scaling_factor, 11, 1e-6);
+  EXPECT_NEAR(profile.max_acceleration_scaling_factor, 13, 1e-6);
+}
+
 TEST_F(ConstantTCPSpeedParameterizationUnit, ConstantTCPSpeedParameterizationTest)  // NOLINT
 {
   CompositeInstruction program = createStraightTrajectory();
@@ -126,9 +137,14 @@ TEST_F(ConstantTCPSpeedParameterizationUnit, ConstantTCPSpeedParameterizationTes
 
     // Solve
     ConstantTCPSpeedParameterization time_parameterization(name_);
+    EXPECT_EQ(time_parameterization.getName(), name_);
     EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
     EXPECT_TRUE(checkForVelocityAndAcceleration(program));
     ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.001);
+
+    // Error
+    std::string empty_name;
+    EXPECT_ANY_THROW(ConstantTCPSpeedParameterization(std::move(empty_name)));  // NOLINT
   }
 
   {
