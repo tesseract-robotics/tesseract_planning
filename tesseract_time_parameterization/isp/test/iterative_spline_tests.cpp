@@ -126,6 +126,21 @@ TEST_F(IterativeSplineParameterizationUnit, Solve)  // NOLINT
   EXPECT_TRUE(true);
 }
 
+TEST_F(IterativeSplineParameterizationUnit, profileConstructor)  // NOLINT
+{
+  {
+    IterativeSplineParameterizationCompositeProfile profile(3, 5);
+    EXPECT_NEAR(profile.max_velocity_scaling_factor, 3, 1e-6);
+    EXPECT_NEAR(profile.max_acceleration_scaling_factor, 5, 1e-6);
+  }
+
+  {
+    IterativeSplineParameterizationMoveProfile profile(3, 5);
+    EXPECT_NEAR(profile.max_velocity_scaling_factor, 3, 1e-6);
+    EXPECT_NEAR(profile.max_acceleration_scaling_factor, 5, 1e-6);
+  }
+}
+
 TEST_F(IterativeSplineParameterizationUnit, TestIterativeSpline)  // NOLINT
 {
   CompositeInstruction program = createStraightTrajectory();
@@ -155,8 +170,13 @@ TEST_F(IterativeSplineParameterizationUnit, TestIterativeSpline)  // NOLINT
 
   // Solve
   IterativeSplineParameterization time_parameterization(name_);
+  EXPECT_EQ(time_parameterization.getName(), name_);
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
+
+  // Error
+  std::string empty_name;
+  EXPECT_ANY_THROW(IterativeSplineParameterization(std::move(empty_name)));  // NOLINT
 }
 
 TEST_F(IterativeSplineParameterizationUnit, TestIterativeSplineAddPoints)  // NOLINT
