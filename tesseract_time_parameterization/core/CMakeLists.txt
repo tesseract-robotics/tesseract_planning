@@ -24,6 +24,11 @@ target_code_coverage(
 # Mark header files for installation
 install(DIRECTORY include/${PROJECT_NAME} DESTINATION include COMPONENT core)
 
+# Testing
+if(TESSERACT_ENABLE_TESTING)
+  add_subdirectory(test)
+endif()
+
 # Configure Components
 configure_component(
   COMPONENT core
