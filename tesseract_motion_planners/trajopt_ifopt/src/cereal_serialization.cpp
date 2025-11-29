@@ -25,4 +25,6 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_planning::TrajOptIfoptCompositePr
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_planning::TrajOptIfoptSolverProfile,
                                      tesseract_planning::TrajOptIfoptOSQPSolverProfile)
 
+// LCOV_EXCL_START
 CEREAL_REGISTER_DYNAMIC_INIT(tesseract_motion_planners_trajopt_ifopt_cereal)
+// LCOV_EXCL_STOP

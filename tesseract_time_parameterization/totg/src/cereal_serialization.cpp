@@ -10,4 +10,6 @@ CEREAL_REGISTER_TYPE(tesseract_planning::TimeOptimalTrajectoryGenerationComposit
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile,
                                      tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile)
 
+// LCOV_EXCL_START
 CEREAL_REGISTER_DYNAMIC_INIT(tesseract_time_parameterization_totg_cereal)
+// LCOV_EXCL_STOP

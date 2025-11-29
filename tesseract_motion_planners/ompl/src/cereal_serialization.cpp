@@ -48,4 +48,6 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planni
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::OMPLRealVectorMoveProfile)
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_planning::OMPLMoveProfile, tesseract_planning::OMPLRealVectorMoveProfile)
 
+// LCOV_EXCL_START
 CEREAL_REGISTER_DYNAMIC_INIT(tesseract_motion_planners_ompl_cereal)
+// LCOV_EXCL_STOP

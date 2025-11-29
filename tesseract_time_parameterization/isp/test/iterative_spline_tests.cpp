@@ -206,6 +206,12 @@ TEST_F(IterativeSplineParameterizationUnit, TestIterativeSplineDynamicParams)  /
   move_profile->max_velocity_scaling_factor = 0.5;
   move_profile->max_acceleration_scaling_factor = 0.5;
 
+  // Serialization
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile,
+                                                  IterativeSplineParameterizationMoveProfile>(move_profile,
+                                                                                              "TestIterativeSplineDynam"
+                                                                                              "icParams");
+
   // Profile Dictionary
   tesseract_common::ProfileDictionary profiles;
   ;

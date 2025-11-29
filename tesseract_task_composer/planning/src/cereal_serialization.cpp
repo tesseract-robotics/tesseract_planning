@@ -21,4 +21,6 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planni
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::ProfileSwitchProfile)
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::Profile, tesseract_planning::UpsampleTrajectoryProfile)
 
+// LCOV_EXCL_START
 CEREAL_REGISTER_DYNAMIC_INIT(tesseract_task_composer_planning_cereal)
+// LCOV_EXCL_STOP
