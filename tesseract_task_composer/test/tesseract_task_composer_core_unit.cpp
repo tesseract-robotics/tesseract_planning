@@ -38,9 +38,11 @@ using namespace tesseract_planning;
 TEST(TesseractTaskComposerCoreUnit, TaskComposerKeysTests)  // NOLINT
 {
   TaskComposerKeys keys;
-  EXPECT_TRUE(keys.size() == 0);
+  EXPECT_TRUE(keys.empty());
   keys.add("first", "I1");
   keys.add("second", std::vector<std::string>{ "I2" });
+  EXPECT_TRUE(keys.size() == 2);
+  EXPECT_FALSE(keys.empty());
   EXPECT_EQ(keys.get("first"), "I1");
   EXPECT_EQ(keys.get<std::vector<std::string>>("second"), std::vector<std::string>{ "I2" });
   EXPECT_TRUE(keys.has("first"));
