@@ -40,7 +40,12 @@ initialize_code_coverage(ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 set(COVERAGE_EXCLUDE
     /usr/*
     /opt/*
-    ${CMAKE_CURRENT_LIST_DIR}/test/*
+    ${CMAKE_CURRENT_LIST_DIR}/core/test/*
+    ${CMAKE_CURRENT_LIST_DIR}/descartes/test/*
+    ${CMAKE_CURRENT_LIST_DIR}/ompl/test/*
+    ${CMAKE_CURRENT_LIST_DIR}/simple/test/*
+    ${CMAKE_CURRENT_LIST_DIR}/trajopt/test/*
+    ${CMAKE_CURRENT_LIST_DIR}/trajopt_ifopt/test/*
     /*/install/*
     /*/devel/*
     /*/gtest/*
