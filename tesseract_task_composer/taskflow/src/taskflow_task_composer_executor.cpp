@@ -251,17 +251,4 @@ long TaskflowTaskComposerExecutor::getWorkerCount() const { return static_cast<l
 
 long TaskflowTaskComposerExecutor::getTaskCount() const { return static_cast<long>(executor_->num_topologies()); }
 
-bool TaskflowTaskComposerExecutor::operator==(const TaskflowTaskComposerExecutor& rhs) const
-{
-  bool equal = true;
-  equal &= (num_threads_ == rhs.num_threads_);
-  equal &= TaskComposerExecutor::operator==(rhs);
-  return equal;
-}
-
-bool TaskflowTaskComposerExecutor::operator!=(const TaskflowTaskComposerExecutor& rhs) const
-{
-  return !operator==(rhs);
-}
-
 }  // namespace tesseract_planning

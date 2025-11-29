@@ -44,10 +44,4 @@ std::unique_ptr<TaskComposerFuture> TaskComposerExecutor::run(const TaskComposer
   return runImpl(node, std::move(context));
 }
 
-bool TaskComposerExecutor::operator==(const TaskComposerExecutor& rhs) const { return (name_ == rhs.name_); }
-
-// LCOV_EXCL_START
-bool TaskComposerExecutor::operator!=(const TaskComposerExecutor& rhs) const { return !operator==(rhs); }
-// LCOV_EXCL_STOP
-
 }  // namespace tesseract_planning
