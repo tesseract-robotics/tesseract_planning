@@ -35,4 +35,6 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_planning::DescartesMoveProfile<do
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_planning::DescartesMoveProfile<float>,
                                      tesseract_planning::DescartesDefaultMoveProfile<float>)
 
+// LCOV_EXCL_START
 CEREAL_REGISTER_DYNAMIC_INIT(tesseract_motion_planners_descartes_cereal)
+// LCOV_EXCL_STOP

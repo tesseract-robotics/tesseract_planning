@@ -44,4 +44,6 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_planning::SimplePlannerMoveProfil
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_planning::SimplePlannerMoveProfile,
                                      tesseract_planning::SimplePlannerLVSNoIKMoveProfile)
 
+// LCOV_EXCL_START
 CEREAL_REGISTER_DYNAMIC_INIT(tesseract_motion_planners_simple_cereal)
+// LCOV_EXCL_STOP

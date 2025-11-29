@@ -40,4 +40,6 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_planning::InstructionInterface, t
 
 CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::AnyInterface, tesseract_planning::CompositeInstructionAnyPoly)
 
+// LCOV_EXCL_START
 CEREAL_REGISTER_DYNAMIC_INIT(tesseract_command_language_cereal)
+// LCOV_EXCL_STOP
