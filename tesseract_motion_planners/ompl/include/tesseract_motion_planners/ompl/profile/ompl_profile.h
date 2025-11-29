@@ -66,12 +66,6 @@ public:
   OMPLMoveProfile();
 
   /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
-  /**
    * @brief Create the OMPL Parallel Plan Solver Config
    * @return The OMPL Parallel Plan Solver Config
    */

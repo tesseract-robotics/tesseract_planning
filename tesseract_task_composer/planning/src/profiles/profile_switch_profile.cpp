@@ -30,7 +30,7 @@
 namespace tesseract_planning
 {
 ProfileSwitchProfile::ProfileSwitchProfile(int return_value)
-  : Profile(ProfileSwitchProfile::getStaticKey()), return_value(return_value)
+  : Profile(createKey<ProfileSwitchProfile>()), return_value(return_value)
 {
 }
 ProfileSwitchProfile::ProfileSwitchProfile(const YAML::Node& config,
@@ -46,8 +46,6 @@ ProfileSwitchProfile::ProfileSwitchProfile(const YAML::Node& config,
     throw std::runtime_error("ProfileSwitchProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
   }
 }
-
-std::size_t ProfileSwitchProfile::getStaticKey() { return std::type_index(typeid(ProfileSwitchProfile)).hash_code(); }
 
 bool ProfileSwitchProfile::operator==(const ProfileSwitchProfile& rhs) const
 {

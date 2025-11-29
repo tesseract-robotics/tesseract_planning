@@ -31,10 +31,10 @@
 
 namespace tesseract_planning
 {
-UpsampleTrajectoryProfile::UpsampleTrajectoryProfile() : Profile(UpsampleTrajectoryProfile::getStaticKey()) {}
+UpsampleTrajectoryProfile::UpsampleTrajectoryProfile() : Profile(createKey<UpsampleTrajectoryProfile>()) {}
 
 UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(double longest_valid_segment_length)
-  : Profile(UpsampleTrajectoryProfile::getStaticKey()), longest_valid_segment_length(longest_valid_segment_length)
+  : Profile(createKey<UpsampleTrajectoryProfile>()), longest_valid_segment_length(longest_valid_segment_length)
 {
 }
 UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(const YAML::Node& config,
@@ -50,11 +50,6 @@ UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(const YAML::Node& config,
     throw std::runtime_error("UpsampleTrajectoryProfile: Failed to parse yaml config! Details: " +
                              std::string(e.what()));
   }
-}
-
-std::size_t UpsampleTrajectoryProfile::getStaticKey()
-{
-  return std::type_index(typeid(UpsampleTrajectoryProfile)).hash_code();
 }
 
 bool UpsampleTrajectoryProfile::operator==(const UpsampleTrajectoryProfile& rhs) const

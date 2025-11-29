@@ -77,12 +77,6 @@ public:
                                           const tesseract_common::ManipulatorInfo& composite_manip_info,
                                           const std::shared_ptr<const tesseract_environment::Environment>& env,
                                           int index) const = 0;
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
 };
 
 class TrajOptIfoptCompositeProfile : public tesseract_common::Profile
@@ -97,12 +91,6 @@ public:
                                        const std::shared_ptr<const tesseract_environment::Environment>& env,
                                        const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition>>& vars,
                                        const std::vector<int>& fixed_indices) const = 0;
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
 };
 
 class TrajOptIfoptSolverProfile : public tesseract_common::Profile
@@ -117,12 +105,6 @@ public:
   trajopt_sqp::SQPParameters opt_params{};
 
   virtual std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> create(bool verbose = false) const = 0;
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
 };
 
 }  // namespace tesseract_planning

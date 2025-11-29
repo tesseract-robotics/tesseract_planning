@@ -40,12 +40,6 @@ struct ConstantTCPSpeedParameterizationCompositeProfile : public tesseract_commo
                                                    double max_velocity_scaling_factor_ = 1.0,
                                                    double max_acceleration_scaling_factor = 1.0);
 
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
   double max_translational_velocity{ 1.0 };
   double max_rotational_velocity{ 1.0 };
   double max_translational_acceleration{ 1.0 };

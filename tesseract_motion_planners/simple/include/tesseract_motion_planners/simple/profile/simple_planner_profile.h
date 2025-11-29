@@ -52,12 +52,6 @@ public:
   SimplePlannerMoveProfile();
 
   /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
-  /**
    * @brief Generate a seed for the provided base_instruction
    * @brief This should not include the prev_instruction but must include the base_instruction
    * @param prev_instruction The previous instruction
@@ -84,12 +78,6 @@ public:
   using ConstPtr = std::shared_ptr<const SimplePlannerCompositeProfile>;
 
   SimplePlannerCompositeProfile();
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
 };
 
 }  // namespace tesseract_planning

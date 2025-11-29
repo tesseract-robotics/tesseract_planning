@@ -21,26 +21,20 @@
 
 #include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing_profiles.h>
 #include <tesseract_common/utils.h>
-#include <typeindex>
 
 namespace tesseract_planning
 {
 RuckigTrajectorySmoothingCompositeProfile::RuckigTrajectorySmoothingCompositeProfile()
-  : Profile(RuckigTrajectorySmoothingCompositeProfile::getStaticKey())
+  : Profile(createKey<RuckigTrajectorySmoothingCompositeProfile>())
 {
 }
 RuckigTrajectorySmoothingCompositeProfile::RuckigTrajectorySmoothingCompositeProfile(
     double duration_extension_fraction,
     double max_duration_extension_factor)
-  : Profile(RuckigTrajectorySmoothingCompositeProfile::getStaticKey())
+  : Profile(createKey<RuckigTrajectorySmoothingCompositeProfile>())
   , duration_extension_fraction(duration_extension_fraction)
   , max_duration_extension_factor(max_duration_extension_factor)
 {
-}
-
-std::size_t RuckigTrajectorySmoothingCompositeProfile::getStaticKey()
-{
-  return std::type_index(typeid(RuckigTrajectorySmoothingCompositeProfile)).hash_code();
 }
 
 bool RuckigTrajectorySmoothingCompositeProfile::operator==(const RuckigTrajectorySmoothingCompositeProfile& rhs) const

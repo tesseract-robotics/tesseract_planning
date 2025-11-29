@@ -25,14 +25,10 @@
  */
 
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
-#include <typeindex>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
-OMPLMoveProfile::OMPLMoveProfile() : Profile(OMPLMoveProfile::getStaticKey()) {}
-
-std::size_t OMPLMoveProfile::getStaticKey() { return std::type_index(typeid(OMPLMoveProfile)).hash_code(); }
-
+OMPLMoveProfile::OMPLMoveProfile() : Profile(createKey<OMPLMoveProfile>()) {}
 }  // namespace tesseract_planning

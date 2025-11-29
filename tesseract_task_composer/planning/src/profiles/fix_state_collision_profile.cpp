@@ -27,7 +27,6 @@
 #include <tesseract_task_composer/planning/profiles/fix_state_collision_profile.h>
 #include <tesseract_task_composer/planning/yaml_extensions.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
-#include <typeindex>
 #include <tesseract_collision/core/yaml_extensions.h>
 #include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 #include <trajopt_common/yaml_extensions.h>
@@ -38,7 +37,7 @@
 namespace tesseract_planning
 {
 FixStateCollisionProfile::FixStateCollisionProfile(Settings mode)
-  : Profile(FixStateCollisionProfile::getStaticKey()), mode(mode)
+  : Profile(createKey<FixStateCollisionProfile>()), mode(mode)
 {
   collision_check_config.contact_request.type = tesseract_collision::ContactTestType::FIRST;
   collision_check_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
@@ -81,11 +80,6 @@ FixStateCollisionProfile::FixStateCollisionProfile(const YAML::Node& config,
     throw std::runtime_error("FixStateCollisionProfile: Failed to parse yaml config! Details: " +
                              std::string(e.what()));
   }
-}
-
-std::size_t FixStateCollisionProfile::getStaticKey()
-{
-  return std::type_index(typeid(FixStateCollisionProfile)).hash_code();
 }
 
 bool FixStateCollisionProfile::operator==(const FixStateCollisionProfile& rhs) const

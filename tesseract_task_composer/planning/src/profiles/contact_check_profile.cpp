@@ -27,7 +27,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <typeindex>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -40,7 +39,7 @@ namespace tesseract_planning
 ContactCheckProfile::ContactCheckProfile() : ContactCheckProfile(0.05, 0) {}
 
 ContactCheckProfile::ContactCheckProfile(double longest_valid_segment_length, double contact_distance)
-  : Profile(ContactCheckProfile::getStaticKey())
+  : Profile(createKey<ContactCheckProfile>())
 {
   contact_manager_config.default_margin = contact_distance;
 
@@ -71,8 +70,6 @@ ContactCheckProfile::ContactCheckProfile(const YAML::Node& config,
     throw std::runtime_error("ContactCheckProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
   }
 }
-
-std::size_t ContactCheckProfile::getStaticKey() { return std::type_index(typeid(ContactCheckProfile)).hash_code(); }
 
 bool ContactCheckProfile::operator==(const ContactCheckProfile& rhs) const
 {

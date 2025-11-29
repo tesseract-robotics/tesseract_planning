@@ -46,12 +46,6 @@ struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract_common
                                                   double path_tolerance,
                                                   double min_angle_change);
 
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
   /** @brief Indicate if overriding limits, otherwise manipulator limits will be used. */
   bool override_limits{ false };
   /** @brief The min/max velocities for each joint */

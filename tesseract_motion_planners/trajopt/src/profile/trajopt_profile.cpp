@@ -24,24 +24,14 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
-#include <typeindex>
 
 namespace tesseract_planning
 {
-TrajOptMoveProfile::TrajOptMoveProfile() : Profile(TrajOptMoveProfile::getStaticKey()) {}
+TrajOptMoveProfile::TrajOptMoveProfile() : Profile(createKey<TrajOptMoveProfile>()) {}
 
-std::size_t TrajOptMoveProfile::getStaticKey() { return std::type_index(typeid(TrajOptMoveProfile)).hash_code(); }
+TrajOptCompositeProfile::TrajOptCompositeProfile() : Profile(createKey<TrajOptCompositeProfile>()) {}
 
-TrajOptCompositeProfile::TrajOptCompositeProfile() : Profile(TrajOptCompositeProfile::getStaticKey()) {}
-
-std::size_t TrajOptCompositeProfile::getStaticKey()
-{
-  return std::type_index(typeid(TrajOptCompositeProfile)).hash_code();
-}
-
-TrajOptSolverProfile::TrajOptSolverProfile() : Profile(TrajOptSolverProfile::getStaticKey()) {}
-
-std::size_t TrajOptSolverProfile::getStaticKey() { return std::type_index(typeid(TrajOptSolverProfile)).hash_code(); }
+TrajOptSolverProfile::TrajOptSolverProfile() : Profile(createKey<TrajOptSolverProfile>()) {}
 
 sco::BasicTrustRegionSQPParameters TrajOptSolverProfile::createOptimizationParameters() const { return opt_params; }
 

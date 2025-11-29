@@ -24,24 +24,10 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
-#include <typeindex>
 
 namespace tesseract_planning
 {
-SimplePlannerMoveProfile::SimplePlannerMoveProfile() : Profile(SimplePlannerMoveProfile::getStaticKey()) {}
+SimplePlannerMoveProfile::SimplePlannerMoveProfile() : Profile(createKey<SimplePlannerMoveProfile>()) {}
 
-std::size_t SimplePlannerMoveProfile::getStaticKey()
-{
-  return std::type_index(typeid(SimplePlannerMoveProfile)).hash_code();
-}
-
-SimplePlannerCompositeProfile::SimplePlannerCompositeProfile() : Profile(SimplePlannerCompositeProfile::getStaticKey())
-{
-}
-
-std::size_t SimplePlannerCompositeProfile::getStaticKey()
-{
-  return std::type_index(typeid(SimplePlannerCompositeProfile)).hash_code();
-}
-
+SimplePlannerCompositeProfile::SimplePlannerCompositeProfile() : Profile(createKey<SimplePlannerCompositeProfile>()) {}
 }  // namespace tesseract_planning

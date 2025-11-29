@@ -27,16 +27,13 @@
  */
 
 #include <tesseract_task_composer/planning/profiles/min_length_profile.h>
-#include <typeindex>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
-MinLengthProfile::MinLengthProfile() : Profile(MinLengthProfile::getStaticKey()) {}
-MinLengthProfile::MinLengthProfile(long min_length) : Profile(MinLengthProfile::getStaticKey()), min_length(min_length)
-{
-}
+MinLengthProfile::MinLengthProfile() : Profile(createKey<MinLengthProfile>()) {}
+MinLengthProfile::MinLengthProfile(long min_length) : Profile(createKey<MinLengthProfile>()), min_length(min_length) {}
 MinLengthProfile::MinLengthProfile(const YAML::Node& config,
                                    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
   : MinLengthProfile()
@@ -50,8 +47,6 @@ MinLengthProfile::MinLengthProfile(const YAML::Node& config,
     throw std::runtime_error("MinLengthProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
   }
 }
-
-std::size_t MinLengthProfile::getStaticKey() { return std::type_index(typeid(MinLengthProfile)).hash_code(); }
 
 bool MinLengthProfile::operator==(const MinLengthProfile& rhs) const { return (min_length == rhs.min_length); }
 

@@ -25,16 +25,13 @@
  */
 #include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
 #include <tesseract_task_composer/planning/yaml_extensions.h>
-#include <typeindex>
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
-FixStateBoundsProfile::FixStateBoundsProfile(Settings mode) : Profile(FixStateBoundsProfile::getStaticKey()), mode(mode)
-{
-}
+FixStateBoundsProfile::FixStateBoundsProfile(Settings mode) : Profile(createKey<FixStateBoundsProfile>()), mode(mode) {}
 
 FixStateBoundsProfile::FixStateBoundsProfile(const YAML::Node& config,
                                              const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
@@ -56,8 +53,6 @@ FixStateBoundsProfile::FixStateBoundsProfile(const YAML::Node& config,
     throw std::runtime_error("FixStateBoundsProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
   }
 }
-
-std::size_t FixStateBoundsProfile::getStaticKey() { return std::type_index(typeid(FixStateBoundsProfile)).hash_code(); }
 
 bool FixStateBoundsProfile::operator==(const FixStateBoundsProfile& rhs) const
 {

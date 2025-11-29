@@ -24,29 +24,13 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
-#include <typeindex>
 
 namespace tesseract_planning
 {
-TrajOptIfoptMoveProfile::TrajOptIfoptMoveProfile() : Profile(TrajOptIfoptMoveProfile::getStaticKey()) {}
+TrajOptIfoptMoveProfile::TrajOptIfoptMoveProfile() : Profile(createKey<TrajOptIfoptMoveProfile>()) {}
 
-std::size_t TrajOptIfoptMoveProfile::getStaticKey()
-{
-  return std::type_index(typeid(TrajOptIfoptMoveProfile)).hash_code();
-}
+TrajOptIfoptCompositeProfile::TrajOptIfoptCompositeProfile() : Profile(createKey<TrajOptIfoptCompositeProfile>()) {}
 
-TrajOptIfoptCompositeProfile::TrajOptIfoptCompositeProfile() : Profile(TrajOptIfoptCompositeProfile::getStaticKey()) {}
-
-std::size_t TrajOptIfoptCompositeProfile::getStaticKey()
-{
-  return std::type_index(typeid(TrajOptIfoptCompositeProfile)).hash_code();
-}
-
-TrajOptIfoptSolverProfile::TrajOptIfoptSolverProfile() : Profile(TrajOptIfoptSolverProfile::getStaticKey()) {}
-
-std::size_t TrajOptIfoptSolverProfile::getStaticKey()
-{
-  return std::type_index(typeid(TrajOptIfoptSolverProfile)).hash_code();
-}
+TrajOptIfoptSolverProfile::TrajOptIfoptSolverProfile() : Profile(createKey<TrajOptIfoptSolverProfile>()) {}
 
 }  // namespace tesseract_planning
