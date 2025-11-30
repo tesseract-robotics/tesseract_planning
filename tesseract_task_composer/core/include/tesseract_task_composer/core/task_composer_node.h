@@ -69,7 +69,8 @@ public:
   TaskComposerNode(std::string name = "TaskComposerNode",
                    TaskComposerNodeType type = TaskComposerNodeType::NODE,
                    TaskComposerNodePorts ports = TaskComposerNodePorts(),
-                   bool conditional = false);
+                   bool conditional = false,
+                   int return_value_override = -1);
   explicit TaskComposerNode(std::string name,
                             TaskComposerNodeType type,
                             TaskComposerNodePorts ports,
@@ -214,6 +215,13 @@ protected:
 
   /** @brief The nodes ports definition */
   TaskComposerNodePorts ports_;
+
+  /**
+   * @brief Value with which to override the return value nominally provided by runImpl() in the TaskComposerNodeInfo.
+   * @details The return value provided by runImpl() will be overriden with this value when it is >= 0.
+   * This value can be set to force a task to behave in a specific way (e.g., for debugging or unit tests).
+   */
+  int return_value_override_{ -1 };
 
   /** @brief Indicate if task triggers abort */
   bool trigger_abort_{ false };
