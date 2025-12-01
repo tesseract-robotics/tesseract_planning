@@ -67,10 +67,6 @@ public:
 
   bool operator==(const TrajOptIfoptOSQPSolverProfile& rhs) const;
   bool operator!=(const TrajOptIfoptOSQPSolverProfile& rhs) const;
-
-protected:
-  /** @brief Optimization callbacks */
-  virtual std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> createOptimizationCallbacks() const;
 };
 }  // namespace tesseract_planning
 

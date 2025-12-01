@@ -135,12 +135,6 @@ std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> TrajOptIfoptOSQPSolverProfile
   return solver;
 }
 
-std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>>
-TrajOptIfoptOSQPSolverProfile::createOptimizationCallbacks() const
-{
-  return {};
-}
-
 bool TrajOptIfoptOSQPSolverProfile::operator==(const TrajOptIfoptOSQPSolverProfile& rhs) const
 {
   bool equal = true;
