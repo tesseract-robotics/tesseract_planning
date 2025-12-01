@@ -67,7 +67,6 @@ public:
 
   bool operator==(const TrajOptIfoptOSQPSolverProfile& rhs) const;
   bool operator!=(const TrajOptIfoptOSQPSolverProfile& rhs) const;
-
 };
 }  // namespace tesseract_planning
 

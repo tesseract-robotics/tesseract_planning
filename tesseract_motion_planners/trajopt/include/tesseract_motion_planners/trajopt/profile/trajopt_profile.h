@@ -97,7 +97,10 @@ public:
   /** @brief Optimization parameters */
   sco::BasicTrustRegionSQPParameters opt_params;
 
-  /** @brief Optimization callbacks */
+  /**
+   * @brief Optimization callbacks
+   * @note This is not serialized
+   */
   std::vector<sco::Optimizer::Callback> callbacks;
 
   /** @brief Get the convex solver to use */
