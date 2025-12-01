@@ -35,13 +35,40 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
+TEST(TesseractTaskComposerCoreUnit, TaskComposerKeysTests)  // NOLINT
+{
+  TaskComposerKeys keys;
+  EXPECT_TRUE(keys.empty());
+  keys.add("first", "I1");
+  keys.add("second", std::vector<std::string>{ "I2" });
+  EXPECT_TRUE(keys.size() == 2);
+  EXPECT_FALSE(keys.empty());
+  EXPECT_EQ(keys.get("first"), "I1");
+  EXPECT_EQ(keys.get<std::vector<std::string>>("second"), std::vector<std::string>{ "I2" });
+  EXPECT_TRUE(keys.has("first"));
+  EXPECT_TRUE(keys.has("second"));
+  std::map<std::string, std::string> renaming;
+  renaming["I1"] = "I3";
+  renaming["I2"] = "I4";
+  keys.rename(renaming);
+  EXPECT_EQ(keys.get("first"), "I3");
+  EXPECT_EQ(keys.get<std::vector<std::string>>("second"), std::vector<std::string>{ "I4" });
+  keys.remove("second");
+  EXPECT_FALSE(keys.has("second"));
+
+  TaskComposerKeys copy{ keys };
+  EXPECT_TRUE(keys == copy);
+  EXPECT_FALSE(keys != copy);
+}
+
 TEST(TesseractTaskComposerCoreUnit, TaskComposerDataStorageTests)  // NOLINT
 {
   std::string key{ "joint_state" };
   std::vector<std::string> joint_names{ "joint_1", "joint_2" };
   Eigen::Vector2d joint_values(5, 10);
   tesseract_common::JointState js(joint_names, joint_values);
-  TaskComposerDataStorage data;
+  TaskComposerDataStorage data("test_name");
+  EXPECT_EQ(data.getName(), "test_name");
   EXPECT_FALSE(data.hasKey(key));
   EXPECT_TRUE(data.getData(key).isNull());
 
@@ -2326,6 +2353,7 @@ TEST(TesseractTaskComposerCoreUnit, TaskComposerForEachTaskTests)  // NOLINT
     // Solve
     auto executor = factory.createTaskComposerExecutor(factory.getDefaultTaskComposerExecutorPlugin());
     auto context = std::make_shared<TaskComposerContext>("abc", std::move(data));
+    context->dotgraph = true;
     EXPECT_EQ(task.run(*context, *executor), 1);
     auto node_info = context->task_infos->getInfo(task.getUUID());
     if (!node_info.has_value())
