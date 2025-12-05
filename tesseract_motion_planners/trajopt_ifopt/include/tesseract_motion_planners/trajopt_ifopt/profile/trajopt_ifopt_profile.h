@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/fwd.h>
 #include <trajopt_sqp/fwd.h>
 #include <trajopt_sqp/types.h>
+#include <trajopt_ifopt/variable_sets/node.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
@@ -59,7 +60,7 @@ struct TrajOptIfoptTermInfos
 struct TrajOptIfoptWaypointInfo
 {
   TrajOptIfoptTermInfos term_infos;
-  std::shared_ptr<trajopt_ifopt::JointPosition> var;
+  std::unique_ptr<trajopt_ifopt::Node> node;
   bool fixed{ false };
 };
 
@@ -87,7 +88,7 @@ public:
 
   virtual TrajOptIfoptTermInfos create(const tesseract_common::ManipulatorInfo& composite_manip_info,
                                        const std::shared_ptr<const tesseract_environment::Environment>& env,
-                                       const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition>>& vars,
+                                       const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                                        const std::vector<int>& fixed_indices) const = 0;
 };
 

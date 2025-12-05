@@ -334,11 +334,22 @@ bool BasicCartesianExample::run()
         else
           accumulated_time += stopwatch.elapsedSeconds();
       }
-      CONSOLE_BRIDGE_logInform("BasicCartesianExample, %s, %f, %f, %d",
-                               contact_manager.c_str(),
-                               initial_planning_time,
-                               accumulated_time / (cnt - 1),
-                               (cnt - 1));
+      if (ifopt_)
+      {
+        CONSOLE_BRIDGE_logInform("BasicCartesianExample(Ifopt), %s, %f, %f, %d",
+                                 contact_manager.c_str(),
+                                 initial_planning_time,
+                                 accumulated_time / (cnt - 1),
+                                 (cnt - 1));
+      }
+      else
+      {
+        CONSOLE_BRIDGE_logInform("BasicCartesianExample, %s, %f, %f, %d",
+                                 contact_manager.c_str(),
+                                 initial_planning_time,
+                                 accumulated_time / (cnt - 1),
+                                 (cnt - 1));
+      }
     }
   }
 
