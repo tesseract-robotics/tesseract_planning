@@ -25,6 +25,9 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <trajopt_ifopt/variable_sets/joint_position_variable.h>
+#include <trajopt_ifopt/variable_sets/nodes_variables.h>
+#include <trajopt_ifopt/variable_sets/node.h>
+#include <trajopt_ifopt/variable_sets/var.h>
 #include <trajopt_sqp/trust_region_sqp_solver.h>
 #include <trajopt_sqp/trajopt_qp_problem.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -94,7 +97,8 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   // Translate TCL for MoveInstructions
   // ----------------
   // Transform plan instructions into trajopt cost and constraints
-  std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition>> vars;
+  std::vector<std::unique_ptr<trajopt_ifopt::Node>> nodes;
+  std::vector<std::shared_ptr<const trajopt_ifopt::Var>> vars;
   for (int i = 0; i < move_instructions.size(); ++i)
   {
     const auto& move_instruction = move_instructions[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>();
@@ -113,8 +117,9 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
       fixed_steps.push_back(i);
 
     // Add variable set
-    vars.push_back(wp_info.var);
-    nlp->addVariableSet(wp_info.var);
+    vars.push_back(wp_info.node->getVar("position"));
+    nodes.push_back(std::move(wp_info.node));
+    // nlp->addVariableSet(wp_info.var);
 
     // Add Waypoint Cost and Constraints
     for (const auto& cnt : wp_info.term_infos.constraints)
@@ -129,6 +134,8 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
     for (const auto& hinge_cost : wp_info.term_infos.hinge_costs)
       nlp->addCostSet(hinge_cost, trajopt_sqp::CostPenaltyType::HINGE);
   }
+
+  nlp->addVariableSet(std::make_shared<trajopt_ifopt::NodesVariables>("joint_trajectory", std::move(nodes)));
 
   // ----------------
   // Translate TCL for CompositeInstructions
@@ -184,8 +191,7 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
 
   // Get the results - This can likely be simplified if we get rid of the traj array
   Eigen::VectorXd x = nlp->getVariableValues();
-  Eigen::Map<tesseract_common::TrajArray> traj(
-      x.data(), static_cast<Eigen::Index>(vars.size()), static_cast<Eigen::Index>(vars[0]->GetValues().size()));
+  Eigen::Map<tesseract_common::TrajArray> traj(x.data(), static_cast<Eigen::Index>(vars.size()), vars[0]->size());
 
   // Enforce limits
   for (Eigen::Index i = 0; i < traj.rows(); i++)
