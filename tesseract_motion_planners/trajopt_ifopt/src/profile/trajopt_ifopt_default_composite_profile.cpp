@@ -77,11 +77,11 @@ TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(
   }
 }
 
-TrajOptIfoptTermInfos TrajOptIfoptDefaultCompositeProfile::create(
-    const tesseract_common::ManipulatorInfo& composite_manip_info,
-    const std::shared_ptr<const tesseract_environment::Environment>& env,
-    const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition> >& vars,
-    const std::vector<int>& fixed_indices) const
+TrajOptIfoptTermInfos
+TrajOptIfoptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& composite_manip_info,
+                                            const std::shared_ptr<const tesseract_environment::Environment>& env,
+                                            const std::vector<std::shared_ptr<const trajopt_ifopt::Var> >& vars,
+                                            const std::vector<int>& fixed_indices) const
 {
   if (vars.empty())
     throw std::runtime_error("TrajOptIfoptDefaultCompositeProfile: vars is empty.");
@@ -105,21 +105,21 @@ TrajOptIfoptTermInfos TrajOptIfoptDefaultCompositeProfile::create(
 
   if (smooth_velocities)
   {
-    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->GetJointNames().size()));
+    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->size()));
     auto constraint = createJointVelocityConstraint(target, vars, velocity_coeff);
     term_infos.squared_costs.push_back(constraint);
   }
 
   if (smooth_accelerations)
   {
-    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->GetJointNames().size()));
+    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->size()));
     auto constraint = createJointAccelerationConstraint(target, vars, acceleration_coeff);
     term_infos.squared_costs.push_back(constraint);
   }
 
   if (smooth_jerks)
   {
-    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->GetJointNames().size()));
+    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->size()));
     auto constraint = createJointJerkConstraint(target, vars, jerk_coeff);
     term_infos.squared_costs.push_back(constraint);
   }
