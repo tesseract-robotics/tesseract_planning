@@ -56,7 +56,7 @@ jobs:
           apt install -y libtaskflow-cpp-dev
 
       - name: Build and Tests
-        uses: tesseract-robotics/colcon-action@v11
+        uses: tesseract-robotics/colcon-action@v14
         with:
           before-script: source /opt/tesseract/install/setup.bash && source /opt/trajopt/install/setup.bash
           ccache-prefix: ${{ matrix.distro }}
