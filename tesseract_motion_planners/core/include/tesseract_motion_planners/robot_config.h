@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -78,14 +76,18 @@ inline RobotConfig getRobotConfig(const tesseract_kinematics::JointGroup& joint_
                                   const Eigen::Ref<const Eigen::Vector2i>& sign_correction = Eigen::Vector2i::Ones())
 {
   // Get state
-  tesseract_common::TransformMap state = joint_group.calcFwdKin(joint_values.template cast<double>());
+  thread_local tesseract_common::TransformMap state;
+  state.clear();
+  joint_group.calcFwdKin(state, joint_values.template cast<double>());
 
   // Get the pose at tool0
   Eigen::Isometry3d pose = state.at(base_link).inverse() * state.at(tcp_frame);
 
+  // Get Manipulator values
+  auto mjv = joint_values.tail(6);
+
   // Get the base rotated by joint 1
-  Eigen::Isometry3d prime_pose(
-      Eigen::AngleAxisd(static_cast<double>(joint_values.tail(6)(0)), Eigen::Vector3d::UnitZ()));
+  Eigen::Isometry3d prime_pose(Eigen::AngleAxisd(static_cast<double>(mjv(0)), Eigen::Vector3d::UnitZ()));
 
   // Transform tool0 pose into new frame
   Eigen::Isometry3d pose_prime = prime_pose.inverse() * pose;
@@ -96,22 +98,13 @@ inline RobotConfig getRobotConfig(const tesseract_kinematics::JointGroup& joint_
   std::array<std::string, 3> config;
 
   // Wrist Flip or Not Flip
-  if ((sign_correction[1] * joint_values(4)) >= 0)
-    config[0] = "F";
-  else
-    config[0] = "N";
+  config[0] = ((sign_correction[1] * mjv(4)) >= 0) ? "F" : "N";
 
   // Elbow Up or Down
-  if ((sign_correction[0] * joint_values(2)) < M_PI / 2)
-    config[1] = "U";
-  else
-    config[1] = "D";
+  config[1] = ((sign_correction[0] * mjv(2)) < M_PI_2) ? "U" : "D";
 
   // Robot Front or Back
-  if (pose_prime.translation().x() >= 0)
-    config[2] = "T";
-  else
-    config[2] = "B";
+  config[2] = (pose_prime.translation().x() >= 0) ? "T" : "B";
 
   if (config == std::array<std::string, 3>({ "F", "U", "T" }))
     return RobotConfig::FUT;

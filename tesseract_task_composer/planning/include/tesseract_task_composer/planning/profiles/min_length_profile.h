@@ -6,8 +6,6 @@
  *
  * @author Levi Armstrong
  * @date November 2. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -34,6 +32,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile.h>
+#include <tesseract_common/fwd.h>
+
+namespace YAML
+{
+class Node;
+}
 
 namespace tesseract_planning
 {
@@ -44,23 +48,13 @@ struct MinLengthProfile : public tesseract_common::Profile
 
   MinLengthProfile();
   MinLengthProfile(long min_length);
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
+  MinLengthProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   long min_length{ 10 };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const MinLengthProfile& rhs) const;
+  bool operator!=(const MinLengthProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::MinLengthProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_MIN_LENGTH_PROFILE_H

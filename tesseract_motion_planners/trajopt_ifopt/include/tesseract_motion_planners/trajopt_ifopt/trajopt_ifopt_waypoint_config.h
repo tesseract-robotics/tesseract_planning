@@ -4,8 +4,6 @@
  *
  * @author Tyler Marr
  * @date November 2, 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2023, Southwest Research Institute
  *
@@ -29,8 +27,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
@@ -65,11 +61,8 @@ struct TrajOptIfoptCartesianWaypointConfig
   /** @brief coefficients corresponsing to dx, dy, dz, rx, ry, rz*/
   Eigen::Matrix<double, 6, 1> coeff{ Eigen::VectorXd::Constant(6, 5) };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const TrajOptIfoptCartesianWaypointConfig& rhs) const;
+  bool operator!=(const TrajOptIfoptCartesianWaypointConfig& rhs) const;
 };
 
 /**
@@ -98,15 +91,9 @@ struct TrajOptIfoptJointWaypointConfig
   /** @brief coefficients corresponsing to joint values*/
   Eigen::VectorXd coeff{ Eigen::VectorXd::Constant(1, 1, 5) };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const TrajOptIfoptJointWaypointConfig& rhs) const;
+  bool operator!=(const TrajOptIfoptJointWaypointConfig& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptCartesianWaypointConfig)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptJointWaypointConfig)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_TRAJOPT_IFOPT_WAYPOINT_CONFIG_H

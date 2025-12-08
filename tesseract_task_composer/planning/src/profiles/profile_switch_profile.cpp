@@ -4,8 +4,6 @@
  *
  * @author Matthew Powelson
  * @date October 26. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -23,28 +21,35 @@
  */
 
 #include <tesseract_task_composer/planning/profiles/profile_switch_profile.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <typeindex>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
 ProfileSwitchProfile::ProfileSwitchProfile(int return_value)
-  : Profile(ProfileSwitchProfile::getStaticKey()), return_value(return_value)
+  : Profile(createKey<ProfileSwitchProfile>()), return_value(return_value)
 {
 }
-
-std::size_t ProfileSwitchProfile::getStaticKey() { return std::type_index(typeid(ProfileSwitchProfile)).hash_code(); }
-
-template <class Archive>
-void ProfileSwitchProfile::serialize(Archive& ar, const unsigned int /*version*/)
+ProfileSwitchProfile::ProfileSwitchProfile(const YAML::Node& config,
+                                           const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : ProfileSwitchProfile()
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(return_value);
+  try
+  {
+    return_value = config["return_value"].as<int>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("ProfileSwitchProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+  }
 }
+
+bool ProfileSwitchProfile::operator==(const ProfileSwitchProfile& rhs) const
+{
+  return (return_value == rhs.return_value);
+}
+
+bool ProfileSwitchProfile::operator!=(const ProfileSwitchProfile& rhs) const { return !operator==(rhs); }
 
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ProfileSwitchProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ProfileSwitchProfile)

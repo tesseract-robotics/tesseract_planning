@@ -4,8 +4,6 @@
  *
  * @author Jonathan Meyer
  * @date April 18, 2018
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2017, Southwest Research Institute
  *
@@ -142,8 +140,13 @@ bool ContinuousMotionValidator::continuousCollisionCheck(const ompl::base::State
   Eigen::Map<Eigen::VectorXd> start_joints = extractor_(s1);
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(s2);
 
-  tesseract_common::TransformMap state0 = manip_->calcFwdKin(start_joints);
-  tesseract_common::TransformMap state1 = manip_->calcFwdKin(finish_joints);
+  thread_local tesseract_common::TransformMap state0;
+  state0.clear();
+  manip_->calcFwdKin(state0, start_joints);
+
+  thread_local tesseract_common::TransformMap state1;
+  state1.clear();
+  manip_->calcFwdKin(state1, finish_joints);
 
   for (const auto& link_name : links_)
     cm->setCollisionObjectsTransform(link_name, state0[link_name], state1[link_name]);

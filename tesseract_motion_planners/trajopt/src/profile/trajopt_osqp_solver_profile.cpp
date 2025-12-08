@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date December 13, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -27,45 +25,84 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/problem_description.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
+#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract_common/utils.h>
+#include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 
-namespace boost::serialization
-{
-template <class Archive>
-void serialize(Archive& ar, OSQPSettings& settings, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("rho", settings.rho);
-  ar& boost::serialization::make_nvp("sigma", settings.sigma);
-  ar& boost::serialization::make_nvp("scaling", settings.scaling);
-  ar& boost::serialization::make_nvp("adaptive_rho", settings.adaptive_rho);
-  ar& boost::serialization::make_nvp("adaptive_rho_interval", settings.adaptive_rho_interval);
-  ar& boost::serialization::make_nvp("adaptive_rho_tolerance", settings.adaptive_rho_tolerance);
-  ar& boost::serialization::make_nvp("adaptive_rho_fraction", settings.adaptive_rho_fraction);
-  ar& boost::serialization::make_nvp("max_iter", settings.max_iter);
-  ar& boost::serialization::make_nvp("eps_abs", settings.eps_abs);
-  ar& boost::serialization::make_nvp("eps_rel", settings.eps_rel);
-  ar& boost::serialization::make_nvp("eps_prim_inf", settings.eps_prim_inf);
-  ar& boost::serialization::make_nvp("eps_dual_inf", settings.eps_dual_inf);
-  ar& boost::serialization::make_nvp("alpha", settings.alpha);
-  ar& boost::serialization::make_nvp("linsys_solver", settings.linsys_solver);
-  ar& boost::serialization::make_nvp("delta", settings.delta);
-  ar& boost::serialization::make_nvp("polish", settings.polish);
-  ar& boost::serialization::make_nvp("polish_refine_iter", settings.polish_refine_iter);
-  ar& boost::serialization::make_nvp("verbose", settings.verbose);
-  ar& boost::serialization::make_nvp("scaled_termination", settings.scaled_termination);
-  ar& boost::serialization::make_nvp("check_termination", settings.check_termination);
-  ar& boost::serialization::make_nvp("warm_start", settings.warm_start);
-  ar& boost::serialization::make_nvp("time_limit", settings.time_limit);
-}
-}  // namespace boost::serialization
-
 namespace tesseract_planning
 {
+bool operator==(const OSQPSettings& lhs, const OSQPSettings& rhs)
+{
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= (lhs.device == rhs.device);
+  equal &= (lhs.linsys_solver == rhs.linsys_solver);
+  equal &= (lhs.allocate_solution == rhs.allocate_solution);
+  equal &= (lhs.verbose == rhs.verbose);
+  equal &= (lhs.profiler_level == rhs.profiler_level);
+  equal &= (lhs.warm_starting == rhs.warm_starting);
+  equal &= (lhs.scaling == rhs.scaling);
+  equal &= (lhs.polishing == rhs.polishing);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.rho, rhs.rho, max_diff);
+  equal &= (lhs.rho_is_vec == rhs.rho_is_vec);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.sigma, rhs.sigma, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.alpha, rhs.alpha, max_diff);
+  equal &= (lhs.cg_max_iter == rhs.cg_max_iter);
+  equal &= (lhs.cg_tol_reduction == rhs.cg_tol_reduction);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.cg_tol_fraction, rhs.cg_tol_fraction, max_diff);
+  equal &= (lhs.cg_precond == rhs.cg_precond);
+  equal &= (lhs.adaptive_rho == rhs.adaptive_rho);
+  equal &= (lhs.adaptive_rho_interval == rhs.adaptive_rho_interval);
+  equal &=
+      tesseract_common::almostEqualRelativeAndAbs(lhs.adaptive_rho_tolerance, rhs.adaptive_rho_tolerance, max_diff);
+  equal &= (lhs.max_iter == rhs.max_iter);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.eps_abs, rhs.eps_abs, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.eps_rel, rhs.eps_rel, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.eps_prim_inf, rhs.eps_prim_inf, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.eps_dual_inf, rhs.eps_dual_inf, max_diff);
+  equal &= (lhs.scaled_termination == rhs.scaled_termination);
+  equal &= (lhs.check_termination == rhs.check_termination);
+  equal &= (lhs.check_dualgap == rhs.check_dualgap);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.time_limit, rhs.time_limit, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.delta, rhs.delta, max_diff);
+  equal &= (lhs.polish_refine_iter == rhs.polish_refine_iter);
+  return equal;
+}
+
 TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile() { sco::OSQPModelConfig::setDefaultOSQPSettings(settings); }
+
+TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile(const YAML::Node& config,
+                                                   const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : TrajOptOSQPSolverProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["opt_params"])
+    {
+      if (!YAML::convert<sco::BasicTrustRegionSQPParameters>::decode(n, opt_params))
+        throw std::runtime_error("Failed to decode 'opt_params'");
+    }
+
+    if (YAML::Node n = config["settings"])
+    {
+      if (!YAML::convert<OSQPSettings>::decode(n, settings))
+        throw std::runtime_error("Failed to decode 'settings'");
+    }
+
+    if (YAML::Node n = config["update_workspace"])
+      update_workspace = n.as<bool>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("TrajOptOSQPSolverProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
+}
 
 sco::ModelType TrajOptOSQPSolverProfile::getSolverType() const { return sco::ModelType::OSQP; }
 
@@ -77,17 +114,15 @@ std::unique_ptr<sco::ModelConfig> TrajOptOSQPSolverProfile::createSolverConfig()
   return config;
 }
 
-template <class Archive>
-void TrajOptOSQPSolverProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool TrajOptOSQPSolverProfile::operator==(const TrajOptOSQPSolverProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptSolverProfile);
-  ar& BOOST_SERIALIZATION_NVP(settings);
-  ar& BOOST_SERIALIZATION_NVP(update_workspace);
+  bool equal = true;
+  equal &= (opt_params == rhs.opt_params);
+  equal &= (settings == rhs.settings);
+  equal &= (update_workspace == rhs.update_workspace);
+  return equal;
 }
 
-}  // namespace tesseract_planning
+bool TrajOptOSQPSolverProfile::operator!=(const TrajOptOSQPSolverProfile& rhs) const { return !operator==(rhs); }
 
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_FREE_ARCHIVES_INSTANTIATE(OSQPSettings)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptOSQPSolverProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptOSQPSolverProfile)
+}  // namespace tesseract_planning

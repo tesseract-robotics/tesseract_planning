@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 29. 2022
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2022, Levi Armstrong
  *
@@ -26,17 +24,7 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/version.hpp>
-#if (BOOST_VERSION >= 107400) && (BOOST_VERSION < 107500)
-#include <boost/serialization/library_version_type.hpp>
-#endif
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/shared_ptr.hpp>
-#include <boost/serialization/unique_ptr.hpp>
-#include <boost/serialization/unordered_map.hpp>
 #include <boost/uuid/uuid.hpp>
-#include <tesseract_common/serialization.h>
-#include <tesseract_common/atomic_serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_context.h>
@@ -45,10 +33,29 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+TaskComposerContext::TaskComposerContext(std::string name, bool dotgraph)
+  : name(std::move(name))
+  , dotgraph(dotgraph)
+  , data_storage(std::make_shared<tesseract_planning::TaskComposerDataStorage>())
+  , task_infos(std::make_shared<tesseract_planning::TaskComposerNodeInfoContainer>())
+{
+}
+
 TaskComposerContext::TaskComposerContext(std::string name,
                                          std::shared_ptr<TaskComposerDataStorage> data_storage,
                                          bool dotgraph)
-  : name(std::move(name)), dotgraph(dotgraph), data_storage(std::move(data_storage))
+  : name(std::move(name))
+  , dotgraph(dotgraph)
+  , data_storage(std::move(data_storage))
+  , task_infos(std::make_shared<tesseract_planning::TaskComposerNodeInfoContainer>())
+{
+}
+
+TaskComposerContext::TaskComposerContext(std::string name,
+                                         std::shared_ptr<TaskComposerDataStorage> data_storage,
+                                         std::shared_ptr<tesseract_planning::TaskComposerNodeInfoContainer> task_infos,
+                                         bool dotgraph)
+  : name(std::move(name)), dotgraph(dotgraph), data_storage(std::move(data_storage)), task_infos(std::move(task_infos))
 {
 }
 
@@ -59,7 +66,7 @@ bool TaskComposerContext::isSuccessful() const { return !aborted_; }
 void TaskComposerContext::abort(const boost::uuids::uuid& calling_node)
 {
   if (!calling_node.is_nil())
-    task_infos.setAborted(calling_node);
+    task_infos->setAborted(calling_node);
 
   aborted_ = true;
 }
@@ -75,23 +82,15 @@ bool TaskComposerContext::operator==(const TaskComposerContext& rhs) const
   else
     equal &= (data_storage == nullptr && rhs.data_storage == nullptr);
 
-  equal &= task_infos == rhs.task_infos;
+  if (task_infos != nullptr && rhs.task_infos != nullptr)
+    equal &= (*task_infos == *rhs.task_infos);
+  else
+    equal &= (task_infos == nullptr && rhs.task_infos == nullptr);
+
   equal &= aborted_ == rhs.aborted_;
   return equal;
 }
 
 bool TaskComposerContext::operator!=(const TaskComposerContext& rhs) const { return !operator==(rhs); }
 
-template <class Archive>
-void TaskComposerContext::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("name", name);
-  ar& boost::serialization::make_nvp("dotgraph", dotgraph);
-  ar& boost::serialization::make_nvp("data_storage", data_storage);
-  ar& boost::serialization::make_nvp("task_infos", task_infos);
-  ar& boost::serialization::make_nvp("aborted", aborted_);
-}
-
 }  // namespace tesseract_planning
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerContext)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerContext)

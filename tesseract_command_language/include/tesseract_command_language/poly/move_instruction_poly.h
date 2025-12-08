@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 15, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -30,8 +28,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <cstdint>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
@@ -44,6 +40,15 @@ class WaypointPoly;
 class CartesianWaypointPoly;
 class JointWaypointPoly;
 class StateWaypointPoly;
+
+class MoveInstructionInterface;
+class MoveInstructionPoly;
+
+template <class Archive>
+void serialize(Archive& ar, MoveInstructionInterface& obj);
+
+template <class Archive>
+void serialize(Archive& ar, MoveInstructionPoly& obj);
 
 enum class MoveInstructionType : std::uint8_t
 {
@@ -219,10 +224,8 @@ protected:
   virtual bool equals(const MoveInstructionInterface& other) const = 0;
 
 private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, MoveInstructionInterface& obj);
 };
 
 class MoveInstructionPoly final : public InstructionInterface
@@ -474,18 +477,10 @@ private:
    */
   bool equals(const InstructionInterface& other) const override final;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, MoveInstructionPoly& obj);
 };
 
 }  // namespace tesseract_planning
-
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::MoveInstructionInterface)
-BOOST_CLASS_TRACKING(tesseract_planning::MoveInstructionInterface, boost::serialization::track_never)
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::MoveInstructionPoly)
-BOOST_CLASS_TRACKING(tesseract_planning::MoveInstructionPoly, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_MOVE_INSTRUCTION_POLY_H

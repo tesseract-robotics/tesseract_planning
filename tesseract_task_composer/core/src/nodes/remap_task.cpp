@@ -3,8 +3,6 @@
  *
  * @author Levi Armstrong
  * @date July 13, 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2023, Levi Armstrong
  *
@@ -26,9 +24,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/map.hpp>
 #include <yaml-cpp/yaml.h>
-#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/nodes/remap_task.h>
@@ -89,7 +85,10 @@ TaskComposerNodeInfo RemapTask::runImpl(TaskComposerContext& context, OptionalTa
   for (std::size_t i = 0; i < ikeys.size(); ++i)
     remapping[ikeys[i]] = okeys[i];
 
-  if (context.data_storage->remapData(remapping, copy_))
+  // Get local data storage
+  TaskComposerDataStorage::Ptr data_storage = getDataStorage(context);
+
+  if (data_storage->remapData(remapping, copy_))
   {
     info.color = "green";
     info.return_value = 1;
@@ -105,24 +104,4 @@ TaskComposerNodeInfo RemapTask::runImpl(TaskComposerContext& context, OptionalTa
   }
   return info;
 }
-
-bool RemapTask::operator==(const RemapTask& rhs) const
-{
-  bool equal = true;
-  equal &= (copy_ == rhs.copy_);
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
-}
-bool RemapTask::operator!=(const RemapTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void RemapTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-  ar& boost::serialization::make_nvp("copy", copy_);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RemapTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RemapTask)

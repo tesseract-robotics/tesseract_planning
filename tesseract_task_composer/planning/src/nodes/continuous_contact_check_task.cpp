@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date August 10. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -26,23 +24,14 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/string.hpp>
-#include <boost/serialization/map.hpp>
-#include <boost/serialization/shared_ptr.hpp>
 #include <console_bridge/console.h>
 
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/profile_dictionary.h>
-
 #include <tesseract_collision/core/continuous_contact_manager.h>
-#include <tesseract_collision/core/serialization.h>
-
 #include <tesseract_state_solver/state_solver.h>
 #include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-//#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_task_composer/planning/nodes/continuous_contact_check_task.h>
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
 
@@ -112,7 +101,7 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
+  auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
     info.status_code = 0;
@@ -124,7 +113,7 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
 
   auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
 
-  auto input_data_poly = getData(*context.data_storage, INPUT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INPUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info.status_code = 0;
@@ -135,8 +124,7 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
   }
 
   // Get Composite Profile
-  auto profiles =
-      getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   auto default_profile = std::make_shared<ContactCheckProfile>();
   default_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
@@ -152,10 +140,12 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
   manager->applyContactManagerConfig(cur_composite_profile->contact_manager_config);
 
   std::vector<tesseract_collision::ContactResultMap> contacts;
-  if (contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->collision_check_config))
+  tesseract_collision::ContactTrajectoryResults traj_results =
+      contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->collision_check_config);
+  info.status_message = traj_results.condensedSummary().str();
+  if (traj_results)
   {
     info.status_code = 0;
-    info.status_message = "Results are not contact free for process input: " + ci.getDescription();
     CONSOLE_BRIDGE_logInform("%s", info.status_message.c_str());
 
     // Save space
@@ -163,7 +153,7 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
       contact_map.shrinkToFit();
 
     info.data_storage.setData("contact_results", contacts);
-    setData(*context.data_storage, OUTPUT_CONTACT_RESULTS_PORT, contacts, false);
+    setData(context, OUTPUT_CONTACT_RESULTS_PORT, contacts, false);
 
     info.return_value = 0;
     return info;
@@ -171,25 +161,9 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
 
   info.color = "green";
   info.status_code = 1;
-  info.status_message = "Continuous contact check succeeded";
   CONSOLE_BRIDGE_logDebug("%s", info.status_message.c_str());
   info.return_value = 1;
   return info;
 }
 
-bool ContinuousContactCheckTask::operator==(const ContinuousContactCheckTask& rhs) const
-{
-  return (TaskComposerTask::operator==(rhs));
-}
-bool ContinuousContactCheckTask::operator!=(const ContinuousContactCheckTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void ContinuousContactCheckTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ContinuousContactCheckTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ContinuousContactCheckTask)

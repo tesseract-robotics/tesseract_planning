@@ -6,6 +6,7 @@ link_directories(BEFORE ${OMPL_LIBRARY_DIRS})
 set(OMPL_SRC
     src/profile/ompl_profile.cpp
     src/profile/ompl_real_vector_move_profile.cpp
+    src/cereal_serialization.cpp
     src/collision_cost_objective.cpp
     src/compound_state_validator.cpp
     src/continuous_motion_validator.cpp
@@ -27,6 +28,7 @@ target_link_libraries(
          ${PROJECT_NAME}_simple
          ${OMPL_LIBRARIES}
          Boost::boost
+         cereal::cereal
          ${CMAKE_THREAD_LIBS_INIT})
 target_compile_options(${PROJECT_NAME}_ompl PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_ompl PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -59,7 +61,7 @@ configure_component(
   COMPONENT ompl
   NAMESPACE tesseract
   TARGETS ${PROJECT_NAME}_ompl
-  DEPENDENCIES "tesseract_motion_planners COMPONENTS core simple" ompl)
+  DEPENDENCIES "tesseract_motion_planners COMPONENTS core simple" ompl cereal)
 
 if(TESSERACT_PACKAGE)
   cpack_component(

@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 15, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -46,6 +44,9 @@ namespace tesseract_planning
 {
 class CompositeInstruction;
 class MoveInstructionPoly;
+
+template <class Archive>
+void serialize(Archive& ar, CompositeInstruction& obj);
 
 /**
  * @brief This is used for filtering only what you want in the vector
@@ -499,19 +500,11 @@ private:
    */
   bool equals(const InstructionInterface& other) const override final;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, CompositeInstruction& obj);
 };
 
 using CompositeInstructionAnyPoly = tesseract_common::AnyWrapper<CompositeInstruction>;
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::CompositeInstruction)
-BOOST_CLASS_TRACKING(tesseract_planning::CompositeInstruction, boost::serialization::track_never)
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::CompositeInstructionAnyPoly)
-BOOST_CLASS_TRACKING(tesseract_planning::CompositeInstructionAnyPoly, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMPOSITE_INSTRUCTION_H

@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date August 10. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -27,9 +25,6 @@
 #define TESSERACT_TASK_COMPOSER_DISCRETE_CONTACT_CHECK_TASK_H
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <vector>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 #include <tesseract_task_composer/planning/tesseract_task_composer_planning_nodes_export.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -74,22 +69,13 @@ public:
   DiscreteContactCheckTask(DiscreteContactCheckTask&&) = delete;
   DiscreteContactCheckTask& operator=(DiscreteContactCheckTask&&) = delete;
 
-  bool operator==(const DiscreteContactCheckTask& rhs) const;
-  bool operator!=(const DiscreteContactCheckTask& rhs) const;
-
 private:
   static TaskComposerNodePorts ports();
 
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
-
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::DiscreteContactCheckTask)
 #endif  // TESSERACT_TASK_COMPOSER_DISCRETE_CONTACT_CHECK_TASK_H

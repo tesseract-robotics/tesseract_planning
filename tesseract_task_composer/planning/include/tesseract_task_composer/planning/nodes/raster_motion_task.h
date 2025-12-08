@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 29. 2022
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2022, Levi Armstrong
  *
@@ -28,8 +26,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 #include <functional>
 #include <tesseract_task_composer/planning/tesseract_task_composer_planning_nodes_export.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -63,6 +59,7 @@ public:
   // Requried
   static const std::string INOUT_PROGRAM_PORT;
   static const std::string INPUT_ENVIRONMENT_PORT;
+  static const std::string INPUT_PROFILES_PORT;
 
   struct TaskFactoryResults
   {
@@ -70,12 +67,14 @@ public:
     std::string input_key;
     std::string output_key;
   };
-  using TaskFactory = std::function<TaskFactoryResults(const std::string& name, std::size_t index)>;
+  using TaskFactory =
+      std::function<TaskFactoryResults(const std::string& parent_name, const std::string& name, std::size_t index)>;
 
   RasterMotionTask();
   explicit RasterMotionTask(std::string name,
                             std::string input_program_key,
                             std::string input_environment_key,
+                            std::string input_profiles_key,
                             std::string output_program_key,
                             bool conditional,
                             TaskFactory freespace_task_factory,
@@ -92,9 +91,6 @@ public:
   RasterMotionTask(RasterMotionTask&&) = delete;
   RasterMotionTask& operator=(RasterMotionTask&&) = delete;
 
-  bool operator==(const RasterMotionTask& rhs) const;
-  bool operator!=(const RasterMotionTask& rhs) const;
-
 private:
   TaskFactory freespace_task_factory_;
   TaskFactory raster_task_factory_;
@@ -106,15 +102,7 @@ private:
 
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor) const override final;
-
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::RasterMotionTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_RASTER_MOTION_TASK_H

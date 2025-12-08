@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 29. 2022
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2022, Levi Armstrong
  *
@@ -27,7 +25,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_common/stopwatch.h>
-#include <tesseract_common/serialization.h>
+#include <boost/uuid/uuid_io.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_pipeline.h>
@@ -38,7 +36,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerPipeline::TaskComposerPipeline(std::string name) : TaskComposerPipeline(std::move(name), true) {}
+TaskComposerPipeline::TaskComposerPipeline(std::string name, boost::uuids::uuid parent_uuid)
+  : TaskComposerPipeline(std::move(name), true)
+{
+  parent_uuid_ = parent_uuid;
+  parent_uuid_str_ = boost::uuids::to_string(parent_uuid);
+}
+
 TaskComposerPipeline::TaskComposerPipeline(std::string name, bool conditional)
   : TaskComposerGraph(std::move(name), TaskComposerNodeType::PIPELINE, conditional)
 {
@@ -63,11 +67,24 @@ TaskComposerNodeInfo TaskComposerPipeline::runImpl(TaskComposerContext& context,
   if (root_node.is_nil())
     throw std::runtime_error("TaskComposerPipeline, with name '" + name_ + "' does not have a root node!");
 
+  // Create local data storage for graph
+  TaskComposerDataStorage::Ptr parent_data_storage = getDataStorage(context);
+
+  // Create a new data storage and copy the input data relevant to this graph.
+  // Store the new data storage for access by child nodes of this graph
+  auto local_data_storage = std::make_shared<TaskComposerDataStorage>(uuid_str_);
+  local_data_storage->copyAsInputData(*parent_data_storage, input_keys_, override_input_keys_);
+  context.data_storage->setData(uuid_str_, local_data_storage);
+
+  // Run
   runRecursive(*(nodes_.at(root_node)), context, executor);
+
+  // Copy output data to parent data storage
+  parent_data_storage->copyAsOutputData(*local_data_storage, output_keys_, override_output_keys_);
 
   for (std::size_t i = 0; i < terminals_.size(); ++i)
   {
-    auto node_info = context.task_infos.getInfo(terminals_[i]);
+    auto node_info = context.task_infos->getInfo(terminals_[i]);
     if (node_info.has_value())
     {
       stopwatch.stop();
@@ -109,19 +126,4 @@ void TaskComposerPipeline::runRecursive(const TaskComposerNode& node,
   }
 }
 
-bool TaskComposerPipeline::operator==(const TaskComposerPipeline& rhs) const
-{
-  return (TaskComposerGraph::operator==(rhs));
-}
-bool TaskComposerPipeline::operator!=(const TaskComposerPipeline& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void TaskComposerPipeline::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerGraph);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerPipeline)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerPipeline)

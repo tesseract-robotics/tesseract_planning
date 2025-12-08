@@ -3,8 +3,6 @@
  *
  * @author Levi Armstrong
  * @date August 5, 2022
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2022, Levi Armstrong
  *
@@ -26,9 +24,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
-
-#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/update_end_state_task.h>
@@ -91,8 +86,8 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
   info.return_value = 0;
   info.status_code = 0;
 
-  auto input_data_poly = getData(*context.data_storage, INPUT_CURRENT_PROGRAM_PORT);
-  auto input_next_data_poly = getData(*context.data_storage, INPUT_NEXT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INPUT_CURRENT_PROGRAM_PORT);
+  auto input_next_data_poly = getData(context, INPUT_NEXT_PROGRAM_PORT);
 
   // --------------------
   // Check that inputs are valid
@@ -127,7 +122,7 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
     throw std::runtime_error("Invalid waypoint type");
 
   // Store results
-  setData(*context.data_storage, OUTPUT_PROGRAM_PORT, input_data_poly);
+  setData(context, OUTPUT_PROGRAM_PORT, input_data_poly);
 
   info.color = "green";
   info.status_code = 1;
@@ -136,16 +131,4 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-bool UpdateEndStateTask::operator==(const UpdateEndStateTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
-bool UpdateEndStateTask::operator!=(const UpdateEndStateTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void UpdateEndStateTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::UpdateEndStateTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::UpdateEndStateTask)

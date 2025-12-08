@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -77,18 +75,6 @@ public:
                                           const tesseract_common::ManipulatorInfo& composite_manip_info,
                                           const std::shared_ptr<const tesseract_environment::Environment>& env,
                                           int index) const = 0;
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 class TrajOptIfoptCompositeProfile : public tesseract_common::Profile
@@ -103,18 +89,6 @@ public:
                                        const std::shared_ptr<const tesseract_environment::Environment>& env,
                                        const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition>>& vars,
                                        const std::vector<int>& fixed_indices) const = 0;
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 class TrajOptIfoptSolverProfile : public tesseract_common::Profile
@@ -128,25 +102,18 @@ public:
   /** @brief Optimization parameters */
   trajopt_sqp::SQPParameters opt_params{};
 
+  /**
+   * @brief Optimization callbacks
+   * @note This is not serialized
+   */
+  std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> callbacks;
+
   virtual std::unique_ptr<trajopt_sqp::TrustRegionSQPSolver> create(bool verbose = false) const = 0;
 
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  /** @brief Optimization callbacks */
+  virtual std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> createOptimizationCallbacks() const;
 };
 
 }  // namespace tesseract_planning
-
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptIfoptMoveProfile)
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptIfoptCompositeProfile)
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptIfoptSolverProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_PROFILE_H

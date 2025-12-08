@@ -7,7 +7,6 @@ target_link_libraries(
          console_bridge::console_bridge
          tesseract::tesseract_common
          Boost::boost
-         Boost::serialization
          Taskflow::Taskflow
          yaml-cpp)
 target_compile_options(${PROJECT_NAME}_taskflow PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})

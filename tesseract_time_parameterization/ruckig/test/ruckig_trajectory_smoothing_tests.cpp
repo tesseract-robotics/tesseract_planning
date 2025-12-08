@@ -6,10 +6,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/resource_locator.h>
 #include <tesseract_common/profile_dictionary.h>
+#include <tesseract_common/unit_test_utils.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_time_parameterization/ruckig/cereal_serialization.h>
 #include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing.h>
 #include <tesseract_time_parameterization/ruckig/ruckig_trajectory_smoothing_profiles.h>
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization.h>
@@ -87,6 +89,13 @@ protected:
     manip_.tcp_frame = "tool0";
   }
 };
+
+TEST_F(RuckigTrajectorySmoothingUnit, profileConstructor)  // NOLINT
+{
+  tesseract_planning::RuckigTrajectorySmoothingCompositeProfile profile(2.2, 5);
+  EXPECT_NEAR(profile.duration_extension_fraction, 2.2, 1e-6);
+  EXPECT_NEAR(profile.max_duration_extension_factor, 5, 1e-6);
+}
 
 TEST_F(RuckigTrajectorySmoothingUnit, Example)  // NOLINT
 {
@@ -225,13 +234,22 @@ TEST_F(RuckigTrajectorySmoothingUnit, RuckigTrajectorySmoothingRepeatedPointSolv
   profile->jerk_limits.col(0) << -1000, -1000, -1000, -1000, -1000, -1000;
   profile->jerk_limits.col(1) << 1000, 1000, 1000, 1000, 1000, 1000;
 
+  // Serialization
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, RuckigTrajectorySmoothingCompositeProfile>(
+      profile, "RuckigTrajectorySmoothingCompositeProfile");
+
   // Profile Dictionary
   tesseract_common::ProfileDictionary profiles;
   profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
   RuckigTrajectorySmoothing traj_smoothing(name_);
+  EXPECT_EQ(traj_smoothing.getName(), name_);
   EXPECT_TRUE(traj_smoothing.compute(program, *env_, profiles));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 0.001);
+
+  // Error
+  std::string empty_name;
+  EXPECT_ANY_THROW(RuckigTrajectorySmoothing(std::move(empty_name)));  // NOLINT
 }
 
 int main(int argc, char** argv)

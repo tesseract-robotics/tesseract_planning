@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date December 13, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -29,14 +27,15 @@
 #include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
 #include <trajopt_sco/osqp_interface.hpp>
 
-namespace boost::serialization
+namespace YAML
 {
-template <class Archive>
-void serialize(Archive& ar, OSQPSettings& settings, const unsigned int version);  // NOLINT
-}  // namespace boost::serialization
+class Node;
+}
 
 namespace tesseract_planning
 {
+bool operator==(const OSQPSettings& lhs, const OSQPSettings& rhs);
+
 /** @brief The contains the OSQP Solver and Trust Region Parameters available for setting up TrajOpt */
 class TrajOptOSQPSolverProfile : public TrajOptSolverProfile
 {
@@ -45,6 +44,7 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptOSQPSolverProfile>;
 
   TrajOptOSQPSolverProfile();
+  TrajOptOSQPSolverProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   OSQPSettings settings{};
 
@@ -54,14 +54,9 @@ public:
 
   std::unique_ptr<sco::ModelConfig> createSolverConfig() const override;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const TrajOptOSQPSolverProfile& rhs) const;
+  bool operator!=(const TrajOptOSQPSolverProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptOSQPSolverProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_OSQP_SOLVER_PROFILE_H

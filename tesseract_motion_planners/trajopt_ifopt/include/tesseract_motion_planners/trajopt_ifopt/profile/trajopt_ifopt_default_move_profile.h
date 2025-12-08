@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -35,6 +33,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_waypoint_config.h>
 
+namespace YAML
+{
+class Node;
+}
+
 namespace tesseract_planning
 {
 class TrajOptIfoptDefaultMoveProfile : public TrajOptIfoptMoveProfile
@@ -44,6 +47,8 @@ public:
   using ConstPtr = std::shared_ptr<const TrajOptIfoptDefaultMoveProfile>;
 
   TrajOptIfoptDefaultMoveProfile();
+  TrajOptIfoptDefaultMoveProfile(const YAML::Node& config,
+                                 const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   TrajOptIfoptCartesianWaypointConfig cartesian_cost_config;
   TrajOptIfoptCartesianWaypointConfig cartesian_constraint_config;
@@ -55,14 +60,9 @@ public:
                                   const std::shared_ptr<const tesseract_environment::Environment>& env,
                                   int index) const override;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const TrajOptIfoptDefaultMoveProfile& rhs) const;
+  bool operator!=(const TrajOptIfoptDefaultMoveProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptDefaultMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TrajOptIfopt_IFOPT_DEFAULT_MOVE_PROFILE_H

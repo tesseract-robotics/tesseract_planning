@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date November 15, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -43,6 +41,11 @@ enum class TimerInstructionType : std::uint8_t
   DIGITAL_OUTPUT_LOW = 1
 };
 
+class TimerInstruction;
+
+template <class Archive>
+void serialize(Archive& ar, TimerInstruction& obj);
+
 /**
  * @brief This instruction indicates that a timer should be started and when the time expires it either sets a digital
  * output high(1) or low(0).
@@ -53,7 +56,7 @@ enum class TimerInstructionType : std::uint8_t
 class TimerInstruction final : public InstructionInterface
 {
 public:
-  TimerInstruction() = default;  // Required for boost serialization do not use
+  TimerInstruction() = default;  // Required for serialization do not use
   TimerInstruction(TimerInstructionType type, double time, int io);
 
   // Instruction
@@ -162,14 +165,9 @@ private:
    */
   bool equals(const InstructionInterface& other) const override final;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, TimerInstruction& obj);
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TimerInstruction)
-BOOST_CLASS_TRACKING(tesseract_planning::TimerInstruction, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_TIMER_INSTRUCTION_H

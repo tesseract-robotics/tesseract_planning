@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 12, 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2023, Levi Armstrong
  *
@@ -46,6 +44,8 @@ void runMoveInstructionInterfaceTest()
   auto uuid = inst.getUUID();
   EXPECT_TRUE(uuid.is_nil());
   EXPECT_TRUE(inst.getParentUUID().is_nil());
+  EXPECT_NO_THROW(inst.getMoveInstruction());                 // NOLINT
+  EXPECT_NO_THROW(std::as_const(inst).getMoveInstruction());  // NOLINT
 
   auto set_uuid = boost::uuids::random_generator()();
   inst.setUUID(set_uuid);
@@ -72,13 +72,27 @@ void runMoveInstructionInterfaceTest()
   EXPECT_NO_THROW(inst.print());         // NOLINT
   EXPECT_NO_THROW(inst.print("test_"));  // NOLINT
 
-  InstructionPoly assign = inst;
-  EXPECT_TRUE(assign == inst);
-  EXPECT_TRUE(assign.getUUID() == inst.getUUID());
+  {
+    MoveInstructionPoly assign;
+    assign = inst;
+    EXPECT_TRUE(assign == inst);
+    EXPECT_TRUE(assign.getUUID() == inst.getUUID());
 
-  InstructionPoly copy(inst);
-  EXPECT_TRUE(copy == inst);
-  EXPECT_TRUE(assign.getUUID() == inst.getUUID());
+    MoveInstructionPoly copy(inst);
+    EXPECT_TRUE(copy == inst);
+    EXPECT_TRUE(assign.getUUID() == inst.getUUID());
+  }
+
+  {
+    InstructionPoly assign;
+    assign = inst;
+    EXPECT_TRUE(assign == inst);
+    EXPECT_TRUE(assign.getUUID() == inst.getUUID());
+
+    InstructionPoly copy(inst);
+    EXPECT_TRUE(copy == inst);
+    EXPECT_TRUE(assign.getUUID() == inst.getUUID());
+  }
 }
 
 template <typename T>
@@ -522,9 +536,11 @@ void runMoveInstructionSettersTest()
   EXPECT_EQ(instr.getPathProfile("nonexistent_ns"), "TEST_PATH_PROFILE");
 
   EXPECT_TRUE(instr.getManipulatorInfo().empty());
+  EXPECT_TRUE(std::as_const(instr).getManipulatorInfo().empty());
   tesseract_common::ManipulatorInfo manip_info("manip", "base_link", "tool0");
   instr.setManipulatorInfo(manip_info);
   EXPECT_FALSE(instr.getManipulatorInfo().empty());
+  EXPECT_FALSE(std::as_const(instr).getManipulatorInfo().empty());
   EXPECT_TRUE(instr.getManipulatorInfo() == manip_info);
 
   tesseract_common::ManipulatorInfo manip_info2("manip2", "base_link2", "tool02");

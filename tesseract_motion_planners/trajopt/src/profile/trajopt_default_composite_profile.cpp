@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -28,13 +26,12 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/problem_description.hpp>
 #include <boost/algorithm/string.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/shared_ptr.hpp>
+#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/trajopt_utils.h>
+#include <tesseract_motion_planners/trajopt/yaml_extensions.h>
 #include <tesseract_motion_planners/core/utils.h>
 
 #include <tesseract_command_language/poly/instruction_poly.h>
@@ -42,8 +39,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 
-#include <tesseract_common/eigen_serialization.h>
 #include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_environment/environment.h>
 #include <trajopt_common/utils.hpp>
@@ -52,6 +49,50 @@ static const double LONGEST_VALID_SEGMENT_FRACTION_DEFAULT = 0.01;
 
 namespace tesseract_planning
 {
+TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(
+    const YAML::Node& config,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : TrajOptDefaultCompositeProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["collision_cost_config"])
+      collision_cost_config = n.as<trajopt_common::TrajOptCollisionConfig>();
+
+    if (YAML::Node n = config["collision_constraint_config"])
+      collision_constraint_config = n.as<trajopt_common::TrajOptCollisionConfig>();
+
+    if (YAML::Node n = config["smooth_velocities"])
+      smooth_velocities = n.as<bool>();
+
+    if (YAML::Node n = config["velocity_coeff"])
+      velocity_coeff = n.as<Eigen::VectorXd>();
+
+    if (YAML::Node n = config["smooth_accelerations"])
+      smooth_accelerations = n.as<bool>();
+
+    if (YAML::Node n = config["acceleration_coeff"])
+      acceleration_coeff = n.as<Eigen::VectorXd>();
+
+    if (YAML::Node n = config["smooth_jerks"])
+      smooth_jerks = n.as<bool>();
+
+    if (YAML::Node n = config["jerk_coeff"])
+      jerk_coeff = n.as<Eigen::VectorXd>();
+
+    if (YAML::Node n = config["avoid_singularity"])
+      avoid_singularity = n.as<bool>();
+
+    if (YAML::Node n = config["avoid_singularity_coeff"])
+      avoid_singularity_coeff = n.as<double>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("TrajOptDefaultCompositeProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
+}
+
 TrajOptTermInfos
 TrajOptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& composite_manip_info,
                                        const std::shared_ptr<const tesseract_environment::Environment>& env,
@@ -131,24 +172,27 @@ double TrajOptDefaultCompositeProfile::computeLongestValidSegmentLength(const Ei
   return LONGEST_VALID_SEGMENT_FRACTION_DEFAULT * extent;
 }
 
-template <class Archive>
-void TrajOptDefaultCompositeProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool TrajOptDefaultCompositeProfile::operator==(const TrajOptDefaultCompositeProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptCompositeProfile);
-  ar& BOOST_SERIALIZATION_NVP(collision_cost_config);
-  ar& BOOST_SERIALIZATION_NVP(collision_constraint_config);
-  ar& BOOST_SERIALIZATION_NVP(smooth_velocities);
-  ar& BOOST_SERIALIZATION_NVP(velocity_coeff);
-  ar& BOOST_SERIALIZATION_NVP(smooth_accelerations);
-  ar& BOOST_SERIALIZATION_NVP(acceleration_coeff);
-  ar& BOOST_SERIALIZATION_NVP(smooth_jerks);
-  ar& BOOST_SERIALIZATION_NVP(jerk_coeff);
-  ar& BOOST_SERIALIZATION_NVP(avoid_singularity);
-  ar& BOOST_SERIALIZATION_NVP(avoid_singularity_coeff);
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= (collision_cost_config == rhs.collision_cost_config);
+  equal &= (collision_constraint_config == rhs.collision_constraint_config);
+  equal &= (smooth_velocities == rhs.smooth_velocities);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_coeff, rhs.velocity_coeff, max_diff);
+  equal &= (smooth_accelerations == rhs.smooth_accelerations);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(acceleration_coeff, rhs.acceleration_coeff, max_diff);
+  equal &= (smooth_jerks == rhs.smooth_jerks);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(jerk_coeff, rhs.jerk_coeff, max_diff);
+  equal &= (avoid_singularity == rhs.avoid_singularity);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(avoid_singularity_coeff, rhs.avoid_singularity_coeff, max_diff);
+  return equal;
+}
+
+bool TrajOptDefaultCompositeProfile::operator!=(const TrajOptDefaultCompositeProfile& rhs) const
+{
+  return !operator==(rhs);
 }
 
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptDefaultCompositeProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptDefaultCompositeProfile)

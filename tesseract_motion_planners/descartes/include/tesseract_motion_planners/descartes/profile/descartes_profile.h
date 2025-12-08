@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -29,7 +27,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
-#include <typeindex>
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -53,21 +50,9 @@ public:
   using Ptr = std::shared_ptr<DescartesSolverProfile<FloatType>>;
   using ConstPtr = std::shared_ptr<const DescartesSolverProfile<FloatType>>;
 
-  DescartesSolverProfile() : Profile(DescartesSolverProfile<FloatType>::getStaticKey()) {}
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey() { return std::type_index(typeid(DescartesSolverProfile<FloatType>)).hash_code(); }
+  DescartesSolverProfile() : Profile(createKey<DescartesSolverProfile<FloatType>>()) {}
 
   virtual std::unique_ptr<descartes_light::Solver<FloatType>> create() const = 0;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int);  // NOLINT
 };
 
 template <typename FloatType>
@@ -77,13 +62,7 @@ public:
   using Ptr = std::shared_ptr<DescartesMoveProfile<FloatType>>;
   using ConstPtr = std::shared_ptr<const DescartesMoveProfile<FloatType>>;
 
-  DescartesMoveProfile() : Profile(DescartesMoveProfile<FloatType>::getStaticKey()) {}
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey() { return std::type_index(typeid(DescartesMoveProfile<FloatType>)).hash_code(); }
+  DescartesMoveProfile() : Profile(createKey<DescartesMoveProfile<FloatType>>()) {}
 
   std::shared_ptr<const tesseract_kinematics::KinematicGroup>
   createKinematicGroup(const tesseract_common::ManipulatorInfo& manip_info,
@@ -103,13 +82,13 @@ public:
   createStateEvaluator(const MoveInstructionPoly& move_instruction,
                        const tesseract_common::ManipulatorInfo& composite_manip_info,
                        const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int);  // NOLINT
 };
+
+using DescartesSolverProfileF = DescartesSolverProfile<float>;
+using DescartesSolverProfileD = DescartesSolverProfile<double>;
+
+using DescartesMoveProfileF = DescartesMoveProfile<float>;
+using DescartesMoveProfileD = DescartesMoveProfile<double>;
 
 }  // namespace tesseract_planning
 

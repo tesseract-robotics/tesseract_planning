@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 22, 2018
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2017, Southwest Research Institute
  *
@@ -39,7 +37,8 @@ public:
   BasicCartesianExample(std::shared_ptr<tesseract_environment::Environment> env,
                         std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
                         bool ifopt = false,
-                        bool debug = false);
+                        bool debug = false,
+                        bool benchmark = false);
 
   ~BasicCartesianExample() override = default;
   BasicCartesianExample(const BasicCartesianExample&) = default;
@@ -52,6 +51,7 @@ public:
 private:
   bool ifopt_;
   bool debug_;
+  bool benchmark_;
 };
 
 }  // namespace tesseract_examples

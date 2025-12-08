@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 29. 2022
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2022, Levi Armstrong
  *
@@ -30,8 +28,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <string>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
@@ -43,6 +39,7 @@ class TaskComposerContext;
 class TaskComposerDataStorage;
 class TaskComposerFuture;
 class TaskComposerNode;
+class TaskComposerNodeInfoContainer;
 
 class TaskComposerExecutor
 {
@@ -61,13 +58,10 @@ public:
   /**
    * @brief Execute the provided node
    * @param node The node to execute
-   * @param data_storage The data storage object to leverage
-   * @param dotgraph Indicate if dotgraph should be generated
+   * @param context The contex
    * @return The future associated with execution
    */
-  std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node,
-                                          std::shared_ptr<TaskComposerDataStorage> data_storage,
-                                          bool dotgraph = false);
+  std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node, std::shared_ptr<TaskComposerContext> context);
 
   /** @brief Queries the number of workers (example: number of threads) */
   virtual long getWorkerCount() const = 0;
@@ -88,17 +82,9 @@ protected:
    * @param context The context
    * @return The future associated with execution
    */
-  virtual std::unique_ptr<TaskComposerFuture> run(const TaskComposerNode& node,
-                                                  std::shared_ptr<TaskComposerContext> context) = 0;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  virtual std::unique_ptr<TaskComposerFuture> runImpl(const TaskComposerNode& node,
+                                                      std::shared_ptr<TaskComposerContext> context) = 0;
 };
 }  // namespace tesseract_planning
-
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TaskComposerExecutor)
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_EXECUTOR_H

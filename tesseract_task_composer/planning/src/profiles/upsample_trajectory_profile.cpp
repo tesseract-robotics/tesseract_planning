@@ -3,8 +3,6 @@
  *
  * @author Levi Armstrong
  * @date December 15, 2021
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2021, Southwest Research Institute
  *
@@ -24,33 +22,42 @@
  */
 
 #include <tesseract_task_composer/planning/profiles/upsample_trajectory_profile.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <typeindex>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
-UpsampleTrajectoryProfile::UpsampleTrajectoryProfile() : Profile(UpsampleTrajectoryProfile::getStaticKey()) {}
+UpsampleTrajectoryProfile::UpsampleTrajectoryProfile() : Profile(createKey<UpsampleTrajectoryProfile>()) {}
 
 UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(double longest_valid_segment_length)
-  : Profile(UpsampleTrajectoryProfile::getStaticKey()), longest_valid_segment_length(longest_valid_segment_length)
+  : Profile(createKey<UpsampleTrajectoryProfile>()), longest_valid_segment_length(longest_valid_segment_length)
 {
+}
+UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(const YAML::Node& config,
+                                                     const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : UpsampleTrajectoryProfile()
+{
+  try
+  {
+    longest_valid_segment_length = config["longest_valid_segment_length"].as<double>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("UpsampleTrajectoryProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
 }
 
-std::size_t UpsampleTrajectoryProfile::getStaticKey()
+bool UpsampleTrajectoryProfile::operator==(const UpsampleTrajectoryProfile& rhs) const
 {
-  return std::type_index(typeid(UpsampleTrajectoryProfile)).hash_code();
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  return tesseract_common::almostEqualRelativeAndAbs(
+      longest_valid_segment_length, rhs.longest_valid_segment_length, max_diff);
 }
 
-template <class Archive>
-void UpsampleTrajectoryProfile::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(longest_valid_segment_length);
-}
+bool UpsampleTrajectoryProfile::operator!=(const UpsampleTrajectoryProfile& rhs) const { return !operator==(rhs); }
 
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::UpsampleTrajectoryProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::UpsampleTrajectoryProfile)

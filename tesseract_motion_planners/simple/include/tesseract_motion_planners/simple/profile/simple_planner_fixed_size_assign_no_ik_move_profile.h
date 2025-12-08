@@ -4,8 +4,6 @@
  *
  * @author Matthew Powelson
  * @date July 23, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -29,6 +27,11 @@
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
+namespace YAML
+{
+class Node;
+}
+
 namespace tesseract_planning
 {
 class SimplePlannerFixedSizeAssignNoIKMoveProfile : public SimplePlannerMoveProfile
@@ -43,7 +46,8 @@ public:
    * @param linear_steps The number of steps to use for linear instruction
    */
   SimplePlannerFixedSizeAssignNoIKMoveProfile(int freespace_steps = 10, int linear_steps = 10);
-
+  SimplePlannerFixedSizeAssignNoIKMoveProfile(const YAML::Node& config,
+                                              const tesseract_common::ProfilePluginFactory& plugin_factory);
   std::vector<MoveInstructionPoly> generate(const MoveInstructionPoly& prev_instruction,
                                             const MoveInstructionPoly& prev_seed,
                                             const MoveInstructionPoly& base_instruction,
@@ -57,14 +61,10 @@ public:
   /** @brief The number of steps to use for linear instruction */
   int linear_steps;
 
-protected:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const SimplePlannerFixedSizeAssignNoIKMoveProfile& rhs) const;
+  bool operator!=(const SimplePlannerFixedSizeAssignNoIKMoveProfile& rhs) const;
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerFixedSizeAssignNoIKMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_ASSIGN_NO_IK_MOVE_PROFILE_H

@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date August 10. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -33,6 +31,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_collision/core/types.h>
 #include <tesseract_common/profile.h>
+#include <tesseract_common/fwd.h>
+
+namespace YAML
+{
+class Node;
+}
 
 namespace tesseract_planning
 {
@@ -43,12 +47,7 @@ struct ContactCheckProfile : public tesseract_common::Profile
 
   ContactCheckProfile();
   ContactCheckProfile(double longest_valid_segment_length, double contact_distance);
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
+  ContactCheckProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /** @brief The contact manager config */
   tesseract_collision::ContactManagerConfig contact_manager_config;
@@ -56,14 +55,9 @@ struct ContactCheckProfile : public tesseract_common::Profile
   /** @brief The collision check config */
   tesseract_collision::CollisionCheckConfig collision_check_config;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const ContactCheckProfile& rhs) const;
+  bool operator!=(const ContactCheckProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::ContactCheckProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_CONTACT_CHECK_PROFILE_H

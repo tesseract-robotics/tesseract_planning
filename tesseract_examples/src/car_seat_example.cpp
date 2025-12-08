@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 22, 2019
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2017, Southwest Research Institute
  *
@@ -375,9 +373,8 @@ bool CarSeatExample::run()
     program.push_back(plan_f0);
 
     // Print Diagnostics
-    program.print("Program: ");
-
-    CONSOLE_BRIDGE_logInform("Freespace plan to pick seat 1 example");
+    if (debug_)
+      program.print("Program: ");
 
     // Create task
     const std::string task_name = (ifopt_) ? "TrajOptIfoptPipeline" : "TrajOptPipeline";
@@ -391,7 +388,8 @@ bool CarSeatExample::run()
     data->setData("profiles", profiles);
 
     // Solve task
-    TaskComposerFuture::UPtr future = executor->run(*task, std::move(data));
+    auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+    TaskComposerFuture::UPtr future = executor->run(*task, std::move(context));
     future->wait();
 
     if (!future->context->isSuccessful())
@@ -461,7 +459,8 @@ bool CarSeatExample::run()
     program.push_back(plan_f0);
 
     // Print Diagnostics
-    program.print("Program: ");
+    if (debug_)
+      program.print("Program: ");
 
     CONSOLE_BRIDGE_logInform("Freespace plan to pick seat 1 example");
 
@@ -477,7 +476,8 @@ bool CarSeatExample::run()
     data->setData("profiles", profiles);
 
     // Solve task
-    TaskComposerFuture::UPtr future = executor->run(*task, std::move(data));
+    auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+    TaskComposerFuture::UPtr future = executor->run(*task, std::move(context));
     future->wait();
 
     if (!future->context->isSuccessful())

@@ -4,8 +4,6 @@
  *
  * @author Roelof Oomen
  * @date May 29, 2024
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2024, ROS Industrial Consortium
  *
@@ -34,6 +32,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
+namespace YAML
+{
+class Node;
+}
+
 namespace tesseract_planning
 {
 class SimplePlannerLVSAssignNoIKMoveProfile : public SimplePlannerMoveProfile
@@ -52,6 +55,9 @@ public:
                                         double rotation_longest_valid_segment_length = 5 * M_PI / 180,
                                         int min_steps = 1,
                                         int max_steps = std::numeric_limits<int>::max());
+
+  SimplePlannerLVSAssignNoIKMoveProfile(const YAML::Node& config,
+                                        const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   std::vector<MoveInstructionPoly> generate(const MoveInstructionPoly& prev_instruction,
                                             const MoveInstructionPoly& prev_seed,
@@ -75,14 +81,10 @@ public:
   /** @brief The maximum number of steps for the plan */
   int max_steps;
 
-protected:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const SimplePlannerLVSAssignNoIKMoveProfile& rhs) const;
+  bool operator!=(const SimplePlannerLVSAssignNoIKMoveProfile& rhs) const;
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SimplePlannerLVSAssignNoIKMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PLANNER_LVS_ASSIGN_NO_IK_MOVE_PROFILE_H

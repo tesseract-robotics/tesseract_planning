@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 15, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -36,6 +34,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class JointWaypoint;
+
+template <class Archive>
+void serialize(Archive& ar, JointWaypoint& obj);
+
 class JointWaypoint final : public JointWaypointInterface
 {
 public:
@@ -100,14 +103,9 @@ private:
 
   bool equals(const JointWaypointInterface& other) const override final;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, JointWaypoint& obj);
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::JointWaypoint)
-BOOST_CLASS_TRACKING(tesseract_planning::JointWaypoint, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_H

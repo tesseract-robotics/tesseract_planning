@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 15, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -28,25 +26,13 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <stdexcept>
 #include <iostream>
-#include <boost/version.hpp>
-#if (BOOST_VERSION >= 107400) && (BOOST_VERSION < 107500)
-#include <boost/serialization/library_version_type.hpp>
-#endif
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/unordered_map.hpp>
 #include <boost/uuid/uuid_generators.hpp>
-#include <boost/uuid/uuid_io.hpp>
-#include <boost/uuid/uuid_serialize.hpp>
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
-
 #include <tesseract_common/profile_dictionary.h>
-#include <tesseract_common/std_variant_serialization.h>
-#include <tesseract_common/serialization.h>
 
 namespace tesseract_planning
 {
@@ -251,6 +237,7 @@ bool CompositeInstruction::equals(const InstructionInterface& other) const
   return equal;
 }
 
+// LCOV_EXCL_START
 ///////////////
 // Iterators //
 ///////////////
@@ -530,25 +517,4 @@ void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<cons
   }
 }
 
-template <class Archive>
-void CompositeInstruction::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(InstructionInterface);
-  ar& boost::serialization::make_nvp("uuid", uuid_);
-  ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
-  ar& boost::serialization::make_nvp("description", description_);
-  ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
-  ar& boost::serialization::make_nvp("profile", profile_);
-  ar& boost::serialization::make_nvp("profile_overrides", profile_overrides_);
-  ar& boost::serialization::make_nvp("order", order_);
-  ar& boost::serialization::make_nvp("user_data", user_data_);
-  ar& boost::serialization::make_nvp("container", container_);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CompositeInstruction)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CompositeInstruction)
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CompositeInstructionAnyPoly)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::CompositeInstructionAnyPoly)

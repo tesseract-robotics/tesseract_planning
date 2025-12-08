@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -44,6 +42,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/fwd.h>
 #include <tesseract_common/fwd.h>
 
+namespace YAML
+{
+class Node;
+}
+
 namespace ompl::base
 {
 class StateSampler;
@@ -67,6 +70,7 @@ public:
   using ConstPtr = std::shared_ptr<const OMPLRealVectorMoveProfile>;
 
   OMPLRealVectorMoveProfile();
+  OMPLRealVectorMoveProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /** @brief The OMPL parallel planner solver config */
   OMPLSolverConfig solver_config;
@@ -86,6 +90,9 @@ public:
                     const MoveInstructionPoly& end_instruction,
                     const tesseract_common::ManipulatorInfo& composite_mi,
                     const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
+
+  bool operator==(const OMPLRealVectorMoveProfile& rhs) const;
+  bool operator!=(const OMPLRealVectorMoveProfile& rhs) const;
 
 protected:
   static void applyGoalStates(ompl::geometric::SimpleSetup& simple_setup,
@@ -174,15 +181,7 @@ protected:
                               const std::shared_ptr<const tesseract_environment::Environment>& env,
                               const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
                               const OMPLStateExtractor& state_extractor) const;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::OMPLRealVectorMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_REAL_VECTOR_MOVE_PROFILE_H

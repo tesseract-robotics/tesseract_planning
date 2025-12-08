@@ -5,8 +5,6 @@
  * @author Levi Armstrong
  * @author Matthew Powelson
  * @date February 15, 2021
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2021, Southwest Research Institute
  *
@@ -45,6 +43,9 @@
 #include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_command_language/wait_instruction.h>
 
+#include <tesseract_command_language/cereal_serialization.h>
+#include <tesseract_common/serialization.h>
+
 #include "command_language_test_program.hpp"
 
 using namespace tesseract_planning;
@@ -60,6 +61,13 @@ TEST(TesseractCommandLanguageUnit, WaypointPolyTests)  // NOLINT
     EXPECT_FALSE(null_wp.isStateWaypoint());
 
     test_suite::runWaypointSerializationTest(null_wp);
+
+    CartesianWaypointPoly cwp{ CartesianWaypoint{} };
+    WaypointPoly wp1{ cwp };
+    EXPECT_NO_THROW(wp1.getWaypoint());                 // NOLINT;
+    EXPECT_NO_THROW(std::as_const(wp1).getWaypoint());  // NOLINT;
+
+    test_suite::runWaypointSerializationTest(wp1);
   }
 
   {  // Equality
@@ -79,6 +87,23 @@ TEST(TesseractCommandLanguageUnit, WaypointPolyTests)  // NOLINT
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
   }
+
+  {  // Assignment
+    CartesianWaypointPoly cwp{ CartesianWaypoint{} };
+    WaypointPoly wp1{ cwp };
+    WaypointPoly wp2;
+    wp2 = wp1;
+    EXPECT_TRUE(wp1 == wp2);
+  }
+
+  {  // Bad Cast
+    CartesianWaypointPoly cwp{ CartesianWaypoint{} };
+    WaypointPoly wp1{ cwp };
+    EXPECT_ANY_THROW(wp1.as<StateWaypointPoly>());  // NOLINT
+
+    const WaypointPoly wp2{ cwp };
+    EXPECT_ANY_THROW(wp2.as<StateWaypointPoly>());  // NOLINT
+  }
 }
 
 TEST(TesseractCommandLanguageUnit, CartesianWaypointPolyTests)  // NOLINT
@@ -86,6 +111,7 @@ TEST(TesseractCommandLanguageUnit, CartesianWaypointPolyTests)  // NOLINT
   {  // Null waypoint and serialization
     CartesianWaypointPoly null_wp;
     EXPECT_TRUE(null_wp.isNull());
+    EXPECT_TRUE(null_wp.getType() == typeid(nullptr));
     test_suite::runWaypointSerializationTest(null_wp);
   }
 
@@ -99,6 +125,11 @@ TEST(TesseractCommandLanguageUnit, CartesianWaypointPolyTests)  // NOLINT
     EXPECT_TRUE(wp1 == wp2);
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
+  }
+
+  {  // Bad Cast
+    CartesianWaypointPoly wp1{ CartesianWaypoint{} };
+    EXPECT_ANY_THROW(wp1.as<StateWaypoint>());  // NOLINT
   }
 }
 
@@ -121,6 +152,11 @@ TEST(TesseractCommandLanguageUnit, JointWaypointPolyTests)  // NOLINT
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
   }
+
+  {  // Bad Cast
+    JointWaypointPoly wp1{ JointWaypoint{} };
+    EXPECT_ANY_THROW(wp1.as<CartesianWaypoint>());  // NOLINT
+  }
 }
 
 TEST(TesseractCommandLanguageUnit, StateWaypointPolyTests)  // NOLINT
@@ -142,6 +178,11 @@ TEST(TesseractCommandLanguageUnit, StateWaypointPolyTests)  // NOLINT
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
   }
+
+  {  // Bad Cast
+    StateWaypointPoly wp1{ StateWaypoint{} };
+    EXPECT_ANY_THROW(wp1.as<CartesianWaypoint>());  // NOLINT
+  }
 }
 
 TEST(TesseractCommandLanguageUnit, CartesianWaypointTests)  // NOLINT
@@ -162,6 +203,49 @@ TEST(TesseractCommandLanguageUnit, StateWaypointTests)  // NOLINT
 TEST(TesseractCommandLanguageUnit, MoveInstructionTests)  // NOLINT
 {
   test_suite::runMoveInstructionTest<MoveInstruction>();
+}
+
+TEST(TesseractCommandLanguageUnit, InstructionPolyTests)  // NOLINT
+{
+  {  // Null waypoint and serialization
+    InstructionPoly null_wp;
+    EXPECT_TRUE(null_wp.isNull());
+    EXPECT_FALSE(null_wp.isMoveInstruction());
+    EXPECT_FALSE(null_wp.isCompositeInstruction());
+
+    test_suite::runInstructionSerializationTest(null_wp);
+
+    InstructionPoly instr{ CompositeInstruction() };
+    EXPECT_NO_THROW(instr.getInstruction());                 // NOLINT;
+    EXPECT_NO_THROW(std::as_const(instr).getInstruction());  // NOLINT;
+
+    test_suite::runInstructionSerializationTest(instr);
+  }
+
+  {  // Equality
+    InstructionPoly wp1;
+    EXPECT_TRUE(wp1.isNull());
+    EXPECT_FALSE(wp1.isMoveInstruction());
+    EXPECT_FALSE(wp1.isCompositeInstruction());
+
+    InstructionPoly wp2;
+    wp2 = wp1;
+    EXPECT_TRUE(wp2.isNull());
+    EXPECT_FALSE(wp2.isMoveInstruction());
+    EXPECT_FALSE(wp2.isCompositeInstruction());
+
+    EXPECT_TRUE(wp1 == wp2);
+    EXPECT_TRUE(wp2 == wp1);
+    EXPECT_FALSE(wp2 != wp1);
+  }
+
+  {  // Bad Cast
+    InstructionPoly wp1{ CompositeInstruction() };
+    EXPECT_ANY_THROW(wp1.as<SetAnalogInstruction>());  // NOLINT
+
+    const InstructionPoly wp2{ CompositeInstruction() };
+    EXPECT_ANY_THROW(wp2.as<SetAnalogInstruction>());  // NOLINT
+  }
 }
 
 TEST(TesseractCommandLanguageUnit, SetAnalogInstructionTests)  // NOLINT
@@ -462,8 +546,8 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_NE(instr.size(), instr.getInstructionCount());  // Because of nested composites
   EXPECT_EQ(instr.size(), instr.getInstructions().size());
   EXPECT_EQ(instr.size(), std::as_const(instr).getInstructions().size());
-  EXPECT_EQ(instr.size(), 12);
-  EXPECT_EQ(instr.getInstructionCount(), 41);
+  EXPECT_EQ(instr.size(), 13);
+  EXPECT_EQ(instr.getInstructionCount(), 42);
   EXPECT_NE(instr.getFirstInstruction(), nullptr);
   EXPECT_NE(std::as_const(instr).getFirstInstruction(), nullptr);
   EXPECT_EQ(std::as_const(instr).getFirstInstruction(), instr.getFirstInstruction());
@@ -491,8 +575,8 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_NE(insert_program.size(), insert_program.getInstructionCount());  // Because of nested composites
   EXPECT_EQ(insert_program.size(), insert_program.getInstructions().size());
   EXPECT_EQ(insert_program.size(), std::as_const(insert_program).getInstructions().size());
-  EXPECT_EQ(insert_program.size(), 12);
-  EXPECT_EQ(insert_program.getInstructionCount(), 41);
+  EXPECT_EQ(insert_program.size(), 13);
+  EXPECT_EQ(insert_program.getInstructionCount(), 42);
   EXPECT_NE(insert_program.getFirstInstruction(), nullptr);
   EXPECT_NE(std::as_const(insert_program).getFirstInstruction(), nullptr);
   EXPECT_EQ(std::as_const(insert_program).getFirstInstruction(), insert_program.getFirstInstruction());
@@ -528,8 +612,8 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_NE(assign_program.size(), assign_program.getInstructionCount());  // Because of nested composites
   EXPECT_EQ(assign_program.size(), assign_program.getInstructions().size());
   EXPECT_EQ(assign_program.size(), std::as_const(assign_program).getInstructions().size());
-  EXPECT_EQ(assign_program.size(), 12);
-  EXPECT_EQ(assign_program.getInstructionCount(), 41);
+  EXPECT_EQ(assign_program.size(), 13);
+  EXPECT_EQ(assign_program.getInstructionCount(), 42);
   EXPECT_NE(assign_program.getFirstInstruction(), nullptr);
   EXPECT_NE(std::as_const(assign_program).getFirstInstruction(), nullptr);
   EXPECT_EQ(std::as_const(assign_program).getFirstInstruction(), assign_program.getFirstInstruction());
@@ -562,8 +646,8 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_NE(copy_program.size(), copy_program.getInstructionCount());  // Because of nested composites
   EXPECT_EQ(copy_program.size(), copy_program.getInstructions().size());
   EXPECT_EQ(copy_program.size(), std::as_const(copy_program).getInstructions().size());
-  EXPECT_EQ(copy_program.size(), 12);
-  EXPECT_EQ(copy_program.getInstructionCount(), 41);
+  EXPECT_EQ(copy_program.size(), 13);
+  EXPECT_EQ(copy_program.getInstructionCount(), 42);
   EXPECT_NE(copy_program.getFirstInstruction(), nullptr);
   EXPECT_NE(std::as_const(copy_program).getFirstInstruction(), nullptr);
   EXPECT_EQ(std::as_const(copy_program).getFirstInstruction(), copy_program.getFirstInstruction());
@@ -700,7 +784,7 @@ TEST(TesseractCommandLanguageUnit, CompositeInstructionTests)  // NOLINT
   EXPECT_EQ(std::as_const(instr).getLastInstruction(moveFilter, false), nullptr);
   EXPECT_EQ(std::as_const(instr).getLastInstruction(moveFilter, false), instr.getLastInstruction(moveFilter, false));
 
-  EXPECT_EQ(instr.getInstructionCount(notMoveFilter, false), 12);
+  EXPECT_EQ(instr.getInstructionCount(notMoveFilter, false), 13);
   EXPECT_NE(instr.getFirstInstruction(notMoveFilter, false), nullptr);
   EXPECT_NE(std::as_const(instr).getFirstInstruction(notMoveFilter, false), nullptr);
   EXPECT_EQ(std::as_const(instr).getFirstInstruction(notMoveFilter, false),

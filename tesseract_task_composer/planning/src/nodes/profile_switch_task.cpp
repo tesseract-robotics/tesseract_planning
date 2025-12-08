@@ -4,8 +4,6 @@
  *
  * @author Matthew Powelson
  * @date October 26. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -25,9 +23,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
 
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/profile_dictionary.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -86,7 +82,7 @@ TaskComposerNodeInfo ProfileSwitchTask::runImpl(TaskComposerContext& context,
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = getData(*context.data_storage, INPUT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INPUT_PROGRAM_PORT);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info.status_message = "Input instruction to ProfileSwitch must be a composite instruction";
@@ -95,8 +91,7 @@ TaskComposerNodeInfo ProfileSwitchTask::runImpl(TaskComposerContext& context,
   }
 
   // Get Composite Profile
-  auto profiles =
-      getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   auto cur_composite_profile =
       profiles->getProfile<ProfileSwitchProfile>(ns_, ci.getProfile(ns_), std::make_shared<ProfileSwitchProfile>());
@@ -111,16 +106,4 @@ TaskComposerNodeInfo ProfileSwitchTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-bool ProfileSwitchTask::operator==(const ProfileSwitchTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
-bool ProfileSwitchTask::operator!=(const ProfileSwitchTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void ProfileSwitchTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ProfileSwitchTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ProfileSwitchTask)

@@ -4,8 +4,6 @@
  *
  * @author Matthew Powelson
  * @date July 15. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -34,8 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <chrono>
 #include <functional>
 #include <optional>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 #include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -136,26 +132,17 @@ public:
   /** @brief This provides a location for task data may be stored */
   TaskComposerDataStorage data_storage;
 
+  /** @brief Indicate if task was not ran because abort flag was enabled */
+  bool aborted{ false };
+
   bool operator==(const TaskComposerNodeInfo& rhs) const;
   bool operator!=(const TaskComposerNodeInfo& rhs) const;
-
-  /**
-   * @brief Check if task was not ran because process was aborted
-   * @return True if aborted otherwise false;
-   */
-  bool isAborted() const;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  friend class TaskComposerNode;
-
-  /** @brief Indicate if task was not ran because abort flag was enabled */
-  bool aborted_{ false };
-
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
+
+class TaskComposerNodeInfoContainer;
+
+template <class Archive>
+void serialize(Archive& ar, TaskComposerNodeInfoContainer& obj);
 
 /** @brief A threadsafe container for TaskComposerNodeInfo */
 class TaskComposerNodeInfoContainer
@@ -232,11 +219,6 @@ public:
   bool operator!=(const TaskComposerNodeInfoContainer& rhs) const;
 
 private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
   mutable std::shared_mutex mutex_;
   boost::uuids::uuid root_node_{};
   boost::uuids::uuid aborting_node_{};
@@ -244,8 +226,10 @@ private:
 
   void updateParents(std::map<boost::uuids::uuid, TaskComposerNodeInfo>& info_map,
                      const boost::uuids::uuid& uuid) const;
+
+  template <class Archive>
+  friend void ::tesseract_planning::serialize(Archive& ar, TaskComposerNodeInfoContainer& obj);
 };
 }  // namespace tesseract_planning
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerNodeInfo)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerNodeInfoContainer)
+
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_INFO_H

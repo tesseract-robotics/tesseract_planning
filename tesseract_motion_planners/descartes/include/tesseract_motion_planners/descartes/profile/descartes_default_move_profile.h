@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -101,6 +99,9 @@ public:
                        const tesseract_common::ManipulatorInfo& composite_manip_info,
                        const std::shared_ptr<const tesseract_environment::Environment>& env) const override;
 
+  bool operator==(const DescartesDefaultMoveProfile<FloatType>& rhs) const;
+  bool operator!=(const DescartesDefaultMoveProfile<FloatType>& rhs) const;
+
 protected:
   virtual std::unique_ptr<DescartesVertexEvaluator>
   createVertexEvaluator(const MoveInstructionPoly& move_instruction,
@@ -110,19 +111,10 @@ protected:
   virtual PoseSamplerFn createPoseSampler(const MoveInstructionPoly& move_instruction,
                                           const std::shared_ptr<const tesseract_kinematics::KinematicGroup>& manip,
                                           const std::shared_ptr<const tesseract_environment::Environment>& env) const;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 using DescartesDefaultMoveProfileF = DescartesDefaultMoveProfile<float>;
 using DescartesDefaultMoveProfileD = DescartesDefaultMoveProfile<double>;
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::DescartesDefaultMoveProfile<float>)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::DescartesDefaultMoveProfile<double>)
 
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_DEFAULT_MOVE_PROFILE_H

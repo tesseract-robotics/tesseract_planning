@@ -5,8 +5,6 @@
  *
  * @author Levi Armstrong
  * @date November 2. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -28,11 +26,8 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
 
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/profile_dictionary.h>
-
 #include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -103,7 +98,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
+  auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
     info.status_code = 0;
@@ -115,7 +110,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
 
   auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
 
-  auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info.status_message = "Input seed to MinLengthTask must be a composite instruction";
@@ -124,8 +119,7 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
   }
 
   // Get Composite Profile
-  auto profiles =
-      getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   long cnt = ci.getMoveInstructionCount();
   auto cur_composite_profile =
@@ -167,11 +161,11 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
       return info;
     }
 
-    setData(*context.data_storage, INOUT_PROGRAM_PORT, response.results);
+    setData(context, INOUT_PROGRAM_PORT, response.results);
   }
   else
   {
-    setData(*context.data_storage, INOUT_PROGRAM_PORT, ci);
+    setData(context, INOUT_PROGRAM_PORT, ci);
   }
 
   info.color = "green";
@@ -182,16 +176,4 @@ TaskComposerNodeInfo MinLengthTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-bool MinLengthTask::operator==(const MinLengthTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
-bool MinLengthTask::operator!=(const MinLengthTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void MinLengthTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MinLengthTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MinLengthTask)

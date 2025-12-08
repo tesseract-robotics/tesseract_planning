@@ -29,19 +29,6 @@ find_package(
              segmentation
              surface)
 
-if(NOT TARGET console_bridge::console_bridge)
-  add_library(console_bridge::console_bridge INTERFACE IMPORTED)
-  set_target_properties(console_bridge::console_bridge PROPERTIES INTERFACE_INCLUDE_DIRECTORIES
-                                                                  ${console_bridge_INCLUDE_DIRS})
-  set_target_properties(console_bridge::console_bridge PROPERTIES INTERFACE_LINK_LIBRARIES ${console_bridge_LIBRARIES})
-else()
-  get_target_property(CHECK_INCLUDE_DIRECTORIES console_bridge::console_bridge INTERFACE_INCLUDE_DIRECTORIES)
-  if(NOT ${CHECK_INCLUDE_DIRECTORIES})
-    set_target_properties(console_bridge::console_bridge PROPERTIES INTERFACE_INCLUDE_DIRECTORIES
-                                                                    ${console_bridge_INCLUDE_DIRS})
-  endif()
-endif()
-
 # Load variable for clang tidy args, compiler options and cxx version
 tesseract_variables()
 
@@ -123,6 +110,7 @@ add_example(${PROJECT_NAME}_pick_and_place_example src/pick_and_place_example_no
 add_example(${PROJECT_NAME}_puzzle_piece_auxillary_axes_example src/puzzle_piece_auxillary_axes_example_node.cpp)
 add_example(${PROJECT_NAME}_puzzle_piece_example src/puzzle_piece_example_node.cpp)
 add_example(${PROJECT_NAME}_scene_graph_example src/scene_graph_example_node.cpp)
+add_example(${PROJECT_NAME}_benchmarks src/example_benchmarks_node.cpp)
 
 # OMPL Constraint planning is not available in version less than 1.4 if(NOT OMPL_VERSION VERSION_LESS "1.4.0")
 # add_example(${PROJECT_NAME}_glass_upright_ompl_example src/glass_upright_ompl_example_node.cpp) endif()
@@ -148,6 +136,7 @@ configure_package(
           ${PROJECT_NAME}_puzzle_piece_auxillary_axes_example
           ${PROJECT_NAME}_puzzle_piece_example
           ${PROJECT_NAME}_scene_graph_example
+          ${PROJECT_NAME}_benchmarks
   DEPENDENCIES
     tesseract_environment
     tesseract_command_language

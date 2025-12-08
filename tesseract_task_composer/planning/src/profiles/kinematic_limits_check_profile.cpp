@@ -19,37 +19,51 @@
  * limitations under the License.
  */
 #include <tesseract_task_composer/planning/profiles/kinematic_limits_check_profile.h>
-#include <tesseract_common/serialization.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
-#include <typeindex>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
 KinematicLimitsCheckProfile::KinematicLimitsCheckProfile(bool check_position,
                                                          bool check_velocity,
                                                          bool check_acceleration)
-  : Profile(KinematicLimitsCheckProfile::getStaticKey())
+  : Profile(createKey<KinematicLimitsCheckProfile>())
   , check_position(check_position)
   , check_velocity(check_velocity)
   , check_acceleration(check_acceleration)
 {
 }
 
-std::size_t KinematicLimitsCheckProfile::getStaticKey()
+KinematicLimitsCheckProfile::KinematicLimitsCheckProfile(
+    const YAML::Node& config,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : KinematicLimitsCheckProfile()
 {
-  return std::type_index(typeid(KinematicLimitsCheckProfile)).hash_code();
+  try
+  {
+    if (YAML::Node n = config["check_position"])
+      check_position = n.as<bool>();
+    if (YAML::Node n = config["check_velocity"])
+      check_velocity = n.as<bool>();
+    if (YAML::Node n = config["check_acceleration"])
+      check_acceleration = n.as<bool>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("KinematicLimitsCheckProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
 }
 
-template <class Archive>
-void KinematicLimitsCheckProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool KinematicLimitsCheckProfile::operator==(const KinematicLimitsCheckProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(check_position);
-  ar& BOOST_SERIALIZATION_NVP(check_velocity);
-  ar& BOOST_SERIALIZATION_NVP(check_acceleration);
+  bool equal = true;
+  equal &= (check_position == rhs.check_position);
+  equal &= (check_velocity == rhs.check_velocity);
+  equal &= (check_acceleration == rhs.check_acceleration);
+  return equal;
 }
+
+bool KinematicLimitsCheckProfile::operator!=(const KinematicLimitsCheckProfile& rhs) const { return !operator==(rhs); }
+
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::KinematicLimitsCheckProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::KinematicLimitsCheckProfile)

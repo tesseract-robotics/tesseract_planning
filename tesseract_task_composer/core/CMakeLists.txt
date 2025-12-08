@@ -3,6 +3,7 @@ include(GenerateExportHeader)
 
 add_library(
   ${PROJECT_NAME}
+  src/cereal_serialization.cpp
   src/task_composer_data_storage.cpp
   src/task_composer_context.cpp
   src/task_composer_executor.cpp
@@ -16,7 +17,8 @@ add_library(
   src/task_composer_pipeline.cpp
   src/task_composer_plugin_factory.cpp
   src/task_composer_server.cpp
-  src/task_composer_task.cpp)
+  src/task_composer_task.cpp
+  src/yaml_utils.cpp)
 
 target_link_libraries(
   ${PROJECT_NAME}
@@ -24,7 +26,7 @@ target_link_libraries(
          tesseract::tesseract_common
          boost_plugin_loader::boost_plugin_loader
          Boost::boost
-         Boost::serialization
+         cereal::cereal
          yaml-cpp)
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -49,6 +51,7 @@ add_library(
   ${PROJECT_NAME}_nodes
   src/nodes/done_task.cpp
   src/nodes/error_task.cpp
+  src/nodes/for_each_task.cpp
   src/nodes/has_data_storage_entry_task.cpp
   src/nodes/remap_task.cpp
   src/nodes/start_task.cpp
@@ -63,7 +66,7 @@ target_link_libraries(
          console_bridge::console_bridge
          tesseract::tesseract_common
          Boost::boost
-         Boost::serialization
+         cereal::cereal
          yaml-cpp)
 target_compile_options(${PROJECT_NAME}_nodes PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_nodes PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -127,9 +130,8 @@ configure_component(
     console_bridge
     tesseract_common
     boost_plugin_loader
-    "Boost REQUIRED COMPONENTS serialization"
-    yaml-cpp
-  CFG_EXTRAS cmake/core-extras.cmake)
+    cereal
+    yaml-cpp)
 
 if(TESSERACT_PACKAGE)
   cpack_component(

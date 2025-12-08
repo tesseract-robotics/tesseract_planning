@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date August 10. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -27,20 +25,19 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <typeindex>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
+#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/profiles/contact_check_profile.h>
-#include <tesseract_collision/core/serialization.h>
+#include <tesseract_collision/core/yaml_extensions.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
 ContactCheckProfile::ContactCheckProfile() : ContactCheckProfile(0.05, 0) {}
 
 ContactCheckProfile::ContactCheckProfile(double longest_valid_segment_length, double contact_distance)
-  : Profile(ContactCheckProfile::getStaticKey())
+  : Profile(createKey<ContactCheckProfile>())
 {
   contact_manager_config.default_margin = contact_distance;
 
@@ -54,18 +51,32 @@ ContactCheckProfile::ContactCheckProfile(double longest_valid_segment_length, do
   }
 }
 
-std::size_t ContactCheckProfile::getStaticKey() { return std::type_index(typeid(ContactCheckProfile)).hash_code(); }
-
-template <class Archive>
-void ContactCheckProfile::serialize(Archive& ar, const unsigned int /*version*/)
+ContactCheckProfile::ContactCheckProfile(const YAML::Node& config,
+                                         const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : ContactCheckProfile()
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(contact_manager_config);
-  ar& BOOST_SERIALIZATION_NVP(collision_check_config);
+  try
+  {
+    if (YAML::Node n = config["contact_manager_config"])
+      contact_manager_config = n.as<tesseract_collision::ContactManagerConfig>();
+
+    if (YAML::Node n = config["collision_check_config"])
+      collision_check_config = n.as<tesseract_collision::CollisionCheckConfig>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("ContactCheckProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+  }
 }
 
-}  // namespace tesseract_planning
+bool ContactCheckProfile::operator==(const ContactCheckProfile& rhs) const
+{
+  bool equal = true;
+  equal &= (contact_manager_config == rhs.contact_manager_config);
+  equal &= (collision_check_config == rhs.collision_check_config);
+  return equal;
+}
 
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ContactCheckProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ContactCheckProfile)
+bool ContactCheckProfile::operator!=(const ContactCheckProfile& rhs) const { return !operator==(rhs); }
+
+}  // namespace tesseract_planning

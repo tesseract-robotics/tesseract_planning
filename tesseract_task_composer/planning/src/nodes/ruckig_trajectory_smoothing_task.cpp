@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 27, 2022
- * @version TODO
- * @bug No known bugs
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -25,11 +23,8 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
 
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/profile_dictionary.h>
-
 #include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -102,7 +97,7 @@ TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext&
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
+  auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
     info.status_code = 0;
@@ -114,7 +109,7 @@ TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext&
 
   auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
 
-  auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info.status_message = "Input results to ruckig trajectory smoothing must be a composite instruction";
@@ -125,8 +120,7 @@ TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext&
   tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
 
   // Get Composite Profile
-  auto profiles =
-      getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
 
   auto& ci = input_data_poly.as<CompositeInstruction>();
   if (ci.getMoveInstructionCount() == 0)
@@ -134,7 +128,7 @@ TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext&
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
     if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
-      setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
+      setData(context, INOUT_PROGRAM_PORT, original_input_data_poly);
 
     info.color = "green";
     info.status_code = 1;
@@ -151,14 +145,14 @@ TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext&
     // If the output key is not the same as the input key the output data should be assigned the input data for error
     // branching
     if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
-      setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
+      setData(context, INOUT_PROGRAM_PORT, original_input_data_poly);
 
     info.status_message = "Failed to perform ruckig trajectory smoothing for process input: %s" + ci.getDescription();
     CONSOLE_BRIDGE_logInform("%s", info.status_message.c_str());
     return info;
   }
 
-  setData(*context.data_storage, INOUT_PROGRAM_PORT, input_data_poly);
+  setData(context, INOUT_PROGRAM_PORT, input_data_poly);
 
   info.color = "green";
   info.status_code = 1;
@@ -168,22 +162,4 @@ TaskComposerNodeInfo RuckigTrajectorySmoothingTask::runImpl(TaskComposerContext&
   return info;
 }
 
-bool RuckigTrajectorySmoothingTask::operator==(const RuckigTrajectorySmoothingTask& rhs) const
-{
-  return (TaskComposerTask::operator==(rhs));
-}
-bool RuckigTrajectorySmoothingTask::operator!=(const RuckigTrajectorySmoothingTask& rhs) const
-{
-  return !operator==(rhs);
-}
-
-template <class Archive>
-void RuckigTrajectorySmoothingTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RuckigTrajectorySmoothingTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RuckigTrajectorySmoothingTask)

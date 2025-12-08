@@ -3,8 +3,6 @@
  *
  * @author Levi Armstrong
  * @date August 5, 2022
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2022, Levi Armstrong
  *
@@ -27,8 +25,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 #include <tesseract_task_composer/planning/tesseract_task_composer_planning_nodes_export.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -61,23 +57,13 @@ public:
 
   ~UpdateEndStateTask() override = default;
 
-  bool operator==(const UpdateEndStateTask& rhs) const;
-  bool operator!=(const UpdateEndStateTask& rhs) const;
-
 private:
   static TaskComposerNodePorts ports();
 
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override;
-
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::UpdateEndStateTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_UPDATE_END_STATE_TASK_H

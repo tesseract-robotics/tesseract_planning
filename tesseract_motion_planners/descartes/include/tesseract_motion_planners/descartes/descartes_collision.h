@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date April 18, 2018
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2017, Southwest Research Institute
  *
@@ -76,17 +74,23 @@ public:
 
   /**
    * @brief This check is the provided solution passes the collision test defined by this class
+   * @param contact_results The collision results to populate
    * @param pos The joint values array to validate
    * @return ContactResultMap containing any contacts for the given solution
    */
-  tesseract_collision::ContactResultMap validate(const Eigen::Ref<const Eigen::VectorXd>& pos);
+  bool validate(tesseract_collision::ContactResultMap& contact_results,
+                tesseract_common::TransformMap& transforms_cache,
+                const Eigen::Ref<const Eigen::VectorXd>& pos);
 
   /**
    * @brief This gets the distance to the closest object
+   * @param contact_results The collision results to populate
    * @param pos The joint values array to calculate the distance to the closest object
    * @return The distance to the closest object
    */
-  double distance(const Eigen::Ref<const Eigen::VectorXd>& pos);
+  double distance(tesseract_collision::ContactResultMap& contact_results,
+                  tesseract_common::TransformMap& transforms_cache,
+                  const Eigen::Ref<const Eigen::VectorXd>& pos);
 
   /**
    * @brief This should clone the object and make new instance of objects that are not safe to share across threads

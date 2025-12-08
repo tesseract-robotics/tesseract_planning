@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date March 16, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -39,7 +37,9 @@ public:
   FreespaceOMPLExample(std::shared_ptr<tesseract_environment::Environment> env,
                        std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
                        double range = 0.01,
-                       double planning_time = 60.0);
+                       double planning_time = 60.0,
+                       bool debug = false,
+                       bool benchmark = false);
   ~FreespaceOMPLExample() override = default;
   FreespaceOMPLExample(const FreespaceOMPLExample&) = default;
   FreespaceOMPLExample& operator=(const FreespaceOMPLExample&) = default;
@@ -51,6 +51,8 @@ public:
 private:
   double range_;
   double planning_time_;
+  bool debug_;
+  bool benchmark_;
 };
 
 }  // namespace tesseract_examples

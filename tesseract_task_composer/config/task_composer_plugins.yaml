@@ -20,6 +20,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -86,6 +88,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -123,6 +127,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -189,6 +195,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -226,6 +234,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -282,6 +292,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -319,6 +331,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -375,6 +389,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -412,6 +428,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -478,6 +496,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -515,6 +535,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -581,6 +603,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             planning_input: planning_input
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -618,6 +642,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -684,6 +710,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             planning_input: planning_input
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -721,6 +749,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -800,6 +830,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             planning_input: planning_input
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -837,6 +869,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -916,6 +950,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             planning_input: planning_input
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -953,6 +989,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1032,6 +1070,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             planning_input: planning_input
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1069,6 +1109,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1098,29 +1140,21 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
+                  profiles: profiles
                 outputs:
                   program: output_data
                 freespace:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
                 raster:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
                 transition:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -1133,6 +1167,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             planning_input: planning_input
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1170,6 +1206,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1199,29 +1237,21 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
+                  profiles: profiles
                 outputs:
                   program: output_data
                 freespace:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
                 raster:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
                 transition:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -1234,6 +1264,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             planning_input: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1271,6 +1303,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1300,22 +1334,17 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
+                  profiles: profiles
                 outputs:
                   program: output_data
                 raster:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
                 transition:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -1328,6 +1357,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             planning_input: planning_input
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1365,6 +1396,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1394,22 +1427,17 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
+                  profiles: profiles
                 outputs:
                   program: output_data
                 raster:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
                 transition:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, RasterMotionTask]
@@ -1422,6 +1450,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             planning_input: planning_input
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1459,6 +1489,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1499,29 +1531,21 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
+                  profiles: profiles
                 outputs:
                   program: output_data
                 freespace:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
                 raster:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
                 transition:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -1536,6 +1560,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             planning_input: planning_input
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1573,6 +1599,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1613,29 +1641,21 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
+                  profiles: profiles
                 outputs:
                   program: output_data
                 freespace:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
                 raster:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
                 transition:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -1650,6 +1670,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             planning_input: planning_input
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1687,6 +1709,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1727,22 +1751,17 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
+                  profiles: profiles
                 outputs:
                   program: output_data
                 raster:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
                 transition:
                   task: FreespaceTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -1757,6 +1776,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             planning_input: planning_input
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1794,6 +1815,8 @@ task_composer_plugins:
           conditional: true
           inputs:
             program: input_data
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:
@@ -1834,22 +1857,17 @@ task_composer_plugins:
                 inputs:
                   program: output_data
                   environment: environment
+                  profiles: profiles
                 outputs:
                   program: output_data
                 raster:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
                 transition:
                   task: CartesianTask
                   config:
                     abort_terminal: 0
-                    remapping:
-                      input_data: output_data
-                    indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
               destinations: [ErrorTask, DescartesMotionPlannerTask]
@@ -1864,6 +1882,8 @@ task_composer_plugins:
           conditional: false
           inputs:
             planning_input: planning_input
+            environment: environment
+            profiles: profiles
           outputs:
             program: output_data
           nodes:

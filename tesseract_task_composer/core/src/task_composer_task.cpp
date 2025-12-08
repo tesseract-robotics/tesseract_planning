@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 29. 2022
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2022, Levi Armstrong
  *
@@ -28,8 +26,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <yaml-cpp/yaml.h>
-#include <boost/serialization/base_object.hpp>
-#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
@@ -60,19 +56,4 @@ TaskComposerTask::TaskComposerTask(std::string name, TaskComposerNodePorts ports
 
 void TaskComposerTask::setTriggerAbort(bool enable) { trigger_abort_ = enable; }
 
-bool TaskComposerTask::operator==(const TaskComposerTask& rhs) const { return (TaskComposerNode::operator==(rhs)); }
-
-// LCOV_EXCL_START
-bool TaskComposerTask::operator!=(const TaskComposerTask& rhs) const { return !operator==(rhs); }
-// LCOV_EXCL_STOP
-
-template <class Archive>
-void TaskComposerTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerTask)

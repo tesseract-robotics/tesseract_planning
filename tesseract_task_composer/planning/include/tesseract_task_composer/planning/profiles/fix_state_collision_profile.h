@@ -4,8 +4,6 @@
  *
  * @author Matthew Powelson
  * @date August 31. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -30,11 +28,21 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <vector>
+#include <trajopt/fwd.hpp>
+#include <trajopt_sco/optimizers.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_collision/core/types.h>
 #include <tesseract_common/profile.h>
 #include <tesseract_motion_planners/trajopt/trajopt_waypoint_config.h>
+#include <tesseract_common/fwd.h>
+#include <trajopt_common/collision_types.h>
+#include <trajopt_sco/osqp_interface.hpp>
+
+namespace YAML
+{
+class Node;
+}
 
 namespace tesseract_planning
 {
@@ -63,12 +71,7 @@ struct FixStateCollisionProfile : public tesseract_common::Profile
   };
 
   FixStateCollisionProfile(Settings mode = Settings::ALL);
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
+  FixStateCollisionProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /** @brief Sets which terms will be corrected  */
   Settings mode;
@@ -95,14 +98,24 @@ struct FixStateCollisionProfile : public tesseract_common::Profile
   /** @brief The TrajOpt joint waypoint cost config */
   TrajOptJointWaypointConfig trajopt_joint_cost_config;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  /** @brief Coefficient for collision constraint in TrajOpt optimization */
+  trajopt_common::CollisionCoeffData collision_constraint_coeff;
+
+  /** @brief Coefficient for collision cost in TrajOpt optimization */
+  trajopt_common::CollisionCoeffData collision_cost_coeff;
+
+  /** @brief Optimization parameters */
+  sco::BasicTrustRegionSQPParameters opt_params;
+
+  /** @brief OSQP settings */
+  OSQPSettings osqp_settings{};
+
+  /** @brief Update the OSQP workspace for subsequent optimizations, instead of recreating it each time */
+  bool update_workspace{ false };
+
+  bool operator==(const FixStateCollisionProfile& rhs) const;
+  bool operator!=(const FixStateCollisionProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::FixStateCollisionProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_COLLISION_PROFILE_H

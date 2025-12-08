@@ -4,8 +4,6 @@
  *
  * @author Roelof Oomen
  * @date May 29, 2024
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2024, ROS Industrial Consortium
  *
@@ -33,7 +31,9 @@
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/core/types.h>
 
-#include <boost/serialization/nvp.hpp>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
@@ -49,6 +49,31 @@ SimplePlannerLVSAssignNoIKMoveProfile::SimplePlannerLVSAssignNoIKMoveProfile(
   , min_steps(min_steps)
   , max_steps(max_steps)
 {
+}
+
+SimplePlannerLVSAssignNoIKMoveProfile::SimplePlannerLVSAssignNoIKMoveProfile(
+    const YAML::Node& config,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : SimplePlannerLVSAssignNoIKMoveProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["state_longest_valid_segment_length"])
+      state_longest_valid_segment_length = n.as<double>();
+    if (YAML::Node n = config["translation_longest_valid_segment_length"])
+      translation_longest_valid_segment_length = n.as<double>();
+    if (YAML::Node n = config["rotation_longest_valid_segment_length"])
+      rotation_longest_valid_segment_length = n.as<double>();
+    if (YAML::Node n = config["min_steps"])
+      min_steps = n.as<int>();
+    if (YAML::Node n = config["max_steps"])
+      max_steps = n.as<int>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("SimplePlannerLVSAssignNoIKMoveProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
 }
 
 std::vector<MoveInstructionPoly>
@@ -143,19 +168,25 @@ SimplePlannerLVSAssignNoIKMoveProfile::generate(const MoveInstructionPoly& prev_
   return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-template <class Archive>
-void SimplePlannerLVSAssignNoIKMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool SimplePlannerLVSAssignNoIKMoveProfile::operator==(const SimplePlannerLVSAssignNoIKMoveProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerMoveProfile);
-  ar& BOOST_SERIALIZATION_NVP(state_longest_valid_segment_length);
-  ar& BOOST_SERIALIZATION_NVP(translation_longest_valid_segment_length);
-  ar& BOOST_SERIALIZATION_NVP(rotation_longest_valid_segment_length);
-  ar& BOOST_SERIALIZATION_NVP(min_steps);
-  ar& BOOST_SERIALIZATION_NVP(max_steps);
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      state_longest_valid_segment_length, rhs.state_longest_valid_segment_length, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      translation_longest_valid_segment_length, rhs.translation_longest_valid_segment_length, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      rotation_longest_valid_segment_length, rhs.rotation_longest_valid_segment_length, max_diff);
+  equal &= (min_steps == rhs.min_steps);
+  equal &= (max_steps == rhs.max_steps);
+  return equal;
+}
+
+bool SimplePlannerLVSAssignNoIKMoveProfile::operator!=(const SimplePlannerLVSAssignNoIKMoveProfile& rhs) const
+{
+  return !operator==(rhs);
 }
 
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerLVSAssignNoIKMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerLVSAssignNoIKMoveProfile)

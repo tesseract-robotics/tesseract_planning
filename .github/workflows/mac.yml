@@ -19,7 +19,7 @@ on:
 env:
   VCPKG_PKGS: >- 
     boost-dll boost-program-options boost-stacktrace
-    boost-serialization boost-filesystem boost-format
+    boost-filesystem boost-format cereal
     tinyxml2 console-bridge assimp
     urdfdom octomap orocos-kdl pcl
     gtest benchmark flann jsoncpp
@@ -45,7 +45,7 @@ jobs:
             homebrew_root: /opt/homebrew
     runs-on: ${{ matrix.config.runner }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v6
       with:
         path: ws/src/tesseract_planning
     - uses: actions/setup-python@v4

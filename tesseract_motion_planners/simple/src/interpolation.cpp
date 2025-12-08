@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date January 12, 2021
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2021, Southwest Research Institute
  *
@@ -100,7 +98,9 @@ JointGroupInstructionInfo::~JointGroupInstructionInfo() = default;
 
 Eigen::Isometry3d JointGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp, bool in_world) const
 {
-  tesseract_common::TransformMap transforms = manip->calcFwdKin(jp);
+  thread_local tesseract_common::TransformMap transforms;
+  transforms.clear();
+  manip->calcFwdKin(transforms, jp);
 
   if (in_world)
     return transforms[tcp_frame] * tcp_offset;
@@ -167,7 +167,9 @@ KinematicGroupInstructionInfo::~KinematicGroupInstructionInfo() = default;
 
 Eigen::Isometry3d KinematicGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp, bool in_world) const
 {
-  tesseract_common::TransformMap transforms = manip->calcFwdKin(jp);
+  thread_local tesseract_common::TransformMap transforms;
+  transforms.clear();
+  manip->calcFwdKin(transforms, jp);
 
   if (in_world)
     return transforms[tcp_frame] * tcp_offset;
@@ -1155,22 +1157,26 @@ Eigen::VectorXd getClosestJointSolution(const KinematicGroupInstructionInfo& inf
       info.instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform() * info.tcp_offset.inverse();
 
   Eigen::VectorXd jp_final;
-  tesseract_kinematics::IKSolutions jp;
   tesseract_kinematics::KinGroupIKInput ik_input(cwp, info.working_frame, info.tcp_frame);
-  tesseract_kinematics::IKSolutions solutions = info.manip->calcInvKin({ ik_input }, seed);
-  for (const auto& sol : solutions)
+  thread_local tesseract_kinematics::IKSolutions solutions;
+  solutions.clear();
+
+  info.manip->calcInvKin(solutions, { ik_input }, seed);
+  Eigen::VectorXd sol;
+  sol.resize(limits.joint_limits.rows());
+
+  std::size_t num_sol = solutions.size();
+  for (std::size_t i = 0; i < num_sol; ++i)
   {
-    jp.push_back(sol);
-    auto redundant_solutions =
-        tesseract_kinematics::getRedundantSolutions<double>(sol, limits.joint_limits, redundancy_indices);
-    jp.insert(jp.end(), redundant_solutions.begin(), redundant_solutions.end());
+    sol.noalias() = solutions[i];
+    tesseract_kinematics::getRedundantSolutions<double>(solutions, sol, limits.joint_limits, redundancy_indices);
   }
 
-  if (!jp.empty())
+  if (!solutions.empty())
   {
     // Find closest solution to the start state
     double dist = std::numeric_limits<double>::max();
-    for (const auto& solution : jp)
+    for (const auto& solution : solutions)
     {
       if (tesseract_common::satisfiesLimits<double>(solution, limits.joint_limits))
       {
@@ -1217,46 +1223,46 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
 
   // Calculate IK for start and end
   Eigen::VectorXd j1_final;
-  tesseract_kinematics::IKSolutions j1;
   tesseract_kinematics::KinGroupIKInput ik_input1(cwp1, info1.working_frame, info1.tcp_frame);
-  tesseract_kinematics::IKSolutions j1_solutions = info1.manip->calcInvKin({ ik_input1 }, seed);
-  j1_solutions.erase(std::remove_if(j1_solutions.begin(),
-                                    j1_solutions.end(),
-                                    [&manip1_limits](const Eigen::VectorXd& solution) {
-                                      return !tesseract_common::satisfiesLimits<double>(solution,
-                                                                                        manip1_limits.joint_limits);
-                                    }),
-                     j1_solutions.end());
+  thread_local tesseract_kinematics::IKSolutions j1;
+  j1.clear();
+  info1.manip->calcInvKin(j1, { ik_input1 }, seed);
+  j1.erase(std::remove_if(j1.begin(),
+                          j1.end(),
+                          [&manip1_limits](const Eigen::VectorXd& solution) {
+                            return !tesseract_common::satisfiesLimits<double>(solution, manip1_limits.joint_limits);
+                          }),
+           j1.end());
 
   // Get redundant solutions
-  for (const auto& sol : j1_solutions)
+  Eigen::VectorXd sol;
+  sol.resize(manip1_limits.joint_limits.rows());
+  std::size_t num_sol = j1.size();
+  for (std::size_t i = 0; i < num_sol; ++i)
   {
-    j1.push_back(sol);
-    auto redundant_solutions =
-        tesseract_kinematics::getRedundantSolutions<double>(sol, manip1_limits.joint_limits, manip1_redundancy_indices);
-    j1.insert(j1.end(), redundant_solutions.begin(), redundant_solutions.end());
+    sol.noalias() = j1[i];
+    tesseract_kinematics::getRedundantSolutions<double>(j1, sol, manip1_limits.joint_limits, manip1_redundancy_indices);
   }
 
   Eigen::VectorXd j2_final;
-  tesseract_kinematics::IKSolutions j2;
   tesseract_kinematics::KinGroupIKInput ik_input2(cwp2, info2.working_frame, info2.tcp_frame);
-  tesseract_kinematics::IKSolutions j2_solutions = info2.manip->calcInvKin({ ik_input2 }, seed);
-  j2_solutions.erase(std::remove_if(j2_solutions.begin(),
-                                    j2_solutions.end(),
-                                    [&manip2_limits](const Eigen::VectorXd& solution) {
-                                      // NOLINTNEXTLINE(clang-analyzer-core.uninitialized.UndefReturn)
-                                      return !tesseract_common::satisfiesLimits<double>(solution,
-                                                                                        manip2_limits.joint_limits);
-                                    }),
-                     j2_solutions.end());
+  thread_local tesseract_kinematics::IKSolutions j2;
+  j2.clear();
+  info2.manip->calcInvKin(j2, { ik_input2 }, seed);
+  j2.erase(std::remove_if(j2.begin(),
+                          j2.end(),
+                          [&manip2_limits](const Eigen::VectorXd& solution) {
+                            // NOLINTNEXTLINE(clang-analyzer-core.uninitialized.UndefReturn)
+                            return !tesseract_common::satisfiesLimits<double>(solution, manip2_limits.joint_limits);
+                          }),
+           j2.end());
 
   // Get redundant solutions
-  for (const auto& sol : j2_solutions)
+  num_sol = j2.size();
+  for (std::size_t i = 0; i < num_sol; ++i)
   {
-    j2.push_back(sol);
-    auto redundant_solutions =
-        tesseract_kinematics::getRedundantSolutions<double>(sol, manip2_limits.joint_limits, manip2_redundancy_indices);
-    j2.insert(j2.end(), redundant_solutions.begin(), redundant_solutions.end());
+    sol.noalias() = j2[i];
+    tesseract_kinematics::getRedundantSolutions<double>(j2, sol, manip2_limits.joint_limits, manip2_redundancy_indices);
   }
 
   if (!j1.empty() && !j2.empty())

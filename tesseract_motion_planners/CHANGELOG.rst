@@ -2,6 +2,31 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.33.1 (2025-10-29)
+-------------------
+
+0.33.0 (2025-10-28)
+-------------------
+* Update now that osqp_eigen supports osqp v1.0.0 params
+* Fix getRobotConfig utility to work with positioners
+* Add missing ONE_PER_STEP check in contactCheckProgram (`#671 <https://github.com/tesseract-robotics/tesseract_planning/issues/671>`_)
+* Contributors: Levi Armstrong, Tyler Marr
+
+0.32.0 (2025-09-10)
+-------------------
+* Set ompl log level based on request verbose flag
+* Fixed incorrect number of substeps when adding contact (`#668 <https://github.com/tesseract-robotics/tesseract_planning/issues/668>`_)
+* Print a collision summary to status of failed contact check (`#543 <https://github.com/tesseract-robotics/tesseract_planning/issues/543>`_)
+* Add trajopt collision coefficients to fix state collision profile (`#655 <https://github.com/tesseract-robotics/tesseract_planning/issues/655>`_)
+* Update OSQP dependency to v1.0.0 and OSQPEigen to v0.10.3
+* Clean up ompl yaml tests
+* Add trajopt profile yaml extensions (`#661 <https://github.com/tesseract-robotics/tesseract_planning/issues/661>`_)
+* Fix invalid sampling in sampleToolAxis
+* Improve memory allocations
+* Added Profiles constructors for YAML conversions (`#652 <https://github.com/tesseract-robotics/tesseract_planning/issues/652>`_)
+* Add SimplePlannerLVSAssignPlanProfile, SimplePlannerLVSAssignNoIKPlanProfile, SimplePlannerFixedSizeAssignPlanProfile (with IK), rename SimplePlannerFixedSizeAssignNoIKPlanProfile (`#448 <https://github.com/tesseract-robotics/tesseract_planning/issues/448>`_)
+* Contributors: Levi Armstrong, Roelof Oomen, Samantha Smith, Tyler Marr
+
 0.31.0 (2025-07-06)
 -------------------
 * Fix yaml extensions file name spelling

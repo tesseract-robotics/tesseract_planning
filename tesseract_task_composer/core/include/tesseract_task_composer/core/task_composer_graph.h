@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 29. 2022
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2022, Levi Armstrong
  *
@@ -51,7 +49,7 @@ public:
   using UPtr = std::unique_ptr<TaskComposerGraph>;
   using ConstUPtr = std::unique_ptr<const TaskComposerGraph>;
 
-  TaskComposerGraph(std::string name = "TaskComposerGraph");
+  TaskComposerGraph(std::string name = "TaskComposerGraph", boost::uuids::uuid parent_uuid = {});
   TaskComposerGraph(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~TaskComposerGraph() override = default;
   TaskComposerGraph(const TaskComposerGraph&) = delete;
@@ -131,23 +129,40 @@ public:
   int getAbortTerminalIndex() const;
 
   /**
+   * @brief Set the override input keys
+   * @param override_input_keys The overrides
+   */
+  void setOverrideInputKeys(TaskComposerKeys override_input_keys);
+
+  /**
+   * @brief Set the override output keys
+   * @param override_output_keys The overrides
+   */
+  void setOverrideOutputKeys(TaskComposerKeys override_output_keys);
+
+  /**
+   * @brief Get the override input keys
+   * @return The overrides
+   */
+  const TaskComposerKeys& getOverrideInputKeys() const;
+
+  /**
+   * @brief Get the override output keys
+   * @return The overrides
+   */
+  const TaskComposerKeys& getOverrideOutputKeys() const;
+
+  /**
    * @brief Check if the current state of the graph is valid
    * @todo Replace return type with std::expected when upgraded to use c++23
    * @return True if valid otherwise false with a reason
    */
   virtual std::pair<bool, std::string> isValid() const;
 
-  void renameInputKeys(const std::map<std::string, std::string>& input_keys) override;
-
-  void renameOutputKeys(const std::map<std::string, std::string>& output_keys) override;
-
   std::string
   dump(std::ostream& os,
        const TaskComposerNode* parent = nullptr,
        const std::map<boost::uuids::uuid, tesseract_planning::TaskComposerNodeInfo>& results_map = {}) const override;
-
-  bool operator==(const TaskComposerGraph& rhs) const;
-  bool operator!=(const TaskComposerGraph& rhs) const;
 
 protected:
   // These are protected and used by PIPELINE
@@ -160,19 +175,18 @@ protected:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override;
 
+  /** @brief The graph nodes */
   std::map<boost::uuids::uuid, TaskComposerNode::Ptr> nodes_;
+  /** @brief The graph terminal nodes */
   std::vector<boost::uuids::uuid> terminals_;
+  /** @brief The abort terminal if assigned */
   int abort_terminal_{ -1 };
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  /** @brief The overrride input keys */
+  TaskComposerKeys override_input_keys_;
+  /** @brief The overrride output keys */
+  TaskComposerKeys override_output_keys_;
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerGraph)
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_GRAPH_H

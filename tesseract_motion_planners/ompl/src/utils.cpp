@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date February 17, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -112,7 +110,9 @@ bool checkStateInCollision(tesseract_collision::ContactResultMap& contact_map,
                            const tesseract_kinematics::JointGroup& manip,
                            const Eigen::VectorXd& state)
 {
-  tesseract_common::TransformMap link_transforms = manip.calcFwdKin(state);
+  /** @brief Making this thread_local does not help because it is only used by applyStartState and applyGoalState */
+  tesseract_common::TransformMap link_transforms;
+  manip.calcFwdKin(link_transforms, state);
 
   for (const auto& link_name : contact_checker.getActiveCollisionObjects())
     contact_checker.setCollisionObjectsTransform(link_name, link_transforms[link_name]);

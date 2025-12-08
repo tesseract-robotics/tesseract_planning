@@ -4,8 +4,6 @@
  *
  * @author Matthew Powelson
  * @date July 23, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -26,7 +24,9 @@
 #include "simple_planner_test_utils.hpp"
 
 #include <tesseract_common/types.h>
+#include <tesseract_common/unit_test_utils.h>
 #include <tesseract_motion_planners/core/types.h>
+#include <tesseract_motion_planners/simple/cereal_serialization.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_move_profile.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -52,6 +52,16 @@ using namespace tesseract_planning;
 class TesseractPlanningSimplePlannerLVSMoveProfileUnit : public TesseractPlanningSimplePlannerUnit
 {
 };
+
+TEST_F(TesseractPlanningSimplePlannerLVSMoveProfileUnit, Serialization)  // NOLINT
+{
+  auto profile = std::make_shared<SimplePlannerLVSMoveProfile>(3.14, 0.5, 1.57, 5);
+  // Serialization
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, SimplePlannerLVSMoveProfile>(profile,
+                                                                                                          "SimplePlanne"
+                                                                                                          "rLVSMoveProf"
+                                                                                                          "ile");
+}
 
 /**
  * @brief Test Joint-to-Joint movement with freespace motion type and LVS interpolation

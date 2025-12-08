@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -42,6 +40,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile.h>
 
+namespace YAML
+{
+class Node;
+}
+
 namespace ompl::geometric
 {
 class SimpleSetup;
@@ -59,12 +62,6 @@ public:
   using ConstPtr = std::shared_ptr<const OMPLMoveProfile>;
 
   OMPLMoveProfile();
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
 
   /**
    * @brief Create the OMPL Parallel Plan Solver Config
@@ -91,16 +88,8 @@ public:
                     const MoveInstructionPoly& end_instruction,
                     const tesseract_common::ManipulatorInfo& composite_mi,
                     const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::OMPLMoveProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_PROFILE_H

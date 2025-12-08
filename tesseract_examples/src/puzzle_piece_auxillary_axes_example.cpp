@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 22, 2019
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2017, Southwest Research Institute
  *
@@ -148,8 +146,9 @@ PuzzlePieceAuxillaryAxesExample::PuzzlePieceAuxillaryAxesExample(
     std::shared_ptr<tesseract_environment::Environment> env,
     std::shared_ptr<tesseract_visualization::Visualization> plotter,
     bool ifopt,
-    bool debug)
-  : Example(std::move(env), std::move(plotter)), ifopt_(ifopt), debug_(debug)
+    bool debug,
+    bool benchmark)
+  : Example(std::move(env), std::move(plotter)), ifopt_(ifopt), debug_(debug), benchmark_(benchmark)
 {
 }
 
@@ -219,10 +218,8 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   assignCurrentStateAsSeed(program, *env_);
 
   // Print Diagnostics
-  program.print("Program: ");
-
-  // Create Executor
-  auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
+  if (debug_)
+    program.print("Program: ");
 
   // Create profile dictionary
   auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
@@ -298,20 +295,68 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   if (plotter_ != nullptr)
     plotter_->waitForInput();
 
-  // Create Task Composer Data Storage
-  auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
-  data->setData("planning_input", program);
-  data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
-  data->setData("profiles", profiles);
-
   // Solve task
-  tesseract_common::Stopwatch stopwatch;
-  stopwatch.start();
-  TaskComposerFuture::UPtr future = executor->run(*task, std::move(data));
-  future->wait();
+  TaskComposerFuture::UPtr future;
+  if (!benchmark_)
+  {
+    // Create Executor
+    auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
-  stopwatch.stop();
-  CONSOLE_BRIDGE_logInform("Planning took %f seconds.", stopwatch.elapsedSeconds());
+    // Create Task Composer Data Storage
+    auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+    data->setData("planning_input", program);
+    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    data->setData("profiles", profiles);
+
+    tesseract_common::Stopwatch stopwatch;
+    stopwatch.start();
+    auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+    future = executor->run(*task, std::move(context));
+    future->wait();
+    stopwatch.stop();
+    CONSOLE_BRIDGE_logInform("Planning took %f seconds.", stopwatch.elapsedSeconds());
+  }
+  else
+  {
+    const int cnt{ 10 };
+    std::vector<std::string> contact_managers{ "BulletDiscreteBVHManager", "BulletDiscreteSimpleManager" };
+
+    for (const auto& contact_manager : contact_managers)
+    {
+      // Create Executor
+      auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
+
+      double initial_planning_time{ 0 };
+      double accumulated_time{ 0 };
+      for (int i = 0; i < cnt; ++i)
+      {
+        // Set the active contact manager
+        env_->setActiveDiscreteContactManager(contact_manager);
+
+        // Create Task Composer Data Storage
+        auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+        data->setData("planning_input", program);
+        data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+        data->setData("profiles", profiles);
+
+        tesseract_common::Stopwatch stopwatch;
+        stopwatch.start();
+        auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+        future = executor->run(*task, std::move(context));
+        future->wait();
+        stopwatch.stop();
+        if (i == 0)
+          initial_planning_time = stopwatch.elapsedSeconds();
+        else
+          accumulated_time += stopwatch.elapsedSeconds();
+      }
+      CONSOLE_BRIDGE_logInform("PuzzlePieceAuxillaryAxesExample, %s, %f, %f, %d",
+                               contact_manager.c_str(),
+                               initial_planning_time,
+                               accumulated_time / (cnt - 1),
+                               (cnt - 1));
+    }
+  }
 
   // Plot Process Trajectory
   if (plotter_ != nullptr && plotter_->isConnected())

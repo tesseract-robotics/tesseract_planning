@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 28, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -26,7 +24,9 @@
 #include "simple_planner_test_utils.hpp"
 
 #include <tesseract_common/types.h>
+#include <tesseract_common/unit_test_utils.h>
 #include <tesseract_motion_planners/core/types.h>
+#include <tesseract_motion_planners/simple/cereal_serialization.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_no_ik_move_profile.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -48,6 +48,16 @@ using namespace tesseract_planning;
 class TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit : public TesseractPlanningSimplePlannerUnit
 {
 };
+
+TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit, Serialization)  // NOLINT
+{
+  auto profile = std::make_shared<SimplePlannerFixedSizeAssignNoIKMoveProfile>(10, 10);
+  // Serialization
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile,
+                                                  SimplePlannerFixedSizeAssignNoIKMoveProfile>(profile,
+                                                                                               "SimplePlannerFixedSizeA"
+                                                                                               "ssignNoIKMoveProfile");
+}
 
 /**
  * @brief Test Joint-to-Joint movement with NoIK assign behavior for freespace motion

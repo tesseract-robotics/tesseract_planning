@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date February 17, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -76,7 +74,9 @@ bool StateCollisionValidator::isValid(const ompl::base::State* state) const
   mutex_.unlock();
 
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(state);
-  tesseract_common::TransformMap state1 = manip_->calcFwdKin(finish_joints);
+  thread_local tesseract_common::TransformMap state1;
+  state1.clear();
+  manip_->calcFwdKin(state1, finish_joints);
 
   for (const auto& link_name : links_)
     cm->setCollisionObjectsTransform(link_name, state1[link_name]);

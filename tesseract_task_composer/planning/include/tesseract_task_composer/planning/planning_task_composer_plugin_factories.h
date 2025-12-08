@@ -4,8 +4,6 @@
  *
  * @author John Wason
  * @date June 17. 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2023, Wason Technology, LLC
  *

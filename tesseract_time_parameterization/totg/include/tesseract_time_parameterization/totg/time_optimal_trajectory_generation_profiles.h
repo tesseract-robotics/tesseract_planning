@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date May 15, 2025
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2025, Southwest Research Institute
  *
@@ -46,12 +44,6 @@ struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract_common
                                                   double path_tolerance,
                                                   double min_angle_change);
 
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
   /** @brief Indicate if overriding limits, otherwise manipulator limits will be used. */
   bool override_limits{ false };
   /** @brief The min/max velocities for each joint */
@@ -71,14 +63,9 @@ struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract_common
   /** @brief At least one joint must change by greater than this amount for the point to be added. Default: 0.001*/
   double min_angle_change{ 0.001 };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;
+  bool operator!=(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile)
 
 #endif  // TESSERACT_TIME_PARAMETERIZATION_TIME_OPTIMAL_TRAJECTORY_GENERATION_PROFILES_H

@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date April 18, 2018
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2017, Southwest Research Institute
  *
@@ -56,36 +54,42 @@ DescartesCollision::DescartesCollision(const DescartesCollision& collision_inter
 {
 }
 
-tesseract_collision::ContactResultMap DescartesCollision::validate(const Eigen::Ref<const Eigen::VectorXd>& pos)
+bool DescartesCollision::validate(tesseract_collision::ContactResultMap& contact_results,
+                                  tesseract_common::TransformMap& transforms_cache,
+                                  const Eigen::Ref<const Eigen::VectorXd>& pos)
 {
   // Happens in two phases:
   // 1. Compute the transform of all objects
-  tesseract_common::TransformMap state = manip_->calcFwdKin(pos);
+  contact_results.clear();
+  transforms_cache.clear();
+  manip_->calcFwdKin(transforms_cache, pos);
 
   tesseract_collision::ContactRequest contact_request(collision_check_config_.contact_request);
   contact_request.type = tesseract_collision::ContactTestType::FIRST;
 
-  tesseract_collision::ContactResultMap results;
-  tesseract_environment::checkTrajectoryState(results, *contact_manager_, state, contact_request);
-  return results;
+  tesseract_environment::checkTrajectoryState(contact_results, *contact_manager_, transforms_cache, contact_request);
+  return contact_results.empty();
 }
 
-double DescartesCollision::distance(const Eigen::Ref<const Eigen::VectorXd>& pos)
+double DescartesCollision::distance(tesseract_collision::ContactResultMap& contact_results,
+                                    tesseract_common::TransformMap& transforms_cache,
+                                    const Eigen::Ref<const Eigen::VectorXd>& pos)
 {
   // Happens in two phases:
   // 1. Compute the transform of all objects
-  tesseract_common::TransformMap state = manip_->calcFwdKin(pos);
+  contact_results.clear();
+  transforms_cache.clear();
+  manip_->calcFwdKin(transforms_cache, pos);
 
   tesseract_collision::ContactRequest contact_request(collision_check_config_.contact_request);
   contact_request.type = tesseract_collision::ContactTestType::CLOSEST;
 
-  tesseract_collision::ContactResultMap results;
-  tesseract_environment::checkTrajectoryState(results, *contact_manager_, state, contact_request);
+  tesseract_environment::checkTrajectoryState(contact_results, *contact_manager_, transforms_cache, contact_request);
 
-  if (results.empty())
+  if (contact_results.empty())
     return contact_manager_->getCollisionMarginData().getMaxCollisionMargin();
 
-  return results.begin()->second.front().distance;
+  return contact_results.begin()->second.front().distance;
 }
 
 DescartesCollision::Ptr DescartesCollision::clone() const { return std::make_shared<DescartesCollision>(*this); }

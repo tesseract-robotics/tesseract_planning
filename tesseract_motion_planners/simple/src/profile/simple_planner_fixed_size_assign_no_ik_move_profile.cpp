@@ -4,8 +4,6 @@
  *
  * @author Matthew Powelson
  * @date July 23, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -35,7 +33,8 @@
 #include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
-#include <boost/serialization/nvp.hpp>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
@@ -43,6 +42,25 @@ SimplePlannerFixedSizeAssignNoIKMoveProfile::SimplePlannerFixedSizeAssignNoIKMov
                                                                                          int linear_steps)
   : freespace_steps(freespace_steps), linear_steps(linear_steps)
 {
+}
+
+SimplePlannerFixedSizeAssignNoIKMoveProfile::SimplePlannerFixedSizeAssignNoIKMoveProfile(
+    const YAML::Node& config,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : SimplePlannerFixedSizeAssignNoIKMoveProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["freespace_steps"])
+      freespace_steps = n.as<int>();
+    if (YAML::Node n = config["linear_steps"])
+      linear_steps = n.as<int>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("SimplePlannerFixedSizeAssignNoIKMoveProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
 }
 
 std::vector<MoveInstructionPoly> SimplePlannerFixedSizeAssignNoIKMoveProfile::generate(
@@ -126,16 +144,19 @@ std::vector<MoveInstructionPoly> SimplePlannerFixedSizeAssignNoIKMoveProfile::ge
   return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-template <class Archive>
-void SimplePlannerFixedSizeAssignNoIKMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool SimplePlannerFixedSizeAssignNoIKMoveProfile::operator==(
+    const SimplePlannerFixedSizeAssignNoIKMoveProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(SimplePlannerMoveProfile);
-  ar& BOOST_SERIALIZATION_NVP(freespace_steps);
-  ar& BOOST_SERIALIZATION_NVP(linear_steps);
+  bool equal = true;
+  equal &= (freespace_steps == rhs.freespace_steps);
+  equal &= (linear_steps == rhs.linear_steps);
+  return equal;
+}
+
+bool SimplePlannerFixedSizeAssignNoIKMoveProfile::operator!=(
+    const SimplePlannerFixedSizeAssignNoIKMoveProfile& rhs) const
+{
+  return !operator==(rhs);
 }
 
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SimplePlannerFixedSizeAssignNoIKMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SimplePlannerFixedSizeAssignNoIKMoveProfile)

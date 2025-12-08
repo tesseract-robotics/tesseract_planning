@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 12, 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2023, Levi Armstrong
  *
@@ -31,11 +29,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/unit_test_utils.h>
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/test_suite/test_task.h>
-#include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
+#include <tesseract_task_composer/core/cereal_serialization.h>
 
 namespace tesseract_planning::test_suite
 {
@@ -50,11 +49,11 @@ void runTaskComposerNodeInfoTest()
     EXPECT_TRUE(node_info.uuid.is_nil());
     EXPECT_TRUE(node_info.parent_uuid.is_nil());
     EXPECT_EQ(node_info.color, "red");
-    EXPECT_FALSE(node_info.isAborted());
+    EXPECT_FALSE(node_info.aborted);
     EXPECT_EQ(node_info, TaskComposerNodeInfo(node_info));
 
     // Serialization
-    test_suite::runSerializationTest<T>(node_info, "TaskComposerNodeInfoTests");
+    tesseract_common::testSerialization<T>(node_info, "TaskComposerNodeInfoTests");
   }
 
   {  // Constructor
@@ -67,11 +66,11 @@ void runTaskComposerNodeInfoTest()
     EXPECT_EQ(node_info.uuid, node.getUUID());
     EXPECT_EQ(node_info.parent_uuid, node.getParentUUID());
     EXPECT_EQ(node_info.color, "red");
-    EXPECT_FALSE(node_info.isAborted());
+    EXPECT_FALSE(node_info.aborted);
     EXPECT_EQ(node_info, TaskComposerNodeInfo(node_info));
 
     // Serialization
-    test_suite::runSerializationTest<T>(node_info, "TaskComposerNodeInfoTests");
+    tesseract_common::testSerialization<T>(node_info, "TaskComposerNodeInfoTests");
   }
 }
 }  // namespace tesseract_planning::test_suite

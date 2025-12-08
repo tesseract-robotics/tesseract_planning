@@ -19,11 +19,6 @@
  */
 
 #include <tesseract_task_composer/core/task_composer_node_ports.h>
-#include <tesseract_common/serialization.h>
-
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/unordered_map.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
@@ -143,15 +138,4 @@ bool TaskComposerNodePorts::operator==(const TaskComposerNodePorts& rhs) const
 }
 bool TaskComposerNodePorts::operator!=(const TaskComposerNodePorts& rhs) const { return !operator==(rhs); }
 
-template <class Archive>
-void TaskComposerNodePorts::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_NVP(input_required);
-  ar& BOOST_SERIALIZATION_NVP(input_optional);
-  ar& BOOST_SERIALIZATION_NVP(output_required);
-  ar& BOOST_SERIALIZATION_NVP(output_optional);
-}
-
 }  // namespace tesseract_planning
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerNodePorts)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerNodePorts)

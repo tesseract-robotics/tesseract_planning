@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 29. 2022
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2022, Levi Armstrong
  *
@@ -26,19 +24,17 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/version.hpp>
-#if (BOOST_VERSION >= 107400) && (BOOST_VERSION < 107500)
-#include <boost/serialization/library_version_type.hpp>
-#endif
-#include <boost/serialization/unordered_map.hpp>
 #include <mutex>
 #include <console_bridge/console.h>
-#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
+#include <tesseract_task_composer/core/task_composer_keys.h>
+
 namespace tesseract_planning
 {
+TaskComposerDataStorage::TaskComposerDataStorage(std::string name) : name_(std::move(name)) {}
+
 // NOLINTNEXTLINE(cppcoreguidelines-prefer-member-initializer)
 TaskComposerDataStorage::TaskComposerDataStorage(const TaskComposerDataStorage& other)
 {
@@ -173,6 +169,87 @@ bool TaskComposerDataStorage::remapData(const std::map<std::string, std::string>
   return true;
 }
 
+void copyDataHelper(TaskComposerDataStorage& ods,
+                    const TaskComposerDataStorage& ids,
+                    const std::string& lookup_key,
+                    const std::string& storage_key)
+{
+  tesseract_common::AnyPoly entry = ids.getData(lookup_key);
+
+  if (entry.isNull())
+    throw std::runtime_error("TaskComposerDataStorage, unable to copy data for '" + lookup_key + "'");
+
+  ods.setData(storage_key, entry);
+}
+
+void TaskComposerDataStorage::copyAsInputData(const TaskComposerDataStorage& data_storage,
+                                              const TaskComposerKeys& keys,
+                                              const TaskComposerKeys& override_keys)
+{
+  for (const auto& pair : keys.data())
+  {
+    if (pair.second.index() == 0)
+    {
+      const auto& key = std::get<std::string>(pair.second);
+
+      // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
+      // Otherwise use the original key for retrieving the data
+      const std::string& lookup_key = override_keys.has(pair.first) ? override_keys.get<std::string>(pair.first) : key;
+      copyDataHelper(*this, data_storage, lookup_key, key);
+    }
+    else
+    {
+      const auto& keys = std::get<std::vector<std::string>>(pair.second);
+
+      // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
+      // Otherwise use the original key for retrieving the data
+      const std::vector<std::string>& lookup_keys =
+          override_keys.has(pair.first) ? override_keys.get<std::vector<std::string>>(pair.first) : keys;
+
+      if (keys.size() != lookup_keys.size())
+        throw std::runtime_error("TaskComposerDataStorage, unable to copy data for port '" + pair.first +
+                                 "' with override because size is not the same.");
+
+      for (std::size_t i = 0; i < lookup_keys.size(); ++i)
+        copyDataHelper(*this, data_storage, lookup_keys[i], keys[i]);
+    }
+  }
+}
+
+void TaskComposerDataStorage::copyAsOutputData(const TaskComposerDataStorage& data_storage,
+                                               const TaskComposerKeys& keys,
+                                               const TaskComposerKeys& override_keys)
+{
+  for (const auto& pair : keys.data())
+  {
+    if (pair.second.index() == 0)
+    {
+      const auto& key = std::get<std::string>(pair.second);
+
+      // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
+      // Otherwise use the original key for retrieving the data
+      const std::string& storage_key = override_keys.has(pair.first) ? override_keys.get<std::string>(pair.first) : key;
+      copyDataHelper(*this, data_storage, key, storage_key);
+    }
+    else
+    {
+      const auto& keys = std::get<std::vector<std::string>>(pair.second);
+
+      // Check if the port has an override and if so use its key for retrieving the data from the parent data storage.
+      // Otherwise use the original key for retrieving the data
+      const std::vector<std::string>& storage_keys =
+          override_keys.has(pair.first) ? override_keys.get<std::vector<std::string>>(pair.first) : keys;
+
+      if (keys.size() != storage_keys.size())
+        throw std::runtime_error("TaskComposerDataStorage, unable to copy data for port '" + pair.first +
+                                 "' with override because size is not the same.");
+
+      for (std::size_t i = 0; i < keys.size(); ++i)
+        copyDataHelper(*this, data_storage, keys[i], storage_keys[i]);
+    }
+  }
+}
+
 bool TaskComposerDataStorage::operator==(const TaskComposerDataStorage& rhs) const
 {
   std::shared_lock lhs_lock(mutex_, std::defer_lock);
@@ -183,14 +260,4 @@ bool TaskComposerDataStorage::operator==(const TaskComposerDataStorage& rhs) con
 
 bool TaskComposerDataStorage::operator!=(const TaskComposerDataStorage& rhs) const { return !operator==(rhs); }
 
-template <class Archive>
-void TaskComposerDataStorage::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  std::unique_lock lock(mutex_);
-  ar& boost::serialization::make_nvp("name", name_);
-  ar& boost::serialization::make_nvp("data", data_);
-}
-
 }  // namespace tesseract_planning
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerDataStorage)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerDataStorage)

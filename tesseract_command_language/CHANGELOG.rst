@@ -2,6 +2,19 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.33.1 (2025-10-29)
+-------------------
+
+0.33.0 (2025-10-28)
+-------------------
+
+0.32.0 (2025-09-10)
+-------------------
+* Add utility to make time continuously increasing
+* Update message in SetDigitalInstruction
+* Add Set Digital Instruction
+* Contributors: Levi Armstrong
+
 0.31.0 (2025-07-06)
 -------------------
 * Remove PluginLoader and ClassLoader from tesseract_common fwd.h

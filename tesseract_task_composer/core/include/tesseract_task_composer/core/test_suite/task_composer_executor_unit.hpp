@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 12, 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2023, Levi Armstrong
  *
@@ -31,7 +29,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/core/test_suite/task_composer_serialization_utils.hpp>
 #include <tesseract_task_composer/core/task_composer_context.h>
 #include <tesseract_task_composer/core/task_composer_future.h>
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
@@ -55,8 +52,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*task, std::move(data_storage));
+    auto future = executor->run(*task, std::make_shared<TaskComposerContext>(task->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -71,14 +67,11 @@ void runTaskComposerExecutorTest()
     EXPECT_FALSE(task->isConditional());
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 1);
-    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos->getInfoMap().size(), 1);
+    EXPECT_TRUE(future->context->task_infos->getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(executor, "TaskComposerExecutorTests");
   }
 
   tesseract_common::GeneralResourceLocator locator;
@@ -168,8 +161,6 @@ void runTaskComposerExecutorTest()
                                 task: TestPipeline
                                 config:
                                   conditional: false
-                                  remapping:
-                                    input_data: output_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:
@@ -185,8 +176,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*pipeline, std::move(data_storage));
+    auto future = executor->run(*pipeline, std::make_shared<TaskComposerContext>(pipeline->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -211,14 +201,11 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task2->getOutboundEdges().size(), 0);
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 6);
-    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos->getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->task_infos->getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(executor, "TaskComposerExecutorTests");
   }
 
   {  // Graph with child pipeline task not conditional
@@ -229,8 +216,6 @@ void runTaskComposerExecutorTest()
                                 task: TestPipeline
                                 config:
                                   conditional: false
-                                  remapping:
-                                    input_data: output_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:
@@ -246,8 +231,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*graph, std::move(data_storage));
+    auto future = executor->run(*graph, std::make_shared<TaskComposerContext>(graph->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -272,14 +256,11 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task2->getOutboundEdges().size(), 0);
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 6);
-    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos->getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->task_infos->getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(executor, "TaskComposerExecutorTests");
   }
 
   {  // Graph with child pipeline task conditional
@@ -290,8 +271,6 @@ void runTaskComposerExecutorTest()
                                 task: TestPipeline
                                 config:
                                   conditional: true
-                                  remapping:
-                                    input_data: output_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:
@@ -311,8 +290,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*graph, std::move(data_storage));
+    auto future = executor->run(*graph, std::make_shared<TaskComposerContext>(graph->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -342,14 +320,11 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task3->getOutboundEdges().size(), 0);
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 6);
-    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos->getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->task_infos->getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(executor, "TaskComposerExecutorTests");
   }
 
   {  // Graph with child graph task
@@ -360,8 +335,6 @@ void runTaskComposerExecutorTest()
                                 task: TestGraph
                                 config:
                                   conditional: false
-                                  remapping:
-                                    input_data: output_data
                               DoneTask:
                                 class: DoneTaskFactory
                                 config:
@@ -377,8 +350,7 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(executor->getWorkerCount(), 3);
     EXPECT_EQ(executor->getTaskCount(), 0);
 
-    auto data_storage = std::make_unique<TaskComposerDataStorage>();
-    auto future = executor->run(*graph, std::move(data_storage));
+    auto future = executor->run(*graph, std::make_shared<TaskComposerContext>(graph->getName()));
     future->wait();
     EXPECT_TRUE(future->valid());
     EXPECT_TRUE(future->ready());
@@ -403,14 +375,11 @@ void runTaskComposerExecutorTest()
     EXPECT_EQ(task2->getOutboundEdges().size(), 0);
     EXPECT_EQ(future->context->isAborted(), false);
     EXPECT_EQ(future->context->isSuccessful(), true);
-    EXPECT_EQ(future->context->task_infos.getInfoMap().size(), 6);
-    EXPECT_TRUE(future->context->task_infos.getAbortingNode().is_nil());
+    EXPECT_EQ(future->context->task_infos->getInfoMap().size(), 6);
+    EXPECT_TRUE(future->context->task_infos->getAbortingNode().is_nil());
 
     future->clear();
     EXPECT_FALSE(future->valid());
-
-    // Serialization
-    test_suite::runSerializationPointerTest(executor, "TaskComposerExecutorTests");
   }
 }
 }  // namespace tesseract_planning::test_suite

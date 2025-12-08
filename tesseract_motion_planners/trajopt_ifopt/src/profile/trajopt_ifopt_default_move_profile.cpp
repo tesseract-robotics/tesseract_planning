@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -28,8 +26,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_sqp/qp_problem.h>
 #include <trajopt_ifopt/variable_sets/joint_position_variable.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
+#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_move_profile.h>
@@ -38,6 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/joint_state.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_common/manipulator_info.h>
+#include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/utils.h>
@@ -47,8 +45,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
-
-#include <tesseract_common/eigen_serialization.h>
+#include <tesseract_motion_planners/trajopt_ifopt/yaml_extensions.h>
 
 namespace tesseract_planning
 {
@@ -56,6 +53,32 @@ TrajOptIfoptDefaultMoveProfile::TrajOptIfoptDefaultMoveProfile()
 {
   cartesian_cost_config.enabled = false;
   joint_cost_config.enabled = false;
+}
+
+TrajOptIfoptDefaultMoveProfile::TrajOptIfoptDefaultMoveProfile(
+    const YAML::Node& config,
+    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : TrajOptIfoptDefaultMoveProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["cartesian_cost_config"])
+      cartesian_cost_config = n.as<tesseract_planning::TrajOptIfoptCartesianWaypointConfig>();
+
+    if (YAML::Node n = config["cartesian_constraint_config"])
+      cartesian_constraint_config = n.as<tesseract_planning::TrajOptIfoptCartesianWaypointConfig>();
+
+    if (YAML::Node n = config["joint_cost_config"])
+      joint_cost_config = n.as<tesseract_planning::TrajOptIfoptJointWaypointConfig>();
+
+    if (YAML::Node n = config["joint_constraint_config"])
+      joint_constraint_config = n.as<tesseract_planning::TrajOptIfoptJointWaypointConfig>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("TrajOptIfoptDefaultMoveProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
 }
 
 TrajOptIfoptWaypointInfo
@@ -222,18 +245,19 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
   return info;
 }
 
-template <class Archive>
-void TrajOptIfoptDefaultMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool TrajOptIfoptDefaultMoveProfile::operator==(const TrajOptIfoptDefaultMoveProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TrajOptIfoptMoveProfile);
-  ar& BOOST_SERIALIZATION_NVP(cartesian_cost_config);
-  ar& BOOST_SERIALIZATION_NVP(cartesian_constraint_config);
-  ar& BOOST_SERIALIZATION_NVP(joint_cost_config);
-  ar& BOOST_SERIALIZATION_NVP(joint_constraint_config);
+  bool equal = true;
+  equal &= (cartesian_cost_config == rhs.cartesian_cost_config);
+  equal &= (cartesian_constraint_config == rhs.cartesian_constraint_config);
+  equal &= (joint_cost_config == rhs.joint_cost_config);
+  equal &= (joint_constraint_config == rhs.joint_constraint_config);
+  return equal;
+}
+
+bool TrajOptIfoptDefaultMoveProfile::operator!=(const TrajOptIfoptDefaultMoveProfile& rhs) const
+{
+  return !operator==(rhs);
 }
 
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TrajOptIfoptDefaultMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TrajOptIfoptDefaultMoveProfile)

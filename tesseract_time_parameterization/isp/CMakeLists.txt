@@ -1,6 +1,6 @@
-add_library(${PROJECT_NAME}_isp src/iterative_spline_parameterization.cpp
+add_library(${PROJECT_NAME}_isp src/cereal_serialization.cpp src/iterative_spline_parameterization.cpp
                                 src/iterative_spline_parameterization_profiles.cpp)
-target_link_libraries(${PROJECT_NAME}_isp PUBLIC ${PROJECT_NAME}_core)
+target_link_libraries(${PROJECT_NAME}_isp PUBLIC ${PROJECT_NAME}_core cereal::cereal)
 target_include_directories(${PROJECT_NAME}_isp PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                       "$<INSTALL_INTERFACE:include>")
 target_compile_options(${PROJECT_NAME}_isp PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
@@ -28,7 +28,7 @@ configure_component(
   COMPONENT isp
   NAMESPACE tesseract
   TARGETS ${PROJECT_NAME}_isp
-  DEPENDENCIES "tesseract_time_parameterization COMPONENTS core")
+  DEPENDENCIES "tesseract_time_parameterization COMPONENTS core" cereal)
 
 if(TESSERACT_PACKAGE)
   cpack_component(

@@ -3,8 +3,6 @@
  *
  * @author Levi Armstrong
  * @date June 26, 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2023, Levi Armstrong
  *
@@ -358,6 +356,44 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
       transition.push_back(plan_f1);
       program.push_back(transition);
     }
+  }
+
+  return program;
+}
+
+inline CompositeInstruction rasterSegmentsOnlyExampleProgram(const std::string& freespace_profile = DEFAULT_PROFILE_KEY,
+                                                             const std::string& process_profile = "PROCESS")
+{
+  CompositeInstruction program(DEFAULT_PROFILE_KEY, ManipulatorInfo("manipulator", "base_link", "tool0"));
+
+  for (int i = 0; i < 4; ++i)
+  {
+    double x = 0.8 + (i * 0.1);
+    CartesianWaypoint wp1(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.3, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp2(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.2, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp3(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.1, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp4(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp5(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp6(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypoint wp7(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *
+                          Eigen::Quaterniond(0, 0, -1.0, 0));
+
+    CompositeInstruction raster_segment(process_profile);
+    raster_segment.setDescription("Raster #" + std::to_string(i + 1));
+    raster_segment.push_back(MoveInstruction(wp1, MoveInstructionType::LINEAR, freespace_profile));
+    raster_segment.push_back(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
+    raster_segment.push_back(MoveInstruction(wp3, MoveInstructionType::LINEAR, process_profile));
+    raster_segment.push_back(MoveInstruction(wp4, MoveInstructionType::LINEAR, process_profile));
+    raster_segment.push_back(MoveInstruction(wp5, MoveInstructionType::LINEAR, process_profile));
+    raster_segment.push_back(MoveInstruction(wp6, MoveInstructionType::LINEAR, process_profile));
+    raster_segment.push_back(MoveInstruction(wp7, MoveInstructionType::LINEAR, process_profile));
+    program.push_back(raster_segment);
   }
 
   return program;

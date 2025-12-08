@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date August 20, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -33,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <benchmark/benchmark.h>
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/any_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/cartesian_waypoint.h>

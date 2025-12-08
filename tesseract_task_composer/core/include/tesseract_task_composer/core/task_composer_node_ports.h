@@ -24,9 +24,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <unordered_map>
 #include <string>
-
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
@@ -56,14 +53,8 @@ struct TaskComposerNodePorts
 
   bool operator==(const TaskComposerNodePorts& rhs) const;
   bool operator!=(const TaskComposerNodePorts& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerNodePorts)
+
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_PORTS_H

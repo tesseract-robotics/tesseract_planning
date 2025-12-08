@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date March 16, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -44,6 +42,8 @@ int main(int /*argc*/, char** /*argv*/)
   auto env = std::make_shared<Environment>();
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
+
+  CONSOLE_BRIDGE_logInform("freespace OMPL plan example");
 
   FreespaceOMPLExample example(env, nullptr);
   if (!example.run())

@@ -2,6 +2,34 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.33.1 (2025-10-29)
+-------------------
+* Update raster tasks to use correct parent data storage
+* Add expected key override
+* Contributors: Levi Armstrong
+
+0.33.0 (2025-10-28)
+-------------------
+* Remove renaming and indexing (`#674 <https://github.com/tesseract-robotics/tesseract_planning/issues/674>`_)
+* Add solver settings to fix state collision task (`#672 <https://github.com/tesseract-robotics/tesseract_planning/issues/672>`_)
+* Update based on changes in boost plugin loaders latest release
+* Add and leverage nested data storage to avoid key reuse issues (`#673 <https://github.com/tesseract-robotics/tesseract_planning/issues/673>`_)
+  * Add and leverage nested data storage to avoid key reuse issues
+  * Remove task name from keys in raster tasks
+  * Abort when exception is thrown
+* Add For Each Task (`#670 <https://github.com/tesseract-robotics/tesseract_planning/issues/670>`_)
+* Contributors: Levi Armstrong, Tyler Marr
+
+0.32.0 (2025-09-10)
+-------------------
+* Print a collision summary to status of failed contact check (`#543 <https://github.com/tesseract-robotics/tesseract_planning/issues/543>`_)
+* Add trajopt collision coefficients to fix state collision profile (`#655 <https://github.com/tesseract-robotics/tesseract_planning/issues/655>`_)
+* Improve memory allocations
+* Added Profiles constructors for YAML conversions (`#652 <https://github.com/tesseract-robotics/tesseract_planning/issues/652>`_)
+* Add trajopt joint configs for fix state collision task (`#637 <https://github.com/tesseract-robotics/tesseract_planning/issues/637>`_)
+* Fix missing export in kinematic_limits_check_task.h
+* Contributors: John Wason, Levi Armstrong, Samantha Smith, Tyler Marr
+
 0.31.0 (2025-07-06)
 -------------------
 * Fix yaml extensions file name spelling

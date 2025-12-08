@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -24,28 +22,24 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/descartes/impl/profile/descartes_ladder_graph_solver_profile.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
 
 namespace tesseract_planning
 {
+template <typename FloatType>
+bool DescartesLadderGraphSolverProfile<FloatType>::operator==(
+    const DescartesLadderGraphSolverProfile<FloatType>& rhs) const
+{
+  return (num_threads == rhs.num_threads);
+}
+
+template <typename FloatType>
+bool DescartesLadderGraphSolverProfile<FloatType>::operator!=(
+    const DescartesLadderGraphSolverProfile<FloatType>& rhs) const
+{
+  return !operator==(rhs);
+}
+
 // Explicit template instantiation
 template class DescartesLadderGraphSolverProfile<float>;
 template class DescartesLadderGraphSolverProfile<double>;
-
-template <typename FloatType>
-template <class Archive>
-void DescartesLadderGraphSolverProfile<FloatType>::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("DescartesSolverProfile",
-                                     boost::serialization::base_object<DescartesSolverProfile<FloatType>>(*this));
-  ar& BOOST_SERIALIZATION_NVP(num_threads);
-}
-
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesLadderGraphSolverProfile<float>)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesLadderGraphSolverProfile<float>)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DescartesLadderGraphSolverProfile<double>)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DescartesLadderGraphSolverProfile<double>)

@@ -4,8 +4,6 @@
  *
  * @author Roelof Oomen
  * @date July 16, 2025
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -27,7 +25,9 @@
 
 #include <gtest/gtest.h>
 #include <tesseract_common/types.h>
+#include <tesseract_common/unit_test_utils.h>
 #include <tesseract_motion_planners/core/types.h>
+#include <tesseract_motion_planners/simple/cereal_serialization.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_assign_no_ik_move_profile.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -50,6 +50,14 @@ using namespace tesseract_planning;
 class TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit : public TesseractPlanningSimplePlannerUnit
 {
 };
+
+TEST_F(TesseractPlanningSimplePlannerLVSAssignNoIKMoveProfileUnit, Serialization)  // NOLINT
+{
+  auto profile = std::make_shared<SimplePlannerLVSAssignNoIKMoveProfile>(3.14, 0.5, 1.57, 5);
+  // Serialization
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, SimplePlannerLVSAssignNoIKMoveProfile>(
+      profile, "SimplePlannerLVSAssignNoIKMoveProfile");
+}
 
 /**
  * @brief Test Joint-to-Cartesian movement with NoIK behavior

@@ -20,72 +20,78 @@
  */
 
 #include <tesseract_time_parameterization/isp/iterative_spline_parameterization_profiles.h>
-#include <tesseract_common/serialization.h>
-#include <tesseract_common/eigen_serialization.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
-#include <typeindex>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
 IterativeSplineParameterizationCompositeProfile::IterativeSplineParameterizationCompositeProfile()
-  : Profile(IterativeSplineParameterizationCompositeProfile::getStaticKey())
+  : Profile(createKey<IterativeSplineParameterizationCompositeProfile>())
 {
 }
 IterativeSplineParameterizationCompositeProfile::IterativeSplineParameterizationCompositeProfile(
     double max_velocity_scaling_factor,
     double max_acceleration_scaling_factor)
-  : Profile(IterativeSplineParameterizationCompositeProfile::getStaticKey())
+  : Profile(createKey<IterativeSplineParameterizationCompositeProfile>())
   , max_velocity_scaling_factor(max_velocity_scaling_factor)
   , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
 {
 }
 
-std::size_t IterativeSplineParameterizationCompositeProfile::getStaticKey()
+bool IterativeSplineParameterizationCompositeProfile::operator==(
+    const IterativeSplineParameterizationCompositeProfile& rhs) const
 {
-  return std::type_index(typeid(IterativeSplineParameterizationCompositeProfile)).hash_code();
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= (add_points == rhs.add_points);
+  equal &= (override_limits == rhs.override_limits);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_limits.col(0), rhs.velocity_limits.col(0), max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_limits.col(1), rhs.velocity_limits.col(1), max_diff);
+  equal &=
+      tesseract_common::almostEqualRelativeAndAbs(acceleration_limits.col(0), rhs.acceleration_limits.col(0), max_diff);
+  equal &=
+      tesseract_common::almostEqualRelativeAndAbs(acceleration_limits.col(1), rhs.acceleration_limits.col(1), max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_velocity_scaling_factor, rhs.max_velocity_scaling_factor, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_acceleration_scaling_factor, rhs.max_acceleration_scaling_factor, max_diff);
+  return equal;
 }
 
-template <class Archive>
-void IterativeSplineParameterizationCompositeProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool IterativeSplineParameterizationCompositeProfile::operator!=(
+    const IterativeSplineParameterizationCompositeProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(add_points);
-  ar& BOOST_SERIALIZATION_NVP(override_limits);
-  ar& BOOST_SERIALIZATION_NVP(velocity_limits);
-  ar& BOOST_SERIALIZATION_NVP(max_velocity_scaling_factor);
-  ar& BOOST_SERIALIZATION_NVP(max_acceleration_scaling_factor);
+  return !operator==(rhs);
 }
 
 IterativeSplineParameterizationMoveProfile::IterativeSplineParameterizationMoveProfile()
-  : Profile(IterativeSplineParameterizationMoveProfile::getStaticKey())
+  : Profile(createKey<IterativeSplineParameterizationMoveProfile>())
 {
 }
 IterativeSplineParameterizationMoveProfile::IterativeSplineParameterizationMoveProfile(
     double max_velocity_scaling_factor,
     double max_acceleration_scaling_factor)
-  : Profile(IterativeSplineParameterizationMoveProfile::getStaticKey())
+  : Profile(createKey<IterativeSplineParameterizationMoveProfile>())
   , max_velocity_scaling_factor(max_velocity_scaling_factor)
   , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
 {
 }
 
-std::size_t IterativeSplineParameterizationMoveProfile::getStaticKey()
+bool IterativeSplineParameterizationMoveProfile::operator==(const IterativeSplineParameterizationMoveProfile& rhs) const
 {
-  return std::type_index(typeid(IterativeSplineParameterizationMoveProfile)).hash_code();
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_velocity_scaling_factor, rhs.max_velocity_scaling_factor, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(
+      max_acceleration_scaling_factor, rhs.max_acceleration_scaling_factor, max_diff);
+  return equal;
 }
 
-template <class Archive>
-void IterativeSplineParameterizationMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool IterativeSplineParameterizationMoveProfile::operator!=(const IterativeSplineParameterizationMoveProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(max_velocity_scaling_factor);
-  ar& BOOST_SERIALIZATION_NVP(max_acceleration_scaling_factor);
+  return !operator==(rhs);
 }
 
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::IterativeSplineParameterizationCompositeProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::IterativeSplineParameterizationCompositeProfile)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::IterativeSplineParameterizationMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::IterativeSplineParameterizationMoveProfile)

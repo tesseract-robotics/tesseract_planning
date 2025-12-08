@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 22, 2019
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2017, Southwest Research Institute
  *
@@ -88,8 +86,9 @@ namespace tesseract_examples
 GlassUprightExample::GlassUprightExample(std::shared_ptr<tesseract_environment::Environment> env,
                                          std::shared_ptr<tesseract_visualization::Visualization> plotter,
                                          bool ifopt,
-                                         bool debug)
-  : Example(std::move(env), std::move(plotter)), ifopt_(ifopt), debug_(debug)
+                                         bool debug,
+                                         bool benchmark)
+  : Example(std::move(env), std::move(plotter)), ifopt_(ifopt), debug_(debug), benchmark_(benchmark)
 {
 }
 
@@ -162,9 +161,6 @@ bool GlassUprightExample::run()
   else
     console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
 
-  // Solve Trajectory
-  CONSOLE_BRIDGE_logInform("glass upright plan example");
-
   // Create Task Composer Plugin Factory
   std::shared_ptr<const tesseract_common::ResourceLocator> locator = env_->getResourceLocator();
   std::filesystem::path config_path(
@@ -191,10 +187,8 @@ bool GlassUprightExample::run()
   program.push_back(plan_f0);
 
   // Print Diagnostics
-  program.print("Program: ");
-
-  // Create Executor
-  auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
+  if (debug_)
+    program.print("Program: ");
 
   // Create profile dictionary
   auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
@@ -267,23 +261,71 @@ bool GlassUprightExample::run()
   TaskComposerNode::UPtr task = factory.createTaskComposerNode(task_name);
   const std::string output_key = task->getOutputKeys().get("program");
 
-  // Create Task Composer Data Storage
-  auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
-  data->setData("planning_input", program);
-  data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
-  data->setData("profiles", profiles);
-
   if (plotter_ != nullptr && plotter_->isConnected())
     plotter_->waitForInput("Hit Enter to solve for trajectory.");
 
-  // Solve process plan
-  tesseract_common::Stopwatch stopwatch;
-  stopwatch.start();
-  TaskComposerFuture::UPtr future = executor->run(*task, std::move(data));
-  future->wait();
+  // Solve task
+  TaskComposerFuture::UPtr future;
+  if (!benchmark_)
+  {
+    // Create Executor
+    auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
-  stopwatch.stop();
-  CONSOLE_BRIDGE_logInform("Planning took %f seconds.", stopwatch.elapsedSeconds());
+    // Create Task Composer Data Storage
+    auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+    data->setData("planning_input", program);
+    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    data->setData("profiles", profiles);
+
+    tesseract_common::Stopwatch stopwatch;
+    stopwatch.start();
+    auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+    future = executor->run(*task, std::move(context));
+    future->wait();
+    stopwatch.stop();
+    CONSOLE_BRIDGE_logInform("Planning took %f seconds.", stopwatch.elapsedSeconds());
+  }
+  else
+  {
+    const int cnt{ 100 };
+    std::vector<std::string> contact_managers{ "BulletDiscreteBVHManager", "BulletDiscreteSimpleManager" };
+
+    for (const auto& contact_manager : contact_managers)
+    {
+      // Create Executor
+      auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
+
+      double initial_planning_time{ 0 };
+      double accumulated_time{ 0 };
+      for (int i = 0; i < cnt; ++i)
+      {
+        // Set the active contact manager
+        env_->setActiveDiscreteContactManager(contact_manager);
+
+        // Create Task Composer Data Storage
+        auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+        data->setData("planning_input", program);
+        data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+        data->setData("profiles", profiles);
+
+        tesseract_common::Stopwatch stopwatch;
+        stopwatch.start();
+        auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+        future = executor->run(*task, std::move(context));
+        future->wait();
+        stopwatch.stop();
+        if (i == 0)
+          initial_planning_time = stopwatch.elapsedSeconds();
+        else
+          accumulated_time += stopwatch.elapsedSeconds();
+      }
+      CONSOLE_BRIDGE_logInform("GlassUprightExample, %s, %f, %f, %d",
+                               contact_manager.c_str(),
+                               initial_planning_time,
+                               accumulated_time / (cnt - 1),
+                               (cnt - 1));
+    }
+  }
 
   // Plot Process Trajectory
   if (plotter_ != nullptr && plotter_->isConnected())

@@ -15,19 +15,7 @@ find_package(tesseract_kinematics REQUIRED COMPONENTS core)
 find_package(tesseract_environment REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 find_package(Eigen3 REQUIRED)
-
-if(NOT TARGET console_bridge::console_bridge)
-  add_library(console_bridge::console_bridge INTERFACE IMPORTED)
-  set_target_properties(console_bridge::console_bridge PROPERTIES INTERFACE_INCLUDE_DIRECTORIES
-                                                                  ${console_bridge_INCLUDE_DIRS})
-  set_target_properties(console_bridge::console_bridge PROPERTIES INTERFACE_LINK_LIBRARIES ${console_bridge_LIBRARIES})
-else()
-  get_target_property(CHECK_INCLUDE_DIRECTORIES console_bridge::console_bridge INTERFACE_INCLUDE_DIRECTORIES)
-  if(NOT ${CHECK_INCLUDE_DIRECTORIES})
-    set_target_properties(console_bridge::console_bridge PROPERTIES INTERFACE_INCLUDE_DIRECTORIES
-                                                                    ${console_bridge_INCLUDE_DIRS})
-  endif()
-endif()
+find_package(cereal REQUIRED)
 
 # Load variable for clang tidy args, compiler options and cxx version
 tesseract_variables()
@@ -36,7 +24,11 @@ initialize_code_coverage(ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 set(COVERAGE_EXCLUDE
     /usr/*
     /opt/*
-    ${CMAKE_CURRENT_LIST_DIR}/test/*
+    ${CMAKE_CURRENT_LIST_DIR}/core/test/*
+    ${CMAKE_CURRENT_LIST_DIR}/isp/test/*
+    ${CMAKE_CURRENT_LIST_DIR}/kdl/test/*
+    ${CMAKE_CURRENT_LIST_DIR}/ruckig/test/*
+    ${CMAKE_CURRENT_LIST_DIR}/totg/test/*
     /*/install/*
     /*/devel/*
     /*/gtest/*)

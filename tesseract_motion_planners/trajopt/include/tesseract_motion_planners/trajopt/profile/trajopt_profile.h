@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -41,12 +39,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/fwd.h>
 #include <tesseract_common/profile.h>
 
-namespace boost::serialization
-{
-template <class Archive>
-void serialize(Archive& ar, sco::BasicTrustRegionSQPParameters& params, const unsigned int version);  // NOLINT
-}  // namespace boost::serialization
-
 namespace tesseract_planning
 {
 /** @brief Structure to store TrajOpt cost and constrant term infos */
@@ -77,18 +69,6 @@ public:
                                      const std::shared_ptr<const tesseract_environment::Environment>& env,
                                      const std::vector<std::string>& active_links,
                                      int index) const = 0;
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 class TrajOptCompositeProfile : public tesseract_common::Profile
@@ -104,18 +84,6 @@ public:
                                   const std::vector<int>& fixed_indices,
                                   int start_index,
                                   int end_index) const = 0;
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 class TrajOptSolverProfile : public tesseract_common::Profile
@@ -126,8 +94,14 @@ public:
 
   TrajOptSolverProfile();
 
-  /** @brief Optimization paramters */
+  /** @brief Optimization parameters */
   sco::BasicTrustRegionSQPParameters opt_params;
+
+  /**
+   * @brief Optimization callbacks
+   * @note This is not serialized
+   */
+  std::vector<sco::Optimizer::Callback> callbacks;
 
   /** @brief Get the convex solver to use */
   virtual sco::ModelType getSolverType() const = 0;
@@ -140,24 +114,8 @@ public:
 
   /** @brief Optimization callbacks */
   virtual std::vector<sco::Optimizer::Callback> createOptimizationCallbacks() const;
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptMoveProfile)
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptCompositeProfile)
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::TrajOptSolverProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_PROFILE_H

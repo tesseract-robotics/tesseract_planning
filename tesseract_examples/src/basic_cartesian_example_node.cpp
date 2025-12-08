@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 22, 2019
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2017, Southwest Research Institute
  *
@@ -45,7 +43,9 @@ int main(int /*argc*/, char** /*argv*/)
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
 
-  BasicCartesianExample example(env, nullptr, false, true);
+  CONSOLE_BRIDGE_logInform("basic cartesian plan example");
+
+  BasicCartesianExample example(env, nullptr, false, false);
   if (!example.run())
   {
     CONSOLE_BRIDGE_logError("BasicCartesianExample failed");

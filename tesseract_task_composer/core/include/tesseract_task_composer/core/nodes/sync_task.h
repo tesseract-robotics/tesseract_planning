@@ -3,8 +3,6 @@
  *
  * @author Levi Armstrong
  * @date August 13, 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2023, Plectix Robotics
  *
@@ -24,12 +22,6 @@
  */
 #ifndef TESSERACT_TASK_COMPOSER_SYNC_TASK_H
 #define TESSERACT_TASK_COMPOSER_SYNC_TASK_H
-
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
 
@@ -58,21 +50,11 @@ public:
   explicit SyncTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~SyncTask() override = default;
 
-  bool operator==(const SyncTask& rhs) const;
-  bool operator!=(const SyncTask& rhs) const;
-
 private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
-
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::SyncTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_SYNC_TASK_H

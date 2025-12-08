@@ -39,8 +39,11 @@
 #include <gtest/gtest.h>
 #include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation.h>
 #include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
+#include <tesseract_time_parameterization/totg/cereal_serialization.h>
 #include <tesseract_common/resource_locator.h>
 #include <tesseract_common/profile_dictionary.h>
+#include <tesseract_common/unit_test_utils.h>
+#include <tesseract_common/serialization.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
@@ -312,6 +315,15 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testLargeAccel)  // NOLINT
 //  EXPECT_TRUE(trajectory.isValid());
 //}
 
+TEST_F(TimeOptimalTrajectoryGenerationUnit, profileConstructor)  // NOLINT
+{
+  tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile profile(3, 5, 0.001, 0.1);
+  EXPECT_NEAR(profile.max_velocity_scaling_factor, 3, 1e-6);
+  EXPECT_NEAR(profile.max_acceleration_scaling_factor, 5, 1e-6);
+  EXPECT_NEAR(profile.path_tolerance, 0.001, 1e-6);
+  EXPECT_NEAR(profile.min_angle_change, 0.1, 1e-6);
+}
+
 TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NOLINT
 {
   tesseract_planning::CompositeInstruction program;
@@ -363,13 +375,22 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NO
   profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
   profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
 
+  // Serialization
+  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile,
+                                                  tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile>(
+      profile, "testCommandLanguageInterface");
+
   // Profile Dictionary
   tesseract_common::ProfileDictionary profiles;
-  ;
   profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
   TimeOptimalTrajectoryGeneration solver(name_);
+  EXPECT_EQ(solver.getName(), name_);
   EXPECT_TRUE(solver.compute(program, *env_, profiles));
+
+  // Error
+  std::string empty_name;
+  EXPECT_ANY_THROW(TimeOptimalTrajectoryGeneration(std::move(empty_name)));  // NOLINT
 }
 
 // Initialize one-joint, straight-line trajectory

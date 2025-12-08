@@ -4,8 +4,6 @@
  *
  * @author Matthew Powelson
  * @date August 31. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -27,11 +25,8 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
 
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/profile_dictionary.h>
-
 #include <tesseract_environment/environment.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -103,7 +98,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
   // --------------------
   // Check that inputs are valid
   // --------------------
-  tesseract_common::AnyPoly env_poly = getData(*context.data_storage, INPUT_ENVIRONMENT_PORT);
+  tesseract_common::AnyPoly env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
   if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
   {
     info.status_code = 0;
@@ -114,7 +109,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
   }
   auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
 
-  auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info.status_message = "Input instruction to FixStateBounds must be a composite instruction";
@@ -124,8 +119,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
 
   tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
 
-  auto profiles =
-      getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   auto& ci = input_data_poly.as<CompositeInstruction>();
   const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
   auto joint_group = env->getJointGroup(manip_info.manipulator);
@@ -155,7 +149,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
               // If the output key is not the same as the input key the output data should be assigned the input data
               // for error branching
               if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
-                setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
+                setData(context, INOUT_PROGRAM_PORT, original_input_data_poly);
 
               info.status_message = "Failed to clamp to joint limits";
               return info;
@@ -181,7 +175,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
               // If the output key is not the same as the input key the output data should be assigned the input data
               // for error branching
               if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
-                setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
+                setData(context, INOUT_PROGRAM_PORT, original_input_data_poly);
 
               info.status_message = "Failed to clamp to joint limits";
               return info;
@@ -199,7 +193,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
         // If the output key is not the same as the input key the output data should be assigned the input data for
         // error branching
         if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
-          setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
+          setData(context, INOUT_PROGRAM_PORT, original_input_data_poly);
 
         info.color = "green";
         info.status_code = 1;
@@ -230,7 +224,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
             // If the output key is not the same as the input key the output data should be assigned the input data for
             // error branching
             if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
-              setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
+              setData(context, INOUT_PROGRAM_PORT, original_input_data_poly);
 
             info.status_message = "Failed to clamp to joint limits";
             return info;
@@ -244,7 +238,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
       // If the output key is not the same as the input key the output data should be assigned the input data for
       // error branching
       if (output_keys_.get(INOUT_PROGRAM_PORT) != input_keys_.get(INOUT_PROGRAM_PORT))
-        setData(*context.data_storage, INOUT_PROGRAM_PORT, original_input_data_poly);
+        setData(context, INOUT_PROGRAM_PORT, original_input_data_poly);
 
       info.color = "yellow";
       info.status_code = 1;
@@ -254,7 +248,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
     }
   }
 
-  setData(*context.data_storage, INOUT_PROGRAM_PORT, input_data_poly);
+  setData(context, INOUT_PROGRAM_PORT, input_data_poly);
 
   info.color = "green";
   info.status_code = 1;
@@ -264,16 +258,4 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-bool FixStateBoundsTask::operator==(const FixStateBoundsTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
-bool FixStateBoundsTask::operator!=(const FixStateBoundsTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void FixStateBoundsTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FixStateBoundsTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FixStateBoundsTask)

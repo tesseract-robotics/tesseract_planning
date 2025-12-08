@@ -4,8 +4,6 @@
  *
  * @author Matthew Powelson
  * @date August 31. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -33,6 +31,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile.h>
+#include <tesseract_common/fwd.h>
+
+namespace YAML
+{
+class Node;
+}
 
 namespace tesseract_planning
 {
@@ -50,12 +54,7 @@ struct FixStateBoundsProfile : public tesseract_common::Profile
   };
 
   FixStateBoundsProfile(Settings mode = Settings::ALL);
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
+  FixStateBoundsProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /** @brief Sets which terms will be corrected  */
   Settings mode;
@@ -69,14 +68,9 @@ struct FixStateBoundsProfile : public tesseract_common::Profile
   /** @brief Amount to increase the lower bounds before clamping limits. Should be > 1 */
   double lower_bounds_reduction{ std::numeric_limits<float>::epsilon() };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const FixStateBoundsProfile& rhs) const;
+  bool operator!=(const FixStateBoundsProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::FixStateBoundsProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_BOUNDS_PROFILE_H

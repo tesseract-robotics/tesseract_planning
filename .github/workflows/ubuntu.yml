@@ -25,7 +25,7 @@ jobs:
       minor: ${{ steps.extract_tag.outputs.minor }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0  # Ensure all history and tags are fetched
 
@@ -50,7 +50,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distro: [focal, jammy, noble]
+        distro: [jammy, noble]
     container:
       image: ghcr.io/tesseract-robotics/trajopt:${{ matrix.distro }}-${{ needs.get-tag.outputs.major }}.${{ needs.get-tag.outputs.minor }}
       env:
@@ -59,7 +59,7 @@ jobs:
         TZ: Etc/UTC
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: target_ws/src
 

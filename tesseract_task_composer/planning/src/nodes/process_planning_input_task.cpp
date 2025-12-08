@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date November 2. 2021
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2021, Southwest Research Institute
  *
@@ -27,8 +25,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-
-#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/process_planning_input_task.h>
@@ -80,7 +76,7 @@ TaskComposerNodeInfo ProcessPlanningInputTask::runImpl(TaskComposerContext& cont
                                                        OptionalTaskComposerExecutor /*executor*/) const
 {
   TaskComposerNodeInfo info(*this);
-  auto planning_input_poly = getData(*context.data_storage, INPUT_PLANNING_INPUT_PORT);
+  auto planning_input_poly = getData(context, INPUT_PLANNING_INPUT_PORT);
   if (planning_input_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info.color = "red";
@@ -93,7 +89,7 @@ TaskComposerNodeInfo ProcessPlanningInputTask::runImpl(TaskComposerContext& cont
     return info;
   }
 
-  setData(*context.data_storage, OUTPUT_PROGRAM_PORT, planning_input_poly.as<CompositeInstruction>());
+  setData(context, OUTPUT_PROGRAM_PORT, planning_input_poly.as<CompositeInstruction>());
 
   info.color = "green";
   info.status_code = 1;
@@ -102,19 +98,4 @@ TaskComposerNodeInfo ProcessPlanningInputTask::runImpl(TaskComposerContext& cont
   return info;
 }
 
-bool ProcessPlanningInputTask::operator==(const ProcessPlanningInputTask& rhs) const
-{
-  return (TaskComposerTask::operator==(rhs));
-}
-bool ProcessPlanningInputTask::operator!=(const ProcessPlanningInputTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void ProcessPlanningInputTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ProcessPlanningInputTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ProcessPlanningInputTask)

@@ -1,14 +1,11 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/unique_ptr.hpp>
 #include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_common/serialization.h>
 
 namespace tesseract_planning
 {
@@ -18,11 +15,6 @@ bool InstructionInterface::operator==(const InstructionInterface& rhs) const { r
 // LCOV_EXCL_START
 bool InstructionInterface::operator!=(const InstructionInterface& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
-
-template <class Archive>
-void InstructionInterface::serialize(Archive& /*ar*/, const unsigned int /*version*/)
-{
-}
 
 InstructionPoly::InstructionPoly(const InstructionPoly& other)
 {
@@ -45,21 +37,21 @@ InstructionPoly::InstructionPoly(const MoveInstructionInterface& impl)
 {
 }
 
-const boost::uuids::uuid& InstructionPoly::getUUID() const { return impl_->getUUID(); }
+const boost::uuids::uuid& InstructionPoly::getUUID() const { return std::as_const(*impl_).getUUID(); }
 
 void InstructionPoly::setUUID(const boost::uuids::uuid& uuid) { impl_->setUUID(uuid); }
 
 void InstructionPoly::regenerateUUID() { impl_->regenerateUUID(); }
 
-const boost::uuids::uuid& InstructionPoly::getParentUUID() const { return impl_->getParentUUID(); }
+const boost::uuids::uuid& InstructionPoly::getParentUUID() const { return std::as_const(*impl_).getParentUUID(); }
 
 void InstructionPoly::setParentUUID(const boost::uuids::uuid& uuid) { impl_->setParentUUID(uuid); }
 
-const std::string& InstructionPoly::getDescription() const { return impl_->getDescription(); }
+const std::string& InstructionPoly::getDescription() const { return std::as_const(*impl_).getDescription(); }
 
 void InstructionPoly::setDescription(const std::string& description) { impl_->setDescription(description); }
 
-void InstructionPoly::print(const std::string& prefix) const { impl_->print(prefix); }
+void InstructionPoly::print(const std::string& prefix) const { std::as_const(*impl_).print(prefix); }
 
 std::type_index InstructionPoly::getType() const
 {
@@ -72,7 +64,7 @@ std::type_index InstructionPoly::getType() const
 
 bool InstructionPoly::isNull() const { return (impl_ == nullptr); }
 InstructionInterface& InstructionPoly::getInstruction() { return *impl_; }
-const InstructionInterface& InstructionPoly::getInstruction() const { return *impl_; }
+const InstructionInterface& InstructionPoly::getInstruction() const { return std::as_const(*impl_); }
 
 bool InstructionPoly::isCompositeInstruction() const
 {
@@ -101,14 +93,4 @@ bool InstructionPoly::operator==(const InstructionPoly& rhs) const
 bool InstructionPoly::operator!=(const InstructionPoly& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-template <class Archive>
-void InstructionPoly::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("impl", impl_);
-}
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::InstructionInterface)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::InstructionPoly)
-
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::InstructionPoly)

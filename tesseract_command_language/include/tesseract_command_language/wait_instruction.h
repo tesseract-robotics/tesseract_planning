@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date November 15, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -46,6 +44,11 @@ enum class WaitInstructionType : std::uint8_t
   DIGITAL_OUTPUT_LOW = 4
 };
 
+class WaitInstruction;
+
+template <class Archive>
+void serialize(Archive& ar, WaitInstruction& obj);
+
 /**
  * @brief This is a wait instruction similar to wait instruction on industrial controllers.
  * @details The instruction has several modes of operation.
@@ -59,7 +62,7 @@ enum class WaitInstructionType : std::uint8_t
 class WaitInstruction final : public InstructionInterface
 {
 public:
-  WaitInstruction() = default;  // Required for boost serialization do not use
+  WaitInstruction() = default;  // Required for serialization do not use
   WaitInstruction(double time);
   WaitInstruction(WaitInstructionType type, int io);
 
@@ -169,14 +172,9 @@ private:
    */
   bool equals(const InstructionInterface& other) const override final;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, WaitInstruction& obj);
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::WaitInstruction)
-BOOST_CLASS_TRACKING(tesseract_planning::WaitInstruction, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_WAIT_INSTRUCTION_H

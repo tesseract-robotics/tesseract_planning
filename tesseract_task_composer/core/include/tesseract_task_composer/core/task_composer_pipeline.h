@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 29. 2022
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2022, Levi Armstrong
  *
@@ -53,7 +51,7 @@ public:
   using UPtr = std::unique_ptr<TaskComposerPipeline>;
   using ConstUPtr = std::unique_ptr<const TaskComposerPipeline>;
 
-  TaskComposerPipeline(std::string name = "TaskComposerPipeline");
+  TaskComposerPipeline(std::string name = "TaskComposerPipeline", boost::uuids::uuid parent_uuid = {});
   TaskComposerPipeline(std::string name, bool conditional);
   TaskComposerPipeline(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~TaskComposerPipeline() override = default;
@@ -62,9 +60,6 @@ public:
   TaskComposerPipeline(TaskComposerPipeline&&) = delete;
   TaskComposerPipeline& operator=(TaskComposerPipeline&&) = delete;
 
-  bool operator==(const TaskComposerPipeline& rhs) const;
-  bool operator!=(const TaskComposerPipeline& rhs) const;
-
 private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
@@ -72,15 +67,8 @@ private:
   void runRecursive(const TaskComposerNode& node,
                     TaskComposerContext& context,
                     OptionalTaskComposerExecutor executor = std::nullopt) const;
-
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerPipeline)
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_PIPELINE_H

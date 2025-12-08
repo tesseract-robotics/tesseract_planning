@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 29. 2022
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2022, Levi Armstrong
  *
@@ -55,24 +53,13 @@ public:
   TaskComposerTask(TaskComposerTask&&) = delete;
   TaskComposerTask& operator=(TaskComposerTask&&) = delete;
 
-  bool operator==(const TaskComposerTask& rhs) const;
-  bool operator!=(const TaskComposerTask& rhs) const;
-
   /**
    * @brief If true this node should call context.abort(uuid_) after run method returns
    * @param enable True if task should call context.abort(uuid_) after run method returns
    */
   void setTriggerAbort(bool enable);
-
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TaskComposerTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_TASK_H

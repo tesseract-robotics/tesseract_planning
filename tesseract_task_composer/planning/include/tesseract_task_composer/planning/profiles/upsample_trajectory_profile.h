@@ -3,8 +3,6 @@
  *
  * @author Levi Armstrong
  * @date December 15, 2021
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2021, Southwest Research Institute
  *
@@ -31,6 +29,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile.h>
+#include <tesseract_common/fwd.h>
+
+namespace YAML
+{
+class Node;
+}
 
 namespace tesseract_planning
 {
@@ -41,23 +45,13 @@ struct UpsampleTrajectoryProfile : public tesseract_common::Profile
 
   UpsampleTrajectoryProfile();
   UpsampleTrajectoryProfile(double longest_valid_segment_length);
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
+  UpsampleTrajectoryProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   double longest_valid_segment_length{ 0.1 };
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const UpsampleTrajectoryProfile& rhs) const;
+  bool operator!=(const UpsampleTrajectoryProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::UpsampleTrajectoryProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_UPSAMPLE_TRAJECTORY_PROFILE_H

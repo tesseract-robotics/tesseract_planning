@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -25,24 +23,23 @@
  */
 
 #include <tesseract_motion_planners/ompl/ompl_solver_config.h>
-#include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/shared_ptr.hpp>
-#include <boost/serialization/nvp.hpp>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
-template <class Archive>
-void OMPLSolverConfig::serialize(Archive& ar, const unsigned int /*version*/)
+bool OMPLSolverConfig::operator==(const OMPLSolverConfig& rhs) const
 {
-  ar& BOOST_SERIALIZATION_NVP(planning_time);
-  ar& BOOST_SERIALIZATION_NVP(max_solutions);
-  ar& BOOST_SERIALIZATION_NVP(simplify);
-  ar& BOOST_SERIALIZATION_NVP(optimize);
-  ar& BOOST_SERIALIZATION_NVP(planners);
-}
-}  // namespace tesseract_planning
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLSolverConfig)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::OMPLSolverConfig)
+  bool equal = true;
+  equal &= tesseract_common::almostEqualRelativeAndAbs(planning_time, rhs.planning_time, max_diff);
+  equal &= (max_solutions == rhs.max_solutions);
+  equal &= (simplify == rhs.simplify);
+  equal &= (optimize == rhs.optimize);
+  equal &= (planners.size() == rhs.planners.size());
+
+  return equal;
+}
+bool OMPLSolverConfig::operator!=(const OMPLSolverConfig& rhs) const { return !operator==(rhs); }
+
+}  // namespace tesseract_planning

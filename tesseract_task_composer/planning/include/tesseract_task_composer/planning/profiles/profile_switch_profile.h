@@ -4,8 +4,6 @@
  *
  * @author Matthew Powelson
  * @date October 26. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -30,6 +28,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile.h>
+#include <tesseract_common/fwd.h>
+
+namespace YAML
+{
+class Node;
+}
 
 namespace tesseract_planning
 {
@@ -39,23 +43,13 @@ struct ProfileSwitchProfile : public tesseract_common::Profile
   using ConstPtr = std::shared_ptr<const ProfileSwitchProfile>;
 
   ProfileSwitchProfile(int return_value = 1);
-
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
+  ProfileSwitchProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   int return_value;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const ProfileSwitchProfile& rhs) const;
+  bool operator!=(const ProfileSwitchProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::ProfileSwitchProfile)
 
 #endif  // TESSERACT_TASK_COMPOSER_PROFILE_SWITCH_PROFILE_H

@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 15, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -27,12 +25,9 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
-#include <boost/serialization/vector.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/state_waypoint.h>
-#include <tesseract_common/serialization.h>
-#include <tesseract_common/eigen_serialization.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_common/types.h>
 
@@ -125,20 +120,4 @@ bool StateWaypoint::equals(const StateWaypointInterface& other) const
   return equal;
 }
 
-template <class Archive>
-void StateWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(StateWaypointInterface);
-  ar& BOOST_SERIALIZATION_NVP(name_);
-  ar& BOOST_SERIALIZATION_NVP(joint_names_);
-  ar& BOOST_SERIALIZATION_NVP(position_);
-  ar& BOOST_SERIALIZATION_NVP(velocity_);
-  ar& BOOST_SERIALIZATION_NVP(acceleration_);
-  ar& BOOST_SERIALIZATION_NVP(effort_);
-  ar& BOOST_SERIALIZATION_NVP(time_);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypoint)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StateWaypoint)

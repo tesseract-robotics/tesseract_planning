@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date July 22, 2019
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2017, Southwest Research Institute
  *
@@ -44,6 +42,8 @@ int main(int /*argc*/, char** /*argv*/)
   auto env = std::make_shared<Environment>();
   if (!env->init(urdf_path, srdf_path, locator))
     exit(1);
+
+  CONSOLE_BRIDGE_logInform("glass upright plan example");
 
   GlassUprightExample example(env, nullptr);
   if (!example.run())

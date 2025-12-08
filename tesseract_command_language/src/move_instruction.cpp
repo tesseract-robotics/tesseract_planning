@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 15, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -28,21 +26,13 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 #include <console_bridge/console.h>
-#include <boost/version.hpp>
-#if (BOOST_VERSION >= 107400) && (BOOST_VERSION < 107500)
-#include <boost/serialization/library_version_type.hpp>
-#endif
 #include <boost/uuid/uuid_generators.hpp>
-#include <boost/uuid/uuid_io.hpp>
-#include <boost/uuid/uuid_serialize.hpp>
-#include <boost/serialization/unordered_map.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/state_waypoint.h>
-#include <tesseract_common/serialization.h>
 
 namespace tesseract_planning
 {
@@ -181,23 +171,4 @@ bool MoveInstruction::equals(const MoveInstructionInterface& other) const
   return equal;
 }
 
-template <class Archive>
-void MoveInstruction::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(MoveInstructionInterface);
-  ar& boost::serialization::make_nvp("uuid", uuid_);
-  ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
-  ar& boost::serialization::make_nvp("move_type", move_type_);
-  ar& boost::serialization::make_nvp("description", description_);
-  ar& boost::serialization::make_nvp("profile", profile_);
-  ar& boost::serialization::make_nvp("path_profile", path_profile_);
-  ar& boost::serialization::make_nvp("profile_overrides", profile_overrides_);
-  ar& boost::serialization::make_nvp("path_profile_overrides", path_profile_overrides_);
-  ar& boost::serialization::make_nvp("waypoint", waypoint_);
-  ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstruction)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MoveInstruction)

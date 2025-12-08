@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -25,23 +23,10 @@
  */
 
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
-#include <typeindex>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
-OMPLMoveProfile::OMPLMoveProfile() : Profile(OMPLMoveProfile::getStaticKey()) {}
-
-std::size_t OMPLMoveProfile::getStaticKey() { return std::type_index(typeid(OMPLMoveProfile)).hash_code(); }
-
-template <class Archive>
-void OMPLMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-}
-
+OMPLMoveProfile::OMPLMoveProfile() : Profile(createKey<OMPLMoveProfile>()) {}
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLMoveProfile)

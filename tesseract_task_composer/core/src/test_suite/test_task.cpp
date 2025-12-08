@@ -3,8 +3,6 @@
  *
  * @author Levi Armstrong
  * @date June 26, 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2023, Levi Armstrong
  *
@@ -26,9 +24,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
 #include <yaml-cpp/yaml.h>
-#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/test_suite/test_task.h>
@@ -46,10 +42,20 @@ TaskComposerNodeInfo DummyTaskComposerNode::runImpl(TaskComposerContext& /*conte
 const std::string TestTask::INOUT_PORT1_PORT = "port1";
 const std::string TestTask::INOUT_PORT2_PORT = "port2";
 
-TestTask::TestTask() : TaskComposerTask("TestTask", TestTask::ports(), true) {}
+TestTask::TestTask() : TaskComposerTask("TestTask", TestTask::ports(), true)
+{
+  input_keys_.add(INOUT_PORT1_PORT, "input_data");
+  input_keys_.add(INOUT_PORT2_PORT, std::vector<std::string>{ "input_data2" });
+  output_keys_.add(INOUT_PORT1_PORT, "output_data");
+  output_keys_.add(INOUT_PORT2_PORT, std::vector<std::string>{ "output_data2" });
+}
 TestTask::TestTask(std::string name, bool is_conditional)
   : TaskComposerTask(std::move(name), TestTask::ports(), is_conditional)
 {
+  input_keys_.add(INOUT_PORT1_PORT, "input_data");
+  input_keys_.add(INOUT_PORT2_PORT, std::vector<std::string>{ "input_data2" });
+  output_keys_.add(INOUT_PORT1_PORT, "output_data");
+  output_keys_.add(INOUT_PORT2_PORT, std::vector<std::string>{ "output_data2" });
 }
 TestTask::TestTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& /*plugin_factory*/)
   : TaskComposerTask(std::move(name), TestTask::ports(), config)
@@ -83,26 +89,6 @@ TaskComposerNodePorts TestTask::ports()
   return ports;
 }
 
-bool TestTask::operator==(const TestTask& rhs) const
-{
-  bool equal = true;
-  equal &= (throw_exception == rhs.throw_exception);
-  equal &= (set_abort == rhs.set_abort);
-  equal &= (return_value == rhs.return_value);
-  equal &= TaskComposerTask::operator==(rhs);
-  return equal;
-}
-bool TestTask::operator!=(const TestTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void TestTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_NVP(throw_exception);
-  ar& BOOST_SERIALIZATION_NVP(set_abort);
-  ar& BOOST_SERIALIZATION_NVP(return_value);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 TaskComposerNodeInfo TestTask::runImpl(TaskComposerContext& context, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (throw_exception)
@@ -122,10 +108,11 @@ TaskComposerNodeInfo TestTask::runImpl(TaskComposerContext& context, OptionalTas
     context.abort(uuid_);
   }
 
+  setData(context, INOUT_PORT1_PORT, true);
+  std::vector<tesseract_common::AnyPoly> data{ false };
+  setData(context, INOUT_PORT2_PORT, data);
+
   return node_info;
 }
 
 }  // namespace tesseract_planning::test_suite
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::test_suite::TestTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::test_suite::TestTask)

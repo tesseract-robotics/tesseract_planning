@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date March 16, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -187,9 +185,8 @@ bool FreespaceHybridExample::run()
   program.push_back(plan_f0);
 
   // Print Diagnostics
-  program.print("Program: ");
-
-  CONSOLE_BRIDGE_logInform("freespace hybrid plan example");
+  if (debug_)
+    program.print("Program: ");
 
   // Create Executor
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
@@ -231,7 +228,8 @@ bool FreespaceHybridExample::run()
   data->setData("profiles", profiles);
 
   // Solve task
-  TaskComposerFuture::UPtr future = executor->run(*task, std::move(data));
+  auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+  TaskComposerFuture::UPtr future = executor->run(*task, std::move(context));
   future->wait();
 
   // Plot Process Trajectory

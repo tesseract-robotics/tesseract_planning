@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -25,6 +23,7 @@
  */
 
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
@@ -36,13 +35,16 @@ tesseract_common::VectorIsometry3d sampleToolAxis(const Eigen::Isometry3d& tool_
 {
   tesseract_common::VectorIsometry3d samples;
   auto cnt = static_cast<int>(std::ceil((maximum - minimum) / resolution)) + 1;
-  Eigen::VectorXd angles = Eigen::VectorXd::LinSpaced(cnt, minimum, maximum);
-  samples.reserve(static_cast<size_t>(angles.size()));
-  for (long i = 0; i < static_cast<long>(angles.size()); ++i)
+  samples.reserve(static_cast<size_t>(cnt));
+
+  double angle{ minimum };
+  while (angle < maximum || tesseract_common::almostEqualRelativeAndAbs(angle, maximum))
   {
-    Eigen::Isometry3d p = tool_pose * Eigen::AngleAxisd(angles(i), axis);
+    Eigen::Isometry3d p = tool_pose * Eigen::AngleAxisd(angle, axis);
     samples.push_back(p);
+    angle += resolution;
   }
+
   return samples;
 }
 

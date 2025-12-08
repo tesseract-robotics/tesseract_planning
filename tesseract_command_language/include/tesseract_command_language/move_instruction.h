@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 15, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -40,6 +38,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class MoveInstruction;
+
+template <class Archive>
+void serialize(Archive& ar, MoveInstruction& obj);
+
 /**
  * @brief The move instruction is used when defining the results of a motion planning request
  * @details
@@ -53,7 +56,7 @@ namespace tesseract_planning
 class MoveInstruction final : public MoveInstructionInterface
 {
 public:
-  MoveInstruction() = default;  // Required for boost serialization do not use
+  MoveInstruction() = default;  // Required for serialization do not use
 
   /**
    * @brief Move Instruction Constructor
@@ -267,15 +270,10 @@ private:
    */
   bool equals(const MoveInstructionInterface& other) const override final;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, MoveInstruction& obj);
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::MoveInstruction)
-BOOST_CLASS_TRACKING(tesseract_planning::MoveInstruction, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_MOVE_INSTRUCTION_H

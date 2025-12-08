@@ -40,12 +40,6 @@ struct ConstantTCPSpeedParameterizationCompositeProfile : public tesseract_commo
                                                    double max_velocity_scaling_factor_ = 1.0,
                                                    double max_acceleration_scaling_factor = 1.0);
 
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
   double max_translational_velocity{ 1.0 };
   double max_rotational_velocity{ 1.0 };
   double max_translational_acceleration{ 1.0 };
@@ -53,14 +47,10 @@ struct ConstantTCPSpeedParameterizationCompositeProfile : public tesseract_commo
   double max_velocity_scaling_factor{ 1.0 };
   double max_acceleration_scaling_factor{ 1.0 };
 
-protected:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const ConstantTCPSpeedParameterizationCompositeProfile& rhs) const;
+  bool operator!=(const ConstantTCPSpeedParameterizationCompositeProfile& rhs) const;
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::ConstantTCPSpeedParameterizationCompositeProfile)
 
 #endif

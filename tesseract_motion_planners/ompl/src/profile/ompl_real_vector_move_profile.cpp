@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -32,10 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/goals/GoalStates.h>
 #include <boost/algorithm/string.hpp>
 #include <console_bridge/console.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/shared_ptr.hpp>
+#include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
@@ -55,12 +50,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/state_collision_validator.h>
 #include <tesseract_motion_planners/ompl/compound_state_validator.h>
 
+#include <tesseract_motion_planners/ompl/yaml_extensions.h>
+#include <tesseract_collision/core/yaml_extensions.h>
+
 #include <tesseract_kinematics/core/utils.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_collision/core/discrete_contact_manager.h>
-#include <tesseract_collision/core/serialization.h>
 #include <tesseract_environment/environment.h>
+
+#include <tesseract_common/profile_plugin_factory.h>
 
 namespace tesseract_planning
 {
@@ -68,6 +67,27 @@ OMPLRealVectorMoveProfile::OMPLRealVectorMoveProfile()
 {
   solver_config.planners = { std::make_shared<const RRTConnectConfigurator>(),
                              std::make_shared<const RRTConnectConfigurator>() };
+}
+OMPLRealVectorMoveProfile::OMPLRealVectorMoveProfile(const YAML::Node& config,
+                                                     const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : OMPLRealVectorMoveProfile()
+{
+  try
+  {
+    if (YAML::Node n = config["solver_config"])
+      solver_config = n.as<tesseract_planning::OMPLSolverConfig>();
+
+    if (YAML::Node n = config["contact_manager_config"])
+      contact_manager_config = n.as<tesseract_collision::ContactManagerConfig>();
+
+    if (YAML::Node n = config["collision_check_config"])
+      collision_check_config = n.as<tesseract_collision::CollisionCheckConfig>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("OMPLRealVectorMoveProfile: Failed to parse yaml config! Details: " +
+                             std::string(e.what()));
+  }
 }
 
 std::unique_ptr<OMPLSolverConfig> OMPLRealVectorMoveProfile::createSolverConfig() const
@@ -220,7 +240,10 @@ void OMPLRealVectorMoveProfile::applyGoalStates(ompl::geometric::SimpleSetup& si
   /** @todo Need to add Descartes pose sample to ompl profile */
   const auto dof = manip.numJoints();
   tesseract_common::KinematicLimits limits = manip.getLimits();
-  tesseract_kinematics::IKSolutions joint_solutions = manip.calcInvKin({ ik_input }, Eigen::VectorXd::Zero(dof));
+
+  /** @brief Making this thread_local does not help because it is not called enough during planning */
+  tesseract_kinematics::IKSolutions joint_solutions;
+  manip.calcInvKin(joint_solutions, { ik_input }, Eigen::VectorXd::Zero(dof));
   auto goal_states = std::make_shared<ompl::base::GoalStates>(simple_setup.getSpaceInformation());
   std::vector<tesseract_collision::ContactResultMap> contact_map_vec(static_cast<std::size_t>(joint_solutions.size()));
 
@@ -326,7 +349,10 @@ void OMPLRealVectorMoveProfile::applyStartStates(ompl::geometric::SimpleSetup& s
   /** @todo Need to also provide the seed instruction to use here */
   const auto dof = manip.numJoints();
   tesseract_common::KinematicLimits limits = manip.getLimits();
-  tesseract_kinematics::IKSolutions joint_solutions = manip.calcInvKin({ ik_input }, Eigen::VectorXd::Zero(dof));
+
+  /** @brief Making this thread_local does not help because it is not called enough during planning */
+  tesseract_kinematics::IKSolutions joint_solutions;
+  manip.calcInvKin(joint_solutions, { ik_input }, Eigen::VectorXd::Zero(dof));
   bool found_start_state = false;
   std::vector<tesseract_collision::ContactResultMap> contact_map_vec(joint_solutions.size());
 
@@ -496,17 +522,15 @@ std::unique_ptr<ompl::base::OptimizationObjective> OMPLRealVectorMoveProfile::cr
   return std::make_unique<ompl::base::PathLengthOptimizationObjective>(simple_setup.getSpaceInformation());
 }
 
-template <class Archive>
-void OMPLRealVectorMoveProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool OMPLRealVectorMoveProfile::operator==(const OMPLRealVectorMoveProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(OMPLMoveProfile);
-  ar& BOOST_SERIALIZATION_NVP(solver_config);
-  ar& BOOST_SERIALIZATION_NVP(contact_manager_config);
-  ar& BOOST_SERIALIZATION_NVP(collision_check_config);
+  bool equal = true;
+  equal &= (solver_config == rhs.solver_config);
+  equal &= (contact_manager_config == rhs.contact_manager_config);
+  equal &= (collision_check_config == rhs.collision_check_config);
+  return equal;
 }
 
-}  // namespace tesseract_planning
+bool OMPLRealVectorMoveProfile::operator!=(const OMPLRealVectorMoveProfile& rhs) const { return !operator==(rhs); }
 
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::OMPLRealVectorMoveProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::OMPLRealVectorMoveProfile)
+}  // namespace tesseract_planning

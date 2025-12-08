@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 15, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -36,6 +34,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class CartesianWaypoint;
+
+template <class Archive>
+void serialize(Archive& ar, CartesianWaypoint& obj);
+
 class CartesianWaypoint final : public CartesianWaypointInterface
 {
 public:
@@ -96,15 +99,10 @@ private:
 
   bool equals(const CartesianWaypointInterface& other) const override final;
 
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  friend void ::tesseract_planning::serialize(Archive& ar, CartesianWaypoint& obj);
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::CartesianWaypoint)
-BOOST_CLASS_TRACKING(tesseract_planning::CartesianWaypoint, boost::serialization::track_never)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_H

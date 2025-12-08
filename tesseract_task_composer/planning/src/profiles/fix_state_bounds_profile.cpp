@@ -4,8 +4,6 @@
  *
  * @author Matthew Powelson
  * @date August 31. 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -24,30 +22,48 @@
  * limitations under the License.
  */
 #include <tesseract_task_composer/planning/profiles/fix_state_bounds_profile.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
-#include <typeindex>
+#include <tesseract_task_composer/planning/yaml_extensions.h>
+#include <yaml-cpp/yaml.h>
+#include <tesseract_common/profile_plugin_factory.h>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
-FixStateBoundsProfile::FixStateBoundsProfile(Settings mode) : Profile(FixStateBoundsProfile::getStaticKey()), mode(mode)
+FixStateBoundsProfile::FixStateBoundsProfile(Settings mode) : Profile(createKey<FixStateBoundsProfile>()), mode(mode) {}
+
+FixStateBoundsProfile::FixStateBoundsProfile(const YAML::Node& config,
+                                             const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+  : FixStateBoundsProfile()
 {
+  try
+  {
+    if (YAML::Node n = config["mode"])
+      mode = n.as<Settings>();
+    if (YAML::Node n = config["max_deviation_global"])
+      max_deviation_global = n.as<double>();
+    if (YAML::Node n = config["upper_bounds_reduction"])
+      upper_bounds_reduction = n.as<double>();
+    if (YAML::Node n = config["lower_bounds_reduction"])
+      lower_bounds_reduction = n.as<double>();
+  }
+  catch (const std::exception& e)
+  {
+    throw std::runtime_error("FixStateBoundsProfile: Failed to parse yaml config! Details: " + std::string(e.what()));
+  }
 }
 
-std::size_t FixStateBoundsProfile::getStaticKey() { return std::type_index(typeid(FixStateBoundsProfile)).hash_code(); }
-
-template <class Archive>
-void FixStateBoundsProfile::serialize(Archive& ar, const unsigned int /*version*/)
+bool FixStateBoundsProfile::operator==(const FixStateBoundsProfile& rhs) const
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(Profile);
-  ar& BOOST_SERIALIZATION_NVP(mode);
-  ar& BOOST_SERIALIZATION_NVP(max_deviation_global);
-  ar& BOOST_SERIALIZATION_NVP(upper_bounds_reduction);
-  ar& BOOST_SERIALIZATION_NVP(lower_bounds_reduction);
+  static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+  bool equal = true;
+  equal &= (mode == rhs.mode);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(max_deviation_global, rhs.max_deviation_global, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(upper_bounds_reduction, rhs.upper_bounds_reduction, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(lower_bounds_reduction, rhs.lower_bounds_reduction, max_diff);
+  return equal;
 }
+
+bool FixStateBoundsProfile::operator!=(const FixStateBoundsProfile& rhs) const { return !operator==(rhs); }
 
 }  // namespace tesseract_planning
-
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FixStateBoundsProfile)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FixStateBoundsProfile)

@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 12, 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2023, Levi Armstrong
  *
@@ -43,8 +41,10 @@ void runJointWaypointTest()
     EXPECT_NE(name, wp.getName());
     wp.setName(name);
     EXPECT_EQ(name, wp.getName());
-    EXPECT_NO_THROW(wp.print());         // NOLINT
-    EXPECT_NO_THROW(wp.print("test_"));  // NOLINT
+    EXPECT_NO_THROW(wp.print());                            // NOLINT
+    EXPECT_NO_THROW(wp.print("test_"));                     // NOLINT
+    EXPECT_NO_THROW(wp.getJointWaypoint());                 // NOLINT
+    EXPECT_NO_THROW(std::as_const(wp).getJointWaypoint());  // NOLINT
     EXPECT_TRUE(wp.getType() == std::type_index(typeid(T)));
     WaypointPoly base = wp;
     EXPECT_FALSE(base.isCartesianWaypoint());
@@ -183,7 +183,8 @@ void runJointWaypointTest()
     }
     {
       JointWaypointPoly wp1{ T({ "j1", "j2", "j3" }, { 0, -1e6, 1e6 }) };
-      JointWaypointPoly wp2(wp1);  // NOLINT
+      JointWaypointPoly wp2;
+      wp2 = wp1;
       EXPECT_TRUE(wp1.isConstrained());
       EXPECT_TRUE(wp2.isConstrained());
       EXPECT_TRUE(wp1 == wp2);

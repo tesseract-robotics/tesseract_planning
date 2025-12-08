@@ -3,8 +3,6 @@
  *
  * @author Levi Armstrong
  * @date July 13, 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2023, Levi Armstrong
  *
@@ -27,8 +25,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
 #include <map>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -56,9 +52,6 @@ public:
   explicit RemapTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~RemapTask() override = default;
 
-  bool operator==(const RemapTask& rhs) const;
-  bool operator!=(const RemapTask& rhs) const;
-
 private:
   bool copy_{ false };
 
@@ -66,14 +59,8 @@ private:
 
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
-
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::RemapTask)
 #endif  // TESSERACT_TASK_COMPOSER_REMAP_TASK_H

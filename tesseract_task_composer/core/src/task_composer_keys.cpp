@@ -17,10 +17,6 @@
  */
 
 #include <tesseract_task_composer/core/task_composer_keys.h>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/unordered_map.hpp>
-#include <tesseract_common/std_variant_serialization.h>
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/any_poly.h>
 
 namespace tesseract_planning
@@ -28,6 +24,8 @@ namespace tesseract_planning
 void TaskComposerKeys::add(const std::string& port, std::string key) { keys_[port] = std::move(key); }
 
 void TaskComposerKeys::add(const std::string& port, std::vector<std::string> keys) { keys_[port] = std::move(keys); }
+
+void TaskComposerKeys::remove(const std::string& port) { keys_.erase(port); }
 
 void TaskComposerKeys::rename(const std::map<std::string, std::string>& keys)
 {
@@ -79,12 +77,6 @@ bool TaskComposerKeys::empty() const { return keys_.empty(); }
 bool TaskComposerKeys::operator==(const TaskComposerKeys& rhs) const { return (keys_ == rhs.keys_); }
 bool TaskComposerKeys::operator!=(const TaskComposerKeys& rhs) const { return !operator==(rhs); }
 
-template <class Archive>
-void TaskComposerKeys::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& boost::serialization::make_nvp("keys", keys_);
-}
-
 std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys)
 {
   for (const auto& pair : keys.data())
@@ -112,6 +104,3 @@ std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys)
 }
 
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskComposerKeys)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskComposerKeys)

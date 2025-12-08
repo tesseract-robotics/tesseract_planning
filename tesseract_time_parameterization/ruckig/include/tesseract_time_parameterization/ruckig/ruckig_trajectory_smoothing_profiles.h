@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date May 15, 2025
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2025, Southwest Research Institute
  *
@@ -43,12 +41,6 @@ struct RuckigTrajectorySmoothingCompositeProfile : public tesseract_common::Prof
   RuckigTrajectorySmoothingCompositeProfile();
   RuckigTrajectorySmoothingCompositeProfile(double duration_extension_fraction, double max_duration_extension_factor);
 
-  /**
-   * @brief A utility function for getting profile ID
-   * @return The profile ID used when storing in profile dictionary
-   */
-  static std::size_t getStaticKey();
-
   /** @brief The duration extension fraction */
   double duration_extension_fraction{ 1.1 };
   /** @brief The max duration extension factor */
@@ -63,15 +55,10 @@ struct RuckigTrajectorySmoothingCompositeProfile : public tesseract_common::Prof
   /** @brief The min/max jerk for each joint */
   Eigen::MatrixX2d jerk_limits;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const RuckigTrajectorySmoothingCompositeProfile& rhs) const;
+  bool operator!=(const RuckigTrajectorySmoothingCompositeProfile& rhs) const;
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::RuckigTrajectorySmoothingCompositeProfile)
 
 #endif  // TESSERACT_TIME_PARAMETERIZATION_RUCKIG_TRAJECTORY_SMOOTHING_PROFILES_H

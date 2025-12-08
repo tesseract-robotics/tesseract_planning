@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 15, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -378,6 +376,31 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
 
   myfile.close();
   return true;
+}
+
+void makeTimeMonotonicallyIncreasing(CompositeInstruction& composite_instructions)
+{
+  const std::vector<std::reference_wrapper<tesseract_planning::InstructionPoly>> instructions =
+      composite_instructions.flatten(moveFilter);
+  double total_time{ 0 };
+  double segment_time{ 0 };
+  for (const auto& instruction : instructions)
+  {
+    auto& mvi = instruction.get().as<tesseract_planning::MoveInstructionPoly>();
+    auto& swp = mvi.getWaypoint().as<tesseract_planning::StateWaypointPoly>();
+    if (swp.getTime() < segment_time)
+    {
+      segment_time = swp.getTime();
+      total_time += segment_time;
+      swp.setTime(total_time);
+    }
+    else
+    {
+      total_time += (swp.getTime() - segment_time);
+      segment_time = swp.getTime();
+      swp.setTime(total_time);
+    }
+  }
 }
 
 }  // namespace tesseract_planning

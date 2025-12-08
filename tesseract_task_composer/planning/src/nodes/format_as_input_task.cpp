@@ -7,8 +7,6 @@
  *
  * @author Levi Armstrong
  * @date April 6. 2023
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2023, Levi Armstrong
  *
@@ -30,10 +28,8 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
 
 #include <tesseract_common/joint_state.h>
-#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/planning/nodes/format_as_input_task.h>
@@ -98,7 +94,7 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_formatted_data_poly = getData(*context.data_storage, INPUT_PRE_PLANNING_PROGRAM_PORT);
+  auto input_formatted_data_poly = getData(context, INPUT_PRE_PLANNING_PROGRAM_PORT);
   if (input_formatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info.status_message = "Input '" + input_keys_.get(INPUT_PRE_PLANNING_PROGRAM_PORT) +
@@ -107,7 +103,7 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
     return info;
   }
 
-  auto input_unformatted_data_poly = getData(*context.data_storage, INPUT_POST_PLANNING_PROGRAM_PORT);
+  auto input_unformatted_data_poly = getData(context, INPUT_POST_PLANNING_PROGRAM_PORT);
   if (input_unformatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info.status_message = "Input '" + input_keys_.get(INPUT_POST_PLANNING_PROGRAM_PORT) +
@@ -158,7 +154,7 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
     }
   }
 
-  setData(*context.data_storage, OUTPUT_PROGRAM_PORT, input_formatted_data_poly);
+  setData(context, OUTPUT_PROGRAM_PORT, input_formatted_data_poly);
 
   info.color = "green";
   info.status_code = 1;
@@ -167,16 +163,4 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-bool FormatAsInputTask::operator==(const FormatAsInputTask& rhs) const { return (TaskComposerTask::operator==(rhs)); }
-bool FormatAsInputTask::operator!=(const FormatAsInputTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void FormatAsInputTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FormatAsInputTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FormatAsInputTask)

@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 18, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -32,8 +30,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 #include <trajopt_common/collision_types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
+
+namespace YAML
+{
+class Node;
+}
 
 namespace tesseract_planning
 {
@@ -41,6 +43,8 @@ class TrajOptIfoptDefaultCompositeProfile : public TrajOptIfoptCompositeProfile
 {
 public:
   TrajOptIfoptDefaultCompositeProfile() = default;
+  TrajOptIfoptDefaultCompositeProfile(const YAML::Node& config,
+                                      const tesseract_common::ProfilePluginFactory& plugin_factory);
 
   /** @brief Configuration info for collisions that are modeled as costs */
   trajopt_common::TrajOptCollisionConfig collision_cost_config;
@@ -64,14 +68,9 @@ public:
                                const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition> >& vars,
                                const std::vector<int>& fixed_indices) const override;
 
-private:
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int);  // NOLINT
+  bool operator==(const TrajOptIfoptDefaultCompositeProfile& rhs) const;
+  bool operator!=(const TrajOptIfoptDefaultCompositeProfile& rhs) const;
 };
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::TrajOptIfoptDefaultCompositeProfile)
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_DEFAULT_COMPOSITE_PROFILE_H

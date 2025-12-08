@@ -3,8 +3,6 @@
  *
  * @author Levi Armstrong
  * @date August 5, 2022
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2022, Levi Armstrong
  *
@@ -25,12 +23,6 @@
 #ifndef TESSERACT_TASK_COMPOSER_DONE_TASK_H
 #define TESSERACT_TASK_COMPOSER_DONE_TASK_H
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/export.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
 #include <tesseract_task_composer/core/task_composer_task.h>
 
 namespace tesseract_planning
@@ -49,21 +41,11 @@ public:
   explicit DoneTask(std::string name, const YAML::Node& config, const TaskComposerPluginFactory& plugin_factory);
   ~DoneTask() override = default;
 
-  bool operator==(const DoneTask& rhs) const;
-  bool operator!=(const DoneTask& rhs) const;
-
 private:
   TaskComposerNodeInfo runImpl(TaskComposerContext& context,
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
-
-  friend class boost::serialization::access;
-  friend struct tesseract_common::Serialization;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
-
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::DoneTask)
 
 #endif  // TESSERACT_TASK_COMPOSER_DONE_TASK_H

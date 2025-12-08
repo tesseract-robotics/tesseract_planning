@@ -3,8 +3,6 @@
  *
  * @author Levi Armstrong
  * @date December 15, 2021
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2021, Levi Armstrong
  *
@@ -26,9 +24,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/string.hpp>
 
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/profile_dictionary.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -94,7 +90,7 @@ TaskComposerNodeInfo UpsampleTrajectoryTask::runImpl(TaskComposerContext& contex
   info.status_code = 0;
 
   // Check that inputs are valid
-  auto input_data_poly = getData(*context.data_storage, INOUT_PROGRAM_PORT);
+  auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
   if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info.status_message = "Input seed to UpsampleTrajectoryTask must be a composite instruction";
@@ -103,8 +99,7 @@ TaskComposerNodeInfo UpsampleTrajectoryTask::runImpl(TaskComposerContext& contex
   }
 
   // Get Composite Profile
-  auto profiles =
-      getData(*context.data_storage, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
   const auto& ci = input_data_poly.as<CompositeInstruction>();
   auto cur_composite_profile = profiles->getProfile<UpsampleTrajectoryProfile>(
       ns_, ci.getProfile(ns_), std::make_shared<UpsampleTrajectoryProfile>());
@@ -115,7 +110,7 @@ TaskComposerNodeInfo UpsampleTrajectoryTask::runImpl(TaskComposerContext& contex
   new_results.clear();
 
   upsample(new_results, ci, start_instruction, cur_composite_profile->longest_valid_segment_length);
-  setData(*context.data_storage, INOUT_PROGRAM_PORT, new_results);
+  setData(context, INOUT_PROGRAM_PORT, new_results);
 
   info.color = "green";
   info.status_code = 1;
@@ -190,19 +185,4 @@ void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
   }
 }
 
-bool UpsampleTrajectoryTask::operator==(const UpsampleTrajectoryTask& rhs) const
-{
-  return (TaskComposerTask::operator==(rhs));
-}
-bool UpsampleTrajectoryTask::operator!=(const UpsampleTrajectoryTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void UpsampleTrajectoryTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::UpsampleTrajectoryTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::UpsampleTrajectoryTask)

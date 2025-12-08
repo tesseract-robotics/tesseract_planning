@@ -4,8 +4,6 @@
  *
  * @author Levi Armstrong
  * @date June 15, 2020
- * @version TODO
- * @bug No known bugs
  *
  * @copyright Copyright (c) 2020, Southwest Research Institute
  *
@@ -243,6 +241,12 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions,
  */
 bool validateSeedStructure(const CompositeInstruction& composite_instructions,
                            const CompositeInstruction& composite_seed);
+
+/**
+ * @brief This will make time monotonically increasing throughout the whole program
+ * @param composite_instructions The composite instruction to modify
+ */
+void makeTimeMonotonicallyIncreasing(CompositeInstruction& composite_instructions);
 
 }  // namespace tesseract_planning
 

@@ -1,9 +1,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <boost/serialization/map.hpp>
 #include <yaml-cpp/yaml.h>
-#include <tesseract_common/serialization.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/nodes/has_data_storage_entry_task.h>
@@ -45,10 +43,14 @@ TaskComposerNodeInfo HasDataStorageEntryTask::runImpl(TaskComposerContext& conte
                                                       OptionalTaskComposerExecutor /*executor*/) const
 {
   TaskComposerNodeInfo info(*this);
+
+  // Get local data storage
+  TaskComposerDataStorage::Ptr data_storage = getDataStorage(context);
+
   const auto& keys = input_keys_.get<std::vector<std::string>>(INPUT_KEYS_PORT);
   for (const auto& key : keys)
   {
-    if (!context.data_storage->hasKey(key))
+    if (!data_storage->hasKey(key))
     {
       info.color = "red";
       info.return_value = 0;
@@ -65,19 +67,4 @@ TaskComposerNodeInfo HasDataStorageEntryTask::runImpl(TaskComposerContext& conte
   return info;
 }
 
-bool HasDataStorageEntryTask::operator==(const HasDataStorageEntryTask& rhs) const
-{
-  return (TaskComposerTask::operator==(rhs));
-}
-bool HasDataStorageEntryTask::operator!=(const HasDataStorageEntryTask& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void HasDataStorageEntryTask::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
-}
-
 }  // namespace tesseract_planning
-
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::HasDataStorageEntryTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::HasDataStorageEntryTask)
