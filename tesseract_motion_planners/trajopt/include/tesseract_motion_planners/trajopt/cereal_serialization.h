@@ -118,6 +118,7 @@ template <class Archive>
 void serialize(Archive& ar, TrajOptSolverProfile& obj)
 {
   ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::make_nvp("opt_params", obj.opt_params));
 }
 
 template <class Archive>
