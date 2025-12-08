@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/fwd.h>
 #include <trajopt_sqp/fwd.h>
 #include <trajopt_sqp/types.h>
-#include <trajopt_ifopt/variable_sets/node.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>

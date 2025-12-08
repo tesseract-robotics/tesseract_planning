@@ -24,9 +24,9 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <trajopt_ifopt/variable_sets/joint_position_variable.h>
 #include <trajopt_common/collision_types.h>
 #include <trajopt_common/utils.hpp>
+#include <trajopt_ifopt/variable_sets/var.h>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
