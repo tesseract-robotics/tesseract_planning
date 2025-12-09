@@ -45,7 +45,7 @@ int main(int /*argc*/, char** /*argv*/)
 
   CONSOLE_BRIDGE_logInform("basic cartesian plan example");
 
-  BasicCartesianExample example(env, nullptr, true, false);
+  BasicCartesianExample example(env, nullptr, false, false);
   if (!example.run())
   {
     CONSOLE_BRIDGE_logError("BasicCartesianExample failed");
