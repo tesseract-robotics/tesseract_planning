@@ -97,7 +97,6 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   // ----------------
   // Transform plan instructions into trajopt cost and constraints
   std::vector<std::unique_ptr<trajopt_ifopt::Node>> nodes;
-  std::vector<std::shared_ptr<const trajopt_ifopt::Var>> vars;
   for (int i = 0; i < move_instructions.size(); ++i)
   {
     const auto& move_instruction = move_instructions[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>();
@@ -115,10 +114,8 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
     if (wp_info.fixed)
       fixed_steps.push_back(i);
 
-    // Add variable set
-    vars.push_back(wp_info.node->getVar("position"));
+    // Add Node
     nodes.push_back(std::move(wp_info.node));
-    // nlp->addVariableSet(wp_info.var);
 
     // Add Waypoint Cost and Constraints
     for (const auto& cnt : wp_info.term_infos.constraints)
@@ -134,8 +131,6 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
       nlp->addCostSet(hinge_cost, trajopt_sqp::CostPenaltyType::HINGE);
   }
 
-  nlp->addVariableSet(std::make_shared<trajopt_ifopt::NodesVariables>("joint_trajectory", std::move(nodes)));
-
   // ----------------
   // Translate TCL for CompositeInstructions
   // ----------------
@@ -146,7 +141,10 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   if (!cur_composite_profile)
     throw std::runtime_error("TrajOptIfoptMotionPlanner: Invalid profile");
 
-  TrajOptIfoptTermInfos term_infos = cur_composite_profile->create(composite_mi, request.env, vars, fixed_steps);
+  TrajOptIfoptTermInfos term_infos = cur_composite_profile->create(composite_mi, request.env, nodes, fixed_steps);
+
+  // Add Variable Set
+  nlp->addVariableSet(std::make_shared<trajopt_ifopt::NodesVariables>("joint_trajectory", std::move(nodes)));
 
   // Add Waypoint Cost and Constraints
   for (const auto& cnt : term_infos.constraints)
@@ -190,7 +188,8 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
 
   // Get the results - This can likely be simplified if we get rid of the traj array
   Eigen::VectorXd x = nlp->getVariableValues();
-  Eigen::Map<tesseract_common::TrajArray> traj(x.data(), static_cast<Eigen::Index>(vars.size()), vars[0]->size());
+  Eigen::Map<tesseract_common::TrajArray> traj(
+      x.data(), static_cast<Eigen::Index>(move_instructions.size()), manip->numJoints());
 
   // Enforce limits
   for (Eigen::Index i = 0; i < traj.rows(); i++)

@@ -26,6 +26,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_common/collision_types.h>
 #include <trajopt_common/utils.hpp>
+#include <trajopt_ifopt/variable_sets/node.h>
 #include <trajopt_ifopt/variable_sets/var.h>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -80,11 +81,16 @@ TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(
 TrajOptIfoptTermInfos
 TrajOptIfoptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& composite_manip_info,
                                             const std::shared_ptr<const tesseract_environment::Environment>& env,
-                                            const std::vector<std::shared_ptr<const trajopt_ifopt::Var> >& vars,
+                                            const std::vector<std::unique_ptr<trajopt_ifopt::Node>>& nodes,
                                             const std::vector<int>& fixed_indices) const
 {
-  if (vars.empty())
+  if (nodes.empty())
     throw std::runtime_error("TrajOptIfoptDefaultCompositeProfile: vars is empty.");
+
+  std::vector<std::shared_ptr<const trajopt_ifopt::Var>> vars;
+  vars.reserve(nodes.size());
+  for (const auto& node : nodes)
+    vars.push_back(node->getVar("position"));
 
   TrajOptIfoptTermInfos term_infos;
 
