@@ -25,7 +25,9 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_sqp/qp_problem.h>
-#include <trajopt_ifopt/variable_sets/joint_position_variable.h>
+#include <trajopt_ifopt/variable_sets/node.h>
+#include <trajopt_ifopt/variable_sets/var.h>
+#include <trajopt_ifopt/utils/ifopt_utils.h>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -93,7 +95,7 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
   assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
 
   tesseract_kinematics::JointGroup::ConstPtr manip = env->getJointGroup(mi.manipulator);
-  Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
+  const std::vector<ifopt::Bounds> bounds = trajopt_ifopt::toBounds(manip->getLimits().joint_limits);
 
   TrajOptIfoptWaypointInfo info;
   if (move_instruction.getWaypoint().isCartesianWaypoint())
@@ -109,9 +111,8 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
     else
       seed = env->getCurrentJointValues(joint_names);
 
-    info.var =
-        std::make_shared<trajopt_ifopt::JointPosition>(seed, joint_names, "Joint_Position_" + std::to_string(index));
-    info.var->SetBounds(joint_limits);
+    info.node = std::make_unique<trajopt_ifopt::Node>("Node_" + std::to_string(index));
+    std::shared_ptr<const trajopt_ifopt::Var> var = info.node->addVar("position", joint_names, seed, bounds);
 
     Eigen::Isometry3d tcp_offset = env->findTCPOffset(mi);
 
@@ -145,7 +146,7 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
       }
 
       auto constraint = createCartesianPositionConstraint(
-          info.var,
+          var,
           manip,
           mi.tcp_frame,
           mi.working_frame,
@@ -158,7 +159,7 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
 
     if (cartesian_constraint_config.enabled)
     {
-      auto constraint = createCartesianPositionConstraint(info.var,
+      auto constraint = createCartesianPositionConstraint(var,
                                                           manip,
                                                           mi.tcp_frame,
                                                           mi.working_frame,
@@ -195,9 +196,9 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
     }
 
     // Create var set
-    info.var = std::make_shared<trajopt_ifopt::JointPosition>(
-        jwp.getPosition(), joint_names, "Joint_Position_" + std::to_string(index));
-    info.var->SetBounds(joint_limits);
+    info.node = std::make_unique<trajopt_ifopt::Node>("Node_" + std::to_string(index));
+    std::shared_ptr<const trajopt_ifopt::Var> var =
+        info.node->addVar("position", joint_names, jwp.getPosition(), bounds);
 
     if (jwp.isConstrained())
     {
@@ -225,7 +226,7 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
           jwp.setLowerTolerance(lower_tolerance_cost);
           jwp.setUpperTolerance(upper_tolerance_cost);
         }
-        auto constraint = createJointPositionConstraint(jwp, info.var, joint_cost_config.coeff);
+        auto constraint = createJointPositionConstraint(jwp, var, joint_cost_config.coeff);
         info.term_infos.squared_costs.push_back(constraint);
       }
       if (joint_constraint_config.enabled)
@@ -236,7 +237,7 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
           jwp.setLowerTolerance(lower_tolerance_cnt);
           jwp.setUpperTolerance(upper_tolerance_cnt);
         }
-        auto constraint = createJointPositionConstraint(jwp, info.var, joint_constraint_config.coeff);
+        auto constraint = createJointPositionConstraint(jwp, var, joint_constraint_config.coeff);
         info.term_infos.constraints.push_back(constraint);
       }
     }

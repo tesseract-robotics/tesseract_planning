@@ -495,7 +495,7 @@ task_composer_plugins:
         config:
           conditional: false
           inputs:
-            program: input_data
+            program: planning_input
             environment: environment
             profiles: profiles
           outputs:

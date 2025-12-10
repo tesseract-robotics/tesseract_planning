@@ -50,7 +50,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/constraints/collision/continuous_collision_constraint.h>
 #include <trajopt_ifopt/constraints/collision/continuous_collision_evaluators.h>
 #include <trajopt_ifopt/constraints/inverse_kinematics_constraint.h>
-#include <trajopt_ifopt/variable_sets/joint_position_variable.h>
+#include <trajopt_ifopt/variable_sets/nodes_variables.h>
+#include <trajopt_ifopt/variable_sets/node.h>
+#include <trajopt_ifopt/variable_sets/var.h>
 #include <trajopt_ifopt/costs/squared_cost.h>
 #include <trajopt_ifopt/costs/absolute_cost.h>
 #include <trajopt_ifopt/utils/ifopt_utils.h>
@@ -162,11 +164,13 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
   // 2) Add Variables
   Eigen::MatrixX2d joint_limits_eigen = manip_->getLimits().joint_limits;
   Eigen::VectorXd current_position = env_->getCurrentJointValues(manip_->getJointNames());
+  const std::vector<ifopt::Bounds> bounds = trajopt_ifopt::toBounds(manip_->getLimits().joint_limits);
   //  Eigen::VectorXd home_position = Eigen::VectorXd::Zero(manip_->numJoints());
   Eigen::VectorXd target_joint_position(manip_->numJoints());
   target_joint_position << 5.5, 3, 0, 0, 0, 0, 0, 0;
 
-  std::vector<trajopt_ifopt::JointPosition::ConstPtr> vars;
+  std::vector<std::unique_ptr<trajopt_ifopt::Node>> nodes;
+  std::vector<std::shared_ptr<const trajopt_ifopt::Var>> vars;
   std::vector<Eigen::VectorXd> initial_states;
   if (initial_trajectory.empty())
     initial_states = trajopt_ifopt::interpolate(current_position, target_joint_position, steps_);
@@ -175,21 +179,18 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
 
   for (std::size_t ind = 0; ind < static_cast<std::size_t>(steps_); ind++)
   {
-    auto var = std::make_shared<trajopt_ifopt::JointPosition>(
-        initial_states[ind], manip_->getJointNames(), "Joint_Position_" + std::to_string(ind));
-    var->SetBounds(joint_limits_eigen);
-    vars.push_back(var);
-    nlp_->addVariableSet(var);
+    nodes.push_back(std::make_unique<trajopt_ifopt::Node>("Joint_Position_" + std::to_string(ind)));
+    vars.push_back(nodes.back()->addVar("position", manip_->getJointNames(), initial_states[ind], bounds));
   }
+  nlp_->addVariableSet(std::make_shared<trajopt_ifopt::NodesVariables>("joint_trajectory", std::move(nodes)));
 
   // 3) Add costs and constraints
   // Add the home position as a joint position constraint
   {
     //    auto home_position = Eigen::VectorXd::Zero(8);
-    std::vector<trajopt_ifopt::JointPosition::ConstPtr> var_vec(1, vars[0]);
     Eigen::VectorXd coeffs = Eigen::VectorXd::Constant(manip_->numJoints(), 5);
     auto home_constraint =
-        std::make_shared<trajopt_ifopt::JointPosConstraint>(current_position, var_vec, coeffs, "Home_Position");
+        std::make_shared<trajopt_ifopt::JointPosConstraint>(current_position, vars[0], coeffs, "Home_Position");
     nlp_->addConstraintSet(home_constraint);
   }
   // Add the target pose constraint for the final step
@@ -227,7 +228,7 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
       auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSDiscreteCollisionEvaluator>(
           collision_cache, manip_, env_, collision_config, true);
 
-      std::array<trajopt_ifopt::JointPosition::ConstPtr, 2> position_vars = { vars[i - 1], vars[i] };
+      std::array<std::shared_ptr<const trajopt_ifopt::Var>, 2> position_vars = { vars[i - 1], vars[i] };
       auto collision_constraint =
           std::make_shared<trajopt_ifopt::ContinuousCollisionConstraint>(collision_evaluator,
                                                                          position_vars,

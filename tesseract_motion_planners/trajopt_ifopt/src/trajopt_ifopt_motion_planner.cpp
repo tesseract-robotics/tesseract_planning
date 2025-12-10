@@ -24,7 +24,9 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <trajopt_ifopt/variable_sets/joint_position_variable.h>
+#include <trajopt_ifopt/variable_sets/nodes_variables.h>
+#include <trajopt_ifopt/variable_sets/node.h>
+#include <trajopt_ifopt/variable_sets/var.h>
 #include <trajopt_sqp/trust_region_sqp_solver.h>
 #include <trajopt_sqp/trajopt_qp_problem.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -94,7 +96,7 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   // Translate TCL for MoveInstructions
   // ----------------
   // Transform plan instructions into trajopt cost and constraints
-  std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition>> vars;
+  std::vector<std::unique_ptr<trajopt_ifopt::Node>> nodes;
   for (int i = 0; i < move_instructions.size(); ++i)
   {
     const auto& move_instruction = move_instructions[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>();
@@ -112,9 +114,8 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
     if (wp_info.fixed)
       fixed_steps.push_back(i);
 
-    // Add variable set
-    vars.push_back(wp_info.var);
-    nlp->addVariableSet(wp_info.var);
+    // Add Node
+    nodes.push_back(std::move(wp_info.node));
 
     // Add Waypoint Cost and Constraints
     for (const auto& cnt : wp_info.term_infos.constraints)
@@ -140,7 +141,10 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   if (!cur_composite_profile)
     throw std::runtime_error("TrajOptIfoptMotionPlanner: Invalid profile");
 
-  TrajOptIfoptTermInfos term_infos = cur_composite_profile->create(composite_mi, request.env, vars, fixed_steps);
+  TrajOptIfoptTermInfos term_infos = cur_composite_profile->create(composite_mi, request.env, nodes, fixed_steps);
+
+  // Add Variable Set
+  nlp->addVariableSet(std::make_shared<trajopt_ifopt::NodesVariables>("joint_trajectory", std::move(nodes)));
 
   // Add Waypoint Cost and Constraints
   for (const auto& cnt : term_infos.constraints)
@@ -185,7 +189,7 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   // Get the results - This can likely be simplified if we get rid of the traj array
   Eigen::VectorXd x = nlp->getVariableValues();
   Eigen::Map<tesseract_common::TrajArray> traj(
-      x.data(), static_cast<Eigen::Index>(vars.size()), static_cast<Eigen::Index>(vars[0]->GetValues().size()));
+      x.data(), static_cast<Eigen::Index>(move_instructions.size()), manip->numJoints());
 
   // Enforce limits
   for (Eigen::Index i = 0; i < traj.rows(); i++)

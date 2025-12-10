@@ -24,7 +24,7 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <trajopt_ifopt/variable_sets/joint_position_variable.h>
+#include <trajopt_ifopt/variable_sets/var.h>
 #include <trajopt_ifopt/constraints/cartesian_line_constraint.h>
 #include <trajopt_ifopt/constraints/cartesian_position_constraint.h>
 #include <trajopt_ifopt/constraints/inverse_kinematics_constraint.h>
@@ -93,7 +93,7 @@ void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& 
 }
 
 std::shared_ptr<ifopt::ConstraintSet>
-createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::JointPosition>& var,
+createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::Var>& var,
                                   const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
                                   const std::string& source_frame,
                                   const std::string& target_frame,
@@ -123,23 +123,22 @@ createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::Joi
       cart_info,
       var,
       Eigen::Map<Eigen::VectorXd>(constraint_coeffs.data(), static_cast<Eigen::Index>(constraint_coeffs.size())),
-      "CartPos_" + var->GetName());
+      "CartPos_" + var->getIdentifier());
   return constraint;
 }
 
 std::shared_ptr<ifopt::ConstraintSet>
 createJointPositionConstraint(const JointWaypointPoly& joint_waypoint,
-                              const std::shared_ptr<const trajopt_ifopt::JointPosition>& var,
+                              const std::shared_ptr<const trajopt_ifopt::Var>& var,
                               const Eigen::VectorXd& coeffs)
 {
   assert(var);
-  std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition>> vars(1, var);
 
   ifopt::ConstraintSet::Ptr constraint;
   if (!joint_waypoint.isToleranced())
   {
     constraint = std::make_shared<trajopt_ifopt::JointPosConstraint>(
-        joint_waypoint.getPosition(), vars, coeffs, "JointPos_" + var->GetName());
+        joint_waypoint.getPosition(), var, coeffs, "JointPos_" + var->getIdentifier());
   }
   else
   {
@@ -147,14 +146,14 @@ createJointPositionConstraint(const JointWaypointPoly& joint_waypoint,
     Eigen::VectorXd upper_limit = joint_waypoint.getPosition() + joint_waypoint.getUpperTolerance();
     auto bounds = trajopt_ifopt::toBounds(lower_limit, upper_limit);
     constraint =
-        std::make_shared<trajopt_ifopt::JointPosConstraint>(bounds, vars, coeffs, "JointPos_" + var->GetName());
+        std::make_shared<trajopt_ifopt::JointPosConstraint>(bounds, var, coeffs, "JointPos_" + var->getIdentifier());
   }
 
   return constraint;
 }
 
 std::vector<std::shared_ptr<ifopt::ConstraintSet>>
-createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition>>& vars,
+createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                            const std::shared_ptr<const tesseract_environment::Environment>& env,
                            const tesseract_common::ManipulatorInfo& manip_info,
                            const trajopt_common::TrajOptCollisionConfig& config,
@@ -230,7 +229,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
       auto cp = tesseract_collision::getCollisionObjectPairs(
           active_link_names, static_link_names, env->getDiscreteContactManager()->getContactAllowedValidator());
 
-      std::array<trajopt_ifopt::JointPosition::ConstPtr, 2> position_vars{ vars[i - 1], vars[i] };
+      std::array<std::shared_ptr<const trajopt_ifopt::Var>, 2> position_vars{ vars[i - 1], vars[i] };
       constraints.push_back(std::make_shared<trajopt_ifopt::ContinuousCollisionConstraint>(
           collision_evaluator,
           position_vars,
@@ -278,7 +277,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
       auto cp = tesseract_collision::getCollisionObjectPairs(
           active_link_names, static_link_names, env->getDiscreteContactManager()->getContactAllowedValidator());
 
-      std::array<trajopt_ifopt::JointPosition::ConstPtr, 2> position_vars{ vars[i - 1], vars[i] };
+      std::array<std::shared_ptr<const trajopt_ifopt::Var>, 2> position_vars{ vars[i - 1], vars[i] };
       constraints.push_back(std::make_shared<trajopt_ifopt::ContinuousCollisionConstraint>(
           collision_evaluator,
           position_vars,
@@ -297,7 +296,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
 
 std::shared_ptr<ifopt::ConstraintSet>
 createJointVelocityConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
-                              const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition>>& vars,
+                              const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                               const Eigen::VectorXd& coeffs)
 
 {
@@ -308,7 +307,7 @@ createJointVelocityConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
 
 std::shared_ptr<ifopt::ConstraintSet>
 createJointAccelerationConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
-                                  const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition>>& vars,
+                                  const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                                   const Eigen::VectorXd& coeffs)
 
 {
@@ -320,7 +319,7 @@ createJointAccelerationConstraint(const Eigen::Ref<const Eigen::VectorXd>& targe
 
 std::shared_ptr<ifopt::ConstraintSet>
 createJointJerkConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
-                          const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition>>& vars,
+                          const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                           const Eigen::VectorXd& coeffs)
 
 {

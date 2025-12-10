@@ -24,9 +24,10 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <trajopt_ifopt/variable_sets/joint_position_variable.h>
 #include <trajopt_common/collision_types.h>
 #include <trajopt_common/utils.hpp>
+#include <trajopt_ifopt/variable_sets/node.h>
+#include <trajopt_ifopt/variable_sets/var.h>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -77,14 +78,19 @@ TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(
   }
 }
 
-TrajOptIfoptTermInfos TrajOptIfoptDefaultCompositeProfile::create(
-    const tesseract_common::ManipulatorInfo& composite_manip_info,
-    const std::shared_ptr<const tesseract_environment::Environment>& env,
-    const std::vector<std::shared_ptr<const trajopt_ifopt::JointPosition> >& vars,
-    const std::vector<int>& fixed_indices) const
+TrajOptIfoptTermInfos
+TrajOptIfoptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& composite_manip_info,
+                                            const std::shared_ptr<const tesseract_environment::Environment>& env,
+                                            const std::vector<std::unique_ptr<trajopt_ifopt::Node>>& nodes,
+                                            const std::vector<int>& fixed_indices) const
 {
-  if (vars.empty())
+  if (nodes.empty())
     throw std::runtime_error("TrajOptIfoptDefaultCompositeProfile: vars is empty.");
+
+  std::vector<std::shared_ptr<const trajopt_ifopt::Var>> vars;
+  vars.reserve(nodes.size());
+  for (const auto& node : nodes)
+    vars.push_back(node->getVar("position"));
 
   TrajOptIfoptTermInfos term_infos;
 
@@ -105,21 +111,21 @@ TrajOptIfoptTermInfos TrajOptIfoptDefaultCompositeProfile::create(
 
   if (smooth_velocities)
   {
-    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->GetJointNames().size()));
+    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->size()));
     auto constraint = createJointVelocityConstraint(target, vars, velocity_coeff);
     term_infos.squared_costs.push_back(constraint);
   }
 
   if (smooth_accelerations)
   {
-    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->GetJointNames().size()));
+    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->size()));
     auto constraint = createJointAccelerationConstraint(target, vars, acceleration_coeff);
     term_infos.squared_costs.push_back(constraint);
   }
 
   if (smooth_jerks)
   {
-    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->GetJointNames().size()));
+    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->size()));
     auto constraint = createJointJerkConstraint(target, vars, jerk_coeff);
     term_infos.squared_costs.push_back(constraint);
   }
