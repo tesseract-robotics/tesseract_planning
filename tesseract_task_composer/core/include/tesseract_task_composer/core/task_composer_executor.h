@@ -69,9 +69,6 @@ public:
   /** @brief Queries the number of running tasks at the time of this call */
   virtual long getTaskCount() const = 0;
 
-  bool operator==(const TaskComposerExecutor& rhs) const;
-  bool operator!=(const TaskComposerExecutor& rhs) const;
-
 protected:
   std::string name_;
 
