@@ -36,10 +36,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/constraints/collision/discrete_collision_constraint.h>
 #include <trajopt_ifopt/constraints/collision/continuous_collision_evaluators.h>
 #include <trajopt_ifopt/constraints/collision/discrete_collision_evaluators.h>
+#include <trajopt_ifopt/core/constraint_set.h>
 #include <trajopt_ifopt/utils/ifopt_utils.h>
 #include <trajopt_common/collision_types.h>
 #include <trajopt_sqp/qp_problem.h>
-#include <ifopt/constraint_set.h>
 #include <OsqpEigen/Settings.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -92,7 +92,7 @@ void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& 
   lhs.setRhoIsVec(static_cast<bool>(settings.rho_is_vec));
 }
 
-std::shared_ptr<ifopt::ConstraintSet>
+std::shared_ptr<trajopt_ifopt::ConstraintSet>
 createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::Var>& var,
                                   const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
                                   const std::string& source_frame,
@@ -127,14 +127,14 @@ createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::Var
   return constraint;
 }
 
-std::shared_ptr<ifopt::ConstraintSet>
+std::shared_ptr<trajopt_ifopt::ConstraintSet>
 createJointPositionConstraint(const JointWaypointPoly& joint_waypoint,
                               const std::shared_ptr<const trajopt_ifopt::Var>& var,
                               const Eigen::VectorXd& coeffs)
 {
   assert(var);
 
-  ifopt::ConstraintSet::Ptr constraint;
+  trajopt_ifopt::ConstraintSet::Ptr constraint;
   if (!joint_waypoint.isToleranced())
   {
     constraint = std::make_shared<trajopt_ifopt::JointPosConstraint>(
@@ -152,7 +152,7 @@ createJointPositionConstraint(const JointWaypointPoly& joint_waypoint,
   return constraint;
 }
 
-std::vector<std::shared_ptr<ifopt::ConstraintSet>>
+std::vector<std::shared_ptr<trajopt_ifopt::ConstraintSet>>
 createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                            const std::shared_ptr<const tesseract_environment::Environment>& env,
                            const tesseract_common::ManipulatorInfo& manip_info,
@@ -160,7 +160,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
                            const std::vector<int>& fixed_indices,
                            bool fixed_sparsity)
 {
-  std::vector<ifopt::ConstraintSet::Ptr> constraints;
+  std::vector<trajopt_ifopt::ConstraintSet::Ptr> constraints;
   if (config.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::NONE)
     return constraints;
 
@@ -294,7 +294,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
   return constraints;
 }
 
-std::shared_ptr<ifopt::ConstraintSet>
+std::shared_ptr<trajopt_ifopt::ConstraintSet>
 createJointVelocityConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
                               const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                               const Eigen::VectorXd& coeffs)
@@ -305,7 +305,7 @@ createJointVelocityConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
   return vel_constraint;
 }
 
-std::shared_ptr<ifopt::ConstraintSet>
+std::shared_ptr<trajopt_ifopt::ConstraintSet>
 createJointAccelerationConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
                                   const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                                   const Eigen::VectorXd& coeffs)
@@ -317,7 +317,7 @@ createJointAccelerationConstraint(const Eigen::Ref<const Eigen::VectorXd>& targe
   return accel_constraint;
 }
 
-std::shared_ptr<ifopt::ConstraintSet>
+std::shared_ptr<trajopt_ifopt::ConstraintSet>
 createJointJerkConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
                           const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                           const Eigen::VectorXd& coeffs)

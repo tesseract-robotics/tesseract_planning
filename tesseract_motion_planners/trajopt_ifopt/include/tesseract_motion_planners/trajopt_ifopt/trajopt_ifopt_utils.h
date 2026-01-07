@@ -45,16 +45,11 @@ namespace OsqpEigen
 class Settings;
 }
 
-namespace ifopt
-{
-class ConstraintSet;
-}
-
 namespace tesseract_planning
 {
 void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& rhs);
 
-std::shared_ptr<ifopt::ConstraintSet>
+std::shared_ptr<trajopt_ifopt::ConstraintSet>
 createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::Var>& var,
                                   const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
                                   const std::string& source_frame,
@@ -63,12 +58,12 @@ createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::Var
                                   const Eigen::Isometry3d& target_frame_offset,
                                   const Eigen::Ref<const Eigen::VectorXd>& coeffs);
 
-std::shared_ptr<ifopt::ConstraintSet>
+std::shared_ptr<trajopt_ifopt::ConstraintSet>
 createJointPositionConstraint(const JointWaypointPoly& joint_waypoint,
                               const std::shared_ptr<const trajopt_ifopt::Var>& var,
                               const Eigen::VectorXd& coeffs);
 
-std::vector<std::shared_ptr<ifopt::ConstraintSet>>
+std::vector<std::shared_ptr<trajopt_ifopt::ConstraintSet>>
 createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                            const std::shared_ptr<const tesseract_environment::Environment>& env,
                            const tesseract_common::ManipulatorInfo& manip_info,
@@ -76,17 +71,17 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
                            const std::vector<int>& fixed_indices,
                            bool fixed_sparsity);
 
-std::shared_ptr<ifopt::ConstraintSet>
+std::shared_ptr<trajopt_ifopt::ConstraintSet>
 createJointVelocityConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
                               const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                               const Eigen::VectorXd& coeffs);
 
-std::shared_ptr<ifopt::ConstraintSet>
+std::shared_ptr<trajopt_ifopt::ConstraintSet>
 createJointAccelerationConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
                                   const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                                   const Eigen::VectorXd& coeffs);
 
-std::shared_ptr<ifopt::ConstraintSet>
+std::shared_ptr<trajopt_ifopt::ConstraintSet>
 createJointJerkConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
                           const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                           const Eigen::VectorXd& coeffs);

@@ -95,7 +95,7 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
   assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
 
   tesseract_kinematics::JointGroup::ConstPtr manip = env->getJointGroup(mi.manipulator);
-  const std::vector<ifopt::Bounds> bounds = trajopt_ifopt::toBounds(manip->getLimits().joint_limits);
+  const std::vector<trajopt_ifopt::Bounds> bounds = trajopt_ifopt::toBounds(manip->getLimits().joint_limits);
 
   TrajOptIfoptWaypointInfo info;
   if (move_instruction.getWaypoint().isCartesianWaypoint())

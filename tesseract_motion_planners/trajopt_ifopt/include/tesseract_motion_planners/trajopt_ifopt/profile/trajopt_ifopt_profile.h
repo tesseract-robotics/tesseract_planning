@@ -39,20 +39,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/fwd.h>
 #include <tesseract_common/profile.h>
 
-namespace ifopt
-{
-class ConstraintSet;
-}
-
 namespace tesseract_planning
 {
 /** @brief Structure to store TrajOpt IFOPT constrant and cost term infos */
 struct TrajOptIfoptTermInfos
 {
-  std::vector<std::shared_ptr<ifopt::ConstraintSet>> constraints;
-  std::vector<std::shared_ptr<ifopt::ConstraintSet>> squared_costs;
-  std::vector<std::shared_ptr<ifopt::ConstraintSet>> absolute_costs;
-  std::vector<std::shared_ptr<ifopt::ConstraintSet>> hinge_costs;
+  std::vector<std::shared_ptr<trajopt_ifopt::ConstraintSet>> constraints;
+  std::vector<std::shared_ptr<trajopt_ifopt::ConstraintSet>> squared_costs;
+  std::vector<std::shared_ptr<trajopt_ifopt::ConstraintSet>> absolute_costs;
+  std::vector<std::shared_ptr<trajopt_ifopt::ConstraintSet>> hinge_costs;
 };
 
 /** @brief Structure to store TrajOpt waypoint cost and constrant term infos */

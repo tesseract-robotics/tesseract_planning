@@ -164,7 +164,7 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
   // 2) Add Variables
   Eigen::MatrixX2d joint_limits_eigen = manip_->getLimits().joint_limits;
   Eigen::VectorXd current_position = env_->getCurrentJointValues(manip_->getJointNames());
-  const std::vector<ifopt::Bounds> bounds = trajopt_ifopt::toBounds(manip_->getLimits().joint_limits);
+  const std::vector<trajopt_ifopt::Bounds> bounds = trajopt_ifopt::toBounds(manip_->getLimits().joint_limits);
   //  Eigen::VectorXd home_position = Eigen::VectorXd::Zero(manip_->numJoints());
   Eigen::VectorXd target_joint_position(manip_->numJoints());
   target_joint_position << 5.5, 3, 0, 0, 0, 0, 0, 0;
