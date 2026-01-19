@@ -237,16 +237,9 @@ bool PuzzlePieceAuxillaryAxesExample::run()
 
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
     trajopt_ifopt_composite_profile->collision_constraint_config.enabled = false;
-    trajopt_ifopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 2);
+    trajopt_ifopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 1);
     trajopt_ifopt_composite_profile->collision_cost_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::DISCRETE;
-
-    trajopt_ifopt_composite_profile->smooth_velocities = false;
-    trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
-    trajopt_ifopt_composite_profile->smooth_accelerations = true;
-    trajopt_ifopt_composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
-    trajopt_ifopt_composite_profile->smooth_jerks = true;
-    trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
 
     auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptOSQPSolverProfile>();
     // trajopt_ifopt_solver_profile->convex_solver_settings.adaptive_rho = 0;

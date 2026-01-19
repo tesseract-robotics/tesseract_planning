@@ -224,21 +224,14 @@ bool PuzzlePieceExample::run()
     trajopt_ifopt_move_profile->joint_cost_config.enabled = false;
     trajopt_ifopt_move_profile->cartesian_cost_config.enabled = false;
     trajopt_ifopt_move_profile->cartesian_constraint_config.enabled = true;
-    trajopt_ifopt_move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);
+    trajopt_ifopt_move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1);
     trajopt_ifopt_move_profile->cartesian_constraint_config.coeff(5) = 0;
 
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
     trajopt_ifopt_composite_profile->collision_constraint_config.enabled = false;
-    trajopt_ifopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 20);
+    trajopt_ifopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 2);
     trajopt_ifopt_composite_profile->collision_cost_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::DISCRETE;
-
-    trajopt_ifopt_composite_profile->smooth_velocities = false;
-    trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Ones(1);
-    trajopt_ifopt_composite_profile->smooth_accelerations = true;
-    trajopt_ifopt_composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
-    trajopt_ifopt_composite_profile->smooth_jerks = true;
-    trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
 
     auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptOSQPSolverProfile>();
     trajopt_ifopt_solver_profile->opt_params.max_iterations = 200;
@@ -256,7 +249,7 @@ bool PuzzlePieceExample::run()
     trajopt_move_profile->joint_cost_config.enabled = false;
     trajopt_move_profile->cartesian_cost_config.enabled = false;
     trajopt_move_profile->cartesian_constraint_config.enabled = true;
-    trajopt_move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);
+    trajopt_move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 10);
     trajopt_move_profile->cartesian_constraint_config.coeff(5) = 0;
 
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();

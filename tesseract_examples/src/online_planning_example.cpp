@@ -123,7 +123,7 @@ void OnlinePlanningExample::updateState(const std::vector<std::string>& joint_na
     target_pose_delta_ = Eigen::Isometry3d::Identity();
     //    target_pose_delta_.translate(
     //        Eigen::Vector3d(joint_state->position[10], joint_state->position[11], joint_state->position[12]));
-    target_pose_constraint_->SetTargetPose(target_pose_base_frame_ * target_pose_delta_);
+    target_pose_constraint_->setTargetPose(target_pose_base_frame_ * target_pose_delta_);
 
     plotter_->clear();
     tesseract_visualization::AxisMarker am(target_pose_base_frame_ * target_pose_delta_);

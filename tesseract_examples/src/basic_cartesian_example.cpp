@@ -197,7 +197,7 @@ bool BasicCartesianExample::run()
                          Eigen::Quaterniond(0, 0, 1.0, 0) };
 
   // Plan freespace from start
-  MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
+  MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "RASTER", "freespace_profile");
   plan_f0.setDescription("from_start_plan");
 
   // Plan linear move
@@ -222,10 +222,12 @@ bool BasicCartesianExample::run()
   if (ifopt_)
   {
     auto composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
-    composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 20);
+    composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 10);
+    composite_profile->collision_cost_config.enabled = true;
     composite_profile->collision_cost_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
-    composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 20);
+    composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 10);
+    composite_profile->collision_constraint_config.enabled = true;
     composite_profile->collision_constraint_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
 
@@ -249,9 +251,11 @@ bool BasicCartesianExample::run()
   {
     auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
     composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 20);
+    composite_profile->collision_cost_config.enabled = true;
     composite_profile->collision_cost_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 20);
+    composite_profile->collision_constraint_config.enabled = true;
     composite_profile->collision_constraint_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     composite_profile->smooth_velocities = true;

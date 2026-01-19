@@ -111,21 +111,21 @@ TrajOptIfoptDefaultCompositeProfile::create(const tesseract_common::ManipulatorI
 
   if (smooth_velocities)
   {
-    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->size()));
+    Eigen::VectorXd target = Eigen::VectorXd::Zero(vars.front()->size());
     auto constraint = createJointVelocityConstraint(target, vars, velocity_coeff);
     term_infos.squared_costs.push_back(constraint);
   }
 
   if (smooth_accelerations)
   {
-    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->size()));
+    Eigen::VectorXd target = Eigen::VectorXd::Zero(vars.front()->size());
     auto constraint = createJointAccelerationConstraint(target, vars, acceleration_coeff);
     term_infos.squared_costs.push_back(constraint);
   }
 
   if (smooth_jerks)
   {
-    Eigen::VectorXd target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->size()));
+    Eigen::VectorXd target = Eigen::VectorXd::Zero(vars.front()->size());
     auto constraint = createJointJerkConstraint(target, vars, jerk_coeff);
     term_infos.squared_costs.push_back(constraint);
   }
