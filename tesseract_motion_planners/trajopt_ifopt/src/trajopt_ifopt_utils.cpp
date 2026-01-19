@@ -158,7 +158,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
                            const tesseract_common::ManipulatorInfo& manip_info,
                            const trajopt_common::TrajOptCollisionConfig& config,
                            const std::vector<int>& fixed_indices,
-                           bool fixed_sparsity)
+                           bool /*fixed_sparsity*/)
 {
   std::vector<trajopt_ifopt::ConstraintSet::Ptr> constraints;
   if (config.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::NONE)
@@ -194,12 +194,8 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
       auto cp = tesseract_collision::getCollisionObjectPairs(
           active_link_names, static_link_names, env->getDiscreteContactManager()->getContactAllowedValidator());
 
-      constraints.push_back(std::make_shared<trajopt_ifopt::DiscreteCollisionConstraint>(
-          collision_evaluator,
-          vars[i],
-          std::min(config.max_num_cnt, static_cast<int>(cp.size())),
-          fixed_sparsity,
-          "DiscreteCollision_" + std::to_string(i)));
+      constraints.push_back(std::make_shared<trajopt_ifopt::DiscreteCollisionConstraintD>(
+          collision_evaluator, vars[i], "DiscreteCollision_" + std::to_string(i)));
     }
   }
   else if (config.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
@@ -230,14 +226,8 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
           active_link_names, static_link_names, env->getDiscreteContactManager()->getContactAllowedValidator());
 
       std::array<std::shared_ptr<const trajopt_ifopt::Var>, 2> position_vars{ vars[i - 1], vars[i] };
-      constraints.push_back(std::make_shared<trajopt_ifopt::ContinuousCollisionConstraint>(
-          collision_evaluator,
-          position_vars,
-          time0_fixed,
-          time1_fixed,
-          std::min(config.max_num_cnt, static_cast<int>(cp.size())),
-          fixed_sparsity,
-          "LVSDiscreteCollision_" + std::to_string(i)));
+      constraints.push_back(std::make_shared<trajopt_ifopt::ContinuousCollisionConstraintD>(
+          collision_evaluator, position_vars, time0_fixed, time1_fixed, "LVSDiscreteCollision_" + std::to_string(i)));
 
       time0_fixed = time1_fixed;
     }
@@ -278,14 +268,8 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
           active_link_names, static_link_names, env->getDiscreteContactManager()->getContactAllowedValidator());
 
       std::array<std::shared_ptr<const trajopt_ifopt::Var>, 2> position_vars{ vars[i - 1], vars[i] };
-      constraints.push_back(std::make_shared<trajopt_ifopt::ContinuousCollisionConstraint>(
-          collision_evaluator,
-          position_vars,
-          time0_fixed,
-          time1_fixed,
-          std::min(config.max_num_cnt, static_cast<int>(cp.size())),
-          fixed_sparsity,
-          prefix + std::to_string(i)));
+      constraints.push_back(std::make_shared<trajopt_ifopt::ContinuousCollisionConstraintD>(
+          collision_evaluator, position_vars, time0_fixed, time1_fixed, prefix + std::to_string(i)));
 
       time0_fixed = time1_fixed;
     }

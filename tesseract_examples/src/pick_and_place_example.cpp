@@ -204,7 +204,7 @@ bool PickAndPlaceExample::run()
   CartesianWaypoint pick_wp0{ pick_approach_pose };
 
   // Plan freespace from start
-  MoveInstruction pick_plan_a0(pick_wp0, MoveInstructionType::FREESPACE, "FREESPACE");
+  MoveInstruction pick_plan_a0(pick_wp0, MoveInstructionType::FREESPACE, "CARTESIAN", "FREESPACE");
   pick_plan_a0.setDescription("From start to pick Approach");
 
   // Plan cartesian approach
@@ -231,11 +231,14 @@ bool PickAndPlaceExample::run()
     auto trajopt_ifopt_move_profile = std::make_shared<TrajOptIfoptDefaultMoveProfile>();
     trajopt_ifopt_move_profile->joint_cost_config.enabled = false;
     trajopt_ifopt_move_profile->cartesian_cost_config.enabled = false;
+    trajopt_ifopt_move_profile->joint_constraint_config.enabled = true;
+    trajopt_ifopt_move_profile->joint_constraint_config.coeff = Eigen::VectorXd::Constant(1, 5);
     trajopt_ifopt_move_profile->cartesian_constraint_config.enabled = true;
-    trajopt_ifopt_move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);
+    trajopt_ifopt_move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 10);
 
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
     trajopt_ifopt_composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 10);
+    trajopt_ifopt_composite_profile->collision_constraint_config.enabled = true;
     trajopt_ifopt_composite_profile->collision_constraint_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     trajopt_ifopt_composite_profile->collision_constraint_config.collision_check_config.longest_valid_segment_length =
@@ -243,22 +246,24 @@ bool PickAndPlaceExample::run()
     trajopt_ifopt_composite_profile->collision_constraint_config.collision_margin_buffer = 0.005;
 
     trajopt_ifopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.005, 50);
+    trajopt_ifopt_composite_profile->collision_cost_config.enabled = true;
     trajopt_ifopt_composite_profile->collision_cost_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     trajopt_ifopt_composite_profile->collision_cost_config.collision_check_config.longest_valid_segment_length = 0.05;
     trajopt_ifopt_composite_profile->collision_cost_config.collision_margin_buffer = 0.01;
 
     trajopt_ifopt_composite_profile->smooth_velocities = true;
-    trajopt_ifopt_composite_profile->velocity_coeff = 0.1 * Eigen::VectorXd::Ones(1);
+    trajopt_ifopt_composite_profile->velocity_coeff = Eigen::VectorXd::Constant(1, 1);
     trajopt_ifopt_composite_profile->smooth_accelerations = true;
-    trajopt_ifopt_composite_profile->acceleration_coeff = Eigen::VectorXd::Ones(1);
+    trajopt_ifopt_composite_profile->acceleration_coeff = Eigen::VectorXd::Constant(1, 1);
     trajopt_ifopt_composite_profile->smooth_jerks = true;
-    trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Ones(1);
+    trajopt_ifopt_composite_profile->jerk_coeff = Eigen::VectorXd::Constant(1, 1);
 
     auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptOSQPSolverProfile>();
     trajopt_ifopt_solver_profile->opt_params.max_iterations = 100;
 
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_ifopt_move_profile);
+    profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_move_profile);
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_composite_profile);
     profiles->addProfile(TRAJOPT_IFOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_ifopt_solver_profile);
   }
@@ -268,26 +273,38 @@ bool PickAndPlaceExample::run()
     auto trajopt_move_profile = std::make_shared<TrajOptDefaultMoveProfile>();
     trajopt_move_profile->joint_cost_config.enabled = false;
     trajopt_move_profile->cartesian_cost_config.enabled = false;
+    trajopt_move_profile->joint_constraint_config.enabled = true;
+    trajopt_move_profile->joint_constraint_config.coeff = Eigen::VectorXd::Constant(1, 5);
     trajopt_move_profile->cartesian_constraint_config.enabled = true;
-    trajopt_move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 10);
+    trajopt_move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 10);
 
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
     trajopt_composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 10);
+    trajopt_composite_profile->collision_constraint_config.enabled = true;
     trajopt_composite_profile->collision_constraint_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     trajopt_composite_profile->collision_constraint_config.collision_check_config.longest_valid_segment_length = 0.05;
     trajopt_composite_profile->collision_constraint_config.collision_margin_buffer = 0.005;
 
     trajopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.005, 50);
+    trajopt_composite_profile->collision_cost_config.enabled = true;
     trajopt_composite_profile->collision_cost_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     trajopt_composite_profile->collision_cost_config.collision_check_config.longest_valid_segment_length = 0.05;
     trajopt_composite_profile->collision_cost_config.collision_margin_buffer = 0.01;
 
+    trajopt_composite_profile->smooth_velocities = true;
+    trajopt_composite_profile->velocity_coeff = Eigen::VectorXd::Constant(1, 1);
+    trajopt_composite_profile->smooth_accelerations = true;
+    trajopt_composite_profile->acceleration_coeff = Eigen::VectorXd::Constant(1, 1);
+    trajopt_composite_profile->smooth_jerks = true;
+    trajopt_composite_profile->jerk_coeff = Eigen::VectorXd::Constant(1, 1);
+
     auto trajopt_solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
     trajopt_solver_profile->opt_params.max_iter = 100;
 
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "CARTESIAN", trajopt_move_profile);
+    profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_move_profile);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_solver_profile);
   }
