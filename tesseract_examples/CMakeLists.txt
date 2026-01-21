@@ -20,14 +20,7 @@ find_package(
     trajopt
     trajopt_ifopt)
 find_package(tesseract_collision REQUIRED COMPONENTS core)
-find_package(
-  PCL REQUIRED
-  COMPONENTS core
-             features
-             filters
-             io
-             segmentation
-             surface)
+find_package(PCL REQUIRED COMPONENTS common)
 
 # Load variable for clang tidy args, compiler options and cxx version
 tesseract_variables()
@@ -47,48 +40,23 @@ add_library(
   src/scene_graph_example.cpp)
 target_link_libraries(
   ${PROJECT_NAME}
-  tesseract::tesseract_environment
-  tesseract::tesseract_motion_planners_core
-  tesseract::tesseract_motion_planners_ompl
-  tesseract::tesseract_motion_planners_trajopt
-  tesseract::tesseract_motion_planners_trajopt_ifopt
-  trajopt::trajopt_sqp
-  trajopt::trajopt_ifopt
-  tesseract::tesseract_task_composer
-  tesseract::tesseract_task_composer_planning_nodes
-  console_bridge::console_bridge
-  ${PCL_LIBRARIES})
+  PUBLIC tesseract::tesseract_environment
+         tesseract::tesseract_motion_planners_core
+         tesseract::tesseract_motion_planners_ompl
+         tesseract::tesseract_motion_planners_trajopt
+         tesseract::tesseract_motion_planners_trajopt_ifopt
+         trajopt::trajopt_sqp
+         trajopt::trajopt_ifopt
+         tesseract::tesseract_task_composer
+         tesseract::tesseract_task_composer_planning_nodes
+         console_bridge::console_bridge
+  PRIVATE ${PCL_LIBRARIES})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS})
 target_clang_tidy(${PROJECT_NAME} ARGUMENTS ${TESSERACT_CLANG_TIDY_ARGS} ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(${PROJECT_NAME} PUBLIC VERSION ${TESSERACT_CXX_VERSION})
-foreach(DEF ${PCL_DEFINITIONS})
-  string(STRIP ${DEF} DEF)
-  if(NOT
-     "${DEF}"
-     STREQUAL
-     "")
-    string(
-      SUBSTRING "${DEF}"
-                0
-                2
-                DEF_PREFIX)
-    if("${DEF_PREFIX}" STREQUAL "-m")
-      string(
-        REPLACE " "
-                ";"
-                DEF
-                ${DEF})
-      foreach(OPTION_DEF ${DEF})
-        target_compile_options(${PROJECT_NAME} PUBLIC ${OPTION_DEF})
-      endforeach()
-    else()
-      target_compile_definitions(${PROJECT_NAME} PUBLIC ${DEF})
-    endif()
-  endif()
-endforeach()
 target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                   "$<INSTALL_INTERFACE:include>")
-target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC ${PCL_INCLUDE_DIRS})
+target_include_directories(${PROJECT_NAME} PRIVATE ${PCL_INCLUDE_DIRS})
 
 macro(add_example example_name example_file)
   add_executable(${example_name} ${example_file})
@@ -145,8 +113,7 @@ configure_package(
     tesseract_collision
     tesseract_common
     trajopt_sqp
-    trajopt_ifopt
-    "PCL REQUIRED COMPONENTS core features filters io segmentation surface")
+    trajopt_ifopt)
 
 if(TESSERACT_ENABLE_TESTING)
   enable_testing()
