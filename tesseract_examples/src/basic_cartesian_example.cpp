@@ -222,11 +222,11 @@ bool BasicCartesianExample::run()
   if (ifopt_)
   {
     auto composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
-    composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 10);
+    composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 1);
     composite_profile->collision_cost_config.enabled = true;
     composite_profile->collision_cost_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
-    composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 10);
+    composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 1);
     composite_profile->collision_constraint_config.enabled = true;
     composite_profile->collision_constraint_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
@@ -250,11 +250,11 @@ bool BasicCartesianExample::run()
   else
   {
     auto composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-    composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 20);
+    composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 1);
     composite_profile->collision_cost_config.enabled = true;
     composite_profile->collision_cost_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
-    composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 20);
+    composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 1);
     composite_profile->collision_constraint_config.enabled = true;
     composite_profile->collision_constraint_config.collision_check_config.type =
         tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;

@@ -98,7 +98,7 @@ JointGroupInstructionInfo::~JointGroupInstructionInfo() = default;
 
 Eigen::Isometry3d JointGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp, bool in_world) const
 {
-  thread_local tesseract_common::TransformMap transforms;
+  TESSERACT_THREAD_LOCAL tesseract_common::TransformMap transforms;
   transforms.clear();
   manip->calcFwdKin(transforms, jp);
 
@@ -167,7 +167,7 @@ KinematicGroupInstructionInfo::~KinematicGroupInstructionInfo() = default;
 
 Eigen::Isometry3d KinematicGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp, bool in_world) const
 {
-  thread_local tesseract_common::TransformMap transforms;
+  TESSERACT_THREAD_LOCAL tesseract_common::TransformMap transforms;
   transforms.clear();
   manip->calcFwdKin(transforms, jp);
 
@@ -1158,7 +1158,7 @@ Eigen::VectorXd getClosestJointSolution(const KinematicGroupInstructionInfo& inf
 
   Eigen::VectorXd jp_final;
   tesseract_kinematics::KinGroupIKInput ik_input(cwp, info.working_frame, info.tcp_frame);
-  thread_local tesseract_kinematics::IKSolutions solutions;
+  TESSERACT_THREAD_LOCAL tesseract_kinematics::IKSolutions solutions;
   solutions.clear();
 
   info.manip->calcInvKin(solutions, { ik_input }, seed);
@@ -1224,7 +1224,7 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
   // Calculate IK for start and end
   Eigen::VectorXd j1_final;
   tesseract_kinematics::KinGroupIKInput ik_input1(cwp1, info1.working_frame, info1.tcp_frame);
-  thread_local tesseract_kinematics::IKSolutions j1;
+  TESSERACT_THREAD_LOCAL tesseract_kinematics::IKSolutions j1;
   j1.clear();
   info1.manip->calcInvKin(j1, { ik_input1 }, seed);
   j1.erase(std::remove_if(j1.begin(),
@@ -1246,7 +1246,7 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
 
   Eigen::VectorXd j2_final;
   tesseract_kinematics::KinGroupIKInput ik_input2(cwp2, info2.working_frame, info2.tcp_frame);
-  thread_local tesseract_kinematics::IKSolutions j2;
+  TESSERACT_THREAD_LOCAL tesseract_kinematics::IKSolutions j2;
   j2.clear();
   info2.manip->calcInvKin(j2, { ik_input2 }, seed);
   j2.erase(std::remove_if(j2.begin(),

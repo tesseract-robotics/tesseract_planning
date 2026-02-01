@@ -140,11 +140,11 @@ bool ContinuousMotionValidator::continuousCollisionCheck(const ompl::base::State
   Eigen::Map<Eigen::VectorXd> start_joints = extractor_(s1);
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(s2);
 
-  thread_local tesseract_common::TransformMap state0;
+  TESSERACT_THREAD_LOCAL tesseract_common::TransformMap state0;
   state0.clear();
   manip_->calcFwdKin(state0, start_joints);
 
-  thread_local tesseract_common::TransformMap state1;
+  TESSERACT_THREAD_LOCAL tesseract_common::TransformMap state1;
   state1.clear();
   manip_->calcFwdKin(state1, finish_joints);
 

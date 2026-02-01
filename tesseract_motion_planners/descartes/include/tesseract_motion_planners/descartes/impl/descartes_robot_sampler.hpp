@@ -90,7 +90,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
     // Get the transformation to the kinematic tip link
     ik_inputs.front().pose = pose * tcp_offset_.inverse();
 
-    thread_local tesseract_kinematics::IKSolutions ik_solutions;
+    TESSERACT_THREAD_LOCAL tesseract_kinematics::IKSolutions ik_solutions;
     ik_solutions.clear();
 
     manip_->calcInvKin(ik_solutions, ik_inputs, ik_seed_);
@@ -103,8 +103,8 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
     found_ik_sol = true;
 
     // These get cleared in the validate and distance calls
-    thread_local tesseract_collision::ContactResultMap coll_results;
-    thread_local tesseract_common::TransformMap transforms;
+    TESSERACT_THREAD_LOCAL tesseract_collision::ContactResultMap coll_results;
+    TESSERACT_THREAD_LOCAL tesseract_common::TransformMap transforms;
 
     // Check each individual joint solution
     for (std::size_t j = 0; j < ik_solutions.size(); j++)
@@ -194,9 +194,9 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
     const Eigen::MatrixX2d& limits = manip_->getLimits().joint_limits;
     std::vector<Eigen::Index> redundancy_capable_joints = manip_->getRedundancyCapableJointIndices();
     const std::size_t ns = samples.size();
+    TESSERACT_THREAD_LOCAL std::vector<tesseract_kinematics::VectorX<FloatType>> redundant_solutions;
     for (std::size_t i = 0; i < ns; ++i)
     {
-      thread_local std::vector<tesseract_kinematics::VectorX<FloatType>> redundant_solutions;
       redundant_solutions.clear();
 
       const auto& sample = samples[i];

@@ -209,7 +209,7 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
     Eigen::VectorXd vel_target = Eigen::VectorXd::Zero(8);
     auto vel_constraint = std::make_shared<trajopt_ifopt::JointVelConstraint>(
         vel_target, vars, Eigen::VectorXd::Ones(1), "JointVelocity");
-    nlp_->addCostSet(vel_constraint, trajopt_sqp::CostPenaltyType::SQUARED);
+    nlp_->addCostSet(vel_constraint, trajopt_sqp::CostPenaltyType::kSquared);
   }
   // Add a collision cost for all steps
   double margin_coeff = 10;
@@ -219,14 +219,13 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
   collision_config.collision_check_config.type = CollisionEvaluatorType::DISCRETE;
   collision_config.collision_margin_buffer = 0.10;
 
-  auto collision_cache = std::make_shared<trajopt_ifopt::CollisionCache>(steps_);
   if (use_continuous_)
   {
     std::array<bool, 2> vars_fixed{ true, false };
     for (std::size_t i = 1; i < static_cast<std::size_t>(steps_); i++)
     {
-      auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSDiscreteCollisionEvaluator>(
-          collision_cache, manip_, env_, collision_config, true);
+      auto collision_evaluator =
+          std::make_shared<trajopt_ifopt::LVSDiscreteCollisionEvaluator>(manip_, env_, collision_config, true);
 
       std::array<std::shared_ptr<const trajopt_ifopt::Var>, 2> position_vars = { vars[i - 1], vars[i] };
       auto collision_constraint =
@@ -247,8 +246,8 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
   {
     for (std::size_t i = 1; i < static_cast<std::size_t>(steps_); i++)
     {
-      auto collision_evaluator = std::make_shared<trajopt_ifopt::SingleTimestepCollisionEvaluator>(
-          collision_cache, manip_, env_, collision_config, true);
+      auto collision_evaluator =
+          std::make_shared<trajopt_ifopt::SingleTimestepCollisionEvaluator>(manip_, env_, collision_config, true);
 
       auto collision_constraint =
           std::make_shared<trajopt_ifopt::DiscreteCollisionConstraint>(collision_evaluator,
@@ -397,9 +396,10 @@ bool OnlinePlanningExample::onlinePlan()
       user_input_start = steady_clock::now();
     }
 
+    nlp_->setVariables(x.data());
     std::string message =
         "Solver Frequency (Hz): " + std::to_string(1.0 / static_cast<double>(duration.count()) * 1000000.) +
-        "\nCost: " + std::to_string(nlp_->evaluateTotalExactCost(x)) + "\n";
+        "\nCost: " + std::to_string(nlp_->getTotalExactCost()) + "\n";
     std::cout << message;
   }
 
