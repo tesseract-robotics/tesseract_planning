@@ -122,13 +122,13 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
       nlp->addConstraintSet(cnt);
 
     for (const auto& absolute_cost : wp_info.term_infos.absolute_costs)
-      nlp->addCostSet(absolute_cost, trajopt_sqp::CostPenaltyType::ABSOLUTE);
+      nlp->addCostSet(absolute_cost, trajopt_sqp::CostPenaltyType::kAbsolute);
 
     for (const auto& squared_cost : wp_info.term_infos.squared_costs)
-      nlp->addCostSet(squared_cost, trajopt_sqp::CostPenaltyType::SQUARED);
+      nlp->addCostSet(squared_cost, trajopt_sqp::CostPenaltyType::kSquared);
 
     for (const auto& hinge_cost : wp_info.term_infos.hinge_costs)
-      nlp->addCostSet(hinge_cost, trajopt_sqp::CostPenaltyType::HINGE);
+      nlp->addCostSet(hinge_cost, trajopt_sqp::CostPenaltyType::kHinge);
   }
 
   // ----------------
@@ -151,13 +151,13 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
     nlp->addConstraintSet(cnt);
 
   for (const auto& absolute_cost : term_infos.absolute_costs)
-    nlp->addCostSet(absolute_cost, trajopt_sqp::CostPenaltyType::ABSOLUTE);
+    nlp->addCostSet(absolute_cost, trajopt_sqp::CostPenaltyType::kAbsolute);
 
   for (const auto& squared_cost : term_infos.squared_costs)
-    nlp->addCostSet(squared_cost, trajopt_sqp::CostPenaltyType::SQUARED);
+    nlp->addCostSet(squared_cost, trajopt_sqp::CostPenaltyType::kSquared);
 
   for (const auto& hinge_cost : term_infos.hinge_costs)
-    nlp->addCostSet(hinge_cost, trajopt_sqp::CostPenaltyType::HINGE);
+    nlp->addCostSet(hinge_cost, trajopt_sqp::CostPenaltyType::kHinge);
 
   // Setup
   nlp->setup();
@@ -175,7 +175,7 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   solver->solve(nlp);
 
   // Check success
-  if (solver->getStatus() != trajopt_sqp::SQPStatus::NLP_CONVERGED)
+  if (solver->getStatus() != trajopt_sqp::SQPStatus::kConverged)
   {
     response.successful = false;
     response.message = ERROR_FAILED_TO_FIND_VALID_SOLUTION;

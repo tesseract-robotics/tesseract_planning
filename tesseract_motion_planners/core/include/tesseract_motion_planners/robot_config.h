@@ -76,7 +76,7 @@ inline RobotConfig getRobotConfig(const tesseract_kinematics::JointGroup& joint_
                                   const Eigen::Ref<const Eigen::Vector2i>& sign_correction = Eigen::Vector2i::Ones())
 {
   // Get state
-  thread_local tesseract_common::TransformMap state;
+  TESSERACT_THREAD_LOCAL tesseract_common::TransformMap state;
   state.clear();
   joint_group.calcFwdKin(state, joint_values.template cast<double>());
 

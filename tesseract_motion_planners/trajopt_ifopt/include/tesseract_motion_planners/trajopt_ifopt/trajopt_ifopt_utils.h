@@ -56,7 +56,8 @@ createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::Var
                                   const std::string& target_frame,
                                   const Eigen::Isometry3d& source_frame_offset,
                                   const Eigen::Isometry3d& target_frame_offset,
-                                  const Eigen::Ref<const Eigen::VectorXd>& coeffs);
+                                  const Eigen::Ref<const Eigen::VectorXd>& coeffs,
+                                  const std::vector<trajopt_ifopt::Bounds>& bounds);
 
 std::shared_ptr<trajopt_ifopt::ConstraintSet>
 createJointPositionConstraint(const JointWaypointPoly& joint_waypoint,

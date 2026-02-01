@@ -136,36 +136,42 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
 
     if (cartesian_cost_config.enabled)
     {
-      std::vector<double> coeffs;
-      for (Eigen::Index i = 0; i < cartesian_cost_config.coeff.rows(); ++i)
-      {
-        if (tesseract_common::almostEqualRelativeAndAbs(cartesian_cost_config.coeff(i), 0.0))
-          coeffs.push_back(0);
-        else
-          coeffs.push_back(1);
-      }
+      std::vector<trajopt_ifopt::Bounds> bounds;
+      if (cwp.isToleranced() || cartesian_cost_config.use_tolerance_override)
+        bounds = trajopt_ifopt::toBounds(lower_tolerance_cost, upper_tolerance_cost);
+      else
+        bounds = std::vector<trajopt_ifopt::Bounds>(static_cast<std::size_t>(cartesian_cost_config.coeff.rows()),
+                                                    trajopt_ifopt::BoundZero);
 
-      auto constraint = createCartesianPositionConstraint(
-          var,
-          manip,
-          mi.tcp_frame,
-          mi.working_frame,
-          tcp_offset,
-          cwp.getTransform(),
-          Eigen::Map<Eigen::VectorXd>(coeffs.data(), static_cast<Eigen::Index>(coeffs.size())));
-
-      info.term_infos.squared_costs.push_back(constraint);
-    }
-
-    if (cartesian_constraint_config.enabled)
-    {
       auto constraint = createCartesianPositionConstraint(var,
                                                           manip,
                                                           mi.tcp_frame,
                                                           mi.working_frame,
                                                           tcp_offset,
                                                           cwp.getTransform(),
-                                                          cartesian_constraint_config.coeff);
+                                                          cartesian_cost_config.coeff,
+                                                          bounds);
+
+      info.term_infos.squared_costs.push_back(constraint);
+    }
+
+    if (cartesian_constraint_config.enabled)
+    {
+      std::vector<trajopt_ifopt::Bounds> bounds;
+      if (cwp.isToleranced() || cartesian_constraint_config.use_tolerance_override)
+        bounds = trajopt_ifopt::toBounds(lower_tolerance_cost, upper_tolerance_cost);
+      else
+        bounds = std::vector<trajopt_ifopt::Bounds>(static_cast<std::size_t>(cartesian_constraint_config.coeff.rows()),
+                                                    trajopt_ifopt::BoundZero);
+
+      auto constraint = createCartesianPositionConstraint(var,
+                                                          manip,
+                                                          mi.tcp_frame,
+                                                          mi.working_frame,
+                                                          tcp_offset,
+                                                          cwp.getTransform(),
+                                                          cartesian_constraint_config.coeff,
+                                                          bounds);
       info.term_infos.constraints.push_back(constraint);
     }
 
