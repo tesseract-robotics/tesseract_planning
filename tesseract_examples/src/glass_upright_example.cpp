@@ -216,7 +216,7 @@ bool GlassUprightExample::run()
     move_profile->joint_cost_config.enabled = false;
     move_profile->cartesian_cost_config.enabled = false;
     move_profile->cartesian_constraint_config.enabled = true;
-    move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 5);
+    move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1);
     move_profile->cartesian_constraint_config.coeff(0) = 0;
     move_profile->cartesian_constraint_config.coeff(1) = 0;
     move_profile->cartesian_constraint_config.coeff(2) = 0;
@@ -247,7 +247,7 @@ bool GlassUprightExample::run()
     move_profile->joint_cost_config.enabled = false;
     move_profile->cartesian_cost_config.enabled = false;
     move_profile->cartesian_constraint_config.enabled = true;
-    move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1, 5);
+    move_profile->cartesian_constraint_config.coeff = Eigen::VectorXd::Constant(6, 1);
     move_profile->cartesian_constraint_config.coeff(0) = 0;
     move_profile->cartesian_constraint_config.coeff(1) = 0;
     move_profile->cartesian_constraint_config.coeff(2) = 0;

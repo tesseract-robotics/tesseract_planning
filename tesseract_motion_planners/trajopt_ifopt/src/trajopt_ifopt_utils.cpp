@@ -99,16 +99,19 @@ createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::Var
                                   const std::string& target_frame,
                                   const Eigen::Isometry3d& source_frame_offset,
                                   const Eigen::Isometry3d& target_frame_offset,
-                                  const Eigen::Ref<const Eigen::VectorXd>& coeffs)
+                                  const Eigen::Ref<const Eigen::VectorXd>& coeffs,
+                                  const std::vector<trajopt_ifopt::Bounds>& bounds)
 {
   std::vector<int> indices;
   std::vector<double> constraint_coeffs;
+  std::vector<trajopt_ifopt::Bounds> constraint_bounds;
   for (Eigen::Index i = 0; i < coeffs.rows(); ++i)
   {
     if (!tesseract_common::almostEqualRelativeAndAbs(coeffs(i), 0.0))
     {
       indices.push_back(static_cast<int>(i));
       constraint_coeffs.push_back(coeffs(i));
+      constraint_bounds.push_back(bounds[static_cast<std::size_t>(i)]);
     }
   }
 
@@ -123,6 +126,7 @@ createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::Var
       cart_info,
       var,
       Eigen::Map<Eigen::VectorXd>(constraint_coeffs.data(), static_cast<Eigen::Index>(constraint_coeffs.size())),
+      constraint_bounds,
       "CartPos_" + var->getIdentifier());
   return constraint;
 }
@@ -164,9 +168,9 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
   if (config.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::NONE)
     return constraints;
 
+  std::shared_ptr<const tesseract_kinematics::JointGroup> manip = env->getJointGroup(manip_info.manipulator);
+
   // Add a collision cost for all steps
-  auto collision_cache = std::make_shared<trajopt_ifopt::CollisionCache>(vars.size());
-  std::unordered_map<std::string, std::shared_ptr<const tesseract_kinematics::JointGroup>> manipulators;
   if (config.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::DISCRETE)
   {
     for (std::size_t i = 0; i < vars.size(); ++i)
@@ -174,25 +178,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
       if (std::find(fixed_indices.begin(), fixed_indices.end(), i) != fixed_indices.end())
         continue;
 
-      std::shared_ptr<const tesseract_kinematics::JointGroup> manip;
-      auto it = manipulators.find(manip_info.manipulator);
-      if (it != manipulators.end())
-      {
-        manip = it->second;
-      }
-      else
-      {
-        manip = env->getJointGroup(manip_info.manipulator);
-        manipulators[manip_info.manipulator] = manip;
-      }
-
-      auto collision_evaluator =
-          std::make_shared<trajopt_ifopt::SingleTimestepCollisionEvaluator>(collision_cache, manip, env, config);
-
-      auto active_link_names = manip->getActiveLinkNames();
-      auto static_link_names = manip->getStaticLinkNames();
-      auto cp = tesseract_collision::getCollisionObjectPairs(
-          active_link_names, static_link_names, env->getDiscreteContactManager()->getContactAllowedValidator());
+      auto collision_evaluator = std::make_shared<trajopt_ifopt::SingleTimestepCollisionEvaluator>(manip, env, config);
 
       constraints.push_back(std::make_shared<trajopt_ifopt::DiscreteCollisionConstraintD>(
           collision_evaluator, vars[i], "DiscreteCollision_" + std::to_string(i)));
@@ -205,25 +191,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
     {
       bool time1_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), i) != fixed_indices.end());
 
-      std::shared_ptr<const tesseract_kinematics::JointGroup> manip;
-      auto it = manipulators.find(manip_info.manipulator);
-      if (it != manipulators.end())
-      {
-        manip = it->second;
-      }
-      else
-      {
-        manip = env->getJointGroup(manip_info.manipulator);
-        manipulators[manip_info.manipulator] = manip;
-      }
-
-      auto collision_evaluator =
-          std::make_shared<trajopt_ifopt::LVSDiscreteCollisionEvaluator>(collision_cache, manip, env, config);
-
-      auto active_link_names = manip->getActiveLinkNames();
-      auto static_link_names = manip->getStaticLinkNames();
-      auto cp = tesseract_collision::getCollisionObjectPairs(
-          active_link_names, static_link_names, env->getDiscreteContactManager()->getContactAllowedValidator());
+      auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSDiscreteCollisionEvaluator>(manip, env, config);
 
       std::array<std::shared_ptr<const trajopt_ifopt::Var>, 2> position_vars{ vars[i - 1], vars[i] };
       constraints.push_back(std::make_shared<trajopt_ifopt::ContinuousCollisionConstraintD>(
@@ -247,25 +215,7 @@ createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt
     {
       bool time1_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), i) != fixed_indices.end());
 
-      std::shared_ptr<const tesseract_kinematics::JointGroup> manip;
-      auto it = manipulators.find(manip_info.manipulator);
-      if (it != manipulators.end())
-      {
-        manip = it->second;
-      }
-      else
-      {
-        manip = env->getJointGroup(manip_info.manipulator);
-        manipulators[manip_info.manipulator] = manip;
-      }
-
-      auto collision_evaluator =
-          std::make_shared<trajopt_ifopt::LVSContinuousCollisionEvaluator>(collision_cache, manip, env, config);
-
-      auto active_link_names = manip->getActiveLinkNames();
-      auto static_link_names = manip->getStaticLinkNames();
-      auto cp = tesseract_collision::getCollisionObjectPairs(
-          active_link_names, static_link_names, env->getDiscreteContactManager()->getContactAllowedValidator());
+      auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSContinuousCollisionEvaluator>(manip, env, config);
 
       std::array<std::shared_ptr<const trajopt_ifopt::Var>, 2> position_vars{ vars[i - 1], vars[i] };
       constraints.push_back(std::make_shared<trajopt_ifopt::ContinuousCollisionConstraintD>(

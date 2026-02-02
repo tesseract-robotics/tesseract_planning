@@ -74,7 +74,7 @@ bool StateCollisionValidator::isValid(const ompl::base::State* state) const
   mutex_.unlock();
 
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(state);
-  thread_local tesseract_common::TransformMap state1;
+  TESSERACT_THREAD_LOCAL tesseract_common::TransformMap state1;
   state1.clear();
   manip_->calcFwdKin(state1, finish_joints);
 
