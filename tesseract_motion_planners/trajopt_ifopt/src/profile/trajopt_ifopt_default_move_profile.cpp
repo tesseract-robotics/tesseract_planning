@@ -203,10 +203,13 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
 
     // Create var set
     info.node = std::make_unique<trajopt_ifopt::Node>("Node_" + std::to_string(index));
+    // Fix the variable bounds if the waypoint is fixed
+    auto var_bounds = info.fixed ? trajopt_ifopt::toBounds(jwp.getPosition(), jwp.getPosition()) : bounds;
     std::shared_ptr<const trajopt_ifopt::Var> var =
-        info.node->addVar("position", joint_names, jwp.getPosition(), bounds);
+        info.node->addVar("position", joint_names, jwp.getPosition(), var_bounds);
 
-    if (jwp.isConstrained())
+    // Only add cost/constraint if the waypoint is constrained and not fixed
+    if (jwp.isConstrained() && !info.fixed)
     {
       // Override cost tolerances if the profile specifies that they should be overrided.
       Eigen::VectorXd lower_tolerance_cost = jwp.getLowerTolerance();
