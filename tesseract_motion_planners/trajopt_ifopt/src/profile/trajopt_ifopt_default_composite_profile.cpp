@@ -81,7 +81,7 @@ TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(
 TrajOptIfoptTermInfos
 TrajOptIfoptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& composite_manip_info,
                                             const std::shared_ptr<const tesseract_environment::Environment>& env,
-                                            const std::vector<std::unique_ptr<trajopt_ifopt::Node>>& nodes,
+                                            const std::vector<std::shared_ptr<const trajopt_ifopt::Node>>& nodes,
                                             const std::vector<int>& fixed_indices) const
 {
   if (nodes.empty())

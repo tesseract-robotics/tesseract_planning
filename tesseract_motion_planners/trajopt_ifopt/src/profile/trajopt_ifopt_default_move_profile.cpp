@@ -28,6 +28,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/variable_sets/node.h>
 #include <trajopt_ifopt/variable_sets/var.h>
 #include <trajopt_ifopt/utils/ifopt_utils.h>
+#include <trajopt_ifopt/constraints/cartesian_position_constraint.h>
 #include <yaml-cpp/yaml.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -116,62 +117,100 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
 
     Eigen::Isometry3d tcp_offset = env->findTCPOffset(mi);
 
-    // Override cost tolerances if the profile specifies that they should be overrided.
-    Eigen::VectorXd lower_tolerance_cost = cwp.getLowerTolerance();
-    Eigen::VectorXd upper_tolerance_cost = cwp.getUpperTolerance();
-    if (cartesian_cost_config.use_tolerance_override)
-    {
-      lower_tolerance_cost = cartesian_cost_config.lower_tolerance;
-      upper_tolerance_cost = cartesian_cost_config.upper_tolerance;
-    }
-    Eigen::VectorXd lower_tolerance_cnt = cwp.getLowerTolerance();
-    Eigen::VectorXd upper_tolerance_cnt = cwp.getUpperTolerance();
-    if (cartesian_constraint_config.use_tolerance_override)
-    {
-      lower_tolerance_cnt = cartesian_constraint_config.lower_tolerance;
-      upper_tolerance_cnt = cartesian_constraint_config.upper_tolerance;
-    }
-
-    /** @todo Levi, update to support toleranced cartesian */
-
     if (cartesian_cost_config.enabled)
     {
+      // Override cost tolerances if the profile specifies that they should be overrided.
+      Eigen::VectorXd coeffs = cartesian_cost_config.coeff;
+      Eigen::VectorXd lower_tolerance = cwp.getLowerTolerance();
+      Eigen::VectorXd upper_tolerance = cwp.getUpperTolerance();
+      if (cartesian_cost_config.use_tolerance_override)
+      {
+        lower_tolerance = cartesian_cost_config.lower_tolerance;
+        upper_tolerance = cartesian_cost_config.upper_tolerance;
+      }
+
+      if (lower_tolerance.size() == 1)
+      {
+        const double value = lower_tolerance(0);
+        lower_tolerance = Eigen::VectorXd::Constant(6, value);
+      }
+
+      if (upper_tolerance.size() == 1)
+      {
+        const double value = upper_tolerance(0);
+        upper_tolerance = Eigen::VectorXd::Constant(6, value);
+      }
+
+      if (coeffs.size() == 1)
+      {
+        const double value = coeffs(0);
+        coeffs = Eigen::VectorXd::Constant(6, value);
+      }
+
       std::vector<trajopt_ifopt::Bounds> bounds;
       if (cwp.isToleranced() || cartesian_cost_config.use_tolerance_override)
-        bounds = trajopt_ifopt::toBounds(lower_tolerance_cost, upper_tolerance_cost);
+        bounds = trajopt_ifopt::toBounds(lower_tolerance, upper_tolerance);
       else
-        bounds = std::vector<trajopt_ifopt::Bounds>(static_cast<std::size_t>(cartesian_cost_config.coeff.rows()),
-                                                    trajopt_ifopt::BoundZero);
+        bounds = std::vector<trajopt_ifopt::Bounds>(6, trajopt_ifopt::BoundZero);
 
-      auto constraint = createCartesianPositionConstraint(var,
-                                                          manip,
-                                                          mi.tcp_frame,
-                                                          mi.working_frame,
-                                                          tcp_offset,
-                                                          cwp.getTransform(),
-                                                          cartesian_cost_config.coeff,
-                                                          bounds);
+      auto constraint = std::make_shared<trajopt_ifopt::CartPosConstraint>(var,
+                                                                           coeffs,
+                                                                           bounds,
+                                                                           manip,
+                                                                           mi.tcp_frame,
+                                                                           mi.working_frame,
+                                                                           tcp_offset,
+                                                                           cwp.getTransform(),
+                                                                           "CartPos_" + var->getIdentifier());
 
       info.term_infos.squared_costs.push_back(constraint);
     }
 
     if (cartesian_constraint_config.enabled)
     {
+      Eigen::VectorXd coeffs = cartesian_constraint_config.coeff;
+      Eigen::VectorXd lower_tolerance = cwp.getLowerTolerance();
+      Eigen::VectorXd upper_tolerance = cwp.getUpperTolerance();
+      if (cartesian_constraint_config.use_tolerance_override)
+      {
+        lower_tolerance = cartesian_constraint_config.lower_tolerance;
+        upper_tolerance = cartesian_constraint_config.upper_tolerance;
+      }
+
+      if (lower_tolerance.size() == 1)
+      {
+        const double value = lower_tolerance(0);
+        lower_tolerance = Eigen::VectorXd::Constant(6, value);
+      }
+
+      if (upper_tolerance.size() == 1)
+      {
+        const double value = upper_tolerance(0);
+        upper_tolerance = Eigen::VectorXd::Constant(6, value);
+      }
+
+      if (coeffs.size() == 1)
+      {
+        const double value = coeffs(0);
+        coeffs = Eigen::VectorXd::Constant(6, value);
+      }
+
       std::vector<trajopt_ifopt::Bounds> bounds;
       if (cwp.isToleranced() || cartesian_constraint_config.use_tolerance_override)
-        bounds = trajopt_ifopt::toBounds(lower_tolerance_cost, upper_tolerance_cost);
+        bounds = trajopt_ifopt::toBounds(lower_tolerance, upper_tolerance);
       else
-        bounds = std::vector<trajopt_ifopt::Bounds>(static_cast<std::size_t>(cartesian_constraint_config.coeff.rows()),
-                                                    trajopt_ifopt::BoundZero);
+        bounds = std::vector<trajopt_ifopt::Bounds>(6, trajopt_ifopt::BoundZero);
 
-      auto constraint = createCartesianPositionConstraint(var,
-                                                          manip,
-                                                          mi.tcp_frame,
-                                                          mi.working_frame,
-                                                          tcp_offset,
-                                                          cwp.getTransform(),
-                                                          cartesian_constraint_config.coeff,
-                                                          bounds);
+      auto constraint = std::make_shared<trajopt_ifopt::CartPosConstraint>(var,
+                                                                           coeffs,
+                                                                           bounds,
+                                                                           manip,
+                                                                           mi.tcp_frame,
+                                                                           mi.working_frame,
+                                                                           tcp_offset,
+                                                                           cwp.getTransform(),
+                                                                           "CartPos_" + var->getIdentifier());
+
       info.term_infos.constraints.push_back(constraint);
     }
 
@@ -208,40 +247,43 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
 
     if (jwp.isConstrained())
     {
-      // Override cost tolerances if the profile specifies that they should be overrided.
-      Eigen::VectorXd lower_tolerance_cost = jwp.getLowerTolerance();
-      Eigen::VectorXd upper_tolerance_cost = jwp.getUpperTolerance();
-      if (joint_cost_config.use_tolerance_override)
-      {
-        lower_tolerance_cost = joint_cost_config.lower_tolerance;
-        upper_tolerance_cost = joint_cost_config.upper_tolerance;
-      }
-      Eigen::VectorXd lower_tolerance_cnt = jwp.getLowerTolerance();
-      Eigen::VectorXd upper_tolerance_cnt = jwp.getUpperTolerance();
-      if (joint_constraint_config.use_tolerance_override)
-      {
-        lower_tolerance_cnt = joint_constraint_config.lower_tolerance;
-        upper_tolerance_cnt = joint_constraint_config.upper_tolerance;
-      }
-
       if (joint_cost_config.enabled)
       {
+        // Override cost tolerances if the profile specifies that they should be overrided.
+        Eigen::VectorXd lower_tolerance = jwp.getLowerTolerance();
+        Eigen::VectorXd upper_tolerance = jwp.getUpperTolerance();
+        if (joint_cost_config.use_tolerance_override)
+        {
+          lower_tolerance = joint_cost_config.lower_tolerance;
+          upper_tolerance = joint_cost_config.upper_tolerance;
+        }
+
         // createJointPositionConstraint handles the tolerance when creating the constraint
         if (jwp.isToleranced())
         {
-          jwp.setLowerTolerance(lower_tolerance_cost);
-          jwp.setUpperTolerance(upper_tolerance_cost);
+          jwp.setLowerTolerance(lower_tolerance);
+          jwp.setUpperTolerance(upper_tolerance);
         }
         auto constraint = createJointPositionConstraint(jwp, var, joint_cost_config.coeff);
         info.term_infos.squared_costs.push_back(constraint);
       }
+
       if (joint_constraint_config.enabled)
       {
+        // Override cost tolerances if the profile specifies that they should be overrided.
+        Eigen::VectorXd lower_tolerance = jwp.getLowerTolerance();
+        Eigen::VectorXd upper_tolerance = jwp.getUpperTolerance();
+        if (joint_constraint_config.use_tolerance_override)
+        {
+          lower_tolerance = joint_constraint_config.lower_tolerance;
+          upper_tolerance = joint_constraint_config.upper_tolerance;
+        }
+
         // createJointPositionConstraint handles the tolerance when creating the constraint
         if (jwp.isToleranced())
         {
-          jwp.setLowerTolerance(lower_tolerance_cnt);
-          jwp.setUpperTolerance(upper_tolerance_cnt);
+          jwp.setLowerTolerance(lower_tolerance);
+          jwp.setUpperTolerance(upper_tolerance);
         }
         auto constraint = createJointPositionConstraint(jwp, var, joint_constraint_config.coeff);
         info.term_infos.constraints.push_back(constraint);

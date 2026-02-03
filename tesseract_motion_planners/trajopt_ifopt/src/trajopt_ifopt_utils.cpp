@@ -26,7 +26,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/variable_sets/var.h>
 #include <trajopt_ifopt/constraints/cartesian_line_constraint.h>
-#include <trajopt_ifopt/constraints/cartesian_position_constraint.h>
 #include <trajopt_ifopt/constraints/inverse_kinematics_constraint.h>
 #include <trajopt_ifopt/constraints/joint_acceleration_constraint.h>
 #include <trajopt_ifopt/constraints/joint_jerk_constraint.h>
@@ -65,7 +64,7 @@ void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& 
   lhs.setAdaptiveRho(static_cast<bool>(settings.adaptive_rho));
   lhs.setAdaptiveRhoInterval(static_cast<int>(settings.adaptive_rho_interval));
   lhs.setAdaptiveRhoTolerance(settings.adaptive_rho_tolerance);
-  lhs.setAdaptiveRhoFraction(settings.adaptive_rho_fraction);
+  // lhs.setAdaptiveRhoFraction(settings.adaptive_rho_fraction);
   lhs.setMaxIteration(static_cast<int>(settings.max_iter));
   lhs.setAbsoluteTolerance(settings.eps_abs);
   lhs.setRelativeTolerance(settings.eps_rel);
@@ -80,7 +79,7 @@ void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& 
   lhs.setScaledTerimination(static_cast<bool>(settings.scaled_termination));
   lhs.setCheckTermination(static_cast<int>(settings.check_termination));
   lhs.setWarmStart(static_cast<bool>(settings.warm_starting));
-  lhs.setTimeLimit(settings.time_limit);
+  // lhs.setTimeLimit(settings.time_limit);
   lhs.setAllocateSolution(static_cast<bool>(settings.allocate_solution));
   lhs.setCgMaxIter(static_cast<int>(settings.cg_max_iter));
   lhs.setCgPrecond(settings.cg_precond);
@@ -90,45 +89,6 @@ void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& 
   lhs.setDevice(static_cast<int>(settings.device));
   lhs.setProfilerLevel(static_cast<int>(settings.profiler_level));
   lhs.setRhoIsVec(static_cast<bool>(settings.rho_is_vec));
-}
-
-std::shared_ptr<trajopt_ifopt::ConstraintSet>
-createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::Var>& var,
-                                  const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-                                  const std::string& source_frame,
-                                  const std::string& target_frame,
-                                  const Eigen::Isometry3d& source_frame_offset,
-                                  const Eigen::Isometry3d& target_frame_offset,
-                                  const Eigen::Ref<const Eigen::VectorXd>& coeffs,
-                                  const std::vector<trajopt_ifopt::Bounds>& bounds)
-{
-  std::vector<int> indices;
-  std::vector<double> constraint_coeffs;
-  std::vector<trajopt_ifopt::Bounds> constraint_bounds;
-  for (Eigen::Index i = 0; i < coeffs.rows(); ++i)
-  {
-    if (!tesseract_common::almostEqualRelativeAndAbs(coeffs(i), 0.0))
-    {
-      indices.push_back(static_cast<int>(i));
-      constraint_coeffs.push_back(coeffs(i));
-      constraint_bounds.push_back(bounds[static_cast<std::size_t>(i)]);
-    }
-  }
-
-  trajopt_ifopt::CartPosInfo cart_info(
-      manip,
-      source_frame,
-      target_frame,
-      source_frame_offset,
-      target_frame_offset,
-      Eigen::Map<Eigen::VectorXi>(indices.data(), static_cast<Eigen::Index>(indices.size())));
-  auto constraint = std::make_shared<trajopt_ifopt::CartPosConstraint>(
-      cart_info,
-      var,
-      Eigen::Map<Eigen::VectorXd>(constraint_coeffs.data(), static_cast<Eigen::Index>(constraint_coeffs.size())),
-      constraint_bounds,
-      "CartPos_" + var->getIdentifier());
-  return constraint;
 }
 
 std::shared_ptr<trajopt_ifopt::ConstraintSet>
