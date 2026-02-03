@@ -162,14 +162,13 @@ protected:
     if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
       request.verbose = true;
     PlannerResponse response = planner_->solve(request);
+    setData(context, INOUT_PROGRAM_PORT, response.results);
 
     // --------------------
     // Verify Success
     // --------------------
     if (response)
     {
-      // Should only set on success to support error branching
-      setData(context, INOUT_PROGRAM_PORT, response.results);
       info.return_value = 1;
       info.color = "green";
       info.status_code = 1;
