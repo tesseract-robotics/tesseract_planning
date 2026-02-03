@@ -84,8 +84,6 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   if (composite_mi.empty())
     throw std::runtime_error("TrajoptIfoptMotionPlanner, manipulator info is empty!");
 
-  std::shared_ptr<trajopt_sqp::TrajOptQPProblem> nlp = std::make_shared<trajopt_sqp::TrajOptQPProblem>();
-
   // Flatten the input for planning
   auto move_instructions = request.instructions.flatten(&moveFilter);
 
@@ -97,6 +95,9 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   // ----------------
   // Transform plan instructions into trajopt cost and constraints
   std::vector<std::unique_ptr<trajopt_ifopt::Node>> nodes;
+  std::vector<TrajOptIfoptWaypointInfo> wp_infos;
+  nodes.reserve(move_instructions.size());
+  wp_infos.reserve(move_instructions.size());
   for (int i = 0; i < move_instructions.size(); ++i)
   {
     const auto& move_instruction = move_instructions[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>();
@@ -115,8 +116,15 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
       fixed_steps.push_back(i);
 
     // Add Node
-    nodes.push_back(std::move(wp_info.node));
+    nodes.emplace_back(std::move(wp_info.node));
+    wp_infos.emplace_back(std::move(wp_info));
+  }
 
+  auto variables = std::make_shared<trajopt_ifopt::NodesVariables>("joint_trajectory", std::move(nodes));
+  auto nlp = std::make_shared<trajopt_sqp::TrajOptQPProblem>(variables);
+
+  for (const auto& wp_info : wp_infos)
+  {
     // Add Waypoint Cost and Constraints
     for (const auto& cnt : wp_info.term_infos.constraints)
       nlp->addConstraintSet(cnt);
@@ -141,10 +149,8 @@ PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) 
   if (!cur_composite_profile)
     throw std::runtime_error("TrajOptIfoptMotionPlanner: Invalid profile");
 
-  TrajOptIfoptTermInfos term_infos = cur_composite_profile->create(composite_mi, request.env, nodes, fixed_steps);
-
-  // Add Variable Set
-  nlp->addVariableSet(std::make_shared<trajopt_ifopt::NodesVariables>("joint_trajectory", std::move(nodes)));
+  TrajOptIfoptTermInfos term_infos =
+      cur_composite_profile->create(composite_mi, request.env, variables->getNodes(), fixed_steps);
 
   // Add Waypoint Cost and Constraints
   for (const auto& cnt : term_infos.constraints)

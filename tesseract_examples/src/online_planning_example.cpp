@@ -158,10 +158,7 @@ bool OnlinePlanningExample::run()
 
 bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& initial_trajectory)
 {
-  // 1) Create the problem
-  nlp_ = std::make_shared<trajopt_sqp::TrajOptQPProblem>();
-
-  // 2) Add Variables
+  // 1) Add Variables
   Eigen::MatrixX2d joint_limits_eigen = manip_->getLimits().joint_limits;
   Eigen::VectorXd current_position = env_->getCurrentJointValues(manip_->getJointNames());
   const std::vector<trajopt_ifopt::Bounds> bounds = trajopt_ifopt::toBounds(manip_->getLimits().joint_limits);
@@ -182,7 +179,10 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
     nodes.push_back(std::make_unique<trajopt_ifopt::Node>("Joint_Position_" + std::to_string(ind)));
     vars.push_back(nodes.back()->addVar("position", manip_->getJointNames(), initial_states[ind], bounds));
   }
-  nlp_->addVariableSet(std::make_shared<trajopt_ifopt::NodesVariables>("joint_trajectory", std::move(nodes)));
+  auto variables = std::make_shared<trajopt_ifopt::NodesVariables>("joint_trajectory", std::move(nodes));
+
+  // 2) Create the problem
+  nlp_ = std::make_shared<trajopt_sqp::TrajOptQPProblem>(variables);
 
   // 3) Add costs and constraints
   // Add the home position as a joint position constraint
@@ -199,9 +199,8 @@ bool OnlinePlanningExample::setupProblem(const std::vector<Eigen::VectorXd>& ini
     std::cout << "Target Joint Position: " << target_joint_position.transpose() << "\n";
     std::cout << "Target TF:\n" << target_pose_base_frame_.matrix() << "\n";
 
-    trajopt_ifopt::CartPosInfo cart_info(
-        manip_, "tool0", "world", Eigen::Isometry3d::Identity(), target_pose_base_frame_);
-    target_pose_constraint_ = std::make_shared<trajopt_ifopt::CartPosConstraint>(cart_info, vars.back());
+    target_pose_constraint_ = std::make_shared<trajopt_ifopt::CartPosConstraint>(
+        vars.back(), manip_, "tool0", "world", Eigen::Isometry3d::Identity(), target_pose_base_frame_);
     nlp_->addConstraintSet(target_pose_constraint_);
   }
   // Add joint velocity cost for all timesteps

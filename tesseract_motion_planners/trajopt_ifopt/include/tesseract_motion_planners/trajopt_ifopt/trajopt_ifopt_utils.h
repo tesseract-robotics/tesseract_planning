@@ -50,16 +50,6 @@ namespace tesseract_planning
 void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& rhs);
 
 std::shared_ptr<trajopt_ifopt::ConstraintSet>
-createCartesianPositionConstraint(const std::shared_ptr<const trajopt_ifopt::Var>& var,
-                                  const std::shared_ptr<const tesseract_kinematics::JointGroup>& manip,
-                                  const std::string& source_frame,
-                                  const std::string& target_frame,
-                                  const Eigen::Isometry3d& source_frame_offset,
-                                  const Eigen::Isometry3d& target_frame_offset,
-                                  const Eigen::Ref<const Eigen::VectorXd>& coeffs,
-                                  const std::vector<trajopt_ifopt::Bounds>& bounds);
-
-std::shared_ptr<trajopt_ifopt::ConstraintSet>
 createJointPositionConstraint(const JointWaypointPoly& joint_waypoint,
                               const std::shared_ptr<const trajopt_ifopt::Var>& var,
                               const Eigen::VectorXd& coeffs);
