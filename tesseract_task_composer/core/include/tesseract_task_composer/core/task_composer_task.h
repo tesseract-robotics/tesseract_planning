@@ -44,7 +44,6 @@ public:
   using UPtr = std::unique_ptr<TaskComposerTask>;
   using ConstUPtr = std::unique_ptr<const TaskComposerTask>;
 
-  TaskComposerTask();
   explicit TaskComposerTask(std::string name, TaskComposerNodePorts ports, bool conditional);
   explicit TaskComposerTask(std::string name, TaskComposerNodePorts ports, const YAML::Node& config);
   ~TaskComposerTask() override = default;
