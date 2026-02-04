@@ -23,6 +23,7 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <limits>
 #include <Eigen/Core>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -58,6 +59,12 @@ struct IterativeSplineParameterizationCompositeProfile : public tesseract_common
 
   /** @brief max_velocity_scaling_factor The max acceleration scaling factor passed to the solver */
   double max_acceleration_scaling_factor{ 1.0 };
+
+  /**
+   * @brief minimum_time_delta The smallest-allowable difference between timestamps of
+   * consecutive trajectory points. Passed to the solver.
+   */
+  double minimum_time_delta{ std::numeric_limits<double>::epsilon() };
 
   bool operator==(const IterativeSplineParameterizationCompositeProfile& rhs) const;
   bool operator!=(const IterativeSplineParameterizationCompositeProfile& rhs) const;

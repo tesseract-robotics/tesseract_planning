@@ -55,6 +55,7 @@ bool IterativeSplineParameterizationCompositeProfile::operator==(
       max_velocity_scaling_factor, rhs.max_velocity_scaling_factor, max_diff);
   equal &= tesseract_common::almostEqualRelativeAndAbs(
       max_acceleration_scaling_factor, rhs.max_acceleration_scaling_factor, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(minimum_time_delta, rhs.minimum_time_delta, max_diff);
   return equal;
 }
 
