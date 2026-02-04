@@ -87,7 +87,7 @@ task_composer_plugins:
         config:
           conditional: false
           inputs:
-            program: input_data
+            program: planning_input
             environment: environment
             profiles: profiles
           outputs:
@@ -194,7 +194,7 @@ task_composer_plugins:
         config:
           conditional: false
           inputs:
-            program: input_data
+            program: planning_input
             environment: environment
             profiles: profiles
           outputs:
@@ -291,7 +291,7 @@ task_composer_plugins:
         config:
           conditional: false
           inputs:
-            program: input_data
+            program: planning_input
             environment: environment
             profiles: profiles
           outputs:
@@ -388,7 +388,7 @@ task_composer_plugins:
         config:
           conditional: false
           inputs:
-            program: input_data
+            program: planning_input
             environment: environment
             profiles: profiles
           outputs:
@@ -1263,7 +1263,7 @@ task_composer_plugins:
         config:
           conditional: false
           inputs:
-            planning_input: input_data
+            planning_input: planning_input
             environment: environment
             profiles: profiles
           outputs:
