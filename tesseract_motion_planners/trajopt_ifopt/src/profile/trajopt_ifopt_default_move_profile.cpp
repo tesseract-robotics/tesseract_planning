@@ -234,8 +234,9 @@ TrajOptIfoptDefaultMoveProfile::create(const MoveInstructionPoly& move_instructi
       jwp = move_instruction.getWaypoint().as<JointWaypointPoly>();
       if (jwp.isConstrained())
       {
-        // Add to fixed indices
-        if (!jwp.isToleranced()) /** @todo Should not make fixed if term_type is cost */
+        // Add to fixed indices if constraint config is enabled and not toleranced to prevent collision checks at this
+        // state during planning
+        if (!jwp.isToleranced() && joint_constraint_config.enabled)
           info.fixed = true;
       }
     }
