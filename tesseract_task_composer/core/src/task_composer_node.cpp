@@ -131,7 +131,7 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
     {
       results.return_value = return_value_override_;
       results.status_message += " (Return value overridden to " + std::to_string(return_value_override_) + ")";
-      results.color = "yellow";
+      results.color = "cyan";
     }
   }
   catch (const std::exception& e)
