@@ -70,9 +70,7 @@ public:
                                                    const YAML::Node& config,
                                                    const TaskComposerPluginFactory& plugin_factory) const = 0;
 
-protected:
   static std::string getSection();
-  friend class boost_plugin_loader::PluginLoader;
 };
 
 /** @brief Task Composer Executor Factory class used by the TaskComposerServer for loading executors to be called by
@@ -87,9 +85,7 @@ public:
 
   virtual std::unique_ptr<TaskComposerExecutor> create(const std::string& name, const YAML::Node& config) const = 0;
 
-protected:
   static std::string getSection();
-  friend class boost_plugin_loader::PluginLoader;
 };
 
 class TaskComposerPluginFactory
@@ -304,6 +300,16 @@ public:
    * @return The plugin information config yaml node/
    */
   YAML::Node getConfig() const;
+
+  /**
+   * @brief Returns a list of available task composer node plugins
+   */
+  std::vector<std::string> getAvailableTaskComposerNodePlugins() const;
+
+  /**
+   * @brief Returns a list of available task composer executor plugins
+   */
+  std::vector<std::string> getAvailableTaskComposerExecutorPlugins() const;
 
 private:
   struct Implementation;
