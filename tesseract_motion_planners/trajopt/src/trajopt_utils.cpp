@@ -95,9 +95,45 @@ std::shared_ptr<trajopt::TermInfo> createCartesianWaypointTermInfo(int index,
     pose_info->pos_coeffs = coeffs.head<3>();
     pose_info->rot_coeffs = coeffs.tail<3>();
   }
+  else
+  {
+    throw std::runtime_error("Invalid coeffs size for Cartesian waypoint term info. Expected 1 or 6, got " +
+                             std::to_string(coeffs.size()));
+  }
 
-  pose_info->lower_tolerance = lower_tolerance;
-  pose_info->upper_tolerance = upper_tolerance;
+  if (lower_tolerance.size() > 0)
+  {
+    if (lower_tolerance.size() == 1)
+    {
+      pose_info->lower_tolerance = Eigen::VectorXd::Constant(6, lower_tolerance(0));
+    }
+    else if (lower_tolerance.size() == 6)
+    {
+      pose_info->lower_tolerance = lower_tolerance;
+    }
+    else
+    {
+      throw std::runtime_error("Invalid lower tolerance size for Cartesian waypoint term info. Expected 1 or 6, got " +
+                               std::to_string(lower_tolerance.size()));
+    }
+  }
+
+  if (upper_tolerance.size() > 0)
+  {
+    if (upper_tolerance.size() == 1)
+    {
+      pose_info->upper_tolerance = Eigen::VectorXd::Constant(6, upper_tolerance(0));
+    }
+    else if (upper_tolerance.size() == 6)
+    {
+      pose_info->upper_tolerance = upper_tolerance;
+    }
+    else
+    {
+      throw std::runtime_error("Invalid upper tolerance size for Cartesian waypoint term info. Expected 1 or 6, got " +
+                               std::to_string(upper_tolerance.size()));
+    }
+  }
 
   return pose_info;
 }
@@ -132,6 +168,11 @@ std::shared_ptr<trajopt::TermInfo> createDynamicCartesianWaypointTermInfo(int in
   {
     pose->pos_coeffs = coeffs.head<3>();
     pose->rot_coeffs = coeffs.tail<3>();
+  }
+  else
+  {
+    throw std::runtime_error("Invalid coeffs size for Cartesian waypoint term info. Expected 1 or 6, got " +
+                             std::to_string(coeffs.size()));
   }
 
   pose->lower_tolerance = lower_tolerance;
@@ -170,9 +211,18 @@ std::shared_ptr<trajopt::TermInfo> createJointWaypointTermInfo(const Eigen::Vect
 {
   auto joint_info = std::make_shared<trajopt::JointPosTermInfo>();
   if (coeffs.size() == 1)
+  {
     joint_info->coeffs = std::vector<double>(static_cast<std::size_t>(j_wp.size()), coeffs(0));
+  }
   else if (coeffs.size() == j_wp.size())
+  {
     joint_info->coeffs = std::vector<double>(coeffs.data(), coeffs.data() + coeffs.rows() * coeffs.cols());
+  }
+  else
+  {
+    throw std::runtime_error("Invalid coeffs size for joint waypoint term info. Expected 1 or " +
+                             std::to_string(j_wp.size()) + ", got " + std::to_string(coeffs.size()));
+  }
 
   joint_info->targets = std::vector<double>(j_wp.data(), j_wp.data() + j_wp.rows() * j_wp.cols());
   joint_info->first_step = index;
@@ -192,9 +242,18 @@ std::shared_ptr<trajopt::TermInfo> createTolerancedJointWaypointTermInfo(const E
 {
   auto joint_info = std::make_shared<trajopt::JointPosTermInfo>();
   if (coeffs.size() == 1)
+  {
     joint_info->coeffs = std::vector<double>(static_cast<std::size_t>(j_wp.size()), coeffs(0));
+  }
   else if (coeffs.size() == j_wp.size())
+  {
     joint_info->coeffs = std::vector<double>(coeffs.data(), coeffs.data() + coeffs.rows() * coeffs.cols());
+  }
+  else
+  {
+    throw std::runtime_error("Invalid coeffs size for joint waypoint term info. Expected 1 or " +
+                             std::to_string(j_wp.size()) + ", got " + std::to_string(coeffs.size()));
+  }
 
   joint_info->targets = std::vector<double>(j_wp.data(), j_wp.data() + j_wp.rows() * j_wp.cols());
   joint_info->lower_tols =
