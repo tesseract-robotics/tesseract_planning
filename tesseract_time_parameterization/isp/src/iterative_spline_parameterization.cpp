@@ -63,8 +63,12 @@ static void adjust_two_positions(long n,
                                  double x2[],        // NOLINT
                                  double x2_i,        // NOLINT
                                  double x2_f);       // NOLINT
-static void
-init_times(long n, double dt[], const double x[], const double max_velocity[], double min_velocity[]);  // NOLINT
+static void init_times(long n,
+                       double minimum_time_delta,
+                       double dt[],                  // NOLINT
+                       const double x[],             // NOLINT
+                       const double max_velocity[],  // NOLINT
+                       double min_velocity[]);       // NOLINT
 // static int fit_spline_and_adjust_times(const int n,
 //                                       double dt[],
 //                                       const double x[],
@@ -372,6 +376,7 @@ bool IterativeSplineParameterization::compute(CompositeInstruction& composite_in
   std::vector<double> time_diff(static_cast<std::size_t>(num_points - 1), std::numeric_limits<double>::epsilon());
   for (unsigned int j = 0; j < trajectory.dof(); j++)
     init_times(static_cast<long>(num_points),
+               ci_profile->minimum_time_delta,
                time_diff.data(),
                t2[j].positions_.data(),
                t2[j].max_velocity_.data(),
@@ -577,8 +582,12 @@ static void adjust_two_positions(const long n,
   Find time required to go max velocity on each segment.
   Increase a segment's time interval if the current time isn't long enough.
 */
-// NOLINTNEXTLINE
-static void init_times(long n, double dt[], const double x[], const double max_velocity[], double min_velocity[])
+static void init_times(long n,
+                       double minimum_time_delta,
+                       double dt[],                  // NOLINT
+                       const double x[],             // NOLINT
+                       const double max_velocity[],  // NOLINT
+                       double min_velocity[])        // NOLINT
 {
   for (long i = 0; i < n - 1; i++)
   {
@@ -588,7 +597,9 @@ static void init_times(long n, double dt[], const double x[], const double max_v
       time = (dx / max_velocity[i]);
     else
       time = (dx / min_velocity[i]);
-    time += std::numeric_limits<double>::epsilon();  // prevent divide-by-zero
+
+    if (time < std::max(minimum_time_delta, std::numeric_limits<double>::epsilon()))
+      time = minimum_time_delta;
 
     dt[i] = std::max(dt[i], time);
   }

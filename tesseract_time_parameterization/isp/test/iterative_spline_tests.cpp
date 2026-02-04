@@ -267,13 +267,47 @@ TEST_F(IterativeSplineParameterizationUnit, TestRepeatedPoint)  // NOLINT
 
   // Profile Dictionary
   tesseract_common::ProfileDictionary profiles;
-  ;
   profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
   // Solve
   IterativeSplineParameterization time_parameterization(name_);
   EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
   ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 0.001);
+}
+
+TEST_F(IterativeSplineParameterizationUnit, TestEnforceMinimumDelta)
+{
+  // GIVEN a single-joint trajectory that is straight in joint-space
+  CompositeInstruction program = createStraightTrajectory();
+  program.setManipulatorInfo(manip_);
+
+  // Profile
+  auto profile = std::make_shared<IterativeSplineParameterizationCompositeProfile>();
+  profile->add_points = true;
+  profile->minimum_time_delta = 10.0;
+  profile->override_limits = true;
+  profile->velocity_limits = Eigen::MatrixX2d(6, 2);
+  profile->velocity_limits.col(0) << -2.088, -2.082, -3.27, -3.6, -3.3, -3.078;
+  profile->velocity_limits.col(1) << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  profile->acceleration_limits = Eigen::MatrixX2d(6, 2);
+  profile->acceleration_limits.col(0) = -1 * Eigen::VectorXd::Ones(6);
+  profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
+
+  // Profile Dictionary
+  tesseract_common::ProfileDictionary profiles;
+  profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
+
+  // Solve
+  IterativeSplineParameterization time_parameterization(name_);
+  EXPECT_TRUE(time_parameterization.compute(program, *env_, profiles));
+
+  // THEN the timestamp of the first trajectory point is greater than or equal to the minimum time delta
+  ASSERT_GE(program[1].as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(),
+            profile->minimum_time_delta);
+  // THEN the timestamp of the last trajectory point shows that the minimum time delta has been enforced for each
+  // previous trajectory point
+  ASSERT_GE(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(),
+            profile->minimum_time_delta * static_cast<double>(program.size() - 1));
 }
 
 int main(int argc, char** argv)
