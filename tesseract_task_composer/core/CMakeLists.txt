@@ -1,6 +1,8 @@
 # Need to create export header so static class variables can be exported on windows build
 include(GenerateExportHeader)
 
+find_package(Boost REQUIRED COMPONENTS program_options)
+
 add_library(
   ${PROJECT_NAME}
   src/cereal_serialization.cpp
@@ -102,6 +104,17 @@ target_include_directories(${PROJECT_NAME}_factories PUBLIC "$<BUILD_INTERFACE:$
 # Add factory library so task_composer_factory can find these factories by defauult
 set(TASK_COMPOSER_PLUGINS ${TASK_COMPOSER_PLUGINS} "${PROJECT_NAME}_factories" PARENT_SCOPE)
 
+# Tools
+add_executable(${PROJECT_NAME}_validate_config src/tools/task_composer_validate_config.cpp)
+target_link_libraries(${PROJECT_NAME}_validate_config PRIVATE ${PROJECT_NAME} Boost::program_options)
+target_compile_options(${PROJECT_NAME}_validate_config PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
+target_compile_options(${PROJECT_NAME}_validate_config PRIVATE ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
+target_compile_definitions(${PROJECT_NAME}_validate_config PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
+target_cxx_version(${PROJECT_NAME}_validate_config PRIVATE VERSION ${TESSERACT_CXX_VERSION})
+target_clang_tidy(${PROJECT_NAME}_validate_config ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
+target_include_directories(
+  ${PROJECT_NAME}_validate_config PRIVATE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+                                          "$<INSTALL_INTERFACE:include>")
 install(
   DIRECTORY include/${PROJECT_NAME}/core
   DESTINATION include/${PROJECT_NAME}
@@ -125,7 +138,7 @@ install(
 configure_component(
   COMPONENT core
   NAMESPACE tesseract
-  TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_nodes
+  TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_nodes ${PROJECT_NAME}_validate_config
   DEPENDENCIES
     console_bridge
     tesseract_common
@@ -142,6 +155,7 @@ if(TESSERACT_PACKAGE)
       "libconsole-bridge-dev"
       "libyaml-cpp-dev"
       "boost-plugin-loader"
+      "Boost REQUIRED COMPONENTS program_options"
       "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
     WINDOWS_DEPENDS "console-bridge" "yaml-cpp" "${TESSERACT_PACKAGE_PREFIX}tesseract-common")
 endif()
