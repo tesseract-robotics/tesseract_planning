@@ -2,6 +2,26 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Only make joint waypoint fixed if not tolerances and the constraint config enabled
+* Fix issue with tolerance size (`#535 <https://github.com/tesseract-robotics/tesseract_planning/issues/535>`_)
+* Update to latest trajopt version
+* Update to latest changes in tesseract and trajopt repo
+* Update to leverage trajopt_ifopt dynamic size collision constraint
+* Fix remaining ifopt:: namespace usage (`#706 <https://github.com/tesseract-robotics/tesseract_planning/issues/706>`_)
+* Fix error specifying substep == num_substeps
+* Update to leverage trajopt node variable set (`#695 <https://github.com/tesseract-robotics/tesseract_planning/issues/695>`_)
+* Add missing opt_params serialization
+* Restore optimization callback functionality (`#680 <https://github.com/tesseract-robotics/tesseract_planning/issues/680>`_)
+* Cleanup doxygen file headers
+* Remove old console bridge cmake target logic
+* Remove getStaticKey from profiles
+* Exclude motion planner test directory from coverage
+* Improve serialization coverage
+* Switch to Cereal for serialization (`#681 <https://github.com/tesseract-robotics/tesseract_planning/issues/681>`_)
+* Contributors: Levi Armstrong, Roelof Oomen, Tyler Marr
+
 0.33.1 (2025-10-29)
 -------------------
 

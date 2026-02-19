@@ -2,6 +2,15 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Cleanup doxygen file headers
+* Remove old console bridge cmake target logic
+* Improve serialization coverage
+* Fix poly type constness (`#682 <https://github.com/tesseract-robotics/tesseract_planning/issues/682>`_)
+* Switch to Cereal for serialization (`#681 <https://github.com/tesseract-robotics/tesseract_planning/issues/681>`_)
+* Contributors: Levi Armstrong
+
 0.33.1 (2025-10-29)
 -------------------
 

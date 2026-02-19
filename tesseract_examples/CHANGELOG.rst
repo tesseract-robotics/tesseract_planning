@@ -2,6 +2,18 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update to latest trajopt version
+* Update to latest changes in tesseract and trajopt repo
+* Reduce scope of PCL dependency
+* Update to leverage trajopt_ifopt dynamic size collision constraint
+* Fix remaining ifopt:: namespace usage (`#706 <https://github.com/tesseract-robotics/tesseract_planning/issues/706>`_)
+* Update to leverage trajopt node variable set (`#695 <https://github.com/tesseract-robotics/tesseract_planning/issues/695>`_)
+* Cleanup doxygen file headers
+* Remove old console bridge cmake target logic
+* Contributors: Levi Armstrong, Roelof Oomen
+
 0.33.1 (2025-10-29)
 -------------------
 

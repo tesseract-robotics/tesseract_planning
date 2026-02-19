@@ -2,6 +2,25 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add tool to validate task composer config
+* Fix incorrect pipeline input key in config, issue `#705 <https://github.com/tesseract-robotics/tesseract_planning/issues/705>`_
+* Added methods to task composer plugin factory to get all available plugin names
+* Improve task composer code coverage (`#684 <https://github.com/tesseract-robotics/tesseract_planning/issues/684>`_)
+* Always return motion planner response (`#710 <https://github.com/tesseract-robotics/tesseract_planning/issues/710>`_)
+* Update to latest changes in tesseract and trajopt repo
+* actually set opt params for fix state collision task
+* Update to leverage trajopt node variable set (`#695 <https://github.com/tesseract-robotics/tesseract_planning/issues/695>`_)
+* Cleanup doxygen file headers
+* Remove old console bridge cmake target logic
+* Remove getStaticKey from profiles
+* Exclude test suite code from coverage
+* Improve serialization coverage
+* Switch to Cereal for serialization (`#681 <https://github.com/tesseract-robotics/tesseract_planning/issues/681>`_)
+* Remove boost serialization from task composer plugins
+* Contributors: Levi Armstrong, Michael Ripperger, Roelof Oomen, Tyler Marr
+
 0.33.1 (2025-10-29)
 -------------------
 * Update raster tasks to use correct parent data storage

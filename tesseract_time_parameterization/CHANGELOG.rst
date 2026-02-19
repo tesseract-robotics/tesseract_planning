@@ -2,6 +2,19 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Allow setting minimum delta_t between traj points in ISP solver
+* Cleanup doxygen file headers
+* Remove old console bridge cmake target logic
+* Remove getStaticKey from profiles
+* Add time parameterization core tests
+* Improve time parameterization coverage
+* Exclude test directory from coverage
+* Improve serialization coverage
+* Switch to Cereal for serialization (`#681 <https://github.com/tesseract-robotics/tesseract_planning/issues/681>`_)
+* Contributors: Joseph Schornak, Levi Armstrong
+
 0.33.1 (2025-10-29)
 -------------------
 
