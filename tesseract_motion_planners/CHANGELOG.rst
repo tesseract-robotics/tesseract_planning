@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.34.0 (2026-02-19)
+-------------------
 * Only make joint waypoint fixed if not tolerances and the constraint config enabled
 * Fix issue with tolerance size (`#535 <https://github.com/tesseract-robotics/tesseract_planning/issues/535>`_)
 * Update to latest trajopt version

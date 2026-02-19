@@ -2,8 +2,8 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.34.0 (2026-02-19)
+-------------------
 * Cleanup doxygen file headers
 * Remove old console bridge cmake target logic
 * Improve serialization coverage

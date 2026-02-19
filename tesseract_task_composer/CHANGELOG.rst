@@ -2,8 +2,8 @@
 Changelog for package tesseract_task_composer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.34.0 (2026-02-19)
+-------------------
 * Add tool to validate task composer config
 * Fix incorrect pipeline input key in config, issue `#705 <https://github.com/tesseract-robotics/tesseract_planning/issues/705>`_
 * Added methods to task composer plugin factory to get all available plugin names

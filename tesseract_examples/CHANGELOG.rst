@@ -2,8 +2,8 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.34.0 (2026-02-19)
+-------------------
 * Update to latest trajopt version
 * Update to latest changes in tesseract and trajopt repo
 * Reduce scope of PCL dependency
