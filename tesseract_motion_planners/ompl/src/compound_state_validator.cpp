@@ -29,7 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/compound_state_validator.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 CompoundStateValidator::CompoundStateValidator() : StateValidityChecker(nullptr) {}
 
@@ -67,4 +67,4 @@ void CompoundStateValidator::addStateValidator(ompl::base::StateValidityCheckerF
   validators_.push_back(std::move(validator));
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

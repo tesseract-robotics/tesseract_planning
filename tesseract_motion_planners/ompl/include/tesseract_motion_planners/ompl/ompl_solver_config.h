@@ -28,7 +28,7 @@
 #include <vector>
 #include <tesseract_common/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 struct OMPLPlannerConfigurator;
 struct OMPLSolverConfig
@@ -78,6 +78,6 @@ struct OMPLSolverConfig
   bool operator!=(const OMPLSolverConfig& rhs) const;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_SOLVER_CONFIG_H

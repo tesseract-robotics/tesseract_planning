@@ -8,12 +8,12 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 template <class Archive>
 void serialize(Archive& ar, IterativeSplineParameterizationCompositeProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
   ar(cereal::make_nvp("add_points", obj.add_points));
   ar(cereal::make_nvp("override_limits", obj.override_limits));
   ar(cereal::make_nvp("velocity_limits", obj.velocity_limits));
@@ -26,11 +26,11 @@ void serialize(Archive& ar, IterativeSplineParameterizationCompositeProfile& obj
 template <class Archive>
 void serialize(Archive& ar, IterativeSplineParameterizationMoveProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
   ar(cereal::make_nvp("max_velocity_scaling_factor", obj.max_velocity_scaling_factor));
   ar(cereal::make_nvp("max_acceleration_scaling_factor", obj.max_acceleration_scaling_factor));
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization
 
 #endif  // TESSERACT_TIME_PARAMETERIZATION_ITERATIVE_SPLINE_PARAMETERIZATION_CEREAL_SERIALIZATION_H

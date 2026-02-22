@@ -55,7 +55,7 @@ constexpr auto ERROR_FAILED_TO_BUILD_GRAPH{ "Failed to build graph" };
 constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
 constexpr auto ERROR_SOLUTION_OUTSIDE_LIMITS{ "The solution generated has states outside the limits" };
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 template <typename FloatType>
 DescartesMotionPlanner<FloatType>::DescartesMotionPlanner(std::string name) : MotionPlanner(std::move(name))  // NOLINT
@@ -77,19 +77,19 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   std::vector<typename descartes_light::WaypointSampler<FloatType>::ConstPtr> waypoint_samplers;
   std::vector<typename descartes_light::StateEvaluator<FloatType>::ConstPtr> state_evaluators;
 
-  const tesseract_common::ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
+  const tesseract::common::ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
   if (composite_mi.empty())
     throw std::runtime_error("Descartes, manipulator info is empty!");
 
   // Flatten the input for planning
-  auto move_instructions = request.instructions.flatten(&moveFilter);
+  auto move_instructions = request.instructions.flatten(&tesseract::command_language::moveFilter);
 
   // Transform plan instructions into descartes samplers
   int index = 0;
   for (const auto& instruction : move_instructions)
   {
     assert(instruction.get().isMoveInstruction());
-    const auto& move_instruction = instruction.get().template as<MoveInstructionPoly>();
+    const auto& move_instruction = instruction.get().template as<tesseract::command_language::MoveInstructionPoly>();
 
     // Get Plan Profile
     auto cur_move_profile = request.profiles->getProfile<DescartesMoveProfile<FloatType>>(
@@ -99,7 +99,7 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
       throw std::runtime_error("DescartesMotionPlanner: Invalid profile");
 
     if (move_instruction.getWaypoint().isJointWaypoint() &&
-        !move_instruction.getWaypoint().as<JointWaypointPoly>().isConstrained())
+        !move_instruction.getWaypoint().as<tesseract::command_language::JointWaypointPoly>().isConstrained())
       continue;
 
     waypoint_samplers.push_back(cur_move_profile->createWaypointSampler(move_instruction, composite_mi, request.env));
@@ -141,7 +141,7 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   response.data = std::move(solver);
 
   // Get Manipulator Information
-  tesseract_kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(composite_mi.manipulator);
+  tesseract::kinematics::JointGroup::ConstPtr manip = request.env->getJointGroup(composite_mi.manipulator);
   const std::vector<std::string> joint_names = manip->getJointNames();
   const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
 
@@ -152,7 +152,7 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   {
     solution.push_back(js->values.template cast<double>());
 
-    if (!tesseract_common::satisfiesLimits<double>(solution.back(), joint_limits))
+    if (!tesseract::common::satisfiesLimits<double>(solution.back(), joint_limits))
     {
       CONSOLE_BRIDGE_logError("Descartes Motion Planner has solution state outside limits and will be clamped to "
                               "limit");
@@ -160,12 +160,12 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
       response.message = ERROR_SOLUTION_OUTSIDE_LIMITS;
       return response;
     }
-    tesseract_common::enforceLimits<double>(solution.back(), joint_limits);
+    tesseract::common::enforceLimits<double>(solution.back(), joint_limits);
   }
 
   // Flatten the results to make them easier to process
   response.results = request.instructions;
-  auto results_instructions = response.results.flatten(&moveFilter);
+  auto results_instructions = response.results.flatten(&tesseract::command_language::moveFilter);
 
   // Loop over the flattened results and add them to response if the input was a plan instruction
   std::size_t result_index{ 0 };
@@ -175,14 +175,15 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
     assert((idx == 0) ? results_instructions.at(idx).get().isMoveInstruction() : true);
     if (results_instructions.at(idx).get().isMoveInstruction())
     {
-      auto& move_instruction = results_instructions.at(idx).get().as<MoveInstructionPoly>();
+      auto& move_instruction =
+          results_instructions.at(idx).get().as<tesseract::command_language::MoveInstructionPoly>();
       if (move_instruction.getWaypoint().isCartesianWaypoint())
       {
         assignSolution(move_instruction, joint_names, solution[result_index++], request.format_result_as_input);
       }
       else if (move_instruction.getWaypoint().isJointWaypoint())
       {
-        auto& jwp = move_instruction.getWaypoint().as<JointWaypointPoly>();
+        auto& jwp = move_instruction.getWaypoint().as<tesseract::command_language::JointWaypointPoly>();
         if (jwp.isConstrained())
         {
           assignSolution(move_instruction, joint_names, solution[result_index++], request.format_result_as_input);
@@ -194,11 +195,13 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
         bool is_constrained = jwp.isConstrained();
         while (!is_constrained)
         {
-          auto temp = results_instructions.at(idx + static_cast<std::size_t>(cnt++)).get().as<MoveInstructionPoly>();
+          auto temp = results_instructions.at(idx + static_cast<std::size_t>(cnt++))
+                          .get()
+                          .as<tesseract::command_language::MoveInstructionPoly>();
           if (temp.getWaypoint().isCartesianWaypoint() || temp.getWaypoint().isStateWaypoint())
             is_constrained = true;
           else if (temp.getWaypoint().isJointWaypoint())
-            is_constrained = temp.getWaypoint().as<JointWaypointPoly>().isConstrained();
+            is_constrained = temp.getWaypoint().as<tesseract::command_language::JointWaypointPoly>().isConstrained();
           else
             throw std::runtime_error("Unsupported Waypoint Type!");
         }
@@ -209,7 +212,7 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
         {
           if (i != 0)
             ++idx;
-          auto& interp_mi = results_instructions.at(idx).get().as<MoveInstructionPoly>();
+          auto& interp_mi = results_instructions.at(idx).get().as<tesseract::command_language::MoveInstructionPoly>();
           assignSolution(interp_mi, joint_names, states.col(i + 1), request.format_result_as_input);
         }
       }
@@ -247,5 +250,5 @@ std::unique_ptr<MotionPlanner> DescartesMotionPlanner<FloatType>::clone() const
   return std::make_unique<DescartesMotionPlanner<FloatType>>(name_);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 #endif  // TESSERACT_MOTION_PLANNERS_IMPL_DESCARTES_DECARTES_MOTION_PLANNER_HPP

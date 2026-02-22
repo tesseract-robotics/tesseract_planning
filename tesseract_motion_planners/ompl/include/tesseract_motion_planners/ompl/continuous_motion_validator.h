@@ -45,7 +45,7 @@ class StateValidityChecker;
 using StateValidityCheckerPtr = std::shared_ptr<StateValidityChecker>;
 }  // namespace ompl::base
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /** @brief Continuous collision check between two states */
 class ContinuousMotionValidator : public ompl::base::MotionValidator
@@ -53,9 +53,9 @@ class ContinuousMotionValidator : public ompl::base::MotionValidator
 public:
   ContinuousMotionValidator(const ompl::base::SpaceInformationPtr& space_info,
                             ompl::base::StateValidityCheckerPtr state_validator,
-                            const tesseract_environment::Environment& env,
-                            std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-                            const tesseract_collision::ContactManagerConfig& contact_manager_config,
+                            const tesseract::environment::Environment& env,
+                            std::shared_ptr<const tesseract::kinematics::JointGroup> manip,
+                            const tesseract::collision::ContactManagerConfig& contact_manager_config,
                             OMPLStateExtractor extractor);
 
   bool checkMotion(const ompl::base::State* s1, const ompl::base::State* s2) const override;
@@ -81,10 +81,10 @@ private:
   ompl::base::StateValidityCheckerPtr state_validator_;
 
   /** @brief The Tesseract Forward Kinematics */
-  std::shared_ptr<const tesseract_kinematics::JointGroup> manip_;
+  std::shared_ptr<const tesseract::kinematics::JointGroup> manip_;
 
   /** @brief The continuous contact manager used for creating cached continuous contact managers. */
-  std::shared_ptr<tesseract_collision::ContinuousContactManager> continuous_contact_manager_;
+  std::shared_ptr<tesseract::collision::ContinuousContactManager> continuous_contact_manager_;
 
   /** @brief A list of active links */
   std::vector<std::string> links_;
@@ -101,9 +101,9 @@ private:
   mutable std::mutex mutex_;
 
   /** @brief The continuous contact manager cache */
-  mutable std::map<unsigned long int, std::shared_ptr<tesseract_collision::ContinuousContactManager>>
+  mutable std::map<unsigned long int, std::shared_ptr<tesseract::collision::ContinuousContactManager>>
       continuous_contact_managers_;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_CONTINUOUS_MOTION_VALIDATOR_H

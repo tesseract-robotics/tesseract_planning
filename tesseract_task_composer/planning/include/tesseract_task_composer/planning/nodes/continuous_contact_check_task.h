@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/fwd.h>
 #include <tesseract_collision/core/types.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerPluginFactory;
 class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT ContinuousContactCheckTask : public TaskComposerTask
@@ -79,6 +79,6 @@ private:
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_CONTINUOUS_CONTACT_CHECK_TASK_H

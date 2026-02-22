@@ -30,7 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/set_analog_instruction.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 SetAnalogInstruction::SetAnalogInstruction(std::string key, int index, double value)
   : uuid_(boost::uuids::random_generator()()), key_(std::move(key)), index_(index), value_(value)
@@ -83,8 +83,8 @@ bool SetAnalogInstruction::equals(const InstructionInterface& other) const
   bool equal = true;
   equal &= (key_ == rhs->key_);
   equal &= (index_ == rhs->index_);
-  equal &= (tesseract_common::almostEqualRelativeAndAbs(value_, rhs->value_, max_diff));
+  equal &= (tesseract::common::almostEqualRelativeAndAbs(value_, rhs->value_, max_diff));
   return equal;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

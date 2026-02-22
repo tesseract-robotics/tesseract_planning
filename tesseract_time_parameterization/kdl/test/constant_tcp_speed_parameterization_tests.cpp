@@ -34,7 +34,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_time_parameterization/kdl/constant_tcp_speed_parameterization_profiles.h>
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
 
-using namespace tesseract_planning;
+using namespace tesseract::time_parameterization;
+using namespace tesseract::command_language;
 
 // Initialize one-joint, straight-line trajectory
 CompositeInstruction createStraightTrajectory()
@@ -76,14 +77,14 @@ class ConstantTCPSpeedParameterizationUnit : public ::testing::Test
 {
 protected:
   std::string name_{ "ConstantTCPSpeedParameterizationUnit" };
-  tesseract_common::GeneralResourceLocator::Ptr locator_;
-  tesseract_environment::Environment::Ptr env_;
-  tesseract_common::ManipulatorInfo manip_;
+  tesseract::common::GeneralResourceLocator::Ptr locator_;
+  tesseract::environment::Environment::Ptr env_;
+  tesseract::common::ManipulatorInfo manip_;
 
   void SetUp() override
   {
-    locator_ = std::make_shared<tesseract_common::GeneralResourceLocator>();
-    auto env = std::make_shared<tesseract_environment::Environment>();
+    locator_ = std::make_shared<tesseract::common::GeneralResourceLocator>();
+    auto env = std::make_shared<tesseract::environment::Environment>();
 
     std::filesystem::path urdf_path(
         locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
@@ -125,14 +126,16 @@ TEST_F(ConstantTCPSpeedParameterizationUnit, ConstantTCPSpeedParameterizationTes
     profile->max_acceleration_scaling_factor = 1.0;
 
     // Serialization
-    tesseract_common::testSerializationDerivedClass<tesseract_common::Profile,
-                                                    ConstantTCPSpeedParameterizationCompositeProfile>(profile,
-                                                                                                      "ConstantTCPSpeed"
-                                                                                                      "Parameterization"
-                                                                                                      "Test");
+    tesseract::common::testSerializationDerivedClass<tesseract::common::Profile,
+                                                     ConstantTCPSpeedParameterizationCompositeProfile>(profile,
+                                                                                                       "ConstantTCPSpee"
+                                                                                                       "d"
+                                                                                                       "Parameterizatio"
+                                                                                                       "n"
+                                                                                                       "Test");
 
     // Profile Dictionary
-    tesseract_common::ProfileDictionary profiles;
+    tesseract::common::ProfileDictionary profiles;
     profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
     // Solve
@@ -158,7 +161,7 @@ TEST_F(ConstantTCPSpeedParameterizationUnit, ConstantTCPSpeedParameterizationTes
     profile->max_acceleration_scaling_factor = 1.0;
 
     // Profile Dictionary
-    tesseract_common::ProfileDictionary profiles;
+    tesseract::common::ProfileDictionary profiles;
     profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
     // Solve

@@ -38,11 +38,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_motion_planners/trajopt_ifopt/yaml_extensions.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(
     const YAML::Node& config,
-    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+    const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : TrajOptIfoptDefaultCompositeProfile()
 {
   try
@@ -79,8 +79,8 @@ TrajOptIfoptDefaultCompositeProfile::TrajOptIfoptDefaultCompositeProfile(
 }
 
 TrajOptIfoptTermInfos
-TrajOptIfoptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& composite_manip_info,
-                                            const std::shared_ptr<const tesseract_environment::Environment>& env,
+TrajOptIfoptDefaultCompositeProfile::create(const tesseract::common::ManipulatorInfo& composite_manip_info,
+                                            const std::shared_ptr<const tesseract::environment::Environment>& env,
                                             const std::vector<std::shared_ptr<const trajopt_ifopt::Node>>& nodes,
                                             const std::vector<int>& fixed_indices) const
 {
@@ -141,11 +141,11 @@ bool TrajOptIfoptDefaultCompositeProfile::operator==(const TrajOptIfoptDefaultCo
   equal &= (collision_cost_config == rhs.collision_cost_config);
   equal &= (collision_constraint_config == rhs.collision_constraint_config);
   equal &= (smooth_velocities == rhs.smooth_velocities);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_coeff, rhs.velocity_coeff, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(velocity_coeff, rhs.velocity_coeff, max_diff);
   equal &= (smooth_accelerations == rhs.smooth_accelerations);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(acceleration_coeff, rhs.acceleration_coeff, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(acceleration_coeff, rhs.acceleration_coeff, max_diff);
   equal &= (smooth_jerks == rhs.smooth_jerks);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(jerk_coeff, rhs.jerk_coeff, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(jerk_coeff, rhs.jerk_coeff, max_diff);
   return equal;
 }
 
@@ -154,4 +154,4 @@ bool TrajOptIfoptDefaultCompositeProfile::operator!=(const TrajOptIfoptDefaultCo
   return !operator==(rhs);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

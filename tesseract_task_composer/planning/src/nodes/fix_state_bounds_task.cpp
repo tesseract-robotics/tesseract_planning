@@ -46,7 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/planner_utils.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string FixStateBoundsTask::INOUT_PROGRAM_PORT = "program";
@@ -98,8 +98,8 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
   // --------------------
   // Check that inputs are valid
   // --------------------
-  tesseract_common::AnyPoly env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
-  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
+  tesseract::common::AnyPoly env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
+  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract::environment::Environment>)))
   {
     info.status_code = 0;
     info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
@@ -107,21 +107,21 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
     info.return_value = 0;
     return info;
   }
-  auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
+  auto env = env_poly.as<std::shared_ptr<const tesseract::environment::Environment>>();
 
   auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
-  if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input instruction to FixStateBounds must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
 
-  tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
+  tesseract::common::AnyPoly original_input_data_poly{ input_data_poly };
 
-  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
-  auto& ci = input_data_poly.as<CompositeInstruction>();
-  const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract::common::ProfileDictionary>>();
+  auto& ci = input_data_poly.as<tesseract::command_language::CompositeInstruction>();
+  const tesseract::common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
   auto joint_group = env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
 
@@ -135,7 +135,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
   {
     case FixStateBoundsProfile::Settings::START_ONLY:
     {
-      MoveInstructionPoly* first_mi = ci.getFirstMoveInstruction();
+      tesseract::command_language::MoveInstructionPoly* first_mi = ci.getFirstMoveInstruction();
       if (first_mi != nullptr)
       {
         auto& wp = first_mi->getWaypoint();
@@ -161,7 +161,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
     break;
     case FixStateBoundsProfile::Settings::END_ONLY:
     {
-      MoveInstructionPoly* last_mi = ci.getLastMoveInstruction();
+      tesseract::command_language::MoveInstructionPoly* last_mi = ci.getLastMoveInstruction();
       if (last_mi != nullptr)
       {
         auto& wp = last_mi->getWaypoint();
@@ -187,7 +187,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
     break;
     case FixStateBoundsProfile::Settings::ALL:
     {
-      auto flattened = ci.flatten(moveFilter);
+      auto flattened = ci.flatten(tesseract::command_language::moveFilter);
       if (flattened.empty())
       {
         // If the output key is not the same as the input key the output data should be assigned the input data for
@@ -206,7 +206,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
       bool inside_limits = true;
       for (const auto& instruction : flattened)
       {
-        const auto& wp = instruction.get().as<MoveInstructionPoly>().getWaypoint();
+        const auto& wp = instruction.get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint();
         if (wp.isStateWaypoint() || wp.isJointWaypoint())
           inside_limits &= isWithinJointLimits(wp, limits.joint_limits);
       }
@@ -216,7 +216,7 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
       CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
       for (auto& instruction : flattened)
       {
-        auto& wp = instruction.get().as<MoveInstructionPoly>().getWaypoint();
+        auto& wp = instruction.get().as<tesseract::command_language::MoveInstructionPoly>().getWaypoint();
         if (wp.isStateWaypoint() || wp.isJointWaypoint())
         {
           if (!clampToJointLimits(wp, limits.joint_limits, cur_composite_profile->max_deviation_global))
@@ -258,4 +258,4 @@ TaskComposerNodeInfo FixStateBoundsTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

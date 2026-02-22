@@ -5,9 +5,9 @@
 #include <cereal/archives/xml.hpp>
 #include <cereal/archives/json.hpp>
 
-CEREAL_REGISTER_TYPE(tesseract_planning::TaskComposerDataStoragePtrAnyPoly)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract_common::AnyInterface,
-                                     tesseract_planning::TaskComposerDataStoragePtrAnyPoly)
+CEREAL_REGISTER_TYPE(tesseract::task_composer::TaskComposerDataStoragePtrAnyPoly)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(tesseract::common::AnyInterface,
+                                     tesseract::task_composer::TaskComposerDataStoragePtrAnyPoly)
 
 // LCOV_EXCL_START
 CEREAL_REGISTER_DYNAMIC_INIT(tesseract_task_composer_core_cereal)

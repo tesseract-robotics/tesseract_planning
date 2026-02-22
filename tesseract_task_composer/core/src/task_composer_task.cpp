@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_task.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 TaskComposerTask::TaskComposerTask(std::string name, TaskComposerNodePorts ports, bool conditional)
   : TaskComposerNode(std::move(name), TaskComposerNodeType::TASK, std::move(ports), conditional)
@@ -55,4 +55,4 @@ TaskComposerTask::TaskComposerTask(std::string name, TaskComposerNodePorts ports
 
 void TaskComposerTask::setTriggerAbort(bool enable) { trigger_abort_ = enable; }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

@@ -12,7 +12,7 @@
 #include <tesseract_task_composer/core/task_composer_plugin_factory.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 
-using namespace tesseract_planning;
+using namespace tesseract::task_composer;
 
 class AddTaskComposerNode : public TaskComposerTask
 {
@@ -122,7 +122,7 @@ int main()
   task_composer.addEdges(task1_id, { task2_id });
   task_composer.addEdges(task2_id, { task3_id });
 
-  tesseract_common::GeneralResourceLocator locator;
+  tesseract::common::GeneralResourceLocator locator;
   auto resource = locator.locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml");
   std::filesystem::path config_path(resource->getFilePath());
   TaskComposerPluginFactory factory(config_path, *resource);

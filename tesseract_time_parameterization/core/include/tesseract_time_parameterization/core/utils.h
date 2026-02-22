@@ -29,7 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 /**
  * @brief Rescale the sub-composites of a program linearly
@@ -38,7 +38,7 @@ namespace tesseract_planning
  * speed
  * @return True if successful
  */
-void rescaleTimings(CompositeInstruction& program, std::vector<double> scalings);
-}  // namespace tesseract_planning
+void rescaleTimings(tesseract::command_language::CompositeInstruction& program, std::vector<double> scalings);
+}  // namespace tesseract::time_parameterization
 
 #endif

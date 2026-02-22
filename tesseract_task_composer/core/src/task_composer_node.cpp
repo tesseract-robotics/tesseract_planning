@@ -39,7 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/yaml_extensions.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 TaskComposerNode::TaskComposerNode(std::string name,
                                    TaskComposerNodeType type,
@@ -110,7 +110,7 @@ int TaskComposerNode::run(TaskComposerContext& context, OptionalTaskComposerExec
     return 0;
   }
 
-  tesseract_common::Stopwatch stopwatch;
+  tesseract::common::Stopwatch stopwatch;
   TaskComposerNodeInfo results;
   stopwatch.start();
 
@@ -429,8 +429,7 @@ std::string TaskComposerNode::dump(std::ostream& os,
     {
       std::string line_type = (return_value == static_cast<int>(i)) ? "bold" : "dashed";
       os << tmp << " -> " << toString(outbound_edges_[i], "node_") << " [style=" << line_type << ", label=\"["
-         << std::to_string(i) << "]\""
-         << "];\n";
+         << std::to_string(i) << "]\"" << "];\n";
     }
   }
   else
@@ -472,7 +471,7 @@ TaskComposerDataStorage::Ptr TaskComposerNode::getDataStorage(const TaskComposer
   if (parent_uuid_.is_nil())
     return context.data_storage;
 
-  tesseract_common::AnyPoly data_storage_any = context.data_storage->getData(parent_uuid_str_);
+  tesseract::common::AnyPoly data_storage_any = context.data_storage->getData(parent_uuid_str_);
   if (data_storage_any.isNull())
     throw std::runtime_error("TaskComposerNode, unable to find parent data storage!");
 
@@ -480,9 +479,9 @@ TaskComposerDataStorage::Ptr TaskComposerNode::getDataStorage(const TaskComposer
 }
 
 template <>
-tesseract_common::AnyPoly TaskComposerNode::getData(const TaskComposerContext& context,
-                                                    const std::string& port,
-                                                    bool required) const
+tesseract::common::AnyPoly TaskComposerNode::getData(const TaskComposerContext& context,
+                                                     const std::string& port,
+                                                     bool required) const
 {
   TaskComposerDataStorage::Ptr data_storage = getDataStorage(context);
   auto it = input_keys_.data().find(port);
@@ -503,9 +502,9 @@ tesseract_common::AnyPoly TaskComposerNode::getData(const TaskComposerContext& c
 }
 
 template <>
-std::vector<tesseract_common::AnyPoly> TaskComposerNode::getData(const TaskComposerContext& context,
-                                                                 const std::string& port,
-                                                                 bool required) const
+std::vector<tesseract::common::AnyPoly> TaskComposerNode::getData(const TaskComposerContext& context,
+                                                                  const std::string& port,
+                                                                  bool required) const
 {
   TaskComposerDataStorage::Ptr data_storage = getDataStorage(context);
   auto it = input_keys_.data().find(port);
@@ -518,7 +517,7 @@ std::vector<tesseract_common::AnyPoly> TaskComposerNode::getData(const TaskCompo
   }
 
   const auto& vs = std::get<std::vector<std::string>>(it->second);
-  std::vector<tesseract_common::AnyPoly> data_container;
+  std::vector<tesseract::common::AnyPoly> data_container;
   for (const auto& key : vs)
   {
     auto data = data_storage->getData(key);
@@ -540,7 +539,7 @@ std::vector<tesseract_common::AnyPoly> TaskComposerNode::getData(const TaskCompo
 
 void TaskComposerNode::setData(TaskComposerContext& context,
                                const std::string& port,
-                               tesseract_common::AnyPoly data,
+                               tesseract::common::AnyPoly data,
                                bool required) const
 {
   TaskComposerDataStorage::Ptr data_storage = getDataStorage(context);
@@ -560,7 +559,7 @@ void TaskComposerNode::setData(TaskComposerContext& context,
 
 void TaskComposerNode::setData(TaskComposerContext& context,
                                const std::string& port,
-                               const std::vector<tesseract_common::AnyPoly>& data,
+                               const std::vector<tesseract::common::AnyPoly>& data,
                                bool required) const
 {
   TaskComposerDataStorage::Ptr data_storage = getDataStorage(context);
@@ -582,4 +581,4 @@ void TaskComposerNode::setData(TaskComposerContext& context,
     data_storage->setData(vs[i], data[i]);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

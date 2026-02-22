@@ -29,7 +29,7 @@
 #include <tesseract_task_composer/core/task_composer_node.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 TaskComposerExecutor::TaskComposerExecutor(std::string name) : name_(std::move(name)) {}
 
@@ -44,4 +44,4 @@ std::unique_ptr<TaskComposerFuture> TaskComposerExecutor::run(const TaskComposer
   return runImpl(node, std::move(context));
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

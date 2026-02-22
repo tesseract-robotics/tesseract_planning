@@ -45,7 +45,7 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerDataStorage;
 class TaskComposerContext;
@@ -228,7 +228,7 @@ protected:
    * @param required Indicate if data is required
    * @return The data stored under the name, if not found and required an exception will be thrown other null
    */
-  template <typename T = tesseract_common::AnyPoly>
+  template <typename T = tesseract::common::AnyPoly>
   T getData(const TaskComposerContext& context, const std::string& port, bool required = true) const;
 
   /**
@@ -240,14 +240,14 @@ protected:
    */
   void setData(TaskComposerContext& context,
                const std::string& port,
-               tesseract_common::AnyPoly data,
+               tesseract::common::AnyPoly data,
                bool required = true) const;
   void setData(TaskComposerContext& context,
                const std::string& port,
-               const std::vector<tesseract_common::AnyPoly>& data,
+               const std::vector<tesseract::common::AnyPoly>& data,
                bool required = true) const;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_H

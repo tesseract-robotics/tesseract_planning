@@ -30,7 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/wait_instruction.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 WaitInstruction::WaitInstruction(double time) : wait_time_(time) {}
 WaitInstruction::WaitInstruction(WaitInstructionType type, int io) : wait_type_(type), wait_io_(io)
@@ -88,11 +88,11 @@ bool WaitInstruction::equals(const InstructionInterface& other) const
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= tesseract_common::almostEqualRelativeAndAbs(wait_time_, rhs->wait_time_, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(wait_time_, rhs->wait_time_, max_diff);
   equal &= (wait_type_ == rhs->wait_type_);
   equal &= (wait_io_ == rhs->wait_io_);
 
   return equal;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

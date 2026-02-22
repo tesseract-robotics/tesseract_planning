@@ -30,7 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/set_digital_instruction.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 SetDigitalInstruction::SetDigitalInstruction(std::string key, int index, bool value)
   : uuid_(boost::uuids::random_generator()()), key_(std::move(key)), index_(index), value_(value)
@@ -84,4 +84,4 @@ bool SetDigitalInstruction::equals(const InstructionInterface& other) const
   return equal;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

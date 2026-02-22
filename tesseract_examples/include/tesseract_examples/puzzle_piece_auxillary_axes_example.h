@@ -29,7 +29,7 @@
 #include <tesseract_examples/example.h>
 #include <memory>
 
-namespace tesseract_examples
+namespace tesseract::examples
 {
 /**
  * @brief An example of a robot with a two axis position leveraging trajopt
@@ -39,8 +39,8 @@ namespace tesseract_examples
 class PuzzlePieceAuxillaryAxesExample : public Example
 {
 public:
-  PuzzlePieceAuxillaryAxesExample(std::shared_ptr<tesseract_environment::Environment> env,
-                                  std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
+  PuzzlePieceAuxillaryAxesExample(std::shared_ptr<tesseract::environment::Environment> env,
+                                  std::shared_ptr<tesseract::visualization::Visualization> plotter = nullptr,
                                   bool ifopt = false,
                                   bool debug = false,
                                   bool benchmark = false);
@@ -58,6 +58,6 @@ private:
   bool benchmark_;
 };
 
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples
 
 #endif  // TESSERACT_EXAMPLES_PUZZLE_PIECE_AUXILLARY_AXES_EXAMPLE_H

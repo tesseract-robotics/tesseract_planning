@@ -36,13 +36,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_collision/core/types.h>
 #include <tesseract_environment/environment.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 StateCollisionValidator::StateCollisionValidator(
     const ompl::base::SpaceInformationPtr& space_info,
-    const tesseract_environment::Environment& env,
-    std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-    const tesseract_collision::ContactManagerConfig& contact_manager_config,
+    const tesseract::environment::Environment& env,
+    std::shared_ptr<const tesseract::kinematics::JointGroup> manip,
+    const tesseract::collision::ContactManagerConfig& contact_manager_config,
     OMPLStateExtractor extractor)
   : StateValidityChecker(space_info)
   , manip_(std::move(manip))
@@ -59,7 +59,7 @@ bool StateCollisionValidator::isValid(const ompl::base::State* state) const
 {
   // It was time using chronos time elapsed and it was faster to cache the contact manager
   unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
-  tesseract_collision::DiscreteContactManager::Ptr cm;
+  tesseract::collision::DiscreteContactManager::Ptr cm;
   mutex_.lock();
   auto it = contact_managers_.find(hash);
   if (it == contact_managers_.end())
@@ -74,17 +74,17 @@ bool StateCollisionValidator::isValid(const ompl::base::State* state) const
   mutex_.unlock();
 
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(state);
-  TESSERACT_THREAD_LOCAL tesseract_common::TransformMap state1;
+  TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state1;
   state1.clear();
   manip_->calcFwdKin(state1, finish_joints);
 
   for (const auto& link_name : links_)
     cm->setCollisionObjectsTransform(link_name, state1[link_name]);
 
-  tesseract_collision::ContactResultMap contact_map;
-  cm->contactTest(contact_map, tesseract_collision::ContactTestType::FIRST);
+  tesseract::collision::ContactResultMap contact_map;
+  cm->contactTest(contact_map, tesseract::collision::ContactTestType::FIRST);
 
   return contact_map.empty();
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

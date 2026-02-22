@@ -50,12 +50,12 @@ namespace ompl::geometric
 class SimpleSetup;
 }
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 struct OMPLSolverConfig;
 struct OMPLPlannerConfigurator;
 
-class OMPLMoveProfile : public tesseract_common::Profile
+class OMPLMoveProfile : public tesseract::common::Profile
 {
 public:
   using Ptr = std::shared_ptr<OMPLMoveProfile>;
@@ -73,7 +73,7 @@ public:
    * @brief Create the state extractor
    * @return The OMPL state extractor
    */
-  virtual OMPLStateExtractor createStateExtractor(const tesseract_kinematics::JointGroup& manip) const = 0;
+  virtual OMPLStateExtractor createStateExtractor(const tesseract::kinematics::JointGroup& manip) const = 0;
 
   /**
    * @brief Create OMPL Simple Setup
@@ -84,12 +84,12 @@ public:
    * @return A OMPL Simple Setup
    */
   virtual std::unique_ptr<ompl::geometric::SimpleSetup>
-  createSimpleSetup(const MoveInstructionPoly& start_instruction,
-                    const MoveInstructionPoly& end_instruction,
-                    const tesseract_common::ManipulatorInfo& composite_mi,
-                    const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
+  createSimpleSetup(const tesseract::command_language::MoveInstructionPoly& start_instruction,
+                    const tesseract::command_language::MoveInstructionPoly& end_instruction,
+                    const tesseract::common::ManipulatorInfo& composite_mi,
+                    const std::shared_ptr<const tesseract::environment::Environment>& env) const = 0;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_PROFILE_H

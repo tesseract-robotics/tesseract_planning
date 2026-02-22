@@ -43,7 +43,7 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 class TrajOptDefaultCompositeProfile : public TrajOptCompositeProfile
 {
@@ -54,7 +54,7 @@ public:
   TrajOptDefaultCompositeProfile() = default;
 
   TrajOptDefaultCompositeProfile(const YAML::Node& config,
-                                 const tesseract_common::ProfilePluginFactory& plugin_factory);
+                                 const tesseract::common::ProfilePluginFactory& plugin_factory);
 
   /** @brief Configuration info for collisions that are modeled as costs */
   trajopt_common::TrajOptCollisionConfig collision_cost_config;
@@ -77,8 +77,8 @@ public:
   /** @brief Optimization weight associated with kinematic singularity avoidance */
   double avoid_singularity_coeff = 5.0;
 
-  TrajOptTermInfos create(const tesseract_common::ManipulatorInfo& composite_manip_info,
-                          const std::shared_ptr<const tesseract_environment::Environment>& env,
+  TrajOptTermInfos create(const tesseract::common::ManipulatorInfo& composite_manip_info,
+                          const std::shared_ptr<const tesseract::environment::Environment>& env,
                           const std::vector<int>& fixed_indices,
                           int start_index,
                           int end_index) const override;
@@ -103,6 +103,6 @@ public:
   bool operator==(const TrajOptDefaultCompositeProfile& rhs) const;
   bool operator!=(const TrajOptDefaultCompositeProfile& rhs) const;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_DEFAULT_COMPOSITE_PROFILE_H

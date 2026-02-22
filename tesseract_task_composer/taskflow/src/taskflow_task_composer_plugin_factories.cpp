@@ -28,15 +28,15 @@
 
 #include <boost_plugin_loader/macros.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 using TaskflowTaskComposerExecutorFactory = TaskComposerExecutorFactoryImpl<TaskflowTaskComposerExecutor>;
 // LCOV_EXCL_START
 PLUGIN_ANCHOR_IMPL(TaskComposerTaskflowFactoriesAnchor)
 // LCOV_EXCL_STOP
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 // clang-format off
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_EXECUTOR_PLUGIN(tesseract_planning::TaskflowTaskComposerExecutorFactory, TaskflowTaskComposerExecutorFactory)
+TESSERACT_ADD_TASK_COMPOSER_EXECUTOR_PLUGIN(tesseract::task_composer::TaskflowTaskComposerExecutorFactory, TaskflowTaskComposerExecutorFactory)
 // clang-format on

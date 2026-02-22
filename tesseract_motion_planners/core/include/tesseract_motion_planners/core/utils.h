@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/fwd.h>
 #include <tesseract_command_language/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /**
  * @brief Extract toolpath from a instruction
@@ -44,8 +44,8 @@ namespace tesseract_planning
  * @param env The environment object used for getting kinematics and tcp information
  * @return A toolpath in world coordinate system
  */
-tesseract_common::Toolpath toToolpath(const InstructionPoly& instruction,
-                                      const tesseract_environment::Environment& env);
+tesseract::common::Toolpath toToolpath(const tesseract::command_language::InstructionPoly& instruction,
+                                       const tesseract::environment::Environment& env);
 
 /**
  * @brief Extract toolpath from a composite instruction
@@ -53,7 +53,8 @@ tesseract_common::Toolpath toToolpath(const InstructionPoly& instruction,
  * @param env The environment object used for getting kinematics and tcp information
  * @return A toolpath in world coordinate system
  */
-tesseract_common::Toolpath toToolpath(const CompositeInstruction& ci, const tesseract_environment::Environment& env);
+tesseract::common::Toolpath toToolpath(const tesseract::command_language::CompositeInstruction& ci,
+                                       const tesseract::environment::Environment& env);
 
 /**
  * @brief Extract toolpath from a move instruction
@@ -61,15 +62,16 @@ tesseract_common::Toolpath toToolpath(const CompositeInstruction& ci, const tess
  * @param env The environment object used for getting kinematics and tcp information
  * @return A toolpath in world coordinate system
  */
-tesseract_common::Toolpath toToolpath(const MoveInstructionPoly& mi, const tesseract_environment::Environment& env);
+tesseract::common::Toolpath toToolpath(const tesseract::command_language::MoveInstructionPoly& mi,
+                                       const tesseract::environment::Environment& env);
 
 /**
  * @brief This will assign the current state as the seed for all cartesian waypoint
  * @param composite_instructions The input program
  * @param env The environment information
  */
-void assignCurrentStateAsSeed(CompositeInstruction& composite_instructions,
-                              const tesseract_environment::Environment& env);
+void assignCurrentStateAsSeed(tesseract::command_language::CompositeInstruction& composite_instructions,
+                              const tesseract::environment::Environment& env);
 
 /**
  * @brief This formats the joint and state waypoints to align with the kinematics object
@@ -77,7 +79,8 @@ void assignCurrentStateAsSeed(CompositeInstruction& composite_instructions,
  * @param env The environment information
  * @return True if the program required formatting.
  */
-bool formatProgram(CompositeInstruction& composite_instructions, const tesseract_environment::Environment& env);
+bool formatProgram(tesseract::command_language::CompositeInstruction& composite_instructions,
+                   const tesseract::environment::Environment& env);
 
 /**
  * @brief Should perform a continuous collision check over the trajectory.
@@ -88,12 +91,12 @@ bool formatProgram(CompositeInstruction& composite_instructions, const tesseract
  * @param config CollisionCheckConfig used to specify collision check settings
  * @return ContactTrajectoryResults containing contact step/substep locations and joint values.
  */
-tesseract_collision::ContactTrajectoryResults
-contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts,
-                    tesseract_collision::ContinuousContactManager& manager,
-                    const tesseract_scene_graph::StateSolver& state_solver,
-                    const CompositeInstruction& program,
-                    const tesseract_collision::CollisionCheckConfig& config);
+tesseract::collision::ContactTrajectoryResults
+contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contacts,
+                    tesseract::collision::ContinuousContactManager& manager,
+                    const tesseract::scene_graph::StateSolver& state_solver,
+                    const tesseract::command_language::CompositeInstruction& program,
+                    const tesseract::collision::CollisionCheckConfig& config);
 
 /**
  * @brief Should perform a discrete collision check over the trajectory
@@ -104,13 +107,13 @@ contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts
  * @param config CollisionCheckConfig used to specify collision check settings
  * @return ContactTrajectoryResults containing contact step/substep locations and joint values.
  */
-tesseract_collision::ContactTrajectoryResults
-contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts,
-                    tesseract_collision::DiscreteContactManager& manager,
-                    const tesseract_scene_graph::StateSolver& state_solver,
-                    const CompositeInstruction& program,
-                    const tesseract_collision::CollisionCheckConfig& config);
+tesseract::collision::ContactTrajectoryResults
+contactCheckProgram(std::vector<tesseract::collision::ContactResultMap>& contacts,
+                    tesseract::collision::DiscreteContactManager& manager,
+                    const tesseract::scene_graph::StateSolver& state_solver,
+                    const tesseract::command_language::CompositeInstruction& program,
+                    const tesseract::collision::CollisionCheckConfig& config);
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_PLANNING_UTILS_H

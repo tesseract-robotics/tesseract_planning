@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/planner.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 class TrajOptMotionPlanner : public MotionPlanner
 {
@@ -56,5 +56,5 @@ public:
   virtual std::shared_ptr<trajopt::ProblemConstructionInfo> createProblem(const PlannerRequest& request) const;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 #endif  // TESSERACT_PLANNING_TRAJOPT_PLANNER_H

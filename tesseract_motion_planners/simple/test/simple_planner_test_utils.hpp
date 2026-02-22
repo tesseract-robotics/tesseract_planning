@@ -31,18 +31,18 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/resource_locator.h>
 
-using namespace tesseract_environment;
+using namespace tesseract::environment;
 
 class TesseractPlanningSimplePlannerUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
-  tesseract_common::ManipulatorInfo manip_info_;
+  tesseract::common::ManipulatorInfo manip_info_;
   std::vector<std::string> joint_names_;
 
   void SetUp() override
   {
-    auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
+    auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
     Environment::Ptr env = std::make_shared<Environment>();
     std::filesystem::path urdf_path(
         locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());

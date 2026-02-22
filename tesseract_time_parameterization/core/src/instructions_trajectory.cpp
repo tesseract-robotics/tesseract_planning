@@ -28,7 +28,9 @@
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/utils.h>
 
-namespace tesseract_planning
+using namespace tesseract::command_language;
+
+namespace tesseract::time_parameterization
 {
 static const flattenFilterFn programFlattenMoveInstructionFilter =
     [](const InstructionPoly& i, const CompositeInstruction& /*composite*/) { return i.isMoveInstruction(); };
@@ -158,4 +160,4 @@ bool InstructionsTrajectory::isTimeStrictlyIncreasing() const
   return true;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization

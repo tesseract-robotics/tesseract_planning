@@ -41,7 +41,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_graph.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
                            TaskComposerContext& task_context,
@@ -50,7 +50,7 @@ tf::Task convertToTaskflow(const TaskComposerGraph& task_graph,
                            tf::Subflow* parent_sbf)
 {
   auto fn = [&task_graph, &task_context, &task_executor](tf::Subflow& subflow) {
-    tesseract_common::Stopwatch stopwatch;
+    tesseract::common::Stopwatch stopwatch;
     stopwatch.start();
 
     // Node Info
@@ -251,4 +251,4 @@ long TaskflowTaskComposerExecutor::getWorkerCount() const { return static_cast<l
 
 long TaskflowTaskComposerExecutor::getTaskCount() const { return static_cast<long>(executor_->num_topologies()); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt_ifopt/yaml_extensions.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 bool operator==(const OsqpEigen::Settings& lhs, const OsqpEigen::Settings& rhs)
 {
@@ -54,29 +54,29 @@ bool operator==(const OsqpEigen::Settings& lhs, const OsqpEigen::Settings& rhs)
   equal &= (lhs_settings.warm_starting == rhs_settings.warm_starting);
   equal &= (lhs_settings.scaling == rhs_settings.scaling);
   equal &= (lhs_settings.polishing == rhs_settings.polishing);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs_settings.rho, rhs_settings.rho, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs_settings.rho, rhs_settings.rho, max_diff);
   equal &= (lhs_settings.rho_is_vec == rhs_settings.rho_is_vec);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs_settings.sigma, rhs_settings.sigma, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs_settings.alpha, rhs_settings.alpha, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs_settings.sigma, rhs_settings.sigma, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs_settings.alpha, rhs_settings.alpha, max_diff);
   equal &= (lhs_settings.cg_max_iter == rhs_settings.cg_max_iter);
   equal &= (lhs_settings.cg_tol_reduction == rhs_settings.cg_tol_reduction);
-  equal &=
-      tesseract_common::almostEqualRelativeAndAbs(lhs_settings.cg_tol_fraction, rhs_settings.cg_tol_fraction, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
+      lhs_settings.cg_tol_fraction, rhs_settings.cg_tol_fraction, max_diff);
   equal &= (lhs_settings.cg_precond == rhs_settings.cg_precond);
   equal &= (lhs_settings.adaptive_rho == rhs_settings.adaptive_rho);
   equal &= (lhs_settings.adaptive_rho_interval == rhs_settings.adaptive_rho_interval);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       lhs_settings.adaptive_rho_tolerance, rhs_settings.adaptive_rho_tolerance, max_diff);
   equal &= (lhs_settings.max_iter == rhs_settings.max_iter);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs_settings.eps_abs, rhs_settings.eps_abs, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs_settings.eps_rel, rhs_settings.eps_rel, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs_settings.eps_prim_inf, rhs_settings.eps_prim_inf, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs_settings.eps_dual_inf, rhs_settings.eps_dual_inf, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs_settings.eps_abs, rhs_settings.eps_abs, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs_settings.eps_rel, rhs_settings.eps_rel, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs_settings.eps_prim_inf, rhs_settings.eps_prim_inf, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs_settings.eps_dual_inf, rhs_settings.eps_dual_inf, max_diff);
   equal &= (lhs_settings.scaled_termination == rhs_settings.scaled_termination);
   equal &= (lhs_settings.check_termination == rhs_settings.check_termination);
   equal &= (lhs_settings.check_dualgap == rhs_settings.check_dualgap);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs_settings.time_limit, rhs_settings.time_limit, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs_settings.delta, rhs_settings.delta, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs_settings.time_limit, rhs_settings.time_limit, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs_settings.delta, rhs_settings.delta, max_diff);
   equal &= (lhs_settings.polish_refine_iter == rhs_settings.polish_refine_iter);
   return equal;
 }
@@ -89,7 +89,7 @@ TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile()
 
 TrajOptIfoptOSQPSolverProfile::TrajOptIfoptOSQPSolverProfile(
     const YAML::Node& config,
-    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+    const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : TrajOptIfoptOSQPSolverProfile()
 {
   try
@@ -159,4 +159,4 @@ bool TrajOptIfoptOSQPSolverProfile::operator!=(const TrajOptIfoptOSQPSolverProfi
   return !operator==(rhs);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

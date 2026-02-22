@@ -44,7 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_examples/example.h>
 #include <tesseract_visualization/trajectory_player.h>
 
-namespace tesseract_examples
+namespace tesseract::examples
 {
 /**
  * @brief This example demonstrates running the inner loop of TrajOpt in an "online" manner. As the environment changes,
@@ -53,8 +53,8 @@ namespace tesseract_examples
 class OnlinePlanningExample : public Example
 {
 public:
-  OnlinePlanningExample(std::shared_ptr<tesseract_environment::Environment> env,
-                        std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
+  OnlinePlanningExample(std::shared_ptr<tesseract::environment::Environment> env,
+                        std::shared_ptr<tesseract::visualization::Visualization> plotter = nullptr,
                         int steps = 12,
                         double box_size = 0.01,
                         bool update_start_state = false,
@@ -104,10 +104,10 @@ private:
   bool use_continuous_{ false };
   bool realtime_running_{ false };
 
-  std::shared_ptr<const tesseract_kinematics::KinematicGroup> manip_;
-  tesseract_visualization::TrajectoryPlayer player_;
+  std::shared_ptr<const tesseract::kinematics::KinematicGroup> manip_;
+  tesseract::visualization::TrajectoryPlayer player_;
   boost::uuids::uuid current_trajectory_uuid_{};
-  tesseract_common::TrajArray current_trajectory_;
+  tesseract::common::TrajArray current_trajectory_;
   Eigen::Isometry3d target_pose_delta_;
   Eigen::Isometry3d target_pose_base_frame_;
 
@@ -118,6 +118,6 @@ private:
 
   void updateAndPlotTrajectory(const Eigen::VectorXd& osqp_vals);
 };
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples
 
 #endif  // TTESSERACT_EXAMPLES_ONLINE_PLANNING_EXAMPLE_H

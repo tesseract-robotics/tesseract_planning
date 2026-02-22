@@ -11,18 +11,18 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 template <class Archive, typename FloatType>
 void serialize(Archive& ar, DescartesSolverProfile<FloatType>& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
 }
 
 template <class Archive, typename FloatType>
 void serialize(Archive& ar, DescartesMoveProfile<FloatType>& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
 }
 
 template <class Archive, typename FloatType>
@@ -53,6 +53,6 @@ void serialize(Archive& ar, DescartesDefaultMoveProfile<FloatType>& obj)
   ar(cereal::make_nvp("debug", obj.debug));
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_CEREAL_SERIALIZATION_H

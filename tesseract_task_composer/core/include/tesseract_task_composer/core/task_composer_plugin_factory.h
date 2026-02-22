@@ -50,7 +50,7 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerNode;
 class TaskComposerExecutor;
@@ -91,7 +91,7 @@ public:
 class TaskComposerPluginFactory
 {
 public:
-  using PluginInfoMap = std::map<std::string, tesseract_common::PluginInfo>;
+  using PluginInfoMap = std::map<std::string, tesseract::common::PluginInfo>;
 
   TaskComposerPluginFactory();
   ~TaskComposerPluginFactory();
@@ -104,49 +104,49 @@ public:
    * @brief Load plugins from a configuration object
    * @param config The config object
    */
-  TaskComposerPluginFactory(const tesseract_common::TaskComposerPluginInfo& config);
+  TaskComposerPluginFactory(const tesseract::common::TaskComposerPluginInfo& config);
 
   /**
    * @brief Load plugins from yaml node
    * @param config The config node
    */
-  TaskComposerPluginFactory(const YAML::Node& config, const tesseract_common::ResourceLocator& locator);
+  TaskComposerPluginFactory(const YAML::Node& config, const tesseract::common::ResourceLocator& locator);
 
   /**
    * @brief Load plugins from file path
    * @param config The config file path
    */
-  TaskComposerPluginFactory(const std::filesystem::path& config, const tesseract_common::ResourceLocator& locator);
+  TaskComposerPluginFactory(const std::filesystem::path& config, const tesseract::common::ResourceLocator& locator);
 
   /**
    * @brief Load plugins from string
    * @param config The config string
    */
-  TaskComposerPluginFactory(const std::string& config, const tesseract_common::ResourceLocator& locator);
+  TaskComposerPluginFactory(const std::string& config, const tesseract::common::ResourceLocator& locator);
 
   /**
    * @brief Loads plugins from a configuration object
    * @param config the config object
    */
-  void loadConfig(const tesseract_common::TaskComposerPluginInfo& config);
+  void loadConfig(const tesseract::common::TaskComposerPluginInfo& config);
 
   /**
    * @brief Load plugins from yaml node
    * @param config The config node
    */
-  void loadConfig(YAML::Node config, const tesseract_common::ResourceLocator& locator);
+  void loadConfig(YAML::Node config, const tesseract::common::ResourceLocator& locator);
 
   /**
    * @brief Load plugins from file path
    * @param config The config file path
    */
-  void loadConfig(const std::filesystem::path& config, const tesseract_common::ResourceLocator& locator);
+  void loadConfig(const std::filesystem::path& config, const tesseract::common::ResourceLocator& locator);
 
   /**
    * @brief Load plugins from string
    * @param config The config string
    */
-  void loadConfig(const std::string& config, const tesseract_common::ResourceLocator& locator);
+  void loadConfig(const std::string& config, const tesseract::common::ResourceLocator& locator);
 
   /**
    * @brief Add location for the plugin loader to search
@@ -189,7 +189,7 @@ public:
    * @param name The name
    * @param plugin_info The plugin information
    */
-  void addTaskComposerExecutorPlugin(const std::string& name, tesseract_common::PluginInfo plugin_info);
+  void addTaskComposerExecutorPlugin(const std::string& name, tesseract::common::PluginInfo plugin_info);
 
   /**
    * @brief Check if it has task composer executor plugins
@@ -226,7 +226,7 @@ public:
    * @param name The name
    * @param plugin_info The plugin information
    */
-  void addTaskComposerNodePlugin(const std::string& name, tesseract_common::PluginInfo plugin_info);
+  void addTaskComposerNodePlugin(const std::string& name, tesseract::common::PluginInfo plugin_info);
 
   /**
    * @brief Check if it has task composer node plugins
@@ -272,7 +272,7 @@ public:
    * @param plugin_info The plugin information to create task composer executor object
    */
   std::unique_ptr<TaskComposerExecutor>
-  createTaskComposerExecutor(const std::string& name, const tesseract_common::PluginInfo& plugin_info) const;
+  createTaskComposerExecutor(const std::string& name, const tesseract::common::PluginInfo& plugin_info) const;
 
   /**
    * @brief Get task composer node object given name
@@ -287,7 +287,7 @@ public:
    * @param plugin_info The plugin information to task composer node  object
    */
   std::unique_ptr<TaskComposerNode> createTaskComposerNode(const std::string& name,
-                                                           const tesseract_common::PluginInfo& plugin_info) const;
+                                                           const tesseract::common::PluginInfo& plugin_info) const;
 
   /**
    * @brief Save the plugin information to a yaml config file
@@ -317,5 +317,5 @@ private:
 
   void loadConfig(YAML::Node config);
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_FACTORY_H

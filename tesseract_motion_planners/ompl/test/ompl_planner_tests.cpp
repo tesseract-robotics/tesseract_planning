@@ -79,26 +79,27 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_geometry/impl/box.h>
 
-using namespace tesseract_scene_graph;
-using namespace tesseract_collision;
-using namespace tesseract_environment;
-using namespace tesseract_geometry;
-using namespace tesseract_kinematics;
-using namespace tesseract_planning;
+using namespace tesseract::scene_graph;
+using namespace tesseract::collision;
+using namespace tesseract::environment;
+using namespace tesseract::geometry;
+using namespace tesseract::kinematics;
+using namespace tesseract::motion_planners;
+using namespace tesseract::command_language;
 
 const static int SEED = 1;
 const static std::vector<double> start_state = { -0.5, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
 const static std::vector<double> end_state = { 0.5, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
 static const std::string OMPL_DEFAULT_NAMESPACE = "OMPLMotionPlannerTask";
 
-static void addBox(tesseract_environment::Environment& env)
+static void addBox(tesseract::environment::Environment& env)
 {
   Link link_1("box_attached");
 
   Visual::Ptr visual = std::make_shared<Visual>();
   visual->origin = Eigen::Isometry3d::Identity();
   visual->origin.translation() = Eigen::Vector3d(0.5, 0, 0.55);
-  visual->geometry = std::make_shared<tesseract_geometry::Box>(0.4, 0.001, 0.4);
+  visual->geometry = std::make_shared<tesseract::geometry::Box>(0.4, 0.001, 0.4);
   link_1.visual.push_back(visual);
 
   Collision::Ptr collision = std::make_shared<Collision>();
@@ -124,19 +125,19 @@ public:
   OMPLMotionPlanner ompl_planner{ OMPL_DEFAULT_NAMESPACE };
 };
 
-using Implementations = ::testing::Types<tesseract_planning::SBLConfigurator,
-                                         tesseract_planning::PRMConfigurator,
-                                         tesseract_planning::PRMstarConfigurator,
-                                         tesseract_planning::LazyPRMstarConfigurator,
-                                         tesseract_planning::ESTConfigurator,
-                                         tesseract_planning::BKPIECE1Configurator,
-                                         tesseract_planning::KPIECE1Configurator,
-                                         // tesseract_planning::LBKPIECE1Configurator,
-                                         // tesseract_planning::RRTConfigurator,
-                                         // tesseract_planning::RRTstarConfigurator,
-                                         // tesseract_planning::SPARSConfigurator,
-                                         // tesseract_planning::TRRTConfigurator,
-                                         tesseract_planning::RRTConnectConfigurator>;
+using Implementations = ::testing::Types<SBLConfigurator,
+                                         PRMConfigurator,
+                                         PRMstarConfigurator,
+                                         LazyPRMstarConfigurator,
+                                         ESTConfigurator,
+                                         BKPIECE1Configurator,
+                                         KPIECE1Configurator,
+                                         // LBKPIECE1Configurator,
+                                         // RRTConfigurator,
+                                         // RRTstarConfigurator,
+                                         // SPARSConfigurator,
+                                         // TRRTConfigurator,
+                                         RRTConnectConfigurator>;
 
 TYPED_TEST_CASE(OMPLTestFixture, Implementations);  // NOLINT
 
@@ -146,7 +147,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
                                         << " vs. " << SEED;
 
   // Step 1: Load scene and srdf
-  auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
+  auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
   Environment::Ptr env = std::make_shared<Environment>();
   std::filesystem::path urdf_path(
       locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());
@@ -154,7 +155,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
       locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.srdf")->getFilePath());
   EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
 
-  tesseract_common::ManipulatorInfo manip;
+  tesseract::common::ManipulatorInfo manip;
   manip.manipulator = "manipulator";
   manip.working_frame = "base_link";
   manip.tcp_frame = "tool0";
@@ -194,7 +195,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   auto move_profile = std::make_shared<OMPLRealVectorMoveProfile>();
   move_profile->contact_manager_config.default_margin = 0.025;
   move_profile->collision_check_config.longest_valid_segment_length = 0.1;
-  move_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+  move_profile->collision_check_config.type = tesseract::collision::CollisionEvaluatorType::LVS_CONTINUOUS;
   move_profile->solver_config.planning_time = 10;
   move_profile->solver_config.optimize = false;
   move_profile->solver_config.max_solutions = 2;
@@ -202,7 +203,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   move_profile->solver_config.planners = { this->configurator, this->configurator };
 
   // Profile Dictionary
-  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
   profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
 
   // Create Planner Request
@@ -305,7 +306,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
                                         << " vs. " << SEED;
 
   // Step 1: Load scene and srdf
-  auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
+  auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
   Environment::Ptr env = std::make_shared<Environment>();
   std::filesystem::path urdf_path(
       locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());
@@ -314,7 +315,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
 
   // Set manipulator
-  tesseract_common::ManipulatorInfo manip;
+  tesseract::common::ManipulatorInfo manip;
   manip.tcp_frame = "tool0";
   manip.manipulator = "manipulator";
   manip.working_frame = "base_link";
@@ -353,7 +354,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   auto move_profile = std::make_shared<OMPLRealVectorMoveProfile>();
   move_profile->contact_manager_config.default_margin = 0.02;
   move_profile->collision_check_config.longest_valid_segment_length = 0.1;
-  move_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+  move_profile->collision_check_config.type = tesseract::collision::CollisionEvaluatorType::LVS_CONTINUOUS;
   move_profile->solver_config.planning_time = 10;
   move_profile->solver_config.optimize = false;
   move_profile->solver_config.max_solutions = 2;
@@ -361,7 +362,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   move_profile->solver_config.planners = { this->configurator, this->configurator };
 
   // Profile Dictionary
-  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
   profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
 
   // Create Planner Request
@@ -395,7 +396,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
                                         << " vs. " << SEED;
 
   // Step 1: Load scene and srdf
-  auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
+  auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
   Environment::Ptr env = std::make_shared<Environment>();
   std::filesystem::path urdf_path(
       locator->locateResource("package://tesseract_support/urdf/lbr_iiwa_14_r820.urdf")->getFilePath());
@@ -404,7 +405,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
 
   // Set manipulator
-  tesseract_common::ManipulatorInfo manip;
+  tesseract::common::ManipulatorInfo manip;
   manip.tcp_frame = "tool0";
   manip.manipulator = "manipulator";
   manip.working_frame = "base_link";
@@ -443,7 +444,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   auto move_profile = std::make_shared<OMPLRealVectorMoveProfile>();
   move_profile->contact_manager_config.default_margin = 0.02;
   move_profile->collision_check_config.longest_valid_segment_length = 0.1;
-  move_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
+  move_profile->collision_check_config.type = tesseract::collision::CollisionEvaluatorType::CONTINUOUS;
   move_profile->solver_config.planning_time = 10;
   move_profile->solver_config.optimize = false;
   move_profile->solver_config.max_solutions = 2;
@@ -451,12 +452,12 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   move_profile->solver_config.planners = { this->configurator, this->configurator };
 
   // Serialization
-  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, OMPLRealVectorMoveProfile>(move_profile,
-                                                                                                        "ompl_move_"
-                                                                                                        "profile");
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile, OMPLRealVectorMoveProfile>(move_profile,
+                                                                                                          "ompl_move_"
+                                                                                                          "profile");
 
   // Profile Dictionary
-  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
   profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
 
   // Create Planner Request
@@ -491,8 +492,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 //                                        << " vs. " << SEED;
 
 //  // Step 1: Load scene and srdf
-//  tesseract_scene_graph::ResourceLocator::Ptr locator =
-//      std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
+//  tesseract::scene_graph::ResourceLocator::Ptr locator =
+//      std::make_shared<tesseract::scene_graph::SimpleResourceLocator>(locateResource);
 //  Tesseract::Ptr tesseract = std::make_shared<Tesseract>();
 //  std::filesystem::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
 //  std::filesystem::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");

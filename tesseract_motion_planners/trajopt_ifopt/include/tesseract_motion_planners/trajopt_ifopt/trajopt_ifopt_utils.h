@@ -45,19 +45,19 @@ namespace OsqpEigen
 class Settings;
 }
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 void copyOSQPEigenSettings(OsqpEigen::Settings& lhs, const OsqpEigen::Settings& rhs);
 
 std::shared_ptr<trajopt_ifopt::ConstraintSet>
-createJointPositionConstraint(const JointWaypointPoly& joint_waypoint,
+createJointPositionConstraint(const tesseract::command_language::JointWaypointPoly& joint_waypoint,
                               const std::shared_ptr<const trajopt_ifopt::Var>& var,
                               const Eigen::VectorXd& coeffs);
 
 std::vector<std::shared_ptr<trajopt_ifopt::ConstraintSet>>
 createCollisionConstraints(const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
-                           const std::shared_ptr<const tesseract_environment::Environment>& env,
-                           const tesseract_common::ManipulatorInfo& manip_info,
+                           const std::shared_ptr<const tesseract::environment::Environment>& env,
+                           const tesseract::common::ManipulatorInfo& manip_info,
                            const trajopt_common::TrajOptCollisionConfig& config,
                            const std::vector<int>& fixed_indices,
                            bool fixed_sparsity);
@@ -77,6 +77,6 @@ createJointJerkConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
                           const std::vector<std::shared_ptr<const trajopt_ifopt::Var>>& vars,
                           const Eigen::VectorXd& coeffs);
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_UTILS_H

@@ -37,14 +37,14 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 class TrajOptIfoptDefaultCompositeProfile : public TrajOptIfoptCompositeProfile
 {
 public:
   TrajOptIfoptDefaultCompositeProfile() = default;
   TrajOptIfoptDefaultCompositeProfile(const YAML::Node& config,
-                                      const tesseract_common::ProfilePluginFactory& plugin_factory);
+                                      const tesseract::common::ProfilePluginFactory& plugin_factory);
 
   /** @brief Configuration info for collisions that are modeled as costs */
   trajopt_common::TrajOptCollisionConfig collision_cost_config;
@@ -63,14 +63,14 @@ public:
   /** @brief This default to all ones, but allows you to weight different joints */
   Eigen::VectorXd jerk_coeff;
 
-  TrajOptIfoptTermInfos create(const tesseract_common::ManipulatorInfo& composite_manip_info,
-                               const std::shared_ptr<const tesseract_environment::Environment>& env,
+  TrajOptIfoptTermInfos create(const tesseract::common::ManipulatorInfo& composite_manip_info,
+                               const std::shared_ptr<const tesseract::environment::Environment>& env,
                                const std::vector<std::shared_ptr<const trajopt_ifopt::Node>>& nodes,
                                const std::vector<int>& fixed_indices) const override;
 
   bool operator==(const TrajOptIfoptDefaultCompositeProfile& rhs) const;
   bool operator!=(const TrajOptIfoptDefaultCompositeProfile& rhs) const;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_DEFAULT_COMPOSITE_PROFILE_H

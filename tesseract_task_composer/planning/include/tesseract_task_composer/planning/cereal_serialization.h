@@ -15,12 +15,12 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 template <class Archive>
 void serialize(Archive& ar, ContactCheckProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
   ar(cereal::make_nvp("contact_manager_config", obj.contact_manager_config));
   ar(cereal::make_nvp("collision_check_config", obj.collision_check_config));
 }
@@ -28,7 +28,7 @@ void serialize(Archive& ar, ContactCheckProfile& obj)
 template <class Archive>
 void serialize(Archive& ar, FixStateBoundsProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
   ar(cereal::make_nvp("mode", obj.mode));
   ar(cereal::make_nvp("max_deviation_global", obj.max_deviation_global));
   ar(cereal::make_nvp("upper_bounds_reduction", obj.upper_bounds_reduction));
@@ -38,7 +38,7 @@ void serialize(Archive& ar, FixStateBoundsProfile& obj)
 template <class Archive>
 void serialize(Archive& ar, FixStateCollisionProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
   ar(cereal::make_nvp("mode", obj.mode));
   ar(cereal::make_nvp("correction_workflow", obj.correction_workflow));
   ar(cereal::make_nvp("jiggle_factor", obj.jiggle_factor));
@@ -57,7 +57,7 @@ void serialize(Archive& ar, FixStateCollisionProfile& obj)
 template <class Archive>
 void serialize(Archive& ar, KinematicLimitsCheckProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
   ar(cereal::make_nvp("check_position", obj.check_position));
   ar(cereal::make_nvp("check_velocity", obj.check_velocity));
   ar(cereal::make_nvp("check_acceleration", obj.check_acceleration));
@@ -66,24 +66,24 @@ void serialize(Archive& ar, KinematicLimitsCheckProfile& obj)
 template <class Archive>
 void serialize(Archive& ar, MinLengthProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
   ar(cereal::make_nvp("min_length", obj.min_length));
 }
 
 template <class Archive>
 void serialize(Archive& ar, ProfileSwitchProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
   ar(cereal::make_nvp("return_value", obj.return_value));
 }
 
 template <class Archive>
 void serialize(Archive& ar, UpsampleTrajectoryProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
   ar(cereal::make_nvp("longest_valid_segment_length", obj.longest_valid_segment_length));
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_PLANNING_CEREAL_SERIALIZATION_H

@@ -34,7 +34,7 @@
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(int freespace_steps, int linear_steps)
   : freespace_steps(freespace_steps), linear_steps(linear_steps)
@@ -43,7 +43,7 @@ SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(int freespa
 
 SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(
     const YAML::Node& config,
-    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+    const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : SimplePlannerFixedSizeMoveProfile()
 {
   try
@@ -60,13 +60,13 @@ SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(
   }
 }
 
-std::vector<MoveInstructionPoly>
-SimplePlannerFixedSizeMoveProfile::generate(const MoveInstructionPoly& prev_instruction,
-                                            const MoveInstructionPoly& /*prev_seed*/,
-                                            const MoveInstructionPoly& base_instruction,
-                                            const InstructionPoly& /*next_instruction*/,
-                                            const std::shared_ptr<const tesseract_environment::Environment>& env,
-                                            const tesseract_common::ManipulatorInfo& global_manip_info) const
+std::vector<tesseract::command_language::MoveInstructionPoly>
+SimplePlannerFixedSizeMoveProfile::generate(const tesseract::command_language::MoveInstructionPoly& prev_instruction,
+                                            const tesseract::command_language::MoveInstructionPoly& /*prev_seed*/,
+                                            const tesseract::command_language::MoveInstructionPoly& base_instruction,
+                                            const tesseract::command_language::InstructionPoly& /*next_instruction*/,
+                                            const std::shared_ptr<const tesseract::environment::Environment>& env,
+                                            const tesseract::common::ManipulatorInfo& global_manip_info) const
 {
   KinematicGroupInstructionInfo prev(prev_instruction, *env, global_manip_info);
   KinematicGroupInstructionInfo base(base_instruction, *env, global_manip_info);
@@ -96,4 +96,4 @@ bool SimplePlannerFixedSizeMoveProfile::operator!=(const SimplePlannerFixedSizeM
   return !operator==(rhs);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

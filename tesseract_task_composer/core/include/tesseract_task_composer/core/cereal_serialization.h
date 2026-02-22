@@ -21,7 +21,7 @@
 
 #include <mutex>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 template <class Archive>
 void serialize(Archive& ar, TaskComposerKeys& obj)
@@ -102,6 +102,6 @@ void serialize(Archive& ar, TaskComposerLog& obj)
   ar(cereal::make_nvp("dotgraph", obj.dotgraph));
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_CEREAL_SERIALIZATION_H

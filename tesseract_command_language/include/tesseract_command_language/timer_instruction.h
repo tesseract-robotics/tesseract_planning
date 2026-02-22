@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 enum class TimerInstructionType : std::uint8_t
 {
@@ -166,8 +166,8 @@ private:
   bool equals(const InstructionInterface& other) const override final;
 
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, TimerInstruction& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, TimerInstruction& obj);
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_TIMER_INSTRUCTION_H

@@ -33,7 +33,7 @@
 
 #include <tesseract_common/manipulator_info.h>
 
-namespace tesseract_planning::test_suite
+namespace tesseract::command_language::test_suite
 {
 namespace details
 {
@@ -537,13 +537,13 @@ void runMoveInstructionSettersTest()
 
   EXPECT_TRUE(instr.getManipulatorInfo().empty());
   EXPECT_TRUE(std::as_const(instr).getManipulatorInfo().empty());
-  tesseract_common::ManipulatorInfo manip_info("manip", "base_link", "tool0");
+  tesseract::common::ManipulatorInfo manip_info("manip", "base_link", "tool0");
   instr.setManipulatorInfo(manip_info);
   EXPECT_FALSE(instr.getManipulatorInfo().empty());
   EXPECT_FALSE(std::as_const(instr).getManipulatorInfo().empty());
   EXPECT_TRUE(instr.getManipulatorInfo() == manip_info);
 
-  tesseract_common::ManipulatorInfo manip_info2("manip2", "base_link2", "tool02");
+  tesseract::common::ManipulatorInfo manip_info2("manip2", "base_link2", "tool02");
   instr.getManipulatorInfo() = manip_info2;
   EXPECT_FALSE(instr.getManipulatorInfo().empty());
   EXPECT_TRUE(instr.getManipulatorInfo() == manip_info2);
@@ -586,6 +586,6 @@ void runMoveInstructionTest()
   details::runMoveInstructionConstructorTest<T>();
   details::runMoveInstructionSettersTest<T>();
 }
-}  // namespace tesseract_planning::test_suite
+}  // namespace tesseract::command_language::test_suite
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_MOVE_INSTRUCTION_POLY_UNIT_HPP

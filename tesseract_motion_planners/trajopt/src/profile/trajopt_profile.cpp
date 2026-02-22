@@ -23,7 +23,7 @@
  */
 #include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 TrajOptMoveProfile::TrajOptMoveProfile() : Profile(createKey<TrajOptMoveProfile>()) {}
 
@@ -35,4 +35,4 @@ sco::BasicTrustRegionSQPParameters TrajOptSolverProfile::createOptimizationParam
 
 std::vector<sco::Optimizer::Callback> TrajOptSolverProfile::createOptimizationCallbacks() const { return callbacks; }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

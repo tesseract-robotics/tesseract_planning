@@ -45,11 +45,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace trajopt;
 using namespace tesseract;
-using namespace tesseract_environment;
-using namespace tesseract_scene_graph;
-using namespace tesseract_collision;
-using namespace tesseract_visualization;
-using tesseract_common::ManipulatorInfo;
+using namespace tesseract::environment;
+using namespace tesseract::scene_graph;
+using namespace tesseract::collision;
+using namespace tesseract::visualization;
+using namespace tesseract::task_composer;
+using namespace tesseract::command_language;
+using tesseract::common::ManipulatorInfo;
 
 namespace tesseract_ros_examples
 {
@@ -202,7 +204,7 @@ private:
   tesseract_kinematics::ForwardKinematics::Ptr fwd_kin_;
 };
 
-GlassUprightOMPLExample::GlassUprightOMPLExample(std::shared_ptr<tesseract_environment::Environment> env,
+GlassUprightOMPLExample::GlassUprightOMPLExample(std::shared_ptr<tesseract::environment::Environment> env,
                                                  std::shared_ptr<tesseract_visualization::Visualization> plotter,
                                                  double range,
                                                  double planning_time,
@@ -310,7 +312,7 @@ bool GlassUprightOMPLExample::run()
   CONSOLE_BRIDGE_logError("planning time: %.3f", (ros::Time::now() - tStart).toSec());
 
   double d = 0;
-  tesseract_common::TrajArray traj = ompl_planning_response.joint_trajectory.trajectory;
+  tesseract::common::TrajArray traj = ompl_planning_response.joint_trajectory.trajectory;
   for (unsigned i = 1; i < traj.rows(); ++i)
   {
     for (unsigned j = 0; j < traj.cols(); ++j)
@@ -327,9 +329,9 @@ bool GlassUprightOMPLExample::run()
   {
     auto env = tesseract_->getEnvironmentConst();
     std::vector<ContactResultMap> collisions;
-    tesseract_environment::StateSolver::Ptr state_solver = env->getStateSolver();
+    tesseract::environment::StateSolver::Ptr state_solver = env->getStateSolver();
     ContinuousContactManager::Ptr manager = env->getContinuousContactManager();
-    AdjacencyMap::Ptr adjacency_map = std::make_shared<tesseract_environment::AdjacencyMap>(
+    AdjacencyMap::Ptr adjacency_map = std::make_shared<tesseract::environment::AdjacencyMap>(
         env->getSceneGraph(), env->getActiveLinkNames(), env->getCurrentState()->link_transforms);
 
     manager->setActiveCollisionObjects(adjacency_map->getActiveLinkNames());

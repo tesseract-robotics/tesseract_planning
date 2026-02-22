@@ -28,7 +28,7 @@
 #include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_command_language/wait_instruction.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 bool isSetAnalogInstruction(const InstructionPoly& instruction)
 {
@@ -55,4 +55,4 @@ bool isWaitInstruction(const InstructionPoly& instruction)
   return (instruction.getType() == std::type_index(typeid(WaitInstruction)));
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

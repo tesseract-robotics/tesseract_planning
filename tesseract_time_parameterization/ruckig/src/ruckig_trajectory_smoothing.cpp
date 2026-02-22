@@ -52,7 +52,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <ruckig/ruckig.hpp>
 #include <ruckig/trajectory.hpp>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 RuckigTrajectorySmoothing::RuckigTrajectorySmoothing(std::string name) : TimeParameterization(std::move(name)) {}
 
@@ -192,18 +192,18 @@ void initializeRuckigState(ruckig::InputParameter<ruckig::DynamicDOFs>& ruckig_i
   ruckig_output.new_acceleration = ruckig_input.current_acceleration;
 }
 
-bool RuckigTrajectorySmoothing::compute(CompositeInstruction& composite_instruction,
-                                        const tesseract_environment::Environment& env,
-                                        const tesseract_common::ProfileDictionary& profiles) const
+bool RuckigTrajectorySmoothing::compute(tesseract::command_language::CompositeInstruction& composite_instruction,
+                                        const tesseract::environment::Environment& env,
+                                        const tesseract::common::ProfileDictionary& profiles) const
 {
   // Create data structures for checking for plan profile overrides
-  auto flattened = composite_instruction.flatten(moveFilter);
+  auto flattened = composite_instruction.flatten(tesseract::command_language::moveFilter);
   if (flattened.size() < 2)
     return true;
 
-  const tesseract_common::ManipulatorInfo manip_info = composite_instruction.getManipulatorInfo();
+  const tesseract::common::ManipulatorInfo manip_info = composite_instruction.getManipulatorInfo();
   auto jg = env.getJointGroup(manip_info.manipulator);
-  tesseract_common::KinematicLimits limits = jg->getLimits();
+  tesseract::common::KinematicLimits limits = jg->getLimits();
   Eigen::MatrixX2d velocity_limits{ limits.velocity_limits };
   Eigen::MatrixX2d acceleration_limits{ limits.acceleration_limits };
   Eigen::MatrixX2d jerk_limits{ limits.jerk_limits };
@@ -359,4 +359,4 @@ bool RuckigTrajectorySmoothing::compute(CompositeInstruction& composite_instruct
   return true;
 }
 #endif
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization

@@ -26,7 +26,7 @@
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 OMPLMoveProfile::OMPLMoveProfile() : Profile(createKey<OMPLMoveProfile>()) {}
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

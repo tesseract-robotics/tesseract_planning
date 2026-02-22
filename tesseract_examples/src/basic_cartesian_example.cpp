@@ -72,17 +72,19 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_geometry/impl/octree.h>
 #include <tesseract_geometry/impl/octree_utils.h>
 
-using namespace tesseract_environment;
-using namespace tesseract_scene_graph;
-using namespace tesseract_collision;
-using namespace tesseract_visualization;
-using namespace tesseract_planning;
-using tesseract_common::ManipulatorInfo;
+using namespace tesseract::environment;
+using namespace tesseract::scene_graph;
+using namespace tesseract::collision;
+using namespace tesseract::visualization;
+using namespace tesseract::task_composer;
+using namespace tesseract::command_language;
+using namespace tesseract::motion_planners;
+using tesseract::common::ManipulatorInfo;
 
 static const std::string TRAJOPT_IFOPT_DEFAULT_NAMESPACE = "TrajOptIfoptMotionPlannerTask";
 static const std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
 
-namespace tesseract_examples
+namespace tesseract::examples
 {
 Command::Ptr addPointCloud()
 {
@@ -112,9 +114,9 @@ Command::Ptr addPointCloud()
   Visual::Ptr visual = std::make_shared<Visual>();
   visual->origin = Eigen::Isometry3d::Identity();
   visual->origin.translation() = Eigen::Vector3d(1, 0, 0);
-  auto ot = tesseract_geometry::createOctree(full_cloud, 2 * delta, false, true);
-  visual->geometry =
-      std::make_shared<tesseract_geometry::Octree>(std::move(ot), tesseract_geometry::OctreeSubType::BOX, false, true);
+  auto ot = tesseract::geometry::createOctree(full_cloud, 2 * delta, false, true);
+  visual->geometry = std::make_shared<tesseract::geometry::Octree>(
+      std::move(ot), tesseract::geometry::OctreeSubType::BOX, false, true);
   link_octomap.visual.push_back(visual);
 
   Collision::Ptr collision = std::make_shared<Collision>();
@@ -127,11 +129,11 @@ Command::Ptr addPointCloud()
   joint_octomap.child_link_name = link_octomap.getName();
   joint_octomap.type = JointType::FIXED;
 
-  return std::make_shared<tesseract_environment::AddLinkCommand>(link_octomap, joint_octomap);
+  return std::make_shared<tesseract::environment::AddLinkCommand>(link_octomap, joint_octomap);
 }
 
-BasicCartesianExample::BasicCartesianExample(std::shared_ptr<tesseract_environment::Environment> env,
-                                             std::shared_ptr<tesseract_visualization::Visualization> plotter,
+BasicCartesianExample::BasicCartesianExample(std::shared_ptr<tesseract::environment::Environment> env,
+                                             std::shared_ptr<tesseract::visualization::Visualization> plotter,
                                              bool ifopt,
                                              bool debug,
                                              bool benchmark)
@@ -176,7 +178,7 @@ bool BasicCartesianExample::run()
     console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
 
   // Create Task Composer Plugin Factory
-  std::shared_ptr<const tesseract_common::ResourceLocator> locator = env_->getResourceLocator();
+  std::shared_ptr<const tesseract::common::ResourceLocator> locator = env_->getResourceLocator();
   std::filesystem::path config_path(
       locator->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
@@ -218,18 +220,18 @@ bool BasicCartesianExample::run()
     program.print("Program: ");
 
   // Create profile dictionary
-  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
   if (ifopt_)
   {
     auto composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
     composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 1);
     composite_profile->collision_cost_config.enabled = true;
     composite_profile->collision_cost_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+        tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE;
     composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 1);
     composite_profile->collision_constraint_config.enabled = true;
     composite_profile->collision_constraint_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+        tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE;
 
     composite_profile->smooth_velocities = true;
     composite_profile->smooth_accelerations = false;
@@ -253,11 +255,11 @@ bool BasicCartesianExample::run()
     composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 1);
     composite_profile->collision_cost_config.enabled = true;
     composite_profile->collision_cost_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+        tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE;
     composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 1);
     composite_profile->collision_constraint_config.enabled = true;
     composite_profile->collision_constraint_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+        tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE;
     composite_profile->smooth_velocities = true;
     composite_profile->smooth_accelerations = false;
     composite_profile->smooth_jerks = false;
@@ -291,14 +293,14 @@ bool BasicCartesianExample::run()
     auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
     // Create Task Composer Data Storage
-    auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+    auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("planning_input", program);
-    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    data->setData("environment", std::shared_ptr<const tesseract::environment::Environment>(env_));
     data->setData("profiles", profiles);
 
-    tesseract_common::Stopwatch stopwatch;
+    tesseract::common::Stopwatch stopwatch;
     stopwatch.start();
-    auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+    auto context = std::make_shared<TaskComposerContext>(task->getName(), std::move(data));
     future = executor->run(*task, std::move(context));
     future->wait();
     stopwatch.stop();
@@ -322,14 +324,14 @@ bool BasicCartesianExample::run()
         env_->setActiveDiscreteContactManager(contact_manager);
 
         // Create Task Composer Data Storage
-        auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+        auto data = std::make_unique<TaskComposerDataStorage>();
         data->setData("planning_input", program);
-        data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+        data->setData("environment", std::shared_ptr<const tesseract::environment::Environment>(env_));
         data->setData("profiles", profiles);
 
-        tesseract_common::Stopwatch stopwatch;
+        tesseract::common::Stopwatch stopwatch;
         stopwatch.start();
-        auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+        auto context = std::make_shared<TaskComposerContext>(task->getName(), std::move(data));
         future = executor->run(*task, std::move(context));
         future->wait();
         stopwatch.stop();
@@ -362,8 +364,8 @@ bool BasicCartesianExample::run()
   {
     plotter_->waitForInput();
     auto ci = future->context->data_storage->getData(output_key).as<CompositeInstruction>();
-    tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
-    tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
+    tesseract::common::Toolpath toolpath = toToolpath(ci, *env_);
+    tesseract::common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();
     plotter_->plotMarker(ToolpathMarker(toolpath));
     plotter_->plotTrajectory(trajectory, *state_solver);
@@ -372,4 +374,4 @@ bool BasicCartesianExample::run()
   return future->context->isSuccessful();
 }
 
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples

@@ -28,12 +28,12 @@
 #include <tesseract_environment/environment.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 template <typename FloatType>
-std::shared_ptr<const tesseract_kinematics::KinematicGroup>
-DescartesMoveProfile<FloatType>::createKinematicGroup(const tesseract_common::ManipulatorInfo& manip_info,
-                                                      const tesseract_environment::Environment& env) const
+std::shared_ptr<const tesseract::kinematics::KinematicGroup>
+DescartesMoveProfile<FloatType>::createKinematicGroup(const tesseract::common::ManipulatorInfo& manip_info,
+                                                      const tesseract::environment::Environment& env) const
 {
   // Get Manipulator Information
   try
@@ -49,5 +49,5 @@ DescartesMoveProfile<FloatType>::createKinematicGroup(const tesseract_common::Ma
   }
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_PROFILE_HPP

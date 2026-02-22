@@ -41,16 +41,16 @@ namespace YAML
 {
 //=========================== SBLConfigurator ===========================
 template <>
-struct convert<tesseract_planning::SBLConfigurator>
+struct convert<tesseract::motion_planners::SBLConfigurator>
 {
-  static Node encode(const tesseract_planning::SBLConfigurator& rhs)
+  static Node encode(const tesseract::motion_planners::SBLConfigurator& rhs)
   {
     Node node;
     node["range"] = rhs.range;
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::SBLConfigurator& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::SBLConfigurator& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["range"])
@@ -61,9 +61,9 @@ struct convert<tesseract_planning::SBLConfigurator>
 
 //=========================== ESTConfigurator ===========================
 template <>
-struct convert<tesseract_planning::ESTConfigurator>
+struct convert<tesseract::motion_planners::ESTConfigurator>
 {
-  static Node encode(const tesseract_planning::ESTConfigurator& rhs)
+  static Node encode(const tesseract::motion_planners::ESTConfigurator& rhs)
   {
     Node node;
     node["range"] = rhs.range;
@@ -71,7 +71,7 @@ struct convert<tesseract_planning::ESTConfigurator>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::ESTConfigurator& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::ESTConfigurator& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["range"])
@@ -84,9 +84,9 @@ struct convert<tesseract_planning::ESTConfigurator>
 
 //=========================== LBKPIECE1Configurator ===========================
 template <>
-struct convert<tesseract_planning::LBKPIECE1Configurator>
+struct convert<tesseract::motion_planners::LBKPIECE1Configurator>
 {
-  static Node encode(const tesseract_planning::LBKPIECE1Configurator& rhs)
+  static Node encode(const tesseract::motion_planners::LBKPIECE1Configurator& rhs)
   {
     Node node;
     node["range"] = rhs.range;
@@ -95,7 +95,7 @@ struct convert<tesseract_planning::LBKPIECE1Configurator>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::LBKPIECE1Configurator& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::LBKPIECE1Configurator& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["range"])
@@ -110,9 +110,9 @@ struct convert<tesseract_planning::LBKPIECE1Configurator>
 
 //=========================== BKPIECE1Configurator ===========================
 template <>
-struct convert<tesseract_planning::BKPIECE1Configurator>
+struct convert<tesseract::motion_planners::BKPIECE1Configurator>
 {
-  static Node encode(const tesseract_planning::BKPIECE1Configurator& rhs)
+  static Node encode(const tesseract::motion_planners::BKPIECE1Configurator& rhs)
   {
     Node node;
     node["range"] = rhs.range;
@@ -122,7 +122,7 @@ struct convert<tesseract_planning::BKPIECE1Configurator>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::BKPIECE1Configurator& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::BKPIECE1Configurator& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["range"])
@@ -139,9 +139,9 @@ struct convert<tesseract_planning::BKPIECE1Configurator>
 
 //=========================== KPIECE1Configurator ===========================
 template <>
-struct convert<tesseract_planning::KPIECE1Configurator>
+struct convert<tesseract::motion_planners::KPIECE1Configurator>
 {
-  static Node encode(const tesseract_planning::KPIECE1Configurator& rhs)
+  static Node encode(const tesseract::motion_planners::KPIECE1Configurator& rhs)
   {
     Node node;
     node["range"] = rhs.range;
@@ -152,7 +152,7 @@ struct convert<tesseract_planning::KPIECE1Configurator>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::KPIECE1Configurator& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::KPIECE1Configurator& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["range"])
@@ -171,9 +171,9 @@ struct convert<tesseract_planning::KPIECE1Configurator>
 
 //=========================== BiTRRTConfigurator ===========================
 template <>
-struct convert<tesseract_planning::BiTRRTConfigurator>
+struct convert<tesseract::motion_planners::BiTRRTConfigurator>
 {
-  static Node encode(const tesseract_planning::BiTRRTConfigurator& rhs)
+  static Node encode(const tesseract::motion_planners::BiTRRTConfigurator& rhs)
   {
     Node node;
     node["range"] = rhs.range;
@@ -186,7 +186,7 @@ struct convert<tesseract_planning::BiTRRTConfigurator>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::BiTRRTConfigurator& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::BiTRRTConfigurator& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["range"])
@@ -207,9 +207,9 @@ struct convert<tesseract_planning::BiTRRTConfigurator>
 
 //=========================== RRTConfigurator ===========================
 template <>
-struct convert<tesseract_planning::RRTConfigurator>
+struct convert<tesseract::motion_planners::RRTConfigurator>
 {
-  static Node encode(const tesseract_planning::RRTConfigurator& rhs)
+  static Node encode(const tesseract::motion_planners::RRTConfigurator& rhs)
   {
     Node node;
     node["range"] = rhs.range;
@@ -217,7 +217,7 @@ struct convert<tesseract_planning::RRTConfigurator>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::RRTConfigurator& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::RRTConfigurator& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["range"])
@@ -230,16 +230,16 @@ struct convert<tesseract_planning::RRTConfigurator>
 
 //=========================== RRTConnectConfigurator ===========================
 template <>
-struct convert<tesseract_planning::RRTConnectConfigurator>
+struct convert<tesseract::motion_planners::RRTConnectConfigurator>
 {
-  static Node encode(const tesseract_planning::RRTConnectConfigurator& rhs)
+  static Node encode(const tesseract::motion_planners::RRTConnectConfigurator& rhs)
   {
     Node node;
     node["range"] = rhs.range;
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::RRTConnectConfigurator& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::RRTConnectConfigurator& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["range"])
@@ -250,9 +250,9 @@ struct convert<tesseract_planning::RRTConnectConfigurator>
 
 //=========================== RRTstarConfigurator ===========================
 template <>
-struct convert<tesseract_planning::RRTstarConfigurator>
+struct convert<tesseract::motion_planners::RRTstarConfigurator>
 {
-  static Node encode(const tesseract_planning::RRTstarConfigurator& rhs)
+  static Node encode(const tesseract::motion_planners::RRTstarConfigurator& rhs)
   {
     Node node;
     node["range"] = rhs.range;
@@ -261,7 +261,7 @@ struct convert<tesseract_planning::RRTstarConfigurator>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::RRTstarConfigurator& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::RRTstarConfigurator& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["range"])
@@ -276,9 +276,9 @@ struct convert<tesseract_planning::RRTstarConfigurator>
 
 //=========================== TRRTConfigurator ===========================
 template <>
-struct convert<tesseract_planning::TRRTConfigurator>
+struct convert<tesseract::motion_planners::TRRTConfigurator>
 {
-  static Node encode(const tesseract_planning::TRRTConfigurator& rhs)
+  static Node encode(const tesseract::motion_planners::TRRTConfigurator& rhs)
   {
     Node node;
     node["range"] = rhs.range;
@@ -291,7 +291,7 @@ struct convert<tesseract_planning::TRRTConfigurator>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::TRRTConfigurator& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::TRRTConfigurator& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["range"])
@@ -312,16 +312,16 @@ struct convert<tesseract_planning::TRRTConfigurator>
 
 //=========================== PRMConfigurator ===========================
 template <>
-struct convert<tesseract_planning::PRMConfigurator>
+struct convert<tesseract::motion_planners::PRMConfigurator>
 {
-  static Node encode(const tesseract_planning::PRMConfigurator& rhs)
+  static Node encode(const tesseract::motion_planners::PRMConfigurator& rhs)
   {
     Node node;
     node["max_nearest_neighbors"] = rhs.max_nearest_neighbors;
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::PRMConfigurator& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::PRMConfigurator& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["max_nearest_neighbors"])
@@ -332,15 +332,15 @@ struct convert<tesseract_planning::PRMConfigurator>
 
 //=========================== PRMstarConfigurator ===========================
 template <>
-struct convert<tesseract_planning::PRMstarConfigurator>
+struct convert<tesseract::motion_planners::PRMstarConfigurator>
 {
-  static Node encode(const tesseract_planning::PRMstarConfigurator& /*rhs*/)
+  static Node encode(const tesseract::motion_planners::PRMstarConfigurator& /*rhs*/)
   {
     Node node;
     return node;
   }
 
-  static bool decode(const Node& /*node*/, tesseract_planning::PRMstarConfigurator& /*rhs*/)
+  static bool decode(const Node& /*node*/, tesseract::motion_planners::PRMstarConfigurator& /*rhs*/)
   {
     // Check for required entries
     return true;
@@ -349,15 +349,15 @@ struct convert<tesseract_planning::PRMstarConfigurator>
 
 //=========================== LazyPRMstarConfigurator ===========================
 template <>
-struct convert<tesseract_planning::LazyPRMstarConfigurator>
+struct convert<tesseract::motion_planners::LazyPRMstarConfigurator>
 {
-  static Node encode(const tesseract_planning::LazyPRMstarConfigurator& /*rhs*/)
+  static Node encode(const tesseract::motion_planners::LazyPRMstarConfigurator& /*rhs*/)
   {
     Node node;
     return node;
   }
 
-  static bool decode(const Node& /*node*/, tesseract_planning::LazyPRMstarConfigurator&)
+  static bool decode(const Node& /*node*/, tesseract::motion_planners::LazyPRMstarConfigurator&)
   {
     // Check for required entries
     return true;
@@ -366,9 +366,9 @@ struct convert<tesseract_planning::LazyPRMstarConfigurator>
 
 //=========================== SPARSConfigurator ===========================
 template <>
-struct convert<tesseract_planning::SPARSConfigurator>
+struct convert<tesseract::motion_planners::SPARSConfigurator>
 {
-  static Node encode(const tesseract_planning::SPARSConfigurator& rhs)
+  static Node encode(const tesseract::motion_planners::SPARSConfigurator& rhs)
   {
     Node node;
     node["max_failures"] = rhs.max_failures;
@@ -378,7 +378,7 @@ struct convert<tesseract_planning::SPARSConfigurator>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::SPARSConfigurator& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::SPARSConfigurator& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["max_failures"])
@@ -395,9 +395,9 @@ struct convert<tesseract_planning::SPARSConfigurator>
 
 //=========================== OMPLPlannerConfigurator ===========================
 template <>
-struct convert<std::vector<std::shared_ptr<const tesseract_planning::OMPLPlannerConfigurator>>>
+struct convert<std::vector<std::shared_ptr<const tesseract::motion_planners::OMPLPlannerConfigurator>>>
 {
-  static Node encode(const std::vector<std::shared_ptr<const tesseract_planning::OMPLPlannerConfigurator>>& rhs)
+  static Node encode(const std::vector<std::shared_ptr<const tesseract::motion_planners::OMPLPlannerConfigurator>>& rhs)
   {
     Node node;
     for (const auto& ompl_configurator : rhs)
@@ -405,88 +405,101 @@ struct convert<std::vector<std::shared_ptr<const tesseract_planning::OMPLPlanner
       Node p_node;
       switch (ompl_configurator->getType())
       {
-        case tesseract_planning::OMPLPlannerType::SBL:
+        case tesseract::motion_planners::OMPLPlannerType::SBL:
         {
-          auto planner = std::dynamic_pointer_cast<const tesseract_planning::SBLConfigurator>(ompl_configurator);
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract::motion_planners::SBLConfigurator>(ompl_configurator);
           p_node["SBLConfigurator"] = *planner;
           break;
         }
-        case tesseract_planning::OMPLPlannerType::EST:
+        case tesseract::motion_planners::OMPLPlannerType::EST:
         {
-          auto planner = std::dynamic_pointer_cast<const tesseract_planning::ESTConfigurator>(ompl_configurator);
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract::motion_planners::ESTConfigurator>(ompl_configurator);
           p_node["ESTConfigurator"] = *planner;
           break;
         }
-        case tesseract_planning::OMPLPlannerType::LBKPIECE1:
+        case tesseract::motion_planners::OMPLPlannerType::LBKPIECE1:
         {
-          auto planner = std::dynamic_pointer_cast<const tesseract_planning::LBKPIECE1Configurator>(ompl_configurator);
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract::motion_planners::LBKPIECE1Configurator>(ompl_configurator);
           p_node["LBKPIECE1Configurator"] = *planner;
           break;
         }
-        case tesseract_planning::OMPLPlannerType::BKPIECE1:
+        case tesseract::motion_planners::OMPLPlannerType::BKPIECE1:
         {
-          auto planner = std::dynamic_pointer_cast<const tesseract_planning::BKPIECE1Configurator>(ompl_configurator);
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract::motion_planners::BKPIECE1Configurator>(ompl_configurator);
           p_node["BKPIECE1Configurator"] = *planner;
           break;
         }
-        case tesseract_planning::OMPLPlannerType::KPIECE1:
+        case tesseract::motion_planners::OMPLPlannerType::KPIECE1:
         {
-          auto planner = std::dynamic_pointer_cast<const tesseract_planning::KPIECE1Configurator>(ompl_configurator);
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract::motion_planners::KPIECE1Configurator>(ompl_configurator);
           p_node["KPIECE1Configurator"] = *planner;
           break;
         }
-        case tesseract_planning::OMPLPlannerType::BiTRRT:
+        case tesseract::motion_planners::OMPLPlannerType::BiTRRT:
         {
-          auto planner = std::dynamic_pointer_cast<const tesseract_planning::BiTRRTConfigurator>(ompl_configurator);
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract::motion_planners::BiTRRTConfigurator>(ompl_configurator);
           p_node["BiTRRTConfigurator"] = *planner;
           break;
         }
-        case tesseract_planning::OMPLPlannerType::RRT:
+        case tesseract::motion_planners::OMPLPlannerType::RRT:
         {
-          auto planner = std::dynamic_pointer_cast<const tesseract_planning::RRTConfigurator>(ompl_configurator);
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract::motion_planners::RRTConfigurator>(ompl_configurator);
           p_node["RRTConfigurator"] = *planner;
           break;
         }
-        case tesseract_planning::OMPLPlannerType::RRTConnect:
+        case tesseract::motion_planners::OMPLPlannerType::RRTConnect:
         {
-          auto planner = std::dynamic_pointer_cast<const tesseract_planning::RRTConnectConfigurator>(ompl_configurator);
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract::motion_planners::RRTConnectConfigurator>(ompl_configurator);
           p_node["RRTConnectConfigurator"] = *planner;
           break;
         }
-        case tesseract_planning::OMPLPlannerType::RRTstar:
+        case tesseract::motion_planners::OMPLPlannerType::RRTstar:
         {
-          auto planner = std::dynamic_pointer_cast<const tesseract_planning::RRTstarConfigurator>(ompl_configurator);
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract::motion_planners::RRTstarConfigurator>(ompl_configurator);
           p_node["RRTstarConfigurator"] = *planner;
           break;
         }
-        case tesseract_planning::OMPLPlannerType::TRRT:
+        case tesseract::motion_planners::OMPLPlannerType::TRRT:
         {
-          auto planner = std::dynamic_pointer_cast<const tesseract_planning::TRRTConfigurator>(ompl_configurator);
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract::motion_planners::TRRTConfigurator>(ompl_configurator);
           p_node["TRRTConfigurator"] = *planner;
           break;
         }
-        case tesseract_planning::OMPLPlannerType::PRM:
+        case tesseract::motion_planners::OMPLPlannerType::PRM:
         {
-          auto planner = std::dynamic_pointer_cast<const tesseract_planning::PRMConfigurator>(ompl_configurator);
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract::motion_planners::PRMConfigurator>(ompl_configurator);
           p_node["PRMConfigurator"] = *planner;
           break;
         }
-        case tesseract_planning::OMPLPlannerType::PRMstar:
+        case tesseract::motion_planners::OMPLPlannerType::PRMstar:
         {
-          auto planner = std::dynamic_pointer_cast<const tesseract_planning::PRMstarConfigurator>(ompl_configurator);
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract::motion_planners::PRMstarConfigurator>(ompl_configurator);
           p_node["PRMstarConfigurator"] = *planner;
           break;
         }
-        case tesseract_planning::OMPLPlannerType::LazyPRMstar:
+        case tesseract::motion_planners::OMPLPlannerType::LazyPRMstar:
         {
           auto planner =
-              std::dynamic_pointer_cast<const tesseract_planning::LazyPRMstarConfigurator>(ompl_configurator);
+              std::dynamic_pointer_cast<const tesseract::motion_planners::LazyPRMstarConfigurator>(ompl_configurator);
           p_node["LazyPRMstarConfigurator"] = *planner;
           break;
         }
-        case tesseract_planning::OMPLPlannerType::SPARS:
+        case tesseract::motion_planners::OMPLPlannerType::SPARS:
         {
-          auto planner = std::dynamic_pointer_cast<const tesseract_planning::SPARSConfigurator>(ompl_configurator);
+          auto planner =
+              std::dynamic_pointer_cast<const tesseract::motion_planners::SPARSConfigurator>(ompl_configurator);
           p_node["SPARSConfigurator"] = *planner;
           break;
         }
@@ -500,80 +513,80 @@ struct convert<std::vector<std::shared_ptr<const tesseract_planning::OMPLPlanner
   }
 
   static bool decode(const Node& node,
-                     std::vector<std::shared_ptr<const tesseract_planning::OMPLPlannerConfigurator>>& rhs)
+                     std::vector<std::shared_ptr<const tesseract::motion_planners::OMPLPlannerConfigurator>>& rhs)
   {
     // Check for required entries
     for (const auto& planner : node)
     {
       if (const YAML::Node& n = planner["SBLConfigurator"])
       {
-        rhs.push_back(
-            std::make_shared<tesseract_planning::SBLConfigurator>(n.as<tesseract_planning::SBLConfigurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::SBLConfigurator>(
+            n.as<tesseract::motion_planners::SBLConfigurator>()));
       }
       else if (const YAML::Node& n = planner["ESTConfigurator"])
       {
-        rhs.push_back(
-            std::make_shared<tesseract_planning::ESTConfigurator>(n.as<tesseract_planning::ESTConfigurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::ESTConfigurator>(
+            n.as<tesseract::motion_planners::ESTConfigurator>()));
       }
       else if (const YAML::Node& n = planner["LBKPIECE1Configurator"])
       {
-        rhs.push_back(std::make_shared<tesseract_planning::LBKPIECE1Configurator>(
-            n.as<tesseract_planning::LBKPIECE1Configurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::LBKPIECE1Configurator>(
+            n.as<tesseract::motion_planners::LBKPIECE1Configurator>()));
       }
       else if (const YAML::Node& n = planner["BKPIECE1Configurator"])
       {
-        rhs.push_back(std::make_shared<tesseract_planning::BKPIECE1Configurator>(
-            n.as<tesseract_planning::BKPIECE1Configurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::BKPIECE1Configurator>(
+            n.as<tesseract::motion_planners::BKPIECE1Configurator>()));
       }
       else if (const YAML::Node& n = planner["KPIECE1Configurator"])
       {
-        rhs.push_back(
-            std::make_shared<tesseract_planning::KPIECE1Configurator>(n.as<tesseract_planning::KPIECE1Configurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::KPIECE1Configurator>(
+            n.as<tesseract::motion_planners::KPIECE1Configurator>()));
       }
       else if (const YAML::Node& n = planner["BiTRRTConfigurator"])
       {
-        rhs.push_back(
-            std::make_shared<tesseract_planning::BiTRRTConfigurator>(n.as<tesseract_planning::BiTRRTConfigurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::BiTRRTConfigurator>(
+            n.as<tesseract::motion_planners::BiTRRTConfigurator>()));
       }
       else if (const YAML::Node& n = planner["RRTConfigurator"])
       {
-        rhs.push_back(
-            std::make_shared<tesseract_planning::RRTConfigurator>(n.as<tesseract_planning::RRTConfigurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::RRTConfigurator>(
+            n.as<tesseract::motion_planners::RRTConfigurator>()));
       }
       else if (const YAML::Node& n = planner["RRTConnectConfigurator"])
       {
-        rhs.push_back(std::make_shared<tesseract_planning::RRTConnectConfigurator>(
-            n.as<tesseract_planning::RRTConnectConfigurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::RRTConnectConfigurator>(
+            n.as<tesseract::motion_planners::RRTConnectConfigurator>()));
       }
       else if (const YAML::Node& n = planner["RRTstarConfigurator"])
       {
-        rhs.push_back(
-            std::make_shared<tesseract_planning::RRTstarConfigurator>(n.as<tesseract_planning::RRTstarConfigurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::RRTstarConfigurator>(
+            n.as<tesseract::motion_planners::RRTstarConfigurator>()));
       }
       else if (const YAML::Node& n = planner["TRRTConfigurator"])
       {
-        rhs.push_back(
-            std::make_shared<tesseract_planning::TRRTConfigurator>(n.as<tesseract_planning::TRRTConfigurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::TRRTConfigurator>(
+            n.as<tesseract::motion_planners::TRRTConfigurator>()));
       }
       else if (const YAML::Node& n = planner["PRMConfigurator"])
       {
-        rhs.push_back(
-            std::make_shared<tesseract_planning::PRMConfigurator>(n.as<tesseract_planning::PRMConfigurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::PRMConfigurator>(
+            n.as<tesseract::motion_planners::PRMConfigurator>()));
       }
       else if (const YAML::Node& n = planner["PRMstarConfigurator"])
       {
-        rhs.push_back(
-            std::make_shared<tesseract_planning::PRMstarConfigurator>(n.as<tesseract_planning::PRMstarConfigurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::PRMstarConfigurator>(
+            n.as<tesseract::motion_planners::PRMstarConfigurator>()));
       }
       else if (const YAML::Node& n = planner["LazyPRMstarConfigurator"])
       {
-        rhs.push_back(std::make_shared<tesseract_planning::LazyPRMstarConfigurator>(
-            n.as<tesseract_planning::LazyPRMstarConfigurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::LazyPRMstarConfigurator>(
+            n.as<tesseract::motion_planners::LazyPRMstarConfigurator>()));
       }
       else if (const YAML::Node& n = planner["SPARSConfigurator"])
       {
-        rhs.push_back(
-            std::make_shared<tesseract_planning::SPARSConfigurator>(n.as<tesseract_planning::SPARSConfigurator>()));
+        rhs.push_back(std::make_shared<tesseract::motion_planners::SPARSConfigurator>(
+            n.as<tesseract::motion_planners::SPARSConfigurator>()));
       }
     }
 
@@ -583,9 +596,9 @@ struct convert<std::vector<std::shared_ptr<const tesseract_planning::OMPLPlanner
 
 //=========================== OMPLSolverConfig ===========================
 template <>
-struct convert<tesseract_planning::OMPLSolverConfig>
+struct convert<tesseract::motion_planners::OMPLSolverConfig>
 {
-  static Node encode(const tesseract_planning::OMPLSolverConfig& rhs)
+  static Node encode(const tesseract::motion_planners::OMPLSolverConfig& rhs)
   {
     Node node;
 
@@ -598,7 +611,7 @@ struct convert<tesseract_planning::OMPLSolverConfig>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::OMPLSolverConfig& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::OMPLSolverConfig& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["planning_time"])
@@ -610,7 +623,7 @@ struct convert<tesseract_planning::OMPLSolverConfig>
     if (const YAML::Node& n = node["optimize"])
       rhs.optimize = n.as<bool>();
     if (const YAML::Node& n = node["planners"])
-      rhs.planners = n.as<std::vector<std::shared_ptr<const tesseract_planning::OMPLPlannerConfigurator>>>();
+      rhs.planners = n.as<std::vector<std::shared_ptr<const tesseract::motion_planners::OMPLPlannerConfigurator>>>();
     return true;
   }
 };

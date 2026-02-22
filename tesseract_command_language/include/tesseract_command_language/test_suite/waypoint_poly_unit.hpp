@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning::test_suite
+namespace tesseract::command_language::test_suite
 {
 void runWaypointInterfaceTest(WaypointPoly waypoint)
 {
@@ -53,11 +53,11 @@ void runWaypointInterfaceTest(WaypointPoly waypoint)
  */
 inline void runWaypointSerializationTest(const WaypointPoly& waypoint)
 {
-  const std::string filepath = tesseract_common::getTempPath() + "waypoint_poly_boost.xml";
-  tesseract_common::Serialization::toArchiveFileXML<WaypointPoly>(waypoint, filepath);
-  auto nwp = tesseract_common::Serialization::fromArchiveFileXML<WaypointPoly>(filepath);
+  const std::string filepath = tesseract::common::getTempPath() + "waypoint_poly_boost.xml";
+  tesseract::common::Serialization::toArchiveFileXML<WaypointPoly>(waypoint, filepath);
+  auto nwp = tesseract::common::Serialization::fromArchiveFileXML<WaypointPoly>(filepath);
   EXPECT_TRUE(waypoint == nwp);
 }
-}  // namespace tesseract_planning::test_suite
+}  // namespace tesseract::command_language::test_suite
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_WAYPOINT_POLY_UNIT_HPP

@@ -29,9 +29,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile.h>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
-struct IterativeSplineParameterizationCompositeProfile : public tesseract_common::Profile
+struct IterativeSplineParameterizationCompositeProfile : public tesseract::common::Profile
 {
   using Ptr = std::shared_ptr<IterativeSplineParameterizationCompositeProfile>;
   using ConstPtr = std::shared_ptr<const IterativeSplineParameterizationCompositeProfile>;
@@ -70,7 +70,7 @@ struct IterativeSplineParameterizationCompositeProfile : public tesseract_common
   bool operator!=(const IterativeSplineParameterizationCompositeProfile& rhs) const;
 };
 
-struct IterativeSplineParameterizationMoveProfile : public tesseract_common::Profile
+struct IterativeSplineParameterizationMoveProfile : public tesseract::common::Profile
 {
   using Ptr = std::shared_ptr<IterativeSplineParameterizationMoveProfile>;
   using ConstPtr = std::shared_ptr<const IterativeSplineParameterizationMoveProfile>;
@@ -88,6 +88,6 @@ struct IterativeSplineParameterizationMoveProfile : public tesseract_common::Pro
   bool operator==(const IterativeSplineParameterizationMoveProfile& rhs) const;
   bool operator!=(const IterativeSplineParameterizationMoveProfile& rhs) const;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization
 
 #endif  // TESSERACT_TIME_PARAMETERIZATION_ITERATIVE_SPLINE_PARAMETERIZATION_PROFILES_H

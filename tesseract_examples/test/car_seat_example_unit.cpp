@@ -8,9 +8,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/environment.h>
 #include <tesseract_common/resource_locator.h>
 
-using namespace tesseract_examples;
-using namespace tesseract_common;
-using namespace tesseract_environment;
+using namespace tesseract::examples;
+using namespace tesseract::common;
+using namespace tesseract::environment;
 
 TEST(TesseractExamples, CarSeatCppTrajOptExampleUnit)  // NOLINT
 {

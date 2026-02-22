@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_common/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 class JointWaypointInterface;
 class JointWaypointPoly;
@@ -153,7 +153,7 @@ protected:
 
 private:
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, JointWaypointInterface& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, JointWaypointInterface& obj);
 };
 
 /**
@@ -320,9 +320,9 @@ private:
   bool equals(const WaypointInterface& other) const override final;
 
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, JointWaypointPoly& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, JointWaypointPoly& obj);
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_POLY_H

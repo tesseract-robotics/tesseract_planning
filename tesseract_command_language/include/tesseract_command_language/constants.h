@@ -24,10 +24,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 /** @brief Set to DEFAULT. Default profiles are given this name. */
 static const std::string DEFAULT_PROFILE_KEY = "DEFAULT";
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 #endif  // TESSERACT_COMMAND_LANGUAGE_CONSTANTS_H

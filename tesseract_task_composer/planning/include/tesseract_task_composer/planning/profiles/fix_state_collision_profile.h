@@ -44,9 +44,9 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
-struct FixStateCollisionProfile : public tesseract_common::Profile
+struct FixStateCollisionProfile : public tesseract::common::Profile
 {
   using Ptr = std::shared_ptr<FixStateCollisionProfile>;
   using ConstPtr = std::shared_ptr<const FixStateCollisionProfile>;
@@ -71,7 +71,7 @@ struct FixStateCollisionProfile : public tesseract_common::Profile
   };
 
   FixStateCollisionProfile(Settings mode = Settings::ALL);
-  FixStateCollisionProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  FixStateCollisionProfile(const YAML::Node& config, const tesseract::common::ProfilePluginFactory& plugin_factory);
 
   /** @brief Sets which terms will be corrected  */
   Settings mode;
@@ -84,19 +84,19 @@ struct FixStateCollisionProfile : public tesseract_common::Profile
   double jiggle_factor{ 0.02 };
 
   /** @brief The contact manager config */
-  tesseract_collision::ContactManagerConfig contact_manager_config;
+  tesseract::collision::ContactManagerConfig contact_manager_config;
 
   /** @brief The collision check config */
-  tesseract_collision::CollisionCheckConfig collision_check_config;
+  tesseract::collision::CollisionCheckConfig collision_check_config;
 
   /** @brief Number of sampling attempts if TrajOpt correction fails*/
   int sampling_attempts{ 100 };
 
   /** @brief The TrajOpt joint waypoint constraint config */
-  TrajOptJointWaypointConfig trajopt_joint_constraint_config;
+  tesseract::motion_planners::TrajOptJointWaypointConfig trajopt_joint_constraint_config;
 
   /** @brief The TrajOpt joint waypoint cost config */
-  TrajOptJointWaypointConfig trajopt_joint_cost_config;
+  tesseract::motion_planners::TrajOptJointWaypointConfig trajopt_joint_cost_config;
 
   /** @brief Coefficient for collision constraint in TrajOpt optimization */
   trajopt_common::CollisionCoeffData collision_constraint_coeff;
@@ -116,6 +116,6 @@ struct FixStateCollisionProfile : public tesseract_common::Profile
   bool operator==(const FixStateCollisionProfile& rhs) const;
   bool operator!=(const FixStateCollisionProfile& rhs) const;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_COLLISION_PROFILE_H

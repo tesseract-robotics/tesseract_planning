@@ -8,12 +8,12 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 template <class Archive>
 void serialize(Archive& ar, RuckigTrajectorySmoothingCompositeProfile& obj)
 {
-  ar(cereal::base_class<tesseract_common::Profile>(&obj));
+  ar(cereal::base_class<tesseract::common::Profile>(&obj));
   ar(cereal::make_nvp("duration_extension_fraction", obj.duration_extension_fraction));
   ar(cereal::make_nvp("max_duration_extension_factor", obj.max_duration_extension_factor));
   ar(cereal::make_nvp("override_limits", obj.override_limits));
@@ -21,6 +21,6 @@ void serialize(Archive& ar, RuckigTrajectorySmoothingCompositeProfile& obj)
   ar(cereal::make_nvp("acceleration_limits", obj.acceleration_limits));
   ar(cereal::make_nvp("jerk_limits", obj.jerk_limits));
 }
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization
 
 #endif  // TESSERACT_TIME_PARAMETERIZATION_RUCKIG_TRAJECTORY_SMOOTHING_CEREAL_SERIALIZATION_H

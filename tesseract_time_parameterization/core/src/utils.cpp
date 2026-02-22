@@ -31,7 +31,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
-namespace tesseract_planning
+using namespace tesseract::command_language;
+
+namespace tesseract::time_parameterization
 {
 void rescaleTimings(CompositeInstruction& program, std::vector<double> scalings)
 {
@@ -72,4 +74,4 @@ void rescaleTimings(CompositeInstruction& program, std::vector<double> scalings)
     }
   }
 }
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization

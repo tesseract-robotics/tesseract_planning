@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/types.h>
 #include <tesseract_common/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 class WaypointPoly;
 class CartesianWaypointPoly;
@@ -130,13 +130,13 @@ public:
    * @brief Set the manipulator information
    * @param info The manipulator information
    */
-  virtual void setManipulatorInfo(tesseract_common::ManipulatorInfo info) = 0;
+  virtual void setManipulatorInfo(tesseract::common::ManipulatorInfo info) = 0;
   /**
    * @brief Get the manipulator information
    * @return The manipulator information
    */
-  virtual const tesseract_common::ManipulatorInfo& getManipulatorInfo() const = 0;
-  virtual tesseract_common::ManipulatorInfo& getManipulatorInfo() = 0;
+  virtual const tesseract::common::ManipulatorInfo& getManipulatorInfo() const = 0;
+  virtual tesseract::common::ManipulatorInfo& getManipulatorInfo() = 0;
 
   /**
    * @brief Set the waypoint profile
@@ -225,7 +225,7 @@ protected:
 
 private:
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, MoveInstructionInterface& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, MoveInstructionInterface& obj);
 };
 
 class MoveInstructionPoly final : public InstructionInterface
@@ -306,13 +306,13 @@ public:
    * @brief Set the manipulator information
    * @param info The manipulator information
    */
-  void setManipulatorInfo(tesseract_common::ManipulatorInfo info);
+  void setManipulatorInfo(tesseract::common::ManipulatorInfo info);
   /**
    * @brief Get the manipulator information
    * @return The manipulator information
    */
-  const tesseract_common::ManipulatorInfo& getManipulatorInfo() const;
-  tesseract_common::ManipulatorInfo& getManipulatorInfo();
+  const tesseract::common::ManipulatorInfo& getManipulatorInfo() const;
+  tesseract::common::ManipulatorInfo& getManipulatorInfo();
 
   /**
    * @brief Set the waypoint profile
@@ -478,9 +478,9 @@ private:
   bool equals(const InstructionInterface& other) const override final;
 
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, MoveInstructionPoly& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, MoveInstructionPoly& obj);
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_MOVE_INSTRUCTION_POLY_H

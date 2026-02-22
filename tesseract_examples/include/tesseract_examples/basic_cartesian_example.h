@@ -26,7 +26,7 @@
 
 #include <tesseract_examples/example.h>
 
-namespace tesseract_examples
+namespace tesseract::examples
 {
 /**
  * @brief Basic example leveraging trajopt and tesseract for cartesian planning
@@ -34,8 +34,8 @@ namespace tesseract_examples
 class BasicCartesianExample : public Example
 {
 public:
-  BasicCartesianExample(std::shared_ptr<tesseract_environment::Environment> env,
-                        std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
+  BasicCartesianExample(std::shared_ptr<tesseract::environment::Environment> env,
+                        std::shared_ptr<tesseract::visualization::Visualization> plotter = nullptr,
                         bool ifopt = false,
                         bool debug = false,
                         bool benchmark = false);
@@ -54,6 +54,6 @@ private:
   bool benchmark_;
 };
 
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples
 
 #endif  // TESSERACT_ROS_EXAMPLES_BASIC_CARTESIAN_EXAMPLE_H

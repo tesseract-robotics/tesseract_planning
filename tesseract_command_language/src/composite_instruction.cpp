@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_common/profile_dictionary.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 bool moveFilter(const InstructionPoly& instruction, const CompositeInstruction& /*composite*/)
 {
@@ -42,7 +42,7 @@ bool moveFilter(const InstructionPoly& instruction, const CompositeInstruction& 
 }
 
 CompositeInstruction::CompositeInstruction(std::string profile,
-                                           tesseract_common::ManipulatorInfo manipulator_info,
+                                           tesseract::common::ManipulatorInfo manipulator_info,
                                            CompositeInstructionOrder order)
   : uuid_(boost::uuids::random_generator()())
   , manipulator_info_(std::move(manipulator_info))
@@ -73,18 +73,15 @@ void CompositeInstruction::setDescription(const std::string& description) { desc
 void CompositeInstruction::print(const std::string& prefix) const
 {
   std::cout << prefix + "Composite Instruction, Description: " << getDescription() << "\n";
-  std::cout << prefix + "{"
-            << "\n";
+  std::cout << prefix + "{" << "\n";
   for (const auto& i : container_)
   {
     if (i.isNull())
-      std::cout << prefix + "  Null Instruction"
-                << "\n";
+      std::cout << prefix + "  Null Instruction" << "\n";
     else
       i.print(prefix + "  ");
   }
-  std::cout << prefix + "}"
-            << "\n";
+  std::cout << prefix + "}" << "\n";
 }
 
 std::unique_ptr<InstructionInterface> CompositeInstruction::clone() const
@@ -110,12 +107,12 @@ void CompositeInstruction::setProfileOverrides(ProfileOverrides profile_override
 }
 const ProfileOverrides& CompositeInstruction::getProfileOverrides() const { return profile_overrides_; }
 
-void CompositeInstruction::setManipulatorInfo(tesseract_common::ManipulatorInfo info)
+void CompositeInstruction::setManipulatorInfo(tesseract::common::ManipulatorInfo info)
 {
   manipulator_info_ = std::move(info);
 }
-const tesseract_common::ManipulatorInfo& CompositeInstruction::getManipulatorInfo() const { return manipulator_info_; }
-tesseract_common::ManipulatorInfo& CompositeInstruction::getManipulatorInfo() { return manipulator_info_; }
+const tesseract::common::ManipulatorInfo& CompositeInstruction::getManipulatorInfo() const { return manipulator_info_; }
+tesseract::common::ManipulatorInfo& CompositeInstruction::getManipulatorInfo() { return manipulator_info_; }
 
 void CompositeInstruction::setInstructions(std::vector<InstructionPoly> instructions) { container_.swap(instructions); }
 
@@ -517,4 +514,4 @@ void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<cons
   }
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

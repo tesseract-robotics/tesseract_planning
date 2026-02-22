@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 class InstructionPoly;
 class WaypointPoly;
@@ -46,7 +46,7 @@ class CompositeInstruction;
  * @param instruction The instruction to convert
  * @return A joint trajectory
  */
-tesseract_common::JointTrajectory toJointTrajectory(const InstructionPoly& instruction);
+tesseract::common::JointTrajectory toJointTrajectory(const InstructionPoly& instruction);
 
 /**
  * @brief Convert composite instruction to a joint trajectory
@@ -55,7 +55,7 @@ tesseract_common::JointTrajectory toJointTrajectory(const InstructionPoly& instr
  * @param composite_instructions The composite instruction to convert
  * @return A joint trajectory
  */
-tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& composite_instructions);
+tesseract::common::JointTrajectory toJointTrajectory(const CompositeInstruction& composite_instructions);
 
 /**
  * @brief Gets joint position from waypoints that contain that information.
@@ -248,6 +248,6 @@ bool validateSeedStructure(const CompositeInstruction& composite_instructions,
  */
 void makeTimeMonotonicallyIncreasing(CompositeInstruction& composite_instructions);
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMMAND_LANGUAGE_UTILS_H

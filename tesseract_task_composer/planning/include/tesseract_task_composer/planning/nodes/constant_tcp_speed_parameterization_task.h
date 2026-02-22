@@ -30,7 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_time_parameterization/kdl/constant_tcp_speed_parameterization.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerPluginFactory;
 class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT ConstantTCPSpeedParameterizationTask : public TaskComposerTask
@@ -63,7 +63,7 @@ public:
   ConstantTCPSpeedParameterizationTask& operator=(ConstantTCPSpeedParameterizationTask&&) = delete;
 
 private:
-  ConstantTCPSpeedParameterization solver_;
+  tesseract::time_parameterization::ConstantTCPSpeedParameterization solver_;
 
   static TaskComposerNodePorts ports();
 
@@ -71,6 +71,6 @@ private:
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_PLANNING_NODES_CONSTANT_TCP_SPEED_PARAMETERIZATION_TASK_H

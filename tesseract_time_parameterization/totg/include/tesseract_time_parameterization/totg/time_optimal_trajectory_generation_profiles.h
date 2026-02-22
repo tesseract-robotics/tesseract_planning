@@ -31,9 +31,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/profile.h>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
-struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract_common::Profile
+struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract::common::Profile
 {
   using Ptr = std::shared_ptr<TimeOptimalTrajectoryGenerationCompositeProfile>;
   using ConstPtr = std::shared_ptr<const TimeOptimalTrajectoryGenerationCompositeProfile>;
@@ -66,6 +66,6 @@ struct TimeOptimalTrajectoryGenerationCompositeProfile : public tesseract_common
   bool operator==(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;
   bool operator!=(const TimeOptimalTrajectoryGenerationCompositeProfile& rhs) const;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization
 
 #endif  // TESSERACT_TIME_PARAMETERIZATION_TIME_OPTIMAL_TRAJECTORY_GENERATION_PROFILES_H

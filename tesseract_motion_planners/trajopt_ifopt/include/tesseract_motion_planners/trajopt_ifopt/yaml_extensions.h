@@ -298,9 +298,9 @@ struct convert<trajopt_sqp::SQPParameters>
 
 //=========================== TrajOptCartesianWaypointConfig ===========================
 template <>
-struct convert<tesseract_planning::TrajOptIfoptCartesianWaypointConfig>
+struct convert<tesseract::motion_planners::TrajOptIfoptCartesianWaypointConfig>
 {
-  static Node encode(const tesseract_planning::TrajOptIfoptCartesianWaypointConfig& rhs)
+  static Node encode(const tesseract::motion_planners::TrajOptIfoptCartesianWaypointConfig& rhs)
   {
     Node node;
     node["enabled"] = rhs.enabled;
@@ -311,7 +311,7 @@ struct convert<tesseract_planning::TrajOptIfoptCartesianWaypointConfig>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::TrajOptIfoptCartesianWaypointConfig& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::TrajOptIfoptCartesianWaypointConfig& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["enabled"])
@@ -330,9 +330,9 @@ struct convert<tesseract_planning::TrajOptIfoptCartesianWaypointConfig>
 
 //=========================== TrajOptIfoptJointWaypointConfig ===========================
 template <>
-struct convert<tesseract_planning::TrajOptIfoptJointWaypointConfig>
+struct convert<tesseract::motion_planners::TrajOptIfoptJointWaypointConfig>
 {
-  static Node encode(const tesseract_planning::TrajOptIfoptJointWaypointConfig& rhs)
+  static Node encode(const tesseract::motion_planners::TrajOptIfoptJointWaypointConfig& rhs)
   {
     Node node;
     node["enabled"] = rhs.enabled;
@@ -343,7 +343,7 @@ struct convert<tesseract_planning::TrajOptIfoptJointWaypointConfig>
     return node;
   }
 
-  static bool decode(const Node& node, tesseract_planning::TrajOptIfoptJointWaypointConfig& rhs)
+  static bool decode(const Node& node, tesseract::motion_planners::TrajOptIfoptJointWaypointConfig& rhs)
   {
     // Check for required entries
     if (const YAML::Node& n = node["enabled"])

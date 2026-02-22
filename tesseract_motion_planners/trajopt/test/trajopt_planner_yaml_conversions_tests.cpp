@@ -40,7 +40,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 
-using namespace tesseract_planning;
+using namespace tesseract::motion_planners;
+using namespace tesseract::command_language;
 using namespace trajopt_common;
 
 TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptCartesianWaypointConfig)  // NOLINT
@@ -62,9 +63,9 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptCartesianWaypointConfig
     auto config = n["config"].as<TrajOptCartesianWaypointConfig>();
     EXPECT_EQ(config.enabled, false);
     EXPECT_EQ(config.use_tolerance_override, true);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(config.lower_tolerance, check));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(config.upper_tolerance, check));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(config.coeff, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(config.lower_tolerance, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(config.upper_tolerance, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(config.coeff, check));
   }
 
   {  // encode
@@ -79,9 +80,9 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptCartesianWaypointConfig
     auto output_config = output_n.as<TrajOptCartesianWaypointConfig>();
     EXPECT_EQ(output_config.enabled, config.enabled);
     EXPECT_EQ(output_config.use_tolerance_override, config.use_tolerance_override);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(output_config.lower_tolerance, config.lower_tolerance));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(output_config.upper_tolerance, config.upper_tolerance));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(output_config.coeff, config.coeff));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(output_config.lower_tolerance, config.lower_tolerance));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(output_config.upper_tolerance, config.upper_tolerance));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(output_config.coeff, config.coeff));
   }
 }
 
@@ -103,9 +104,9 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptJointWaypointConfig)  /
     auto config = n["config"].as<TrajOptJointWaypointConfig>();
     EXPECT_EQ(config.enabled, false);
     EXPECT_EQ(config.use_tolerance_override, true);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(config.lower_tolerance, check));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(config.upper_tolerance, check));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(config.coeff, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(config.lower_tolerance, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(config.upper_tolerance, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(config.coeff, check));
   }
 
   {  // encode
@@ -120,9 +121,9 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptJointWaypointConfig)  /
     auto output_config = output_n.as<TrajOptJointWaypointConfig>();
     EXPECT_EQ(output_config.enabled, config.enabled);
     EXPECT_EQ(output_config.use_tolerance_override, config.use_tolerance_override);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(output_config.lower_tolerance, config.lower_tolerance));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(output_config.upper_tolerance, config.upper_tolerance));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(output_config.coeff, config.coeff));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(output_config.lower_tolerance, config.lower_tolerance));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(output_config.upper_tolerance, config.upper_tolerance));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(output_config.coeff, config.coeff));
   }
 }
 
@@ -132,7 +133,7 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptDefaultCompositeProfile
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
-    tesseract_common::ProfilePluginFactory plugin_factory;
+    tesseract::common::ProfilePluginFactory plugin_factory;
     TrajOptDefaultCompositeProfile profile(n["config"], plugin_factory);
     TrajOptDefaultCompositeProfile def_constructor;
     EXPECT_EQ(profile.collision_cost_config.enabled, def_constructor.collision_cost_config.enabled);
@@ -167,7 +168,7 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptDefaultCompositeProfile
                                     )";
 
     YAML::Node n = YAML::Load(yaml_string);
-    tesseract_common::ProfilePluginFactory plugin_factory;
+    tesseract::common::ProfilePluginFactory plugin_factory;
     TrajOptDefaultCompositeProfile profile(n["config"], plugin_factory);
     EXPECT_EQ(profile.collision_cost_config.enabled, false);
     EXPECT_EQ(profile.collision_constraint_config.enabled, false);
@@ -175,9 +176,9 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptDefaultCompositeProfile
     EXPECT_EQ(profile.smooth_accelerations, false);
     EXPECT_EQ(profile.smooth_jerks, false);
     EXPECT_EQ(profile.avoid_singularity, true);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(profile.velocity_coeff, check));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(profile.acceleration_coeff, check));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(profile.jerk_coeff, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(profile.velocity_coeff, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(profile.acceleration_coeff, check));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(profile.jerk_coeff, check));
     EXPECT_NEAR(profile.avoid_singularity_coeff, 6, 1e-8);
   }
 }
@@ -188,7 +189,7 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptDefaultMoveProfile)  //
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
-    tesseract_common::ProfilePluginFactory plugin_factory;
+    tesseract::common::ProfilePluginFactory plugin_factory;
     TrajOptDefaultMoveProfile profile(n["config"], plugin_factory);
     TrajOptDefaultMoveProfile def_constructor;
     EXPECT_EQ(profile.cartesian_cost_config.enabled, def_constructor.cartesian_cost_config.enabled);
@@ -209,7 +210,7 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptDefaultMoveProfile)  //
                                           enabled: false
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
-    tesseract_common::ProfilePluginFactory plugin_factory;
+    tesseract::common::ProfilePluginFactory plugin_factory;
     TrajOptDefaultMoveProfile profile(n["config"], plugin_factory);
     TrajOptDefaultMoveProfile def_constructor;
     EXPECT_EQ(profile.cartesian_cost_config.enabled, !def_constructor.cartesian_cost_config.enabled);
@@ -225,7 +226,7 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptOSQPSolverProfile)  // 
     const std::string yaml_string = R"(config:
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
-    tesseract_common::ProfilePluginFactory plugin_factory;
+    tesseract::common::ProfilePluginFactory plugin_factory;
     TrajOptOSQPSolverProfile profile(n["config"], plugin_factory);
     TrajOptOSQPSolverProfile def_constructor;
     EXPECT_EQ(profile.update_workspace, def_constructor.update_workspace);
@@ -289,7 +290,7 @@ TEST(TesseractPlanningTrajoptYAMLConversionsUnit, TrajOptOSQPSolverProfile)  // 
                                           num_threads: 100
                                     )";
     YAML::Node n = YAML::Load(yaml_string);
-    tesseract_common::ProfilePluginFactory plugin_factory;
+    tesseract::common::ProfilePluginFactory plugin_factory;
     TrajOptOSQPSolverProfile profile(n["config"], plugin_factory);
     TrajOptOSQPSolverProfile def_constructor;
 

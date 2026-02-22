@@ -23,7 +23,7 @@
 #include <string>
 #include <stdexcept>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 TimeParameterization::TimeParameterization(std::string name) : name_(std::move(name))
 {
@@ -33,4 +33,4 @@ TimeParameterization::TimeParameterization(std::string name) : name_(std::move(n
 
 const std::string& TimeParameterization::getName() const { return name_; }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization

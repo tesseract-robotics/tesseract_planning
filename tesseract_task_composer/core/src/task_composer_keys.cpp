@@ -19,7 +19,7 @@
 #include <tesseract_task_composer/core/task_composer_keys.h>
 #include <tesseract_common/any_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 void TaskComposerKeys::add(const std::string& port, std::string key) { keys_[port] = std::move(key); }
 
@@ -103,4 +103,4 @@ std::ostream& operator<<(std::ostream& os, const TaskComposerKeys& keys)
   return os;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

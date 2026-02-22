@@ -38,7 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_scene_graph/scene_state.h>
 #include <tesseract_command_language/composite_instruction.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 struct PlannerRequest
 {
@@ -52,16 +52,16 @@ struct PlannerRequest
   std::string name;
 
   /** @brief The environment */
-  std::shared_ptr<const tesseract_environment::Environment> env;
+  std::shared_ptr<const tesseract::environment::Environment> env;
 
   /** @brief The profile dictionary */
-  std::shared_ptr<const tesseract_common::ProfileDictionary> profiles;
+  std::shared_ptr<const tesseract::common::ProfileDictionary> profiles;
 
   /**
    * @brief The program instruction
    * This must contain a minimum of two move instruction the first move instruction is the start state
    */
-  CompositeInstruction instructions;
+  tesseract::command_language::CompositeInstruction instructions;
 
   /** @brief Indicate if output should be verbose */
   bool verbose{ false };
@@ -87,15 +87,15 @@ struct PlannerResponse
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   // LCOV_EXCL_STOP
 
-  CompositeInstruction results;
+  tesseract::command_language::CompositeInstruction results;
   /** @brief Indicate if planning was successful */
   bool successful{ false };
   /** @brief The status message */
   std::string message;
   /** @brief Waypoints for which the planner succeeded */
-  std::vector<std::reference_wrapper<InstructionPoly>> succeeded_instructions{};
+  std::vector<std::reference_wrapper<tesseract::command_language::InstructionPoly>> succeeded_instructions{};
   /** @brief Waypoints for which the planner failed */
-  std::vector<std::reference_wrapper<InstructionPoly>> failed_instructions{};
+  std::vector<std::reference_wrapper<tesseract::command_language::InstructionPoly>> failed_instructions{};
   /** @brief Planner specific data. Planners in Tesseract_planning use this to store the planner problem that was solved
    */
   std::shared_ptr<void> data;
@@ -104,6 +104,6 @@ struct PlannerResponse
   explicit operator bool() const noexcept;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_PLANNING_PLANNER_TYPES_H

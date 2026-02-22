@@ -6,7 +6,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/utils.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 CartesianWaypoint::CartesianWaypoint(const Eigen::Isometry3d& transform)  // NOLINT(modernize-pass-by-value)
   : transform_(transform)
@@ -49,9 +49,9 @@ void CartesianWaypoint::setLowerTolerance(const Eigen::VectorXd& lower_tol) { lo
 Eigen::VectorXd& CartesianWaypoint::getLowerTolerance() { return lower_tolerance_; }
 const Eigen::VectorXd& CartesianWaypoint::getLowerTolerance() const { return lower_tolerance_; }
 
-void CartesianWaypoint::setSeed(const tesseract_common::JointState& seed) { seed_ = seed; }
-tesseract_common::JointState& CartesianWaypoint::getSeed() { return seed_; }
-const tesseract_common::JointState& CartesianWaypoint::getSeed() const { return seed_; }
+void CartesianWaypoint::setSeed(const tesseract::common::JointState& seed) { seed_ = seed; }
+tesseract::common::JointState& CartesianWaypoint::getSeed() { return seed_; }
+const tesseract::common::JointState& CartesianWaypoint::getSeed() const { return seed_; }
 
 bool CartesianWaypoint::equals(const CartesianWaypointInterface& other) const
 {
@@ -64,10 +64,10 @@ bool CartesianWaypoint::equals(const CartesianWaypointInterface& other) const
   bool equal = true;
   equal &= (name_ == rhs->name_);
   equal &= transform_.isApprox(rhs->transform_);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance_, rhs->lower_tolerance_, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance_, rhs->upper_tolerance_, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lower_tolerance_, rhs->lower_tolerance_, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(upper_tolerance_, rhs->upper_tolerance_, max_diff);
   equal &= (seed_ == rhs->seed_);
   return equal;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

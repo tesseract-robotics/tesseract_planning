@@ -175,7 +175,7 @@ Changelog for package tesseract_examples
 
 0.21.0 (2023-11-10)
 -------------------
-* Move TaskComposerProblem input to base class and change type to tesseract_common::AnyPoly
+* Move TaskComposerProblem input to base class and change type to tesseract::common::AnyPoly
 * Unused includes cleanup
 * Update based on changes in trajopt
 * Contributors: Levi Armstrong, Roelof Oomen
@@ -266,7 +266,7 @@ Changelog for package tesseract_examples
 * Add convex solver config to TrajOpt solver profile and fix puzzle piece aux example
 * Remove references to tesseract process managers package
 * Add tesseract_task_composer package to replace tesseract_process_managers
-* Remove use of tesseract_common::StatusCode
+* Remove use of tesseract::common::StatusCode
 * Contributors: Levi Armstrong
 
 0.13.1 (2022-08-30)

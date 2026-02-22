@@ -46,7 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_time_parameterization/core/fwd.h>
 #include <tesseract_time_parameterization/core/time_parameterization.h>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 /// \brief This class sets the timestamps of a trajectory
 /// to enforce velocity, acceleration constraints.
@@ -85,10 +85,10 @@ public:
   IterativeSplineParameterization(IterativeSplineParameterization&&) = delete;
   IterativeSplineParameterization& operator=(IterativeSplineParameterization&&) = delete;
 
-  bool compute(CompositeInstruction& composite_instruction,
-               const tesseract_environment::Environment& env,
-               const tesseract_common::ProfileDictionary& profiles) const override;
+  bool compute(tesseract::command_language::CompositeInstruction& composite_instruction,
+               const tesseract::environment::Environment& env,
+               const tesseract::common::ProfileDictionary& profiles) const override;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization
 
 #endif  // TESSERACT_TIME_PARAMETERIZATION_ITERATIVE_SPLINE_PARAMETERIZATION_H

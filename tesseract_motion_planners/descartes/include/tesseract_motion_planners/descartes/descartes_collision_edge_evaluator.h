@@ -37,16 +37,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/fwd.h>
 #include <tesseract_environment/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 template <typename FloatType>
 class DescartesCollisionEdgeEvaluator : public descartes_light::EdgeEvaluator<FloatType>
 {
 public:
-  DescartesCollisionEdgeEvaluator(const tesseract_environment::Environment& collision_env,
-                                  std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-                                  const tesseract_collision::ContactManagerConfig& contact_manager_config,
-                                  tesseract_collision::CollisionCheckConfig collision_check_config,
+  DescartesCollisionEdgeEvaluator(const tesseract::environment::Environment& collision_env,
+                                  std::shared_ptr<const tesseract::kinematics::JointGroup> manip,
+                                  const tesseract::collision::ContactManagerConfig& contact_manager_config,
+                                  tesseract::collision::CollisionCheckConfig collision_check_config,
                                   bool allow_collision = false,
                                   bool debug = false);
 
@@ -55,17 +55,17 @@ public:
 
 protected:
   /** @brief The tesseract state solver */
-  std::shared_ptr<const tesseract_kinematics::JointGroup> manip_;
+  std::shared_ptr<const tesseract::kinematics::JointGroup> manip_;
   /** @brief A vector of active link names */
   std::vector<std::string> active_link_names_;
   /** @brief The discrete contact manager */
-  std::shared_ptr<tesseract_collision::DiscreteContactManager> discrete_contact_manager_;
+  std::shared_ptr<tesseract::collision::DiscreteContactManager> discrete_contact_manager_;
   /** @brief The discrete contact manager */
-  std::shared_ptr<tesseract_collision::ContinuousContactManager> continuous_contact_manager_;
+  std::shared_ptr<tesseract::collision::ContinuousContactManager> continuous_contact_manager_;
   /** @brief The collision margin data */
-  tesseract_common::CollisionMarginData contact_margin_data_;
+  tesseract::common::CollisionMarginData contact_margin_data_;
   /** @brief The contact request used during collision checking */
-  tesseract_collision::CollisionCheckConfig collision_check_config_;
+  tesseract::collision::CollisionCheckConfig collision_check_config_;
   /** @brief If true and no valid edges are found it will return the one with the lowest cost */
   bool allow_collision_;
   /** @brief Enable debug information to be printed to the terminal */
@@ -80,11 +80,11 @@ protected:
   mutable std::mutex mutex_;
 
   /** @brief The continuous contact manager cache */
-  mutable std::map<unsigned long int, std::shared_ptr<tesseract_collision::ContinuousContactManager>>
+  mutable std::map<unsigned long int, std::shared_ptr<tesseract::collision::ContinuousContactManager>>
       continuous_contact_managers_;
 
   /** @brief The discrete contact manager cache */
-  mutable std::map<unsigned long int, std::shared_ptr<tesseract_collision::DiscreteContactManager>>
+  mutable std::map<unsigned long int, std::shared_ptr<tesseract::collision::DiscreteContactManager>>
       discrete_contact_managers_;
 
   /**
@@ -93,8 +93,8 @@ protected:
    * @param segment Trajectory containing two states
    * @return True if in collision otherwise false
    */
-  bool continuousCollisionCheck(std::vector<tesseract_collision::ContactResultMap>& results,
-                                const tesseract_common::TrajArray& segment) const;
+  bool continuousCollisionCheck(std::vector<tesseract::collision::ContactResultMap>& results,
+                                const tesseract::common::TrajArray& segment) const;
 
   /**
    * @brief Perform a continuous discrete check between two states
@@ -102,12 +102,12 @@ protected:
    * @param segment Trajectory containing two states
    * @return True if in collision otherwise false
    */
-  bool discreteCollisionCheck(std::vector<tesseract_collision::ContactResultMap>& results,
-                              const tesseract_common::TrajArray& segment) const;
+  bool discreteCollisionCheck(std::vector<tesseract::collision::ContactResultMap>& results,
+                              const tesseract::common::TrajArray& segment) const;
 };
 
 using DescartesCollisionEdgeEvaluatorF = DescartesCollisionEdgeEvaluator<float>;
 using DescartesCollisionEdgeEvaluatorD = DescartesCollisionEdgeEvaluator<double>;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_COLLISION_EDGE_EVALUATOR_H

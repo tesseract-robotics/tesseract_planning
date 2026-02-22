@@ -68,22 +68,24 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
 using namespace trajopt;
-using namespace tesseract_environment;
-using namespace tesseract_scene_graph;
-using namespace tesseract_collision;
-using namespace tesseract_visualization;
-using namespace tesseract_planning;
+using namespace tesseract::environment;
+using namespace tesseract::scene_graph;
+using namespace tesseract::collision;
+using namespace tesseract::visualization;
+using namespace tesseract::task_composer;
+using namespace tesseract::command_language;
+using namespace tesseract::motion_planners;
 
 static const std::string TRAJOPT_IFOPT_DEFAULT_NAMESPACE = "TrajOptIfoptMotionPlannerTask";
 static const std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
 
-namespace tesseract_examples
+namespace tesseract::examples
 {
-inline tesseract_common::VectorIsometry3d
-makePuzzleToolPoses(const tesseract_common::ResourceLocator::ConstPtr& locator)
+inline tesseract::common::VectorIsometry3d
+makePuzzleToolPoses(const tesseract::common::ResourceLocator::ConstPtr& locator)
 {
-  tesseract_common::VectorIsometry3d path;  // results
-  std::ifstream indata;                     // input file
+  tesseract::common::VectorIsometry3d path;  // results
+  std::ifstream indata;                      // input file
 
   // You could load your parts from anywhere, but we are transporting them with
   // the git repo
@@ -141,8 +143,8 @@ makePuzzleToolPoses(const tesseract_common::ResourceLocator::ConstPtr& locator)
   return path;
 }
 
-PuzzlePieceExample::PuzzlePieceExample(std::shared_ptr<tesseract_environment::Environment> env,
-                                       std::shared_ptr<tesseract_visualization::Visualization> plotter,
+PuzzlePieceExample::PuzzlePieceExample(std::shared_ptr<tesseract::environment::Environment> env,
+                                       std::shared_ptr<tesseract::visualization::Visualization> plotter,
                                        bool ifopt,
                                        bool debug,
                                        bool benchmark)
@@ -182,16 +184,16 @@ bool PuzzlePieceExample::run()
   env_->setState(joint_names, joint_pos);
 
   // Get Tool Poses
-  tesseract_common::VectorIsometry3d tool_poses = makePuzzleToolPoses(env_->getResourceLocator());
+  tesseract::common::VectorIsometry3d tool_poses = makePuzzleToolPoses(env_->getResourceLocator());
 
   // Create manipulator information for program
-  tesseract_common::ManipulatorInfo mi;
+  tesseract::common::ManipulatorInfo mi;
   mi.manipulator = "manipulator";
   mi.working_frame = "part";
   mi.tcp_frame = "grinder_frame";
 
   // Create Task Composer Plugin Factory
-  std::shared_ptr<const tesseract_common::ResourceLocator> locator = env_->getResourceLocator();
+  std::shared_ptr<const tesseract::common::ResourceLocator> locator = env_->getResourceLocator();
   std::filesystem::path config_path(
       locator->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
@@ -216,7 +218,7 @@ bool PuzzlePieceExample::run()
     program.print("Program: ");
 
   // Create profile dictionary
-  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
   if (ifopt_)
   {
     // Create TrajOpt_Ifopt Profile
@@ -231,7 +233,7 @@ bool PuzzlePieceExample::run()
     trajopt_ifopt_composite_profile->collision_constraint_config.enabled = false;
     trajopt_ifopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 2);
     trajopt_ifopt_composite_profile->collision_cost_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::DISCRETE;
+        tesseract::collision::CollisionEvaluatorType::DISCRETE;
 
     auto trajopt_ifopt_solver_profile = std::make_shared<TrajOptIfoptOSQPSolverProfile>();
     trajopt_ifopt_solver_profile->opt_params.max_iterations = 200;
@@ -256,7 +258,7 @@ bool PuzzlePieceExample::run()
     trajopt_composite_profile->collision_constraint_config.enabled = false;
     trajopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.025, 20);
     trajopt_composite_profile->collision_cost_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::DISCRETE;
+        tesseract::collision::CollisionEvaluatorType::DISCRETE;
 
     auto trajopt_solver_profile = std::make_shared<TrajOptOSQPSolverProfile>();
     trajopt_solver_profile->opt_params.num_threads = 0;
@@ -285,14 +287,14 @@ bool PuzzlePieceExample::run()
     auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
     // Create Task Composer Data Storage
-    auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+    auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("planning_input", program);
-    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    data->setData("environment", std::shared_ptr<const tesseract::environment::Environment>(env_));
     data->setData("profiles", profiles);
 
-    tesseract_common::Stopwatch stopwatch;
+    tesseract::common::Stopwatch stopwatch;
     stopwatch.start();
-    auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+    auto context = std::make_shared<TaskComposerContext>(task->getName(), std::move(data));
     future = executor->run(*task, std::move(context));
     future->wait();
     stopwatch.stop();
@@ -316,14 +318,14 @@ bool PuzzlePieceExample::run()
         env_->setActiveDiscreteContactManager(contact_manager);
 
         // Create Task Composer Data Storage
-        auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+        auto data = std::make_unique<TaskComposerDataStorage>();
         data->setData("planning_input", program);
-        data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+        data->setData("environment", std::shared_ptr<const tesseract::environment::Environment>(env_));
         data->setData("profiles", profiles);
 
-        tesseract_common::Stopwatch stopwatch;
+        tesseract::common::Stopwatch stopwatch;
         stopwatch.start();
-        auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+        auto context = std::make_shared<TaskComposerContext>(task->getName(), std::move(data));
         future = executor->run(*task, std::move(context));
         future->wait();
         stopwatch.stop();
@@ -356,11 +358,11 @@ bool PuzzlePieceExample::run()
   {
     plotter_->waitForInput();
     auto ci = future->context->data_storage->getData(output_key).as<CompositeInstruction>();
-    tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
+    tesseract::common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();
     plotter_->plotTrajectory(trajectory, *state_solver);
   }
 
   return future->context->isSuccessful();
 }
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples

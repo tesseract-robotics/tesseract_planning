@@ -28,12 +28,12 @@
 #include <tesseract_environment/environment.h>
 #include <tesseract_environment/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
-DescartesCollision::DescartesCollision(const tesseract_environment::Environment& collision_env,
-                                       std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-                                       const tesseract_collision::ContactManagerConfig& contact_manager_config,
-                                       tesseract_collision::CollisionCheckConfig collision_check_config,
+DescartesCollision::DescartesCollision(const tesseract::environment::Environment& collision_env,
+                                       std::shared_ptr<const tesseract::kinematics::JointGroup> manip,
+                                       const tesseract::collision::ContactManagerConfig& contact_manager_config,
+                                       tesseract::collision::CollisionCheckConfig collision_check_config,
                                        bool debug)
   : manip_(std::move(manip))
   , active_link_names_(manip_->getActiveLinkNames())
@@ -54,8 +54,8 @@ DescartesCollision::DescartesCollision(const DescartesCollision& collision_inter
 {
 }
 
-bool DescartesCollision::validate(tesseract_collision::ContactResultMap& contact_results,
-                                  tesseract_common::TransformMap& transforms_cache,
+bool DescartesCollision::validate(tesseract::collision::ContactResultMap& contact_results,
+                                  tesseract::common::TransformMap& transforms_cache,
                                   const Eigen::Ref<const Eigen::VectorXd>& pos)
 {
   // Happens in two phases:
@@ -64,15 +64,15 @@ bool DescartesCollision::validate(tesseract_collision::ContactResultMap& contact
   transforms_cache.clear();
   manip_->calcFwdKin(transforms_cache, pos);
 
-  tesseract_collision::ContactRequest contact_request(collision_check_config_.contact_request);
-  contact_request.type = tesseract_collision::ContactTestType::FIRST;
+  tesseract::collision::ContactRequest contact_request(collision_check_config_.contact_request);
+  contact_request.type = tesseract::collision::ContactTestType::FIRST;
 
-  tesseract_environment::checkTrajectoryState(contact_results, *contact_manager_, transforms_cache, contact_request);
+  tesseract::environment::checkTrajectoryState(contact_results, *contact_manager_, transforms_cache, contact_request);
   return contact_results.empty();
 }
 
-double DescartesCollision::distance(tesseract_collision::ContactResultMap& contact_results,
-                                    tesseract_common::TransformMap& transforms_cache,
+double DescartesCollision::distance(tesseract::collision::ContactResultMap& contact_results,
+                                    tesseract::common::TransformMap& transforms_cache,
                                     const Eigen::Ref<const Eigen::VectorXd>& pos)
 {
   // Happens in two phases:
@@ -81,10 +81,10 @@ double DescartesCollision::distance(tesseract_collision::ContactResultMap& conta
   transforms_cache.clear();
   manip_->calcFwdKin(transforms_cache, pos);
 
-  tesseract_collision::ContactRequest contact_request(collision_check_config_.contact_request);
-  contact_request.type = tesseract_collision::ContactTestType::CLOSEST;
+  tesseract::collision::ContactRequest contact_request(collision_check_config_.contact_request);
+  contact_request.type = tesseract::collision::ContactTestType::CLOSEST;
 
-  tesseract_environment::checkTrajectoryState(contact_results, *contact_manager_, transforms_cache, contact_request);
+  tesseract::environment::checkTrajectoryState(contact_results, *contact_manager_, transforms_cache, contact_request);
 
   if (contact_results.empty())
     return contact_manager_->getCollisionMarginData().getMaxCollisionMargin();
@@ -94,4 +94,4 @@ double DescartesCollision::distance(tesseract_collision::ContactResultMap& conta
 
 DescartesCollision::Ptr DescartesCollision::clone() const { return std::make_shared<DescartesCollision>(*this); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

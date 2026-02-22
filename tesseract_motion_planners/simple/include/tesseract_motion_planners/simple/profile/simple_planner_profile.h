@@ -35,13 +35,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/fwd.h>
 #include <tesseract_common/profile.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /**
  * @brief Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases. The
  * planner then simply loops over all of the plan instructions and calls the correct function
  */
-class SimplePlannerMoveProfile : public tesseract_common::Profile
+class SimplePlannerMoveProfile : public tesseract::common::Profile
 {
 public:
   using Ptr = std::shared_ptr<SimplePlannerMoveProfile>;
@@ -60,16 +60,16 @@ public:
    * @param global_manip_info The global manipulator information
    * @return A vector of move instrucitons
    */
-  virtual std::vector<MoveInstructionPoly>
-  generate(const MoveInstructionPoly& prev_instruction,
-           const MoveInstructionPoly& prev_seed,
-           const MoveInstructionPoly& base_instruction,
-           const InstructionPoly& next_instruction,
-           const std::shared_ptr<const tesseract_environment::Environment>& env,
-           const tesseract_common::ManipulatorInfo& global_manip_info) const = 0;
+  virtual std::vector<tesseract::command_language::MoveInstructionPoly>
+  generate(const tesseract::command_language::MoveInstructionPoly& prev_instruction,
+           const tesseract::command_language::MoveInstructionPoly& prev_seed,
+           const tesseract::command_language::MoveInstructionPoly& base_instruction,
+           const tesseract::command_language::InstructionPoly& next_instruction,
+           const std::shared_ptr<const tesseract::environment::Environment>& env,
+           const tesseract::common::ManipulatorInfo& global_manip_info) const = 0;
 };
 
-class SimplePlannerCompositeProfile : public tesseract_common::Profile
+class SimplePlannerCompositeProfile : public tesseract::common::Profile
 {
 public:
   using Ptr = std::shared_ptr<SimplePlannerCompositeProfile>;
@@ -78,6 +78,6 @@ public:
   SimplePlannerCompositeProfile();
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PROFILE_H

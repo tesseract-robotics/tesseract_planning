@@ -6,7 +6,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/utils.h>
 #include <tesseract_command_language/joint_waypoint.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 // NOLINTNEXTLINE(modernize-pass-by-value)
 JointWaypoint::JointWaypoint(std::vector<std::string> names, const Eigen::VectorXd& position, bool is_constrained)
@@ -91,12 +91,12 @@ bool JointWaypoint::equals(const JointWaypointInterface& other) const
 
   bool equal = true;
   equal &= (name_ == rhs->name_);
-  equal &= tesseract_common::isIdentical(names_, rhs->names_);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(position_, rhs->position_, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance_, rhs->lower_tolerance_, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance_, rhs->upper_tolerance_, max_diff);
+  equal &= tesseract::common::isIdentical(names_, rhs->names_);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(position_, rhs->position_, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lower_tolerance_, rhs->lower_tolerance_, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(upper_tolerance_, rhs->upper_tolerance_, max_diff);
   equal &= (is_constrained_ == rhs->is_constrained_);
   return equal;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

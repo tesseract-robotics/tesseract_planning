@@ -71,13 +71,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_geometry/impl/box.h>
 
-using namespace tesseract_environment;
-using namespace tesseract_kinematics;
-using namespace tesseract_scene_graph;
-using namespace tesseract_collision;
-using namespace tesseract_visualization;
-using namespace tesseract_planning;
-using tesseract_common::ManipulatorInfo;
+using namespace tesseract::environment;
+using namespace tesseract::kinematics;
+using namespace tesseract::scene_graph;
+using namespace tesseract::collision;
+using namespace tesseract::visualization;
+using namespace tesseract::task_composer;
+using namespace tesseract::command_language;
+using namespace tesseract::motion_planners;
+using tesseract::common::ManipulatorInfo;
 
 const double OFFSET = 0.005;
 
@@ -87,10 +89,10 @@ const std::string LINK_END_EFFECTOR_NAME = "iiwa_tool0";
 const std::string DISCRETE_CONTACT_CHECK_TASK_NAME = "DiscreteContactCheckTask";
 static const std::string TRAJOPT_IFOPT_DEFAULT_NAMESPACE = "TrajOptIfoptMotionPlannerTask";
 const std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
-namespace tesseract_examples
+namespace tesseract::examples
 {
-PickAndPlaceExample::PickAndPlaceExample(std::shared_ptr<tesseract_environment::Environment> env,
-                                         std::shared_ptr<tesseract_visualization::Visualization> plotter,
+PickAndPlaceExample::PickAndPlaceExample(std::shared_ptr<tesseract::environment::Environment> env,
+                                         std::shared_ptr<tesseract::visualization::Visualization> plotter,
                                          bool ifopt,
                                          bool debug,
                                          double box_size,
@@ -109,7 +111,7 @@ Command::Ptr addBox(double box_x, double box_y, double box_side)
 
   Visual::Ptr visual = std::make_shared<Visual>();
   visual->origin = Eigen::Isometry3d::Identity();
-  visual->geometry = std::make_shared<tesseract_geometry::Box>(box_side, box_side, box_side);
+  visual->geometry = std::make_shared<tesseract::geometry::Box>(box_side, box_side, box_side);
   link_box.visual.push_back(visual);
 
   Collision::Ptr collision = std::make_shared<Collision>();
@@ -124,7 +126,7 @@ Command::Ptr addBox(double box_x, double box_y, double box_side)
   joint_box.parent_to_joint_origin_transform = Eigen::Isometry3d::Identity();
   joint_box.parent_to_joint_origin_transform.translation() += Eigen::Vector3d(box_x, box_y, (box_side / 2.0) + OFFSET);
 
-  return std::make_shared<tesseract_environment::AddLinkCommand>(link_box, joint_box);
+  return std::make_shared<tesseract::environment::AddLinkCommand>(link_box, joint_box);
 }
 
 bool PickAndPlaceExample::run()
@@ -139,7 +141,7 @@ bool PickAndPlaceExample::run()
     console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
 
   // Set default contact distance
-  Command::Ptr cmd_default_dist = std::make_shared<tesseract_environment::ChangeCollisionMarginsCommand>(0.005);
+  Command::Ptr cmd_default_dist = std::make_shared<tesseract::environment::ChangeCollisionMarginsCommand>(0.005);
   if (!env_->applyCommand(cmd_default_dist))
     return false;
 
@@ -179,7 +181,7 @@ bool PickAndPlaceExample::run()
     plotter_->waitForInput();
 
   // Create Task Composer Plugin Factory
-  std::shared_ptr<const tesseract_common::ResourceLocator> locator = env_->getResourceLocator();
+  std::shared_ptr<const tesseract::common::ResourceLocator> locator = env_->getResourceLocator();
   std::filesystem::path config_path(
       locator->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
@@ -224,7 +226,7 @@ bool PickAndPlaceExample::run()
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
   // Create profile dictionary
-  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
   if (ifopt_)
   {
     // Create TrajOpt_Ifopt Profile
@@ -240,7 +242,7 @@ bool PickAndPlaceExample::run()
     trajopt_ifopt_composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 10);
     trajopt_ifopt_composite_profile->collision_constraint_config.enabled = true;
     trajopt_ifopt_composite_profile->collision_constraint_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+        tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE;
     trajopt_ifopt_composite_profile->collision_constraint_config.collision_check_config.longest_valid_segment_length =
         0.05;
     trajopt_ifopt_composite_profile->collision_constraint_config.collision_margin_buffer = 0.005;
@@ -248,7 +250,7 @@ bool PickAndPlaceExample::run()
     trajopt_ifopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.005, 50);
     trajopt_ifopt_composite_profile->collision_cost_config.enabled = true;
     trajopt_ifopt_composite_profile->collision_cost_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+        tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE;
     trajopt_ifopt_composite_profile->collision_cost_config.collision_check_config.longest_valid_segment_length = 0.05;
     trajopt_ifopt_composite_profile->collision_cost_config.collision_margin_buffer = 0.01;
 
@@ -282,14 +284,14 @@ bool PickAndPlaceExample::run()
     trajopt_composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 10);
     trajopt_composite_profile->collision_constraint_config.enabled = true;
     trajopt_composite_profile->collision_constraint_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+        tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE;
     trajopt_composite_profile->collision_constraint_config.collision_check_config.longest_valid_segment_length = 0.05;
     trajopt_composite_profile->collision_constraint_config.collision_margin_buffer = 0.005;
 
     trajopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.005, 50);
     trajopt_composite_profile->collision_cost_config.enabled = true;
     trajopt_composite_profile->collision_cost_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
+        tesseract::collision::CollisionEvaluatorType::LVS_DISCRETE;
     trajopt_composite_profile->collision_cost_config.collision_check_config.longest_valid_segment_length = 0.05;
     trajopt_composite_profile->collision_cost_config.collision_margin_buffer = 0.01;
 
@@ -322,14 +324,13 @@ bool PickAndPlaceExample::run()
   const std::string pick_output_key = pick_task->getOutputKeys().get("program");
 
   // Create Task Composer Data Storage
-  auto pick_data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+  auto pick_data = std::make_unique<TaskComposerDataStorage>();
   pick_data->setData("planning_input", pick_program);
-  pick_data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+  pick_data->setData("environment", std::shared_ptr<const tesseract::environment::Environment>(env_));
   pick_data->setData("profiles", profiles);
 
   // Solve task
-  auto pick_context =
-      std::make_shared<tesseract_planning::TaskComposerContext>(pick_task->getName(), std::move(pick_data));
+  auto pick_context = std::make_shared<TaskComposerContext>(pick_task->getName(), std::move(pick_data));
   TaskComposerFuture::UPtr pick_future = executor->run(*pick_task, std::move(pick_context));
   pick_future->wait();
 
@@ -341,8 +342,8 @@ bool PickAndPlaceExample::run()
   {
     plotter_->waitForInput();
     auto ci = pick_future->context->data_storage->getData(pick_output_key).as<CompositeInstruction>();
-    tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
-    tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
+    tesseract::common::Toolpath toolpath = toToolpath(ci, *env_);
+    tesseract::common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();
     plotter_->plotMarker(ToolpathMarker(toolpath));
     plotter_->plotTrajectory(trajectory, *state_solver);
@@ -356,20 +357,20 @@ bool PickAndPlaceExample::run()
     plotter_->waitForInput();
 
   // Detach the simulated box from the world and attach to the end effector
-  tesseract_environment::Commands cmds;
+  tesseract::environment::Commands cmds;
   Joint joint_box2("joint_box2");
   joint_box2.parent_link_name = LINK_END_EFFECTOR_NAME;
   joint_box2.child_link_name = LINK_BOX_NAME;
   joint_box2.type = JointType::FIXED;
   joint_box2.parent_to_joint_origin_transform = Eigen::Isometry3d::Identity();
   joint_box2.parent_to_joint_origin_transform.translation() += Eigen::Vector3d(0, 0, box_size_ / 2.0);
-  cmds.push_back(std::make_shared<tesseract_environment::MoveLinkCommand>(joint_box2));
-  tesseract_common::AllowedCollisionMatrix add_ac;
+  cmds.push_back(std::make_shared<tesseract::environment::MoveLinkCommand>(joint_box2));
+  tesseract::common::AllowedCollisionMatrix add_ac;
   add_ac.addAllowedCollision(LINK_BOX_NAME, LINK_END_EFFECTOR_NAME, "Never");
   add_ac.addAllowedCollision(LINK_BOX_NAME, "iiwa_link_7", "Never");
   add_ac.addAllowedCollision(LINK_BOX_NAME, "iiwa_link_6", "Never");
-  cmds.push_back(std::make_shared<tesseract_environment::ModifyAllowedCollisionsCommand>(
-      add_ac, tesseract_environment::ModifyAllowedCollisionsType::ADD));
+  cmds.push_back(std::make_shared<tesseract::environment::ModifyAllowedCollisionsCommand>(
+      add_ac, tesseract::environment::ModifyAllowedCollisionsType::ADD));
   env_->applyCommands(cmds);
 
   // Get the last move instruction
@@ -442,14 +443,13 @@ bool PickAndPlaceExample::run()
   const std::string place_output_key = pick_task->getOutputKeys().get("program");
 
   // Create Task Composer Data Storage
-  auto place_data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+  auto place_data = std::make_unique<TaskComposerDataStorage>();
   place_data->setData("planning_input", place_program);
-  place_data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+  place_data->setData("environment", std::shared_ptr<const tesseract::environment::Environment>(env_));
   place_data->setData("profiles", profiles);
 
   // Solve task
-  auto place_context =
-      std::make_shared<tesseract_planning::TaskComposerContext>(place_task->getName(), std::move(place_data));
+  auto place_context = std::make_shared<TaskComposerContext>(place_task->getName(), std::move(place_data));
   TaskComposerFuture::UPtr place_future = executor->run(*place_task, std::move(place_context));
   place_future->wait();
 
@@ -461,8 +461,8 @@ bool PickAndPlaceExample::run()
   {
     plotter_->waitForInput();
     auto ci = place_future->context->data_storage->getData(place_output_key).as<CompositeInstruction>();
-    tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
-    tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
+    tesseract::common::Toolpath toolpath = toToolpath(ci, *env_);
+    tesseract::common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();
     plotter_->plotMarker(ToolpathMarker(toolpath));
     plotter_->plotTrajectory(trajectory, *state_solver);
@@ -474,4 +474,4 @@ bool PickAndPlaceExample::run()
   CONSOLE_BRIDGE_logInform("Done");
   return true;
 }
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples

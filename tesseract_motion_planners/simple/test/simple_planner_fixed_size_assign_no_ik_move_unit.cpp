@@ -32,7 +32,8 @@
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 
-using namespace tesseract_planning;
+using namespace tesseract::motion_planners;
+using namespace tesseract::command_language;
 
 /**
  * @brief Test fixture for SimplePlannerFixedSizeAssignNoIKMoveProfile unit tests
@@ -53,10 +54,11 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit, Seriali
 {
   auto profile = std::make_shared<SimplePlannerFixedSizeAssignNoIKMoveProfile>(10, 10);
   // Serialization
-  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile,
-                                                  SimplePlannerFixedSizeAssignNoIKMoveProfile>(profile,
-                                                                                               "SimplePlannerFixedSizeA"
-                                                                                               "ssignNoIKMoveProfile");
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile,
+                                                   SimplePlannerFixedSizeAssignNoIKMoveProfile>(profile,
+                                                                                                "SimplePlannerFixedSize"
+                                                                                                "A"
+                                                                                                "ssignNoIKMoveProfile");
 }
 
 /**
@@ -81,7 +83,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit, JointTo
 
   SimplePlannerFixedSizeAssignNoIKMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // For joint-to-joint moves with NoIK, all intermediate waypoints should be joint waypoints
@@ -133,7 +135,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit, JointTo
 
   SimplePlannerFixedSizeAssignNoIKMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // For linear joint-to-joint moves with NoIK, intermediate waypoints should be Cartesian
@@ -185,7 +187,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit, JointTo
 
   SimplePlannerFixedSizeAssignNoIKMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // For joint-to-cart moves with NoIK, all intermediate waypoints should be joint waypoints
@@ -238,7 +240,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit, JointTo
 
   SimplePlannerFixedSizeAssignNoIKMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // For linear joint-to-cart moves with NoIK, intermediate waypoints should be Cartesian
@@ -287,7 +289,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit, JointCa
 
   SimplePlannerFixedSizeAssignNoIKMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
   // For joint-to-cart moves with NoIK, all intermediate waypoints should be joint waypoints
   // with the start joint position assigned (no IK solving)
@@ -336,7 +338,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit, Cartesi
 
   SimplePlannerFixedSizeAssignNoIKMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
   // For cart-to-joint moves with NoIK, all intermediate waypoints should be joint waypoints
   // with the target joint position assigned
@@ -386,7 +388,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit,
 
   SimplePlannerFixedSizeAssignNoIKMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   auto fwd_kin = env_->getJointGroup(manip_info_.manipulator);
   Eigen::VectorXd position = env_->getCurrentJointValues(fwd_kin->getJointNames());
   EXPECT_EQ(move_instructions.size(), 10);
@@ -438,7 +440,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit, CartToJ
 
   SimplePlannerFixedSizeAssignNoIKMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions.size(), 10);
 
   // For linear cart-to-joint moves with NoIK, intermediate waypoints should be Cartesian
@@ -491,7 +493,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignNoIKMoveProfileUnit, CartToC
 
   SimplePlannerFixedSizeAssignNoIKMoveProfile profile(10, 10);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   auto fwd_kin = env_->getJointGroup(manip_info_.manipulator);
   Eigen::VectorXd position = env_->getCurrentJointValues(fwd_kin->getJointNames());
   EXPECT_EQ(move_instructions.size(), 10);

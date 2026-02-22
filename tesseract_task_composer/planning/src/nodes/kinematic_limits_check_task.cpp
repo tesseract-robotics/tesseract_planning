@@ -33,7 +33,7 @@
 
 #include <tesseract_task_composer/core/task_composer_context.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string KinematicLimitsCheckTask::INPUT_PROGRAM_PORT = "program";
@@ -92,17 +92,17 @@ TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& cont
   // Check that inputs are valid
   // --------------------
   auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
-  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
+  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract::environment::Environment>)))
   {
     info.color = "red";
     info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
     return info;
   }
 
-  auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
+  auto env = env_poly.as<std::shared_ptr<const tesseract::environment::Environment>>();
 
   auto input_data_poly = getData(context, INPUT_PROGRAM_PORT);
-  if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.color = "red";
     info.status_message = "Input to KinematicLimitsCheckTask must be a composite instruction";
@@ -110,15 +110,15 @@ TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& cont
   }
 
   // Get Composite Profile
-  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
-  auto& ci = input_data_poly.as<CompositeInstruction>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract::common::ProfileDictionary>>();
+  auto& ci = input_data_poly.as<tesseract::command_language::CompositeInstruction>();
   auto cur_composite_profile = profiles->getProfile<KinematicLimitsCheckProfile>(
       ns_, ci.getProfile(ns_), std::make_shared<KinematicLimitsCheckProfile>());
 
-  const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
+  const tesseract::common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
 
   // Create data structures for checking for plan profile overrides
-  auto flattened = ci.flatten(moveFilter);
+  auto flattened = ci.flatten(tesseract::command_language::moveFilter);
   if (flattened.empty())
   {
     info.color = "yellow";
@@ -129,10 +129,10 @@ TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& cont
   }
 
   // Wrap the composite instruction in a trajectory container
-  auto trajectory = std::make_shared<InstructionsTrajectory>(flattened);
+  auto trajectory = std::make_shared<tesseract::time_parameterization::InstructionsTrajectory>(flattened);
 
   // Extract the motion group
-  tesseract_kinematics::JointGroup::ConstPtr motion_group = env->getJointGroup(manip_info.manipulator);
+  tesseract::kinematics::JointGroup::ConstPtr motion_group = env->getJointGroup(manip_info.manipulator);
   const auto limits = motion_group->getLimits();
 
   // Check the trajectory limits
@@ -144,7 +144,7 @@ TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& cont
 
     if (cur_composite_profile->check_position)
     {
-      if (!tesseract_common::satisfiesLimits<double>(joint_pos, limits.joint_limits))
+      if (!tesseract::common::satisfiesLimits<double>(joint_pos, limits.joint_limits))
       {
         std::stringstream ss;
         ss << "Joint position limit violation(s) at waypoint " << i;
@@ -160,7 +160,7 @@ TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& cont
         throw std::runtime_error("Trajectory has no velocity data!");
 
       // Check for joint velocity limit violations
-      if (!tesseract_common::satisfiesLimits<double>(joint_vel, limits.velocity_limits))
+      if (!tesseract::common::satisfiesLimits<double>(joint_vel, limits.velocity_limits))
       {
         Eigen::ArrayXd capacity = 100.0 * joint_vel.array().abs() / limits.velocity_limits.col(1).array();
         std::stringstream ss;
@@ -179,7 +179,7 @@ TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& cont
         throw std::runtime_error("Trajectory has no acceleration data!");
 
       // Check for joint velocity acceleration limit violations
-      if (!tesseract_common::satisfiesLimits<double>(joint_acc, limits.acceleration_limits))
+      if (!tesseract::common::satisfiesLimits<double>(joint_acc, limits.acceleration_limits))
       {
         Eigen::ArrayXd capacity = 100.0 * joint_acc.array().abs() / limits.acceleration_limits.col(1).array();
         std::stringstream ss;
@@ -200,4 +200,4 @@ TaskComposerNodeInfo KinematicLimitsCheckTask::runImpl(TaskComposerContext& cont
   return info;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

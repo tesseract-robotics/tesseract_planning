@@ -59,7 +59,7 @@ constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid soluti
 
 using namespace trajopt;
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 TrajOptMotionPlanner::TrajOptMotionPlanner(std::string name) : MotionPlanner(std::move(name)) {}
 
@@ -151,22 +151,22 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
   const Eigen::MatrixX2d joint_limits = problem->GetKin()->getLimits().joint_limits;
 
   // Get the results
-  tesseract_common::TrajArray traj = getTraj(opt->x(), problem->GetVars());
+  tesseract::common::TrajArray traj = getTraj(opt->x(), problem->GetVars());
 
   // Enforce limits
   for (Eigen::Index i = 0; i < traj.rows(); i++)
   {
-    assert(tesseract_common::satisfiesLimits<double>(traj.row(i), joint_limits, 1e-4));
-    tesseract_common::enforceLimits<double>(traj.row(i), joint_limits);
+    assert(tesseract::common::satisfiesLimits<double>(traj.row(i), joint_limits, 1e-4));
+    tesseract::common::enforceLimits<double>(traj.row(i), joint_limits);
   }
 
   // Flatten the results to make them easier to process
   response.results = request.instructions;
-  auto results_instructions = response.results.flatten(&moveFilter);
+  auto results_instructions = response.results.flatten(&tesseract::command_language::moveFilter);
   assert(static_cast<Eigen::Index>(results_instructions.size()) == traj.rows());
   for (std::size_t idx = 0; idx < results_instructions.size(); idx++)
   {
-    auto& move_instruction = results_instructions.at(idx).get().as<MoveInstructionPoly>();
+    auto& move_instruction = results_instructions.at(idx).get().as<tesseract::command_language::MoveInstructionPoly>();
     assignSolution(
         move_instruction, joint_names, traj.row(static_cast<Eigen::Index>(idx)), request.format_result_as_input);
   }
@@ -182,10 +182,10 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
 
   // Assume all the plan instructions have the same manipulator as the composite
   assert(!request.instructions.getManipulatorInfo().empty());
-  const tesseract_common::ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
+  const tesseract::common::ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
 
   // Flatten the input for planning
-  auto move_instructions = request.instructions.flatten(&moveFilter);
+  auto move_instructions = request.instructions.flatten(&tesseract::command_language::moveFilter);
 
   // Create the problem
   auto pci = std::make_shared<trajopt::ProblemConstructionInfo>(request.env);
@@ -224,7 +224,8 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
 
   for (int i = 0; i < static_cast<Eigen::Index>(move_instructions.size()); ++i)
   {
-    const auto& move_instruction = move_instructions[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>();
+    const auto& move_instruction =
+        move_instructions[static_cast<std::size_t>(i)].get().as<tesseract::command_language::MoveInstructionPoly>();
 
     // Get Plan Profile
     TrajOptMoveProfile::ConstPtr cur_move_profile = request.profiles->getProfile<TrajOptMoveProfile>(
@@ -278,4 +279,4 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
 
   return pci;
 }
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

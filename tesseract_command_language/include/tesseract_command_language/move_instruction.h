@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/types.h>
 #include <tesseract_common/manipulator_info.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 class MoveInstruction;
 
@@ -71,7 +71,7 @@ public:
   explicit MoveInstruction(WaypointPoly waypoint,
                            MoveInstructionType type,
                            std::string profile = DEFAULT_PROFILE_KEY,
-                           tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
+                           tesseract::common::ManipulatorInfo manipulator_info = tesseract::common::ManipulatorInfo());
 
   /**
    * @brief Move Instruction Constructor
@@ -85,7 +85,7 @@ public:
                            MoveInstructionType type,
                            std::string profile,
                            std::string path_profile,
-                           tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
+                           tesseract::common::ManipulatorInfo manipulator_info = tesseract::common::ManipulatorInfo());
 
   // Instruction
 
@@ -145,13 +145,13 @@ public:
    * @brief Set the manipulator information
    * @param info The manipulator information
    */
-  void setManipulatorInfo(tesseract_common::ManipulatorInfo info) override final;
+  void setManipulatorInfo(tesseract::common::ManipulatorInfo info) override final;
   /**
    * @brief Get the manipulator information
    * @return The manipulator information
    */
-  const tesseract_common::ManipulatorInfo& getManipulatorInfo() const override final;
-  tesseract_common::ManipulatorInfo& getManipulatorInfo() override final;
+  const tesseract::common::ManipulatorInfo& getManipulatorInfo() const override final;
+  tesseract::common::ManipulatorInfo& getManipulatorInfo() override final;
 
   /**
    * @brief Set the waypoint profile
@@ -261,7 +261,7 @@ private:
   WaypointPoly waypoint_;
 
   /** @brief Contains information about the manipulator associated with this instruction*/
-  tesseract_common::ManipulatorInfo manipulator_info_;
+  tesseract::common::ManipulatorInfo manipulator_info_;
 
   /**
    * @brief Check if two objects are equal
@@ -271,9 +271,9 @@ private:
   bool equals(const MoveInstructionInterface& other) const override final;
 
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, MoveInstruction& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, MoveInstruction& obj);
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_MOVE_INSTRUCTION_H

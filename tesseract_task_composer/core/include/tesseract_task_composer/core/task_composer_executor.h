@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 struct TaskComposerProblem;
 class TaskComposerContext;
@@ -82,6 +82,6 @@ protected:
   virtual std::unique_ptr<TaskComposerFuture> runImpl(const TaskComposerNode& node,
                                                       std::shared_ptr<TaskComposerContext> context) = 0;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_EXECUTOR_H

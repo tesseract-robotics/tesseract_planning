@@ -58,24 +58,24 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 constexpr double EPS = 0.000001;
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 TimeOptimalTrajectoryGeneration::TimeOptimalTrajectoryGeneration(std::string name)
   : TimeParameterization(std::move(name))
 {
 }
 
-bool TimeOptimalTrajectoryGeneration::compute(CompositeInstruction& composite_instruction,
-                                              const tesseract_environment::Environment& env,
-                                              const tesseract_common::ProfileDictionary& profiles) const
+bool TimeOptimalTrajectoryGeneration::compute(tesseract::command_language::CompositeInstruction& composite_instruction,
+                                              const tesseract::environment::Environment& env,
+                                              const tesseract::common::ProfileDictionary& profiles) const
 {
-  auto flattened = composite_instruction.flatten(moveFilter);
+  auto flattened = composite_instruction.flatten(tesseract::command_language::moveFilter);
   if (flattened.empty())
     return true;
 
-  const tesseract_common::ManipulatorInfo manip_info = composite_instruction.getManipulatorInfo();
+  const tesseract::common::ManipulatorInfo manip_info = composite_instruction.getManipulatorInfo();
   auto jg = env.getJointGroup(manip_info.manipulator);
-  tesseract_common::KinematicLimits limits = jg->getLimits();
+  tesseract::common::KinematicLimits limits = jg->getLimits();
   Eigen::MatrixX2d velocity_limits{ limits.velocity_limits };
   Eigen::MatrixX2d acceleration_limits{ limits.acceleration_limits };
 
@@ -777,11 +777,12 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
   --start1;
   std::list<TrajectoryStep> trajectory;
   double slope{ 0 };
-  assert(start1->path_pos_ < path_pos || tesseract_common::almostEqualRelativeAndAbs(start1->path_pos_, path_pos, EPS));
+  assert(start1->path_pos_ < path_pos ||
+         tesseract::common::almostEqualRelativeAndAbs(start1->path_pos_, path_pos, EPS));
 
   while (start1 != start_trajectory.begin() || path_pos >= 0.0)
   {
-    if (start1->path_pos_ < path_pos || tesseract_common::almostEqualRelativeAndAbs(start1->path_pos_, path_pos, EPS))
+    if (start1->path_pos_ < path_pos || tesseract::common::almostEqualRelativeAndAbs(start1->path_pos_, path_pos, EPS))
     {
       trajectory.emplace_front(path_pos, path_vel);
       path_vel -= time_step_ * acceleration;
@@ -810,7 +811,7 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
     // It is possible to have both slope and start_slope to be equal
     // This occurs if two consecutive TrajectorySteps have the same acceleration.
     // Resulting in intersection_path_pos being nan because it divides by zero
-    bool check_eq_slope = tesseract_common::almostEqualRelativeAndAbs(slope, start_slope, EPS);
+    bool check_eq_slope = tesseract::common::almostEqualRelativeAndAbs(slope, start_slope, EPS);
     double intersection_path_pos{ 0 };
     if (check_eq_slope)
       intersection_path_pos = start1->path_pos_ + (start2->path_pos_ - start1->path_pos_) / 2.0;
@@ -821,9 +822,9 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
     double pos_max = std::max(start1->path_pos_, path_pos);
     double pos_min = std::min(start2->path_pos_, trajectory.front().path_pos_);
     bool check1 = (pos_max < intersection_path_pos) ||
-                  tesseract_common::almostEqualRelativeAndAbs(pos_max, intersection_path_pos, EPS);
+                  tesseract::common::almostEqualRelativeAndAbs(pos_max, intersection_path_pos, EPS);
     bool check2 = (intersection_path_pos < pos_min) ||
-                  tesseract_common::almostEqualRelativeAndAbs(pos_min, intersection_path_pos, EPS);
+                  tesseract::common::almostEqualRelativeAndAbs(pos_min, intersection_path_pos, EPS);
 
     if (check1 && check2)
     {
@@ -849,7 +850,7 @@ double Trajectory::getMinMaxPathAcceleration(double path_position, double path_v
   double max_path_acceleration = std::numeric_limits<double>::max();
   for (unsigned int i = 0; i < joint_num_; ++i)
   {
-    if (!tesseract_common::almostEqualRelativeAndAbs(config_deriv[i], 0.0, std::numeric_limits<double>::epsilon()))
+    if (!tesseract::common::almostEqualRelativeAndAbs(config_deriv[i], 0.0, std::numeric_limits<double>::epsilon()))
     {
       max_path_acceleration =
           std::min(max_path_acceleration,
@@ -1084,4 +1085,4 @@ Eigen::VectorXd Trajectory::getAcceleration(const PathData& data) const
   return path_acc;
 }
 }  // namespace totg
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization

@@ -45,7 +45,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string FormatAsInputTask::INPUT_PRE_PLANNING_PROGRAM_PORT = "pre_planning_program";
@@ -95,7 +95,7 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
   // Check that inputs are valid
   // --------------------
   auto input_formatted_data_poly = getData(context, INPUT_PRE_PLANNING_PROGRAM_PORT);
-  if (input_formatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_formatted_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input '" + input_keys_.get(INPUT_PRE_PLANNING_PROGRAM_PORT) +
                           "' instruction to FormatAsInputTask must be a composite instruction";
@@ -104,7 +104,8 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
   }
 
   auto input_unformatted_data_poly = getData(context, INPUT_POST_PLANNING_PROGRAM_PORT);
-  if (input_unformatted_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_unformatted_data_poly.getType() !=
+      std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input '" + input_keys_.get(INPUT_POST_PLANNING_PROGRAM_PORT) +
                           "' instruction to FormatAsInputTask must be a composite instruction";
@@ -112,12 +113,13 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
     return info;
   }
 
-  auto& ci_formatted_data = input_formatted_data_poly.as<CompositeInstruction>();
-  const auto& ci_unformatted_data = input_unformatted_data_poly.as<CompositeInstruction>();
+  auto& ci_formatted_data = input_formatted_data_poly.as<tesseract::command_language::CompositeInstruction>();
+  const auto& ci_unformatted_data = input_unformatted_data_poly.as<tesseract::command_language::CompositeInstruction>();
 
-  std::vector<std::reference_wrapper<InstructionPoly>> mi_formatted_data = ci_formatted_data.flatten();
-  std::vector<std::reference_wrapper<const InstructionPoly>> mi_unformatted_data =
-      ci_unformatted_data.flatten(&moveFilter);
+  std::vector<std::reference_wrapper<tesseract::command_language::InstructionPoly>> mi_formatted_data =
+      ci_formatted_data.flatten();
+  std::vector<std::reference_wrapper<const tesseract::command_language::InstructionPoly>> mi_unformatted_data =
+      ci_unformatted_data.flatten(&tesseract::command_language::moveFilter);
 
   if (mi_formatted_data.size() != mi_unformatted_data.size())
   {
@@ -128,20 +130,20 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
 
   for (std::size_t i = 0; i < mi_formatted_data.size(); ++i)
   {
-    auto& mi = mi_formatted_data[i].get().as<MoveInstructionPoly>();
-    const auto& umi = mi_unformatted_data[i].get().as<MoveInstructionPoly>();
+    auto& mi = mi_formatted_data[i].get().as<tesseract::command_language::MoveInstructionPoly>();
+    const auto& umi = mi_unformatted_data[i].get().as<tesseract::command_language::MoveInstructionPoly>();
 
     if (mi.getWaypoint().isStateWaypoint())
       continue;
 
     if (mi.getWaypoint().isCartesianWaypoint())
     {
-      auto& cwp = mi.getWaypoint().as<CartesianWaypointPoly>();
-      cwp.setSeed(tesseract_common::JointState(getJointNames(umi.getWaypoint()), getJointPosition(umi.getWaypoint())));
+      auto& cwp = mi.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>();
+      cwp.setSeed(tesseract::common::JointState(getJointNames(umi.getWaypoint()), getJointPosition(umi.getWaypoint())));
     }
     else if (mi.getWaypoint().isJointWaypoint())
     {
-      auto& jwp = mi.getWaypoint().as<JointWaypointPoly>();
+      auto& jwp = mi.getWaypoint().as<tesseract::command_language::JointWaypointPoly>();
       if (!jwp.isConstrained() || (jwp.isConstrained() && jwp.isToleranced()))
       {
         jwp.setNames(getJointNames(umi.getWaypoint()));
@@ -163,4 +165,4 @@ TaskComposerNodeInfo FormatAsInputTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

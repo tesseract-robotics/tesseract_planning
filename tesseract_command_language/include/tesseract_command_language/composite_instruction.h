@@ -40,7 +40,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/any_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 class CompositeInstruction;
 class MoveInstructionPoly;
@@ -84,8 +84,8 @@ public:
    * exist, the variant that is returned shouldn't hold any types - an
    * "empty variant" should be returned for keys that don't exist)
    */
-  using UserDataVariant =
-      std::variant<std::monostate, int, long, float, double, std::string, bool, std::size_t, tesseract_common::AnyPoly>;
+  using UserDataVariant = std::
+      variant<std::monostate, int, long, float, double, std::string, bool, std::size_t, tesseract::common::AnyPoly>;
   using UserData = std::unordered_map<std::string, UserDataVariant>;
 
   /** value_type */
@@ -112,7 +112,7 @@ public:
   using const_reverse_iterator = typename std::vector<value_type>::const_reverse_iterator;
 
   CompositeInstruction(std::string profile = DEFAULT_PROFILE_KEY,
-                       tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo(),
+                       tesseract::common::ManipulatorInfo manipulator_info = tesseract::common::ManipulatorInfo(),
                        CompositeInstructionOrder order = CompositeInstructionOrder::ORDERED);
 
   template <class InputIt>
@@ -182,9 +182,9 @@ public:
   void setProfileOverrides(ProfileOverrides profile_overrides);
   const ProfileOverrides& getProfileOverrides() const;
 
-  void setManipulatorInfo(tesseract_common::ManipulatorInfo info);
-  const tesseract_common::ManipulatorInfo& getManipulatorInfo() const;
-  tesseract_common::ManipulatorInfo& getManipulatorInfo();
+  void setManipulatorInfo(tesseract::common::ManipulatorInfo info);
+  const tesseract::common::ManipulatorInfo& getManipulatorInfo() const;
+  tesseract::common::ManipulatorInfo& getManipulatorInfo();
 
   void setInstructions(std::vector<InstructionPoly> instructions);
   std::vector<InstructionPoly>& getInstructions();
@@ -433,7 +433,7 @@ private:
   std::string description_{ "Tesseract Composite Instruction" };
 
   /** @brief Contains information about the manipulator associated with this instruction*/
-  tesseract_common::ManipulatorInfo manipulator_info_;
+  tesseract::common::ManipulatorInfo manipulator_info_;
 
   /**
    * @brief The profile applied its child plan instructions
@@ -501,10 +501,10 @@ private:
   bool equals(const InstructionInterface& other) const override final;
 
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, CompositeInstruction& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, CompositeInstruction& obj);
 };
 
-using CompositeInstructionAnyPoly = tesseract_common::AnyWrapper<CompositeInstruction>;
-}  // namespace tesseract_planning
+using CompositeInstructionAnyPoly = tesseract::common::AnyWrapper<CompositeInstruction>;
+}  // namespace tesseract::command_language
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMPOSITE_INSTRUCTION_H

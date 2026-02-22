@@ -60,7 +60,7 @@ Changelog for package tesseract_motion_planners
   * Fix format_result_as_input default for generateInterpolatedProgram
   * Fix format_result_as_input default for MinLengthTask
 * Fix createCartesianPositionConstraint not using coeffs
-* Make sure serialized objects have friend struct tesseract_common::Serialization
+* Make sure serialized objects have friend struct tesseract::common::Serialization
 * Contributors: Levi Armstrong, Roelof Oomen, Tyler Marr
 
 0.30.0 (2025-04-23)
@@ -351,7 +351,7 @@ Changelog for package tesseract_motion_planners
 * Add new ompl planner and rename existing one legacy
 * Add new descartes planner and rename existing one legacy
 * Add new simple planner and rename existing one legacy
-* Remove use of tesseract_common::StatusCode
+* Remove use of tesseract::common::StatusCode
 * Contributors: Levi Armstrong
 
 0.13.1 (2022-08-30)

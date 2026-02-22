@@ -35,14 +35,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_collision/core/types.h>
 #include <tesseract_collision/core/continuous_contact_manager.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 ContinuousMotionValidator::ContinuousMotionValidator(
     const ompl::base::SpaceInformationPtr& space_info,
     ompl::base::StateValidityCheckerPtr state_validator,
-    const tesseract_environment::Environment& env,
-    std::shared_ptr<const tesseract_kinematics::JointGroup> manip,
-    const tesseract_collision::ContactManagerConfig& contact_manager_config,
+    const tesseract::environment::Environment& env,
+    std::shared_ptr<const tesseract::kinematics::JointGroup> manip,
+    const tesseract::collision::ContactManagerConfig& contact_manager_config,
     OMPLStateExtractor extractor)
   : MotionValidator(space_info)
   , state_validator_(std::move(state_validator))
@@ -123,7 +123,7 @@ bool ContinuousMotionValidator::continuousCollisionCheck(const ompl::base::State
 {
   // It was time using chronos time elapsed and it was faster to cache the contact manager
   unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
-  tesseract_collision::ContinuousContactManager::Ptr cm;
+  tesseract::collision::ContinuousContactManager::Ptr cm;
   mutex_.lock();
   auto it = continuous_contact_managers_.find(hash);
   if (it == continuous_contact_managers_.end())
@@ -140,21 +140,21 @@ bool ContinuousMotionValidator::continuousCollisionCheck(const ompl::base::State
   Eigen::Map<Eigen::VectorXd> start_joints = extractor_(s1);
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(s2);
 
-  TESSERACT_THREAD_LOCAL tesseract_common::TransformMap state0;
+  TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state0;
   state0.clear();
   manip_->calcFwdKin(state0, start_joints);
 
-  TESSERACT_THREAD_LOCAL tesseract_common::TransformMap state1;
+  TESSERACT_THREAD_LOCAL tesseract::common::TransformMap state1;
   state1.clear();
   manip_->calcFwdKin(state1, finish_joints);
 
   for (const auto& link_name : links_)
     cm->setCollisionObjectsTransform(link_name, state0[link_name], state1[link_name]);
 
-  tesseract_collision::ContactResultMap contact_map;
-  cm->contactTest(contact_map, tesseract_collision::ContactTestType::FIRST);
+  tesseract::collision::ContactResultMap contact_map;
+  cm->contactTest(contact_map, tesseract::collision::ContactTestType::FIRST);
 
   return contact_map.empty();
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

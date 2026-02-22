@@ -54,11 +54,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
 
-using namespace tesseract_environment;
-using namespace tesseract_scene_graph;
-using namespace tesseract_collision;
-using namespace tesseract_planning;
-using namespace tesseract_kinematics;
+using namespace tesseract::environment;
+using namespace tesseract::scene_graph;
+using namespace tesseract::collision;
+using namespace tesseract::motion_planners;
+using namespace tesseract::command_language;
+using namespace tesseract::kinematics;
 using namespace descartes_light;
 
 static const bool DEBUG = false;
@@ -68,11 +69,11 @@ class TesseractPlanningDescartesUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
-  tesseract_common::ManipulatorInfo manip;
+  tesseract::common::ManipulatorInfo manip;
 
   void SetUp() override
   {
-    auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
+    auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
     Environment::Ptr env = std::make_shared<Environment>();
     std::filesystem::path urdf_path(
         locator->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
@@ -120,15 +121,16 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   auto move_profile = std::make_shared<DescartesDefaultMoveProfileD>();
 
   // Serialization
-  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, DescartesLadderGraphSolverProfileD>(
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile, DescartesLadderGraphSolverProfileD>(
       solver_profile, "descartes_solver_profile");
-  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, DescartesDefaultMoveProfileD>(move_profile,
-                                                                                                           "descartes_"
-                                                                                                           "move_"
-                                                                                                           "profile");
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile, DescartesDefaultMoveProfileD>(
+      move_profile,
+      "descartes_"
+      "move_"
+      "profile");
 
   // Profile Dictionary
-  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
   profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
@@ -232,7 +234,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   move_profile->target_pose_sample_resolution = M_PI_4;
 
   // Profile Dictionary
-  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
   profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
   profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", solver_profile);
 
@@ -328,7 +330,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   move_profile->enable_edge_collision = true;
 
   // Profile Dictionary
-  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
   profiles->addProfile(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", move_profile);
 
   // Create Planning Request

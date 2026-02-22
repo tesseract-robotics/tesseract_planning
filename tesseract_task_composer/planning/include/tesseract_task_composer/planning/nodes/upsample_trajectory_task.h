@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_task.h>
 #include <tesseract_command_language/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerPluginFactory;
 /**
@@ -68,9 +68,9 @@ public:
   UpsampleTrajectoryTask& operator=(UpsampleTrajectoryTask&&) = delete;
 
 private:
-  void upsample(CompositeInstruction& composite,
-                const CompositeInstruction& current_composite,
-                InstructionPoly& start_instruction,
+  void upsample(tesseract::command_language::CompositeInstruction& composite,
+                const tesseract::command_language::CompositeInstruction& current_composite,
+                tesseract::command_language::InstructionPoly& start_instruction,
                 double longest_valid_segment_length) const;
 
   static TaskComposerNodePorts ports();
@@ -79,6 +79,6 @@ private:
                                OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_UPSAMPLE_TRAJECTORY_TASK_H

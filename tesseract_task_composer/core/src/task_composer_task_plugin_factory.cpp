@@ -37,7 +37,7 @@
 
 #include <boost_plugin_loader/macros.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 using DoneTaskFactory = TaskComposerTaskFactory<DoneTask>;
 using ErrorTaskFactory = TaskComposerTaskFactory<ErrorTask>;
@@ -52,30 +52,30 @@ using PipelineTaskFactory = TaskComposerTaskFactory<TaskComposerPipeline>;
 PLUGIN_ANCHOR_IMPL(TaskComposerTaskFactoryAnchor)
 // LCOV_EXCL_STOP
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
-namespace tesseract_planning::test_suite
+namespace tesseract::task_composer::test_suite
 {
 using TestTaskFactory = TaskComposerTaskFactory<TestTask>;
 }
 
 // clang-format off
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::DoneTaskFactory, DoneTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::DoneTaskFactory, DoneTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::ErrorTaskFactory, ErrorTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::ErrorTaskFactory, ErrorTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::HasDataStorageEntryTaskFactory, HasDataStorageEntryTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::HasDataStorageEntryTaskFactory, HasDataStorageEntryTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::RemapTaskFactory, RemapTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::RemapTaskFactory, RemapTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::StartTaskFactory, StartTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::StartTaskFactory, StartTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::SyncTaskFactory, SyncTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::SyncTaskFactory, SyncTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::GraphTaskFactory, GraphTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::GraphTaskFactory, GraphTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::PipelineTaskFactory, PipelineTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::PipelineTaskFactory, PipelineTaskFactory)
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::test_suite::TestTaskFactory, TestTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN( tesseract::task_composer::test_suite::TestTaskFactory, TestTaskFactory)
 // clang-format on

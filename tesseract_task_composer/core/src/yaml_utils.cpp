@@ -33,7 +33,7 @@
 
 #include <yaml-cpp/yaml.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 void loadSubTaskConfig(TaskComposerNode& node, const YAML::Node& config)
 {
@@ -75,7 +75,7 @@ std::unique_ptr<TaskComposerNode> loadSubTask(const std::string& parent_name,
 {
   if (YAML::Node fn = entry["class"])
   {
-    tesseract_common::PluginInfo plugin_info;
+    tesseract::common::PluginInfo plugin_info;
     plugin_info.class_name = fn.as<std::string>();
     if (YAML::Node cn = entry["config"])
       plugin_info.config = cn;
@@ -100,7 +100,7 @@ std::unique_ptr<TaskComposerNode> loadSubTask(const std::string& parent_name,
     if (YAML::Node tc = entry["config"])
     {
       static const std::set<std::string> tasks_expected_keys{ "conditional", "abort_terminal", "override" };
-      tesseract_common::checkForUnknownKeys(tc, tasks_expected_keys);
+      tesseract::common::checkForUnknownKeys(tc, tasks_expected_keys);
 
       loadSubTaskConfig(*task_node, tc);
     }
@@ -133,4 +133,4 @@ void validateSubTask(const std::string& parent_name, const std::string& key, con
   if (!is_class && !is_task)
     throw std::runtime_error("Sub task for '" + parent_name + "' node '" + key + "' missing 'class' or 'task' entry");
 }
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

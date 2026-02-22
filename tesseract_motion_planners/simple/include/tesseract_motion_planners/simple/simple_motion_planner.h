@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/fwd.h>
 #include <tesseract_scene_graph/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /**
  * @brief The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all
@@ -65,12 +65,13 @@ public:
   std::unique_ptr<MotionPlanner> clone() const override;
 
 protected:
-  CompositeInstruction processCompositeInstruction(MoveInstructionPoly& prev_instruction,
-                                                   MoveInstructionPoly& prev_seed,
-                                                   const CompositeInstruction& instructions,
-                                                   const tesseract_scene_graph::SceneState& start_state,
-                                                   const PlannerRequest& request) const;
+  tesseract::command_language::CompositeInstruction
+  processCompositeInstruction(tesseract::command_language::MoveInstructionPoly& prev_instruction,
+                              tesseract::command_language::MoveInstructionPoly& prev_seed,
+                              const tesseract::command_language::CompositeInstruction& instructions,
+                              const tesseract::scene_graph::SceneState& start_state,
+                              const PlannerRequest& request) const;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_SIMPLE_PLANNER_H

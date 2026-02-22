@@ -26,11 +26,11 @@
 
 #include <boost_plugin_loader/macros.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // LCOV_EXCL_START
 PLUGIN_ANCHOR_DECL(TaskComposerTaskflowFactoriesAnchor)
 // LCOV_EXCL_STOP
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASKFLOW_TASK_COMPOSER_PLUGIN_FACTORIES_H

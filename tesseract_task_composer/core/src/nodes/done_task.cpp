@@ -30,7 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/nodes/done_task.h>
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 DoneTask::DoneTask() : DoneTask("DoneTask", false) {}
 DoneTask::DoneTask(std::string name, bool is_conditional)
@@ -54,4 +54,4 @@ TaskComposerNodeInfo DoneTask::runImpl(TaskComposerContext& /*context*/,
   return info;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

@@ -33,13 +33,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 class InstructionsTrajectory
 {
 public:
-  InstructionsTrajectory(std::vector<std::reference_wrapper<InstructionPoly>> trajectory);
-  InstructionsTrajectory(CompositeInstruction& program);
+  InstructionsTrajectory(std::vector<std::reference_wrapper<tesseract::command_language::InstructionPoly>> trajectory);
+  InstructionsTrajectory(tesseract::command_language::CompositeInstruction& program);
 
   const Eigen::VectorXd& getPosition(Eigen::Index i) const;
   Eigen::VectorXd& getPosition(Eigen::Index i);
@@ -59,8 +59,8 @@ public:
   bool isTimeStrictlyIncreasing() const;
 
 private:
-  std::vector<std::reference_wrapper<InstructionPoly>> trajectory_;
+  std::vector<std::reference_wrapper<tesseract::command_language::InstructionPoly>> trajectory_;
   Eigen::Index dof_;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization
 #endif  // TESSERACT_TIME_PARAMETERIZATION_INSTRUCTIONS_TRAJECTORY_H

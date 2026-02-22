@@ -1,7 +1,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_CORE_FWD_H
 #define TESSERACT_MOTION_PLANNERS_CORE_FWD_H
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 // waypoint_config.h
 struct CartesianWaypointConfig;
@@ -13,6 +13,6 @@ struct PlannerResponse;
 
 // planner.h
 class MotionPlanner;
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_CORE_FWD_H

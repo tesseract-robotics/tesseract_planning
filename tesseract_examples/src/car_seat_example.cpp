@@ -74,19 +74,21 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_visualization/visualization.h>
 #include <tesseract_visualization/markers/toolpath_marker.h>
 
-using namespace tesseract_environment;
-using namespace tesseract_kinematics;
-using namespace tesseract_scene_graph;
-using namespace tesseract_collision;
-using namespace tesseract_visualization;
-using namespace tesseract_planning;
-using tesseract_common::ManipulatorInfo;
+using namespace tesseract::environment;
+using namespace tesseract::kinematics;
+using namespace tesseract::scene_graph;
+using namespace tesseract::collision;
+using namespace tesseract::visualization;
+using namespace tesseract::task_composer;
+using namespace tesseract::command_language;
+using namespace tesseract::motion_planners;
+using tesseract::common::ManipulatorInfo;
 
 static const std::string TRAJOPT_IFOPT_DEFAULT_NAMESPACE = "TrajOptIfoptMotionPlannerTask";
 static const std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
-namespace tesseract_examples
+namespace tesseract::examples
 {
-Commands addSeats(const tesseract_common::ResourceLocator::ConstPtr& locator)
+Commands addSeats(const tesseract::common::ResourceLocator::ConstPtr& locator)
 {
   Commands cmds;
 
@@ -97,19 +99,20 @@ Commands addSeats(const tesseract_common::ResourceLocator::ConstPtr& locator)
     Visual::Ptr visual = std::make_shared<Visual>();
     visual->origin = Eigen::Isometry3d::Identity();
     visual->geometry =
-        tesseract_geometry::createMeshFromResource<tesseract_geometry::Mesh>(locator->locateResource("package://"
-                                                                                                     "tesseract_"
-                                                                                                     "support/meshes/"
-                                                                                                     "car_seat/visual/"
-                                                                                                     "seat.dae"),
-                                                                             Eigen::Vector3d(1, 1, 1),
-                                                                             true)[0];
+        tesseract::geometry::createMeshFromResource<tesseract::geometry::Mesh>(locator->locateResource("package://"
+                                                                                                       "tesseract_"
+                                                                                                       "support/meshes/"
+                                                                                                       "car_seat/"
+                                                                                                       "visual/"
+                                                                                                       "seat.dae"),
+                                                                               Eigen::Vector3d(1, 1, 1),
+                                                                               true)[0];
     link_seat.visual.push_back(visual);
 
     for (int m = 1; m <= 10; ++m)
     {
-      std::vector<tesseract_geometry::Mesh::Ptr> meshes =
-          tesseract_geometry::createMeshFromResource<tesseract_geometry::Mesh>(
+      std::vector<tesseract::geometry::Mesh::Ptr> meshes =
+          tesseract::geometry::createMeshFromResource<tesseract::geometry::Mesh>(
               locator->locateResource("package://tesseract_support/"
                                       "meshes/car_seat/collision/seat_" +
                                       std::to_string(m) + ".stl"));
@@ -131,13 +134,13 @@ Commands addSeats(const tesseract_common::ResourceLocator::ConstPtr& locator)
                                                   Eigen::AngleAxisd(3.14159, Eigen::Vector3d::UnitZ());
     joint_seat.parent_to_joint_origin_transform.translation() = Eigen::Vector3d(0.5 + i, 2.15, 0.45);
 
-    cmds.push_back(std::make_shared<tesseract_environment::AddLinkCommand>(link_seat, joint_seat));
+    cmds.push_back(std::make_shared<tesseract::environment::AddLinkCommand>(link_seat, joint_seat));
   }
   return cmds;
 }
 
-CarSeatExample::CarSeatExample(std::shared_ptr<tesseract_environment::Environment> env,
-                               std::shared_ptr<tesseract_visualization::Visualization> plotter,
+CarSeatExample::CarSeatExample(std::shared_ptr<tesseract::environment::Environment> env,
+                               std::shared_ptr<tesseract::visualization::Visualization> plotter,
                                bool ifopt,
                                bool debug)
   : Example(std::move(env), std::move(plotter)), ifopt_(ifopt), debug_(debug)
@@ -246,7 +249,7 @@ bool CarSeatExample::run()
     console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO);
 
   // Create Task Composer Plugin Factory
-  std::shared_ptr<const tesseract_common::ResourceLocator> locator = env_->getResourceLocator();
+  std::shared_ptr<const tesseract::common::ResourceLocator> locator = env_->getResourceLocator();
   std::filesystem::path config_path(
       locator->locateResource("package://tesseract_task_composer/config/task_composer_plugins.yaml")->getFilePath());
   TaskComposerPluginFactory factory(config_path, *env_->getResourceLocator());
@@ -275,21 +278,21 @@ bool CarSeatExample::run()
   auto executor = factory.createTaskComposerExecutor("TaskflowExecutor");
 
   // Create profile dictionary
-  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
   if (ifopt_)
   {
     // Create TrajOpt_Ifopt Profile
     auto trajopt_ifopt_composite_profile = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
     trajopt_ifopt_composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 10);
     trajopt_ifopt_composite_profile->collision_constraint_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+        tesseract::collision::CollisionEvaluatorType::LVS_CONTINUOUS;
     trajopt_ifopt_composite_profile->collision_constraint_config.collision_check_config.longest_valid_segment_length =
         0.1;
     trajopt_ifopt_composite_profile->collision_constraint_config.collision_margin_buffer = 0.005;
 
     trajopt_ifopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.005, 50);
     trajopt_ifopt_composite_profile->collision_cost_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+        tesseract::collision::CollisionEvaluatorType::LVS_CONTINUOUS;
     trajopt_ifopt_composite_profile->collision_cost_config.collision_check_config.longest_valid_segment_length = 0.1;
     trajopt_ifopt_composite_profile->collision_cost_config.collision_margin_buffer = 0.01;
 
@@ -314,13 +317,13 @@ bool CarSeatExample::run()
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
     trajopt_composite_profile->collision_constraint_config = trajopt_common::TrajOptCollisionConfig(0.0, 10);
     trajopt_composite_profile->collision_constraint_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+        tesseract::collision::CollisionEvaluatorType::LVS_CONTINUOUS;
     trajopt_composite_profile->collision_constraint_config.collision_check_config.longest_valid_segment_length = 0.1;
     trajopt_composite_profile->collision_constraint_config.collision_margin_buffer = 0.005;
 
     trajopt_composite_profile->collision_cost_config = trajopt_common::TrajOptCollisionConfig(0.005, 50);
     trajopt_composite_profile->collision_cost_config.collision_check_config.type =
-        tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+        tesseract::collision::CollisionEvaluatorType::LVS_CONTINUOUS;
     trajopt_composite_profile->collision_cost_config.collision_check_config.longest_valid_segment_length = 0.1;
     trajopt_composite_profile->collision_cost_config.collision_margin_buffer = 0.01;
 
@@ -375,13 +378,13 @@ bool CarSeatExample::run()
     const std::string output_key = task->getOutputKeys().get("program");
 
     // Create Task Composer Data Storage
-    auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+    auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("planning_input", program);
-    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    data->setData("environment", std::shared_ptr<const tesseract::environment::Environment>(env_));
     data->setData("profiles", profiles);
 
     // Solve task
-    auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+    auto context = std::make_shared<TaskComposerContext>(task->getName(), std::move(data));
     TaskComposerFuture::UPtr future = executor->run(*task, std::move(context));
     future->wait();
 
@@ -392,8 +395,8 @@ bool CarSeatExample::run()
     if (plotter_ != nullptr && plotter_->isConnected())
     {
       auto ci = future->context->data_storage->getData(output_key).as<CompositeInstruction>();
-      tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
-      tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
+      tesseract::common::Toolpath toolpath = toToolpath(ci, *env_);
+      tesseract::common::JointTrajectory trajectory = toJointTrajectory(ci);
       auto state_solver = env_->getStateSolver();
       plotter_->plotMarker(ToolpathMarker(toolpath));
       plotter_->plotTrajectory(trajectory, *state_solver);
@@ -415,15 +418,15 @@ bool CarSeatExample::run()
   cmds.clear();
   cmds.push_back(std::make_shared<MoveLinkCommand>(joint_seat_1_robot));
 
-  tesseract_common::AllowedCollisionMatrix add_ac;
+  tesseract::common::AllowedCollisionMatrix add_ac;
   add_ac.addAllowedCollision("seat_1", "end_effector", "Adjacent");
   add_ac.addAllowedCollision("seat_1", "cell_logo", "Never");
   add_ac.addAllowedCollision("seat_1", "fence", "Never");
   add_ac.addAllowedCollision("seat_1", "link_b", "Never");
   add_ac.addAllowedCollision("seat_1", "link_r", "Never");
   add_ac.addAllowedCollision("seat_1", "link_t", "Never");
-  cmds.push_back(std::make_shared<tesseract_environment::ModifyAllowedCollisionsCommand>(
-      add_ac, tesseract_environment::ModifyAllowedCollisionsType::ADD));
+  cmds.push_back(std::make_shared<tesseract::environment::ModifyAllowedCollisionsCommand>(
+      add_ac, tesseract::environment::ModifyAllowedCollisionsType::ADD));
 
   // Apply the commands to the environment
   if (!env_->applyCommands(cmds))
@@ -463,13 +466,13 @@ bool CarSeatExample::run()
     const std::string output_key = task->getOutputKeys().get("program");
 
     // Create Task Composer Data Storage
-    auto data = std::make_unique<tesseract_planning::TaskComposerDataStorage>();
+    auto data = std::make_unique<TaskComposerDataStorage>();
     data->setData("planning_input", program);
-    data->setData("environment", std::shared_ptr<const tesseract_environment::Environment>(env_));
+    data->setData("environment", std::shared_ptr<const tesseract::environment::Environment>(env_));
     data->setData("profiles", profiles);
 
     // Solve task
-    auto context = std::make_shared<tesseract_planning::TaskComposerContext>(task->getName(), std::move(data));
+    auto context = std::make_shared<TaskComposerContext>(task->getName(), std::move(data));
     TaskComposerFuture::UPtr future = executor->run(*task, std::move(context));
     future->wait();
 
@@ -480,8 +483,8 @@ bool CarSeatExample::run()
     if (plotter_ != nullptr && plotter_->isConnected())
     {
       auto ci = future->context->data_storage->getData(output_key).as<CompositeInstruction>();
-      tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
-      tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
+      tesseract::common::Toolpath toolpath = toToolpath(ci, *env_);
+      tesseract::common::JointTrajectory trajectory = toJointTrajectory(ci);
       auto state_solver = env_->getStateSolver();
       plotter_->plotMarker(ToolpathMarker(toolpath));
       plotter_->plotTrajectory(trajectory, *state_solver);
@@ -492,4 +495,4 @@ bool CarSeatExample::run()
   return true;
 }
 
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples

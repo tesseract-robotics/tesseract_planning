@@ -32,13 +32,13 @@
 #include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 FixStateCollisionProfile::FixStateCollisionProfile(Settings mode)
   : Profile(createKey<FixStateCollisionProfile>()), mode(mode)
 {
-  collision_check_config.contact_request.type = tesseract_collision::ContactTestType::FIRST;
-  collision_check_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
+  collision_check_config.contact_request.type = tesseract::collision::ContactTestType::FIRST;
+  collision_check_config.type = tesseract::collision::CollisionEvaluatorType::DISCRETE;
   trajopt_joint_constraint_config.coeff = Eigen::VectorXd::Constant(1, 1, 1);
   trajopt_joint_cost_config.coeff = Eigen::VectorXd::Constant(1, 1, 5);
   collision_constraint_coeff = trajopt_common::CollisionCoeffData(1.0);
@@ -47,7 +47,7 @@ FixStateCollisionProfile::FixStateCollisionProfile(Settings mode)
 }
 
 FixStateCollisionProfile::FixStateCollisionProfile(const YAML::Node& config,
-                                                   const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+                                                   const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : FixStateCollisionProfile()
 {
   try
@@ -59,15 +59,15 @@ FixStateCollisionProfile::FixStateCollisionProfile(const YAML::Node& config,
     if (YAML::Node n = config["jiggle_factor"])
       jiggle_factor = n.as<double>();
     if (YAML::Node n = config["contact_manager_config"])
-      contact_manager_config = n.as<tesseract_collision::ContactManagerConfig>();
+      contact_manager_config = n.as<tesseract::collision::ContactManagerConfig>();
     if (YAML::Node n = config["collision_check_config"])
-      collision_check_config = n.as<tesseract_collision::CollisionCheckConfig>();
+      collision_check_config = n.as<tesseract::collision::CollisionCheckConfig>();
     if (YAML::Node n = config["sampling_attempts"])
       sampling_attempts = n.as<int>();
     if (YAML::Node n = config["trajopt_joint_constraint_config"])
-      trajopt_joint_constraint_config = n.as<tesseract_planning::TrajOptJointWaypointConfig>();
+      trajopt_joint_constraint_config = n.as<tesseract::motion_planners::TrajOptJointWaypointConfig>();
     if (YAML::Node n = config["trajopt_joint_cost_config"])
-      trajopt_joint_cost_config = n.as<tesseract_planning::TrajOptJointWaypointConfig>();
+      trajopt_joint_cost_config = n.as<tesseract::motion_planners::TrajOptJointWaypointConfig>();
     if (YAML::Node n = config["collision_constraint_coeff"])
       collision_constraint_coeff = n.as<trajopt_common::CollisionCoeffData>();
     if (YAML::Node n = config["collision_cost_coeff"])
@@ -83,11 +83,12 @@ FixStateCollisionProfile::FixStateCollisionProfile(const YAML::Node& config,
 bool FixStateCollisionProfile::operator==(const FixStateCollisionProfile& rhs) const
 {
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+  using namespace tesseract::motion_planners;
 
   bool equal = true;
   equal &= (mode == rhs.mode);
   equal &= (correction_workflow == rhs.correction_workflow);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(jiggle_factor, rhs.jiggle_factor, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(jiggle_factor, rhs.jiggle_factor, max_diff);
   equal &= (contact_manager_config == rhs.contact_manager_config);
   equal &= (collision_check_config == rhs.collision_check_config);
   equal &= (sampling_attempts == rhs.sampling_attempts);
@@ -103,4 +104,4 @@ bool FixStateCollisionProfile::operator==(const FixStateCollisionProfile& rhs) c
 
 bool FixStateCollisionProfile::operator!=(const FixStateCollisionProfile& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

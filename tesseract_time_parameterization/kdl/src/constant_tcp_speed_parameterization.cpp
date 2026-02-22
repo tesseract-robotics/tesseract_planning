@@ -53,7 +53,7 @@ Eigen::VectorXd fromKDL(const KDL::Twist& k)
   return out;
 }
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 Eigen::VectorXd computeJointVelocity(const Eigen::MatrixXd& jac, const KDL::Twist& x_dot, const Eigen::VectorXd& q)
 {
@@ -65,7 +65,7 @@ Eigen::VectorXd computeJointVelocity(const Eigen::MatrixXd& jac, const KDL::Twis
   // }
   // else
   // {
-  if (!tesseract_kinematics::solvePInv(jac, fromKDL(x_dot), q_dot))
+  if (!tesseract::kinematics::solvePInv(jac, fromKDL(x_dot), q_dot))
     throw std::runtime_error("Failed to solve pseudo-inverse for joint velocity calculation");
   // }
 
@@ -103,7 +103,7 @@ Eigen::VectorXd computeJointAcceleration(KDL::ChainJntToJacDotSolver& solver,
   // }
   // else
   // {
-  if (!tesseract_kinematics::solvePInv(jac, twist, q_dot_dot))
+  if (!tesseract::kinematics::solvePInv(jac, twist, q_dot_dot))
     throw std::runtime_error("Failed to solve pseudo-inverse for acceleration calculation");
   // }
 
@@ -115,15 +115,15 @@ ConstantTCPSpeedParameterization::ConstantTCPSpeedParameterization(std::string n
 {
 }
 
-bool ConstantTCPSpeedParameterization::compute(CompositeInstruction& composite_instruction,
-                                               const tesseract_environment::Environment& env,
-                                               const tesseract_common::ProfileDictionary& profiles) const
+bool ConstantTCPSpeedParameterization::compute(tesseract::command_language::CompositeInstruction& composite_instruction,
+                                               const tesseract::environment::Environment& env,
+                                               const tesseract::common::ProfileDictionary& profiles) const
 {
-  auto flattened = composite_instruction.flatten(moveFilter);
+  auto flattened = composite_instruction.flatten(tesseract::command_language::moveFilter);
   if (flattened.empty())
     return true;
 
-  const tesseract_common::ManipulatorInfo manip_info = composite_instruction.getManipulatorInfo();
+  const tesseract::common::ManipulatorInfo manip_info = composite_instruction.getManipulatorInfo();
   Eigen::Isometry3d tcp_offset = env.findTCPOffset(manip_info);
   auto jg = env.getJointGroup(manip_info.manipulator);
 
@@ -170,8 +170,8 @@ bool ConstantTCPSpeedParameterization::compute(CompositeInstruction& composite_i
   const double eq_radius = std::min(eqr_vel, eqr_acc);
 
   // Construct the KDL chain
-  tesseract_kinematics::KDLChainData data;
-  if (!tesseract_kinematics::parseSceneGraph(data, *env.getSceneGraph(), jg->getBaseLinkName(), manip_info.tcp_frame))
+  tesseract::kinematics::KDLChainData data;
+  if (!tesseract::kinematics::parseSceneGraph(data, *env.getSceneGraph(), jg->getBaseLinkName(), manip_info.tcp_frame))
     throw std::runtime_error("Failed to construct KDL chain");
 
   // Create a Jacobian derivative solver
@@ -184,7 +184,7 @@ bool ConstantTCPSpeedParameterization::compute(CompositeInstruction& composite_i
     // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
     KDL::Path_Composite path;
     /** @brief Making this thread_local does not help because it is not called enough during planning */
-    tesseract_common::TransformMap transforms;
+    tesseract::common::TransformMap transforms;
     Eigen::Isometry3d pose{ Eigen::Isometry3d::Identity() };
     for (Eigen::Index i = 1; i < trajectory.size(); ++i)
     {
@@ -195,12 +195,12 @@ bool ConstantTCPSpeedParameterization::compute(CompositeInstruction& composite_i
       KDL::Frame start;
       jg->calcFwdKin(transforms, start_joints);
       pose = transforms.at(manip_info.tcp_frame) * tcp_offset;
-      tesseract_kinematics::EigenToKDL(pose, start);
+      tesseract::kinematics::EigenToKDL(pose, start);
 
       KDL::Frame end;
       jg->calcFwdKin(transforms, end_joints);
       pose = transforms.at(manip_info.tcp_frame) * tcp_offset;
-      tesseract_kinematics::EigenToKDL(pose, end);
+      tesseract::kinematics::EigenToKDL(pose, end);
 
       // Convert to KDL::Path
       // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
@@ -280,4 +280,4 @@ bool ConstantTCPSpeedParameterization::compute(CompositeInstruction& composite_i
   return true;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization

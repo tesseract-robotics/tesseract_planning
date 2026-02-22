@@ -26,7 +26,7 @@
 
 #include <tesseract_examples/example.h>
 
-namespace tesseract_examples
+namespace tesseract::examples
 {
 /**
  * @brief An example of a robot leveraging OMPL RRTConnect to generate a freespace motion trajectory the TrajOpt to
@@ -35,8 +35,8 @@ namespace tesseract_examples
 class FreespaceHybridExample : public Example
 {
 public:
-  FreespaceHybridExample(std::shared_ptr<tesseract_environment::Environment> env,
-                         std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
+  FreespaceHybridExample(std::shared_ptr<tesseract::environment::Environment> env,
+                         std::shared_ptr<tesseract::visualization::Visualization> plotter = nullptr,
                          bool ifopt = false,
                          bool debug = false,
                          double range = 0.01,
@@ -56,6 +56,6 @@ private:
   double planning_time_;
 };
 
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples
 
 #endif  // TESSERACT_EXAMPLES_FREESPACE_HYBRID_EXAMPLE_H

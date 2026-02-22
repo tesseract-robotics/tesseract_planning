@@ -32,9 +32,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_command_language/move_instruction.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-namespace tesseract_planning::test_suite
+namespace tesseract::task_composer::test_suite
 {
-using tesseract_common::ManipulatorInfo;
+using tesseract::command_language::CartesianWaypoint;
+using tesseract::command_language::CompositeInstruction;
+using tesseract::command_language::DEFAULT_PROFILE_KEY;
+using tesseract::command_language::JointWaypoint;
+using tesseract::command_language::MoveInstruction;
+using tesseract::command_language::MoveInstructionType;
+using tesseract::command_language::StateWaypoint;
+using tesseract::common::ManipulatorInfo;
 
 inline CompositeInstruction freespaceExampleProgramIIWA(
     const Eigen::Isometry3d& goal = Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.2, 0.2, 1.0),
@@ -398,6 +405,6 @@ inline CompositeInstruction rasterSegmentsOnlyExampleProgram(const std::string& 
 
   return program;
 }
-}  // namespace tesseract_planning::test_suite
+}  // namespace tesseract::task_composer::test_suite
 
 #endif  // TESSERACT_TASK_COMPOSER_TEST_PROGRAMS_HPP

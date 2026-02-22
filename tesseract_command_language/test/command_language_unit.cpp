@@ -48,8 +48,8 @@
 
 #include "command_language_test_program.hpp"
 
-using namespace tesseract_planning;
-using tesseract_common::ManipulatorInfo;
+using namespace tesseract::command_language;
+using tesseract::common::ManipulatorInfo;
 
 TEST(TesseractCommandLanguageUnit, WaypointPolyTests)  // NOLINT
 {
@@ -260,14 +260,14 @@ TEST(TesseractCommandLanguageUnit, SetAnalogInstructionTests)  // NOLINT
     T instr(key, index, value);
     EXPECT_EQ(instr.getKey(), key);
     EXPECT_EQ(instr.getIndex(), index);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(instr.getValue(), value));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(instr.getValue(), value));
 
     // Copy
     InstructionPoly poly{ instr };
     InstructionPoly copy(poly);
     EXPECT_EQ(copy.as<T>().getKey(), key);
     EXPECT_EQ(copy.as<T>().getIndex(), index);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(copy.as<T>().getValue(), value));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(copy.as<T>().getValue(), value));
     EXPECT_TRUE(isSetAnalogInstruction(poly));
     EXPECT_TRUE(isSetAnalogInstruction(copy));
     test_suite::runInstructionSerializationTest(poly);
@@ -399,14 +399,14 @@ TEST(TesseractCommandLanguageUnit, TimerInstructionTests)  // NOLINT
     T instr(type, time, io);
     EXPECT_EQ(instr.getTimerType(), type);
     EXPECT_EQ(instr.getTimerIO(), io);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(instr.getTimerTime(), time));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(instr.getTimerTime(), time));
 
     // Copy
     InstructionPoly poly{ instr };
     InstructionPoly copy(poly);
     EXPECT_EQ(copy.as<T>().getTimerType(), type);
     EXPECT_EQ(copy.as<T>().getTimerIO(), io);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(copy.as<T>().getTimerTime(), time));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(copy.as<T>().getTimerTime(), time));
     EXPECT_TRUE(isTimerInstruction(poly));
     EXPECT_TRUE(isTimerInstruction(copy));
     test_suite::runInstructionSerializationTest(poly);
@@ -455,12 +455,12 @@ TEST(TesseractCommandLanguageUnit, WaitInstructionTests)  // NOLINT
     T instr(time);
     EXPECT_EQ(instr.getWaitType(), type);
     EXPECT_EQ(instr.getWaitIO(), -1);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(instr.getWaitTime(), time));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(instr.getWaitTime(), time));
 
     T instr2(WaitInstructionType::DIGITAL_INPUT_HIGH, io);
     EXPECT_EQ(instr2.getWaitType(), WaitInstructionType::DIGITAL_INPUT_HIGH);
     EXPECT_EQ(instr2.getWaitIO(), io);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(instr2.getWaitTime(), 0.0));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(instr2.getWaitTime(), 0.0));
 
     EXPECT_ANY_THROW((T{ type, io }));  // NOLINT
 
@@ -469,7 +469,7 @@ TEST(TesseractCommandLanguageUnit, WaitInstructionTests)  // NOLINT
     InstructionPoly copy(poly);
     EXPECT_EQ(copy.as<T>().getWaitType(), type);
     EXPECT_EQ(copy.as<T>().getWaitIO(), -1);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(copy.as<T>().getWaitTime(), time));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(copy.as<T>().getWaitTime(), time));
     EXPECT_TRUE(isWaitInstruction(poly));
     EXPECT_TRUE(isWaitInstruction(copy));
     test_suite::runInstructionSerializationTest(poly);
@@ -485,7 +485,7 @@ TEST(TesseractCommandLanguageUnit, WaitInstructionTests)  // NOLINT
     InstructionPoly copy2(poly2);
     EXPECT_EQ(copy2.as<T>().getWaitType(), WaitInstructionType::DIGITAL_INPUT_HIGH);
     EXPECT_EQ(copy2.as<T>().getWaitIO(), io);
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(copy2.as<T>().getWaitTime(), 0.0));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(copy2.as<T>().getWaitTime(), 0.0));
     EXPECT_TRUE(isWaitInstruction(poly2));
     EXPECT_TRUE(isWaitInstruction(copy2));
     test_suite::runInstructionSerializationTest(poly2);

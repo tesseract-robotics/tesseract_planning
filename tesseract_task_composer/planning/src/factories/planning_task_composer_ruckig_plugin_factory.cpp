@@ -27,13 +27,13 @@
 
 #include <tesseract_task_composer/planning/nodes/ruckig_trajectory_smoothing_task.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 using RuckigTrajectorySmoothingTaskFactory = TaskComposerTaskFactory<RuckigTrajectorySmoothingTask>;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 // clang-format off
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::RuckigTrajectorySmoothingTaskFactory, RuckigTrajectorySmoothingTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract::task_composer::RuckigTrajectorySmoothingTaskFactory, RuckigTrajectorySmoothingTaskFactory)
 // clang-format on

@@ -30,7 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 TimerInstruction::TimerInstruction(TimerInstructionType type, double time, int io)
   : uuid_(boost::uuids::random_generator()()), timer_type_(type), timer_time_(time), timer_io_(io)
@@ -87,11 +87,11 @@ bool TimerInstruction::equals(const InstructionInterface& other) const
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= tesseract_common::almostEqualRelativeAndAbs(timer_time_, rhs->timer_time_, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(timer_time_, rhs->timer_time_, max_diff);
   equal &= (timer_type_ == rhs->timer_type_);
   equal &= (timer_io_ == rhs->timer_io_);
 
   return equal;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

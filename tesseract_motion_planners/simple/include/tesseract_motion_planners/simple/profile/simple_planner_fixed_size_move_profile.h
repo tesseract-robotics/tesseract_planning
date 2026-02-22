@@ -31,7 +31,7 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 class SimplePlannerFixedSizeMoveProfile : public SimplePlannerMoveProfile
 {
@@ -46,13 +46,14 @@ public:
    */
   SimplePlannerFixedSizeMoveProfile(int freespace_steps = 10, int linear_steps = 10);
   SimplePlannerFixedSizeMoveProfile(const YAML::Node& config,
-                                    const tesseract_common::ProfilePluginFactory& plugin_factory);
-  std::vector<MoveInstructionPoly> generate(const MoveInstructionPoly& prev_instruction,
-                                            const MoveInstructionPoly& prev_seed,
-                                            const MoveInstructionPoly& base_instruction,
-                                            const InstructionPoly& next_instruction,
-                                            const std::shared_ptr<const tesseract_environment::Environment>& env,
-                                            const tesseract_common::ManipulatorInfo& global_manip_info) const override;
+                                    const tesseract::common::ProfilePluginFactory& plugin_factory);
+  std::vector<tesseract::command_language::MoveInstructionPoly>
+  generate(const tesseract::command_language::MoveInstructionPoly& prev_instruction,
+           const tesseract::command_language::MoveInstructionPoly& prev_seed,
+           const tesseract::command_language::MoveInstructionPoly& base_instruction,
+           const tesseract::command_language::InstructionPoly& next_instruction,
+           const std::shared_ptr<const tesseract::environment::Environment>& env,
+           const tesseract::common::ManipulatorInfo& global_manip_info) const override;
 
   /** @brief The number of steps to use for freespace instruction */
   int freespace_steps;
@@ -64,6 +65,6 @@ public:
   bool operator!=(const SimplePlannerFixedSizeMoveProfile& rhs) const;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_MOVE_PROFILE_H

@@ -41,10 +41,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <descartes_light/core/edge_evaluator.h>
 #include <descartes_light/core/state_evaluator.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 template <typename FloatType>
-class DescartesSolverProfile : public tesseract_common::Profile
+class DescartesSolverProfile : public tesseract::common::Profile
 {
 public:
   using Ptr = std::shared_ptr<DescartesSolverProfile<FloatType>>;
@@ -56,7 +56,7 @@ public:
 };
 
 template <typename FloatType>
-class DescartesMoveProfile : public tesseract_common::Profile
+class DescartesMoveProfile : public tesseract::common::Profile
 {
 public:
   using Ptr = std::shared_ptr<DescartesMoveProfile<FloatType>>;
@@ -64,24 +64,24 @@ public:
 
   DescartesMoveProfile() : Profile(createKey<DescartesMoveProfile<FloatType>>()) {}
 
-  std::shared_ptr<const tesseract_kinematics::KinematicGroup>
-  createKinematicGroup(const tesseract_common::ManipulatorInfo& manip_info,
-                       const tesseract_environment::Environment& env) const;
+  std::shared_ptr<const tesseract::kinematics::KinematicGroup>
+  createKinematicGroup(const tesseract::common::ManipulatorInfo& manip_info,
+                       const tesseract::environment::Environment& env) const;
 
   virtual std::unique_ptr<descartes_light::WaypointSampler<FloatType>>
-  createWaypointSampler(const MoveInstructionPoly& move_instruction,
-                        const tesseract_common::ManipulatorInfo& composite_manip_info,
-                        const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
+  createWaypointSampler(const tesseract::command_language::MoveInstructionPoly& move_instruction,
+                        const tesseract::common::ManipulatorInfo& composite_manip_info,
+                        const std::shared_ptr<const tesseract::environment::Environment>& env) const = 0;
 
   virtual std::unique_ptr<descartes_light::EdgeEvaluator<FloatType>>
-  createEdgeEvaluator(const MoveInstructionPoly& move_instruction,
-                      const tesseract_common::ManipulatorInfo& composite_manip_info,
-                      const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
+  createEdgeEvaluator(const tesseract::command_language::MoveInstructionPoly& move_instruction,
+                      const tesseract::common::ManipulatorInfo& composite_manip_info,
+                      const std::shared_ptr<const tesseract::environment::Environment>& env) const = 0;
 
   virtual std::unique_ptr<descartes_light::StateEvaluator<FloatType>>
-  createStateEvaluator(const MoveInstructionPoly& move_instruction,
-                       const tesseract_common::ManipulatorInfo& composite_manip_info,
-                       const std::shared_ptr<const tesseract_environment::Environment>& env) const = 0;
+  createStateEvaluator(const tesseract::command_language::MoveInstructionPoly& move_instruction,
+                       const tesseract::common::ManipulatorInfo& composite_manip_info,
+                       const std::shared_ptr<const tesseract::environment::Environment>& env) const = 0;
 };
 
 using DescartesSolverProfileF = DescartesSolverProfile<float>;
@@ -90,6 +90,6 @@ using DescartesSolverProfileD = DescartesSolverProfile<double>;
 using DescartesMoveProfileF = DescartesMoveProfile<float>;
 using DescartesMoveProfileD = DescartesMoveProfile<double>;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_PROFILE_H

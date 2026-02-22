@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_data_storage.h>
 #include <tesseract_task_composer/core/task_composer_keys.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 TaskComposerDataStorage::TaskComposerDataStorage(std::string name) : name_(std::move(name)) {}
 
@@ -99,13 +99,13 @@ bool TaskComposerDataStorage::hasKey(const std::string& key) const
   return (data_.find(key) != data_.end());
 }
 
-void TaskComposerDataStorage::setData(const std::string& key, tesseract_common::AnyPoly data)
+void TaskComposerDataStorage::setData(const std::string& key, tesseract::common::AnyPoly data)
 {
   std::unique_lock lock(mutex_);
   data_[key] = std::move(data);
 }
 
-tesseract_common::AnyPoly TaskComposerDataStorage::getData(const std::string& key) const
+tesseract::common::AnyPoly TaskComposerDataStorage::getData(const std::string& key) const
 {
   std::shared_lock lock(mutex_);
   auto it = data_.find(key);
@@ -121,7 +121,7 @@ void TaskComposerDataStorage::removeData(const std::string& key)
   data_.erase(key);
 }
 
-std::unordered_map<std::string, tesseract_common::AnyPoly> TaskComposerDataStorage::getData() const
+std::unordered_map<std::string, tesseract::common::AnyPoly> TaskComposerDataStorage::getData() const
 {
   std::shared_lock lock(mutex_);
   return data_;
@@ -174,7 +174,7 @@ void copyDataHelper(TaskComposerDataStorage& ods,
                     const std::string& lookup_key,
                     const std::string& storage_key)
 {
-  tesseract_common::AnyPoly entry = ids.getData(lookup_key);
+  tesseract::common::AnyPoly entry = ids.getData(lookup_key);
 
   if (entry.isNull())
     throw std::runtime_error("TaskComposerDataStorage, unable to copy data for '" + lookup_key + "'");
@@ -260,4 +260,4 @@ bool TaskComposerDataStorage::operator==(const TaskComposerDataStorage& rhs) con
 
 bool TaskComposerDataStorage::operator!=(const TaskComposerDataStorage& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

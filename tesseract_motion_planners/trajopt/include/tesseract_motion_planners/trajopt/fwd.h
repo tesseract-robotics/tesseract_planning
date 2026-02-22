@@ -1,7 +1,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_TRAJOPT_FWD_H
 #define TESSERACT_MOTION_PLANNERS_TRAJOPT_FWD_H
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 // trajopt_collision_config.h
 struct CollisionCostConfig;
@@ -20,6 +20,6 @@ class TrajOptSolverProfile;
 class TrajOptOSQPSolverProfile;
 class TrajOptDefaultMoveProfile;
 class TrajOptDefaultCompositeProfile;
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_FWD_H

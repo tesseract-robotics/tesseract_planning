@@ -41,7 +41,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/planner.h>
 #include <tesseract_motion_planners/core/types.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerPluginFactory;
 
@@ -118,7 +118,7 @@ protected:
     // Check that inputs are valid
     // --------------------
     auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
-    if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
+    if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract::environment::Environment>)))
     {
       info.status_code = 0;
       info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
@@ -127,29 +127,29 @@ protected:
       return info;
     }
 
-    auto env = env_poly.template as<std::shared_ptr<const tesseract_environment::Environment>>();
+    auto env = env_poly.template as<std::shared_ptr<const tesseract::environment::Environment>>();
 
     auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
-    if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+    if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
     {
       info.status_message = "Input instructions to MotionPlannerTask: " + name_ + " must be a composite instruction";
       CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
       return info;
     }
-    tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
+    tesseract::common::AnyPoly original_input_data_poly{ input_data_poly };
 
     auto profiles =
-        getData(context, INPUT_PROFILES_PORT).template as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
+        getData(context, INPUT_PROFILES_PORT).template as<std::shared_ptr<tesseract::common::ProfileDictionary>>();
 
     // Make a non-const copy of the input instructions to update the start/end
-    auto& instructions = input_data_poly.template as<CompositeInstruction>();
+    auto& instructions = input_data_poly.template as<tesseract::command_language::CompositeInstruction>();
     if (instructions.getManipulatorInfo().empty())
       throw std::runtime_error("Missing manipulator information");
 
     // --------------------
     // Fill out request
     // --------------------
-    PlannerRequest request;
+    tesseract::motion_planners::PlannerRequest request;
     request.env = env;
     request.instructions = instructions;
     request.profiles = profiles;
@@ -161,7 +161,7 @@ protected:
     request.verbose = false;
     if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
       request.verbose = true;
-    PlannerResponse response = planner_->solve(request);
+    tesseract::motion_planners::PlannerResponse response = planner_->solve(request);
     setData(context, INOUT_PROGRAM_PORT, response.results);
 
     // --------------------
@@ -202,6 +202,6 @@ const std::string MotionPlannerTask<MotionPlannerType>::INPUT_ENVIRONMENT_PORT =
 template <typename MotionPlannerType>
 const std::string MotionPlannerTask<MotionPlannerType>::INPUT_PROFILES_PORT = "profiles";
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_MOTION_PLANNER_TASK_HPP

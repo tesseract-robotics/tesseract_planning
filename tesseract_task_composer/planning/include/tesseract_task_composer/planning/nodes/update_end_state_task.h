@@ -30,7 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/core/task_composer_task.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT UpdateEndStateTask : public TaskComposerTask
 {
@@ -64,6 +64,6 @@ private:
                                OptionalTaskComposerExecutor executor = std::nullopt) const override;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_UPDATE_END_STATE_TASK_H

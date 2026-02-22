@@ -27,13 +27,13 @@
 
 #include <tesseract_task_composer/planning/nodes/constant_tcp_speed_parameterization_task.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 using ConstantTCPSpeedParameterizationTaskFactory = TaskComposerTaskFactory<ConstantTCPSpeedParameterizationTask>;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 // clang-format off
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::ConstantTCPSpeedParameterizationTaskFactory, ConstantTCPSpeedParameterizationTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract::task_composer::ConstantTCPSpeedParameterizationTaskFactory, ConstantTCPSpeedParameterizationTaskFactory)
 // clang-format on

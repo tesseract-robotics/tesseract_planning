@@ -41,7 +41,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/task_composer_node_info.h>
 #include <tesseract_task_composer/core/yaml_utils.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string ForEachTask::INOUT_PORT = "container";
@@ -56,7 +56,7 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
   {
     static const std::set<std::string> tasks_expected_keys{ "input_port", "output_port", "task",
                                                             "class",      "config",      "override" };
-    tesseract_common::checkForUnknownKeys(operation_config, tasks_expected_keys);
+    tesseract::common::checkForUnknownKeys(operation_config, tasks_expected_keys);
     validateSubTask(name_, operation_key, operation_config);
 
     if (YAML::Node n = operation_config["input_port"])
@@ -71,16 +71,16 @@ ForEachTask::ForEachTask(std::string name, const YAML::Node& config, const TaskC
 
     task_factory_ = [operation_config, input_port = task_input_port_, output_port = task_output_port_, &plugin_factory](
                         const std::string& parent_name, const std::string& name, std::size_t index) {
-      tesseract_planning::ForEachTask::TaskFactoryResults tr;
+      ForEachTask::TaskFactoryResults tr;
       tr.node = loadSubTask(parent_name, name, operation_config, plugin_factory);
       tr.node->setConditional(false);
       tr.input_key = tr.node->getInputKeys().get(input_port) + std::to_string(index);
       tr.output_key = tr.node->getOutputKeys().get(output_port) + std::to_string(index);
 
-      if (tr.node->getType() == tesseract_planning::TaskComposerNodeType::TASK)
+      if (tr.node->getType() == TaskComposerNodeType::TASK)
       {
-        tesseract_planning::TaskComposerKeys input_keys = tr.node->getInputKeys();
-        tesseract_planning::TaskComposerKeys output_keys = tr.node->getOutputKeys();
+        TaskComposerKeys input_keys = tr.node->getInputKeys();
+        TaskComposerKeys output_keys = tr.node->getOutputKeys();
         input_keys.add(input_port, tr.input_key);
         output_keys.add(output_port, tr.output_key);
         tr.node->setInputKeys(input_keys);
@@ -135,7 +135,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
     return info;
   }
 
-  auto& inputs = input_data_poly.template as<std::vector<tesseract_common::AnyPoly>>();
+  auto& inputs = input_data_poly.template as<std::vector<tesseract::common::AnyPoly>>();
 
   // Task and Task Data Storage
   TaskComposerGraph task_graph(name_ + " (Subgraph)", uuid_);
@@ -212,7 +212,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
     return info;
   }
 
-  std::vector<tesseract_common::AnyPoly> output;
+  std::vector<tesseract::common::AnyPoly> output;
   output.reserve(inputs.size());
   for (const auto& task : tasks)
   {
@@ -225,7 +225,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
       output.emplace_back(task_graph_data_storage->getData(task.second.second));
   }
 
-  setData(context, INOUT_PORT, tesseract_common::AnyPoly(output));
+  setData(context, INOUT_PORT, tesseract::common::AnyPoly(output));
 
   info.color = "green";
   info.status_code = 1;
@@ -234,7 +234,7 @@ TaskComposerNodeInfo ForEachTask::runImpl(TaskComposerContext& context, Optional
   return info;
 }
 
-void ForEachTask::checkTaskInput(const tesseract_common::AnyPoly& input)
+void ForEachTask::checkTaskInput(const tesseract::common::AnyPoly& input)
 {
   // -------------
   // Check Input
@@ -242,8 +242,8 @@ void ForEachTask::checkTaskInput(const tesseract_common::AnyPoly& input)
   if (input.isNull())
     throw std::runtime_error("ForEachTask, input is null");
 
-  if (input.getType() != std::type_index(typeid(std::vector<tesseract_common::AnyPoly>)))
-    throw std::runtime_error("ForEachTask, input is not a std::vector<tesseract_common::AnyPoly>");
+  if (input.getType() != std::type_index(typeid(std::vector<tesseract::common::AnyPoly>)))
+    throw std::runtime_error("ForEachTask, input is not a std::vector<tesseract::common::AnyPoly>");
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

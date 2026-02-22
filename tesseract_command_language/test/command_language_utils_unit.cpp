@@ -31,8 +31,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/utils.h>
 #include "command_language_test_program.hpp"
 
-using namespace tesseract_planning;
-using tesseract_common::ManipulatorInfo;
+using namespace tesseract::command_language;
+using tesseract::common::ManipulatorInfo;
 
 static const bool DEBUG = false;
 
@@ -162,7 +162,7 @@ TEST(TesseractCommandLanguageUtilsUnit, toJointTrajectoryTests)  // NOLINT
   CompositeInstructionOrder order{ CompositeInstructionOrder::ORDERED };
   CompositeInstruction program = getTestProgram(profile, order, manip_info);
   InstructionPoly instr{ program };
-  tesseract_common::JointTrajectory jt = toJointTrajectory(instr);
+  tesseract::common::JointTrajectory jt = toJointTrajectory(instr);
   EXPECT_EQ(jt.size(), 16);
 
   InstructionPoly error_poly{ MoveInstructionPoly(MoveInstruction()) };
@@ -180,7 +180,7 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionTests)  // NOLINT
   start_instruction.setDescription("Start Instruction");
   end_instruction.setDescription("End Instruction");
 
-  tesseract_common::JointState seed_state;
+  tesseract::common::JointState seed_state;
   seed_state.joint_names = joint_names;
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
 
@@ -228,7 +228,7 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointPositionFormatedTests)  // NOLIN
 
   Eigen::VectorXd seed_position = Eigen::Vector2d(5, 6);
   Eigen::VectorXd format_seed_position = Eigen::Vector2d(6, 5);
-  tesseract_common::JointState seed_state;
+  tesseract::common::JointState seed_state;
   seed_state.joint_names = joint_names;
   seed_state.position = seed_position;
 
@@ -283,7 +283,7 @@ TEST(TesseractCommandLanguageUtilsUnit, formatJointPositionTests)  // NOLINT
 
   Eigen::VectorXd seed_position = Eigen::Vector2d(5, 6);
   Eigen::VectorXd format_seed_position = Eigen::Vector2d(6, 5);
-  tesseract_common::JointState seed_state;
+  tesseract::common::JointState seed_state;
   seed_state.joint_names = joint_names;
   seed_state.position = seed_position;
 
@@ -339,7 +339,7 @@ TEST(TesseractCommandLanguageUtilsUnit, checkJointPositionFormatTests)  // NOLIN
 
   Eigen::VectorXd seed_position = Eigen::Vector2d(5, 6);
   Eigen::VectorXd format_seed_position = Eigen::Vector2d(6, 5);
-  tesseract_common::JointState seed_state;
+  tesseract::common::JointState seed_state;
   seed_state.joint_names = joint_names;
   seed_state.position = seed_position;
 
@@ -386,7 +386,7 @@ TEST(TesseractCommandLanguageUtilsUnit, getJointNamesTests)  // NOLINT
   start_instruction.setDescription("Start Instruction");
   end_instruction.setDescription("End Instruction");
 
-  tesseract_common::JointState seed_state;
+  tesseract::common::JointState seed_state;
   seed_state.joint_names = joint_names;
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
 
@@ -429,7 +429,7 @@ TEST(TesseractCommandLanguageUtilsUnit, setJointPositionTests)  // NOLINT
 
   Eigen::VectorXd set_position = Eigen::VectorXd::Constant(6, 1);
 
-  tesseract_common::JointState seed_state;
+  tesseract::common::JointState seed_state;
   seed_state.joint_names = joint_names;
   seed_state.position = Eigen::VectorXd::Constant(6, 10);
 
@@ -584,7 +584,7 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
     composite.push_back(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
   }
 
-  std::string path = tesseract_common::getTempPath() + "to_delimited_file.csv";
+  std::string path = tesseract::common::getTempPath() + "to_delimited_file.csv";
   EXPECT_TRUE(toDelimitedFile(composite, path));
 
   std::ifstream file(path);
@@ -623,14 +623,13 @@ TEST(TesseractCommandLanguageUtilsUnit, makeTimeContinuous)  // NOLINT
     program.push_back(raster_segment);
   }
 
-  auto check = [](const tesseract_planning::CompositeInstruction& ci) {
+  auto check = [](const CompositeInstruction& ci) {
     double total_time{ 0 };
-    const std::vector<std::reference_wrapper<const tesseract_planning::InstructionPoly>> instructions =
-        ci.flatten(moveFilter);
+    const std::vector<std::reference_wrapper<const InstructionPoly>> instructions = ci.flatten(moveFilter);
     for (const auto& instruction : instructions)
     {
-      const auto& mvi = instruction.get().as<tesseract_planning::MoveInstructionPoly>();
-      const auto& swp = mvi.getWaypoint().as<tesseract_planning::StateWaypointPoly>();
+      const auto& mvi = instruction.get().as<MoveInstructionPoly>();
+      const auto& swp = mvi.getWaypoint().as<StateWaypointPoly>();
       if (swp.getTime() < total_time)
         return false;
 
@@ -640,20 +639,20 @@ TEST(TesseractCommandLanguageUtilsUnit, makeTimeContinuous)  // NOLINT
   };
 
   EXPECT_FALSE(check(program));
-  tesseract_planning::makeTimeMonotonicallyIncreasing(program);
+  makeTimeMonotonicallyIncreasing(program);
   EXPECT_TRUE(check(program));
 
   for (std::size_t i = 0; i < 10; ++i)
   {
-    const auto& segment = program[i].as<tesseract_planning::CompositeInstruction>();
+    const auto& segment = program[i].as<CompositeInstruction>();
 
     const MoveInstructionPoly* fmvi = segment.getFirstMoveInstruction();
-    const double ft = fmvi->getWaypoint().as<tesseract_planning::StateWaypointPoly>().getTime();
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(ft, static_cast<double>(i * 9)));
+    const double ft = fmvi->getWaypoint().as<StateWaypointPoly>().getTime();
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(ft, static_cast<double>(i * 9)));
 
     const MoveInstructionPoly* lmvi = segment.getLastMoveInstruction();
-    const double lt = lmvi->getWaypoint().as<tesseract_planning::StateWaypointPoly>().getTime();
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(lt, static_cast<double>((i * 9) + 9)));
+    const double lt = lmvi->getWaypoint().as<StateWaypointPoly>().getTime();
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(lt, static_cast<double>((i * 9) + 9)));
   }
 }
 

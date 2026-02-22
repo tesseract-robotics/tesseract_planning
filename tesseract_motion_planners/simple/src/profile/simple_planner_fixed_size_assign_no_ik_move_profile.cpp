@@ -36,7 +36,7 @@
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 SimplePlannerFixedSizeAssignNoIKMoveProfile::SimplePlannerFixedSizeAssignNoIKMoveProfile(int freespace_steps,
                                                                                          int linear_steps)
@@ -46,7 +46,7 @@ SimplePlannerFixedSizeAssignNoIKMoveProfile::SimplePlannerFixedSizeAssignNoIKMov
 
 SimplePlannerFixedSizeAssignNoIKMoveProfile::SimplePlannerFixedSizeAssignNoIKMoveProfile(
     const YAML::Node& config,
-    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+    const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : SimplePlannerFixedSizeAssignNoIKMoveProfile()
 {
   try
@@ -63,13 +63,13 @@ SimplePlannerFixedSizeAssignNoIKMoveProfile::SimplePlannerFixedSizeAssignNoIKMov
   }
 }
 
-std::vector<MoveInstructionPoly> SimplePlannerFixedSizeAssignNoIKMoveProfile::generate(
-    const MoveInstructionPoly& prev_instruction,
-    const MoveInstructionPoly& /*prev_seed*/,
-    const MoveInstructionPoly& base_instruction,
-    const InstructionPoly& /*next_instruction*/,
-    const std::shared_ptr<const tesseract_environment::Environment>& env,
-    const tesseract_common::ManipulatorInfo& global_manip_info) const
+std::vector<tesseract::command_language::MoveInstructionPoly> SimplePlannerFixedSizeAssignNoIKMoveProfile::generate(
+    const tesseract::command_language::MoveInstructionPoly& prev_instruction,
+    const tesseract::command_language::MoveInstructionPoly& /*prev_seed*/,
+    const tesseract::command_language::MoveInstructionPoly& base_instruction,
+    const tesseract::command_language::InstructionPoly& /*next_instruction*/,
+    const std::shared_ptr<const tesseract::environment::Environment>& env,
+    const tesseract::common::ManipulatorInfo& global_manip_info) const
 {
   JointGroupInstructionInfo prev(prev_instruction, *env, global_manip_info);
   JointGroupInstructionInfo base(base_instruction, *env, global_manip_info);
@@ -108,7 +108,7 @@ std::vector<MoveInstructionPoly> SimplePlannerFixedSizeAssignNoIKMoveProfile::ge
   else
   {
     Eigen::VectorXd seed = env->getCurrentJointValues(base.manip->getJointNames());
-    tesseract_common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
+    tesseract::common::enforceLimits<double>(seed, base.manip->getLimits().joint_limits);
 
     if (base.instruction.isLinear())
       states = seed.replicate(1, linear_steps + 1);
@@ -133,7 +133,7 @@ std::vector<MoveInstructionPoly> SimplePlannerFixedSizeAssignNoIKMoveProfile::ge
     else
       p2_world = base.calcCartesianPose(base.extractJointPosition());
 
-    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, linear_steps);
+    tesseract::common::VectorIsometry3d poses = interpolate(p1_world, p2_world, linear_steps);
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
@@ -159,4 +159,4 @@ bool SimplePlannerFixedSizeAssignNoIKMoveProfile::operator!=(
   return !operator==(rhs);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

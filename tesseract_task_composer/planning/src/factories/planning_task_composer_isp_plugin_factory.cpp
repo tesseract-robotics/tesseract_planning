@@ -27,13 +27,13 @@
 
 #include <tesseract_task_composer/planning/nodes/iterative_spline_parameterization_task.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 using IterativeSplineParameterizationTaskFactory = TaskComposerTaskFactory<IterativeSplineParameterizationTask>;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 // clang-format off
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract_planning::IterativeSplineParameterizationTaskFactory, IterativeSplineParameterizationTaskFactory)
+TESSERACT_ADD_TASK_COMPOSER_NODE_PLUGIN(tesseract::task_composer::IterativeSplineParameterizationTaskFactory, IterativeSplineParameterizationTaskFactory)
 // clang-format on

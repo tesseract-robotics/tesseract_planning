@@ -23,10 +23,10 @@
  */
 #include <tesseract_motion_planners/descartes/impl/descartes_collision_edge_evaluator.hpp>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 // Explicit template instantiation
 template class DescartesCollisionEdgeEvaluator<float>;
 template class DescartesCollisionEdgeEvaluator<double>;
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

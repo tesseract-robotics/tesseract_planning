@@ -28,12 +28,12 @@
 #include <yaml-cpp/yaml.h>
 #include <tesseract_common/profile_plugin_factory.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 MinLengthProfile::MinLengthProfile() : Profile(createKey<MinLengthProfile>()) {}
 MinLengthProfile::MinLengthProfile(long min_length) : Profile(createKey<MinLengthProfile>()), min_length(min_length) {}
 MinLengthProfile::MinLengthProfile(const YAML::Node& config,
-                                   const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+                                   const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : MinLengthProfile()
 {
   try
@@ -50,4 +50,4 @@ bool MinLengthProfile::operator==(const MinLengthProfile& rhs) const { return (m
 
 bool MinLengthProfile::operator!=(const MinLengthProfile& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

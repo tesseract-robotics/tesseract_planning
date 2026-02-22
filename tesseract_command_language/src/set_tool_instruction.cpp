@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/set_tool_instruction.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 SetToolInstruction::SetToolInstruction(int tool_id) : uuid_(boost::uuids::random_generator()()), tool_id_(tool_id) {}
 
@@ -77,4 +77,4 @@ bool SetToolInstruction::equals(const InstructionInterface& other) const
   return equal;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

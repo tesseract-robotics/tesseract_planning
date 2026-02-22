@@ -46,7 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/core/yaml_extensions.h>
 #include <tesseract_task_composer/core/yaml_utils.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 TaskComposerGraph::TaskComposerGraph(std::string name, boost::uuids::uuid parent_uuid)
   : TaskComposerGraph(std::move(name), TaskComposerNodeType::GRAPH, false)
@@ -77,7 +77,7 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
 {
   static const std::set<std::string> graph_expected_keys{ "conditional", "inputs", "outputs",
                                                           "nodes",       "edges",  "terminals" };
-  tesseract_common::checkForUnknownKeys(config, graph_expected_keys);
+  tesseract::common::checkForUnknownKeys(config, graph_expected_keys);
 
   std::unordered_map<std::string, boost::uuids::uuid> node_uuids;
   YAML::Node nodes = config["nodes"];
@@ -87,7 +87,7 @@ TaskComposerGraph::TaskComposerGraph(std::string name,
   for (auto node_it = nodes.begin(); node_it != nodes.end(); ++node_it)
   {
     static const std::set<std::string> nodes_expected_keys{ "class", "task", "config" };
-    tesseract_common::checkForUnknownKeys(node_it->second, nodes_expected_keys);
+    tesseract::common::checkForUnknownKeys(node_it->second, nodes_expected_keys);
 
     const auto node_name = node_it->first.as<std::string>();
     node_uuids[node_name] = addNode(loadSubTask(name_, node_name, node_it->second, plugin_factory));
@@ -170,7 +170,7 @@ TaskComposerNodeInfo TaskComposerGraph::runImpl(TaskComposerContext& context,
   if (terminals_.empty())
     throw std::runtime_error("TaskComposerGraph, with name '" + name_ + "' does not have terminals!");
 
-  tesseract_common::Stopwatch stopwatch;
+  tesseract::common::Stopwatch stopwatch;
   stopwatch.start();
 
   if (!executor.has_value())
@@ -489,8 +489,7 @@ std::string TaskComposerGraph::dump(std::ostream& os,
       {
         std::string line_type = (return_value == static_cast<int>(i)) ? "bold" : "dashed";
         os << "node_" << tmp << " -> " << toString(outbound_edges_[i], "node_") << " [style=" << line_type
-           << ", label=\"[" << std::to_string(i) << "]\""
-           << "];\n";
+           << ", label=\"[" << std::to_string(i) << "]\"" << "];\n";
       }
     }
     else
@@ -521,4 +520,4 @@ std::string TaskComposerGraph::dump(std::ostream& os,
   return {};
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

@@ -33,7 +33,8 @@
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
 
-using namespace tesseract_planning;
+using namespace tesseract::motion_planners;
+using namespace tesseract::command_language;
 
 /**
  * @brief Test fixture for SimplePlannerLVSAssignMoveProfile unit tests
@@ -51,13 +52,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, Serialization)  /
 {
   auto profile = std::make_shared<SimplePlannerLVSAssignMoveProfile>(3.14, 0.5, 1.57, 5);
   // Serialization
-  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile, SimplePlannerLVSAssignMoveProfile>(profile,
-                                                                                                                "Simple"
-                                                                                                                "Planne"
-                                                                                                                "rLVSAs"
-                                                                                                                "signMo"
-                                                                                                                "veProf"
-                                                                                                                "ile");
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile, SimplePlannerLVSAssignMoveProfile>(
+      profile,
+      "Simple"
+      "Planne"
+      "rLVSAs"
+      "signMo"
+      "veProf"
+      "ile");
 }
 
 /**
@@ -81,7 +83,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, JointJoint_Assign
 
   SimplePlannerLVSAssignMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
@@ -135,7 +137,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, JointJoint_Assign
 
   SimplePlannerLVSAssignMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
@@ -189,7 +191,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, JointCart_AssignJ
 
   SimplePlannerLVSAssignMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
@@ -197,9 +199,9 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, JointCart_AssignJ
   // Solve IK for the Cartesian waypoint to get expected joint position
   // This demonstrates how the planner converts Cartesian targets to joint positions
   auto kin_group = env_->getKinematicGroup(manip_info_.manipulator);
-  tesseract_kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
+  tesseract::kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
   const Eigen::VectorXd& seed = wp1.getPosition();
-  tesseract_kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
+  tesseract::kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
   EXPECT_FALSE(ik_solutions.empty());
   const Eigen::VectorXd& expected_joint_position = ik_solutions[0];
 
@@ -251,16 +253,16 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, JointCart_AssignJ
 
   SimplePlannerLVSAssignMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
 
   // Solve IK for the Cartesian waypoint to get expected joint position
   auto kin_group = env_->getKinematicGroup(manip_info_.manipulator);
-  tesseract_kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
+  tesseract::kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
   const Eigen::VectorXd& seed = wp1.getPosition();
-  tesseract_kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
+  tesseract::kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
   EXPECT_FALSE(ik_solutions.empty());
   const Eigen::VectorXd& expected_joint_position = ik_solutions[0];
 
@@ -313,7 +315,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, CartJoint_AssignJ
 
   SimplePlannerLVSAssignMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
@@ -368,7 +370,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, CartJoint_AssignJ
 
   SimplePlannerLVSAssignMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
@@ -423,7 +425,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, CartCart_AssignJo
 
   SimplePlannerLVSAssignMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
@@ -431,9 +433,9 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, CartCart_AssignJo
   // Solve IK for the Cartesian waypoint to get expected joint position
   // This demonstrates the conversion from Cartesian target to joint assignment
   auto kin_group = env_->getKinematicGroup(manip_info_.manipulator);
-  tesseract_kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
+  tesseract::kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
   Eigen::VectorXd seed = env_->getCurrentJointValues(joint_names_);
-  tesseract_kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
+  tesseract::kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
   EXPECT_FALSE(ik_solutions.empty());
   const Eigen::VectorXd& expected_joint_position = ik_solutions[0];
 
@@ -486,16 +488,16 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, CartCart_AssignJo
 
   SimplePlannerLVSAssignMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
 
   // Solve IK for the Cartesian waypoint to get expected joint position
   auto kin_group = env_->getKinematicGroup(manip_info_.manipulator);
-  tesseract_kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
+  tesseract::kinematics::KinGroupIKInput ik_input(wp2.getTransform(), manip_info_.working_frame, manip_info_.tcp_frame);
   Eigen::VectorXd seed = env_->getCurrentJointValues(joint_names_);
-  tesseract_kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
+  tesseract::kinematics::IKSolutions ik_solutions = kin_group->calcInvKin({ ik_input }, seed);
   EXPECT_FALSE(ik_solutions.empty());
   const Eigen::VectorXd& expected_joint_position = ik_solutions[0];
 
@@ -558,14 +560,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, StateSegmentLengt
   int min_steps = 5;
   SimplePlannerLVSAssignMoveProfile profile_large(6.28, 10.0, 6.28, min_steps);
   auto move_instructions_large =
-      profile_large.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile_large.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions_large.size(), min_steps);
 
   // Test with small state segment length (should create more steps)
   double small_state_length = 0.05;
   SimplePlannerLVSAssignMoveProfile profile_small(small_state_length, 10.0, 6.28, min_steps);
   auto move_instructions_small =
-      profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Calculate expected steps based on joint distance
   double joint_dist = (wp2.getPosition() - wp1.getPosition()).norm();
@@ -609,14 +611,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, TranslationSegmen
   int min_steps = 5;
   SimplePlannerLVSAssignMoveProfile profile_large(6.28, 10.0, 6.28, min_steps);
   auto move_instructions_large =
-      profile_large.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile_large.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions_large.size(), min_steps);
 
   // Test with small translation segment length (should create more steps)
   double small_trans_length = 0.01;
   SimplePlannerLVSAssignMoveProfile profile_small(6.28, small_trans_length, 6.28, min_steps);
   auto move_instructions_small =
-      profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Calculate expected steps based on translation distance
   Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1.getPosition()).at(manip_info_.tcp_frame);
@@ -661,14 +663,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, RotationSegmentLe
   int min_steps = 5;
   SimplePlannerLVSAssignMoveProfile profile_large(6.28, 10.0, 6.28, min_steps);
   auto move_instructions_large =
-      profile_large.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile_large.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
   EXPECT_EQ(move_instructions_large.size(), min_steps);
 
   // Test with small rotation segment length (should create more steps)
   double small_rot_length = 0.01;
   SimplePlannerLVSAssignMoveProfile profile_small(6.28, 10.0, small_rot_length, min_steps);
   auto move_instructions_small =
-      profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile_small.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Calculate expected steps based on rotation distance
   Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1.getPosition()).at(manip_info_.tcp_frame);
@@ -712,7 +714,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, MinSteps_Validati
   int min_steps = 15;
   SimplePlannerLVSAssignMoveProfile profile(10.0, 10.0, 10.0, min_steps);
   auto move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should always respect min_steps regardless of segment lengths
   EXPECT_EQ(move_instructions.size(), min_steps);
@@ -750,7 +752,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, MaxSteps_Validati
   int max_steps = 8;
   SimplePlannerLVSAssignMoveProfile profile(0.001, 0.001, 0.001, min_steps, max_steps);
   auto move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should be limited by max_steps
   EXPECT_EQ(move_instructions.size(), max_steps);
@@ -783,7 +785,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, CartCart_WithSeed
   CartesianWaypoint wp2{ Eigen::Isometry3d::Identity() };
   wp2.getTransform().translation() = Eigen::Vector3d(0.25, 0.1, 1);
   // Add an explicit seed to the waypoint
-  tesseract_common::JointState joint_seed;
+  tesseract::common::JointState joint_seed;
   joint_seed.joint_names = joint_names_;
   joint_seed.position = Eigen::VectorXd::Ones(7) * 0.5;
   wp2.setSeed(joint_seed);
@@ -793,7 +795,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, CartCart_WithSeed
 
   SimplePlannerLVSAssignMoveProfile profile(3.14, 0.5, 1.57, 5);
   std::vector<MoveInstructionPoly> move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should have at least min_steps
   EXPECT_GE(move_instructions.size(), 5);
@@ -847,7 +849,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, LargeParameters_M
   int min_steps = 8;
   SimplePlannerLVSAssignMoveProfile profile(100.0, 100.0, 100.0, min_steps);
   auto move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should use exactly min_steps
   EXPECT_EQ(move_instructions.size(), min_steps);
@@ -885,7 +887,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSAssignMoveProfileUnit, SmallParameters_M
   int max_steps = 12;
   SimplePlannerLVSAssignMoveProfile profile(0.0001, 0.0001, 0.0001, min_steps, max_steps);
   auto move_instructions =
-      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract_common::ManipulatorInfo());
+      profile.generate(instr1, instr1_seed, instr2, instr3, env_, tesseract::common::ManipulatorInfo());
 
   // Should be limited by max_steps
   EXPECT_EQ(move_instructions.size(), max_steps);

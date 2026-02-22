@@ -38,9 +38,9 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
-struct FixStateBoundsProfile : public tesseract_common::Profile
+struct FixStateBoundsProfile : public tesseract::common::Profile
 {
   using Ptr = std::shared_ptr<FixStateBoundsProfile>;
   using ConstPtr = std::shared_ptr<const FixStateBoundsProfile>;
@@ -54,7 +54,7 @@ struct FixStateBoundsProfile : public tesseract_common::Profile
   };
 
   FixStateBoundsProfile(Settings mode = Settings::ALL);
-  FixStateBoundsProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  FixStateBoundsProfile(const YAML::Node& config, const tesseract::common::ProfilePluginFactory& plugin_factory);
 
   /** @brief Sets which terms will be corrected  */
   Settings mode;
@@ -71,6 +71,6 @@ struct FixStateBoundsProfile : public tesseract_common::Profile
   bool operator==(const FixStateBoundsProfile& rhs) const;
   bool operator!=(const FixStateBoundsProfile& rhs) const;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_BOUNDS_PROFILE_H

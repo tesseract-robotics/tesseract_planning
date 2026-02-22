@@ -19,7 +19,7 @@
 #include <tesseract_task_composer/core/task_composer_log.h>
 #include <tesseract_task_composer/core/task_composer_context.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 TaskComposerLog::TaskComposerLog(std::string desc) : description(std::move(desc)) {}
 
@@ -33,4 +33,4 @@ bool TaskComposerLog::operator==(const TaskComposerLog& rhs) const
 bool TaskComposerLog::operator!=(const TaskComposerLog& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

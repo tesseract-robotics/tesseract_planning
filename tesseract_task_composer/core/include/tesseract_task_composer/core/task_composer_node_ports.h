@@ -28,7 +28,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 /**
  * @brief A data structure for holding the nodes required and option input and output ports
@@ -55,6 +55,6 @@ struct TaskComposerNodePorts
   bool operator!=(const TaskComposerNodePorts& rhs) const;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_NODE_PORTS_H

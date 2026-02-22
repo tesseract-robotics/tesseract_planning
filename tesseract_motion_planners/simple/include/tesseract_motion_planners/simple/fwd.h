@@ -1,7 +1,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_FWD_H
 #define TESSERACT_MOTION_PLANNERS_SIMPLE_FWD_H
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 // interpolation.h
 struct JointGroupInstructionInfo;
@@ -17,6 +17,6 @@ class SimplePlannerLVSMoveProfile;
 class SimplePlannerLVSNoIKMoveProfile;
 class SimplePlannerFixedSizeMoveProfile;
 class SimplePlannerFixedSizeAssignMoveProfile;
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FWD_H

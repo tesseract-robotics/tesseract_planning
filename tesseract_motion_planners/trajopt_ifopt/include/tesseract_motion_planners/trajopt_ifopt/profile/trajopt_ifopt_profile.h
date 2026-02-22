@@ -39,7 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/fwd.h>
 #include <tesseract_common/profile.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 /** @brief Structure to store TrajOpt IFOPT constrant and cost term infos */
 struct TrajOptIfoptTermInfos
@@ -58,7 +58,7 @@ struct TrajOptIfoptWaypointInfo
   bool fixed{ false };
 };
 
-class TrajOptIfoptMoveProfile : public tesseract_common::Profile
+class TrajOptIfoptMoveProfile : public tesseract::common::Profile
 {
 public:
   using Ptr = std::shared_ptr<TrajOptIfoptMoveProfile>;
@@ -66,13 +66,13 @@ public:
 
   TrajOptIfoptMoveProfile();
 
-  virtual TrajOptIfoptWaypointInfo create(const MoveInstructionPoly& move_instruction,
-                                          const tesseract_common::ManipulatorInfo& composite_manip_info,
-                                          const std::shared_ptr<const tesseract_environment::Environment>& env,
+  virtual TrajOptIfoptWaypointInfo create(const tesseract::command_language::MoveInstructionPoly& move_instruction,
+                                          const tesseract::common::ManipulatorInfo& composite_manip_info,
+                                          const std::shared_ptr<const tesseract::environment::Environment>& env,
                                           int index) const = 0;
 };
 
-class TrajOptIfoptCompositeProfile : public tesseract_common::Profile
+class TrajOptIfoptCompositeProfile : public tesseract::common::Profile
 {
 public:
   using Ptr = std::shared_ptr<TrajOptIfoptCompositeProfile>;
@@ -80,13 +80,13 @@ public:
 
   TrajOptIfoptCompositeProfile();
 
-  virtual TrajOptIfoptTermInfos create(const tesseract_common::ManipulatorInfo& composite_manip_info,
-                                       const std::shared_ptr<const tesseract_environment::Environment>& env,
+  virtual TrajOptIfoptTermInfos create(const tesseract::common::ManipulatorInfo& composite_manip_info,
+                                       const std::shared_ptr<const tesseract::environment::Environment>& env,
                                        const std::vector<std::shared_ptr<const trajopt_ifopt::Node>>& nodes,
                                        const std::vector<int>& fixed_indices) const = 0;
 };
 
-class TrajOptIfoptSolverProfile : public tesseract_common::Profile
+class TrajOptIfoptSolverProfile : public tesseract::common::Profile
 {
 public:
   using Ptr = std::shared_ptr<TrajOptIfoptSolverProfile>;
@@ -109,6 +109,6 @@ public:
   virtual std::vector<std::shared_ptr<trajopt_sqp::SQPCallback>> createOptimizationCallbacks() const;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_PROFILE_H

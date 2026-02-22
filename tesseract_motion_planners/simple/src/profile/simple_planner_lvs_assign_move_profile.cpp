@@ -35,7 +35,7 @@
 #include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 SimplePlannerLVSAssignMoveProfile::SimplePlannerLVSAssignMoveProfile(double state_longest_valid_segment_length,
                                                                      double translation_longest_valid_segment_length,
@@ -52,7 +52,7 @@ SimplePlannerLVSAssignMoveProfile::SimplePlannerLVSAssignMoveProfile(double stat
 
 SimplePlannerLVSAssignMoveProfile::SimplePlannerLVSAssignMoveProfile(
     const YAML::Node& config,
-    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+    const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : SimplePlannerLVSAssignMoveProfile()
 {
   try
@@ -75,13 +75,13 @@ SimplePlannerLVSAssignMoveProfile::SimplePlannerLVSAssignMoveProfile(
   }
 }
 
-std::vector<MoveInstructionPoly>
-SimplePlannerLVSAssignMoveProfile::generate(const MoveInstructionPoly& prev_instruction,
-                                            const MoveInstructionPoly& /*prev_seed*/,
-                                            const MoveInstructionPoly& base_instruction,
-                                            const InstructionPoly& /*next_instruction*/,
-                                            const std::shared_ptr<const tesseract_environment::Environment>& env,
-                                            const tesseract_common::ManipulatorInfo& global_manip_info) const
+std::vector<tesseract::command_language::MoveInstructionPoly>
+SimplePlannerLVSAssignMoveProfile::generate(const tesseract::command_language::MoveInstructionPoly& prev_instruction,
+                                            const tesseract::command_language::MoveInstructionPoly& /*prev_seed*/,
+                                            const tesseract::command_language::MoveInstructionPoly& base_instruction,
+                                            const tesseract::command_language::InstructionPoly& /*next_instruction*/,
+                                            const std::shared_ptr<const tesseract::environment::Environment>& env,
+                                            const tesseract::common::ManipulatorInfo& global_manip_info) const
 {
   KinematicGroupInstructionInfo prev(prev_instruction, *env, global_manip_info);
   KinematicGroupInstructionInfo base(base_instruction, *env, global_manip_info);
@@ -96,7 +96,7 @@ SimplePlannerLVSAssignMoveProfile::generate(const MoveInstructionPoly& prev_inst
   else
   {
     p1_world = prev.extractCartesianPose();
-    const auto& prev_cwp = prev.instruction.getWaypoint().as<CartesianWaypointPoly>();
+    const auto& prev_cwp = prev.instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>();
     if (prev_cwp.hasSeed())
     {
       // Use joint position of cartesian base_instruction
@@ -106,7 +106,7 @@ SimplePlannerLVSAssignMoveProfile::generate(const MoveInstructionPoly& prev_inst
     {
       if (base.has_cartesian_waypoint)
       {
-        const auto& base_cwp = base.instruction.getWaypoint().as<CartesianWaypointPoly>();
+        const auto& base_cwp = base.instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>();
         if (base_cwp.hasSeed())
         {
           // Use joint position of cartesian base_instruction as seed
@@ -124,7 +124,7 @@ SimplePlannerLVSAssignMoveProfile::generate(const MoveInstructionPoly& prev_inst
         j1 = getClosestJointSolution(prev, base.extractJointPosition());
       }
     }
-    tesseract_common::enforceLimits<double>(j1, prev.manip->getLimits().joint_limits);
+    tesseract::common::enforceLimits<double>(j1, prev.manip->getLimits().joint_limits);
   }
 
   Eigen::VectorXd j2;
@@ -137,7 +137,7 @@ SimplePlannerLVSAssignMoveProfile::generate(const MoveInstructionPoly& prev_inst
   else
   {
     p2_world = base.extractCartesianPose();
-    const auto& base_cwp = base.instruction.getWaypoint().as<CartesianWaypointPoly>();
+    const auto& base_cwp = base.instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>();
     if (base_cwp.hasSeed())
     {
       // Use joint position of cartesian base_instruction
@@ -147,7 +147,7 @@ SimplePlannerLVSAssignMoveProfile::generate(const MoveInstructionPoly& prev_inst
     {
       if (prev.has_cartesian_waypoint)
       {
-        const auto& prev_cwp = prev.instruction.getWaypoint().as<CartesianWaypointPoly>();
+        const auto& prev_cwp = prev.instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>();
         if (prev_cwp.hasSeed())
         {
           // Use joint position of cartesian prev_instruction as seed
@@ -165,7 +165,7 @@ SimplePlannerLVSAssignMoveProfile::generate(const MoveInstructionPoly& prev_inst
         j2 = getClosestJointSolution(base, prev.extractJointPosition());
       }
     }
-    tesseract_common::enforceLimits<double>(j2, base.manip->getLimits().joint_limits);
+    tesseract::common::enforceLimits<double>(j2, base.manip->getLimits().joint_limits);
   }
 
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
@@ -188,7 +188,7 @@ SimplePlannerLVSAssignMoveProfile::generate(const MoveInstructionPoly& prev_inst
   // Linearly interpolate in cartesian space if linear move
   if (base_instruction.isLinear())
   {
-    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, steps);
+    tesseract::common::VectorIsometry3d poses = interpolate(p1_world, p2_world, steps);
     for (auto& pose : poses)
       pose = base.working_frame_transform.inverse() * pose;
 
@@ -204,11 +204,11 @@ bool SimplePlannerLVSAssignMoveProfile::operator==(const SimplePlannerLVSAssignM
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       state_longest_valid_segment_length, rhs.state_longest_valid_segment_length, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       translation_longest_valid_segment_length, rhs.translation_longest_valid_segment_length, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       rotation_longest_valid_segment_length, rhs.rotation_longest_valid_segment_length, max_diff);
   equal &= (min_steps == rhs.min_steps);
   equal &= (max_steps == rhs.max_steps);
@@ -220,4 +220,4 @@ bool SimplePlannerLVSAssignMoveProfile::operator!=(const SimplePlannerLVSAssignM
   return !operator==(rhs);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

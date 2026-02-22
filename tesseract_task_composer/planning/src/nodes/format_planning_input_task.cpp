@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_environment/environment.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string FormatPlanningInputTask::INOUT_PROGRAM_PORT = "program";
@@ -83,7 +83,7 @@ TaskComposerNodeInfo FormatPlanningInputTask::runImpl(TaskComposerContext& conte
   // Check that inputs are valid
   // --------------------
   auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
-  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
+  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract::environment::Environment>)))
   {
     TaskComposerNodeInfo info(*this);
     info.return_value = 0;
@@ -93,10 +93,10 @@ TaskComposerNodeInfo FormatPlanningInputTask::runImpl(TaskComposerContext& conte
     return info;
   }
 
-  auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
+  auto env = env_poly.as<std::shared_ptr<const tesseract::environment::Environment>>();
 
   auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
-  if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     TaskComposerNodeInfo info(*this);
     info.return_value = 0;
@@ -106,9 +106,9 @@ TaskComposerNodeInfo FormatPlanningInputTask::runImpl(TaskComposerContext& conte
     return info;
   }
 
-  auto& ci = input_data_poly.as<CompositeInstruction>();
+  auto& ci = input_data_poly.as<tesseract::command_language::CompositeInstruction>();
 
-  const bool formatting_required = formatProgram(ci, *env);
+  const bool formatting_required = tesseract::motion_planners::formatProgram(ci, *env);
   setData(context, INOUT_PROGRAM_PORT, ci);
 
   TaskComposerNodeInfo info(*this);
@@ -127,4 +127,4 @@ TaskComposerNodeInfo FormatPlanningInputTask::runImpl(TaskComposerContext& conte
   return info;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

@@ -38,7 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string UpdateEndStateTask::INPUT_CURRENT_PROGRAM_PORT = "current_program";
@@ -92,7 +92,7 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
   // --------------------
   // Check that inputs are valid
   // --------------------
-  if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "UpdateEndStateTask: Input data for key '" + input_keys_.get(INPUT_CURRENT_PROGRAM_PORT) +
                           "' must be a composite instruction";
@@ -100,7 +100,7 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
     return info;
   }
 
-  if (input_next_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_next_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "UpdateEndStateTask: Input data for key '" + input_keys_.get(INPUT_NEXT_PROGRAM_PORT) +
                           "' must be a composite instruction";
@@ -109,12 +109,13 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
   }
 
   // Make a non-const copy of the input instructions to update the start/end
-  auto& instructions = input_data_poly.as<CompositeInstruction>();
+  auto& instructions = input_data_poly.as<tesseract::command_language::CompositeInstruction>();
   auto* last_move_instruction = instructions.getLastMoveInstruction();
   /** @todo Should the waypoint profile be updated to the path profile if it exists? **/
 
   // Update end instruction
-  const auto* next_start_move = input_next_data_poly.as<CompositeInstruction>().getFirstMoveInstruction();
+  const auto* next_start_move =
+      input_next_data_poly.as<tesseract::command_language::CompositeInstruction>().getFirstMoveInstruction();
   if (next_start_move->getWaypoint().isCartesianWaypoint() || next_start_move->getWaypoint().isJointWaypoint() ||
       next_start_move->getWaypoint().isStateWaypoint())
     last_move_instruction->getWaypoint() = next_start_move->getWaypoint();
@@ -131,4 +132,4 @@ TaskComposerNodeInfo UpdateEndStateTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

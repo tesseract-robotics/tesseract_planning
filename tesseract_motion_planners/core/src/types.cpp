@@ -26,9 +26,9 @@
 
 #include <tesseract_common/profile_dictionary.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
-PlannerRequest::PlannerRequest() : profiles(std::make_shared<tesseract_common::ProfileDictionary>()) {}
+PlannerRequest::PlannerRequest() : profiles(std::make_shared<tesseract::common::ProfileDictionary>()) {}
 
 PlannerResponse::operator bool() const noexcept { return successful; }
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

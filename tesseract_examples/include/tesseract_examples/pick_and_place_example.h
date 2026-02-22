@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/example.h>
 
-namespace tesseract_examples
+namespace tesseract::examples
 {
 /**
  * @brief An example of a robot picking up a box and placing it on a shelf leveraging
@@ -40,8 +40,8 @@ namespace tesseract_examples
 class PickAndPlaceExample : public Example
 {
 public:
-  PickAndPlaceExample(std::shared_ptr<tesseract_environment::Environment> env,
-                      std::shared_ptr<tesseract_visualization::Visualization> plotter = nullptr,
+  PickAndPlaceExample(std::shared_ptr<tesseract::environment::Environment> env,
+                      std::shared_ptr<tesseract::visualization::Visualization> plotter = nullptr,
                       bool ifopt = false,
                       bool debug = false,
                       double box_size = 0.2,
@@ -61,6 +61,6 @@ private:
   std::array<double, 2> box_position_;
 };
 
-}  // namespace tesseract_examples
+}  // namespace tesseract::examples
 
 #endif  // TESSERACT_EXAMPLES_PICK_AND_PLACE_EXAMPLE_H

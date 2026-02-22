@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract_common/joint_state.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 class CartesianWaypoint;
 
@@ -70,9 +70,9 @@ public:
   Eigen::VectorXd& getLowerTolerance() override final;
   const Eigen::VectorXd& getLowerTolerance() const override final;
 
-  void setSeed(const tesseract_common::JointState& seed) override final;
-  tesseract_common::JointState& getSeed() override final;
-  const tesseract_common::JointState& getSeed() const override final;
+  void setSeed(const tesseract::common::JointState& seed) override final;
+  tesseract::common::JointState& getSeed() override final;
+  const tesseract::common::JointState& getSeed() const override final;
 
   std::unique_ptr<CartesianWaypointInterface> clone() const override final;
 
@@ -95,14 +95,14 @@ private:
    *   - providing a seed to the IK solver with modified limits using the tolerances
    *   - providing a joint state to be used by a motion planner for interpolation to avoid performing IK
    */
-  tesseract_common::JointState seed_;
+  tesseract::common::JointState seed_;
 
   bool equals(const CartesianWaypointInterface& other) const override final;
 
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, CartesianWaypoint& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, CartesianWaypoint& obj);
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_H

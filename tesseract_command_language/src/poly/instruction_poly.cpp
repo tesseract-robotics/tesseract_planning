@@ -7,7 +7,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 // Operators
 bool InstructionInterface::operator==(const InstructionInterface& rhs) const { return equals(rhs); }
@@ -93,4 +93,4 @@ bool InstructionPoly::operator==(const InstructionPoly& rhs) const
 bool InstructionPoly::operator!=(const InstructionPoly& rhs) const { return !operator==(rhs); }
 // LCOV_EXCL_STOP
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language

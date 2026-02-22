@@ -48,7 +48,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
 #include <tesseract_time_parameterization/core/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string TimeOptimalParameterizationTask::INOUT_PROGRAM_PORT = "program";
@@ -104,7 +104,7 @@ TaskComposerNodeInfo TimeOptimalParameterizationTask::runImpl(TaskComposerContex
   // Check that inputs are valid
   // --------------------
   auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
-  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
+  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract::environment::Environment>)))
   {
     info.status_code = 0;
     info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
@@ -113,22 +113,22 @@ TaskComposerNodeInfo TimeOptimalParameterizationTask::runImpl(TaskComposerContex
     return info;
   }
 
-  auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
+  auto env = env_poly.as<std::shared_ptr<const tesseract::environment::Environment>>();
 
   auto input_data_poly = getData(context, INOUT_PROGRAM_PORT);
-  if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_message = "Input results to TOTG must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info.status_message.c_str());
     return info;
   }
-  tesseract_common::AnyPoly original_input_data_poly{ input_data_poly };
+  tesseract::common::AnyPoly original_input_data_poly{ input_data_poly };
 
   // Get Composite Profile
-  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract::common::ProfileDictionary>>();
 
   // Create data structures for checking for plan profile overrides
-  auto& ci = input_data_poly.as<CompositeInstruction>();
+  auto& ci = input_data_poly.as<tesseract::command_language::CompositeInstruction>();
   if (ci.getMoveInstructionCount() == 0)
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
@@ -145,10 +145,10 @@ TaskComposerNodeInfo TimeOptimalParameterizationTask::runImpl(TaskComposerContex
   }
 
   // Copy the Composite before passing in because it will get flattened and resampled
-  CompositeInstruction copy_ci(ci);
+  tesseract::command_language::CompositeInstruction copy_ci(ci);
 
   // Solve using parameters
-  TimeOptimalTrajectoryGeneration solver(ns_);
+  tesseract::time_parameterization::TimeOptimalTrajectoryGeneration solver(ns_);
   if (!solver.compute(copy_ci, *env, *profiles))
   {
     // If the output key is not the same as the input key the output data should be assigned the input data for error
@@ -171,4 +171,4 @@ TaskComposerNodeInfo TimeOptimalParameterizationTask::runImpl(TaskComposerContex
   return info;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

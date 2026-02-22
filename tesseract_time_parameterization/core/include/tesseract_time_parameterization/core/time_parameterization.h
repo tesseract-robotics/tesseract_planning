@@ -25,7 +25,7 @@
 
 #include <string>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 /** @brief A generic container that the time parameterization classes use */
 class TimeParameterization
@@ -52,12 +52,12 @@ public:
    * @param profiles The profile dictionary
    * @return True if successful, otherwise false
    */
-  virtual bool compute(CompositeInstruction& composite_instruction,
-                       const tesseract_environment::Environment& env,
-                       const tesseract_common::ProfileDictionary& profiles) const = 0;
+  virtual bool compute(tesseract::command_language::CompositeInstruction& composite_instruction,
+                       const tesseract::environment::Environment& env,
+                       const tesseract::common::ProfileDictionary& profiles) const = 0;
 
 protected:
   std::string name_;
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization
 #endif  // TESSERACT_TIME_PARAMETERIZATION_TIME_PARAMETERIZATION_H

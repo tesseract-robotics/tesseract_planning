@@ -18,9 +18,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils.h>
 
-using namespace tesseract_planning;
-using namespace tesseract_environment;
-using tesseract_common::ManipulatorInfo;
+using namespace tesseract::task_composer;
+using namespace tesseract::command_language;
+using namespace tesseract::environment;
+using tesseract::common::ManipulatorInfo;
 
 static const std::string FIX_STATE_BOUNDS_TASK_NAME = "FixStateBoundsTask";
 
@@ -32,7 +33,7 @@ protected:
 
   void SetUp() override
   {
-    auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
+    auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
     Environment::Ptr env = std::make_shared<Environment>();
 
     std::filesystem::path urdf_path(
@@ -75,7 +76,7 @@ void checkProgram(const Environment::Ptr& env,
                   const ManipulatorInfo& manip,
                   const Eigen::VectorXd& start_state,
                   const Eigen::VectorXd& goal_state,
-                  std::shared_ptr<tesseract_common::ProfileDictionary>& profiles,
+                  std::shared_ptr<tesseract::common::ProfileDictionary>& profiles,
                   FixStateBoundsProfile::Settings setting,
                   bool pre_check_return,
                   int expected_return)
@@ -148,7 +149,7 @@ TEST_F(FixStateBoundsTaskUnit, stateInBounds)  // NOLINT
   state_bounds_profile->lower_bounds_reduction = 1e-3;
   state_bounds_profile->upper_bounds_reduction = 1e-3;
 
-  auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+  auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
   profiles->addProfile(FIX_STATE_BOUNDS_TASK_NAME, DEFAULT_PROFILE_KEY, state_bounds_profile);
 
   Eigen::VectorXd mid_state = joint_limits.col(0) + (joint_limits.col(1) - joint_limits.col(0)) / 2.;

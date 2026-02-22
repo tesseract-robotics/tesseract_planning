@@ -44,7 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/profile_plugin_factory.h>
 #include <tesseract_kinematics/core/joint_group.h>
 #include <tesseract_environment/environment.h>
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile()
 {
@@ -53,22 +53,22 @@ TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile()
 }
 
 TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile(const YAML::Node& config,
-                                                     const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+                                                     const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : TrajOptDefaultMoveProfile()
 {
   try
   {
     if (YAML::Node n = config["cartesian_cost_config"])
-      cartesian_cost_config = n.as<tesseract_planning::TrajOptCartesianWaypointConfig>();
+      cartesian_cost_config = n.as<TrajOptCartesianWaypointConfig>();
 
     if (YAML::Node n = config["cartesian_constraint_config"])
-      cartesian_constraint_config = n.as<tesseract_planning::TrajOptCartesianWaypointConfig>();
+      cartesian_constraint_config = n.as<TrajOptCartesianWaypointConfig>();
 
     if (YAML::Node n = config["joint_cost_config"])
-      joint_cost_config = n.as<tesseract_planning::TrajOptJointWaypointConfig>();
+      joint_cost_config = n.as<TrajOptJointWaypointConfig>();
 
     if (YAML::Node n = config["joint_constraint_config"])
-      joint_constraint_config = n.as<tesseract_planning::TrajOptJointWaypointConfig>();
+      joint_constraint_config = n.as<TrajOptJointWaypointConfig>();
   }
   catch (const std::exception& e)
   {
@@ -78,14 +78,14 @@ TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile(const YAML::Node& config,
 }
 
 TrajOptWaypointInfo
-TrajOptDefaultMoveProfile::create(const MoveInstructionPoly& move_instruction,
-                                  const tesseract_common::ManipulatorInfo& composite_manip_info,
-                                  const std::shared_ptr<const tesseract_environment::Environment>& env,
+TrajOptDefaultMoveProfile::create(const tesseract::command_language::MoveInstructionPoly& move_instruction,
+                                  const tesseract::common::ManipulatorInfo& composite_manip_info,
+                                  const std::shared_ptr<const tesseract::environment::Environment>& env,
                                   const std::vector<std::string>& active_links,
                                   int index) const
 {
   assert(!(composite_manip_info.empty() && move_instruction.getManipulatorInfo().empty()));
-  tesseract_common::ManipulatorInfo mi = composite_manip_info.getCombined(move_instruction.getManipulatorInfo());
+  tesseract::common::ManipulatorInfo mi = composite_manip_info.getCombined(move_instruction.getManipulatorInfo());
   std::vector<std::string> joint_names = env->getGroupJointNames(mi.manipulator);
   assert(checkJointPositionFormat(joint_names, move_instruction.getWaypoint()));
 
@@ -95,7 +95,7 @@ TrajOptDefaultMoveProfile::create(const MoveInstructionPoly& move_instruction,
     if (mi.empty())
       throw std::runtime_error("TrajOptMoveProfile, manipulator info is empty!");
 
-    const auto& cwp = move_instruction.getWaypoint().as<CartesianWaypointPoly>();
+    const auto& cwp = move_instruction.getWaypoint().as<tesseract::command_language::CartesianWaypointPoly>();
 
     Eigen::Isometry3d tcp_offset = env->findTCPOffset(mi);
 
@@ -196,10 +196,10 @@ TrajOptDefaultMoveProfile::create(const MoveInstructionPoly& move_instruction,
   }
   else if (move_instruction.getWaypoint().isJointWaypoint() || move_instruction.getWaypoint().isStateWaypoint())
   {
-    JointWaypointPoly jwp;
+    tesseract::command_language::JointWaypointPoly jwp;
     if (move_instruction.getWaypoint().isStateWaypoint())
     {
-      const auto& swp = move_instruction.getWaypoint().as<StateWaypointPoly>();
+      const auto& swp = move_instruction.getWaypoint().as<tesseract::command_language::StateWaypointPoly>();
       jwp = move_instruction.createJointWaypoint();
       jwp.setNames(swp.getNames());
       jwp.setPosition(swp.getPosition());
@@ -208,7 +208,7 @@ TrajOptDefaultMoveProfile::create(const MoveInstructionPoly& move_instruction,
     }
     else
     {
-      jwp = move_instruction.getWaypoint().as<JointWaypointPoly>();
+      jwp = move_instruction.getWaypoint().as<tesseract::command_language::JointWaypointPoly>();
       if (jwp.isConstrained())
       {
         // Add to fixed indices
@@ -310,4 +310,4 @@ bool TrajOptDefaultMoveProfile::operator==(const TrajOptDefaultMoveProfile& rhs)
 
 bool TrajOptDefaultMoveProfile::operator!=(const TrajOptDefaultMoveProfile& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

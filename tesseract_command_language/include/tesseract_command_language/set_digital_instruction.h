@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 class SetDigitalInstruction;
 
@@ -129,8 +129,8 @@ private:
   bool equals(const InstructionInterface& other) const override final;
 
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, SetDigitalInstruction& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, SetDigitalInstruction& obj);
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_SET_DIGITAL_INSTRUCTION_H

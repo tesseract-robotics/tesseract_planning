@@ -38,7 +38,7 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 class TaskComposerExecutor;
 class TaskComposerNode;
@@ -61,19 +61,19 @@ public:
    * @brief Load plugins from yaml node
    * @param config The config node
    */
-  void loadConfig(const YAML::Node& config, const tesseract_common::ResourceLocator& locator);
+  void loadConfig(const YAML::Node& config, const tesseract::common::ResourceLocator& locator);
 
   /**
    * @brief Load plugins from file path
    * @param config The config file path
    */
-  void loadConfig(const std::filesystem::path& config, const tesseract_common::ResourceLocator& locator);
+  void loadConfig(const std::filesystem::path& config, const tesseract::common::ResourceLocator& locator);
 
   /**
    * @brief Load plugins from string
    * @param config The config string
    */
-  void loadConfig(const std::string& config, const tesseract_common::ResourceLocator& locator);
+  void loadConfig(const std::string& config, const tesseract::common::ResourceLocator& locator);
 
   /**
    * @brief Add a executors (thread pool)
@@ -173,6 +173,6 @@ protected:
 
   void loadPlugins();
 };
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TASK_COMPOSER_SERVER_H

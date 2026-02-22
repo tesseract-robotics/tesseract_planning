@@ -16,7 +16,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string FormatAsResultTask::INOUT_PROGRAMS_PORT = "programs";
@@ -58,26 +58,27 @@ TaskComposerNodePorts FormatAsResultTask::ports()
 TaskComposerNodeInfo FormatAsResultTask::runImpl(TaskComposerContext& context,
                                                  OptionalTaskComposerExecutor /*executor*/) const
 {
-  auto input_data_container = getData<std::vector<tesseract_common::AnyPoly>>(context, INOUT_PROGRAMS_PORT);
-  std::vector<tesseract_common::AnyPoly> output_data_container;
+  auto input_data_container = getData<std::vector<tesseract::common::AnyPoly>>(context, INOUT_PROGRAMS_PORT);
+  std::vector<tesseract::common::AnyPoly> output_data_container;
   output_data_container.reserve(input_data_container.size());
   for (auto& input_data : input_data_container)
   {
-    auto& ci = input_data.as<CompositeInstruction>();
-    std::vector<std::reference_wrapper<InstructionPoly>> instructions = ci.flatten(&moveFilter);
+    auto& ci = input_data.as<tesseract::command_language::CompositeInstruction>();
+    std::vector<std::reference_wrapper<tesseract::command_language::InstructionPoly>> instructions =
+        ci.flatten(&tesseract::command_language::moveFilter);
     for (auto& instruction : instructions)
     {
-      auto& mi = instruction.get().as<MoveInstructionPoly>();
+      auto& mi = instruction.get().as<tesseract::command_language::MoveInstructionPoly>();
       if (mi.getWaypoint().isStateWaypoint())
         continue;
 
       if (!mi.getWaypoint().isJointWaypoint())
         throw std::runtime_error("FormatAsResultTask, unsupported waypoint type!");
 
-      auto& jwp = mi.getWaypoint().as<JointWaypointPoly>();
+      auto& jwp = mi.getWaypoint().as<tesseract::command_language::JointWaypointPoly>();
 
       // Convert to StateWaypoint
-      StateWaypointPoly swp = mi.createStateWaypoint();
+      tesseract::command_language::StateWaypointPoly swp = mi.createStateWaypoint();
       swp.setName(jwp.getName());
       swp.setNames(jwp.getNames());
       swp.setPosition(jwp.getPosition());
@@ -97,4 +98,4 @@ TaskComposerNodeInfo FormatAsResultTask::runImpl(TaskComposerContext& context,
   return info;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_common/fwd.h>
 
-namespace tesseract_planning
+namespace tesseract::command_language
 {
 class CartesianWaypointInterface;
 class CartesianWaypointPoly;
@@ -124,13 +124,13 @@ public:
    * @brief Set the seed
    * @param seed The seed
    */
-  virtual void setSeed(const tesseract_common::JointState& seed) = 0;
+  virtual void setSeed(const tesseract::common::JointState& seed) = 0;
   /**
    * @brief Get the seed
    * @return The seed
    */
-  virtual tesseract_common::JointState& getSeed() = 0;
-  virtual const tesseract_common::JointState& getSeed() const = 0;
+  virtual tesseract::common::JointState& getSeed() = 0;
+  virtual const tesseract::common::JointState& getSeed() const = 0;
 
   // Operators
   bool operator==(const CartesianWaypointInterface& rhs) const;
@@ -146,7 +146,7 @@ protected:
 
 private:
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, CartesianWaypointInterface& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, CartesianWaypointInterface& obj);
 };
 
 /**
@@ -231,13 +231,13 @@ public:
    * @brief Set the seed
    * @param seed The seed
    */
-  void setSeed(const tesseract_common::JointState& seed);
+  void setSeed(const tesseract::common::JointState& seed);
   /**
    * @brief Get the seed
    * @return The seed
    */
-  tesseract_common::JointState& getSeed();
-  const tesseract_common::JointState& getSeed() const;
+  tesseract::common::JointState& getSeed();
+  const tesseract::common::JointState& getSeed() const;
 
   ///////////////
   // Poly Methods
@@ -316,9 +316,9 @@ private:
 
 private:
   template <class Archive>
-  friend void ::tesseract_planning::serialize(Archive& ar, CartesianWaypointPoly& obj);
+  friend void ::tesseract::command_language::serialize(Archive& ar, CartesianWaypointPoly& obj);
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::command_language
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_POLY_H

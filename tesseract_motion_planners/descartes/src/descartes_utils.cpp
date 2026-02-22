@@ -25,20 +25,20 @@
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
-tesseract_common::VectorIsometry3d sampleToolAxis(const Eigen::Isometry3d& tool_pose,
-                                                  const Eigen::Vector3d& axis,
-                                                  double resolution,
-                                                  double minimum,
-                                                  double maximum)
+tesseract::common::VectorIsometry3d sampleToolAxis(const Eigen::Isometry3d& tool_pose,
+                                                   const Eigen::Vector3d& axis,
+                                                   double resolution,
+                                                   double minimum,
+                                                   double maximum)
 {
-  tesseract_common::VectorIsometry3d samples;
+  tesseract::common::VectorIsometry3d samples;
   auto cnt = static_cast<int>(std::ceil((maximum - minimum) / resolution)) + 1;
   samples.reserve(static_cast<size_t>(cnt));
 
   double angle{ minimum };
-  while (angle < maximum || tesseract_common::almostEqualRelativeAndAbs(angle, maximum))
+  while (angle < maximum || tesseract::common::almostEqualRelativeAndAbs(angle, maximum))
   {
     Eigen::Isometry3d p = tool_pose * Eigen::AngleAxisd(angle, axis);
     samples.push_back(p);
@@ -48,26 +48,26 @@ tesseract_common::VectorIsometry3d sampleToolAxis(const Eigen::Isometry3d& tool_
   return samples;
 }
 
-tesseract_common::VectorIsometry3d
+tesseract::common::VectorIsometry3d
 sampleToolXAxis(const Eigen::Isometry3d& tool_pose, double resolution, double minimum, double maximum)
 {
   return sampleToolAxis(tool_pose, Eigen::Vector3d::UnitX(), resolution, minimum, maximum);  // NOLINT
 }
 
-tesseract_common::VectorIsometry3d
+tesseract::common::VectorIsometry3d
 sampleToolYAxis(const Eigen::Isometry3d& tool_pose, double resolution, double minimum, double maximum)
 {
   return sampleToolAxis(tool_pose, Eigen::Vector3d::UnitY(), resolution, minimum, maximum);  // NOLINT
 }
 
-tesseract_common::VectorIsometry3d
+tesseract::common::VectorIsometry3d
 sampleToolZAxis(const Eigen::Isometry3d& tool_pose, double resolution, double minimum, double maximum)
 {
   return sampleToolAxis(tool_pose, Eigen::Vector3d::UnitZ(), resolution, minimum, maximum);  // NOLINT
 }
 
-tesseract_common::VectorIsometry3d sampleFixed(const Eigen::Isometry3d& tool_pose)
+tesseract::common::VectorIsometry3d sampleFixed(const Eigen::Isometry3d& tool_pose)
 {
-  return tesseract_common::VectorIsometry3d({ tool_pose });
+  return tesseract::common::VectorIsometry3d({ tool_pose });
 }
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

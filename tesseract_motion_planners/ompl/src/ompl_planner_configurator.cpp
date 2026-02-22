@@ -46,7 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 ompl::base::PlannerPtr SBLConfigurator::create(ompl::base::SpaceInformationPtr si) const
 {
@@ -196,4 +196,4 @@ ompl::base::PlannerPtr SPARSConfigurator::create(ompl::base::SpaceInformationPtr
 
 OMPLPlannerType SPARSConfigurator::getType() const { return OMPLPlannerType::SPARS; }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

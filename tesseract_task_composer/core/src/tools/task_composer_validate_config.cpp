@@ -87,8 +87,8 @@ int main(int argc, char** argv)
     return kErrorInCommandLine;
   }
 
-  tesseract_common::GeneralResourceLocator locator;
-  tesseract_planning::TaskComposerServer server;
+  tesseract::common::GeneralResourceLocator locator;
+  tesseract::task_composer::TaskComposerServer server;
   try
   {
     server.loadConfig(config, locator);

@@ -52,31 +52,25 @@
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
 
-using tesseract_planning::CompositeInstruction;
-using tesseract_planning::DEFAULT_PROFILE_KEY;
-using tesseract_planning::MoveInstruction;
-using tesseract_planning::MoveInstructionPoly;
-using tesseract_planning::MoveInstructionType;
-using tesseract_planning::StateWaypoint;
-using tesseract_planning::StateWaypointPoly;
-using tesseract_planning::TimeOptimalTrajectoryGeneration;
-using tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile;
-using tesseract_planning::totg::Path;
-using tesseract_planning::totg::PathData;
-using tesseract_planning::totg::Trajectory;
+using namespace tesseract::time_parameterization;
+using namespace tesseract::command_language;
+
+using tesseract::time_parameterization::totg::Path;
+using tesseract::time_parameterization::totg::PathData;
+using tesseract::time_parameterization::totg::Trajectory;
 
 class TimeOptimalTrajectoryGenerationUnit : public ::testing::Test
 {
 protected:
   std::string name_{ "TimeOptimalTrajectoryGenerationUnit" };
-  tesseract_common::GeneralResourceLocator::Ptr locator_;
-  tesseract_environment::Environment::Ptr env_;
-  tesseract_common::ManipulatorInfo manip_;
+  tesseract::common::GeneralResourceLocator::Ptr locator_;
+  tesseract::environment::Environment::Ptr env_;
+  tesseract::common::ManipulatorInfo manip_;
 
   void SetUp() override
   {
-    locator_ = std::make_shared<tesseract_common::GeneralResourceLocator>();
-    auto env = std::make_shared<tesseract_environment::Environment>();
+    locator_ = std::make_shared<tesseract::common::GeneralResourceLocator>();
+    auto env = std::make_shared<tesseract::environment::Environment>();
 
     std::filesystem::path urdf_path(
         locator_->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
@@ -317,7 +311,7 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testLargeAccel)  // NOLINT
 
 TEST_F(TimeOptimalTrajectoryGenerationUnit, profileConstructor)  // NOLINT
 {
-  tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile profile(3, 5, 0.001, 0.1);
+  TimeOptimalTrajectoryGenerationCompositeProfile profile(3, 5, 0.001, 0.1);
   EXPECT_NEAR(profile.max_velocity_scaling_factor, 3, 1e-6);
   EXPECT_NEAR(profile.max_acceleration_scaling_factor, 5, 1e-6);
   EXPECT_NEAR(profile.path_tolerance, 0.001, 1e-6);
@@ -326,7 +320,7 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, profileConstructor)  // NOLINT
 
 TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NOLINT
 {
-  tesseract_planning::CompositeInstruction program;
+  CompositeInstruction program;
   program.setManipulatorInfo(manip_);
 
   Eigen::VectorXd waypoint(6);
@@ -364,7 +358,7 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NO
   }
 
   // Profile
-  auto profile = std::make_shared<tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile>();
+  auto profile = std::make_shared<TimeOptimalTrajectoryGenerationCompositeProfile>();
   profile->path_tolerance = 0.001;
   profile->min_angle_change = 1e-3;
   profile->override_limits = true;
@@ -376,12 +370,13 @@ TEST_F(TimeOptimalTrajectoryGenerationUnit, testCommandLanguageInterface)  // NO
   profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
 
   // Serialization
-  tesseract_common::testSerializationDerivedClass<tesseract_common::Profile,
-                                                  tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile>(
-      profile, "testCommandLanguageInterface");
+  tesseract::common::testSerializationDerivedClass<tesseract::common::Profile,
+                                                   TimeOptimalTrajectoryGenerationCompositeProfile>(profile,
+                                                                                                    "testCommandLanguag"
+                                                                                                    "eInterface");
 
   // Profile Dictionary
-  tesseract_common::ProfileDictionary profiles;
+  tesseract::common::ProfileDictionary profiles;
   profiles.addProfile(name_, DEFAULT_PROFILE_KEY, profile);
 
   TimeOptimalTrajectoryGeneration solver(name_);
@@ -418,15 +413,15 @@ CompositeInstruction createStraightTrajectory()
 }
 
 void runTrajectoryContainerInterfaceTest(const std::string& name,
-                                         const tesseract_environment::Environment& env,
-                                         const tesseract_common::ManipulatorInfo& manip_info,
+                                         const tesseract::environment::Environment& env,
+                                         const tesseract::common::ManipulatorInfo& manip_info,
                                          double path_tolerance)
 {
   CompositeInstruction program = createStraightTrajectory();
   program.setManipulatorInfo(manip_info);
 
   // Profile
-  auto profile = std::make_shared<tesseract_planning::TimeOptimalTrajectoryGenerationCompositeProfile>();
+  auto profile = std::make_shared<TimeOptimalTrajectoryGenerationCompositeProfile>();
   profile->path_tolerance = path_tolerance;
   profile->min_angle_change = 1e-3;
   profile->override_limits = true;
@@ -438,16 +433,14 @@ void runTrajectoryContainerInterfaceTest(const std::string& name,
   profile->acceleration_limits.col(1) = Eigen::VectorXd::Ones(6);
 
   // Profile Dictionary
-  tesseract_common::ProfileDictionary profiles;
+  tesseract::common::ProfileDictionary profiles;
   ;
   profiles.addProfile(name, DEFAULT_PROFILE_KEY, profile);
 
   // Solve
   TimeOptimalTrajectoryGeneration solver(name);
   EXPECT_TRUE(solver.compute(program, env, profiles));
-  ASSERT_LT(
-      program.back().as<tesseract_planning::MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(),
-      5.0);
+  ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 }
 
 TEST_F(TimeOptimalTrajectoryGenerationUnit, testTrajectoryContainerInterface)  // NOLINT

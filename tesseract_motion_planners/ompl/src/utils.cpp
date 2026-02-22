@@ -43,7 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_kinematics/core/joint_group.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 Eigen::Map<Eigen::VectorXd> RealVectorStateSpaceExtractor(const ompl::base::State* s1, unsigned dimension)
 {
@@ -61,12 +61,13 @@ Eigen::Map<Eigen::VectorXd> ConstrainedStateSpaceExtractor(const ompl::base::Sta
 }
 #endif
 
-tesseract_common::TrajArray toTrajArray(const ompl::geometric::PathGeometric& path, const OMPLStateExtractor& extractor)
+tesseract::common::TrajArray toTrajArray(const ompl::geometric::PathGeometric& path,
+                                         const OMPLStateExtractor& extractor)
 {
   const auto n_points = static_cast<long>(path.getStateCount());
   const auto dof = static_cast<long>(path.getSpaceInformation()->getStateDimension());
 
-  tesseract_common::TrajArray result(n_points, dof);
+  tesseract::common::TrajArray result(n_points, dof);
   for (long i = 0; i < n_points; ++i)
     result.row(i) = extractor(path.getState(static_cast<unsigned>(i)));
 
@@ -95,7 +96,7 @@ void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr
 }
 
 void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr,
-                                const tesseract_collision::CollisionCheckConfig& collision_check_config)
+                                const tesseract::collision::CollisionCheckConfig& collision_check_config)
 {
   double longest_valid_segment_fraction = 0.01;
   if (collision_check_config.longest_valid_segment_length > 0)
@@ -105,19 +106,19 @@ void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr
   state_space_ptr->setLongestValidSegmentFraction(longest_valid_segment_fraction);
 }
 
-bool checkStateInCollision(tesseract_collision::ContactResultMap& contact_map,
-                           tesseract_collision::DiscreteContactManager& contact_checker,
-                           const tesseract_kinematics::JointGroup& manip,
+bool checkStateInCollision(tesseract::collision::ContactResultMap& contact_map,
+                           tesseract::collision::DiscreteContactManager& contact_checker,
+                           const tesseract::kinematics::JointGroup& manip,
                            const Eigen::VectorXd& state)
 {
   /** @brief Making this thread_local does not help because it is only used by applyStartState and applyGoalState */
-  tesseract_common::TransformMap link_transforms;
+  tesseract::common::TransformMap link_transforms;
   manip.calcFwdKin(link_transforms, state);
 
   for (const auto& link_name : contact_checker.getActiveCollisionObjects())
     contact_checker.setCollisionObjectsTransform(link_name, link_transforms[link_name]);
 
-  contact_checker.contactTest(contact_map, tesseract_collision::ContactTestType::FIRST);
+  contact_checker.contactTest(contact_map, tesseract::collision::ContactTestType::FIRST);
 
   return (!contact_map.empty());
 }
@@ -129,4 +130,4 @@ ompl::base::StateSamplerPtr allocWeightedRealVectorStateSampler(const ompl::base
   return std::make_shared<WeightedRealVectorStateSampler>(space, weights, limits);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

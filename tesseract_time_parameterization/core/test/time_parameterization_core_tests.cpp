@@ -49,7 +49,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_time_parameterization/core/instructions_trajectory.h>
 
-using namespace tesseract_planning;
+using namespace tesseract::time_parameterization;
+using namespace tesseract::command_language;
 
 // Initialize one-joint, straight-line trajectory
 CompositeInstruction createStraightTrajectory()
@@ -97,19 +98,19 @@ TEST(TimeParameterizationCoreUnit, instructionsTrajectoryTests)  // NOLINT
   {
     const auto& wp =
         program.at(static_cast<std::size_t>(i)).as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(traj.getPosition(i), wp.getPosition(), epsilon));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(traj.getVelocity(i), wp.getVelocity(), epsilon));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(traj.getAcceleration(i), wp.getAcceleration(), epsilon));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(traj.getTimeFromStart(i), wp.getTime(), epsilon));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(traj.getPosition(i), wp.getPosition(), epsilon));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(traj.getVelocity(i), wp.getVelocity(), epsilon));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(traj.getAcceleration(i), wp.getAcceleration(), epsilon));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(traj.getTimeFromStart(i), wp.getTime(), epsilon));
 
     EXPECT_TRUE(
-        tesseract_common::almostEqualRelativeAndAbs(std::as_const(traj).getPosition(i), wp.getPosition(), epsilon));
+        tesseract::common::almostEqualRelativeAndAbs(std::as_const(traj).getPosition(i), wp.getPosition(), epsilon));
     EXPECT_TRUE(
-        tesseract_common::almostEqualRelativeAndAbs(std::as_const(traj).getVelocity(i), wp.getVelocity(), epsilon));
-    EXPECT_TRUE(tesseract_common::almostEqualRelativeAndAbs(
+        tesseract::common::almostEqualRelativeAndAbs(std::as_const(traj).getVelocity(i), wp.getVelocity(), epsilon));
+    EXPECT_TRUE(tesseract::common::almostEqualRelativeAndAbs(
         std::as_const(traj).getAcceleration(i), wp.getAcceleration(), epsilon));
     EXPECT_TRUE(
-        tesseract_common::almostEqualRelativeAndAbs(std::as_const(traj).getTimeFromStart(i), wp.getTime(), epsilon));
+        tesseract::common::almostEqualRelativeAndAbs(std::as_const(traj).getTimeFromStart(i), wp.getTime(), epsilon));
   }
 }
 

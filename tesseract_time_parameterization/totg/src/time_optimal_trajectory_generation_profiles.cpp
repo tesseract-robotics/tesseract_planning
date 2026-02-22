@@ -22,7 +22,7 @@
 #include <tesseract_time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
 #include <tesseract_common/utils.h>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
 TimeOptimalTrajectoryGenerationCompositeProfile::TimeOptimalTrajectoryGenerationCompositeProfile()
   : Profile(createKey<TimeOptimalTrajectoryGenerationCompositeProfile>())
@@ -49,18 +49,18 @@ bool TimeOptimalTrajectoryGenerationCompositeProfile::operator==(
 
   bool equal = true;
   equal &= (override_limits == rhs.override_limits);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_limits.col(0), rhs.velocity_limits.col(0), max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_limits.col(1), rhs.velocity_limits.col(1), max_diff);
-  equal &=
-      tesseract_common::almostEqualRelativeAndAbs(acceleration_limits.col(0), rhs.acceleration_limits.col(0), max_diff);
-  equal &=
-      tesseract_common::almostEqualRelativeAndAbs(acceleration_limits.col(1), rhs.acceleration_limits.col(1), max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(velocity_limits.col(0), rhs.velocity_limits.col(0), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(velocity_limits.col(1), rhs.velocity_limits.col(1), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
+      acceleration_limits.col(0), rhs.acceleration_limits.col(0), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
+      acceleration_limits.col(1), rhs.acceleration_limits.col(1), max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       max_velocity_scaling_factor, rhs.max_velocity_scaling_factor, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(
+  equal &= tesseract::common::almostEqualRelativeAndAbs(
       max_acceleration_scaling_factor, rhs.max_acceleration_scaling_factor, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(path_tolerance, rhs.path_tolerance, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(min_angle_change, rhs.min_angle_change, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(path_tolerance, rhs.path_tolerance, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(min_angle_change, rhs.min_angle_change, max_diff);
   return equal;
 }
 
@@ -70,4 +70,4 @@ bool TimeOptimalTrajectoryGenerationCompositeProfile::operator!=(
   return !operator==(rhs);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization

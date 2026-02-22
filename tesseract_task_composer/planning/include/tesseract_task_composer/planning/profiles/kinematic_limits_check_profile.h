@@ -30,15 +30,15 @@ namespace YAML
 class Node;
 }
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
-struct KinematicLimitsCheckProfile : public tesseract_common::Profile
+struct KinematicLimitsCheckProfile : public tesseract::common::Profile
 {
   using Ptr = std::shared_ptr<KinematicLimitsCheckProfile>;
   using ConstPtr = std::shared_ptr<const KinematicLimitsCheckProfile>;
 
   KinematicLimitsCheckProfile(bool check_position = true, bool check_velocity = true, bool check_acceleration = true);
-  KinematicLimitsCheckProfile(const YAML::Node& config, const tesseract_common::ProfilePluginFactory& plugin_factory);
+  KinematicLimitsCheckProfile(const YAML::Node& config, const tesseract::common::ProfilePluginFactory& plugin_factory);
 
   bool check_position{ true };
   bool check_velocity{ true };
@@ -48,6 +48,6 @@ struct KinematicLimitsCheckProfile : public tesseract_common::Profile
   bool operator!=(const KinematicLimitsCheckProfile& rhs) const;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer
 
 #endif  // TESSERACT_TASK_COMPOSER_PLANNING_PROFILES_KINEMATIC_LIMITS_CHECK_PROFILE_H

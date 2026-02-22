@@ -25,9 +25,9 @@
 #include <memory>
 #include <tesseract_common/profile.h>
 
-namespace tesseract_planning
+namespace tesseract::time_parameterization
 {
-struct ConstantTCPSpeedParameterizationCompositeProfile : public tesseract_common::Profile
+struct ConstantTCPSpeedParameterizationCompositeProfile : public tesseract::common::Profile
 {
   using Ptr = std::shared_ptr<ConstantTCPSpeedParameterizationCompositeProfile>;
   using ConstPtr = std::shared_ptr<const ConstantTCPSpeedParameterizationCompositeProfile>;
@@ -51,6 +51,6 @@ struct ConstantTCPSpeedParameterizationCompositeProfile : public tesseract_commo
   bool operator!=(const ConstantTCPSpeedParameterizationCompositeProfile& rhs) const;
 };
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::time_parameterization
 
 #endif

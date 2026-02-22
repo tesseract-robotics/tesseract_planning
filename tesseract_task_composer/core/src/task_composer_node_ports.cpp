@@ -20,7 +20,7 @@
 
 #include <tesseract_task_composer/core/task_composer_node_ports.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 std::string TaskComposerNodePorts::toString() const
 {
@@ -138,4 +138,4 @@ bool TaskComposerNodePorts::operator==(const TaskComposerNodePorts& rhs) const
 }
 bool TaskComposerNodePorts::operator!=(const TaskComposerNodePorts& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

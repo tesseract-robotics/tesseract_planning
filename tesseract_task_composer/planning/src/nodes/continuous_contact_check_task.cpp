@@ -44,7 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
-namespace tesseract_planning
+namespace tesseract::task_composer
 {
 // Requried
 const std::string ContinuousContactCheckTask::INPUT_PROGRAM_PORT = "program";
@@ -102,7 +102,7 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
   // Check that inputs are valid
   // --------------------
   auto env_poly = getData(context, INPUT_ENVIRONMENT_PORT);
-  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract_environment::Environment>)))
+  if (env_poly.getType() != std::type_index(typeid(std::shared_ptr<const tesseract::environment::Environment>)))
   {
     info.status_code = 0;
     info.status_message = "Input data '" + input_keys_.get(INPUT_ENVIRONMENT_PORT) + "' is not correct type";
@@ -111,10 +111,10 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
     return info;
   }
 
-  auto env = env_poly.as<std::shared_ptr<const tesseract_environment::Environment>>();
+  auto env = env_poly.as<std::shared_ptr<const tesseract::environment::Environment>>();
 
   auto input_data_poly = getData(context, INPUT_PROGRAM_PORT);
-  if (input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
+  if (input_data_poly.getType() != std::type_index(typeid(tesseract::command_language::CompositeInstruction)))
   {
     info.status_code = 0;
     info.status_message = "Input seed to ContinuousContactCheckTask must be a composite instruction";
@@ -124,24 +124,24 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
   }
 
   // Get Composite Profile
-  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract_common::ProfileDictionary>>();
-  const auto& ci = input_data_poly.as<CompositeInstruction>();
+  auto profiles = getData(context, INPUT_PROFILES_PORT).as<std::shared_ptr<tesseract::common::ProfileDictionary>>();
+  const auto& ci = input_data_poly.as<tesseract::command_language::CompositeInstruction>();
   auto default_profile = std::make_shared<ContactCheckProfile>();
-  default_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
+  default_profile->collision_check_config.type = tesseract::collision::CollisionEvaluatorType::LVS_CONTINUOUS;
   auto cur_composite_profile = profiles->getProfile<ContactCheckProfile>(ns_, ci.getProfile(ns_), default_profile);
 
   // Get state solver
-  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo();
-  tesseract_kinematics::JointGroup::ConstPtr manip = env->getJointGroup(manip_info.manipulator);
-  tesseract_scene_graph::StateSolver::UPtr state_solver = env->getStateSolver();
+  tesseract::common::ManipulatorInfo manip_info = ci.getManipulatorInfo();
+  tesseract::kinematics::JointGroup::ConstPtr manip = env->getJointGroup(manip_info.manipulator);
+  tesseract::scene_graph::StateSolver::UPtr state_solver = env->getStateSolver();
 
-  tesseract_collision::ContinuousContactManager::Ptr manager = env->getContinuousContactManager();
+  tesseract::collision::ContinuousContactManager::Ptr manager = env->getContinuousContactManager();
   manager->setActiveCollisionObjects(manip->getActiveLinkNames());
   manager->applyContactManagerConfig(cur_composite_profile->contact_manager_config);
 
-  std::vector<tesseract_collision::ContactResultMap> contacts;
-  tesseract_collision::ContactTrajectoryResults traj_results =
-      contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->collision_check_config);
+  std::vector<tesseract::collision::ContactResultMap> contacts;
+  tesseract::collision::ContactTrajectoryResults traj_results = tesseract::motion_planners::contactCheckProgram(
+      contacts, *manager, *state_solver, ci, cur_composite_profile->collision_check_config);
   info.status_message = traj_results.condensedSummary().str();
   if (traj_results)
   {
@@ -166,4 +166,4 @@ TaskComposerNodeInfo ContinuousContactCheckTask::runImpl(TaskComposerContext& co
   return info;
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::task_composer

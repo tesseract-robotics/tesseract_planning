@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 bool operator==(const OSQPSettings& lhs, const OSQPSettings& rhs)
 {
@@ -48,28 +48,28 @@ bool operator==(const OSQPSettings& lhs, const OSQPSettings& rhs)
   equal &= (lhs.warm_starting == rhs.warm_starting);
   equal &= (lhs.scaling == rhs.scaling);
   equal &= (lhs.polishing == rhs.polishing);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.rho, rhs.rho, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs.rho, rhs.rho, max_diff);
   equal &= (lhs.rho_is_vec == rhs.rho_is_vec);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.sigma, rhs.sigma, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.alpha, rhs.alpha, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs.sigma, rhs.sigma, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs.alpha, rhs.alpha, max_diff);
   equal &= (lhs.cg_max_iter == rhs.cg_max_iter);
   equal &= (lhs.cg_tol_reduction == rhs.cg_tol_reduction);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.cg_tol_fraction, rhs.cg_tol_fraction, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs.cg_tol_fraction, rhs.cg_tol_fraction, max_diff);
   equal &= (lhs.cg_precond == rhs.cg_precond);
   equal &= (lhs.adaptive_rho == rhs.adaptive_rho);
   equal &= (lhs.adaptive_rho_interval == rhs.adaptive_rho_interval);
   equal &=
-      tesseract_common::almostEqualRelativeAndAbs(lhs.adaptive_rho_tolerance, rhs.adaptive_rho_tolerance, max_diff);
+      tesseract::common::almostEqualRelativeAndAbs(lhs.adaptive_rho_tolerance, rhs.adaptive_rho_tolerance, max_diff);
   equal &= (lhs.max_iter == rhs.max_iter);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.eps_abs, rhs.eps_abs, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.eps_rel, rhs.eps_rel, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.eps_prim_inf, rhs.eps_prim_inf, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.eps_dual_inf, rhs.eps_dual_inf, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs.eps_abs, rhs.eps_abs, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs.eps_rel, rhs.eps_rel, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs.eps_prim_inf, rhs.eps_prim_inf, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs.eps_dual_inf, rhs.eps_dual_inf, max_diff);
   equal &= (lhs.scaled_termination == rhs.scaled_termination);
   equal &= (lhs.check_termination == rhs.check_termination);
   equal &= (lhs.check_dualgap == rhs.check_dualgap);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.time_limit, rhs.time_limit, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(lhs.delta, rhs.delta, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs.time_limit, rhs.time_limit, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(lhs.delta, rhs.delta, max_diff);
   equal &= (lhs.polish_refine_iter == rhs.polish_refine_iter);
   return equal;
 }
@@ -77,7 +77,7 @@ bool operator==(const OSQPSettings& lhs, const OSQPSettings& rhs)
 TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile() { sco::OSQPModelConfig::setDefaultOSQPSettings(settings); }
 
 TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile(const YAML::Node& config,
-                                                   const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+                                                   const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : TrajOptOSQPSolverProfile()
 {
   try
@@ -125,4 +125,4 @@ bool TrajOptOSQPSolverProfile::operator==(const TrajOptOSQPSolverProfile& rhs) c
 
 bool TrajOptOSQPSolverProfile::operator!=(const TrajOptOSQPSolverProfile& rhs) const { return !operator==(rhs); }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners

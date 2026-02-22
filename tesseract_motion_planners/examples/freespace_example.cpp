@@ -51,7 +51,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 #include <tesseract_common/resource_locator.h>
 
-using namespace tesseract_planning;
+using namespace tesseract::motion_planners;
 
 const static std::string OMPL_DEFAULT_NAMESPACE = "OMPLMotionPlannerTask";
 const static std::string TRAJOPT_DEFAULT_NAMESPACE = "TrajOptMotionPlannerTask";
@@ -61,8 +61,8 @@ int main(int /*argc*/, char** /*argv*/)
   try
   {
     // Setup
-    auto locator = std::make_shared<tesseract_common::GeneralResourceLocator>();
-    auto env = std::make_shared<tesseract_environment::Environment>();
+    auto locator = std::make_shared<tesseract::common::GeneralResourceLocator>();
+    auto env = std::make_shared<tesseract::environment::Environment>();
     std::filesystem::path urdf_path(
         locator->locateResource("package://tesseract_support/urdf/abb_irb2400.urdf")->getFilePath());
     std::filesystem::path srdf_path(
@@ -79,7 +79,7 @@ int main(int /*argc*/, char** /*argv*/)
       plotter->plotEnvironment(*env);
     }
 
-    tesseract_common::ManipulatorInfo manip;
+    tesseract::common::ManipulatorInfo manip;
     manip.tcp_frame = "tool0";
     manip.working_frame = "base_link";
     manip.manipulator = "manipulator";
@@ -121,7 +121,7 @@ int main(int /*argc*/, char** /*argv*/)
     CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env);
 
     // Profile Dictionary
-    auto profiles = std::make_shared<tesseract_common::ProfileDictionary>();
+    auto profiles = std::make_shared<tesseract::common::ProfileDictionary>();
     profiles->addProfile(OMPL_DEFAULT_NAMESPACE, "DEFAULT", ompl_move_profile);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_move_profile);
     profiles->addProfile(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);

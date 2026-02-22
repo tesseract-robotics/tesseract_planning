@@ -47,11 +47,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 static const double LONGEST_VALID_SEGMENT_FRACTION_DEFAULT = 0.01;
 
-namespace tesseract_planning
+namespace tesseract::motion_planners
 {
 TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(
     const YAML::Node& config,
-    const tesseract_common::ProfilePluginFactory& /*plugin_factory*/)
+    const tesseract::common::ProfilePluginFactory& /*plugin_factory*/)
   : TrajOptDefaultCompositeProfile()
 {
   try
@@ -94,8 +94,8 @@ TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(
 }
 
 TrajOptTermInfos
-TrajOptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& composite_manip_info,
-                                       const std::shared_ptr<const tesseract_environment::Environment>& env,
+TrajOptDefaultCompositeProfile::create(const tesseract::common::ManipulatorInfo& composite_manip_info,
+                                       const std::shared_ptr<const tesseract::environment::Environment>& env,
                                        const std::vector<int>& fixed_indices,
                                        int start_index,
                                        int end_index) const
@@ -103,7 +103,7 @@ TrajOptDefaultCompositeProfile::create(const tesseract_common::ManipulatorInfo& 
   // -------- Construct the problem ------------
   // -------------------------------------------
   TrajOptTermInfos term_infos;
-  tesseract_kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(composite_manip_info.manipulator);
+  tesseract::kinematics::JointGroup::ConstPtr joint_group = env->getJointGroup(composite_manip_info.manipulator);
   const Eigen::Index dof = joint_group->numJoints();
 
   if (collision_constraint_config.enabled)
@@ -180,13 +180,13 @@ bool TrajOptDefaultCompositeProfile::operator==(const TrajOptDefaultCompositePro
   equal &= (collision_cost_config == rhs.collision_cost_config);
   equal &= (collision_constraint_config == rhs.collision_constraint_config);
   equal &= (smooth_velocities == rhs.smooth_velocities);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(velocity_coeff, rhs.velocity_coeff, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(velocity_coeff, rhs.velocity_coeff, max_diff);
   equal &= (smooth_accelerations == rhs.smooth_accelerations);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(acceleration_coeff, rhs.acceleration_coeff, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(acceleration_coeff, rhs.acceleration_coeff, max_diff);
   equal &= (smooth_jerks == rhs.smooth_jerks);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(jerk_coeff, rhs.jerk_coeff, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(jerk_coeff, rhs.jerk_coeff, max_diff);
   equal &= (avoid_singularity == rhs.avoid_singularity);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(avoid_singularity_coeff, rhs.avoid_singularity_coeff, max_diff);
+  equal &= tesseract::common::almostEqualRelativeAndAbs(avoid_singularity_coeff, rhs.avoid_singularity_coeff, max_diff);
   return equal;
 }
 
@@ -195,4 +195,4 @@ bool TrajOptDefaultCompositeProfile::operator!=(const TrajOptDefaultCompositePro
   return !operator==(rhs);
 }
 
-}  // namespace tesseract_planning
+}  // namespace tesseract::motion_planners
